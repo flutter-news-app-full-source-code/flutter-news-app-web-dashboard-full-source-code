@@ -1,0 +1,66 @@
+name: ht_dashboard
+description: "A new Flutter project."
+publish_to: none
+repository: https://github.com/headlines-toolkit/ht-dashboard
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bloc: ^9.0.0
+  bloc_concurrency: ^0.3.0
+  device_preview: ^1.2.0
+  equatable: ^2.0.7
+  flex_color_scheme: ^8.2.0
+  flutter_adaptive_scaffold: ^0.3.3+1
+  flutter_bloc: ^9.1.1
+  flutter_localizations:
+    sdk: flutter
+  go_router: ^15.2.4
+  google_fonts: ^6.2.1
+  ht_auth_api:
+    git:
+      url: https://github.com/headlines-toolkit/ht-auth-api.git
+  ht_auth_client:
+    git:
+      url: https://github.com/headlines-toolkit/ht-auth-client.git
+  ht_auth_inmemory:
+    git:
+      url: https://github.com/headlines-toolkit/ht-auth-inmemory
+  ht_auth_repository:
+    git:
+      url: https://github.com/headlines-toolkit/ht-auth-repository.git
+  ht_data_api:
+    git:
+      url: https://github.com/headlines-toolkit/ht-data-api.git
+  ht_data_client:
+    git:
+      url: https://github.com/headlines-toolkit/ht-data-client.git
+  ht_data_inmemory:
+    git:
+      url: https://github.com/headlines-toolkit/ht-data-inmemory.git
+  ht_data_repository:
+    git:
+      url: https://github.com/headlines-toolkit/ht-data-repository.git
+  ht_http_client:
+    git:
+      url: https://github.com/headlines-toolkit/ht-http-client.git
+  ht_kv_storage_service:
+    git:
+      url: https://github.com/headlines-toolkit/ht-kv-storage-service.git
+  ht_kv_storage_shared_preferences:
+    git:
+      url: https://github.com/headlines-toolkit/ht-kv-storage-shared-preferences.git
+  ht_shared:
+    git:
+      url: https://github.com/headlines-toolkit/ht-shared.git
+  intl: ^0.20.2
+
+
+dev_dependencies:
+  very_good_analysis: ^9.0.0
+
+flutter:
+  uses-material-design: true
