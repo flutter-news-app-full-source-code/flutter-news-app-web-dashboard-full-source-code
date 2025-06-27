@@ -24,7 +24,7 @@ class App extends StatelessWidget {
     required HtDataRepository<Source> htSourcesRepository,
     required HtDataRepository<UserAppSettings> htUserAppSettingsRepository,
     required HtDataRepository<UserContentPreferences>
-        htUserContentPreferencesRepository,
+    htUserContentPreferencesRepository,
     required HtDataRepository<AppConfig> htAppConfigRepository,
     required HtKVStorageService kvStorageService,
     required AppEnvironment environment,
@@ -47,7 +47,7 @@ class App extends StatelessWidget {
   final HtDataRepository<Source> _htSourcesRepository;
   final HtDataRepository<UserAppSettings> _htUserAppSettingsRepository;
   final HtDataRepository<UserContentPreferences>
-      _htUserContentPreferencesRepository;
+  _htUserContentPreferencesRepository;
   final HtDataRepository<AppConfig> _htAppConfigRepository;
   final HtKVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -71,8 +71,8 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => AppBloc(
               authenticationRepository: context.read<HtAuthRepository>(),
-              userAppSettingsRepository:
-                  context.read<HtDataRepository<UserAppSettings>>(),
+              userAppSettingsRepository: context
+                  .read<HtDataRepository<UserAppSettings>>(),
               appConfigRepository: context.read<HtDataRepository<AppConfig>>(),
               environment: _environment,
             ),

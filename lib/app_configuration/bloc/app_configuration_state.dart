@@ -50,16 +50,18 @@ class AppConfigurationState extends Equatable {
     return AppConfigurationState(
       status: status ?? this.status,
       appConfig: appConfig ?? this.appConfig,
-      errorMessage: clearErrorMessage ? null : errorMessage ?? this.errorMessage,
+      errorMessage: clearErrorMessage
+          ? null
+          : errorMessage ?? this.errorMessage,
       isDirty: isDirty ?? this.isDirty,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
-        appConfig,
-        errorMessage,
-        isDirty,
-      ];
+    status,
+    appConfig,
+    errorMessage,
+    isDirty,
+  ];
 }

@@ -6,11 +6,12 @@ import 'package:ht_shared/ht_shared.dart'; // Use AppConfig from ht_shared
 part 'app_configuration_event.dart';
 part 'app_configuration_state.dart';
 
-class AppConfigurationBloc extends Bloc<AppConfigurationEvent, AppConfigurationState> {
+class AppConfigurationBloc
+    extends Bloc<AppConfigurationEvent, AppConfigurationState> {
   AppConfigurationBloc({
     required HtDataRepository<AppConfig> appConfigRepository,
-  })  : _appConfigRepository = appConfigRepository,
-        super(const AppConfigurationState()) {
+  }) : _appConfigRepository = appConfigRepository,
+       super(const AppConfigurationState()) {
     on<AppConfigurationLoaded>(_onAppConfigurationLoaded);
     on<AppConfigurationUpdated>(_onAppConfigurationUpdated);
     on<AppConfigurationFieldChanged>(_onAppConfigurationFieldChanged);

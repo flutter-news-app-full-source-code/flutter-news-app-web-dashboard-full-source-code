@@ -27,7 +27,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this); // 5 tabs for AppConfig properties
+    _tabController = TabController(
+      length: 5,
+      vsync: this,
+    ); // 5 tabs for AppConfig properties
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
@@ -59,7 +62,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       ),
       body: BlocConsumer<AppConfigurationBloc, AppConfigurationState>(
         listener: (context, state) {
-          if (state.status == AppConfigurationStatus.success && state.isDirty == false) {
+          if (state.status == AppConfigurationStatus.success &&
+              state.isDirty == false) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -67,8 +71,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     'App configuration saved successfully!',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
@@ -81,8 +85,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     'Error: ${state.errorMessage ?? "Unknown error"}',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onError,
-                        ),
+                      color: Theme.of(context).colorScheme.onError,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -101,7 +105,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             return FailureStateWidget(
               message: state.errorMessage ?? 'Failed to load configuration.',
               onRetry: () {
-                context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
+                context.read<AppConfigurationBloc>().add(
+                  const AppConfigurationLoaded(),
+                );
               },
             );
           } else if (state.status == AppConfigurationStatus.success &&
@@ -130,8 +136,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   }
 
   Widget _buildBottomAppBar(BuildContext context) {
-    final isDirty = context.select((AppConfigurationBloc bloc) => bloc.state.isDirty);
-    final appConfig = context.select((AppConfigurationBloc bloc) => bloc.state.appConfig);
+    final isDirty = context.select(
+      (AppConfigurationBloc bloc) => bloc.state.isDirty,
+    );
+    final appConfig = context.select(
+      (AppConfigurationBloc bloc) => bloc.state.appConfig,
+    );
 
     return BottomAppBar(
       child: Padding(
@@ -143,7 +153,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               onPressed: isDirty
                   ? () {
                       // Discard changes: reload original config
-                      context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
+                      context.read<AppConfigurationBloc>().add(
+                        const AppConfigurationLoaded(),
+                      );
                     }
                   : null,
               child: const Text('Discard Changes'),
@@ -155,8 +167,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       final confirmed = await _showConfirmationDialog(context);
                       if (confirmed && appConfig != null) {
                         context.read<AppConfigurationBloc>().add(
-                              AppConfigurationUpdated(appConfig),
-                            );
+                          AppConfigurationUpdated(appConfig),
+                        );
                       }
                     }
                   : null,
@@ -190,7 +202,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   onPressed: () => Navigator.of(dialogContext).pop(true),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(dialogContext).colorScheme.error,
-                    foregroundColor: Theme.of(dialogContext).colorScheme.onError,
+                    foregroundColor: Theme.of(
+                      dialogContext,
+                    ).colorScheme.onError,
                   ),
                   child: const Text('Confirm Save'),
                 ),
@@ -201,7 +215,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         false;
   }
 
-  Widget _buildUserPreferenceLimitsTab(BuildContext context, AppConfig appConfig) {
+  Widget _buildUserPreferenceLimitsTab(
+    BuildContext context,
+    AppConfig appConfig,
+  ) {
     final userPreferenceLimits = appConfig.userPreferenceLimits;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -216,25 +233,26 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             'These settings define the maximum number of items a user can follow or save, tiered by user role. Changes here directly impact user capabilities.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.lg),
           _buildIntField(
             context,
             label: 'Guest Followed Items Limit',
-            description: 'Max countries, sources, or categories a Guest user can follow (each).',
+            description:
+                'Max countries, sources, or categories a Guest user can follow (each).',
             value: userPreferenceLimits.guestFollowedItemsLimit,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        userPreferenceLimits: userPreferenceLimits.copyWith(
-                          guestFollowedItemsLimit: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      guestFollowedItemsLimit: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
@@ -244,31 +262,32 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: userPreferenceLimits.guestSavedHeadlinesLimit,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        userPreferenceLimits: userPreferenceLimits.copyWith(
-                          guestSavedHeadlinesLimit: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      guestSavedHeadlinesLimit: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Authenticated Followed Items Limit',
-            description: 'Max countries, sources, or categories an Authenticated user can follow (each).',
+            description:
+                'Max countries, sources, or categories an Authenticated user can follow (each).',
             value: userPreferenceLimits.authenticatedFollowedItemsLimit,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        userPreferenceLimits: userPreferenceLimits.copyWith(
-                          authenticatedFollowedItemsLimit: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      authenticatedFollowedItemsLimit: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
@@ -278,31 +297,32 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: userPreferenceLimits.authenticatedSavedHeadlinesLimit,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        userPreferenceLimits: userPreferenceLimits.copyWith(
-                          authenticatedSavedHeadlinesLimit: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      authenticatedSavedHeadlinesLimit: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Premium Followed Items Limit',
-            description: 'Max countries, sources, or categories a Premium user can follow (each).',
+            description:
+                'Max countries, sources, or categories a Premium user can follow (each).',
             value: userPreferenceLimits.premiumFollowedItemsLimit,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        userPreferenceLimits: userPreferenceLimits.copyWith(
-                          premiumFollowedItemsLimit: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      premiumFollowedItemsLimit: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
@@ -312,14 +332,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: userPreferenceLimits.premiumSavedHeadlinesLimit,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        userPreferenceLimits: userPreferenceLimits.copyWith(
-                          premiumSavedHeadlinesLimit: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      premiumSavedHeadlinesLimit: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
         ],
@@ -342,149 +362,170 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             'These settings control how ads are injected and displayed in the application, tiered by user role. AdFrequency determines how often an ad can be injected, and AdPlacementInterval sets a minimum number of primary items before the first ad.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.lg),
           _buildIntField(
             context,
             label: 'Guest Ad Frequency',
-            description: 'How often an ad can be injected for Guest users (e.g., 5 means after every 5 primary items).',
+            description:
+                'How often an ad can be injected for Guest users (e.g., 5 means after every 5 primary items).',
             value: adConfig.guestAdFrequency,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(guestAdFrequency: value),
-                      ),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(guestAdFrequency: value),
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Guest Ad Placement Interval',
-            description: 'Minimum primary items before the first ad for Guest users.',
+            description:
+                'Minimum primary items before the first ad for Guest users.',
             value: adConfig.guestAdPlacementInterval,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(guestAdPlacementInterval: value),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      guestAdPlacementInterval: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Authenticated Ad Frequency',
-            description: 'How often an ad can be injected for Authenticated users.',
+            description:
+                'How often an ad can be injected for Authenticated users.',
             value: adConfig.authenticatedAdFrequency,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(authenticatedAdFrequency: value),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      authenticatedAdFrequency: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Authenticated Ad Placement Interval',
-            description: 'Minimum primary items before the first ad for Authenticated users.',
+            description:
+                'Minimum primary items before the first ad for Authenticated users.',
             value: adConfig.authenticatedAdPlacementInterval,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(authenticatedAdPlacementInterval: value),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      authenticatedAdPlacementInterval: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Premium Ad Frequency',
-            description: 'How often an ad can be injected for Premium users (0 for no ads).',
+            description:
+                'How often an ad can be injected for Premium users (0 for no ads).',
             value: adConfig.premiumAdFrequency,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(premiumAdFrequency: value),
-                      ),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(premiumAdFrequency: value),
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Premium Ad Placement Interval',
-            description: 'Minimum primary items before the first ad for Premium users.',
+            description:
+                'Minimum primary items before the first ad for Premium users.',
             value: adConfig.premiumAdPlacementInterval,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(premiumAdPlacementInterval: value),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      premiumAdPlacementInterval: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Guest Articles Before Interstitial Ads',
-            description: 'Number of articles a Guest user reads before an interstitial ad is shown.',
+            description:
+                'Number of articles a Guest user reads before an interstitial ad is shown.',
             value: adConfig.guestArticlesToReadBeforeShowingInterstitialAds,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(
-                          guestArticlesToReadBeforeShowingInterstitialAds: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      guestArticlesToReadBeforeShowingInterstitialAds: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Standard User Articles Before Interstitial Ads',
-            description: 'Number of articles a Standard user reads before an interstitial ad is shown.',
-            value: adConfig.standardUserArticlesToReadBeforeShowingInterstitialAds,
+            description:
+                'Number of articles a Standard user reads before an interstitial ad is shown.',
+            value:
+                adConfig.standardUserArticlesToReadBeforeShowingInterstitialAds,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(
-                          standardUserArticlesToReadBeforeShowingInterstitialAds: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      standardUserArticlesToReadBeforeShowingInterstitialAds:
+                          value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Premium User Articles Before Interstitial Ads',
-            description: 'Number of articles a Premium user reads before an interstitial ad is shown.',
-            value: adConfig.premiumUserArticlesToReadBeforeShowingInterstitialAds,
+            description:
+                'Number of articles a Premium user reads before an interstitial ad is shown.',
+            value:
+                adConfig.premiumUserArticlesToReadBeforeShowingInterstitialAds,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        adConfig: adConfig.copyWith(
-                          premiumUserArticlesToReadBeforeShowingInterstitialAds: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      premiumUserArticlesToReadBeforeShowingInterstitialAds:
+                          value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
         ],
@@ -492,7 +533,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     );
   }
 
-  Widget _buildAccountActionConfigTab(BuildContext context, AppConfig appConfig) {
+  Widget _buildAccountActionConfigTab(
+    BuildContext context,
+    AppConfig appConfig,
+  ) {
     final accountActionConfig = appConfig.accountActionConfig;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -507,42 +551,44 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             'These settings control the display frequency of in-feed account actions (e.g., link account, upgrade prompts), tiered by user role.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.lg),
           _buildIntField(
             context,
             label: 'Guest Days Between Account Actions',
-            description: 'Minimum days between showing account actions to Guest users.',
+            description:
+                'Minimum days between showing account actions to Guest users.',
             value: accountActionConfig.guestDaysBetweenAccountActions,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        accountActionConfig: accountActionConfig.copyWith(
-                          guestDaysBetweenAccountActions: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    accountActionConfig: accountActionConfig.copyWith(
+                      guestDaysBetweenAccountActions: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildIntField(
             context,
             label: 'Standard User Days Between Account Actions',
-            description: 'Minimum days between showing account actions to Standard users.',
+            description:
+                'Minimum days between showing account actions to Standard users.',
             value: accountActionConfig.standardUserDaysBetweenAccountActions,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(
-                        accountActionConfig: accountActionConfig.copyWith(
-                          standardUserDaysBetweenAccountActions: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(
+                    accountActionConfig: accountActionConfig.copyWith(
+                      standardUserDaysBetweenAccountActions: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
         ],
@@ -564,65 +610,69 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             'WARNING: These settings can disable the entire mobile application. Use with extreme caution.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.error,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: Theme.of(context).colorScheme.error,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: AppSpacing.lg),
           _buildSwitchField(
             context,
             label: 'Kill Switch Enabled',
-            description: 'If enabled, the app\'s operational status will be enforced.',
+            description:
+                'If enabled, the app\'s operational status will be enforced.',
             value: appConfig.killSwitchEnabled,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(killSwitchEnabled: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(killSwitchEnabled: value),
+                ),
+              );
             },
           ),
           _buildDropdownField<RemoteAppStatus>(
             context,
             label: 'App Operational Status',
-            description: 'The current operational status of the app (e.g., active, maintenance, disabled).',
+            description:
+                'The current operational status of the app (e.g., active, maintenance, disabled).',
             value: appConfig.appOperationalStatus,
             items: RemoteAppStatus.values,
             itemLabelBuilder: (status) => status.name,
             onChanged: (value) {
               if (value != null) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        appConfig: appConfig.copyWith(appOperationalStatus: value),
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    appConfig: appConfig.copyWith(appOperationalStatus: value),
+                  ),
+                );
               }
             },
           ),
           _buildTextField(
             context,
             label: 'Maintenance Message',
-            description: 'Message displayed when the app is in maintenance mode.',
+            description:
+                'Message displayed when the app is in maintenance mode.',
             value: appConfig.maintenanceMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(maintenanceMessage: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(maintenanceMessage: value),
+                ),
+              );
             },
           ),
           _buildTextField(
             context,
             label: 'Disabled Message',
-            description: 'Message displayed when the app is permanently disabled.',
+            description:
+                'Message displayed when the app is permanently disabled.',
             value: appConfig.disabledMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(disabledMessage: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(disabledMessage: value),
+                ),
+              );
             },
           ),
         ],
@@ -644,21 +694,22 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.lg),
           _buildTextField(
             context,
             label: 'Minimum Allowed App Version',
-            description: 'The lowest app version allowed to run (e.g., "1.2.0").',
+            description:
+                'The lowest app version allowed to run (e.g., "1.2.0").',
             value: appConfig.minAllowedAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(minAllowedAppVersion: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(minAllowedAppVersion: value),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -668,10 +719,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: appConfig.latestAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(latestAppVersion: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(latestAppVersion: value),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -681,10 +732,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: appConfig.updateRequiredMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(updateRequiredMessage: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(updateRequiredMessage: value),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -694,10 +745,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: appConfig.updateOptionalMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(updateOptionalMessage: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(updateOptionalMessage: value),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -707,10 +758,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: appConfig.iosStoreUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(iosStoreUrl: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(iosStoreUrl: value),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -720,10 +771,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             value: appConfig.androidStoreUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      appConfig: appConfig.copyWith(androidStoreUrl: value),
-                    ),
-                  );
+                AppConfigurationFieldChanged(
+                  appConfig: appConfig.copyWith(androidStoreUrl: value),
+                ),
+              );
             },
           ),
         ],
@@ -751,8 +802,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.xs),
           TextFormField(
@@ -794,8 +845,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.xs),
           TextFormField(
@@ -831,8 +882,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SwitchListTile(
             title: Text(label),
@@ -867,8 +918,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           SizedBox(height: AppSpacing.xs),
           DropdownButtonFormField<T>(

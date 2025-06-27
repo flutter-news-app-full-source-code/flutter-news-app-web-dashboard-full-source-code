@@ -99,7 +99,8 @@ GoRouter createRouter({
         builder: (BuildContext context, GoRouterState state) {
           final l10n = context.l10n;
           const String headline = 'Sign In to Dashboard';
-          const String subHeadline = 'Enter your email to get a verification code.';
+          const String subHeadline =
+              'Enter your email to get a verification code.';
           const bool showAnonymousButton = false;
 
           return BlocProvider(
