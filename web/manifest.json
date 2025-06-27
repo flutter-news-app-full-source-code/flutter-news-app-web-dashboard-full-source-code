@@ -1,11 +1,11 @@
 {
-    "name": "ht_dashboard",
-    "short_name": "ht_dashboard",
+    "name": "Headlines Toolkit",
+    "short_name": "Headlines Toolkit",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#FFFFFF",
+    "description": "Develop News Headlines Apps Rapidly & Reliably.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
