@@ -76,5 +76,33 @@
   "emailCodeVerificationButtonLabel": "التحقق من الرمز",
   "@emailCodeVerificationButtonLabel": {
     "description": "تسمية زر التحقق من الرمز"
+  },
+  "dashboard": "لوحة القيادة",
+  "@dashboard": {
+    "description": "تسمية عنصر التنقل للوحة القيادة"
+  },
+  "contentManagement": "إدارة المحتوى",
+  "@contentManagement": {
+    "description": "تسمية عنصر التنقل لإدارة المحتوى"
+  },
+  "headlines": "العناوين الرئيسية",
+  "@headlines": {
+    "description": "تسمية الصفحة الفرعية للعناوين الرئيسية"
+  },
+  "categories": "الفئات",
+  "@categories": {
+    "description": "تسمية الصفحة الفرعية للفئات"
+  },
+  "sources": "المصادر",
+  "@sources": {
+    "description": "تسمية الصفحة الفرعية للمصادر"
+  },
+  "appConfiguration": "إعدادات التطبيق",
+  "@appConfiguration": {
+    "description": "تسمية عنصر التنقل لإعدادات التطبيق"
+  },
+  "settings": "الإعدادات",
+  "@settings": {
+    "description": "تسمية عنصر التنقل للإعدادات"
   }
 }

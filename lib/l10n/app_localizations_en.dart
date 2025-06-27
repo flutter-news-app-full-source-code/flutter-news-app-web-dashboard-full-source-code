@@ -65,4 +65,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailCodeVerificationButtonLabel => 'Verify Code';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get contentManagement => 'Content Management';
+
+  @override
+  String get headlines => 'Headlines';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get sources => 'Sources';
+
+  @override
+  String get appConfiguration => 'App Configuration';
+
+  @override
+  String get settings => 'Settings';
 }

@@ -66,4 +66,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get emailCodeVerificationButtonLabel => 'التحقق من الرمز';
+
+  @override
+  String get dashboard => 'لوحة القيادة';
+
+  @override
+  String get contentManagement => 'إدارة المحتوى';
+
+  @override
+  String get headlines => 'العناوين الرئيسية';
+
+  @override
+  String get categories => 'الفئات';
+
+  @override
+  String get sources => 'المصادر';
+
+  @override
+  String get appConfiguration => 'إعدادات التطبيق';
+
+  @override
+  String get settings => 'الإعدادات';
 }

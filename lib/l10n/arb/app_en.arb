@@ -76,5 +76,33 @@
   "emailCodeVerificationButtonLabel": "Verify Code",
   "@emailCodeVerificationButtonLabel": {
     "description": "Button label for verifying the code"
+  },
+  "dashboard": "Dashboard",
+  "@dashboard": {
+    "description": "Label for the dashboard navigation item"
+  },
+  "contentManagement": "Content Management",
+  "@contentManagement": {
+    "description": "Label for the content management navigation item"
+  },
+  "headlines": "Headlines",
+  "@headlines": {
+    "description": "Label for the headlines subpage"
+  },
+  "categories": "Categories",
+  "@categories": {
+    "description": "Label for the categories subpage"
+  },
+  "sources": "Sources",
+  "@sources": {
+    "description": "Label for the sources subpage"
+  },
+  "appConfiguration": "App Configuration",
+  "@appConfiguration": {
+    "description": "Label for the app configuration navigation item"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Label for the settings navigation item"
   }
 }

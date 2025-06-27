@@ -199,6 +199,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Verify Code'**
   String get emailCodeVerificationButtonLabel;
+
+  /// Label for the dashboard navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// Label for the content management navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Content Management'**
+  String get contentManagement;
+
+  /// Label for the headlines subpage
+  ///
+  /// In en, this message translates to:
+  /// **'Headlines'**
+  String get headlines;
+
+  /// Label for the categories subpage
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// Label for the sources subpage
+  ///
+  /// In en, this message translates to:
+  /// **'Sources'**
+  String get sources;
+
+  /// Label for the app configuration navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'App Configuration'**
+  String get appConfiguration;
+
+  /// Label for the settings navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate
