@@ -5,20 +5,19 @@ import 'package:ht_auth_repository/ht_auth_repository.dart';
 import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/app/config/config.dart' as local_config;
 import 'package:ht_dashboard/app/view/app_shell.dart';
+import 'package:ht_dashboard/app_configuration/view/app_configuration_page.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/authentication/view/authentication_page.dart';
 import 'package:ht_dashboard/authentication/view/email_code_verification_page.dart';
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/app_configuration/view/app_configuration_page.dart';
 import 'package:ht_dashboard/content_management/view/categories_page.dart';
 import 'package:ht_dashboard/content_management/view/content_management_page.dart';
 import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
+import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/settings/view/settings_page.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 /// Creates and configures the GoRouter instance for the application.
 ///
@@ -98,10 +97,10 @@ GoRouter createRouter({
         name: Routes.authenticationName,
         builder: (BuildContext context, GoRouterState state) {
           final l10n = context.l10n;
-          const String headline = 'Sign In to Dashboard';
-          const String subHeadline =
+          const headline = 'Sign In to Dashboard';
+          const subHeadline =
               'Enter your email to get a verification code.';
-          const bool showAnonymousButton = false;
+          const showAnonymousButton = false;
 
           return BlocProvider(
             create: (context) => AuthenticationBloc(

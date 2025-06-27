@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
 import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/app/config/app_environment.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/router.dart';
+import 'package:ht_data_repository/ht_data_repository.dart';
+import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
 import 'package:ht_shared/ht_shared.dart';
 
 class App extends StatelessWidget {

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_dashboard/app/config/config.dart' as local_config;
+import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 
 part 'app_event.dart';
@@ -21,11 +21,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
        _appConfigRepository = appConfigRepository,
        _environment = environment,
        super(
-         const AppState(
-           user: null,
-           status: AppStatus.initial,
-           environment: null,
-         ),
+         const AppState(),
        ) {
     on<AppUserChanged>(_onAppUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);

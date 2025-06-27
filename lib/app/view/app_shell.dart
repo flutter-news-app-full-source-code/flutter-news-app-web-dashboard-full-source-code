@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/router/routes.dart';
 
 /// A responsive scaffold shell for the main application sections.
 ///

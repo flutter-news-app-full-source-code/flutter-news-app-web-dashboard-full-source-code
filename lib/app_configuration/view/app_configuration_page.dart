@@ -160,7 +160,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   : null,
               child: const Text('Discard Changes'),
             ),
-            SizedBox(width: AppSpacing.md),
+            const SizedBox(width: AppSpacing.md),
             ElevatedButton(
               onPressed: isDirty
                   ? () async {
@@ -229,14 +229,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             'User Preference Limits',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             'These settings define the maximum number of items a user can follow or save, tiered by user role. Changes here directly impact user capabilities.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           _buildIntField(
             context,
             label: 'Guest Followed Items Limit',
@@ -358,14 +358,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             'Ad Configuration',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             'These settings control how ads are injected and displayed in the application, tiered by user role. AdFrequency determines how often an ad can be injected, and AdPlacementInterval sets a minimum number of primary items before the first ad.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           _buildIntField(
             context,
             label: 'Guest Ad Frequency',
@@ -547,14 +547,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             'Account Action Configuration',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             'These settings control the display frequency of in-feed account actions (e.g., link account, upgrade prompts), tiered by user role.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           _buildIntField(
             context,
             label: 'Guest Days Between Account Actions',
@@ -606,7 +606,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             'Kill Switch & App Status',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             'WARNING: These settings can disable the entire mobile application. Use with extreme caution.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -614,12 +614,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           _buildSwitchField(
             context,
             label: 'Kill Switch Enabled',
             description:
-                'If enabled, the app\'s operational status will be enforced.',
+                "If enabled, the app's operational status will be enforced.",
             value: appConfig.killSwitchEnabled,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -690,14 +690,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             'Force Update Configuration',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           _buildTextField(
             context,
             label: 'Minimum Allowed App Version',
@@ -798,14 +798,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             label,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           TextFormField(
             initialValue: value.toString(),
             keyboardType: TextInputType.number,
@@ -841,14 +841,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             label,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           TextFormField(
             initialValue: value,
             decoration: const InputDecoration(
@@ -878,7 +878,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             label,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -914,14 +914,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             label,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           DropdownButtonFormField<T>(
             value: value,
             decoration: const InputDecoration(
