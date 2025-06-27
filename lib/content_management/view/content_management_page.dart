@@ -1,17 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:ht_dashboard/content_management/view/categories_page.dart';
+import 'package:ht_dashboard/content_management/view/headlines_page.dart';
+import 'package:ht_dashboard/content_management/view/sources_page.dart';
+import 'package:ht_dashboard/l10n/l10n.dart';
 
 /// {@template content_management_page}
-/// A placeholder page for Content Management.
+/// A page for Content Management with tabbed navigation for sub-sections.
 /// {@endtemplate}
-class ContentManagementPage extends StatelessWidget {
+class ContentManagementPage extends StatefulWidget {
   /// {@macro content_management_page}
   const ContentManagementPage({super.key});
 
   @override
+  State<ContentManagementPage> createState() => _ContentManagementPageState();
+}
+
+class _ContentManagementPageState extends State<ContentManagementPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Content Management Page'),
+    final l10n = context.l10n;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.contentManagement),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: l10n.headlines),
+            Tab(text: l10n.categories),
+            Tab(text: l10n.sources),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          HeadlinesPage(),
+          CategoriesPage(),
+          SourcesPage(),
+        ],
       ),
     );
   }
