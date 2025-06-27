@@ -48,8 +48,8 @@ class AppState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        user,
-        environment,
-      ];
+    status,
+    user,
+    environment,
+  ];
 }
