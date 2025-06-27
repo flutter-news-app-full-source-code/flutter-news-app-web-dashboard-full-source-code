@@ -47,14 +47,6 @@ final class AuthenticationVerifyCodeRequested extends AuthenticationEvent {
   List<Object> get props => [email, code];
 }
 
-/// {@template authentication_anonymous_sign_in_requested}
-/// Event triggered when the user requests to sign in anonymously.
-/// {@endtemplate}
-final class AuthenticationAnonymousSignInRequested extends AuthenticationEvent {
-  /// {@macro authentication_anonymous_sign_in_requested}
-  const AuthenticationAnonymousSignInRequested();
-}
-
 /// {@template authentication_sign_out_requested}
 /// Event triggered when the user requests to sign out.
 /// {@endtemplate}

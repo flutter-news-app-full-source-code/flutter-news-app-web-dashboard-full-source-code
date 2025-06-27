@@ -35,9 +35,6 @@ class AuthenticationBloc
       _onAuthenticationRequestSignInCodeRequested,
     );
     on<AuthenticationVerifyCodeRequested>(_onAuthenticationVerifyCodeRequested);
-    on<AuthenticationAnonymousSignInRequested>(
-      _onAuthenticationAnonymousSignInRequested,
-    );
     on<AuthenticationSignOutRequested>(_onAuthenticationSignOutRequested);
   }
 
@@ -118,30 +115,6 @@ class AuthenticationBloc
       // Catch any other unexpected errors
       emit(AuthenticationFailure('An unexpected error occurred: $e'));
       // Optionally log the stackTrace here
-    }
-  }
-
-  /// Handles [AuthenticationAnonymousSignInRequested] events.
-  Future<void> _onAuthenticationAnonymousSignInRequested(
-    AuthenticationAnonymousSignInRequested event,
-    Emitter<AuthenticationState> emit,
-  ) async {
-    emit(AuthenticationLoading());
-    try {
-      await _authenticationRepository.signInAnonymously();
-      // On success, the _AuthenticationUserChanged listener will handle
-      // emitting AuthenticationAuthenticated.
-    } on NetworkException catch (_) {
-      emit(const AuthenticationFailure('Network error occurred.'));
-    } on ServerException catch (e) {
-      emit(AuthenticationFailure('Server error: ${e.message}'));
-    } on OperationFailedException catch (e) {
-      emit(AuthenticationFailure('Operation failed: ${e.message}'));
-    } on HtHttpException catch (e) {
-      // Catch any other HtHttpException subtypes
-      emit(AuthenticationFailure('HTTP error: ${e.message}'));
-    } catch (e) {
-      emit(AuthenticationFailure('An unexpected error occurred: $e'));
     }
   }
 
