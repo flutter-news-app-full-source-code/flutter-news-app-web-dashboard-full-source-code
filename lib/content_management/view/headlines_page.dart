@@ -9,10 +9,8 @@ class HeadlinesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Headlines Page'),
-      ),
+    return const Center(
+      child: Text('Headlines Page'),
     );
   }
 }
