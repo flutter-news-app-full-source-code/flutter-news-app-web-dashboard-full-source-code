@@ -103,6 +103,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello World!'**
   String get helloWorld;
+
+  /// Button label for signing in with email
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Email'**
+  String get authenticationEmailSignInButton;
+
+  /// Title for the email sign-in page
+  ///
+  /// In en, this message translates to:
+  /// **'Email Sign In'**
+  String get emailSignInPageTitle;
+
+  /// Headline for the request code page
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in or create an account'**
+  String get requestCodePageHeadline;
+
+  /// Subheadline for the request code page
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email to receive a verification code. No password needed!'**
+  String get requestCodePageSubheadline;
+
+  /// Label for the email input field on the request code page
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get requestCodeEmailLabel;
+
+  /// Hint text for the email input field on the request code page
+  ///
+  /// In en, this message translates to:
+  /// **'your.email@example.com'**
+  String get requestCodeEmailHint;
+
+  /// Validation error message for invalid email format
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address.'**
+  String get accountLinkingEmailValidationError;
+
+  /// Button label for sending the verification code
+  ///
+  /// In en, this message translates to:
+  /// **'Send Code'**
+  String get requestCodeSendCodeButton;
+
+  /// Title for the email code verification page
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Code'**
+  String get emailCodeSentPageTitle;
+
+  /// Confirmation message that a code has been sent to the email
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code to {email}'**
+  String emailCodeSentConfirmation(String email);
+
+  /// Instructions for the user to verify the code
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your inbox and enter the code below to continue.'**
+  String get emailCodeSentInstructions;
+
+  /// Message displaying the demo verification code
+  ///
+  /// In en, this message translates to:
+  /// **'In demo mode, use code: {code}'**
+  String demoVerificationCodeMessage(String code);
+
+  /// Hint text for the code input field on the verification page
+  ///
+  /// In en, this message translates to:
+  /// **'6-digit code'**
+  String get emailCodeVerificationHint;
+
+  /// Validation error message when the code field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Code cannot be empty.'**
+  String get emailCodeValidationEmptyError;
+
+  /// Validation error message when the code length is incorrect
+  ///
+  /// In en, this message translates to:
+  /// **'Code must be 6 digits.'**
+  String get emailCodeValidationLengthError;
+
+  /// Button label for verifying the code
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Code'**
+  String get emailCodeVerificationButtonLabel;
 }
 
 class _AppLocalizationsDelegate
