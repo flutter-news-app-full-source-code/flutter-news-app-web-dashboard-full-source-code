@@ -1,0 +1,108 @@
+{
+  "helloWorld": "مرحبا بالعالم!",
+  "@helloWorld": {
+    "description": "التحية التقليدية للمبرمج حديث الولادة"
+  },
+  "authenticationEmailSignInButton": "تسجيل الدخول بالبريد الإلكتروني",
+  "@authenticationEmailSignInButton": {
+    "description": "زر تسجيل الدخول بالبريد الإلكتروني"
+  },
+  "emailSignInPageTitle": "تسجيل الدخول بالبريد الإلكتروني",
+  "@emailSignInPageTitle": {
+    "description": "عنوان صفحة تسجيل الدخول بالبريد الإلكتروني"
+  },
+  "requestCodePageHeadline": "سجل الدخول أو أنشئ حسابًا",
+  "@requestCodePageHeadline": {
+    "description": "عنوان صفحة طلب الرمز"
+  },
+  "requestCodePageSubheadline": "أدخل بريدك الإلكتروني لتلقي رمز التحقق. لا حاجة لكلمة مرور!",
+  "@requestCodePageSubheadline": {
+    "description": "عنوان فرعي لصفحة طلب الرمز"
+  },
+  "requestCodeEmailLabel": "البريد الإلكتروني",
+  "@requestCodeEmailLabel": {
+    "description": "تسمية حقل إدخال البريد الإلكتروني في صفحة طلب الرمز"
+  },
+  "requestCodeEmailHint": "بريدك.الإلكتروني@مثال.كوم",
+  "@requestCodeEmailHint": {
+    "description": "نص تلميح لحقل إدخال البريد الإلكتروني في صفحة طلب الرمز"
+  },
+  "accountLinkingEmailValidationError": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
+  "@accountLinkingEmailValidationError": {
+    "description": "رسالة خطأ التحقق لتنسيق البريد الإلكتروني غير الصالح"
+  },
+  "requestCodeSendCodeButton": "إرسال الرمز",
+  "@requestCodeSendCodeButton": {
+    "description": "تسمية زر إرسال رمز التحقق"
+  },
+  "emailCodeSentPageTitle": "التحقق من الرمز",
+  "@emailCodeSentPageTitle": {
+    "description": "عنوان صفحة التحقق من رمز البريد الإلكتروني"
+  },
+  "emailCodeSentConfirmation": "لقد أرسلنا رمزًا مكونًا من 6 أرقام إلى {email}",
+  "@emailCodeSentConfirmation": {
+    "description": "رسالة تأكيد بإرسال الرمز إلى البريد الإلكتروني",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "emailCodeSentInstructions": "الرجاء التحقق من بريدك الوارد وإدخال الرمز أدناه للمتابعة.",
+  "@emailCodeSentInstructions": {
+    "description": "تعليمات للمستخدم للتحقق من الرمز"
+  },
+  "demoVerificationCodeMessage": "في الوضع التجريبي، استخدم الرمز: {code}",
+  "@demoVerificationCodeMessage": {
+    "description": "رسالة تعرض رمز التحقق التجريبي",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "emailCodeVerificationHint": "رمز مكون من 6 أرقام",
+  "@emailCodeVerificationHint": {
+    "description": "نص تلميح لحقل إدخال الرمز في صفحة التحقق"
+  },
+  "emailCodeValidationEmptyError": "لا يمكن أن يكون الرمز فارغًا.",
+  "@emailCodeValidationEmptyError": {
+    "description": "رسالة خطأ التحقق عندما يكون حقل الرمز فارغًا"
+  },
+  "emailCodeValidationLengthError": "يجب أن يتكون الرمز من 6 أرقام.",
+  "@emailCodeValidationLengthError": {
+    "description": "رسالة خطأ التحقق عندما يكون طول الرمز غير صحيح"
+  },
+  "emailCodeVerificationButtonLabel": "التحقق من الرمز",
+  "@emailCodeVerificationButtonLabel": {
+    "description": "تسمية زر التحقق من الرمز"
+  },
+  "dashboard": "لوحة القيادة",
+  "@dashboard": {
+    "description": "تسمية عنصر التنقل للوحة القيادة"
+  },
+  "contentManagement": "إدارة المحتوى",
+  "@contentManagement": {
+    "description": "تسمية عنصر التنقل لإدارة المحتوى"
+  },
+  "headlines": "العناوين الرئيسية",
+  "@headlines": {
+    "description": "تسمية الصفحة الفرعية للعناوين الرئيسية"
+  },
+  "categories": "الفئات",
+  "@categories": {
+    "description": "تسمية الصفحة الفرعية للفئات"
+  },
+  "sources": "المصادر",
+  "@sources": {
+    "description": "تسمية الصفحة الفرعية للمصادر"
+  },
+  "appConfiguration": "إعدادات التطبيق",
+  "@appConfiguration": {
+    "description": "تسمية عنصر التنقل لإعدادات التطبيق"
+  },
+  "settings": "الإعدادات",
+  "@settings": {
+    "description": "تسمية عنصر التنقل للإعدادات"
+  }
+}

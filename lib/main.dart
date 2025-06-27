@@ -1,20 +1,28 @@
+import 'dart:js_interop';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ht_dashboard/app/config/config.dart';
+import 'package:ht_dashboard/bootstrap.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+// Define the current application environment (production/development/demo).
+const AppEnvironment appEnvironment = AppEnvironment.demo;
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+@JS('removeSplashFromWeb')
+external void removeSplashFromWeb();
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+void main() async {
+  final appConfig = switch (appEnvironment) {
+    AppEnvironment.production => AppConfig.production(),
+    AppEnvironment.development => AppConfig.development(),
+    AppEnvironment.demo => AppConfig.demo(),
+  };
+
+  final appWidget = await bootstrap(appConfig, appEnvironment);
+
+  // Only remove the splash screen on web after the app is ready.
+  if (kIsWeb) {
+    removeSplashFromWeb();
   }
+  runApp(appWidget);
 }
