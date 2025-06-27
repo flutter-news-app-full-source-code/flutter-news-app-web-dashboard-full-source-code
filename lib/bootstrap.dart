@@ -42,7 +42,6 @@ Future<Widget> bootstrap(
       storageService: kvStorage,
     );
   } else {
-    // For production and development environments, an HTTP client is needed.
     httpClient = HtHttpClient(
       baseUrl: appConfig.baseUrl,
       tokenProvider: () => authenticationRepository.getAuthToken(),
@@ -55,7 +54,6 @@ Future<Widget> bootstrap(
     );
   }
 
-  // Conditional data client instantiation based on environment
   HtDataClient<Headline> headlinesClient;
   HtDataClient<Category> categoriesClient;
   HtDataClient<Country> countriesClient;
@@ -142,7 +140,6 @@ Future<Widget> bootstrap(
       toJson: (config) => config.toJson(),
     );
   } else {
-    // Default to API clients for production
     headlinesClient = HtDataApi<Headline>(
       httpClient: httpClient!,
       modelName: 'headline',
