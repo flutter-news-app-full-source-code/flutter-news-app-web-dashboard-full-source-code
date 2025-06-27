@@ -21,7 +21,6 @@ class AuthenticationPage extends StatelessWidget {
     required this.headline,
     required this.subHeadline,
     required this.showAnonymousButton,
-    required this.isLinkingContext,
     super.key,
   });
 
@@ -34,9 +33,6 @@ class AuthenticationPage extends StatelessWidget {
   /// Whether to show the "Continue Anonymously" button.
   final bool showAnonymousButton;
 
-  /// Whether this page is being shown in the account linking context.
-  final bool isLinkingContext;
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -47,17 +43,6 @@ class AuthenticationPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // Conditionally add the leading close button only in linking context
-        leading: isLinkingContext
-            ? IconButton(
-                icon: const Icon(Icons.close),
-                tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-                onPressed: () {
-                  // Navigate back to the account page when close is pressed
-                  context.goNamed(Routes.accountName);
-                },
-              )
-            : null,
       ),
       body: SafeArea(
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
@@ -95,7 +80,7 @@ class AuthenticationPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: AppSpacing.xl),
                         child: Icon(
-                          isLinkingContext ? Icons.sync : Icons.newspaper,
+                          Icons.newspaper,
                           size: AppSpacing.xxl * 2,
                           color: colorScheme.primary,
                         ),
@@ -126,9 +111,7 @@ class AuthenticationPage extends StatelessWidget {
                             ? null
                             : () {
                                 context.goNamed(
-                                  isLinkingContext
-                                      ? Routes.linkingRequestCodeName
-                                      : Routes.requestCodeName,
+                                  Routes.requestCodeName,
                                 );
                               },
                         label: Text(l10n.authenticationEmailSignInButton),
@@ -140,7 +123,6 @@ class AuthenticationPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: AppSpacing.lg),
-
 
                       // --- Loading Indicator ---
                       if (isLoading &&
