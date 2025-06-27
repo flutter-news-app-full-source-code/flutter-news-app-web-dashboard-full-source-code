@@ -141,24 +141,6 @@ class AuthenticationPage extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSpacing.lg),
 
-                      // --- Anonymous Sign-In Button (Conditional) ---
-                      if (showAnonymousButton) ...[
-                        OutlinedButton.icon(
-                          icon: const Icon(Icons.person_outline),
-                          onPressed: isLoading
-                              ? null
-                              : () => context.read<AuthenticationBloc>().add(
-                                  const AuthenticationAnonymousSignInRequested(),
-                                ),
-                          label: Text(l10n.authenticationAnonymousSignInButton),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.md,
-                            ),
-                            textStyle: textTheme.labelLarge,
-                          ),
-                        ),
-                      ],
 
                       // --- Loading Indicator ---
                       if (isLoading &&
