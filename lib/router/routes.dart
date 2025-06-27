@@ -37,4 +37,40 @@ abstract final class Routes {
 
   /// The name for the dashboard page route.
   static const String dashboardName = 'dashboard';
+
+  /// The path for the content management section.
+  static const String contentManagement = '/content-management';
+
+  /// The name for the content management section route.
+  static const String contentManagementName = 'contentManagement';
+
+  /// The path for the headlines page within content management.
+  static const String headlines = 'headlines';
+
+  /// The name for the headlines page route.
+  static const String headlinesName = 'headlines';
+
+  /// The path for the categories page within content management.
+  static const String categories = 'categories';
+
+  /// The name for the categories page route.
+  static const String categoriesName = 'categories';
+
+  /// The path for the sources page within content management.
+  static const String sources = 'sources';
+
+  /// The name for the sources page route.
+  static const String sourcesName = 'sources';
+
+  /// The path for the app configuration page.
+  static const String appConfiguration = '/app-configuration';
+
+  /// The name for the app configuration page route.
+  static const String appConfigurationName = 'appConfiguration';
+
+  /// The path for the settings page.
+  static const String settings = '/settings';
+
+  /// The name for the settings page route.
+  static const String settingsName = 'settings';
 }

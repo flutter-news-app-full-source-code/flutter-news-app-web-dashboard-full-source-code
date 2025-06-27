@@ -11,7 +11,13 @@ import 'package:ht_dashboard/authentication/view/email_code_verification_page.da
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
+import 'package:ht_dashboard/app_configuration/view/app_configuration_page.dart';
+import 'package:ht_dashboard/content_management/view/categories_page.dart';
+import 'package:ht_dashboard/content_management/view/content_management_page.dart';
+import 'package:ht_dashboard/content_management/view/headlines_page.dart';
+import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
+import 'package:ht_dashboard/settings/view/settings_page.dart';
 import 'package:ht_shared/ht_shared.dart';
 
 /// Creates and configures the GoRouter instance for the application.
@@ -135,6 +141,50 @@ GoRouter createRouter({
                 path: Routes.dashboard,
                 name: Routes.dashboardName,
                 builder: (context, state) => const DashboardPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.contentManagement,
+                name: Routes.contentManagementName,
+                builder: (context, state) => const ContentManagementPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.headlines,
+                    name: Routes.headlinesName,
+                    builder: (context, state) => const HeadlinesPage(),
+                  ),
+                  GoRoute(
+                    path: Routes.categories,
+                    name: Routes.categoriesName,
+                    builder: (context, state) => const CategoriesPage(),
+                  ),
+                  GoRoute(
+                    path: Routes.sources,
+                    name: Routes.sourcesName,
+                    builder: (context, state) => const SourcesPage(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.appConfiguration,
+                name: Routes.appConfigurationName,
+                builder: (context, state) => const AppConfigurationPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.settings,
+                name: Routes.settingsName,
+                builder: (context, state) => const SettingsPage(),
               ),
             ],
           ),
