@@ -296,7 +296,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9cbe2dcf84860f5be655d091b9e15bc1d48fa3dc"
+      resolved-ref: "096ceed8957af0935e950818b657617510b9a9ba"
       url: "https://github.com/headlines-toolkit/ht-shared.git"
     source: git
     version: "0.0.0"
