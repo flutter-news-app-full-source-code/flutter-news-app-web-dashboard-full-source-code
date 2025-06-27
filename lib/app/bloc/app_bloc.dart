@@ -56,7 +56,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         status = AppStatus.authenticated;
       // ignore: no_default_cases
       default: // Fallback for any other roles not explicitly handled
-        status = AppStatus.unauthenticated; // Treat other roles as unauthenticated for dashboard
+        status = AppStatus
+            .unauthenticated; // Treat other roles as unauthenticated for dashboard
     }
 
     // Emit user and status update
