@@ -104,7 +104,6 @@ GoRouter createRouter({
               headline: headline,
               subHeadline: subHeadline,
               showAnonymousButton: showAnonymousButton,
-              isLinkingContext: false,
             ),
           );
         },
