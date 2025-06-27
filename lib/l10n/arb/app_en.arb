@@ -2,5 +2,79 @@
   "helloWorld": "Hello World!",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
+  },
+  "authenticationEmailSignInButton": "Sign in with Email",
+  "@authenticationEmailSignInButton": {
+    "description": "Button label for signing in with email"
+  },
+  "emailSignInPageTitle": "Email Sign In",
+  "@emailSignInPageTitle": {
+    "description": "Title for the email sign-in page"
+  },
+  "requestCodePageHeadline": "Sign in or create an account",
+  "@requestCodePageHeadline": {
+    "description": "Headline for the request code page"
+  },
+  "requestCodePageSubheadline": "Enter your email to receive a verification code. No password needed!",
+  "@requestCodePageSubheadline": {
+    "description": "Subheadline for the request code page"
+  },
+  "requestCodeEmailLabel": "Email",
+  "@requestCodeEmailLabel": {
+    "description": "Label for the email input field on the request code page"
+  },
+  "requestCodeEmailHint": "your.email@example.com",
+  "@requestCodeEmailHint": {
+    "description": "Hint text for the email input field on the request code page"
+  },
+  "accountLinkingEmailValidationError": "Please enter a valid email address.",
+  "@accountLinkingEmailValidationError": {
+    "description": "Validation error message for invalid email format"
+  },
+  "requestCodeSendCodeButton": "Send Code",
+  "@requestCodeSendCodeButton": {
+    "description": "Button label for sending the verification code"
+  },
+  "emailCodeSentPageTitle": "Verify Code",
+  "@emailCodeSentPageTitle": {
+    "description": "Title for the email code verification page"
+  },
+  "emailCodeSentConfirmation": "We sent a 6-digit code to {email}",
+  "@emailCodeSentConfirmation": {
+    "description": "Confirmation message that a code has been sent to the email",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "emailCodeSentInstructions": "Please check your inbox and enter the code below to continue.",
+  "@emailCodeSentInstructions": {
+    "description": "Instructions for the user to verify the code"
+  },
+  "demoVerificationCodeMessage": "In demo mode, use code: {code}",
+  "@demoVerificationCodeMessage": {
+    "description": "Message displaying the demo verification code",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "emailCodeVerificationHint": "6-digit code",
+  "@emailCodeVerificationHint": {
+    "description": "Hint text for the code input field on the verification page"
+  },
+  "emailCodeValidationEmptyError": "Code cannot be empty.",
+  "@emailCodeValidationEmptyError": {
+    "description": "Validation error message when the code field is empty"
+  },
+  "emailCodeValidationLengthError": "Code must be 6 digits.",
+  "@emailCodeValidationLengthError": {
+    "description": "Validation error message when the code length is incorrect"
+  },
+  "emailCodeVerificationButtonLabel": "Verify Code",
+  "@emailCodeVerificationButtonLabel": {
+    "description": "Button label for verifying the code"
   }
 }
