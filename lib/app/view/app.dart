@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_auth_repository/ht_auth_repository.dart';
 import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/app/config/app_environment.dart';
+import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/router/router.dart';
@@ -79,6 +80,11 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthenticationBloc(
               authenticationRepository: context.read<HtAuthRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => AppConfigurationBloc(
+              appConfigRepository: context.read<HtDataRepository<AppConfig>>(),
             ),
           ),
         ],
