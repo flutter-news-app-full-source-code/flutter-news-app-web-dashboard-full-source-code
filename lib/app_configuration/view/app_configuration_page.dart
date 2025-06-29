@@ -79,9 +79,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               );
             // Clear the showSaveSuccess flag after showing the snackbar
             context.read<AppConfigurationBloc>().add(
-              const AppConfigurationFieldChanged(
-                appConfig: null, // No actual config change, just clear flag
-              ),
+              const AppConfigurationFieldChanged(),
             );
           } else if (state.status == AppConfigurationStatus.failure) {
             ScaffoldMessenger.of(context)
