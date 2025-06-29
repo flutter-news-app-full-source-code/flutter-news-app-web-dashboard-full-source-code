@@ -104,5 +104,334 @@
   "settings": "Settings",
   "@settings": {
     "description": "Label for the settings navigation item"
+  },
+  "appConfigurationPageTitle": "App Configuration",
+  "@appConfigurationPageTitle": {
+    "description": "Title for the App Configuration page"
+  },
+  "userContentLimitsTab": "User Content Limits",
+  "@userContentLimitsTab": {
+    "description": "Tab title for User Content Limits"
+  },
+  "adSettingsTab": "Ad Settings",
+  "@adSettingsTab": {
+    "description": "Tab title for Ad Settings"
+  },
+  "inAppPromptsTab": "In-App Prompts",
+  "@inAppPromptsTab": {
+    "description": "Tab title for In-App Prompts"
+  },
+  "appOperationalStatusTab": "App Operational Status",
+  "@appOperationalStatusTab": {
+    "description": "Tab title for App Operational Status"
+  },
+  "forceUpdateTab": "Force Update",
+  "@forceUpdateTab": {
+    "description": "Tab title for Force Update"
+  },
+  "appConfigSaveSuccessMessage": "App configuration saved successfully!",
+  "@appConfigSaveSuccessMessage": {
+    "description": "Snackbar message for successful app configuration save"
+  },
+  "appConfigSaveErrorMessage": "Error: {errorMessage}",
+  "@appConfigSaveErrorMessage": {
+    "description": "Snackbar message for app configuration save error",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String"
+      }
+    }
+  },
+  "unknownError": "Unknown error",
+  "@unknownError": {
+    "description": "Fallback message for unknown errors"
+  },
+  "loadingConfigurationHeadline": "Loading Configuration",
+  "@loadingConfigurationHeadline": {
+    "description": "Headline for loading state of app configuration"
+  },
+  "loadingConfigurationSubheadline": "Please wait while settings are loaded...",
+  "@loadingConfigurationSubheadline": {
+    "description": "Subheadline for loading state of app configuration"
+  },
+  "failedToLoadConfigurationMessage": "Failed to load configuration.",
+  "@failedToLoadConfigurationMessage": {
+    "description": "Message for failure state of app configuration loading"
+  },
+  "loadAppSettingsSubheadline": "Load application settings from the backend.",
+  "@loadAppSettingsSubheadline": {
+    "description": "Subheadline for initial state of app configuration"
+  },
+  "discardChangesButton": "Discard Changes",
+  "@discardChangesButton": {
+    "description": "Button to discard changes in app configuration"
+  },
+  "saveChangesButton": "Save Changes",
+  "@saveChangesButton": {
+    "description": "Button to save changes in app configuration"
+  },
+  "confirmConfigUpdateDialogTitle": "Confirm Configuration Update",
+  "@confirmConfigUpdateDialogTitle": {
+    "description": "Title for the confirmation dialog before saving app config"
+  },
+  "confirmConfigUpdateDialogContent": "Are you sure you want to apply these changes to the live application configuration? This is a critical operation.",
+  "@confirmConfigUpdateDialogContent": {
+    "description": "Content for the confirmation dialog before saving app config"
+  },
+  "cancelButton": "Cancel",
+  "@cancelButton": {
+    "description": "Cancel button label"
+  },
+  "confirmSaveButton": "Confirm Save",
+  "@confirmSaveButton": {
+    "description": "Confirm save button label in dialog"
+  },
+  "userContentLimitsDescription": "These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.",
+  "@userContentLimitsDescription": {
+    "description": "Description for User Content Limits section"
+  },
+  "guestUserTab": "Guest",
+  "@guestUserTab": {
+    "description": "Tab title for Guest user role"
+  },
+  "authenticatedUserTab": "Authenticated",
+  "@authenticatedUserTab": {
+    "description": "Tab title for Authenticated user role"
+  },
+  "premiumUserTab": "Premium",
+  "@premiumUserTab": {
+    "description": "Tab title for Premium user role"
+  },
+  "guestFollowedItemsLimitLabel": "Guest Followed Items Limit",
+  "@guestFollowedItemsLimitLabel": {
+    "description": "Label for Guest Followed Items Limit"
+  },
+  "guestFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).",
+  "@guestFollowedItemsLimitDescription": {
+    "description": "Description for Guest Followed Items Limit"
+  },
+  "guestSavedHeadlinesLimitLabel": "Guest Saved Headlines Limit",
+  "@guestSavedHeadlinesLimitLabel": {
+    "description": "Label for Guest Saved Headlines Limit"
+  },
+  "guestSavedHeadlinesLimitDescription": "Maximum number of headlines a Guest user can save.",
+  "@guestSavedHeadlinesLimitDescription": {
+    "description": "Description for Guest Saved Headlines Limit"
+  },
+  "standardUserFollowedItemsLimitLabel": "Standard User Followed Items Limit",
+  "@standardUserFollowedItemsLimitLabel": {
+    "description": "Label for Standard User Followed Items Limit"
+  },
+  "standardUserFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).",
+  "@standardUserFollowedItemsLimitDescription": {
+    "description": "Description for Standard User Followed Items Limit"
+  },
+  "standardUserSavedHeadlinesLimitLabel": "Standard User Saved Headlines Limit",
+  "@standardUserSavedHeadlinesLimitLabel": {
+    "description": "Label for Standard User Saved Headlines Limit"
+  },
+  "standardUserSavedHeadlinesLimitDescription": "Maximum number of headlines a Standard user can save.",
+  "@standardUserSavedHeadlinesLimitDescription": {
+    "description": "Description for Standard User Saved Headlines Limit"
+  },
+  "premiumFollowedItemsLimitLabel": "Premium Followed Items Limit",
+  "@premiumFollowedItemsLimitLabel": {
+    "description": "Label for Premium Followed Items Limit"
+  },
+  "premiumFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).",
+  "@premiumFollowedItemsLimitDescription": {
+    "description": "Description for Premium Followed Items Limit"
+  },
+  "premiumSavedHeadlinesLimitLabel": "Premium Saved Headlines Limit",
+  "@premiumSavedHeadlinesLimitLabel": {
+    "description": "Label for Premium Saved Headlines Limit"
+  },
+  "premiumSavedHeadlinesLimitDescription": "Maximum number of headlines a Premium user can save.",
+  "@premiumSavedHeadlinesLimitDescription": {
+    "description": "Description for Premium Saved Headlines Limit"
+  },
+  "adSettingsDescription": "These settings control how advertisements are displayed within the app's news feed, with different rules for Guest, Standard, and Premium users. \"Ad Frequency\" determines how often an ad can appear, while \"Ad Placement Interval\" sets how many news items must be shown before the very first ad appears.",
+  "@adSettingsDescription": {
+    "description": "Description for Ad Settings section"
+  },
+  "standardUserAdTab": "Standard User",
+  "@standardUserAdTab": {
+    "description": "Tab title for Standard User in Ad Settings"
+  },
+  "guestAdFrequencyLabel": "Guest Ad Frequency",
+  "@guestAdFrequencyLabel": {
+    "description": "Label for Guest Ad Frequency"
+  },
+  "guestAdFrequencyDescription": "How often an ad can appear for Guest users (e.g., a value of 5 means an ad could be placed after every 5 news items).",
+  "@guestAdFrequencyDescription": {
+    "description": "Description for Guest Ad Frequency"
+  },
+  "guestAdPlacementIntervalLabel": "Guest Ad Placement Interval",
+  "@guestAdPlacementIntervalLabel": {
+    "description": "Label for Guest Ad Placement Interval"
+  },
+  "guestAdPlacementIntervalDescription": "Minimum number of news items that must be shown before the very first ad appears for Guest users.",
+  "@guestAdPlacementIntervalDescription": {
+    "description": "Description for Guest Ad Placement Interval"
+  },
+  "guestArticlesBeforeInterstitialAdsLabel": "Guest Articles Before Interstitial Ads",
+  "@guestArticlesBeforeInterstitialAdsLabel": {
+    "description": "Label for Guest Articles Before Interstitial Ads"
+  },
+  "guestArticlesBeforeInterstitialAdsDescription": "Number of articles a Guest user needs to read before a full-screen interstitial ad is shown.",
+  "@guestArticlesBeforeInterstitialAdsDescription": {
+    "description": "Description for Guest Articles Before Interstitial Ads"
+  },
+  "standardUserAdFrequencyLabel": "Standard User Ad Frequency",
+  "@standardUserAdFrequencyLabel": {
+    "description": "Label for Standard User Ad Frequency"
+  },
+  "standardUserAdFrequencyDescription": "How often an ad can appear for Standard users (e.g., a value of 10 means an ad could be placed after every 10 news items).",
+  "@standardUserAdFrequencyDescription": {
+    "description": "Description for Standard User Ad Frequency"
+  },
+  "standardUserAdPlacementIntervalLabel": "Standard User Ad Placement Interval",
+  "@standardUserAdPlacementIntervalLabel": {
+    "description": "Label for Standard User Ad Placement Interval"
+  },
+  "standardUserAdPlacementIntervalDescription": "Minimum number of news items that must be shown before the very first ad appears for Standard users.",
+  "@standardUserAdPlacementIntervalDescription": {
+    "description": "Description for Standard User Ad Placement Interval"
+  },
+  "standardUserArticlesBeforeInterstitialAdsLabel": "Standard User Articles Before Interstitial Ads",
+  "@standardUserArticlesBeforeInterstitialAdsLabel": {
+    "description": "Label for Standard User Articles Before Interstitial Ads"
+  },
+  "standardUserArticlesBeforeInterstitialAdsDescription": "Number of articles a Standard user needs to read before a full-screen interstitial ad is shown.",
+  "@standardUserArticlesBeforeInterstitialAdsDescription": {
+    "description": "Description for Standard User Articles Before Interstitial Ads"
+  },
+  "premiumAdFrequencyLabel": "Premium Ad Frequency",
+  "@premiumAdFrequencyLabel": {
+    "description": "Label for Premium Ad Frequency"
+  },
+  "premiumAdFrequencyDescription": "How often an ad can appear for Premium users (0 for no ads).",
+  "@premiumAdFrequencyDescription": {
+    "description": "Description for Premium Ad Frequency"
+  },
+  "premiumAdPlacementIntervalLabel": "Premium Ad Placement Interval",
+  "@premiumAdPlacementIntervalLabel": {
+    "description": "Label for Premium Ad Placement Interval"
+  },
+  "premiumAdPlacementIntervalDescription": "Minimum number of news items that must be shown before the very first ad appears for Premium users.",
+  "@premiumAdPlacementIntervalDescription": {
+    "description": "Description for Premium Ad Placement Interval"
+  },
+  "premiumUserArticlesBeforeInterstitialAdsLabel": "Premium User Articles Before Interstitial Ads",
+  "@premiumUserArticlesBeforeInterstitialAdsLabel": {
+    "description": "Label for Premium User Articles Before Interstitial Ads"
+  },
+  "premiumUserArticlesBeforeInterstitialAdsDescription": "Number of articles a Premium user needs to read before a full-screen interstitial ad is shown.",
+  "@premiumUserArticlesBeforeInterstitialAdsDescription": {
+    "description": "Description for Premium User Articles Before Interstitial Ads"
+  },
+  "inAppPromptsDescription": "These settings control how often special in-app messages or \"prompts\" are shown to users in their news feed. These prompts encourage actions like linking an account (for guests) or upgrading to a premium subscription (for authenticated users). The frequency varies by user type.",
+  "@inAppPromptsDescription": {
+    "description": "Description for In-App Prompts section"
+  },
+  "appOperationalStatusWarning": "WARNING: Changing the app's operational status can affect all users. Use with extreme caution.",
+  "@appOperationalStatusWarning": {
+    "description": "Warning message for changing app operational status"
+  },
+  "appOperationalStatusLabel": "App Operational Status",
+  "@appOperationalStatusLabel": {
+    "description": "Label for App Operational Status"
+  },
+  "appOperationalStatusDescription": "The current operational status of the app (e.g., active, maintenance, disabled).",
+  "@appOperationalStatusDescription": {
+    "description": "Description for App Operational Status"
+  },
+  "maintenanceMessageLabel": "Maintenance Message",
+  "@maintenanceMessageLabel": {
+    "description": "Label for Maintenance Message"
+  },
+  "maintenanceMessageDescription": "Message displayed when the app is in maintenance mode.",
+  "@maintenanceMessageDescription": {
+    "description": "Description for Maintenance Message"
+  },
+  "disabledMessageLabel": "Disabled Message",
+  "@disabledMessageLabel": {
+    "description": "Label for Disabled Message"
+  },
+  "disabledMessageDescription": "Message displayed when the app is permanently disabled.",
+  "@disabledMessageDescription": {
+    "description": "Description for Disabled Message"
+  },
+  "forceUpdateConfigurationTitle": "Force Update Configuration",
+  "@forceUpdateConfigurationTitle": {
+    "description": "Title for Force Update Configuration section"
+  },
+  "forceUpdateDescription": "These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.",
+  "@forceUpdateDescription": {
+    "description": "Description for Force Update Configuration section"
+  },
+  "minAllowedAppVersionLabel": "Minimum Allowed App Version",
+  "@minAllowedAppVersionLabel": {
+    "description": "Label for Minimum Allowed App Version"
+  },
+  "minAllowedAppVersionDescription": "The lowest app version allowed to run (e.g., \"1.2.0\").",
+  "@minAllowedAppVersionDescription": {
+    "description": "Description for Minimum Allowed App Version"
+  },
+  "latestAppVersionLabel": "Latest App Version",
+  "@latestAppVersionLabel": {
+    "description": "Label for Latest App Version"
+  },
+  "latestAppVersionDescription": "The latest available app version (e.g., \"1.5.0\").",
+  "@latestAppVersionDescription": {
+    "description": "Description for Latest App Version"
+  },
+  "updateRequiredMessageLabel": "Update Required Message",
+  "@updateRequiredMessageLabel": {
+    "description": "Label for Update Required Message"
+  },
+  "updateRequiredMessageDescription": "Message displayed when a force update is required.",
+  "@updateRequiredMessageDescription": {
+    "description": "Description for Update Required Message"
+  },
+  "updateOptionalMessageLabel": "Update Optional Message",
+  "@updateOptionalMessageLabel": {
+    "description": "Label for Update Optional Message"
+  },
+  "updateOptionalMessageDescription": "Message displayed for an optional update.",
+  "@updateOptionalMessageDescription": {
+    "description": "Description for Update Optional Message"
+  },
+  "iosStoreUrlLabel": "iOS Store URL",
+  "@iosStoreUrlLabel": {
+    "description": "Label for iOS Store URL"
+  },
+  "iosStoreUrlDescription": "URL to the app on the Apple App Store.",
+  "@iosStoreUrlDescription": {
+    "description": "Description for iOS Store URL"
+  },
+  "androidStoreUrlLabel": "Android Store URL",
+  "@androidStoreUrlLabel": {
+    "description": "Label for Android Store URL"
+  },
+  "androidStoreUrlDescription": "URL to the app on the Google Play Store.",
+  "@androidStoreUrlDescription": {
+    "description": "Description for Android Store URL"
+  },
+  "guestDaysBetweenInAppPromptsLabel": "Guest Days Between In-App Prompts",
+  "@guestDaysBetweenInAppPromptsLabel": {
+    "description": "Label for Guest Days Between In-App Prompts"
+  },
+  "guestDaysBetweenInAppPromptsDescription": "Minimum number of days that must pass before a Guest user sees another in-app prompt.",
+  "@guestDaysBetweenInAppPromptsDescription": {
+    "description": "Description for Guest Days Between In-App Prompts"
+  },
+  "standardUserDaysBetweenInAppPromptsLabel": "Standard User Days Between In-App Prompts",
+  "@standardUserDaysBetweenInAppPromptsLabel": {
+    "description": "Label for Standard User Days Between In-App Prompts"
+  },
+  "standardUserDaysBetweenInAppPromptsDescription": "Minimum number of days that must pass before a Standard user sees another in-app prompt.",
+  "@standardUserDaysBetweenInAppPromptsDescription": {
+    "description": "Description for Standard User Days Between In-App Prompts"
   }
 }

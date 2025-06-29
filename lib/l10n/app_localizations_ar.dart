@@ -87,4 +87,294 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settings => 'الإعدادات';
+
+  @override
+  String get appConfigurationPageTitle => 'إعدادات التطبيق';
+
+  @override
+  String get userContentLimitsTab => 'حدود محتوى المستخدم';
+
+  @override
+  String get adSettingsTab => 'إعدادات الإعلانات';
+
+  @override
+  String get inAppPromptsTab => 'تنبيهات داخل التطبيق';
+
+  @override
+  String get appOperationalStatusTab => 'حالة تشغيل التطبيق';
+
+  @override
+  String get forceUpdateTab => 'تحديث إجباري';
+
+  @override
+  String get appConfigSaveSuccessMessage => 'تم حفظ إعدادات التطبيق بنجاح!';
+
+  @override
+  String appConfigSaveErrorMessage(String errorMessage) {
+    return 'خطأ: $errorMessage';
+  }
+
+  @override
+  String get unknownError => 'خطأ غير معروف';
+
+  @override
+  String get loadingConfigurationHeadline => 'جاري تحميل الإعدادات';
+
+  @override
+  String get loadingConfigurationSubheadline =>
+      'الرجاء الانتظار بينما يتم تحميل الإعدادات...';
+
+  @override
+  String get failedToLoadConfigurationMessage => 'فشل تحميل الإعدادات.';
+
+  @override
+  String get loadAppSettingsSubheadline =>
+      'تحميل إعدادات التطبيق من الواجهة الخلفية.';
+
+  @override
+  String get discardChangesButton => 'تجاهل التغييرات';
+
+  @override
+  String get saveChangesButton => 'حفظ التغييرات';
+
+  @override
+  String get confirmConfigUpdateDialogTitle => 'تأكيد تحديث الإعدادات';
+
+  @override
+  String get confirmConfigUpdateDialogContent =>
+      'هل أنت متأكد أنك تريد تطبيق هذه التغييرات على إعدادات التطبيق المباشرة؟ هذه عملية حساسة.';
+
+  @override
+  String get cancelButton => 'إلغاء';
+
+  @override
+  String get confirmSaveButton => 'تأكيد الحفظ';
+
+  @override
+  String get userContentLimitsDescription =>
+      'تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والفئات والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.';
+
+  @override
+  String get guestUserTab => 'ضيف';
+
+  @override
+  String get authenticatedUserTab => 'موثق';
+
+  @override
+  String get premiumUserTab => 'مميز';
+
+  @override
+  String get guestFollowedItemsLimitLabel => 'حد العناصر المتابعة للضيف';
+
+  @override
+  String get guestFollowedItemsLimitDescription =>
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).';
+
+  @override
+  String get guestSavedHeadlinesLimitLabel => 'حد العناوين المحفوظة للضيف';
+
+  @override
+  String get guestSavedHeadlinesLimitDescription =>
+      'الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم الضيف حفظها.';
+
+  @override
+  String get standardUserFollowedItemsLimitLabel =>
+      'حد العناصر المتابعة للمستخدم العادي';
+
+  @override
+  String get standardUserFollowedItemsLimitDescription =>
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).';
+
+  @override
+  String get standardUserSavedHeadlinesLimitLabel =>
+      'حد العناوين المحفوظة للمستخدم العادي';
+
+  @override
+  String get standardUserSavedHeadlinesLimitDescription =>
+      'الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم العادي حفظها.';
+
+  @override
+  String get premiumFollowedItemsLimitLabel =>
+      'حد العناصر المتابعة للمستخدم المميز';
+
+  @override
+  String get premiumFollowedItemsLimitDescription =>
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).';
+
+  @override
+  String get premiumSavedHeadlinesLimitLabel =>
+      'حد العناوين المحفوظة للمستخدم المميز';
+
+  @override
+  String get premiumSavedHeadlinesLimitDescription =>
+      'الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم المميز حفظها.';
+
+  @override
+  String get adSettingsDescription =>
+      'تتحكم هذه الإعدادات في كيفية عرض الإعلانات ضمن موجز الأخبار في التطبيق، مع قواعد مختلفة للمستخدمين الضيوف والعاديين والمميزين. تحدد \"تكرار الإعلان\" عدد مرات ظهور الإعلان، بينما تحدد \"فترة وضع الإعلان\" عدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول.';
+
+  @override
+  String get standardUserAdTab => 'مستخدم عادي';
+
+  @override
+  String get guestAdFrequencyLabel => 'تكرار الإعلان للضيف';
+
+  @override
+  String get guestAdFrequencyDescription =>
+      'عدد مرات ظهور الإعلان للمستخدمين الضيوف (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
+
+  @override
+  String get guestAdPlacementIntervalLabel => 'فترة وضع الإعلان للضيف';
+
+  @override
+  String get guestAdPlacementIntervalDescription =>
+      'الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين الضيوف.';
+
+  @override
+  String get guestArticlesBeforeInterstitialAdsLabel =>
+      'مقالات الضيف قبل الإعلانات البينية';
+
+  @override
+  String get guestArticlesBeforeInterstitialAdsDescription =>
+      'عدد المقالات التي يحتاج المستخدم الضيف لقراءتها قبل عرض إعلان بيني بملء الشاشة.';
+
+  @override
+  String get standardUserAdFrequencyLabel => 'تكرار الإعلان للمستخدم العادي';
+
+  @override
+  String get standardUserAdFrequencyDescription =>
+      'عدد مرات ظهور الإعلان للمستخدمين العاديين (على سبيل المثال، قيمة 10 تعني أنه يمكن وضع إعلان بعد كل 10 عناصر إخبارية).';
+
+  @override
+  String get standardUserAdPlacementIntervalLabel =>
+      'فترة وضع الإعلان للمستخدم العادي';
+
+  @override
+  String get standardUserAdPlacementIntervalDescription =>
+      'الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين العاديين.';
+
+  @override
+  String get standardUserArticlesBeforeInterstitialAdsLabel =>
+      'مقالات المستخدم العادي قبل الإعلانات البينية';
+
+  @override
+  String get standardUserArticlesBeforeInterstitialAdsDescription =>
+      'عدد المقالات التي يحتاج المستخدم العادي لقراءتها قبل عرض إعلان بيني بملء الشاشة.';
+
+  @override
+  String get premiumAdFrequencyLabel => 'تكرار الإعلان للمستخدم المميز';
+
+  @override
+  String get premiumAdFrequencyDescription =>
+      'عدد مرات ظهور الإعلان للمستخدمين المميزين (0 يعني عدم وجود إعلانات).';
+
+  @override
+  String get premiumAdPlacementIntervalLabel =>
+      'فترة وضع الإعلان للمستخدم المميز';
+
+  @override
+  String get premiumAdPlacementIntervalDescription =>
+      'الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين المميزين.';
+
+  @override
+  String get premiumUserArticlesBeforeInterstitialAdsLabel =>
+      'مقالات المستخدم المميز قبل الإعلانات البينية';
+
+  @override
+  String get premiumUserArticlesBeforeInterstitialAdsDescription =>
+      'عدد المقالات التي يحتاج المستخدم المميز لقراءتها قبل عرض إعلان بيني بملء الشاشة.';
+
+  @override
+  String get inAppPromptsDescription =>
+      'تتحكم هذه الإعدادات في عدد مرات عرض الرسائل الخاصة داخل التطبيق أو \"التنبيهات\" للمستخدمين في موجز الأخبار الخاص بهم. تشجع هذه التنبيهات على إجراءات مثل ربط حساب (للضيوف) أو الترقية إلى اشتراك مميز (للمستخدمين الموثقين). يختلف التكرار حسب نوع المستخدم.';
+
+  @override
+  String get appOperationalStatusWarning =>
+      'تحذير: قد يؤثر تغيير حالة تشغيل التطبيق على جميع المستخدمين. استخدم بحذر شديد.';
+
+  @override
+  String get appOperationalStatusLabel => 'حالة تشغيل التطبيق';
+
+  @override
+  String get appOperationalStatusDescription =>
+      'الحالة التشغيلية الحالية للتطبيق (على سبيل المثال، نشط، صيانة، معطل).';
+
+  @override
+  String get maintenanceMessageLabel => 'رسالة الصيانة';
+
+  @override
+  String get maintenanceMessageDescription =>
+      'الرسالة المعروضة عندما يكون التطبيق في وضع الصيانة.';
+
+  @override
+  String get disabledMessageLabel => 'رسالة التعطيل';
+
+  @override
+  String get disabledMessageDescription =>
+      'الرسالة المعروضة عندما يكون التطبيق معطلاً بشكل دائم.';
+
+  @override
+  String get forceUpdateConfigurationTitle => 'إعدادات التحديث الإجباري';
+
+  @override
+  String get forceUpdateDescription =>
+      'تتحكم هذه الإعدادات في فرض إصدار التطبيق. سيتم إجبار المستخدمين الذين يستخدمون إصدارات أقل من الحد الأدنى المسموح به على التحديث.';
+
+  @override
+  String get minAllowedAppVersionLabel =>
+      'الحد الأدنى المسموح به لإصدار التطبيق';
+
+  @override
+  String get minAllowedAppVersionDescription =>
+      'أدنى إصدار للتطبيق مسموح بتشغيله (على سبيل المثال، \"1.2.0\").';
+
+  @override
+  String get latestAppVersionLabel => 'أحدث إصدار للتطبيق';
+
+  @override
+  String get latestAppVersionDescription =>
+      'أحدث إصدار متاح للتطبيق (على سبيل المثال، \"1.5.0\").';
+
+  @override
+  String get updateRequiredMessageLabel => 'رسالة التحديث المطلوب';
+
+  @override
+  String get updateRequiredMessageDescription =>
+      'الرسالة المعروضة عندما يكون التحديث إجباريًا.';
+
+  @override
+  String get updateOptionalMessageLabel => 'رسالة التحديث الاختياري';
+
+  @override
+  String get updateOptionalMessageDescription =>
+      'الرسالة المعروضة للتحديث الاختياري.';
+
+  @override
+  String get iosStoreUrlLabel => 'رابط متجر iOS';
+
+  @override
+  String get iosStoreUrlDescription => 'رابط التطبيق على متجر Apple App Store.';
+
+  @override
+  String get androidStoreUrlLabel => 'رابط متجر Android';
+
+  @override
+  String get androidStoreUrlDescription =>
+      'رابط التطبيق على متجر Google Play Store.';
+
+  @override
+  String get guestDaysBetweenInAppPromptsLabel =>
+      'أيام الضيف بين التنبيهات داخل التطبيق';
+
+  @override
+  String get guestDaysBetweenInAppPromptsDescription =>
+      'الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم الضيف تنبيهًا آخر داخل التطبيق.';
+
+  @override
+  String get standardUserDaysBetweenInAppPromptsLabel =>
+      'أيام المستخدم العادي بين التنبيهات داخل التطبيق';
+
+  @override
+  String get standardUserDaysBetweenInAppPromptsDescription =>
+      'الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم العادي تنبيهًا آخر داخل التطبيق.';
 }

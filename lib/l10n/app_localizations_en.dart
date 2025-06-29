@@ -86,4 +86,292 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get appConfigurationPageTitle => 'App Configuration';
+
+  @override
+  String get userContentLimitsTab => 'User Content Limits';
+
+  @override
+  String get adSettingsTab => 'Ad Settings';
+
+  @override
+  String get inAppPromptsTab => 'In-App Prompts';
+
+  @override
+  String get appOperationalStatusTab => 'App Operational Status';
+
+  @override
+  String get forceUpdateTab => 'Force Update';
+
+  @override
+  String get appConfigSaveSuccessMessage =>
+      'App configuration saved successfully!';
+
+  @override
+  String appConfigSaveErrorMessage(String errorMessage) {
+    return 'Error: $errorMessage';
+  }
+
+  @override
+  String get unknownError => 'Unknown error';
+
+  @override
+  String get loadingConfigurationHeadline => 'Loading Configuration';
+
+  @override
+  String get loadingConfigurationSubheadline =>
+      'Please wait while settings are loaded...';
+
+  @override
+  String get failedToLoadConfigurationMessage =>
+      'Failed to load configuration.';
+
+  @override
+  String get loadAppSettingsSubheadline =>
+      'Load application settings from the backend.';
+
+  @override
+  String get discardChangesButton => 'Discard Changes';
+
+  @override
+  String get saveChangesButton => 'Save Changes';
+
+  @override
+  String get confirmConfigUpdateDialogTitle => 'Confirm Configuration Update';
+
+  @override
+  String get confirmConfigUpdateDialogContent =>
+      'Are you sure you want to apply these changes to the live application configuration? This is a critical operation.';
+
+  @override
+  String get cancelButton => 'Cancel';
+
+  @override
+  String get confirmSaveButton => 'Confirm Save';
+
+  @override
+  String get userContentLimitsDescription =>
+      'These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.';
+
+  @override
+  String get guestUserTab => 'Guest';
+
+  @override
+  String get authenticatedUserTab => 'Authenticated';
+
+  @override
+  String get premiumUserTab => 'Premium';
+
+  @override
+  String get guestFollowedItemsLimitLabel => 'Guest Followed Items Limit';
+
+  @override
+  String get guestFollowedItemsLimitDescription =>
+      'Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).';
+
+  @override
+  String get guestSavedHeadlinesLimitLabel => 'Guest Saved Headlines Limit';
+
+  @override
+  String get guestSavedHeadlinesLimitDescription =>
+      'Maximum number of headlines a Guest user can save.';
+
+  @override
+  String get standardUserFollowedItemsLimitLabel =>
+      'Standard User Followed Items Limit';
+
+  @override
+  String get standardUserFollowedItemsLimitDescription =>
+      'Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).';
+
+  @override
+  String get standardUserSavedHeadlinesLimitLabel =>
+      'Standard User Saved Headlines Limit';
+
+  @override
+  String get standardUserSavedHeadlinesLimitDescription =>
+      'Maximum number of headlines a Standard user can save.';
+
+  @override
+  String get premiumFollowedItemsLimitLabel => 'Premium Followed Items Limit';
+
+  @override
+  String get premiumFollowedItemsLimitDescription =>
+      'Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).';
+
+  @override
+  String get premiumSavedHeadlinesLimitLabel => 'Premium Saved Headlines Limit';
+
+  @override
+  String get premiumSavedHeadlinesLimitDescription =>
+      'Maximum number of headlines a Premium user can save.';
+
+  @override
+  String get adSettingsDescription =>
+      'These settings control how advertisements are displayed within the app\'s news feed, with different rules for Guest, Standard, and Premium users. \"Ad Frequency\" determines how often an ad can appear, while \"Ad Placement Interval\" sets how many news items must be shown before the very first ad appears.';
+
+  @override
+  String get standardUserAdTab => 'Standard User';
+
+  @override
+  String get guestAdFrequencyLabel => 'Guest Ad Frequency';
+
+  @override
+  String get guestAdFrequencyDescription =>
+      'How often an ad can appear for Guest users (e.g., a value of 5 means an ad could be placed after every 5 news items).';
+
+  @override
+  String get guestAdPlacementIntervalLabel => 'Guest Ad Placement Interval';
+
+  @override
+  String get guestAdPlacementIntervalDescription =>
+      'Minimum number of news items that must be shown before the very first ad appears for Guest users.';
+
+  @override
+  String get guestArticlesBeforeInterstitialAdsLabel =>
+      'Guest Articles Before Interstitial Ads';
+
+  @override
+  String get guestArticlesBeforeInterstitialAdsDescription =>
+      'Number of articles a Guest user needs to read before a full-screen interstitial ad is shown.';
+
+  @override
+  String get standardUserAdFrequencyLabel => 'Standard User Ad Frequency';
+
+  @override
+  String get standardUserAdFrequencyDescription =>
+      'How often an ad can appear for Standard users (e.g., a value of 10 means an ad could be placed after every 10 news items).';
+
+  @override
+  String get standardUserAdPlacementIntervalLabel =>
+      'Standard User Ad Placement Interval';
+
+  @override
+  String get standardUserAdPlacementIntervalDescription =>
+      'Minimum number of news items that must be shown before the very first ad appears for Standard users.';
+
+  @override
+  String get standardUserArticlesBeforeInterstitialAdsLabel =>
+      'Standard User Articles Before Interstitial Ads';
+
+  @override
+  String get standardUserArticlesBeforeInterstitialAdsDescription =>
+      'Number of articles a Standard user needs to read before a full-screen interstitial ad is shown.';
+
+  @override
+  String get premiumAdFrequencyLabel => 'Premium Ad Frequency';
+
+  @override
+  String get premiumAdFrequencyDescription =>
+      'How often an ad can appear for Premium users (0 for no ads).';
+
+  @override
+  String get premiumAdPlacementIntervalLabel => 'Premium Ad Placement Interval';
+
+  @override
+  String get premiumAdPlacementIntervalDescription =>
+      'Minimum number of news items that must be shown before the very first ad appears for Premium users.';
+
+  @override
+  String get premiumUserArticlesBeforeInterstitialAdsLabel =>
+      'Premium User Articles Before Interstitial Ads';
+
+  @override
+  String get premiumUserArticlesBeforeInterstitialAdsDescription =>
+      'Number of articles a Premium user needs to read before a full-screen interstitial ad is shown.';
+
+  @override
+  String get inAppPromptsDescription =>
+      'These settings control how often special in-app messages or \"prompts\" are shown to users in their news feed. These prompts encourage actions like linking an account (for guests) or upgrading to a premium subscription (for authenticated users). The frequency varies by user type.';
+
+  @override
+  String get appOperationalStatusWarning =>
+      'WARNING: Changing the app\'s operational status can affect all users. Use with extreme caution.';
+
+  @override
+  String get appOperationalStatusLabel => 'App Operational Status';
+
+  @override
+  String get appOperationalStatusDescription =>
+      'The current operational status of the app (e.g., active, maintenance, disabled).';
+
+  @override
+  String get maintenanceMessageLabel => 'Maintenance Message';
+
+  @override
+  String get maintenanceMessageDescription =>
+      'Message displayed when the app is in maintenance mode.';
+
+  @override
+  String get disabledMessageLabel => 'Disabled Message';
+
+  @override
+  String get disabledMessageDescription =>
+      'Message displayed when the app is permanently disabled.';
+
+  @override
+  String get forceUpdateConfigurationTitle => 'Force Update Configuration';
+
+  @override
+  String get forceUpdateDescription =>
+      'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.';
+
+  @override
+  String get minAllowedAppVersionLabel => 'Minimum Allowed App Version';
+
+  @override
+  String get minAllowedAppVersionDescription =>
+      'The lowest app version allowed to run (e.g., \"1.2.0\").';
+
+  @override
+  String get latestAppVersionLabel => 'Latest App Version';
+
+  @override
+  String get latestAppVersionDescription =>
+      'The latest available app version (e.g., \"1.5.0\").';
+
+  @override
+  String get updateRequiredMessageLabel => 'Update Required Message';
+
+  @override
+  String get updateRequiredMessageDescription =>
+      'Message displayed when a force update is required.';
+
+  @override
+  String get updateOptionalMessageLabel => 'Update Optional Message';
+
+  @override
+  String get updateOptionalMessageDescription =>
+      'Message displayed for an optional update.';
+
+  @override
+  String get iosStoreUrlLabel => 'iOS Store URL';
+
+  @override
+  String get iosStoreUrlDescription => 'URL to the app on the Apple App Store.';
+
+  @override
+  String get androidStoreUrlLabel => 'Android Store URL';
+
+  @override
+  String get androidStoreUrlDescription =>
+      'URL to the app on the Google Play Store.';
+
+  @override
+  String get guestDaysBetweenInAppPromptsLabel =>
+      'Guest Days Between In-App Prompts';
+
+  @override
+  String get guestDaysBetweenInAppPromptsDescription =>
+      'Minimum number of days that must pass before a Guest user sees another in-app prompt.';
+
+  @override
+  String get standardUserDaysBetweenInAppPromptsLabel =>
+      'Standard User Days Between In-App Prompts';
+
+  @override
+  String get standardUserDaysBetweenInAppPromptsDescription =>
+      'Minimum number of days that must pass before a Standard user sees another in-app prompt.';
 }
