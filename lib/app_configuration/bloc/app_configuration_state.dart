@@ -23,8 +23,10 @@ class AppConfigurationState extends Equatable {
   const AppConfigurationState({
     this.status = AppConfigurationStatus.initial,
     this.appConfig,
+    this.originalAppConfig,
     this.errorMessage,
     this.isDirty = false,
+    this.showSaveSuccess = false,
   });
 
   /// The current status of the application configuration.
@@ -33,27 +35,40 @@ class AppConfigurationState extends Equatable {
   /// The loaded or updated application configuration.
   final AppConfig? appConfig;
 
+  /// The original application configuration loaded from the backend.
+  final AppConfig? originalAppConfig;
+
   /// An error message if an operation failed.
   final String? errorMessage;
 
   /// Indicates if there are unsaved changes to the configuration.
   final bool isDirty;
 
+  /// Indicates if a save operation was successful and a snackbar should be shown.
+  final bool showSaveSuccess;
+
   /// Creates a copy of the current state with updated values.
   AppConfigurationState copyWith({
     AppConfigurationStatus? status,
     AppConfig? appConfig,
+    AppConfig? originalAppConfig,
     String? errorMessage,
     bool? isDirty,
     bool clearErrorMessage = false,
+    bool? showSaveSuccess,
+    bool clearShowSaveSuccess = false,
   }) {
     return AppConfigurationState(
       status: status ?? this.status,
       appConfig: appConfig ?? this.appConfig,
+      originalAppConfig: originalAppConfig ?? this.originalAppConfig,
       errorMessage: clearErrorMessage
           ? null
           : errorMessage ?? this.errorMessage,
       isDirty: isDirty ?? this.isDirty,
+      showSaveSuccess: clearShowSaveSuccess
+          ? false
+          : showSaveSuccess ?? this.showSaveSuccess,
     );
   }
 
@@ -61,7 +76,9 @@ class AppConfigurationState extends Equatable {
   List<Object?> get props => [
     status,
     appConfig,
+    originalAppConfig,
     errorMessage,
     isDirty,
+    showSaveSuccess,
   ];
 }

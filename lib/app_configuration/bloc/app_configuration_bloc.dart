@@ -11,10 +11,13 @@ class AppConfigurationBloc
   AppConfigurationBloc({
     required HtDataRepository<AppConfig> appConfigRepository,
   }) : _appConfigRepository = appConfigRepository,
-       super(const AppConfigurationState()) {
+       super(
+         const AppConfigurationState(),
+       ) {
     on<AppConfigurationLoaded>(_onAppConfigurationLoaded);
     on<AppConfigurationUpdated>(_onAppConfigurationUpdated);
     on<AppConfigurationFieldChanged>(_onAppConfigurationFieldChanged);
+    on<AppConfigurationDiscarded>(_onAppConfigurationDiscarded);
   }
 
   final HtDataRepository<AppConfig> _appConfigRepository;
@@ -30,7 +33,10 @@ class AppConfigurationBloc
         state.copyWith(
           status: AppConfigurationStatus.success,
           appConfig: appConfig,
+          originalAppConfig: appConfig, // Store the original config
           isDirty: false,
+          clearShowSaveSuccess:
+              true, // Clear any previous success snackbar flag
         ),
       );
     } on HtHttpException catch (e) {
@@ -64,7 +70,9 @@ class AppConfigurationBloc
         state.copyWith(
           status: AppConfigurationStatus.success,
           appConfig: updatedConfig,
+          originalAppConfig: updatedConfig, // Update original config on save
           isDirty: false,
+          showSaveSuccess: true, // Set flag to show success snackbar
         ),
       );
     } on HtHttpException catch (e) {
@@ -93,6 +101,21 @@ class AppConfigurationBloc
         appConfig: event.appConfig,
         isDirty: true,
         clearErrorMessage: true, // Clear any previous error messages
+        clearShowSaveSuccess: true, // Clear success snackbar on field change
+      ),
+    );
+  }
+
+  void _onAppConfigurationDiscarded(
+    AppConfigurationDiscarded event,
+    Emitter<AppConfigurationState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        appConfig: state.originalAppConfig, // Revert to original config
+        isDirty: false,
+        clearErrorMessage: true, // Clear any previous error messages
+        clearShowSaveSuccess: true, // Clear success snackbar
       ),
     );
   }
