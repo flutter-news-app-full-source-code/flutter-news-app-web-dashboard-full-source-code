@@ -652,6 +652,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     required String description,
     required int value,
     required ValueChanged<int> onChanged,
+    TextEditingController? controller, // Add controller parameter
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
@@ -671,7 +672,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
-            initialValue: value.toString(),
+            controller: controller, // Use controller
+            initialValue: controller == null
+                ? value.toString()
+                : null, // Only use initialValue if no controller
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -695,6 +699,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     required String description,
     required String? value,
     required ValueChanged<String?> onChanged,
+    TextEditingController? controller, // Add controller parameter
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
@@ -714,7 +719,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
-            initialValue: value,
+            controller: controller, // Use controller
+            initialValue: controller == null
+                ? value
+                : null, // Only use initialValue if no controller
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               isDense: true,
@@ -806,7 +814,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   }
 }
 
-class _UserPreferenceLimitsForm extends StatelessWidget {
+class _UserPreferenceLimitsForm extends StatefulWidget {
   const _UserPreferenceLimitsForm({
     required this.userRole,
     required this.appConfig,
@@ -823,119 +831,223 @@ class _UserPreferenceLimitsForm extends StatelessWidget {
     required String description,
     required int value,
     required ValueChanged<int> onChanged,
+    TextEditingController? controller,
   })
   buildIntField;
 
   @override
-  Widget build(BuildContext context) {
-    final userPreferenceLimits = appConfig.userPreferenceLimits;
+  State<_UserPreferenceLimitsForm> createState() =>
+      _UserPreferenceLimitsFormState();
+}
 
-    switch (userRole) {
+class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
+  late final TextEditingController _guestFollowedItemsLimitController;
+  late final TextEditingController _guestSavedHeadlinesLimitController;
+  late final TextEditingController _authenticatedFollowedItemsLimitController;
+  late final TextEditingController _authenticatedSavedHeadlinesLimitController;
+  late final TextEditingController _premiumFollowedItemsLimitController;
+  late final TextEditingController _premiumSavedHeadlinesLimitController;
+
+  @override
+  void initState() {
+    super.initState();
+    _guestFollowedItemsLimitController = TextEditingController(
+      text: widget.appConfig.userPreferenceLimits.guestFollowedItemsLimit
+          .toString(),
+    );
+    _guestSavedHeadlinesLimitController = TextEditingController(
+      text: widget.appConfig.userPreferenceLimits.guestSavedHeadlinesLimit
+          .toString(),
+    );
+    _authenticatedFollowedItemsLimitController = TextEditingController(
+      text: widget
+          .appConfig
+          .userPreferenceLimits
+          .authenticatedFollowedItemsLimit
+          .toString(),
+    );
+    _authenticatedSavedHeadlinesLimitController = TextEditingController(
+      text: widget
+          .appConfig
+          .userPreferenceLimits
+          .authenticatedSavedHeadlinesLimit
+          .toString(),
+    );
+    _premiumFollowedItemsLimitController = TextEditingController(
+      text: widget.appConfig.userPreferenceLimits.premiumFollowedItemsLimit
+          .toString(),
+    );
+    _premiumSavedHeadlinesLimitController = TextEditingController(
+      text: widget.appConfig.userPreferenceLimits.premiumSavedHeadlinesLimit
+          .toString(),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _UserPreferenceLimitsForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.appConfig.userPreferenceLimits !=
+        oldWidget.appConfig.userPreferenceLimits) {
+      _guestFollowedItemsLimitController.text = widget
+          .appConfig
+          .userPreferenceLimits
+          .guestFollowedItemsLimit
+          .toString();
+      _guestSavedHeadlinesLimitController.text = widget
+          .appConfig
+          .userPreferenceLimits
+          .guestSavedHeadlinesLimit
+          .toString();
+      _authenticatedFollowedItemsLimitController.text = widget
+          .appConfig
+          .userPreferenceLimits
+          .authenticatedFollowedItemsLimit
+          .toString();
+      _authenticatedSavedHeadlinesLimitController.text = widget
+          .appConfig
+          .userPreferenceLimits
+          .authenticatedSavedHeadlinesLimit
+          .toString();
+      _premiumFollowedItemsLimitController.text = widget
+          .appConfig
+          .userPreferenceLimits
+          .premiumFollowedItemsLimit
+          .toString();
+      _premiumSavedHeadlinesLimitController.text = widget
+          .appConfig
+          .userPreferenceLimits
+          .premiumSavedHeadlinesLimit
+          .toString();
+    }
+  }
+
+  @override
+  void dispose() {
+    _guestFollowedItemsLimitController.dispose();
+    _guestSavedHeadlinesLimitController.dispose();
+    _authenticatedFollowedItemsLimitController.dispose();
+    _authenticatedSavedHeadlinesLimitController.dispose();
+    _premiumFollowedItemsLimitController.dispose();
+    _premiumSavedHeadlinesLimitController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userPreferenceLimits = widget.appConfig.userPreferenceLimits;
+
+    switch (widget.userRole) {
       case UserRole.guestUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Guest Followed Items Limit',
               description:
                   'Max countries, sources, or categories a Guest user can follow (each).',
               value: userPreferenceLimits.guestFollowedItemsLimit,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     userPreferenceLimits: userPreferenceLimits.copyWith(
                       guestFollowedItemsLimit: value,
                     ),
                   ),
                 );
               },
+              controller: _guestFollowedItemsLimitController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Guest Saved Headlines Limit',
               description: 'Max headlines a Guest user can save.',
               value: userPreferenceLimits.guestSavedHeadlinesLimit,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     userPreferenceLimits: userPreferenceLimits.copyWith(
                       guestSavedHeadlinesLimit: value,
                     ),
                   ),
                 );
               },
+              controller: _guestSavedHeadlinesLimitController,
             ),
           ],
         );
       case UserRole.standardUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Authenticated Followed Items Limit',
               description:
                   'Max countries, sources, or categories an Authenticated user can follow (each).',
               value: userPreferenceLimits.authenticatedFollowedItemsLimit,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     userPreferenceLimits: userPreferenceLimits.copyWith(
                       authenticatedFollowedItemsLimit: value,
                     ),
                   ),
                 );
               },
+              controller: _authenticatedFollowedItemsLimitController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Authenticated Saved Headlines Limit',
               description: 'Max headlines an Authenticated user can save.',
               value: userPreferenceLimits.authenticatedSavedHeadlinesLimit,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     userPreferenceLimits: userPreferenceLimits.copyWith(
                       authenticatedSavedHeadlinesLimit: value,
                     ),
                   ),
                 );
               },
+              controller: _authenticatedSavedHeadlinesLimitController,
             ),
           ],
         );
       case UserRole.premiumUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Premium Followed Items Limit',
               description:
                   'Max countries, sources, or categories a Premium user can follow (each).',
               value: userPreferenceLimits.premiumFollowedItemsLimit,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     userPreferenceLimits: userPreferenceLimits.copyWith(
                       premiumFollowedItemsLimit: value,
                     ),
                   ),
                 );
               },
+              controller: _premiumFollowedItemsLimitController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Premium Saved Headlines Limit',
               description: 'Max headlines a Premium user can save.',
               value: userPreferenceLimits.premiumSavedHeadlinesLimit,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     userPreferenceLimits: userPreferenceLimits.copyWith(
                       premiumSavedHeadlinesLimit: value,
                     ),
                   ),
                 );
               },
+              controller: _premiumSavedHeadlinesLimitController,
             ),
           ],
         );
@@ -947,7 +1059,7 @@ class _UserPreferenceLimitsForm extends StatelessWidget {
   }
 }
 
-class _AdConfigForm extends StatelessWidget {
+class _AdConfigForm extends StatefulWidget {
   const _AdConfigForm({
     required this.userRole,
     required this.appConfig,
@@ -964,101 +1076,242 @@ class _AdConfigForm extends StatelessWidget {
     required String description,
     required int value,
     required ValueChanged<int> onChanged,
+    TextEditingController? controller,
   })
   buildIntField;
 
   @override
-  Widget build(BuildContext context) {
-    final adConfig = appConfig.adConfig;
+  State<_AdConfigForm> createState() => _AdConfigFormState();
+}
 
-    switch (userRole) {
+class _AdConfigFormState extends State<_AdConfigForm> {
+  late final TextEditingController _guestAdFrequencyController;
+  late final TextEditingController _guestAdPlacementIntervalController;
+  late final TextEditingController
+  _guestArticlesToReadBeforeShowingInterstitialAdsController;
+  late final TextEditingController _authenticatedAdFrequencyController;
+  late final TextEditingController _authenticatedAdPlacementIntervalController;
+  late final TextEditingController
+  _standardUserArticlesToReadBeforeShowingInterstitialAdsController;
+  late final TextEditingController _premiumAdFrequencyController;
+  late final TextEditingController _premiumAdPlacementIntervalController;
+  late final TextEditingController
+  _premiumUserArticlesToReadBeforeShowingInterstitialAdsController;
+
+  @override
+  void initState() {
+    super.initState();
+    _guestAdFrequencyController = TextEditingController(
+      text: widget.appConfig.adConfig.guestAdFrequency.toString(),
+    );
+    _guestAdPlacementIntervalController = TextEditingController(
+      text: widget.appConfig.adConfig.guestAdPlacementInterval.toString(),
+    );
+    _guestArticlesToReadBeforeShowingInterstitialAdsController =
+        TextEditingController(
+          text: widget
+              .appConfig
+              .adConfig
+              .guestArticlesToReadBeforeShowingInterstitialAds
+              .toString(),
+        );
+    _authenticatedAdFrequencyController = TextEditingController(
+      text: widget.appConfig.adConfig.authenticatedAdFrequency.toString(),
+    );
+    _authenticatedAdPlacementIntervalController = TextEditingController(
+      text: widget.appConfig.adConfig.authenticatedAdPlacementInterval
+          .toString(),
+    );
+    _standardUserArticlesToReadBeforeShowingInterstitialAdsController =
+        TextEditingController(
+          text: widget
+              .appConfig
+              .adConfig
+              .standardUserArticlesToReadBeforeShowingInterstitialAds
+              .toString(),
+        );
+    _premiumAdFrequencyController = TextEditingController(
+      text: widget.appConfig.adConfig.premiumAdFrequency.toString(),
+    );
+    _premiumAdPlacementIntervalController = TextEditingController(
+      text: widget.appConfig.adConfig.premiumAdPlacementInterval.toString(),
+    );
+    _premiumUserArticlesToReadBeforeShowingInterstitialAdsController =
+        TextEditingController(
+          text: widget
+              .appConfig
+              .adConfig
+              .premiumUserArticlesToReadBeforeShowingInterstitialAds
+              .toString(),
+        );
+  }
+
+  @override
+  void didUpdateWidget(covariant _AdConfigForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.appConfig.adConfig != oldWidget.appConfig.adConfig) {
+      _guestAdFrequencyController.text = widget
+          .appConfig
+          .adConfig
+          .guestAdFrequency
+          .toString();
+      _guestAdPlacementIntervalController.text = widget
+          .appConfig
+          .adConfig
+          .guestAdPlacementInterval
+          .toString();
+      _guestArticlesToReadBeforeShowingInterstitialAdsController.text = widget
+          .appConfig
+          .adConfig
+          .guestArticlesToReadBeforeShowingInterstitialAds
+          .toString();
+      _authenticatedAdFrequencyController.text = widget
+          .appConfig
+          .adConfig
+          .authenticatedAdFrequency
+          .toString();
+      _authenticatedAdPlacementIntervalController.text = widget
+          .appConfig
+          .adConfig
+          .authenticatedAdPlacementInterval
+          .toString();
+      _standardUserArticlesToReadBeforeShowingInterstitialAdsController.text =
+          widget
+              .appConfig
+              .adConfig
+              .standardUserArticlesToReadBeforeShowingInterstitialAds
+              .toString();
+      _premiumAdFrequencyController.text = widget
+          .appConfig
+          .adConfig
+          .premiumAdFrequency
+          .toString();
+      _premiumAdPlacementIntervalController.text = widget
+          .appConfig
+          .adConfig
+          .premiumAdPlacementInterval
+          .toString();
+      _premiumUserArticlesToReadBeforeShowingInterstitialAdsController.text =
+          widget
+              .appConfig
+              .adConfig
+              .premiumUserArticlesToReadBeforeShowingInterstitialAds
+              .toString();
+    }
+  }
+
+  @override
+  void dispose() {
+    _guestAdFrequencyController.dispose();
+    _guestAdPlacementIntervalController.dispose();
+    _guestArticlesToReadBeforeShowingInterstitialAdsController.dispose();
+    _authenticatedAdFrequencyController.dispose();
+    _authenticatedAdPlacementIntervalController.dispose();
+    _standardUserArticlesToReadBeforeShowingInterstitialAdsController.dispose();
+    _premiumAdFrequencyController.dispose();
+    _premiumAdPlacementIntervalController.dispose();
+    _premiumUserArticlesToReadBeforeShowingInterstitialAdsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final adConfig = widget.appConfig.adConfig;
+
+    switch (widget.userRole) {
       case UserRole.guestUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Guest Ad Frequency',
               description:
                   'How often an ad can be injected for Guest users (e.g., 5 means after every 5 primary items).',
               value: adConfig.guestAdFrequency,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(guestAdFrequency: value),
                   ),
                 );
               },
+              controller: _guestAdFrequencyController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Guest Ad Placement Interval',
               description:
                   'Minimum primary items before the first ad for Guest users.',
               value: adConfig.guestAdPlacementInterval,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       guestAdPlacementInterval: value,
                     ),
                   ),
                 );
               },
+              controller: _guestAdPlacementIntervalController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Guest Articles Before Interstitial Ads',
               description:
                   'Number of articles a Guest user reads before an interstitial ad is shown.',
               value: adConfig.guestArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       guestArticlesToReadBeforeShowingInterstitialAds: value,
                     ),
                   ),
                 );
               },
+              controller:
+                  _guestArticlesToReadBeforeShowingInterstitialAdsController,
             ),
           ],
         );
       case UserRole.standardUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Authenticated Ad Frequency',
               description:
                   'How often an ad can be injected for Authenticated users.',
               value: adConfig.authenticatedAdFrequency,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       authenticatedAdFrequency: value,
                     ),
                   ),
                 );
               },
+              controller: _authenticatedAdFrequencyController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Authenticated Ad Placement Interval',
               description:
                   'Minimum primary items before the first ad for Authenticated users.',
               value: adConfig.authenticatedAdPlacementInterval,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       authenticatedAdPlacementInterval: value,
                     ),
                   ),
                 );
               },
+              controller: _authenticatedAdPlacementIntervalController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Standard User Articles Before Interstitial Ads',
               description:
@@ -1066,8 +1319,8 @@ class _AdConfigForm extends StatelessWidget {
               value: adConfig
                   .standardUserArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       standardUserArticlesToReadBeforeShowingInterstitialAds:
                           value,
@@ -1075,43 +1328,47 @@ class _AdConfigForm extends StatelessWidget {
                   ),
                 );
               },
+              controller:
+                  _standardUserArticlesToReadBeforeShowingInterstitialAdsController,
             ),
           ],
         );
       case UserRole.premiumUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Premium Ad Frequency',
               description:
                   'How often an ad can be injected for Premium users (0 for no ads).',
               value: adConfig.premiumAdFrequency,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(premiumAdFrequency: value),
                   ),
                 );
               },
+              controller: _premiumAdFrequencyController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Premium Ad Placement Interval',
               description:
                   'Minimum primary items before the first ad for Premium users.',
               value: adConfig.premiumAdPlacementInterval,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       premiumAdPlacementInterval: value,
                     ),
                   ),
                 );
               },
+              controller: _premiumAdPlacementIntervalController,
             ),
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Premium User Articles Before Interstitial Ads',
               description:
@@ -1119,8 +1376,8 @@ class _AdConfigForm extends StatelessWidget {
               value: adConfig
                   .premiumUserArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       premiumUserArticlesToReadBeforeShowingInterstitialAds:
                           value,
@@ -1128,6 +1385,8 @@ class _AdConfigForm extends StatelessWidget {
                   ),
                 );
               },
+              controller:
+                  _premiumUserArticlesToReadBeforeShowingInterstitialAdsController,
             ),
           ],
         );
@@ -1137,7 +1396,7 @@ class _AdConfigForm extends StatelessWidget {
   }
 }
 
-class _AccountActionConfigForm extends StatelessWidget {
+class _AccountActionConfigForm extends StatefulWidget {
   const _AccountActionConfigForm({
     required this.userRole,
     required this.appConfig,
@@ -1154,53 +1413,107 @@ class _AccountActionConfigForm extends StatelessWidget {
     required String description,
     required int value,
     required ValueChanged<int> onChanged,
+    TextEditingController? controller,
   })
   buildIntField;
 
   @override
-  Widget build(BuildContext context) {
-    final accountActionConfig = appConfig.accountActionConfig;
+  State<_AccountActionConfigForm> createState() =>
+      _AccountActionConfigFormState();
+}
 
-    switch (userRole) {
+class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
+  late final TextEditingController _guestDaysBetweenAccountActionsController;
+  late final TextEditingController
+  _standardUserDaysBetweenAccountActionsController;
+
+  @override
+  void initState() {
+    super.initState();
+    _guestDaysBetweenAccountActionsController = TextEditingController(
+      text: widget.appConfig.accountActionConfig.guestDaysBetweenAccountActions
+          .toString(),
+    );
+    _standardUserDaysBetweenAccountActionsController = TextEditingController(
+      text: widget
+          .appConfig
+          .accountActionConfig
+          .standardUserDaysBetweenAccountActions
+          .toString(),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _AccountActionConfigForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.appConfig.accountActionConfig !=
+        oldWidget.appConfig.accountActionConfig) {
+      _guestDaysBetweenAccountActionsController.text = widget
+          .appConfig
+          .accountActionConfig
+          .guestDaysBetweenAccountActions
+          .toString();
+      _standardUserDaysBetweenAccountActionsController.text = widget
+          .appConfig
+          .accountActionConfig
+          .standardUserDaysBetweenAccountActions
+          .toString();
+    }
+  }
+
+  @override
+  void dispose() {
+    _guestDaysBetweenAccountActionsController.dispose();
+    _standardUserDaysBetweenAccountActionsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final accountActionConfig = widget.appConfig.accountActionConfig;
+
+    switch (widget.userRole) {
       case UserRole.guestUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Guest Days Between Account Actions',
               description:
                   'Minimum days between showing account actions to Guest users.',
               value: accountActionConfig.guestDaysBetweenAccountActions,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     accountActionConfig: accountActionConfig.copyWith(
                       guestDaysBetweenAccountActions: value,
                     ),
                   ),
                 );
               },
+              controller: _guestDaysBetweenAccountActionsController,
             ),
           ],
         );
       case UserRole.standardUser:
         return Column(
           children: [
-            buildIntField(
+            widget.buildIntField(
               context,
               label: 'Standard User Days Between Account Actions',
               description:
                   'Minimum days between showing account actions to Standard users.',
               value: accountActionConfig.standardUserDaysBetweenAccountActions,
               onChanged: (value) {
-                onConfigChanged(
-                  appConfig.copyWith(
+                widget.onConfigChanged(
+                  widget.appConfig.copyWith(
                     accountActionConfig: accountActionConfig.copyWith(
                       standardUserDaysBetweenAccountActions: value,
                     ),
                   ),
                 );
               },
+              controller: _standardUserDaysBetweenAccountActionsController,
             ),
           ],
         );
