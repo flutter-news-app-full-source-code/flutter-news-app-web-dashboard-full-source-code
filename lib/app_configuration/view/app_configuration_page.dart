@@ -55,7 +55,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             Tab(text: 'User Preferences'),
             Tab(text: 'Ad Config'),
             Tab(text: 'Account Actions'),
-            Tab(text: 'Kill Switch'),
+            Tab(text: 'App Operational Status'),
             Tab(text: 'Force Update'),
           ],
         ),
@@ -465,32 +465,18 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Kill Switch & App Status',
+            'App Operational Status',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'WARNING: These settings can disable the entire mobile application. Use with extreme caution.',
+            'WARNING: Changing the app\'s operational status can affect all users. Use with extreme caution.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
-          _buildSwitchField(
-            context,
-            label: 'Kill Switch Enabled',
-            description:
-                "If enabled, the app's operational status will be enforced.",
-            value: appConfig.killSwitchEnabled,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(killSwitchEnabled: value),
-                ),
-              );
-            },
-          ),
           _buildDropdownField<RemoteAppStatus>(
             context,
             label: 'App Operational Status',
@@ -509,34 +495,36 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               }
             },
           ),
-          _buildTextField(
-            context,
-            label: 'Maintenance Message',
-            description:
-                'Message displayed when the app is in maintenance mode.',
-            value: appConfig.maintenanceMessage,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(maintenanceMessage: value),
-                ),
-              );
-            },
-          ),
-          _buildTextField(
-            context,
-            label: 'Disabled Message',
-            description:
-                'Message displayed when the app is permanently disabled.',
-            value: appConfig.disabledMessage,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(disabledMessage: value),
-                ),
-              );
-            },
-          ),
+          if (appConfig.appOperationalStatus == RemoteAppStatus.maintenance)
+            _buildTextField(
+              context,
+              label: 'Maintenance Message',
+              description:
+                  'Message displayed when the app is in maintenance mode.',
+              value: appConfig.maintenanceMessage,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: appConfig.copyWith(maintenanceMessage: value),
+                  ),
+                );
+              },
+            ),
+          if (appConfig.appOperationalStatus == RemoteAppStatus.disabled)
+            _buildTextField(
+              context,
+              label: 'Disabled Message',
+              description:
+                  'Message displayed when the app is permanently disabled.',
+              value: appConfig.disabledMessage,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: appConfig.copyWith(disabledMessage: value),
+                  ),
+                );
+              },
+            ),
         ],
       ),
     );
@@ -886,36 +874,78 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     super.didUpdateWidget(oldWidget);
     if (widget.appConfig.userPreferenceLimits !=
         oldWidget.appConfig.userPreferenceLimits) {
-      _guestFollowedItemsLimitController.text = widget
-          .appConfig
-          .userPreferenceLimits
-          .guestFollowedItemsLimit
-          .toString();
-      _guestSavedHeadlinesLimitController.text = widget
-          .appConfig
-          .userPreferenceLimits
-          .guestSavedHeadlinesLimit
-          .toString();
-      _authenticatedFollowedItemsLimitController.text = widget
-          .appConfig
-          .userPreferenceLimits
-          .authenticatedFollowedItemsLimit
-          .toString();
-      _authenticatedSavedHeadlinesLimitController.text = widget
-          .appConfig
-          .userPreferenceLimits
-          .authenticatedSavedHeadlinesLimit
-          .toString();
-      _premiumFollowedItemsLimitController.text = widget
-          .appConfig
-          .userPreferenceLimits
-          .premiumFollowedItemsLimit
-          .toString();
-      _premiumSavedHeadlinesLimitController.text = widget
-          .appConfig
-          .userPreferenceLimits
-          .premiumSavedHeadlinesLimit
-          .toString();
+      _guestFollowedItemsLimitController.value = TextEditingValue(
+        text: widget.appConfig.userPreferenceLimits.guestFollowedItemsLimit
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.userPreferenceLimits.guestFollowedItemsLimit
+              .toString()
+              .length,
+        ),
+      );
+      _guestSavedHeadlinesLimitController.value = TextEditingValue(
+        text: widget.appConfig.userPreferenceLimits.guestSavedHeadlinesLimit
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.userPreferenceLimits.guestSavedHeadlinesLimit
+              .toString()
+              .length,
+        ),
+      );
+      _authenticatedFollowedItemsLimitController.value = TextEditingValue(
+        text: widget
+            .appConfig
+            .userPreferenceLimits
+            .authenticatedFollowedItemsLimit
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget
+              .appConfig
+              .userPreferenceLimits
+              .authenticatedFollowedItemsLimit
+              .toString()
+              .length,
+        ),
+      );
+      _authenticatedSavedHeadlinesLimitController.value = TextEditingValue(
+        text: widget
+            .appConfig
+            .userPreferenceLimits
+            .authenticatedSavedHeadlinesLimit
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget
+              .appConfig
+              .userPreferenceLimits
+              .authenticatedSavedHeadlinesLimit
+              .toString()
+              .length,
+        ),
+      );
+      _premiumFollowedItemsLimitController.value = TextEditingValue(
+        text: widget.appConfig.userPreferenceLimits.premiumFollowedItemsLimit
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget
+              .appConfig
+              .userPreferenceLimits
+              .premiumFollowedItemsLimit
+              .toString()
+              .length,
+        ),
+      );
+      _premiumSavedHeadlinesLimitController.value = TextEditingValue(
+        text: widget.appConfig.userPreferenceLimits.premiumSavedHeadlinesLimit
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget
+              .appConfig
+              .userPreferenceLimits
+              .premiumSavedHeadlinesLimit
+              .toString()
+              .length,
+        ),
+      );
     }
   }
 
@@ -1148,53 +1178,101 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   void didUpdateWidget(covariant _AdConfigForm oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.appConfig.adConfig != oldWidget.appConfig.adConfig) {
-      _guestAdFrequencyController.text = widget
-          .appConfig
-          .adConfig
-          .guestAdFrequency
-          .toString();
-      _guestAdPlacementIntervalController.text = widget
-          .appConfig
-          .adConfig
-          .guestAdPlacementInterval
-          .toString();
-      _guestArticlesToReadBeforeShowingInterstitialAdsController.text = widget
-          .appConfig
-          .adConfig
-          .guestArticlesToReadBeforeShowingInterstitialAds
-          .toString();
-      _authenticatedAdFrequencyController.text = widget
-          .appConfig
-          .adConfig
-          .authenticatedAdFrequency
-          .toString();
-      _authenticatedAdPlacementIntervalController.text = widget
-          .appConfig
-          .adConfig
-          .authenticatedAdPlacementInterval
-          .toString();
-      _standardUserArticlesToReadBeforeShowingInterstitialAdsController.text =
-          widget
-              .appConfig
-              .adConfig
-              .standardUserArticlesToReadBeforeShowingInterstitialAds
-              .toString();
-      _premiumAdFrequencyController.text = widget
-          .appConfig
-          .adConfig
-          .premiumAdFrequency
-          .toString();
-      _premiumAdPlacementIntervalController.text = widget
-          .appConfig
-          .adConfig
-          .premiumAdPlacementInterval
-          .toString();
-      _premiumUserArticlesToReadBeforeShowingInterstitialAdsController.text =
-          widget
-              .appConfig
-              .adConfig
-              .premiumUserArticlesToReadBeforeShowingInterstitialAds
-              .toString();
+      _guestAdFrequencyController.value = TextEditingValue(
+        text: widget.appConfig.adConfig.guestAdFrequency.toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.adConfig.guestAdFrequency.toString().length,
+        ),
+      );
+      _guestAdPlacementIntervalController.value = TextEditingValue(
+        text: widget.appConfig.adConfig.guestAdPlacementInterval.toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.adConfig.guestAdPlacementInterval
+              .toString()
+              .length,
+        ),
+      );
+      _guestArticlesToReadBeforeShowingInterstitialAdsController.value =
+          TextEditingValue(
+            text: widget
+                .appConfig
+                .adConfig
+                .guestArticlesToReadBeforeShowingInterstitialAds
+                .toString(),
+            selection: TextSelection.collapsed(
+              offset: widget
+                  .appConfig
+                  .adConfig
+                  .guestArticlesToReadBeforeShowingInterstitialAds
+                  .toString()
+                  .length,
+            ),
+          );
+      _authenticatedAdFrequencyController.value = TextEditingValue(
+        text: widget.appConfig.adConfig.authenticatedAdFrequency.toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.adConfig.authenticatedAdFrequency
+              .toString()
+              .length,
+        ),
+      );
+      _authenticatedAdPlacementIntervalController.value = TextEditingValue(
+        text: widget.appConfig.adConfig.authenticatedAdPlacementInterval
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.adConfig.authenticatedAdPlacementInterval
+              .toString()
+              .length,
+        ),
+      );
+      _standardUserArticlesToReadBeforeShowingInterstitialAdsController.value =
+          TextEditingValue(
+            text: widget
+                .appConfig
+                .adConfig
+                .standardUserArticlesToReadBeforeShowingInterstitialAds
+                .toString(),
+            selection: TextSelection.collapsed(
+              offset: widget
+                  .appConfig
+                  .adConfig
+                  .standardUserArticlesToReadBeforeShowingInterstitialAds
+                  .toString()
+                  .length,
+            ),
+          );
+      _premiumAdFrequencyController.value = TextEditingValue(
+        text: widget.appConfig.adConfig.premiumAdFrequency.toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.adConfig.premiumAdFrequency
+              .toString()
+              .length,
+        ),
+      );
+      _premiumAdPlacementIntervalController.value = TextEditingValue(
+        text: widget.appConfig.adConfig.premiumAdPlacementInterval.toString(),
+        selection: TextSelection.collapsed(
+          offset: widget.appConfig.adConfig.premiumAdPlacementInterval
+              .toString()
+              .length,
+        ),
+      );
+      _premiumUserArticlesToReadBeforeShowingInterstitialAdsController.value =
+          TextEditingValue(
+            text: widget
+                .appConfig
+                .adConfig
+                .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                .toString(),
+            selection: TextSelection.collapsed(
+              offset: widget
+                  .appConfig
+                  .adConfig
+                  .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                  .toString()
+                  .length,
+            ),
+          );
     }
   }
 
@@ -1446,16 +1524,36 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
     super.didUpdateWidget(oldWidget);
     if (widget.appConfig.accountActionConfig !=
         oldWidget.appConfig.accountActionConfig) {
-      _guestDaysBetweenAccountActionsController.text = widget
-          .appConfig
-          .accountActionConfig
-          .guestDaysBetweenAccountActions
-          .toString();
-      _standardUserDaysBetweenAccountActionsController.text = widget
-          .appConfig
-          .accountActionConfig
-          .standardUserDaysBetweenAccountActions
-          .toString();
+      _guestDaysBetweenAccountActionsController.value = TextEditingValue(
+        text: widget
+            .appConfig
+            .accountActionConfig
+            .guestDaysBetweenAccountActions
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget
+              .appConfig
+              .accountActionConfig
+              .guestDaysBetweenAccountActions
+              .toString()
+              .length,
+        ),
+      );
+      _standardUserDaysBetweenAccountActionsController.value = TextEditingValue(
+        text: widget
+            .appConfig
+            .accountActionConfig
+            .standardUserDaysBetweenAccountActions
+            .toString(),
+        selection: TextSelection.collapsed(
+          offset: widget
+              .appConfig
+              .accountActionConfig
+              .standardUserDaysBetweenAccountActions
+              .toString()
+              .length,
+        ),
+      );
     }
   }
 
