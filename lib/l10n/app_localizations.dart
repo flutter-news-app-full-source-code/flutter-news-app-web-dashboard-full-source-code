@@ -241,6 +241,492 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// Title for the App Configuration page
+  ///
+  /// In en, this message translates to:
+  /// **'App Configuration'**
+  String get appConfigurationPageTitle;
+
+  /// Tab title for User Content Limits
+  ///
+  /// In en, this message translates to:
+  /// **'User Content Limits'**
+  String get userContentLimitsTab;
+
+  /// Tab title for Ad Settings
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Settings'**
+  String get adSettingsTab;
+
+  /// Tab title for In-App Prompts
+  ///
+  /// In en, this message translates to:
+  /// **'In-App Prompts'**
+  String get inAppPromptsTab;
+
+  /// Tab title for App Operational Status
+  ///
+  /// In en, this message translates to:
+  /// **'App Operational Status'**
+  String get appOperationalStatusTab;
+
+  /// Tab title for Force Update
+  ///
+  /// In en, this message translates to:
+  /// **'Force Update'**
+  String get forceUpdateTab;
+
+  /// Snackbar message for successful app configuration save
+  ///
+  /// In en, this message translates to:
+  /// **'App configuration saved successfully!'**
+  String get appConfigSaveSuccessMessage;
+
+  /// Snackbar message for app configuration save error
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {errorMessage}'**
+  String appConfigSaveErrorMessage(String errorMessage);
+
+  /// Fallback message for unknown errors
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown error'**
+  String get unknownError;
+
+  /// Headline for loading state of app configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Configuration'**
+  String get loadingConfigurationHeadline;
+
+  /// Subheadline for loading state of app configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while settings are loaded...'**
+  String get loadingConfigurationSubheadline;
+
+  /// Message for failure state of app configuration loading
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load configuration.'**
+  String get failedToLoadConfigurationMessage;
+
+  /// Subheadline for initial state of app configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Load application settings from the backend.'**
+  String get loadAppSettingsSubheadline;
+
+  /// Button to discard changes in app configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Discard Changes'**
+  String get discardChangesButton;
+
+  /// Button to save changes in app configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChangesButton;
+
+  /// Title for the confirmation dialog before saving app config
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Configuration Update'**
+  String get confirmConfigUpdateDialogTitle;
+
+  /// Content for the confirmation dialog before saving app config
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to apply these changes to the live application configuration? This is a critical operation.'**
+  String get confirmConfigUpdateDialogContent;
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// Confirm save button label in dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Save'**
+  String get confirmSaveButton;
+
+  /// Description for User Content Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.'**
+  String get userContentLimitsDescription;
+
+  /// Tab title for Guest user role
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get guestUserTab;
+
+  /// Tab title for Authenticated user role
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticated'**
+  String get authenticatedUserTab;
+
+  /// Tab title for Premium user role
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premiumUserTab;
+
+  /// Label for Guest Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Followed Items Limit'**
+  String get guestFollowedItemsLimitLabel;
+
+  /// Description for Guest Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).'**
+  String get guestFollowedItemsLimitDescription;
+
+  /// Label for Guest Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Saved Headlines Limit'**
+  String get guestSavedHeadlinesLimitLabel;
+
+  /// Description for Guest Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of headlines a Guest user can save.'**
+  String get guestSavedHeadlinesLimitDescription;
+
+  /// Label for Standard User Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Followed Items Limit'**
+  String get standardUserFollowedItemsLimitLabel;
+
+  /// Description for Standard User Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).'**
+  String get standardUserFollowedItemsLimitDescription;
+
+  /// Label for Standard User Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Saved Headlines Limit'**
+  String get standardUserSavedHeadlinesLimitLabel;
+
+  /// Description for Standard User Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of headlines a Standard user can save.'**
+  String get standardUserSavedHeadlinesLimitDescription;
+
+  /// Label for Premium Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Followed Items Limit'**
+  String get premiumFollowedItemsLimitLabel;
+
+  /// Description for Premium Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).'**
+  String get premiumFollowedItemsLimitDescription;
+
+  /// Label for Premium Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Saved Headlines Limit'**
+  String get premiumSavedHeadlinesLimitLabel;
+
+  /// Description for Premium Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of headlines a Premium user can save.'**
+  String get premiumSavedHeadlinesLimitDescription;
+
+  /// Description for Ad Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'These settings control how advertisements are displayed within the app\'s news feed, with different rules for Guest, Standard, and Premium users. \"Ad Frequency\" determines how often an ad can appear, while \"Ad Placement Interval\" sets how many news items must be shown before the very first ad appears.'**
+  String get adSettingsDescription;
+
+  /// Tab title for Standard User in Ad Settings
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User'**
+  String get standardUserAdTab;
+
+  /// Label for Guest Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Ad Frequency'**
+  String get guestAdFrequencyLabel;
+
+  /// Description for Guest Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'How often an ad can appear for Guest users (e.g., a value of 5 means an ad could be placed after every 5 news items).'**
+  String get guestAdFrequencyDescription;
+
+  /// Label for Guest Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Ad Placement Interval'**
+  String get guestAdPlacementIntervalLabel;
+
+  /// Description for Guest Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of news items that must be shown before the very first ad appears for Guest users.'**
+  String get guestAdPlacementIntervalDescription;
+
+  /// Label for Guest Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Articles Before Interstitial Ads'**
+  String get guestArticlesBeforeInterstitialAdsLabel;
+
+  /// Description for Guest Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Number of articles a Guest user needs to read before a full-screen interstitial ad is shown.'**
+  String get guestArticlesBeforeInterstitialAdsDescription;
+
+  /// Label for Standard User Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Ad Frequency'**
+  String get standardUserAdFrequencyLabel;
+
+  /// Description for Standard User Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'How often an ad can appear for Standard users (e.g., a value of 10 means an ad could be placed after every 10 news items).'**
+  String get standardUserAdFrequencyDescription;
+
+  /// Label for Standard User Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Ad Placement Interval'**
+  String get standardUserAdPlacementIntervalLabel;
+
+  /// Description for Standard User Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of news items that must be shown before the very first ad appears for Standard users.'**
+  String get standardUserAdPlacementIntervalDescription;
+
+  /// Label for Standard User Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Articles Before Interstitial Ads'**
+  String get standardUserArticlesBeforeInterstitialAdsLabel;
+
+  /// Description for Standard User Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Number of articles a Standard user needs to read before a full-screen interstitial ad is shown.'**
+  String get standardUserArticlesBeforeInterstitialAdsDescription;
+
+  /// Label for Premium Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Ad Frequency'**
+  String get premiumAdFrequencyLabel;
+
+  /// Description for Premium Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'How often an ad can appear for Premium users (0 for no ads).'**
+  String get premiumAdFrequencyDescription;
+
+  /// Label for Premium Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Ad Placement Interval'**
+  String get premiumAdPlacementIntervalLabel;
+
+  /// Description for Premium Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of news items that must be shown before the very first ad appears for Premium users.'**
+  String get premiumAdPlacementIntervalDescription;
+
+  /// Label for Premium User Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Premium User Articles Before Interstitial Ads'**
+  String get premiumUserArticlesBeforeInterstitialAdsLabel;
+
+  /// Description for Premium User Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Number of articles a Premium user needs to read before a full-screen interstitial ad is shown.'**
+  String get premiumUserArticlesBeforeInterstitialAdsDescription;
+
+  /// Description for In-App Prompts section
+  ///
+  /// In en, this message translates to:
+  /// **'These settings control how often special in-app messages or \"prompts\" are shown to users in their news feed. These prompts encourage actions like linking an account (for guests) or upgrading to a premium subscription (for authenticated users). The frequency varies by user type.'**
+  String get inAppPromptsDescription;
+
+  /// Warning message for changing app operational status
+  ///
+  /// In en, this message translates to:
+  /// **'WARNING: Changing the app\'s operational status can affect all users. Use with extreme caution.'**
+  String get appOperationalStatusWarning;
+
+  /// Label for App Operational Status
+  ///
+  /// In en, this message translates to:
+  /// **'App Operational Status'**
+  String get appOperationalStatusLabel;
+
+  /// Description for App Operational Status
+  ///
+  /// In en, this message translates to:
+  /// **'The current operational status of the app (e.g., active, maintenance, disabled).'**
+  String get appOperationalStatusDescription;
+
+  /// Label for Maintenance Message
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Message'**
+  String get maintenanceMessageLabel;
+
+  /// Description for Maintenance Message
+  ///
+  /// In en, this message translates to:
+  /// **'Message displayed when the app is in maintenance mode.'**
+  String get maintenanceMessageDescription;
+
+  /// Label for Disabled Message
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled Message'**
+  String get disabledMessageLabel;
+
+  /// Description for Disabled Message
+  ///
+  /// In en, this message translates to:
+  /// **'Message displayed when the app is permanently disabled.'**
+  String get disabledMessageDescription;
+
+  /// Title for Force Update Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Force Update Configuration'**
+  String get forceUpdateConfigurationTitle;
+
+  /// Description for Force Update Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.'**
+  String get forceUpdateDescription;
+
+  /// Label for Minimum Allowed App Version
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Allowed App Version'**
+  String get minAllowedAppVersionLabel;
+
+  /// Description for Minimum Allowed App Version
+  ///
+  /// In en, this message translates to:
+  /// **'The lowest app version allowed to run (e.g., \"1.2.0\").'**
+  String get minAllowedAppVersionDescription;
+
+  /// Label for Latest App Version
+  ///
+  /// In en, this message translates to:
+  /// **'Latest App Version'**
+  String get latestAppVersionLabel;
+
+  /// Description for Latest App Version
+  ///
+  /// In en, this message translates to:
+  /// **'The latest available app version (e.g., \"1.5.0\").'**
+  String get latestAppVersionDescription;
+
+  /// Label for Update Required Message
+  ///
+  /// In en, this message translates to:
+  /// **'Update Required Message'**
+  String get updateRequiredMessageLabel;
+
+  /// Description for Update Required Message
+  ///
+  /// In en, this message translates to:
+  /// **'Message displayed when a force update is required.'**
+  String get updateRequiredMessageDescription;
+
+  /// Label for Update Optional Message
+  ///
+  /// In en, this message translates to:
+  /// **'Update Optional Message'**
+  String get updateOptionalMessageLabel;
+
+  /// Description for Update Optional Message
+  ///
+  /// In en, this message translates to:
+  /// **'Message displayed for an optional update.'**
+  String get updateOptionalMessageDescription;
+
+  /// Label for iOS Store URL
+  ///
+  /// In en, this message translates to:
+  /// **'iOS Store URL'**
+  String get iosStoreUrlLabel;
+
+  /// Description for iOS Store URL
+  ///
+  /// In en, this message translates to:
+  /// **'URL to the app on the Apple App Store.'**
+  String get iosStoreUrlDescription;
+
+  /// Label for Android Store URL
+  ///
+  /// In en, this message translates to:
+  /// **'Android Store URL'**
+  String get androidStoreUrlLabel;
+
+  /// Description for Android Store URL
+  ///
+  /// In en, this message translates to:
+  /// **'URL to the app on the Google Play Store.'**
+  String get androidStoreUrlDescription;
+
+  /// Label for Guest Days Between In-App Prompts
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Days Between In-App Prompts'**
+  String get guestDaysBetweenInAppPromptsLabel;
+
+  /// Description for Guest Days Between In-App Prompts
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of days that must pass before a Guest user sees another in-app prompt.'**
+  String get guestDaysBetweenInAppPromptsDescription;
+
+  /// Label for Standard User Days Between In-App Prompts
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Days Between In-App Prompts'**
+  String get standardUserDaysBetweenInAppPromptsLabel;
+
+  /// Description for Standard User Days Between In-App Prompts
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of days that must pass before a Standard user sees another in-app prompt.'**
+  String get standardUserDaysBetweenInAppPromptsDescription;
 }
 
 class _AppLocalizationsDelegate
