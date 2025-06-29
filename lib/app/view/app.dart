@@ -141,11 +141,27 @@ class _AppViewState extends State<_AppView> {
       },
       child: BlocBuilder<AppBloc, AppState>(
         builder: (context, state) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            routerConfig: _router,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
+          const double kMaxAppWidth = 1000; // Local constant for max width
+          return Center(
+            child: Card(
+              margin: EdgeInsets.zero, // Remove default card margin
+              elevation: 4, // Add some elevation to make it "pop"
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  8,
+                ), // Match cardRadius from theme
+              ),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: kMaxAppWidth),
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: _router,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                ),
+              ),
+            ),
           );
         },
       ),
