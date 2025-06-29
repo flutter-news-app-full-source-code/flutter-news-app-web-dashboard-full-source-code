@@ -63,7 +63,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       body: BlocConsumer<AppConfigurationBloc, AppConfigurationState>(
         listener: (context, state) {
           if (state.status == AppConfigurationStatus.success &&
-              state.isDirty == false) {
+              state.showSaveSuccess) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -77,6 +77,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
               );
+            // Clear the showSaveSuccess flag after showing the snackbar
+            context.read<AppConfigurationBloc>().add(
+              const AppConfigurationFieldChanged(
+                appConfig: null, // No actual config change, just clear flag
+              ),
+            );
           } else if (state.status == AppConfigurationStatus.failure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -152,9 +158,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             OutlinedButton(
               onPressed: isDirty
                   ? () {
-                      // Discard changes: reload original config
+                      // Discard changes: revert to original config
                       context.read<AppConfigurationBloc>().add(
-                        const AppConfigurationLoaded(),
+                        const AppConfigurationDiscarded(),
                       );
                     }
                   : null,
@@ -219,316 +225,165 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     AppConfig appConfig,
   ) {
-    final userPreferenceLimits = appConfig.userPreferenceLimits;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'User Preference Limits',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            'These settings define the maximum number of items a user can follow or save, tiered by user role. Changes here directly impact user capabilities.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+    return DefaultTabController(
+      length: 3, // Guest, Authenticated, Premium
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'User Preference Limits',
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          _buildIntField(
-            context,
-            label: 'Guest Followed Items Limit',
-            description:
-                'Max countries, sources, or categories a Guest user can follow (each).',
-            value: userPreferenceLimits.guestFollowedItemsLimit,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
-                      guestFollowedItemsLimit: value,
-                    ),
+            const SizedBox(height: AppSpacing.md),
+            Text(
+              'These settings define the maximum number of items a user can follow or save, tiered by user role. Changes here directly impact user capabilities.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            TabBar(
+              tabs: const [
+                Tab(text: 'Guest'),
+                Tab(text: 'Authenticated'),
+                Tab(text: 'Premium'),
+              ],
+              labelColor: Theme.of(context).colorScheme.primary,
+              unselectedLabelColor: Theme.of(
+                context,
+              ).colorScheme.onSurface.withOpacity(0.6),
+              indicatorColor: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: AppSpacing.md),
+            SizedBox(
+              height: 400, // Adjust height as needed
+              child: TabBarView(
+                children: [
+                  _UserPreferenceLimitsForm(
+                    userRole: UserRole.guestUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Guest Saved Headlines Limit',
-            description: 'Max headlines a Guest user can save.',
-            value: userPreferenceLimits.guestSavedHeadlinesLimit,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
-                      guestSavedHeadlinesLimit: value,
-                    ),
+                  _UserPreferenceLimitsForm(
+                    userRole: UserRole.standardUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Authenticated Followed Items Limit',
-            description:
-                'Max countries, sources, or categories an Authenticated user can follow (each).',
-            value: userPreferenceLimits.authenticatedFollowedItemsLimit,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
-                      authenticatedFollowedItemsLimit: value,
-                    ),
+                  _UserPreferenceLimitsForm(
+                    userRole: UserRole.premiumUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Authenticated Saved Headlines Limit',
-            description: 'Max headlines an Authenticated user can save.',
-            value: userPreferenceLimits.authenticatedSavedHeadlinesLimit,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
-                      authenticatedSavedHeadlinesLimit: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Premium Followed Items Limit',
-            description:
-                'Max countries, sources, or categories a Premium user can follow (each).',
-            value: userPreferenceLimits.premiumFollowedItemsLimit,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
-                      premiumFollowedItemsLimit: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Premium Saved Headlines Limit',
-            description: 'Max headlines a Premium user can save.',
-            value: userPreferenceLimits.premiumSavedHeadlinesLimit,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
-                      premiumSavedHeadlinesLimit: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildAdConfigTab(BuildContext context, AppConfig appConfig) {
-    final adConfig = appConfig.adConfig;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Ad Configuration',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            'These settings control how ads are injected and displayed in the application, tiered by user role. AdFrequency determines how often an ad can be injected, and AdPlacementInterval sets a minimum number of primary items before the first ad.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+    return DefaultTabController(
+      length: 3, // Guest, Authenticated, Premium
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Ad Configuration',
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          _buildIntField(
-            context,
-            label: 'Guest Ad Frequency',
-            description:
-                'How often an ad can be injected for Guest users (e.g., 5 means after every 5 primary items).',
-            value: adConfig.guestAdFrequency,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(guestAdFrequency: value),
+            const SizedBox(height: AppSpacing.md),
+            Text(
+              'These settings control how ads are injected and displayed in the application, tiered by user role. AdFrequency determines how often an ad can be injected, and AdPlacementInterval sets a minimum number of primary items before the first ad.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            TabBar(
+              tabs: const [
+                Tab(text: 'Guest'),
+                Tab(text: 'Authenticated'),
+                Tab(text: 'Premium'),
+              ],
+              labelColor: Theme.of(context).colorScheme.primary,
+              unselectedLabelColor: Theme.of(
+                context,
+              ).colorScheme.onSurface.withOpacity(0.6),
+              indicatorColor: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: AppSpacing.md),
+            SizedBox(
+              height: 600, // Adjust height as needed
+              child: TabBarView(
+                children: [
+                  _AdConfigForm(
+                    userRole: UserRole.guestUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Guest Ad Placement Interval',
-            description:
-                'Minimum primary items before the first ad for Guest users.',
-            value: adConfig.guestAdPlacementInterval,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      guestAdPlacementInterval: value,
-                    ),
+                  _AdConfigForm(
+                    userRole: UserRole.standardUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Authenticated Ad Frequency',
-            description:
-                'How often an ad can be injected for Authenticated users.',
-            value: adConfig.authenticatedAdFrequency,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      authenticatedAdFrequency: value,
-                    ),
+                  _AdConfigForm(
+                    userRole: UserRole.premiumUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Authenticated Ad Placement Interval',
-            description:
-                'Minimum primary items before the first ad for Authenticated users.',
-            value: adConfig.authenticatedAdPlacementInterval,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      authenticatedAdPlacementInterval: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Premium Ad Frequency',
-            description:
-                'How often an ad can be injected for Premium users (0 for no ads).',
-            value: adConfig.premiumAdFrequency,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(premiumAdFrequency: value),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Premium Ad Placement Interval',
-            description:
-                'Minimum primary items before the first ad for Premium users.',
-            value: adConfig.premiumAdPlacementInterval,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      premiumAdPlacementInterval: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Guest Articles Before Interstitial Ads',
-            description:
-                'Number of articles a Guest user reads before an interstitial ad is shown.',
-            value: adConfig.guestArticlesToReadBeforeShowingInterstitialAds,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      guestArticlesToReadBeforeShowingInterstitialAds: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Standard User Articles Before Interstitial Ads',
-            description:
-                'Number of articles a Standard user reads before an interstitial ad is shown.',
-            value:
-                adConfig.standardUserArticlesToReadBeforeShowingInterstitialAds,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      standardUserArticlesToReadBeforeShowingInterstitialAds:
-                          value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Premium User Articles Before Interstitial Ads',
-            description:
-                'Number of articles a Premium user reads before an interstitial ad is shown.',
-            value:
-                adConfig.premiumUserArticlesToReadBeforeShowingInterstitialAds,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      premiumUserArticlesToReadBeforeShowingInterstitialAds:
-                          value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -537,61 +392,70 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     AppConfig appConfig,
   ) {
-    final accountActionConfig = appConfig.accountActionConfig;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Account Action Configuration',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            'These settings control the display frequency of in-feed account actions (e.g., link account, upgrade prompts), tiered by user role.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+    return DefaultTabController(
+      length: 2, // Guest, Standard User
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Account Action Configuration',
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          _buildIntField(
-            context,
-            label: 'Guest Days Between Account Actions',
-            description:
-                'Minimum days between showing account actions to Guest users.',
-            value: accountActionConfig.guestDaysBetweenAccountActions,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    accountActionConfig: accountActionConfig.copyWith(
-                      guestDaysBetweenAccountActions: value,
-                    ),
+            const SizedBox(height: AppSpacing.md),
+            Text(
+              'These settings control the display frequency of in-feed account actions (e.g., link account, upgrade prompts), tiered by user role.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            TabBar(
+              tabs: const [
+                Tab(text: 'Guest'),
+                Tab(text: 'Standard User'),
+              ],
+              labelColor: Theme.of(context).colorScheme.primary,
+              unselectedLabelColor: Theme.of(
+                context,
+              ).colorScheme.onSurface.withOpacity(0.6),
+              indicatorColor: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: AppSpacing.md),
+            SizedBox(
+              height: 200, // Adjust height as needed
+              child: TabBarView(
+                children: [
+                  _AccountActionConfigForm(
+                    userRole: UserRole.guestUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-          _buildIntField(
-            context,
-            label: 'Standard User Days Between Account Actions',
-            description:
-                'Minimum days between showing account actions to Standard users.',
-            value: accountActionConfig.standardUserDaysBetweenAccountActions,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(
-                    accountActionConfig: accountActionConfig.copyWith(
-                      standardUserDaysBetweenAccountActions: value,
-                    ),
+                  _AccountActionConfigForm(
+                    userRole: UserRole.standardUser,
+                    appConfig: appConfig,
+                    onConfigChanged: (newConfig) {
+                      context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(
+                          appConfig: newConfig,
+                        ),
+                      );
+                    },
+                    buildIntField: _buildIntField,
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -939,5 +803,410 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         ],
       ),
     );
+  }
+}
+
+class _UserPreferenceLimitsForm extends StatelessWidget {
+  const _UserPreferenceLimitsForm({
+    required this.userRole,
+    required this.appConfig,
+    required this.onConfigChanged,
+    required this.buildIntField,
+  });
+
+  final UserRole userRole;
+  final AppConfig appConfig;
+  final ValueChanged<AppConfig> onConfigChanged;
+  final Widget Function(
+    BuildContext context, {
+    required String label,
+    required String description,
+    required int value,
+    required ValueChanged<int> onChanged,
+  })
+  buildIntField;
+
+  @override
+  Widget build(BuildContext context) {
+    final userPreferenceLimits = appConfig.userPreferenceLimits;
+
+    switch (userRole) {
+      case UserRole.guestUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Guest Followed Items Limit',
+              description:
+                  'Max countries, sources, or categories a Guest user can follow (each).',
+              value: userPreferenceLimits.guestFollowedItemsLimit,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      guestFollowedItemsLimit: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Guest Saved Headlines Limit',
+              description: 'Max headlines a Guest user can save.',
+              value: userPreferenceLimits.guestSavedHeadlinesLimit,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      guestSavedHeadlinesLimit: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.standardUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Authenticated Followed Items Limit',
+              description:
+                  'Max countries, sources, or categories an Authenticated user can follow (each).',
+              value: userPreferenceLimits.authenticatedFollowedItemsLimit,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      authenticatedFollowedItemsLimit: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Authenticated Saved Headlines Limit',
+              description: 'Max headlines an Authenticated user can save.',
+              value: userPreferenceLimits.authenticatedSavedHeadlinesLimit,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      authenticatedSavedHeadlinesLimit: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.premiumUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Premium Followed Items Limit',
+              description:
+                  'Max countries, sources, or categories a Premium user can follow (each).',
+              value: userPreferenceLimits.premiumFollowedItemsLimit,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      premiumFollowedItemsLimit: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Premium Saved Headlines Limit',
+              description: 'Max headlines a Premium user can save.',
+              value: userPreferenceLimits.premiumSavedHeadlinesLimit,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                      premiumSavedHeadlinesLimit: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.admin:
+        // Admin role might not have specific limits here, or could be
+        // a separate configuration. For now, return empty.
+        return const SizedBox.shrink();
+    }
+  }
+}
+
+class _AdConfigForm extends StatelessWidget {
+  const _AdConfigForm({
+    required this.userRole,
+    required this.appConfig,
+    required this.onConfigChanged,
+    required this.buildIntField,
+  });
+
+  final UserRole userRole;
+  final AppConfig appConfig;
+  final ValueChanged<AppConfig> onConfigChanged;
+  final Widget Function(
+    BuildContext context, {
+    required String label,
+    required String description,
+    required int value,
+    required ValueChanged<int> onChanged,
+  })
+  buildIntField;
+
+  @override
+  Widget build(BuildContext context) {
+    final adConfig = appConfig.adConfig;
+
+    switch (userRole) {
+      case UserRole.guestUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Guest Ad Frequency',
+              description:
+                  'How often an ad can be injected for Guest users (e.g., 5 means after every 5 primary items).',
+              value: adConfig.guestAdFrequency,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(guestAdFrequency: value),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Guest Ad Placement Interval',
+              description:
+                  'Minimum primary items before the first ad for Guest users.',
+              value: adConfig.guestAdPlacementInterval,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      guestAdPlacementInterval: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Guest Articles Before Interstitial Ads',
+              description:
+                  'Number of articles a Guest user reads before an interstitial ad is shown.',
+              value: adConfig.guestArticlesToReadBeforeShowingInterstitialAds,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      guestArticlesToReadBeforeShowingInterstitialAds: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.standardUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Authenticated Ad Frequency',
+              description:
+                  'How often an ad can be injected for Authenticated users.',
+              value: adConfig.authenticatedAdFrequency,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      authenticatedAdFrequency: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Authenticated Ad Placement Interval',
+              description:
+                  'Minimum primary items before the first ad for Authenticated users.',
+              value: adConfig.authenticatedAdPlacementInterval,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      authenticatedAdPlacementInterval: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Standard User Articles Before Interstitial Ads',
+              description:
+                  'Number of articles a Standard user reads before an interstitial ad is shown.',
+              value: adConfig
+                  .standardUserArticlesToReadBeforeShowingInterstitialAds,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      standardUserArticlesToReadBeforeShowingInterstitialAds:
+                          value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.premiumUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Premium Ad Frequency',
+              description:
+                  'How often an ad can be injected for Premium users (0 for no ads).',
+              value: adConfig.premiumAdFrequency,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(premiumAdFrequency: value),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Premium Ad Placement Interval',
+              description:
+                  'Minimum primary items before the first ad for Premium users.',
+              value: adConfig.premiumAdPlacementInterval,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      premiumAdPlacementInterval: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+            buildIntField(
+              context,
+              label: 'Premium User Articles Before Interstitial Ads',
+              description:
+                  'Number of articles a Premium user reads before an interstitial ad is shown.',
+              value: adConfig
+                  .premiumUserArticlesToReadBeforeShowingInterstitialAds,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    adConfig: adConfig.copyWith(
+                      premiumUserArticlesToReadBeforeShowingInterstitialAds:
+                          value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.admin:
+        return const SizedBox.shrink();
+    }
+  }
+}
+
+class _AccountActionConfigForm extends StatelessWidget {
+  const _AccountActionConfigForm({
+    required this.userRole,
+    required this.appConfig,
+    required this.onConfigChanged,
+    required this.buildIntField,
+  });
+
+  final UserRole userRole;
+  final AppConfig appConfig;
+  final ValueChanged<AppConfig> onConfigChanged;
+  final Widget Function(
+    BuildContext context, {
+    required String label,
+    required String description,
+    required int value,
+    required ValueChanged<int> onChanged,
+  })
+  buildIntField;
+
+  @override
+  Widget build(BuildContext context) {
+    final accountActionConfig = appConfig.accountActionConfig;
+
+    switch (userRole) {
+      case UserRole.guestUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Guest Days Between Account Actions',
+              description:
+                  'Minimum days between showing account actions to Guest users.',
+              value: accountActionConfig.guestDaysBetweenAccountActions,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    accountActionConfig: accountActionConfig.copyWith(
+                      guestDaysBetweenAccountActions: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.standardUser:
+        return Column(
+          children: [
+            buildIntField(
+              context,
+              label: 'Standard User Days Between Account Actions',
+              description:
+                  'Minimum days between showing account actions to Standard users.',
+              value: accountActionConfig.standardUserDaysBetweenAccountActions,
+              onChanged: (value) {
+                onConfigChanged(
+                  appConfig.copyWith(
+                    accountActionConfig: accountActionConfig.copyWith(
+                      standardUserDaysBetweenAccountActions: value,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      case UserRole.premiumUser:
+      case UserRole.admin:
+        return const SizedBox.shrink();
+    }
   }
 }
