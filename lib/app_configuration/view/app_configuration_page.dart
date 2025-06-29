@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ht_shared/ht_shared.dart'; // For AppConfig and its nested models
 
 /// {@template app_configuration_page}
@@ -45,18 +46,18 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'App Configuration',
+          context.l10n.appConfigurationPageTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
-          tabs: const [
-            Tab(text: 'User Content Limits'),
-            Tab(text: 'Ad Settings'),
-            Tab(text: 'In-App Prompts'),
-            Tab(text: 'App Operational Status'),
-            Tab(text: 'Force Update'),
+          tabs: [
+            Tab(text: context.l10n.userContentLimitsTab),
+            Tab(text: context.l10n.adSettingsTab),
+            Tab(text: context.l10n.inAppPromptsTab),
+            Tab(text: context.l10n.appOperationalStatusTab),
+            Tab(text: context.l10n.forceUpdateTab),
           ],
         ),
       ),
@@ -69,7 +70,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    'App configuration saved successfully!',
+                    context.l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
@@ -87,7 +88,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    'Error: ${state.errorMessage ?? "Unknown error"}',
+                    context.l10n.appConfigSaveErrorMessage(
+                      state.errorMessage ?? context.l10n.unknownError,
+                    ),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onError,
                     ),
@@ -100,14 +103,16 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         builder: (context, state) {
           if (state.status == AppConfigurationStatus.loading ||
               state.status == AppConfigurationStatus.initial) {
-            return const LoadingStateWidget(
+            return LoadingStateWidget(
               icon: Icons.settings_applications_outlined,
-              headline: 'Loading Configuration',
-              subheadline: 'Please wait while settings are loaded...',
+              headline: context.l10n.loadingConfigurationHeadline,
+              subheadline: context.l10n.loadingConfigurationSubheadline,
             );
           } else if (state.status == AppConfigurationStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? 'Failed to load configuration.',
+              message:
+                  state.errorMessage ??
+                  context.l10n.failedToLoadConfigurationMessage,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
                   const AppConfigurationLoaded(),
@@ -128,10 +133,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               ],
             );
           }
-          return const InitialStateWidget(
+          return InitialStateWidget(
             icon: Icons.settings_applications_outlined,
-            headline: 'App Configuration',
-            subheadline: 'Load application settings from the backend.',
+            headline: context.l10n.appConfigurationPageTitle,
+            subheadline: context.l10n.loadAppSettingsSubheadline,
           ); // Fallback
         },
       ),
@@ -162,7 +167,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       );
                     }
                   : null,
-              child: const Text('Discard Changes'),
+              child: Text(context.l10n.discardChangesButton),
             ),
             const SizedBox(width: AppSpacing.md),
             ElevatedButton(
@@ -176,7 +181,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       }
                     }
                   : null,
-              child: const Text('Save Changes'),
+              child: Text(context.l10n.saveChangesButton),
             ),
           ],
         ),
@@ -190,17 +195,17 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           builder: (BuildContext dialogContext) {
             return AlertDialog(
               title: Text(
-                'Confirm Configuration Update',
+                context.l10n.confirmConfigUpdateDialogTitle,
                 style: Theme.of(dialogContext).textTheme.titleLarge,
               ),
               content: Text(
-                'Are you sure you want to apply these changes to the live application configuration? This is a critical operation.',
+                context.l10n.confirmConfigUpdateDialogContent,
                 style: Theme.of(dialogContext).textTheme.bodyMedium,
               ),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(dialogContext).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(context.l10n.cancelButton),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -210,7 +215,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       dialogContext,
                     ).colorScheme.onError,
                   ),
-                  child: const Text('Confirm Save'),
+                  child: Text(context.l10n.confirmSaveButton),
                 ),
               ],
             );
@@ -231,25 +236,22 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'User Content Limits',
+              context.l10n.userContentLimitsTab,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'These settings define the maximum number of countries, news sources, '
-              'categories, and saved headlines a user can follow or save. '
-              'Limits vary by user type (Guest, Standard, Premium) and directly '
-              'impact what content users can curate.',
+              context.l10n.userContentLimitsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
             TabBar(
-              tabs: const [
-                Tab(text: 'Guest'),
-                Tab(text: 'Authenticated'),
-                Tab(text: 'Premium'),
+              tabs: [
+                Tab(text: context.l10n.guestUserTab),
+                Tab(text: context.l10n.authenticatedUserTab),
+                Tab(text: context.l10n.premiumUserTab),
               ],
               labelColor: Theme.of(context).colorScheme.primary,
               unselectedLabelColor: Theme.of(
@@ -316,26 +318,22 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Ad Settings',
+              context.l10n.adSettingsTab,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'These settings control how advertisements are displayed within '
-              'the app\'s news feed, with different rules for Guest, Standard, '
-              'and Premium users. "Ad Frequency" determines how often an ad '
-              'can appear, while "Ad Placement Interval" sets how many news '
-              'items must be shown before the very first ad appears.',
+              context.l10n.adSettingsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
             TabBar(
-              tabs: const [
-                Tab(text: 'Guest'),
-                Tab(text: 'Standard User'),
-                Tab(text: 'Premium'),
+              tabs: [
+                Tab(text: context.l10n.guestUserTab),
+                Tab(text: context.l10n.standardUserAdTab),
+                Tab(text: context.l10n.premiumUserTab),
               ],
               labelColor: Theme.of(context).colorScheme.primary,
               unselectedLabelColor: Theme.of(
@@ -405,25 +403,21 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'In-App Prompts',
+              context.l10n.inAppPromptsTab,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'These settings control how often special in-app messages or '
-              '"prompts" are shown to users in their news feed. These prompts '
-              'encourage actions like linking an account (for guests) or '
-              'upgrading to a premium subscription (for authenticated users). '
-              'The frequency varies by user type.',
+              context.l10n.inAppPromptsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
             TabBar(
-              tabs: const [
-                Tab(text: 'Guest'),
-                Tab(text: 'Standard User'),
+              tabs: [
+                Tab(text: context.l10n.guestUserTab),
+                Tab(text: context.l10n.standardUserAdTab),
               ],
               labelColor: Theme.of(context).colorScheme.primary,
               unselectedLabelColor: Theme.of(
@@ -476,12 +470,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'App Operational Status',
+            context.l10n.appOperationalStatusTab,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'WARNING: Changing the app\'s operational status can affect all users. Use with extreme caution.',
+            context.l10n.appOperationalStatusWarning,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.bold,
@@ -490,9 +484,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           const SizedBox(height: AppSpacing.lg),
           _buildDropdownField<RemoteAppStatus>(
             context,
-            label: 'App Operational Status',
-            description:
-                'The current operational status of the app (e.g., active, maintenance, disabled).',
+            label: context.l10n.appOperationalStatusLabel,
+            description: context.l10n.appOperationalStatusDescription,
             value: appConfig.appOperationalStatus,
             items: RemoteAppStatus.values,
             itemLabelBuilder: (status) => status.name,
@@ -509,9 +502,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           if (appConfig.appOperationalStatus == RemoteAppStatus.maintenance)
             _buildTextField(
               context,
-              label: 'Maintenance Message',
-              description:
-                  'Message displayed when the app is in maintenance mode.',
+              label: context.l10n.maintenanceMessageLabel,
+              description: context.l10n.maintenanceMessageDescription,
               value: appConfig.maintenanceMessage,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
@@ -524,9 +516,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           if (appConfig.appOperationalStatus == RemoteAppStatus.disabled)
             _buildTextField(
               context,
-              label: 'Disabled Message',
-              description:
-                  'Message displayed when the app is permanently disabled.',
+              label: context.l10n.disabledMessageLabel,
+              description: context.l10n.disabledMessageDescription,
               value: appConfig.disabledMessage,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
@@ -548,12 +539,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Force Update Configuration',
+            context.l10n.forceUpdateConfigurationTitle,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.',
+            context.l10n.forceUpdateDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
@@ -561,9 +552,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           const SizedBox(height: AppSpacing.lg),
           _buildTextField(
             context,
-            label: 'Minimum Allowed App Version',
-            description:
-                'The lowest app version allowed to run (e.g., "1.2.0").',
+            label: context.l10n.minAllowedAppVersionLabel,
+            description: context.l10n.minAllowedAppVersionDescription,
             value: appConfig.minAllowedAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -575,8 +565,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: 'Latest App Version',
-            description: 'The latest available app version (e.g., "1.5.0").',
+            label: context.l10n.latestAppVersionLabel,
+            description: context.l10n.latestAppVersionDescription,
             value: appConfig.latestAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -588,8 +578,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: 'Update Required Message',
-            description: 'Message displayed when a force update is required.',
+            label: context.l10n.updateRequiredMessageLabel,
+            description: context.l10n.updateRequiredMessageDescription,
             value: appConfig.updateRequiredMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -601,8 +591,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: 'Update Optional Message',
-            description: 'Message displayed for an optional update.',
+            label: context.l10n.updateOptionalMessageLabel,
+            description: context.l10n.updateOptionalMessageDescription,
             value: appConfig.updateOptionalMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -614,8 +604,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: 'iOS Store URL',
-            description: 'URL to the app on the Apple App Store.',
+            label: context.l10n.iosStoreUrlLabel,
+            description: context.l10n.iosStoreUrlDescription,
             value: appConfig.iosStoreUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -627,8 +617,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: 'Android Store URL',
-            description: 'URL to the app on the Google Play Store.',
+            label: context.l10n.androidStoreUrlLabel,
+            description: context.l10n.androidStoreUrlDescription,
             value: appConfig.androidStoreUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
