@@ -52,9 +52,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           controller: _tabController,
           isScrollable: true,
           tabs: const [
-            Tab(text: 'User Preferences'),
-            Tab(text: 'Ad Config'),
-            Tab(text: 'Account Actions'),
+            Tab(text: 'User Content Limits'),
+            Tab(text: 'Ad Settings'),
+            Tab(text: 'In-App Prompts'),
             Tab(text: 'App Operational Status'),
             Tab(text: 'Force Update'),
           ],
@@ -231,12 +231,15 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'User Preference Limits',
+              'User Content Limits',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'These settings define the maximum number of items a user can follow or save, tiered by user role. Changes here directly impact user capabilities.',
+              'These settings define the maximum number of countries, news sources, '
+              'categories, and saved headlines a user can follow or save. '
+              'Limits vary by user type (Guest, Standard, Premium) and directly '
+              'impact what content users can curate.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
@@ -313,12 +316,16 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Ad Configuration',
+              'Ad Settings',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'These settings control how ads are injected and displayed in the application, tiered by user role. AdFrequency determines how often an ad can be injected, and AdPlacementInterval sets a minimum number of primary items before the first ad.',
+              'These settings control how advertisements are displayed within '
+              'the app\'s news feed, with different rules for Guest, Standard, '
+              'and Premium users. "Ad Frequency" determines how often an ad '
+              'can appear, while "Ad Placement Interval" sets how many news '
+              'items must be shown before the very first ad appears.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
@@ -327,7 +334,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             TabBar(
               tabs: const [
                 Tab(text: 'Guest'),
-                Tab(text: 'Authenticated'),
+                Tab(text: 'Standard User'),
                 Tab(text: 'Premium'),
               ],
               labelColor: Theme.of(context).colorScheme.primary,
@@ -398,12 +405,16 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Account Action Configuration',
+              'In-App Prompts',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'These settings control the display frequency of in-feed account actions (e.g., link account, upgrade prompts), tiered by user role.',
+              'These settings control how often special in-app messages or '
+              '"prompts" are shown to users in their news feed. These prompts '
+              'encourage actions like linking an account (for guests) or '
+              'upgrading to a premium subscription (for authenticated users). '
+              'The frequency varies by user type.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
@@ -972,7 +983,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               context,
               label: 'Guest Followed Items Limit',
               description:
-                  'Max countries, sources, or categories a Guest user can follow (each).',
+                  'Maximum number of countries, news sources, or categories a '
+                  'Guest user can follow (each type has its own limit).',
               value: userPreferenceLimits.guestFollowedItemsLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -988,7 +1000,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             widget.buildIntField(
               context,
               label: 'Guest Saved Headlines Limit',
-              description: 'Max headlines a Guest user can save.',
+              description: 'Maximum number of headlines a Guest user can save.',
               value: userPreferenceLimits.guestSavedHeadlinesLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1008,9 +1020,10 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
           children: [
             widget.buildIntField(
               context,
-              label: 'Authenticated Followed Items Limit',
+              label: 'Standard User Followed Items Limit',
               description:
-                  'Max countries, sources, or categories an Authenticated user can follow (each).',
+                  'Maximum number of countries, news sources, or categories a '
+                  'Standard user can follow (each type has its own limit).',
               value: userPreferenceLimits.authenticatedFollowedItemsLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1025,8 +1038,9 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
             widget.buildIntField(
               context,
-              label: 'Authenticated Saved Headlines Limit',
-              description: 'Max headlines an Authenticated user can save.',
+              label: 'Standard User Saved Headlines Limit',
+              description:
+                  'Maximum number of headlines a Standard user can save.',
               value: userPreferenceLimits.authenticatedSavedHeadlinesLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1048,7 +1062,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               context,
               label: 'Premium Followed Items Limit',
               description:
-                  'Max countries, sources, or categories a Premium user can follow (each).',
+                  'Maximum number of countries, news sources, or categories a '
+                  'Premium user can follow (each type has its own limit).',
               value: userPreferenceLimits.premiumFollowedItemsLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1064,7 +1079,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             widget.buildIntField(
               context,
               label: 'Premium Saved Headlines Limit',
-              description: 'Max headlines a Premium user can save.',
+              description:
+                  'Maximum number of headlines a Premium user can save.',
               value: userPreferenceLimits.premiumSavedHeadlinesLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1302,7 +1318,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Guest Ad Frequency',
               description:
-                  'How often an ad can be injected for Guest users (e.g., 5 means after every 5 primary items).',
+                  'How often an ad can appear for Guest users (e.g., a value '
+                  'of 5 means an ad could be placed after every 5 news items).',
               value: adConfig.guestAdFrequency,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1317,7 +1334,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Guest Ad Placement Interval',
               description:
-                  'Minimum primary items before the first ad for Guest users.',
+                  'Minimum number of news items that must be shown before the '
+                  'very first ad appears for Guest users.',
               value: adConfig.guestAdPlacementInterval,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1334,7 +1352,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Guest Articles Before Interstitial Ads',
               description:
-                  'Number of articles a Guest user reads before an interstitial ad is shown.',
+                  'Number of articles a Guest user needs to read before a '
+                  'full-screen interstitial ad is shown.',
               value: adConfig.guestArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1355,9 +1374,10 @@ class _AdConfigFormState extends State<_AdConfigForm> {
           children: [
             widget.buildIntField(
               context,
-              label: 'Authenticated Ad Frequency',
+              label: 'Standard User Ad Frequency',
               description:
-                  'How often an ad can be injected for Authenticated users.',
+                  'How often an ad can appear for Standard users (e.g., a value '
+                  'of 10 means an ad could be placed after every 10 news items).',
               value: adConfig.authenticatedAdFrequency,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1372,9 +1392,10 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
             widget.buildIntField(
               context,
-              label: 'Authenticated Ad Placement Interval',
+              label: 'Standard User Ad Placement Interval',
               description:
-                  'Minimum primary items before the first ad for Authenticated users.',
+                  'Minimum number of news items that must be shown before the '
+                  'very first ad appears for Standard users.',
               value: adConfig.authenticatedAdPlacementInterval,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1391,7 +1412,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Standard User Articles Before Interstitial Ads',
               description:
-                  'Number of articles a Standard user reads before an interstitial ad is shown.',
+                  'Number of articles a Standard user needs to read before a '
+                  'full-screen interstitial ad is shown.',
               value: adConfig
                   .standardUserArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
@@ -1416,7 +1438,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Premium Ad Frequency',
               description:
-                  'How often an ad can be injected for Premium users (0 for no ads).',
+                  'How often an ad can appear for Premium users (0 for no ads).',
               value: adConfig.premiumAdFrequency,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1431,7 +1453,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Premium Ad Placement Interval',
               description:
-                  'Minimum primary items before the first ad for Premium users.',
+                  'Minimum number of news items that must be shown before the '
+                  'very first ad appears for Premium users.',
               value: adConfig.premiumAdPlacementInterval,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1448,7 +1471,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               context,
               label: 'Premium User Articles Before Interstitial Ads',
               description:
-                  'Number of articles a Premium user reads before an interstitial ad is shown.',
+                  'Number of articles a Premium user needs to read before a '
+                  'full-screen interstitial ad is shown.',
               value: adConfig
                   .premiumUserArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
@@ -1574,9 +1598,10 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
           children: [
             widget.buildIntField(
               context,
-              label: 'Guest Days Between Account Actions',
+              label: 'Guest Days Between In-App Prompts',
               description:
-                  'Minimum days between showing account actions to Guest users.',
+                  'Minimum number of days that must pass before a Guest user '
+                  'sees another in-app prompt.',
               value: accountActionConfig.guestDaysBetweenAccountActions,
               onChanged: (value) {
                 widget.onConfigChanged(
@@ -1596,9 +1621,10 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
           children: [
             widget.buildIntField(
               context,
-              label: 'Standard User Days Between Account Actions',
+              label: 'Standard User Days Between In-App Prompts',
               description:
-                  'Minimum days between showing account actions to Standard users.',
+                  'Minimum number of days that must pass before a Standard user '
+                  'sees another in-app prompt.',
               value: accountActionConfig.standardUserDaysBetweenAccountActions,
               onChanged: (value) {
                 widget.onConfigChanged(
