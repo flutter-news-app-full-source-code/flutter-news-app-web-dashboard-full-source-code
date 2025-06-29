@@ -104,5 +104,334 @@
   "settings": "الإعدادات",
   "@settings": {
     "description": "تسمية عنصر التنقل للإعدادات"
+  },
+  "appConfigurationPageTitle": "إعدادات التطبيق",
+  "@appConfigurationPageTitle": {
+    "description": "عنوان صفحة إعدادات التطبيق"
+  },
+  "userContentLimitsTab": "حدود محتوى المستخدم",
+  "@userContentLimitsTab": {
+    "description": "عنوان تبويب حدود محتوى المستخدم"
+  },
+  "adSettingsTab": "إعدادات الإعلانات",
+  "@adSettingsTab": {
+    "description": "عنوان تبويب إعدادات الإعلانات"
+  },
+  "inAppPromptsTab": "تنبيهات داخل التطبيق",
+  "@inAppPromptsTab": {
+    "description": "عنوان تبويب تنبيهات داخل التطبيق"
+  },
+  "appOperationalStatusTab": "حالة تشغيل التطبيق",
+  "@appOperationalStatusTab": {
+    "description": "عنوان تبويب حالة تشغيل التطبيق"
+  },
+  "forceUpdateTab": "تحديث إجباري",
+  "@forceUpdateTab": {
+    "description": "عنوان تبويب تحديث إجباري"
+  },
+  "appConfigSaveSuccessMessage": "تم حفظ إعدادات التطبيق بنجاح!",
+  "@appConfigSaveSuccessMessage": {
+    "description": "رسالة شريط التنبيه لحفظ إعدادات التطبيق بنجاح"
+  },
+  "appConfigSaveErrorMessage": "خطأ: {errorMessage}",
+  "@appConfigSaveErrorMessage": {
+    "description": "رسالة شريط التنبيه لخطأ حفظ إعدادات التطبيق",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String"
+      }
+    }
+  },
+  "unknownError": "خطأ غير معروف",
+  "@unknownError": {
+    "description": "رسالة احتياطية للأخطاء غير المعروفة"
+  },
+  "loadingConfigurationHeadline": "جاري تحميل الإعدادات",
+  "@loadingConfigurationHeadline": {
+    "description": "عنوان حالة تحميل إعدادات التطبيق"
+  },
+  "loadingConfigurationSubheadline": "الرجاء الانتظار بينما يتم تحميل الإعدادات...",
+  "@loadingConfigurationSubheadline": {
+    "description": "عنوان فرعي لحالة تحميل إعدادات التطبيق"
+  },
+  "failedToLoadConfigurationMessage": "فشل تحميل الإعدادات.",
+  "@failedToLoadConfigurationMessage": {
+    "description": "رسالة لحالة فشل تحميل إعدادات التطبيق"
+  },
+  "loadAppSettingsSubheadline": "تحميل إعدادات التطبيق من الواجهة الخلفية.",
+  "@loadAppSettingsSubheadline": {
+    "description": "عنوان فرعي للحالة الأولية لإعدادات التطبيق"
+  },
+  "discardChangesButton": "تجاهل التغييرات",
+  "@discardChangesButton": {
+    "description": "زر لتجاهل التغييرات في إعدادات التطبيق"
+  },
+  "saveChangesButton": "حفظ التغييرات",
+  "@saveChangesButton": {
+    "description": "زر لحفظ التغييرات في إعدادات التطبيق"
+  },
+  "confirmConfigUpdateDialogTitle": "تأكيد تحديث الإعدادات",
+  "@confirmConfigUpdateDialogTitle": {
+    "description": "عنوان مربع حوار التأكيد قبل حفظ إعدادات التطبيق"
+  },
+  "confirmConfigUpdateDialogContent": "هل أنت متأكد أنك تريد تطبيق هذه التغييرات على إعدادات التطبيق المباشرة؟ هذه عملية حساسة.",
+  "@confirmConfigUpdateDialogContent": {
+    "description": "محتوى مربع حوار التأكيد قبل حفظ إعدادات التطبيق"
+  },
+  "cancelButton": "إلغاء",
+  "@cancelButton": {
+    "description": "تسمية زر الإلغاء"
+  },
+  "confirmSaveButton": "تأكيد الحفظ",
+  "@confirmSaveButton": {
+    "description": "تسمية زر تأكيد الحفظ في مربع الحوار"
+  },
+  "userContentLimitsDescription": "تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والفئات والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.",
+  "@userContentLimitsDescription": {
+    "description": "وصف قسم حدود محتوى المستخدم"
+  },
+  "guestUserTab": "ضيف",
+  "@guestUserTab": {
+    "description": "عنوان تبويب دور المستخدم الضيف"
+  },
+  "authenticatedUserTab": "موثق",
+  "@authenticatedUserTab": {
+    "description": "عنوان تبويب دور المستخدم الموثق"
+  },
+  "premiumUserTab": "مميز",
+  "@premiumUserTab": {
+    "description": "عنوان تبويب دور المستخدم المميز"
+  },
+  "guestFollowedItemsLimitLabel": "حد العناصر المتابعة للضيف",
+  "@guestFollowedItemsLimitLabel": {
+    "description": "تسمية حد العناصر المتابعة للضيف"
+  },
+  "guestFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).",
+  "@guestFollowedItemsLimitDescription": {
+    "description": "وصف حد العناصر المتابعة للضيف"
+  },
+  "guestSavedHeadlinesLimitLabel": "حد العناوين المحفوظة للضيف",
+  "@guestSavedHeadlinesLimitLabel": {
+    "description": "تسمية حد العناوين المحفوظة للضيف"
+  },
+  "guestSavedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم الضيف حفظها.",
+  "@guestSavedHeadlinesLimitDescription": {
+    "description": "وصف حد العناوين المحفوظة للضيف"
+  },
+  "standardUserFollowedItemsLimitLabel": "حد العناصر المتابعة للمستخدم العادي",
+  "@standardUserFollowedItemsLimitLabel": {
+    "description": "تسمية حد العناصر المتابعة للمستخدم العادي"
+  },
+  "standardUserFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).",
+  "@standardUserFollowedItemsLimitDescription": {
+    "description": "وصف حد العناصر المتابعة للمستخدم العادي"
+  },
+  "standardUserSavedHeadlinesLimitLabel": "حد العناوين المحفوظة للمستخدم العادي",
+  "@standardUserSavedHeadlinesLimitLabel": {
+    "description": "تسمية حد العناوين المحفوظة للمستخدم العادي"
+  },
+  "standardUserSavedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم العادي حفظها.",
+  "@standardUserSavedHeadlinesLimitDescription": {
+    "description": "وصف حد العناوين المحفوظة للمستخدم العادي"
+  },
+  "premiumFollowedItemsLimitLabel": "حد العناصر المتابعة للمستخدم المميز",
+  "@premiumFollowedItemsLimitLabel": {
+    "description": "تسمية حد العناصر المتابعة للمستخدم المميز"
+  },
+  "premiumFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).",
+  "@premiumFollowedItemsLimitDescription": {
+    "description": "وصف حد العناصر المتابعة للمستخدم المميز"
+  },
+  "premiumSavedHeadlinesLimitLabel": "حد العناوين المحفوظة للمستخدم المميز",
+  "@premiumSavedHeadlinesLimitLabel": {
+    "description": "تسمية حد العناوين المحفوظة للمستخدم المميز"
+  },
+  "premiumSavedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم المميز حفظها.",
+  "@premiumSavedHeadlinesLimitDescription": {
+    "description": "وصف حد العناوين المحفوظة للمستخدم المميز"
+  },
+  "adSettingsDescription": "تتحكم هذه الإعدادات في كيفية عرض الإعلانات ضمن موجز الأخبار في التطبيق، مع قواعد مختلفة للمستخدمين الضيوف والعاديين والمميزين. تحدد \"تكرار الإعلان\" عدد مرات ظهور الإعلان، بينما تحدد \"فترة وضع الإعلان\" عدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول.",
+  "@adSettingsDescription": {
+    "description": "وصف قسم إعدادات الإعلانات"
+  },
+  "standardUserAdTab": "مستخدم عادي",
+  "@standardUserAdTab": {
+    "description": "عنوان تبويب المستخدم العادي في إعدادات الإعلانات"
+  },
+  "guestAdFrequencyLabel": "تكرار الإعلان للضيف",
+  "@guestAdFrequencyLabel": {
+    "description": "تسمية تكرار الإعلان للضيف"
+  },
+  "guestAdFrequencyDescription": "عدد مرات ظهور الإعلان للمستخدمين الضيوف (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).",
+  "@guestAdFrequencyDescription": {
+    "description": "وصف تكرار الإعلان للضيف"
+  },
+  "guestAdPlacementIntervalLabel": "فترة وضع الإعلان للضيف",
+  "@guestAdPlacementIntervalLabel": {
+    "description": "تسمية فترة وضع الإعلان للضيف"
+  },
+  "guestAdPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين الضيوف.",
+  "@guestAdPlacementIntervalDescription": {
+    "description": "وصف فترة وضع الإعلان للضيف"
+  },
+  "guestArticlesBeforeInterstitialAdsLabel": "مقالات الضيف قبل الإعلانات البينية",
+  "@guestArticlesBeforeInterstitialAdsLabel": {
+    "description": "تسمية مقالات الضيف قبل الإعلانات البينية"
+  },
+  "guestArticlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج المستخدم الضيف لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
+  "@guestArticlesBeforeInterstitialAdsDescription": {
+    "description": "وصف مقالات الضيف قبل الإعلانات البينية"
+  },
+  "standardUserAdFrequencyLabel": "تكرار الإعلان للمستخدم العادي",
+  "@standardUserAdFrequencyLabel": {
+    "description": "تسمية تكرار الإعلان للمستخدم العادي"
+  },
+  "standardUserAdFrequencyDescription": "عدد مرات ظهور الإعلان للمستخدمين العاديين (على سبيل المثال، قيمة 10 تعني أنه يمكن وضع إعلان بعد كل 10 عناصر إخبارية).",
+  "@standardUserAdFrequencyDescription": {
+    "description": "وصف تكرار الإعلان للمستخدم العادي"
+  },
+  "standardUserAdPlacementIntervalLabel": "فترة وضع الإعلان للمستخدم العادي",
+  "@standardUserAdPlacementIntervalLabel": {
+    "description": "تسمية فترة وضع الإعلان للمستخدم العادي"
+  },
+  "standardUserAdPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين العاديين.",
+  "@standardUserAdPlacementIntervalDescription": {
+    "description": "وصف فترة وضع الإعلان للمستخدم العادي"
+  },
+  "standardUserArticlesBeforeInterstitialAdsLabel": "مقالات المستخدم العادي قبل الإعلانات البينية",
+  "@standardUserArticlesBeforeInterstitialAdsLabel": {
+    "description": "تسمية مقالات المستخدم العادي قبل الإعلانات البينية"
+  },
+  "standardUserArticlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج المستخدم العادي لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
+  "@standardUserArticlesBeforeInterstitialAdsDescription": {
+    "description": "وصف مقالات المستخدم العادي قبل الإعلانات البينية"
+  },
+  "premiumAdFrequencyLabel": "تكرار الإعلان للمستخدم المميز",
+  "@premiumAdFrequencyLabel": {
+    "description": "تسمية تكرار الإعلان للمستخدم المميز"
+  },
+  "premiumAdFrequencyDescription": "عدد مرات ظهور الإعلان للمستخدمين المميزين (0 يعني عدم وجود إعلانات).",
+  "@premiumAdFrequencyDescription": {
+    "description": "وصف تكرار الإعلان للمستخدم المميز"
+  },
+  "premiumAdPlacementIntervalLabel": "فترة وضع الإعلان للمستخدم المميز",
+  "@premiumAdPlacementIntervalLabel": {
+    "description": "تسمية فترة وضع الإعلان للمستخدم المميز"
+  },
+  "premiumAdPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين المميزين.",
+  "@premiumAdPlacementIntervalDescription": {
+    "description": "وصف فترة وضع الإعلان للمستخدم المميز"
+  },
+  "premiumUserArticlesBeforeInterstitialAdsLabel": "مقالات المستخدم المميز قبل الإعلانات البينية",
+  "@premiumUserArticlesBeforeInterstitialAdsLabel": {
+    "description": "تسمية مقالات المستخدم المميز قبل الإعلانات البينية"
+  },
+  "premiumUserArticlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج المستخدم المميز لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
+  "@premiumUserArticlesBeforeInterstitialAdsDescription": {
+    "description": "وصف مقالات المستخدم المميز قبل الإعلانات البينية"
+  },
+  "inAppPromptsDescription": "تتحكم هذه الإعدادات في عدد مرات عرض الرسائل الخاصة داخل التطبيق أو \"التنبيهات\" للمستخدمين في موجز الأخبار الخاص بهم. تشجع هذه التنبيهات على إجراءات مثل ربط حساب (للضيوف) أو الترقية إلى اشتراك مميز (للمستخدمين الموثقين). يختلف التكرار حسب نوع المستخدم.",
+  "@inAppPromptsDescription": {
+    "description": "وصف قسم تنبيهات داخل التطبيق"
+  },
+  "appOperationalStatusWarning": "تحذير: قد يؤثر تغيير حالة تشغيل التطبيق على جميع المستخدمين. استخدم بحذر شديد.",
+  "@appOperationalStatusWarning": {
+    "description": "رسالة تحذير لتغيير حالة تشغيل التطبيق"
+  },
+  "appOperationalStatusLabel": "حالة تشغيل التطبيق",
+  "@appOperationalStatusLabel": {
+    "description": "تسمية حالة تشغيل التطبيق"
+  },
+  "appOperationalStatusDescription": "الحالة التشغيلية الحالية للتطبيق (على سبيل المثال، نشط، صيانة، معطل).",
+  "@appOperationalStatusDescription": {
+    "description": "وصف حالة تشغيل التطبيق"
+  },
+  "maintenanceMessageLabel": "رسالة الصيانة",
+  "@maintenanceMessageLabel": {
+    "description": "تسمية رسالة الصيانة"
+  },
+  "maintenanceMessageDescription": "الرسالة المعروضة عندما يكون التطبيق في وضع الصيانة.",
+  "@maintenanceMessageDescription": {
+    "description": "وصف رسالة الصيانة"
+  },
+  "disabledMessageLabel": "رسالة التعطيل",
+  "@disabledMessageLabel": {
+    "description": "تسمية رسالة التعطيل"
+  },
+  "disabledMessageDescription": "الرسالة المعروضة عندما يكون التطبيق معطلاً بشكل دائم.",
+  "@disabledMessageDescription": {
+    "description": "وصف رسالة التعطيل"
+  },
+  "forceUpdateConfigurationTitle": "إعدادات التحديث الإجباري",
+  "@forceUpdateConfigurationTitle": {
+    "description": "عنوان قسم إعدادات التحديث الإجباري"
+  },
+  "forceUpdateDescription": "تتحكم هذه الإعدادات في فرض إصدار التطبيق. سيتم إجبار المستخدمين الذين يستخدمون إصدارات أقل من الحد الأدنى المسموح به على التحديث.",
+  "@forceUpdateDescription": {
+    "description": "وصف قسم إعدادات التحديث الإجباري"
+  },
+  "minAllowedAppVersionLabel": "الحد الأدنى المسموح به لإصدار التطبيق",
+  "@minAllowedAppVersionLabel": {
+    "description": "تسمية الحد الأدنى المسموح به لإصدار التطبيق"
+  },
+  "minAllowedAppVersionDescription": "أدنى إصدار للتطبيق مسموح بتشغيله (على سبيل المثال، \"1.2.0\").",
+  "@minAllowedAppVersionDescription": {
+    "description": "وصف الحد الأدنى المسموح به لإصدار التطبيق"
+  },
+  "latestAppVersionLabel": "أحدث إصدار للتطبيق",
+  "@latestAppVersionLabel": {
+    "description": "تسمية أحدث إصدار للتطبيق"
+  },
+  "latestAppVersionDescription": "أحدث إصدار متاح للتطبيق (على سبيل المثال، \"1.5.0\").",
+  "@latestAppVersionDescription": {
+    "description": "وصف أحدث إصدار للتطبيق"
+  },
+  "updateRequiredMessageLabel": "رسالة التحديث المطلوب",
+  "@updateRequiredMessageLabel": {
+    "description": "تسمية رسالة التحديث المطلوب"
+  },
+  "updateRequiredMessageDescription": "الرسالة المعروضة عندما يكون التحديث إجباريًا.",
+  "@updateRequiredMessageDescription": {
+    "description": "وصف رسالة التحديث المطلوب"
+  },
+  "updateOptionalMessageLabel": "رسالة التحديث الاختياري",
+  "@updateOptionalMessageLabel": {
+    "description": "تسمية رسالة التحديث الاختياري"
+  },
+  "updateOptionalMessageDescription": "الرسالة المعروضة للتحديث الاختياري.",
+  "@updateOptionalMessageDescription": {
+    "description": "وصف رسالة التحديث الاختياري"
+  },
+  "iosStoreUrlLabel": "رابط متجر iOS",
+  "@iosStoreUrlLabel": {
+    "description": "تسمية رابط متجر iOS"
+  },
+  "iosStoreUrlDescription": "رابط التطبيق على متجر Apple App Store.",
+  "@iosStoreUrlDescription": {
+    "description": "وصف رابط متجر iOS"
+  },
+  "androidStoreUrlLabel": "رابط متجر Android",
+  "@androidStoreUrlLabel": {
+    "description": "تسمية رابط متجر Android"
+  },
+  "androidStoreUrlDescription": "رابط التطبيق على متجر Google Play Store.",
+  "@androidStoreUrlDescription": {
+    "description": "وصف رابط متجر Android"
+  },
+  "guestDaysBetweenInAppPromptsLabel": "أيام الضيف بين التنبيهات داخل التطبيق",
+  "@guestDaysBetweenInAppPromptsLabel": {
+    "description": "تسمية أيام الضيف بين التنبيهات داخل التطبيق"
+  },
+  "guestDaysBetweenInAppPromptsDescription": "الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم الضيف تنبيهًا آخر داخل التطبيق.",
+  "@guestDaysBetweenInAppPromptsDescription": {
+    "description": "وصف أيام الضيف بين التنبيهات داخل التطبيق"
+  },
+  "standardUserDaysBetweenInAppPromptsLabel": "أيام المستخدم العادي بين التنبيهات داخل التطبيق",
+  "@standardUserDaysBetweenInAppPromptsLabel": {
+    "description": "تسمية أيام المستخدم العادي بين التنبيهات داخل التطبيق"
+  },
+  "standardUserDaysBetweenInAppPromptsDescription": "الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم العادي تنبيهًا آخر داخل التطبيق.",
+  "@standardUserDaysBetweenInAppPromptsDescription": {
+    "description": "وصف أيام المستخدم العادي بين التنبيهات داخل التطبيق"
   }
 }
