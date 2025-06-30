@@ -595,5 +595,10 @@
   "fontSettingsLabel": "إعدادات الخط",
   "@fontSettingsLabel": {
     "description": "تسمية تبويب إعدادات الخط الفرعي"
-  }
+  },
+  "settingsPageDescription": "قم بتكوين تفضيلاتك الشخصية لواجهة لوحة القيادة، بما في ذلك العرض المرئي واختيار اللغة.",
+  "@settingsPageDescription": {
+    "description": "وصف صفحة الإعدادات الرئيسية"
+  },
+  "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية."
 }
