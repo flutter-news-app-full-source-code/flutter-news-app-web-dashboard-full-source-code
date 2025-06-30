@@ -49,16 +49,38 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           context.l10n.appConfigurationPageTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          tabs: [
-            Tab(text: context.l10n.userContentLimitsTab),
-            Tab(text: context.l10n.adSettingsTab),
-            Tab(text: context.l10n.inAppPromptsTab),
-            Tab(text: context.l10n.appOperationalStatusTab),
-            Tab(text: context.l10n.forceUpdateTab),
-          ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(
+            kToolbarHeight + kTextTabBarHeight + AppSpacing.lg,
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: AppSpacing.lg,
+                  right: AppSpacing.lg,
+                  bottom: AppSpacing.lg,
+                ),
+                child: Text(
+                  context.l10n.appConfigurationPageDescription,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+              TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                tabs: [
+                  Tab(text: context.l10n.userContentLimitsTab),
+                  Tab(text: context.l10n.adSettingsTab),
+                  Tab(text: context.l10n.inAppPromptsTab),
+                  Tab(text: context.l10n.appOperationalStatusTab),
+                  Tab(text: context.l10n.forceUpdateTab),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       body: BlocConsumer<AppConfigurationBloc, AppConfigurationState>(
