@@ -487,4 +487,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get arabicLanguage => 'العربية';
+
+  @override
+  String get appearanceSettingsLabel => 'المظهر';
+
+  @override
+  String get languageSettingsLabel => 'اللغة';
+
+  @override
+  String get themeSettingsLabel => 'إعدادات السمة';
+
+  @override
+  String get fontSettingsLabel => 'إعدادات الخط';
 }

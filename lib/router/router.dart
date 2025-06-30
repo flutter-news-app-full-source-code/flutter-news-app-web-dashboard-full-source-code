@@ -140,6 +140,17 @@ GoRouter createRouter({
                 path: Routes.dashboard,
                 name: Routes.dashboardName,
                 builder: (context, state) => const DashboardPage(),
+                routes: [
+                  // The settings page is a sub-route of the dashboard.
+                  // This allows it to be displayed within the AppShell
+                  // (with sidebar and top bar visible) without adding
+                  // a new item to the main navigation sidebar.
+                  GoRoute(
+                    path: Routes.settings,
+                    name: Routes.settingsName,
+                    builder: (context, state) => const SettingsPage(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -179,11 +190,6 @@ GoRouter createRouter({
             ],
           ),
         ],
-      ),
-      GoRoute(
-        path: Routes.settings,
-        name: Routes.settingsName,
-        builder: (context, state) => const SettingsPage(),
       ),
     ],
   );

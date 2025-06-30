@@ -12,7 +12,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
     required HtDataRepository<UserAppSettings> userAppSettingsRepository,
   }) : _userAppSettingsRepository = userAppSettingsRepository,
-       super(SettingsInitial()) {
+       super(const SettingsInitial()) {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<SettingsBaseThemeChanged>(_onSettingsBaseThemeChanged);
     on<SettingsAccentThemeChanged>(_onSettingsAccentThemeChanged);
@@ -28,9 +28,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsLoaded event,
     Emitter<SettingsState> emit,
   ) async {
-    emit(SettingsLoadInProgress());
+    emit(SettingsLoadInProgress(userAppSettings: state.userAppSettings));
     try {
-      // Assuming a fixed ID for user settings, or fetching based on current user
       final userAppSettings = await _userAppSettingsRepository.read(
         id: event.userId!,
       );
@@ -40,9 +39,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       await _userAppSettingsRepository.create(item: defaultSettings);
       emit(SettingsLoadSuccess(userAppSettings: defaultSettings));
     } on HtHttpException catch (e) {
-      emit(SettingsLoadFailure(e.message));
+      emit(SettingsLoadFailure(e.message, userAppSettings: state.userAppSettings));
     } catch (e) {
-      emit(SettingsLoadFailure('An unexpected error occurred: $e'));
+      emit(SettingsLoadFailure('An unexpected error occurred: $e', userAppSettings: state.userAppSettings));
     }
   }
 
@@ -58,9 +57,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
       emit(SettingsUpdateSuccess(userAppSettings: result));
     } on HtHttpException catch (e) {
-      emit(SettingsUpdateFailure(e.message));
+      emit(SettingsUpdateFailure(e.message, userAppSettings: state.userAppSettings));
     } catch (e) {
-      emit(SettingsUpdateFailure('An unexpected error occurred: $e'));
+      emit(SettingsUpdateFailure('An unexpected error occurred: $e', userAppSettings: state.userAppSettings));
     }
   }
 
@@ -68,8 +67,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsBaseThemeChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoadSuccess) {
-      final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
+    final currentSettings = state.userAppSettings;
+    if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
         displaySettings: currentSettings.displaySettings.copyWith(
           baseTheme: event.baseTheme,
@@ -83,8 +82,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsAccentThemeChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoadSuccess) {
-      final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
+    final currentSettings = state.userAppSettings;
+    if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
         displaySettings: currentSettings.displaySettings.copyWith(
           accentTheme: event.accentTheme,
@@ -98,8 +97,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsFontFamilyChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoadSuccess) {
-      final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
+    final currentSettings = state.userAppSettings;
+    if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
         displaySettings: currentSettings.displaySettings.copyWith(
           fontFamily: event.fontFamily,
@@ -113,8 +112,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsTextScaleFactorChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoadSuccess) {
-      final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
+    final currentSettings = state.userAppSettings;
+    if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
         displaySettings: currentSettings.displaySettings.copyWith(
           textScaleFactor: event.textScaleFactor,
@@ -128,8 +127,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsFontWeightChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoadSuccess) {
-      final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
+    final currentSettings = state.userAppSettings;
+    if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
         displaySettings: currentSettings.displaySettings.copyWith(
           fontWeight: event.fontWeight,
@@ -143,8 +142,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsLanguageChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoadSuccess) {
-      final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
+    final currentSettings = state.userAppSettings;
+    if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
         language: event.language,
       );

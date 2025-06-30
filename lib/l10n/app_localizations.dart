@@ -931,6 +931,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arabic'**
   String get arabicLanguage;
+
+  /// Label for the Appearance settings tab
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearanceSettingsLabel;
+
+  /// Label for the Language settings tab
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageSettingsLabel;
+
+  /// Label for the Theme Settings sub-tab
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Settings'**
+  String get themeSettingsLabel;
+
+  /// Label for the Font Settings sub-tab
+  ///
+  /// In en, this message translates to:
+  /// **'Font Settings'**
+  String get fontSettingsLabel;
 }
 
 class _AppLocalizationsDelegate
