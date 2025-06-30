@@ -61,6 +61,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               ),
               TabBar(
                 controller: _tabController,
+                tabAlignment: TabAlignment.start,
+                isScrollable: true,
                 tabs: [
                   Tab(text: l10n.headlines),
                   Tab(text: l10n.categories),
