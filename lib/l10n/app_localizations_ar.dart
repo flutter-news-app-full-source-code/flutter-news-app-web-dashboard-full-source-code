@@ -377,4 +377,114 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get standardUserDaysBetweenInAppPromptsDescription =>
       'الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم العادي تنبيهًا آخر داخل التطبيق.';
+
+  @override
+  String get signOut => 'تسجيل الخروج';
+
+  @override
+  String get settingsSavedSuccessfully => 'تم حفظ الإعدادات بنجاح!';
+
+  @override
+  String settingsSaveErrorMessage(String errorMessage) {
+    return 'خطأ في حفظ الإعدادات: $errorMessage';
+  }
+
+  @override
+  String get loadingSettingsHeadline => 'جاري تحميل الإعدادات';
+
+  @override
+  String get loadingSettingsSubheadline =>
+      'الرجاء الانتظار بينما يتم تحميل إعداداتك...';
+
+  @override
+  String failedToLoadSettingsMessage(String errorMessage) {
+    return 'فشل تحميل الإعدادات: $errorMessage';
+  }
+
+  @override
+  String get baseThemeLabel => 'السمة الأساسية';
+
+  @override
+  String get baseThemeDescription =>
+      'اختر المظهر العام الفاتح أو الداكن للتطبيق.';
+
+  @override
+  String get lightTheme => 'فاتح';
+
+  @override
+  String get darkTheme => 'داكن';
+
+  @override
+  String get systemTheme => 'افتراضي النظام';
+
+  @override
+  String get accentThemeLabel => 'سمة التمييز';
+
+  @override
+  String get accentThemeDescription =>
+      'اختر لون تمييز أساسي للعناصر التفاعلية.';
+
+  @override
+  String get defaultBlueTheme => 'أزرق افتراضي';
+
+  @override
+  String get newsRedTheme => 'أحمر الأخبار';
+
+  @override
+  String get graphiteGrayTheme => 'رمادي جرافيت';
+
+  @override
+  String get fontFamilyLabel => 'عائلة الخط';
+
+  @override
+  String get fontFamilyDescription =>
+      'اختر الخط المستخدم في جميع أنحاء التطبيق.';
+
+  @override
+  String get systemDefaultFont => 'افتراضي النظام';
+
+  @override
+  String get textScaleFactorLabel => 'حجم النص';
+
+  @override
+  String get textScaleFactorDescription => 'ضبط الحجم الكلي للنص في التطبيق.';
+
+  @override
+  String get smallText => 'صغير';
+
+  @override
+  String get mediumText => 'متوسط';
+
+  @override
+  String get largeText => 'كبير';
+
+  @override
+  String get extraLargeText => 'كبير جداً';
+
+  @override
+  String get fontWeightLabel => 'وزن الخط';
+
+  @override
+  String get fontWeightDescription => 'اختر سمك النص.';
+
+  @override
+  String get lightFontWeight => 'فاتح';
+
+  @override
+  String get regularFontWeight => 'عادي';
+
+  @override
+  String get boldFontWeight => 'عريض';
+
+  @override
+  String get languageLabel => 'اللغة';
+
+  @override
+  String get languageDescription => 'اختر لغة التطبيق.';
+
+  @override
+  String get englishLanguage => 'الإنجليزية';
+
+  @override
+  String get arabicLanguage => 'العربية';
 }

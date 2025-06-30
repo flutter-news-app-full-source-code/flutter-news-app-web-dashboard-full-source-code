@@ -23,3 +23,17 @@ class AppLogoutRequested extends AppEvent {
   /// {@macro app_logout_requested}
   const AppLogoutRequested();
 }
+
+/// {@template app_user_app_settings_changed}
+/// Event to notify that user application settings have changed.
+/// {@endtemplate}
+final class AppUserAppSettingsChanged extends AppEvent {
+  /// {@macro app_user_app_settings_changed}
+  const AppUserAppSettingsChanged(this.userAppSettings);
+
+  /// The updated user application settings.
+  final UserAppSettings userAppSettings;
+
+  @override
+  List<Object?> get props => [userAppSettings];
+}

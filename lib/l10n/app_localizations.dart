@@ -727,6 +727,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Minimum number of days that must pass before a Standard user sees another in-app prompt.'**
   String get standardUserDaysBetweenInAppPromptsDescription;
+
+  /// Text for the Sign Out menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signOut;
+
+  /// Snackbar message for successful settings save
+  ///
+  /// In en, this message translates to:
+  /// **'Settings saved successfully!'**
+  String get settingsSavedSuccessfully;
+
+  /// Snackbar message for settings save error
+  ///
+  /// In en, this message translates to:
+  /// **'Error saving settings: {errorMessage}'**
+  String settingsSaveErrorMessage(String errorMessage);
+
+  /// Headline for loading state of settings
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Settings'**
+  String get loadingSettingsHeadline;
+
+  /// Subheadline for loading state of settings
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while your settings are loaded...'**
+  String get loadingSettingsSubheadline;
+
+  /// Message for failure state of settings loading
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load settings: {errorMessage}'**
+  String failedToLoadSettingsMessage(String errorMessage);
+
+  /// Label for base theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'Base Theme'**
+  String get baseThemeLabel;
+
+  /// Description for base theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the overall light or dark appearance of the app.'**
+  String get baseThemeDescription;
+
+  /// Option for light theme
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get lightTheme;
+
+  /// Option for dark theme
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get darkTheme;
+
+  /// Option for system default theme
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get systemTheme;
+
+  /// Label for accent theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'Accent Theme'**
+  String get accentThemeLabel;
+
+  /// Description for accent theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'Select a primary accent color for interactive elements.'**
+  String get accentThemeDescription;
+
+  /// Option for default blue accent theme
+  ///
+  /// In en, this message translates to:
+  /// **'Default Blue'**
+  String get defaultBlueTheme;
+
+  /// Option for news red accent theme
+  ///
+  /// In en, this message translates to:
+  /// **'News Red'**
+  String get newsRedTheme;
+
+  /// Option for graphite gray accent theme
+  ///
+  /// In en, this message translates to:
+  /// **'Graphite Gray'**
+  String get graphiteGrayTheme;
+
+  /// Label for font family setting
+  ///
+  /// In en, this message translates to:
+  /// **'Font Family'**
+  String get fontFamilyLabel;
+
+  /// Description for font family setting
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the font used throughout the application.'**
+  String get fontFamilyDescription;
+
+  /// Option for system default font
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get systemDefaultFont;
+
+  /// Label for text scale factor setting
+  ///
+  /// In en, this message translates to:
+  /// **'Text Size'**
+  String get textScaleFactorLabel;
+
+  /// Description for text scale factor setting
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust the overall size of text in the app.'**
+  String get textScaleFactorDescription;
+
+  /// Option for small text size
+  ///
+  /// In en, this message translates to:
+  /// **'Small'**
+  String get smallText;
+
+  /// Option for medium text size
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get mediumText;
+
+  /// Option for large text size
+  ///
+  /// In en, this message translates to:
+  /// **'Large'**
+  String get largeText;
+
+  /// Option for extra large text size
+  ///
+  /// In en, this message translates to:
+  /// **'Extra Large'**
+  String get extraLargeText;
+
+  /// Label for font weight setting
+  ///
+  /// In en, this message translates to:
+  /// **'Font Weight'**
+  String get fontWeightLabel;
+
+  /// Description for font weight setting
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the thickness of the text.'**
+  String get fontWeightDescription;
+
+  /// Option for light font weight
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get lightFontWeight;
+
+  /// Option for regular font weight
+  ///
+  /// In en, this message translates to:
+  /// **'Regular'**
+  String get regularFontWeight;
+
+  /// Option for bold font weight
+  ///
+  /// In en, this message translates to:
+  /// **'Bold'**
+  String get boldFontWeight;
+
+  /// Label for language setting
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageLabel;
+
+  /// Description for language setting
+  ///
+  /// In en, this message translates to:
+  /// **'Select the application language.'**
+  String get languageDescription;
+
+  /// Option for English language
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get englishLanguage;
+
+  /// Option for Arabic language
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get arabicLanguage;
 }
 
 class _AppLocalizationsDelegate

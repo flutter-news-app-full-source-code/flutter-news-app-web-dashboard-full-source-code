@@ -433,5 +433,151 @@
   "standardUserDaysBetweenInAppPromptsDescription": "الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم العادي تنبيهًا آخر داخل التطبيق.",
   "@standardUserDaysBetweenInAppPromptsDescription": {
     "description": "وصف أيام المستخدم العادي بين التنبيهات داخل التطبيق"
+  },
+  "signOut": "تسجيل الخروج",
+  "@signOut": {
+    "description": "نص عنصر قائمة تسجيل الخروج"
+  },
+  "settingsSavedSuccessfully": "تم حفظ الإعدادات بنجاح!",
+  "@settingsSavedSuccessfully": {
+    "description": "رسالة شريط التنبيه لحفظ الإعدادات بنجاح"
+  },
+  "settingsSaveErrorMessage": "خطأ في حفظ الإعدادات: {errorMessage}",
+  "@settingsSaveErrorMessage": {
+    "description": "رسالة شريط التنبيه لخطأ حفظ الإعدادات",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String"
+      }
+    }
+  },
+  "loadingSettingsHeadline": "جاري تحميل الإعدادات",
+  "@loadingSettingsHeadline": {
+    "description": "عنوان حالة تحميل الإعدادات"
+  },
+  "loadingSettingsSubheadline": "الرجاء الانتظار بينما يتم تحميل إعداداتك...",
+  "@loadingSettingsSubheadline": {
+    "description": "عنوان فرعي لحالة تحميل الإعدادات"
+  },
+  "failedToLoadSettingsMessage": "فشل تحميل الإعدادات: {errorMessage}",
+  "@failedToLoadSettingsMessage": {
+    "description": "رسالة لحالة فشل تحميل الإعدادات",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String"
+      }
+    }
+  },
+  "baseThemeLabel": "السمة الأساسية",
+  "@baseThemeLabel": {
+    "description": "تسمية إعداد السمة الأساسية"
+  },
+  "baseThemeDescription": "اختر المظهر العام الفاتح أو الداكن للتطبيق.",
+  "@baseThemeDescription": {
+    "description": "وصف إعداد السمة الأساسية"
+  },
+  "lightTheme": "فاتح",
+  "@lightTheme": {
+    "description": "خيار السمة الفاتحة"
+  },
+  "darkTheme": "داكن",
+  "@darkTheme": {
+    "description": "خيار السمة الداكنة"
+  },
+  "systemTheme": "افتراضي النظام",
+  "@systemTheme": {
+    "description": "خيار السمة الافتراضية للنظام"
+  },
+  "accentThemeLabel": "سمة التمييز",
+  "@accentThemeLabel": {
+    "description": "تسمية إعداد سمة التمييز"
+  },
+  "accentThemeDescription": "اختر لون تمييز أساسي للعناصر التفاعلية.",
+  "@accentThemeDescription": {
+    "description": "وصف إعداد سمة التمييز"
+  },
+  "defaultBlueTheme": "أزرق افتراضي",
+  "@defaultBlueTheme": {
+    "description": "خيار سمة التمييز الزرقاء الافتراضية"
+  },
+  "newsRedTheme": "أحمر الأخبار",
+  "@newsRedTheme": {
+    "description": "خيار سمة التمييز الحمراء للأخبار"
+  },
+  "graphiteGrayTheme": "رمادي جرافيت",
+  "@graphiteGrayTheme": {
+    "description": "خيار سمة التمييز الرمادية الجرافيتية"
+  },
+  "fontFamilyLabel": "عائلة الخط",
+  "@fontFamilyLabel": {
+    "description": "تسمية إعداد عائلة الخط"
+  },
+  "fontFamilyDescription": "اختر الخط المستخدم في جميع أنحاء التطبيق.",
+  "@fontFamilyDescription": {
+    "description": "وصف إعداد عائلة الخط"
+  },
+  "systemDefaultFont": "افتراضي النظام",
+  "@systemDefaultFont": {
+    "description": "خيار الخط الافتراضي للنظام"
+  },
+  "textScaleFactorLabel": "حجم النص",
+  "@textScaleFactorLabel": {
+    "description": "تسمية إعداد حجم النص"
+  },
+  "textScaleFactorDescription": "ضبط الحجم الكلي للنص في التطبيق.",
+  "@textScaleFactorDescription": {
+    "description": "وصف إعداد حجم النص"
+  },
+  "smallText": "صغير",
+  "@smallText": {
+    "description": "خيار حجم النص الصغير"
+  },
+  "mediumText": "متوسط",
+  "@mediumText": {
+    "description": "خيار حجم النص المتوسط"
+  },
+  "largeText": "كبير",
+  "@largeText": {
+    "description": "خيار حجم النص الكبير"
+  },
+  "extraLargeText": "كبير جداً",
+  "@extraLargeText": {
+    "description": "خيار حجم النص الكبير جداً"
+  },
+  "fontWeightLabel": "وزن الخط",
+  "@fontWeightLabel": {
+    "description": "تسمية إعداد وزن الخط"
+  },
+  "fontWeightDescription": "اختر سمك النص.",
+  "@fontWeightDescription": {
+    "description": "وصف إعداد وزن الخط"
+  },
+  "lightFontWeight": "فاتح",
+  "@lightFontWeight": {
+    "description": "خيار وزن الخط الفاتح"
+  },
+  "regularFontWeight": "عادي",
+  "@regularFontWeight": {
+    "description": "خيار وزن الخط العادي"
+  },
+  "boldFontWeight": "عريض",
+  "@boldFontWeight": {
+    "description": "خيار وزن الخط العريض"
+  },
+  "languageLabel": "اللغة",
+  "@languageLabel": {
+    "description": "تسمية إعداد اللغة"
+  },
+  "languageDescription": "اختر لغة التطبيق.",
+  "@languageDescription": {
+    "description": "وصف إعداد اللغة"
+  },
+  "englishLanguage": "الإنجليزية",
+  "@englishLanguage": {
+    "description": "خيار اللغة الإنجليزية"
+  },
+  "arabicLanguage": "العربية",
+  "@arabicLanguage": {
+    "description": "خيار اللغة العربية"
   }
 }

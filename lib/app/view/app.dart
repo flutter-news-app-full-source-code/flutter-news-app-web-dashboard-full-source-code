@@ -1,6 +1,7 @@
 //
 // ignore_for_file: deprecated_member_use
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,9 @@ import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart'
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/router/router.dart';
+import 'package:ht_dashboard/shared/theme/app_theme.dart'
+    as app_theme_extension; // Import for app_theme.dart
+import 'package:ht_dashboard/shared/theme/app_theme.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -135,12 +139,37 @@ class _AppViewState extends State<_AppView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AppBloc, AppState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.userAppSettings != current.userAppSettings,
       listener: (context, state) {
         _statusNotifier.value = state.status;
       },
       child: BlocBuilder<AppBloc, AppState>(
         builder: (context, state) {
+          final userAppSettings = state.userAppSettings;
+          final baseTheme = userAppSettings?.displaySettings.baseTheme;
+          final accentTheme = userAppSettings?.displaySettings.accentTheme;
+          final fontFamily = userAppSettings?.displaySettings.fontFamily;
+          final textScaleFactor =
+              userAppSettings?.displaySettings.textScaleFactor;
+          final fontWeight = userAppSettings?.displaySettings.fontWeight;
+          final language = userAppSettings?.language;
+
+          final lightThemeData = lightTheme(
+            scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,
+            appTextScaleFactor: textScaleFactor ?? AppTextScaleFactor.medium,
+            appFontWeight: fontWeight ?? AppFontWeight.regular,
+            fontFamily: fontFamily,
+          );
+
+          final darkThemeData = darkTheme(
+            scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,
+            appTextScaleFactor: textScaleFactor ?? AppTextScaleFactor.medium,
+            appFontWeight: fontWeight ?? AppFontWeight.regular,
+            fontFamily: fontFamily,
+          );
+
           const double kMaxAppWidth = 1000; // Local constant for max width
           return Center(
             child: Card(
@@ -159,6 +188,16 @@ class _AppViewState extends State<_AppView> {
                   localizationsDelegates:
                       AppLocalizations.localizationsDelegates,
                   supportedLocales: AppLocalizations.supportedLocales,
+                  theme: baseTheme == AppBaseTheme.dark
+                      ? darkThemeData
+                      : lightThemeData,
+                  darkTheme: darkThemeData,
+                  themeMode: switch (baseTheme) {
+                    AppBaseTheme.light => ThemeMode.light,
+                    AppBaseTheme.dark => ThemeMode.dark,
+                    AppBaseTheme.system || null => ThemeMode.system,
+                  },
+                  locale: language != null ? Locale(language) : null,
                 ),
               ),
             ),
@@ -166,5 +205,18 @@ class _AppViewState extends State<_AppView> {
         },
       ),
     );
+  }
+}
+
+extension AppAccentThemeExtension on AppAccentTheme {
+  FlexScheme get toFlexScheme {
+    switch (this) {
+      case AppAccentTheme.defaultBlue:
+        return FlexScheme.materialHc;
+      case AppAccentTheme.newsRed:
+        return FlexScheme.redWine;
+      case AppAccentTheme.graphiteGray:
+        return FlexScheme.outerSpace;
+    }
   }
 }
