@@ -88,7 +88,15 @@ class AppShell extends StatelessWidget {
             label: l10n.appConfiguration,
           ),
         ],
-        body: (_) => navigationShell,
+        body: (_) => Padding(
+          padding: const EdgeInsets.fromLTRB(
+            0,
+            AppSpacing.sm,
+            AppSpacing.sm,
+            AppSpacing.sm,
+          ),
+          child: navigationShell,
+        ),
       ),
     );
   }
