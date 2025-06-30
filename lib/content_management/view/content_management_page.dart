@@ -3,6 +3,8 @@ import 'package:ht_dashboard/content_management/view/categories_page.dart';
 import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_dashboard/shared/theme/app_theme.dart';
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -37,13 +39,36 @@ class _ContentManagementPageState extends State<ContentManagementPage>
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.contentManagement),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: l10n.headlines),
-            Tab(text: l10n.categories),
-            Tab(text: l10n.sources),
-          ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(kTextTabBarHeight + AppSpacing.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: AppSpacing.lg,
+                  right: AppSpacing.lg,
+                  bottom: AppSpacing.lg,
+                ),
+                child: Text(
+                  l10n.contentManagementPageDescription,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+              TabBar(
+                controller: _tabController,
+                tabAlignment: TabAlignment.start,
+                isScrollable: true,
+                tabs: [
+                  Tab(text: l10n.headlines),
+                  Tab(text: l10n.categories),
+                  Tab(text: l10n.sources),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       body: TabBarView(

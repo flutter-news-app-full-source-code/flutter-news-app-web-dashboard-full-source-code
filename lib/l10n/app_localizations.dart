@@ -212,6 +212,12 @@ abstract class AppLocalizations {
   /// **'Content Management'**
   String get contentManagement;
 
+  /// Description for the Content Management page
+  ///
+  /// In en, this message translates to:
+  /// **'Manage news headlines, categories, and sources for the Dashboard.'**
+  String get contentManagementPageDescription;
+
   /// Label for the headlines subpage
   ///
   /// In en, this message translates to:
@@ -235,6 +241,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'App Configuration'**
   String get appConfiguration;
+
+  /// Description for the App Configuration page
+  ///
+  /// In en, this message translates to:
+  /// **'Configure global settings for the mobile application, including user content limits, ad display rules, in-app prompts, operational status, and force update parameters.'**
+  String get appConfigurationPageDescription;
 
   /// Label for the settings navigation item
   ///

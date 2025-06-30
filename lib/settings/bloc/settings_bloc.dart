@@ -39,9 +39,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       await _userAppSettingsRepository.create(item: defaultSettings);
       emit(SettingsLoadSuccess(userAppSettings: defaultSettings));
     } on HtHttpException catch (e) {
-      emit(SettingsLoadFailure(e.message, userAppSettings: state.userAppSettings));
+      emit(
+        SettingsLoadFailure(e.message, userAppSettings: state.userAppSettings),
+      );
     } catch (e) {
-      emit(SettingsLoadFailure('An unexpected error occurred: $e', userAppSettings: state.userAppSettings));
+      emit(
+        SettingsLoadFailure(
+          'An unexpected error occurred: $e',
+          userAppSettings: state.userAppSettings,
+        ),
+      );
     }
   }
 
@@ -57,9 +64,19 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
       emit(SettingsUpdateSuccess(userAppSettings: result));
     } on HtHttpException catch (e) {
-      emit(SettingsUpdateFailure(e.message, userAppSettings: state.userAppSettings));
+      emit(
+        SettingsUpdateFailure(
+          e.message,
+          userAppSettings: state.userAppSettings,
+        ),
+      );
     } catch (e) {
-      emit(SettingsUpdateFailure('An unexpected error occurred: $e', userAppSettings: state.userAppSettings));
+      emit(
+        SettingsUpdateFailure(
+          'An unexpected error occurred: $e',
+          userAppSettings: state.userAppSettings,
+        ),
+      );
     }
   }
 
