@@ -108,7 +108,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             );
           } else if (state.status == AppConfigurationStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.failedToLoadConfigurationMessage,
+              message:
+                  state.errorMessage ?? l10n.failedToLoadConfigurationMessage,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
                   const AppConfigurationLoaded(),
