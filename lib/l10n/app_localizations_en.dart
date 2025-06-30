@@ -374,4 +374,115 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get standardUserDaysBetweenInAppPromptsDescription =>
       'Minimum number of days that must pass before a Standard user sees another in-app prompt.';
+
+  @override
+  String get signOut => 'Sign Out';
+
+  @override
+  String get settingsSavedSuccessfully => 'Settings saved successfully!';
+
+  @override
+  String settingsSaveErrorMessage(String errorMessage) {
+    return 'Error saving settings: $errorMessage';
+  }
+
+  @override
+  String get loadingSettingsHeadline => 'Loading Settings';
+
+  @override
+  String get loadingSettingsSubheadline =>
+      'Please wait while your settings are loaded...';
+
+  @override
+  String failedToLoadSettingsMessage(String errorMessage) {
+    return 'Failed to load settings: $errorMessage';
+  }
+
+  @override
+  String get baseThemeLabel => 'Base Theme';
+
+  @override
+  String get baseThemeDescription =>
+      'Choose the overall light or dark appearance of the app.';
+
+  @override
+  String get lightTheme => 'Light';
+
+  @override
+  String get darkTheme => 'Dark';
+
+  @override
+  String get systemTheme => 'System Default';
+
+  @override
+  String get accentThemeLabel => 'Accent Theme';
+
+  @override
+  String get accentThemeDescription =>
+      'Select a primary accent color for interactive elements.';
+
+  @override
+  String get defaultBlueTheme => 'Default Blue';
+
+  @override
+  String get newsRedTheme => 'News Red';
+
+  @override
+  String get graphiteGrayTheme => 'Graphite Gray';
+
+  @override
+  String get fontFamilyLabel => 'Font Family';
+
+  @override
+  String get fontFamilyDescription =>
+      'Choose the font used throughout the application.';
+
+  @override
+  String get systemDefaultFont => 'System Default';
+
+  @override
+  String get textScaleFactorLabel => 'Text Size';
+
+  @override
+  String get textScaleFactorDescription =>
+      'Adjust the overall size of text in the app.';
+
+  @override
+  String get smallText => 'Small';
+
+  @override
+  String get mediumText => 'Medium';
+
+  @override
+  String get largeText => 'Large';
+
+  @override
+  String get extraLargeText => 'Extra Large';
+
+  @override
+  String get fontWeightLabel => 'Font Weight';
+
+  @override
+  String get fontWeightDescription => 'Choose the thickness of the text.';
+
+  @override
+  String get lightFontWeight => 'Light';
+
+  @override
+  String get regularFontWeight => 'Regular';
+
+  @override
+  String get boldFontWeight => 'Bold';
+
+  @override
+  String get languageLabel => 'Language';
+
+  @override
+  String get languageDescription => 'Select the application language.';
+
+  @override
+  String get englishLanguage => 'English';
+
+  @override
+  String get arabicLanguage => 'Arabic';
 }

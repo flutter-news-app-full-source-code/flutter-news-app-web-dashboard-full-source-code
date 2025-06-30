@@ -433,5 +433,151 @@
   "standardUserDaysBetweenInAppPromptsDescription": "Minimum number of days that must pass before a Standard user sees another in-app prompt.",
   "@standardUserDaysBetweenInAppPromptsDescription": {
     "description": "Description for Standard User Days Between In-App Prompts"
+  },
+  "signOut": "Sign Out",
+  "@signOut": {
+    "description": "Text for the Sign Out menu item"
+  },
+  "settingsSavedSuccessfully": "Settings saved successfully!",
+  "@settingsSavedSuccessfully": {
+    "description": "Snackbar message for successful settings save"
+  },
+  "settingsSaveErrorMessage": "Error saving settings: {errorMessage}",
+  "@settingsSaveErrorMessage": {
+    "description": "Snackbar message for settings save error",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String"
+      }
+    }
+  },
+  "loadingSettingsHeadline": "Loading Settings",
+  "@loadingSettingsHeadline": {
+    "description": "Headline for loading state of settings"
+  },
+  "loadingSettingsSubheadline": "Please wait while your settings are loaded...",
+  "@loadingSettingsSubheadline": {
+    "description": "Subheadline for loading state of settings"
+  },
+  "failedToLoadSettingsMessage": "Failed to load settings: {errorMessage}",
+  "@failedToLoadSettingsMessage": {
+    "description": "Message for failure state of settings loading",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String"
+      }
+    }
+  },
+  "baseThemeLabel": "Base Theme",
+  "@baseThemeLabel": {
+    "description": "Label for base theme setting"
+  },
+  "baseThemeDescription": "Choose the overall light or dark appearance of the app.",
+  "@baseThemeDescription": {
+    "description": "Description for base theme setting"
+  },
+  "lightTheme": "Light",
+  "@lightTheme": {
+    "description": "Option for light theme"
+  },
+  "darkTheme": "Dark",
+  "@darkTheme": {
+    "description": "Option for dark theme"
+  },
+  "systemTheme": "System Default",
+  "@systemTheme": {
+    "description": "Option for system default theme"
+  },
+  "accentThemeLabel": "Accent Theme",
+  "@accentThemeLabel": {
+    "description": "Label for accent theme setting"
+  },
+  "accentThemeDescription": "Select a primary accent color for interactive elements.",
+  "@accentThemeDescription": {
+    "description": "Description for accent theme setting"
+  },
+  "defaultBlueTheme": "Default Blue",
+  "@defaultBlueTheme": {
+    "description": "Option for default blue accent theme"
+  },
+  "newsRedTheme": "News Red",
+  "@newsRedTheme": {
+    "description": "Option for news red accent theme"
+  },
+  "graphiteGrayTheme": "Graphite Gray",
+  "@graphiteGrayTheme": {
+    "description": "Option for graphite gray accent theme"
+  },
+  "fontFamilyLabel": "Font Family",
+  "@fontFamilyLabel": {
+    "description": "Label for font family setting"
+  },
+  "fontFamilyDescription": "Choose the font used throughout the application.",
+  "@fontFamilyDescription": {
+    "description": "Description for font family setting"
+  },
+  "systemDefaultFont": "System Default",
+  "@systemDefaultFont": {
+    "description": "Option for system default font"
+  },
+  "textScaleFactorLabel": "Text Size",
+  "@textScaleFactorLabel": {
+    "description": "Label for text scale factor setting"
+  },
+  "textScaleFactorDescription": "Adjust the overall size of text in the app.",
+  "@textScaleFactorDescription": {
+    "description": "Description for text scale factor setting"
+  },
+  "smallText": "Small",
+  "@smallText": {
+    "description": "Option for small text size"
+  },
+  "mediumText": "Medium",
+  "@mediumText": {
+    "description": "Option for medium text size"
+  },
+  "largeText": "Large",
+  "@largeText": {
+    "description": "Option for large text size"
+  },
+  "extraLargeText": "Extra Large",
+  "@extraLargeText": {
+    "description": "Option for extra large text size"
+  },
+  "fontWeightLabel": "Font Weight",
+  "@fontWeightLabel": {
+    "description": "Label for font weight setting"
+  },
+  "fontWeightDescription": "Choose the thickness of the text.",
+  "@fontWeightDescription": {
+    "description": "Description for font weight setting"
+  },
+  "lightFontWeight": "Light",
+  "@lightFontWeight": {
+    "description": "Option for light font weight"
+  },
+  "regularFontWeight": "Regular",
+  "@regularFontWeight": {
+    "description": "Option for regular font weight"
+  },
+  "boldFontWeight": "Bold",
+  "@boldFontWeight": {
+    "description": "Option for bold font weight"
+  },
+  "languageLabel": "Language",
+  "@languageLabel": {
+    "description": "Label for language setting"
+  },
+  "languageDescription": "Select the application language.",
+  "@languageDescription": {
+    "description": "Description for language setting"
+  },
+  "englishLanguage": "English",
+  "@englishLanguage": {
+    "description": "Option for English language"
+  },
+  "arabicLanguage": "Arabic",
+  "@arabicLanguage": {
+    "description": "Option for Arabic language"
   }
 }
