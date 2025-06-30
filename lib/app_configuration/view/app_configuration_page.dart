@@ -21,66 +21,41 @@ class AppConfigurationPage extends StatefulWidget {
   State<AppConfigurationPage> createState() => _AppConfigurationPageState();
 }
 
-class _AppConfigurationPageState extends State<AppConfigurationPage>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
-
+class _AppConfigurationPageState extends State<AppConfigurationPage> {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-      length: 5,
-      vsync: this,
-    ); // 5 tabs for AppConfig properties
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.l10n.appConfigurationPageTitle,
+          l10n.appConfigurationPageTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(
-            kToolbarHeight + kTextTabBarHeight + AppSpacing.lg,
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: AppSpacing.lg,
-                  right: AppSpacing.lg,
-                  bottom: AppSpacing.lg,
-                ),
-                child: Text(
-                  context.l10n.appConfigurationPageDescription,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
+          preferredSize: Size.fromHeight(kToolbarHeight + AppSpacing.lg),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: AppSpacing.lg,
+              right: AppSpacing.lg,
+              bottom: AppSpacing.lg,
+            ),
+            child: Text(
+              l10n.appConfigurationPageDescription,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-              TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                tabAlignment: TabAlignment.start,
-                tabs: [
-                  Tab(text: context.l10n.userContentLimitsTab),
-                  Tab(text: context.l10n.adSettingsTab),
-                  Tab(text: context.l10n.inAppPromptsTab),
-                  Tab(text: context.l10n.appOperationalStatusTab),
-                  Tab(text: context.l10n.forceUpdateTab),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -93,7 +68,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    context.l10n.appConfigSaveSuccessMessage,
+                    l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
@@ -111,8 +86,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    context.l10n.appConfigSaveErrorMessage(
-                      state.errorMessage ?? context.l10n.unknownError,
+                    l10n.appConfigSaveErrorMessage(
+                      state.errorMessage ?? l10n.unknownError,
                     ),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onError,
@@ -128,14 +103,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               state.status == AppConfigurationStatus.initial) {
             return LoadingStateWidget(
               icon: Icons.settings_applications_outlined,
-              headline: context.l10n.loadingConfigurationHeadline,
-              subheadline: context.l10n.loadingConfigurationSubheadline,
+              headline: l10n.loadingConfigurationHeadline,
+              subheadline: l10n.loadingConfigurationSubheadline,
             );
           } else if (state.status == AppConfigurationStatus.failure) {
             return FailureStateWidget(
-              message:
-                  state.errorMessage ??
-                  context.l10n.failedToLoadConfigurationMessage,
+              message: state.errorMessage ?? l10n.failedToLoadConfigurationMessage,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
                   const AppConfigurationLoaded(),
@@ -145,21 +118,61 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           } else if (state.status == AppConfigurationStatus.success &&
               state.appConfig != null) {
             final appConfig = state.appConfig!;
-            return TabBarView(
-              controller: _tabController,
+            return ListView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
-                _buildUserPreferenceLimitsTab(context, appConfig),
-                _buildAdConfigTab(context, appConfig),
-                _buildAccountActionConfigTab(context, appConfig),
-                _buildKillSwitchTab(context, appConfig),
-                _buildForceUpdateTab(context, appConfig),
+                ExpansionTile(
+                  title: Text(l10n.userContentLimitsTab),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  children: [
+                    _buildUserPreferenceLimitsSection(context, appConfig),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(l10n.adSettingsTab),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  children: [
+                    _buildAdConfigSection(context, appConfig),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(l10n.inAppPromptsTab),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  children: [
+                    _buildAccountActionConfigSection(context, appConfig),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(l10n.appOperationalStatusTab),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  children: [
+                    _buildKillSwitchSection(context, appConfig),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(l10n.forceUpdateTab),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  children: [
+                    _buildForceUpdateSection(context, appConfig),
+                  ],
+                ),
               ],
             );
           }
           return InitialStateWidget(
             icon: Icons.settings_applications_outlined,
-            headline: context.l10n.appConfigurationPageTitle,
-            subheadline: context.l10n.loadAppSettingsSubheadline,
+            headline: l10n.appConfigurationPageTitle,
+            subheadline: l10n.loadAppSettingsSubheadline,
           ); // Fallback
         },
       ),
@@ -247,238 +260,229 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         false;
   }
 
-  Widget _buildUserPreferenceLimitsTab(
+  Widget _buildUserPreferenceLimitsSection(
     BuildContext context,
     AppConfig appConfig,
   ) {
-    return DefaultTabController(
-      length: 3, // Guest, Authenticated, Premium
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    final l10n = context.l10n;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.userContentLimitsDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        ExpansionTile(
+          title: Text(l10n.guestUserTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
           children: [
-            Text(
-              context.l10n.userContentLimitsDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            TabBar(
-              tabs: [
-                Tab(text: context.l10n.guestUserTab),
-                Tab(text: context.l10n.authenticatedUserTab),
-                Tab(text: context.l10n.premiumUserTab),
-              ],
-              labelColor: Theme.of(context).colorScheme.primary,
-              unselectedLabelColor: Theme.of(
-                context,
-              ).colorScheme.onSurface.withOpacity(0.6),
-              indicatorColor: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            SizedBox(
-              height: 400, // Adjust height as needed
-              child: TabBarView(
-                children: [
-                  _UserPreferenceLimitsForm(
-                    userRole: UserRole.guestUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
+            _UserPreferenceLimitsForm(
+              userRole: UserRole.guestUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
                   ),
-                  _UserPreferenceLimitsForm(
-                    userRole: UserRole.standardUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
-                  ),
-                  _UserPreferenceLimitsForm(
-                    userRole: UserRole.premiumUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
-                  ),
-                ],
-              ),
+                );
+              },
+              buildIntField: _buildIntField,
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildAdConfigTab(BuildContext context, AppConfig appConfig) {
-    return DefaultTabController(
-      length: 3, // Guest, Authenticated, Premium
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        ExpansionTile(
+          title: Text(l10n.authenticatedUserTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
           children: [
-            Text(
-              context.l10n.adSettingsDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            TabBar(
-              tabs: [
-                Tab(text: context.l10n.guestUserTab),
-                Tab(text: context.l10n.standardUserAdTab),
-                Tab(text: context.l10n.premiumUserTab),
-              ],
-              labelColor: Theme.of(context).colorScheme.primary,
-              unselectedLabelColor: Theme.of(
-                context,
-              ).colorScheme.onSurface.withOpacity(0.6),
-              indicatorColor: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            SizedBox(
-              height: 600, // Adjust height as needed
-              child: TabBarView(
-                children: [
-                  _AdConfigForm(
-                    userRole: UserRole.guestUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
+            _UserPreferenceLimitsForm(
+              userRole: UserRole.standardUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
                   ),
-                  _AdConfigForm(
-                    userRole: UserRole.standardUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
-                  ),
-                  _AdConfigForm(
-                    userRole: UserRole.premiumUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
-                  ),
-                ],
-              ),
+                );
+              },
+              buildIntField: _buildIntField,
             ),
           ],
         ),
-      ),
+        ExpansionTile(
+          title: Text(l10n.premiumUserTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            _UserPreferenceLimitsForm(
+              userRole: UserRole.premiumUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
+                  ),
+                );
+              },
+              buildIntField: _buildIntField,
+            ),
+          ],
+        ),
+      ],
     );
   }
 
-  Widget _buildAccountActionConfigTab(
+  Widget _buildAdConfigSection(BuildContext context, AppConfig appConfig) {
+    final l10n = context.l10n;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.adSettingsDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        ExpansionTile(
+          title: Text(l10n.guestUserTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            _AdConfigForm(
+              userRole: UserRole.guestUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
+                  ),
+                );
+              },
+              buildIntField: _buildIntField,
+            ),
+          ],
+        ),
+        ExpansionTile(
+          title: Text(l10n.standardUserAdTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            _AdConfigForm(
+              userRole: UserRole.standardUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
+                  ),
+                );
+              },
+              buildIntField: _buildIntField,
+            ),
+          ],
+        ),
+        ExpansionTile(
+          title: Text(l10n.premiumUserTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            _AdConfigForm(
+              userRole: UserRole.premiumUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
+                  ),
+                );
+              },
+              buildIntField: _buildIntField,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAccountActionConfigSection(
     BuildContext context,
     AppConfig appConfig,
   ) {
-    return DefaultTabController(
-      length: 2, // Guest, Standard User
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    final l10n = context.l10n;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.inAppPromptsDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        ExpansionTile(
+          title: Text(l10n.guestUserTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
           children: [
-            Text(
-              context.l10n.inAppPromptsDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            TabBar(
-              tabs: [
-                Tab(text: context.l10n.guestUserTab),
-                Tab(text: context.l10n.standardUserAdTab),
-              ],
-              labelColor: Theme.of(context).colorScheme.primary,
-              unselectedLabelColor: Theme.of(
-                context,
-              ).colorScheme.onSurface.withOpacity(0.6),
-              indicatorColor: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            SizedBox(
-              height: 200, // Adjust height as needed
-              child: TabBarView(
-                children: [
-                  _AccountActionConfigForm(
-                    userRole: UserRole.guestUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
+            _AccountActionConfigForm(
+              userRole: UserRole.guestUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
                   ),
-                  _AccountActionConfigForm(
-                    userRole: UserRole.standardUser,
-                    appConfig: appConfig,
-                    onConfigChanged: (newConfig) {
-                      context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(
-                          appConfig: newConfig,
-                        ),
-                      );
-                    },
-                    buildIntField: _buildIntField,
-                  ),
-                ],
-              ),
+                );
+              },
+              buildIntField: _buildIntField,
             ),
           ],
         ),
-      ),
+        ExpansionTile(
+          title: Text(l10n.standardUserAdTab),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            _AccountActionConfigForm(
+              userRole: UserRole.standardUser,
+              appConfig: appConfig,
+              onConfigChanged: (newConfig) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    appConfig: newConfig,
+                  ),
+                );
+              },
+              buildIntField: _buildIntField,
+            ),
+          ],
+        ),
+      ],
     );
   }
 
-  Widget _buildKillSwitchTab(BuildContext context, AppConfig appConfig) {
+  Widget _buildKillSwitchSection(BuildContext context, AppConfig appConfig) {
+    final l10n = context.l10n;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.appOperationalStatusWarning,
+            l10n.appOperationalStatusWarning,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.bold,
@@ -487,8 +491,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           const SizedBox(height: AppSpacing.lg),
           _buildDropdownField<RemoteAppStatus>(
             context,
-            label: context.l10n.appOperationalStatusLabel,
-            description: context.l10n.appOperationalStatusDescription,
+            label: l10n.appOperationalStatusLabel,
+            description: l10n.appOperationalStatusDescription,
             value: appConfig.appOperationalStatus,
             items: RemoteAppStatus.values,
             itemLabelBuilder: (status) => status.name,
@@ -505,8 +509,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           if (appConfig.appOperationalStatus == RemoteAppStatus.maintenance)
             _buildTextField(
               context,
-              label: context.l10n.maintenanceMessageLabel,
-              description: context.l10n.maintenanceMessageDescription,
+              label: l10n.maintenanceMessageLabel,
+              description: l10n.maintenanceMessageDescription,
               value: appConfig.maintenanceMessage,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
@@ -519,8 +523,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           if (appConfig.appOperationalStatus == RemoteAppStatus.disabled)
             _buildTextField(
               context,
-              label: context.l10n.disabledMessageLabel,
-              description: context.l10n.disabledMessageDescription,
+              label: l10n.disabledMessageLabel,
+              description: l10n.disabledMessageDescription,
               value: appConfig.disabledMessage,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
@@ -535,14 +539,15 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     );
   }
 
-  Widget _buildForceUpdateTab(BuildContext context, AppConfig appConfig) {
+  Widget _buildForceUpdateSection(BuildContext context, AppConfig appConfig) {
+    final l10n = context.l10n;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.forceUpdateDescription,
+            l10n.forceUpdateDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
@@ -550,8 +555,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           const SizedBox(height: AppSpacing.lg),
           _buildTextField(
             context,
-            label: context.l10n.minAllowedAppVersionLabel,
-            description: context.l10n.minAllowedAppVersionDescription,
+            label: l10n.minAllowedAppVersionLabel,
+            description: l10n.minAllowedAppVersionDescription,
             value: appConfig.minAllowedAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -563,8 +568,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: context.l10n.latestAppVersionLabel,
-            description: context.l10n.latestAppVersionDescription,
+            label: l10n.latestAppVersionLabel,
+            description: l10n.latestAppVersionDescription,
             value: appConfig.latestAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -576,8 +581,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: context.l10n.updateRequiredMessageLabel,
-            description: context.l10n.updateRequiredMessageDescription,
+            label: l10n.updateRequiredMessageLabel,
+            description: l10n.updateRequiredMessageDescription,
             value: appConfig.updateRequiredMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -589,8 +594,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: context.l10n.updateOptionalMessageLabel,
-            description: context.l10n.updateOptionalMessageDescription,
+            label: l10n.updateOptionalMessageLabel,
+            description: l10n.updateOptionalMessageDescription,
             value: appConfig.updateOptionalMessage,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -602,8 +607,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: context.l10n.iosStoreUrlLabel,
-            description: context.l10n.iosStoreUrlDescription,
+            label: l10n.iosStoreUrlLabel,
+            description: l10n.iosStoreUrlDescription,
             value: appConfig.iosStoreUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
@@ -615,8 +620,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           ),
           _buildTextField(
             context,
-            label: context.l10n.androidStoreUrlLabel,
-            description: context.l10n.androidStoreUrlDescription,
+            label: l10n.androidStoreUrlLabel,
+            description: l10n.androidStoreUrlDescription,
             value: appConfig.androidStoreUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
