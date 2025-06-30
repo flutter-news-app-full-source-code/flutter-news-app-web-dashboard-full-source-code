@@ -1,5 +1,5 @@
 name: ht_dashboard
-description: "A new Flutter project."
+description: "A Flutter web application for comprehensive content management and administration within the Headlines Toolkit ecosystem."
 publish_to: none
 repository: https://github.com/headlines-toolkit/ht-dashboard
 
