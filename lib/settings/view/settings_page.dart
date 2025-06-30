@@ -332,36 +332,9 @@ class _SettingsView extends StatelessWidget {
                             ),
                           ),
                           // Language Tab Content
-                          ListView(
-                            padding: const EdgeInsets.all(AppSpacing.lg),
-                            children: [
-                              _buildSettingSection(
-                                context,
-                                title: l10n.languageLabel,
-                                description: l10n.languageDescription,
-                                child: DropdownButton<AppLanguage>(
-                                  value: userAppSettings.language,
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      context.read<SettingsBloc>().add(
-                                        SettingsLanguageChanged(value),
-                                      );
-                                    }
-                                  },
-                                  items: _supportedLanguages
-                                      .map(
-                                        (lang) => DropdownMenuItem(
-                                          value: lang,
-                                          child: Text(
-                                            _getLanguageName(lang, l10n),
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                  // Removed isExpanded: true
-                                ),
-                              ),
-                            ],
+                          _LanguageSelectionList(
+                            currentLanguage: userAppSettings.language,
+                            l10n: l10n,
                           ),
                         ],
                       ),
@@ -481,6 +454,63 @@ class _SettingsView extends StatelessWidget {
     }
   }
 
+  static const List<String> _supportedFontFamilies = [
+    'SystemDefault',
+    'Roboto',
+    'OpenSans',
+    'Lato',
+    'Montserrat',
+    'Merriweather',
+  ];
+}
+
+/// {@template _language_selection_list}
+/// A widget that displays a list of supported languages for selection.
+/// {@endtemplate}
+class _LanguageSelectionList extends StatelessWidget {
+  /// {@macro _language_selection_list}
+  const _LanguageSelectionList({
+    required this.currentLanguage,
+    required this.l10n,
+  });
+
+  /// The currently selected language.
+  final AppLanguage currentLanguage;
+
+  /// The localized strings for the application.
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+      itemCount: _supportedLanguages.length,
+      itemBuilder: (context, index) {
+        final language = _supportedLanguages[index];
+        final isSelected = language == currentLanguage;
+        return ListTile(
+          title: Text(
+            _getLanguageName(language, l10n),
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          trailing: isSelected
+              ? Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.primary,
+                )
+              : null,
+          onTap: () {
+            if (!isSelected) {
+              context.read<SettingsBloc>().add(
+                SettingsLanguageChanged(language),
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
   String _getLanguageName(AppLanguage language, AppLocalizations l10n) {
     switch (language) {
       case 'en':
@@ -491,15 +521,6 @@ class _SettingsView extends StatelessWidget {
         return language;
     }
   }
-
-  static const List<String> _supportedFontFamilies = [
-    'SystemDefault',
-    'Roboto',
-    'OpenSans',
-    'Lato',
-    'Montserrat',
-    'Merriweather',
-  ];
 
   static const List<AppLanguage> _supportedLanguages = [
     'en',
