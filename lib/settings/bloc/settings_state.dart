@@ -1,34 +1,37 @@
 part of 'settings_bloc.dart';
 
 sealed class SettingsState extends Equatable {
-  const SettingsState();
+  const SettingsState({this.userAppSettings});
+
+  /// The current user application settings. Null if not loaded or unauthenticated.
+  final UserAppSettings? userAppSettings;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userAppSettings];
 }
 
 /// {@template settings_initial}
 /// The initial settings state.
 /// {@endtemplate}
-final class SettingsInitial extends SettingsState {}
+final class SettingsInitial extends SettingsState {
+  /// {@macro settings_initial}
+  const SettingsInitial({super.userAppSettings});
+}
 
 /// {@template settings_load_in_progress}
 /// State indicating that user settings are being loaded.
 /// {@endtemplate}
-final class SettingsLoadInProgress extends SettingsState {}
+final class SettingsLoadInProgress extends SettingsState {
+  /// {@macro settings_load_in_progress}
+  const SettingsLoadInProgress({super.userAppSettings});
+}
 
 /// {@template settings_load_success}
 /// State indicating that user settings have been successfully loaded.
 /// {@endtemplate}
 final class SettingsLoadSuccess extends SettingsState {
   /// {@macro settings_load_success}
-  const SettingsLoadSuccess({required this.userAppSettings});
-
-  /// The loaded user application settings.
-  final UserAppSettings userAppSettings;
-
-  @override
-  List<Object?> get props => [userAppSettings];
+  const SettingsLoadSuccess({required super.userAppSettings});
 }
 
 /// {@template settings_load_failure}
@@ -36,13 +39,13 @@ final class SettingsLoadSuccess extends SettingsState {
 /// {@endtemplate}
 final class SettingsLoadFailure extends SettingsState {
   /// {@macro settings_load_failure}
-  const SettingsLoadFailure(this.errorMessage);
+  const SettingsLoadFailure(this.errorMessage, {super.userAppSettings});
 
   /// The error message describing the failure.
   final String errorMessage;
 
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => [errorMessage, userAppSettings];
 }
 
 /// {@template settings_update_in_progress}
@@ -50,13 +53,7 @@ final class SettingsLoadFailure extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateInProgress extends SettingsState {
   /// {@macro settings_update_in_progress}
-  const SettingsUpdateInProgress({required this.userAppSettings});
-
-  /// The user application settings being updated.
-  final UserAppSettings userAppSettings;
-
-  @override
-  List<Object?> get props => [userAppSettings];
+  const SettingsUpdateInProgress({required super.userAppSettings});
 }
 
 /// {@template settings_update_success}
@@ -64,13 +61,7 @@ final class SettingsUpdateInProgress extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateSuccess extends SettingsState {
   /// {@macro settings_update_success}
-  const SettingsUpdateSuccess({required this.userAppSettings});
-
-  /// The updated user application settings.
-  final UserAppSettings userAppSettings;
-
-  @override
-  List<Object?> get props => [userAppSettings];
+  const SettingsUpdateSuccess({required super.userAppSettings});
 }
 
 /// {@template settings_update_failure}
@@ -78,11 +69,11 @@ final class SettingsUpdateSuccess extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateFailure extends SettingsState {
   /// {@macro settings_update_failure}
-  const SettingsUpdateFailure(this.errorMessage);
+  const SettingsUpdateFailure(this.errorMessage, {super.userAppSettings});
 
   /// The error message describing the failure.
   final String errorMessage;
 
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => [errorMessage, userAppSettings];
 }
