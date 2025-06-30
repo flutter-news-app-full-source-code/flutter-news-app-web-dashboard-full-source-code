@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
@@ -34,10 +36,24 @@ class AppShell extends StatelessWidget {
       appBar: AppBar(
         title: Text(l10n.dashboard),
         actions: [
-          InkWell(
-            onTap: () {
-              context.goNamed(Routes.settingsName);
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'settings') {
+                context.goNamed(Routes.settingsName);
+              } else if (value == 'signOut') {
+                context.read<AppBloc>().add(const AppLogoutRequested());
+              }
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: 'settings',
+                child: Text(l10n.settings),
+              ),
+              PopupMenuItem<String>(
+                value: 'signOut',
+                child: Text(l10n.signOut),
+              ),
+            ],
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.sm),
               child: CircleAvatar(
@@ -49,7 +65,7 @@ class AppShell extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
         ],
       ),
       body: AdaptiveScaffold(
