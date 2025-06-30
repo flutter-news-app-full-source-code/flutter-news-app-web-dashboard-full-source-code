@@ -17,7 +17,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'beta' # Use the stable channel of Flutter
+          channel: 'stable' # Use the stable channel of Flutter
           cache: false
           
       # 3. Get Flutter dependencies
