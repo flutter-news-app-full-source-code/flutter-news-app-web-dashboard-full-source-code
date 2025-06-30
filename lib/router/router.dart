@@ -178,12 +178,16 @@ GoRouter createRouter({
               ),
             ],
           ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.settings,
+                name: Routes.settingsName,
+                builder: (context, state) => const SettingsPage(),
+              ),
+            ],
+          ),
         ],
-      ),
-      GoRoute(
-        path: Routes.settings,
-        name: Routes.settingsName,
-        builder: (context, state) => const SettingsPage(),
       ),
     ],
   );
