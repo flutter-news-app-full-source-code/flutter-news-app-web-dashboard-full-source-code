@@ -20,8 +20,8 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SettingsBloc(
-        userAppSettingsRepository:
-            context.read<HtDataRepository<UserAppSettings>>(),
+        userAppSettingsRepository: context
+            .read<HtDataRepository<UserAppSettings>>(),
       )..add(SettingsLoaded(userId: context.read<AppBloc>().state.user?.id)),
       child: const _SettingsView(),
     );
@@ -40,7 +40,8 @@ class _SettingsView extends StatelessWidget {
       ),
       body: BlocConsumer<SettingsBloc, SettingsState>(
         listenWhen: (previous, current) =>
-            current is SettingsUpdateSuccess || current is SettingsUpdateFailure,
+            current is SettingsUpdateSuccess ||
+            current is SettingsUpdateFailure,
         listener: (context, state) {
           if (state is SettingsUpdateSuccess) {
             ScaffoldMessenger.of(context)
@@ -52,23 +53,23 @@ class _SettingsView extends StatelessWidget {
               );
             // Optionally, trigger AppBloc to reload settings if it caches them
             context.read<AppBloc>().add(
-                  AppUserChanged(
-                    context.read<AppBloc>().state.user?.copyWith(
-                          // This is a simplified way to trigger AppBloc update.
-                          // A more robust solution might involve AppBloc listening
-                          // to SettingsBloc directly or a dedicated event.
-                          // For now, we'll rely on the AppBloc's authStateChanges
-                          // listener to eventually pick up the change if the
-                          // repository emits it, or a manual refresh.
-                          // For immediate UI update, we might need to pass the
-                          // updated settings to AppBloc.
-                          // For this task, we'll assume AppBloc will react
-                          // to the repository change or a full app restart.
-                          // A better approach would be to have AppBloc listen
-                          // to UserAppSettings changes from its repository.
-                        ),
-                  ),
-                );
+              AppUserChanged(
+                context.read<AppBloc>().state.user?.copyWith(
+                  // This is a simplified way to trigger AppBloc update.
+                  // A more robust solution might involve AppBloc listening
+                  // to SettingsBloc directly or a dedicated event.
+                  // For now, we'll rely on the AppBloc's authStateChanges
+                  // listener to eventually pick up the change if the
+                  // repository emits it, or a manual refresh.
+                  // For immediate UI update, we might need to pass the
+                  // updated settings to AppBloc.
+                  // For this task, we'll assume AppBloc will react
+                  // to the repository change or a full app restart.
+                  // A better approach would be to have AppBloc listen
+                  // to UserAppSettings changes from its repository.
+                ),
+              ),
+            );
           } else if (state is SettingsUpdateFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -93,10 +94,10 @@ class _SettingsView extends StatelessWidget {
               message: l10n.failedToLoadSettingsMessage(state.errorMessage),
               onRetry: () {
                 context.read<SettingsBloc>().add(
-                      SettingsLoaded(
-                        userId: context.read<AppBloc>().state.user?.id,
-                      ),
-                    );
+                  SettingsLoaded(
+                    userId: context.read<AppBloc>().state.user?.id,
+                  ),
+                );
               },
             );
           } else if (state is SettingsLoadSuccess) {
@@ -132,9 +133,9 @@ class _SettingsView extends StatelessWidget {
             value: userAppSettings.displaySettings.baseTheme,
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsBaseThemeChanged(value));
+                context.read<SettingsBloc>().add(
+                  SettingsBaseThemeChanged(value),
+                );
               }
             },
             items: AppBaseTheme.values
@@ -158,9 +159,9 @@ class _SettingsView extends StatelessWidget {
             value: userAppSettings.displaySettings.accentTheme,
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsAccentThemeChanged(value));
+                context.read<SettingsBloc>().add(
+                  SettingsAccentThemeChanged(value),
+                );
               }
             },
             items: AppAccentTheme.values
@@ -184,9 +185,9 @@ class _SettingsView extends StatelessWidget {
             value: userAppSettings.displaySettings.fontFamily,
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsFontFamilyChanged(value));
+                context.read<SettingsBloc>().add(
+                  SettingsFontFamilyChanged(value),
+                );
               }
             },
             items: _supportedFontFamilies
@@ -210,9 +211,9 @@ class _SettingsView extends StatelessWidget {
             value: userAppSettings.displaySettings.textScaleFactor,
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsTextScaleFactorChanged(value));
+                context.read<SettingsBloc>().add(
+                  SettingsTextScaleFactorChanged(value),
+                );
               }
             },
             items: AppTextScaleFactor.values
@@ -236,9 +237,9 @@ class _SettingsView extends StatelessWidget {
             value: userAppSettings.displaySettings.fontWeight,
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsFontWeightChanged(value));
+                context.read<SettingsBloc>().add(
+                  SettingsFontWeightChanged(value),
+                );
               }
             },
             items: AppFontWeight.values
@@ -262,9 +263,9 @@ class _SettingsView extends StatelessWidget {
             value: userAppSettings.language,
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsLanguageChanged(value));
+                context.read<SettingsBloc>().add(
+                  SettingsLanguageChanged(value),
+                );
               }
             },
             items: _supportedLanguages
@@ -299,8 +300,8 @@ class _SettingsView extends StatelessWidget {
         Text(
           description,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(height: AppSpacing.sm),
         Align(

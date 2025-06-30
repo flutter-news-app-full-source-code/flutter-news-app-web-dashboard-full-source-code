@@ -63,8 +63,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     // If user is authenticated, load their app settings
     if (event.user != null) {
       try {
-        final userAppSettings =
-            await _userAppSettingsRepository.read(id: event.user!.id);
+        final userAppSettings = await _userAppSettingsRepository.read(
+          id: event.user!.id,
+        );
         emit(state.copyWith(userAppSettings: userAppSettings));
       } on NotFoundException {
         // If settings not found, create default ones
@@ -95,7 +96,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
     unawaited(_authenticationRepository.signOut());
-    emit(state.copyWith(clearUserAppSettings: true)); // Clear settings on logout
+    emit(
+      state.copyWith(clearUserAppSettings: true),
+    ); // Clear settings on logout
   }
 
   @override

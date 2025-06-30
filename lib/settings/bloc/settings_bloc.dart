@@ -11,8 +11,8 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
     required HtDataRepository<UserAppSettings> userAppSettingsRepository,
-  })  : _userAppSettingsRepository = userAppSettingsRepository,
-        super(SettingsInitial()) {
+  }) : _userAppSettingsRepository = userAppSettingsRepository,
+       super(SettingsInitial()) {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<SettingsBaseThemeChanged>(_onSettingsBaseThemeChanged);
     on<SettingsAccentThemeChanged>(_onSettingsAccentThemeChanged);
@@ -31,8 +31,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(SettingsLoadInProgress());
     try {
       // Assuming a fixed ID for user settings, or fetching based on current user
-      final userAppSettings =
-          await _userAppSettingsRepository.read(id: event.userId!);
+      final userAppSettings = await _userAppSettingsRepository.read(
+        id: event.userId!,
+      );
       emit(SettingsLoadSuccess(userAppSettings: userAppSettings));
     } on NotFoundException {
       final defaultSettings = UserAppSettings(id: event.userId!);
@@ -70,8 +71,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (state is SettingsLoadSuccess) {
       final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
       final updatedSettings = currentSettings.copyWith(
-        displaySettings:
-            currentSettings.displaySettings.copyWith(baseTheme: event.baseTheme),
+        displaySettings: currentSettings.displaySettings.copyWith(
+          baseTheme: event.baseTheme,
+        ),
       );
       await _updateSettings(updatedSettings, emit);
     }
@@ -84,8 +86,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (state is SettingsLoadSuccess) {
       final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
       final updatedSettings = currentSettings.copyWith(
-        displaySettings: currentSettings.displaySettings
-            .copyWith(accentTheme: event.accentTheme),
+        displaySettings: currentSettings.displaySettings.copyWith(
+          accentTheme: event.accentTheme,
+        ),
       );
       await _updateSettings(updatedSettings, emit);
     }
@@ -98,8 +101,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (state is SettingsLoadSuccess) {
       final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
       final updatedSettings = currentSettings.copyWith(
-        displaySettings: currentSettings.displaySettings
-            .copyWith(fontFamily: event.fontFamily),
+        displaySettings: currentSettings.displaySettings.copyWith(
+          fontFamily: event.fontFamily,
+        ),
       );
       await _updateSettings(updatedSettings, emit);
     }
@@ -112,8 +116,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (state is SettingsLoadSuccess) {
       final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
       final updatedSettings = currentSettings.copyWith(
-        displaySettings: currentSettings.displaySettings
-            .copyWith(textScaleFactor: event.textScaleFactor),
+        displaySettings: currentSettings.displaySettings.copyWith(
+          textScaleFactor: event.textScaleFactor,
+        ),
       );
       await _updateSettings(updatedSettings, emit);
     }
@@ -126,8 +131,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (state is SettingsLoadSuccess) {
       final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
       final updatedSettings = currentSettings.copyWith(
-        displaySettings: currentSettings.displaySettings
-            .copyWith(fontWeight: event.fontWeight),
+        displaySettings: currentSettings.displaySettings.copyWith(
+          fontWeight: event.fontWeight,
+        ),
       );
       await _updateSettings(updatedSettings, emit);
     }
@@ -139,8 +145,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     if (state is SettingsLoadSuccess) {
       final currentSettings = (state as SettingsLoadSuccess).userAppSettings;
-      final updatedSettings =
-          currentSettings.copyWith(language: event.language);
+      final updatedSettings = currentSettings.copyWith(
+        language: event.language,
+      );
       await _updateSettings(updatedSettings, emit);
     }
   }

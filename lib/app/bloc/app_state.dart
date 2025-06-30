@@ -49,8 +49,9 @@ class AppState extends Equatable {
       status: status ?? this.status,
       user: user ?? this.user,
       environment: clearEnvironment ? null : environment ?? this.environment,
-      userAppSettings:
-          clearUserAppSettings ? null : userAppSettings ?? this.userAppSettings,
+      userAppSettings: clearUserAppSettings
+          ? null
+          : userAppSettings ?? this.userAppSettings,
     );
   }
 
