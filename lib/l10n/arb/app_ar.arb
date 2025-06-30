@@ -579,5 +579,21 @@
   "arabicLanguage": "العربية",
   "@arabicLanguage": {
     "description": "خيار اللغة العربية"
+  },
+  "appearanceSettingsLabel": "المظهر",
+  "@appearanceSettingsLabel": {
+    "description": "تسمية تبويب إعدادات المظهر"
+  },
+  "languageSettingsLabel": "اللغة",
+  "@languageSettingsLabel": {
+    "description": "تسمية تبويب إعدادات اللغة"
+  },
+  "themeSettingsLabel": "إعدادات السمة",
+  "@themeSettingsLabel": {
+    "description": "تسمية تبويب إعدادات السمة الفرعي"
+  },
+  "fontSettingsLabel": "إعدادات الخط",
+  "@fontSettingsLabel": {
+    "description": "تسمية تبويب إعدادات الخط الفرعي"
   }
 }

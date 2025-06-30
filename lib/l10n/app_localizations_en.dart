@@ -485,4 +485,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get arabicLanguage => 'Arabic';
+
+  @override
+  String get appearanceSettingsLabel => 'Appearance';
+
+  @override
+  String get languageSettingsLabel => 'Language';
+
+  @override
+  String get themeSettingsLabel => 'Theme Settings';
+
+  @override
+  String get fontSettingsLabel => 'Font Settings';
 }

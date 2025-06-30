@@ -579,5 +579,21 @@
   "arabicLanguage": "Arabic",
   "@arabicLanguage": {
     "description": "Option for Arabic language"
+  },
+  "appearanceSettingsLabel": "Appearance",
+  "@appearanceSettingsLabel": {
+    "description": "Label for the Appearance settings tab"
+  },
+  "languageSettingsLabel": "Language",
+  "@languageSettingsLabel": {
+    "description": "Label for the Language settings tab"
+  },
+  "themeSettingsLabel": "Theme Settings",
+  "@themeSettingsLabel": {
+    "description": "Label for the Theme Settings sub-tab"
+  },
+  "fontSettingsLabel": "Font Settings",
+  "@fontSettingsLabel": {
+    "description": "Label for the Font Settings sub-tab"
   }
 }
