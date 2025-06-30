@@ -159,22 +159,29 @@ class _SettingsView extends StatelessWidget {
                                   children: [
                                     ExpansionTile(
                                       title: Text(l10n.themeSettingsLabel),
+                                      childrenPadding:
+                                          const EdgeInsets.symmetric(
+                                            horizontal: AppSpacing.xxl,
+                                          ),
                                       children: [
                                         _buildSettingSection(
                                           context,
                                           title: l10n.baseThemeLabel,
-                                          description: l10n.baseThemeDescription,
+                                          description:
+                                              l10n.baseThemeDescription,
                                           child: DropdownButton<AppBaseTheme>(
                                             value: userAppSettings
                                                 .displaySettings
                                                 .baseTheme,
                                             onChanged: (value) {
                                               if (value != null) {
-                                                context.read<SettingsBloc>().add(
-                                                  SettingsBaseThemeChanged(
-                                                    value,
-                                                  ),
-                                                );
+                                                context
+                                                    .read<SettingsBloc>()
+                                                    .add(
+                                                      SettingsBaseThemeChanged(
+                                                        value,
+                                                      ),
+                                                    );
                                               }
                                             },
                                             items: AppBaseTheme.values
@@ -232,22 +239,29 @@ class _SettingsView extends StatelessWidget {
                                     ),
                                     ExpansionTile(
                                       title: Text(l10n.fontSettingsLabel),
+                                      childrenPadding:
+                                          const EdgeInsets.symmetric(
+                                            horizontal: AppSpacing.xxl,
+                                          ),
                                       children: [
                                         _buildSettingSection(
                                           context,
                                           title: l10n.fontFamilyLabel,
-                                          description: l10n.fontFamilyDescription,
+                                          description:
+                                              l10n.fontFamilyDescription,
                                           child: DropdownButton<String>(
                                             value: userAppSettings
                                                 .displaySettings
                                                 .fontFamily,
                                             onChanged: (value) {
                                               if (value != null) {
-                                                context.read<SettingsBloc>().add(
-                                                  SettingsFontFamilyChanged(
-                                                    value,
-                                                  ),
-                                                );
+                                                context
+                                                    .read<SettingsBloc>()
+                                                    .add(
+                                                      SettingsFontFamilyChanged(
+                                                        value,
+                                                      ),
+                                                    );
                                               }
                                             },
                                             items: _supportedFontFamilies
@@ -305,18 +319,21 @@ class _SettingsView extends StatelessWidget {
                                         _buildSettingSection(
                                           context,
                                           title: l10n.fontWeightLabel,
-                                          description: l10n.fontWeightDescription,
+                                          description:
+                                              l10n.fontWeightDescription,
                                           child: DropdownButton<AppFontWeight>(
                                             value: userAppSettings
                                                 .displaySettings
                                                 .fontWeight,
                                             onChanged: (value) {
                                               if (value != null) {
-                                                context.read<SettingsBloc>().add(
-                                                  SettingsFontWeightChanged(
-                                                    value,
-                                                  ),
-                                                );
+                                                context
+                                                    .read<SettingsBloc>()
+                                                    .add(
+                                                      SettingsFontWeightChanged(
+                                                        value,
+                                                      ),
+                                                    );
                                               }
                                             },
                                             items: AppFontWeight.values
@@ -367,7 +384,8 @@ class _SettingsView extends StatelessWidget {
                                             _getLanguageName(lang, l10n),
                                           ),
                                         ),
-                                      ).toList(), // Added .toList() here
+                                      )
+                                      .toList(),
                                   isExpanded: true,
                                 ),
                               ),
