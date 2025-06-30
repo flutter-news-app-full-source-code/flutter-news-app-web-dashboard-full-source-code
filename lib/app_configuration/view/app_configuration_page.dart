@@ -258,11 +258,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              context.l10n.userContentLimitsTab,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            Text(
               context.l10n.userContentLimitsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
@@ -339,11 +334,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              context.l10n.adSettingsTab,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: AppSpacing.md),
             Text(
               context.l10n.adSettingsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -425,11 +415,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              context.l10n.inAppPromptsTab,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            Text(
               context.l10n.inAppPromptsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
@@ -491,11 +476,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            context.l10n.appOperationalStatusTab,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: AppSpacing.md),
           Text(
             context.l10n.appOperationalStatusWarning,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -560,11 +540,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            context.l10n.forceUpdateConfigurationTitle,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: AppSpacing.md),
           Text(
             context.l10n.forceUpdateDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
