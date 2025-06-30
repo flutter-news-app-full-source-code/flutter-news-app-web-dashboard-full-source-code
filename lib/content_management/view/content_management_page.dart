@@ -44,6 +44,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             kToolbarHeight + kTextTabBarHeight + AppSpacing.lg,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
