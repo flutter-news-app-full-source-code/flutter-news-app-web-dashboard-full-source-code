@@ -497,4 +497,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fontSettingsLabel => 'Font Settings';
+
+  @override
+  String get settingsPageDescription =>
+      'Configure your personal preferences for the Dashboard interface, encompassing visual presentation and language selection.';
+
+  @override
+  String get appearanceSettingsDescription =>
+      'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.';
 }

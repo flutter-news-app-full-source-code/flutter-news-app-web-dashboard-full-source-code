@@ -595,5 +595,10 @@
   "fontSettingsLabel": "Font Settings",
   "@fontSettingsLabel": {
     "description": "Label for the Font Settings sub-tab"
-  }
+  },
+  "settingsPageDescription": "Configure your personal preferences for the Dashboard interface, encompassing visual presentation and language selection.",
+  "@settingsPageDescription": {
+    "description": "Description for the main settings page"
+  },
+  "appearanceSettingsDescription": "Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles."
 }

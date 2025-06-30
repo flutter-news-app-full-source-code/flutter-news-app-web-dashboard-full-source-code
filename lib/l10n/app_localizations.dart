@@ -955,6 +955,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Font Settings'**
   String get fontSettingsLabel;
+
+  /// Description for the main settings page
+  ///
+  /// In en, this message translates to:
+  /// **'Configure your personal preferences for the Dashboard interface, encompassing visual presentation and language selection.'**
+  String get settingsPageDescription;
+
+  /// No description provided for @appearanceSettingsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.'**
+  String get appearanceSettingsDescription;
 }
 
 class _AppLocalizationsDelegate

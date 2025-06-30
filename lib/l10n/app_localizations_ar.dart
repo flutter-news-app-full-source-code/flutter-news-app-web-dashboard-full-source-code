@@ -499,4 +499,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get fontSettingsLabel => 'إعدادات الخط';
+
+  @override
+  String get settingsPageDescription =>
+      'قم بتكوين تفضيلاتك الشخصية لواجهة لوحة القيادة، بما في ذلك العرض المرئي واختيار اللغة.';
+
+  @override
+  String get appearanceSettingsDescription =>
+      'اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.';
 }

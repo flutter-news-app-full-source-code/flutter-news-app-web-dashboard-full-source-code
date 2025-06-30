@@ -39,11 +39,33 @@ class _SettingsView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.settings),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: l10n.appearanceSettingsLabel),
-              Tab(text: l10n.languageSettingsLabel),
-            ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(
+              kToolbarHeight + kTextTabBarHeight + AppSpacing.lg,
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: AppSpacing.lg,
+                    right: AppSpacing.lg,
+                    bottom: AppSpacing.lg,
+                  ),
+                  child: Text(
+                    l10n.settingsPageDescription,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+                TabBar(
+                  tabs: [
+                    Tab(text: l10n.appearanceSettingsLabel),
+                    Tab(text: l10n.languageSettingsLabel),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         body: BlocConsumer<SettingsBloc, SettingsState>(
@@ -62,8 +84,8 @@ class _SettingsView extends StatelessWidget {
               // Trigger AppBloc to reload settings for immediate UI update
               if (state.userAppSettings != null) {
                 context.read<AppBloc>().add(
-                      AppUserAppSettingsChanged(state.userAppSettings!),
-                    );
+                  AppUserAppSettingsChanged(state.userAppSettings!),
+                );
               }
             } else if (state is SettingsUpdateFailure) {
               ScaffoldMessenger.of(context)
@@ -82,10 +104,10 @@ class _SettingsView extends StatelessWidget {
                 state is! SettingsLoadInProgress) {
               // If settings are null and not loading, try to load them
               context.read<SettingsBloc>().add(
-                    SettingsLoaded(
-                      userId: context.read<AppBloc>().state.user?.id,
-                    ),
-                  );
+                SettingsLoaded(
+                  userId: context.read<AppBloc>().state.user?.id,
+                ),
+              );
             }
 
             if (state is SettingsLoadInProgress) {
@@ -99,237 +121,224 @@ class _SettingsView extends StatelessWidget {
                 message: l10n.failedToLoadSettingsMessage(state.errorMessage),
                 onRetry: () {
                   context.read<SettingsBloc>().add(
-                        SettingsLoaded(
-                          userId: context.read<AppBloc>().state.user?.id,
-                        ),
-                      );
+                    SettingsLoaded(
+                      userId: context.read<AppBloc>().state.user?.id,
+                    ),
+                  );
                 },
               );
             } else if (state.userAppSettings != null) {
               final userAppSettings = state.userAppSettings!;
-              return TabBarView(
+              return Column(
                 children: [
-                  // Appearance Tab Content
-                  DefaultTabController(
-                    length: 2, // Theme Settings and Font Settings
-                    child: Column(
-                      children: [
-                        TabBar(
-                          tabs: [
-                            Tab(text: l10n.themeSettingsLabel),
-                            Tab(text: l10n.fontSettingsLabel),
-                          ],
-                        ),
-                        Expanded(
-                          child: TabBarView(
-                            children: [
-                              // Theme Settings Sub-tab
-                              ListView(
-                                padding:
-                                    const EdgeInsets.all(AppSpacing.lg),
-                                children: [
-                                  _buildSettingSection(
-                                    context,
-                                    title: l10n.baseThemeLabel,
-                                    description: l10n.baseThemeDescription,
-                                    child: DropdownButton<AppBaseTheme>(
-                                      value: userAppSettings
-                                          .displaySettings.baseTheme,
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          context.read<SettingsBloc>().add(
-                                                SettingsBaseThemeChanged(
-                                                  value,
-                                                ),
-                                              );
-                                        }
-                                      },
-                                      items: AppBaseTheme.values
-                                          .map(
-                                            (theme) => DropdownMenuItem(
-                                              value: theme,
-                                              child: Text(
-                                                _getAppBaseThemeName(
-                                                  theme,
-                                                  l10n,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ),
-                                  const SizedBox(height: AppSpacing.lg),
-                                  _buildSettingSection(
-                                    context,
-                                    title: l10n.accentThemeLabel,
-                                    description: l10n.accentThemeDescription,
-                                    child: DropdownButton<AppAccentTheme>(
-                                      value: userAppSettings
-                                          .displaySettings.accentTheme,
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          context.read<SettingsBloc>().add(
-                                                SettingsAccentThemeChanged(
-                                                  value,
-                                                ),
-                                              );
-                                        }
-                                      },
-                                      items: AppAccentTheme.values
-                                          .map(
-                                            (theme) => DropdownMenuItem(
-                                              value: theme,
-                                              child: Text(
-                                                _getAppAccentThemeName(
-                                                  theme,
-                                                  l10n,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              // Font Settings Sub-tab
-                              ListView(
-                                padding:
-                                    const EdgeInsets.all(AppSpacing.lg),
-                                children: [
-                                  _buildSettingSection(
-                                    context,
-                                    title: l10n.fontFamilyLabel,
-                                    description: l10n.fontFamilyDescription,
-                                    child: DropdownButton<String>(
-                                      value: userAppSettings
-                                          .displaySettings.fontFamily,
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          context.read<SettingsBloc>().add(
-                                                SettingsFontFamilyChanged(
-                                                  value,
-                                                ),
-                                              );
-                                        }
-                                      },
-                                      items: _supportedFontFamilies
-                                          .map(
-                                            (font) => DropdownMenuItem(
-                                              value: font,
-                                              child: Text(
-                                                _getFontFamilyName(
-                                                  font,
-                                                  l10n,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ),
-                                  const SizedBox(height: AppSpacing.lg),
-                                  _buildSettingSection(
-                                    context,
-                                    title: l10n.textScaleFactorLabel,
-                                    description:
-                                        l10n.textScaleFactorDescription,
-                                    child: DropdownButton<AppTextScaleFactor>(
-                                      value: userAppSettings
-                                          .displaySettings.textScaleFactor,
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          context.read<SettingsBloc>().add(
-                                                SettingsTextScaleFactorChanged(
-                                                  value,
-                                                ),
-                                              );
-                                        }
-                                      },
-                                      items: AppTextScaleFactor.values
-                                          .map(
-                                            (scale) => DropdownMenuItem(
-                                              value: scale,
-                                              child: Text(
-                                                _getAppTextScaleFactorName(
-                                                  scale,
-                                                  l10n,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ),
-                                  const SizedBox(height: AppSpacing.lg),
-                                  _buildSettingSection(
-                                    context,
-                                    title: l10n.fontWeightLabel,
-                                    description: l10n.fontWeightDescription,
-                                    child: DropdownButton<AppFontWeight>(
-                                      value: userAppSettings
-                                          .displaySettings.fontWeight,
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          context.read<SettingsBloc>().add(
-                                                SettingsFontWeightChanged(
-                                                  value,
-                                                ),
-                                              );
-                                        }
-                                      },
-                                      items: AppFontWeight.values
-                                          .map(
-                                            (weight) => DropdownMenuItem(
-                                              value: weight,
-                                              child: Text(
-                                                _getAppFontWeightName(
-                                                  weight,
-                                                  l10n,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Language Tab Content
-                  ListView(
-                    padding: const EdgeInsets.all(AppSpacing.lg),
-                    children: [
-                      _buildSettingSection(
-                        context,
-                        title: l10n.languageLabel,
-                        description: l10n.languageDescription,
-                        child: DropdownButton<AppLanguage>(
-                          value: userAppSettings.language,
-                          onChanged: (value) {
-                            if (value != null) {
-                              context.read<SettingsBloc>().add(
-                                    SettingsLanguageChanged(value),
-                                  );
-                            }
-                          },
-                          items: _supportedLanguages
-                              .map(
-                                (lang) => DropdownMenuItem(
-                                  value: lang,
-                                  child: Text(_getLanguageName(lang, l10n)),
-                                ),
-                              )
-                              .toList(),
-                        ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
                       ),
-                    ],
+                      child: TabBarView(
+                        children: [
+                          // Appearance Tab Content
+                          Expanded(
+                            child: ListView(
+                              padding: const EdgeInsets.all(AppSpacing.lg),
+                              children: [
+                                ExpansionTile(
+                                  title: Text(l10n.themeSettingsLabel),
+                                  childrenPadding: const EdgeInsets.symmetric(
+                                    horizontal: AppSpacing.xxl,
+                                  ),
+                                  children: [
+                                    _buildSettingSection(
+                                      context,
+                                      title: l10n.baseThemeLabel,
+                                      description: l10n.baseThemeDescription,
+                                      child: DropdownButton<AppBaseTheme>(
+                                        value: userAppSettings
+                                            .displaySettings
+                                            .baseTheme,
+                                        onChanged: (value) {
+                                          if (value != null) {
+                                            context.read<SettingsBloc>().add(
+                                              SettingsBaseThemeChanged(
+                                                value,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        items: AppBaseTheme.values
+                                            .map(
+                                              (theme) => DropdownMenuItem(
+                                                value: theme,
+                                                child: Text(
+                                                  _getAppBaseThemeName(
+                                                    theme,
+                                                    l10n,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        // Removed isExpanded: true
+                                      ),
+                                    ),
+                                    const SizedBox(height: AppSpacing.lg),
+                                    _buildSettingSection(
+                                      context,
+                                      title: l10n.accentThemeLabel,
+                                      description: l10n.accentThemeDescription,
+                                      child: DropdownButton<AppAccentTheme>(
+                                        value: userAppSettings
+                                            .displaySettings
+                                            .accentTheme,
+                                        onChanged: (value) {
+                                          if (value != null) {
+                                            context.read<SettingsBloc>().add(
+                                              SettingsAccentThemeChanged(
+                                                value,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        items: AppAccentTheme.values
+                                            .map(
+                                              (theme) => DropdownMenuItem(
+                                                value: theme,
+                                                child: Text(
+                                                  _getAppAccentThemeName(
+                                                    theme,
+                                                    l10n,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        // Removed isExpanded: true
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  title: Text(l10n.fontSettingsLabel),
+                                  childrenPadding: const EdgeInsets.symmetric(
+                                    horizontal: AppSpacing.xxl,
+                                  ),
+                                  children: [
+                                    _buildSettingSection(
+                                      context,
+                                      title: l10n.fontFamilyLabel,
+                                      description: l10n.fontFamilyDescription,
+                                      child: DropdownButton<String>(
+                                        value: userAppSettings
+                                            .displaySettings
+                                            .fontFamily,
+                                        onChanged: (value) {
+                                          if (value != null) {
+                                            context.read<SettingsBloc>().add(
+                                              SettingsFontFamilyChanged(
+                                                value,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        items: _supportedFontFamilies
+                                            .map(
+                                              (font) => DropdownMenuItem(
+                                                value: font,
+                                                child: Text(
+                                                  _getFontFamilyName(
+                                                    font,
+                                                    l10n,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        // Removed isExpanded: true
+                                      ),
+                                    ),
+                                    const SizedBox(height: AppSpacing.lg),
+                                    _buildSettingSection(
+                                      context,
+                                      title: l10n.textScaleFactorLabel,
+                                      description:
+                                          l10n.textScaleFactorDescription,
+                                      child: DropdownButton<AppTextScaleFactor>(
+                                        value: userAppSettings
+                                            .displaySettings
+                                            .textScaleFactor,
+                                        onChanged: (value) {
+                                          if (value != null) {
+                                            context.read<SettingsBloc>().add(
+                                              SettingsTextScaleFactorChanged(
+                                                value,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        items: AppTextScaleFactor.values
+                                            .map(
+                                              (scale) => DropdownMenuItem(
+                                                value: scale,
+                                                child: Text(
+                                                  _getAppTextScaleFactorName(
+                                                    scale,
+                                                    l10n,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        // Removed isExpanded: true
+                                      ),
+                                    ),
+                                    const SizedBox(height: AppSpacing.lg),
+                                    _buildSettingSection(
+                                      context,
+                                      title: l10n.fontWeightLabel,
+                                      description: l10n.fontWeightDescription,
+                                      child: DropdownButton<AppFontWeight>(
+                                        value: userAppSettings
+                                            .displaySettings
+                                            .fontWeight,
+                                        onChanged: (value) {
+                                          if (value != null) {
+                                            context.read<SettingsBloc>().add(
+                                              SettingsFontWeightChanged(
+                                                value,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        items: AppFontWeight.values
+                                            .map(
+                                              (weight) => DropdownMenuItem(
+                                                value: weight,
+                                                child: Text(
+                                                  _getAppFontWeightName(
+                                                    weight,
+                                                    l10n,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        // Removed isExpanded: true
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Language Tab Content
+                          _LanguageSelectionList(
+                            currentLanguage: userAppSettings.language,
+                            l10n: l10n,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               );
@@ -347,25 +356,32 @@ class _SettingsView extends StatelessWidget {
     required String description,
     required Widget child,
   }) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const SizedBox(height: AppSpacing.xs),
-        Text(
-          description,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                description,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: AppSpacing.sm),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: child,
-        ),
+        const SizedBox(
+          width: AppSpacing.lg,
+        ), // Add some spacing between text and dropdown
+        child,
       ],
     );
   }
@@ -438,6 +454,63 @@ class _SettingsView extends StatelessWidget {
     }
   }
 
+  static const List<String> _supportedFontFamilies = [
+    'SystemDefault',
+    'Roboto',
+    'OpenSans',
+    'Lato',
+    'Montserrat',
+    'Merriweather',
+  ];
+}
+
+/// {@template _language_selection_list}
+/// A widget that displays a list of supported languages for selection.
+/// {@endtemplate}
+class _LanguageSelectionList extends StatelessWidget {
+  /// {@macro _language_selection_list}
+  const _LanguageSelectionList({
+    required this.currentLanguage,
+    required this.l10n,
+  });
+
+  /// The currently selected language.
+  final AppLanguage currentLanguage;
+
+  /// The localized strings for the application.
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+      itemCount: _supportedLanguages.length,
+      itemBuilder: (context, index) {
+        final language = _supportedLanguages[index];
+        final isSelected = language == currentLanguage;
+        return ListTile(
+          title: Text(
+            _getLanguageName(language, l10n),
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          trailing: isSelected
+              ? Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.primary,
+                )
+              : null,
+          onTap: () {
+            if (!isSelected) {
+              context.read<SettingsBloc>().add(
+                SettingsLanguageChanged(language),
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
   String _getLanguageName(AppLanguage language, AppLocalizations l10n) {
     switch (language) {
       case 'en':
@@ -448,15 +521,6 @@ class _SettingsView extends StatelessWidget {
         return language;
     }
   }
-
-  static const List<String> _supportedFontFamilies = [
-    'SystemDefault',
-    'Roboto',
-    'OpenSans',
-    'Lato',
-    'Montserrat',
-    'Merriweather',
-  ];
 
   static const List<AppLanguage> _supportedLanguages = [
     'en',
