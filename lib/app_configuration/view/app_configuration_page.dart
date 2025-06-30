@@ -71,6 +71,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               TabBar(
                 controller: _tabController,
                 isScrollable: true,
+                tabAlignment: TabAlignment.start,
                 tabs: [
                   Tab(text: context.l10n.userContentLimitsTab),
                   Tab(text: context.l10n.adSettingsTab),
