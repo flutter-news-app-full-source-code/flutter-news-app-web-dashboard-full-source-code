@@ -721,40 +721,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     );
   }
 
-  Widget _buildSwitchField(
-    BuildContext context, {
-    required String label,
-    required String description,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            description,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-            ),
-          ),
-          SwitchListTile(
-            title: Text(label),
-            value: value,
-            onChanged: onChanged,
-            contentPadding: EdgeInsets.zero,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildDropdownField<T>(
     BuildContext context, {
     required String label,
