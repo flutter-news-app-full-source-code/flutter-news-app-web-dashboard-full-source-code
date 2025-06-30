@@ -74,6 +74,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get contentManagement => 'إدارة المحتوى';
 
   @override
+  String get contentManagementPageDescription =>
+      'إدارة العناوين الإخبارية والفئات والمصادر للوحة القيادة.';
+
+  @override
   String get headlines => 'العناوين الرئيسية';
 
   @override
@@ -84,6 +88,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get appConfiguration => 'إعدادات التطبيق';
+
+  @override
+  String get appConfigurationPageDescription =>
+      'تكوين الإعدادات العامة للتطبيق المحمول، بما في ذلك حدود محتوى المستخدم، وقواعد عرض الإعلانات، والتنبيهات داخل التطبيق، وحالة التشغيل، ومعلمات التحديث الإجباري.';
 
   @override
   String get settings => 'الإعدادات';

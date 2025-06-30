@@ -85,6 +85,10 @@
   "@contentManagement": {
     "description": "تسمية عنصر التنقل لإدارة المحتوى"
   },
+  "contentManagementPageDescription": "إدارة العناوين الإخبارية والفئات والمصادر للوحة القيادة.",
+  "@contentManagementPageDescription": {
+    "description": "وصف صفحة إدارة المحتوى"
+  },
   "headlines": "العناوين الرئيسية",
   "@headlines": {
     "description": "تسمية الصفحة الفرعية للعناوين الرئيسية"
@@ -100,6 +104,10 @@
   "appConfiguration": "إعدادات التطبيق",
   "@appConfiguration": {
     "description": "تسمية عنصر التنقل لإعدادات التطبيق"
+  },
+  "appConfigurationPageDescription": "تكوين الإعدادات العامة للتطبيق المحمول، بما في ذلك حدود محتوى المستخدم، وقواعد عرض الإعلانات، والتنبيهات داخل التطبيق، وحالة التشغيل، ومعلمات التحديث الإجباري.",
+  "@appConfigurationPageDescription": {
+    "description": "وصف صفحة إعدادات التطبيق"
   },
   "settings": "الإعدادات",
   "@settings": {

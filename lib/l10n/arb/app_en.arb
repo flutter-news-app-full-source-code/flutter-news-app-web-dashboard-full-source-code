@@ -85,6 +85,10 @@
   "@contentManagement": {
     "description": "Label for the content management navigation item"
   },
+  "contentManagementPageDescription": "Manage news headlines, categories, and sources for the Dashboard.",
+  "@contentManagementPageDescription": {
+    "description": "Description for the Content Management page"
+  },
   "headlines": "Headlines",
   "@headlines": {
     "description": "Label for the headlines subpage"
@@ -100,6 +104,10 @@
   "appConfiguration": "App Configuration",
   "@appConfiguration": {
     "description": "Label for the app configuration navigation item"
+  },
+  "appConfigurationPageDescription": "Configure global settings for the mobile application, including user content limits, ad display rules, in-app prompts, operational status, and force update parameters.",
+  "@appConfigurationPageDescription": {
+    "description": "Description for the App Configuration page"
   },
   "settings": "Settings",
   "@settings": {

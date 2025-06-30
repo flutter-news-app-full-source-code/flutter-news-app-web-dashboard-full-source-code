@@ -73,6 +73,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contentManagement => 'Content Management';
 
   @override
+  String get contentManagementPageDescription =>
+      'Manage news headlines, categories, and sources for the Dashboard.';
+
+  @override
   String get headlines => 'Headlines';
 
   @override
@@ -83,6 +87,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appConfiguration => 'App Configuration';
+
+  @override
+  String get appConfigurationPageDescription =>
+      'Configure global settings for the mobile application, including user content limits, ad display rules, in-app prompts, operational status, and force update parameters.';
 
   @override
   String get settings => 'Settings';
