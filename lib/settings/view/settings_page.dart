@@ -159,29 +159,25 @@ class _SettingsView extends StatelessWidget {
                                   children: [
                                     ExpansionTile(
                                       title: Text(l10n.themeSettingsLabel),
-                                      childrenPadding:
-                                          const EdgeInsets.symmetric(
-                                            horizontal: AppSpacing.xxl,
-                                          ),
+                                      childrenPadding: const EdgeInsets.symmetric(
+                                        horizontal: AppSpacing.xxl,
+                                      ),
                                       children: [
                                         _buildSettingSection(
                                           context,
                                           title: l10n.baseThemeLabel,
-                                          description:
-                                              l10n.baseThemeDescription,
+                                          description: l10n.baseThemeDescription,
                                           child: DropdownButton<AppBaseTheme>(
                                             value: userAppSettings
                                                 .displaySettings
                                                 .baseTheme,
                                             onChanged: (value) {
                                               if (value != null) {
-                                                context
-                                                    .read<SettingsBloc>()
-                                                    .add(
-                                                      SettingsBaseThemeChanged(
-                                                        value,
-                                                      ),
-                                                    );
+                                                context.read<SettingsBloc>().add(
+                                                  SettingsBaseThemeChanged(
+                                                    value,
+                                                  ),
+                                                );
                                               }
                                             },
                                             items: AppBaseTheme.values
@@ -197,7 +193,7 @@ class _SettingsView extends StatelessWidget {
                                                   ),
                                                 )
                                                 .toList(),
-                                            isExpanded: true,
+                                            // Removed isExpanded: true
                                           ),
                                         ),
                                         const SizedBox(height: AppSpacing.lg),
@@ -232,36 +228,32 @@ class _SettingsView extends StatelessWidget {
                                                   ),
                                                 )
                                                 .toList(),
-                                            isExpanded: true,
+                                            // Removed isExpanded: true
                                           ),
                                         ),
                                       ],
                                     ),
                                     ExpansionTile(
                                       title: Text(l10n.fontSettingsLabel),
-                                      childrenPadding:
-                                          const EdgeInsets.symmetric(
-                                            horizontal: AppSpacing.xxl,
-                                          ),
+                                      childrenPadding: const EdgeInsets.symmetric(
+                                        horizontal: AppSpacing.xxl,
+                                      ),
                                       children: [
                                         _buildSettingSection(
                                           context,
                                           title: l10n.fontFamilyLabel,
-                                          description:
-                                              l10n.fontFamilyDescription,
+                                          description: l10n.fontFamilyDescription,
                                           child: DropdownButton<String>(
                                             value: userAppSettings
                                                 .displaySettings
                                                 .fontFamily,
                                             onChanged: (value) {
                                               if (value != null) {
-                                                context
-                                                    .read<SettingsBloc>()
-                                                    .add(
-                                                      SettingsFontFamilyChanged(
-                                                        value,
-                                                      ),
-                                                    );
+                                                context.read<SettingsBloc>().add(
+                                                  SettingsFontFamilyChanged(
+                                                    value,
+                                                  ),
+                                                );
                                               }
                                             },
                                             items: _supportedFontFamilies
@@ -277,7 +269,7 @@ class _SettingsView extends StatelessWidget {
                                                   ),
                                                 )
                                                 .toList(),
-                                            isExpanded: true,
+                                            // Removed isExpanded: true
                                           ),
                                         ),
                                         const SizedBox(height: AppSpacing.lg),
@@ -312,28 +304,25 @@ class _SettingsView extends StatelessWidget {
                                                   ),
                                                 )
                                                 .toList(),
-                                            isExpanded: true,
+                                            // Removed isExpanded: true
                                           ),
                                         ),
                                         const SizedBox(height: AppSpacing.lg),
                                         _buildSettingSection(
                                           context,
                                           title: l10n.fontWeightLabel,
-                                          description:
-                                              l10n.fontWeightDescription,
+                                          description: l10n.fontWeightDescription,
                                           child: DropdownButton<AppFontWeight>(
                                             value: userAppSettings
                                                 .displaySettings
                                                 .fontWeight,
                                             onChanged: (value) {
                                               if (value != null) {
-                                                context
-                                                    .read<SettingsBloc>()
-                                                    .add(
-                                                      SettingsFontWeightChanged(
-                                                        value,
-                                                      ),
-                                                    );
+                                                context.read<SettingsBloc>().add(
+                                                  SettingsFontWeightChanged(
+                                                    value,
+                                                  ),
+                                                );
                                               }
                                             },
                                             items: AppFontWeight.values
@@ -349,7 +338,7 @@ class _SettingsView extends StatelessWidget {
                                                   ),
                                                 )
                                                 .toList(),
-                                            isExpanded: true,
+                                            // Removed isExpanded: true
                                           ),
                                         ),
                                       ],
@@ -384,9 +373,8 @@ class _SettingsView extends StatelessWidget {
                                             _getLanguageName(lang, l10n),
                                           ),
                                         ),
-                                      )
-                                      .toList(),
-                                  isExpanded: true,
+                                      ).toList(),
+                                  // Removed isExpanded: true
                                 ),
                               ),
                             ],
@@ -411,25 +399,30 @@ class _SettingsView extends StatelessWidget {
     required String description,
     required Widget child,
   }) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const SizedBox(height: AppSpacing.xs),
-        Text(
-          description,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                description,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: AppSpacing.sm),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: child,
-        ),
+        const SizedBox(width: AppSpacing.lg), // Add some spacing between text and dropdown
+        child,
       ],
     );
   }
