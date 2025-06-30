@@ -40,9 +40,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
       appBar: AppBar(
         title: Text(l10n.contentManagement),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(
-            kToolbarHeight + kTextTabBarHeight + AppSpacing.lg,
-          ),
+          preferredSize: Size.fromHeight(kTextTabBarHeight + AppSpacing.lg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
