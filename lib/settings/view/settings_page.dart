@@ -34,252 +34,310 @@ class _SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.settings),
-      ),
-      body: BlocConsumer<SettingsBloc, SettingsState>(
-        listenWhen: (previous, current) =>
-            current is SettingsUpdateSuccess ||
-            current is SettingsUpdateFailure,
-        listener: (context, state) {
-          if (state is SettingsUpdateSuccess) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.settingsSavedSuccessfully),
-                ),
+    return DefaultTabController(
+      length: 2, // Appearance and Language
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.settings),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: l10n.appearanceSettingsLabel),
+              Tab(text: l10n.languageSettingsLabel),
+            ],
+          ),
+        ),
+        body: BlocConsumer<SettingsBloc, SettingsState>(
+          listenWhen: (previous, current) =>
+              current is SettingsUpdateSuccess ||
+              current is SettingsUpdateFailure,
+          listener: (context, state) {
+            if (state is SettingsUpdateSuccess) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.settingsSavedSuccessfully),
+                  ),
+                );
+              // Trigger AppBloc to reload settings for immediate UI update
+              if (state.userAppSettings != null) {
+                context.read<AppBloc>().add(
+                      AppUserAppSettingsChanged(state.userAppSettings!),
+                    );
+              }
+            } else if (state is SettingsUpdateFailure) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      l10n.settingsSaveErrorMessage(state.errorMessage),
+                    ),
+                  ),
+                );
+            }
+          },
+          builder: (context, state) {
+            if (state.userAppSettings == null &&
+                state is! SettingsLoadInProgress) {
+              // If settings are null and not loading, try to load them
+              context.read<SettingsBloc>().add(
+                    SettingsLoaded(
+                      userId: context.read<AppBloc>().state.user?.id,
+                    ),
+                  );
+            }
+
+            if (state is SettingsLoadInProgress) {
+              return LoadingStateWidget(
+                icon: Icons.settings,
+                headline: l10n.loadingSettingsHeadline,
+                subheadline: l10n.loadingSettingsSubheadline,
               );
-            // Optionally, trigger AppBloc to reload settings if it caches them
-            context.read<AppBloc>().add(
-              AppUserChanged(
-                context.read<AppBloc>().state.user?.copyWith(
-                  // This is a simplified way to trigger AppBloc update.
-                  // A more robust solution might involve AppBloc listening
-                  // to SettingsBloc directly or a dedicated event.
-                  // For now, we'll rely on the AppBloc's authStateChanges
-                  // listener to eventually pick up the change if the
-                  // repository emits it, or a manual refresh.
-                  // For immediate UI update, we might need to pass the
-                  // updated settings to AppBloc.
-                  // For this task, we'll assume AppBloc will react
-                  // to the repository change or a full app restart.
-                  // A better approach would be to have AppBloc listen
-                  // to UserAppSettings changes from its repository.
-                ),
-              ),
-            );
-          } else if (state is SettingsUpdateFailure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(
-                    l10n.settingsSaveErrorMessage(state.errorMessage),
-                  ),
-                ),
+            } else if (state is SettingsLoadFailure) {
+              return FailureStateWidget(
+                message: l10n.failedToLoadSettingsMessage(state.errorMessage),
+                onRetry: () {
+                  context.read<SettingsBloc>().add(
+                        SettingsLoaded(
+                          userId: context.read<AppBloc>().state.user?.id,
+                        ),
+                      );
+                },
               );
-          }
-        },
-        builder: (context, state) {
-          if (state is SettingsLoadInProgress) {
-            return LoadingStateWidget(
-              icon: Icons.settings,
-              headline: l10n.loadingSettingsHeadline,
-              subheadline: l10n.loadingSettingsSubheadline,
-            );
-          } else if (state is SettingsLoadFailure) {
-            return FailureStateWidget(
-              message: l10n.failedToLoadSettingsMessage(state.errorMessage),
-              onRetry: () {
-                context.read<SettingsBloc>().add(
-                  SettingsLoaded(
-                    userId: context.read<AppBloc>().state.user?.id,
+            } else if (state.userAppSettings != null) {
+              final userAppSettings = state.userAppSettings!;
+              return TabBarView(
+                children: [
+                  // Appearance Tab Content
+                  DefaultTabController(
+                    length: 2, // Theme Settings and Font Settings
+                    child: Column(
+                      children: [
+                        TabBar(
+                          tabs: [
+                            Tab(text: l10n.themeSettingsLabel),
+                            Tab(text: l10n.fontSettingsLabel),
+                          ],
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              // Theme Settings Sub-tab
+                              ListView(
+                                padding:
+                                    const EdgeInsets.all(AppSpacing.lg),
+                                children: [
+                                  _buildSettingSection(
+                                    context,
+                                    title: l10n.baseThemeLabel,
+                                    description: l10n.baseThemeDescription,
+                                    child: DropdownButton<AppBaseTheme>(
+                                      value: userAppSettings
+                                          .displaySettings.baseTheme,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          context.read<SettingsBloc>().add(
+                                                SettingsBaseThemeChanged(
+                                                  value,
+                                                ),
+                                              );
+                                        }
+                                      },
+                                      items: AppBaseTheme.values
+                                          .map(
+                                            (theme) => DropdownMenuItem(
+                                              value: theme,
+                                              child: Text(
+                                                _getAppBaseThemeName(
+                                                  theme,
+                                                  l10n,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppSpacing.lg),
+                                  _buildSettingSection(
+                                    context,
+                                    title: l10n.accentThemeLabel,
+                                    description: l10n.accentThemeDescription,
+                                    child: DropdownButton<AppAccentTheme>(
+                                      value: userAppSettings
+                                          .displaySettings.accentTheme,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          context.read<SettingsBloc>().add(
+                                                SettingsAccentThemeChanged(
+                                                  value,
+                                                ),
+                                              );
+                                        }
+                                      },
+                                      items: AppAccentTheme.values
+                                          .map(
+                                            (theme) => DropdownMenuItem(
+                                              value: theme,
+                                              child: Text(
+                                                _getAppAccentThemeName(
+                                                  theme,
+                                                  l10n,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // Font Settings Sub-tab
+                              ListView(
+                                padding:
+                                    const EdgeInsets.all(AppSpacing.lg),
+                                children: [
+                                  _buildSettingSection(
+                                    context,
+                                    title: l10n.fontFamilyLabel,
+                                    description: l10n.fontFamilyDescription,
+                                    child: DropdownButton<String>(
+                                      value: userAppSettings
+                                          .displaySettings.fontFamily,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          context.read<SettingsBloc>().add(
+                                                SettingsFontFamilyChanged(
+                                                  value,
+                                                ),
+                                              );
+                                        }
+                                      },
+                                      items: _supportedFontFamilies
+                                          .map(
+                                            (font) => DropdownMenuItem(
+                                              value: font,
+                                              child: Text(
+                                                _getFontFamilyName(
+                                                  font,
+                                                  l10n,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppSpacing.lg),
+                                  _buildSettingSection(
+                                    context,
+                                    title: l10n.textScaleFactorLabel,
+                                    description:
+                                        l10n.textScaleFactorDescription,
+                                    child: DropdownButton<AppTextScaleFactor>(
+                                      value: userAppSettings
+                                          .displaySettings.textScaleFactor,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          context.read<SettingsBloc>().add(
+                                                SettingsTextScaleFactorChanged(
+                                                  value,
+                                                ),
+                                              );
+                                        }
+                                      },
+                                      items: AppTextScaleFactor.values
+                                          .map(
+                                            (scale) => DropdownMenuItem(
+                                              value: scale,
+                                              child: Text(
+                                                _getAppTextScaleFactorName(
+                                                  scale,
+                                                  l10n,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppSpacing.lg),
+                                  _buildSettingSection(
+                                    context,
+                                    title: l10n.fontWeightLabel,
+                                    description: l10n.fontWeightDescription,
+                                    child: DropdownButton<AppFontWeight>(
+                                      value: userAppSettings
+                                          .displaySettings.fontWeight,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          context.read<SettingsBloc>().add(
+                                                SettingsFontWeightChanged(
+                                                  value,
+                                                ),
+                                              );
+                                        }
+                                      },
+                                      items: AppFontWeight.values
+                                          .map(
+                                            (weight) => DropdownMenuItem(
+                                              value: weight,
+                                              child: Text(
+                                                _getAppFontWeightName(
+                                                  weight,
+                                                  l10n,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              },
-            );
-          } else if (state is SettingsLoadSuccess) {
-            final userAppSettings = state.userAppSettings;
-            return _buildSettingsContent(context, userAppSettings, l10n);
-          } else if (state is SettingsUpdateSuccess) {
-            final userAppSettings = state.userAppSettings;
-            return _buildSettingsContent(context, userAppSettings, l10n);
-          } else if (state is SettingsUpdateInProgress) {
-            final userAppSettings = state.userAppSettings;
-            return _buildSettingsContent(context, userAppSettings, l10n);
-          }
-          return const SizedBox.shrink();
-        },
+                  // Language Tab Content
+                  ListView(
+                    padding: const EdgeInsets.all(AppSpacing.lg),
+                    children: [
+                      _buildSettingSection(
+                        context,
+                        title: l10n.languageLabel,
+                        description: l10n.languageDescription,
+                        child: DropdownButton<AppLanguage>(
+                          value: userAppSettings.language,
+                          onChanged: (value) {
+                            if (value != null) {
+                              context.read<SettingsBloc>().add(
+                                    SettingsLanguageChanged(value),
+                                  );
+                            }
+                          },
+                          items: _supportedLanguages
+                              .map(
+                                (lang) => DropdownMenuItem(
+                                  value: lang,
+                                  child: Text(_getLanguageName(lang, l10n)),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
       ),
-    );
-  }
-
-  Widget _buildSettingsContent(
-    BuildContext context,
-    UserAppSettings userAppSettings,
-    AppLocalizations l10n,
-  ) {
-    return ListView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      children: [
-        // Base Theme
-        _buildSettingSection(
-          context,
-          title: l10n.baseThemeLabel,
-          description: l10n.baseThemeDescription,
-          child: DropdownButton<AppBaseTheme>(
-            value: userAppSettings.displaySettings.baseTheme,
-            onChanged: (value) {
-              if (value != null) {
-                context.read<SettingsBloc>().add(
-                  SettingsBaseThemeChanged(value),
-                );
-              }
-            },
-            items: AppBaseTheme.values
-                .map(
-                  (theme) => DropdownMenuItem(
-                    value: theme,
-                    child: Text(_getAppBaseThemeName(theme, l10n)),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Accent Theme
-        _buildSettingSection(
-          context,
-          title: l10n.accentThemeLabel,
-          description: l10n.accentThemeDescription,
-          child: DropdownButton<AppAccentTheme>(
-            value: userAppSettings.displaySettings.accentTheme,
-            onChanged: (value) {
-              if (value != null) {
-                context.read<SettingsBloc>().add(
-                  SettingsAccentThemeChanged(value),
-                );
-              }
-            },
-            items: AppAccentTheme.values
-                .map(
-                  (theme) => DropdownMenuItem(
-                    value: theme,
-                    child: Text(_getAppAccentThemeName(theme, l10n)),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Font Family
-        _buildSettingSection(
-          context,
-          title: l10n.fontFamilyLabel,
-          description: l10n.fontFamilyDescription,
-          child: DropdownButton<String>(
-            value: userAppSettings.displaySettings.fontFamily,
-            onChanged: (value) {
-              if (value != null) {
-                context.read<SettingsBloc>().add(
-                  SettingsFontFamilyChanged(value),
-                );
-              }
-            },
-            items: _supportedFontFamilies
-                .map(
-                  (font) => DropdownMenuItem(
-                    value: font,
-                    child: Text(_getFontFamilyName(font, l10n)),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Text Scale Factor
-        _buildSettingSection(
-          context,
-          title: l10n.textScaleFactorLabel,
-          description: l10n.textScaleFactorDescription,
-          child: DropdownButton<AppTextScaleFactor>(
-            value: userAppSettings.displaySettings.textScaleFactor,
-            onChanged: (value) {
-              if (value != null) {
-                context.read<SettingsBloc>().add(
-                  SettingsTextScaleFactorChanged(value),
-                );
-              }
-            },
-            items: AppTextScaleFactor.values
-                .map(
-                  (scale) => DropdownMenuItem(
-                    value: scale,
-                    child: Text(_getAppTextScaleFactorName(scale, l10n)),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Font Weight
-        _buildSettingSection(
-          context,
-          title: l10n.fontWeightLabel,
-          description: l10n.fontWeightDescription,
-          child: DropdownButton<AppFontWeight>(
-            value: userAppSettings.displaySettings.fontWeight,
-            onChanged: (value) {
-              if (value != null) {
-                context.read<SettingsBloc>().add(
-                  SettingsFontWeightChanged(value),
-                );
-              }
-            },
-            items: AppFontWeight.values
-                .map(
-                  (weight) => DropdownMenuItem(
-                    value: weight,
-                    child: Text(_getAppFontWeightName(weight, l10n)),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Language
-        _buildSettingSection(
-          context,
-          title: l10n.languageLabel,
-          description: l10n.languageDescription,
-          child: DropdownButton<AppLanguage>(
-            value: userAppSettings.language,
-            onChanged: (value) {
-              if (value != null) {
-                context.read<SettingsBloc>().add(
-                  SettingsLanguageChanged(value),
-                );
-              }
-            },
-            items: _supportedLanguages
-                .map(
-                  (lang) => DropdownMenuItem(
-                    value: lang,
-                    child: Text(_getLanguageName(lang, l10n)),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-      ],
     );
   }
 
@@ -300,8 +358,8 @@ class _SettingsView extends StatelessWidget {
         Text(
           description,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
         ),
         const SizedBox(height: AppSpacing.sm),
         Align(
