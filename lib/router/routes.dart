@@ -44,12 +44,6 @@ abstract final class Routes {
   /// The name for the content management section route.
   static const String contentManagementName = 'contentManagement';
 
-  /// The path for the headlines page within content management.
-  static const String headlines = 'headlines';
-
-  /// The name for the headlines page route.
-  static const String headlinesName = 'headlines';
-
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
@@ -62,12 +56,6 @@ abstract final class Routes {
   /// The name for the edit headline page route.
   static const String editHeadlineName = 'editHeadline';
 
-  /// The path for the categories page within content management.
-  static const String categories = 'categories';
-
-  /// The name for the categories page route.
-  static const String categoriesName = 'categories';
-
   /// The path for creating a new category.
   static const String createCategory = 'create-category';
 
@@ -79,12 +67,6 @@ abstract final class Routes {
 
   /// The name for the edit category page route.
   static const String editCategoryName = 'editCategory';
-
-  /// The path for the sources page within content management.
-  static const String sources = 'sources';
-
-  /// The name for the sources page route.
-  static const String sourcesName = 'sources';
 
   /// The path for creating a new source.
   static const String createSource = 'create-source';
