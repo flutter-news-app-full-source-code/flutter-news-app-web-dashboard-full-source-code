@@ -566,4 +566,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get language => 'اللغة';
+
+  @override
+  String get editCategory => 'تعديل الفئة';
+
+  @override
+  String get saveChanges => 'حفظ التغييرات';
+
+  @override
+  String get loadingCategory => 'جاري تحميل الفئة';
+
+  @override
+  String get iconUrl => 'رابط الأيقونة';
+
+  @override
+  String get categoryUpdatedSuccessfully => 'تم تحديث الفئة بنجاح.';
+
+  @override
+  String get cannotUpdateCategoryError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.';
 }

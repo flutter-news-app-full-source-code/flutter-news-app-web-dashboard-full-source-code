@@ -564,4 +564,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language => 'Language';
+
+  @override
+  String get editCategory => 'Edit Category';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get loadingCategory => 'Loading Category';
+
+  @override
+  String get iconUrl => 'Icon URL';
+
+  @override
+  String get categoryUpdatedSuccessfully => 'Category updated successfully.';
+
+  @override
+  String get cannotUpdateCategoryError =>
+      'Cannot update: Original category data not loaded.';
 }

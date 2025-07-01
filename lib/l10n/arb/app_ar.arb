@@ -680,4 +680,29 @@
   "@language": {
     "description": "رأس العمود للغة"
   }
+,
+  "editCategory": "تعديل الفئة",
+  "@editCategory": {
+    "description": "عنوان صفحة تعديل الفئة"
+  },
+  "saveChanges": "حفظ التغييرات",
+  "@saveChanges": {
+    "description": "تلميح لزر حفظ التغييرات"
+  },
+  "loadingCategory": "جاري تحميل الفئة",
+  "@loadingCategory": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات الفئة"
+  },
+  "iconUrl": "رابط الأيقونة",
+  "@iconUrl": {
+    "description": "تسمية حقل إدخال رابط الأيقونة"
+  },
+  "categoryUpdatedSuccessfully": "تم تحديث الفئة بنجاح.",
+  "@categoryUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث الفئة بنجاح"
+  },
+  "cannotUpdateCategoryError": "لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.",
+  "@cannotUpdateCategoryError": {
+    "description": "رسالة خطأ عند فشل تحديث الفئة بسبب عدم تحميل البيانات الأصلية"
+  }
 }

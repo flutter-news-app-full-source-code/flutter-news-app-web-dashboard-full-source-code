@@ -679,5 +679,29 @@
   "language": "Language",
   "@language": {
     "description": "Column header for language"
+  },
+  "editCategory": "Edit Category",
+  "@editCategory": {
+    "description": "Title for the Edit Category page"
+  },
+  "saveChanges": "Save Changes",
+  "@saveChanges": {
+    "description": "Tooltip for the save changes button"
+  },
+  "loadingCategory": "Loading Category",
+  "@loadingCategory": {
+    "description": "Message displayed while loading category data"
+  },
+  "iconUrl": "Icon URL",
+  "@iconUrl": {
+    "description": "Label for the icon URL input field"
+  },
+  "categoryUpdatedSuccessfully": "Category updated successfully.",
+  "@categoryUpdatedSuccessfully": {
+    "description": "Message displayed when a category is updated successfully"
+  },
+  "cannotUpdateCategoryError": "Cannot update: Original category data not loaded.",
+  "@cannotUpdateCategoryError": {
+    "description": "Error message when updating a category fails because the original data wasn't loaded"
   }
 }

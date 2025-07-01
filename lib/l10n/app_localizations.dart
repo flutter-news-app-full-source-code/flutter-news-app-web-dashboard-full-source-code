@@ -1081,6 +1081,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// Title for the Edit Category page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Category'**
+  String get editCategory;
+
+  /// Tooltip for the save changes button
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// Message displayed while loading category data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Category'**
+  String get loadingCategory;
+
+  /// Label for the icon URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Icon URL'**
+  String get iconUrl;
+
+  /// Message displayed when a category is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Category updated successfully.'**
+  String get categoryUpdatedSuccessfully;
+
+  /// Error message when updating a category fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original category data not loaded.'**
+  String get cannotUpdateCategoryError;
 }
 
 class _AppLocalizationsDelegate
