@@ -515,4 +515,55 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get appearanceSettingsDescription =>
       'اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.';
+
+  @override
+  String get loadingHeadlines => 'جاري تحميل العناوين الرئيسية';
+
+  @override
+  String get pleaseWait => 'الرجاء الانتظار...';
+
+  @override
+  String get noHeadlinesFound => 'لم يتم العثور على عناوين رئيسية.';
+
+  @override
+  String get headlineTitle => 'العنوان';
+
+  @override
+  String get publishedAt => 'تاريخ النشر';
+
+  @override
+  String get actions => 'الإجراءات';
+
+  @override
+  String get unknown => 'غير معروف';
+
+  @override
+  String get loadingCategories => 'جاري تحميل الفئات';
+
+  @override
+  String get noCategoriesFound => 'لم يتم العثور على فئات.';
+
+  @override
+  String get categoryName => 'الاسم';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get notAvailable => 'غير متاح';
+
+  @override
+  String get loadingSources => 'جاري تحميل المصادر';
+
+  @override
+  String get noSourcesFound => 'لم يتم العثور على مصادر.';
+
+  @override
+  String get sourceName => 'الاسم';
+
+  @override
+  String get sourceType => 'النوع';
+
+  @override
+  String get language => 'اللغة';
 }

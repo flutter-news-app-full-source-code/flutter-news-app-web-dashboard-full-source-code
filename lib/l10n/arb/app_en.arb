@@ -608,5 +608,73 @@
   "@settingsPageDescription": {
     "description": "Description for the main settings page"
   },
-  "appearanceSettingsDescription": "Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles."
+  "appearanceSettingsDescription": "Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.",
+  "loadingHeadlines": "Loading Headlines",
+  "@loadingHeadlines": {
+    "description": "Headline for loading state of headlines"
+  },
+  "pleaseWait": "Please wait...",
+  "@pleaseWait": {
+    "description": "Subheadline for loading state"
+  },
+  "noHeadlinesFound": "No headlines found.",
+  "@noHeadlinesFound": {
+    "description": "Message when no headlines are found"
+  },
+  "headlineTitle": "Title",
+  "@headlineTitle": {
+    "description": "Column header for headline title"
+  },
+  "publishedAt": "Published At",
+  "@publishedAt": {
+    "description": "Column header for published date"
+  },
+  "actions": "Actions",
+  "@actions": {
+    "description": "Column header for actions"
+  },
+  "unknown": "Unknown",
+  "@unknown": {
+    "description": "Fallback text for unknown values"
+  },
+  "loadingCategories": "Loading Categories",
+  "@loadingCategories": {
+    "description": "Headline for loading state of categories"
+  },
+  "noCategoriesFound": "No categories found.",
+  "@noCategoriesFound": {
+    "description": "Message when no categories are found"
+  },
+  "categoryName": "Name",
+  "@categoryName": {
+    "description": "Column header for category name"
+  },
+  "description": "Description",
+  "@description": {
+    "description": "Column header for description"
+  },
+  "notAvailable": "N/A",
+  "@notAvailable": {
+    "description": "Short text for 'not available'"
+  },
+  "loadingSources": "Loading Sources",
+  "@loadingSources": {
+    "description": "Headline for loading state of sources"
+  },
+  "noSourcesFound": "No sources found.",
+  "@noSourcesFound": {
+    "description": "Message when no sources are found"
+  },
+  "sourceName": "Name",
+  "@sourceName": {
+    "description": "Column header for source name"
+  },
+  "sourceType": "Type",
+  "@sourceType": {
+    "description": "Column header for source type"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Column header for language"
+  }
 }

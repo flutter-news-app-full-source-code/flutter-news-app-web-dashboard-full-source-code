@@ -979,6 +979,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.'**
   String get appearanceSettingsDescription;
+
+  /// Headline for loading state of headlines
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Headlines'**
+  String get loadingHeadlines;
+
+  /// Subheadline for loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait...'**
+  String get pleaseWait;
+
+  /// Message when no headlines are found
+  ///
+  /// In en, this message translates to:
+  /// **'No headlines found.'**
+  String get noHeadlinesFound;
+
+  /// Column header for headline title
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get headlineTitle;
+
+  /// Column header for published date
+  ///
+  /// In en, this message translates to:
+  /// **'Published At'**
+  String get publishedAt;
+
+  /// Column header for actions
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get actions;
+
+  /// Fallback text for unknown values
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
+  /// Headline for loading state of categories
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Categories'**
+  String get loadingCategories;
+
+  /// Message when no categories are found
+  ///
+  /// In en, this message translates to:
+  /// **'No categories found.'**
+  String get noCategoriesFound;
+
+  /// Column header for category name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get categoryName;
+
+  /// Column header for description
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// Short text for 'not available'
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get notAvailable;
+
+  /// Headline for loading state of sources
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Sources'**
+  String get loadingSources;
+
+  /// Message when no sources are found
+  ///
+  /// In en, this message translates to:
+  /// **'No sources found.'**
+  String get noSourcesFound;
+
+  /// Column header for source name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get sourceName;
+
+  /// Column header for source type
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get sourceType;
+
+  /// Column header for language
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
 }
 
 class _AppLocalizationsDelegate

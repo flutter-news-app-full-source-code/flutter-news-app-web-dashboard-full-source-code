@@ -513,4 +513,55 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appearanceSettingsDescription =>
       'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.';
+
+  @override
+  String get loadingHeadlines => 'Loading Headlines';
+
+  @override
+  String get pleaseWait => 'Please wait...';
+
+  @override
+  String get noHeadlinesFound => 'No headlines found.';
+
+  @override
+  String get headlineTitle => 'Title';
+
+  @override
+  String get publishedAt => 'Published At';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String get loadingCategories => 'Loading Categories';
+
+  @override
+  String get noCategoriesFound => 'No categories found.';
+
+  @override
+  String get categoryName => 'Name';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get notAvailable => 'N/A';
+
+  @override
+  String get loadingSources => 'Loading Sources';
+
+  @override
+  String get noSourcesFound => 'No sources found.';
+
+  @override
+  String get sourceName => 'Name';
+
+  @override
+  String get sourceType => 'Type';
+
+  @override
+  String get language => 'Language';
 }
