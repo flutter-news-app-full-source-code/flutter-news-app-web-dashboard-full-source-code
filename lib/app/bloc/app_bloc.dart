@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -18,6 +20,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required local_config.AppEnvironment environment,
   }) : _authenticationRepository = authenticationRepository,
        _userAppSettingsRepository = userAppSettingsRepository,
+       _appConfigRepository = appConfigRepository,
+       _environment = environment,
        super(
          const AppState(),
        ) {
@@ -32,6 +36,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   final HtAuthRepository _authenticationRepository;
   final HtDataRepository<UserAppSettings> _userAppSettingsRepository;
+  final HtDataRepository<AppConfig> _appConfigRepository;
+  final local_config.AppEnvironment _environment;
   late final StreamSubscription<User?> _userSubscription;
 
   /// Handles user changes and loads initial settings once user is available.

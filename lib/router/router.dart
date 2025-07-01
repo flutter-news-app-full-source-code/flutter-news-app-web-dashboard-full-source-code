@@ -15,7 +15,6 @@ import 'package:ht_dashboard/content_management/view/content_management_page.dar
 import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/settings/view/settings_page.dart';
 import 'package:ht_dashboard/shared/widgets/placeholder_create_page.dart';
