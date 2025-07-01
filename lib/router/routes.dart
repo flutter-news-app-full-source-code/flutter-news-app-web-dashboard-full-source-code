@@ -50,17 +50,47 @@ abstract final class Routes {
   /// The name for the headlines page route.
   static const String headlinesName = 'headlines';
 
+  /// The path for creating a new headline.
+  static const String createHeadline = 'create-headline';
+
+  /// The name for the create headline page route.
+  static const String createHeadlineName = 'createHeadline';
+
   /// The path for the categories page within content management.
   static const String categories = 'categories';
 
   /// The name for the categories page route.
   static const String categoriesName = 'categories';
 
+  /// The path for creating a new category.
+  static const String createCategory = 'create-category';
+
+  /// The name for the create category page route.
+  static const String createCategoryName = 'createCategory';
+
+  /// The path for editing an existing category.
+  static const String editCategory = 'edit-category/:id';
+
+  /// The name for the edit category page route.
+  static const String editCategoryName = 'editCategory';
+
   /// The path for the sources page within content management.
   static const String sources = 'sources';
 
   /// The name for the sources page route.
   static const String sourcesName = 'sources';
+
+  /// The path for creating a new source.
+  static const String createSource = 'create-source';
+
+  /// The name for the create source page route.
+  static const String createSourceName = 'createSource';
+
+  /// The path for editing an existing source.
+  static const String editSource = 'edit-source/:id';
+
+  /// The name for the edit source page route.
+  static const String editSourceName = 'editSource';
 
   /// The path for the app configuration page.
   static const String appConfiguration = '/app-configuration';

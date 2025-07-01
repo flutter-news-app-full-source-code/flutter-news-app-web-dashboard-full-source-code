@@ -18,6 +18,7 @@ import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/settings/view/settings_page.dart';
+import 'package:ht_dashboard/shared/widgets/placeholder_create_page.dart';
 
 /// Creates and configures the GoRouter instance for the application.
 ///
@@ -165,16 +166,66 @@ GoRouter createRouter({
                     path: Routes.headlines,
                     name: Routes.headlinesName,
                     builder: (context, state) => const HeadlinesPage(),
+                    routes: [
+                      GoRoute(
+                        path: Routes.createHeadline,
+                        name: Routes.createHeadlineName,
+                        builder: (context, state) =>
+                            const PlaceholderCreatePage(
+                          title: 'Create New Headline',
+                        ), // Placeholder
+                      ),
+                    ],
                   ),
                   GoRoute(
                     path: Routes.categories,
                     name: Routes.categoriesName,
                     builder: (context, state) => const CategoriesPage(),
+                    routes: [
+                      GoRoute(
+                        path: Routes.createCategory,
+                        name: Routes.createCategoryName,
+                        builder: (context, state) =>
+                            const PlaceholderCreatePage(
+                          title: 'Create New Category',
+                        ), // Placeholder
+                      ),
+                      GoRoute(
+                        path: Routes.editCategory,
+                        name: Routes.editCategoryName,
+                        builder: (context, state) {
+                          final id = state.pathParameters['id']!;
+                          return PlaceholderCreatePage(
+                            title: 'Edit Category $id',
+                          ); // Placeholder
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     path: Routes.sources,
                     name: Routes.sourcesName,
                     builder: (context, state) => const SourcesPage(),
+                    routes: [
+                      GoRoute(
+                        path: Routes.createSource,
+                        name: Routes.createSourceName,
+                        builder: (context, state) =>
+                            const PlaceholderCreatePage(
+                          title: 'Create New Source',
+                        ), // Placeholder
+                      ),
+                      GoRoute(
+                        path: Routes.editSource,
+                        name: Routes.editSourceName,
+                        builder: (context, state) {
+                          final id = state.pathParameters['id']!;
+                          return PlaceholderCreatePage(
+                            title: 'Edit Source $id',
+                          ); // Placeholder
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
