@@ -974,11 +974,293 @@ abstract class AppLocalizations {
   /// **'Configure your personal preferences for the Dashboard interface, encompassing visual presentation and language selection.'**
   String get settingsPageDescription;
 
-  /// No description provided for @appearanceSettingsDescription.
+  /// Description for the Appearance settings tab
   ///
   /// In en, this message translates to:
   /// **'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.'**
   String get appearanceSettingsDescription;
+
+  /// Headline for loading state of headlines
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Headlines'**
+  String get loadingHeadlines;
+
+  /// Subheadline for loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait...'**
+  String get pleaseWait;
+
+  /// Message when no headlines are found
+  ///
+  /// In en, this message translates to:
+  /// **'No headlines found.'**
+  String get noHeadlinesFound;
+
+  /// Column header for headline title
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get headlineTitle;
+
+  /// Column header for published date
+  ///
+  /// In en, this message translates to:
+  /// **'Published At'**
+  String get publishedAt;
+
+  /// Column header for actions
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get actions;
+
+  /// Fallback text for unknown values
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
+  /// Headline for loading state of categories
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Categories'**
+  String get loadingCategories;
+
+  /// Message when no categories are found
+  ///
+  /// In en, this message translates to:
+  /// **'No categories found.'**
+  String get noCategoriesFound;
+
+  /// Column header for category name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get categoryName;
+
+  /// Column header for description
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// Short text for 'not available'
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get notAvailable;
+
+  /// Headline for loading state of sources
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Sources'**
+  String get loadingSources;
+
+  /// Message when no sources are found
+  ///
+  /// In en, this message translates to:
+  /// **'No sources found.'**
+  String get noSourcesFound;
+
+  /// Column header for source name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get sourceName;
+
+  /// Column header for source type
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get sourceType;
+
+  /// Column header for language
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// Title for the Edit Category page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Category'**
+  String get editCategory;
+
+  /// Tooltip for the save changes button
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// Message displayed while loading category data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Category'**
+  String get loadingCategory;
+
+  /// Label for the icon URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Icon URL'**
+  String get iconUrl;
+
+  /// Message displayed when a category is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Category updated successfully.'**
+  String get categoryUpdatedSuccessfully;
+
+  /// Error message when updating a category fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original category data not loaded.'**
+  String get cannotUpdateCategoryError;
+
+  /// Title for the Edit Source page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Source'**
+  String get editSource;
+
+  /// Message displayed when a source is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Source updated successfully.'**
+  String get sourceUpdatedSuccessfully;
+
+  /// Message displayed while loading source data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Source...'**
+  String get loadingSource;
+
+  /// Label for the source URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'URL'**
+  String get sourceUrl;
+
+  /// Label for the headquarters dropdown field
+  ///
+  /// In en, this message translates to:
+  /// **'Headquarters'**
+  String get headquarters;
+
+  /// Default null option for dropdowns
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// Error message when updating a source fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original source data not loaded.'**
+  String get cannotUpdateSourceError;
+
+  /// A global news agency (e.g., Reuters, Associated Press).
+  ///
+  /// In en, this message translates to:
+  /// **'News Agency'**
+  String get sourceTypeNewsAgency;
+
+  /// A news outlet focused on a specific local area.
+  ///
+  /// In en, this message translates to:
+  /// **'Local News Outlet'**
+  String get sourceTypeLocalNewsOutlet;
+
+  /// A news outlet focused on a specific country.
+  ///
+  /// In en, this message translates to:
+  /// **'National News Outlet'**
+  String get sourceTypeNationalNewsOutlet;
+
+  /// A news outlet with a broad international focus.
+  ///
+  /// In en, this message translates to:
+  /// **'International News Outlet'**
+  String get sourceTypeInternationalNewsOutlet;
+
+  /// A publisher focused on a specific topic (e.g., technology, sports).
+  ///
+  /// In en, this message translates to:
+  /// **'Specialized Publisher'**
+  String get sourceTypeSpecializedPublisher;
+
+  /// A blog or personal publication.
+  ///
+  /// In en, this message translates to:
+  /// **'Blog'**
+  String get sourceTypeBlog;
+
+  /// An official government source.
+  ///
+  /// In en, this message translates to:
+  /// **'Government Source'**
+  String get sourceTypeGovernmentSource;
+
+  /// A service that aggregates news from other sources.
+  ///
+  /// In en, this message translates to:
+  /// **'Aggregator'**
+  String get sourceTypeAggregator;
+
+  /// Any other type of source not covered above.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get sourceTypeOther;
+
+  /// Title for the Edit Headline page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Headline'**
+  String get editHeadline;
+
+  /// Message displayed when a headline is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Headline updated successfully.'**
+  String get headlineUpdatedSuccessfully;
+
+  /// Message displayed while loading headline data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Headline...'**
+  String get loadingHeadline;
+
+  /// Label for an image URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Image URL'**
+  String get imageUrl;
+
+  /// Error message when updating a headline fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original headline data not loaded.'**
+  String get cannotUpdateHeadlineError;
+
+  /// Title for the Create Headline page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Headline'**
+  String get createHeadline;
+
+  /// Message displayed when a headline is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Headline created successfully.'**
+  String get headlineCreatedSuccessfully;
+
+  /// Generic message displayed while loading data for a form
+  ///
+  /// In en, this message translates to:
+  /// **'Loading data...'**
+  String get loadingData;
 }
 
 class _AppLocalizationsDelegate

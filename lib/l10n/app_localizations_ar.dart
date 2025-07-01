@@ -515,4 +515,148 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get appearanceSettingsDescription =>
       'اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.';
+
+  @override
+  String get loadingHeadlines => 'جاري تحميل العناوين الرئيسية';
+
+  @override
+  String get pleaseWait => 'الرجاء الانتظار...';
+
+  @override
+  String get noHeadlinesFound => 'لم يتم العثور على عناوين رئيسية.';
+
+  @override
+  String get headlineTitle => 'العنوان';
+
+  @override
+  String get publishedAt => 'تاريخ النشر';
+
+  @override
+  String get actions => 'الإجراءات';
+
+  @override
+  String get unknown => 'غير معروف';
+
+  @override
+  String get loadingCategories => 'جاري تحميل الفئات';
+
+  @override
+  String get noCategoriesFound => 'لم يتم العثور على فئات.';
+
+  @override
+  String get categoryName => 'الاسم';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get notAvailable => 'غير متاح';
+
+  @override
+  String get loadingSources => 'جاري تحميل المصادر';
+
+  @override
+  String get noSourcesFound => 'لم يتم العثور على مصادر.';
+
+  @override
+  String get sourceName => 'الاسم';
+
+  @override
+  String get sourceType => 'النوع';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get editCategory => 'تعديل الفئة';
+
+  @override
+  String get saveChanges => 'حفظ التغييرات';
+
+  @override
+  String get loadingCategory => 'جاري تحميل الفئة';
+
+  @override
+  String get iconUrl => 'رابط الأيقونة';
+
+  @override
+  String get categoryUpdatedSuccessfully => 'تم تحديث الفئة بنجاح.';
+
+  @override
+  String get cannotUpdateCategoryError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.';
+
+  @override
+  String get editSource => 'تعديل المصدر';
+
+  @override
+  String get sourceUpdatedSuccessfully => 'تم تحديث المصدر بنجاح.';
+
+  @override
+  String get loadingSource => 'جاري تحميل المصدر...';
+
+  @override
+  String get sourceUrl => 'الرابط';
+
+  @override
+  String get headquarters => 'المقر الرئيسي';
+
+  @override
+  String get none => 'لا شيء';
+
+  @override
+  String get cannotUpdateSourceError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات المصدر الأصلية.';
+
+  @override
+  String get sourceTypeNewsAgency => 'وكالة أنباء';
+
+  @override
+  String get sourceTypeLocalNewsOutlet => 'منفذ إخباري محلي';
+
+  @override
+  String get sourceTypeNationalNewsOutlet => 'منفذ إخباري وطني';
+
+  @override
+  String get sourceTypeInternationalNewsOutlet => 'منفذ إخباري دولي';
+
+  @override
+  String get sourceTypeSpecializedPublisher => 'ناشر متخصص';
+
+  @override
+  String get sourceTypeBlog => 'مدونة';
+
+  @override
+  String get sourceTypeGovernmentSource => 'مصدر حكومي';
+
+  @override
+  String get sourceTypeAggregator => 'مجمع';
+
+  @override
+  String get sourceTypeOther => 'أخرى';
+
+  @override
+  String get editHeadline => 'تعديل العنوان';
+
+  @override
+  String get headlineUpdatedSuccessfully => 'تم تحديث العنوان بنجاح.';
+
+  @override
+  String get loadingHeadline => 'جاري تحميل العنوان...';
+
+  @override
+  String get imageUrl => 'رابط الصورة';
+
+  @override
+  String get cannotUpdateHeadlineError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.';
+
+  @override
+  String get createHeadline => 'إنشاء عنوان';
+
+  @override
+  String get headlineCreatedSuccessfully => 'تم إنشاء العنوان بنجاح.';
+
+  @override
+  String get loadingData => 'جاري تحميل البيانات...';
 }

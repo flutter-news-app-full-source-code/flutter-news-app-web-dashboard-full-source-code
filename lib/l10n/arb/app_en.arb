@@ -608,5 +608,199 @@
   "@settingsPageDescription": {
     "description": "Description for the main settings page"
   },
-  "appearanceSettingsDescription": "Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles."
+  "appearanceSettingsDescription": "Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.",
+  "@appearanceSettingsDescription": {
+    "description": "Description for the Appearance settings tab"
+  },
+  "loadingHeadlines": "Loading Headlines",
+  "@loadingHeadlines": {
+    "description": "Headline for loading state of headlines"
+  },
+  "pleaseWait": "Please wait...",
+  "@pleaseWait": {
+    "description": "Subheadline for loading state"
+  },
+  "noHeadlinesFound": "No headlines found.",
+  "@noHeadlinesFound": {
+    "description": "Message when no headlines are found"
+  },
+  "headlineTitle": "Title",
+  "@headlineTitle": {
+    "description": "Column header for headline title"
+  },
+  "publishedAt": "Published At",
+  "@publishedAt": {
+    "description": "Column header for published date"
+  },
+  "actions": "Actions",
+  "@actions": {
+    "description": "Column header for actions"
+  },
+  "unknown": "Unknown",
+  "@unknown": {
+    "description": "Fallback text for unknown values"
+  },
+  "loadingCategories": "Loading Categories",
+  "@loadingCategories": {
+    "description": "Headline for loading state of categories"
+  },
+  "noCategoriesFound": "No categories found.",
+  "@noCategoriesFound": {
+    "description": "Message when no categories are found"
+  },
+  "categoryName": "Name",
+  "@categoryName": {
+    "description": "Column header for category name"
+  },
+  "description": "Description",
+  "@description": {
+    "description": "Column header for description"
+  },
+  "notAvailable": "N/A",
+  "@notAvailable": {
+    "description": "Short text for 'not available'"
+  },
+  "loadingSources": "Loading Sources",
+  "@loadingSources": {
+    "description": "Headline for loading state of sources"
+  },
+  "noSourcesFound": "No sources found.",
+  "@noSourcesFound": {
+    "description": "Message when no sources are found"
+  },
+  "sourceName": "Name",
+  "@sourceName": {
+    "description": "Column header for source name"
+  },
+  "sourceType": "Type",
+  "@sourceType": {
+    "description": "Column header for source type"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Column header for language"
+  },
+  "editCategory": "Edit Category",
+  "@editCategory": {
+    "description": "Title for the Edit Category page"
+  },
+  "saveChanges": "Save Changes",
+  "@saveChanges": {
+    "description": "Tooltip for the save changes button"
+  },
+  "loadingCategory": "Loading Category",
+  "@loadingCategory": {
+    "description": "Message displayed while loading category data"
+  },
+  "iconUrl": "Icon URL",
+  "@iconUrl": {
+    "description": "Label for the icon URL input field"
+  },
+  "categoryUpdatedSuccessfully": "Category updated successfully.",
+  "@categoryUpdatedSuccessfully": {
+    "description": "Message displayed when a category is updated successfully"
+  },
+  "cannotUpdateCategoryError": "Cannot update: Original category data not loaded.",
+  "@cannotUpdateCategoryError": {
+    "description": "Error message when updating a category fails because the original data wasn't loaded"
+  }
+,
+  "editSource": "Edit Source",
+  "@editSource": {
+    "description": "Title for the Edit Source page"
+  },
+  "sourceUpdatedSuccessfully": "Source updated successfully.",
+  "@sourceUpdatedSuccessfully": {
+    "description": "Message displayed when a source is updated successfully"
+  },
+  "loadingSource": "Loading Source...",
+  "@loadingSource": {
+    "description": "Message displayed while loading source data"
+  },
+  "sourceUrl": "URL",
+  "@sourceUrl": {
+    "description": "Label for the source URL input field"
+  },
+  "headquarters": "Headquarters",
+  "@headquarters": {
+    "description": "Label for the headquarters dropdown field"
+  },
+  "none": "None",
+  "@none": {
+    "description": "Default null option for dropdowns"
+  },
+  "cannotUpdateSourceError": "Cannot update: Original source data not loaded.",
+  "@cannotUpdateSourceError": {
+    "description": "Error message when updating a source fails because the original data wasn't loaded"
+  },
+  "sourceTypeNewsAgency": "News Agency",
+  "@sourceTypeNewsAgency": {
+    "description": "A global news agency (e.g., Reuters, Associated Press)."
+  },
+  "sourceTypeLocalNewsOutlet": "Local News Outlet",
+  "@sourceTypeLocalNewsOutlet": {
+    "description": "A news outlet focused on a specific local area."
+  },
+  "sourceTypeNationalNewsOutlet": "National News Outlet",
+  "@sourceTypeNationalNewsOutlet": {
+    "description": "A news outlet focused on a specific country."
+  },
+  "sourceTypeInternationalNewsOutlet": "International News Outlet",
+  "@sourceTypeInternationalNewsOutlet": {
+    "description": "A news outlet with a broad international focus."
+  },
+  "sourceTypeSpecializedPublisher": "Specialized Publisher",
+  "@sourceTypeSpecializedPublisher": {
+    "description": "A publisher focused on a specific topic (e.g., technology, sports)."
+  },
+  "sourceTypeBlog": "Blog",
+  "@sourceTypeBlog": {
+    "description": "A blog or personal publication."
+  },
+  "sourceTypeGovernmentSource": "Government Source",
+  "@sourceTypeGovernmentSource": {
+    "description": "An official government source."
+  },
+  "sourceTypeAggregator": "Aggregator",
+  "@sourceTypeAggregator": {
+    "description": "A service that aggregates news from other sources."
+  },
+  "sourceTypeOther": "Other",
+  "@sourceTypeOther": {
+    "description": "Any other type of source not covered above."
+  }
+,
+  "editHeadline": "Edit Headline",
+  "@editHeadline": {
+    "description": "Title for the Edit Headline page"
+  },
+  "headlineUpdatedSuccessfully": "Headline updated successfully.",
+  "@headlineUpdatedSuccessfully": {
+    "description": "Message displayed when a headline is updated successfully"
+  },
+  "loadingHeadline": "Loading Headline...",
+  "@loadingHeadline": {
+    "description": "Message displayed while loading headline data"
+  },
+  "imageUrl": "Image URL",
+  "@imageUrl": {
+    "description": "Label for an image URL input field"
+  },
+  "cannotUpdateHeadlineError": "Cannot update: Original headline data not loaded.",
+  "@cannotUpdateHeadlineError": {
+    "description": "Error message when updating a headline fails because the original data wasn't loaded"
+  }
+,
+  "createHeadline": "Create Headline",
+  "@createHeadline": {
+    "description": "Title for the Create Headline page"
+  },
+  "headlineCreatedSuccessfully": "Headline created successfully.",
+  "@headlineCreatedSuccessfully": {
+    "description": "Message displayed when a headline is created successfully"
+  },
+  "loadingData": "Loading data...",
+  "@loadingData": {
+    "description": "Generic message displayed while loading data for a form"
+  }
 }

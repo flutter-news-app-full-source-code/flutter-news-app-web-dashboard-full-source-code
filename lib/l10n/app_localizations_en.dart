@@ -513,4 +513,148 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appearanceSettingsDescription =>
       'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.';
+
+  @override
+  String get loadingHeadlines => 'Loading Headlines';
+
+  @override
+  String get pleaseWait => 'Please wait...';
+
+  @override
+  String get noHeadlinesFound => 'No headlines found.';
+
+  @override
+  String get headlineTitle => 'Title';
+
+  @override
+  String get publishedAt => 'Published At';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String get loadingCategories => 'Loading Categories';
+
+  @override
+  String get noCategoriesFound => 'No categories found.';
+
+  @override
+  String get categoryName => 'Name';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get notAvailable => 'N/A';
+
+  @override
+  String get loadingSources => 'Loading Sources';
+
+  @override
+  String get noSourcesFound => 'No sources found.';
+
+  @override
+  String get sourceName => 'Name';
+
+  @override
+  String get sourceType => 'Type';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get editCategory => 'Edit Category';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get loadingCategory => 'Loading Category';
+
+  @override
+  String get iconUrl => 'Icon URL';
+
+  @override
+  String get categoryUpdatedSuccessfully => 'Category updated successfully.';
+
+  @override
+  String get cannotUpdateCategoryError =>
+      'Cannot update: Original category data not loaded.';
+
+  @override
+  String get editSource => 'Edit Source';
+
+  @override
+  String get sourceUpdatedSuccessfully => 'Source updated successfully.';
+
+  @override
+  String get loadingSource => 'Loading Source...';
+
+  @override
+  String get sourceUrl => 'URL';
+
+  @override
+  String get headquarters => 'Headquarters';
+
+  @override
+  String get none => 'None';
+
+  @override
+  String get cannotUpdateSourceError =>
+      'Cannot update: Original source data not loaded.';
+
+  @override
+  String get sourceTypeNewsAgency => 'News Agency';
+
+  @override
+  String get sourceTypeLocalNewsOutlet => 'Local News Outlet';
+
+  @override
+  String get sourceTypeNationalNewsOutlet => 'National News Outlet';
+
+  @override
+  String get sourceTypeInternationalNewsOutlet => 'International News Outlet';
+
+  @override
+  String get sourceTypeSpecializedPublisher => 'Specialized Publisher';
+
+  @override
+  String get sourceTypeBlog => 'Blog';
+
+  @override
+  String get sourceTypeGovernmentSource => 'Government Source';
+
+  @override
+  String get sourceTypeAggregator => 'Aggregator';
+
+  @override
+  String get sourceTypeOther => 'Other';
+
+  @override
+  String get editHeadline => 'Edit Headline';
+
+  @override
+  String get headlineUpdatedSuccessfully => 'Headline updated successfully.';
+
+  @override
+  String get loadingHeadline => 'Loading Headline...';
+
+  @override
+  String get imageUrl => 'Image URL';
+
+  @override
+  String get cannotUpdateHeadlineError =>
+      'Cannot update: Original headline data not loaded.';
+
+  @override
+  String get createHeadline => 'Create Headline';
+
+  @override
+  String get headlineCreatedSuccessfully => 'Headline created successfully.';
+
+  @override
+  String get loadingData => 'Loading data...';
 }

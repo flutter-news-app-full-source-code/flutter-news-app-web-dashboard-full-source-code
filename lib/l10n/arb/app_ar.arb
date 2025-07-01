@@ -608,5 +608,197 @@
   "@settingsPageDescription": {
     "description": "وصف صفحة الإعدادات الرئيسية"
   },
-  "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية."
+  "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.",
+  "@appearanceSettingsDescription": {
+    "description": "وصف تبويب إعدادات المظهر"
+  },
+  "loadingHeadlines": "جاري تحميل العناوين الرئيسية",
+  "@loadingHeadlines": {
+    "description": "عنوان حالة تحميل العناوين الرئيسية"
+  },
+  "pleaseWait": "الرجاء الانتظار...",
+  "@pleaseWait": {
+    "description": "عنوان فرعي لحالة التحميل"
+  },
+  "noHeadlinesFound": "لم يتم العثور على عناوين رئيسية.",
+  "@noHeadlinesFound": {
+    "description": "رسالة عند عدم العثور على عناوين رئيسية"
+  },
+  "headlineTitle": "العنوان",
+  "@headlineTitle": {
+    "description": "رأس العمود لعنوان الخبر"
+  },
+  "publishedAt": "تاريخ النشر",
+  "@publishedAt": {
+    "description": "رأس العمود لتاريخ النشر"
+  },
+  "actions": "الإجراءات",
+  "@actions": {
+    "description": "رأس العمود للإجراءات"
+  },
+  "unknown": "غير معروف",
+  "@unknown": {
+    "description": "نص احتياطي للقيم غير المعروفة"
+  },
+  "loadingCategories": "جاري تحميل الفئات",
+  "@loadingCategories": {
+    "description": "عنوان حالة تحميل الفئات"
+  },
+  "noCategoriesFound": "لم يتم العثور على فئات.",
+  "@noCategoriesFound": {
+    "description": "رسالة عند عدم العثور على فئات"
+  },
+  "categoryName": "الاسم",
+  "@categoryName": {
+    "description": "رأس العمود لاسم الفئة"
+  },
+  "description": "الوصف",
+  "@description": {
+    "description": "رأس العمود للوصف"
+  },
+  "notAvailable": "غير متاح",
+  "@notAvailable": {
+    "description": "نص قصير لـ 'غير متاح'"
+  },
+  "loadingSources": "جاري تحميل المصادر",
+  "@loadingSources": {
+    "description": "عنوان حالة تحميل المصادر"
+  },
+  "noSourcesFound": "لم يتم العثور على مصادر.",
+  "@noSourcesFound": {
+    "description": "رسالة عند عدم العثور على مصادر"
+  },
+  "sourceName": "الاسم",
+  "@sourceName": {
+    "description": "رأس العمود لاسم المصدر"
+  },
+  "sourceType": "النوع",
+  "@sourceType": {
+    "description": "رأس العمود لنوع المصدر"
+  },
+  "language": "اللغة",
+  "@language": {
+    "description": "رأس العمود للغة"
+  },
+  "editCategory": "تعديل الفئة",
+  "@editCategory": {
+    "description": "عنوان صفحة تعديل الفئة"
+  },
+  "saveChanges": "حفظ التغييرات",
+  "@saveChanges": {
+    "description": "تلميح لزر حفظ التغييرات"
+  },
+  "loadingCategory": "جاري تحميل الفئة",
+  "@loadingCategory": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات الفئة"
+  },
+  "iconUrl": "رابط الأيقونة",
+  "@iconUrl": {
+    "description": "تسمية حقل إدخال رابط الأيقونة"
+  },
+  "categoryUpdatedSuccessfully": "تم تحديث الفئة بنجاح.",
+  "@categoryUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث الفئة بنجاح"
+  },
+  "cannotUpdateCategoryError": "لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.",
+  "@cannotUpdateCategoryError": {
+    "description": "رسالة خطأ عند فشل تحديث الفئة بسبب عدم تحميل البيانات الأصلية"
+  },
+  "editSource": "تعديل المصدر",
+  "@editSource": {
+    "description": "عنوان صفحة تعديل المصدر"
+  },
+  "sourceUpdatedSuccessfully": "تم تحديث المصدر بنجاح.",
+  "@sourceUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث المصدر بنجاح"
+  },
+  "loadingSource": "جاري تحميل المصدر...",
+  "@loadingSource": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات المصدر"
+  },
+  "sourceUrl": "الرابط",
+  "@sourceUrl": {
+    "description": "تسمية حقل إدخال رابط المصدر"
+  },
+  "headquarters": "المقر الرئيسي",
+  "@headquarters": {
+    "description": "تسمية حقل القائمة المنسدلة للمقر الرئيسي"
+  },
+  "none": "لا شيء",
+  "@none": {
+    "description": "خيار افتراضي فارغ للقوائم المنسدلة"
+  },
+  "cannotUpdateSourceError": "لا يمكن التحديث: لم يتم تحميل بيانات المصدر الأصلية.",
+  "@cannotUpdateSourceError": {
+    "description": "رسالة خطأ عند فشل تحديث المصدر بسبب عدم تحميل البيانات الأصلية"
+  },
+  "sourceTypeNewsAgency": "وكالة أنباء",
+  "@sourceTypeNewsAgency": {
+    "description": "وكالة أنباء عالمية (مثل رويترز، أسوشيتد برس)."
+  },
+  "sourceTypeLocalNewsOutlet": "منفذ إخباري محلي",
+  "@sourceTypeLocalNewsOutlet": {
+    "description": "منفذ إخباري يركز على منطقة محلية معينة."
+  },
+  "sourceTypeNationalNewsOutlet": "منفذ إخباري وطني",
+  "@sourceTypeNationalNewsOutlet": {
+    "description": "منفذ إخباري يركز على بلد معين."
+  },
+  "sourceTypeInternationalNewsOutlet": "منفذ إخباري دولي",
+  "@sourceTypeInternationalNewsOutlet": {
+    "description": "منفذ إخباري ذو تركيز دولي واسع."
+  },
+  "sourceTypeSpecializedPublisher": "ناشر متخصص",
+  "@sourceTypeSpecializedPublisher": {
+    "description": "ناشر يركز على موضوع معين (مثل التكنولوجيا، الرياضة)."
+  },
+  "sourceTypeBlog": "مدونة",
+  "@sourceTypeBlog": {
+    "description": "مدونة أو منشور شخصي."
+  },
+  "sourceTypeGovernmentSource": "مصدر حكومي",
+  "@sourceTypeGovernmentSource": {
+    "description": "مصدر حكومي رسمي."
+  },
+  "sourceTypeAggregator": "مجمع",
+  "@sourceTypeAggregator": {
+    "description": "خدمة تجمع الأخبار من مصادر أخرى."
+  },
+  "sourceTypeOther": "أخرى",
+  "@sourceTypeOther": {
+    "description": "أي نوع آخر من المصادر غير المذكورة أعلاه."
+  },
+  "editHeadline": "تعديل العنوان",
+  "@editHeadline": {
+    "description": "عنوان صفحة تعديل العنوان"
+  },
+  "headlineUpdatedSuccessfully": "تم تحديث العنوان بنجاح.",
+  "@headlineUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث العنوان بنجاح"
+  },
+  "loadingHeadline": "جاري تحميل العنوان...",
+  "@loadingHeadline": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات العنوان"
+  },
+  "imageUrl": "رابط الصورة",
+  "@imageUrl": {
+    "description": "تسمية حقل إدخال رابط الصورة"
+  },
+  "cannotUpdateHeadlineError": "لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.",
+  "@cannotUpdateHeadlineError": {
+    "description": "رسالة خطأ عند فشل تحديث العنوان بسبب عدم تحميل البيانات الأصلية"
+  }
+,
+  "createHeadline": "إنشاء عنوان",
+  "@createHeadline": {
+    "description": "عنوان صفحة إنشاء عنوان"
+  },
+  "headlineCreatedSuccessfully": "تم إنشاء العنوان بنجاح.",
+  "@headlineCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء العنوان بنجاح"
+  },
+  "loadingData": "جاري تحميل البيانات...",
+  "@loadingData": {
+    "description": "رسالة عامة تُعرض أثناء تحميل البيانات لنموذج"
+  }
 }
