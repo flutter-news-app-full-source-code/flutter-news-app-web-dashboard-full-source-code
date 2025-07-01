@@ -20,6 +20,7 @@ import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/settings/view/settings_page.dart';
 import 'package:ht_dashboard/shared/widgets/placeholder_create_page.dart';
+import 'package:ht_dashboard/content_management/view/edit_headline_page.dart';
 
 /// Creates and configures the GoRouter instance for the application.
 ///
@@ -176,9 +177,7 @@ GoRouter createRouter({
                     name: Routes.editHeadlineName,
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
-                      return PlaceholderCreatePage(
-                        title: 'Edit Headline $id',
-                      ); // Placeholder
+                      return EditHeadlinePage(headlineId: id);
                     },
                   ),
                   GoRoute(
