@@ -705,4 +705,69 @@
   "@cannotUpdateCategoryError": {
     "description": "رسالة خطأ عند فشل تحديث الفئة بسبب عدم تحميل البيانات الأصلية"
   }
+,
+  "editSource": "تعديل المصدر",
+  "@editSource": {
+    "description": "عنوان صفحة تعديل المصدر"
+  },
+  "sourceUpdatedSuccessfully": "تم تحديث المصدر بنجاح.",
+  "@sourceUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث المصدر بنجاح"
+  },
+  "loadingSource": "جاري تحميل المصدر...",
+  "@loadingSource": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات المصدر"
+  },
+  "sourceUrl": "الرابط",
+  "@sourceUrl": {
+    "description": "تسمية حقل إدخال رابط المصدر"
+  },
+  "headquarters": "المقر الرئيسي",
+  "@headquarters": {
+    "description": "تسمية حقل القائمة المنسدلة للمقر الرئيسي"
+  },
+  "none": "لا شيء",
+  "@none": {
+    "description": "خيار افتراضي فارغ للقوائم المنسدلة"
+  },
+  "cannotUpdateSourceError": "لا يمكن التحديث: لم يتم تحميل بيانات المصدر الأصلية.",
+  "@cannotUpdateSourceError": {
+    "description": "رسالة خطأ عند فشل تحديث المصدر بسبب عدم تحميل البيانات الأصلية"
+  },
+  "sourceTypeNewsAgency": "وكالة أنباء",
+  "@sourceTypeNewsAgency": {
+    "description": "وكالة أنباء عالمية (مثل رويترز، أسوشيتد برس)."
+  },
+  "sourceTypeLocalNewsOutlet": "منفذ إخباري محلي",
+  "@sourceTypeLocalNewsOutlet": {
+    "description": "منفذ إخباري يركز على منطقة محلية معينة."
+  },
+  "sourceTypeNationalNewsOutlet": "منفذ إخباري وطني",
+  "@sourceTypeNationalNewsOutlet": {
+    "description": "منفذ إخباري يركز على بلد معين."
+  },
+  "sourceTypeInternationalNewsOutlet": "منفذ إخباري دولي",
+  "@sourceTypeInternationalNewsOutlet": {
+    "description": "منفذ إخباري ذو تركيز دولي واسع."
+  },
+  "sourceTypeSpecializedPublisher": "ناشر متخصص",
+  "@sourceTypeSpecializedPublisher": {
+    "description": "ناشر يركز على موضوع معين (مثل التكنولوجيا، الرياضة)."
+  },
+  "sourceTypeBlog": "مدونة",
+  "@sourceTypeBlog": {
+    "description": "مدونة أو منشور شخصي."
+  },
+  "sourceTypeGovernmentSource": "مصدر حكومي",
+  "@sourceTypeGovernmentSource": {
+    "description": "مصدر حكومي رسمي."
+  },
+  "sourceTypeAggregator": "مجمع",
+  "@sourceTypeAggregator": {
+    "description": "خدمة تجمع الأخبار من مصادر أخرى."
+  },
+  "sourceTypeOther": "أخرى",
+  "@sourceTypeOther": {
+    "description": "أي نوع آخر من المصادر غير المذكورة أعلاه."
+  }
 }

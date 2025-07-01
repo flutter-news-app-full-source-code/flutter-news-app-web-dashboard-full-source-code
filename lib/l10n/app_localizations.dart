@@ -1117,6 +1117,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot update: Original category data not loaded.'**
   String get cannotUpdateCategoryError;
+
+  /// Title for the Edit Source page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Source'**
+  String get editSource;
+
+  /// Message displayed when a source is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Source updated successfully.'**
+  String get sourceUpdatedSuccessfully;
+
+  /// Message displayed while loading source data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Source...'**
+  String get loadingSource;
+
+  /// Label for the source URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'URL'**
+  String get sourceUrl;
+
+  /// Label for the headquarters dropdown field
+  ///
+  /// In en, this message translates to:
+  /// **'Headquarters'**
+  String get headquarters;
+
+  /// Default null option for dropdowns
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// Error message when updating a source fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original source data not loaded.'**
+  String get cannotUpdateSourceError;
+
+  /// A global news agency (e.g., Reuters, Associated Press).
+  ///
+  /// In en, this message translates to:
+  /// **'News Agency'**
+  String get sourceTypeNewsAgency;
+
+  /// A news outlet focused on a specific local area.
+  ///
+  /// In en, this message translates to:
+  /// **'Local News Outlet'**
+  String get sourceTypeLocalNewsOutlet;
+
+  /// A news outlet focused on a specific country.
+  ///
+  /// In en, this message translates to:
+  /// **'National News Outlet'**
+  String get sourceTypeNationalNewsOutlet;
+
+  /// A news outlet with a broad international focus.
+  ///
+  /// In en, this message translates to:
+  /// **'International News Outlet'**
+  String get sourceTypeInternationalNewsOutlet;
+
+  /// A publisher focused on a specific topic (e.g., technology, sports).
+  ///
+  /// In en, this message translates to:
+  /// **'Specialized Publisher'**
+  String get sourceTypeSpecializedPublisher;
+
+  /// A blog or personal publication.
+  ///
+  /// In en, this message translates to:
+  /// **'Blog'**
+  String get sourceTypeBlog;
+
+  /// An official government source.
+  ///
+  /// In en, this message translates to:
+  /// **'Government Source'**
+  String get sourceTypeGovernmentSource;
+
+  /// A service that aggregates news from other sources.
+  ///
+  /// In en, this message translates to:
+  /// **'Aggregator'**
+  String get sourceTypeAggregator;
+
+  /// Any other type of source not covered above.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get sourceTypeOther;
 }
 
 class _AppLocalizationsDelegate

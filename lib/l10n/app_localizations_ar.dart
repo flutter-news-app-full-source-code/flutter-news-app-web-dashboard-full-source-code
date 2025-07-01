@@ -585,4 +585,53 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get cannotUpdateCategoryError =>
       'لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.';
+
+  @override
+  String get editSource => 'تعديل المصدر';
+
+  @override
+  String get sourceUpdatedSuccessfully => 'تم تحديث المصدر بنجاح.';
+
+  @override
+  String get loadingSource => 'جاري تحميل المصدر...';
+
+  @override
+  String get sourceUrl => 'الرابط';
+
+  @override
+  String get headquarters => 'المقر الرئيسي';
+
+  @override
+  String get none => 'لا شيء';
+
+  @override
+  String get cannotUpdateSourceError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات المصدر الأصلية.';
+
+  @override
+  String get sourceTypeNewsAgency => 'وكالة أنباء';
+
+  @override
+  String get sourceTypeLocalNewsOutlet => 'منفذ إخباري محلي';
+
+  @override
+  String get sourceTypeNationalNewsOutlet => 'منفذ إخباري وطني';
+
+  @override
+  String get sourceTypeInternationalNewsOutlet => 'منفذ إخباري دولي';
+
+  @override
+  String get sourceTypeSpecializedPublisher => 'ناشر متخصص';
+
+  @override
+  String get sourceTypeBlog => 'مدونة';
+
+  @override
+  String get sourceTypeGovernmentSource => 'مصدر حكومي';
+
+  @override
+  String get sourceTypeAggregator => 'مجمع';
+
+  @override
+  String get sourceTypeOther => 'أخرى';
 }

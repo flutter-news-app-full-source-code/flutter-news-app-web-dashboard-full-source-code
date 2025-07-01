@@ -704,4 +704,69 @@
   "@cannotUpdateCategoryError": {
     "description": "Error message when updating a category fails because the original data wasn't loaded"
   }
+,
+  "editSource": "Edit Source",
+  "@editSource": {
+    "description": "Title for the Edit Source page"
+  },
+  "sourceUpdatedSuccessfully": "Source updated successfully.",
+  "@sourceUpdatedSuccessfully": {
+    "description": "Message displayed when a source is updated successfully"
+  },
+  "loadingSource": "Loading Source...",
+  "@loadingSource": {
+    "description": "Message displayed while loading source data"
+  },
+  "sourceUrl": "URL",
+  "@sourceUrl": {
+    "description": "Label for the source URL input field"
+  },
+  "headquarters": "Headquarters",
+  "@headquarters": {
+    "description": "Label for the headquarters dropdown field"
+  },
+  "none": "None",
+  "@none": {
+    "description": "Default null option for dropdowns"
+  },
+  "cannotUpdateSourceError": "Cannot update: Original source data not loaded.",
+  "@cannotUpdateSourceError": {
+    "description": "Error message when updating a source fails because the original data wasn't loaded"
+  },
+  "sourceTypeNewsAgency": "News Agency",
+  "@sourceTypeNewsAgency": {
+    "description": "A global news agency (e.g., Reuters, Associated Press)."
+  },
+  "sourceTypeLocalNewsOutlet": "Local News Outlet",
+  "@sourceTypeLocalNewsOutlet": {
+    "description": "A news outlet focused on a specific local area."
+  },
+  "sourceTypeNationalNewsOutlet": "National News Outlet",
+  "@sourceTypeNationalNewsOutlet": {
+    "description": "A news outlet focused on a specific country."
+  },
+  "sourceTypeInternationalNewsOutlet": "International News Outlet",
+  "@sourceTypeInternationalNewsOutlet": {
+    "description": "A news outlet with a broad international focus."
+  },
+  "sourceTypeSpecializedPublisher": "Specialized Publisher",
+  "@sourceTypeSpecializedPublisher": {
+    "description": "A publisher focused on a specific topic (e.g., technology, sports)."
+  },
+  "sourceTypeBlog": "Blog",
+  "@sourceTypeBlog": {
+    "description": "A blog or personal publication."
+  },
+  "sourceTypeGovernmentSource": "Government Source",
+  "@sourceTypeGovernmentSource": {
+    "description": "An official government source."
+  },
+  "sourceTypeAggregator": "Aggregator",
+  "@sourceTypeAggregator": {
+    "description": "A service that aggregates news from other sources."
+  },
+  "sourceTypeOther": "Other",
+  "@sourceTypeOther": {
+    "description": "Any other type of source not covered above."
+  }
 }

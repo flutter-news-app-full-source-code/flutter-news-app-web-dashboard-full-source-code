@@ -583,4 +583,53 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cannotUpdateCategoryError =>
       'Cannot update: Original category data not loaded.';
+
+  @override
+  String get editSource => 'Edit Source';
+
+  @override
+  String get sourceUpdatedSuccessfully => 'Source updated successfully.';
+
+  @override
+  String get loadingSource => 'Loading Source...';
+
+  @override
+  String get sourceUrl => 'URL';
+
+  @override
+  String get headquarters => 'Headquarters';
+
+  @override
+  String get none => 'None';
+
+  @override
+  String get cannotUpdateSourceError =>
+      'Cannot update: Original source data not loaded.';
+
+  @override
+  String get sourceTypeNewsAgency => 'News Agency';
+
+  @override
+  String get sourceTypeLocalNewsOutlet => 'Local News Outlet';
+
+  @override
+  String get sourceTypeNationalNewsOutlet => 'National News Outlet';
+
+  @override
+  String get sourceTypeInternationalNewsOutlet => 'International News Outlet';
+
+  @override
+  String get sourceTypeSpecializedPublisher => 'Specialized Publisher';
+
+  @override
+  String get sourceTypeBlog => 'Blog';
+
+  @override
+  String get sourceTypeGovernmentSource => 'Government Source';
+
+  @override
+  String get sourceTypeAggregator => 'Aggregator';
+
+  @override
+  String get sourceTypeOther => 'Other';
 }
