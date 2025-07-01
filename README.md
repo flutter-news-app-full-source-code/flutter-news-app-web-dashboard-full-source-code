@@ -5,7 +5,7 @@
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 [![License: PolyForm Free Trial](https://img.shields.io/badge/License-PolyForm%20Free%20Trial-blue)](https://polyformproject.org/licenses/free-trial/1.0.0)
 
-`ht_dashboard` is a Flutter web application designed as a comprehensive content management and administration interface for the [Headlines Toolkit](https://github.com/headlines-toolkit) ecosystem. It provides a powerful, intuitive platform for managing news content, application configurations, and user-related settings, complementing the [ht_main mobile app](https://github.com/headlines-toolkit/ht-main) and the [ht_api backend service](https://github.com/headlines-toolkit/ht-api).
+`ht_dashboard` is a Flutter web application designed as a comprehensive content management and administration interface for the [Headlines Toolkit](https://github.com/headlines-toolkit) ecosystem. It provides a powerful, intuitive platform for managing news content, application configurations, and user-related settings, complementing the [mobile app](https://github.com/headlines-toolkit/ht-main) and the [backend service](https://github.com/headlines-toolkit/ht-api).
 
 ## ⭐ Features & Capabilities
 
