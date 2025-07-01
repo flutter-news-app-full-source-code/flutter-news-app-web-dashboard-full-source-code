@@ -608,5 +608,73 @@
   "@settingsPageDescription": {
     "description": "وصف صفحة الإعدادات الرئيسية"
   },
-  "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية."
+  "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.",
+  "loadingHeadlines": "جاري تحميل العناوين الرئيسية",
+  "@loadingHeadlines": {
+    "description": "عنوان حالة تحميل العناوين الرئيسية"
+  },
+  "pleaseWait": "الرجاء الانتظار...",
+  "@pleaseWait": {
+    "description": "عنوان فرعي لحالة التحميل"
+  },
+  "noHeadlinesFound": "لم يتم العثور على عناوين رئيسية.",
+  "@noHeadlinesFound": {
+    "description": "رسالة عند عدم العثور على عناوين رئيسية"
+  },
+  "headlineTitle": "العنوان",
+  "@headlineTitle": {
+    "description": "رأس العمود لعنوان الخبر"
+  },
+  "publishedAt": "تاريخ النشر",
+  "@publishedAt": {
+    "description": "رأس العمود لتاريخ النشر"
+  },
+  "actions": "الإجراءات",
+  "@actions": {
+    "description": "رأس العمود للإجراءات"
+  },
+  "unknown": "غير معروف",
+  "@unknown": {
+    "description": "نص احتياطي للقيم غير المعروفة"
+  },
+  "loadingCategories": "جاري تحميل الفئات",
+  "@loadingCategories": {
+    "description": "عنوان حالة تحميل الفئات"
+  },
+  "noCategoriesFound": "لم يتم العثور على فئات.",
+  "@noCategoriesFound": {
+    "description": "رسالة عند عدم العثور على فئات"
+  },
+  "categoryName": "الاسم",
+  "@categoryName": {
+    "description": "رأس العمود لاسم الفئة"
+  },
+  "description": "الوصف",
+  "@description": {
+    "description": "رأس العمود للوصف"
+  },
+  "notAvailable": "غير متاح",
+  "@notAvailable": {
+    "description": "نص قصير لـ 'غير متاح'"
+  },
+  "loadingSources": "جاري تحميل المصادر",
+  "@loadingSources": {
+    "description": "عنوان حالة تحميل المصادر"
+  },
+  "noSourcesFound": "لم يتم العثور على مصادر.",
+  "@noSourcesFound": {
+    "description": "رسالة عند عدم العثور على مصادر"
+  },
+  "sourceName": "الاسم",
+  "@sourceName": {
+    "description": "رأس العمود لاسم المصدر"
+  },
+  "sourceType": "النوع",
+  "@sourceType": {
+    "description": "رأس العمود لنوع المصدر"
+  },
+  "language": "اللغة",
+  "@language": {
+    "description": "رأس العمود للغة"
+  }
 }
