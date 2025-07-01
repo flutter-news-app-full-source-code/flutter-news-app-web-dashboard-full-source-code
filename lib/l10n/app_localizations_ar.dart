@@ -650,4 +650,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get cannotUpdateHeadlineError =>
       'لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.';
+
+  @override
+  String get createHeadline => 'إنشاء عنوان';
+
+  @override
+  String get headlineCreatedSuccessfully => 'تم إنشاء العنوان بنجاح.';
+
+  @override
+  String get loadingData => 'جاري تحميل البيانات...';
 }

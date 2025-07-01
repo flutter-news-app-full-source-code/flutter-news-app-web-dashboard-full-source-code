@@ -790,4 +790,17 @@
   "@cannotUpdateHeadlineError": {
     "description": "Error message when updating a headline fails because the original data wasn't loaded"
   }
+,
+  "createHeadline": "Create Headline",
+  "@createHeadline": {
+    "description": "Title for the Create Headline page"
+  },
+  "headlineCreatedSuccessfully": "Headline created successfully.",
+  "@headlineCreatedSuccessfully": {
+    "description": "Message displayed when a headline is created successfully"
+  },
+  "loadingData": "Loading data...",
+  "@loadingData": {
+    "description": "Generic message displayed while loading data for a form"
+  }
 }

@@ -788,4 +788,17 @@
   "@cannotUpdateHeadlineError": {
     "description": "رسالة خطأ عند فشل تحديث العنوان بسبب عدم تحميل البيانات الأصلية"
   }
+,
+  "createHeadline": "إنشاء عنوان",
+  "@createHeadline": {
+    "description": "عنوان صفحة إنشاء عنوان"
+  },
+  "headlineCreatedSuccessfully": "تم إنشاء العنوان بنجاح.",
+  "@headlineCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء العنوان بنجاح"
+  },
+  "loadingData": "جاري تحميل البيانات...",
+  "@loadingData": {
+    "description": "رسالة عامة تُعرض أثناء تحميل البيانات لنموذج"
+  }
 }

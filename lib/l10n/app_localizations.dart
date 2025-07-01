@@ -1243,6 +1243,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot update: Original headline data not loaded.'**
   String get cannotUpdateHeadlineError;
+
+  /// Title for the Create Headline page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Headline'**
+  String get createHeadline;
+
+  /// Message displayed when a headline is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Headline created successfully.'**
+  String get headlineCreatedSuccessfully;
+
+  /// Generic message displayed while loading data for a form
+  ///
+  /// In en, this message translates to:
+  /// **'Loading data...'**
+  String get loadingData;
 }
 
 class _AppLocalizationsDelegate

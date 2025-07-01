@@ -648,4 +648,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cannotUpdateHeadlineError =>
       'Cannot update: Original headline data not loaded.';
+
+  @override
+  String get createHeadline => 'Create Headline';
+
+  @override
+  String get headlineCreatedSuccessfully => 'Headline created successfully.';
+
+  @override
+  String get loadingData => 'Loading data...';
 }
