@@ -33,15 +33,18 @@ class _ContentManagementPageState extends State<ContentManagementPage>
 
   @override
   void dispose() {
-    _tabController.removeListener(_onTabChanged);
-    _tabController.dispose();
+    _tabController
+      ..removeListener(_onTabChanged)
+      ..dispose();
     super.dispose();
   }
 
   void _onTabChanged() {
     if (!_tabController.indexIsChanging) {
       final tab = ContentManagementTab.values[_tabController.index];
-      context.read<ContentManagementBloc>().add(ContentManagementTabChanged(tab));
+      context.read<ContentManagementBloc>().add(
+        ContentManagementTabChanged(tab),
+      );
     }
   }
 
@@ -56,8 +59,9 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         appBar: AppBar(
           title: Text(l10n.contentManagement),
           bottom: PreferredSize(
-            preferredSize:
-                const Size.fromHeight(kTextTabBarHeight + AppSpacing.lg),
+            preferredSize: const Size.fromHeight(
+              kTextTabBarHeight + AppSpacing.lg,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -70,8 +74,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                   child: Text(
                     l10n.contentManagementPageDescription,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
                 TabBar(
@@ -98,8 +102,10 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            final currentTab =
-                context.read<ContentManagementBloc>().state.activeTab;
+            final currentTab = context
+                .read<ContentManagementBloc>()
+                .state
+                .activeTab;
             switch (currentTab) {
               case ContentManagementTab.headlines:
                 context.goNamed(Routes.createHeadlineName);

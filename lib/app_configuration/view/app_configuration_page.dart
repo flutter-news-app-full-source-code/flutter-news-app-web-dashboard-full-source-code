@@ -211,7 +211,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               onPressed: isDirty
                   ? () async {
                       final confirmed = await _showConfirmationDialog(context);
-                      if (confirmed && appConfig != null) {
+                      if (context.mounted && confirmed && appConfig != null) {
                         context.read<AppConfigurationBloc>().add(
                           AppConfigurationUpdated(appConfig),
                         );
