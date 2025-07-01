@@ -10,6 +10,7 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/authentication/view/authentication_page.dart';
 import 'package:ht_dashboard/authentication/view/email_code_verification_page.dart';
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
+import 'package:ht_dashboard/content_management/view/create_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/categories_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_source_page.dart';
@@ -168,9 +169,7 @@ GoRouter createRouter({
                   GoRoute(
                     path: Routes.createHeadline,
                     name: Routes.createHeadlineName,
-                    builder: (context, state) => const PlaceholderCreatePage(
-                      title: 'Create New Headline',
-                    ), // Placeholder
+                    builder: (context, state) => const CreateHeadlinePage(),
                   ),
                   GoRoute(
                     path: Routes.editHeadline,
