@@ -632,4 +632,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceTypeOther => 'Other';
+
+  @override
+  String get editHeadline => 'Edit Headline';
+
+  @override
+  String get headlineUpdatedSuccessfully => 'Headline updated successfully.';
+
+  @override
+  String get loadingHeadline => 'Loading Headline...';
+
+  @override
+  String get imageUrl => 'Image URL';
+
+  @override
+  String get cannotUpdateHeadlineError =>
+      'Cannot update: Original headline data not loaded.';
 }

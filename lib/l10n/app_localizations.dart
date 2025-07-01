@@ -1213,6 +1213,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get sourceTypeOther;
+
+  /// Title for the Edit Headline page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Headline'**
+  String get editHeadline;
+
+  /// Message displayed when a headline is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Headline updated successfully.'**
+  String get headlineUpdatedSuccessfully;
+
+  /// Message displayed while loading headline data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Headline...'**
+  String get loadingHeadline;
+
+  /// Label for an image URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Image URL'**
+  String get imageUrl;
+
+  /// Error message when updating a headline fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original headline data not loaded.'**
+  String get cannotUpdateHeadlineError;
 }
 
 class _AppLocalizationsDelegate

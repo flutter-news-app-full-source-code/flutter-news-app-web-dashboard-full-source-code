@@ -634,4 +634,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sourceTypeOther => 'أخرى';
+
+  @override
+  String get editHeadline => 'تعديل العنوان';
+
+  @override
+  String get headlineUpdatedSuccessfully => 'تم تحديث العنوان بنجاح.';
+
+  @override
+  String get loadingHeadline => 'جاري تحميل العنوان...';
+
+  @override
+  String get imageUrl => 'رابط الصورة';
+
+  @override
+  String get cannotUpdateHeadlineError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.';
 }
