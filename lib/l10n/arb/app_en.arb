@@ -609,6 +609,9 @@
     "description": "Description for the main settings page"
   },
   "appearanceSettingsDescription": "Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.",
+  "@appearanceSettingsDescription": {
+    "description": "Description for the Appearance settings tab"
+  },
   "loadingHeadlines": "Loading Headlines",
   "@loadingHeadlines": {
     "description": "Headline for loading state of headlines"

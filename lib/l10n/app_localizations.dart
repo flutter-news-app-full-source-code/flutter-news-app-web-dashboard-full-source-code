@@ -974,7 +974,7 @@ abstract class AppLocalizations {
   /// **'Configure your personal preferences for the Dashboard interface, encompassing visual presentation and language selection.'**
   String get settingsPageDescription;
 
-  /// No description provided for @appearanceSettingsDescription.
+  /// Description for the Appearance settings tab
   ///
   /// In en, this message translates to:
   /// **'Adjust the visual characteristics of the Dashboard, including theme, accent colors, and typographic styles.'**

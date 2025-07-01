@@ -609,6 +609,9 @@
     "description": "وصف صفحة الإعدادات الرئيسية"
   },
   "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.",
+  "@appearanceSettingsDescription": {
+    "description": "وصف تبويب إعدادات المظهر"
+  },
   "loadingHeadlines": "جاري تحميل العناوين الرئيسية",
   "@loadingHeadlines": {
     "description": "عنوان حالة تحميل العناوين الرئيسية"
