@@ -679,8 +679,7 @@
   "language": "اللغة",
   "@language": {
     "description": "رأس العمود للغة"
-  }
-,
+  },
   "editCategory": "تعديل الفئة",
   "@editCategory": {
     "description": "عنوان صفحة تعديل الفئة"
@@ -704,8 +703,7 @@
   "cannotUpdateCategoryError": "لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.",
   "@cannotUpdateCategoryError": {
     "description": "رسالة خطأ عند فشل تحديث الفئة بسبب عدم تحميل البيانات الأصلية"
-  }
-,
+  },
   "editSource": "تعديل المصدر",
   "@editSource": {
     "description": "عنوان صفحة تعديل المصدر"
@@ -769,5 +767,25 @@
   "sourceTypeOther": "أخرى",
   "@sourceTypeOther": {
     "description": "أي نوع آخر من المصادر غير المذكورة أعلاه."
+  },
+  "editHeadline": "تعديل العنوان",
+  "@editHeadline": {
+    "description": "عنوان صفحة تعديل العنوان"
+  },
+  "headlineUpdatedSuccessfully": "تم تحديث العنوان بنجاح.",
+  "@headlineUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث العنوان بنجاح"
+  },
+  "loadingHeadline": "جاري تحميل العنوان...",
+  "@loadingHeadline": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات العنوان"
+  },
+  "imageUrl": "رابط الصورة",
+  "@imageUrl": {
+    "description": "تسمية حقل إدخال رابط الصورة"
+  },
+  "cannotUpdateHeadlineError": "لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.",
+  "@cannotUpdateHeadlineError": {
+    "description": "رسالة خطأ عند فشل تحديث العنوان بسبب عدم تحميل البيانات الأصلية"
   }
 }

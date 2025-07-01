@@ -769,4 +769,25 @@
   "@sourceTypeOther": {
     "description": "Any other type of source not covered above."
   }
+,
+  "editHeadline": "Edit Headline",
+  "@editHeadline": {
+    "description": "Title for the Edit Headline page"
+  },
+  "headlineUpdatedSuccessfully": "Headline updated successfully.",
+  "@headlineUpdatedSuccessfully": {
+    "description": "Message displayed when a headline is updated successfully"
+  },
+  "loadingHeadline": "Loading Headline...",
+  "@loadingHeadline": {
+    "description": "Message displayed while loading headline data"
+  },
+  "imageUrl": "Image URL",
+  "@imageUrl": {
+    "description": "Label for an image URL input field"
+  },
+  "cannotUpdateHeadlineError": "Cannot update: Original headline data not loaded.",
+  "@cannotUpdateHeadlineError": {
+    "description": "Error message when updating a headline fails because the original data wasn't loaded"
+  }
 }
