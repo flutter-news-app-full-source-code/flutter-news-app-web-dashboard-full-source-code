@@ -107,7 +107,6 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
       emit(
         state.copyWith(
           status: EditCategoryStatus.failure,
-          // TODO(l10n): Localize this message.
           errorMessage: 'Cannot update: Original category data not loaded.',
         ),
       );
