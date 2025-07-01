@@ -11,6 +11,7 @@ import 'package:ht_dashboard/authentication/view/authentication_page.dart';
 import 'package:ht_dashboard/authentication/view/email_code_verification_page.dart';
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
 import 'package:ht_dashboard/content_management/view/categories_page.dart';
+import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
 import 'package:ht_dashboard/content_management/view/content_management_page.dart';
 import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
@@ -191,9 +192,7 @@ GoRouter createRouter({
                     name: Routes.editCategoryName,
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
-                      return PlaceholderCreatePage(
-                        title: 'Edit Category $id',
-                      ); // Placeholder
+                      return EditCategoryPage(categoryId: id);
                     },
                   ),
                   GoRoute(
