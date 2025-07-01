@@ -48,7 +48,6 @@ GoRouter createRouter({
       const authenticationPath = Routes.authentication;
       const dashboardPath = Routes.dashboard;
       final isGoingToAuth = currentLocation.startsWith(authenticationPath);
-      final isGoingToDashboard = currentLocation.startsWith(dashboardPath);
 
       // --- Case 1: Unauthenticated User ---
       if (appStatus == AppStatus.unauthenticated ||
@@ -97,7 +96,6 @@ GoRouter createRouter({
         path: Routes.authentication,
         name: Routes.authenticationName,
         builder: (BuildContext context, GoRouterState state) {
-          final l10n = context.l10n;
           const headline = 'Sign In to Dashboard';
           const subHeadline = 'Enter your email to get a verification code.';
           const showAnonymousButton = false;
@@ -174,6 +172,16 @@ GoRouter createRouter({
                             const PlaceholderCreatePage(
                           title: 'Create New Headline',
                         ), // Placeholder
+                      ),
+                      GoRoute(
+                        path: Routes.editHeadline,
+                        name: Routes.editHeadlineName,
+                        builder: (context, state) {
+                          final id = state.pathParameters['id']!;
+                          return PlaceholderCreatePage(
+                            title: 'Edit Headline $id',
+                          ); // Placeholder
+                        },
                       ),
                     ],
                   ),

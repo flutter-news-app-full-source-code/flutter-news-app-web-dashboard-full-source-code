@@ -56,6 +56,12 @@ abstract final class Routes {
   /// The name for the create headline page route.
   static const String createHeadlineName = 'createHeadline';
 
+  /// The path for editing an existing headline.
+  static const String editHeadline = 'edit-headline/:id';
+
+  /// The name for the edit headline page route.
+  static const String editHeadlineName = 'editHeadline';
+
   /// The path for the categories page within content management.
   static const String categories = 'categories';
 
