@@ -12,8 +12,7 @@ import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart'
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/router/router.dart';
-import 'package:ht_dashboard/shared/theme/app_theme.dart'
-    as app_theme_extension; // Import for app_theme.dart
+// Import for app_theme.dart
 import 'package:ht_dashboard/shared/theme/app_theme.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';

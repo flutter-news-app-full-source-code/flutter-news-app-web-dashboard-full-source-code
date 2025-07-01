@@ -4,7 +4,6 @@ import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
-import 'package:ht_dashboard/shared/theme/app_theme.dart';
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -40,7 +39,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
       appBar: AppBar(
         title: Text(l10n.contentManagement),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(kTextTabBarHeight + AppSpacing.lg),
+          preferredSize: const Size.fromHeight(kTextTabBarHeight + AppSpacing.lg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

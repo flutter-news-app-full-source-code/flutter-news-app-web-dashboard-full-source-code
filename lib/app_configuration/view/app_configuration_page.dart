@@ -43,7 +43,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight + AppSpacing.lg),
+          preferredSize: const Size.fromHeight(kToolbarHeight + AppSpacing.lg),
           child: Padding(
             padding: const EdgeInsets.only(
               left: AppSpacing.lg,
