@@ -91,6 +91,25 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               ],
             ),
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              tooltip: 'Add New Item', // Consider localizing this tooltip
+              onPressed: () {
+                final currentTab =
+                    context.read<ContentManagementBloc>().state.activeTab;
+                switch (currentTab) {
+                  case ContentManagementTab.headlines:
+                    context.goNamed(Routes.createHeadlineName);
+                  case ContentManagementTab.categories:
+                    context.goNamed(Routes.createCategoryName);
+                  case ContentManagementTab.sources:
+                    context.goNamed(Routes.createSourceName);
+                }
+              },
+            ),
+            const SizedBox(width: AppSpacing.md),
+          ],
         ),
         body: TabBarView(
           controller: _tabController,
@@ -99,23 +118,6 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             CategoriesPage(),
             SourcesPage(),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            final currentTab = context
-                .read<ContentManagementBloc>()
-                .state
-                .activeTab;
-            switch (currentTab) {
-              case ContentManagementTab.headlines:
-                context.goNamed(Routes.createHeadlineName);
-              case ContentManagementTab.categories:
-                context.goNamed(Routes.createCategoryName);
-              case ContentManagementTab.sources:
-                context.goNamed(Routes.createSourceName);
-            }
-          },
-          child: const Icon(Icons.add),
         ),
       ),
     );
