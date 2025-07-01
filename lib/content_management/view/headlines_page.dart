@@ -72,7 +72,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                 size: ColumnSize.L,
               ),
               DataColumn2(
-                label: Text(l10n.source),
+                label: Text(l10n.sourceName),
                 size: ColumnSize.M,
               ),
               DataColumn2(
