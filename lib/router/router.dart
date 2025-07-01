@@ -12,6 +12,7 @@ import 'package:ht_dashboard/authentication/view/email_code_verification_page.da
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
 import 'package:ht_dashboard/content_management/view/categories_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
+import 'package:ht_dashboard/content_management/view/edit_source_page.dart';
 import 'package:ht_dashboard/content_management/view/content_management_page.dart';
 import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
@@ -207,9 +208,7 @@ GoRouter createRouter({
                     name: Routes.editSourceName,
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
-                      return PlaceholderCreatePage(
-                        title: 'Edit Source $id',
-                      ); // Placeholder
+                      return EditSourcePage(sourceId: id);
                     },
                   ),
                 ],
