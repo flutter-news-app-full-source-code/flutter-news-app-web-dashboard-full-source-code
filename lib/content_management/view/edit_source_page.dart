@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -111,7 +112,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                 SnackBar(content: Text(l10n.sourceUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              const LoadSourcesRequested(),
+                  const LoadSourcesRequested(
+                    limit: kDefaultRowsPerPage,
+                  ),
             );
             context.pop();
           }
