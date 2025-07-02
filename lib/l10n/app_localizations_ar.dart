@@ -587,6 +587,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.';
 
   @override
+  String get createCategory => 'إنشاء فئة';
+
+  @override
+  String get categoryCreatedSuccessfully => 'تم إنشاء الفئة بنجاح.';
+
+  @override
   String get editSource => 'تعديل المصدر';
 
   @override

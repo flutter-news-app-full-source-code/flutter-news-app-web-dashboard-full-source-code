@@ -585,6 +585,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Cannot update: Original category data not loaded.';
 
   @override
+  String get createCategory => 'Create Category';
+
+  @override
+  String get categoryCreatedSuccessfully => 'Category created successfully.';
+
+  @override
   String get editSource => 'Edit Source';
 
   @override

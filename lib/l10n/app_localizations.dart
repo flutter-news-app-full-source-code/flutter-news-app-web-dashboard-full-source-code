@@ -1118,6 +1118,18 @@ abstract class AppLocalizations {
   /// **'Cannot update: Original category data not loaded.'**
   String get cannotUpdateCategoryError;
 
+  /// Title for the Create Category page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Category'**
+  String get createCategory;
+
+  /// Message displayed when a category is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Category created successfully.'**
+  String get categoryCreatedSuccessfully;
+
   /// Title for the Edit Source page
   ///
   /// In en, this message translates to:
