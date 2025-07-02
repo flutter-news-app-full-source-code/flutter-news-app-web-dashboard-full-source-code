@@ -648,9 +648,9 @@
   "@noCategoriesFound": {
     "description": "Message when no categories are found"
   },
-  "categoryName": "Name",
+  "categoryName": "Category Name",
   "@categoryName": {
-    "description": "Column header for category name"
+    "description": "Label for the category name field in forms and tables."
   },
   "description": "Description",
   "@description": {

@@ -648,9 +648,9 @@
   "@noCategoriesFound": {
     "description": "رسالة عند عدم العثور على فئات"
   },
-  "categoryName": "الاسم",
+  "categoryName": "اسم الفئة",
   "@categoryName": {
-    "description": "رأس العمود لاسم الفئة"
+    "description": "تسمية حقل اسم الفئة في النماذج والجداول."
   },
   "description": "الوصف",
   "@description": {
@@ -787,8 +787,7 @@
   "cannotUpdateHeadlineError": "لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.",
   "@cannotUpdateHeadlineError": {
     "description": "رسالة خطأ عند فشل تحديث العنوان بسبب عدم تحميل البيانات الأصلية"
-  }
-,
+  },
   "createHeadline": "إنشاء عنوان",
   "@createHeadline": {
     "description": "عنوان صفحة إنشاء عنوان"

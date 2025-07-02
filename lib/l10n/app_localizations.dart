@@ -1034,10 +1034,10 @@ abstract class AppLocalizations {
   /// **'No categories found.'**
   String get noCategoriesFound;
 
-  /// Column header for category name
+  /// Label for the category name field in forms and tables.
   ///
   /// In en, this message translates to:
-  /// **'Name'**
+  /// **'Category Name'**
   String get categoryName;
 
   /// Column header for description

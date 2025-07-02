@@ -544,7 +544,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noCategoriesFound => 'لم يتم العثور على فئات.';
 
   @override
-  String get categoryName => 'الاسم';
+  String get categoryName => 'اسم الفئة';
 
   @override
   String get description => 'الوصف';

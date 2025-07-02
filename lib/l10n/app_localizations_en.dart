@@ -542,7 +542,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noCategoriesFound => 'No categories found.';
 
   @override
-  String get categoryName => 'Name';
+  String get categoryName => 'Category Name';
 
   @override
   String get description => 'Description';
