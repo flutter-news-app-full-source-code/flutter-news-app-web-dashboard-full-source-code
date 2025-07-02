@@ -544,7 +544,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noCategoriesFound => 'لم يتم العثور على فئات.';
 
   @override
-  String get categoryName => 'الاسم';
+  String get categoryName => 'اسم الفئة';
 
   @override
   String get description => 'الوصف';
@@ -585,6 +585,12 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get cannotUpdateCategoryError =>
       'لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.';
+
+  @override
+  String get createCategory => 'إنشاء فئة';
+
+  @override
+  String get categoryCreatedSuccessfully => 'تم إنشاء الفئة بنجاح.';
 
   @override
   String get editSource => 'تعديل المصدر';

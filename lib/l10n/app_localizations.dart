@@ -1034,10 +1034,10 @@ abstract class AppLocalizations {
   /// **'No categories found.'**
   String get noCategoriesFound;
 
-  /// Column header for category name
+  /// Label for the category name field in forms and tables.
   ///
   /// In en, this message translates to:
-  /// **'Name'**
+  /// **'Category Name'**
   String get categoryName;
 
   /// Column header for description
@@ -1117,6 +1117,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot update: Original category data not loaded.'**
   String get cannotUpdateCategoryError;
+
+  /// Title for the Create Category page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Category'**
+  String get createCategory;
+
+  /// Message displayed when a category is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Category created successfully.'**
+  String get categoryCreatedSuccessfully;
 
   /// Title for the Edit Source page
   ///
