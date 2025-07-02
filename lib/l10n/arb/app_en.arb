@@ -807,5 +807,13 @@
   "loadingData": "Loading data...",
   "@loadingData": {
     "description": "Generic message displayed while loading data for a form"
+  },
+  "createSource": "Create Source",
+  "@createSource": {
+    "description": "Title for the Create Source page"
+  },
+  "sourceCreatedSuccessfully": "Source created successfully.",
+  "@sourceCreatedSuccessfully": {
+    "description": "Message displayed when a source is created successfully"
   }
 }

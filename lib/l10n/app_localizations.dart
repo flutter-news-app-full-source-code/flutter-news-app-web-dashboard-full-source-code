@@ -1273,6 +1273,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading data...'**
   String get loadingData;
+
+  /// Title for the Create Source page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Source'**
+  String get createSource;
+
+  /// Message displayed when a source is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Source created successfully.'**
+  String get sourceCreatedSuccessfully;
 }
 
 class _AppLocalizationsDelegate

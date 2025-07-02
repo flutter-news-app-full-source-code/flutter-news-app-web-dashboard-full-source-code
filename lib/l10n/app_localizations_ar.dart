@@ -665,4 +665,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loadingData => 'جاري تحميل البيانات...';
+
+  @override
+  String get createSource => 'إنشاء مصدر';
+
+  @override
+  String get sourceCreatedSuccessfully => 'تم إنشاء المصدر بنجاح.';
 }

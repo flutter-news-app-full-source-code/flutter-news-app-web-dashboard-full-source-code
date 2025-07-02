@@ -807,5 +807,13 @@
   "loadingData": "جاري تحميل البيانات...",
   "@loadingData": {
     "description": "رسالة عامة تُعرض أثناء تحميل البيانات لنموذج"
+  },
+  "createSource": "إنشاء مصدر",
+  "@createSource": {
+    "description": "عنوان صفحة إنشاء مصدر"
+  },
+  "sourceCreatedSuccessfully": "تم إنشاء المصدر بنجاح.",
+  "@sourceCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء المصدر بنجاح"
   }
 }

@@ -663,4 +663,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadingData => 'Loading data...';
+
+  @override
+  String get createSource => 'Create Source';
+
+  @override
+  String get sourceCreatedSuccessfully => 'Source created successfully.';
 }
