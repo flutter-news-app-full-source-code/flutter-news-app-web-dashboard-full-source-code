@@ -86,6 +86,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             source: _HeadlinesDataSource(
               context: context,
               headlines: state.headlines,
+              isLoading: state.headlinesStatus == ContentManagementStatus.loading,
               hasMore: state.headlinesHasMore,
               l10n: l10n,
             ),
@@ -94,7 +95,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             onPageChanged: (pageIndex) {
               final newOffset = pageIndex * kDefaultRowsPerPage;
               if (newOffset >= state.headlines.length &&
-                  state.headlinesHasMore) {
+                  state.headlinesHasMore &&
+                  state.headlinesStatus != ContentManagementStatus.loading) {
                 context.read<ContentManagementBloc>().add(
                   LoadHeadlinesRequested(
                     startAfterId: state.headlinesCursor,
@@ -122,12 +124,14 @@ class _HeadlinesDataSource extends DataTableSource {
   _HeadlinesDataSource({
     required this.context,
     required this.headlines,
+    required this.isLoading,
     required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
   final List<Headline> headlines;
+  final bool isLoading;
   final bool hasMore;
   final AppLocalizations l10n;
 
@@ -135,9 +139,12 @@ class _HeadlinesDataSource extends DataTableSource {
   DataRow? getRow(int index) {
     if (index >= headlines.length) {
       // This can happen if hasMore is true and the user is on the last page.
-      // The table will try to build one extra row that is out of bounds.
-      // We return null to signify the end of the available data.
-      // The onPageChanged callback will handle fetching more data.
+      // If we are loading, show a spinner. Otherwise, we've reached the end.
+      if (isLoading) {
+        return DataRow2(
+          cells: List.generate(4, (_) => const DataCell(Center(child: CircularProgressIndicator()))),
+        );
+      }
       return null;
     }
     final headline = headlines[index];
@@ -182,7 +189,7 @@ class _HeadlinesDataSource extends DataTableSource {
   }
 
   @override
-  bool get isRowCountApproximate => true;
+  bool get isRowCountApproximate => hasMore;
 
   @override
   int get rowCount {
@@ -190,7 +197,9 @@ class _HeadlinesDataSource extends DataTableSource {
     // This signals to PaginatedDataTable2 that there is at least one more page,
     // which enables the 'next page' button.
     if (hasMore) {
-      return headlines.length + 1;
+      // When loading, we show an extra row for the spinner.
+      // Otherwise, we just indicate that there are more rows.
+      return isLoading ? headlines.length + 1 : headlines.length + kDefaultRowsPerPage;
     }
     return headlines.length;
   }
