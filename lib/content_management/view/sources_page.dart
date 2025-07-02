@@ -6,6 +6,7 @@ import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dar
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
 import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
@@ -23,13 +24,11 @@ class SourcesPage extends StatefulWidget {
 }
 
 class _SourcesPageState extends State<SourcesPage> {
-  static const int _rowsPerPage = 10;
-
   @override
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-          const LoadSourcesRequested(limit: _rowsPerPage),
+          const LoadSourcesRequested(limit: kDefaultRowsPerPage),
         );
   }
 
@@ -53,7 +52,7 @@ class _SourcesPageState extends State<SourcesPage> {
             return FailureStateWidget(
               message: state.errorMessage ?? l10n.unknownError,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                    const LoadSourcesRequested(limit: _rowsPerPage),
+                    const LoadSourcesRequested(limit: kDefaultRowsPerPage),
                   ),
             );
           }
@@ -86,17 +85,18 @@ class _SourcesPageState extends State<SourcesPage> {
             source: _SourcesDataSource(
               context: context,
               sources: state.sources,
+              hasMore: state.sourcesHasMore,
               l10n: l10n,
             ),
-            rowsPerPage: _rowsPerPage,
-            availableRowsPerPage: const [_rowsPerPage],
+            rowsPerPage: kDefaultRowsPerPage,
+            availableRowsPerPage: const [kDefaultRowsPerPage],
             onPageChanged: (pageIndex) {
-              final newOffset = pageIndex * _rowsPerPage;
+              final newOffset = pageIndex * kDefaultRowsPerPage;
               if (newOffset >= state.sources.length && state.sourcesHasMore) {
                 context.read<ContentManagementBloc>().add(
                       LoadSourcesRequested(
                         startAfterId: state.sourcesCursor,
-                        limit: _rowsPerPage,
+                        limit: kDefaultRowsPerPage,
                       ),
                     );
               }
@@ -120,16 +120,22 @@ class _SourcesDataSource extends DataTableSource {
   _SourcesDataSource({
     required this.context,
     required this.sources,
+    required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
   final List<Source> sources;
+  final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
     if (index >= sources.length) {
+      // This can happen if hasMore is true and the user is on the last page.
+      // The table will try to build one extra row that is out of bounds.
+      // We return null to signify the end of the available data.
+      // The onPageChanged callback will handle fetching more data.
       return null;
     }
     final source = sources[index];
@@ -168,10 +174,18 @@ class _SourcesDataSource extends DataTableSource {
   }
 
   @override
-  bool get isRowCountApproximate => false;
+  bool get isRowCountApproximate => true;
 
   @override
-  int get rowCount => sources.length;
+  int get rowCount {
+    // If we have more items to fetch, we add 1 to the current length.
+    // This signals to PaginatedDataTable2 that there is at least one more page,
+    // which enables the 'next page' button.
+    if (hasMore) {
+      return sources.length + 1;
+    }
+    return sources.length;
+  }
 
   @override
   int get selectedRowCount => 0;
