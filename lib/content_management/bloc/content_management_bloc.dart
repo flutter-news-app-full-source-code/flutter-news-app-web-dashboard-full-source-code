@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_shared/ht_shared.dart';
 
 part 'content_management_event.dart';
@@ -60,6 +61,9 @@ class ContentManagementBloc
   ) async {
     emit(state.copyWith(headlinesStatus: ContentManagementStatus.loading));
     try {
+      final isPaginating = event.startAfterId != null;
+      final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
+
       final paginatedHeadlines = await _headlinesRepository.readAll(
         startAfterId: event.startAfterId,
         limit: event.limit,
@@ -67,7 +71,7 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.success,
-          headlines: paginatedHeadlines.items,
+          headlines: [...previousHeadlines, ...paginatedHeadlines.items],
           headlinesCursor: paginatedHeadlines.cursor,
           headlinesHasMore: paginatedHeadlines.hasMore,
         ),
@@ -97,7 +101,9 @@ class ContentManagementBloc
     try {
       await _headlinesRepository.create(item: event.headline);
       // Reload headlines after creation
-      add(const LoadHeadlinesRequested());
+      add(
+        const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -123,7 +129,9 @@ class ContentManagementBloc
     try {
       await _headlinesRepository.update(id: event.id, item: event.headline);
       // Reload headlines after update
-      add(const LoadHeadlinesRequested());
+      add(
+        const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -149,7 +157,9 @@ class ContentManagementBloc
     try {
       await _headlinesRepository.delete(id: event.id);
       // Reload headlines after deletion
-      add(const LoadHeadlinesRequested());
+      add(
+        const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -173,6 +183,9 @@ class ContentManagementBloc
   ) async {
     emit(state.copyWith(categoriesStatus: ContentManagementStatus.loading));
     try {
+      final isPaginating = event.startAfterId != null;
+      final previousCategories = isPaginating ? state.categories : <Category>[];
+
       final paginatedCategories = await _categoriesRepository.readAll(
         startAfterId: event.startAfterId,
         limit: event.limit,
@@ -180,7 +193,7 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           categoriesStatus: ContentManagementStatus.success,
-          categories: paginatedCategories.items,
+          categories: [...previousCategories, ...paginatedCategories.items],
           categoriesCursor: paginatedCategories.cursor,
           categoriesHasMore: paginatedCategories.hasMore,
         ),
@@ -210,7 +223,9 @@ class ContentManagementBloc
     try {
       await _categoriesRepository.create(item: event.category);
       // Reload categories after creation
-      add(const LoadCategoriesRequested());
+      add(
+        const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -236,7 +251,9 @@ class ContentManagementBloc
     try {
       await _categoriesRepository.update(id: event.id, item: event.category);
       // Reload categories after update
-      add(const LoadCategoriesRequested());
+      add(
+        const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -262,7 +279,9 @@ class ContentManagementBloc
     try {
       await _categoriesRepository.delete(id: event.id);
       // Reload categories after deletion
-      add(const LoadCategoriesRequested());
+      add(
+        const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -286,6 +305,9 @@ class ContentManagementBloc
   ) async {
     emit(state.copyWith(sourcesStatus: ContentManagementStatus.loading));
     try {
+      final isPaginating = event.startAfterId != null;
+      final previousSources = isPaginating ? state.sources : <Source>[];
+
       final paginatedSources = await _sourcesRepository.readAll(
         startAfterId: event.startAfterId,
         limit: event.limit,
@@ -293,7 +315,7 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.success,
-          sources: paginatedSources.items,
+          sources: [...previousSources, ...paginatedSources.items],
           sourcesCursor: paginatedSources.cursor,
           sourcesHasMore: paginatedSources.hasMore,
         ),
@@ -323,7 +345,9 @@ class ContentManagementBloc
     try {
       await _sourcesRepository.create(item: event.source);
       // Reload sources after creation
-      add(const LoadSourcesRequested());
+      add(
+        const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -349,7 +373,9 @@ class ContentManagementBloc
     try {
       await _sourcesRepository.update(id: event.id, item: event.source);
       // Reload sources after update
-      add(const LoadSourcesRequested());
+      add(
+        const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -375,7 +401,9 @@ class ContentManagementBloc
     try {
       await _sourcesRepository.delete(id: event.id);
       // Reload sources after deletion
-      add(const LoadSourcesRequested());
+      add(
+        const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
