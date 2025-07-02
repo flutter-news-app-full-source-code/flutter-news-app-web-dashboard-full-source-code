@@ -13,13 +13,13 @@ import 'package:ht_dashboard/authentication/view/request_code_page.dart';
 import 'package:ht_dashboard/content_management/view/content_management_page.dart';
 import 'package:ht_dashboard/content_management/view/create_category_page.dart';
 import 'package:ht_dashboard/content_management/view/create_headline_page.dart';
+import 'package:ht_dashboard/content_management/view/create_source_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_source_page.dart';
 import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/settings/view/settings_page.dart';
-import 'package:ht_dashboard/shared/widgets/placeholder_create_page.dart';
 
 /// Creates and configures the GoRouter instance for the application.
 ///
@@ -193,9 +193,7 @@ GoRouter createRouter({
                   GoRoute(
                     path: Routes.createSource,
                     name: Routes.createSourceName,
-                    builder: (context, state) => const PlaceholderCreatePage(
-                      title: 'Create New Source',
-                    ), // Placeholder
+                    builder: (context, state) => const CreateSourcePage(),
                   ),
                   GoRoute(
                     path: Routes.editSource,
