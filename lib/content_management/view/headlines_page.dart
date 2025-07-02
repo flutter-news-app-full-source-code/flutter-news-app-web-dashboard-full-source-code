@@ -6,6 +6,7 @@ import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dar
 import 'package:ht_dashboard/l10n/app_localizations.dart'; // Corrected import
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/utils/date_formatter.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
@@ -24,14 +25,12 @@ class HeadlinesPage extends StatefulWidget {
 }
 
 class _HeadlinesPageState extends State<HeadlinesPage> {
-  static const int _rowsPerPage = 10;
-
   @override
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-          const LoadHeadlinesRequested(limit: _rowsPerPage),
-        );
+      const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+    );
   }
 
   @override
@@ -54,8 +53,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             return FailureStateWidget(
               message: state.errorMessage ?? l10n.unknownError,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                    const LoadHeadlinesRequested(limit: _rowsPerPage),
-                  ),
+                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+              ),
             );
           }
 
@@ -87,20 +86,21 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             source: _HeadlinesDataSource(
               context: context,
               headlines: state.headlines,
+              hasMore: state.headlinesHasMore,
               l10n: l10n,
             ),
-            rowsPerPage: _rowsPerPage,
-            availableRowsPerPage: const [_rowsPerPage],
+            rowsPerPage: kDefaultRowsPerPage,
+            availableRowsPerPage: const [kDefaultRowsPerPage],
             onPageChanged: (pageIndex) {
-              final newOffset = pageIndex * _rowsPerPage;
+              final newOffset = pageIndex * kDefaultRowsPerPage;
               if (newOffset >= state.headlines.length &&
                   state.headlinesHasMore) {
                 context.read<ContentManagementBloc>().add(
-                      LoadHeadlinesRequested(
-                        startAfterId: state.headlinesCursor,
-                        limit: _rowsPerPage,
-                      ),
-                    );
+                  LoadHeadlinesRequested(
+                    startAfterId: state.headlinesCursor,
+                    limit: kDefaultRowsPerPage,
+                  ),
+                );
               }
             },
             empty: Center(child: Text(l10n.noHeadlinesFound)),
@@ -122,16 +122,22 @@ class _HeadlinesDataSource extends DataTableSource {
   _HeadlinesDataSource({
     required this.context,
     required this.headlines,
+    required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
   final List<Headline> headlines;
+  final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
     if (index >= headlines.length) {
+      // This can happen if hasMore is true and the user is on the last page.
+      // The table will try to build one extra row that is out of bounds.
+      // We return null to signify the end of the available data.
+      // The onPageChanged callback will handle fetching more data.
       return null;
     }
     final headline = headlines[index];
@@ -164,8 +170,8 @@ class _HeadlinesDataSource extends DataTableSource {
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                        DeleteHeadlineRequested(headline.id),
-                      );
+                    DeleteHeadlineRequested(headline.id),
+                  );
                 },
               ),
             ],
@@ -176,10 +182,18 @@ class _HeadlinesDataSource extends DataTableSource {
   }
 
   @override
-  bool get isRowCountApproximate => false;
+  bool get isRowCountApproximate => true;
 
   @override
-  int get rowCount => headlines.length;
+  int get rowCount {
+    // If we have more items to fetch, we add 1 to the current length.
+    // This signals to PaginatedDataTable2 that there is at least one more page,
+    // which enables the 'next page' button.
+    if (hasMore) {
+      return headlines.length + 1;
+    }
+    return headlines.length;
+  }
 
   @override
   int get selectedRowCount => 0;
