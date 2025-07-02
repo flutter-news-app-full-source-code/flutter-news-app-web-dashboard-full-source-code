@@ -704,6 +704,14 @@
   "@cannotUpdateCategoryError": {
     "description": "رسالة خطأ عند فشل تحديث الفئة بسبب عدم تحميل البيانات الأصلية"
   },
+  "createCategory": "إنشاء فئة",
+  "@createCategory": {
+    "description": "عنوان صفحة إنشاء فئة"
+  },
+  "categoryCreatedSuccessfully": "تم إنشاء الفئة بنجاح.",
+  "@categoryCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء الفئة بنجاح"
+  },
   "editSource": "تعديل المصدر",
   "@editSource": {
     "description": "عنوان صفحة تعديل المصدر"

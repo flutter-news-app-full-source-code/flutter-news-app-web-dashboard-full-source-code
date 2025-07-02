@@ -703,8 +703,15 @@
   "cannotUpdateCategoryError": "Cannot update: Original category data not loaded.",
   "@cannotUpdateCategoryError": {
     "description": "Error message when updating a category fails because the original data wasn't loaded"
-  }
-,
+  },
+  "createCategory": "Create Category",
+  "@createCategory": {
+    "description": "Title for the Create Category page"
+  },
+  "categoryCreatedSuccessfully": "Category created successfully.",
+  "@categoryCreatedSuccessfully": {
+    "description": "Message displayed when a category is created successfully"
+  },
   "editSource": "Edit Source",
   "@editSource": {
     "description": "Title for the Edit Source page"
@@ -768,8 +775,7 @@
   "sourceTypeOther": "Other",
   "@sourceTypeOther": {
     "description": "Any other type of source not covered above."
-  }
-,
+  },
   "editHeadline": "Edit Headline",
   "@editHeadline": {
     "description": "Title for the Edit Headline page"
@@ -789,8 +795,7 @@
   "cannotUpdateHeadlineError": "Cannot update: Original headline data not loaded.",
   "@cannotUpdateHeadlineError": {
     "description": "Error message when updating a headline fails because the original data wasn't loaded"
-  }
-,
+  },
   "createHeadline": "Create Headline",
   "@createHeadline": {
     "description": "Title for the Create Headline page"
