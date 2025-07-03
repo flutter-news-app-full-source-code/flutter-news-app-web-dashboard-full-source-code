@@ -12,6 +12,7 @@ import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
 import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 
 /// {@template categories_page}
 /// A page for displaying and managing Categories in a tabular format.
