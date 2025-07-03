@@ -106,7 +106,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             previous.initialHeadline != current.initialHeadline,
         listener: (context, state) {
           if (state.status == EditHeadlineStatus.success &&
-              state.initialHeadline != null &&
+              state.updatedHeadline != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -116,10 +116,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                 ),
               );
             context.read<ContentManagementBloc>().add(
-              const LoadHeadlinesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
-            );
+                  HeadlineUpdated(state.updatedHeadline!),
+                );
             context.pop();
           }
           if (state.status == EditHeadlineStatus.failure) {
