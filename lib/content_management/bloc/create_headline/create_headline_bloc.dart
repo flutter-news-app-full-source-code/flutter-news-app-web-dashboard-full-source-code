@@ -26,6 +26,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
     on<CreateHeadlineCategoryChanged>(_onCategoryChanged);
+    on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
   }
 
@@ -114,6 +115,18 @@ class CreateHeadlineBloc
     emit(state.copyWith(category: () => event.category));
   }
 
+  void _onStatusChanged(
+    CreateHeadlineStatusChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        contentStatus: event.status,
+        status: CreateHeadlineStatus.initial,
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
     CreateHeadlineSubmitted event,
     Emitter<CreateHeadlineState> emit,
@@ -129,6 +142,7 @@ class CreateHeadlineBloc
         imageUrl: state.imageUrl.isNotEmpty ? state.imageUrl : null,
         source: state.source,
         category: state.category,
+        status: state.contentStatus,
       );
 
       await _headlinesRepository.create(item: newHeadline);
