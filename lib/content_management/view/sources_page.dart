@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
@@ -167,14 +168,7 @@ class _SourcesDataSource extends DataTableSource {
       cells: [
         DataCell(Text(source.name)),
         DataCell(Text(source.sourceType?.localizedName(l10n) ?? l10n.unknown)),
-        DataCell(
-          Text(
-            source.status.name.replaceFirst(
-              source.status.name[0],
-              source.status.name[0].toUpperCase(),
-            ),
-          ),
-        ),
+        DataCell(Text(source.status.l10n(context))),
         DataCell(
           Text(source.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
         ),
