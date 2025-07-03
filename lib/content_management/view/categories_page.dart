@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
@@ -162,7 +163,14 @@ class _CategoriesDataSource extends DataTableSource {
       cells: [
         DataCell(Text(category.name)),
         DataCell(Text(category.status.l10n(context))),
-        DataCell(Text(category.updatedAt?.toLocal().toString() ?? l10n.notAvailable)),
+        DataCell(
+          Text(
+            category.updatedAt != null
+                // TODO(fulleni): Make date format configurable by admin.
+                ? DateFormat('dd-MM-yyyy').format(category.updatedAt!.toLocal())
+                : l10n.notAvailable,
+          ),
+        ),
         DataCell(
           Row(
             children: [
