@@ -101,7 +101,7 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
             previous.initialCategory != current.initialCategory,
         listener: (context, state) {
           if (state.status == EditCategoryStatus.success &&
-              state.initialCategory != null &&
+              state.updatedCategory != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -110,10 +110,8 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                 const SnackBar(content: Text('Category updated successfully.')),
               );
             context.read<ContentManagementBloc>().add(
-              const LoadCategoriesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
-            );
+                  CategoryUpdated(state.updatedCategory!),
+                );
             context.pop();
           }
           if (state.status == EditCategoryStatus.failure) {
