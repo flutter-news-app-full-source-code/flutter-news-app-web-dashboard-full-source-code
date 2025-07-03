@@ -25,6 +25,7 @@ final class CreateCategoryState extends Equatable {
     this.iconUrl = '',
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
+    this.createdCategory,
   });
 
   final CreateCategoryStatus status;
@@ -33,6 +34,7 @@ final class CreateCategoryState extends Equatable {
   final String iconUrl;
   final ContentStatus contentStatus;
   final String? errorMessage;
+  final Category? createdCategory;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Category model, only the name is required.
@@ -45,6 +47,7 @@ final class CreateCategoryState extends Equatable {
     String? iconUrl,
     ContentStatus? contentStatus,
     String? errorMessage,
+    Category? createdCategory,
   }) {
     return CreateCategoryState(
       status: status ?? this.status,
@@ -53,6 +56,7 @@ final class CreateCategoryState extends Equatable {
       iconUrl: iconUrl ?? this.iconUrl,
       contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage,
+      createdCategory: createdCategory ?? this.createdCategory,
     );
   }
 
@@ -64,5 +68,6 @@ final class CreateCategoryState extends Equatable {
     iconUrl,
     contentStatus,
     errorMessage,
+    createdCategory,
   ];
 }
