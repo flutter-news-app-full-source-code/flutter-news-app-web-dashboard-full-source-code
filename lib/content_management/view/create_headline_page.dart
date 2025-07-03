@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
-import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -77,18 +75,15 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateHeadlineStatus.success &&
+              state.createdHeadline != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.headlineCreatedSuccessfully),
-                ),
+                SnackBar(content: Text(l10n.headlineCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              const LoadHeadlinesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
+              HeadlineAdded(state.createdHeadline!),
             );
             context.pop();
           }

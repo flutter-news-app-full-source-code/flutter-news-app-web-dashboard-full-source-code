@@ -38,35 +38,32 @@ final class LoadHeadlinesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template create_headline_requested}
-/// Event to request creation of a new headline.
+/// {@template headline_added}
+/// Event to add a new headline to the local state.
 /// {@endtemplate}
-final class CreateHeadlineRequested extends ContentManagementEvent {
-  /// {@macro create_headline_requested}
-  const CreateHeadlineRequested(this.headline);
+final class HeadlineAdded extends ContentManagementEvent {
+  /// {@macro headline_added}
+  const HeadlineAdded(this.headline);
 
-  /// The headline to create.
+  /// The headline that was added.
   final Headline headline;
 
   @override
   List<Object?> get props => [headline];
 }
 
-/// {@template update_headline_requested}
-/// Event to request update of an existing headline.
+/// {@template headline_updated}
+/// Event to update an existing headline in the local state.
 /// {@endtemplate}
-final class UpdateHeadlineRequested extends ContentManagementEvent {
-  /// {@macro update_headline_requested}
-  const UpdateHeadlineRequested({required this.id, required this.headline});
+final class HeadlineUpdated extends ContentManagementEvent {
+  /// {@macro headline_updated}
+  const HeadlineUpdated(this.headline);
 
-  /// The ID of the headline to update.
-  final String id;
-
-  /// The updated headline data.
+  /// The headline that was updated.
   final Headline headline;
 
   @override
-  List<Object?> get props => [id, headline];
+  List<Object?> get props => [headline];
 }
 
 /// {@template delete_headline_requested}
@@ -100,35 +97,32 @@ final class LoadCategoriesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template create_category_requested}
-/// Event to request creation of a new category.
+/// {@template category_added}
+/// Event to add a new category to the local state.
 /// {@endtemplate}
-final class CreateCategoryRequested extends ContentManagementEvent {
-  /// {@macro create_category_requested}
-  const CreateCategoryRequested(this.category);
+final class CategoryAdded extends ContentManagementEvent {
+  /// {@macro category_added}
+  const CategoryAdded(this.category);
 
-  /// The category to create.
+  /// The category that was added.
   final Category category;
 
   @override
   List<Object?> get props => [category];
 }
 
-/// {@template update_category_requested}
-/// Event to request update of an existing category.
+/// {@template category_updated}
+/// Event to update an existing category in the local state.
 /// {@endtemplate}
-final class UpdateCategoryRequested extends ContentManagementEvent {
-  /// {@macro update_category_requested}
-  const UpdateCategoryRequested({required this.id, required this.category});
+final class CategoryUpdated extends ContentManagementEvent {
+  /// {@macro category_updated}
+  const CategoryUpdated(this.category);
 
-  /// The ID of the category to update.
-  final String id;
-
-  /// The updated category data.
+  /// The category that was updated.
   final Category category;
 
   @override
-  List<Object?> get props => [id, category];
+  List<Object?> get props => [category];
 }
 
 /// {@template delete_category_requested}
@@ -162,35 +156,32 @@ final class LoadSourcesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template create_source_requested}
-/// Event to request creation of a new source.
+/// {@template source_added}
+/// Event to add a new source to the local state.
 /// {@endtemplate}
-final class CreateSourceRequested extends ContentManagementEvent {
-  /// {@macro create_source_requested}
-  const CreateSourceRequested(this.source);
+final class SourceAdded extends ContentManagementEvent {
+  /// {@macro source_added}
+  const SourceAdded(this.source);
 
-  /// The source to create.
+  /// The source that was added.
   final Source source;
 
   @override
   List<Object?> get props => [source];
 }
 
-/// {@template update_source_requested}
-/// Event to request update of an existing source.
+/// {@template source_updated}
+/// Event to update an existing source in the local state.
 /// {@endtemplate}
-final class UpdateSourceRequested extends ContentManagementEvent {
-  /// {@macro update_source_requested}
-  const UpdateSourceRequested({required this.id, required this.source});
+final class SourceUpdated extends ContentManagementEvent {
+  /// {@macro source_updated}
+  const SourceUpdated(this.source);
 
-  /// The ID of the source to update.
-  final String id;
-
-  /// The updated source data.
+  /// The source that was updated.
   final Source source;
 
   @override
-  List<Object?> get props => [id, source];
+  List<Object?> get props => [source];
 }
 
 /// {@template delete_source_requested}

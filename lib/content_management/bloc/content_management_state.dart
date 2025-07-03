@@ -1,6 +1,5 @@
 part of 'content_management_bloc.dart';
 
-
 /// Represents the status of content loading and operations.
 enum ContentManagementStatus {
   /// The operation is in its initial state.
@@ -115,19 +114,19 @@ class ContentManagementState extends Equatable {
 
   @override
   List<Object?> get props => [
-        activeTab,
-        headlinesStatus,
-        headlines,
-        headlinesCursor,
-        headlinesHasMore,
-        categoriesStatus,
-        categories,
-        categoriesCursor,
-        categoriesHasMore,
-        sourcesStatus,
-        sources,
-        sourcesCursor,
-        sourcesHasMore,
-        errorMessage,
-      ];
+    activeTab,
+    headlinesStatus,
+    headlines,
+    headlinesCursor,
+    headlinesHasMore,
+    categoriesStatus,
+    categories,
+    categoriesCursor,
+    categoriesHasMore,
+    sourcesStatus,
+    sources,
+    sourcesCursor,
+    sourcesHasMore,
+    errorMessage,
+  ];
 }

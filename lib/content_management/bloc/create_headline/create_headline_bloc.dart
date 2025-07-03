@@ -135,18 +135,27 @@ class CreateHeadlineBloc
 
     emit(state.copyWith(status: CreateHeadlineStatus.submitting));
     try {
+      final now = DateTime.now();
       final newHeadline = Headline(
         title: state.title,
         description: state.description.isNotEmpty ? state.description : null,
         url: state.url.isNotEmpty ? state.url : null,
         imageUrl: state.imageUrl.isNotEmpty ? state.imageUrl : null,
         source: state.source,
+        publishedAt: now,
+        createdAt: now,
+        updatedAt: now,
         category: state.category,
         status: state.contentStatus,
       );
 
       await _headlinesRepository.create(item: newHeadline);
-      emit(state.copyWith(status: CreateHeadlineStatus.success));
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.success,
+          createdHeadline: newHeadline,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(

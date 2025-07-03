@@ -28,6 +28,7 @@ final class EditCategoryState extends Equatable {
     this.iconUrl = '',
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
+    this.updatedCategory,
   });
 
   final EditCategoryStatus status;
@@ -37,6 +38,7 @@ final class EditCategoryState extends Equatable {
   final String iconUrl;
   final ContentStatus contentStatus;
   final String? errorMessage;
+  final Category? updatedCategory;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid => name.isNotEmpty;
@@ -49,6 +51,7 @@ final class EditCategoryState extends Equatable {
     String? iconUrl,
     ContentStatus? contentStatus,
     String? errorMessage,
+    Category? updatedCategory,
   }) {
     return EditCategoryState(
       status: status ?? this.status,
@@ -58,17 +61,19 @@ final class EditCategoryState extends Equatable {
       iconUrl: iconUrl ?? this.iconUrl,
       contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage ?? this.errorMessage,
+      updatedCategory: updatedCategory ?? this.updatedCategory,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
-        initialCategory,
-        name,
-        description,
-        iconUrl,
-        contentStatus,
-        errorMessage,
-      ];
+    status,
+    initialCategory,
+    name,
+    description,
+    iconUrl,
+    contentStatus,
+    errorMessage,
+    updatedCategory,
+  ];
 }

@@ -135,13 +135,19 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
         description: state.description.isNotEmpty ? state.description : null,
         iconUrl: state.iconUrl.isNotEmpty ? state.iconUrl : null,
         status: state.contentStatus,
+        updatedAt: DateTime.now(),
       );
 
       await _categoriesRepository.update(
         id: _categoryId,
         item: updatedCategory,
       );
-      emit(state.copyWith(status: EditCategoryStatus.success));
+      emit(
+        state.copyWith(
+          status: EditCategoryStatus.success,
+          updatedCategory: updatedCategory,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(

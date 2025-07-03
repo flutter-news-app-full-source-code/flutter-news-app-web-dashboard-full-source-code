@@ -7,11 +7,12 @@ import 'package:ht_dashboard/l10n/app_localizations.dart'; // Corrected import
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
 import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
 import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
+import 'package:intl/intl.dart';
 
 /// {@template headlines_page}
 /// A page for displaying and managing Headlines in a tabular format.
@@ -171,7 +172,12 @@ class _HeadlinesDataSource extends DataTableSource {
         DataCell(Text(headline.source?.name ?? l10n.unknown)),
         DataCell(Text(headline.status.l10n(context))),
         DataCell(
-          Text(headline.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
+          Text(
+            headline.updatedAt != null
+                // TODO(fulleni): Make date format configurable by admin.
+                ? DateFormat('dd-MM-yyyy').format(headline.updatedAt!.toLocal())
+                : l10n.notAvailable,
+          ),
         ),
         DataCell(
           Row(

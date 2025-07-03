@@ -32,6 +32,7 @@ final class EditSourceState extends Equatable {
     this.countries = const [],
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
+    this.updatedSource,
   });
 
   final EditSourceStatus status;
@@ -45,6 +46,7 @@ final class EditSourceState extends Equatable {
   final List<Country> countries;
   final ContentStatus contentStatus;
   final String? errorMessage;
+  final Source? updatedSource;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid => name.isNotEmpty;
@@ -61,6 +63,7 @@ final class EditSourceState extends Equatable {
     List<Country>? countries,
     ContentStatus? contentStatus,
     String? errorMessage,
+    Source? updatedSource,
   }) {
     return EditSourceState(
       status: status ?? this.status,
@@ -73,7 +76,8 @@ final class EditSourceState extends Equatable {
       headquarters: headquarters != null ? headquarters() : this.headquarters,
       countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
+      updatedSource: updatedSource ?? this.updatedSource,
     );
   }
 
@@ -90,5 +94,6 @@ final class EditSourceState extends Equatable {
     countries,
     contentStatus,
     errorMessage,
+    updatedSource,
   ];
 }

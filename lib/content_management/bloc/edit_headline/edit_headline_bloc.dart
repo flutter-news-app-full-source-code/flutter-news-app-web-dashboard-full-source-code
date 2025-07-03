@@ -192,10 +192,16 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         source: state.source,
         category: state.category,
         status: state.contentStatus,
+        updatedAt: DateTime.now(),
       );
 
       await _headlinesRepository.update(id: _headlineId, item: updatedHeadline);
-      emit(state.copyWith(status: EditHeadlineStatus.success));
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.success,
+          updatedHeadline: updatedHeadline,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(

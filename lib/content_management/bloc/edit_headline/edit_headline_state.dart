@@ -33,6 +33,7 @@ final class EditHeadlineState extends Equatable {
     this.categories = const [],
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
+    this.updatedHeadline,
   });
 
   final EditHeadlineStatus status;
@@ -47,6 +48,7 @@ final class EditHeadlineState extends Equatable {
   final List<Category> categories;
   final ContentStatus contentStatus;
   final String? errorMessage;
+  final Headline? updatedHeadline;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid => title.isNotEmpty;
@@ -64,6 +66,7 @@ final class EditHeadlineState extends Equatable {
     List<Category>? categories,
     ContentStatus? contentStatus,
     String? errorMessage,
+    Headline? updatedHeadline,
   }) {
     return EditHeadlineState(
       status: status ?? this.status,
@@ -77,7 +80,8 @@ final class EditHeadlineState extends Equatable {
       sources: sources ?? this.sources,
       categories: categories ?? this.categories,
       contentStatus: contentStatus ?? this.contentStatus,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage,
+      updatedHeadline: updatedHeadline ?? this.updatedHeadline,
     );
   }
 
@@ -95,5 +99,6 @@ final class EditHeadlineState extends Equatable {
     categories,
     contentStatus,
     errorMessage,
+    updatedHeadline,
   ];
 }
