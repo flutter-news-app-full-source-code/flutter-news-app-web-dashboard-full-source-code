@@ -79,11 +79,14 @@ class CreateCategoryBloc
 
     emit(state.copyWith(status: CreateCategoryStatus.submitting));
     try {
+      final now = DateTime.now();
       final newCategory = Category(
         name: state.name,
         description: state.description.isNotEmpty ? state.description : null,
         iconUrl: state.iconUrl.isNotEmpty ? state.iconUrl : null,
         status: state.contentStatus,
+        createdAt: now,
+        updatedAt: now,
       );
 
       await _categoriesRepository.create(item: newCategory);
