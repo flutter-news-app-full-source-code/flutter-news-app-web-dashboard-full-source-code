@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
@@ -268,12 +269,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       items: ContentStatus.values.map((status) {
                         return DropdownMenuItem(
                           value: status,
-                          child: Text(
-                            status.name.replaceFirst(
-                              status.name[0],
-                              status.name[0].toUpperCase(),
-                            ),
-                          ),
+                          child: Text(status.l10n(context)),
                         );
                       }).toList(),
                       onChanged: (value) {
