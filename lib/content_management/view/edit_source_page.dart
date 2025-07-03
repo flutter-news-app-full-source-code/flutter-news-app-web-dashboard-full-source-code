@@ -105,18 +105,16 @@ class _EditSourceViewState extends State<_EditSourceView> {
             previous.initialSource != current.initialSource,
         listener: (context, state) {
           if (state.status == EditSourceStatus.success &&
-              state.initialSource != null &&
+              state.updatedSource != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(content: Text(l10n.sourceUpdatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              const LoadSourcesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
-            );
+            context
+                .read<ContentManagementBloc>()
+                .add(SourceUpdated(state.updatedSource!));
             context.pop();
           }
           if (state.status == EditSourceStatus.failure) {
