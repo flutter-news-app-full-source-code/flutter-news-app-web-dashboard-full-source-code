@@ -23,6 +23,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceTypeChanged>(_onSourceTypeChanged);
     on<CreateSourceLanguageChanged>(_onLanguageChanged);
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
+    on<CreateSourceStatusChanged>(_onStatusChanged);
     on<CreateSourceSubmitted>(_onSubmitted);
   }
 
@@ -103,6 +104,18 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(headquarters: () => event.headquarters));
   }
 
+  void _onStatusChanged(
+    CreateSourceStatusChanged event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        contentStatus: event.status,
+        status: CreateSourceStatus.initial,
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
     CreateSourceSubmitted event,
     Emitter<CreateSourceState> emit,
@@ -118,6 +131,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         sourceType: state.sourceType,
         language: state.language.isNotEmpty ? state.language : null,
         headquarters: state.headquarters,
+        status: state.contentStatus,
       );
 
       await _sourcesRepository.create(item: newSource);
