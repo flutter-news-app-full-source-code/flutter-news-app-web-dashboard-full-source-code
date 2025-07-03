@@ -124,18 +124,26 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
+      final now = DateTime.now();
       final newSource = Source(
         name: state.name,
         description: state.description.isNotEmpty ? state.description : null,
         url: state.url.isNotEmpty ? state.url : null,
         sourceType: state.sourceType,
         language: state.language.isNotEmpty ? state.language : null,
+        createdAt: now,
+        updatedAt: now,
         headquarters: state.headquarters,
         status: state.contentStatus,
       );
 
       await _sourcesRepository.create(item: newSource);
-      emit(state.copyWith(status: CreateSourceStatus.success));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.success,
+          createdSource: newSource,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
