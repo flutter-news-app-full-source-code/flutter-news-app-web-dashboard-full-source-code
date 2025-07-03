@@ -75,19 +75,16 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateCategoryStatus.success &&
+              state.createdCategory != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.categoryCreatedSuccessfully),
-                ),
+                SnackBar(content: Text(l10n.categoryCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              const LoadCategoriesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
-            );
+                  CategoryAdded(state.createdCategory!),
+                );
             context.pop();
           }
           if (state.status == CreateCategoryStatus.failure) {
