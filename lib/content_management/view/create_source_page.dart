@@ -211,6 +211,31 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .read<CreateSourceBloc>()
                           .add(CreateSourceHeadquartersChanged(value)),
                     ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<ContentStatus>(
+                      value: state.contentStatus,
+                      decoration: InputDecoration(
+                        labelText: l10n.status,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: ContentStatus.values.map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(
+                            status.name.replaceFirst(
+                              status.name[0],
+                              status.name[0].toUpperCase(),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        context.read<CreateSourceBloc>().add(
+                          CreateSourceStatusChanged(value),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
