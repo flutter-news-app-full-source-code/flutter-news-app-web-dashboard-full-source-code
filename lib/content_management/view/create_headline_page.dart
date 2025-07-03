@@ -85,8 +85,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                 SnackBar(content: Text(l10n.headlineCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  HeadlineAdded(state.createdHeadline!),
-                );
+              HeadlineAdded(state.createdHeadline!),
+            );
             context.pop();
           }
           if (state.status == CreateHeadlineStatus.failure) {

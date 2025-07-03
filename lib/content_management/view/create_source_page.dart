@@ -84,9 +84,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.sourceCreatedSuccessfully)),
               );
-            context
-                .read<ContentManagementBloc>()
-                .add(SourceAdded(state.createdSource!));
+            context.read<ContentManagementBloc>().add(
+              SourceAdded(state.createdSource!),
+            );
             context.pop();
           }
           if (state.status == CreateSourceStatus.failure) {

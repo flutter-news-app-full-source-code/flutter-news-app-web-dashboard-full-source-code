@@ -110,8 +110,8 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                 const SnackBar(content: Text('Category updated successfully.')),
               );
             context.read<ContentManagementBloc>().add(
-                  CategoryUpdated(state.updatedCategory!),
-                );
+              CategoryUpdated(state.updatedCategory!),
+            );
             context.pop();
           }
           if (state.status == EditCategoryStatus.failure) {

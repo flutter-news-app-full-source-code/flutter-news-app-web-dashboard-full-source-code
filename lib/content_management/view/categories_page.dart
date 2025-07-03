@@ -89,7 +89,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
             source: _CategoriesDataSource(
               context: context,
               categories: state.categories,
-              isLoading: state.categoriesStatus == ContentManagementStatus.loading,
+              isLoading:
+                  state.categoriesStatus == ContentManagementStatus.loading,
               hasMore: state.categoriesHasMore,
               l10n: l10n,
             ),
@@ -157,7 +158,10 @@ class _CategoriesDataSource extends DataTableSource {
     return DataRow2(
       onSelectChanged: (selected) {
         if (selected ?? false) {
-          context.goNamed(Routes.editCategoryName, pathParameters: {'id': category.id});
+          context.goNamed(
+            Routes.editCategoryName,
+            pathParameters: {'id': category.id},
+          );
         }
       },
       cells: [
@@ -211,7 +215,9 @@ class _CategoriesDataSource extends DataTableSource {
     if (hasMore) {
       // When loading, we show an extra row for the spinner.
       // Otherwise, we just indicate that there are more rows.
-      return isLoading ? categories.length + 1 : categories.length + kDefaultRowsPerPage;
+      return isLoading
+          ? categories.length + 1
+          : categories.length + kDefaultRowsPerPage;
     }
     return categories.length;
   }

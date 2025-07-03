@@ -112,9 +112,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.sourceUpdatedSuccessfully)),
               );
-            context
-                .read<ContentManagementBloc>()
-                .add(SourceUpdated(state.updatedSource!));
+            context.read<ContentManagementBloc>().add(
+              SourceUpdated(state.updatedSource!),
+            );
             context.pop();
           }
           if (state.status == EditSourceStatus.failure) {

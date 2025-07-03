@@ -116,8 +116,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                 ),
               );
             context.read<ContentManagementBloc>().add(
-                  HeadlineUpdated(state.updatedHeadline!),
-                );
+              HeadlineUpdated(state.updatedHeadline!),
+            );
             context.pop();
           }
           if (state.status == EditHeadlineStatus.failure) {

@@ -96,8 +96,10 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               icon: const Icon(Icons.add),
               tooltip: 'Add New Item', // Consider localizing this tooltip
               onPressed: () {
-                final currentTab =
-                    context.read<ContentManagementBloc>().state.activeTab;
+                final currentTab = context
+                    .read<ContentManagementBloc>()
+                    .state
+                    .activeTab;
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
                     context.goNamed(Routes.createHeadlineName);

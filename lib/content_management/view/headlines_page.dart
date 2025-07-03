@@ -175,8 +175,7 @@ class _HeadlinesDataSource extends DataTableSource {
           Text(
             headline.updatedAt != null
                 // TODO(fulleni): Make date format configurable by admin.
-                ? DateFormat('dd-MM-yyyy')
-                    .format(headline.updatedAt!.toLocal())
+                ? DateFormat('dd-MM-yyyy').format(headline.updatedAt!.toLocal())
                 : l10n.notAvailable,
           ),
         ),

@@ -83,8 +83,8 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                 SnackBar(content: Text(l10n.categoryCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  CategoryAdded(state.createdCategory!),
-                );
+              CategoryAdded(state.createdCategory!),
+            );
             context.pop();
           }
           if (state.status == CreateCategoryStatus.failure) {
@@ -155,9 +155,9 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                       }).toList(),
                       onChanged: (value) {
                         if (value == null) return;
-                        context
-                            .read<CreateCategoryBloc>()
-                            .add(CreateCategoryStatusChanged(value));
+                        context.read<CreateCategoryBloc>().add(
+                          CreateCategoryStatusChanged(value),
+                        );
                       },
                     ),
                   ],

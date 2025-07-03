@@ -93,7 +93,10 @@ class ContentManagementBloc
     }
   }
 
-  void _onHeadlineAdded(HeadlineAdded event, Emitter<ContentManagementState> emit) {
+  void _onHeadlineAdded(
+    HeadlineAdded event,
+    Emitter<ContentManagementState> emit,
+  ) {
     final updatedHeadlines = [event.headline, ...state.headlines];
     emit(
       state.copyWith(
@@ -121,8 +124,9 @@ class ContentManagementBloc
   ) async {
     try {
       await _headlinesRepository.delete(id: event.id);
-      final updatedHeadlines =
-          state.headlines.where((h) => h.id != event.id).toList();
+      final updatedHeadlines = state.headlines
+          .where((h) => h.id != event.id)
+          .toList();
       emit(state.copyWith(headlines: updatedHeadlines));
     } on HtHttpException catch (e) {
       emit(
@@ -197,7 +201,9 @@ class ContentManagementBloc
     Emitter<ContentManagementState> emit,
   ) {
     final updatedCategories = List<Category>.from(state.categories);
-    final index = updatedCategories.indexWhere((c) => c.id == event.category.id);
+    final index = updatedCategories.indexWhere(
+      (c) => c.id == event.category.id,
+    );
     if (index != -1) {
       updatedCategories[index] = event.category;
       emit(state.copyWith(categories: updatedCategories));
@@ -210,8 +216,9 @@ class ContentManagementBloc
   ) async {
     try {
       await _categoriesRepository.delete(id: event.id);
-      final updatedCategories =
-          state.categories.where((c) => c.id != event.id).toList();
+      final updatedCategories = state.categories
+          .where((c) => c.id != event.id)
+          .toList();
       emit(state.copyWith(categories: updatedCategories));
     } on HtHttpException catch (e) {
       emit(
@@ -296,8 +303,9 @@ class ContentManagementBloc
   ) async {
     try {
       await _sourcesRepository.delete(id: event.id);
-      final updatedSources =
-          state.sources.where((s) => s.id != event.id).toList();
+      final updatedSources = state.sources
+          .where((s) => s.id != event.id)
+          .toList();
       emit(state.copyWith(sources: updatedSources));
     } on HtHttpException catch (e) {
       emit(
