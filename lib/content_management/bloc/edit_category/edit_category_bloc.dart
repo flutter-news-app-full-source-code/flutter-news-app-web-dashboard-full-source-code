@@ -135,6 +135,7 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
         description: state.description.isNotEmpty ? state.description : null,
         iconUrl: state.iconUrl.isNotEmpty ? state.iconUrl : null,
         status: state.contentStatus,
+        updatedAt: DateTime.now(),
       );
 
       await _categoriesRepository.update(
