@@ -77,17 +77,16 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateSourceStatus.success &&
+              state.createdSource != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(content: Text(l10n.sourceCreatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              const LoadSourcesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
-            );
+            context
+                .read<ContentManagementBloc>()
+                .add(SourceAdded(state.createdSource!));
             context.pop();
           }
           if (state.status == CreateSourceStatus.failure) {
