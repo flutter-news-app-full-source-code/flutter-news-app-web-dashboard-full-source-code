@@ -17,6 +17,7 @@ class CreateCategoryBloc
     on<CreateCategoryNameChanged>(_onNameChanged);
     on<CreateCategoryDescriptionChanged>(_onDescriptionChanged);
     on<CreateCategoryIconUrlChanged>(_onIconUrlChanged);
+    on<CreateCategoryStatusChanged>(_onStatusChanged);
     on<CreateCategorySubmitted>(_onSubmitted);
   }
 
@@ -58,6 +59,18 @@ class CreateCategoryBloc
     );
   }
 
+  void _onStatusChanged(
+    CreateCategoryStatusChanged event,
+    Emitter<CreateCategoryState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        contentStatus: event.status,
+        status: CreateCategoryStatus.initial,
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
     CreateCategorySubmitted event,
     Emitter<CreateCategoryState> emit,
@@ -70,6 +83,7 @@ class CreateCategoryBloc
         name: state.name,
         description: state.description.isNotEmpty ? state.description : null,
         iconUrl: state.iconUrl.isNotEmpty ? state.iconUrl : null,
+        status: state.contentStatus,
       );
 
       await _categoriesRepository.create(item: newCategory);
