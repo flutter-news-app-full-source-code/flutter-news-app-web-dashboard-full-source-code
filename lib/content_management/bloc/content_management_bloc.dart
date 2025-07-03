@@ -31,16 +31,16 @@ class ContentManagementBloc
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
-    on<CreateHeadlineRequested>(_onCreateHeadlineRequested);
-    on<UpdateHeadlineRequested>(_onUpdateHeadlineRequested);
+    on<HeadlineAdded>(_onHeadlineAdded);
+    on<HeadlineUpdated>(_onHeadlineUpdated);
     on<DeleteHeadlineRequested>(_onDeleteHeadlineRequested);
     on<LoadCategoriesRequested>(_onLoadCategoriesRequested);
-    on<CreateCategoryRequested>(_onCreateCategoryRequested);
-    on<UpdateCategoryRequested>(_onUpdateCategoryRequested);
+    on<CategoryAdded>(_onCategoryAdded);
+    on<CategoryUpdated>(_onCategoryUpdated);
     on<DeleteCategoryRequested>(_onDeleteCategoryRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
-    on<CreateSourceRequested>(_onCreateSourceRequested);
-    on<UpdateSourceRequested>(_onUpdateSourceRequested);
+    on<SourceAdded>(_onSourceAdded);
+    on<SourceUpdated>(_onSourceUpdated);
     on<DeleteSourceRequested>(_onOnDeleteSourceRequested);
   }
 
@@ -93,59 +93,25 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onCreateHeadlineRequested(
-    CreateHeadlineRequested event,
-    Emitter<ContentManagementState> emit,
-  ) async {
-    emit(state.copyWith(headlinesStatus: ContentManagementStatus.loading));
-    try {
-      await _headlinesRepository.create(item: event.headline);
-      // Reload headlines after creation
-      add(
-        const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-      );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
-    }
+  void _onHeadlineAdded(HeadlineAdded event, Emitter<ContentManagementState> emit) {
+    final updatedHeadlines = [event.headline, ...state.headlines];
+    emit(
+      state.copyWith(
+        headlines: updatedHeadlines,
+        headlinesStatus: ContentManagementStatus.success,
+      ),
+    );
   }
 
-  Future<void> _onUpdateHeadlineRequested(
-    UpdateHeadlineRequested event,
+  void _onHeadlineUpdated(
+    HeadlineUpdated event,
     Emitter<ContentManagementState> emit,
-  ) async {
-    emit(state.copyWith(headlinesStatus: ContentManagementStatus.loading));
-    try {
-      await _headlinesRepository.update(id: event.id, item: event.headline);
-      // Reload headlines after update
-      add(
-        const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-      );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
+  ) {
+    final updatedHeadlines = List<Headline>.from(state.headlines);
+    final index = updatedHeadlines.indexWhere((h) => h.id == event.headline.id);
+    if (index != -1) {
+      updatedHeadlines[index] = event.headline;
+      emit(state.copyWith(headlines: updatedHeadlines));
     }
   }
 
@@ -153,13 +119,11 @@ class ContentManagementBloc
     DeleteHeadlineRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    emit(state.copyWith(headlinesStatus: ContentManagementStatus.loading));
     try {
       await _headlinesRepository.delete(id: event.id);
-      // Reload headlines after deletion
-      add(
-        const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-      );
+      final updatedHeadlines =
+          state.headlines.where((h) => h.id != event.id).toList();
+      emit(state.copyWith(headlines: updatedHeadlines));
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -215,59 +179,28 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onCreateCategoryRequested(
-    CreateCategoryRequested event,
+  void _onCategoryAdded(
+    CategoryAdded event,
     Emitter<ContentManagementState> emit,
-  ) async {
-    emit(state.copyWith(categoriesStatus: ContentManagementStatus.loading));
-    try {
-      await _categoriesRepository.create(item: event.category);
-      // Reload categories after creation
-      add(
-        const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
-      );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
-    }
+  ) {
+    final updatedCategories = [event.category, ...state.categories];
+    emit(
+      state.copyWith(
+        categories: updatedCategories,
+        categoriesStatus: ContentManagementStatus.success,
+      ),
+    );
   }
 
-  Future<void> _onUpdateCategoryRequested(
-    UpdateCategoryRequested event,
+  void _onCategoryUpdated(
+    CategoryUpdated event,
     Emitter<ContentManagementState> emit,
-  ) async {
-    emit(state.copyWith(categoriesStatus: ContentManagementStatus.loading));
-    try {
-      await _categoriesRepository.update(id: event.id, item: event.category);
-      // Reload categories after update
-      add(
-        const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
-      );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
+  ) {
+    final updatedCategories = List<Category>.from(state.categories);
+    final index = updatedCategories.indexWhere((c) => c.id == event.category.id);
+    if (index != -1) {
+      updatedCategories[index] = event.category;
+      emit(state.copyWith(categories: updatedCategories));
     }
   }
 
@@ -275,13 +208,11 @@ class ContentManagementBloc
     DeleteCategoryRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    emit(state.copyWith(categoriesStatus: ContentManagementStatus.loading));
     try {
       await _categoriesRepository.delete(id: event.id);
-      // Reload categories after deletion
-      add(
-        const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
-      );
+      final updatedCategories =
+          state.categories.where((c) => c.id != event.id).toList();
+      emit(state.copyWith(categories: updatedCategories));
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
@@ -337,59 +268,25 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onCreateSourceRequested(
-    CreateSourceRequested event,
-    Emitter<ContentManagementState> emit,
-  ) async {
-    emit(state.copyWith(sourcesStatus: ContentManagementStatus.loading));
-    try {
-      await _sourcesRepository.create(item: event.source);
-      // Reload sources after creation
-      add(
-        const LoadSourcesRequested(limit: kDefaultRowsPerPage),
-      );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
-    }
+  void _onSourceAdded(SourceAdded event, Emitter<ContentManagementState> emit) {
+    final updatedSources = [event.source, ...state.sources];
+    emit(
+      state.copyWith(
+        sources: updatedSources,
+        sourcesStatus: ContentManagementStatus.success,
+      ),
+    );
   }
 
-  Future<void> _onUpdateSourceRequested(
-    UpdateSourceRequested event,
+  void _onSourceUpdated(
+    SourceUpdated event,
     Emitter<ContentManagementState> emit,
-  ) async {
-    emit(state.copyWith(sourcesStatus: ContentManagementStatus.loading));
-    try {
-      await _sourcesRepository.update(id: event.id, item: event.source);
-      // Reload sources after update
-      add(
-        const LoadSourcesRequested(limit: kDefaultRowsPerPage),
-      );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
+  ) {
+    final updatedSources = List<Source>.from(state.sources);
+    final index = updatedSources.indexWhere((s) => s.id == event.source.id);
+    if (index != -1) {
+      updatedSources[index] = event.source;
+      emit(state.copyWith(sources: updatedSources));
     }
   }
 
@@ -397,13 +294,11 @@ class ContentManagementBloc
     DeleteSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    emit(state.copyWith(sourcesStatus: ContentManagementStatus.loading));
     try {
       await _sourcesRepository.delete(id: event.id);
-      // Reload sources after deletion
-      add(
-        const LoadSourcesRequested(limit: kDefaultRowsPerPage),
-      );
+      final updatedSources =
+          state.sources.where((s) => s.id != event.id).toList();
+      emit(state.copyWith(sources: updatedSources));
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
