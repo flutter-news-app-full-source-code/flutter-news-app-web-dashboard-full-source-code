@@ -90,7 +90,12 @@ class CreateCategoryBloc
       );
 
       await _categoriesRepository.create(item: newCategory);
-      emit(state.copyWith(status: CreateCategoryStatus.success));
+      emit(
+        state.copyWith(
+          status: CreateCategoryStatus.success,
+          createdCategory: newCategory,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
