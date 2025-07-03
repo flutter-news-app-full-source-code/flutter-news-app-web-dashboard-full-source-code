@@ -273,6 +273,31 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .read<EditHeadlineBloc>()
                           .add(EditHeadlineCategoryChanged(value)),
                     ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<ContentStatus>(
+                      value: state.contentStatus,
+                      decoration: InputDecoration(
+                        labelText: l10n.status,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: ContentStatus.values.map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(
+                            status.name.replaceFirst(
+                              status.name[0],
+                              status.name[0].toUpperCase(),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineStatusChanged(value));
+                      },
+                    ),
                   ],
                 ),
               ),
