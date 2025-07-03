@@ -85,9 +85,9 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                 ),
               );
             context.read<ContentManagementBloc>().add(
-                  const LoadHeadlinesRequested(
-                    limit: kDefaultRowsPerPage,
-                  ),
+              const LoadHeadlinesRequested(
+                limit: kDefaultRowsPerPage,
+              ),
             );
             context.pop();
           }
@@ -213,6 +213,31 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                       onChanged: (value) => context
                           .read<CreateHeadlineBloc>()
                           .add(CreateHeadlineCategoryChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<ContentStatus>(
+                      value: state.contentStatus,
+                      decoration: InputDecoration(
+                        labelText: l10n.status,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: ContentStatus.values.map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(
+                            status.name.replaceFirst(
+                              status.name[0],
+                              status.name[0].toUpperCase(),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        context.read<CreateHeadlineBloc>().add(
+                          CreateHeadlineStatusChanged(value),
+                        );
+                      },
                     ),
                   ],
                 ),
