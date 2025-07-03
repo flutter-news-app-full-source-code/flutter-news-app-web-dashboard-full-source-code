@@ -27,6 +27,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
     on<EditHeadlineCategoryChanged>(_onCategoryChanged);
+    on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
   }
 
@@ -68,6 +69,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           category: () => headline.category,
           sources: sources,
           categories: categories,
+          contentStatus: headline.status,
         ),
       );
     } on HtHttpException catch (e) {
@@ -151,6 +153,18 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     );
   }
 
+  void _onStatusChanged(
+    EditHeadlineStatusChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        contentStatus: event.status,
+        status: EditHeadlineStatus.initial,
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
     EditHeadlineSubmitted event,
     Emitter<EditHeadlineState> emit,
@@ -177,6 +191,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         imageUrl: state.imageUrl.isNotEmpty ? state.imageUrl : null,
         source: state.source,
         category: state.category,
+        status: state.contentStatus,
       );
 
       await _headlinesRepository.update(id: _headlineId, item: updatedHeadline);

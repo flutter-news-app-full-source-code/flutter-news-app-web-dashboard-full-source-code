@@ -19,6 +19,7 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
     on<EditCategoryNameChanged>(_onNameChanged);
     on<EditCategoryDescriptionChanged>(_onDescriptionChanged);
     on<EditCategoryIconUrlChanged>(_onIconUrlChanged);
+    on<EditCategoryStatusChanged>(_onStatusChanged);
     on<EditCategorySubmitted>(_onSubmitted);
   }
 
@@ -39,6 +40,7 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
           name: category.name,
           description: category.description ?? '',
           iconUrl: category.iconUrl ?? '',
+          contentStatus: category.status,
         ),
       );
     } on HtHttpException catch (e) {
@@ -95,6 +97,18 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
     );
   }
 
+  void _onStatusChanged(
+    EditCategoryStatusChanged event,
+    Emitter<EditCategoryState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        contentStatus: event.status,
+        status: EditCategoryStatus.initial,
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
     EditCategorySubmitted event,
     Emitter<EditCategoryState> emit,
@@ -120,6 +134,7 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
         name: state.name,
         description: state.description.isNotEmpty ? state.description : null,
         iconUrl: state.iconUrl.isNotEmpty ? state.iconUrl : null,
+        status: state.contentStatus,
       );
 
       await _categoriesRepository.update(

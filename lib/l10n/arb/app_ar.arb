@@ -815,5 +815,15 @@
   "sourceCreatedSuccessfully": "تم إنشاء المصدر بنجاح.",
   "@sourceCreatedSuccessfully": {
     "description": "رسالة تُعرض عند إنشاء المصدر بنجاح"
-  }
+  },
+  "status": "الحالة",
+  "@status": {},
+  "lastUpdated": "آخر تحديث",
+  "@lastUpdated": {},
+  "contentStatusActive": "نشط",
+  "@contentStatusActive": {},
+  "contentStatusArchived": "مؤرشف",
+  "@contentStatusArchived": {},
+  "contentStatusDraft": "مسودة",
+  "@contentStatusDraft": {}
 }

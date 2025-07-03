@@ -28,6 +28,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceTypeChanged>(_onSourceTypeChanged);
     on<EditSourceLanguageChanged>(_onLanguageChanged);
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
+    on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
   }
 
@@ -57,6 +58,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           sourceType: () => source.sourceType,
           language: source.language ?? '',
           headquarters: () => source.headquarters,
+          contentStatus: source.status,
           countries: countries,
         ),
       );
@@ -139,6 +141,18 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     );
   }
 
+  void _onStatusChanged(
+    EditSourceStatusChanged event,
+    Emitter<EditSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        contentStatus: event.status,
+        status: EditSourceStatus.initial,
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
     EditSourceSubmitted event,
     Emitter<EditSourceState> emit,
@@ -165,6 +179,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         sourceType: state.sourceType,
         language: state.language.isNotEmpty ? state.language : null,
         headquarters: state.headquarters,
+        status: state.contentStatus,
       );
 
       await _sourcesRepository.update(id: _sourceId, item: updatedSource);

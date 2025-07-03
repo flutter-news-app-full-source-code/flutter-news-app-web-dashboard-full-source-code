@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
@@ -74,12 +76,17 @@ class _SourcesPageState extends State<SourcesPage> {
                 size: ColumnSize.M,
               ),
               DataColumn2(
-                label: Text(l10n.language),
+                label: Text(l10n.status),
                 size: ColumnSize.S,
+              ),
+              DataColumn2(
+                label: Text(l10n.lastUpdated),
+                size: ColumnSize.M,
               ),
               DataColumn2(
                 label: Text(l10n.actions),
                 size: ColumnSize.S,
+                fixedWidth: 120,
               ),
             ],
             source: _SourcesDataSource(
@@ -141,20 +148,30 @@ class _SourcesDataSource extends DataTableSource {
       // If we are loading, show a spinner. Otherwise, we've reached the end.
       if (isLoading) {
         return DataRow2(
-          cells: List.generate(
-            4,
-            (_) => const DataCell(Center(child: CircularProgressIndicator())),
-          ),
+          cells: List.generate(5, (_) {
+            return const DataCell(Center(child: CircularProgressIndicator()));
+          }),
         );
       }
       return null;
     }
     final source = sources[index];
     return DataRow2(
+      onSelectChanged: (selected) {
+        if (selected ?? false) {
+          context.goNamed(
+            Routes.editSourceName,
+            pathParameters: {'id': source.id},
+          );
+        }
+      },
       cells: [
         DataCell(Text(source.name)),
-        DataCell(Text(source.sourceType?.name ?? l10n.unknown)),
-        DataCell(Text(source.language ?? l10n.unknown)),
+        DataCell(Text(source.sourceType?.localizedName(l10n) ?? l10n.unknown)),
+        DataCell(Text(source.status.l10n(context))),
+        DataCell(
+          Text(source.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
+        ),
         DataCell(
           Row(
             children: [

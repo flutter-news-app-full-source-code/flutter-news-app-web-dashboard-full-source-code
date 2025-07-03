@@ -20,7 +20,7 @@ final class EditSourceNameChanged extends EditSourceEvent {
   final String name;
 
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 
 /// Event triggered when the source description input changes.
@@ -30,7 +30,7 @@ final class EditSourceDescriptionChanged extends EditSourceEvent {
   final String description;
 
   @override
-  List<Object> get props => [description];
+  List<Object?> get props => [description];
 }
 
 /// Event triggered when the source URL input changes.
@@ -40,7 +40,7 @@ final class EditSourceUrlChanged extends EditSourceEvent {
   final String url;
 
   @override
-  List<Object> get props => [url];
+  List<Object?> get props => [url];
 }
 
 /// Event triggered when the source type input changes.
@@ -60,7 +60,7 @@ final class EditSourceLanguageChanged extends EditSourceEvent {
   final String language;
 
   @override
-  List<Object> get props => [language];
+  List<Object?> get props => [language];
 }
 
 /// Event triggered when the source headquarters input changes.
@@ -71,6 +71,16 @@ final class EditSourceHeadquartersChanged extends EditSourceEvent {
 
   @override
   List<Object?> get props => [headquarters];
+}
+
+/// Event for when the source's status is changed.
+final class EditSourceStatusChanged extends EditSourceEvent {
+  const EditSourceStatusChanged(this.status);
+
+  final ContentStatus status;
+
+  @override
+  List<Object?> get props => [status];
 }
 
 /// Event to submit the edited source data.

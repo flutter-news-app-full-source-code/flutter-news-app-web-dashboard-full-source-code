@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
@@ -112,9 +113,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                 SnackBar(content: Text(l10n.sourceUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  const LoadSourcesRequested(
-                    limit: kDefaultRowsPerPage,
-                  ),
+              const LoadSourcesRequested(
+                limit: kDefaultRowsPerPage,
+              ),
             );
             context.pop();
           }
@@ -257,6 +258,26 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       onChanged: (value) => context.read<EditSourceBloc>().add(
                         EditSourceHeadquartersChanged(value),
                       ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<ContentStatus>(
+                      value: state.contentStatus,
+                      decoration: InputDecoration(
+                        labelText: l10n.status,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: ContentStatus.values.map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(status.l10n(context)),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        context.read<EditSourceBloc>().add(
+                          EditSourceStatusChanged(value),
+                        );
+                      },
                     ),
                   ],
                 ),

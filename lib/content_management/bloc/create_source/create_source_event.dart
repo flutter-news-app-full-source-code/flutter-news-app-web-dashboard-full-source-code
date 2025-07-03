@@ -18,7 +18,7 @@ final class CreateSourceNameChanged extends CreateSourceEvent {
   const CreateSourceNameChanged(this.name);
   final String name;
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 
 /// Event for when the source's description is changed.
@@ -26,7 +26,7 @@ final class CreateSourceDescriptionChanged extends CreateSourceEvent {
   const CreateSourceDescriptionChanged(this.description);
   final String description;
   @override
-  List<Object> get props => [description];
+  List<Object?> get props => [description];
 }
 
 /// Event for when the source's URL is changed.
@@ -34,7 +34,7 @@ final class CreateSourceUrlChanged extends CreateSourceEvent {
   const CreateSourceUrlChanged(this.url);
   final String url;
   @override
-  List<Object> get props => [url];
+  List<Object?> get props => [url];
 }
 
 /// Event for when the source's type is changed.
@@ -50,7 +50,7 @@ final class CreateSourceLanguageChanged extends CreateSourceEvent {
   const CreateSourceLanguageChanged(this.language);
   final String language;
   @override
-  List<Object> get props => [language];
+  List<Object?> get props => [language];
 }
 
 /// Event for when the source's headquarters is changed.
@@ -59,6 +59,16 @@ final class CreateSourceHeadquartersChanged extends CreateSourceEvent {
   final Country? headquarters;
   @override
   List<Object?> get props => [headquarters];
+}
+
+/// Event for when the source's status is changed.
+final class CreateSourceStatusChanged extends CreateSourceEvent {
+  const CreateSourceStatusChanged(this.status);
+
+  final ContentStatus status;
+
+  @override
+  List<Object?> get props => [status];
 }
 
 /// Event to signal that the form should be submitted.

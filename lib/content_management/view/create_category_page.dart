@@ -5,6 +5,7 @@ import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dar
 import 'package:ht_dashboard/content_management/bloc/create_category/create_category_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -83,9 +84,9 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                 ),
               );
             context.read<ContentManagementBloc>().add(
-                  const LoadCategoriesRequested(
-                    limit: kDefaultRowsPerPage,
-                  ),
+              const LoadCategoriesRequested(
+                limit: kDefaultRowsPerPage,
+              ),
             );
             context.pop();
           }
@@ -141,6 +142,26 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                       onChanged: (value) => context
                           .read<CreateCategoryBloc>()
                           .add(CreateCategoryIconUrlChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<ContentStatus>(
+                      value: state.contentStatus,
+                      decoration: InputDecoration(
+                        labelText: l10n.status,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: ContentStatus.values.map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(status.l10n(context)),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        context
+                            .read<CreateCategoryBloc>()
+                            .add(CreateCategoryStatusChanged(value));
+                      },
                     ),
                   ],
                 ),

@@ -671,4 +671,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sourceCreatedSuccessfully => 'تم إنشاء المصدر بنجاح.';
+
+  @override
+  String get status => 'الحالة';
+
+  @override
+  String get lastUpdated => 'آخر تحديث';
+
+  @override
+  String get contentStatusActive => 'نشط';
+
+  @override
+  String get contentStatusArchived => 'مؤرشف';
+
+  @override
+  String get contentStatusDraft => 'مسودة';
 }

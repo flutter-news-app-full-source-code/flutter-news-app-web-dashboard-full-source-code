@@ -26,6 +26,7 @@ final class EditCategoryState extends Equatable {
     this.name = '',
     this.description = '',
     this.iconUrl = '',
+    this.contentStatus = ContentStatus.active,
     this.errorMessage,
   });
 
@@ -34,6 +35,7 @@ final class EditCategoryState extends Equatable {
   final String name;
   final String description;
   final String iconUrl;
+  final ContentStatus contentStatus;
   final String? errorMessage;
 
   /// Returns true if the form is valid and can be submitted.
@@ -45,6 +47,7 @@ final class EditCategoryState extends Equatable {
     String? name,
     String? description,
     String? iconUrl,
+    ContentStatus? contentStatus,
     String? errorMessage,
   }) {
     return EditCategoryState(
@@ -53,12 +56,19 @@ final class EditCategoryState extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
+      contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [status, initialCategory, name, description, iconUrl, errorMessage];
+  List<Object?> get props => [
+        status,
+        initialCategory,
+        name,
+        description,
+        iconUrl,
+        contentStatus,
+        errorMessage,
+      ];
 }
-
