@@ -9,14 +9,11 @@ extension ContentStatusL10n on ContentStatus {
     final l10n = context.l10n;
     switch (this) {
       case ContentStatus.active:
-        // TODO(l10n): Add translation for contentStatusActive
-        return 'Active';
+        return l10n.contentStatusActive;
       case ContentStatus.archived:
-        // TODO(l10n): Add translation for contentStatusArchived
-        return 'Archived';
+        return l10n.contentStatusArchived;
       case ContentStatus.draft:
-        // TODO(l10n): Add translation for contentStatusDraft
-        return 'Draft';
+        return l10n.contentStatusDraft;
     }
   }
 }

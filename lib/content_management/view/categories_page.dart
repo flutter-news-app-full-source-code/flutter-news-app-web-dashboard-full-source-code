@@ -8,6 +8,7 @@ import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
 import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
 import 'package:ht_shared/ht_shared.dart';
