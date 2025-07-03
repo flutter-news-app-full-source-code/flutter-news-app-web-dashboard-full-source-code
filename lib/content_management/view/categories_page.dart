@@ -70,12 +70,17 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 size: ColumnSize.L,
               ),
               DataColumn2(
-                label: Text(l10n.description),
+                label: Text(l10n.status),
+                size: ColumnSize.S,
+              ),
+              DataColumn2(
+                label: Text(l10n.lastUpdated),
                 size: ColumnSize.M,
               ),
               DataColumn2(
                 label: Text(l10n.actions),
                 size: ColumnSize.S,
+                fixedWidth: 120,
               ),
             ],
             source: _CategoriesDataSource(
@@ -137,16 +142,25 @@ class _CategoriesDataSource extends DataTableSource {
       // If we are loading, show a spinner. Otherwise, we've reached the end.
       if (isLoading) {
         return DataRow2(
-          cells: List.generate(3, (_) => const DataCell(Center(child: CircularProgressIndicator()))),
+          cells: List.generate(
+            4,
+            (_) => const DataCell(Center(child: CircularProgressIndicator())),
+          ),
         );
       }
       return null;
     }
     final category = categories[index];
     return DataRow2(
+      onSelectChanged: (selected) {
+        if (selected ?? false) {
+          context.goNamed(Routes.editCategoryName, pathParameters: {'id': category.id});
+        }
+      },
       cells: [
         DataCell(Text(category.name)),
-        DataCell(Text(category.description ?? l10n.notAvailable)),
+        DataCell(Text(category.status.l10n(context))),
+        DataCell(Text(category.updatedAt?.toLocal().toString() ?? l10n.notAvailable)),
         DataCell(
           Row(
             children: [
