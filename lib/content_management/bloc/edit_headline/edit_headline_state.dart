@@ -33,6 +33,8 @@ final class EditHeadlineState extends Equatable {
     this.categories = const [],
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
+        this.updatedHeadline,
+
   });
 
   final EditHeadlineStatus status;
