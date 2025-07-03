@@ -109,9 +109,9 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                 const SnackBar(content: Text('Category updated successfully.')),
               );
             context.read<ContentManagementBloc>().add(
-                  const LoadCategoriesRequested(
-                    limit: kDefaultRowsPerPage,
-                  ),
+              const LoadCategoriesRequested(
+                limit: kDefaultRowsPerPage,
+              ),
             );
             context.pop();
           }
@@ -191,6 +191,31 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                       onChanged: (value) => context
                           .read<EditCategoryBloc>()
                           .add(EditCategoryIconUrlChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<ContentStatus>(
+                      value: state.contentStatus,
+                      decoration: InputDecoration(
+                        labelText: l10n.status,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: ContentStatus.values.map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(
+                            status.name.replaceFirst(
+                              status.name[0],
+                              status.name[0].toUpperCase(),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        context.read<EditCategoryBloc>().add(
+                          EditCategoryStatusChanged(value),
+                        );
+                      },
                     ),
                   ],
                 ),
