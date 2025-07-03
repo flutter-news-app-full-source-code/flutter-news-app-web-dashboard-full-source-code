@@ -142,7 +142,12 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
         id: _categoryId,
         item: updatedCategory,
       );
-      emit(state.copyWith(status: EditCategoryStatus.success));
+      emit(
+        state.copyWith(
+          status: EditCategoryStatus.success,
+          updatedCategory: updatedCategory,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
