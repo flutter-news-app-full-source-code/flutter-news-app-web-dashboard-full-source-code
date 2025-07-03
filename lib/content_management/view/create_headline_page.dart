@@ -77,19 +77,16 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateHeadlineStatus.success &&
+              state.createdHeadline != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.headlineCreatedSuccessfully),
-                ),
+                SnackBar(content: Text(l10n.headlineCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              const LoadHeadlinesRequested(
-                limit: kDefaultRowsPerPage,
-              ),
-            );
+                  HeadlineAdded(state.createdHeadline!),
+                );
             context.pop();
           }
           if (state.status == CreateHeadlineStatus.failure) {
