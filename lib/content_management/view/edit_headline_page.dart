@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
@@ -283,19 +284,14 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       items: ContentStatus.values.map((status) {
                         return DropdownMenuItem(
                           value: status,
-                          child: Text(
-                            status.name.replaceFirst(
-                              status.name[0],
-                              status.name[0].toUpperCase(),
-                            ),
-                          ),
+                          child: Text(status.l10n(context)),
                         );
                       }).toList(),
                       onChanged: (value) {
                         if (value == null) return;
-                        context
-                            .read<EditHeadlineBloc>()
-                            .add(EditHeadlineStatusChanged(value));
+                        context.read<EditHeadlineBloc>().add(
+                          EditHeadlineStatusChanged(value),
+                        );
                       },
                     ),
                   ],
