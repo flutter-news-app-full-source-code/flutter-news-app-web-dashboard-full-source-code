@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
@@ -170,7 +171,12 @@ class _SourcesDataSource extends DataTableSource {
         DataCell(Text(source.sourceType?.localizedName(l10n) ?? l10n.unknown)),
         DataCell(Text(source.status.l10n(context))),
         DataCell(
-          Text(source.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
+          Text(
+            source.updatedAt != null
+                // TODO(fulleni): Make date format configurable by admin.
+                ? DateFormat('dd-MM-yyyy').format(source.updatedAt!.toLocal())
+                : l10n.notAvailable,
+          ),
         ),
         DataCell(
           Row(
