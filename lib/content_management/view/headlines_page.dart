@@ -6,12 +6,12 @@ import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dar
 import 'package:ht_dashboard/l10n/app_localizations.dart'; // Corrected import
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/utils/date_formatter.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
 import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 
 /// {@template headlines_page}
 /// A page for displaying and managing Headlines in a tabular format.
@@ -75,18 +75,24 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                 size: ColumnSize.M,
               ),
               DataColumn2(
-                label: Text(l10n.publishedAt),
+                label: Text(l10n.status),
                 size: ColumnSize.S,
+              ),
+              DataColumn2(
+                label: Text(l10n.lastUpdated),
+                size: ColumnSize.M,
               ),
               DataColumn2(
                 label: Text(l10n.actions),
                 size: ColumnSize.S,
+                fixedWidth: 120,
               ),
             ],
             source: _HeadlinesDataSource(
               context: context,
               headlines: state.headlines,
-              isLoading: state.headlinesStatus == ContentManagementStatus.loading,
+              isLoading:
+                  state.headlinesStatus == ContentManagementStatus.loading,
               hasMore: state.headlinesHasMore,
               l10n: l10n,
             ),
@@ -142,22 +148,37 @@ class _HeadlinesDataSource extends DataTableSource {
       // If we are loading, show a spinner. Otherwise, we've reached the end.
       if (isLoading) {
         return DataRow2(
-          cells: List.generate(4, (_) => const DataCell(Center(child: CircularProgressIndicator()))),
+          cells: List.generate(
+            5,
+            (_) => const DataCell(Center(child: CircularProgressIndicator())),
+          ),
         );
       }
       return null;
     }
     final headline = headlines[index];
     return DataRow2(
+      onSelectChanged: (selected) {
+        if (selected ?? false) {
+          context.goNamed(
+            Routes.editHeadlineName,
+            pathParameters: {'id': headline.id},
+          );
+        }
+      },
       cells: [
         DataCell(Text(headline.title)),
         DataCell(Text(headline.source?.name ?? l10n.unknown)),
         DataCell(
           Text(
-            headline.publishedAt != null
-                ? DateFormatter.formatDate(headline.publishedAt!)
-                : l10n.unknown,
+            headline.status.name.replaceFirst(
+              headline.status.name[0],
+              headline.status.name[0].toUpperCase(),
+            ),
           ),
+        ),
+        DataCell(
+          Text(headline.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
         ),
         DataCell(
           Row(
@@ -199,7 +220,9 @@ class _HeadlinesDataSource extends DataTableSource {
     if (hasMore) {
       // When loading, we show an extra row for the spinner.
       // Otherwise, we just indicate that there are more rows.
-      return isLoading ? headlines.length + 1 : headlines.length + kDefaultRowsPerPage;
+      return isLoading
+          ? headlines.length + 1
+          : headlines.length + kDefaultRowsPerPage;
     }
     return headlines.length;
   }
