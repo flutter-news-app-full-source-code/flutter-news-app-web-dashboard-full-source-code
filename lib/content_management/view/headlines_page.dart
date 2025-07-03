@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart'; // Corrected import
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
@@ -171,7 +172,13 @@ class _HeadlinesDataSource extends DataTableSource {
         DataCell(Text(headline.source?.name ?? l10n.unknown)),
         DataCell(Text(headline.status.l10n(context))),
         DataCell(
-          Text(headline.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
+          Text(
+            headline.updatedAt != null
+                // TODO(fulleni): Make date format configurable by admin.
+                ? DateFormat('dd-MM-yyyy')
+                    .format(headline.updatedAt!.toLocal())
+                : l10n.notAvailable,
+          ),
         ),
         DataCell(
           Row(
