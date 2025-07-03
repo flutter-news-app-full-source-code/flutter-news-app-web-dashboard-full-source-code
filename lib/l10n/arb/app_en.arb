@@ -815,5 +815,15 @@
   "sourceCreatedSuccessfully": "Source created successfully.",
   "@sourceCreatedSuccessfully": {
     "description": "Message displayed when a source is created successfully"
-  }
+  },
+  "status": "Status",
+  "@status": {},
+  "lastUpdated": "Last Updated",
+  "@lastUpdated": {},
+  "contentStatusActive": "Active",
+  "@contentStatusActive": {},
+  "contentStatusArchived": "Archived",
+  "@contentStatusArchived": {},
+  "contentStatusDraft": "Draft",
+  "@contentStatusDraft": {}
 }

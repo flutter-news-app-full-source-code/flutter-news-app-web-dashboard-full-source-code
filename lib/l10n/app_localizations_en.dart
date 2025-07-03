@@ -669,4 +669,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceCreatedSuccessfully => 'Source created successfully.';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get lastUpdated => 'Last Updated';
+
+  @override
+  String get contentStatusActive => 'Active';
+
+  @override
+  String get contentStatusArchived => 'Archived';
+
+  @override
+  String get contentStatusDraft => 'Draft';
 }

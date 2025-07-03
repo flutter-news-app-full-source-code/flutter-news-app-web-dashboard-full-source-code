@@ -1285,6 +1285,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Source created successfully.'**
   String get sourceCreatedSuccessfully;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @lastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated'**
+  String get lastUpdated;
+
+  /// No description provided for @contentStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get contentStatusActive;
+
+  /// No description provided for @contentStatusArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get contentStatusArchived;
+
+  /// No description provided for @contentStatusDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get contentStatusDraft;
 }
 
 class _AppLocalizationsDelegate
