@@ -3,9 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_http_client/ht_http_client.dart';
 import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';

@@ -37,7 +37,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(status: CreateSourceStatus.loading));
     try {
       final countriesResponse = await _countriesRepository.readAll();
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
+      final countries = countriesResponse.items;
 
       emit(
         state.copyWith(
