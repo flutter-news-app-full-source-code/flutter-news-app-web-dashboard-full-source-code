@@ -180,10 +180,16 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         language: state.language.isNotEmpty ? state.language : null,
         headquarters: state.headquarters,
         status: state.contentStatus,
+        updatedAt: DateTime.now(),
       );
 
       await _sourcesRepository.update(id: _sourceId, item: updatedSource);
-      emit(state.copyWith(status: EditSourceStatus.success));
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.success,
+          updatedSource: updatedSource,
+        ),
+      );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
