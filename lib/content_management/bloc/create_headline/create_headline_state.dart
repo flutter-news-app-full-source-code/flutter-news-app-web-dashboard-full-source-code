@@ -30,6 +30,7 @@ final class CreateHeadlineState extends Equatable {
     this.category,
     this.sources = const [],
     this.categories = const [],
+    this.contentStatus = ContentStatus.active,
     this.errorMessage,
   });
 
@@ -42,6 +43,7 @@ final class CreateHeadlineState extends Equatable {
   final Category? category;
   final List<Source> sources;
   final List<Category> categories;
+  final ContentStatus contentStatus;
   final String? errorMessage;
 
   /// Returns true if the form is valid and can be submitted.
@@ -57,6 +59,7 @@ final class CreateHeadlineState extends Equatable {
     ValueGetter<Category?>? category,
     List<Source>? sources,
     List<Category>? categories,
+    ContentStatus? contentStatus,
     String? errorMessage,
   }) {
     return CreateHeadlineState(
@@ -69,22 +72,23 @@ final class CreateHeadlineState extends Equatable {
       category: category != null ? category() : this.category,
       sources: sources ?? this.sources,
       categories: categories ?? this.categories,
+      contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
-        title,
-        description,
-        url,
-        imageUrl,
-        source,
-        category,
-        sources,
-        categories,
-        errorMessage,
-      ];
+    status,
+    title,
+    description,
+    url,
+    imageUrl,
+    source,
+    category,
+    sources,
+    categories,
+    contentStatus,
+    errorMessage,
+  ];
 }
-
