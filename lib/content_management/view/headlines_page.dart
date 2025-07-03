@@ -7,7 +7,7 @@ import 'package:ht_dashboard/l10n/app_localizations.dart'; // Corrected import
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
-import 'package:ht_dashboard/shared/utils/date_formatter.dart';
+import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
 import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
 import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -169,14 +169,7 @@ class _HeadlinesDataSource extends DataTableSource {
       cells: [
         DataCell(Text(headline.title)),
         DataCell(Text(headline.source?.name ?? l10n.unknown)),
-        DataCell(
-          Text(
-            headline.status.name.replaceFirst(
-              headline.status.name[0],
-              headline.status.name[0].toUpperCase(),
-            ),
-          ),
-        ),
+        DataCell(Text(headline.status.l10n(context))),
         DataCell(
           Text(headline.updatedAt?.toLocal().toString() ?? l10n.notAvailable),
         ),
