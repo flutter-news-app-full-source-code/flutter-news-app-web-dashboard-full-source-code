@@ -684,4 +684,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentStatusDraft => 'Draft';
+
+  @override
+  String get totalHeadlines => 'Total Headlines';
+
+  @override
+  String get totalCategories => 'Total Categories';
+
+  @override
+  String get totalSources => 'Total Sources';
+
+  @override
+  String get loadingDashboard => 'Loading Dashboard';
+
+  @override
+  String get loadingDashboardSubheadline => 'Fetching latest statistics...';
+
+  @override
+  String get dashboardLoadFailure => 'Failed to load dashboard data.';
+
+  @override
+  String get recentHeadlines => 'Recent Headlines';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get noRecentHeadlines => 'No recent headlines to display.';
+
+  @override
+  String get systemStatus => 'System Status';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get createHeadlineAction => 'Create Headline';
+
+  @override
+  String get manageContentAction => 'Manage Content';
+
+  @override
+  String get appConfigAction => 'App Configuration';
+
+  @override
+  String get appStatusActive => 'Active';
+
+  @override
+  String get appStatusMaintenance => 'Maintenance';
+
+  @override
+  String get appStatusDisabled => 'Disabled';
 }

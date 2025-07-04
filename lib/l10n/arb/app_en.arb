@@ -825,5 +825,73 @@
   "contentStatusArchived": "Archived",
   "@contentStatusArchived": {},
   "contentStatusDraft": "Draft",
-  "@contentStatusDraft": {}
+  "@contentStatusDraft": {},
+  "totalHeadlines": "Total Headlines",
+  "@totalHeadlines": {
+    "description": "Label for the total headlines summary card on the dashboard"
+  },
+  "totalCategories": "Total Categories",
+  "@totalCategories": {
+    "description": "Label for the total categories summary card on the dashboard"
+  },
+  "totalSources": "Total Sources",
+  "@totalSources": {
+    "description": "Label for the total sources summary card on the dashboard"
+  },
+  "loadingDashboard": "Loading Dashboard",
+  "@loadingDashboard": {
+    "description": "Headline for the dashboard loading state"
+  },
+  "loadingDashboardSubheadline": "Fetching latest statistics...",
+  "@loadingDashboardSubheadline": {
+    "description": "Subheadline for the dashboard loading state"
+  },
+  "dashboardLoadFailure": "Failed to load dashboard data.",
+  "@dashboardLoadFailure": {
+    "description": "Error message when dashboard data fails to load"
+  },
+  "recentHeadlines": "Recent Headlines",
+  "@recentHeadlines": {
+    "description": "Title for the recent headlines card on the dashboard"
+  },
+  "viewAll": "View All",
+  "@viewAll": {
+    "description": "Button text to view all items in a list"
+  },
+  "noRecentHeadlines": "No recent headlines to display.",
+  "@noRecentHeadlines": {
+    "description": "Message shown when there are no recent headlines"
+  },
+  "systemStatus": "System Status",
+  "@systemStatus": {
+    "description": "Title for the system status card on the dashboard"
+  },
+  "quickActions": "Quick Actions",
+  "@quickActions": {
+    "description": "Title for the quick actions card on the dashboard"
+  },
+  "createHeadlineAction": "Create Headline",
+  "@createHeadlineAction": {
+    "description": "Button text for the create headline quick action"
+  },
+  "manageContentAction": "Manage Content",
+  "@manageContentAction": {
+    "description": "Button text for the manage content quick action"
+  },
+  "appConfigAction": "App Configuration",
+  "@appConfigAction": {
+    "description": "Button text for the app configuration quick action"
+  },
+  "appStatusActive": "Active",
+  "@appStatusActive": {
+    "description": "Text for the 'Active' app status"
+  },
+  "appStatusMaintenance": "Maintenance",
+  "@appStatusMaintenance": {
+    "description": "Text for the 'Maintenance' app status"
+  },
+  "appStatusDisabled": "Disabled",
+  "@appStatusDisabled": {
+    "description": "Text for the 'Disabled' app status"
+  }
 }

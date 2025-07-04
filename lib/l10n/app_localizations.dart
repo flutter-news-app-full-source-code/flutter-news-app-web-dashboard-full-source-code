@@ -1315,6 +1315,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Draft'**
   String get contentStatusDraft;
+
+  /// Label for the total headlines summary card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Total Headlines'**
+  String get totalHeadlines;
+
+  /// Label for the total categories summary card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Total Categories'**
+  String get totalCategories;
+
+  /// Label for the total sources summary card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sources'**
+  String get totalSources;
+
+  /// Headline for the dashboard loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Dashboard'**
+  String get loadingDashboard;
+
+  /// Subheadline for the dashboard loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Fetching latest statistics...'**
+  String get loadingDashboardSubheadline;
+
+  /// Error message when dashboard data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load dashboard data.'**
+  String get dashboardLoadFailure;
+
+  /// Title for the recent headlines card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Headlines'**
+  String get recentHeadlines;
+
+  /// Button text to view all items in a list
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// Message shown when there are no recent headlines
+  ///
+  /// In en, this message translates to:
+  /// **'No recent headlines to display.'**
+  String get noRecentHeadlines;
+
+  /// Title for the system status card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'System Status'**
+  String get systemStatus;
+
+  /// Title for the quick actions card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// Button text for the create headline quick action
+  ///
+  /// In en, this message translates to:
+  /// **'Create Headline'**
+  String get createHeadlineAction;
+
+  /// Button text for the manage content quick action
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Content'**
+  String get manageContentAction;
+
+  /// Button text for the app configuration quick action
+  ///
+  /// In en, this message translates to:
+  /// **'App Configuration'**
+  String get appConfigAction;
+
+  /// Text for the 'Active' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get appStatusActive;
+
+  /// Text for the 'Maintenance' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get appStatusMaintenance;
+
+  /// Text for the 'Disabled' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get appStatusDisabled;
 }
 
 class _AppLocalizationsDelegate

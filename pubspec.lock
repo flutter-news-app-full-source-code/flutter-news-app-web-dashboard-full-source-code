@@ -241,7 +241,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d64d8b8cf24f9b4bc5ad639b9c6b968807cf5d93
+      resolved-ref: b3073b812b4d5216f0ce5658be1be52e193083bb
       url: "https://github.com/headlines-toolkit/ht-data-api.git"
     source: git
     version: "0.0.0"
@@ -250,7 +250,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2b9c82fc5d3aff78e1e6f51b844927508bc06e48"
+      resolved-ref: "0077622bbd5c8886a4d7bfdf65540e6965564ad1"
       url: "https://github.com/headlines-toolkit/ht-data-client.git"
     source: git
     version: "0.0.0"
@@ -259,7 +259,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3353842a1f1be1ab2563f2ba236daf49dd19a85e"
+      resolved-ref: "948d8a237c9465b8fd9d3ab78bcea10841dc9a90"
       url: "https://github.com/headlines-toolkit/ht-data-inmemory.git"
     source: git
     version: "0.0.0"
@@ -268,7 +268,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2f1b1e81ff91eeae636f822edbb9088a28fd4906"
+      resolved-ref: "434c7a02cc85b7243a9a2f1bd662557ee19c3479"
       url: "https://github.com/headlines-toolkit/ht-data-repository.git"
     source: git
     version: "0.0.0"
@@ -304,7 +304,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9e771623f5745113d346fd4bfdb1abccf7e75049"
+      resolved-ref: b3a339a2957b35a2bb7baf249e89ef9ca296eb3e
       url: "https://github.com/headlines-toolkit/ht-shared.git"
     source: git
     version: "0.0.0"

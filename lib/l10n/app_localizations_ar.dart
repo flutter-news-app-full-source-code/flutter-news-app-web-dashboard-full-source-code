@@ -686,4 +686,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentStatusDraft => 'مسودة';
+
+  @override
+  String get totalHeadlines => 'إجمالي العناوين';
+
+  @override
+  String get totalCategories => 'إجمالي الفئات';
+
+  @override
+  String get totalSources => 'إجمالي المصادر';
+
+  @override
+  String get loadingDashboard => 'جاري تحميل لوحة القيادة';
+
+  @override
+  String get loadingDashboardSubheadline => 'جاري جلب أحدث الإحصائيات...';
+
+  @override
+  String get dashboardLoadFailure => 'فشل تحميل بيانات لوحة القيادة.';
+
+  @override
+  String get recentHeadlines => 'أحدث العناوين';
+
+  @override
+  String get viewAll => 'عرض الكل';
+
+  @override
+  String get noRecentHeadlines => 'لا توجد عناوين حديثة لعرضها.';
+
+  @override
+  String get systemStatus => 'حالة النظام';
+
+  @override
+  String get quickActions => 'إجراءات سريعة';
+
+  @override
+  String get createHeadlineAction => 'إنشاء عنوان';
+
+  @override
+  String get manageContentAction => 'إدارة المحتوى';
+
+  @override
+  String get appConfigAction => 'إعدادات التطبيق';
+
+  @override
+  String get appStatusActive => 'نشط';
+
+  @override
+  String get appStatusMaintenance => 'صيانة';
+
+  @override
+  String get appStatusDisabled => 'معطل';
 }
