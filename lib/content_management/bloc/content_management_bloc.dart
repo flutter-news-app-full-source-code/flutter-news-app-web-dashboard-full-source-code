@@ -30,15 +30,12 @@ class ContentManagementBloc
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
-    on<HeadlineAdded>(_onHeadlineAdded);
     on<HeadlineUpdated>(_onHeadlineUpdated);
     on<DeleteHeadlineRequested>(_onDeleteHeadlineRequested);
     on<LoadCategoriesRequested>(_onLoadCategoriesRequested);
-    on<CategoryAdded>(_onCategoryAdded);
     on<CategoryUpdated>(_onCategoryUpdated);
     on<DeleteCategoryRequested>(_onDeleteCategoryRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
-    on<SourceAdded>(_onSourceAdded);
     on<SourceUpdated>(_onSourceUpdated);
     on<DeleteSourceRequested>(_onOnDeleteSourceRequested);
   }
@@ -92,31 +89,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onHeadlineAdded(
-    HeadlineAdded event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedHeadlines = [event.headline, ...state.headlines];
-    emit(
-      state.copyWith(
-        headlines: updatedHeadlines,
-        headlinesStatus: ContentManagementStatus.success,
-      ),
-    );
-  }
-
-  void _onHeadlineUpdated(
-    HeadlineUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedHeadlines = List<Headline>.from(state.headlines);
-    final index = updatedHeadlines.indexWhere((h) => h.id == event.headline.id);
-    if (index != -1) {
-      updatedHeadlines[index] = event.headline;
-      emit(state.copyWith(headlines: updatedHeadlines));
-    }
-  }
-
   Future<void> _onDeleteHeadlineRequested(
     DeleteHeadlineRequested event,
     Emitter<ContentManagementState> emit,
@@ -141,6 +113,18 @@ class ContentManagementBloc
           errorMessage: e.toString(),
         ),
       );
+    }
+  }
+
+  void _onHeadlineUpdated(
+    HeadlineUpdated event,
+    Emitter<ContentManagementState> emit,
+  ) {
+    final updatedHeadlines = List<Headline>.from(state.headlines);
+    final index = updatedHeadlines.indexWhere((h) => h.id == event.headline.id);
+    if (index != -1) {
+      updatedHeadlines[index] = event.headline;
+      emit(state.copyWith(headlines: updatedHeadlines));
     }
   }
 
@@ -182,33 +166,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onCategoryAdded(
-    CategoryAdded event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedCategories = [event.category, ...state.categories];
-    emit(
-      state.copyWith(
-        categories: updatedCategories,
-        categoriesStatus: ContentManagementStatus.success,
-      ),
-    );
-  }
-
-  void _onCategoryUpdated(
-    CategoryUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedCategories = List<Category>.from(state.categories);
-    final index = updatedCategories.indexWhere(
-      (c) => c.id == event.category.id,
-    );
-    if (index != -1) {
-      updatedCategories[index] = event.category;
-      emit(state.copyWith(categories: updatedCategories));
-    }
-  }
-
   Future<void> _onDeleteCategoryRequested(
     DeleteCategoryRequested event,
     Emitter<ContentManagementState> emit,
@@ -233,6 +190,20 @@ class ContentManagementBloc
           errorMessage: e.toString(),
         ),
       );
+    }
+  }
+
+  void _onCategoryUpdated(
+    CategoryUpdated event,
+    Emitter<ContentManagementState> emit,
+  ) {
+    final updatedCategories = List<Category>.from(state.categories);
+    final index = updatedCategories.indexWhere(
+      (c) => c.id == event.category.id,
+    );
+    if (index != -1) {
+      updatedCategories[index] = event.category;
+      emit(state.copyWith(categories: updatedCategories));
     }
   }
 
@@ -274,28 +245,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onSourceAdded(SourceAdded event, Emitter<ContentManagementState> emit) {
-    final updatedSources = [event.source, ...state.sources];
-    emit(
-      state.copyWith(
-        sources: updatedSources,
-        sourcesStatus: ContentManagementStatus.success,
-      ),
-    );
-  }
-
-  void _onSourceUpdated(
-    SourceUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedSources = List<Source>.from(state.sources);
-    final index = updatedSources.indexWhere((s) => s.id == event.source.id);
-    if (index != -1) {
-      updatedSources[index] = event.source;
-      emit(state.copyWith(sources: updatedSources));
-    }
-  }
-
   Future<void> _onOnDeleteSourceRequested(
     DeleteSourceRequested event,
     Emitter<ContentManagementState> emit,
@@ -320,6 +269,18 @@ class ContentManagementBloc
           errorMessage: e.toString(),
         ),
       );
+    }
+  }
+
+  void _onSourceUpdated(
+    SourceUpdated event,
+    Emitter<ContentManagementState> emit,
+  ) {
+    final updatedSources = List<Source>.from(state.sources);
+    final index = updatedSources.indexWhere((s) => s.id == event.source.id);
+    if (index != -1) {
+      updatedSources[index] = event.source;
+      emit(state.copyWith(sources: updatedSources));
     }
   }
 }

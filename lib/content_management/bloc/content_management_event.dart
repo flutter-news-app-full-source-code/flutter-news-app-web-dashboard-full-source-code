@@ -38,18 +38,18 @@ final class LoadHeadlinesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template headline_added}
-/// Event to add a new headline to the local state.
+/// {@template delete_headline_requested}
+/// Event to request deletion of a headline.
 /// {@endtemplate}
-final class HeadlineAdded extends ContentManagementEvent {
-  /// {@macro headline_added}
-  const HeadlineAdded(this.headline);
+final class DeleteHeadlineRequested extends ContentManagementEvent {
+  /// {@macro delete_headline_requested}
+  const DeleteHeadlineRequested(this.id);
 
-  /// The headline that was added.
-  final Headline headline;
+  /// The ID of the headline to delete.
+  final String id;
 
   @override
-  List<Object?> get props => [headline];
+  List<Object?> get props => [id];
 }
 
 /// {@template headline_updated}
@@ -64,20 +64,6 @@ final class HeadlineUpdated extends ContentManagementEvent {
 
   @override
   List<Object?> get props => [headline];
-}
-
-/// {@template delete_headline_requested}
-/// Event to request deletion of a headline.
-/// {@endtemplate}
-final class DeleteHeadlineRequested extends ContentManagementEvent {
-  /// {@macro delete_headline_requested}
-  const DeleteHeadlineRequested(this.id);
-
-  /// The ID of the headline to delete.
-  final String id;
-
-  @override
-  List<Object?> get props => [id];
 }
 
 /// {@template load_categories_requested}
@@ -97,18 +83,18 @@ final class LoadCategoriesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template category_added}
-/// Event to add a new category to the local state.
+/// {@template delete_category_requested}
+/// Event to request deletion of a category.
 /// {@endtemplate}
-final class CategoryAdded extends ContentManagementEvent {
-  /// {@macro category_added}
-  const CategoryAdded(this.category);
+final class DeleteCategoryRequested extends ContentManagementEvent {
+  /// {@macro delete_category_requested}
+  const DeleteCategoryRequested(this.id);
 
-  /// The category that was added.
-  final Category category;
+  /// The ID of the category to delete.
+  final String id;
 
   @override
-  List<Object?> get props => [category];
+  List<Object?> get props => [id];
 }
 
 /// {@template category_updated}
@@ -123,20 +109,6 @@ final class CategoryUpdated extends ContentManagementEvent {
 
   @override
   List<Object?> get props => [category];
-}
-
-/// {@template delete_category_requested}
-/// Event to request deletion of a category.
-/// {@endtemplate}
-final class DeleteCategoryRequested extends ContentManagementEvent {
-  /// {@macro delete_category_requested}
-  const DeleteCategoryRequested(this.id);
-
-  /// The ID of the category to delete.
-  final String id;
-
-  @override
-  List<Object?> get props => [id];
 }
 
 /// {@template load_sources_requested}
@@ -156,18 +128,18 @@ final class LoadSourcesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template source_added}
-/// Event to add a new source to the local state.
+/// {@template delete_source_requested}
+/// Event to request deletion of a source.
 /// {@endtemplate}
-final class SourceAdded extends ContentManagementEvent {
-  /// {@macro source_added}
-  const SourceAdded(this.source);
+final class DeleteSourceRequested extends ContentManagementEvent {
+  /// {@macro delete_source_requested}
+  const DeleteSourceRequested(this.id);
 
-  /// The source that was added.
-  final Source source;
+  /// The ID of the source to delete.
+  final String id;
 
   @override
-  List<Object?> get props => [source];
+  List<Object?> get props => [id];
 }
 
 /// {@template source_updated}
@@ -182,18 +154,4 @@ final class SourceUpdated extends ContentManagementEvent {
 
   @override
   List<Object?> get props => [source];
-}
-
-/// {@template delete_source_requested}
-/// Event to request deletion of a source.
-/// {@endtemplate}
-final class DeleteSourceRequested extends ContentManagementEvent {
-  /// {@macro delete_source_requested}
-  const DeleteSourceRequested(this.id);
-
-  /// The ID of the source to delete.
-  final String id;
-
-  @override
-  List<Object?> get props => [id];
 }

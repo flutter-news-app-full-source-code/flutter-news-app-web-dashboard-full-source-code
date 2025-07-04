@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/create_category/create_category_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -81,7 +82,8 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                 SnackBar(content: Text(l10n.categoryCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              CategoryAdded(state.createdCategory!),
+                  // Refresh the list to show the new category
+                  const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
