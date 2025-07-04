@@ -704,4 +704,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dashboardLoadFailure => 'فشل تحميل بيانات لوحة القيادة.';
+
+  @override
+  String get recentHeadlines => 'أحدث العناوين';
+
+  @override
+  String get viewAll => 'عرض الكل';
+
+  @override
+  String get noRecentHeadlines => 'لا توجد عناوين حديثة لعرضها.';
 }

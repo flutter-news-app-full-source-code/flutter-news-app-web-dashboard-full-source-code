@@ -1351,6 +1351,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load dashboard data.'**
   String get dashboardLoadFailure;
+
+  /// Title for the recent headlines card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Headlines'**
+  String get recentHeadlines;
+
+  /// Button text to view all items in a list
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// Message shown when there are no recent headlines
+  ///
+  /// In en, this message translates to:
+  /// **'No recent headlines to display.'**
+  String get noRecentHeadlines;
 }
 
 class _AppLocalizationsDelegate

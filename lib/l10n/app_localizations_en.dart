@@ -702,4 +702,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dashboardLoadFailure => 'Failed to load dashboard data.';
+
+  @override
+  String get recentHeadlines => 'Recent Headlines';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get noRecentHeadlines => 'No recent headlines to display.';
 }

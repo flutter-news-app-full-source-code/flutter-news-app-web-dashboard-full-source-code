@@ -849,5 +849,17 @@
   "dashboardLoadFailure": "فشل تحميل بيانات لوحة القيادة.",
   "@dashboardLoadFailure": {
     "description": "رسالة خطأ عند فشل تحميل بيانات لوحة القيادة"
+  },
+  "recentHeadlines": "أحدث العناوين",
+  "@recentHeadlines": {
+    "description": "عنوان بطاقة أحدث العناوين في لوحة القيادة"
+  },
+  "viewAll": "عرض الكل",
+  "@viewAll": {
+    "description": "نص زر عرض كل العناصر في قائمة"
+  },
+  "noRecentHeadlines": "لا توجد عناوين حديثة لعرضها.",
+  "@noRecentHeadlines": {
+    "description": "رسالة تظهر عند عدم وجود عناوين حديثة"
   }
 }

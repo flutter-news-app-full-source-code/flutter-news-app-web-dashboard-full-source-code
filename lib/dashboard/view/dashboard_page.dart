@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ht_dashboard/dashboard/bloc/dashboard.dart'; // Barrel file
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/shared.dart';
+import 'package:ht_shared/ht_shared.dart';
 
 /// {@template dashboard_page}
 /// The main dashboard page, displaying key statistics and quick actions.
@@ -47,6 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
           }
           if (state.status == DashboardStatus.success && state.summary != null) {
             final summary = state.summary!;
+            final recentHeadlines = state.recentHeadlines;
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
@@ -77,12 +81,81 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ],
                 ),
-                // Other dashboard components will go here in future phases
+                const SizedBox(height: AppSpacing.lg),
+                _RecentHeadlinesCard(
+                  headlines: recentHeadlines,
+                ),
               ],
             );
           }
           return const SizedBox.shrink(); // Fallback for unexpected states
         },
+      ),
+    );
+  }
+}
+
+/// A card to display a list of recently created headlines.
+class _RecentHeadlinesCard extends StatelessWidget {
+  const _RecentHeadlinesCard({required this.headlines});
+
+  final List<Headline> headlines;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(l10n.recentHeadlines, style: theme.textTheme.titleLarge),
+                TextButton(
+                  onPressed: () =>
+                      context.goNamed(Routes.contentManagementName),
+                  child: Text(l10n.viewAll),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.md),
+            if (headlines.isEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+                child: Center(
+                  child: Text(
+                    l10n.noRecentHeadlines,
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  ),
+                ),
+              )
+            else
+              ...headlines.map(
+                (headline) => ListTile(
+                  leading: const Icon(Icons.article_outlined),
+                  title: Text(headline.title, maxLines: 1),
+                  subtitle: Text(
+                    DateFormatter.formatRelativeTime(
+                      context,
+                      headline.createdAt,
+                    ),
+                  ),
+                  onTap: () => context.goNamed(
+                    Routes.editHeadlineName,
+                    pathParameters: {'id': headline.id},
+                  ),
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -849,5 +849,17 @@
   "dashboardLoadFailure": "Failed to load dashboard data.",
   "@dashboardLoadFailure": {
     "description": "Error message when dashboard data fails to load"
+  },
+  "recentHeadlines": "Recent Headlines",
+  "@recentHeadlines": {
+    "description": "Title for the recent headlines card on the dashboard"
+  },
+  "viewAll": "View All",
+  "@viewAll": {
+    "description": "Button text to view all items in a list"
+  },
+  "noRecentHeadlines": "No recent headlines to display.",
+  "@noRecentHeadlines": {
+    "description": "Message shown when there are no recent headlines"
   }
 }
