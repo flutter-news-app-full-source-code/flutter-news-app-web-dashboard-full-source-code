@@ -11,12 +11,15 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   /// {@macro dashboard_bloc}
   DashboardBloc({
     required HtDataRepository<DashboardSummary> dashboardSummaryRepository,
+    required HtDataRepository<Headline> headlinesRepository,
   }) : _dashboardSummaryRepository = dashboardSummaryRepository,
+       _headlinesRepository = headlinesRepository,
        super(const DashboardState()) {
     on<DashboardSummaryLoaded>(_onDashboardSummaryLoaded);
   }
 
   final HtDataRepository<DashboardSummary> _dashboardSummaryRepository;
+  final HtDataRepository<Headline> _headlinesRepository;
 
   Future<void> _onDashboardSummaryLoaded(
     DashboardSummaryLoaded event,
@@ -24,13 +27,23 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async {
     emit(state.copyWith(status: DashboardStatus.loading));
     try {
-      // The dashboard summary is a singleton-like resource, fetched by a
-      // well-known ID.
-      final summary = await _dashboardSummaryRepository.read(id: 'summary');
+      // Fetch summary and recent headlines concurrently
+      final [summaryResponse, recentHeadlinesResponse] = await Future.wait([
+        _dashboardSummaryRepository.read(id: 'summary'),
+        _headlinesRepository.readAllByQuery(
+          const {'sortBy': 'createdAt', 'sortOrder': 'desc'},
+          limit: 5,
+        ),
+      ]);
+
+      final summary = summaryResponse as DashboardSummary;
+      final recentHeadlines =
+          (recentHeadlinesResponse as PaginatedResponse<Headline>).items;
       emit(
         state.copyWith(
           status: DashboardStatus.success,
           summary: summary,
+          recentHeadlines: recentHeadlines,
         ),
       );
     } on HtHttpException catch (e) {
