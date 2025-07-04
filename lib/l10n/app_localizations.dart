@@ -1315,6 +1315,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Draft'**
   String get contentStatusDraft;
+
+  /// Label for the total headlines summary card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Total Headlines'**
+  String get totalHeadlines;
+
+  /// Label for the total categories summary card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Total Categories'**
+  String get totalCategories;
+
+  /// Label for the total sources summary card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sources'**
+  String get totalSources;
+
+  /// Headline for the dashboard loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Dashboard'**
+  String get loadingDashboard;
+
+  /// Subheadline for the dashboard loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Fetching latest statistics...'**
+  String get loadingDashboardSubheadline;
+
+  /// Error message when dashboard data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load dashboard data.'**
+  String get dashboardLoadFailure;
 }
 
 class _AppLocalizationsDelegate

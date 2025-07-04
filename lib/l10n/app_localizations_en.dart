@@ -684,4 +684,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentStatusDraft => 'Draft';
+
+  @override
+  String get totalHeadlines => 'Total Headlines';
+
+  @override
+  String get totalCategories => 'Total Categories';
+
+  @override
+  String get totalSources => 'Total Sources';
+
+  @override
+  String get loadingDashboard => 'Loading Dashboard';
+
+  @override
+  String get loadingDashboardSubheadline => 'Fetching latest statistics...';
+
+  @override
+  String get dashboardLoadFailure => 'Failed to load dashboard data.';
 }

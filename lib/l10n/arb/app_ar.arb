@@ -825,5 +825,29 @@
   "contentStatusArchived": "مؤرشف",
   "@contentStatusArchived": {},
   "contentStatusDraft": "مسودة",
-  "@contentStatusDraft": {}
+  "@contentStatusDraft": {},
+  "totalHeadlines": "إجمالي العناوين",
+  "@totalHeadlines": {
+    "description": "تسمية بطاقة ملخص إجمالي العناوين في لوحة القيادة"
+  },
+  "totalCategories": "إجمالي الفئات",
+  "@totalCategories": {
+    "description": "تسمية بطاقة ملخص إجمالي الفئات في لوحة القيادة"
+  },
+  "totalSources": "إجمالي المصادر",
+  "@totalSources": {
+    "description": "تسمية بطاقة ملخص إجمالي المصادر في لوحة القيادة"
+  },
+  "loadingDashboard": "جاري تحميل لوحة القيادة",
+  "@loadingDashboard": {
+    "description": "عنوان حالة تحميل لوحة القيادة"
+  },
+  "loadingDashboardSubheadline": "جاري جلب أحدث الإحصائيات...",
+  "@loadingDashboardSubheadline": {
+    "description": "عنوان فرعي لحالة تحميل لوحة القيادة"
+  },
+  "dashboardLoadFailure": "فشل تحميل بيانات لوحة القيادة.",
+  "@dashboardLoadFailure": {
+    "description": "رسالة خطأ عند فشل تحميل بيانات لوحة القيادة"
+  }
 }

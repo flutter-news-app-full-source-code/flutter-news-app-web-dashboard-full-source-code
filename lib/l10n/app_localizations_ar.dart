@@ -686,4 +686,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentStatusDraft => 'مسودة';
+
+  @override
+  String get totalHeadlines => 'إجمالي العناوين';
+
+  @override
+  String get totalCategories => 'إجمالي الفئات';
+
+  @override
+  String get totalSources => 'إجمالي المصادر';
+
+  @override
+  String get loadingDashboard => 'جاري تحميل لوحة القيادة';
+
+  @override
+  String get loadingDashboardSubheadline => 'جاري جلب أحدث الإحصائيات...';
+
+  @override
+  String get dashboardLoadFailure => 'فشل تحميل بيانات لوحة القيادة.';
 }

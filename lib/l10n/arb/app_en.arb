@@ -825,5 +825,29 @@
   "contentStatusArchived": "Archived",
   "@contentStatusArchived": {},
   "contentStatusDraft": "Draft",
-  "@contentStatusDraft": {}
+  "@contentStatusDraft": {},
+  "totalHeadlines": "Total Headlines",
+  "@totalHeadlines": {
+    "description": "Label for the total headlines summary card on the dashboard"
+  },
+  "totalCategories": "Total Categories",
+  "@totalCategories": {
+    "description": "Label for the total categories summary card on the dashboard"
+  },
+  "totalSources": "Total Sources",
+  "@totalSources": {
+    "description": "Label for the total sources summary card on the dashboard"
+  },
+  "loadingDashboard": "Loading Dashboard",
+  "@loadingDashboard": {
+    "description": "Headline for the dashboard loading state"
+  },
+  "loadingDashboardSubheadline": "Fetching latest statistics...",
+  "@loadingDashboardSubheadline": {
+    "description": "Subheadline for the dashboard loading state"
+  },
+  "dashboardLoadFailure": "Failed to load dashboard data.",
+  "@dashboardLoadFailure": {
+    "description": "Error message when dashboard data fails to load"
+  }
 }
