@@ -106,19 +106,14 @@ class _DashboardPageState extends State<DashboardPage> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: _RecentHeadlinesCard(
-                        headlines: recentHeadlines,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.lg),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    const wideBreakpoint = 1200;
+                    final isWide = constraints.maxWidth > wideBreakpoint;
+
+                    final mainContent = [
+                      _RecentHeadlinesCard(headlines: recentHeadlines),
+                      Column(
                         children: [
                           _SystemStatusCard(
                             status: appConfig.appOperationalStatus,
@@ -127,8 +122,28 @@ class _DashboardPageState extends State<DashboardPage> {
                           const _QuickActionsCard(),
                         ],
                       ),
-                    ),
-                  ],
+                    ];
+
+                    if (isWide) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(flex: 2, child: mainContent[0]),
+                          const SizedBox(width: AppSpacing.lg),
+                          Expanded(flex: 1, child: mainContent[1]),
+                        ],
+                      );
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        mainContent[0],
+                        const SizedBox(height: AppSpacing.lg),
+                        mainContent[1],
+                      ],
+                    );
+                  },
                 ),
               ],
             );
