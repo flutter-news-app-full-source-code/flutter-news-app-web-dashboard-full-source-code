@@ -11,14 +11,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   /// {@macro dashboard_bloc}
   DashboardBloc({
     required HtDataRepository<DashboardSummary> dashboardSummaryRepository,
+    required HtDataRepository<AppConfig> appConfigRepository,
     required HtDataRepository<Headline> headlinesRepository,
   }) : _dashboardSummaryRepository = dashboardSummaryRepository,
+       _appConfigRepository = appConfigRepository,
        _headlinesRepository = headlinesRepository,
        super(const DashboardState()) {
     on<DashboardSummaryLoaded>(_onDashboardSummaryLoaded);
   }
 
   final HtDataRepository<DashboardSummary> _dashboardSummaryRepository;
+  final HtDataRepository<AppConfig> _appConfigRepository;
   final HtDataRepository<Headline> _headlinesRepository;
 
   Future<void> _onDashboardSummaryLoaded(
@@ -27,9 +30,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async {
     emit(state.copyWith(status: DashboardStatus.loading));
     try {
-      // Fetch summary and recent headlines concurrently
-      final [summaryResponse, recentHeadlinesResponse] = await Future.wait([
+      // Fetch summary, app config, and recent headlines concurrently
+      final [
+        summaryResponse,
+        appConfigResponse,
+        recentHeadlinesResponse,
+      ] = await Future.wait([
         _dashboardSummaryRepository.read(id: 'summary'),
+        _appConfigRepository.read(id: 'app_config'),
         _headlinesRepository.readAllByQuery(
           const {'sortBy': 'createdAt', 'sortOrder': 'desc'},
           limit: 5,
@@ -37,12 +45,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       ]);
 
       final summary = summaryResponse as DashboardSummary;
+      final appConfig = appConfigResponse as AppConfig;
       final recentHeadlines =
           (recentHeadlinesResponse as PaginatedResponse<Headline>).items;
       emit(
         state.copyWith(
           status: DashboardStatus.success,
           summary: summary,
+          appConfig: appConfig,
           recentHeadlines: recentHeadlines,
         ),
       );

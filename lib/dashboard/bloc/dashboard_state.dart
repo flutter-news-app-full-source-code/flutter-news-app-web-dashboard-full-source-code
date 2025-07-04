@@ -20,29 +20,39 @@ final class DashboardState extends Equatable {
   const DashboardState({
     this.status = DashboardStatus.initial,
     this.summary,
+    this.appConfig,
     this.recentHeadlines = const [],
     this.errorMessage,
   });
 
   final DashboardStatus status;
   final DashboardSummary? summary;
+  final AppConfig? appConfig;
   final List<Headline> recentHeadlines;
   final String? errorMessage;
 
   DashboardState copyWith({
     DashboardStatus? status,
     DashboardSummary? summary,
+    AppConfig? appConfig,
     List<Headline>? recentHeadlines,
     String? errorMessage,
   }) {
     return DashboardState(
       status: status ?? this.status,
       summary: summary ?? this.summary,
+      appConfig: appConfig ?? this.appConfig,
       recentHeadlines: recentHeadlines ?? this.recentHeadlines,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, summary, recentHeadlines, errorMessage];
+  List<Object?> get props => [
+    status,
+    summary,
+    appConfig,
+    recentHeadlines,
+    errorMessage,
+  ];
 }
