@@ -58,26 +58,52 @@ class _DashboardPageState extends State<DashboardPage> {
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
-                Wrap(
-                  spacing: AppSpacing.lg,
-                  runSpacing: AppSpacing.lg,
-                  children: [
-                    _SummaryCard(
-                      icon: Icons.article_outlined,
-                      title: l10n.totalHeadlines,
-                      value: summary.headlineCount.toString(),
-                    ),
-                    _SummaryCard(
-                      icon: Icons.category_outlined,
-                      title: l10n.totalCategories,
-                      value: summary.categoryCount.toString(),
-                    ),
-                    _SummaryCard(
-                      icon: Icons.source_outlined,
-                      title: l10n.totalSources,
-                      value: summary.sourceCount.toString(),
-                    ),
-                  ],
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    const tabletBreakpoint = 800;
+                    final isNarrow = constraints.maxWidth < tabletBreakpoint;
+
+                    final summaryCards = [
+                      _SummaryCard(
+                        icon: Icons.article_outlined,
+                        title: l10n.totalHeadlines,
+                        value: summary.headlineCount.toString(),
+                      ),
+                      _SummaryCard(
+                        icon: Icons.category_outlined,
+                        title: l10n.totalCategories,
+                        value: summary.categoryCount.toString(),
+                      ),
+                      _SummaryCard(
+                        icon: Icons.source_outlined,
+                        title: l10n.totalSources,
+                        value: summary.sourceCount.toString(),
+                      ),
+                    ];
+
+                    if (isNarrow) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          summaryCards[0],
+                          const SizedBox(height: AppSpacing.lg),
+                          summaryCards[1],
+                          const SizedBox(height: AppSpacing.lg),
+                          summaryCards[2],
+                        ],
+                      );
+                    }
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: summaryCards[0]),
+                        const SizedBox(width: AppSpacing.lg),
+                        Expanded(child: summaryCards[1]),
+                        const SizedBox(width: AppSpacing.lg),
+                        Expanded(child: summaryCards[2]),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 Row(
