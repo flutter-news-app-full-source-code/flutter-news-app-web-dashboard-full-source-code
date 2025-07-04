@@ -861,5 +861,37 @@
   "noRecentHeadlines": "لا توجد عناوين حديثة لعرضها.",
   "@noRecentHeadlines": {
     "description": "رسالة تظهر عند عدم وجود عناوين حديثة"
+  },
+  "systemStatus": "حالة النظام",
+  "@systemStatus": {
+    "description": "عنوان بطاقة حالة النظام في لوحة القيادة"
+  },
+  "quickActions": "إجراءات سريعة",
+  "@quickActions": {
+    "description": "عنوان بطاقة الإجراءات السريعة في لوحة القيادة"
+  },
+  "createHeadlineAction": "إنشاء عنوان",
+  "@createHeadlineAction": {
+    "description": "نص زر الإجراء السريع لإنشاء عنوان"
+  },
+  "manageContentAction": "إدارة المحتوى",
+  "@manageContentAction": {
+    "description": "نص زر الإجراء السريع لإدارة المحتوى"
+  },
+  "appConfigAction": "إعدادات التطبيق",
+  "@appConfigAction": {
+    "description": "نص زر الإجراء السريع لإعدادات التطبيق"
+  },
+  "appStatusActive": "نشط",
+  "@appStatusActive": {
+    "description": "نص حالة التطبيق 'نشط'"
+  },
+  "appStatusMaintenance": "صيانة",
+  "@appStatusMaintenance": {
+    "description": "نص حالة التطبيق 'صيانة'"
+  },
+  "appStatusDisabled": "معطل",
+  "@appStatusDisabled": {
+    "description": "نص حالة التطبيق 'معطل'"
   }
 }

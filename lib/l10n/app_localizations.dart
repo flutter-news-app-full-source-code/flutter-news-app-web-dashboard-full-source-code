@@ -1369,6 +1369,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No recent headlines to display.'**
   String get noRecentHeadlines;
+
+  /// Title for the system status card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'System Status'**
+  String get systemStatus;
+
+  /// Title for the quick actions card on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// Button text for the create headline quick action
+  ///
+  /// In en, this message translates to:
+  /// **'Create Headline'**
+  String get createHeadlineAction;
+
+  /// Button text for the manage content quick action
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Content'**
+  String get manageContentAction;
+
+  /// Button text for the app configuration quick action
+  ///
+  /// In en, this message translates to:
+  /// **'App Configuration'**
+  String get appConfigAction;
+
+  /// Text for the 'Active' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get appStatusActive;
+
+  /// Text for the 'Maintenance' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get appStatusMaintenance;
+
+  /// Text for the 'Disabled' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get appStatusDisabled;
 }
 
 class _AppLocalizationsDelegate

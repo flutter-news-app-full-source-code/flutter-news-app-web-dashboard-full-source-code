@@ -713,4 +713,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noRecentHeadlines => 'لا توجد عناوين حديثة لعرضها.';
+
+  @override
+  String get systemStatus => 'حالة النظام';
+
+  @override
+  String get quickActions => 'إجراءات سريعة';
+
+  @override
+  String get createHeadlineAction => 'إنشاء عنوان';
+
+  @override
+  String get manageContentAction => 'إدارة المحتوى';
+
+  @override
+  String get appConfigAction => 'إعدادات التطبيق';
+
+  @override
+  String get appStatusActive => 'نشط';
+
+  @override
+  String get appStatusMaintenance => 'صيانة';
+
+  @override
+  String get appStatusDisabled => 'معطل';
 }

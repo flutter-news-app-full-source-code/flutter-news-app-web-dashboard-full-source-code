@@ -711,4 +711,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noRecentHeadlines => 'No recent headlines to display.';
+
+  @override
+  String get systemStatus => 'System Status';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get createHeadlineAction => 'Create Headline';
+
+  @override
+  String get manageContentAction => 'Manage Content';
+
+  @override
+  String get appConfigAction => 'App Configuration';
+
+  @override
+  String get appStatusActive => 'Active';
+
+  @override
+  String get appStatusMaintenance => 'Maintenance';
+
+  @override
+  String get appStatusDisabled => 'Disabled';
 }

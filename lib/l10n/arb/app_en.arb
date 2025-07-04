@@ -861,5 +861,37 @@
   "noRecentHeadlines": "No recent headlines to display.",
   "@noRecentHeadlines": {
     "description": "Message shown when there are no recent headlines"
+  },
+  "systemStatus": "System Status",
+  "@systemStatus": {
+    "description": "Title for the system status card on the dashboard"
+  },
+  "quickActions": "Quick Actions",
+  "@quickActions": {
+    "description": "Title for the quick actions card on the dashboard"
+  },
+  "createHeadlineAction": "Create Headline",
+  "@createHeadlineAction": {
+    "description": "Button text for the create headline quick action"
+  },
+  "manageContentAction": "Manage Content",
+  "@manageContentAction": {
+    "description": "Button text for the manage content quick action"
+  },
+  "appConfigAction": "App Configuration",
+  "@appConfigAction": {
+    "description": "Button text for the app configuration quick action"
+  },
+  "appStatusActive": "Active",
+  "@appStatusActive": {
+    "description": "Text for the 'Active' app status"
+  },
+  "appStatusMaintenance": "Maintenance",
+  "@appStatusMaintenance": {
+    "description": "Text for the 'Maintenance' app status"
+  },
+  "appStatusDisabled": "Disabled",
+  "@appStatusDisabled": {
+    "description": "Text for the 'Disabled' app status"
   }
 }
