@@ -11,6 +11,7 @@ import 'package:ht_dashboard/app/config/app_environment.dart';
 import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/router/router.dart';
 // Import for app_theme.dart
@@ -100,6 +101,12 @@ class App extends StatelessWidget {
               headlinesRepository: context.read<HtDataRepository<Headline>>(),
               categoriesRepository: context.read<HtDataRepository<Category>>(),
               sourcesRepository: context.read<HtDataRepository<Source>>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => DashboardBloc(
+              dashboardSummaryRepository: context
+                  .read<HtDataRepository<DashboardSummary>>(),
             ),
           ),
         ],
