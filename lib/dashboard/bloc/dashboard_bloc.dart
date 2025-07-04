@@ -38,8 +38,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       ] = await Future.wait([
         _dashboardSummaryRepository.read(id: 'summary'),
         _appConfigRepository.read(id: 'app_config'),
-        _headlinesRepository.readAllByQuery(
-          const {'sortBy': 'createdAt', 'sortOrder': 'desc'},
+        _headlinesRepository.readAll(
+          sortBy: 'createdAt',
+          sortOrder: SortOrder.desc,
           limit: 5,
         ),
       ]);
