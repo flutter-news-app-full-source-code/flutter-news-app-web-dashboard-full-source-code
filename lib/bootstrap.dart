@@ -61,6 +61,7 @@ Future<Widget> bootstrap(
   HtDataClient<UserContentPreferences> userContentPreferencesClient;
   HtDataClient<UserAppSettings> userAppSettingsClient;
   HtDataClient<AppConfig> appConfigClient;
+  HtDataClient<DashboardSummary> dashboardSummaryClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = HtDataInMemory<Headline>(
@@ -95,6 +96,13 @@ Future<Widget> bootstrap(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: [AppConfig.fromJson(appConfigFixtureData)],
+    );
+    dashboardSummaryClient = HtDataInMemory<DashboardSummary>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: [
+        DashboardSummary.fromJson(dashboardSummaryFixtureData),
+      ],
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
     headlinesClient = HtDataApi<Headline>(
@@ -139,6 +147,12 @@ Future<Widget> bootstrap(
       fromJson: AppConfig.fromJson,
       toJson: (config) => config.toJson(),
     );
+    dashboardSummaryClient = HtDataApi<DashboardSummary>(
+      httpClient: httpClient,
+      modelName: 'dashboard_summary',
+      fromJson: DashboardSummary.fromJson,
+      toJson: (summary) => summary.toJson(),
+    );
   } else {
     headlinesClient = HtDataApi<Headline>(
       httpClient: httpClient!,
@@ -182,6 +196,12 @@ Future<Widget> bootstrap(
       fromJson: AppConfig.fromJson,
       toJson: (config) => config.toJson(),
     );
+    dashboardSummaryClient = HtDataApi<DashboardSummary>(
+      httpClient: httpClient,
+      modelName: 'dashboard_summary',
+      fromJson: DashboardSummary.fromJson,
+      toJson: (summary) => summary.toJson(),
+    );
   }
 
   final headlinesRepository = HtDataRepository<Headline>(
@@ -204,6 +224,9 @@ Future<Widget> bootstrap(
   final appConfigRepository = HtDataRepository<AppConfig>(
     dataClient: appConfigClient,
   );
+  final dashboardSummaryRepository = HtDataRepository<DashboardSummary>(
+    dataClient: dashboardSummaryClient,
+  );
 
   return App(
     htAuthenticationRepository: authenticationRepository,
@@ -214,6 +237,7 @@ Future<Widget> bootstrap(
     htUserAppSettingsRepository: userAppSettingsRepository,
     htUserContentPreferencesRepository: userContentPreferencesRepository,
     htAppConfigRepository: appConfigRepository,
+    htDashboardSummaryRepository: dashboardSummaryRepository,
     kvStorageService: kvStorage,
     environment: environment,
   );

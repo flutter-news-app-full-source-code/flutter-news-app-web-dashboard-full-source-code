@@ -30,6 +30,7 @@ class App extends StatelessWidget {
     required HtDataRepository<UserContentPreferences>
     htUserContentPreferencesRepository,
     required HtDataRepository<AppConfig> htAppConfigRepository,
+    required HtDataRepository<DashboardSummary> htDashboardSummaryRepository,
     required HtKVStorageService kvStorageService,
     required AppEnvironment environment,
     super.key,
@@ -42,6 +43,7 @@ class App extends StatelessWidget {
        _htUserContentPreferencesRepository = htUserContentPreferencesRepository,
        _htAppConfigRepository = htAppConfigRepository,
        _kvStorageService = kvStorageService,
+       _htDashboardSummaryRepository = htDashboardSummaryRepository,
        _environment = environment;
 
   final HtAuthRepository _htAuthenticationRepository;
@@ -53,6 +55,7 @@ class App extends StatelessWidget {
   final HtDataRepository<UserContentPreferences>
   _htUserContentPreferencesRepository;
   final HtDataRepository<AppConfig> _htAppConfigRepository;
+  final HtDataRepository<DashboardSummary> _htDashboardSummaryRepository;
   final HtKVStorageService _kvStorageService;
   final AppEnvironment _environment;
 
@@ -68,6 +71,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _htUserAppSettingsRepository),
         RepositoryProvider.value(value: _htUserContentPreferencesRepository),
         RepositoryProvider.value(value: _htAppConfigRepository),
+        RepositoryProvider.value(value: _htDashboardSummaryRepository),
         RepositoryProvider.value(value: _kvStorageService),
       ],
       child: MultiBlocProvider(
