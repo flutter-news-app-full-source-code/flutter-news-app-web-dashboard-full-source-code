@@ -234,34 +234,33 @@ class _QuickActionsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(l10n.quickActions, style: theme.textTheme.titleLarge),
             const SizedBox(height: AppSpacing.md),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.add_circle_outline),
-                label: Text(l10n.createHeadlineAction),
-                onPressed: () => context.goNamed(Routes.createHeadlineName),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add_circle_outline),
+              label: Text(l10n.createHeadlineAction),
+              onPressed: () => context.goNamed(Routes.createHeadlineName),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.create_new_folder_outlined),
+              label: Text(l10n.createCategory),
+              onPressed: () => context.goNamed(Routes.createCategoryName),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.secondaryContainer,
+                foregroundColor: theme.colorScheme.onSecondaryContainer,
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                icon: const Icon(Icons.folder_open_outlined),
-                label: Text(l10n.manageContentAction),
-                onPressed: () => context.goNamed(Routes.contentManagementName),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                icon: const Icon(Icons.settings_applications_outlined),
-                label: Text(l10n.appConfigAction),
-                onPressed: () => context.goNamed(Routes.appConfigurationName),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add_to_photos_outlined),
+              label: Text(l10n.createSource),
+              onPressed: () => context.goNamed(Routes.createSourceName),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.secondaryContainer,
+                foregroundColor: theme.colorScheme.onSecondaryContainer,
               ),
             ),
           ],
