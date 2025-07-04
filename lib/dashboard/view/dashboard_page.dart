@@ -58,30 +58,24 @@ class _DashboardPageState extends State<DashboardPage> {
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
-                Row(
+                Wrap(
+                  spacing: AppSpacing.lg,
+                  runSpacing: AppSpacing.lg,
                   children: [
-                    Expanded(
-                      child: _SummaryCard(
-                        icon: Icons.article_outlined,
-                        title: l10n.totalHeadlines,
-                        value: summary.headlineCount.toString(),
-                      ),
+                    _SummaryCard(
+                      icon: Icons.article_outlined,
+                      title: l10n.totalHeadlines,
+                      value: summary.headlineCount.toString(),
                     ),
-                    const SizedBox(width: AppSpacing.lg),
-                    Expanded(
-                      child: _SummaryCard(
-                        icon: Icons.category_outlined,
-                        title: l10n.totalCategories,
-                        value: summary.categoryCount.toString(),
-                      ),
+                    _SummaryCard(
+                      icon: Icons.category_outlined,
+                      title: l10n.totalCategories,
+                      value: summary.categoryCount.toString(),
                     ),
-                    const SizedBox(width: AppSpacing.lg),
-                    Expanded(
-                      child: _SummaryCard(
-                        icon: Icons.source_outlined,
-                        title: l10n.totalSources,
-                        value: summary.sourceCount.toString(),
-                      ),
+                    _SummaryCard(
+                      icon: Icons.source_outlined,
+                      title: l10n.totalSources,
+                      value: summary.sourceCount.toString(),
                     ),
                   ],
                 ),
@@ -100,7 +94,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       flex: 1,
                       child: Column(
                         children: [
-                          _SystemStatusCard(status: appConfig.appOperationalStatus),
+                          _SystemStatusCard(
+                            status: appConfig.appOperationalStatus,
+                          ),
                           const SizedBox(height: AppSpacing.lg),
                           const _QuickActionsCard(),
                         ],
@@ -269,8 +265,9 @@ class _RecentHeadlinesCard extends StatelessWidget {
                 child: Center(
                   child: Text(
                     l10n.noRecentHeadlines,
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
               )
