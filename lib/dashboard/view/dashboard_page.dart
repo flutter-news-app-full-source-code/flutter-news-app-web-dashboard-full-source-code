@@ -58,41 +58,62 @@ class _DashboardPageState extends State<DashboardPage> {
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
-                Wrap(
-                  spacing: AppSpacing.lg,
-                  runSpacing: AppSpacing.lg,
-                  children: [
-                    _SummaryCard(
-                      icon: Icons.article_outlined,
-                      title: l10n.totalHeadlines,
-                      value: summary.headlineCount.toString(),
-                    ),
-                    _SummaryCard(
-                      icon: Icons.category_outlined,
-                      title: l10n.totalCategories,
-                      value: summary.categoryCount.toString(),
-                    ),
-                    _SummaryCard(
-                      icon: Icons.source_outlined,
-                      title: l10n.totalSources,
-                      value: summary.sourceCount.toString(),
-                    ),
-                  ],
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    const tabletBreakpoint = 800;
+                    final isNarrow = constraints.maxWidth < tabletBreakpoint;
+
+                    final summaryCards = [
+                      _SummaryCard(
+                        icon: Icons.article_outlined,
+                        title: l10n.totalHeadlines,
+                        value: summary.headlineCount.toString(),
+                      ),
+                      _SummaryCard(
+                        icon: Icons.category_outlined,
+                        title: l10n.totalCategories,
+                        value: summary.categoryCount.toString(),
+                      ),
+                      _SummaryCard(
+                        icon: Icons.source_outlined,
+                        title: l10n.totalSources,
+                        value: summary.sourceCount.toString(),
+                      ),
+                    ];
+
+                    if (isNarrow) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          summaryCards[0],
+                          const SizedBox(height: AppSpacing.lg),
+                          summaryCards[1],
+                          const SizedBox(height: AppSpacing.lg),
+                          summaryCards[2],
+                        ],
+                      );
+                    }
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: summaryCards[0]),
+                        const SizedBox(width: AppSpacing.lg),
+                        Expanded(child: summaryCards[1]),
+                        const SizedBox(width: AppSpacing.lg),
+                        Expanded(child: summaryCards[2]),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: _RecentHeadlinesCard(
-                        headlines: recentHeadlines,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.lg),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    const wideBreakpoint = 1200;
+                    final isWide = constraints.maxWidth > wideBreakpoint;
+
+                    final mainContent = [
+                      _RecentHeadlinesCard(headlines: recentHeadlines),
+                      Column(
                         children: [
                           _SystemStatusCard(
                             status: appConfig.appOperationalStatus,
@@ -101,8 +122,28 @@ class _DashboardPageState extends State<DashboardPage> {
                           const _QuickActionsCard(),
                         ],
                       ),
-                    ),
-                  ],
+                    ];
+
+                    if (isWide) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(flex: 2, child: mainContent[0]),
+                          const SizedBox(width: AppSpacing.lg),
+                          Expanded(flex: 1, child: mainContent[1]),
+                        ],
+                      );
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        mainContent[0],
+                        const SizedBox(height: AppSpacing.lg),
+                        mainContent[1],
+                      ],
+                    );
+                  },
                 ),
               ],
             );
@@ -193,34 +234,33 @@ class _QuickActionsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(l10n.quickActions, style: theme.textTheme.titleLarge),
             const SizedBox(height: AppSpacing.md),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.add_circle_outline),
-                label: Text(l10n.createHeadlineAction),
-                onPressed: () => context.goNamed(Routes.createHeadlineName),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add_circle_outline),
+              label: Text(l10n.createHeadlineAction),
+              onPressed: () => context.goNamed(Routes.createHeadlineName),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.create_new_folder_outlined),
+              label: Text(l10n.createCategory),
+              onPressed: () => context.goNamed(Routes.createCategoryName),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.secondaryContainer,
+                foregroundColor: theme.colorScheme.onSecondaryContainer,
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                icon: const Icon(Icons.folder_open_outlined),
-                label: Text(l10n.manageContentAction),
-                onPressed: () => context.goNamed(Routes.contentManagementName),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                icon: const Icon(Icons.settings_applications_outlined),
-                label: Text(l10n.appConfigAction),
-                onPressed: () => context.goNamed(Routes.appConfigurationName),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add_to_photos_outlined),
+              label: Text(l10n.createSource),
+              onPressed: () => context.goNamed(Routes.createSourceName),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.secondaryContainer,
+                foregroundColor: theme.colorScheme.onSecondaryContainer,
               ),
             ),
           ],
