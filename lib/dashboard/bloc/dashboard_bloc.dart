@@ -36,7 +36,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         appConfigResponse,
         recentHeadlinesResponse,
       ] = await Future.wait([
-        _dashboardSummaryRepository.read(id: 'summary'),
+        _dashboardSummaryRepository.read(id: 'dashboard_summary'),
         _appConfigRepository.read(id: 'app_config'),
         _headlinesRepository.readAll(
           sortBy: 'createdAt',

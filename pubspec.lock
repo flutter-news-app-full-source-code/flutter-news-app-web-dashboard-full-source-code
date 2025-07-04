@@ -304,7 +304,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c3686066f51c6102fef1b4bffaff4faee0239e0b
+      resolved-ref: b3a339a2957b35a2bb7baf249e89ef9ca296eb3e
       url: "https://github.com/headlines-toolkit/ht-shared.git"
     source: git
     version: "0.0.0"
