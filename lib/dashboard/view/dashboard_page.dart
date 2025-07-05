@@ -244,24 +244,16 @@ class _QuickActionsCard extends StatelessWidget {
               onPressed: () => context.goNamed(Routes.createHeadlineName),
             ),
             const SizedBox(height: AppSpacing.sm),
-            ElevatedButton.icon(
+            OutlinedButton.icon(
               icon: const Icon(Icons.create_new_folder_outlined),
               label: Text(l10n.createCategory),
               onPressed: () => context.goNamed(Routes.createCategoryName),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colorScheme.secondaryContainer,
-                foregroundColor: theme.colorScheme.onSecondaryContainer,
-              ),
             ),
             const SizedBox(height: AppSpacing.sm),
-            ElevatedButton.icon(
+            OutlinedButton.icon(
               icon: const Icon(Icons.add_to_photos_outlined),
               label: Text(l10n.createSource),
               onPressed: () => context.goNamed(Routes.createSourceName),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colorScheme.secondaryContainer,
-                foregroundColor: theme.colorScheme.onSecondaryContainer,
-              ),
             ),
           ],
         ),
