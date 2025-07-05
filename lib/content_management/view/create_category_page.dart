@@ -82,8 +82,8 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                 SnackBar(content: Text(l10n.categoryCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  // Refresh the list to show the new category
-                  const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+              // Refresh the list to show the new category
+              const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }

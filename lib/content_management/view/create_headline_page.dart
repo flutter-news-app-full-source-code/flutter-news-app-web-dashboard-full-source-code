@@ -84,8 +84,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                 SnackBar(content: Text(l10n.headlineCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  // Refresh the list to show the new headline
-                  const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+              // Refresh the list to show the new headline
+              const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
