@@ -282,12 +282,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             horizontal: AppSpacing.xxl,
           ),
           children: [
-            _UserPreferenceLimitsForm(refactor(app_configuration): use UserRoles string constants
-            
-            This change refactors the AppConfigurationPage and its helper form widgets to use string-based role constants from the `UserRoles` class instead of an obsolete `UserRole` enum.
-            
-            This aligns the UI with the updated `User` model, which represents roles as a list of strings, ensuring consistency across the application.
-            
+            _UserPreferenceLimitsForm(
               userRole: UserRoles.guestUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
