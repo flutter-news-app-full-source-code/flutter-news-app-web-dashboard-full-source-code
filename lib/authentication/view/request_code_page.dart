@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ht_dashboard/app/bloc/app_bloc.dart';
+import 'package:ht_dashboard/app/config/config.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
@@ -128,6 +130,26 @@ class _RequestCodeView extends StatelessWidget {
                           color: colorScheme.onSurfaceVariant,
                         ),
                         textAlign: TextAlign.center,
+                      ),
+                      // Display demo email if in demo environment
+                      BlocSelector<AppBloc, AppState, AppEnvironment?>(
+                        selector: (state) => state.environment,
+                        builder: (context, environment) {
+                          if (environment == AppEnvironment.demo) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: AppSpacing.lg),
+                              child: Text(
+                                'For demo, use email: admin@example.com',
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: colorScheme.secondary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
                       ),
                       const SizedBox(height: AppSpacing.xxl),
                       _EmailLinkForm(isLoading: isLoading),
