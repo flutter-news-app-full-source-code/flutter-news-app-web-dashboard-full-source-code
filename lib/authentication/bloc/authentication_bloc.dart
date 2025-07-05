@@ -65,7 +65,10 @@ class AuthenticationBloc
     }
     emit(AuthenticationRequestCodeLoading());
     try {
-      await _authenticationRepository.requestSignInCode(event.email);
+      await _authenticationRepository.requestSignInCode(
+        event.email,
+        isDashboardLogin: true,
+      );
       emit(AuthenticationCodeSentSuccess(email: event.email));
     } on InvalidInputException catch (e) {
       emit(AuthenticationFailure('Invalid input: ${e.message}'));
@@ -95,7 +98,11 @@ class AuthenticationBloc
   ) async {
     emit(AuthenticationLoading());
     try {
-      await _authenticationRepository.verifySignInCode(event.email, event.code);
+      await _authenticationRepository.verifySignInCode(
+        event.email,
+        event.code,
+        isDashboardLogin: true,
+      );
       // On success, the _AuthenticationUserChanged listener will handle
       // emitting AuthenticationAuthenticated.
     } on InvalidInputException catch (e) {
