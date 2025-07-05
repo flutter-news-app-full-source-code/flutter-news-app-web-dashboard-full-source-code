@@ -12,18 +12,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helloWorld => 'مرحبا بالعالم!';
 
   @override
+  String get authenticationPageHeadline => 'الوصول إلى لوحة التحكم';
+
+  @override
+  String get authenticationPageSubheadline =>
+      'تسجيل دخول آمن للمسؤولين والناشرين.';
+
+  @override
   String get authenticationEmailSignInButton =>
       'تسجيل الدخول بالبريد الإلكتروني';
 
   @override
-  String get emailSignInPageTitle => 'تسجيل الدخول بالبريد الإلكتروني';
+  String get emailSignInPageTitle => 'تسجيل دخول آمن بالبريد الإلكتروني';
 
   @override
-  String get requestCodePageHeadline => 'سجل الدخول أو أنشئ حسابًا';
+  String get requestCodePageHeadline => 'تسجيل دخول آمن بالبريد الإلكتروني';
 
   @override
   String get requestCodePageSubheadline =>
-      'أدخل بريدك الإلكتروني لتلقي رمز التحقق. لا حاجة لكلمة مرور!';
+      'أدخل بريدك الإلكتروني المعتمد لتلقي رمز تسجيل دخول آمن.';
 
   @override
   String get requestCodeEmailLabel => 'البريد الإلكتروني';

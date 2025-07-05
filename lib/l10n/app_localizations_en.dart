@@ -12,17 +12,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World!';
 
   @override
+  String get authenticationPageHeadline => 'Dashboard Access';
+
+  @override
+  String get authenticationPageSubheadline =>
+      'Secure sign-in for administrators and publishers.';
+
+  @override
   String get authenticationEmailSignInButton => 'Sign in with Email';
 
   @override
-  String get emailSignInPageTitle => 'Email Sign In';
+  String get emailSignInPageTitle => 'Secure Email Sign-In';
 
   @override
-  String get requestCodePageHeadline => 'Sign in or create an account';
+  String get requestCodePageHeadline => 'Secure Email Sign-In';
 
   @override
   String get requestCodePageSubheadline =>
-      'Enter your email to receive a verification code. No password needed!';
+      'Enter your authorized email to receive a secure sign-in code.';
 
   @override
   String get requestCodeEmailLabel => 'Email';

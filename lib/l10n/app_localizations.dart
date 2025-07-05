@@ -104,6 +104,18 @@ abstract class AppLocalizations {
   /// **'Hello World!'**
   String get helloWorld;
 
+  /// Headline for the main authentication page
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard Access'**
+  String get authenticationPageHeadline;
+
+  /// Subheadline for the main authentication page
+  ///
+  /// In en, this message translates to:
+  /// **'Secure sign-in for administrators and publishers.'**
+  String get authenticationPageSubheadline;
+
   /// Button label for signing in with email
   ///
   /// In en, this message translates to:
@@ -113,19 +125,19 @@ abstract class AppLocalizations {
   /// Title for the email sign-in page
   ///
   /// In en, this message translates to:
-  /// **'Email Sign In'**
+  /// **'Secure Email Sign-In'**
   String get emailSignInPageTitle;
 
   /// Headline for the request code page
   ///
   /// In en, this message translates to:
-  /// **'Sign in or create an account'**
+  /// **'Secure Email Sign-In'**
   String get requestCodePageHeadline;
 
   /// Subheadline for the request code page
   ///
   /// In en, this message translates to:
-  /// **'Enter your email to receive a verification code. No password needed!'**
+  /// **'Enter your authorized email to receive a secure sign-in code.'**
   String get requestCodePageSubheadline;
 
   /// Label for the email input field on the request code page
