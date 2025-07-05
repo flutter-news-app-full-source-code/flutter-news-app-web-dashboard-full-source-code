@@ -893,5 +893,25 @@
   "appStatusDisabled": "معطل",
   "@appStatusDisabled": {
     "description": "نص حالة التطبيق 'معطل'"
+  },
+  "demoEmailHint": "للعرض التجريبي، استخدم البريد الإلكتروني: {email}",
+  "@demoEmailHint": {
+    "description": "Hint text shown in demo environment for the login email.",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "admin@example.com"
+      }
+    }
+  },
+  "demoCodeHint": "للعرض التجريبي، استخدم الرمز: {code}",
+  "@demoCodeHint": {
+    "description": "Hint text shown in demo environment for the verification code.",
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "123456"
+      }
+    }
   }
 }
