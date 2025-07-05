@@ -6,11 +6,14 @@ import 'package:ht_auth_repository/ht_auth_repository.dart';
 import 'package:ht_shared/ht_shared.dart'
     show
         AuthenticationException,
+        ForbiddenException,
         HtHttpException,
         InvalidInputException,
         NetworkException,
+        NotFoundException,
         OperationFailedException,
         ServerException,
+        UnauthorizedException,
         User;
 
 part 'authentication_event.dart';
@@ -72,6 +75,10 @@ class AuthenticationBloc
       emit(AuthenticationCodeSentSuccess(email: event.email));
     } on InvalidInputException catch (e) {
       emit(AuthenticationFailure('Invalid input: ${e.message}'));
+    } on UnauthorizedException catch (e) {
+      emit(AuthenticationFailure(e.message));
+    } on ForbiddenException catch (e) {
+      emit(AuthenticationFailure(e.message));
     } on NetworkException catch (_) {
       emit(const AuthenticationFailure('Network error occurred.'));
     } on ServerException catch (e) {
@@ -108,6 +115,8 @@ class AuthenticationBloc
     } on InvalidInputException catch (e) {
       emit(AuthenticationFailure(e.message));
     } on AuthenticationException catch (e) {
+      emit(AuthenticationFailure(e.message));
+    } on NotFoundException catch (e) {
       emit(AuthenticationFailure(e.message));
     } on NetworkException catch (_) {
       emit(const AuthenticationFailure('Network error occurred.'));
