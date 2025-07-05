@@ -45,43 +45,40 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppUserChanged event,
     Emitter<AppState> emit,
   ) async {
-    // Determine the AppStatus based on the user object and its role
+    final user = event.user;
     final AppStatus status;
 
-    switch (event.user?.role) {
-      case null:
-        status = AppStatus.unauthenticated;
-      case UserRole.standardUser:
-        status = AppStatus.authenticated;
-      // ignore: no_default_cases
-      default: // Fallback for any other roles not explicitly handled
-        status = AppStatus
-            .unauthenticated; // Treat other roles as unauthenticated for dashboard
+    if (user != null &&
+        (user.roles.contains(UserRoles.admin) ||
+            user.roles.contains(UserRoles.publisher))) {
+      status = AppStatus.authenticated;
+    } else {
+      status = AppStatus.unauthenticated;
     }
 
     // Emit user and status update
-    emit(state.copyWith(status: status, user: event.user));
+    emit(state.copyWith(status: status, user: user));
 
     // If user is authenticated, load their app settings
-    if (event.user != null) {
+    if (status == AppStatus.authenticated && user != null) {
       try {
         final userAppSettings = await _userAppSettingsRepository.read(
-          id: event.user!.id,
+          id: user.id,
         );
         emit(state.copyWith(userAppSettings: userAppSettings));
       } on NotFoundException {
         // If settings not found, create default ones
-        final defaultSettings = UserAppSettings(id: event.user!.id);
+        final defaultSettings = UserAppSettings(id: user.id);
         await _userAppSettingsRepository.create(item: defaultSettings);
         emit(state.copyWith(userAppSettings: defaultSettings));
       } on HtHttpException catch (e) {
         // Handle HTTP exceptions during settings load
         print('Error loading user app settings: ${e.message}');
-        emit(state.copyWith()); // Clear settings on error
+        emit(state.copyWith(clearUserAppSettings: true));
       } catch (e) {
         // Handle any other unexpected errors
         print('Unexpected error loading user app settings: $e');
-        emit(state.copyWith()); // Clear settings on error
+        emit(state.copyWith(clearUserAppSettings: true));
       }
     } else {
       // If user is unauthenticated, clear app settings

@@ -6,11 +6,14 @@ import 'package:ht_auth_repository/ht_auth_repository.dart';
 import 'package:ht_shared/ht_shared.dart'
     show
         AuthenticationException,
+        ForbiddenException,
         HtHttpException,
         InvalidInputException,
         NetworkException,
+        NotFoundException,
         OperationFailedException,
         ServerException,
+        UnauthorizedException,
         User;
 
 part 'authentication_event.dart';
@@ -65,10 +68,17 @@ class AuthenticationBloc
     }
     emit(AuthenticationRequestCodeLoading());
     try {
-      await _authenticationRepository.requestSignInCode(event.email);
+      await _authenticationRepository.requestSignInCode(
+        event.email,
+        isDashboardLogin: true,
+      );
       emit(AuthenticationCodeSentSuccess(email: event.email));
     } on InvalidInputException catch (e) {
       emit(AuthenticationFailure('Invalid input: ${e.message}'));
+    } on UnauthorizedException catch (e) {
+      emit(AuthenticationFailure(e.message));
+    } on ForbiddenException catch (e) {
+      emit(AuthenticationFailure(e.message));
     } on NetworkException catch (_) {
       emit(const AuthenticationFailure('Network error occurred.'));
     } on ServerException catch (e) {
@@ -95,12 +105,18 @@ class AuthenticationBloc
   ) async {
     emit(AuthenticationLoading());
     try {
-      await _authenticationRepository.verifySignInCode(event.email, event.code);
+      await _authenticationRepository.verifySignInCode(
+        event.email,
+        event.code,
+        isDashboardLogin: true,
+      );
       // On success, the _AuthenticationUserChanged listener will handle
       // emitting AuthenticationAuthenticated.
     } on InvalidInputException catch (e) {
       emit(AuthenticationFailure(e.message));
     } on AuthenticationException catch (e) {
+      emit(AuthenticationFailure(e.message));
+    } on NotFoundException catch (e) {
       emit(AuthenticationFailure(e.message));
     } on NetworkException catch (_) {
       emit(const AuthenticationFailure('Network error occurred.'));
