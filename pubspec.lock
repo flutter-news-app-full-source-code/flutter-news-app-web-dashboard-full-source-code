@@ -205,7 +205,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fd31ce8e255c27e1fcc17e849c41f9c8511a6d87
+      resolved-ref: f89241dfd482d2a72b1168f979597a34b1004df5
       url: "https://github.com/headlines-toolkit/ht-auth-api.git"
     source: git
     version: "0.0.0"
@@ -214,7 +214,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f9c3b44b79fc19dfd9b9a7e0d1e21e60f4885617
+      resolved-ref: a003eb493db4fc134db419a721ee2fda0b598032
       url: "https://github.com/headlines-toolkit/ht-auth-client.git"
     source: git
     version: "0.0.0"
@@ -223,7 +223,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3a8dc5ff81c59805fa59996517eb0fdf136a0b67"
+      resolved-ref: "721a028b926a5a8af2b5176de039cd6394a21724"
       url: "https://github.com/headlines-toolkit/ht-auth-inmemory"
     source: git
     version: "0.0.0"
@@ -232,7 +232,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "596ba311cdbbdf61a216f60dac0218fab9e234d9"
+      resolved-ref: b7de5cc86d432b17710c83a1bf8de105bb4fa00d
       url: "https://github.com/headlines-toolkit/ht-auth-repository.git"
     source: git
     version: "0.0.0"
@@ -286,7 +286,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e2860560d21c1cf43f0e65f28c9ba722823254f2
+      resolved-ref: "2378d6698df1cdeb7c5a17470f94fb8a5a99ca01"
       url: "https://github.com/headlines-toolkit/ht-kv-storage-service.git"
     source: git
     version: "0.0.0"
@@ -304,7 +304,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b3a339a2957b35a2bb7baf249e89ef9ca296eb3e
+      resolved-ref: "30aff4d0e2661ff79f2b84070af5f7982d88ba66"
       url: "https://github.com/headlines-toolkit/ht-shared.git"
     source: git
     version: "0.0.0"
