@@ -893,5 +893,26 @@
   "appStatusDisabled": "Disabled",
   "@appStatusDisabled": {
     "description": "Text for the 'Disabled' app status"
+  },
+  "demoEmailHint": "For demo, use email: {email}",
+  "@demoEmailHint": {
+    "description": "Hint text shown in demo environment for the login email.",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "admin@example.com"
+      }
+    }
+  },
+  "demoCodeHint": "For demo, use code: {code}",
+  "@demoCodeHint": {
+    "description": "Hint text shown in demo environment for the verification code.",
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "123456"
+      }
+    }
   }
+
 }
