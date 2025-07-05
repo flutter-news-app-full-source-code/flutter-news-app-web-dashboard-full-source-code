@@ -10,28 +10,14 @@ import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 
 /// {@template authentication_page}
-/// Displays authentication options (Google, Email, Anonymous) based on context.
+/// Displays authentication options for the dashboard.
 ///
-/// This page can be used for both initial sign-in and for connecting an
-/// existing anonymous account.
+/// This page provides a secure sign-in method for administrators and
+/// publishers via email.
 /// {@endtemplate}
 class AuthenticationPage extends StatelessWidget {
   /// {@macro authentication_page}
-  const AuthenticationPage({
-    required this.headline,
-    required this.subHeadline,
-    required this.showAnonymousButton,
-    super.key,
-  });
-
-  /// The main title displayed on the page.
-  final String headline;
-
-  /// The descriptive text displayed below the headline.
-  final String subHeadline;
-
-  /// Whether to show the "Continue Anonymously" button.
-  final bool showAnonymousButton;
+  const AuthenticationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +74,7 @@ class AuthenticationPage extends StatelessWidget {
                       // const SizedBox(height: AppSpacing.lg),
                       // --- Headline and Subheadline ---
                       Text(
-                        headline,
+                        l10n.authenticationPageHeadline,
                         style: textTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -96,7 +82,7 @@ class AuthenticationPage extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSpacing.md),
                       Text(
-                        subHeadline,
+                        l10n.authenticationPageSubheadline,
                         style: textTheme.bodyLarge?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
