@@ -282,8 +282,13 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             horizontal: AppSpacing.xxl,
           ),
           children: [
-            _UserPreferenceLimitsForm(
-              userRole: UserRole.guestUser,
+            _UserPreferenceLimitsForm(refactor(app_configuration): use UserRoles string constants
+            
+            This change refactors the AppConfigurationPage and its helper form widgets to use string-based role constants from the `UserRoles` class instead of an obsolete `UserRole` enum.
+            
+            This aligns the UI with the updated `User` model, which represents roles as a list of strings, ensuring consistency across the application.
+            
+              userRole: UserRoles.guestUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -303,7 +308,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _UserPreferenceLimitsForm(
-              userRole: UserRole.standardUser,
+              userRole: UserRoles.standardUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -323,7 +328,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _UserPreferenceLimitsForm(
-              userRole: UserRole.premiumUser,
+              userRole: UserRoles.premiumUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -359,7 +364,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AdConfigForm(
-              userRole: UserRole.guestUser,
+              userRole: UserRoles.guestUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -379,7 +384,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AdConfigForm(
-              userRole: UserRole.standardUser,
+              userRole: UserRoles.standardUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -399,7 +404,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AdConfigForm(
-              userRole: UserRole.premiumUser,
+              userRole: UserRoles.premiumUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -438,7 +443,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AccountActionConfigForm(
-              userRole: UserRole.guestUser,
+              userRole: UserRoles.guestUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -458,7 +463,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AccountActionConfigForm(
-              userRole: UserRole.standardUser,
+              userRole: UserRoles.standardUser,
               appConfig: appConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
@@ -779,7 +784,7 @@ class _UserPreferenceLimitsForm extends StatefulWidget {
     required this.buildIntField,
   });
 
-  final UserRole userRole;
+  final String userRole;
   final AppConfig appConfig;
   final ValueChanged<AppConfig> onConfigChanged;
   final Widget Function(
@@ -936,7 +941,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final userPreferenceLimits = widget.appConfig.userPreferenceLimits;
 
     switch (widget.userRole) {
-      case UserRole.guestUser:
+      case UserRoles.guestUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -975,7 +980,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case UserRole.standardUser:
+      case UserRoles.standardUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1015,7 +1020,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case UserRole.premiumUser:
+      case UserRoles.premiumUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1055,9 +1060,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case UserRole.admin:
+      case UserRoles.admin:
         // Admin role might not have specific limits here, or could be
         // a separate configuration. For now, return empty.
+        return const SizedBox.shrink();
+      default:
         return const SizedBox.shrink();
     }
   }
@@ -1071,7 +1078,7 @@ class _AdConfigForm extends StatefulWidget {
     required this.buildIntField,
   });
 
-  final UserRole userRole;
+  final String userRole;
   final AppConfig appConfig;
   final ValueChanged<AppConfig> onConfigChanged;
   final Widget Function(
@@ -1271,7 +1278,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     final adConfig = widget.appConfig.adConfig;
 
     switch (widget.userRole) {
-      case UserRole.guestUser:
+      case UserRoles.guestUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1329,7 +1336,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case UserRole.standardUser:
+      case UserRoles.standardUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1391,7 +1398,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case UserRole.premiumUser:
+      case UserRoles.premiumUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1450,7 +1457,9 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case UserRole.admin:
+      case UserRoles.admin:
+        return const SizedBox.shrink();
+      default:
         return const SizedBox.shrink();
     }
   }
@@ -1464,7 +1473,7 @@ class _AccountActionConfigForm extends StatefulWidget {
     required this.buildIntField,
   });
 
-  final UserRole userRole;
+  final String userRole;
   final AppConfig appConfig;
   final ValueChanged<AppConfig> onConfigChanged;
   final Widget Function(
@@ -1553,7 +1562,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
     final accountActionConfig = widget.appConfig.accountActionConfig;
 
     switch (widget.userRole) {
-      case UserRole.guestUser:
+      case UserRoles.guestUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1576,7 +1585,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
             ),
           ],
         );
-      case UserRole.standardUser:
+      case UserRoles.standardUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1599,8 +1608,10 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
             ),
           ],
         );
-      case UserRole.premiumUser:
-      case UserRole.admin:
+      case UserRoles.premiumUser:
+      case UserRoles.admin:
+        return const SizedBox.shrink();
+      default:
         return const SizedBox.shrink();
     }
   }
