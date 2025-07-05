@@ -21,9 +21,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }) : _authenticationRepository = authenticationRepository,
        _userAppSettingsRepository = userAppSettingsRepository,
        _appConfigRepository = appConfigRepository,
-       _environment = environment,
        super(
-         const AppState(),
+         AppState(environment: environment),
        ) {
     on<AppUserChanged>(_onAppUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);
@@ -37,7 +36,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final HtAuthRepository _authenticationRepository;
   final HtDataRepository<UserAppSettings> _userAppSettingsRepository;
   final HtDataRepository<AppConfig> _appConfigRepository;
-  final local_config.AppEnvironment _environment;
   late final StreamSubscription<User?> _userSubscription;
 
   /// Handles user changes and loads initial settings once user is available.

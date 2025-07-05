@@ -735,4 +735,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appStatusDisabled => 'Disabled';
+
+  @override
+  String demoEmailHint(String email) {
+    return 'For demo, use email: $email';
+  }
+
+  @override
+  String demoCodeHint(String code) {
+    return 'For demo, use code: $code';
+  }
 }

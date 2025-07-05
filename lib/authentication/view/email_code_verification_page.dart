@@ -82,7 +82,7 @@ class EmailCodeVerificationPage extends StatelessWidget {
                               children: [
                                 const SizedBox(height: AppSpacing.md),
                                 Text(
-                                  l10n.demoVerificationCodeMessage('123456'),
+                                  l10n.demoCodeHint('123456'),
                                   style: textTheme.bodyMedium?.copyWith(
                                     color: colorScheme.secondary,
                                     fontWeight: FontWeight.bold,
