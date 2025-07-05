@@ -97,19 +97,11 @@ GoRouter createRouter({
         path: Routes.authentication,
         name: Routes.authenticationName,
         builder: (BuildContext context, GoRouterState state) {
-          const headline = 'Sign In to Dashboard';
-          const subHeadline = 'Enter your email to get a verification code.';
-          const showAnonymousButton = false;
-
           return BlocProvider(
             create: (context) => AuthenticationBloc(
               authenticationRepository: context.read<HtAuthRepository>(),
             ),
-            child: const AuthenticationPage(
-              headline: headline,
-              subHeadline: subHeadline,
-              showAnonymousButton: showAnonymousButton,
-            ),
+            child: const AuthenticationPage(),
           );
         },
         routes: [

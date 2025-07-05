@@ -3,9 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/app/config/config.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
@@ -137,7 +137,9 @@ class _RequestCodeView extends StatelessWidget {
                         builder: (context, environment) {
                           if (environment == AppEnvironment.demo) {
                             return Padding(
-                              padding: const EdgeInsets.only(top: AppSpacing.lg),
+                              padding: const EdgeInsets.only(
+                                top: AppSpacing.lg,
+                              ),
                               child: Text(
                                 l10n.demoEmailHint('admin@example.com'),
                                 style: textTheme.bodyMedium?.copyWith(

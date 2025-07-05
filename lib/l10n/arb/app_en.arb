@@ -3,19 +3,27 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
+  "authenticationPageHeadline": "Dashboard Access",
+  "@authenticationPageHeadline": {
+    "description": "Headline for the main authentication page"
+  },
+  "authenticationPageSubheadline": "Secure sign-in for administrators and publishers.",
+  "@authenticationPageSubheadline": {
+    "description": "Subheadline for the main authentication page"
+  },
   "authenticationEmailSignInButton": "Sign in with Email",
   "@authenticationEmailSignInButton": {
     "description": "Button label for signing in with email"
   },
-  "emailSignInPageTitle": "Email Sign In",
+  "emailSignInPageTitle": "Secure Email Sign-In",
   "@emailSignInPageTitle": {
     "description": "Title for the email sign-in page"
   },
-  "requestCodePageHeadline": "Sign in or create an account",
+  "requestCodePageHeadline": "Secure Email Sign-In",
   "@requestCodePageHeadline": {
     "description": "Headline for the request code page"
   },
-  "requestCodePageSubheadline": "Enter your email to receive a verification code. No password needed!",
+  "requestCodePageSubheadline": "Enter your authorized email to receive a secure sign-in code.",
   "@requestCodePageSubheadline": {
     "description": "Subheadline for the request code page"
   },

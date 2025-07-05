@@ -84,8 +84,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                 SnackBar(content: Text(l10n.sourceCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  // Refresh the list to show the new source
-                  const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+              // Refresh the list to show the new source
+              const LoadSourcesRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
