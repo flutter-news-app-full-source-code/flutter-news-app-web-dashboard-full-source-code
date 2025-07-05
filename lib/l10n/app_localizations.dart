@@ -1417,6 +1417,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Disabled'**
   String get appStatusDisabled;
+
+  /// Hint text shown in demo environment for the login email.
+  ///
+  /// In en, this message translates to:
+  /// **'For demo, use email: {email}'**
+  String demoEmailHint(String email);
+
+  /// Hint text shown in demo environment for the verification code.
+  ///
+  /// In en, this message translates to:
+  /// **'For demo, use code: {code}'**
+  String demoCodeHint(String code);
 }
 
 class _AppLocalizationsDelegate

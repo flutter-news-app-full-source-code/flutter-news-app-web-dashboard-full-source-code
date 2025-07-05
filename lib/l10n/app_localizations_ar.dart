@@ -737,4 +737,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get appStatusDisabled => 'معطل';
+
+  @override
+  String demoEmailHint(String email) {
+    return 'للعرض التجريبي، استخدم البريد الإلكتروني: $email';
+  }
+
+  @override
+  String demoCodeHint(String code) {
+    return 'للعرض التجريبي، استخدم الرمز: $code';
+  }
 }
