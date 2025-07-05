@@ -3,19 +3,27 @@
   "@helloWorld": {
     "description": "التحية التقليدية للمبرمج حديث الولادة"
   },
+  "authenticationPageHeadline": "الوصول إلى لوحة التحكم",
+  "@authenticationPageHeadline": {
+    "description": "عنوان صفحة المصادقة الرئيسية"
+  },
+  "authenticationPageSubheadline": "تسجيل دخول آمن للمسؤولين والناشرين.",
+  "@authenticationPageSubheadline": {
+    "description": "عنوان فرعي لصفحة المصادقة الرئيسية"
+  },
   "authenticationEmailSignInButton": "تسجيل الدخول بالبريد الإلكتروني",
   "@authenticationEmailSignInButton": {
     "description": "زر تسجيل الدخول بالبريد الإلكتروني"
   },
-  "emailSignInPageTitle": "تسجيل الدخول بالبريد الإلكتروني",
+  "emailSignInPageTitle": "تسجيل دخول آمن بالبريد الإلكتروني",
   "@emailSignInPageTitle": {
     "description": "عنوان صفحة تسجيل الدخول بالبريد الإلكتروني"
   },
-  "requestCodePageHeadline": "سجل الدخول أو أنشئ حسابًا",
+  "requestCodePageHeadline": "تسجيل دخول آمن بالبريد الإلكتروني",
   "@requestCodePageHeadline": {
     "description": "عنوان صفحة طلب الرمز"
   },
-  "requestCodePageSubheadline": "أدخل بريدك الإلكتروني لتلقي رمز التحقق. لا حاجة لكلمة مرور!",
+  "requestCodePageSubheadline": "أدخل بريدك الإلكتروني المعتمد لتلقي رمز تسجيل دخول آمن.",
   "@requestCodePageSubheadline": {
     "description": "عنوان فرعي لصفحة طلب الرمز"
   },
