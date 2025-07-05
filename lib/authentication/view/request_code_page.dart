@@ -139,7 +139,7 @@ class _RequestCodeView extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.only(top: AppSpacing.lg),
                               child: Text(
-                                'For demo, use email: admin@example.com',
+                                l10n.demoEmailHint('admin@example.com'),
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: colorScheme.secondary,
                                   fontWeight: FontWeight.bold,
