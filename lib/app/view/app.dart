@@ -18,7 +18,7 @@ import 'package:ht_dashboard/router/router.dart';
 import 'package:ht_dashboard/shared/theme/app_theme.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
-import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_shared/ht_shared.dart' hide AppStatus;
 
 class App extends StatelessWidget {
   const App({
