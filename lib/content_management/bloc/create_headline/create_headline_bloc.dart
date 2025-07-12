@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' hide Topic;
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
@@ -15,10 +16,12 @@ class CreateHeadlineBloc
     required HtDataRepository<Headline> headlinesRepository,
     required HtDataRepository<Source> sourcesRepository,
     required HtDataRepository<Topic> topicsRepository,
-  }) : _headlinesRepository = headlinesRepository,
-       _sourcesRepository = sourcesRepository,
-       _topicsRepository = topicsRepository,
-       super(const CreateHeadlineState()) {
+    required HtDataRepository<Country> countriesRepository,
+  })  : _headlinesRepository = headlinesRepository,
+        _sourcesRepository = sourcesRepository,
+        _topicsRepository = topicsRepository,
+        _countriesRepository = countriesRepository,
+        super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineDescriptionChanged>(_onDescriptionChanged);
@@ -26,6 +29,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
+    on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
   }
@@ -33,6 +37,8 @@ class CreateHeadlineBloc
   final HtDataRepository<Headline> _headlinesRepository;
   final HtDataRepository<Source> _sourcesRepository;
   final HtDataRepository<Topic> _topicsRepository;
+  final HtDataRepository<Country> _countriesRepository;
+  final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
     CreateHeadlineDataLoaded event,
@@ -40,20 +46,23 @@ class CreateHeadlineBloc
   ) async {
     emit(state.copyWith(status: CreateHeadlineStatus.loading));
     try {
-      final [sourcesResponse, categoriesResponse] = await Future.wait([
+      final [sourcesResponse, topicsResponse, countriesResponse] =
+          await Future.wait([
         _sourcesRepository.readAll(),
-        _categoriesRepository.readAll(),
+        _topicsRepository.readAll(),
+        _countriesRepository.readAll(),
       ]);
 
-      final sources = (sourcesResponse as PaginatedResponse<Source>).items;
-      final categories =
-          (categoriesResponse as PaginatedResponse<Category>).items;
+      final sources = sourcesResponse.items;
+      final topics = topicsResponse.items;
+      final countries = countriesResponse.items;
 
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.initial,
           sources: sources,
-          categories: categories,
+          topics: topics,
+          countries: countries,
         ),
       );
     } on HtHttpException catch (e) {
@@ -108,11 +117,18 @@ class CreateHeadlineBloc
     emit(state.copyWith(source: () => event.source));
   }
 
-  void _onCategoryChanged(
-    CreateHeadlineCategoryChanged event,
+  void _onTopicChanged(
+    CreateHeadlineTopicChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    emit(state.copyWith(category: () => event.category));
+    emit(state.copyWith(topic: () => event.topic));
+  }
+
+  void _onCountryChanged(
+    CreateHeadlineCountryChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(state.copyWith(eventCountry: () => event.country));
   }
 
   void _onStatusChanged(
@@ -137,15 +153,16 @@ class CreateHeadlineBloc
     try {
       final now = DateTime.now();
       final newHeadline = Headline(
+        id: _uuid.v4(),
         title: state.title,
-        description: state.description.isNotEmpty ? state.description : null,
-        url: state.url.isNotEmpty ? state.url : null,
-        imageUrl: state.imageUrl.isNotEmpty ? state.imageUrl : null,
-        source: state.source,
-        publishedAt: now,
+        excerpt: state.description,
+        url: state.url,
+        imageUrl: state.imageUrl,
+        source: state.source!,
+        eventCountry: state.eventCountry!,
+        topic: state.topic!,
         createdAt: now,
         updatedAt: now,
-        category: state.category,
         status: state.contentStatus,
       );
 
