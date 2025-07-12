@@ -24,38 +24,36 @@ class App extends StatelessWidget {
   const App({
     required HtAuthRepository htAuthenticationRepository,
     required HtDataRepository<Headline> htHeadlinesRepository,
-    required HtDataRepository<Category> htCategoriesRepository,
+    required HtDataRepository<Topic> htTopicsRepository,
     required HtDataRepository<Country> htCountriesRepository,
     required HtDataRepository<Source> htSourcesRepository,
     required HtDataRepository<UserAppSettings> htUserAppSettingsRepository,
-    required HtDataRepository<UserContentPreferences>
-    htUserContentPreferencesRepository,
-    required HtDataRepository<AppConfig> htAppConfigRepository,
+    required HtDataRepository<UserContentPreferences> htUserContentPreferencesRepository,
+    required HtDataRepository<RemoteConfig> htRemoteConfigRepository,
     required HtDataRepository<DashboardSummary> htDashboardSummaryRepository,
     required HtKVStorageService kvStorageService,
     required AppEnvironment environment,
     super.key,
   }) : _htAuthenticationRepository = htAuthenticationRepository,
        _htHeadlinesRepository = htHeadlinesRepository,
-       _htCategoriesRepository = htCategoriesRepository,
+       _htTopicsRepository = htTopicsRepository,
        _htCountriesRepository = htCountriesRepository,
        _htSourcesRepository = htSourcesRepository,
        _htUserAppSettingsRepository = htUserAppSettingsRepository,
        _htUserContentPreferencesRepository = htUserContentPreferencesRepository,
-       _htAppConfigRepository = htAppConfigRepository,
+       _htRemoteConfigRepository = htRemoteConfigRepository,
        _kvStorageService = kvStorageService,
        _htDashboardSummaryRepository = htDashboardSummaryRepository,
        _environment = environment;
 
   final HtAuthRepository _htAuthenticationRepository;
   final HtDataRepository<Headline> _htHeadlinesRepository;
-  final HtDataRepository<Category> _htCategoriesRepository;
+  final HtDataRepository<Topic> _htTopicsRepository;
   final HtDataRepository<Country> _htCountriesRepository;
   final HtDataRepository<Source> _htSourcesRepository;
   final HtDataRepository<UserAppSettings> _htUserAppSettingsRepository;
-  final HtDataRepository<UserContentPreferences>
-  _htUserContentPreferencesRepository;
-  final HtDataRepository<AppConfig> _htAppConfigRepository;
+  final HtDataRepository<UserContentPreferences> _htUserContentPreferencesRepository;
+  final HtDataRepository<RemoteConfig> _htRemoteConfigRepository;
   final HtDataRepository<DashboardSummary> _htDashboardSummaryRepository;
   final HtKVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -66,12 +64,12 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: _htAuthenticationRepository),
         RepositoryProvider.value(value: _htHeadlinesRepository),
-        RepositoryProvider.value(value: _htCategoriesRepository),
+        RepositoryProvider.value(value: _htTopicsRepository),
         RepositoryProvider.value(value: _htCountriesRepository),
         RepositoryProvider.value(value: _htSourcesRepository),
         RepositoryProvider.value(value: _htUserAppSettingsRepository),
         RepositoryProvider.value(value: _htUserContentPreferencesRepository),
-        RepositoryProvider.value(value: _htAppConfigRepository),
+        RepositoryProvider.value(value: _htRemoteConfigRepository),
         RepositoryProvider.value(value: _htDashboardSummaryRepository),
         RepositoryProvider.value(value: _kvStorageService),
       ],
@@ -82,7 +80,8 @@ class App extends StatelessWidget {
               authenticationRepository: context.read<HtAuthRepository>(),
               userAppSettingsRepository: context
                   .read<HtDataRepository<UserAppSettings>>(),
-              appConfigRepository: context.read<HtDataRepository<AppConfig>>(),
+              appConfigRepository:
+                  context.read<HtDataRepository<RemoteConfig>>(),
               environment: _environment,
             ),
           ),
@@ -93,21 +92,23 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AppConfigurationBloc(
-              appConfigRepository: context.read<HtDataRepository<AppConfig>>(),
+              appConfigRepository:
+                  context.read<HtDataRepository<RemoteConfig>>(),
             ),
           ),
           BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<HtDataRepository<Headline>>(),
-              categoriesRepository: context.read<HtDataRepository<Category>>(),
+              topicsRepository: context.read<HtDataRepository<Topic>>(),
               sourcesRepository: context.read<HtDataRepository<Source>>(),
             ),
           ),
           BlocProvider(
             create: (context) => DashboardBloc(
-              dashboardSummaryRepository: context
-                  .read<HtDataRepository<DashboardSummary>>(),
-              appConfigRepository: context.read<HtDataRepository<AppConfig>>(),
+              dashboardSummaryRepository:
+                  context.read<HtDataRepository<DashboardSummary>>(),
+              appConfigRepository:
+                  context.read<HtDataRepository<RemoteConfig>>(),
               headlinesRepository: context.read<HtDataRepository<Headline>>(),
             ),
           ),
