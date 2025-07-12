@@ -1,40 +1,40 @@
 part of 'create_topic_bloc.dart';
 
-/// Base class for all events related to the [CreateCategoryBloc].
-sealed class CreateCategoryEvent extends Equatable {
-  const CreateCategoryEvent();
+/// Base class for all events related to the [CreateTopicBloc].
+sealed class CreateTopicEvent extends Equatable {
+  const CreateTopicEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-/// Event for when the category's name is changed.
-final class CreateCategoryNameChanged extends CreateCategoryEvent {
-  const CreateCategoryNameChanged(this.name);
+/// Event for when the topic's name is changed.
+final class CreateTopicNameChanged extends CreateTopicEvent {
+  const CreateTopicNameChanged(this.name);
   final String name;
   @override
   List<Object?> get props => [name];
 }
 
-/// Event for when the category's description is changed.
-final class CreateCategoryDescriptionChanged extends CreateCategoryEvent {
-  const CreateCategoryDescriptionChanged(this.description);
+/// Event for when the topic's description is changed.
+final class CreateTopicDescriptionChanged extends CreateTopicEvent {
+  const CreateTopicDescriptionChanged(this.description);
   final String description;
   @override
   List<Object?> get props => [description];
 }
 
-/// Event for when the category's icon URL is changed.
-final class CreateCategoryIconUrlChanged extends CreateCategoryEvent {
-  const CreateCategoryIconUrlChanged(this.iconUrl);
+/// Event for when the topic's icon URL is changed.
+final class CreateTopicIconUrlChanged extends CreateTopicEvent {
+  const CreateTopicIconUrlChanged(this.iconUrl);
   final String iconUrl;
   @override
   List<Object?> get props => [iconUrl];
 }
 
-/// Event for when the category's status is changed.
-final class CreateCategoryStatusChanged extends CreateCategoryEvent {
-  const CreateCategoryStatusChanged(this.status);
+/// Event for when the topic's status is changed.
+final class CreateTopicStatusChanged extends CreateTopicEvent {
+  const CreateTopicStatusChanged(this.status);
 
   final ContentStatus status;
   @override
@@ -42,6 +42,6 @@ final class CreateCategoryStatusChanged extends CreateCategoryEvent {
 }
 
 /// Event to signal that the form should be submitted.
-final class CreateCategorySubmitted extends CreateCategoryEvent {
-  const CreateCategorySubmitted();
+final class CreateTopicSubmitted extends CreateTopicEvent {
+  const CreateTopicSubmitted();
 }
