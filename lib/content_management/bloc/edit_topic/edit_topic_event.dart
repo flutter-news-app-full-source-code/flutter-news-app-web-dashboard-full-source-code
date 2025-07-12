@@ -1,4 +1,4 @@
-part of 'edit_category_bloc.dart';
+part of 'edit_topic_bloc.dart';
 
 /// Base class for all events related to the [EditCategoryBloc].
 sealed class EditCategoryEvent extends Equatable {

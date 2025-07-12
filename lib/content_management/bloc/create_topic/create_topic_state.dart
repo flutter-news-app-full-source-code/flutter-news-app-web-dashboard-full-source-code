@@ -1,4 +1,4 @@
-part of 'create_category_bloc.dart';
+part of 'create_topic_bloc.dart';
 
 /// Represents the status of the create category operation.
 enum CreateCategoryStatus {

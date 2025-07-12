@@ -1,4 +1,4 @@
-part of 'edit_category_bloc.dart';
+part of 'edit_topic_bloc.dart';
 
 /// Represents the status of the edit category operation.
 enum EditCategoryStatus {

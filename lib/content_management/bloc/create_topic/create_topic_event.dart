@@ -1,4 +1,4 @@
-part of 'create_category_bloc.dart';
+part of 'create_topic_bloc.dart';
 
 /// Base class for all events related to the [CreateCategoryBloc].
 sealed class CreateCategoryEvent extends Equatable {

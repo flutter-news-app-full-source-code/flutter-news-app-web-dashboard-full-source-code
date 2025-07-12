@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 
-part 'edit_category_event.dart';
-part 'edit_category_state.dart';
+part 'edit_topic_event.dart';
+part 'edit_topic_state.dart';
 
 /// A BLoC to manage the state of editing a single category.
 class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
