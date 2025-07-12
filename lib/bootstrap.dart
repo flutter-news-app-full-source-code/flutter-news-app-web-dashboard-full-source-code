@@ -67,22 +67,22 @@ Future<Widget> bootstrap(
     headlinesClient = HtDataInMemory<Headline>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: headlinesFixturesData.map(Headline.fromJson).toList(),
+      initialData: headlinesFixturesData,
     );
     topicsClient = HtDataInMemory<Topic>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: categoriesFixturesData.map(Topic.fromJson).toList(),
+      initialData: topicsFixturesData,
     );
     countriesClient = HtDataInMemory<Country>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: countriesFixturesData.map(Country.fromJson).toList(),
+      initialData: countriesFixturesData,
     );
     sourcesClient = HtDataInMemory<Source>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: sourcesFixturesData.map(Source.fromJson).toList(),
+      initialData: sourcesFixturesData,
     );
     userContentPreferencesClient = HtDataInMemory<UserContentPreferences>(
       toJson: (i) => i.toJson(),
