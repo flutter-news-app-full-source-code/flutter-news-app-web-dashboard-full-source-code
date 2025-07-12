@@ -1,21 +1,21 @@
 part of 'edit_topic_bloc.dart';
 
-/// Base class for all events related to the [EditCategoryBloc].
-sealed class EditCategoryEvent extends Equatable {
-  const EditCategoryEvent();
+/// Base class for all events related to the [EditTopicBloc].
+sealed class EditTopicEvent extends Equatable {
+  const EditTopicEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-/// Event to load the initial category data for editing.
-final class EditCategoryLoaded extends EditCategoryEvent {
-  const EditCategoryLoaded();
+/// Event to load the initial topic data for editing.
+final class EditTopicLoaded extends EditTopicEvent {
+  const EditTopicLoaded();
 }
 
-/// Event triggered when the category name input changes.
-final class EditCategoryNameChanged extends EditCategoryEvent {
-  const EditCategoryNameChanged(this.name);
+/// Event triggered when the topic name input changes.
+final class EditTopicNameChanged extends EditTopicEvent {
+  const EditTopicNameChanged(this.name);
 
   final String name;
 
@@ -23,9 +23,9 @@ final class EditCategoryNameChanged extends EditCategoryEvent {
   List<Object?> get props => [name];
 }
 
-/// Event triggered when the category description input changes.
-final class EditCategoryDescriptionChanged extends EditCategoryEvent {
-  const EditCategoryDescriptionChanged(this.description);
+/// Event triggered when the topic description input changes.
+final class EditTopicDescriptionChanged extends EditTopicEvent {
+  const EditTopicDescriptionChanged(this.description);
 
   final String description;
 
@@ -33,9 +33,9 @@ final class EditCategoryDescriptionChanged extends EditCategoryEvent {
   List<Object?> get props => [description];
 }
 
-/// Event triggered when the category icon URL input changes.
-final class EditCategoryIconUrlChanged extends EditCategoryEvent {
-  const EditCategoryIconUrlChanged(this.iconUrl);
+/// Event triggered when the topic icon URL input changes.
+final class EditTopicIconUrlChanged extends EditTopicEvent {
+  const EditTopicIconUrlChanged(this.iconUrl);
 
   final String iconUrl;
 
@@ -43,9 +43,9 @@ final class EditCategoryIconUrlChanged extends EditCategoryEvent {
   List<Object?> get props => [iconUrl];
 }
 
-/// Event for when the category's status is changed.
-final class EditCategoryStatusChanged extends EditCategoryEvent {
-  const EditCategoryStatusChanged(this.status);
+/// Event for when the topic's status is changed.
+final class EditTopicStatusChanged extends EditTopicEvent {
+  const EditTopicStatusChanged(this.status);
 
   final ContentStatus status;
 
@@ -53,7 +53,7 @@ final class EditCategoryStatusChanged extends EditCategoryEvent {
   List<Object?> get props => [status];
 }
 
-/// Event to submit the edited category data.
-final class EditCategorySubmitted extends EditCategoryEvent {
-  const EditCategorySubmitted();
+/// Event to submit the edited topic data.
+final class EditTopicSubmitted extends EditTopicEvent {
+  const EditTopicSubmitted();
 }
