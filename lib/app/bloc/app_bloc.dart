@@ -16,7 +16,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required HtAuthRepository authenticationRepository,
     required HtDataRepository<UserAppSettings> userAppSettingsRepository,
-    required HtDataRepository<AppConfig> appConfigRepository,
+    required HtDataRepository<RemoteConfig> appConfigRepository,
     required local_config.AppEnvironment environment,
   }) : _authenticationRepository = authenticationRepository,
        _userAppSettingsRepository = userAppSettingsRepository,
@@ -35,7 +35,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   final HtAuthRepository _authenticationRepository;
   final HtDataRepository<UserAppSettings> _userAppSettingsRepository;
-  final HtDataRepository<AppConfig> _appConfigRepository;
+  final HtDataRepository<RemoteConfig> _appConfigRepository;
   late final StreamSubscription<User?> _userSubscription;
 
   /// Handles user changes and loads initial settings once user is available.
@@ -47,8 +47,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     final AppStatus status;
 
     if (user != null &&
-        (user.roles.contains(UserRoles.admin) ||
-            user.roles.contains(UserRoles.publisher))) {
+        (user.dashboardRole == DashboardUserRole.admin ||
+            user.dashboardRole == DashboardUserRole.publisher)) {
       status = AppStatus.authenticated;
     } else {
       status = AppStatus.unauthenticated;
@@ -66,7 +66,23 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         emit(state.copyWith(userAppSettings: userAppSettings));
       } on NotFoundException {
         // If settings not found, create default ones
-        final defaultSettings = UserAppSettings(id: user.id);
+        const defaultSettings = UserAppSettings(
+          id: 'default',
+          displaySettings: DisplaySettings(
+            baseTheme: AppBaseTheme.system,
+            accentTheme: AppAccentTheme.defaultBlue,
+            fontFamily: 'SystemDefault',
+            textScaleFactor: AppTextScaleFactor.medium,
+            fontWeight: AppFontWeight.regular,
+          ),
+          language: 'en',
+          feedPreferences: FeedDisplayPreferences(
+            headlineDensity: HeadlineDensity.standard,
+            headlineImageStyle: HeadlineImageStyle.largeThumbnail,
+            showSourceInHeadlineFeed: true,
+            showPublishDateInHeadlineFeed: true,
+          ),
+        );
         await _userAppSettingsRepository.create(item: defaultSettings);
         emit(state.copyWith(userAppSettings: defaultSettings));
       } on HtHttpException catch (e) {
