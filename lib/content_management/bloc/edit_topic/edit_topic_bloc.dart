@@ -6,54 +6,54 @@ import 'package:ht_shared/ht_shared.dart';
 part 'edit_topic_event.dart';
 part 'edit_topic_state.dart';
 
-/// A BLoC to manage the state of editing a single category.
-class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
-  /// {@macro edit_category_bloc}
-  EditCategoryBloc({
-    required HtDataRepository<Category> categoriesRepository,
-    required String categoryId,
-  }) : _categoriesRepository = categoriesRepository,
-       _categoryId = categoryId,
-       super(const EditCategoryState()) {
-    on<EditCategoryLoaded>(_onLoaded);
-    on<EditCategoryNameChanged>(_onNameChanged);
-    on<EditCategoryDescriptionChanged>(_onDescriptionChanged);
-    on<EditCategoryIconUrlChanged>(_onIconUrlChanged);
-    on<EditCategoryStatusChanged>(_onStatusChanged);
-    on<EditCategorySubmitted>(_onSubmitted);
+/// A BLoC to manage the state of editing a single topic.
+class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
+  /// {@macro edit_topic_bloc}
+  EditTopicBloc({
+    required HtDataRepository<Topic> topicsRepository,
+    required String topicId,
+  })  : _topicsRepository = topicsRepository,
+        _topicId = topicId,
+        super(const EditTopicState()) {
+    on<EditTopicLoaded>(_onLoaded);
+    on<EditTopicNameChanged>(_onNameChanged);
+    on<EditTopicDescriptionChanged>(_onDescriptionChanged);
+    on<EditTopicIconUrlChanged>(_onIconUrlChanged);
+    on<EditTopicStatusChanged>(_onStatusChanged);
+    on<EditTopicSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Category> _categoriesRepository;
-  final String _categoryId;
+  final HtDataRepository<Topic> _topicsRepository;
+  final String _topicId;
 
   Future<void> _onLoaded(
-    EditCategoryLoaded event,
-    Emitter<EditCategoryState> emit,
+    EditTopicLoaded event,
+    Emitter<EditTopicState> emit,
   ) async {
-    emit(state.copyWith(status: EditCategoryStatus.loading));
+    emit(state.copyWith(status: EditTopicStatus.loading));
     try {
-      final category = await _categoriesRepository.read(id: _categoryId);
+      final topic = await _topicsRepository.read(id: _topicId);
       emit(
         state.copyWith(
-          status: EditCategoryStatus.initial,
-          initialCategory: category,
-          name: category.name,
-          description: category.description ?? '',
-          iconUrl: category.iconUrl ?? '',
-          contentStatus: category.status,
+          status: EditTopicStatus.initial,
+          initialTopic: topic,
+          name: topic.name,
+          description: topic.description,
+          iconUrl: topic.iconUrl,
+          contentStatus: topic.status,
         ),
       );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
-          status: EditCategoryStatus.failure,
+          status: EditTopicStatus.failure,
           errorMessage: e.message,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
-          status: EditCategoryStatus.failure,
+          status: EditTopicStatus.failure,
           errorMessage: e.toString(),
         ),
       );
@@ -61,104 +61,104 @@ class EditCategoryBloc extends Bloc<EditCategoryEvent, EditCategoryState> {
   }
 
   void _onNameChanged(
-    EditCategoryNameChanged event,
-    Emitter<EditCategoryState> emit,
+    EditTopicNameChanged event,
+    Emitter<EditTopicState> emit,
   ) {
     emit(
       state.copyWith(
         name: event.name,
         // Reset status to allow for re-submission after a failure.
-        status: EditCategoryStatus.initial,
+        status: EditTopicStatus.initial,
       ),
     );
   }
 
   void _onDescriptionChanged(
-    EditCategoryDescriptionChanged event,
-    Emitter<EditCategoryState> emit,
+    EditTopicDescriptionChanged event,
+    Emitter<EditTopicState> emit,
   ) {
     emit(
       state.copyWith(
         description: event.description,
-        status: EditCategoryStatus.initial,
+        status: EditTopicStatus.initial,
       ),
     );
   }
 
   void _onIconUrlChanged(
-    EditCategoryIconUrlChanged event,
-    Emitter<EditCategoryState> emit,
+    EditTopicIconUrlChanged event,
+    Emitter<EditTopicState> emit,
   ) {
     emit(
       state.copyWith(
         iconUrl: event.iconUrl,
-        status: EditCategoryStatus.initial,
+        status: EditTopicStatus.initial,
       ),
     );
   }
 
   void _onStatusChanged(
-    EditCategoryStatusChanged event,
-    Emitter<EditCategoryState> emit,
+    EditTopicStatusChanged event,
+    Emitter<EditTopicState> emit,
   ) {
     emit(
       state.copyWith(
         contentStatus: event.status,
-        status: EditCategoryStatus.initial,
+        status: EditTopicStatus.initial,
       ),
     );
   }
 
   Future<void> _onSubmitted(
-    EditCategorySubmitted event,
-    Emitter<EditCategoryState> emit,
+    EditTopicSubmitted event,
+    Emitter<EditTopicState> emit,
   ) async {
     if (!state.isFormValid) return;
 
-    // Safely access the initial category to prevent null errors.
-    final initialCategory = state.initialCategory;
-    if (initialCategory == null) {
+    // Safely access the initial topic to prevent null errors.
+    final initialTopic = state.initialTopic;
+    if (initialTopic == null) {
       emit(
         state.copyWith(
-          status: EditCategoryStatus.failure,
-          errorMessage: 'Cannot update: Original category data not loaded.',
+          status: EditTopicStatus.failure,
+          errorMessage: 'Cannot update: Original topic data not loaded.',
         ),
       );
       return;
     }
 
-    emit(state.copyWith(status: EditCategoryStatus.submitting));
+    emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
       // Use null for empty optional fields, which is cleaner for APIs.
-      final updatedCategory = initialCategory.copyWith(
+      final updatedTopic = initialTopic.copyWith(
         name: state.name,
-        description: state.description.isNotEmpty ? state.description : null,
-        iconUrl: state.iconUrl.isNotEmpty ? state.iconUrl : null,
+        description: state.description,
+        iconUrl: state.iconUrl,
         status: state.contentStatus,
         updatedAt: DateTime.now(),
       );
 
-      await _categoriesRepository.update(
-        id: _categoryId,
-        item: updatedCategory,
+      await _topicsRepository.update(
+        id: _topicId,
+        item: updatedTopic,
       );
       emit(
         state.copyWith(
-          status: EditCategoryStatus.success,
-          updatedCategory: updatedCategory,
+          status: EditTopicStatus.success,
+          updatedTopic: updatedTopic,
         ),
       );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
-          status: EditCategoryStatus.failure,
+          status: EditTopicStatus.failure,
           errorMessage: e.message,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
-          status: EditCategoryStatus.failure,
+          status: EditTopicStatus.failure,
           errorMessage: e.toString(),
         ),
       );
