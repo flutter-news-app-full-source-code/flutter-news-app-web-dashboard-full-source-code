@@ -93,7 +93,7 @@ class CreateHeadlineBloc
     CreateHeadlineDescriptionChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    emit(state.copyWith(description: event.description));
+    emit(state.copyWith(excerpt: event.description));
   }
 
   void _onUrlChanged(
@@ -155,7 +155,7 @@ class CreateHeadlineBloc
       final newHeadline = Headline(
         id: _uuid.v4(),
         title: state.title,
-        excerpt: state.description,
+        excerpt: state.excerpt,
         url: state.url,
         imageUrl: state.imageUrl,
         source: state.source!,
