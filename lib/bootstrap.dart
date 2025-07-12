@@ -55,7 +55,7 @@ Future<Widget> bootstrap(
   }
 
   HtDataClient<Headline> headlinesClient;
-  HtDataClient<Category> categoriesClient;
+  HtDataClient<Topic> topicsClient;
   HtDataClient<Country> countriesClient;
   HtDataClient<Source> sourcesClient;
   HtDataClient<UserContentPreferences> userContentPreferencesClient;
@@ -69,10 +69,10 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: headlinesFixturesData.map(Headline.fromJson).toList(),
     );
-    categoriesClient = HtDataInMemory<Category>(
+    topicsClient = HtDataInMemory<Topic>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: categoriesFixturesData.map(Category.fromJson).toList(),
+      initialData: categoriesFixturesData.map(Topic.fromJson).toList(),
     );
     countriesClient = HtDataInMemory<Country>(
       toJson: (i) => i.toJson(),
@@ -111,11 +111,11 @@ Future<Widget> bootstrap(
       fromJson: Headline.fromJson,
       toJson: (headline) => headline.toJson(),
     );
-    categoriesClient = HtDataApi<Category>(
+    topicsClient = HtDataApi<Topic>(
       httpClient: httpClient,
-      modelName: 'category',
-      fromJson: Category.fromJson,
-      toJson: (category) => category.toJson(),
+      modelName: 'topic',
+      fromJson: Topic.fromJson,
+      toJson: (topic) => topic.toJson(),
     );
     countriesClient = HtDataApi<Country>(
       httpClient: httpClient,
@@ -160,11 +160,11 @@ Future<Widget> bootstrap(
       fromJson: Headline.fromJson,
       toJson: (headline) => headline.toJson(),
     );
-    categoriesClient = HtDataApi<Category>(
+    topicsClient = HtDataApi<Topic>(
       httpClient: httpClient,
-      modelName: 'category',
-      fromJson: Category.fromJson,
-      toJson: (category) => category.toJson(),
+      modelName: 'topic',
+      fromJson: Topic.fromJson,
+      toJson: (topic) => topic.toJson(),
     );
     countriesClient = HtDataApi<Country>(
       httpClient: httpClient,
@@ -207,8 +207,8 @@ Future<Widget> bootstrap(
   final headlinesRepository = HtDataRepository<Headline>(
     dataClient: headlinesClient,
   );
-  final categoriesRepository = HtDataRepository<Category>(
-    dataClient: categoriesClient,
+  final topicsRepository = HtDataRepository<Topic>(
+    dataClient: topicsClient,
   );
   final countriesRepository = HtDataRepository<Country>(
     dataClient: countriesClient,
@@ -231,7 +231,7 @@ Future<Widget> bootstrap(
   return App(
     htAuthenticationRepository: authenticationRepository,
     htHeadlinesRepository: headlinesRepository,
-    htCategoriesRepository: categoriesRepository,
+    htTopicsRepository: topicsRepository,
     htCountriesRepository: countriesRepository,
     htSourcesRepository: sourcesRepository,
     htUserAppSettingsRepository: userAppSettingsRepository,
