@@ -1,7 +1,7 @@
 part of 'create_topic_bloc.dart';
 
-/// Represents the status of the create category operation.
-enum CreateCategoryStatus {
+/// Represents the status of the create topic operation.
+enum CreateTopicStatus {
   /// Initial state.
   initial,
 
@@ -15,59 +15,59 @@ enum CreateCategoryStatus {
   failure,
 }
 
-/// The state for the [CreateCategoryBloc].
-final class CreateCategoryState extends Equatable {
-  /// {@macro create_category_state}
-  const CreateCategoryState({
-    this.status = CreateCategoryStatus.initial,
+/// The state for the [CreateTopicBloc].
+final class CreateTopicState extends Equatable {
+  /// {@macro create_topic_state}
+  const CreateTopicState({
+    this.status = CreateTopicStatus.initial,
     this.name = '',
     this.description = '',
     this.iconUrl = '',
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
-    this.createdCategory,
+    this.createdTopic,
   });
 
-  final CreateCategoryStatus status;
+  final CreateTopicStatus status;
   final String name;
   final String description;
   final String iconUrl;
   final ContentStatus contentStatus;
   final String? errorMessage;
-  final Category? createdCategory;
+  final Topic? createdTopic;
 
   /// Returns true if the form is valid and can be submitted.
-  /// Based on the Category model, only the name is required.
+  /// Based on the Topic model, only the name is required.
   bool get isFormValid => name.isNotEmpty;
 
-  CreateCategoryState copyWith({
-    CreateCategoryStatus? status,
+  CreateTopicState copyWith({
+    CreateTopicStatus? status,
     String? name,
     String? description,
     String? iconUrl,
     ContentStatus? contentStatus,
     String? errorMessage,
-    Category? createdCategory,
+    Topic? createdTopic,
   }) {
-    return CreateCategoryState(
+    return CreateTopicState(
       status: status ?? this.status,
       name: name ?? this.name,
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
       contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage,
-      createdCategory: createdCategory ?? this.createdCategory,
+      createdTopic: createdTopic ?? this.createdTopic,
     );
   }
 
   @override
   List<Object?> get props => [
-    status,
-    name,
-    description,
-    iconUrl,
-    contentStatus,
-    errorMessage,
-    createdCategory,
-  ];
+        status,
+        name,
+        description,
+        iconUrl,
+        contentStatus,
+        errorMessage,
+        createdTopic,
+      ];
 }
