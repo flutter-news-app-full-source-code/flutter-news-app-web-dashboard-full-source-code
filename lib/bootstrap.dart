@@ -60,7 +60,7 @@ Future<Widget> bootstrap(
   HtDataClient<Source> sourcesClient;
   HtDataClient<UserContentPreferences> userContentPreferencesClient;
   HtDataClient<UserAppSettings> userAppSettingsClient;
-  HtDataClient<AppConfig> appConfigClient;
+  HtDataClient<RemoteConfig> remoteConfigClient;
   HtDataClient<DashboardSummary> dashboardSummaryClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
@@ -92,10 +92,10 @@ Future<Widget> bootstrap(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
     );
-    appConfigClient = HtDataInMemory<AppConfig>(
+    remoteConfigClient = HtDataInMemory<RemoteConfig>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: [AppConfig.fromJson(appConfigFixtureData)],
+      initialData: [RemoteConfig.fromJson(appConfigFixtureData)],
     );
     dashboardSummaryClient = HtDataInMemory<DashboardSummary>(
       toJson: (i) => i.toJson(),
@@ -141,10 +141,10 @@ Future<Widget> bootstrap(
       fromJson: UserAppSettings.fromJson,
       toJson: (settings) => settings.toJson(),
     );
-    appConfigClient = HtDataApi<AppConfig>(
+    remoteConfigClient = HtDataApi<RemoteConfig>(
       httpClient: httpClient,
-      modelName: 'app_config',
-      fromJson: AppConfig.fromJson,
+      modelName: 'remote_config',
+      fromJson: RemoteConfig.fromJson,
       toJson: (config) => config.toJson(),
     );
     dashboardSummaryClient = HtDataApi<DashboardSummary>(
@@ -190,10 +190,10 @@ Future<Widget> bootstrap(
       fromJson: UserAppSettings.fromJson,
       toJson: (settings) => settings.toJson(),
     );
-    appConfigClient = HtDataApi<AppConfig>(
+    remoteConfigClient = HtDataApi<RemoteConfig>(
       httpClient: httpClient,
-      modelName: 'app_config',
-      fromJson: AppConfig.fromJson,
+      modelName: 'remote_config',
+      fromJson: RemoteConfig.fromJson,
       toJson: (config) => config.toJson(),
     );
     dashboardSummaryClient = HtDataApi<DashboardSummary>(
@@ -221,8 +221,8 @@ Future<Widget> bootstrap(
   final userAppSettingsRepository = HtDataRepository<UserAppSettings>(
     dataClient: userAppSettingsClient,
   );
-  final appConfigRepository = HtDataRepository<AppConfig>(
-    dataClient: appConfigClient,
+  final remoteConfigRepository = HtDataRepository<RemoteConfig>(
+    dataClient: remoteConfigClient,
   );
   final dashboardSummaryRepository = HtDataRepository<DashboardSummary>(
     dataClient: dashboardSummaryClient,
@@ -236,7 +236,7 @@ Future<Widget> bootstrap(
     htSourcesRepository: sourcesRepository,
     htUserAppSettingsRepository: userAppSettingsRepository,
     htUserContentPreferencesRepository: userContentPreferencesRepository,
-    htAppConfigRepository: appConfigRepository,
+    htRemoteConfigRepository: remoteConfigRepository,
     htDashboardSummaryRepository: dashboardSummaryRepository,
     kvStorageService: kvStorage,
     environment: environment,
