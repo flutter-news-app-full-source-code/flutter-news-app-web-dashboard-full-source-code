@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart' hide Category;
+import 'package:flutter/foundation.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 
@@ -14,10 +14,10 @@ class CreateHeadlineBloc
   CreateHeadlineBloc({
     required HtDataRepository<Headline> headlinesRepository,
     required HtDataRepository<Source> sourcesRepository,
-    required HtDataRepository<Category> categoriesRepository,
+    required HtDataRepository<Topic> topicsRepository,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
-       _categoriesRepository = categoriesRepository,
+       _topicsRepository = topicsRepository,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
@@ -25,14 +25,14 @@ class CreateHeadlineBloc
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
     on<CreateHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
-    on<CreateHeadlineCategoryChanged>(_onCategoryChanged);
+    on<CreateHeadlineTopicChanged>(_onTopicChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
   }
 
   final HtDataRepository<Headline> _headlinesRepository;
   final HtDataRepository<Source> _sourcesRepository;
-  final HtDataRepository<Category> _categoriesRepository;
+  final HtDataRepository<Topic> _topicsRepository;
 
   Future<void> _onDataLoaded(
     CreateHeadlineDataLoaded event,
