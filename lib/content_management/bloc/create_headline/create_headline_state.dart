@@ -27,9 +27,9 @@ final class CreateHeadlineState extends Equatable {
     this.url = '',
     this.imageUrl = '',
     this.source,
-    this.category,
+    this.topic,
     this.sources = const [],
-    this.categories = const [],
+    this.topics = const [],
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
     this.createdHeadline,
@@ -41,9 +41,9 @@ final class CreateHeadlineState extends Equatable {
   final String url;
   final String imageUrl;
   final Source? source;
-  final Category? category;
+  final Topic? topic;
   final List<Source> sources;
-  final List<Category> categories;
+  final List<Topic> topics;
   final ContentStatus contentStatus;
   final String? errorMessage;
   final Headline? createdHeadline;
@@ -58,9 +58,9 @@ final class CreateHeadlineState extends Equatable {
     String? url,
     String? imageUrl,
     ValueGetter<Source?>? source,
-    ValueGetter<Category?>? category,
+    ValueGetter<Topic?>? topic,
     List<Source>? sources,
-    List<Category>? categories,
+    List<Topic>? topics,
     ContentStatus? contentStatus,
     String? errorMessage,
     Headline? createdHeadline,
@@ -72,9 +72,9 @@ final class CreateHeadlineState extends Equatable {
       url: url ?? this.url,
       imageUrl: imageUrl ?? this.imageUrl,
       source: source != null ? source() : this.source,
-      category: category != null ? category() : this.category,
+      topic: topic != null ? topic() : this.topic,
       sources: sources ?? this.sources,
-      categories: categories ?? this.categories,
+      topics: topics ?? this.topics,
       contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage,
       createdHeadline: createdHeadline ?? this.createdHeadline,
@@ -89,9 +89,9 @@ final class CreateHeadlineState extends Equatable {
     url,
     imageUrl,
     source,
-    category,
+    topic,
     sources,
-    categories,
+    topics,
     contentStatus,
     errorMessage,
     createdHeadline,
