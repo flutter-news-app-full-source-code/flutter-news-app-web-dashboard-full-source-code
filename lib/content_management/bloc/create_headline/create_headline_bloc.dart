@@ -24,7 +24,7 @@ class CreateHeadlineBloc
         super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
-    on<CreateHeadlineDescriptionChanged>(_onDescriptionChanged);
+    on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
     on<CreateHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
@@ -89,11 +89,11 @@ class CreateHeadlineBloc
     emit(state.copyWith(title: event.title));
   }
 
-  void _onDescriptionChanged(
-    CreateHeadlineDescriptionChanged event,
+  void _onExcerptChanged(
+    CreateHeadlineExcerptChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    emit(state.copyWith(excerpt: event.description));
+    emit(state.copyWith(excerpt: event.excerpt));
   }
 
   void _onUrlChanged(
