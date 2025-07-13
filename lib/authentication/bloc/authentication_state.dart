@@ -1,74 +1,71 @@
 part of 'authentication_bloc.dart';
 
+/// {@template authentication_status}
+/// The status of the authentication process.
+/// {@endtemplate}
+enum AuthenticationStatus {
+  /// The initial state of the authentication bloc.
+  initial,
+
+  /// An authentication operation is in progress.
+  loading,
+
+  /// The user is authenticated.
+  authenticated,
+
+  /// The user is unauthenticated.
+  unauthenticated,
+
+  /// The sign-in code is being requested.
+  requestCodeLoading,
+
+  /// The sign-in code was sent successfully.
+  codeSentSuccess,
+
+  /// An authentication operation failed.
+  failure,
+}
+
 /// {@template authentication_state}
-/// Base class for authentication states.
+/// Represents the overall authentication state of the application.
 /// {@endtemplate}
-sealed class AuthenticationState extends Equatable {
+final class AuthenticationState extends Equatable {
   /// {@macro authentication_state}
-  const AuthenticationState();
+  const AuthenticationState({
+    this.status = AuthenticationStatus.initial,
+    this.user,
+    this.email,
+    this.errorMessage,
+  });
+
+  /// The current status of the authentication process.
+  final AuthenticationStatus status;
+
+  /// The authenticated [User] object, if available.
+  final User? user;
+
+  /// The email address involved in the current authentication flow.
+  final String? email;
+
+  /// The error message describing an authentication failure, if any.
+  final String? errorMessage;
 
   @override
-  List<Object> get props => [];
-}
+  List<Object?> get props => [status, user, email, errorMessage];
 
-/// {@template authentication_initial}
-/// The initial authentication state.
-/// {@endtemplate}
-final class AuthenticationInitial extends AuthenticationState {}
-
-/// {@template authentication_loading}
-/// A state indicating that an authentication operation is in progress.
-/// {@endtemplate}
-final class AuthenticationLoading extends AuthenticationState {}
-
-/// {@template authentication_authenticated}
-/// Represents a successful authentication.
-/// {@endtemplate}
-final class AuthenticationAuthenticated extends AuthenticationState {
-  /// {@macro authentication_authenticated}
-  const AuthenticationAuthenticated({required this.user});
-
-  /// The authenticated [User] object.
-  final User user;
-
-  @override
-  List<Object> get props => [user];
-}
-
-/// {@template authentication_unauthenticated}
-/// Represents an unauthenticated state.
-/// {@endtemplate}
-final class AuthenticationUnauthenticated extends AuthenticationState {}
-
-/// {@template authentication_request_code_loading}
-/// State indicating that the sign-in code is being requested.
-/// {@endtemplate}
-final class AuthenticationRequestCodeLoading extends AuthenticationState {}
-
-/// {@template authentication_code_sent_success}
-/// State indicating that the sign-in code was sent successfully.
-/// {@endtemplate}
-final class AuthenticationCodeSentSuccess extends AuthenticationState {
-  /// {@macro authentication_code_sent_success}
-  const AuthenticationCodeSentSuccess({required this.email});
-
-  /// The email address the code was sent to.
-  final String email;
-
-  @override
-  List<Object> get props => [email];
-}
-
-/// {@template authentication_failure}
-/// Represents an authentication failure.
-/// {@endtemplate}
-final class AuthenticationFailure extends AuthenticationState {
-  /// {@macro authentication_failure}
-  const AuthenticationFailure(this.errorMessage);
-
-  /// The error message describing the authentication failure.
-  final String errorMessage;
-
-  @override
-  List<Object> get props => [errorMessage];
+  /// Creates a copy of this [AuthenticationState] with the given fields
+  /// replaced with the new values.
+  AuthenticationState copyWith({
+    AuthenticationStatus? status,
+    User? user,
+    String? email,
+    String? errorMessage,
+  }) {
+    return AuthenticationState(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      email: email ?? this.email,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 }

@@ -55,12 +55,12 @@ final class AuthenticationSignOutRequested extends AuthenticationEvent {
   const AuthenticationSignOutRequested();
 }
 
-/// {@template _authentication_user_changed}
-/// Internal event triggered when the authentication state changes.
+/// {@template _authentication_status_changed}
+/// Internal event triggered when the authentication status changes.
 /// {@endtemplate}
-final class _AuthenticationUserChanged extends AuthenticationEvent {
-  /// {@macro _authentication_user_changed}
-  const _AuthenticationUserChanged({required this.user});
+final class _AuthenticationStatusChanged extends AuthenticationEvent {
+  /// {@macro _authentication_status_changed}
+  const _AuthenticationStatusChanged({this.user});
 
   /// The current authenticated user, or null if unauthenticated.
   final User? user;
