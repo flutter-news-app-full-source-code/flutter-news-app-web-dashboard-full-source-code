@@ -8,6 +8,7 @@ import 'package:ht_auth_repository/ht_auth_repository.dart';
 import 'package:ht_dashboard/app/config/config.dart' as local_config;
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:logging/logging.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
@@ -18,9 +19,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required HtDataRepository<UserAppSettings> userAppSettingsRepository,
     required HtDataRepository<RemoteConfig> appConfigRepository,
     required local_config.AppEnvironment environment,
+    Logger? logger,
   }) : _authenticationRepository = authenticationRepository,
        _userAppSettingsRepository = userAppSettingsRepository,
        _appConfigRepository = appConfigRepository,
+       _logger = logger ?? Logger('AppBloc'),
        super(
          AppState(environment: environment),
        ) {
@@ -36,6 +39,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final HtAuthRepository _authenticationRepository;
   final HtDataRepository<UserAppSettings> _userAppSettingsRepository;
   final HtDataRepository<RemoteConfig> _appConfigRepository;
+  final Logger _logger;
   late final StreamSubscription<User?> _userSubscription;
 
   /// Handles user changes and loads initial settings once user is available.
@@ -46,10 +50,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     final user = event.user;
     final AppStatus status;
 
-    if (user != null &&
-        (user.dashboardRole == DashboardUserRole.admin ||
-            user.dashboardRole == DashboardUserRole.publisher)) {
-      status = AppStatus.authenticated;
+    if (user != null) {
+      if (user.dashboardRole == DashboardUserRole.admin ||
+          user.dashboardRole == DashboardUserRole.publisher) {
+        status = AppStatus.authenticated;
+      } else if (user.appRole == AppUserRole.guestUser) {
+        status = AppStatus.anonymous;
+      } else {
+        status = AppStatus.unauthenticated;
+      }
     } else {
       status = AppStatus.unauthenticated;
     }
@@ -66,9 +75,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         emit(state.copyWith(userAppSettings: userAppSettings));
       } on NotFoundException {
         // If settings not found, create default ones
-        const defaultSettings = UserAppSettings(
-          id: 'default',
-          displaySettings: DisplaySettings(
+        _logger.info(
+          'User app settings not found for user ${user.id}. Creating default.',
+        );
+        final defaultSettings = UserAppSettings(
+          id: user.id, // Use actual user ID for default settings
+          displaySettings: const DisplaySettings(
             baseTheme: AppBaseTheme.system,
             accentTheme: AppAccentTheme.defaultBlue,
             fontFamily: 'SystemDefault',
@@ -76,7 +88,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             fontWeight: AppFontWeight.regular,
           ),
           language: 'en',
-          feedPreferences: FeedDisplayPreferences(
+          feedPreferences: const FeedDisplayPreferences(
             headlineDensity: HeadlineDensity.standard,
             headlineImageStyle: HeadlineImageStyle.largeThumbnail,
             showSourceInHeadlineFeed: true,
@@ -85,17 +97,25 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         );
         await _userAppSettingsRepository.create(item: defaultSettings);
         emit(state.copyWith(userAppSettings: defaultSettings));
-      } on HtHttpException catch (e) {
+      } on HtHttpException catch (e, s) {
         // Handle HTTP exceptions during settings load
-        print('Error loading user app settings: ${e.message}');
+        _logger.severe(
+          'Error loading user app settings for user ${user.id}: ${e.message}',
+          e,
+          s,
+        );
         emit(state.copyWith(clearUserAppSettings: true));
-      } catch (e) {
+      } catch (e, s) {
         // Handle any other unexpected errors
-        print('Unexpected error loading user app settings: $e');
+        _logger.severe(
+          'Unexpected error loading user app settings for user ${user.id}: $e',
+          e,
+          s,
+        );
         emit(state.copyWith(clearUserAppSettings: true));
       }
     } else {
-      // If user is unauthenticated, clear app settings
+      // If user is unauthenticated or anonymous, clear app settings
       emit(state.copyWith(clearUserAppSettings: true));
     }
   }
