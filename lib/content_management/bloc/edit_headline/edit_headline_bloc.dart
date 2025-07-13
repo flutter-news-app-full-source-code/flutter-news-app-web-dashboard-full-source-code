@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart' hide Category;
+import 'package:flutter/foundation.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 
@@ -13,27 +13,31 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   EditHeadlineBloc({
     required HtDataRepository<Headline> headlinesRepository,
     required HtDataRepository<Source> sourcesRepository,
-    required HtDataRepository<Category> categoriesRepository,
+    required HtDataRepository<Topic> topicsRepository,
+    required HtDataRepository<Country> countriesRepository,
     required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
-       _categoriesRepository = categoriesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
        _headlineId = headlineId,
        super(const EditHeadlineState()) {
     on<EditHeadlineLoaded>(_onLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
-    on<EditHeadlineDescriptionChanged>(_onDescriptionChanged);
+    on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
     on<EditHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
-    on<EditHeadlineCategoryChanged>(_onCategoryChanged);
+    on<EditHeadlineTopicChanged>(_onTopicChanged);
+    on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
   }
 
   final HtDataRepository<Headline> _headlinesRepository;
   final HtDataRepository<Source> _sourcesRepository;
-  final HtDataRepository<Category> _categoriesRepository;
+  final HtDataRepository<Topic> _topicsRepository;
+  final HtDataRepository<Country> _countriesRepository;
   final String _headlineId;
 
   Future<void> _onLoaded(
@@ -45,30 +49,34 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       final [
         headlineResponse,
         sourcesResponse,
-        categoriesResponse,
+        topicsResponse,
+        countriesResponse,
       ] = await Future.wait([
         _headlinesRepository.read(id: _headlineId),
         _sourcesRepository.readAll(),
-        _categoriesRepository.readAll(),
+        _topicsRepository.readAll(),
+        _countriesRepository.readAll(),
       ]);
 
       final headline = headlineResponse as Headline;
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
-      final categories =
-          (categoriesResponse as PaginatedResponse<Category>).items;
+      final topics = (topicsResponse as PaginatedResponse<Topic>).items;
+      final countries = (countriesResponse as PaginatedResponse<Country>).items;
 
       emit(
         state.copyWith(
           status: EditHeadlineStatus.initial,
           initialHeadline: headline,
           title: headline.title,
-          description: headline.description ?? '',
-          url: headline.url ?? '',
-          imageUrl: headline.imageUrl ?? '',
+          excerpt: headline.excerpt,
+          url: headline.url,
+          imageUrl: headline.imageUrl,
           source: () => headline.source,
-          category: () => headline.category,
+          topic: () => headline.topic,
+          eventCountry: () => headline.eventCountry,
           sources: sources,
-          categories: categories,
+          topics: topics,
+          countries: countries,
           contentStatus: headline.status,
         ),
       );
@@ -98,13 +106,13 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     );
   }
 
-  void _onDescriptionChanged(
-    EditHeadlineDescriptionChanged event,
+  void _onExcerptChanged(
+    EditHeadlineExcerptChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
     emit(
       state.copyWith(
-        description: event.description,
+        excerpt: event.excerpt,
         status: EditHeadlineStatus.initial,
       ),
     );
@@ -141,13 +149,25 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     );
   }
 
-  void _onCategoryChanged(
-    EditHeadlineCategoryChanged event,
+  void _onTopicChanged(
+    EditHeadlineTopicChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
     emit(
       state.copyWith(
-        category: () => event.category,
+        topic: () => event.topic,
+        status: EditHeadlineStatus.initial,
+      ),
+    );
+  }
+
+  void _onCountryChanged(
+    EditHeadlineCountryChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        eventCountry: () => event.country,
         status: EditHeadlineStatus.initial,
       ),
     );
@@ -186,11 +206,12 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     try {
       final updatedHeadline = initialHeadline.copyWith(
         title: state.title,
-        description: state.description.isNotEmpty ? state.description : null,
-        url: state.url.isNotEmpty ? state.url : null,
-        imageUrl: state.imageUrl.isNotEmpty ? state.imageUrl : null,
+        excerpt: state.excerpt,
+        url: state.url,
+        imageUrl: state.imageUrl,
         source: state.source,
-        category: state.category,
+        topic: state.topic,
+        eventCountry: state.eventCountry,
         status: state.contentStatus,
         updatedAt: DateTime.now(),
       );
