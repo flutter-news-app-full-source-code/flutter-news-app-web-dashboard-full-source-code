@@ -11,11 +11,11 @@ import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_shared/ht_shared.dart';
 import 'package:intl/intl.dart';
 
-/// {@template categories_page}
+/// {@template topics_page}
 /// A page for displaying and managing Topics in a tabular format.
 /// {@endtemplate}
 class TopicPage extends StatefulWidget {
-  /// {@macro categories_page}
+  /// {@macro topics_page}
   const TopicPage({super.key});
 
   @override
@@ -27,7 +27,7 @@ class _TopicPageState extends State<TopicPage> {
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-      const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+      const LoadTopicsRequested(limit: kDefaultRowsPerPage),
     );
   }
 
@@ -38,34 +38,34 @@ class _TopicPageState extends State<TopicPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
-          if (state.categoriesStatus == ContentManagementStatus.loading &&
-              state.categories.isEmpty) {
+          if (state.topicsStatus == ContentManagementStatus.loading &&
+              state.topics.isEmpty) {
             return LoadingStateWidget(
-              icon: Icons.category,
-              headline: l10n.loadingCategories,
+              icon: Icons.topic,
+              headline: l10n.loadingTopics,
               subheadline: l10n.pleaseWait,
             );
           }
 
-          if (state.categoriesStatus == ContentManagementStatus.failure) {
+          if (state.topicsStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
               message: state.errorMessage ?? l10n.unknownError,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+                const LoadTopicsRequested(limit: kDefaultRowsPerPage),
               ),
             );
           }
 
-          if (state.categories.isEmpty) {
+          if (state.topics.isEmpty) {
             return Center(
-              child: Text(l10n.noCategoriesFound),
+              child: Text(l10n.noTopicsFound),
             );
           }
 
           return PaginatedDataTable2(
             columns: [
               DataColumn2(
-                label: Text(l10n.categoryName),
+                label: Text(l10n.topicName),
                 size: ColumnSize.L,
               ),
               DataColumn2(
@@ -84,28 +84,27 @@ class _TopicPageState extends State<TopicPage> {
             ],
             source: _TopicsDataSource(
               context: context,
-              categories: state.categories,
-              isLoading:
-                  state.categoriesStatus == ContentManagementStatus.loading,
-              hasMore: state.categoriesHasMore,
+              topics: state.topics,
+              isLoading: state.topicsStatus == ContentManagementStatus.loading,
+              hasMore: state.topicsHasMore,
               l10n: l10n,
             ),
             rowsPerPage: kDefaultRowsPerPage,
             availableRowsPerPage: const [kDefaultRowsPerPage],
             onPageChanged: (pageIndex) {
               final newOffset = pageIndex * kDefaultRowsPerPage;
-              if (newOffset >= state.categories.length &&
-                  state.categoriesHasMore &&
-                  state.categoriesStatus != ContentManagementStatus.loading) {
+              if (newOffset >= state.topics.length &&
+                  state.topicsHasMore &&
+                  state.topicsStatus != ContentManagementStatus.loading) {
                 context.read<ContentManagementBloc>().add(
-                  LoadCategoriesRequested(
-                    startAfterId: state.categoriesCursor,
+                  LoadTopicsRequested(
+                    startAfterId: state.topicsCursor,
                     limit: kDefaultRowsPerPage,
                   ),
                 );
               }
             },
-            empty: Center(child: Text(l10n.noCategoriesFound)),
+            empty: Center(child: Text(l10n.noTopicsFound)),
             showCheckboxColumn: false,
             showFirstLastButtons: true,
             fit: FlexFit.tight,
@@ -123,21 +122,21 @@ class _TopicPageState extends State<TopicPage> {
 class _TopicsDataSource extends DataTableSource {
   _TopicsDataSource({
     required this.context,
-    required this.categories,
+    required this.topics,
     required this.isLoading,
     required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
-  final List<Category> categories;
+  final List<Topic> topics;
   final bool isLoading;
   final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
-    if (index >= categories.length) {
+    if (index >= topics.length) {
       // This can happen if hasMore is true and the user is on the last page.
       // If we are loading, show a spinner. Otherwise, we've reached the end.
       if (isLoading) {
@@ -150,25 +149,23 @@ class _TopicsDataSource extends DataTableSource {
       }
       return null;
     }
-    final category = categories[index];
+    final topic = topics[index];
     return DataRow2(
       onSelectChanged: (selected) {
         if (selected ?? false) {
           context.goNamed(
-            Routes.editCategoryName,
-            pathParameters: {'id': category.id},
+            Routes.editTopicName,
+            pathParameters: {'id': topic.id},
           );
         }
       },
       cells: [
-        DataCell(Text(category.name)),
-        DataCell(Text(category.status.l10n(context))),
+        DataCell(Text(topic.name)),
+        DataCell(Text(topic.status.l10n(context))),
         DataCell(
           Text(
-            category.updatedAt != null
-                // TODO(fulleni): Make date format configurable by admin.
-                ? DateFormat('dd-MM-yyyy').format(category.updatedAt!.toLocal())
-                : l10n.notAvailable,
+            // TODO(fulleni): Make date format configurable by admin.
+            DateFormat('dd-MM-yyyy').format(topic.updatedAt.toLocal()),
           ),
         ),
         DataCell(
@@ -179,8 +176,8 @@ class _TopicsDataSource extends DataTableSource {
                 onPressed: () {
                   // Navigate to edit page
                   context.goNamed(
-                    Routes.editCategoryName, // Assuming an edit route exists
-                    pathParameters: {'id': category.id},
+                    Routes.editTopicName, // Assuming an edit route exists
+                    pathParameters: {'id': topic.id},
                   );
                 },
               ),
@@ -189,7 +186,7 @@ class _TopicsDataSource extends DataTableSource {
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    DeleteCategoryRequested(category.id),
+                    DeleteTopicRequested(topic.id),
                   );
                 },
               ),
@@ -211,11 +208,9 @@ class _TopicsDataSource extends DataTableSource {
     if (hasMore) {
       // When loading, we show an extra row for the spinner.
       // Otherwise, we just indicate that there are more rows.
-      return isLoading
-          ? categories.length + 1
-          : categories.length + kDefaultRowsPerPage;
+      return isLoading ? topics.length + 1 : topics.length + kDefaultRowsPerPage;
     }
-    return categories.length;
+    return topics.length;
   }
 
   @override
