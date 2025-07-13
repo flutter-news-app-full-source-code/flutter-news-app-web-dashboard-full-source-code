@@ -65,14 +65,14 @@ class _DashboardPageState extends State<DashboardPage> {
 
                     final summaryCards = [
                       _SummaryCard(
-                        icon: Icons.article_outlined,
-                        title: l10n.totalHeadlines,
-                        value: summary.headlineCount.toString(),
+                        icon: Icons.category_outlined,
+                        title: l10n.totalTopics,
+                        value: summary.topicCount.toString(),
                       ),
                       _SummaryCard(
                         icon: Icons.category_outlined,
-                        title: l10n.totalCategories,
-                        value: summary.categoryCount.toString(),
+                        title: l10n.totalTopics,
+                        value: summary.topicCount.toString(),
                       ),
                       _SummaryCard(
                         icon: Icons.source_outlined,
@@ -116,7 +116,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Column(
                         children: [
                           _SystemStatusCard(
-                            status: appConfig.appOperationalStatus,
+                            appStatus: appConfig.appStatus,
                           ),
                           const SizedBox(height: AppSpacing.lg),
                           const _QuickActionsCard(),
@@ -157,16 +157,16 @@ class _DashboardPageState extends State<DashboardPage> {
 
 /// A card to display the current operational status of the application.
 class _SystemStatusCard extends StatelessWidget {
-  const _SystemStatusCard({required this.status});
+  const _SystemStatusCard({required this.appStatus});
 
-  final RemoteAppStatus status;
+  final AppStatus appStatus;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
 
-    final (icon, color, text) = _getStatusDetails(status, l10n, theme);
+    final (icon, color, text) = _getStatusDetails(appStatus, l10n, theme);
 
     return Card(
       child: Padding(
@@ -194,29 +194,28 @@ class _SystemStatusCard extends StatelessWidget {
 
   /// Returns the appropriate icon, color, and text for a given status.
   (IconData, Color, String) _getStatusDetails(
-    RemoteAppStatus status,
+    AppStatus appStatus,
     AppLocalizations l10n,
     ThemeData theme,
   ) {
-    switch (status) {
-      case RemoteAppStatus.active:
-        return (
-          Icons.check_circle_outline,
-          theme.colorScheme.primary,
-          l10n.appStatusActive,
-        );
-      case RemoteAppStatus.maintenance:
-        return (
-          Icons.warning_amber_outlined,
-          theme.colorScheme.tertiary,
-          l10n.appStatusMaintenance,
-        );
-      case RemoteAppStatus.disabled:
-        return (
-          Icons.cancel_outlined,
-          theme.colorScheme.error,
-          l10n.appStatusDisabled,
-        );
+    if (appStatus.isUnderMaintenance) {
+      return (
+        Icons.warning_amber_outlined,
+        theme.colorScheme.tertiary,
+        l10n.appStatusMaintenance,
+      );
+    } else if (appStatus.isLatestVersionOnly) {
+      return (
+        Icons.cancel_outlined,
+        theme.colorScheme.error,
+        l10n.appStatusDisabled,
+      );
+    } else {
+      return (
+        Icons.check_circle_outline,
+        theme.colorScheme.primary,
+        l10n.appStatusActive,
+      );
     }
   }
 }
@@ -246,8 +245,8 @@ class _QuickActionsCard extends StatelessWidget {
             const SizedBox(height: AppSpacing.sm),
             OutlinedButton.icon(
               icon: const Icon(Icons.create_new_folder_outlined),
-              label: Text(l10n.createCategory),
-              onPressed: () => context.goNamed(Routes.createCategoryName),
+              label: Text(l10n.createTopic),
+              onPressed: () => context.goNamed(Routes.createTopicName),
             ),
             const SizedBox(height: AppSpacing.sm),
             OutlinedButton.icon(
