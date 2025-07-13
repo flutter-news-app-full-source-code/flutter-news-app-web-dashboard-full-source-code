@@ -241,7 +241,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e6decb1f81ca233199f271539ddbf04bb9d63984
+      resolved-ref: "16630c8717646663e52eee3ebedc4daa35ec4d39"
       url: "https://github.com/headlines-toolkit/ht-data-api.git"
     source: git
     version: "0.0.0"
