@@ -5,7 +5,6 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
-import 'package:ht_dashboard/shared/theme/app_theme.dart';
 
 /// {@template authentication_page}
 /// Displays authentication options for the dashboard.
