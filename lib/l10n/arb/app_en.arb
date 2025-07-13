@@ -93,7 +93,7 @@
   "@contentManagement": {
     "description": "Label for the content management navigation item"
   },
-  "contentManagementPageDescription": "Manage news headlines, categories, and sources for the Dashboard.",
+  "contentManagementPageDescription": "Manage news headlines, topics, and sources for the Dashboard.",
   "@contentManagementPageDescription": {
     "description": "Description for the Content Management page"
   },
@@ -202,7 +202,7 @@
   "@confirmSaveButton": {
     "description": "Confirm save button label in dialog"
   },
-  "userContentLimitsDescription": "These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.",
+  "userContentLimitsDescription": "These settings define the maximum number of countries, news sources, topics, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.",
   "@userContentLimitsDescription": {
     "description": "Description for User Content Limits section"
   },
@@ -222,7 +222,7 @@
   "@guestFollowedItemsLimitLabel": {
     "description": "Label for Guest Followed Items Limit"
   },
-  "guestFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).",
+  "guestFollowedItemsLimitDescription": "Maximum number of countries, news sources, or topics a Guest user can follow (each type has its own limit).",
   "@guestFollowedItemsLimitDescription": {
     "description": "Description for Guest Followed Items Limit"
   },
@@ -238,7 +238,7 @@
   "@standardUserFollowedItemsLimitLabel": {
     "description": "Label for Standard User Followed Items Limit"
   },
-  "standardUserFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).",
+  "standardUserFollowedItemsLimitDescription": "Maximum number of countries, news sources, or topics a Standard user can follow (each type has its own limit).",
   "@standardUserFollowedItemsLimitDescription": {
     "description": "Description for Standard User Followed Items Limit"
   },
@@ -254,7 +254,7 @@
   "@premiumFollowedItemsLimitLabel": {
     "description": "Label for Premium Followed Items Limit"
   },
-  "premiumFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).",
+  "premiumFollowedItemsLimitDescription": "Maximum number of countries, news sources, or topics a Premium user can follow (each type has its own limit).",
   "@premiumFollowedItemsLimitDescription": {
     "description": "Description for Premium Followed Items Limit"
   },
