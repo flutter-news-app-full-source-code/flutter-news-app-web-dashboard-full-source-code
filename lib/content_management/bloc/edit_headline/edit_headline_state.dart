@@ -24,13 +24,15 @@ final class EditHeadlineState extends Equatable {
     this.status = EditHeadlineStatus.initial,
     this.initialHeadline,
     this.title = '',
-    this.description = '',
+    this.excerpt = '',
     this.url = '',
     this.imageUrl = '',
     this.source,
-    this.category,
+    this.topic,
+    this.eventCountry,
     this.sources = const [],
-    this.categories = const [],
+    this.topics = const [],
+    this.countries = const [],
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
     this.updatedHeadline,
@@ -39,31 +41,42 @@ final class EditHeadlineState extends Equatable {
   final EditHeadlineStatus status;
   final Headline? initialHeadline;
   final String title;
-  final String description;
+  final String excerpt;
   final String url;
   final String imageUrl;
   final Source? source;
-  final Category? category;
+  final Topic? topic;
+  final Country? eventCountry;
   final List<Source> sources;
-  final List<Category> categories;
+  final List<Topic> topics;
+  final List<Country> countries;
   final ContentStatus contentStatus;
   final String? errorMessage;
   final Headline? updatedHeadline;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid => title.isNotEmpty;
+  bool get isFormValid =>
+      title.isNotEmpty &&
+      excerpt.isNotEmpty &&
+      url.isNotEmpty &&
+      imageUrl.isNotEmpty &&
+      source != null &&
+      topic != null &&
+      eventCountry != null;
 
   EditHeadlineState copyWith({
     EditHeadlineStatus? status,
     Headline? initialHeadline,
     String? title,
-    String? description,
+    String? excerpt,
     String? url,
     String? imageUrl,
     ValueGetter<Source?>? source,
-    ValueGetter<Category?>? category,
+    ValueGetter<Topic?>? topic,
+    ValueGetter<Country?>? eventCountry,
     List<Source>? sources,
-    List<Category>? categories,
+    List<Topic>? topics,
+    List<Country>? countries,
     ContentStatus? contentStatus,
     String? errorMessage,
     Headline? updatedHeadline,
@@ -72,13 +85,15 @@ final class EditHeadlineState extends Equatable {
       status: status ?? this.status,
       initialHeadline: initialHeadline ?? this.initialHeadline,
       title: title ?? this.title,
-      description: description ?? this.description,
+      excerpt: excerpt ?? this.excerpt,
       url: url ?? this.url,
       imageUrl: imageUrl ?? this.imageUrl,
       source: source != null ? source() : this.source,
-      category: category != null ? category() : this.category,
+      topic: topic != null ? topic() : this.topic,
+      eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
       sources: sources ?? this.sources,
-      categories: categories ?? this.categories,
+      topics: topics ?? this.topics,
+      countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
@@ -90,13 +105,15 @@ final class EditHeadlineState extends Equatable {
     status,
     initialHeadline,
     title,
-    description,
+    excerpt,
     url,
     imageUrl,
     source,
-    category,
+    topic,
+    eventCountry,
     sources,
-    categories,
+    topics,
+    countries,
     contentStatus,
     errorMessage,
     updatedHeadline,
