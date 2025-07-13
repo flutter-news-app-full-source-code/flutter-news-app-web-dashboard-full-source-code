@@ -55,6 +55,9 @@ final class CreateHeadlineState extends Equatable {
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
       title.isNotEmpty &&
+      excerpt.isNotEmpty &&
+      url.isNotEmpty &&
+      imageUrl.isNotEmpty &&
       source != null &&
       topic != null &&
       eventCountry != null;
