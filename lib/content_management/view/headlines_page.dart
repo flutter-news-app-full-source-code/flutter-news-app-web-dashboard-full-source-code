@@ -169,14 +169,12 @@ class _HeadlinesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(Text(headline.title)),
-        DataCell(Text(headline.source?.name ?? l10n.unknown)),
+        DataCell(Text(headline.source.name)),
         DataCell(Text(headline.status.l10n(context))),
         DataCell(
           Text(
-            headline.updatedAt != null
-                // TODO(fulleni): Make date format configurable by admin.
-                ? DateFormat('dd-MM-yyyy').format(headline.updatedAt!.toLocal())
-                : l10n.notAvailable,
+            // TODO(fulleni): Make date format configurable by admin.
+            DateFormat('dd-MM-yyyy').format(headline.updatedAt.toLocal()),
           ),
         ),
         DataCell(
