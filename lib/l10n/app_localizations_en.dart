@@ -81,13 +81,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Manage news headlines, categories, and sources for the Dashboard.';
+      'Manage news headlines, topics, and sources for the Dashboard.';
 
   @override
   String get headlines => 'Headlines';
 
   @override
-  String get categories => 'Categories';
+  String get topics => 'Topics';
 
   @override
   String get sources => 'Sources';
@@ -168,7 +168,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userContentLimitsDescription =>
-      'These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.';
+      'These settings define the maximum number of countries, news sources, topics, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.';
 
   @override
   String get guestUserTab => 'Guest';
@@ -184,7 +184,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get guestFollowedItemsLimitDescription =>
-      'Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).';
+      'Maximum number of countries, news sources, or topics a Guest user can follow (each type has its own limit).';
 
   @override
   String get guestSavedHeadlinesLimitLabel => 'Guest Saved Headlines Limit';
@@ -199,7 +199,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get standardUserFollowedItemsLimitDescription =>
-      'Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).';
+      'Maximum number of countries, news sources, or topics a Standard user can follow (each type has its own limit).';
 
   @override
   String get standardUserSavedHeadlinesLimitLabel =>
@@ -214,7 +214,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get premiumFollowedItemsLimitDescription =>
-      'Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).';
+      'Maximum number of countries, news sources, or topics a Premium user can follow (each type has its own limit).';
 
   @override
   String get premiumSavedHeadlinesLimitLabel => 'Premium Saved Headlines Limit';
@@ -543,13 +543,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unknown => 'Unknown';
 
   @override
-  String get loadingCategories => 'Loading Categories';
+  String get loadingTopics => 'Loading Topics';
 
   @override
-  String get noCategoriesFound => 'No categories found.';
+  String get noTopicsFound => 'No topics found.';
 
   @override
-  String get categoryName => 'Category Name';
+  String get topicName => 'Topic Name';
 
   @override
   String get description => 'Description';
@@ -573,29 +573,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
-  String get editCategory => 'Edit Category';
+  String get editTopic => 'Edit Topic';
 
   @override
   String get saveChanges => 'Save Changes';
 
   @override
-  String get loadingCategory => 'Loading Category';
+  String get loadingTopic => 'Loading Topic';
 
   @override
   String get iconUrl => 'Icon URL';
 
   @override
-  String get categoryUpdatedSuccessfully => 'Category updated successfully.';
+  String get topicUpdatedSuccessfully => 'Topic updated successfully.';
 
   @override
-  String get cannotUpdateCategoryError =>
-      'Cannot update: Original category data not loaded.';
+  String get cannotUpdateTopicError =>
+      'Cannot update: Original topic data not loaded.';
 
   @override
-  String get createCategory => 'Create Category';
+  String get createTopic => 'Create Topic';
 
   @override
-  String get categoryCreatedSuccessfully => 'Category created successfully.';
+  String get topicCreatedSuccessfully => 'Topic created successfully.';
 
   @override
   String get editSource => 'Edit Source';
@@ -696,7 +696,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalHeadlines => 'Total Headlines';
 
   @override
-  String get totalCategories => 'Total Categories';
+  String get totalTopics => 'Total Topics';
 
   @override
   String get totalSources => 'Total Sources';

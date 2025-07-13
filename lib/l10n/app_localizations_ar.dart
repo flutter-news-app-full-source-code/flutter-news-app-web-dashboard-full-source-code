@@ -82,13 +82,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'إدارة العناوين الإخبارية والفئات والمصادر للوحة القيادة.';
+      'إدارة العناوين الإخبارية والمواضيع والمصادر للوحة القيادة.';
 
   @override
   String get headlines => 'العناوين الرئيسية';
 
   @override
-  String get categories => 'الفئات';
+  String get topics => 'المواضيع';
 
   @override
   String get sources => 'المصادر';
@@ -167,7 +167,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get userContentLimitsDescription =>
-      'تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والفئات والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.';
+      'تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والمواضيع والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.';
 
   @override
   String get guestUserTab => 'ضيف';
@@ -183,7 +183,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get guestFollowedItemsLimitDescription =>
-      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).';
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).';
 
   @override
   String get guestSavedHeadlinesLimitLabel => 'حد العناوين المحفوظة للضيف';
@@ -198,7 +198,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get standardUserFollowedItemsLimitDescription =>
-      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).';
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).';
 
   @override
   String get standardUserSavedHeadlinesLimitLabel =>
@@ -214,7 +214,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get premiumFollowedItemsLimitDescription =>
-      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).';
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).';
 
   @override
   String get premiumSavedHeadlinesLimitLabel =>
@@ -545,13 +545,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get unknown => 'غير معروف';
 
   @override
-  String get loadingCategories => 'جاري تحميل الفئات';
+  String get loadingTopics => 'جاري تحميل المواضيع';
 
   @override
-  String get noCategoriesFound => 'لم يتم العثور على فئات.';
+  String get noTopicsFound => 'لم يتم العثور على مواضيع.';
 
   @override
-  String get categoryName => 'اسم الفئة';
+  String get topicName => 'اسم الموضوع';
 
   @override
   String get description => 'الوصف';
@@ -575,29 +575,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get language => 'اللغة';
 
   @override
-  String get editCategory => 'تعديل الفئة';
+  String get editTopic => 'تعديل الموضوع';
 
   @override
   String get saveChanges => 'حفظ التغييرات';
 
   @override
-  String get loadingCategory => 'جاري تحميل الفئة';
+  String get loadingTopic => 'جاري تحميل الموضوع';
 
   @override
   String get iconUrl => 'رابط الأيقونة';
 
   @override
-  String get categoryUpdatedSuccessfully => 'تم تحديث الفئة بنجاح.';
+  String get topicUpdatedSuccessfully => 'تم تحديث الموضوع بنجاح.';
 
   @override
-  String get cannotUpdateCategoryError =>
-      'لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.';
+  String get cannotUpdateTopicError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات الموضوع الأصلية.';
 
   @override
-  String get createCategory => 'إنشاء فئة';
+  String get createTopic => 'إنشاء موضوع';
 
   @override
-  String get categoryCreatedSuccessfully => 'تم إنشاء الفئة بنجاح.';
+  String get topicCreatedSuccessfully => 'تم إنشاء الموضوع بنجاح.';
 
   @override
   String get editSource => 'تعديل المصدر';
@@ -698,7 +698,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get totalHeadlines => 'إجمالي العناوين';
 
   @override
-  String get totalCategories => 'إجمالي الفئات';
+  String get totalTopics => 'إجمالي المواضيع';
 
   @override
   String get totalSources => 'إجمالي المصادر';
