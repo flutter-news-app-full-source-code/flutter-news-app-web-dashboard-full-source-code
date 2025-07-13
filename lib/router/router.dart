@@ -11,7 +11,7 @@ import 'package:ht_dashboard/authentication/view/authentication_page.dart';
 import 'package:ht_dashboard/authentication/view/email_code_verification_page.dart';
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
 import 'package:ht_dashboard/content_management/view/content_management_page.dart';
-import 'package:ht_dashboard/content_management/view/create_category_page.dart';
+import 'package:ht_dashboard/content_management/view/create_topic_page.dart';
 import 'package:ht_dashboard/content_management/view/create_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/create_source_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
