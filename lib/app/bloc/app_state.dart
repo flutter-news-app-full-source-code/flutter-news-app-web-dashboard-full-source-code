@@ -15,6 +15,10 @@ enum AppStatus {
   anonymous,
 }
 
+/// {@template app_state}
+/// Represents the overall state of the application, including authentication
+/// status, current user, environment, and user-specific settings.
+/// {@endtemplate}
 class AppState extends Equatable {
   /// {@macro app_state}
   const AppState({
