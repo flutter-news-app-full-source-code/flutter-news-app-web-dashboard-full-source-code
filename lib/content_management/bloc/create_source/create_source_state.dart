@@ -48,7 +48,11 @@ final class CreateSourceState extends Equatable {
   final Source? createdSource;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid => name.isNotEmpty;
+  bool get isFormValid =>
+      name.isNotEmpty &&
+      url.isNotEmpty &&
+      sourceType != null &&
+      headquarters != null;
 
   CreateSourceState copyWith({
     CreateSourceStatus? status,

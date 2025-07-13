@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
 part 'create_source_state.dart';
@@ -29,6 +30,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
   final HtDataRepository<Source> _sourcesRepository;
   final HtDataRepository<Country> _countriesRepository;
+  final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
     CreateSourceDataLoaded event,
@@ -126,14 +128,15 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     try {
       final now = DateTime.now();
       final newSource = Source(
+        id: _uuid.v4(),
         name: state.name,
-        description: state.description.isNotEmpty ? state.description : null,
-        url: state.url.isNotEmpty ? state.url : null,
-        sourceType: state.sourceType,
-        language: state.language.isNotEmpty ? state.language : null,
+        description: state.description,
+        url: state.url,
+        sourceType: state.sourceType!,
+        language: state.language,
         createdAt: now,
         updatedAt: now,
-        headquarters: state.headquarters,
+        headquarters: state.headquarters!,
         status: state.contentStatus,
       );
 
