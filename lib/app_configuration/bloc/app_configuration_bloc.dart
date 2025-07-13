@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart'; // Use AppConfig from ht_shared
+import 'package:ht_shared/ht_shared.dart'; // Use RemoteConfig from ht_shared
 
 part 'app_configuration_event.dart';
 part 'app_configuration_state.dart';
@@ -9,8 +9,8 @@ part 'app_configuration_state.dart';
 class AppConfigurationBloc
     extends Bloc<AppConfigurationEvent, AppConfigurationState> {
   AppConfigurationBloc({
-    required HtDataRepository<AppConfig> appConfigRepository,
-  }) : _appConfigRepository = appConfigRepository,
+    required HtDataRepository<RemoteConfig> remoteConfigRepository,
+  }) : _remoteConfigRepository = remoteConfigRepository,
        super(
          const AppConfigurationState(),
        ) {
@@ -20,7 +20,7 @@ class AppConfigurationBloc
     on<AppConfigurationDiscarded>(_onAppConfigurationDiscarded);
   }
 
-  final HtDataRepository<AppConfig> _appConfigRepository;
+  final HtDataRepository<RemoteConfig> _remoteConfigRepository;
 
   Future<void> _onAppConfigurationLoaded(
     AppConfigurationLoaded event,
@@ -28,12 +28,12 @@ class AppConfigurationBloc
   ) async {
     emit(state.copyWith(status: AppConfigurationStatus.loading));
     try {
-      final appConfig = await _appConfigRepository.read(id: 'app_config');
+      final remoteConfig = await _remoteConfigRepository.read(id: 'app_config');
       emit(
         state.copyWith(
           status: AppConfigurationStatus.success,
-          appConfig: appConfig,
-          originalAppConfig: appConfig, // Store the original config
+          remoteConfig: remoteConfig,
+          originalRemoteConfig: remoteConfig, // Store the original config
           isDirty: false,
           clearShowSaveSuccess:
               true, // Clear any previous success snackbar flag
@@ -62,15 +62,15 @@ class AppConfigurationBloc
   ) async {
     emit(state.copyWith(status: AppConfigurationStatus.loading));
     try {
-      final updatedConfig = await _appConfigRepository.update(
-        id: event.appConfig.id,
-        item: event.appConfig,
+      final updatedConfig = await _remoteConfigRepository.update(
+        id: event.remoteConfig.id,
+        item: event.remoteConfig,
       );
       emit(
         state.copyWith(
           status: AppConfigurationStatus.success,
-          appConfig: updatedConfig,
-          originalAppConfig: updatedConfig, // Update original config on save
+          remoteConfig: updatedConfig,
+          originalRemoteConfig: updatedConfig, // Update original config on save
           isDirty: false,
           showSaveSuccess: true, // Set flag to show success snackbar
         ),
@@ -98,7 +98,7 @@ class AppConfigurationBloc
   ) {
     emit(
       state.copyWith(
-        appConfig: event.appConfig,
+        remoteConfig: event.remoteConfig,
         isDirty: true,
         clearErrorMessage: true, // Clear any previous error messages
         clearShowSaveSuccess: true, // Clear success snackbar on field change
@@ -112,7 +112,7 @@ class AppConfigurationBloc
   ) {
     emit(
       state.copyWith(
-        appConfig: state.originalAppConfig, // Revert to original config
+        remoteConfig: state.originalRemoteConfig, // Revert to original config
         isDirty: false,
         clearErrorMessage: true, // Clear any previous error messages
         clearShowSaveSuccess: true, // Clear success snackbar
