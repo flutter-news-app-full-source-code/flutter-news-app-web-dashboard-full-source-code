@@ -1,8 +1,4 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
   "authenticationPageHeadline": "Dashboard Access",
   "@authenticationPageHeadline": {
     "description": "Headline for the main authentication page"
@@ -902,10 +898,7 @@
   "@appStatusActive": {
     "description": "Text for the 'Active' app status"
   },
-  "appStatusMaintenance": "Maintenance",
-  "@appStatusMaintenance": {
-    "description": "Text for the 'Maintenance' app status"
-  },
+
   "appStatusDisabled": "Disabled",
   "@appStatusDisabled": {
     "description": "Text for the 'Disabled' app status"
@@ -929,6 +922,45 @@
         "example": "123456"
       }
     }
+  },
+  "appStatusMaintenance": "Maintenance",
+  "@appStatusMaintenance": {
+    "description": "Text for the 'Maintenance' app status"
+  },
+  "appStatusOperational": "Operational",
+  "@appStatusOperational": {
+    "description": "Text for the 'Operational' app status"
+  },
+  "isUnderMaintenanceLabel": "Under Maintenance",
+  "@isUnderMaintenanceLabel": {
+    "description": "Label for the 'is under maintenance' switch"
+  },
+  "isUnderMaintenanceDescription": "Toggle to put the app in maintenance mode, preventing user access.",
+  "@isUnderMaintenanceDescription": {
+    "description": "Description for the 'is under maintenance' switch"
+  },
+  "isLatestVersionOnlyLabel": "Force Latest Version Only",
+  "@isLatestVersionOnlyLabel": {
+    "description": "Label for the 'is latest version only' switch"
+  },
+  "isLatestVersionOnlyDescription": "If enabled, users must update to the latest app version to continue using the app.",
+  "@isLatestVersionOnlyDescription": {
+    "description": "Description for the 'is latest version only' switch"
+  },
+  "iosUpdateUrlLabel": "iOS Update URL",
+  "@iosUpdateUrlLabel": {
+    "description": "Label for iOS Update URL"
+  },
+  "iosUpdateUrlDescription": "URL for iOS app updates.",
+  "@iosUpdateUrlDescription": {
+    "description": "Description for iOS Update URL"
+  },
+  "androidUpdateUrlLabel": "Android Update URL",
+  "@androidUpdateUrlLabel": {
+    "description": "Label for Android Update URL"
+  },
+  "androidUpdateUrlDescription": "URL for Android app updates.",
+  "@androidUpdateUrlDescription": {
+    "description": "Description for Android Update URL"
   }
-
 }

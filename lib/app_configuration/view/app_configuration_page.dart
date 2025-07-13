@@ -5,7 +5,6 @@ import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
 import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_shared/src/enums/app_user_role.dart';
 
 /// {@template app_configuration_page}
 /// A page for managing the application's remote configuration.
@@ -887,8 +886,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   Widget build(BuildContext context) {
     final userPreferenceConfig = widget.remoteConfig.userPreferenceConfig;
 
-    switch (AppUserRole.values.byName(widget.userRole)) {
-      case AppUserRole.guestUser:
+    switch (widget.userRole) {
+      case 'guestUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -927,7 +926,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case AppUserRole.standardUser:
+      case 'standardUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -967,7 +966,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case AppUserRole.premiumUser:
+      case 'premiumUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -1007,11 +1006,12 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case AppUserRole.none:
-      case AppUserRole.admin: // Assuming admin doesn't have specific limits here
-      case AppUserRole.publisher: // Assuming publisher doesn't have specific limits here
+      case 'none':
+      case 'admin': // Assuming admin doesn't have specific limits here
+      case 'publisher': // Assuming publisher doesn't have specific limits here
         return const SizedBox.shrink();
-    }
+      default:
+        return const SizedBox.shrink();
   }
 }
 

@@ -9,9 +9,6 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get helloWorld => 'مرحبا بالعالم!';
-
-  @override
   String get authenticationPageHeadline => 'الوصول إلى لوحة التحكم';
 
   @override
@@ -746,9 +743,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appStatusActive => 'نشط';
 
   @override
-  String get appStatusMaintenance => 'صيانة';
-
-  @override
   String get appStatusDisabled => 'معطل';
 
   @override
@@ -760,4 +754,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String demoCodeHint(String code) {
     return 'للعرض التجريبي، استخدم الرمز: $code';
   }
+
+  @override
+  String get appStatusMaintenance => 'صيانة';
+
+  @override
+  String get appStatusOperational => 'تشغيلي';
+
+  @override
+  String get isUnderMaintenanceLabel => 'تحت الصيانة';
+
+  @override
+  String get isUnderMaintenanceDescription =>
+      'تبديل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.';
+
+  @override
+  String get isLatestVersionOnlyLabel => 'فرض أحدث إصدار فقط';
+
+  @override
+  String get isLatestVersionOnlyDescription =>
+      'إذا تم التمكين، يجب على المستخدمين التحديث إلى أحدث إصدار من التطبيق لمواصلة استخدامه.';
+
+  @override
+  String get iosUpdateUrlLabel => 'رابط تحديث iOS';
+
+  @override
+  String get iosUpdateUrlDescription => 'رابط تحديثات تطبيق iOS.';
+
+  @override
+  String get androidUpdateUrlLabel => 'رابط تحديث Android';
+
+  @override
+  String get androidUpdateUrlDescription => 'رابط تحديثات تطبيق Android.';
 }

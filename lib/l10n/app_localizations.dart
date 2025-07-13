@@ -98,12 +98,6 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
-  /// The conventional newborn programmer greeting
-  ///
-  /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
-
   /// Headline for the main authentication page
   ///
   /// In en, this message translates to:
@@ -1430,12 +1424,6 @@ abstract class AppLocalizations {
   /// **'Active'**
   String get appStatusActive;
 
-  /// Text for the 'Maintenance' app status
-  ///
-  /// In en, this message translates to:
-  /// **'Maintenance'**
-  String get appStatusMaintenance;
-
   /// Text for the 'Disabled' app status
   ///
   /// In en, this message translates to:
@@ -1453,6 +1441,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'For demo, use code: {code}'**
   String demoCodeHint(String code);
+
+  /// Text for the 'Maintenance' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get appStatusMaintenance;
+
+  /// Text for the 'Operational' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Operational'**
+  String get appStatusOperational;
+
+  /// Label for the 'is under maintenance' switch
+  ///
+  /// In en, this message translates to:
+  /// **'Under Maintenance'**
+  String get isUnderMaintenanceLabel;
+
+  /// Description for the 'is under maintenance' switch
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle to put the app in maintenance mode, preventing user access.'**
+  String get isUnderMaintenanceDescription;
+
+  /// Label for the 'is latest version only' switch
+  ///
+  /// In en, this message translates to:
+  /// **'Force Latest Version Only'**
+  String get isLatestVersionOnlyLabel;
+
+  /// Description for the 'is latest version only' switch
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, users must update to the latest app version to continue using the app.'**
+  String get isLatestVersionOnlyDescription;
+
+  /// Label for iOS Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'iOS Update URL'**
+  String get iosUpdateUrlLabel;
+
+  /// Description for iOS Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'URL for iOS app updates.'**
+  String get iosUpdateUrlDescription;
+
+  /// Label for Android Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'Android Update URL'**
+  String get androidUpdateUrlLabel;
+
+  /// Description for Android Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'URL for Android app updates.'**
+  String get androidUpdateUrlDescription;
 }
 
 class _AppLocalizationsDelegate

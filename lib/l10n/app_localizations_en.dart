@@ -9,9 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
-
-  @override
   String get authenticationPageHeadline => 'Dashboard Access';
 
   @override
@@ -744,9 +741,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appStatusActive => 'Active';
 
   @override
-  String get appStatusMaintenance => 'Maintenance';
-
-  @override
   String get appStatusDisabled => 'Disabled';
 
   @override
@@ -758,4 +752,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String demoCodeHint(String code) {
     return 'For demo, use code: $code';
   }
+
+  @override
+  String get appStatusMaintenance => 'Maintenance';
+
+  @override
+  String get appStatusOperational => 'Operational';
+
+  @override
+  String get isUnderMaintenanceLabel => 'Under Maintenance';
+
+  @override
+  String get isUnderMaintenanceDescription =>
+      'Toggle to put the app in maintenance mode, preventing user access.';
+
+  @override
+  String get isLatestVersionOnlyLabel => 'Force Latest Version Only';
+
+  @override
+  String get isLatestVersionOnlyDescription =>
+      'If enabled, users must update to the latest app version to continue using the app.';
+
+  @override
+  String get iosUpdateUrlLabel => 'iOS Update URL';
+
+  @override
+  String get iosUpdateUrlDescription => 'URL for iOS app updates.';
+
+  @override
+  String get androidUpdateUrlLabel => 'Android Update URL';
+
+  @override
+  String get androidUpdateUrlDescription => 'URL for Android app updates.';
 }

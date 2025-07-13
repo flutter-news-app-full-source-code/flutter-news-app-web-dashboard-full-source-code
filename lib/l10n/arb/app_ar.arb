@@ -1,8 +1,4 @@
 {
-  "helloWorld": "مرحبا بالعالم!",
-  "@helloWorld": {
-    "description": "التحية التقليدية للمبرمج حديث الولادة"
-  },
   "authenticationPageHeadline": "الوصول إلى لوحة التحكم",
   "@authenticationPageHeadline": {
     "description": "عنوان صفحة المصادقة الرئيسية"
@@ -902,10 +898,6 @@
   "@appStatusActive": {
     "description": "نص حالة التطبيق 'نشط'"
   },
-  "appStatusMaintenance": "صيانة",
-  "@appStatusMaintenance": {
-    "description": "نص حالة التطبيق 'صيانة'"
-  },
   "appStatusDisabled": "معطل",
   "@appStatusDisabled": {
     "description": "نص حالة التطبيق 'معطل'"
@@ -929,5 +921,45 @@
         "example": "123456"
       }
     }
+  },
+  "appStatusMaintenance": "صيانة",
+  "@appStatusMaintenance": {
+    "description": "نص حالة التطبيق 'صيانة'"
+  },
+  "appStatusOperational": "تشغيلي",
+  "@appStatusOperational": {
+    "description": "نص حالة التطبيق 'تشغيلي'"
+  },
+  "isUnderMaintenanceLabel": "تحت الصيانة",
+  "@isUnderMaintenanceLabel": {
+    "description": "تسمية مفتاح 'تحت الصيانة'"
+  },
+  "isUnderMaintenanceDescription": "تبديل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.",
+  "@isUnderMaintenanceDescription": {
+    "description": "وصف مفتاح 'تحت الصيانة'"
+  },
+  "isLatestVersionOnlyLabel": "فرض أحدث إصدار فقط",
+  "@isLatestVersionOnlyLabel": {
+    "description": "تسمية مفتاح 'فرض أحدث إصدار فقط'"
+  },
+  "isLatestVersionOnlyDescription": "إذا تم التمكين، يجب على المستخدمين التحديث إلى أحدث إصدار من التطبيق لمواصلة استخدامه.",
+  "@isLatestVersionOnlyDescription": {
+    "description": "وصف مفتاح 'فرض أحدث إصدار فقط'"
+  },
+  "iosUpdateUrlLabel": "رابط تحديث iOS",
+  "@iosUpdateUrlLabel": {
+    "description": "تسمية رابط تحديث iOS"
+  },
+  "iosUpdateUrlDescription": "رابط تحديثات تطبيق iOS.",
+  "@iosUpdateUrlDescription": {
+    "description": "وصف رابط تحديث iOS"
+  },
+  "androidUpdateUrlLabel": "رابط تحديث Android",
+  "@androidUpdateUrlLabel": {
+    "description": "تسمية رابط تحديث Android"
+  },
+  "androidUpdateUrlDescription": "رابط تحديثات تطبيق Android.",
+  "@androidUpdateUrlDescription": {
+    "description": "وصف رابط تحديث Android"
   }
 }
