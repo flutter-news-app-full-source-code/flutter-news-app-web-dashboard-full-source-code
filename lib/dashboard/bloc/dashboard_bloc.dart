@@ -11,7 +11,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   /// {@macro dashboard_bloc}
   DashboardBloc({
     required HtDataRepository<DashboardSummary> dashboardSummaryRepository,
-    required HtDataRepository<AppConfig> appConfigRepository,
+    required HtDataRepository<RemoteConfig> appConfigRepository,
     required HtDataRepository<Headline> headlinesRepository,
   }) : _dashboardSummaryRepository = dashboardSummaryRepository,
        _appConfigRepository = appConfigRepository,
@@ -21,7 +21,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   }
 
   final HtDataRepository<DashboardSummary> _dashboardSummaryRepository;
-  final HtDataRepository<AppConfig> _appConfigRepository;
+  final HtDataRepository<RemoteConfig> _appConfigRepository;
   final HtDataRepository<Headline> _headlinesRepository;
 
   Future<void> _onDashboardSummaryLoaded(
@@ -39,14 +39,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         _dashboardSummaryRepository.read(id: 'dashboard_summary'),
         _appConfigRepository.read(id: 'app_config'),
         _headlinesRepository.readAll(
-          sortBy: 'createdAt',
-          sortOrder: SortOrder.desc,
-          limit: 5,
+          pagination: const PaginationOptions(limit: 5),
+          sort: const [SortOption('createdAt', SortOrder.desc)],
         ),
       ]);
 
       final summary = summaryResponse as DashboardSummary;
-      final appConfig = appConfigResponse as AppConfig;
+      final appConfig = appConfigResponse as RemoteConfig;
       final recentHeadlines =
           (recentHeadlinesResponse as PaginatedResponse<Headline>).items;
       emit(
