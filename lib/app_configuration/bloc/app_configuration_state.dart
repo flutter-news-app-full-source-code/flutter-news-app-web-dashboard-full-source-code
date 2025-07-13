@@ -22,8 +22,8 @@ class AppConfigurationState extends Equatable {
   /// {@macro app_configuration_state}
   const AppConfigurationState({
     this.status = AppConfigurationStatus.initial,
-    this.appConfig,
-    this.originalAppConfig,
+    this.remoteConfig,
+    this.originalRemoteConfig,
     this.errorMessage,
     this.isDirty = false,
     this.showSaveSuccess = false,
@@ -33,10 +33,10 @@ class AppConfigurationState extends Equatable {
   final AppConfigurationStatus status;
 
   /// The loaded or updated application configuration.
-  final AppConfig? appConfig;
+  final RemoteConfig? remoteConfig;
 
   /// The original application configuration loaded from the backend.
-  final AppConfig? originalAppConfig;
+  final RemoteConfig? originalRemoteConfig;
 
   /// An error message if an operation failed.
   final String? errorMessage;
@@ -50,8 +50,8 @@ class AppConfigurationState extends Equatable {
   /// Creates a copy of the current state with updated values.
   AppConfigurationState copyWith({
     AppConfigurationStatus? status,
-    AppConfig? appConfig,
-    AppConfig? originalAppConfig,
+    RemoteConfig? remoteConfig,
+    RemoteConfig? originalRemoteConfig,
     String? errorMessage,
     bool? isDirty,
     bool clearErrorMessage = false,
@@ -60,8 +60,8 @@ class AppConfigurationState extends Equatable {
   }) {
     return AppConfigurationState(
       status: status ?? this.status,
-      appConfig: appConfig ?? this.appConfig,
-      originalAppConfig: originalAppConfig ?? this.originalAppConfig,
+      remoteConfig: remoteConfig ?? this.remoteConfig,
+      originalRemoteConfig: originalRemoteConfig ?? this.originalRemoteConfig,
       errorMessage: clearErrorMessage
           ? null
           : errorMessage ?? this.errorMessage,
@@ -75,8 +75,8 @@ class AppConfigurationState extends Equatable {
   @override
   List<Object?> get props => [
     status,
-    appConfig,
-    originalAppConfig,
+    remoteConfig,
+    originalRemoteConfig,
     errorMessage,
     isDirty,
     showSaveSuccess,
