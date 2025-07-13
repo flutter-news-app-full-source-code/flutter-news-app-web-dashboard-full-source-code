@@ -93,7 +93,7 @@
   "@contentManagement": {
     "description": "تسمية عنصر التنقل لإدارة المحتوى"
   },
-  "contentManagementPageDescription": "إدارة العناوين الإخبارية والفئات والمصادر للوحة القيادة.",
+  "contentManagementPageDescription": "إدارة العناوين الإخبارية والمواضيع والمصادر للوحة القيادة.",
   "@contentManagementPageDescription": {
     "description": "وصف صفحة إدارة المحتوى"
   },
@@ -101,9 +101,9 @@
   "@headlines": {
     "description": "تسمية الصفحة الفرعية للعناوين الرئيسية"
   },
-  "categories": "الفئات",
-  "@categories": {
-    "description": "تسمية الصفحة الفرعية للفئات"
+  "topics": "المواضيع",
+  "@topics": {
+    "description": "تسمية الصفحة الفرعية للمواضيع"
   },
   "sources": "المصادر",
   "@sources": {
@@ -202,7 +202,7 @@
   "@confirmSaveButton": {
     "description": "تسمية زر تأكيد الحفظ في مربع الحوار"
   },
-  "userContentLimitsDescription": "تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والفئات والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.",
+  "userContentLimitsDescription": "تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والمواضيع والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.",
   "@userContentLimitsDescription": {
     "description": "وصف قسم حدود محتوى المستخدم"
   },
@@ -222,7 +222,7 @@
   "@guestFollowedItemsLimitLabel": {
     "description": "تسمية حد العناصر المتابعة للضيف"
   },
-  "guestFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).",
+  "guestFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).",
   "@guestFollowedItemsLimitDescription": {
     "description": "وصف حد العناصر المتابعة للضيف"
   },
@@ -238,7 +238,7 @@
   "@standardUserFollowedItemsLimitLabel": {
     "description": "تسمية حد العناصر المتابعة للمستخدم العادي"
   },
-  "standardUserFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).",
+  "standardUserFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).",
   "@standardUserFollowedItemsLimitDescription": {
     "description": "وصف حد العناصر المتابعة للمستخدم العادي"
   },
@@ -254,7 +254,7 @@
   "@premiumFollowedItemsLimitLabel": {
     "description": "تسمية حد العناصر المتابعة للمستخدم المميز"
   },
-  "premiumFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو الفئات التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).",
+  "premiumFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).",
   "@premiumFollowedItemsLimitDescription": {
     "description": "وصف حد العناصر المتابعة للمستخدم المميز"
   },
@@ -648,17 +648,17 @@
   "@unknown": {
     "description": "نص احتياطي للقيم غير المعروفة"
   },
-  "loadingCategories": "جاري تحميل الفئات",
-  "@loadingCategories": {
-    "description": "عنوان حالة تحميل الفئات"
+  "loadingTopics": "جاري تحميل المواضيع",
+  "@loadingTopics": {
+    "description": "عنوان حالة تحميل المواضيع"
   },
-  "noCategoriesFound": "لم يتم العثور على فئات.",
-  "@noCategoriesFound": {
-    "description": "رسالة عند عدم العثور على فئات"
+  "noTopicsFound": "لم يتم العثور على مواضيع.",
+  "@noTopicsFound": {
+    "description": "رسالة عند عدم العثور على مواضيع"
   },
-  "categoryName": "اسم الفئة",
-  "@categoryName": {
-    "description": "تسمية حقل اسم الفئة في النماذج والجداول."
+  "topicName": "اسم الموضوع",
+  "@topicName": {
+    "description": "تسمية حقل اسم الموضوع في النماذج والجداول."
   },
   "description": "الوصف",
   "@description": {
@@ -688,37 +688,37 @@
   "@language": {
     "description": "رأس العمود للغة"
   },
-  "editCategory": "تعديل الفئة",
-  "@editCategory": {
-    "description": "عنوان صفحة تعديل الفئة"
+  "editTopic": "تعديل الموضوع",
+  "@editTopic": {
+    "description": "عنوان صفحة تعديل الموضوع"
   },
   "saveChanges": "حفظ التغييرات",
   "@saveChanges": {
     "description": "تلميح لزر حفظ التغييرات"
   },
-  "loadingCategory": "جاري تحميل الفئة",
-  "@loadingCategory": {
-    "description": "رسالة تُعرض أثناء تحميل بيانات الفئة"
+  "loadingTopic": "جاري تحميل الموضوع",
+  "@loadingTopic": {
+    "description": "رسالة تُعرض أثناء تحميل بيانات الموضوع"
   },
   "iconUrl": "رابط الأيقونة",
   "@iconUrl": {
     "description": "تسمية حقل إدخال رابط الأيقونة"
   },
-  "categoryUpdatedSuccessfully": "تم تحديث الفئة بنجاح.",
-  "@categoryUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث الفئة بنجاح"
+  "topicUpdatedSuccessfully": "تم تحديث الموضوع بنجاح.",
+  "@topicUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث الموضوع بنجاح"
   },
-  "cannotUpdateCategoryError": "لا يمكن التحديث: لم يتم تحميل بيانات الفئة الأصلية.",
-  "@cannotUpdateCategoryError": {
-    "description": "رسالة خطأ عند فشل تحديث الفئة بسبب عدم تحميل البيانات الأصلية"
+  "cannotUpdateTopicError": "لا يمكن التحديث: لم يتم تحميل بيانات الموضوع الأصلية.",
+  "@cannotUpdateTopicError": {
+    "description": "رسالة خطأ عند فشل تحديث الموضوع بسبب عدم تحميل البيانات الأصلية"
   },
-  "createCategory": "إنشاء فئة",
-  "@createCategory": {
-    "description": "عنوان صفحة إنشاء فئة"
+  "createTopic": "إنشاء موضوع",
+  "@createTopic": {
+    "description": "عنوان صفحة إنشاء موضوع"
   },
-  "categoryCreatedSuccessfully": "تم إنشاء الفئة بنجاح.",
-  "@categoryCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء الفئة بنجاح"
+  "topicCreatedSuccessfully": "تم إنشاء الموضوع بنجاح.",
+  "@topicCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء الموضوع بنجاح"
   },
   "editSource": "تعديل المصدر",
   "@editSource": {
@@ -838,9 +838,9 @@
   "@totalHeadlines": {
     "description": "تسمية بطاقة ملخص إجمالي العناوين في لوحة القيادة"
   },
-  "totalCategories": "إجمالي الفئات",
-  "@totalCategories": {
-    "description": "تسمية بطاقة ملخص إجمالي الفئات في لوحة القيادة"
+  "totalTopics": "إجمالي المواضيع",
+  "@totalTopics": {
+    "description": "تسمية بطاقة ملخص إجمالي المواضيع في لوحة القيادة"
   },
   "totalSources": "إجمالي المصادر",
   "@totalSources": {
