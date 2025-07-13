@@ -1,6 +1,3 @@
-//
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +5,7 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_dashboard/shared/theme/app_theme.dart';
 
 /// {@template authentication_page}
 /// Displays authentication options for the dashboard.
@@ -34,25 +32,27 @@ class AuthenticationPage extends StatelessWidget {
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           // Listener remains crucial for feedback (errors)
           listener: (context, state) {
-            if (state is AuthenticationFailure) {
+            if (state.status == AuthenticationStatus.failure) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
                     content: Text(
                       // Provide a more user-friendly error message if possible
-                      state.errorMessage,
+                      state.errorMessage!,
                     ),
                     backgroundColor: colorScheme.error,
                   ),
                 );
             }
             // Success states (Google/Anonymous) are typically handled by
-            // the AppBloc listening to repository changes and triggering redirects.
-            // Email link success is handled in the dedicated email flow pages.
+            // the AppBloc listening to repository changes and triggering
+            // redirects. Email link success is handled in the dedicated
+            // email flow pages.
           },
           builder: (context, state) {
-            final isLoading = state is AuthenticationLoading;
+            final isLoading = state.status == AuthenticationStatus.loading ||
+                state.status == AuthenticationStatus.requestCodeLoading;
 
             return Padding(
               padding: const EdgeInsets.all(AppSpacing.paddingLarge),
@@ -64,14 +64,15 @@ class AuthenticationPage extends StatelessWidget {
                     children: [
                       // --- Icon ---
                       Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+                        padding: const EdgeInsets.only(
+                          bottom: AppSpacing.xl,
+                        ),
                         child: Icon(
                           Icons.newspaper,
                           size: AppSpacing.xxl * 2,
                           color: colorScheme.primary,
                         ),
                       ),
-                      // const SizedBox(height: AppSpacing.lg),
                       // --- Headline and Subheadline ---
                       Text(
                         l10n.authenticationPageHeadline,
@@ -111,13 +112,11 @@ class AuthenticationPage extends StatelessWidget {
                       const SizedBox(height: AppSpacing.lg),
 
                       // --- Loading Indicator ---
-                      if (isLoading &&
-                          state is! AuthenticationRequestCodeLoading) ...[
+                      if (isLoading)
                         const Padding(
                           padding: EdgeInsets.only(top: AppSpacing.xl),
                           child: Center(child: CircularProgressIndicator()),
                         ),
-                      ],
                     ],
                   ),
                 ),
