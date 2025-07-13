@@ -101,9 +101,9 @@
   "@headlines": {
     "description": "Label for the headlines subpage"
   },
-  "categories": "Categories",
-  "@categories": {
-    "description": "Label for the categories subpage"
+  "topics": "Topics",
+  "@topics": {
+    "description": "Label for the topics subpage"
   },
   "sources": "Sources",
   "@sources": {
@@ -648,17 +648,17 @@
   "@unknown": {
     "description": "Fallback text for unknown values"
   },
-  "loadingCategories": "Loading Categories",
-  "@loadingCategories": {
-    "description": "Headline for loading state of categories"
+  "loadingTopics": "Loading Topics",
+  "@loadingTopics": {
+    "description": "Headline for loading state of topics"
   },
-  "noCategoriesFound": "No categories found.",
-  "@noCategoriesFound": {
-    "description": "Message when no categories are found"
+  "noTopicsFound": "No topics found.",
+  "@noTopicsFound": {
+    "description": "Message when no topics are found"
   },
-  "categoryName": "Category Name",
-  "@categoryName": {
-    "description": "Label for the category name field in forms and tables."
+  "topicName": "Topic Name",
+  "@topicName": {
+    "description": "Label for the topic name field in forms and tables."
   },
   "description": "Description",
   "@description": {
@@ -688,37 +688,37 @@
   "@language": {
     "description": "Column header for language"
   },
-  "editCategory": "Edit Category",
-  "@editCategory": {
-    "description": "Title for the Edit Category page"
+  "editTopic": "Edit Topic",
+  "@editTopic": {
+    "description": "Title for the Edit Topic page"
   },
   "saveChanges": "Save Changes",
   "@saveChanges": {
     "description": "Tooltip for the save changes button"
   },
-  "loadingCategory": "Loading Category",
-  "@loadingCategory": {
-    "description": "Message displayed while loading category data"
+  "loadingTopic": "Loading Topic",
+  "@loadingTopic": {
+    "description": "Message displayed while loading topic data"
   },
   "iconUrl": "Icon URL",
   "@iconUrl": {
     "description": "Label for the icon URL input field"
   },
-  "categoryUpdatedSuccessfully": "Category updated successfully.",
-  "@categoryUpdatedSuccessfully": {
-    "description": "Message displayed when a category is updated successfully"
+  "topicUpdatedSuccessfully": "Topic updated successfully.",
+  "@topicUpdatedSuccessfully": {
+    "description": "Message displayed when a topic is updated successfully"
   },
-  "cannotUpdateCategoryError": "Cannot update: Original category data not loaded.",
-  "@cannotUpdateCategoryError": {
-    "description": "Error message when updating a category fails because the original data wasn't loaded"
+  "cannotUpdateTopicError": "Cannot update: Original topic data not loaded.",
+  "@cannotUpdateTopicError": {
+    "description": "Error message when updating a topic fails because the original data wasn't loaded"
   },
-  "createCategory": "Create Category",
-  "@createCategory": {
-    "description": "Title for the Create Category page"
+  "createTopic": "Create Topic",
+  "@createTopic": {
+    "description": "Title for the Create Topic page"
   },
-  "categoryCreatedSuccessfully": "Category created successfully.",
-  "@categoryCreatedSuccessfully": {
-    "description": "Message displayed when a category is created successfully"
+  "topicCreatedSuccessfully": "Topic created successfully.",
+  "@topicCreatedSuccessfully": {
+    "description": "Message displayed when a topic is created successfully"
   },
   "editSource": "Edit Source",
   "@editSource": {
@@ -838,9 +838,9 @@
   "@totalHeadlines": {
     "description": "Label for the total headlines summary card on the dashboard"
   },
-  "totalCategories": "Total Categories",
-  "@totalCategories": {
-    "description": "Label for the total categories summary card on the dashboard"
+  "totalTopics": "Total Topics",
+  "@totalTopics": {
+    "description": "Label for the total topics summary card on the dashboard"
   },
   "totalSources": "Total Sources",
   "@totalSources": {
