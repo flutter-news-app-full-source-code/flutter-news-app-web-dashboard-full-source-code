@@ -37,8 +37,9 @@ final class CreateTopicState extends Equatable {
   final Topic? createdTopic;
 
   /// Returns true if the form is valid and can be submitted.
-  /// Based on the Topic model, only the name is required.
-  bool get isFormValid => name.isNotEmpty;
+  /// Based on the Topic model, name, description, and iconUrl are required.
+  bool get isFormValid =>
+      name.isNotEmpty && description.isNotEmpty && iconUrl.isNotEmpty;
 
   CreateTopicState copyWith({
     CreateTopicStatus? status,
