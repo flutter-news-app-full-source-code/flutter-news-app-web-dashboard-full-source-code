@@ -23,13 +23,15 @@ final class CreateHeadlineState extends Equatable {
   const CreateHeadlineState({
     this.status = CreateHeadlineStatus.initial,
     this.title = '',
-    this.description = '',
+    this.excerpt = '',
     this.url = '',
     this.imageUrl = '',
     this.source,
-    this.category,
+    this.topic,
+    this.eventCountry,
     this.sources = const [],
-    this.categories = const [],
+    this.topics = const [],
+    this.countries = const [],
     this.contentStatus = ContentStatus.active,
     this.errorMessage,
     this.createdHeadline,
@@ -37,30 +39,41 @@ final class CreateHeadlineState extends Equatable {
 
   final CreateHeadlineStatus status;
   final String title;
-  final String description;
+  final String excerpt;
   final String url;
   final String imageUrl;
   final Source? source;
-  final Category? category;
+  final Topic? topic;
+  final Country? eventCountry;
   final List<Source> sources;
-  final List<Category> categories;
+  final List<Topic> topics;
+  final List<Country> countries;
   final ContentStatus contentStatus;
   final String? errorMessage;
   final Headline? createdHeadline;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid => title.isNotEmpty;
+  bool get isFormValid =>
+      title.isNotEmpty &&
+      excerpt.isNotEmpty &&
+      url.isNotEmpty &&
+      imageUrl.isNotEmpty &&
+      source != null &&
+      topic != null &&
+      eventCountry != null;
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
     String? title,
-    String? description,
+    String? excerpt,
     String? url,
     String? imageUrl,
     ValueGetter<Source?>? source,
-    ValueGetter<Category?>? category,
+    ValueGetter<Topic?>? topic,
+    ValueGetter<Country?>? eventCountry,
     List<Source>? sources,
-    List<Category>? categories,
+    List<Topic>? topics,
+    List<Country>? countries,
     ContentStatus? contentStatus,
     String? errorMessage,
     Headline? createdHeadline,
@@ -68,13 +81,15 @@ final class CreateHeadlineState extends Equatable {
     return CreateHeadlineState(
       status: status ?? this.status,
       title: title ?? this.title,
-      description: description ?? this.description,
+      excerpt: excerpt ?? this.excerpt,
       url: url ?? this.url,
       imageUrl: imageUrl ?? this.imageUrl,
       source: source != null ? source() : this.source,
-      category: category != null ? category() : this.category,
+      topic: topic != null ? topic() : this.topic,
+      eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
       sources: sources ?? this.sources,
-      categories: categories ?? this.categories,
+      topics: topics ?? this.topics,
+      countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
       errorMessage: errorMessage,
       createdHeadline: createdHeadline ?? this.createdHeadline,
@@ -83,17 +98,19 @@ final class CreateHeadlineState extends Equatable {
 
   @override
   List<Object?> get props => [
-    status,
-    title,
-    description,
-    url,
-    imageUrl,
-    source,
-    category,
-    sources,
-    categories,
-    contentStatus,
-    errorMessage,
-    createdHeadline,
-  ];
+        status,
+        title,
+        excerpt,
+        url,
+        imageUrl,
+        source,
+        topic,
+        eventCountry,
+        sources,
+        topics,
+        countries,
+        contentStatus,
+        errorMessage,
+        createdHeadline,
+      ];
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/content_management/view/categories_page.dart';
+import 'package:ht_dashboard/content_management/view/topics_page.dart';
 import 'package:ht_dashboard/content_management/view/headlines_page.dart';
 import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
@@ -84,7 +84,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                   isScrollable: true,
                   tabs: [
                     Tab(text: l10n.headlines),
-                    Tab(text: l10n.categories),
+                    Tab(text: l10n.topics),
                     Tab(text: l10n.sources),
                   ],
                 ),
@@ -103,8 +103,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
                     context.goNamed(Routes.createHeadlineName);
-                  case ContentManagementTab.categories:
-                    context.goNamed(Routes.createCategoryName);
+                  case ContentManagementTab.topics:
+                    context.goNamed(Routes.createTopicName);
                   case ContentManagementTab.sources:
                     context.goNamed(Routes.createSourceName);
                 }
@@ -117,7 +117,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           controller: _tabController,
           children: const [
             HeadlinesPage(),
-            CategoriesPage(),
+            TopicPage(),
             SourcesPage(),
           ],
         ),

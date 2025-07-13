@@ -2,40 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/content_management/bloc/create_category/create_category_bloc.dart';
+import 'package:ht_dashboard/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 
-/// {@template create_category_page}
-/// A page for creating a new category.
-/// It uses a [BlocProvider] to create and provide a [CreateCategoryBloc].
+/// {@template create_topic_page}
+/// A page for creating a new topic.
+/// It uses a [BlocProvider] to create and provide a [CreateTopicBloc].
 /// {@endtemplate}
-class CreateCategoryPage extends StatelessWidget {
-  /// {@macro create_category_page}
-  const CreateCategoryPage({super.key});
+class CreateTopicPage extends StatelessWidget {
+  /// {@macro create_topic_page}
+  const CreateTopicPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CreateCategoryBloc(
-        categoriesRepository: context.read<HtDataRepository<Category>>(),
+      create: (context) => CreateTopicBloc(
+        topicsRepository: context.read<HtDataRepository<Topic>>(),
       ),
-      child: const _CreateCategoryView(),
+      child: const _CreateTopicView(),
     );
   }
 }
 
-class _CreateCategoryView extends StatefulWidget {
-  const _CreateCategoryView();
+class _CreateTopicView extends StatefulWidget {
+  const _CreateTopicView();
 
   @override
-  State<_CreateCategoryView> createState() => _CreateCategoryViewState();
+  State<_CreateTopicView> createState() => _CreateTopicViewState();
 }
 
-class _CreateCategoryViewState extends State<_CreateCategoryView> {
+class _CreateTopicViewState extends State<_CreateTopicView> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -43,11 +43,11 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.createCategory),
+        title: Text(l10n.createTopic),
         actions: [
-          BlocBuilder<CreateCategoryBloc, CreateCategoryState>(
+          BlocBuilder<CreateTopicBloc, CreateTopicState>(
             builder: (context, state) {
-              if (state.status == CreateCategoryStatus.submitting) {
+              if (state.status == CreateTopicStatus.submitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -61,8 +61,8 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<CreateCategoryBloc>().add(
-                        const CreateCategorySubmitted(),
+                    ? () => context.read<CreateTopicBloc>().add(
+                        const CreateTopicSubmitted(),
                       )
                     : null,
               );
@@ -70,24 +70,24 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
           ),
         ],
       ),
-      body: BlocConsumer<CreateCategoryBloc, CreateCategoryState>(
+      body: BlocConsumer<CreateTopicBloc, CreateTopicState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == CreateCategoryStatus.success &&
-              state.createdCategory != null &&
+          if (state.status == CreateTopicStatus.success &&
+              state.createdTopic != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(content: Text(l10n.categoryCreatedSuccessfully)),
+                SnackBar(content: Text(l10n.topicCreatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              // Refresh the list to show the new category
-              const LoadCategoriesRequested(limit: kDefaultRowsPerPage),
+              // Refresh the list to show the new topic
+              const LoadTopicsRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
-          if (state.status == CreateCategoryStatus.failure) {
+          if (state.status == CreateTopicStatus.failure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -110,12 +110,12 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                     TextFormField(
                       initialValue: state.name,
                       decoration: InputDecoration(
-                        labelText: l10n.categoryName,
+                        labelText: l10n.topicName,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => context
-                          .read<CreateCategoryBloc>()
-                          .add(CreateCategoryNameChanged(value)),
+                      onChanged: (value) => context.read<CreateTopicBloc>().add(
+                        CreateTopicNameChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -125,9 +125,9 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                         border: const OutlineInputBorder(),
                       ),
                       maxLines: 3,
-                      onChanged: (value) => context
-                          .read<CreateCategoryBloc>()
-                          .add(CreateCategoryDescriptionChanged(value)),
+                      onChanged: (value) => context.read<CreateTopicBloc>().add(
+                        CreateTopicDescriptionChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -136,9 +136,9 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                         labelText: l10n.iconUrl,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => context
-                          .read<CreateCategoryBloc>()
-                          .add(CreateCategoryIconUrlChanged(value)),
+                      onChanged: (value) => context.read<CreateTopicBloc>().add(
+                        CreateTopicIconUrlChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
@@ -155,8 +155,8 @@ class _CreateCategoryViewState extends State<_CreateCategoryView> {
                       }).toList(),
                       onChanged: (value) {
                         if (value == null) return;
-                        context.read<CreateCategoryBloc>().add(
-                          CreateCategoryStatusChanged(value),
+                        context.read<CreateTopicBloc>().add(
+                          CreateTopicStatusChanged(value),
                         );
                       },
                     ),

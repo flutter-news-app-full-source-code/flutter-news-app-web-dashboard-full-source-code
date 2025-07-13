@@ -56,17 +56,17 @@ abstract final class Routes {
   /// The name for the edit headline page route.
   static const String editHeadlineName = 'editHeadline';
 
-  /// The path for creating a new category.
-  static const String createCategory = 'create-category';
+  /// The path for creating a new topic.
+  static const String createTopic = 'create-topic';
 
-  /// The name for the create category page route.
-  static const String createCategoryName = 'createCategory';
+  /// The name for the create topic page route.
+  static const String createTopicName = 'createTopic';
 
-  /// The path for editing an existing category.
-  static const String editCategory = 'edit-category/:id';
+  /// The path for editing an existing topic.
+  static const String editTopic = 'edit-topic/:id';
 
-  /// The name for the edit category page route.
-  static const String editCategoryName = 'editCategory';
+  /// The name for the edit topic page route.
+  static const String editTopicName = 'editTopic';
 
   /// The path for creating a new source.
   static const String createSource = 'create-source';

@@ -35,7 +35,23 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
       emit(SettingsLoadSuccess(userAppSettings: userAppSettings));
     } on NotFoundException {
-      final defaultSettings = UserAppSettings(id: event.userId!);
+      final defaultSettings = UserAppSettings(
+        id: event.userId!,
+        displaySettings: const DisplaySettings(
+          baseTheme: AppBaseTheme.system,
+          accentTheme: AppAccentTheme.defaultBlue,
+          fontFamily: 'SystemDefault',
+          textScaleFactor: AppTextScaleFactor.medium,
+          fontWeight: AppFontWeight.regular,
+        ),
+        language: 'en',
+        feedPreferences: const FeedDisplayPreferences(
+          headlineDensity: HeadlineDensity.standard,
+          headlineImageStyle: HeadlineImageStyle.largeThumbnail,
+          showSourceInHeadlineFeed: true,
+          showPublishDateInHeadlineFeed: true,
+        ),
+      );
       await _userAppSettingsRepository.create(item: defaultSettings);
       emit(SettingsLoadSuccess(userAppSettings: defaultSettings));
     } on HtHttpException catch (e) {

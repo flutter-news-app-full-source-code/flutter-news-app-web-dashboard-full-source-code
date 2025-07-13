@@ -24,10 +24,10 @@ class ContentManagementState extends Equatable {
     this.headlines = const [],
     this.headlinesCursor,
     this.headlinesHasMore = false,
-    this.categoriesStatus = ContentManagementStatus.initial,
-    this.categories = const [],
-    this.categoriesCursor,
-    this.categoriesHasMore = false,
+    this.topicsStatus = ContentManagementStatus.initial,
+    this.topics = const [],
+    this.topicsCursor,
+    this.topicsHasMore = false,
     this.sourcesStatus = ContentManagementStatus.initial,
     this.sources = const [],
     this.sourcesCursor,
@@ -50,17 +50,17 @@ class ContentManagementState extends Equatable {
   /// Indicates if there are more headlines to load.
   final bool headlinesHasMore;
 
-  /// Status of category data operations.
-  final ContentManagementStatus categoriesStatus;
+  /// Status of topic data operations.
+  final ContentManagementStatus topicsStatus;
 
-  /// List of categories.
-  final List<Category> categories;
+  /// List of topics.
+  final List<Topic> topics;
 
-  /// Cursor for category pagination.
-  final String? categoriesCursor;
+  /// Cursor for topic pagination.
+  final String? topicsCursor;
 
-  /// Indicates if there are more categories to load.
-  final bool categoriesHasMore;
+  /// Indicates if there are more topics to load.
+  final bool topicsHasMore;
 
   /// Status of source data operations.
   final ContentManagementStatus sourcesStatus;
@@ -84,10 +84,10 @@ class ContentManagementState extends Equatable {
     List<Headline>? headlines,
     String? headlinesCursor,
     bool? headlinesHasMore,
-    ContentManagementStatus? categoriesStatus,
-    List<Category>? categories,
-    String? categoriesCursor,
-    bool? categoriesHasMore,
+    ContentManagementStatus? topicsStatus,
+    List<Topic>? topics,
+    String? topicsCursor,
+    bool? topicsHasMore,
     ContentManagementStatus? sourcesStatus,
     List<Source>? sources,
     String? sourcesCursor,
@@ -100,10 +100,10 @@ class ContentManagementState extends Equatable {
       headlines: headlines ?? this.headlines,
       headlinesCursor: headlinesCursor ?? this.headlinesCursor,
       headlinesHasMore: headlinesHasMore ?? this.headlinesHasMore,
-      categoriesStatus: categoriesStatus ?? this.categoriesStatus,
-      categories: categories ?? this.categories,
-      categoriesCursor: categoriesCursor ?? this.categoriesCursor,
-      categoriesHasMore: categoriesHasMore ?? this.categoriesHasMore,
+      topicsStatus: topicsStatus ?? this.topicsStatus,
+      topics: topics ?? this.topics,
+      topicsCursor: topicsCursor ?? this.topicsCursor,
+      topicsHasMore: topicsHasMore ?? this.topicsHasMore,
       sourcesStatus: sourcesStatus ?? this.sourcesStatus,
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
@@ -119,10 +119,10 @@ class ContentManagementState extends Equatable {
     headlines,
     headlinesCursor,
     headlinesHasMore,
-    categoriesStatus,
-    categories,
-    categoriesCursor,
-    categoriesHasMore,
+    topicsStatus,
+    topics,
+    topicsCursor,
+    topicsHasMore,
     sourcesStatus,
     sources,
     sourcesCursor,

@@ -21,12 +21,12 @@ final class EditHeadlineTitleChanged extends EditHeadlineEvent {
   List<Object?> get props => [title];
 }
 
-/// Event for when the headline's description is changed.
-final class EditHeadlineDescriptionChanged extends EditHeadlineEvent {
-  const EditHeadlineDescriptionChanged(this.description);
-  final String description;
+/// Event for when the headline's excerpt is changed.
+final class EditHeadlineExcerptChanged extends EditHeadlineEvent {
+  const EditHeadlineExcerptChanged(this.excerpt);
+  final String excerpt;
   @override
-  List<Object?> get props => [description];
+  List<Object?> get props => [excerpt];
 }
 
 /// Event for when the headline's URL is changed.
@@ -53,12 +53,20 @@ final class EditHeadlineSourceChanged extends EditHeadlineEvent {
   List<Object?> get props => [source];
 }
 
-/// Event for when the headline's category is changed.
-final class EditHeadlineCategoryChanged extends EditHeadlineEvent {
-  const EditHeadlineCategoryChanged(this.category);
-  final Category? category;
+/// Event for when the headline's topic is changed.
+final class EditHeadlineTopicChanged extends EditHeadlineEvent {
+  const EditHeadlineTopicChanged(this.topic);
+  final Topic? topic;
   @override
-  List<Object?> get props => [category];
+  List<Object?> get props => [topic];
+}
+
+/// Event for when the headline's country is changed.
+final class EditHeadlineCountryChanged extends EditHeadlineEvent {
+  const EditHeadlineCountryChanged(this.country);
+  final Country? country;
+  @override
+  List<Object?> get props => [country];
 }
 
 /// Event for when the headline's status is changed.

@@ -168,14 +168,12 @@ class _SourcesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(Text(source.name)),
-        DataCell(Text(source.sourceType?.localizedName(l10n) ?? l10n.unknown)),
+        DataCell(Text(source.sourceType.localizedName(l10n))),
         DataCell(Text(source.status.l10n(context))),
         DataCell(
           Text(
-            source.updatedAt != null
-                // TODO(fulleni): Make date format configurable by admin.
-                ? DateFormat('dd-MM-yyyy').format(source.updatedAt!.toLocal())
-                : l10n.notAvailable,
+            // TODO(fulleni): Make date format configurable by admin.
+            DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),
           ),
         ),
         DataCell(

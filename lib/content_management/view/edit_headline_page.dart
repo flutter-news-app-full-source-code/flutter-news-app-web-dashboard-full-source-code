@@ -25,7 +25,8 @@ class EditHeadlinePage extends StatelessWidget {
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<HtDataRepository<Headline>>(),
         sourcesRepository: context.read<HtDataRepository<Source>>(),
-        categoriesRepository: context.read<HtDataRepository<Category>>(),
+        topicsRepository: context.read<HtDataRepository<Topic>>(),
+        countriesRepository: context.read<HtDataRepository<Country>>(),
         headlineId: headlineId,
       )..add(const EditHeadlineLoaded()),
       child: const _EditHeadlineView(),
@@ -43,7 +44,7 @@ class _EditHeadlineView extends StatefulWidget {
 class _EditHeadlineViewState extends State<_EditHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
-  late final TextEditingController _descriptionController;
+  late final TextEditingController _excerptController;
   late final TextEditingController _urlController;
   late final TextEditingController _imageUrlController;
 
@@ -52,7 +53,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
     super.initState();
     final state = context.read<EditHeadlineBloc>().state;
     _titleController = TextEditingController(text: state.title);
-    _descriptionController = TextEditingController(text: state.description);
+    _excerptController = TextEditingController(text: state.excerpt);
     _urlController = TextEditingController(text: state.url);
     _imageUrlController = TextEditingController(text: state.imageUrl);
   }
@@ -60,7 +61,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
   @override
   void dispose() {
     _titleController.dispose();
-    _descriptionController.dispose();
+    _excerptController.dispose();
     _urlController.dispose();
     _imageUrlController.dispose();
     super.dispose();
@@ -130,7 +131,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
           }
           if (state.initialHeadline != null) {
             _titleController.text = state.title;
-            _descriptionController.text = state.description;
+            _excerptController.text = state.excerpt;
             _urlController.text = state.url;
             _imageUrlController.text = state.imageUrl;
           }
@@ -167,14 +168,25 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             }
           }
 
-          Category? selectedCategory;
-          if (state.category != null) {
+          Topic? selectedTopic;
+          if (state.topic != null) {
             try {
-              selectedCategory = state.categories.firstWhere(
-                (c) => c.id == state.category!.id,
+              selectedTopic = state.topics.firstWhere(
+                (t) => t.id == state.topic!.id,
               );
             } catch (_) {
-              selectedCategory = null;
+              selectedTopic = null;
+            }
+          }
+
+          Country? selectedCountry;
+          if (state.eventCountry != null) {
+            try {
+              selectedCountry = state.countries.firstWhere(
+                (c) => c.id == state.eventCountry!.id,
+              );
+            } catch (_) {
+              selectedCountry = null;
             }
           }
 
@@ -198,15 +210,15 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
-                      controller: _descriptionController,
+                      controller: _excerptController,
                       decoration: InputDecoration(
-                        labelText: l10n.description,
+                        labelText: l10n.excerpt,
                         border: const OutlineInputBorder(),
                       ),
                       maxLines: 3,
                       onChanged: (value) => context
                           .read<EditHeadlineBloc>()
-                          .add(EditHeadlineDescriptionChanged(value)),
+                          .add(EditHeadlineExcerptChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -251,24 +263,44 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineSourceChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Category?>(
-                      value: selectedCategory,
+                    DropdownButtonFormField<Topic?>(
+                      value: selectedTopic,
                       decoration: InputDecoration(
-                        labelText: l10n.categoryName,
+                        labelText: l10n.topicName,
                         border: const OutlineInputBorder(),
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.categories.map(
-                          (category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category.name),
+                        ...state.topics.map(
+                          (topic) => DropdownMenuItem(
+                            value: topic,
+                            child: Text(topic.name),
                           ),
                         ),
                       ],
                       onChanged: (value) => context
                           .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCategoryChanged(value)),
+                          .add(EditHeadlineTopicChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<Country?>(
+                      value: selectedCountry,
+                      decoration: InputDecoration(
+                        labelText: l10n.countryName,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: [
+                        DropdownMenuItem(value: null, child: Text(l10n.none)),
+                        ...state.countries.map(
+                          (country) => DropdownMenuItem(
+                            value: country,
+                            child: Text(country.name),
+                          ),
+                        ),
+                      ],
+                      onChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

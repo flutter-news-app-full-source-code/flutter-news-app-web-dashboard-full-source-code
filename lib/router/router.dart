@@ -11,10 +11,10 @@ import 'package:ht_dashboard/authentication/view/authentication_page.dart';
 import 'package:ht_dashboard/authentication/view/email_code_verification_page.dart';
 import 'package:ht_dashboard/authentication/view/request_code_page.dart';
 import 'package:ht_dashboard/content_management/view/content_management_page.dart';
-import 'package:ht_dashboard/content_management/view/create_category_page.dart';
+import 'package:ht_dashboard/content_management/view/create_topic_page.dart';
 import 'package:ht_dashboard/content_management/view/create_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/create_source_page.dart';
-import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
+import 'package:ht_dashboard/content_management/view/edit_topic_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_source_page.dart';
 import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
@@ -170,16 +170,16 @@ GoRouter createRouter({
                     },
                   ),
                   GoRoute(
-                    path: Routes.createCategory,
-                    name: Routes.createCategoryName,
-                    builder: (context, state) => const CreateCategoryPage(),
+                    path: Routes.createTopic,
+                    name: Routes.createTopicName,
+                    builder: (context, state) => const CreateTopicPage(),
                   ),
                   GoRoute(
-                    path: Routes.editCategory,
-                    name: Routes.editCategoryName,
+                    path: Routes.editTopic,
+                    name: Routes.editTopicName,
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
-                      return EditCategoryPage(categoryId: id);
+                      return EditTopicPage(topicId: id);
                     },
                   ),
                   GoRoute(

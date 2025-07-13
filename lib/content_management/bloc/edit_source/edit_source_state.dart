@@ -49,7 +49,13 @@ final class EditSourceState extends Equatable {
   final Source? updatedSource;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid => name.isNotEmpty;
+  bool get isFormValid =>
+      name.isNotEmpty &&
+      description.isNotEmpty &&
+      url.isNotEmpty &&
+      sourceType != null &&
+      language.isNotEmpty &&
+      headquarters != null;
 
   EditSourceState copyWith({
     EditSourceStatus? status,

@@ -22,13 +22,6 @@ class AppShell extends StatelessWidget {
   /// navigators in a stateful way.
   final StatefulNavigationShell navigationShell;
 
-  void _goBranch(int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -70,7 +63,12 @@ class AppShell extends StatelessWidget {
       ),
       body: AdaptiveScaffold(
         selectedIndex: navigationShell.currentIndex,
-        onSelectedIndexChange: _goBranch,
+        onSelectedIndexChange: (index) {
+          navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
+          );
+        },
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.dashboard_outlined),

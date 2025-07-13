@@ -1,8 +1,4 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
   "authenticationPageHeadline": "Dashboard Access",
   "@authenticationPageHeadline": {
     "description": "Headline for the main authentication page"
@@ -93,7 +89,7 @@
   "@contentManagement": {
     "description": "Label for the content management navigation item"
   },
-  "contentManagementPageDescription": "Manage news headlines, categories, and sources for the Dashboard.",
+  "contentManagementPageDescription": "Manage news headlines, topics, and sources for the Dashboard.",
   "@contentManagementPageDescription": {
     "description": "Description for the Content Management page"
   },
@@ -101,9 +97,9 @@
   "@headlines": {
     "description": "Label for the headlines subpage"
   },
-  "categories": "Categories",
-  "@categories": {
-    "description": "Label for the categories subpage"
+  "topics": "Topics",
+  "@topics": {
+    "description": "Label for the topics subpage"
   },
   "sources": "Sources",
   "@sources": {
@@ -202,7 +198,7 @@
   "@confirmSaveButton": {
     "description": "Confirm save button label in dialog"
   },
-  "userContentLimitsDescription": "These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.",
+  "userContentLimitsDescription": "These settings define the maximum number of countries, news sources, topics, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.",
   "@userContentLimitsDescription": {
     "description": "Description for User Content Limits section"
   },
@@ -222,7 +218,7 @@
   "@guestFollowedItemsLimitLabel": {
     "description": "Label for Guest Followed Items Limit"
   },
-  "guestFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).",
+  "guestFollowedItemsLimitDescription": "Maximum number of countries, news sources, or topics a Guest user can follow (each type has its own limit).",
   "@guestFollowedItemsLimitDescription": {
     "description": "Description for Guest Followed Items Limit"
   },
@@ -238,7 +234,7 @@
   "@standardUserFollowedItemsLimitLabel": {
     "description": "Label for Standard User Followed Items Limit"
   },
-  "standardUserFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).",
+  "standardUserFollowedItemsLimitDescription": "Maximum number of countries, news sources, or topics a Standard user can follow (each type has its own limit).",
   "@standardUserFollowedItemsLimitDescription": {
     "description": "Description for Standard User Followed Items Limit"
   },
@@ -254,7 +250,7 @@
   "@premiumFollowedItemsLimitLabel": {
     "description": "Label for Premium Followed Items Limit"
   },
-  "premiumFollowedItemsLimitDescription": "Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).",
+  "premiumFollowedItemsLimitDescription": "Maximum number of countries, news sources, or topics a Premium user can follow (each type has its own limit).",
   "@premiumFollowedItemsLimitDescription": {
     "description": "Description for Premium Followed Items Limit"
   },
@@ -636,6 +632,14 @@
   "@headlineTitle": {
     "description": "Column header for headline title"
   },
+  "excerpt": "Excerpt",
+  "@excerpt": {
+    "description": "Label for the excerpt input field"
+  },
+  "countryName": "Country",
+  "@countryName": {
+    "description": "Label for the country name dropdown field"
+  },
   "publishedAt": "Published At",
   "@publishedAt": {
     "description": "Column header for published date"
@@ -648,17 +652,17 @@
   "@unknown": {
     "description": "Fallback text for unknown values"
   },
-  "loadingCategories": "Loading Categories",
-  "@loadingCategories": {
-    "description": "Headline for loading state of categories"
+  "loadingTopics": "Loading Topics",
+  "@loadingTopics": {
+    "description": "Headline for loading state of topics"
   },
-  "noCategoriesFound": "No categories found.",
-  "@noCategoriesFound": {
-    "description": "Message when no categories are found"
+  "noTopicsFound": "No topics found.",
+  "@noTopicsFound": {
+    "description": "Message when no topics are found"
   },
-  "categoryName": "Category Name",
-  "@categoryName": {
-    "description": "Label for the category name field in forms and tables."
+  "topicName": "Topic Name",
+  "@topicName": {
+    "description": "Label for the topic name field in forms and tables."
   },
   "description": "Description",
   "@description": {
@@ -688,37 +692,37 @@
   "@language": {
     "description": "Column header for language"
   },
-  "editCategory": "Edit Category",
-  "@editCategory": {
-    "description": "Title for the Edit Category page"
+  "editTopic": "Edit Topic",
+  "@editTopic": {
+    "description": "Title for the Edit Topic page"
   },
   "saveChanges": "Save Changes",
   "@saveChanges": {
     "description": "Tooltip for the save changes button"
   },
-  "loadingCategory": "Loading Category",
-  "@loadingCategory": {
-    "description": "Message displayed while loading category data"
+  "loadingTopic": "Loading Topic",
+  "@loadingTopic": {
+    "description": "Message displayed while loading topic data"
   },
   "iconUrl": "Icon URL",
   "@iconUrl": {
     "description": "Label for the icon URL input field"
   },
-  "categoryUpdatedSuccessfully": "Category updated successfully.",
-  "@categoryUpdatedSuccessfully": {
-    "description": "Message displayed when a category is updated successfully"
+  "topicUpdatedSuccessfully": "Topic updated successfully.",
+  "@topicUpdatedSuccessfully": {
+    "description": "Message displayed when a topic is updated successfully"
   },
-  "cannotUpdateCategoryError": "Cannot update: Original category data not loaded.",
-  "@cannotUpdateCategoryError": {
-    "description": "Error message when updating a category fails because the original data wasn't loaded"
+  "cannotUpdateTopicError": "Cannot update: Original topic data not loaded.",
+  "@cannotUpdateTopicError": {
+    "description": "Error message when updating a topic fails because the original data wasn't loaded"
   },
-  "createCategory": "Create Category",
-  "@createCategory": {
-    "description": "Title for the Create Category page"
+  "createTopic": "Create Topic",
+  "@createTopic": {
+    "description": "Title for the Create Topic page"
   },
-  "categoryCreatedSuccessfully": "Category created successfully.",
-  "@categoryCreatedSuccessfully": {
-    "description": "Message displayed when a category is created successfully"
+  "topicCreatedSuccessfully": "Topic created successfully.",
+  "@topicCreatedSuccessfully": {
+    "description": "Message displayed when a topic is created successfully"
   },
   "editSource": "Edit Source",
   "@editSource": {
@@ -838,9 +842,9 @@
   "@totalHeadlines": {
     "description": "Label for the total headlines summary card on the dashboard"
   },
-  "totalCategories": "Total Categories",
-  "@totalCategories": {
-    "description": "Label for the total categories summary card on the dashboard"
+  "totalTopics": "Total Topics",
+  "@totalTopics": {
+    "description": "Label for the total topics summary card on the dashboard"
   },
   "totalSources": "Total Sources",
   "@totalSources": {
@@ -894,10 +898,6 @@
   "@appStatusActive": {
     "description": "Text for the 'Active' app status"
   },
-  "appStatusMaintenance": "Maintenance",
-  "@appStatusMaintenance": {
-    "description": "Text for the 'Maintenance' app status"
-  },
   "appStatusDisabled": "Disabled",
   "@appStatusDisabled": {
     "description": "Text for the 'Disabled' app status"
@@ -921,6 +921,45 @@
         "example": "123456"
       }
     }
+  },
+  "appStatusMaintenance": "Maintenance",
+  "@appStatusMaintenance": {
+    "description": "Text for the 'Maintenance' app status"
+  },
+  "appStatusOperational": "Operational",
+  "@appStatusOperational": {
+    "description": "Text for the 'Operational' app status"
+  },
+  "isUnderMaintenanceLabel": "Under Maintenance",
+  "@isUnderMaintenanceLabel": {
+    "description": "Label for the 'is under maintenance' switch"
+  },
+  "isUnderMaintenanceDescription": "Toggle to put the app in maintenance mode, preventing user access.",
+  "@isUnderMaintenanceDescription": {
+    "description": "Description for the 'is under maintenance' switch"
+  },
+  "isLatestVersionOnlyLabel": "Force Latest Version Only",
+  "@isLatestVersionOnlyLabel": {
+    "description": "Label for the 'is latest version only' switch"
+  },
+  "isLatestVersionOnlyDescription": "If enabled, users must update to the latest app version to continue using the app.",
+  "@isLatestVersionOnlyDescription": {
+    "description": "Description for the 'is latest version only' switch"
+  },
+  "iosUpdateUrlLabel": "iOS Update URL",
+  "@iosUpdateUrlLabel": {
+    "description": "Label for iOS Update URL"
+  },
+  "iosUpdateUrlDescription": "URL for iOS app updates.",
+  "@iosUpdateUrlDescription": {
+    "description": "Description for iOS Update URL"
+  },
+  "androidUpdateUrlLabel": "Android Update URL",
+  "@androidUpdateUrlLabel": {
+    "description": "Label for Android Update URL"
+  },
+  "androidUpdateUrlDescription": "URL for Android app updates.",
+  "@androidUpdateUrlDescription": {
+    "description": "Description for Android Update URL"
   }
-
 }

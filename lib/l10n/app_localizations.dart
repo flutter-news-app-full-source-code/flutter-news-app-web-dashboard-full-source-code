@@ -98,12 +98,6 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
-  /// The conventional newborn programmer greeting
-  ///
-  /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
-
   /// Headline for the main authentication page
   ///
   /// In en, this message translates to:
@@ -227,7 +221,7 @@ abstract class AppLocalizations {
   /// Description for the Content Management page
   ///
   /// In en, this message translates to:
-  /// **'Manage news headlines, categories, and sources for the Dashboard.'**
+  /// **'Manage news headlines, topics, and sources for the Dashboard.'**
   String get contentManagementPageDescription;
 
   /// Label for the headlines subpage
@@ -236,11 +230,11 @@ abstract class AppLocalizations {
   /// **'Headlines'**
   String get headlines;
 
-  /// Label for the categories subpage
+  /// Label for the topics subpage
   ///
   /// In en, this message translates to:
-  /// **'Categories'**
-  String get categories;
+  /// **'Topics'**
+  String get topics;
 
   /// Label for the sources subpage
   ///
@@ -383,7 +377,7 @@ abstract class AppLocalizations {
   /// Description for User Content Limits section
   ///
   /// In en, this message translates to:
-  /// **'These settings define the maximum number of countries, news sources, categories, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.'**
+  /// **'These settings define the maximum number of countries, news sources, topics, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.'**
   String get userContentLimitsDescription;
 
   /// Tab title for Guest user role
@@ -413,7 +407,7 @@ abstract class AppLocalizations {
   /// Description for Guest Followed Items Limit
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of countries, news sources, or categories a Guest user can follow (each type has its own limit).'**
+  /// **'Maximum number of countries, news sources, or topics a Guest user can follow (each type has its own limit).'**
   String get guestFollowedItemsLimitDescription;
 
   /// Label for Guest Saved Headlines Limit
@@ -437,7 +431,7 @@ abstract class AppLocalizations {
   /// Description for Standard User Followed Items Limit
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of countries, news sources, or categories a Standard user can follow (each type has its own limit).'**
+  /// **'Maximum number of countries, news sources, or topics a Standard user can follow (each type has its own limit).'**
   String get standardUserFollowedItemsLimitDescription;
 
   /// Label for Standard User Saved Headlines Limit
@@ -461,7 +455,7 @@ abstract class AppLocalizations {
   /// Description for Premium Followed Items Limit
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of countries, news sources, or categories a Premium user can follow (each type has its own limit).'**
+  /// **'Maximum number of countries, news sources, or topics a Premium user can follow (each type has its own limit).'**
   String get premiumFollowedItemsLimitDescription;
 
   /// Label for Premium Saved Headlines Limit
@@ -1016,6 +1010,18 @@ abstract class AppLocalizations {
   /// **'Title'**
   String get headlineTitle;
 
+  /// Label for the excerpt input field
+  ///
+  /// In en, this message translates to:
+  /// **'Excerpt'**
+  String get excerpt;
+
+  /// Label for the country name dropdown field
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get countryName;
+
   /// Column header for published date
   ///
   /// In en, this message translates to:
@@ -1034,23 +1040,23 @@ abstract class AppLocalizations {
   /// **'Unknown'**
   String get unknown;
 
-  /// Headline for loading state of categories
+  /// Headline for loading state of topics
   ///
   /// In en, this message translates to:
-  /// **'Loading Categories'**
-  String get loadingCategories;
+  /// **'Loading Topics'**
+  String get loadingTopics;
 
-  /// Message when no categories are found
+  /// Message when no topics are found
   ///
   /// In en, this message translates to:
-  /// **'No categories found.'**
-  String get noCategoriesFound;
+  /// **'No topics found.'**
+  String get noTopicsFound;
 
-  /// Label for the category name field in forms and tables.
+  /// Label for the topic name field in forms and tables.
   ///
   /// In en, this message translates to:
-  /// **'Category Name'**
-  String get categoryName;
+  /// **'Topic Name'**
+  String get topicName;
 
   /// Column header for description
   ///
@@ -1094,11 +1100,11 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
-  /// Title for the Edit Category page
+  /// Title for the Edit Topic page
   ///
   /// In en, this message translates to:
-  /// **'Edit Category'**
-  String get editCategory;
+  /// **'Edit Topic'**
+  String get editTopic;
 
   /// Tooltip for the save changes button
   ///
@@ -1106,11 +1112,11 @@ abstract class AppLocalizations {
   /// **'Save Changes'**
   String get saveChanges;
 
-  /// Message displayed while loading category data
+  /// Message displayed while loading topic data
   ///
   /// In en, this message translates to:
-  /// **'Loading Category'**
-  String get loadingCategory;
+  /// **'Loading Topic'**
+  String get loadingTopic;
 
   /// Label for the icon URL input field
   ///
@@ -1118,29 +1124,29 @@ abstract class AppLocalizations {
   /// **'Icon URL'**
   String get iconUrl;
 
-  /// Message displayed when a category is updated successfully
+  /// Message displayed when a topic is updated successfully
   ///
   /// In en, this message translates to:
-  /// **'Category updated successfully.'**
-  String get categoryUpdatedSuccessfully;
+  /// **'Topic updated successfully.'**
+  String get topicUpdatedSuccessfully;
 
-  /// Error message when updating a category fails because the original data wasn't loaded
+  /// Error message when updating a topic fails because the original data wasn't loaded
   ///
   /// In en, this message translates to:
-  /// **'Cannot update: Original category data not loaded.'**
-  String get cannotUpdateCategoryError;
+  /// **'Cannot update: Original topic data not loaded.'**
+  String get cannotUpdateTopicError;
 
-  /// Title for the Create Category page
+  /// Title for the Create Topic page
   ///
   /// In en, this message translates to:
-  /// **'Create Category'**
-  String get createCategory;
+  /// **'Create Topic'**
+  String get createTopic;
 
-  /// Message displayed when a category is created successfully
+  /// Message displayed when a topic is created successfully
   ///
   /// In en, this message translates to:
-  /// **'Category created successfully.'**
-  String get categoryCreatedSuccessfully;
+  /// **'Topic created successfully.'**
+  String get topicCreatedSuccessfully;
 
   /// Title for the Edit Source page
   ///
@@ -1334,11 +1340,11 @@ abstract class AppLocalizations {
   /// **'Total Headlines'**
   String get totalHeadlines;
 
-  /// Label for the total categories summary card on the dashboard
+  /// Label for the total topics summary card on the dashboard
   ///
   /// In en, this message translates to:
-  /// **'Total Categories'**
-  String get totalCategories;
+  /// **'Total Topics'**
+  String get totalTopics;
 
   /// Label for the total sources summary card on the dashboard
   ///
@@ -1418,12 +1424,6 @@ abstract class AppLocalizations {
   /// **'Active'**
   String get appStatusActive;
 
-  /// Text for the 'Maintenance' app status
-  ///
-  /// In en, this message translates to:
-  /// **'Maintenance'**
-  String get appStatusMaintenance;
-
   /// Text for the 'Disabled' app status
   ///
   /// In en, this message translates to:
@@ -1441,6 +1441,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'For demo, use code: {code}'**
   String demoCodeHint(String code);
+
+  /// Text for the 'Maintenance' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get appStatusMaintenance;
+
+  /// Text for the 'Operational' app status
+  ///
+  /// In en, this message translates to:
+  /// **'Operational'**
+  String get appStatusOperational;
+
+  /// Label for the 'is under maintenance' switch
+  ///
+  /// In en, this message translates to:
+  /// **'Under Maintenance'**
+  String get isUnderMaintenanceLabel;
+
+  /// Description for the 'is under maintenance' switch
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle to put the app in maintenance mode, preventing user access.'**
+  String get isUnderMaintenanceDescription;
+
+  /// Label for the 'is latest version only' switch
+  ///
+  /// In en, this message translates to:
+  /// **'Force Latest Version Only'**
+  String get isLatestVersionOnlyLabel;
+
+  /// Description for the 'is latest version only' switch
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, users must update to the latest app version to continue using the app.'**
+  String get isLatestVersionOnlyDescription;
+
+  /// Label for iOS Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'iOS Update URL'**
+  String get iosUpdateUrlLabel;
+
+  /// Description for iOS Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'URL for iOS app updates.'**
+  String get iosUpdateUrlDescription;
+
+  /// Label for Android Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'Android Update URL'**
+  String get androidUpdateUrlLabel;
+
+  /// Description for Android Update URL
+  ///
+  /// In en, this message translates to:
+  /// **'URL for Android app updates.'**
+  String get androidUpdateUrlDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -24,13 +24,13 @@ class AppConfigurationLoaded extends AppConfigurationEvent {
 /// {@endtemplate}
 class AppConfigurationUpdated extends AppConfigurationEvent {
   /// {@macro app_configuration_updated}
-  const AppConfigurationUpdated(this.appConfig);
+  const AppConfigurationUpdated(this.remoteConfig);
 
   /// The updated application configuration.
-  final AppConfig appConfig;
+  final RemoteConfig remoteConfig;
 
   @override
-  List<Object?> get props => [appConfig];
+  List<Object?> get props => [remoteConfig];
 }
 
 /// {@template app_configuration_discarded}
@@ -50,12 +50,12 @@ class AppConfigurationDiscarded extends AppConfigurationEvent {
 class AppConfigurationFieldChanged extends AppConfigurationEvent {
   /// {@macro app_configuration_field_changed}
   const AppConfigurationFieldChanged({
-    this.appConfig,
+    this.remoteConfig,
   });
 
-  /// The partially or fully updated AppConfig object.
-  final AppConfig? appConfig;
+  /// The partially or fully updated RemoteConfig object.
+  final RemoteConfig? remoteConfig;
 
   @override
-  List<Object?> get props => [appConfig];
+  List<Object?> get props => [remoteConfig];
 }

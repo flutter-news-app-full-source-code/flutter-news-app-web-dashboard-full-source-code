@@ -11,8 +11,8 @@ enum ContentManagementTab {
   /// Represents the Headlines tab.
   headlines,
 
-  /// Represents the Categories tab.
-  categories,
+  /// Represents the Topics tab.
+  topics,
 
   /// Represents the Sources tab.
   sources,
@@ -22,26 +22,26 @@ class ContentManagementBloc
     extends Bloc<ContentManagementEvent, ContentManagementState> {
   ContentManagementBloc({
     required HtDataRepository<Headline> headlinesRepository,
-    required HtDataRepository<Category> categoriesRepository,
+    required HtDataRepository<Topic> topicsRepository,
     required HtDataRepository<Source> sourcesRepository,
   }) : _headlinesRepository = headlinesRepository,
-       _categoriesRepository = categoriesRepository,
+       _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
     on<HeadlineUpdated>(_onHeadlineUpdated);
     on<DeleteHeadlineRequested>(_onDeleteHeadlineRequested);
-    on<LoadCategoriesRequested>(_onLoadCategoriesRequested);
-    on<CategoryUpdated>(_onCategoryUpdated);
-    on<DeleteCategoryRequested>(_onDeleteCategoryRequested);
+    on<LoadTopicsRequested>(_onLoadTopicsRequested);
+    on<TopicUpdated>(_onTopicUpdated);
+    on<DeleteTopicRequested>(_onDeleteTopicRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
     on<SourceUpdated>(_onSourceUpdated);
-    on<DeleteSourceRequested>(_onOnDeleteSourceRequested);
+    on<DeleteSourceRequested>(_onDeleteSourceRequested);
   }
 
   final HtDataRepository<Headline> _headlinesRepository;
-  final HtDataRepository<Category> _categoriesRepository;
+  final HtDataRepository<Topic> _topicsRepository;
   final HtDataRepository<Source> _sourcesRepository;
 
   void _onContentManagementTabChanged(
@@ -61,8 +61,10 @@ class ContentManagementBloc
       final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
 
       final paginatedHeadlines = await _headlinesRepository.readAll(
-        startAfterId: event.startAfterId,
-        limit: event.limit,
+        pagination: PaginationOptions(
+          cursor: event.startAfterId,
+          limit: event.limit,
+        ),
       );
       emit(
         state.copyWith(
@@ -128,82 +130,82 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onLoadCategoriesRequested(
-    LoadCategoriesRequested event,
+  Future<void> _onLoadTopicsRequested(
+    LoadTopicsRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    emit(state.copyWith(categoriesStatus: ContentManagementStatus.loading));
+    emit(state.copyWith(topicsStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
-      final previousCategories = isPaginating ? state.categories : <Category>[];
+      final previousTopics = isPaginating ? state.topics : <Topic>[];
 
-      final paginatedCategories = await _categoriesRepository.readAll(
-        startAfterId: event.startAfterId,
-        limit: event.limit,
+      final paginatedTopics = await _topicsRepository.readAll(
+        pagination: PaginationOptions(
+          cursor: event.startAfterId,
+          limit: event.limit,
+        ),
       );
       emit(
         state.copyWith(
-          categoriesStatus: ContentManagementStatus.success,
-          categories: [...previousCategories, ...paginatedCategories.items],
-          categoriesCursor: paginatedCategories.cursor,
-          categoriesHasMore: paginatedCategories.hasMore,
+          topicsStatus: ContentManagementStatus.success,
+          topics: [...previousTopics, ...paginatedTopics.items],
+          topicsCursor: paginatedTopics.cursor,
+          topicsHasMore: paginatedTopics.hasMore,
         ),
       );
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
+          topicsStatus: ContentManagementStatus.failure,
           errorMessage: e.message,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
+          topicsStatus: ContentManagementStatus.failure,
           errorMessage: e.toString(),
         ),
       );
     }
   }
 
-  Future<void> _onDeleteCategoryRequested(
-    DeleteCategoryRequested event,
+  Future<void> _onDeleteTopicRequested(
+    DeleteTopicRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
     try {
-      await _categoriesRepository.delete(id: event.id);
-      final updatedCategories = state.categories
+      await _topicsRepository.delete(id: event.id);
+      final updatedTopics = state.topics
           .where((c) => c.id != event.id)
           .toList();
-      emit(state.copyWith(categories: updatedCategories));
+      emit(state.copyWith(topics: updatedTopics));
     } on HtHttpException catch (e) {
       emit(
         state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
+          topicsStatus: ContentManagementStatus.failure,
           errorMessage: e.message,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
-          categoriesStatus: ContentManagementStatus.failure,
+          topicsStatus: ContentManagementStatus.failure,
           errorMessage: e.toString(),
         ),
       );
     }
   }
 
-  void _onCategoryUpdated(
-    CategoryUpdated event,
+  void _onTopicUpdated(
+    TopicUpdated event,
     Emitter<ContentManagementState> emit,
   ) {
-    final updatedCategories = List<Category>.from(state.categories);
-    final index = updatedCategories.indexWhere(
-      (c) => c.id == event.category.id,
-    );
+    final updatedTopics = List<Topic>.from(state.topics);
+    final index = updatedTopics.indexWhere((t) => t.id == event.topic.id);
     if (index != -1) {
-      updatedCategories[index] = event.category;
-      emit(state.copyWith(categories: updatedCategories));
+      updatedTopics[index] = event.topic;
+      emit(state.copyWith(topics: updatedTopics));
     }
   }
 
@@ -217,8 +219,10 @@ class ContentManagementBloc
       final previousSources = isPaginating ? state.sources : <Source>[];
 
       final paginatedSources = await _sourcesRepository.readAll(
-        startAfterId: event.startAfterId,
-        limit: event.limit,
+        pagination: PaginationOptions(
+          cursor: event.startAfterId,
+          limit: event.limit,
+        ),
       );
       emit(
         state.copyWith(
@@ -245,7 +249,7 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onOnDeleteSourceRequested(
+  Future<void> _onDeleteSourceRequested(
     DeleteSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
