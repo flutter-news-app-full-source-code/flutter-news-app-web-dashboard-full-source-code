@@ -1012,6 +1012,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
         return const SizedBox.shrink();
       default:
         return const SizedBox.shrink();
+    }
   }
 }
 
@@ -1222,8 +1223,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   Widget build(BuildContext context) {
     final adConfig = widget.remoteConfig.adConfig;
 
-    switch (AppUserRole.values.byName(widget.userRole)) {
-      case AppUserRole.guestUser:
+    switch (widget.userRole) {
+      case 'guestUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -1281,7 +1282,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case AppUserRole.standardUser:
+      case 'standardUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -1343,7 +1344,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case AppUserRole.premiumUser:
+      case 'premiumUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -1402,9 +1403,11 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case AppUserRole.none:
-      case AppUserRole.admin:
-      case AppUserRole.publisher:
+      case 'none':
+      case 'admin':
+      case 'publisher':
+        return const SizedBox.shrink();
+      default:
         return const SizedBox.shrink();
     }
   }
@@ -1506,8 +1509,8 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
   Widget build(BuildContext context) {
     final accountActionConfig = widget.remoteConfig.accountActionConfig;
 
-    switch (AppUserRole.values.byName(widget.userRole)) {
-      case AppUserRole.guestUser:
+    switch (widget.userRole) {
+      case 'guestUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -1534,7 +1537,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
             ),
           ],
         );
-      case AppUserRole.standardUser:
+      case 'standardUser':
         return Column(
           children: [
             widget.buildIntField(
@@ -1561,9 +1564,11 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
             ),
           ],
         );
-      case AppUserRole.premiumUser:
-      case AppUserRole.admin:
-      case AppUserRole.publisher:
+      case 'premiumUser':
+      case 'admin':
+      case 'publisher':
+        return const SizedBox.shrink();
+      default:
         return const SizedBox.shrink();
     }
   }
