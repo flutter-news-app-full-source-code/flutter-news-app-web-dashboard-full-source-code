@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart' hide Topic;
+import 'package:flutter/foundation.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 import 'package:uuid/uuid.dart';
@@ -53,9 +53,10 @@ class CreateHeadlineBloc
         _countriesRepository.readAll(),
       ]);
 
-      final sources = sourcesResponse.items;
-      final topics = topicsResponse.items;
-      final countries = countriesResponse.items;
+      final sources = (sourcesResponse as PaginatedResponse<Source>).items;
+      final topics = (topicsResponse as PaginatedResponse<Topic>).items;
+      final countries =
+          (countriesResponse as PaginatedResponse<Country>).items;
 
       emit(
         state.copyWith(
