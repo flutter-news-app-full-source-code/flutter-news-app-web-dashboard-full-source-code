@@ -37,7 +37,7 @@ class ContentManagementBloc
     on<DeleteTopicRequested>(_onDeleteTopicRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
     on<SourceUpdated>(_onSourceUpdated);
-    on<DeleteSourceRequested>(_onOnDeleteSourceRequested);
+    on<DeleteSourceRequested>(_onDeleteSourceRequested);
   }
 
   final HtDataRepository<Headline> _headlinesRepository;
@@ -249,7 +249,7 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onOnDeleteSourceRequested(
+  Future<void> _onDeleteSourceRequested(
     DeleteSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {

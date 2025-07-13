@@ -66,12 +66,12 @@ final class HeadlineUpdated extends ContentManagementEvent {
   List<Object?> get props => [headline];
 }
 
-/// {@template load_categories_requested}
-/// Event to request loading of categories.
+/// {@template load_topics_requested}
+/// Event to request loading of topics.
 /// {@endtemplate}
-final class LoadCategoriesRequested extends ContentManagementEvent {
-  /// {@macro load_categories_requested}
-  const LoadCategoriesRequested({this.startAfterId, this.limit});
+final class LoadTopicsRequested extends ContentManagementEvent {
+  /// {@macro load_topics_requested}
+  const LoadTopicsRequested({this.startAfterId, this.limit});
 
   /// Optional ID to start pagination after.
   final String? startAfterId;
@@ -83,32 +83,32 @@ final class LoadCategoriesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template delete_category_requested}
-/// Event to request deletion of a category.
+/// {@template delete_topic_requested}
+/// Event to request deletion of a topic.
 /// {@endtemplate}
-final class DeleteCategoryRequested extends ContentManagementEvent {
-  /// {@macro delete_category_requested}
-  const DeleteCategoryRequested(this.id);
+final class DeleteTopicRequested extends ContentManagementEvent {
+  /// {@macro delete_topic_requested}
+  const DeleteTopicRequested(this.id);
 
-  /// The ID of the category to delete.
+  /// The ID of the topic to delete.
   final String id;
 
   @override
   List<Object?> get props => [id];
 }
 
-/// {@template category_updated}
-/// Event to update an existing category in the local state.
+/// {@template topic_updated}
+/// Event to update an existing topic in the local state.
 /// {@endtemplate}
-final class CategoryUpdated extends ContentManagementEvent {
-  /// {@macro category_updated}
-  const CategoryUpdated(this.category);
+final class TopicUpdated extends ContentManagementEvent {
+  /// {@macro topic_updated}
+  const TopicUpdated(this.topic);
 
-  /// The category that was updated.
-  final Category category;
+  /// The topic that was updated.
+  final Topic topic;
 
   @override
-  List<Object?> get props => [category];
+  List<Object?> get props => [topic];
 }
 
 /// {@template load_sources_requested}
