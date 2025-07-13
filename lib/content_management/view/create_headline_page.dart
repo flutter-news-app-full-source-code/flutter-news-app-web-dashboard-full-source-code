@@ -23,7 +23,8 @@ class CreateHeadlinePage extends StatelessWidget {
       create: (context) => CreateHeadlineBloc(
         headlinesRepository: context.read<HtDataRepository<Headline>>(),
         sourcesRepository: context.read<HtDataRepository<Source>>(),
-        categoriesRepository: context.read<HtDataRepository<Category>>(),
+        topicsRepository: context.read<HtDataRepository<Topic>>(),
+        countriesRepository: context.read<HtDataRepository<Country>>(),
       )..add(const CreateHeadlineDataLoaded()),
       child: const _CreateHeadlineView(),
     );
@@ -111,7 +112,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
 
           if (state.status == CreateHeadlineStatus.failure &&
               state.sources.isEmpty &&
-              state.categories.isEmpty) {
+              state.topics.isEmpty &&
+              state.countries.isEmpty) {
             return FailureStateWidget(
               message: state.errorMessage ?? l10n.unknownError,
               onRetry: () => context.read<CreateHeadlineBloc>().add(
@@ -140,15 +142,15 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
-                      initialValue: state.description,
+                      initialValue: state.excerpt,
                       decoration: InputDecoration(
-                        labelText: l10n.description,
+                        labelText: l10n.excerpt,
                         border: const OutlineInputBorder(),
                       ),
                       maxLines: 3,
                       onChanged: (value) => context
                           .read<CreateHeadlineBloc>()
-                          .add(CreateHeadlineDescriptionChanged(value)),
+                          .add(CreateHeadlineExcerptChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -193,24 +195,44 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           .add(CreateHeadlineSourceChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Category?>(
-                      value: state.category,
+                    DropdownButtonFormField<Topic?>(
+                      value: state.topic,
                       decoration: InputDecoration(
-                        labelText: l10n.categoryName,
+                        labelText: l10n.topicName,
                         border: const OutlineInputBorder(),
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.categories.map(
-                          (category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category.name),
+                        ...state.topics.map(
+                          (topic) => DropdownMenuItem(
+                            value: topic,
+                            child: Text(topic.name),
                           ),
                         ),
                       ],
                       onChanged: (value) => context
                           .read<CreateHeadlineBloc>()
-                          .add(CreateHeadlineCategoryChanged(value)),
+                          .add(CreateHeadlineTopicChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DropdownButtonFormField<Country?>(
+                      value: state.eventCountry,
+                      decoration: InputDecoration(
+                        labelText: l10n.countryName,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: [
+                        DropdownMenuItem(value: null, child: Text(l10n.none)),
+                        ...state.countries.map(
+                          (country) => DropdownMenuItem(
+                            value: country,
+                            child: Text(country.name),
+                          ),
+                        ),
+                      ],
+                      onChanged: (value) => context
+                          .read<CreateHeadlineBloc>()
+                          .add(CreateHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
