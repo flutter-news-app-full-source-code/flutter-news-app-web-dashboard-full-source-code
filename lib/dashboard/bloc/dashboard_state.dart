@@ -27,14 +27,14 @@ final class DashboardState extends Equatable {
 
   final DashboardStatus status;
   final DashboardSummary? summary;
-  final AppConfig? appConfig;
+  final RemoteConfig? appConfig;
   final List<Headline> recentHeadlines;
   final String? errorMessage;
 
   DashboardState copyWith({
     DashboardStatus? status,
     DashboardSummary? summary,
-    AppConfig? appConfig,
+    RemoteConfig? appConfig,
     List<Headline>? recentHeadlines,
     String? errorMessage,
   }) {
