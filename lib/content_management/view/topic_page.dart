@@ -12,17 +12,17 @@ import 'package:ht_shared/ht_shared.dart';
 import 'package:intl/intl.dart';
 
 /// {@template categories_page}
-/// A page for displaying and managing Categories in a tabular format.
+/// A page for displaying and managing Topics in a tabular format.
 /// {@endtemplate}
-class CategoriesPage extends StatefulWidget {
+class TopicPage extends StatefulWidget {
   /// {@macro categories_page}
-  const CategoriesPage({super.key});
+  const TopicPage({super.key});
 
   @override
-  State<CategoriesPage> createState() => _CategoriesPageState();
+  State<TopicPage> createState() => _TopicPageState();
 }
 
-class _CategoriesPageState extends State<CategoriesPage> {
+class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
@@ -82,7 +82,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 fixedWidth: 120,
               ),
             ],
-            source: _CategoriesDataSource(
+            source: _TopicsDataSource(
               context: context,
               categories: state.categories,
               isLoading:
@@ -120,8 +120,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 }
 
-class _CategoriesDataSource extends DataTableSource {
-  _CategoriesDataSource({
+class _TopicsDataSource extends DataTableSource {
+  _TopicsDataSource({
     required this.context,
     required this.categories,
     required this.isLoading,
