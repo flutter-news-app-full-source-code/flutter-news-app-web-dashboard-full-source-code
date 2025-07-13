@@ -19,6 +19,7 @@ import 'package:ht_dashboard/shared/theme/app_theme.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
 import 'package:ht_shared/ht_shared.dart' hide AppStatus;
+import 'package:logging/logging.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -78,11 +79,12 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => AppBloc(
               authenticationRepository: context.read<HtAuthRepository>(),
-              userAppSettingsRepository: context
-                  .read<HtDataRepository<UserAppSettings>>(),
+              userAppSettingsRepository:
+                  context.read<HtDataRepository<UserAppSettings>>(),
               appConfigRepository:
                   context.read<HtDataRepository<RemoteConfig>>(),
               environment: _environment,
+              logger: Logger('AppBloc'),
             ),
           ),
           BlocProvider(
@@ -92,7 +94,7 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AppConfigurationBloc(
-              appConfigRepository:
+              remoteConfigRepository:
                   context.read<HtDataRepository<RemoteConfig>>(),
             ),
           ),
@@ -123,6 +125,7 @@ class App extends StatelessWidget {
 }
 
 class _AppView extends StatefulWidget {
+  /// {@macro app_view}
   const _AppView({
     required this.htAuthenticationRepository,
     required this.environment,
@@ -216,7 +219,7 @@ class _AppViewState extends State<_AppView> {
                   themeMode: switch (baseTheme) {
                     AppBaseTheme.light => ThemeMode.light,
                     AppBaseTheme.dark => ThemeMode.dark,
-                    AppBaseTheme.system || null => ThemeMode.system,
+                    _ => ThemeMode.system,
                   },
                   locale: language != null ? Locale(language) : null,
                 ),
