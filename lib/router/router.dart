@@ -170,16 +170,16 @@ GoRouter createRouter({
                     },
                   ),
                   GoRoute(
-                    path: Routes.createCategory,
-                    name: Routes.createCategoryName,
-                    builder: (context, state) => const CreateCategoryPage(),
+                    path: Routes.createTopic,
+                    name: Routes.createTopicName,
+                    builder: (context, state) => const CreateTopicPage(),
                   ),
                   GoRoute(
-                    path: Routes.editCategory,
-                    name: Routes.editCategoryName,
+                    path: Routes.editTopic,
+                    name: Routes.editTopicName,
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
-                      return EditCategoryPage(categoryId: id);
+                      return EditTopicPage(topicId: id);
                     },
                   ),
                   GoRoute(

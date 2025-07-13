@@ -636,6 +636,14 @@
   "@headlineTitle": {
     "description": "Column header for headline title"
   },
+  "excerpt": "Excerpt",
+  "@excerpt": {
+    "description": "Label for the excerpt input field"
+  },
+  "countryName": "Country",
+  "@countryName": {
+    "description": "Label for the country name dropdown field"
+  },
   "publishedAt": "Published At",
   "@publishedAt": {
     "description": "Column header for published date"

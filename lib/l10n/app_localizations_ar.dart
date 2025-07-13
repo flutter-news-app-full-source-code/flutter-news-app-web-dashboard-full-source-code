@@ -536,6 +536,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get headlineTitle => 'العنوان';
 
   @override
+  String get excerpt => 'المقتطف';
+
+  @override
+  String get countryName => 'البلد';
+
+  @override
   String get publishedAt => 'تاريخ النشر';
 
   @override

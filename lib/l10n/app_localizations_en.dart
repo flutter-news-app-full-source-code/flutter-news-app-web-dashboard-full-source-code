@@ -534,6 +534,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get headlineTitle => 'Title';
 
   @override
+  String get excerpt => 'Excerpt';
+
+  @override
+  String get countryName => 'Country';
+
+  @override
   String get publishedAt => 'Published At';
 
   @override

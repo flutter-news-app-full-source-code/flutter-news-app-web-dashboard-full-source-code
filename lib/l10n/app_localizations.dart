@@ -1016,6 +1016,18 @@ abstract class AppLocalizations {
   /// **'Title'**
   String get headlineTitle;
 
+  /// Label for the excerpt input field
+  ///
+  /// In en, this message translates to:
+  /// **'Excerpt'**
+  String get excerpt;
+
+  /// Label for the country name dropdown field
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get countryName;
+
   /// Column header for published date
   ///
   /// In en, this message translates to:

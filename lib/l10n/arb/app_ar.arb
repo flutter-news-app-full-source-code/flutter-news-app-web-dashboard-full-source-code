@@ -636,6 +636,14 @@
   "@headlineTitle": {
     "description": "رأس العمود لعنوان الخبر"
   },
+  "excerpt": "المقتطف",
+  "@excerpt": {
+    "description": "تسمية حقل إدخال المقتطف"
+  },
+  "countryName": "البلد",
+  "@countryName": {
+    "description": "تسمية حقل القائمة المنسدلة لاسم البلد"
+  },
   "publishedAt": "تاريخ النشر",
   "@publishedAt": {
     "description": "رأس العمود لتاريخ النشر"
