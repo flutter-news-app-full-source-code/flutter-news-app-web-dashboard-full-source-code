@@ -8,37 +8,37 @@ import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
 
-/// {@template edit_category_page}
-/// A page for editing an existing category.
-/// It uses a [BlocProvider] to create and provide an [EditCategoryBloc].
+/// {@template edit_topic_page}
+/// A page for editing an existing topic.
+/// It uses a [BlocProvider] to create and provide an [EditTopicBloc].
 /// {@endtemplate}
-class EditCategoryPage extends StatelessWidget {
-  /// {@macro edit_category_page}
-  const EditCategoryPage({required this.categoryId, super.key});
+class EditTopicPage extends StatelessWidget {
+  /// {@macro edit_topic_page}
+  const EditTopicPage({required this.topicId, super.key});
 
-  /// The ID of the category to be edited.
-  final String categoryId;
+  /// The ID of the topic to be edited.
+  final String topicId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EditCategoryBloc(
-        categoriesRepository: context.read<HtDataRepository<Category>>(),
-        categoryId: categoryId,
-      )..add(const EditCategoryLoaded()),
-      child: const _EditCategoryView(),
+      create: (context) => EditTopicBloc(
+        topicsRepository: context.read<HtDataRepository<Topic>>(),
+        topicId: topicId,
+      )..add(const EditTopicLoaded()),
+      child: const _EditTopicView(),
     );
   }
 }
 
-class _EditCategoryView extends StatefulWidget {
-  const _EditCategoryView();
+class _EditTopicView extends StatefulWidget {
+  const _EditTopicView();
 
   @override
-  State<_EditCategoryView> createState() => _EditCategoryViewState();
+  State<_EditTopicView> createState() => _EditTopicViewState();
 }
 
-class _EditCategoryViewState extends State<_EditCategoryView> {
+class _EditTopicViewState extends State<_EditTopicView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
@@ -47,7 +47,7 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
   @override
   void initState() {
     super.initState();
-    final state = context.read<EditCategoryBloc>().state;
+    final state = context.read<EditTopicBloc>().state;
     _nameController = TextEditingController(text: state.name);
     _descriptionController = TextEditingController(text: state.description);
     _iconUrlController = TextEditingController(text: state.iconUrl);
@@ -66,11 +66,11 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.editCategory),
+        title: Text(l10n.editTopic),
         actions: [
-          BlocBuilder<EditCategoryBloc, EditCategoryState>(
+          BlocBuilder<EditTopicBloc, EditTopicState>(
             builder: (context, state) {
-              if (state.status == EditCategoryStatus.submitting) {
+              if (state.status == EditTopicStatus.submitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -84,8 +84,8 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<EditCategoryBloc>().add(
-                        const EditCategorySubmitted(),
+                    ? () => context.read<EditTopicBloc>().add(
+                        const EditTopicSubmitted(),
                       )
                     : null,
               );
@@ -93,26 +93,25 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
           ),
         ],
       ),
-      body: BlocConsumer<EditCategoryBloc, EditCategoryState>(
+      body: BlocConsumer<EditTopicBloc, EditTopicState>(
         listenWhen: (previous, current) =>
             previous.status != current.status ||
-            previous.initialCategory != current.initialCategory,
+            previous.initialTopic != current.initialTopic,
         listener: (context, state) {
-          if (state.status == EditCategoryStatus.success &&
-              state.updatedCategory != null &&
+          if (state.status == EditTopicStatus.success &&
+              state.updatedTopic != null &&
               ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                // TODO(l10n): Localize this message.
-                const SnackBar(content: Text('Category updated successfully.')),
+                SnackBar(content: Text(l10n.topicUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              CategoryUpdated(state.updatedCategory!),
+                  TopicUpdated(state.updatedTopic!),
             );
             context.pop();
           }
-          if (state.status == EditCategoryStatus.failure) {
+          if (state.status == EditTopicStatus.failure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -122,28 +121,27 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                 ),
               );
           }
-          if (state.initialCategory != null) {
+          if (state.initialTopic != null) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _iconUrlController.text = state.iconUrl;
           }
         },
         builder: (context, state) {
-          if (state.status == EditCategoryStatus.loading) {
+          if (state.status == EditTopicStatus.loading) {
             return LoadingStateWidget(
-              icon: Icons.category,
-              // TODO(l10n): Localize this message.
-              headline: 'Loading Category...',
+              icon: Icons.topic,
+              headline: l10n.loadingTopic,
               subheadline: l10n.pleaseWait,
             );
           }
 
-          if (state.status == EditCategoryStatus.failure &&
-              state.initialCategory == null) {
+          if (state.status == EditTopicStatus.failure &&
+              state.initialTopic == null) {
             return FailureStateWidget(
               message: state.errorMessage ?? l10n.unknownError,
-              onRetry: () => context.read<EditCategoryBloc>().add(
-                const EditCategoryLoaded(),
+              onRetry: () => context.read<EditTopicBloc>().add(
+                const EditTopicLoaded(),
               ),
             );
           }
@@ -159,12 +157,12 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        labelText: l10n.categoryName,
+                        labelText: l10n.topicName,
                         border: const OutlineInputBorder(),
                       ),
                       onChanged: (value) => context
-                          .read<EditCategoryBloc>()
-                          .add(EditCategoryNameChanged(value)),
+                          .read<EditTopicBloc>()
+                          .add(EditTopicNameChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -175,8 +173,8 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                       ),
                       maxLines: 3,
                       onChanged: (value) => context
-                          .read<EditCategoryBloc>()
-                          .add(EditCategoryDescriptionChanged(value)),
+                          .read<EditTopicBloc>()
+                          .add(EditTopicDescriptionChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -186,8 +184,8 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                         border: const OutlineInputBorder(),
                       ),
                       onChanged: (value) => context
-                          .read<EditCategoryBloc>()
-                          .add(EditCategoryIconUrlChanged(value)),
+                          .read<EditTopicBloc>()
+                          .add(EditTopicIconUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
@@ -204,8 +202,8 @@ class _EditCategoryViewState extends State<_EditCategoryView> {
                       }).toList(),
                       onChanged: (value) {
                         if (value == null) return;
-                        context.read<EditCategoryBloc>().add(
-                          EditCategoryStatusChanged(value),
+                        context.read<EditTopicBloc>().add(
+                          EditTopicStatusChanged(value),
                         );
                       },
                     ),

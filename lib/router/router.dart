@@ -14,7 +14,7 @@ import 'package:ht_dashboard/content_management/view/content_management_page.dar
 import 'package:ht_dashboard/content_management/view/create_topic_page.dart';
 import 'package:ht_dashboard/content_management/view/create_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/create_source_page.dart';
-import 'package:ht_dashboard/content_management/view/edit_category_page.dart';
+import 'package:ht_dashboard/content_management/view/edit_topic_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_headline_page.dart';
 import 'package:ht_dashboard/content_management/view/edit_source_page.dart';
 import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
