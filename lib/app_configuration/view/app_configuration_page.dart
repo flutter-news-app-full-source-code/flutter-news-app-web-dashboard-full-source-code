@@ -1006,10 +1006,6 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case 'none':
-      case 'admin': // Assuming admin doesn't have specific limits here
-      case 'publisher': // Assuming publisher doesn't have specific limits here
-        return const SizedBox.shrink();
       default:
         return const SizedBox.shrink();
     }
@@ -1403,10 +1399,6 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case 'none':
-      case 'admin':
-      case 'publisher':
-        return const SizedBox.shrink();
       default:
         return const SizedBox.shrink();
     }
