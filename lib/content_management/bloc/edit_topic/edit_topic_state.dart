@@ -41,7 +41,9 @@ final class EditTopicState extends Equatable {
   final Topic? updatedTopic;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid => name.isNotEmpty;
+  /// Based on the Topic model, name, description, and iconUrl are required.
+  bool get isFormValid =>
+      name.isNotEmpty && description.isNotEmpty && iconUrl.isNotEmpty;
 
   EditTopicState copyWith({
     EditTopicStatus? status,
