@@ -898,7 +898,6 @@
   "@appStatusActive": {
     "description": "Text for the 'Active' app status"
   },
-
   "appStatusDisabled": "Disabled",
   "@appStatusDisabled": {
     "description": "Text for the 'Disabled' app status"
