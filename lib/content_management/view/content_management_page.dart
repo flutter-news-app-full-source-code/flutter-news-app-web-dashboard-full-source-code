@@ -84,7 +84,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                   isScrollable: true,
                   tabs: [
                     Tab(text: l10n.headlines),
-                    Tab(text: l10n.categories),
+                    Tab(text: l10n.topics),
                     Tab(text: l10n.sources),
                   ],
                 ),
@@ -103,8 +103,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
                     context.goNamed(Routes.createHeadlineName);
-                  case ContentManagementTab.categories:
-                    context.goNamed(Routes.createCategoryName);
+                  case ContentManagementTab.topics:
+                    context.goNamed(Routes.createTopicName);
                   case ContentManagementTab.sources:
                     context.goNamed(Routes.createSourceName);
                 }
