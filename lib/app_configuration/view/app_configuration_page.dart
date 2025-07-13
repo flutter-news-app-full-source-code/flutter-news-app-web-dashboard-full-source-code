@@ -4,7 +4,8 @@ import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart'
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
-import 'package:ht_shared/ht_shared.dart'; // For AppConfig and its nested models
+import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_shared/src/enums/app_user_role.dart';
 
 /// {@template app_configuration_page}
 /// A page for managing the application's remote configuration.
@@ -117,8 +118,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               },
             );
           } else if (state.status == AppConfigurationStatus.success &&
-              state.appConfig != null) {
-            final appConfig = state.appConfig!;
+              state.remoteConfig != null) {
+            final remoteConfig = state.remoteConfig!;
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
@@ -128,7 +129,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                     horizontal: AppSpacing.xxl,
                   ),
                   children: [
-                    _buildUserPreferenceLimitsSection(context, appConfig),
+                    _buildUserPreferenceLimitsSection(context, remoteConfig),
                   ],
                 ),
                 ExpansionTile(
@@ -137,7 +138,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                     horizontal: AppSpacing.xxl,
                   ),
                   children: [
-                    _buildAdConfigSection(context, appConfig),
+                    _buildAdConfigSection(context, remoteConfig),
                   ],
                 ),
                 ExpansionTile(
@@ -146,7 +147,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                     horizontal: AppSpacing.xxl,
                   ),
                   children: [
-                    _buildAccountActionConfigSection(context, appConfig),
+                    _buildAccountActionConfigSection(context, remoteConfig),
                   ],
                 ),
                 ExpansionTile(
@@ -155,16 +156,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                     horizontal: AppSpacing.xxl,
                   ),
                   children: [
-                    _buildKillSwitchSection(context, appConfig),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(l10n.forceUpdateTab),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
-                  children: [
-                    _buildForceUpdateSection(context, appConfig),
+                    _buildAppStatusSection(context, remoteConfig),
                   ],
                 ),
               ],
@@ -185,8 +177,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     final isDirty = context.select(
       (AppConfigurationBloc bloc) => bloc.state.isDirty,
     );
-    final appConfig = context.select(
-      (AppConfigurationBloc bloc) => bloc.state.appConfig,
+    final remoteConfig = context.select(
+      (AppConfigurationBloc bloc) => bloc.state.remoteConfig,
     );
 
     return BottomAppBar(
@@ -211,9 +203,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               onPressed: isDirty
                   ? () async {
                       final confirmed = await _showConfirmationDialog(context);
-                      if (context.mounted && confirmed && appConfig != null) {
+                      if (context.mounted && confirmed && remoteConfig != null) {
                         context.read<AppConfigurationBloc>().add(
-                          AppConfigurationUpdated(appConfig),
+                          AppConfigurationUpdated(remoteConfig),
                         );
                       }
                     }
@@ -263,7 +255,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
 
   Widget _buildUserPreferenceLimitsSection(
     BuildContext context,
-    AppConfig appConfig,
+    RemoteConfig remoteConfig,
   ) {
     final l10n = context.l10n;
     return Column(
@@ -283,12 +275,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _UserPreferenceLimitsForm(
-              userRole: UserRoles.guestUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.guestUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -303,12 +295,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _UserPreferenceLimitsForm(
-              userRole: UserRoles.standardUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.standardUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -323,12 +315,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _UserPreferenceLimitsForm(
-              userRole: UserRoles.premiumUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.premiumUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -340,7 +332,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     );
   }
 
-  Widget _buildAdConfigSection(BuildContext context, AppConfig appConfig) {
+  Widget _buildAdConfigSection(BuildContext context, RemoteConfig remoteConfig) {
     final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,12 +351,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AdConfigForm(
-              userRole: UserRoles.guestUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.guestUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -379,12 +371,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AdConfigForm(
-              userRole: UserRoles.standardUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.standardUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -399,12 +391,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AdConfigForm(
-              userRole: UserRoles.premiumUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.premiumUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -418,7 +410,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
 
   Widget _buildAccountActionConfigSection(
     BuildContext context,
-    AppConfig appConfig,
+    RemoteConfig remoteConfig,
   ) {
     final l10n = context.l10n;
     return Column(
@@ -438,12 +430,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AccountActionConfigForm(
-              userRole: UserRoles.guestUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.guestUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -458,12 +450,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           children: [
             _AccountActionConfigForm(
-              userRole: UserRoles.standardUser,
-              appConfig: appConfig,
+              userRole: AppUserRole.standardUser.name,
+              remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: newConfig,
+                    remoteConfig: newConfig,
                   ),
                 );
               },
@@ -475,7 +467,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     );
   }
 
-  Widget _buildKillSwitchSection(BuildContext context, AppConfig appConfig) {
+  Widget _buildAppStatusSection(BuildContext context, RemoteConfig remoteConfig) {
     final l10n = context.l10n;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -490,79 +482,37 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
-          _buildDropdownField<RemoteAppStatus>(
+          _buildDropdownField<AppStatus>(
             context,
             label: l10n.appOperationalStatusLabel,
             description: l10n.appOperationalStatusDescription,
-            value: appConfig.appOperationalStatus,
-            items: RemoteAppStatus.values,
-            itemLabelBuilder: (status) => status.name,
+            value: remoteConfig.appStatus,
+            items: const [], // AppStatus is a model, not an enum
+            itemLabelBuilder: (status) => status.isUnderMaintenance
+                ? l10n.appStatusMaintenance
+                : l10n.appStatusOperational,
             onChanged: (value) {
               if (value != null) {
                 context.read<AppConfigurationBloc>().add(
                   AppConfigurationFieldChanged(
-                    appConfig: appConfig.copyWith(appOperationalStatus: value),
+                    remoteConfig: remoteConfig.copyWith(appStatus: value),
                   ),
                 );
               }
             },
           ),
-          if (appConfig.appOperationalStatus == RemoteAppStatus.maintenance)
-            _buildTextField(
-              context,
-              label: l10n.maintenanceMessageLabel,
-              description: l10n.maintenanceMessageDescription,
-              value: appConfig.maintenanceMessage,
-              onChanged: (value) {
-                context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    appConfig: appConfig.copyWith(maintenanceMessage: value),
-                  ),
-                );
-              },
-            ),
-          if (appConfig.appOperationalStatus == RemoteAppStatus.disabled)
-            _buildTextField(
-              context,
-              label: l10n.disabledMessageLabel,
-              description: l10n.disabledMessageDescription,
-              value: appConfig.disabledMessage,
-              onChanged: (value) {
-                context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    appConfig: appConfig.copyWith(disabledMessage: value),
-                  ),
-                );
-              },
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildForceUpdateSection(BuildContext context, AppConfig appConfig) {
-    final l10n = context.l10n;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.forceUpdateDescription,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          _buildTextField(
-            context,
-            label: l10n.minAllowedAppVersionLabel,
-            description: l10n.minAllowedAppVersionDescription,
-            value: appConfig.minAllowedAppVersion,
+          SwitchListTile(
+            title: Text(l10n.isUnderMaintenanceLabel),
+            subtitle: Text(l10n.isUnderMaintenanceDescription),
+            value: remoteConfig.appStatus.isUnderMaintenance,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
                 AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(minAllowedAppVersion: value),
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      isUnderMaintenance: value,
+                    ),
+                  ),
                 ),
               );
             },
@@ -571,63 +521,65 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             context,
             label: l10n.latestAppVersionLabel,
             description: l10n.latestAppVersionDescription,
-            value: appConfig.latestAppVersion,
+            value: remoteConfig.appStatus.latestAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
                 AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(latestAppVersion: value),
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      latestAppVersion: value,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          SwitchListTile(
+            title: Text(l10n.isLatestVersionOnlyLabel),
+            subtitle: Text(l10n.isLatestVersionOnlyDescription),
+            value: remoteConfig.appStatus.isLatestVersionOnly,
+            onChanged: (value) {
+              context.read<AppConfigurationBloc>().add(
+                AppConfigurationFieldChanged(
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      isLatestVersionOnly: value,
+                    ),
+                  ),
                 ),
               );
             },
           ),
           _buildTextField(
             context,
-            label: l10n.updateRequiredMessageLabel,
-            description: l10n.updateRequiredMessageDescription,
-            value: appConfig.updateRequiredMessage,
+            label: l10n.iosUpdateUrlLabel,
+            description: l10n.iosUpdateUrlDescription,
+            value: remoteConfig.appStatus.iosUpdateUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
                 AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(updateRequiredMessage: value),
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      iosUpdateUrl: value,
+                    ),
+                  ),
                 ),
               );
             },
           ),
           _buildTextField(
             context,
-            label: l10n.updateOptionalMessageLabel,
-            description: l10n.updateOptionalMessageDescription,
-            value: appConfig.updateOptionalMessage,
+            label: l10n.androidUpdateUrlLabel,
+            description: l10n.androidUpdateUrlDescription,
+            value: remoteConfig.appStatus.androidUpdateUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
                 AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(updateOptionalMessage: value),
-                ),
-              );
-            },
-          ),
-          _buildTextField(
-            context,
-            label: l10n.iosStoreUrlLabel,
-            description: l10n.iosStoreUrlDescription,
-            value: appConfig.iosStoreUrl,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(iosStoreUrl: value),
-                ),
-              );
-            },
-          ),
-          _buildTextField(
-            context,
-            label: l10n.androidStoreUrlLabel,
-            description: l10n.androidStoreUrlDescription,
-            value: appConfig.androidStoreUrl,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  appConfig: appConfig.copyWith(androidStoreUrl: value),
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      androidUpdateUrl: value,
+                    ),
+                  ),
                 ),
               );
             },
@@ -643,7 +595,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     required String description,
     required int value,
     required ValueChanged<int> onChanged,
-    TextEditingController? controller, // Add controller parameter
+    TextEditingController? controller,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
@@ -663,10 +615,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
-            controller: controller, // Use controller
+            controller: controller,
             initialValue: controller == null
                 ? value.toString()
-                : null, // Only use initialValue if no controller
+                : null,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -690,7 +642,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     required String description,
     required String? value,
     required ValueChanged<String?> onChanged,
-    TextEditingController? controller, // Add controller parameter
+    TextEditingController? controller,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
@@ -710,10 +662,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
-            controller: controller, // Use controller
+            controller: controller,
             initialValue: controller == null
                 ? value
-                : null, // Only use initialValue if no controller
+                : null,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               isDense: true,
@@ -774,14 +726,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
 class _UserPreferenceLimitsForm extends StatefulWidget {
   const _UserPreferenceLimitsForm({
     required this.userRole,
-    required this.appConfig,
+    required this.remoteConfig,
     required this.onConfigChanged,
     required this.buildIntField,
   });
 
   final String userRole;
-  final AppConfig appConfig;
-  final ValueChanged<AppConfig> onConfigChanged;
+  final RemoteConfig remoteConfig;
+  final ValueChanged<RemoteConfig> onConfigChanged;
   final Widget Function(
     BuildContext context, {
     required String label,
@@ -809,33 +761,33 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   void initState() {
     super.initState();
     _guestFollowedItemsLimitController = TextEditingController(
-      text: widget.appConfig.userPreferenceLimits.guestFollowedItemsLimit
+      text: widget.remoteConfig.userPreferenceConfig.guestFollowedItemsLimit
           .toString(),
     );
     _guestSavedHeadlinesLimitController = TextEditingController(
-      text: widget.appConfig.userPreferenceLimits.guestSavedHeadlinesLimit
+      text: widget.remoteConfig.userPreferenceConfig.guestSavedHeadlinesLimit
           .toString(),
     );
     _authenticatedFollowedItemsLimitController = TextEditingController(
       text: widget
-          .appConfig
-          .userPreferenceLimits
+          .remoteConfig
+          .userPreferenceConfig
           .authenticatedFollowedItemsLimit
           .toString(),
     );
     _authenticatedSavedHeadlinesLimitController = TextEditingController(
       text: widget
-          .appConfig
-          .userPreferenceLimits
+          .remoteConfig
+          .userPreferenceConfig
           .authenticatedSavedHeadlinesLimit
           .toString(),
     );
     _premiumFollowedItemsLimitController = TextEditingController(
-      text: widget.appConfig.userPreferenceLimits.premiumFollowedItemsLimit
+      text: widget.remoteConfig.userPreferenceConfig.premiumFollowedItemsLimit
           .toString(),
     );
     _premiumSavedHeadlinesLimitController = TextEditingController(
-      text: widget.appConfig.userPreferenceLimits.premiumSavedHeadlinesLimit
+      text: widget.remoteConfig.userPreferenceConfig.premiumSavedHeadlinesLimit
           .toString(),
     );
   }
@@ -843,36 +795,36 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   @override
   void didUpdateWidget(covariant _UserPreferenceLimitsForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.appConfig.userPreferenceLimits !=
-        oldWidget.appConfig.userPreferenceLimits) {
+    if (widget.remoteConfig.userPreferenceConfig !=
+        oldWidget.remoteConfig.userPreferenceConfig) {
       _guestFollowedItemsLimitController.value = TextEditingValue(
-        text: widget.appConfig.userPreferenceLimits.guestFollowedItemsLimit
+        text: widget.remoteConfig.userPreferenceConfig.guestFollowedItemsLimit
             .toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.userPreferenceLimits.guestFollowedItemsLimit
+          offset: widget.remoteConfig.userPreferenceConfig.guestFollowedItemsLimit
               .toString()
               .length,
         ),
       );
       _guestSavedHeadlinesLimitController.value = TextEditingValue(
-        text: widget.appConfig.userPreferenceLimits.guestSavedHeadlinesLimit
+        text: widget.remoteConfig.userPreferenceConfig.guestSavedHeadlinesLimit
             .toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.userPreferenceLimits.guestSavedHeadlinesLimit
+          offset: widget.remoteConfig.userPreferenceConfig.guestSavedHeadlinesLimit
               .toString()
               .length,
         ),
       );
       _authenticatedFollowedItemsLimitController.value = TextEditingValue(
         text: widget
-            .appConfig
-            .userPreferenceLimits
+            .remoteConfig
+            .userPreferenceConfig
             .authenticatedFollowedItemsLimit
             .toString(),
         selection: TextSelection.collapsed(
           offset: widget
-              .appConfig
-              .userPreferenceLimits
+              .remoteConfig
+              .userPreferenceConfig
               .authenticatedFollowedItemsLimit
               .toString()
               .length,
@@ -880,38 +832,38 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
       );
       _authenticatedSavedHeadlinesLimitController.value = TextEditingValue(
         text: widget
-            .appConfig
-            .userPreferenceLimits
+            .remoteConfig
+            .userPreferenceConfig
             .authenticatedSavedHeadlinesLimit
             .toString(),
         selection: TextSelection.collapsed(
           offset: widget
-              .appConfig
-              .userPreferenceLimits
+              .remoteConfig
+              .userPreferenceConfig
               .authenticatedSavedHeadlinesLimit
               .toString()
               .length,
         ),
       );
       _premiumFollowedItemsLimitController.value = TextEditingValue(
-        text: widget.appConfig.userPreferenceLimits.premiumFollowedItemsLimit
+        text: widget.remoteConfig.userPreferenceConfig.premiumFollowedItemsLimit
             .toString(),
         selection: TextSelection.collapsed(
           offset: widget
-              .appConfig
-              .userPreferenceLimits
+              .remoteConfig
+              .userPreferenceConfig
               .premiumFollowedItemsLimit
               .toString()
               .length,
         ),
       );
       _premiumSavedHeadlinesLimitController.value = TextEditingValue(
-        text: widget.appConfig.userPreferenceLimits.premiumSavedHeadlinesLimit
+        text: widget.remoteConfig.userPreferenceConfig.premiumSavedHeadlinesLimit
             .toString(),
         selection: TextSelection.collapsed(
           offset: widget
-              .appConfig
-              .userPreferenceLimits
+              .remoteConfig
+              .userPreferenceConfig
               .premiumSavedHeadlinesLimit
               .toString()
               .length,
@@ -933,10 +885,10 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
 
   @override
   Widget build(BuildContext context) {
-    final userPreferenceLimits = widget.appConfig.userPreferenceLimits;
+    final userPreferenceConfig = widget.remoteConfig.userPreferenceConfig;
 
-    switch (widget.userRole) {
-      case UserRoles.guestUser:
+    switch (AppUserRole.values.byName(widget.userRole)) {
+      case AppUserRole.guestUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -945,11 +897,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               description:
                   'Maximum number of countries, news sources, or categories a '
                   'Guest user can follow (each type has its own limit).',
-              value: userPreferenceLimits.guestFollowedItemsLimit,
+              value: userPreferenceConfig.guestFollowedItemsLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                  widget.remoteConfig.copyWith(
+                    userPreferenceConfig: userPreferenceConfig.copyWith(
                       guestFollowedItemsLimit: value,
                     ),
                   ),
@@ -961,11 +913,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               context,
               label: 'Guest Saved Headlines Limit',
               description: 'Maximum number of headlines a Guest user can save.',
-              value: userPreferenceLimits.guestSavedHeadlinesLimit,
+              value: userPreferenceConfig.guestSavedHeadlinesLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                  widget.remoteConfig.copyWith(
+                    userPreferenceConfig: userPreferenceConfig.copyWith(
                       guestSavedHeadlinesLimit: value,
                     ),
                   ),
@@ -975,7 +927,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case UserRoles.standardUser:
+      case AppUserRole.standardUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -984,11 +936,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               description:
                   'Maximum number of countries, news sources, or categories a '
                   'Standard user can follow (each type has its own limit).',
-              value: userPreferenceLimits.authenticatedFollowedItemsLimit,
+              value: userPreferenceConfig.authenticatedFollowedItemsLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                  widget.remoteConfig.copyWith(
+                    userPreferenceConfig: userPreferenceConfig.copyWith(
                       authenticatedFollowedItemsLimit: value,
                     ),
                   ),
@@ -1001,11 +953,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               label: 'Standard User Saved Headlines Limit',
               description:
                   'Maximum number of headlines a Standard user can save.',
-              value: userPreferenceLimits.authenticatedSavedHeadlinesLimit,
+              value: userPreferenceConfig.authenticatedSavedHeadlinesLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                  widget.remoteConfig.copyWith(
+                    userPreferenceConfig: userPreferenceConfig.copyWith(
                       authenticatedSavedHeadlinesLimit: value,
                     ),
                   ),
@@ -1015,7 +967,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case UserRoles.premiumUser:
+      case AppUserRole.premiumUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1024,11 +976,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               description:
                   'Maximum number of countries, news sources, or categories a '
                   'Premium user can follow (each type has its own limit).',
-              value: userPreferenceLimits.premiumFollowedItemsLimit,
+              value: userPreferenceConfig.premiumFollowedItemsLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                  widget.remoteConfig.copyWith(
+                    userPreferenceConfig: userPreferenceConfig.copyWith(
                       premiumFollowedItemsLimit: value,
                     ),
                   ),
@@ -1041,11 +993,11 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
               label: 'Premium Saved Headlines Limit',
               description:
                   'Maximum number of headlines a Premium user can save.',
-              value: userPreferenceLimits.premiumSavedHeadlinesLimit,
+              value: userPreferenceConfig.premiumSavedHeadlinesLimit,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
-                    userPreferenceLimits: userPreferenceLimits.copyWith(
+                  widget.remoteConfig.copyWith(
+                    userPreferenceConfig: userPreferenceConfig.copyWith(
                       premiumSavedHeadlinesLimit: value,
                     ),
                   ),
@@ -1055,11 +1007,9 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
             ),
           ],
         );
-      case UserRoles.admin:
-        // Admin role might not have specific limits here, or could be
-        // a separate configuration. For now, return empty.
-        return const SizedBox.shrink();
-      default:
+      case AppUserRole.none:
+      case AppUserRole.admin: // Assuming admin doesn't have specific limits here
+      case AppUserRole.publisher: // Assuming publisher doesn't have specific limits here
         return const SizedBox.shrink();
     }
   }
@@ -1068,14 +1018,14 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
 class _AdConfigForm extends StatefulWidget {
   const _AdConfigForm({
     required this.userRole,
-    required this.appConfig,
+    required this.remoteConfig,
     required this.onConfigChanged,
     required this.buildIntField,
   });
 
   final String userRole;
-  final AppConfig appConfig;
-  final ValueChanged<AppConfig> onConfigChanged;
+  final RemoteConfig remoteConfig;
+  final ValueChanged<RemoteConfig> onConfigChanged;
   final Widget Function(
     BuildContext context, {
     required String label,
@@ -1108,44 +1058,44 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   void initState() {
     super.initState();
     _guestAdFrequencyController = TextEditingController(
-      text: widget.appConfig.adConfig.guestAdFrequency.toString(),
+      text: widget.remoteConfig.adConfig.guestAdFrequency.toString(),
     );
     _guestAdPlacementIntervalController = TextEditingController(
-      text: widget.appConfig.adConfig.guestAdPlacementInterval.toString(),
+      text: widget.remoteConfig.adConfig.guestAdPlacementInterval.toString(),
     );
     _guestArticlesToReadBeforeShowingInterstitialAdsController =
         TextEditingController(
           text: widget
-              .appConfig
+              .remoteConfig
               .adConfig
               .guestArticlesToReadBeforeShowingInterstitialAds
               .toString(),
         );
     _authenticatedAdFrequencyController = TextEditingController(
-      text: widget.appConfig.adConfig.authenticatedAdFrequency.toString(),
+      text: widget.remoteConfig.adConfig.authenticatedAdFrequency.toString(),
     );
     _authenticatedAdPlacementIntervalController = TextEditingController(
-      text: widget.appConfig.adConfig.authenticatedAdPlacementInterval
+      text: widget.remoteConfig.adConfig.authenticatedAdPlacementInterval
           .toString(),
     );
     _standardUserArticlesToReadBeforeShowingInterstitialAdsController =
         TextEditingController(
           text: widget
-              .appConfig
+              .remoteConfig
               .adConfig
               .standardUserArticlesToReadBeforeShowingInterstitialAds
               .toString(),
         );
     _premiumAdFrequencyController = TextEditingController(
-      text: widget.appConfig.adConfig.premiumAdFrequency.toString(),
+      text: widget.remoteConfig.adConfig.premiumAdFrequency.toString(),
     );
     _premiumAdPlacementIntervalController = TextEditingController(
-      text: widget.appConfig.adConfig.premiumAdPlacementInterval.toString(),
+      text: widget.remoteConfig.adConfig.premiumAdPlacementInterval.toString(),
     );
     _premiumUserArticlesToReadBeforeShowingInterstitialAdsController =
         TextEditingController(
           text: widget
-              .appConfig
+              .remoteConfig
               .adConfig
               .premiumUserArticlesToReadBeforeShowingInterstitialAds
               .toString(),
@@ -1155,17 +1105,17 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   @override
   void didUpdateWidget(covariant _AdConfigForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.appConfig.adConfig != oldWidget.appConfig.adConfig) {
+    if (widget.remoteConfig.adConfig != oldWidget.remoteConfig.adConfig) {
       _guestAdFrequencyController.value = TextEditingValue(
-        text: widget.appConfig.adConfig.guestAdFrequency.toString(),
+        text: widget.remoteConfig.adConfig.guestAdFrequency.toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.adConfig.guestAdFrequency.toString().length,
+          offset: widget.remoteConfig.adConfig.guestAdFrequency.toString().length,
         ),
       );
       _guestAdPlacementIntervalController.value = TextEditingValue(
-        text: widget.appConfig.adConfig.guestAdPlacementInterval.toString(),
+        text: widget.remoteConfig.adConfig.guestAdPlacementInterval.toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.adConfig.guestAdPlacementInterval
+          offset: widget.remoteConfig.adConfig.guestAdPlacementInterval
               .toString()
               .length,
         ),
@@ -1173,13 +1123,13 @@ class _AdConfigFormState extends State<_AdConfigForm> {
       _guestArticlesToReadBeforeShowingInterstitialAdsController.value =
           TextEditingValue(
             text: widget
-                .appConfig
+                .remoteConfig
                 .adConfig
                 .guestArticlesToReadBeforeShowingInterstitialAds
                 .toString(),
             selection: TextSelection.collapsed(
               offset: widget
-                  .appConfig
+                  .remoteConfig
                   .adConfig
                   .guestArticlesToReadBeforeShowingInterstitialAds
                   .toString()
@@ -1187,18 +1137,18 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           );
       _authenticatedAdFrequencyController.value = TextEditingValue(
-        text: widget.appConfig.adConfig.authenticatedAdFrequency.toString(),
+        text: widget.remoteConfig.adConfig.authenticatedAdFrequency.toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.adConfig.authenticatedAdFrequency
+          offset: widget.remoteConfig.adConfig.authenticatedAdFrequency
               .toString()
               .length,
         ),
       );
       _authenticatedAdPlacementIntervalController.value = TextEditingValue(
-        text: widget.appConfig.adConfig.authenticatedAdPlacementInterval
+        text: widget.remoteConfig.adConfig.authenticatedAdPlacementInterval
             .toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.adConfig.authenticatedAdPlacementInterval
+          offset: widget.remoteConfig.adConfig.authenticatedAdPlacementInterval
               .toString()
               .length,
         ),
@@ -1206,13 +1156,13 @@ class _AdConfigFormState extends State<_AdConfigForm> {
       _standardUserArticlesToReadBeforeShowingInterstitialAdsController.value =
           TextEditingValue(
             text: widget
-                .appConfig
+                .remoteConfig
                 .adConfig
                 .standardUserArticlesToReadBeforeShowingInterstitialAds
                 .toString(),
             selection: TextSelection.collapsed(
               offset: widget
-                  .appConfig
+                  .remoteConfig
                   .adConfig
                   .standardUserArticlesToReadBeforeShowingInterstitialAds
                   .toString()
@@ -1220,17 +1170,17 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           );
       _premiumAdFrequencyController.value = TextEditingValue(
-        text: widget.appConfig.adConfig.premiumAdFrequency.toString(),
+        text: widget.remoteConfig.adConfig.premiumAdFrequency.toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.adConfig.premiumAdFrequency
+          offset: widget.remoteConfig.adConfig.premiumAdFrequency
               .toString()
               .length,
         ),
       );
       _premiumAdPlacementIntervalController.value = TextEditingValue(
-        text: widget.appConfig.adConfig.premiumAdPlacementInterval.toString(),
+        text: widget.remoteConfig.adConfig.premiumAdPlacementInterval.toString(),
         selection: TextSelection.collapsed(
-          offset: widget.appConfig.adConfig.premiumAdPlacementInterval
+          offset: widget.remoteConfig.adConfig.premiumAdPlacementInterval
               .toString()
               .length,
         ),
@@ -1238,13 +1188,13 @@ class _AdConfigFormState extends State<_AdConfigForm> {
       _premiumUserArticlesToReadBeforeShowingInterstitialAdsController.value =
           TextEditingValue(
             text: widget
-                .appConfig
+                .remoteConfig
                 .adConfig
                 .premiumUserArticlesToReadBeforeShowingInterstitialAds
                 .toString(),
             selection: TextSelection.collapsed(
               offset: widget
-                  .appConfig
+                  .remoteConfig
                   .adConfig
                   .premiumUserArticlesToReadBeforeShowingInterstitialAds
                   .toString()
@@ -1270,10 +1220,10 @@ class _AdConfigFormState extends State<_AdConfigForm> {
 
   @override
   Widget build(BuildContext context) {
-    final adConfig = widget.appConfig.adConfig;
+    final adConfig = widget.remoteConfig.adConfig;
 
-    switch (widget.userRole) {
-      case UserRoles.guestUser:
+    switch (AppUserRole.values.byName(widget.userRole)) {
+      case AppUserRole.guestUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1285,7 +1235,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.guestAdFrequency,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(guestAdFrequency: value),
                   ),
                 );
@@ -1301,7 +1251,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.guestAdPlacementInterval,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       guestAdPlacementInterval: value,
                     ),
@@ -1319,7 +1269,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.guestArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       guestArticlesToReadBeforeShowingInterstitialAds: value,
                     ),
@@ -1331,7 +1281,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case UserRoles.standardUser:
+      case AppUserRole.standardUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1343,7 +1293,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.authenticatedAdFrequency,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       authenticatedAdFrequency: value,
                     ),
@@ -1361,7 +1311,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.authenticatedAdPlacementInterval,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       authenticatedAdPlacementInterval: value,
                     ),
@@ -1380,7 +1330,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
                   .standardUserArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       standardUserArticlesToReadBeforeShowingInterstitialAds:
                           value,
@@ -1393,7 +1343,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case UserRoles.premiumUser:
+      case AppUserRole.premiumUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1404,7 +1354,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.premiumAdFrequency,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(premiumAdFrequency: value),
                   ),
                 );
@@ -1420,7 +1370,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
               value: adConfig.premiumAdPlacementInterval,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       premiumAdPlacementInterval: value,
                     ),
@@ -1439,7 +1389,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
                   .premiumUserArticlesToReadBeforeShowingInterstitialAds,
               onChanged: (value) {
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     adConfig: adConfig.copyWith(
                       premiumUserArticlesToReadBeforeShowingInterstitialAds:
                           value,
@@ -1452,9 +1402,9 @@ class _AdConfigFormState extends State<_AdConfigForm> {
             ),
           ],
         );
-      case UserRoles.admin:
-        return const SizedBox.shrink();
-      default:
+      case AppUserRole.none:
+      case AppUserRole.admin:
+      case AppUserRole.publisher:
         return const SizedBox.shrink();
     }
   }
@@ -1463,14 +1413,14 @@ class _AdConfigFormState extends State<_AdConfigForm> {
 class _AccountActionConfigForm extends StatefulWidget {
   const _AccountActionConfigForm({
     required this.userRole,
-    required this.appConfig,
+    required this.remoteConfig,
     required this.onConfigChanged,
     required this.buildIntField,
   });
 
   final String userRole;
-  final AppConfig appConfig;
-  final ValueChanged<AppConfig> onConfigChanged;
+  final RemoteConfig remoteConfig;
+  final ValueChanged<RemoteConfig> onConfigChanged;
   final Widget Function(
     BuildContext context, {
     required String label,
@@ -1495,14 +1445,14 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
   void initState() {
     super.initState();
     _guestDaysBetweenAccountActionsController = TextEditingController(
-      text: widget.appConfig.accountActionConfig.guestDaysBetweenAccountActions
+      text: widget.remoteConfig.accountActionConfig.guestDaysBetweenActions
           .toString(),
     );
     _standardUserDaysBetweenAccountActionsController = TextEditingController(
       text: widget
-          .appConfig
+          .remoteConfig
           .accountActionConfig
-          .standardUserDaysBetweenAccountActions
+          .standardUserDaysBetweenActions
           .toString(),
     );
   }
@@ -1510,34 +1460,34 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
   @override
   void didUpdateWidget(covariant _AccountActionConfigForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.appConfig.accountActionConfig !=
-        oldWidget.appConfig.accountActionConfig) {
+    if (widget.remoteConfig.accountActionConfig !=
+        oldWidget.remoteConfig.accountActionConfig) {
       _guestDaysBetweenAccountActionsController.value = TextEditingValue(
         text: widget
-            .appConfig
+            .remoteConfig
             .accountActionConfig
-            .guestDaysBetweenAccountActions
+            .guestDaysBetweenActions
             .toString(),
         selection: TextSelection.collapsed(
           offset: widget
-              .appConfig
+              .remoteConfig
               .accountActionConfig
-              .guestDaysBetweenAccountActions
+              .guestDaysBetweenActions
               .toString()
               .length,
         ),
       );
       _standardUserDaysBetweenAccountActionsController.value = TextEditingValue(
         text: widget
-            .appConfig
+            .remoteConfig
             .accountActionConfig
-            .standardUserDaysBetweenAccountActions
+            .standardUserDaysBetweenActions
             .toString(),
         selection: TextSelection.collapsed(
           offset: widget
-              .appConfig
+              .remoteConfig
               .accountActionConfig
-              .standardUserDaysBetweenAccountActions
+              .standardUserDaysBetweenActions
               .toString()
               .length,
         ),
@@ -1554,10 +1504,10 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
 
   @override
   Widget build(BuildContext context) {
-    final accountActionConfig = widget.appConfig.accountActionConfig;
+    final accountActionConfig = widget.remoteConfig.accountActionConfig;
 
-    switch (widget.userRole) {
-      case UserRoles.guestUser:
+    switch (AppUserRole.values.byName(widget.userRole)) {
+      case AppUserRole.guestUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1566,12 +1516,16 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
               description:
                   'Minimum number of days that must pass before a Guest user '
                   'sees another in-app prompt.',
-              value: accountActionConfig.guestDaysBetweenAccountActions,
+              value: accountActionConfig.guestDaysBetweenActions[FeedActionType.linkAccount] ?? 0,
               onChanged: (value) {
+                final updatedMap = Map<FeedActionType, int>.from(
+                  accountActionConfig.guestDaysBetweenActions,
+                );
+                updatedMap[FeedActionType.linkAccount] = value;
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     accountActionConfig: accountActionConfig.copyWith(
-                      guestDaysBetweenAccountActions: value,
+                      guestDaysBetweenActions: updatedMap,
                     ),
                   ),
                 );
@@ -1580,7 +1534,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
             ),
           ],
         );
-      case UserRoles.standardUser:
+      case AppUserRole.standardUser:
         return Column(
           children: [
             widget.buildIntField(
@@ -1589,12 +1543,16 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
               description:
                   'Minimum number of days that must pass before a Standard user '
                   'sees another in-app prompt.',
-              value: accountActionConfig.standardUserDaysBetweenAccountActions,
+              value: accountActionConfig.standardUserDaysBetweenActions[FeedActionType.linkAccount] ?? 0,
               onChanged: (value) {
+                final updatedMap = Map<FeedActionType, int>.from(
+                  accountActionConfig.standardUserDaysBetweenActions,
+                );
+                updatedMap[FeedActionType.linkAccount] = value;
                 widget.onConfigChanged(
-                  widget.appConfig.copyWith(
+                  widget.remoteConfig.copyWith(
                     accountActionConfig: accountActionConfig.copyWith(
-                      standardUserDaysBetweenAccountActions: value,
+                      standardUserDaysBetweenActions: updatedMap,
                     ),
                   ),
                 );
@@ -1603,10 +1561,9 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
             ),
           ],
         );
-      case UserRoles.premiumUser:
-      case UserRoles.admin:
-        return const SizedBox.shrink();
-      default:
+      case AppUserRole.premiumUser:
+      case AppUserRole.admin:
+      case AppUserRole.publisher:
         return const SizedBox.shrink();
     }
   }
