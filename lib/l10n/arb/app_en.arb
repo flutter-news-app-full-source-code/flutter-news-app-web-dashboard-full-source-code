@@ -1018,5 +1018,29 @@
   "retryButtonText": "Retry",
   "@retryButtonText": {
     "description": "Text for the retry button"
+  },
+  "feedActionTypeLinkAccount": "Link Account",
+  "@feedActionTypeLinkAccount": {
+    "description": "Feed action type for linking an account"
+  },
+  "feedActionTypeRateApp": "Rate App",
+  "@feedActionTypeRateApp": {
+    "description": "Feed action type for rating the app"
+  },
+  "feedActionTypeFollowTopics": "Follow Topics",
+  "@feedActionTypeFollowTopics": {
+    "description": "Feed action type for following topics"
+  },
+  "feedActionTypeFollowSources": "Follow Sources",
+  "@feedActionTypeFollowSources": {
+    "description": "Feed action type for following sources"
+  },
+  "feedActionTypeUpgrade": "Upgrade",
+  "@feedActionTypeUpgrade": {
+    "description": "Feed action type for upgrading"
+  },
+  "feedActionTypeEnableNotifications": "Enable Notifications",
+  "@feedActionTypeEnableNotifications": {
+    "description": "Feed action type for enabling notifications"
   }
 }

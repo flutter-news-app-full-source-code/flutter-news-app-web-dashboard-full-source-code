@@ -1573,6 +1573,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retryButtonText;
+
+  /// Feed action type for linking an account
+  ///
+  /// In en, this message translates to:
+  /// **'Link Account'**
+  String get feedActionTypeLinkAccount;
+
+  /// Feed action type for rating the app
+  ///
+  /// In en, this message translates to:
+  /// **'Rate App'**
+  String get feedActionTypeRateApp;
+
+  /// Feed action type for following topics
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Topics'**
+  String get feedActionTypeFollowTopics;
+
+  /// Feed action type for following sources
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Sources'**
+  String get feedActionTypeFollowSources;
+
+  /// Feed action type for upgrading
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade'**
+  String get feedActionTypeUpgrade;
+
+  /// Feed action type for enabling notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get feedActionTypeEnableNotifications;
 }
 
 class _AppLocalizationsDelegate

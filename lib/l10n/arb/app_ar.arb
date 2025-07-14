@@ -1018,5 +1018,29 @@
   "retryButtonText": "إعادة المحاولة",
   "@retryButtonText": {
     "description": "نص زر إعادة المحاولة"
+  },
+  "feedActionTypeLinkAccount": "ربط الحساب",
+  "@feedActionTypeLinkAccount": {
+    "description": "نوع إجراء الموجز لربط حساب"
+  },
+  "feedActionTypeRateApp": "تقييم التطبيق",
+  "@feedActionTypeRateApp": {
+    "description": "نوع إجراء الموجز لتقييم التطبيق"
+  },
+  "feedActionTypeFollowTopics": "متابعة المواضيع",
+  "@feedActionTypeFollowTopics": {
+    "description": "نوع إجراء الموجز لمتابعة المواضيع"
+  },
+  "feedActionTypeFollowSources": "متابعة المصادر",
+  "@feedActionTypeFollowSources": {
+    "description": "نوع إجراء الموجز لمتابعة المصادر"
+  },
+  "feedActionTypeUpgrade": "ترقية",
+  "@feedActionTypeUpgrade": {
+    "description": "نوع إجراء الموجز للترقية"
+  },
+  "feedActionTypeEnableNotifications": "تفعيل الإشعارات",
+  "@feedActionTypeEnableNotifications": {
+    "description": "نوع إجراء الموجز لتفعيل الإشعارات"
   }
 }

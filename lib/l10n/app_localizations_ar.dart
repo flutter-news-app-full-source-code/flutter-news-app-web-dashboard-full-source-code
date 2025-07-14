@@ -829,4 +829,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get retryButtonText => 'إعادة المحاولة';
+
+  @override
+  String get feedActionTypeLinkAccount => 'ربط الحساب';
+
+  @override
+  String get feedActionTypeRateApp => 'تقييم التطبيق';
+
+  @override
+  String get feedActionTypeFollowTopics => 'متابعة المواضيع';
+
+  @override
+  String get feedActionTypeFollowSources => 'متابعة المصادر';
+
+  @override
+  String get feedActionTypeUpgrade => 'ترقية';
+
+  @override
+  String get feedActionTypeEnableNotifications => 'تفعيل الإشعارات';
 }

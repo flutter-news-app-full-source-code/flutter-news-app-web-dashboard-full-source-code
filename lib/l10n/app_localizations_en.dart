@@ -828,4 +828,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get retryButtonText => 'Retry';
+
+  @override
+  String get feedActionTypeLinkAccount => 'Link Account';
+
+  @override
+  String get feedActionTypeRateApp => 'Rate App';
+
+  @override
+  String get feedActionTypeFollowTopics => 'Follow Topics';
+
+  @override
+  String get feedActionTypeFollowSources => 'Follow Sources';
+
+  @override
+  String get feedActionTypeUpgrade => 'Upgrade';
+
+  @override
+  String get feedActionTypeEnableNotifications => 'Enable Notifications';
 }
