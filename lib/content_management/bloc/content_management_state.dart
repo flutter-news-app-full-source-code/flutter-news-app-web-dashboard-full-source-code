@@ -32,7 +32,7 @@ class ContentManagementState extends Equatable {
     this.sources = const [],
     this.sourcesCursor,
     this.sourcesHasMore = false,
-    this.errorMessage,
+    this.exception,
   });
 
   /// The currently active tab in the content management section.
@@ -74,8 +74,8 @@ class ContentManagementState extends Equatable {
   /// Indicates if there are more sources to load.
   final bool sourcesHasMore;
 
-  /// Error message if an operation fails.
-  final String? errorMessage;
+  /// The error describing an operation failure, if any.
+  final HtHttpException? exception;
 
   /// Creates a copy of this [ContentManagementState] with updated values.
   ContentManagementState copyWith({
@@ -92,7 +92,7 @@ class ContentManagementState extends Equatable {
     List<Source>? sources,
     String? sourcesCursor,
     bool? sourcesHasMore,
-    String? errorMessage,
+    HtHttpException? exception,
   }) {
     return ContentManagementState(
       activeTab: activeTab ?? this.activeTab,
@@ -108,7 +108,7 @@ class ContentManagementState extends Equatable {
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
-      errorMessage: errorMessage,
+      exception: exception ?? this.exception,
     );
   }
 
@@ -127,6 +127,6 @@ class ContentManagementState extends Equatable {
     sources,
     sourcesCursor,
     sourcesHasMore,
-    errorMessage,
+    exception,
   ];
 }
