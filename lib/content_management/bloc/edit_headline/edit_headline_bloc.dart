@@ -84,14 +84,14 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -196,7 +196,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
-          errorMessage: 'Cannot update: Original headline data not loaded.',
+          exception: UnknownException('Cannot update: Original headline data not loaded.'),
         ),
       );
       return;
@@ -227,14 +227,14 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
