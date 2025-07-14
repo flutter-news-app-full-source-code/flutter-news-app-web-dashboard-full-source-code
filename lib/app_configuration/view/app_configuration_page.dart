@@ -1237,15 +1237,6 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
     super.dispose();
   }
 
-  String _formatLabel(String enumName, AppLocalizations l10n) {
-    // Converts camelCase to Title Case
-    final spaced = enumName.replaceAllMapped(
-      RegExp('([A-Z])'),
-      (match) => ' ${match.group(1)}',
-    );
-    return '${spaced[0].toUpperCase()}${spaced.substring(1)} ${l10n.daysSuffix}';
-  }
-
   @override
   Widget build(BuildContext context) {
     final accountActionConfig = widget.remoteConfig.accountActionConfig;
@@ -1254,10 +1245,21 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
 
     return Column(
       children: relevantActionTypes.map((actionType) {
+        final localizedActionType = switch (actionType) {
+          FeedActionType.linkAccount => l10n.feedActionTypeLinkAccount,
+          FeedActionType.rateApp => l10n.feedActionTypeRateApp,
+          FeedActionType.followTopics => l10n.feedActionTypeFollowTopics,
+          FeedActionType.followSources => l10n.feedActionTypeFollowSources,
+          FeedActionType.upgrade => l10n.feedActionTypeUpgrade,
+          FeedActionType.enableNotifications =>
+            l10n.feedActionTypeEnableNotifications,
+        };
         return widget.buildIntField(
           context,
-          label: _formatLabel(actionType.name, l10n),
-          description: l10n.daysBetweenPromptDescription(actionType.name),
+          label: '$localizedActionType ${l10n.daysSuffix}',
+          description: l10n.daysBetweenPromptDescription(
+            localizedActionType,
+          ),
           value: _getDaysMap(accountActionConfig)[actionType] ?? 0,
           onChanged: (value) {
             final currentMap = _getDaysMap(accountActionConfig);
