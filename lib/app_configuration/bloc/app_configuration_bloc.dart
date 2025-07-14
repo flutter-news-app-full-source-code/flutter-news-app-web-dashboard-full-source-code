@@ -43,14 +43,14 @@ class AppConfigurationBloc
       emit(
         state.copyWith(
           status: AppConfigurationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: AppConfigurationStatus.failure,
-          errorMessage: 'An unknown error occurred: $e',
+          exception: UnknownException('An unknown error occurred: $e'),
         ),
       );
     }
@@ -79,14 +79,14 @@ class AppConfigurationBloc
       emit(
         state.copyWith(
           status: AppConfigurationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: AppConfigurationStatus.failure,
-          errorMessage: 'An unknown error occurred: $e',
+          exception: UnknownException('An unknown error occurred: $e'),
         ),
       );
     }
