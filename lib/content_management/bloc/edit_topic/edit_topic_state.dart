@@ -62,7 +62,7 @@ final class EditTopicState extends Equatable {
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
       contentStatus: contentStatus ?? this.contentStatus,
-      exception: exception,
+      exception: exception ?? this.exception,
       updatedTopic: updatedTopic ?? this.updatedTopic,
     );
   }
