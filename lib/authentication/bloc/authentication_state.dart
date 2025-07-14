@@ -35,7 +35,7 @@ final class AuthenticationState extends Equatable {
     this.status = AuthenticationStatus.initial,
     this.user,
     this.email,
-    this.errorMessage,
+    this.exception,
   });
 
   /// The current status of the authentication process.
@@ -47,11 +47,11 @@ final class AuthenticationState extends Equatable {
   /// The email address involved in the current authentication flow.
   final String? email;
 
-  /// The error message describing an authentication failure, if any.
-  final String? errorMessage;
+  /// The error describing an authentication failure, if any.
+  final HtHttpException? exception;
 
   @override
-  List<Object?> get props => [status, user, email, errorMessage];
+  List<Object?> get props => [status, user, email, exception];
 
   /// Creates a copy of this [AuthenticationState] with the given fields
   /// replaced with the new values.
@@ -59,13 +59,13 @@ final class AuthenticationState extends Equatable {
     AuthenticationStatus? status,
     User? user,
     String? email,
-    String? errorMessage,
+    HtHttpException? exception,
   }) {
     return AuthenticationState(
       status: status ?? this.status,
       user: user ?? this.user,
       email: email ?? this.email,
-      errorMessage: errorMessage ?? this.errorMessage,
+      exception: exception ?? this.exception,
     );
   }
 }
