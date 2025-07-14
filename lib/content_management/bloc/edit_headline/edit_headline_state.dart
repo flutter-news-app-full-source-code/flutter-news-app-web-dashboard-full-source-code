@@ -34,7 +34,7 @@ final class EditHeadlineState extends Equatable {
     this.topics = const [],
     this.countries = const [],
     this.contentStatus = ContentStatus.active,
-    this.errorMessage,
+    this.exception,
     this.updatedHeadline,
   });
 
@@ -51,7 +51,7 @@ final class EditHeadlineState extends Equatable {
   final List<Topic> topics;
   final List<Country> countries;
   final ContentStatus contentStatus;
-  final String? errorMessage;
+  final HtHttpException? exception;
   final Headline? updatedHeadline;
 
   /// Returns true if the form is valid and can be submitted.
@@ -78,7 +78,7 @@ final class EditHeadlineState extends Equatable {
     List<Topic>? topics,
     List<Country>? countries,
     ContentStatus? contentStatus,
-    String? errorMessage,
+    HtHttpException? exception,
     Headline? updatedHeadline,
   }) {
     return EditHeadlineState(
@@ -95,27 +95,27 @@ final class EditHeadlineState extends Equatable {
       topics: topics ?? this.topics,
       countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
-      errorMessage: errorMessage,
+      exception: exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
     );
   }
 
   @override
   List<Object?> get props => [
-    status,
-    initialHeadline,
-    title,
-    excerpt,
-    url,
-    imageUrl,
-    source,
-    topic,
-    eventCountry,
-    sources,
-    topics,
-    countries,
-    contentStatus,
-    errorMessage,
-    updatedHeadline,
-  ];
+        status,
+        initialHeadline,
+        title,
+        excerpt,
+        url,
+        imageUrl,
+        source,
+        topic,
+        eventCountry,
+        sources,
+        topics,
+        countries,
+        contentStatus,
+        exception,
+        updatedHeadline,
+      ];
 }
