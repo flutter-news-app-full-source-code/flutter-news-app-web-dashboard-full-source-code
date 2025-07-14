@@ -7,6 +7,7 @@ import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template edit_topic_page}
 /// A page for editing an existing topic.
@@ -116,7 +117,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -139,7 +140,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
           if (state.status == EditTopicStatus.failure &&
               state.initialTopic == null) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<EditTopicBloc>().add(
                 const EditTopicLoaded(),
               ),
