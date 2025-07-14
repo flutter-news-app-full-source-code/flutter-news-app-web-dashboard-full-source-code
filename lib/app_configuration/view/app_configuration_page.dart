@@ -23,15 +23,20 @@ class AppConfigurationPage extends StatefulWidget {
   State<AppConfigurationPage> createState() => _AppConfigurationPageState();
 }
 
-class _AppConfigurationPageState extends State<AppConfigurationPage> {
+class _AppConfigurationPageState extends State<AppConfigurationPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -45,19 +50,36 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight + AppSpacing.lg),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: AppSpacing.lg,
-              right: AppSpacing.lg,
-              bottom: AppSpacing.lg,
-            ),
-            child: Text(
-              l10n.appConfigurationPageDescription,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+          preferredSize: const Size.fromHeight(
+            kTextTabBarHeight + AppSpacing.lg,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: AppSpacing.lg,
+                  right: AppSpacing.lg,
+                  bottom: AppSpacing.lg,
+                ),
+                child: Text(
+                  l10n.appConfigurationPageDescription,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
-            ),
+              TabBar(
+                controller: _tabController,
+                tabAlignment: TabAlignment.start,
+                isScrollable: true,
+                tabs: const [
+                  Tab(text: 'Feed'),
+                  Tab(text: 'Advertisements'),
+                  Tab(text: 'General'),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -119,43 +141,55 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           } else if (state.status == AppConfigurationStatus.success &&
               state.remoteConfig != null) {
             final remoteConfig = state.remoteConfig!;
-            return ListView(
-              padding: const EdgeInsets.all(AppSpacing.lg),
+            return TabBarView(
+              controller: _tabController,
               children: [
-                ExpansionTile(
-                  title: Text(l10n.userContentLimitsTab),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
+                ListView(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
-                    _buildUserPreferenceLimitsSection(context, remoteConfig),
+                    ExpansionTile(
+                      title: const Text('User Content & Feed Limits'),
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                      ),
+                      children: [
+                        _buildUserPreferenceLimitsSection(
+                          context,
+                          remoteConfig,
+                        ),
+                      ],
+                    ),
+                    ExpansionTile(
+                      title: const Text('In-App Action Prompts'),
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                      ),
+                      children: [
+                        _buildAccountActionConfigSection(context, remoteConfig),
+                      ],
+                    ),
                   ],
                 ),
-                ExpansionTile(
-                  title: Text(l10n.adSettingsTab),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
+                ListView(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
-                    _buildAdConfigSection(context, remoteConfig),
+                    ExpansionTile(
+                      title: const Text('Advertisement Settings'),
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                      ),
+                      children: [
+                        _buildAdConfigSection(context, remoteConfig),
+                      ],
+                    ),
                   ],
                 ),
-                ExpansionTile(
-                  title: Text(l10n.inAppPromptsTab),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
+                ListView(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
-                    _buildAccountActionConfigSection(context, remoteConfig),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(l10n.appOperationalStatusTab),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
-                  children: [
-                    _buildAppStatusSection(context, remoteConfig),
+                    _buildMaintenanceSection(context, remoteConfig),
+                    const SizedBox(height: AppSpacing.lg),
+                    _buildForceUpdateSection(context, remoteConfig),
                   ],
                 ),
               ],
@@ -263,7 +297,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          l10n.userContentLimitsDescription,
+          'Set limits on followed items and saved headlines for each user tier.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -342,7 +376,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          l10n.adSettingsDescription,
+          'Manage ad frequency and placement for different user roles.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -421,7 +455,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          l10n.inAppPromptsDescription,
+          'Configure how often to show prompts for actions like rating the app.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -471,109 +505,142 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     );
   }
 
-  Widget _buildAppStatusSection(
+  Widget _buildMaintenanceSection(
     BuildContext context,
     RemoteConfig remoteConfig,
   ) {
     final l10n = context.l10n;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.appOperationalStatusWarning,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.error,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          SwitchListTile(
-            title: Text(l10n.isUnderMaintenanceLabel),
-            subtitle: Text(l10n.isUnderMaintenanceDescription),
-            value: remoteConfig.appStatus.isUnderMaintenance,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  remoteConfig: remoteConfig.copyWith(
-                    appStatus: remoteConfig.appStatus.copyWith(
-                      isUnderMaintenance: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildTextField(
-            context,
-            label: l10n.latestAppVersionLabel,
-            description: l10n.latestAppVersionDescription,
-            value: remoteConfig.appStatus.latestAppVersion,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  remoteConfig: remoteConfig.copyWith(
-                    appStatus: remoteConfig.appStatus.copyWith(
-                      latestAppVersion: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          SwitchListTile(
-            title: Text(l10n.isLatestVersionOnlyLabel),
-            subtitle: Text(l10n.isLatestVersionOnlyDescription),
-            value: remoteConfig.appStatus.isLatestVersionOnly,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  remoteConfig: remoteConfig.copyWith(
-                    appStatus: remoteConfig.appStatus.copyWith(
-                      isLatestVersionOnly: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildTextField(
-            context,
-            label: l10n.iosUpdateUrlLabel,
-            description: l10n.iosUpdateUrlDescription,
-            value: remoteConfig.appStatus.iosUpdateUrl,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  remoteConfig: remoteConfig.copyWith(
-                    appStatus: remoteConfig.appStatus.copyWith(
-                      iosUpdateUrl: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          _buildTextField(
-            context,
-            label: l10n.androidUpdateUrlLabel,
-            description: l10n.androidUpdateUrlDescription,
-            value: remoteConfig.appStatus.androidUpdateUrl,
-            onChanged: (value) {
-              context.read<AppConfigurationBloc>().add(
-                AppConfigurationFieldChanged(
-                  remoteConfig: remoteConfig.copyWith(
-                    appStatus: remoteConfig.appStatus.copyWith(
-                      androidUpdateUrl: value,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+    return ExpansionTile(
+      title: const Text('Maintenance Mode'),
+      childrenPadding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.xxl,
+        vertical: AppSpacing.md,
       ),
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Enable to show a maintenance screen to all users.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            SwitchListTile(
+              title: Text(l10n.isUnderMaintenanceLabel),
+              subtitle: Text(l10n.isUnderMaintenanceDescription),
+              value: remoteConfig.appStatus.isUnderMaintenance,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        isUnderMaintenance: value,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildForceUpdateSection(
+    BuildContext context,
+    RemoteConfig remoteConfig,
+  ) {
+    final l10n = context.l10n;
+    return ExpansionTile(
+      title: const Text('Force App Update'),
+      childrenPadding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.xxl,
+        vertical: AppSpacing.md,
+      ),
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Configure mandatory app updates for users.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            _buildTextField(
+              context,
+              label: l10n.latestAppVersionLabel,
+              description: l10n.latestAppVersionDescription,
+              value: remoteConfig.appStatus.latestAppVersion,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        latestAppVersion: value,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            SwitchListTile(
+              title: Text(l10n.isLatestVersionOnlyLabel),
+              subtitle: Text(l10n.isLatestVersionOnlyDescription),
+              value: remoteConfig.appStatus.isLatestVersionOnly,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        isLatestVersionOnly: value,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            _buildTextField(
+              context,
+              label: l10n.iosUpdateUrlLabel,
+              description: l10n.iosUpdateUrlDescription,
+              value: remoteConfig.appStatus.iosUpdateUrl,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        iosUpdateUrl: value,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            _buildTextField(
+              context,
+              label: l10n.androidUpdateUrlLabel,
+              description: l10n.androidUpdateUrlDescription,
+              value: remoteConfig.appStatus.androidUpdateUrl,
+              onChanged: (value) {
+                context.read<AppConfigurationBloc>().add(
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        androidUpdateUrl: value,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 
