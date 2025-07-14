@@ -53,7 +53,7 @@ class _SourcesPageState extends State<SourcesPage> {
 
           if (state.sourcesStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
                 const LoadSourcesRequested(limit: kDefaultRowsPerPage),
               ),
