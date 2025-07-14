@@ -8,6 +8,7 @@ import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart'; // Import for toFriendlyMessage
 
 /// {@template settings_page}
 /// A page for user settings, allowing customization of theme and language.
@@ -79,7 +80,7 @@ class _SettingsView extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    l10n.settingsSaveErrorMessage(state.errorMessage),
+                    state.exception.toFriendlyMessage(context),
                   ),
                 ),
               );
@@ -104,7 +105,7 @@ class _SettingsView extends StatelessWidget {
             );
           } else if (state is SettingsLoadFailure) {
             return FailureStateWidget(
-              message: l10n.failedToLoadSettingsMessage(state.errorMessage),
+              exception: state.exception,
               onRetry: () {
                 context.read<SettingsBloc>().add(
                   SettingsLoaded(
