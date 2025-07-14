@@ -277,7 +277,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0b56d92624769ca3175d5ce2c7da27ab29514f8a"
+      resolved-ref: "6484a5641c3d633d286ea5848c5b7cf1e723ebc1"
       url: "https://github.com/headlines-toolkit/ht-http-client.git"
     source: git
     version: "0.0.0"
@@ -306,6 +306,15 @@ packages:
       ref: HEAD
       resolved-ref: "83d73bdbc965b75425db346da8802be414b9ec0c"
       url: "https://github.com/headlines-toolkit/ht-shared.git"
+    source: git
+    version: "0.0.0"
+  ht_ui_kit:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: c33ec118041a9de02c96b177a88d646a08abd396
+      url: "https://github.com/headlines-toolkit/ht-ui-kit.git"
     source: git
     version: "0.0.0"
   http:

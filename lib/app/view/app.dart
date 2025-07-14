@@ -13,6 +13,7 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:ht_dashboard/router/router.dart';
 // Import for app_theme.dart
 import 'package:ht_dashboard/shared/theme/app_theme.dart';
@@ -209,9 +210,11 @@ class _AppViewState extends State<_AppView> {
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
                   routerConfig: _router,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates: const [
+                    HtUiKitLocalizations.delegate,
+                    ...AppLocalizations.localizationsDelegates,
+                  ],
+                  supportedLocales: HtUiKitLocalizations.supportedLocales,
                   theme: baseTheme == AppBaseTheme.dark
                       ? darkThemeData
                       : lightThemeData,
