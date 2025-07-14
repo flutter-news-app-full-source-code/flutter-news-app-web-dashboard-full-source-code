@@ -102,14 +102,14 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
       emit(
         state.copyWith(
           status: CreateTopicStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateTopicStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
