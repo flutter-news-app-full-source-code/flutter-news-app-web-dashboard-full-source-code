@@ -70,14 +70,14 @@ class CreateHeadlineBloc
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
