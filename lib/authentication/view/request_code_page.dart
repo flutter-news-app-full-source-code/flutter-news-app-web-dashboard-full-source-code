@@ -10,6 +10,7 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template request_code_page}
 /// Page for initiating the email code sign-in process.
@@ -70,12 +71,13 @@ class _RequestCodeView extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
-            if (state.status == AuthenticationStatus.failure) {
+            if (state.status == AuthenticationStatus.failure &&
+                state.exception != null) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
-                    content: Text(state.errorMessage!),
+                    content: Text(state.exception!.toFriendlyMessage(context)),
                     backgroundColor: colorScheme.error,
                   ),
                 );
@@ -92,7 +94,7 @@ class _RequestCodeView extends StatelessWidget {
           // BuildWhen prevents unnecessary rebuilds if only listening
           buildWhen: (previous, current) =>
               previous.status != current.status ||
-              previous.errorMessage != current.errorMessage ||
+              previous.exception != current.exception ||
               previous.email != current.email,
           builder: (context, state) {
             final isLoading =
