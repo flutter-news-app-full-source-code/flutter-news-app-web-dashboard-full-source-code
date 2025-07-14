@@ -5,6 +5,7 @@ import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart'; // Import for toFriendlyMessage
 
 /// {@template app_configuration_page}
 /// A page for managing the application's remote configuration.
@@ -80,15 +81,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             context.read<AppConfigurationBloc>().add(
                   const AppConfigurationFieldChanged(),
                 );
-          } else if (state.status == AppConfigurationStatus.failure) {
+          } else if (state.status == AppConfigurationStatus.failure &&
+              state.exception != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    l10n.appConfigSaveErrorMessage(
-                      state.errorMessage ?? l10n.unknownError,
-                    ),
+                    state.exception!.toFriendlyMessage(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onError,
                         ),
@@ -108,8 +108,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             );
           } else if (state.status == AppConfigurationStatus.failure) {
             return FailureStateWidget(
-              message:
-                  state.errorMessage ?? l10n.failedToLoadConfigurationMessage,
+              exception: state.exception!,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
                       const AppConfigurationLoaded(),
