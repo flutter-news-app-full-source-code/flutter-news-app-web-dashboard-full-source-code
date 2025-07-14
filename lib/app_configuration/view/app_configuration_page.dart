@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
@@ -772,8 +773,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
       children: [
         widget.buildIntField(
           context,
-          label: l10n.followedItemsLimitLabel,
-          description: l10n.followedItemsLimitDescription,
+          label: _getFollowedItemsLimitLabel(l10n),
+          description: _getFollowedItemsLimitDescription(l10n),
           value: _getFollowedItemsLimit(userPreferenceConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -789,8 +790,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
         ),
         widget.buildIntField(
           context,
-          label: l10n.savedHeadlinesLimitLabel,
-          description: l10n.savedHeadlinesLimitDescription,
+          label: _getSavedHeadlinesLimitLabel(l10n),
+          description: _getSavedHeadlinesLimitDescription(l10n),
           value: _getSavedHeadlinesLimit(userPreferenceConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -806,6 +807,50 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
         ),
       ],
     );
+  }
+
+  String _getFollowedItemsLimitLabel(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestFollowedItemsLimitLabel;
+      case AppUserRole.standardUser:
+        return l10n.standardUserFollowedItemsLimitLabel;
+      case AppUserRole.premiumUser:
+        return l10n.premiumFollowedItemsLimitLabel;
+    }
+  }
+
+  String _getFollowedItemsLimitDescription(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestFollowedItemsLimitDescription;
+      case AppUserRole.standardUser:
+        return l10n.standardUserFollowedItemsLimitDescription;
+      case AppUserRole.premiumUser:
+        return l10n.premiumFollowedItemsLimitDescription;
+    }
+  }
+
+  String _getSavedHeadlinesLimitLabel(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestSavedHeadlinesLimitLabel;
+      case AppUserRole.standardUser:
+        return l10n.standardUserSavedHeadlinesLimitLabel;
+      case AppUserRole.premiumUser:
+        return l10n.premiumSavedHeadlinesLimitLabel;
+    }
+  }
+
+  String _getSavedHeadlinesLimitDescription(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestSavedHeadlinesLimitDescription;
+      case AppUserRole.standardUser:
+        return l10n.standardUserSavedHeadlinesLimitDescription;
+      case AppUserRole.premiumUser:
+        return l10n.premiumSavedHeadlinesLimitDescription;
+    }
   }
 
   int _getFollowedItemsLimit(UserPreferenceConfig config) {
@@ -1212,9 +1257,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
         return widget.buildIntField(
           context,
           label: _formatLabel(actionType.name, l10n),
-          description: l10n.daysBetweenPromptDescription(
-            actionType: actionType.name,
-          ),
+          description: l10n.daysBetweenPromptDescription(actionType.name),
           value: _getDaysMap(accountActionConfig)[actionType] ?? 0,
           onChanged: (value) {
             final currentMap = _getDaysMap(accountActionConfig);
