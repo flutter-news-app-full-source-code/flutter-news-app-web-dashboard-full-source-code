@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ht_shared/ht_shared.dart';
 import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:ht_dashboard/l10n/l10n.dart'; // Import l10n
 
 /// A widget to display an error message and an optional retry button.
 class FailureStateWidget extends StatelessWidget {
@@ -32,6 +33,7 @@ class FailureStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final friendlyMessage = exception.toFriendlyMessage(context);
+    final l10n = context.l10n; // Get l10n instance
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +49,7 @@ class FailureStateWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16),
               child: ElevatedButton(
                 onPressed: onRetry,
-                child: Text(retryButtonText ?? 'Retry'),
+                child: Text(retryButtonText ?? l10n.retryButtonText),
               ),
             ),
         ],

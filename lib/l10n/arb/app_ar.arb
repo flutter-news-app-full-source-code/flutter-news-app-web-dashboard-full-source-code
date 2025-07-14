@@ -961,5 +961,86 @@
   "androidUpdateUrlDescription": "رابط تحديثات تطبيق Android.",
   "@androidUpdateUrlDescription": {
     "description": "وصف رابط تحديث Android"
+  },
+  "followedItemsLimitLabel": "حد العناصر المتابعة",
+  "@followedItemsLimitLabel": {
+    "description": "تسمية حد العناصر المتابعة"
+  },
+  "followedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).",
+  "@followedItemsLimitDescription": {
+    "description": "وصف حد العناصر المتابعة"
+  },
+  "savedHeadlinesLimitLabel": "حد العناوين المحفوظة",
+  "@savedHeadlinesLimitLabel": {
+    "description": "تسمية حد العناوين المحفوظة"
+  },
+  "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.",
+  "@savedHeadlinesLimitDescription": {
+    "description": "وصف حد العناوين المحفوظة"
+  },
+  "adFrequencyLabel": "تكرار الإعلان",
+  "@adFrequencyLabel": {
+    "description": "تسمية تكرار الإعلان"
+  },
+  "adFrequencyDescription": "عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).",
+  "@adFrequencyDescription": {
+    "description": "وصف تكرار الإعلان"
+  },
+  "adPlacementIntervalLabel": "فترة وضع الإعلان",
+  "@adPlacementIntervalLabel": {
+    "description": "تسمية فترة وضع الإعلان"
+  },
+  "adPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول لهذا الدور المستخدم.",
+  "@adPlacementIntervalDescription": {
+    "description": "وصف فترة وضع الإعلان"
+  },
+  "articlesBeforeInterstitialAdsLabel": "مقالات قبل الإعلانات البينية",
+  "@articlesBeforeInterstitialAdsLabel": {
+    "description": "تسمية مقالات قبل الإعلانات البينية"
+  },
+  "articlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج هذا الدور المستخدم لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
+  "@articlesBeforeInterstitialAdsDescription": {
+    "description": "وصف مقالات قبل الإعلانات البينية"
+  },
+  "daysSuffix": "أيام",
+  "@daysSuffix": {
+    "description": "لاحقة لعدد الأيام في أوصاف التنبيهات"
+  },
+  "daysBetweenPromptDescription": "الحد الأدنى لعدد الأيام قبل عرض تنبيه {actionType}.",
+  "@daysBetweenPromptDescription": {
+    "description": "وصف الأيام بين التنبيهات داخل التطبيق",
+    "placeholders": {
+      "actionType": {
+        "type": "String"
+      }
+    }
+  },
+  "retryButtonText": "إعادة المحاولة",
+  "@retryButtonText": {
+    "description": "نص زر إعادة المحاولة"
+  },
+  "feedActionTypeLinkAccount": "ربط الحساب",
+  "@feedActionTypeLinkAccount": {
+    "description": "نوع إجراء الموجز لربط حساب"
+  },
+  "feedActionTypeRateApp": "تقييم التطبيق",
+  "@feedActionTypeRateApp": {
+    "description": "نوع إجراء الموجز لتقييم التطبيق"
+  },
+  "feedActionTypeFollowTopics": "متابعة المواضيع",
+  "@feedActionTypeFollowTopics": {
+    "description": "نوع إجراء الموجز لمتابعة المواضيع"
+  },
+  "feedActionTypeFollowSources": "متابعة المصادر",
+  "@feedActionTypeFollowSources": {
+    "description": "نوع إجراء الموجز لمتابعة المصادر"
+  },
+  "feedActionTypeUpgrade": "ترقية",
+  "@feedActionTypeUpgrade": {
+    "description": "نوع إجراء الموجز للترقية"
+  },
+  "feedActionTypeEnableNotifications": "تفعيل الإشعارات",
+  "@feedActionTypeEnableNotifications": {
+    "description": "نوع إجراء الموجز لتفعيل الإشعارات"
   }
 }

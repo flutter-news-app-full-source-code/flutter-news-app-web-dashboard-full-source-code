@@ -716,11 +716,11 @@ abstract class AppLocalizations {
   /// **'Android Store URL'**
   String get androidStoreUrlLabel;
 
-  /// Description for Android Store URL
+  /// Description for Android Update URL
   ///
   /// In en, this message translates to:
   /// **'URL to the app on the Google Play Store.'**
-  String get androidStoreUrlDescription;
+  String get androidUpdateUrlDescription;
 
   /// Label for Guest Days Between In-App Prompts
   ///
@@ -1496,11 +1496,119 @@ abstract class AppLocalizations {
   /// **'Android Update URL'**
   String get androidUpdateUrlLabel;
 
-  /// Description for Android Update URL
+  /// Label for Followed Items Limit
   ///
   /// In en, this message translates to:
-  /// **'URL for Android app updates.'**
-  String get androidUpdateUrlDescription;
+  /// **'Followed Items Limit'**
+  String get followedItemsLimitLabel;
+
+  /// Description for Followed Items Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).'**
+  String get followedItemsLimitDescription;
+
+  /// Label for Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Headlines Limit'**
+  String get savedHeadlinesLimitLabel;
+
+  /// Description for Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of headlines this user role can save.'**
+  String get savedHeadlinesLimitDescription;
+
+  /// Label for Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Frequency'**
+  String get adFrequencyLabel;
+
+  /// Description for Ad Frequency
+  ///
+  /// In en, this message translates to:
+  /// **'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).'**
+  String get adFrequencyDescription;
+
+  /// Label for Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Placement Interval'**
+  String get adPlacementIntervalLabel;
+
+  /// Description for Ad Placement Interval
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of news items that must be shown before the very first ad appears for this user role.'**
+  String get adPlacementIntervalDescription;
+
+  /// Label for Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Articles Before Interstitial Ads'**
+  String get articlesBeforeInterstitialAdsLabel;
+
+  /// Description for Articles Before Interstitial Ads
+  ///
+  /// In en, this message translates to:
+  /// **'Number of articles this user role needs to read before a full-screen interstitial ad is shown.'**
+  String get articlesBeforeInterstitialAdsDescription;
+
+  /// Suffix for number of days in prompt descriptions
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get daysSuffix;
+
+  /// Description for days between in-app prompts
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum number of days before showing the {actionType} prompt.'**
+  String daysBetweenPromptDescription(String actionType);
+
+  /// Text for the retry button
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryButtonText;
+
+  /// Feed action type for linking an account
+  ///
+  /// In en, this message translates to:
+  /// **'Link Account'**
+  String get feedActionTypeLinkAccount;
+
+  /// Feed action type for rating the app
+  ///
+  /// In en, this message translates to:
+  /// **'Rate App'**
+  String get feedActionTypeRateApp;
+
+  /// Feed action type for following topics
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Topics'**
+  String get feedActionTypeFollowTopics;
+
+  /// Feed action type for following sources
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Sources'**
+  String get feedActionTypeFollowSources;
+
+  /// Feed action type for upgrading
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade'**
+  String get feedActionTypeUpgrade;
+
+  /// Feed action type for enabling notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get feedActionTypeEnableNotifications;
 }
 
 class _AppLocalizationsDelegate

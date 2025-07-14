@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 import 'package:ht_dashboard/shared/widgets/widgets.dart';
@@ -766,15 +767,14 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   @override
   Widget build(BuildContext context) {
     final userPreferenceConfig = widget.remoteConfig.userPreferenceConfig;
+    final l10n = context.l10n;
 
     return Column(
       children: [
         widget.buildIntField(
           context,
-          label: 'Followed Items Limit',
-          description:
-              'Maximum number of countries, news sources, or categories this '
-              'user role can follow (each type has its own limit).',
+          label: _getFollowedItemsLimitLabel(l10n),
+          description: _getFollowedItemsLimitDescription(l10n),
           value: _getFollowedItemsLimit(userPreferenceConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -790,8 +790,8 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
         ),
         widget.buildIntField(
           context,
-          label: 'Saved Headlines Limit',
-          description: 'Maximum number of headlines this user role can save.',
+          label: _getSavedHeadlinesLimitLabel(l10n),
+          description: _getSavedHeadlinesLimitDescription(l10n),
           value: _getSavedHeadlinesLimit(userPreferenceConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -807,6 +807,50 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
         ),
       ],
     );
+  }
+
+  String _getFollowedItemsLimitLabel(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestFollowedItemsLimitLabel;
+      case AppUserRole.standardUser:
+        return l10n.standardUserFollowedItemsLimitLabel;
+      case AppUserRole.premiumUser:
+        return l10n.premiumFollowedItemsLimitLabel;
+    }
+  }
+
+  String _getFollowedItemsLimitDescription(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestFollowedItemsLimitDescription;
+      case AppUserRole.standardUser:
+        return l10n.standardUserFollowedItemsLimitDescription;
+      case AppUserRole.premiumUser:
+        return l10n.premiumFollowedItemsLimitDescription;
+    }
+  }
+
+  String _getSavedHeadlinesLimitLabel(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestSavedHeadlinesLimitLabel;
+      case AppUserRole.standardUser:
+        return l10n.standardUserSavedHeadlinesLimitLabel;
+      case AppUserRole.premiumUser:
+        return l10n.premiumSavedHeadlinesLimitLabel;
+    }
+  }
+
+  String _getSavedHeadlinesLimitDescription(AppLocalizations l10n) {
+    switch (widget.userRole) {
+      case AppUserRole.guestUser:
+        return l10n.guestSavedHeadlinesLimitDescription;
+      case AppUserRole.standardUser:
+        return l10n.standardUserSavedHeadlinesLimitDescription;
+      case AppUserRole.premiumUser:
+        return l10n.premiumSavedHeadlinesLimitDescription;
+    }
   }
 
   int _getFollowedItemsLimit(UserPreferenceConfig config) {
@@ -990,15 +1034,14 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   @override
   Widget build(BuildContext context) {
     final adConfig = widget.remoteConfig.adConfig;
+    final l10n = context.l10n;
 
     return Column(
       children: [
         widget.buildIntField(
           context,
-          label: 'Ad Frequency',
-          description:
-              'How often an ad can appear for this user role (e.g., a value '
-              'of 5 means an ad could be placed after every 5 news items).',
+          label: l10n.adFrequencyLabel,
+          description: l10n.adFrequencyDescription,
           value: _getAdFrequency(adConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -1011,10 +1054,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
         ),
         widget.buildIntField(
           context,
-          label: 'Ad Placement Interval',
-          description:
-              'Minimum number of news items that must be shown before the '
-              'very first ad appears for this user role.',
+          label: l10n.adPlacementIntervalLabel,
+          description: l10n.adPlacementIntervalDescription,
           value: _getAdPlacementInterval(adConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -1027,10 +1068,8 @@ class _AdConfigFormState extends State<_AdConfigForm> {
         ),
         widget.buildIntField(
           context,
-          label: 'Articles Before Interstitial Ads',
-          description:
-              'Number of articles this user role needs to read before a '
-              'full-screen interstitial ad is shown.',
+          label: l10n.articlesBeforeInterstitialAdsLabel,
+          description: l10n.articlesBeforeInterstitialAdsDescription,
           value: _getArticlesBeforeInterstitial(adConfig),
           onChanged: (value) {
             widget.onConfigChanged(
@@ -1198,27 +1237,29 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
     super.dispose();
   }
 
-  String _formatLabel(String enumName) {
-    // Converts camelCase to Title Case
-    final spaced = enumName.replaceAllMapped(
-      RegExp('([A-Z])'),
-      (match) => ' ${match.group(1)}',
-    );
-    return '${spaced[0].toUpperCase()}${spaced.substring(1)} Days';
-  }
-
   @override
   Widget build(BuildContext context) {
     final accountActionConfig = widget.remoteConfig.accountActionConfig;
     final relevantActionTypes = _getDaysMap(accountActionConfig).keys.toList();
+    final l10n = context.l10n;
 
     return Column(
       children: relevantActionTypes.map((actionType) {
+        final localizedActionType = switch (actionType) {
+          FeedActionType.linkAccount => l10n.feedActionTypeLinkAccount,
+          FeedActionType.rateApp => l10n.feedActionTypeRateApp,
+          FeedActionType.followTopics => l10n.feedActionTypeFollowTopics,
+          FeedActionType.followSources => l10n.feedActionTypeFollowSources,
+          FeedActionType.upgrade => l10n.feedActionTypeUpgrade,
+          FeedActionType.enableNotifications =>
+            l10n.feedActionTypeEnableNotifications,
+        };
         return widget.buildIntField(
           context,
-          label: _formatLabel(actionType.name),
-          description:
-              'Minimum number of days before showing the ${actionType.name} prompt.',
+          label: '$localizedActionType ${l10n.daysSuffix}',
+          description: l10n.daysBetweenPromptDescription(
+            localizedActionType,
+          ),
           value: _getDaysMap(accountActionConfig)[actionType] ?? 0,
           onChanged: (value) {
             final currentMap = _getDaysMap(accountActionConfig);

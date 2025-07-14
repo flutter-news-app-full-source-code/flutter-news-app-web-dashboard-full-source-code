@@ -426,9 +426,9 @@
   "@androidStoreUrlLabel": {
     "description": "Label for Android Store URL"
   },
-  "androidStoreUrlDescription": "URL to the app on the Google Play Store.",
-  "@androidStoreUrlDescription": {
-    "description": "Description for Android Store URL"
+  "androidUpdateUrlDescription": "URL to the app on the Google Play Store.",
+  "@androidUpdateUrlDescription": {
+    "description": "Description for Android Update URL"
   },
   "guestDaysBetweenInAppPromptsLabel": "Guest Days Between In-App Prompts",
   "@guestDaysBetweenInAppPromptsLabel": {
@@ -958,8 +958,89 @@
   "@androidUpdateUrlLabel": {
     "description": "Label for Android Update URL"
   },
-  "androidUpdateUrlDescription": "URL for Android app updates.",
+  "androidUpdateUrlDescription": "URL to the app on the Google Play Store.",
   "@androidUpdateUrlDescription": {
     "description": "Description for Android Update URL"
+  },
+  "followedItemsLimitLabel": "Followed Items Limit",
+  "@followedItemsLimitLabel": {
+    "description": "Label for Followed Items Limit"
+  },
+  "followedItemsLimitDescription": "Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).",
+  "@followedItemsLimitDescription": {
+    "description": "Description for Followed Items Limit"
+  },
+  "savedHeadlinesLimitLabel": "Saved Headlines Limit",
+  "@savedHeadlinesLimitLabel": {
+    "description": "Label for Saved Headlines Limit"
+  },
+  "savedHeadlinesLimitDescription": "Maximum number of headlines this user role can save.",
+  "@savedHeadlinesLimitDescription": {
+    "description": "Description for Saved Headlines Limit"
+  },
+  "adFrequencyLabel": "Ad Frequency",
+  "@adFrequencyLabel": {
+    "description": "Label for Ad Frequency"
+  },
+  "adFrequencyDescription": "How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).",
+  "@adFrequencyDescription": {
+    "description": "Description for Ad Frequency"
+  },
+  "adPlacementIntervalLabel": "Ad Placement Interval",
+  "@adPlacementIntervalLabel": {
+    "description": "Label for Ad Placement Interval"
+  },
+  "adPlacementIntervalDescription": "Minimum number of news items that must be shown before the very first ad appears for this user role.",
+  "@adPlacementIntervalDescription": {
+    "description": "Description for Ad Placement Interval"
+  },
+  "articlesBeforeInterstitialAdsLabel": "Articles Before Interstitial Ads",
+  "@articlesBeforeInterstitialAdsLabel": {
+    "description": "Label for Articles Before Interstitial Ads"
+  },
+  "articlesBeforeInterstitialAdsDescription": "Number of articles this user role needs to read before a full-screen interstitial ad is shown.",
+  "@articlesBeforeInterstitialAdsDescription": {
+    "description": "Description for Articles Before Interstitial Ads"
+  },
+  "daysSuffix": "Days",
+  "@daysSuffix": {
+    "description": "Suffix for number of days in prompt descriptions"
+  },
+  "daysBetweenPromptDescription": "Minimum number of days before showing the {actionType} prompt.",
+  "@daysBetweenPromptDescription": {
+    "description": "Description for days between in-app prompts",
+    "placeholders": {
+      "actionType": {
+        "type": "String"
+      }
+    }
+  },
+  "retryButtonText": "Retry",
+  "@retryButtonText": {
+    "description": "Text for the retry button"
+  },
+  "feedActionTypeLinkAccount": "Link Account",
+  "@feedActionTypeLinkAccount": {
+    "description": "Feed action type for linking an account"
+  },
+  "feedActionTypeRateApp": "Rate App",
+  "@feedActionTypeRateApp": {
+    "description": "Feed action type for rating the app"
+  },
+  "feedActionTypeFollowTopics": "Follow Topics",
+  "@feedActionTypeFollowTopics": {
+    "description": "Feed action type for following topics"
+  },
+  "feedActionTypeFollowSources": "Follow Sources",
+  "@feedActionTypeFollowSources": {
+    "description": "Feed action type for following sources"
+  },
+  "feedActionTypeUpgrade": "Upgrade",
+  "@feedActionTypeUpgrade": {
+    "description": "Feed action type for upgrading"
+  },
+  "feedActionTypeEnableNotifications": "Enable Notifications",
+  "@feedActionTypeEnableNotifications": {
+    "description": "Feed action type for enabling notifications"
   }
 }
