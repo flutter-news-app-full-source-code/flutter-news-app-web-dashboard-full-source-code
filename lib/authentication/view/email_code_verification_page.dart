@@ -5,6 +5,7 @@ import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/app/config/config.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 
 /// {@template email_code_verification_page}
@@ -29,12 +30,13 @@ class EmailCodeVerificationPage extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
-            if (state.status == AuthenticationStatus.failure) {
+            if (state.status == AuthenticationStatus.failure &&
+                state.exception != null) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
-                    content: Text(state.errorMessage!),
+                    content: Text(state.exception!.toFriendlyMessage(context)),
                     backgroundColor: colorScheme.error,
                   ),
                 );
