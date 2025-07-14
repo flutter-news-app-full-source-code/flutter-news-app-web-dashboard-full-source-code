@@ -54,7 +54,7 @@ class AppConfigurationState extends Equatable {
     RemoteConfig? originalRemoteConfig,
     HtHttpException? exception,
     bool? isDirty,
-    bool clearErrorMessage = false,
+    bool clearException = false,
     bool? showSaveSuccess,
     bool clearShowSaveSuccess = false,
   }) {
@@ -62,7 +62,7 @@ class AppConfigurationState extends Equatable {
       status: status ?? this.status,
       remoteConfig: remoteConfig ?? this.remoteConfig,
       originalRemoteConfig: originalRemoteConfig ?? this.originalRemoteConfig,
-      exception: clearErrorMessage ? null : exception ?? this.exception,
+      exception: clearException ? null : exception ?? this.exception,
       isDirty: isDirty ?? this.isDirty,
       showSaveSuccess: clearShowSaveSuccess
           ? false

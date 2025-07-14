@@ -100,7 +100,7 @@ class AppConfigurationBloc
       state.copyWith(
         remoteConfig: event.remoteConfig,
         isDirty: true,
-        clearErrorMessage: true, // Clear any previous error messages
+        clearException: true, // Clear any previous error messages
         clearShowSaveSuccess: true, // Clear success snackbar on field change
       ),
     );
@@ -114,7 +114,7 @@ class AppConfigurationBloc
       state.copyWith(
         remoteConfig: state.originalRemoteConfig, // Revert to original config
         isDirty: false,
-        clearErrorMessage: true, // Clear any previous error messages
+        clearException: true, // Clear any previous error messages
         clearShowSaveSuccess: true, // Clear success snackbar
       ),
     );
