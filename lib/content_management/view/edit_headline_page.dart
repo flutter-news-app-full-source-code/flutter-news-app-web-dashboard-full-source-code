@@ -7,6 +7,7 @@ import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template edit_headline_page}
 /// A page for editing an existing headline.
@@ -124,7 +125,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -148,7 +149,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
           if (state.status == EditHeadlineStatus.failure &&
               state.initialHeadline == null) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<EditHeadlineBloc>().add(
                 const EditHeadlineLoaded(),
               ),
