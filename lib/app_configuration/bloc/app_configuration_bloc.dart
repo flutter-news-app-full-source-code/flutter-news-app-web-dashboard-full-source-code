@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart'; // Use RemoteConfig from ht_shared
+import 'package:ht_shared/src/constants/fixture_ids.dart';
 
 part 'app_configuration_event.dart';
 part 'app_configuration_state.dart';
@@ -28,7 +29,7 @@ class AppConfigurationBloc
   ) async {
     emit(state.copyWith(status: AppConfigurationStatus.loading));
     try {
-      final remoteConfig = await _remoteConfigRepository.read(id: 'app_config');
+      final remoteConfig = await _remoteConfigRepository.read(id: kRemoteConfigId);
       emit(
         state.copyWith(
           status: AppConfigurationStatus.success,
