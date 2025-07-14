@@ -24,7 +24,7 @@ final class CreateTopicState extends Equatable {
     this.description = '',
     this.iconUrl = '',
     this.contentStatus = ContentStatus.active,
-    this.errorMessage,
+    this.exception,
     this.createdTopic,
   });
 
@@ -33,7 +33,7 @@ final class CreateTopicState extends Equatable {
   final String description;
   final String iconUrl;
   final ContentStatus contentStatus;
-  final String? errorMessage;
+  final HtHttpException? exception;
   final Topic? createdTopic;
 
   /// Returns true if the form is valid and can be submitted.
@@ -47,7 +47,7 @@ final class CreateTopicState extends Equatable {
     String? description,
     String? iconUrl,
     ContentStatus? contentStatus,
-    String? errorMessage,
+    HtHttpException? exception,
     Topic? createdTopic,
   }) {
     return CreateTopicState(
@@ -56,7 +56,7 @@ final class CreateTopicState extends Equatable {
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
       contentStatus: contentStatus ?? this.contentStatus,
-      errorMessage: errorMessage,
+      exception: exception,
       createdTopic: createdTopic ?? this.createdTopic,
     );
   }
@@ -68,7 +68,7 @@ final class CreateTopicState extends Equatable {
         description,
         iconUrl,
         contentStatus,
-        errorMessage,
+        exception,
         createdTopic,
       ];
 }
