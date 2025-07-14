@@ -3,17 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_shared/ht_shared.dart' show
-    AuthenticationException,
-    ForbiddenException,
-    HtHttpException,
-    InvalidInputException,
-    NetworkException,
-    NotFoundException,
-    OperationFailedException,
-    ServerException,
-    UnauthorizedException,
-    User;
+import 'package:ht_shared/ht_shared.dart' show AuthenticationException, ForbiddenException, HtHttpException, InvalidInputException, NetworkException, NotFoundException, OperationFailedException, ServerException, UnauthorizedException, UnknownException, User;
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -70,16 +60,6 @@ class AuthenticationBloc
     AuthenticationRequestSignInCodeRequested event,
     Emitter<AuthenticationState> emit,
   ) async {
-    // Validate email format (basic check)
-    if (event.email.isEmpty || !event.email.contains('@')) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          errorMessage: 'Please enter a valid email address.',
-        ),
-      );
-      return;
-    }
     emit(state.copyWith(status: AuthenticationStatus.requestCodeLoading));
     try {
       await _authenticationRepository.requestSignInCode(
@@ -96,53 +76,50 @@ class AuthenticationBloc
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Invalid input: ${e.message}',
+          exception: e,
         ),
       );
     } on UnauthorizedException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } on ForbiddenException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
-    } on NetworkException catch (_) {
+    } on NetworkException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Network error occurred.',
+          exception: e,
         ),
       );
     } on ServerException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Server error: ${e.message}',
+          exception: e,
         ),
       );
     } on OperationFailedException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Operation failed: ${e.message}',
+          exception: e,
         ),
       );
     } on HtHttpException catch (e) {
       // Catch any other HtHttpException subtypes
-      final message = e.message.isNotEmpty
-          ? e.message
-          : 'An unspecified HTTP error occurred.';
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'HTTP error: $message',
+          exception: e,
         ),
       );
     } catch (e) {
@@ -150,7 +127,7 @@ class AuthenticationBloc
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'An unexpected error occurred: $e',
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
       // Optionally log the stackTrace here
@@ -175,42 +152,42 @@ class AuthenticationBloc
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } on AuthenticationException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } on NotFoundException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
-    } on NetworkException catch (_) {
+    } on NetworkException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Network error occurred.',
+          exception: e,
         ),
       );
     } on ServerException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Server error: ${e.message}',
+          exception: e,
         ),
       );
     } on OperationFailedException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Operation failed: ${e.message}',
+          exception: e,
         ),
       );
     } on HtHttpException catch (e) {
@@ -218,7 +195,7 @@ class AuthenticationBloc
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'HTTP error: ${e.message}',
+          exception: e,
         ),
       );
     } catch (e) {
@@ -226,7 +203,7 @@ class AuthenticationBloc
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'An unexpected error occurred: $e',
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
       // Optionally log the stackTrace here
@@ -243,25 +220,25 @@ class AuthenticationBloc
       await _authenticationRepository.signOut();
       // On success, the _AuthenticationStatusChanged listener will handle
       // emitting AuthenticationUnauthenticated.
-    } on NetworkException catch (_) {
+    } on NetworkException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Network error occurred.',
+          exception: e,
         ),
       );
     } on ServerException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Server error: ${e.message}',
+          exception: e,
         ),
       );
     } on OperationFailedException catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'Operation failed: ${e.message}',
+          exception: e,
         ),
       );
     } on HtHttpException catch (e) {
@@ -269,14 +246,14 @@ class AuthenticationBloc
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'HTTP error: ${e.message}',
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: AuthenticationStatus.failure,
-          errorMessage: 'An unexpected error occurred: $e',
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
