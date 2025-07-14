@@ -33,7 +33,7 @@ final class CreateHeadlineState extends Equatable {
     this.topics = const [],
     this.countries = const [],
     this.contentStatus = ContentStatus.active,
-    this.errorMessage,
+    this.exception,
     this.createdHeadline,
   });
 
@@ -49,7 +49,7 @@ final class CreateHeadlineState extends Equatable {
   final List<Topic> topics;
   final List<Country> countries;
   final ContentStatus contentStatus;
-  final String? errorMessage;
+  final HtHttpException? exception;
   final Headline? createdHeadline;
 
   /// Returns true if the form is valid and can be submitted.
@@ -75,7 +75,7 @@ final class CreateHeadlineState extends Equatable {
     List<Topic>? topics,
     List<Country>? countries,
     ContentStatus? contentStatus,
-    String? errorMessage,
+    HtHttpException? exception,
     Headline? createdHeadline,
   }) {
     return CreateHeadlineState(
@@ -91,7 +91,7 @@ final class CreateHeadlineState extends Equatable {
       topics: topics ?? this.topics,
       countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
-      errorMessage: errorMessage,
+      exception: exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
     );
   }
@@ -110,7 +110,7 @@ final class CreateHeadlineState extends Equatable {
         topics,
         countries,
         contentStatus,
-        errorMessage,
+        exception,
         createdHeadline,
       ];
 }
