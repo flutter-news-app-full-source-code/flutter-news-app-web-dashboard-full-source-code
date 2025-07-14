@@ -6,7 +6,9 @@ import 'package:ht_ui_kit/ht_ui_kit.dart';
 class FailureStateWidget extends StatelessWidget {
   /// Creates a [FailureStateWidget].
   ///
-  /// The [exception] is the error exception to display.
+  /// This widget accepts an [exception] of type [HtHttpException]
+  /// and uses the `toFriendlyMessage` extension from `ht_ui_kit`
+  /// to display a localized, user-friendly error message.
   ///
   /// The [onRetry] is an optional callback to be called
   /// when the retry button is pressed.
@@ -18,6 +20,7 @@ class FailureStateWidget extends StatelessWidget {
   });
 
   /// The error exception to display.
+  /// This exception will be converted to a friendly, localized message.
   final HtHttpException exception;
 
   /// An optional callback to be called when the retry button is pressed.
