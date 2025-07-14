@@ -65,18 +65,18 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 child: Text(
                   l10n.appConfigurationPageDescription,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                 ),
               ),
               TabBar(
                 controller: _tabController,
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
-                tabs: const [
-                  Tab(text: 'Feed'),
-                  Tab(text: 'Advertisements'),
-                  Tab(text: 'General'),
+                tabs: [
+                  Tab(text: l10n.feedTab),
+                  Tab(text: l10n.advertisementsTab),
+                  Tab(text: l10n.generalTab),
                 ],
               ),
             ],
@@ -94,8 +94,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
@@ -113,8 +113,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     state.exception!.toFriendlyMessage(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onError,
-                    ),
+                          color: Theme.of(context).colorScheme.onError,
+                        ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -148,7 +148,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
                     ExpansionTile(
-                      title: const Text('User Content & Feed Limits'),
+                      title: Text(l10n.userContentLimitsTitle),
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -160,7 +160,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       ],
                     ),
                     ExpansionTile(
-                      title: const Text('In-App Action Prompts'),
+                      title: Text(l10n.feedActionsTitle),
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -174,7 +174,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
                     ExpansionTile(
-                      title: const Text('Advertisement Settings'),
+                      title: Text(l10n.adSettingsTitle),
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -297,7 +297,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Set limits on followed items and saved headlines for each user tier.',
+          l10n.userContentLimitsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -376,7 +376,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Manage ad frequency and placement for different user roles.',
+          l10n.adSettingsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -455,7 +455,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Configure how often to show prompts for actions like rating the app.',
+          l10n.feedActionsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -511,7 +511,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   ) {
     final l10n = context.l10n;
     return ExpansionTile(
-      title: const Text('Maintenance Mode'),
+      title: Text(l10n.maintenanceModeTitle),
       childrenPadding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.xxl,
         vertical: AppSpacing.md,
@@ -521,10 +521,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Enable to show a maintenance screen to all users.',
+              l10n.maintenanceModeDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  ),
             ),
             const SizedBox(height: AppSpacing.lg),
             SwitchListTile(
@@ -533,14 +534,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.isUnderMaintenance,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: remoteConfig.copyWith(
-                      appStatus: remoteConfig.appStatus.copyWith(
-                        isUnderMaintenance: value,
+                      AppConfigurationFieldChanged(
+                        remoteConfig: remoteConfig.copyWith(
+                          appStatus: remoteConfig.appStatus.copyWith(
+                            isUnderMaintenance: value,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    );
               },
             ),
           ],
@@ -555,7 +556,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   ) {
     final l10n = context.l10n;
     return ExpansionTile(
-      title: const Text('Force App Update'),
+      title: Text(l10n.forceUpdateTitle),
       childrenPadding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.xxl,
         vertical: AppSpacing.md,
@@ -565,10 +566,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Configure mandatory app updates for users.',
+              l10n.forceUpdateDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  ),
             ),
             const SizedBox(height: AppSpacing.lg),
             _buildTextField(
@@ -578,14 +580,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.latestAppVersion,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: remoteConfig.copyWith(
-                      appStatus: remoteConfig.appStatus.copyWith(
-                        latestAppVersion: value,
+                      AppConfigurationFieldChanged(
+                        remoteConfig: remoteConfig.copyWith(
+                          appStatus: remoteConfig.appStatus.copyWith(
+                            latestAppVersion: value,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    );
               },
             ),
             SwitchListTile(
@@ -594,14 +596,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.isLatestVersionOnly,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: remoteConfig.copyWith(
-                      appStatus: remoteConfig.appStatus.copyWith(
-                        isLatestVersionOnly: value,
+                      AppConfigurationFieldChanged(
+                        remoteConfig: remoteConfig.copyWith(
+                          appStatus: remoteConfig.appStatus.copyWith(
+                            isLatestVersionOnly: value,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    );
               },
             ),
             _buildTextField(
@@ -611,14 +613,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.iosUpdateUrl,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: remoteConfig.copyWith(
-                      appStatus: remoteConfig.appStatus.copyWith(
-                        iosUpdateUrl: value,
+                      AppConfigurationFieldChanged(
+                        remoteConfig: remoteConfig.copyWith(
+                          appStatus: remoteConfig.appStatus.copyWith(
+                            iosUpdateUrl: value,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    );
               },
             ),
             _buildTextField(
@@ -628,14 +630,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.androidUpdateUrl,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: remoteConfig.copyWith(
-                      appStatus: remoteConfig.appStatus.copyWith(
-                        androidUpdateUrl: value,
+                      AppConfigurationFieldChanged(
+                        remoteConfig: remoteConfig.copyWith(
+                          appStatus: remoteConfig.appStatus.copyWith(
+                            androidUpdateUrl: value,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                    );
               },
             ),
           ],
@@ -1329,7 +1331,9 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
           ),
           value: _getDaysMap(accountActionConfig)[actionType] ?? 0,
           onChanged: (value) {
-            final currentMap = _getDaysMap(accountActionConfig);
+            final currentMap = Map<FeedActionType, int>.from(
+              _getDaysMap(accountActionConfig),
+            );
             final updatedMap = Map<FeedActionType, int>.from(currentMap)
               ..[actionType] = value;
 
