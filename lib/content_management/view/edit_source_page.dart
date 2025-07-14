@@ -120,7 +120,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -144,7 +144,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
           if (state.status == EditSourceStatus.failure &&
               state.initialSource == null) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () =>
                   context.read<EditSourceBloc>().add(const EditSourceLoaded()),
             );
