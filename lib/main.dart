@@ -6,7 +6,7 @@ import 'package:ht_dashboard/app/config/config.dart';
 import 'package:ht_dashboard/bootstrap.dart';
 
 // Define the current application environment (production/development/demo).
-const AppEnvironment appEnvironment = AppEnvironment.demo;
+const AppEnvironment appEnvironment = AppEnvironment.development;
 
 @JS('removeSplashFromWeb')
 external void removeSplashFromWeb();

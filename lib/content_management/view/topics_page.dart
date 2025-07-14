@@ -49,7 +49,7 @@ class _TopicPageState extends State<TopicPage> {
 
           if (state.topicsStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
                 const LoadTopicsRequested(limit: kDefaultRowsPerPage),
               ),
@@ -208,7 +208,9 @@ class _TopicsDataSource extends DataTableSource {
     if (hasMore) {
       // When loading, we show an extra row for the spinner.
       // Otherwise, we just indicate that there are more rows.
-      return isLoading ? topics.length + 1 : topics.length + kDefaultRowsPerPage;
+      return isLoading
+          ? topics.length + 1
+          : topics.length + kDefaultRowsPerPage;
     }
     return topics.length;
   }

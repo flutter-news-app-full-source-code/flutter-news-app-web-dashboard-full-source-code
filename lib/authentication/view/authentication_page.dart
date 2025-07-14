@@ -5,6 +5,7 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template authentication_page}
 /// Displays authentication options for the dashboard.
@@ -31,15 +32,16 @@ class AuthenticationPage extends StatelessWidget {
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           // Listener remains crucial for feedback (errors)
           listener: (context, state) {
-            if (state.status == AuthenticationStatus.failure) {
+            if (state.status == AuthenticationStatus.failure &&
+                state.exception != null) {
+              final friendlyMessage = state.exception!.toFriendlyMessage(
+                context,
+              );
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
-                    content: Text(
-                      // Provide a more user-friendly error message if possible
-                      state.errorMessage!,
-                    ),
+                    content: Text(friendlyMessage),
                     backgroundColor: colorScheme.error,
                   ),
                 );
@@ -50,7 +52,8 @@ class AuthenticationPage extends StatelessWidget {
             // email flow pages.
           },
           builder: (context, state) {
-            final isLoading = state.status == AuthenticationStatus.loading ||
+            final isLoading =
+                state.status == AuthenticationStatus.loading ||
                 state.status == AuthenticationStatus.requestCodeLoading;
 
             return Padding(

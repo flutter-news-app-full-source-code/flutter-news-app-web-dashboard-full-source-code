@@ -56,12 +56,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(SettingsLoadSuccess(userAppSettings: defaultSettings));
     } on HtHttpException catch (e) {
       emit(
-        SettingsLoadFailure(e.message, userAppSettings: state.userAppSettings),
+        SettingsLoadFailure(e, userAppSettings: state.userAppSettings),
       );
     } catch (e) {
       emit(
         SettingsLoadFailure(
-          'An unexpected error occurred: $e',
+          UnknownException('An unexpected error occurred: $e'),
           userAppSettings: state.userAppSettings,
         ),
       );
@@ -82,14 +82,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     } on HtHttpException catch (e) {
       emit(
         SettingsUpdateFailure(
-          e.message,
+          e,
           userAppSettings: state.userAppSettings,
         ),
       );
     } catch (e) {
       emit(
         SettingsUpdateFailure(
-          'An unexpected error occurred: $e',
+          UnknownException('An unexpected error occurred: $e'),
           userAppSettings: state.userAppSettings,
         ),
       );

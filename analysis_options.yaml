@@ -1,5 +1,6 @@
 analyzer:
   errors:
+    avoid_bool_literals_in_conditional_expressions: ignore
     avoid_catches_without_on_clauses: ignore
     avoid_print: ignore
     avoid_redundant_argument_values: ignore

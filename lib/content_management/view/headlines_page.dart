@@ -52,7 +52,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
 
           if (state.headlinesStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
                 const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
               ),

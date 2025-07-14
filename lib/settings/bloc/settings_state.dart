@@ -39,13 +39,13 @@ final class SettingsLoadSuccess extends SettingsState {
 /// {@endtemplate}
 final class SettingsLoadFailure extends SettingsState {
   /// {@macro settings_load_failure}
-  const SettingsLoadFailure(this.errorMessage, {super.userAppSettings});
+  const SettingsLoadFailure(this.exception, {super.userAppSettings});
 
-  /// The error message describing the failure.
-  final String errorMessage;
+  /// The error exception describing the failure.
+  final HtHttpException exception;
 
   @override
-  List<Object?> get props => [errorMessage, userAppSettings];
+  List<Object?> get props => [exception, userAppSettings];
 }
 
 /// {@template settings_update_in_progress}
@@ -69,11 +69,11 @@ final class SettingsUpdateSuccess extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateFailure extends SettingsState {
   /// {@macro settings_update_failure}
-  const SettingsUpdateFailure(this.errorMessage, {super.userAppSettings});
+  const SettingsUpdateFailure(this.exception, {super.userAppSettings});
 
-  /// The error message describing the failure.
-  final String errorMessage;
+  /// The error exception describing the failure.
+  final HtHttpException exception;
 
   @override
-  List<Object?> get props => [errorMessage, userAppSettings];
+  List<Object?> get props => [exception, userAppSettings];
 }

@@ -51,14 +51,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -151,14 +151,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }

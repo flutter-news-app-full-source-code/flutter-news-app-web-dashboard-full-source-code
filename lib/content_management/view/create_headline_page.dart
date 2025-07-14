@@ -8,6 +8,7 @@ import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template create_headline_page}
 /// A page for creating a new headline.
@@ -95,7 +96,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -115,7 +116,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               state.topics.isEmpty &&
               state.countries.isEmpty) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<CreateHeadlineBloc>().add(
                 const CreateHeadlineDataLoaded(),
               ),

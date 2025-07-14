@@ -35,6 +35,7 @@ Control the behavior and appearance of the `ht_main` mobile application remotely
 #### 📊 **Intuitive User Interface**
 Built with Flutter, the dashboard provides a responsive and user-friendly
 experience across various web browsers and screen sizes.
+*   **User-Friendly Error Handling:** Displays clear, localized error messages for a smooth and understandable user experience when issues arise.
 *   **Benefit for you:** A modern, maintainable, and visually appealing
     interface for your administrative tasks. ✨
 

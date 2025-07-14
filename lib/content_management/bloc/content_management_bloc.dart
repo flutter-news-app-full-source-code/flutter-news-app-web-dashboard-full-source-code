@@ -78,14 +78,14 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -105,14 +105,14 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -157,14 +157,14 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -184,14 +184,14 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -236,14 +236,14 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -263,14 +263,14 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }

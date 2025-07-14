@@ -24,7 +24,7 @@ class AppConfigurationState extends Equatable {
     this.status = AppConfigurationStatus.initial,
     this.remoteConfig,
     this.originalRemoteConfig,
-    this.errorMessage,
+    this.exception,
     this.isDirty = false,
     this.showSaveSuccess = false,
   });
@@ -38,8 +38,8 @@ class AppConfigurationState extends Equatable {
   /// The original application configuration loaded from the backend.
   final RemoteConfig? originalRemoteConfig;
 
-  /// An error message if an operation failed.
-  final String? errorMessage;
+  /// An error exception if an operation failed.
+  final HtHttpException? exception;
 
   /// Indicates if there are unsaved changes to the configuration.
   final bool isDirty;
@@ -52,7 +52,7 @@ class AppConfigurationState extends Equatable {
     AppConfigurationStatus? status,
     RemoteConfig? remoteConfig,
     RemoteConfig? originalRemoteConfig,
-    String? errorMessage,
+    HtHttpException? exception,
     bool? isDirty,
     bool clearErrorMessage = false,
     bool? showSaveSuccess,
@@ -62,9 +62,7 @@ class AppConfigurationState extends Equatable {
       status: status ?? this.status,
       remoteConfig: remoteConfig ?? this.remoteConfig,
       originalRemoteConfig: originalRemoteConfig ?? this.originalRemoteConfig,
-      errorMessage: clearErrorMessage
-          ? null
-          : errorMessage ?? this.errorMessage,
+      exception: clearErrorMessage ? null : exception ?? this.exception,
       isDirty: isDirty ?? this.isDirty,
       showSaveSuccess: clearShowSaveSuccess
           ? false
@@ -77,7 +75,7 @@ class AppConfigurationState extends Equatable {
     status,
     remoteConfig,
     originalRemoteConfig,
-    errorMessage,
+    exception,
     isDirty,
     showSaveSuccess,
   ];

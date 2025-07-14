@@ -64,14 +64,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -162,7 +162,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          errorMessage: 'Cannot update: Original source data not loaded.',
+          exception: const UnknownException(
+            'Cannot update: Original source data not loaded.',
+          ),
         ),
       );
       return;
@@ -192,14 +194,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }

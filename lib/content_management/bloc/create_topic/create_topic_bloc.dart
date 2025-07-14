@@ -12,8 +12,8 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   /// {@macro create_topic_bloc}
   CreateTopicBloc({
     required HtDataRepository<Topic> topicsRepository,
-  })  : _topicsRepository = topicsRepository,
-        super(const CreateTopicState()) {
+  }) : _topicsRepository = topicsRepository,
+       super(const CreateTopicState()) {
     on<CreateTopicNameChanged>(_onNameChanged);
     on<CreateTopicDescriptionChanged>(_onDescriptionChanged);
     on<CreateTopicIconUrlChanged>(_onIconUrlChanged);
@@ -102,14 +102,14 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
       emit(
         state.copyWith(
           status: CreateTopicStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateTopicStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }

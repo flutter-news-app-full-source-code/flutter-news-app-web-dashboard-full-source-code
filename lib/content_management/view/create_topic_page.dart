@@ -8,6 +8,7 @@ import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template create_topic_page}
 /// A page for creating a new topic.
@@ -92,7 +93,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );

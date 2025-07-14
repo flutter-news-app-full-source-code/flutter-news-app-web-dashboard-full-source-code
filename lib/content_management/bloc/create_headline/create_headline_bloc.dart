@@ -17,11 +17,11 @@ class CreateHeadlineBloc
     required HtDataRepository<Source> sourcesRepository,
     required HtDataRepository<Topic> topicsRepository,
     required HtDataRepository<Country> countriesRepository,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _countriesRepository = countriesRepository,
-        super(const CreateHeadlineState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -46,8 +46,11 @@ class CreateHeadlineBloc
   ) async {
     emit(state.copyWith(status: CreateHeadlineStatus.loading));
     try {
-      final [sourcesResponse, topicsResponse, countriesResponse] =
-          await Future.wait([
+      final [
+        sourcesResponse,
+        topicsResponse,
+        countriesResponse,
+      ] = await Future.wait([
         _sourcesRepository.readAll(),
         _topicsRepository.readAll(),
         _countriesRepository.readAll(),
@@ -55,8 +58,7 @@ class CreateHeadlineBloc
 
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
       final topics = (topicsResponse as PaginatedResponse<Topic>).items;
-      final countries =
-          (countriesResponse as PaginatedResponse<Country>).items;
+      final countries = (countriesResponse as PaginatedResponse<Country>).items;
 
       emit(
         state.copyWith(
@@ -70,14 +72,14 @@ class CreateHeadlineBloc
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -178,14 +180,14 @@ class CreateHeadlineBloc
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }

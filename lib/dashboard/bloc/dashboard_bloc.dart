@@ -60,14 +60,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       emit(
         state.copyWith(
           status: DashboardStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: DashboardStatus.failure,
-          errorMessage: 'An unknown error occurred: $e',
+          exception: UnknownException('An unknown error occurred: $e'),
         ),
       );
     }
