@@ -43,7 +43,7 @@ class _DashboardPageState extends State<DashboardPage> {
           }
           if (state.status == DashboardStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.dashboardLoadFailure,
+              exception: state.exception!,
               onRetry: () {
                 context.read<DashboardBloc>().add(DashboardSummaryLoaded());
               },
