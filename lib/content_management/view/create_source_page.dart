@@ -9,6 +9,7 @@ import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template create_source_page}
 /// A page for creating a new source.
@@ -94,7 +95,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -112,7 +113,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           if (state.status == CreateSourceStatus.failure &&
               state.countries.isEmpty) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<CreateSourceBloc>().add(
                 const CreateSourceDataLoaded(),
               ),
