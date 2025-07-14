@@ -38,8 +38,8 @@ class AppConfigurationState extends Equatable {
   /// The original application configuration loaded from the backend.
   final RemoteConfig? originalRemoteConfig;
 
-  /// An error message if an operation failed.
-  final String? errorMessage;
+  /// An error exception if an operation failed.
+  final HtHttpException? exception;
 
   /// Indicates if there are unsaved changes to the configuration.
   final bool isDirty;
