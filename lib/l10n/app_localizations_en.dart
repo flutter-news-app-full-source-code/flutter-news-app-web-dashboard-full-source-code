@@ -368,7 +368,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get androidStoreUrlLabel => 'Android Store URL';
 
   @override
-  String get androidStoreUrlDescription =>
+  String get androidUpdateUrlDescription =>
       'URL to the app on the Google Play Store.';
 
   @override
@@ -783,5 +783,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get androidUpdateUrlLabel => 'Android Update URL';
 
   @override
-  String get androidUpdateUrlDescription => 'URL for Android app updates.';
+  String get followedItemsLimitLabel => 'Followed Items Limit';
+
+  @override
+  String get followedItemsLimitDescription =>
+      'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).';
+
+  @override
+  String get savedHeadlinesLimitLabel => 'Saved Headlines Limit';
+
+  @override
+  String get savedHeadlinesLimitDescription =>
+      'Maximum number of headlines this user role can save.';
+
+  @override
+  String get adFrequencyLabel => 'Ad Frequency';
+
+  @override
+  String get adFrequencyDescription =>
+      'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).';
+
+  @override
+  String get adPlacementIntervalLabel => 'Ad Placement Interval';
+
+  @override
+  String get adPlacementIntervalDescription =>
+      'Minimum number of news items that must be shown before the very first ad appears for this user role.';
+
+  @override
+  String get articlesBeforeInterstitialAdsLabel =>
+      'Articles Before Interstitial Ads';
+
+  @override
+  String get articlesBeforeInterstitialAdsDescription =>
+      'Number of articles this user role needs to read before a full-screen interstitial ad is shown.';
+
+  @override
+  String get daysSuffix => 'Days';
+
+  @override
+  String daysBetweenPromptDescription(String actionType) {
+    return 'Minimum number of days before showing the $actionType prompt.';
+  }
+
+  @override
+  String get retryButtonText => 'Retry';
 }

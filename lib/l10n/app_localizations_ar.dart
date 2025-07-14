@@ -371,8 +371,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get androidStoreUrlLabel => 'رابط متجر Android';
 
   @override
-  String get androidStoreUrlDescription =>
-      'رابط التطبيق على متجر Google Play Store.';
+  String get androidUpdateUrlDescription => 'رابط تحديثات تطبيق Android.';
 
   @override
   String get guestDaysBetweenInAppPromptsLabel =>
@@ -785,5 +784,49 @@ class AppLocalizationsAr extends AppLocalizations {
   String get androidUpdateUrlLabel => 'رابط تحديث Android';
 
   @override
-  String get androidUpdateUrlDescription => 'رابط تحديثات تطبيق Android.';
+  String get followedItemsLimitLabel => 'حد العناصر المتابعة';
+
+  @override
+  String get followedItemsLimitDescription =>
+      'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).';
+
+  @override
+  String get savedHeadlinesLimitLabel => 'حد العناوين المحفوظة';
+
+  @override
+  String get savedHeadlinesLimitDescription =>
+      'الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.';
+
+  @override
+  String get adFrequencyLabel => 'تكرار الإعلان';
+
+  @override
+  String get adFrequencyDescription =>
+      'عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
+
+  @override
+  String get adPlacementIntervalLabel => 'فترة وضع الإعلان';
+
+  @override
+  String get adPlacementIntervalDescription =>
+      'الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول لهذا الدور المستخدم.';
+
+  @override
+  String get articlesBeforeInterstitialAdsLabel =>
+      'مقالات قبل الإعلانات البينية';
+
+  @override
+  String get articlesBeforeInterstitialAdsDescription =>
+      'عدد المقالات التي يحتاج هذا الدور المستخدم لقراءتها قبل عرض إعلان بيني بملء الشاشة.';
+
+  @override
+  String get daysSuffix => 'أيام';
+
+  @override
+  String daysBetweenPromptDescription(String actionType) {
+    return 'الحد الأدنى لعدد الأيام قبل عرض تنبيه $actionType.';
+  }
+
+  @override
+  String get retryButtonText => 'إعادة المحاولة';
 }
