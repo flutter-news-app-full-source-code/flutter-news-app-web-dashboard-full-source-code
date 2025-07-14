@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// A widget to display an error message and an optional retry button.
 class FailureStateWidget extends StatelessWidget {
   /// Creates a [FailureStateWidget].
   ///
-  /// The [message] is the error message to display.
+  /// The [exception] is the error exception to display.
   ///
   /// The [onRetry] is an optional callback to be called
   /// when the retry button is pressed.
   const FailureStateWidget({
-    required this.message,
+    required this.exception,
     super.key,
     this.onRetry,
     this.retryButtonText,
   });
 
-  /// The error message to display.
-  final String message;
+  /// The error exception to display.
+  final HtHttpException exception;
 
   /// An optional callback to be called when the retry button is pressed.
   final VoidCallback? onRetry;
@@ -26,12 +28,13 @@ class FailureStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final friendlyMessage = exception.toFriendlyMessage(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            message,
+            friendlyMessage,
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
