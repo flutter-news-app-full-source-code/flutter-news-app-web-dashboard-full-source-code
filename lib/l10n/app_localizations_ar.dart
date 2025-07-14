@@ -95,7 +95,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get appConfigurationPageDescription =>
-      'تكوين الإعدادات العامة للتطبيق المحمول، بما في ذلك حدود محتوى المستخدم، وقواعد عرض الإعلانات، والتنبيهات داخل التطبيق، وحالة التشغيل، ومعلمات التحديث الإجباري.';
+      'إدارة الإعدادات العامة لتطبيق الهاتف، من حدود المحتوى إلى الحالة التشغيلية.';
 
   @override
   String get settings => 'الإعدادات';
@@ -104,16 +104,48 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appConfigurationPageTitle => 'إعدادات التطبيق';
 
   @override
-  String get userContentLimitsTab => 'حدود محتوى المستخدم';
+  String get feedTab => 'الموجز';
 
   @override
-  String get adSettingsTab => 'إعدادات الإعلانات';
+  String get advertisementsTab => 'الإعلانات';
 
   @override
-  String get inAppPromptsTab => 'تنبيهات داخل التطبيق';
+  String get generalTab => 'عام';
 
   @override
-  String get appOperationalStatusTab => 'حالة تشغيل التطبيق';
+  String get userContentLimitsTitle => 'حدود المحتوى والموجز للمستخدم';
+
+  @override
+  String get userContentLimitsDescription =>
+      'تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.';
+
+  @override
+  String get feedActionsTitle => 'إجراءات الموجز';
+
+  @override
+  String get feedActionsDescription =>
+      'تكوين عدد مرات إدراج ودجات الإجراءات (مثل \'تقييم التطبيق\') في الموجز.';
+
+  @override
+  String get adSettingsTitle => 'إعدادات الإعلانات';
+
+  @override
+  String get adSettingsDescription =>
+      'إدارة تكرار وموضع الإعلانات لأدوار المستخدمين المختلفة.';
+
+  @override
+  String get maintenanceModeTitle => 'وضع الصيانة';
+
+  @override
+  String get maintenanceModeDescription =>
+      'تمكين لعرض شاشة صيانة لجميع المستخدمين.';
+
+  @override
+  String get forceUpdateTitle => 'فرض تحديث التطبيق';
+
+  @override
+  String get forceUpdateDescription =>
+      'تتحكم هذه الإعدادات في فرض إصدار التطبيق. سيتم إجبار المستخدمين الذين يستخدمون إصدارات أقل من الحد الأدنى المسموح به على التحديث.';
 
   @override
   String get forceUpdateTab => 'تحديث إجباري';
@@ -161,10 +193,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get confirmSaveButton => 'تأكيد الحفظ';
-
-  @override
-  String get userContentLimitsDescription =>
-      'تحدد هذه الإعدادات الحد الأقصى لعدد البلدان ومصادر الأخبار والمواضيع والعناوين المحفوظة التي يمكن للمستخدم متابعتها أو حفظها. تختلف الحدود حسب نوع المستخدم (ضيف، عادي، مميز) وتؤثر بشكل مباشر على المحتوى الذي يمكن للمستخدمين تنسيقه.';
 
   @override
   String get guestUserTab => 'ضيف';
@@ -220,10 +248,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get premiumSavedHeadlinesLimitDescription =>
       'الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم المميز حفظها.';
-
-  @override
-  String get adSettingsDescription =>
-      'تتحكم هذه الإعدادات في كيفية عرض الإعلانات ضمن موجز الأخبار في التطبيق، مع قواعد مختلفة للمستخدمين الضيوف والعاديين والمميزين. تحدد \"تكرار الإعلان\" عدد مرات ظهور الإعلان، بينما تحدد \"فترة وضع الإعلان\" عدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول.';
 
   @override
   String get standardUserAdTab => 'مستخدم عادي';
@@ -297,10 +321,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'عدد المقالات التي يحتاج المستخدم المميز لقراءتها قبل عرض إعلان بيني بملء الشاشة.';
 
   @override
-  String get inAppPromptsDescription =>
-      'تتحكم هذه الإعدادات في عدد مرات عرض الرسائل الخاصة داخل التطبيق أو \"التنبيهات\" للمستخدمين في موجز الأخبار الخاص بهم. تشجع هذه التنبيهات على إجراءات مثل ربط حساب (للضيوف) أو الترقية إلى اشتراك مميز (للمستخدمين الموثقين). يختلف التكرار حسب نوع المستخدم.';
-
-  @override
   String get appOperationalStatusWarning =>
       'تحذير: قد يؤثر تغيير حالة تشغيل التطبيق على جميع المستخدمين. استخدم بحذر شديد.';
 
@@ -327,10 +347,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get forceUpdateConfigurationTitle => 'إعدادات التحديث الإجباري';
-
-  @override
-  String get forceUpdateDescription =>
-      'تتحكم هذه الإعدادات في فرض إصدار التطبيق. سيتم إجبار المستخدمين الذين يستخدمون إصدارات أقل من الحد الأدنى المسموح به على التحديث.';
 
   @override
   String get minAllowedAppVersionLabel =>
