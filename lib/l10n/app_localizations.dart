@@ -251,7 +251,7 @@ abstract class AppLocalizations {
   /// Description for the App Configuration page
   ///
   /// In en, this message translates to:
-  /// **'Configure global settings for the mobile application, including user content limits, ad display rules, in-app prompts, operational status, and force update parameters.'**
+  /// **'Manage global settings for the mobile app, from content limits to operational status.'**
   String get appConfigurationPageDescription;
 
   /// Label for the settings navigation item
@@ -266,29 +266,83 @@ abstract class AppLocalizations {
   /// **'App Configuration'**
   String get appConfigurationPageTitle;
 
-  /// Tab title for User Content Limits
+  /// Tab title for Feed settings
   ///
   /// In en, this message translates to:
-  /// **'User Content Limits'**
-  String get userContentLimitsTab;
+  /// **'Feed'**
+  String get feedTab;
 
-  /// Tab title for Ad Settings
+  /// Tab title for Advertisements settings
   ///
   /// In en, this message translates to:
-  /// **'Ad Settings'**
-  String get adSettingsTab;
+  /// **'Advertisements'**
+  String get advertisementsTab;
 
-  /// Tab title for In-App Prompts
+  /// Tab title for General settings
   ///
   /// In en, this message translates to:
-  /// **'In-App Prompts'**
-  String get inAppPromptsTab;
+  /// **'General'**
+  String get generalTab;
 
-  /// Tab title for App Operational Status
+  /// Title for the User Content & Feed Limits section
   ///
   /// In en, this message translates to:
-  /// **'App Operational Status'**
-  String get appOperationalStatusTab;
+  /// **'User Content & Feed Limits'**
+  String get userContentLimitsTitle;
+
+  /// Description for the User Content & Feed Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits on followed items and saved headlines for each user tier.'**
+  String get userContentLimitsDescription;
+
+  /// Title for the Feed Actions section
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Actions'**
+  String get feedActionsTitle;
+
+  /// Description for the Feed Actions section
+  ///
+  /// In en, this message translates to:
+  /// **'Configure how often to inject action widgets (e.g., \'Rate App\') into the feed.'**
+  String get feedActionsDescription;
+
+  /// Title for the Advertisement Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Advertisement Settings'**
+  String get adSettingsTitle;
+
+  /// Description for the Ad Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Manage ad frequency and placement for different user roles.'**
+  String get adSettingsDescription;
+
+  /// Title for the Maintenance Mode section
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Mode'**
+  String get maintenanceModeTitle;
+
+  /// Description for the Maintenance Mode section
+  ///
+  /// In en, this message translates to:
+  /// **'Enable to show a maintenance screen to all users.'**
+  String get maintenanceModeDescription;
+
+  /// Title for the Force App Update section
+  ///
+  /// In en, this message translates to:
+  /// **'Force App Update'**
+  String get forceUpdateTitle;
+
+  /// Description for Force Update Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.'**
+  String get forceUpdateDescription;
 
   /// Tab title for Force Update
   ///
@@ -373,12 +427,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm Save'**
   String get confirmSaveButton;
-
-  /// Description for User Content Limits section
-  ///
-  /// In en, this message translates to:
-  /// **'These settings define the maximum number of countries, news sources, topics, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.'**
-  String get userContentLimitsDescription;
 
   /// Tab title for Guest user role
   ///
@@ -469,12 +517,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maximum number of headlines a Premium user can save.'**
   String get premiumSavedHeadlinesLimitDescription;
-
-  /// Description for Ad Settings section
-  ///
-  /// In en, this message translates to:
-  /// **'These settings control how advertisements are displayed within the app\'s news feed, with different rules for Guest, Standard, and Premium users. \"Ad Frequency\" determines how often an ad can appear, while \"Ad Placement Interval\" sets how many news items must be shown before the very first ad appears.'**
-  String get adSettingsDescription;
 
   /// Tab title for Standard User in Ad Settings
   ///
@@ -590,12 +632,6 @@ abstract class AppLocalizations {
   /// **'Number of articles a Premium user needs to read before a full-screen interstitial ad is shown.'**
   String get premiumUserArticlesBeforeInterstitialAdsDescription;
 
-  /// Description for In-App Prompts section
-  ///
-  /// In en, this message translates to:
-  /// **'These settings control how often special in-app messages or \"prompts\" are shown to users in their news feed. These prompts encourage actions like linking an account (for guests) or upgrading to a premium subscription (for authenticated users). The frequency varies by user type.'**
-  String get inAppPromptsDescription;
-
   /// Warning message for changing app operational status
   ///
   /// In en, this message translates to:
@@ -643,12 +679,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Force Update Configuration'**
   String get forceUpdateConfigurationTitle;
-
-  /// Description for Force Update Configuration section
-  ///
-  /// In en, this message translates to:
-  /// **'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.'**
-  String get forceUpdateDescription;
 
   /// Label for Minimum Allowed App Version
   ///

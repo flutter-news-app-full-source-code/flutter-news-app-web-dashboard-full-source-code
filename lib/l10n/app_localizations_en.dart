@@ -94,7 +94,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appConfigurationPageDescription =>
-      'Configure global settings for the mobile application, including user content limits, ad display rules, in-app prompts, operational status, and force update parameters.';
+      'Manage global settings for the mobile app, from content limits to operational status.';
 
   @override
   String get settings => 'Settings';
@@ -103,16 +103,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appConfigurationPageTitle => 'App Configuration';
 
   @override
-  String get userContentLimitsTab => 'User Content Limits';
+  String get feedTab => 'Feed';
 
   @override
-  String get adSettingsTab => 'Ad Settings';
+  String get advertisementsTab => 'Advertisements';
 
   @override
-  String get inAppPromptsTab => 'In-App Prompts';
+  String get generalTab => 'General';
 
   @override
-  String get appOperationalStatusTab => 'App Operational Status';
+  String get userContentLimitsTitle => 'User Content & Feed Limits';
+
+  @override
+  String get userContentLimitsDescription =>
+      'Set limits on followed items and saved headlines for each user tier.';
+
+  @override
+  String get feedActionsTitle => 'Feed Actions';
+
+  @override
+  String get feedActionsDescription =>
+      'Configure how often to inject action widgets (e.g., \'Rate App\') into the feed.';
+
+  @override
+  String get adSettingsTitle => 'Advertisement Settings';
+
+  @override
+  String get adSettingsDescription =>
+      'Manage ad frequency and placement for different user roles.';
+
+  @override
+  String get maintenanceModeTitle => 'Maintenance Mode';
+
+  @override
+  String get maintenanceModeDescription =>
+      'Enable to show a maintenance screen to all users.';
+
+  @override
+  String get forceUpdateTitle => 'Force App Update';
+
+  @override
+  String get forceUpdateDescription =>
+      'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.';
 
   @override
   String get forceUpdateTab => 'Force Update';
@@ -162,10 +194,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmSaveButton => 'Confirm Save';
-
-  @override
-  String get userContentLimitsDescription =>
-      'These settings define the maximum number of countries, news sources, topics, and saved headlines a user can follow or save. Limits vary by user type (Guest, Standard, Premium) and directly impact what content users can curate.';
 
   @override
   String get guestUserTab => 'Guest';
@@ -219,10 +247,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get premiumSavedHeadlinesLimitDescription =>
       'Maximum number of headlines a Premium user can save.';
-
-  @override
-  String get adSettingsDescription =>
-      'These settings control how advertisements are displayed within the app\'s news feed, with different rules for Guest, Standard, and Premium users. \"Ad Frequency\" determines how often an ad can appear, while \"Ad Placement Interval\" sets how many news items must be shown before the very first ad appears.';
 
   @override
   String get standardUserAdTab => 'Standard User';
@@ -295,10 +319,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Number of articles a Premium user needs to read before a full-screen interstitial ad is shown.';
 
   @override
-  String get inAppPromptsDescription =>
-      'These settings control how often special in-app messages or \"prompts\" are shown to users in their news feed. These prompts encourage actions like linking an account (for guests) or upgrading to a premium subscription (for authenticated users). The frequency varies by user type.';
-
-  @override
   String get appOperationalStatusWarning =>
       'WARNING: Changing the app\'s operational status can affect all users. Use with extreme caution.';
 
@@ -325,10 +345,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forceUpdateConfigurationTitle => 'Force Update Configuration';
-
-  @override
-  String get forceUpdateDescription =>
-      'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.';
 
   @override
   String get minAllowedAppVersionLabel => 'Minimum Allowed App Version';
