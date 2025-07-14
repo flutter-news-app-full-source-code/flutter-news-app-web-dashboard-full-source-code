@@ -20,7 +20,7 @@ class AppConfigurationLoaded extends AppConfigurationEvent {
 /// {@template app_configuration_updated}
 /// Event to request the update of the application configuration.
 ///
-/// Carries the new [appConfig] object to be saved.
+/// Carries the new "appConfig" object to be saved.
 /// {@endtemplate}
 class AppConfigurationUpdated extends AppConfigurationEvent {
   /// {@macro app_configuration_updated}

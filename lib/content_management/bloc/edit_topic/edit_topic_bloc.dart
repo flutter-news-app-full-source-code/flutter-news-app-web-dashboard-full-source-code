@@ -12,9 +12,9 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   EditTopicBloc({
     required HtDataRepository<Topic> topicsRepository,
     required String topicId,
-  })  : _topicsRepository = topicsRepository,
-        _topicId = topicId,
-        super(const EditTopicState()) {
+  }) : _topicsRepository = topicsRepository,
+       _topicId = topicId,
+       super(const EditTopicState()) {
     on<EditTopicLoaded>(_onLoaded);
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
@@ -121,7 +121,9 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          exception: UnknownException('Cannot update: Original topic data not loaded.'),
+          exception: const UnknownException(
+            'Cannot update: Original topic data not loaded.',
+          ),
         ),
       );
       return;

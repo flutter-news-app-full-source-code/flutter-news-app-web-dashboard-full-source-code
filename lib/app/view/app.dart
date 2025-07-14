@@ -13,13 +13,13 @@ import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:ht_dashboard/router/router.dart';
 // Import for app_theme.dart
 import 'package:ht_dashboard/shared/theme/app_theme.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
 import 'package:ht_shared/ht_shared.dart' hide AppStatus;
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:logging/logging.dart';
 
 class App extends StatelessWidget {
@@ -30,7 +30,8 @@ class App extends StatelessWidget {
     required HtDataRepository<Country> htCountriesRepository,
     required HtDataRepository<Source> htSourcesRepository,
     required HtDataRepository<UserAppSettings> htUserAppSettingsRepository,
-    required HtDataRepository<UserContentPreferences> htUserContentPreferencesRepository,
+    required HtDataRepository<UserContentPreferences>
+    htUserContentPreferencesRepository,
     required HtDataRepository<RemoteConfig> htRemoteConfigRepository,
     required HtDataRepository<DashboardSummary> htDashboardSummaryRepository,
     required HtKVStorageService kvStorageService,
@@ -54,7 +55,8 @@ class App extends StatelessWidget {
   final HtDataRepository<Country> _htCountriesRepository;
   final HtDataRepository<Source> _htSourcesRepository;
   final HtDataRepository<UserAppSettings> _htUserAppSettingsRepository;
-  final HtDataRepository<UserContentPreferences> _htUserContentPreferencesRepository;
+  final HtDataRepository<UserContentPreferences>
+  _htUserContentPreferencesRepository;
   final HtDataRepository<RemoteConfig> _htRemoteConfigRepository;
   final HtDataRepository<DashboardSummary> _htDashboardSummaryRepository;
   final HtKVStorageService _kvStorageService;
@@ -80,10 +82,10 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => AppBloc(
               authenticationRepository: context.read<HtAuthRepository>(),
-              userAppSettingsRepository:
-                  context.read<HtDataRepository<UserAppSettings>>(),
-              appConfigRepository:
-                  context.read<HtDataRepository<RemoteConfig>>(),
+              userAppSettingsRepository: context
+                  .read<HtDataRepository<UserAppSettings>>(),
+              appConfigRepository: context
+                  .read<HtDataRepository<RemoteConfig>>(),
               environment: _environment,
               logger: Logger('AppBloc'),
             ),
@@ -95,8 +97,8 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AppConfigurationBloc(
-              remoteConfigRepository:
-                  context.read<HtDataRepository<RemoteConfig>>(),
+              remoteConfigRepository: context
+                  .read<HtDataRepository<RemoteConfig>>(),
             ),
           ),
           BlocProvider(
@@ -108,10 +110,10 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => DashboardBloc(
-              dashboardSummaryRepository:
-                  context.read<HtDataRepository<DashboardSummary>>(),
-              appConfigRepository:
-                  context.read<HtDataRepository<RemoteConfig>>(),
+              dashboardSummaryRepository: context
+                  .read<HtDataRepository<DashboardSummary>>(),
+              appConfigRepository: context
+                  .read<HtDataRepository<RemoteConfig>>(),
               headlinesRepository: context.read<HtDataRepository<Headline>>(),
             ),
           ),

@@ -69,13 +69,13 @@ final class EditTopicState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        initialTopic,
-        name,
-        description,
-        iconUrl,
-        contentStatus,
-        exception,
-        updatedTopic,
-      ];
+    status,
+    initialTopic,
+    name,
+    description,
+    iconUrl,
+    contentStatus,
+    exception,
+    updatedTopic,
+  ];
 }

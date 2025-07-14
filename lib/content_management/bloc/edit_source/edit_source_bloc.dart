@@ -162,7 +162,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          exception: UnknownException('Cannot update: Original source data not loaded.'),
+          exception: const UnknownException(
+            'Cannot update: Original source data not loaded.',
+          ),
         ),
       );
       return;

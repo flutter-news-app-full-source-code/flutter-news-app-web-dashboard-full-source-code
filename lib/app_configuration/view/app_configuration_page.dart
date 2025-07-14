@@ -54,8 +54,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             child: Text(
               l10n.appConfigurationPageDescription,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
         ),
@@ -71,16 +71,16 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                   content: Text(
                     l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
               );
             // Clear the showSaveSuccess flag after showing the snackbar
             context.read<AppConfigurationBloc>().add(
-                  const AppConfigurationFieldChanged(),
-                );
+              const AppConfigurationFieldChanged(),
+            );
           } else if (state.status == AppConfigurationStatus.failure &&
               state.exception != null) {
             ScaffoldMessenger.of(context)
@@ -90,8 +90,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                   content: Text(
                     state.exception!.toFriendlyMessage(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onError,
-                        ),
+                      color: Theme.of(context).colorScheme.onError,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -111,8 +111,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               exception: state.exception!,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
-                      const AppConfigurationLoaded(),
-                    );
+                  const AppConfigurationLoaded(),
+                );
               },
             );
           } else if (state.status == AppConfigurationStatus.success &&
@@ -190,8 +190,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
                   ? () {
                       // Discard changes: revert to original config
                       context.read<AppConfigurationBloc>().add(
-                            const AppConfigurationDiscarded(),
-                          );
+                        const AppConfigurationDiscarded(),
+                      );
                     }
                   : null,
               child: Text(context.l10n.discardChangesButton),
@@ -201,10 +201,12 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               onPressed: isDirty
                   ? () async {
                       final confirmed = await _showConfirmationDialog(context);
-                      if (context.mounted && confirmed && remoteConfig != null) {
+                      if (context.mounted &&
+                          confirmed &&
+                          remoteConfig != null) {
                         context.read<AppConfigurationBloc>().add(
-                              AppConfigurationUpdated(remoteConfig),
-                            );
+                          AppConfigurationUpdated(remoteConfig),
+                        );
                       }
                     }
                   : null,
@@ -262,8 +264,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
         Text(
           l10n.userContentLimitsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
@@ -277,10 +279,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -297,10 +299,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -317,10 +319,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -330,7 +332,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
     );
   }
 
-  Widget _buildAdConfigSection(BuildContext context, RemoteConfig remoteConfig) {
+  Widget _buildAdConfigSection(
+    BuildContext context,
+    RemoteConfig remoteConfig,
+  ) {
     final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,8 +343,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
         Text(
           l10n.adSettingsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
@@ -353,10 +358,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -373,10 +378,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -393,10 +398,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -417,8 +422,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
         Text(
           l10n.inAppPromptsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
@@ -432,10 +437,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -452,10 +457,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: newConfig,
-                      ),
-                    );
+                  AppConfigurationFieldChanged(
+                    remoteConfig: newConfig,
+                  ),
+                );
               },
               buildIntField: _buildIntField,
             ),
@@ -466,7 +471,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
   }
 
   Widget _buildAppStatusSection(
-      BuildContext context, RemoteConfig remoteConfig) {
+    BuildContext context,
+    RemoteConfig remoteConfig,
+  ) {
     final l10n = context.l10n;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -476,9 +483,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           Text(
             l10n.appOperationalStatusWarning,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.error,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: Theme.of(context).colorScheme.error,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           SwitchListTile(
@@ -487,14 +494,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             value: remoteConfig.appStatus.isUnderMaintenance,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      remoteConfig: remoteConfig.copyWith(
-                        appStatus: remoteConfig.appStatus.copyWith(
-                          isUnderMaintenance: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      isUnderMaintenance: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -504,14 +511,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             value: remoteConfig.appStatus.latestAppVersion,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      remoteConfig: remoteConfig.copyWith(
-                        appStatus: remoteConfig.appStatus.copyWith(
-                          latestAppVersion: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      latestAppVersion: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           SwitchListTile(
@@ -520,14 +527,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             value: remoteConfig.appStatus.isLatestVersionOnly,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      remoteConfig: remoteConfig.copyWith(
-                        appStatus: remoteConfig.appStatus.copyWith(
-                          isLatestVersionOnly: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      isLatestVersionOnly: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -537,14 +544,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             value: remoteConfig.appStatus.iosUpdateUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      remoteConfig: remoteConfig.copyWith(
-                        appStatus: remoteConfig.appStatus.copyWith(
-                          iosUpdateUrl: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      iosUpdateUrl: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
           _buildTextField(
@@ -554,14 +561,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
             value: remoteConfig.appStatus.androidUpdateUrl,
             onChanged: (value) {
               context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(
-                      remoteConfig: remoteConfig.copyWith(
-                        appStatus: remoteConfig.appStatus.copyWith(
-                          androidUpdateUrl: value,
-                        ),
-                      ),
+                AppConfigurationFieldChanged(
+                  remoteConfig: remoteConfig.copyWith(
+                    appStatus: remoteConfig.appStatus.copyWith(
+                      androidUpdateUrl: value,
                     ),
-                  );
+                  ),
+                ),
+              );
             },
           ),
         ],
@@ -590,9 +597,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
@@ -636,9 +642,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage> {
           Text(
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
@@ -674,7 +679,8 @@ class _UserPreferenceLimitsForm extends StatefulWidget {
     required int value,
     required ValueChanged<int> onChanged,
     TextEditingController? controller,
-  }) buildIntField;
+  })
+  buildIntField;
 
   @override
   State<_UserPreferenceLimitsForm> createState() =>
@@ -704,20 +710,26 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _followedItemsLimitController =
-            TextEditingController(text: config.guestFollowedItemsLimit.toString());
-        _savedHeadlinesLimitController =
-            TextEditingController(text: config.guestSavedHeadlinesLimit.toString());
+        _followedItemsLimitController = TextEditingController(
+          text: config.guestFollowedItemsLimit.toString(),
+        );
+        _savedHeadlinesLimitController = TextEditingController(
+          text: config.guestSavedHeadlinesLimit.toString(),
+        );
       case AppUserRole.standardUser:
         _followedItemsLimitController = TextEditingController(
-            text: config.authenticatedFollowedItemsLimit.toString());
+          text: config.authenticatedFollowedItemsLimit.toString(),
+        );
         _savedHeadlinesLimitController = TextEditingController(
-            text: config.authenticatedSavedHeadlinesLimit.toString());
+          text: config.authenticatedSavedHeadlinesLimit.toString(),
+        );
       case AppUserRole.premiumUser:
         _followedItemsLimitController = TextEditingController(
-            text: config.premiumFollowedItemsLimit.toString());
+          text: config.premiumFollowedItemsLimit.toString(),
+        );
         _savedHeadlinesLimitController = TextEditingController(
-            text: config.premiumSavedHeadlinesLimit.toString());
+          text: config.premiumSavedHeadlinesLimit.toString(),
+        );
     }
   }
 
@@ -725,20 +737,22 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _followedItemsLimitController.text =
-            config.guestFollowedItemsLimit.toString();
-        _savedHeadlinesLimitController.text =
-            config.guestSavedHeadlinesLimit.toString();
+        _followedItemsLimitController.text = config.guestFollowedItemsLimit
+            .toString();
+        _savedHeadlinesLimitController.text = config.guestSavedHeadlinesLimit
+            .toString();
       case AppUserRole.standardUser:
-        _followedItemsLimitController.text =
-            config.authenticatedFollowedItemsLimit.toString();
-        _savedHeadlinesLimitController.text =
-            config.authenticatedSavedHeadlinesLimit.toString();
+        _followedItemsLimitController.text = config
+            .authenticatedFollowedItemsLimit
+            .toString();
+        _savedHeadlinesLimitController.text = config
+            .authenticatedSavedHeadlinesLimit
+            .toString();
       case AppUserRole.premiumUser:
-        _followedItemsLimitController.text =
-            config.premiumFollowedItemsLimit.toString();
-        _savedHeadlinesLimitController.text =
-            config.premiumSavedHeadlinesLimit.toString();
+        _followedItemsLimitController.text = config.premiumFollowedItemsLimit
+            .toString();
+        _savedHeadlinesLimitController.text = config.premiumSavedHeadlinesLimit
+            .toString();
     }
   }
 
@@ -765,8 +779,10 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
           onChanged: (value) {
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
-                userPreferenceConfig:
-                    _updateFollowedItemsLimit(userPreferenceConfig, value),
+                userPreferenceConfig: _updateFollowedItemsLimit(
+                  userPreferenceConfig,
+                  value,
+                ),
               ),
             );
           },
@@ -775,14 +791,15 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
         widget.buildIntField(
           context,
           label: 'Saved Headlines Limit',
-          description:
-              'Maximum number of headlines this user role can save.',
+          description: 'Maximum number of headlines this user role can save.',
           value: _getSavedHeadlinesLimit(userPreferenceConfig),
           onChanged: (value) {
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
-                userPreferenceConfig:
-                    _updateSavedHeadlinesLimit(userPreferenceConfig, value),
+                userPreferenceConfig: _updateSavedHeadlinesLimit(
+                  userPreferenceConfig,
+                  value,
+                ),
               ),
             );
           },
@@ -815,7 +832,9 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   }
 
   UserPreferenceConfig _updateFollowedItemsLimit(
-      UserPreferenceConfig config, int value) {
+    UserPreferenceConfig config,
+    int value,
+  ) {
     switch (widget.userRole) {
       case AppUserRole.guestUser:
         return config.copyWith(guestFollowedItemsLimit: value);
@@ -827,7 +846,9 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   }
 
   UserPreferenceConfig _updateSavedHeadlinesLimit(
-      UserPreferenceConfig config, int value) {
+    UserPreferenceConfig config,
+    int value,
+  ) {
     switch (widget.userRole) {
       case AppUserRole.guestUser:
         return config.copyWith(guestSavedHeadlinesLimit: value);
@@ -857,7 +878,8 @@ class _AdConfigForm extends StatefulWidget {
     required int value,
     required ValueChanged<int> onChanged,
     TextEditingController? controller,
-  }) buildIntField;
+  })
+  buildIntField;
 
   @override
   State<_AdConfigForm> createState() => _AdConfigFormState();
@@ -867,7 +889,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   late final TextEditingController _adFrequencyController;
   late final TextEditingController _adPlacementIntervalController;
   late final TextEditingController
-      _articlesToReadBeforeShowingInterstitialAdsController;
+  _articlesToReadBeforeShowingInterstitialAdsController;
 
   @override
   void initState() {
@@ -887,34 +909,43 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     final adConfig = widget.remoteConfig.adConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _adFrequencyController =
-            TextEditingController(text: adConfig.guestAdFrequency.toString());
+        _adFrequencyController = TextEditingController(
+          text: adConfig.guestAdFrequency.toString(),
+        );
         _adPlacementIntervalController = TextEditingController(
-            text: adConfig.guestAdPlacementInterval.toString());
+          text: adConfig.guestAdPlacementInterval.toString(),
+        );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-                text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
-                    .toString());
+              text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
+                  .toString(),
+            );
       case AppUserRole.standardUser:
         _adFrequencyController = TextEditingController(
-            text: adConfig.authenticatedAdFrequency.toString());
+          text: adConfig.authenticatedAdFrequency.toString(),
+        );
         _adPlacementIntervalController = TextEditingController(
-            text: adConfig.authenticatedAdPlacementInterval.toString());
+          text: adConfig.authenticatedAdPlacementInterval.toString(),
+        );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-                text: adConfig
-                    .standardUserArticlesToReadBeforeShowingInterstitialAds
-                    .toString());
+              text: adConfig
+                  .standardUserArticlesToReadBeforeShowingInterstitialAds
+                  .toString(),
+            );
       case AppUserRole.premiumUser:
-        _adFrequencyController =
-            TextEditingController(text: adConfig.premiumAdFrequency.toString());
+        _adFrequencyController = TextEditingController(
+          text: adConfig.premiumAdFrequency.toString(),
+        );
         _adPlacementIntervalController = TextEditingController(
-            text: adConfig.premiumAdPlacementInterval.toString());
+          text: adConfig.premiumAdPlacementInterval.toString(),
+        );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-                text: adConfig
-                    .premiumUserArticlesToReadBeforeShowingInterstitialAds
-                    .toString());
+              text: adConfig
+                  .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                  .toString(),
+            );
     }
   }
 
@@ -923,23 +954,25 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     switch (widget.userRole) {
       case AppUserRole.guestUser:
         _adFrequencyController.text = adConfig.guestAdFrequency.toString();
-        _adPlacementIntervalController.text =
-            adConfig.guestAdPlacementInterval.toString();
+        _adPlacementIntervalController.text = adConfig.guestAdPlacementInterval
+            .toString();
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .guestArticlesToReadBeforeShowingInterstitialAds
             .toString();
       case AppUserRole.standardUser:
-        _adFrequencyController.text =
-            adConfig.authenticatedAdFrequency.toString();
-        _adPlacementIntervalController.text =
-            adConfig.authenticatedAdPlacementInterval.toString();
+        _adFrequencyController.text = adConfig.authenticatedAdFrequency
+            .toString();
+        _adPlacementIntervalController.text = adConfig
+            .authenticatedAdPlacementInterval
+            .toString();
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .standardUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
       case AppUserRole.premiumUser:
         _adFrequencyController.text = adConfig.premiumAdFrequency.toString();
-        _adPlacementIntervalController.text =
-            adConfig.premiumAdPlacementInterval.toString();
+        _adPlacementIntervalController.text = adConfig
+            .premiumAdPlacementInterval
+            .toString();
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .premiumUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
@@ -1071,13 +1104,16 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     switch (widget.userRole) {
       case AppUserRole.guestUser:
         return config.copyWith(
-            guestArticlesToReadBeforeShowingInterstitialAds: value);
+          guestArticlesToReadBeforeShowingInterstitialAds: value,
+        );
       case AppUserRole.standardUser:
         return config.copyWith(
-            standardUserArticlesToReadBeforeShowingInterstitialAds: value);
+          standardUserArticlesToReadBeforeShowingInterstitialAds: value,
+        );
       case AppUserRole.premiumUser:
         return config.copyWith(
-            premiumUserArticlesToReadBeforeShowingInterstitialAds: value);
+          premiumUserArticlesToReadBeforeShowingInterstitialAds: value,
+        );
     }
   }
 }
@@ -1100,7 +1136,8 @@ class _AccountActionConfigForm extends StatefulWidget {
     required int value,
     required ValueChanged<int> onChanged,
     TextEditingController? controller,
-  }) buildIntField;
+  })
+  buildIntField;
 
   @override
   State<_AccountActionConfigForm> createState() =>
@@ -1164,15 +1201,16 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
   String _formatLabel(String enumName) {
     // Converts camelCase to Title Case
     final spaced = enumName.replaceAllMapped(
-        RegExp(r'([A-Z])'), (match) => ' ${match.group(1)}');
+      RegExp('([A-Z])'),
+      (match) => ' ${match.group(1)}',
+    );
     return '${spaced[0].toUpperCase()}${spaced.substring(1)} Days';
   }
 
   @override
   Widget build(BuildContext context) {
     final accountActionConfig = widget.remoteConfig.accountActionConfig;
-    final relevantActionTypes =
-        _getDaysMap(accountActionConfig).keys.toList();
+    final relevantActionTypes = _getDaysMap(accountActionConfig).keys.toList();
 
     return Column(
       children: relevantActionTypes.map((actionType) {
@@ -1189,9 +1227,11 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
 
             final newConfig = widget.userRole == AppUserRole.guestUser
                 ? accountActionConfig.copyWith(
-                    guestDaysBetweenActions: updatedMap)
+                    guestDaysBetweenActions: updatedMap,
+                  )
                 : accountActionConfig.copyWith(
-                    standardUserDaysBetweenActions: updatedMap);
+                    standardUserDaysBetweenActions: updatedMap,
+                  );
 
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(accountActionConfig: newConfig),

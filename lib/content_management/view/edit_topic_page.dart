@@ -108,7 +108,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
                 SnackBar(content: Text(l10n.topicUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-                  TopicUpdated(state.updatedTopic!),
+              TopicUpdated(state.updatedTopic!),
             );
             context.pop();
           }
@@ -161,9 +161,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
                         labelText: l10n.topicName,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => context
-                          .read<EditTopicBloc>()
-                          .add(EditTopicNameChanged(value)),
+                      onChanged: (value) => context.read<EditTopicBloc>().add(
+                        EditTopicNameChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -173,9 +173,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
                         border: const OutlineInputBorder(),
                       ),
                       maxLines: 3,
-                      onChanged: (value) => context
-                          .read<EditTopicBloc>()
-                          .add(EditTopicDescriptionChanged(value)),
+                      onChanged: (value) => context.read<EditTopicBloc>().add(
+                        EditTopicDescriptionChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -184,9 +184,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
                         labelText: l10n.iconUrl,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => context
-                          .read<EditTopicBloc>()
-                          .add(EditTopicIconUrlChanged(value)),
+                      onChanged: (value) => context.read<EditTopicBloc>().add(
+                        EditTopicIconUrlChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

@@ -5,8 +5,8 @@ import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/app/config/config.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template email_code_verification_page}
 /// Page where the user enters the 6-digit code sent to their email

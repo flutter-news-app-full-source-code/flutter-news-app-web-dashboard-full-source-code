@@ -196,7 +196,9 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
-          exception: UnknownException('Cannot update: Original headline data not loaded.'),
+          exception: const UnknownException(
+            'Cannot update: Original headline data not loaded.',
+          ),
         ),
       );
       return;

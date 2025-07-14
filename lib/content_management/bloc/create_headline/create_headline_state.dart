@@ -98,19 +98,19 @@ final class CreateHeadlineState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        title,
-        excerpt,
-        url,
-        imageUrl,
-        source,
-        topic,
-        eventCountry,
-        sources,
-        topics,
-        countries,
-        contentStatus,
-        exception,
-        createdHeadline,
-      ];
+    status,
+    title,
+    excerpt,
+    url,
+    imageUrl,
+    source,
+    topic,
+    eventCountry,
+    sources,
+    topics,
+    countries,
+    contentStatus,
+    exception,
+    createdHeadline,
+  ];
 }

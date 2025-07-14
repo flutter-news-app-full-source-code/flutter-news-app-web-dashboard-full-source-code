@@ -208,7 +208,9 @@ class _TopicsDataSource extends DataTableSource {
     if (hasMore) {
       // When loading, we show an extra row for the spinner.
       // Otherwise, we just indicate that there are more rows.
-      return isLoading ? topics.length + 1 : topics.length + kDefaultRowsPerPage;
+      return isLoading
+          ? topics.length + 1
+          : topics.length + kDefaultRowsPerPage;
     }
     return topics.length;
   }

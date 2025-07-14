@@ -63,12 +63,12 @@ final class CreateTopicState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        name,
-        description,
-        iconUrl,
-        contentStatus,
-        exception,
-        createdTopic,
-      ];
+    status,
+    name,
+    description,
+    iconUrl,
+    contentStatus,
+    exception,
+    createdTopic,
+  ];
 }

@@ -49,10 +49,10 @@ final class DashboardState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        summary,
-        appConfig,
-        recentHeadlines,
-        exception,
-      ];
+    status,
+    summary,
+    appConfig,
+    recentHeadlines,
+    exception,
+  ];
 }
