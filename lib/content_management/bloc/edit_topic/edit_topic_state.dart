@@ -27,7 +27,7 @@ final class EditTopicState extends Equatable {
     this.description = '',
     this.iconUrl = '',
     this.contentStatus = ContentStatus.active,
-    this.errorMessage,
+    this.exception,
     this.updatedTopic,
   });
 
@@ -37,7 +37,7 @@ final class EditTopicState extends Equatable {
   final String description;
   final String iconUrl;
   final ContentStatus contentStatus;
-  final String? errorMessage;
+  final HtHttpException? exception;
   final Topic? updatedTopic;
 
   /// Returns true if the form is valid and can be submitted.
@@ -52,7 +52,7 @@ final class EditTopicState extends Equatable {
     String? description,
     String? iconUrl,
     ContentStatus? contentStatus,
-    String? errorMessage,
+    HtHttpException? exception,
     Topic? updatedTopic,
   }) {
     return EditTopicState(
@@ -62,7 +62,7 @@ final class EditTopicState extends Equatable {
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
       contentStatus: contentStatus ?? this.contentStatus,
-      errorMessage: errorMessage ?? this.errorMessage,
+      exception: exception,
       updatedTopic: updatedTopic ?? this.updatedTopic,
     );
   }
@@ -75,7 +75,7 @@ final class EditTopicState extends Equatable {
         description,
         iconUrl,
         contentStatus,
-        errorMessage,
+        exception,
         updatedTopic,
       ];
 }

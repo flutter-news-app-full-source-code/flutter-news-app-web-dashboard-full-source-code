@@ -47,14 +47,14 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
@@ -121,7 +121,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          errorMessage: 'Cannot update: Original topic data not loaded.',
+          exception: UnknownException('Cannot update: Original topic data not loaded.'),
         ),
       );
       return;
@@ -152,14 +152,14 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          errorMessage: e.message,
+          exception: e,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          errorMessage: e.toString(),
+          exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
     }
