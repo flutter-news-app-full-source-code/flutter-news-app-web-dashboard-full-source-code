@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_ui_kit/ht_ui_kit.dart';
@@ -34,11 +35,14 @@ class AuthenticationPage extends StatelessWidget {
           listener: (context, state) {
             if (state.status == AuthenticationStatus.failure &&
                 state.exception != null) {
+              final friendlyMessage = state.exception!.toFriendlyMessage(
+                context,
+              );
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
-                    content: Text(state.exception!.toFriendlyMessage(context)),
+                    content: Text(friendlyMessage),
                     backgroundColor: colorScheme.error,
                   ),
                 );
@@ -49,7 +53,8 @@ class AuthenticationPage extends StatelessWidget {
             // email flow pages.
           },
           builder: (context, state) {
-            final isLoading = state.status == AuthenticationStatus.loading ||
+            final isLoading =
+                state.status == AuthenticationStatus.loading ||
                 state.status == AuthenticationStatus.requestCodeLoading;
 
             return Padding(
