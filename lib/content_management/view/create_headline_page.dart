@@ -95,7 +95,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage ?? l10n.unknownError),
+                  content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -115,7 +115,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               state.topics.isEmpty &&
               state.countries.isEmpty) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<CreateHeadlineBloc>().add(
                 const CreateHeadlineDataLoaded(),
               ),
