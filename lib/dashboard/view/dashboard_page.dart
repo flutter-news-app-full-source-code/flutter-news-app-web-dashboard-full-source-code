@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/shared.dart';
@@ -50,10 +49,8 @@ class _DashboardPageState extends State<DashboardPage> {
             );
           }
           if (state.status == DashboardStatus.success &&
-              state.summary != null &&
-              state.appConfig != null) {
+              state.summary != null) {
             final summary = state.summary!;
-            final appConfig = state.appConfig!;
             final recentHeadlines = state.recentHeadlines;
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -113,15 +110,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
                     final mainContent = [
                       _RecentHeadlinesCard(headlines: recentHeadlines),
-                      Column(
-                        children: [
-                          _SystemStatusCard(
-                            appStatus: appConfig.appStatus,
-                          ),
-                          const SizedBox(height: AppSpacing.lg),
-                          const _QuickActionsCard(),
-                        ],
-                      ),
+                      const _QuickActionsCard(),
                     ];
 
                     if (isWide) {
@@ -152,71 +141,6 @@ class _DashboardPageState extends State<DashboardPage> {
         },
       ),
     );
-  }
-}
-
-/// A card to display the current operational status of the application.
-class _SystemStatusCard extends StatelessWidget {
-  const _SystemStatusCard({required this.appStatus});
-
-  final AppStatus appStatus;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final theme = Theme.of(context);
-
-    final (icon, color, text) = _getStatusDetails(appStatus, l10n, theme);
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.systemStatus, style: theme.textTheme.titleLarge),
-            const SizedBox(height: AppSpacing.md),
-            Row(
-              children: [
-                Icon(icon, color: color, size: 24),
-                const SizedBox(width: AppSpacing.sm),
-                Text(
-                  text,
-                  style: theme.textTheme.titleMedium?.copyWith(color: color),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Returns the appropriate icon, color, and text for a given status.
-  (IconData, Color, String) _getStatusDetails(
-    AppStatus appStatus,
-    AppLocalizations l10n,
-    ThemeData theme,
-  ) {
-    if (appStatus.isUnderMaintenance) {
-      return (
-        Icons.warning_amber_outlined,
-        theme.colorScheme.tertiary,
-        l10n.appStatusMaintenance,
-      );
-    } else if (appStatus.isLatestVersionOnly) {
-      return (
-        Icons.cancel_outlined,
-        theme.colorScheme.error,
-        l10n.appStatusDisabled,
-      );
-    } else {
-      return (
-        Icons.check_circle_outline,
-        theme.colorScheme.primary,
-        l10n.appStatusActive,
-      );
-    }
   }
 }
 
