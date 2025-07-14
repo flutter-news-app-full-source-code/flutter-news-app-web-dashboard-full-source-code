@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:ht_dashboard/router/routes.dart';
 import 'package:ht_dashboard/shared/constants/app_spacing.dart';
 
@@ -31,15 +32,13 @@ class AuthenticationPage extends StatelessWidget {
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           // Listener remains crucial for feedback (errors)
           listener: (context, state) {
-            if (state.status == AuthenticationStatus.failure) {
+            if (state.status == AuthenticationStatus.failure &&
+                state.exception != null) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
-                    content: Text(
-                      // Provide a more user-friendly error message if possible
-                      state.errorMessage!,
-                    ),
+                    content: Text(state.exception!.toFriendlyMessage(context)),
                     backgroundColor: colorScheme.error,
                   ),
                 );
