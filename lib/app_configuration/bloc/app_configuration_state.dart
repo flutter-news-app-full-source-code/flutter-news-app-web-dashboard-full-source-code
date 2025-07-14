@@ -24,7 +24,7 @@ class AppConfigurationState extends Equatable {
     this.status = AppConfigurationStatus.initial,
     this.remoteConfig,
     this.originalRemoteConfig,
-    this.errorMessage,
+    this.exception,
     this.isDirty = false,
     this.showSaveSuccess = false,
   });
@@ -52,7 +52,7 @@ class AppConfigurationState extends Equatable {
     AppConfigurationStatus? status,
     RemoteConfig? remoteConfig,
     RemoteConfig? originalRemoteConfig,
-    String? errorMessage,
+    HtHttpException? exception,
     bool? isDirty,
     bool clearErrorMessage = false,
     bool? showSaveSuccess,
@@ -62,9 +62,9 @@ class AppConfigurationState extends Equatable {
       status: status ?? this.status,
       remoteConfig: remoteConfig ?? this.remoteConfig,
       originalRemoteConfig: originalRemoteConfig ?? this.originalRemoteConfig,
-      errorMessage: clearErrorMessage
+      exception: clearErrorMessage
           ? null
-          : errorMessage ?? this.errorMessage,
+          : exception ?? this.exception,
       isDirty: isDirty ?? this.isDirty,
       showSaveSuccess: clearShowSaveSuccess
           ? false
@@ -74,11 +74,11 @@ class AppConfigurationState extends Equatable {
 
   @override
   List<Object?> get props => [
-    status,
-    remoteConfig,
-    originalRemoteConfig,
-    errorMessage,
-    isDirty,
-    showSaveSuccess,
-  ];
+        status,
+        remoteConfig,
+        originalRemoteConfig,
+        exception,
+        isDirty,
+        showSaveSuccess,
+      ];
 }
