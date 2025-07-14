@@ -49,7 +49,7 @@ class _TopicPageState extends State<TopicPage> {
 
           if (state.topicsStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
-              message: state.errorMessage ?? l10n.unknownError,
+              exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
                 const LoadTopicsRequested(limit: kDefaultRowsPerPage),
               ),
