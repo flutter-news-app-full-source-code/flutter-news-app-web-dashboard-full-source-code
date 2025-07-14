@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_shared/ht_shared.dart'; 
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
@@ -36,8 +36,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         appConfigResponse,
         recentHeadlinesResponse,
       ] = await Future.wait([
-        _dashboardSummaryRepository.read(id: 'dashboard_summary'),
-        _appConfigRepository.read(id: 'app_config'),
+        _dashboardSummaryRepository.read(id: kDashboardSummaryId),
+        _appConfigRepository.read(id: kRemoteConfigId),
         _headlinesRepository.readAll(
           pagination: const PaginationOptions(limit: 5),
           sort: const [SortOption('createdAt', SortOrder.desc)],
