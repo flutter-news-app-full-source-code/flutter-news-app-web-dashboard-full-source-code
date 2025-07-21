@@ -15,7 +15,6 @@ import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/router/router.dart';
 // Import for app_theme.dart
-import 'package:ht_dashboard/shared/theme/app_theme.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
 import 'package:ht_shared/ht_shared.dart' hide AppStatus;
