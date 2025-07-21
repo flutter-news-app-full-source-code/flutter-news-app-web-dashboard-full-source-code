@@ -6,12 +6,9 @@ import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dar
 import 'package:ht_dashboard/l10n/app_localizations.dart'; // Corrected import
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/constants/app_spacing.dart';
-import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
-import 'package:ht_dashboard/shared/widgets/failure_state_widget.dart';
-import 'package:ht_dashboard/shared/widgets/loading_state_widget.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:intl/intl.dart';
 
 /// {@template headlines_page}
@@ -36,7 +33,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(

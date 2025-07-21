@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:ht_dashboard/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/shared/constants/pagination_constants.dart';
 import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
@@ -41,7 +40,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.createTopic),

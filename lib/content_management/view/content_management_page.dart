@@ -7,7 +7,7 @@ import 'package:ht_dashboard/content_management/view/sources_page.dart';
 import 'package:ht_dashboard/content_management/view/topics_page.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -50,7 +50,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return BlocListener<ContentManagementBloc, ContentManagementState>(
       listener: (context, state) {
         // Optionally handle state changes, e.g., show snackbar for errors
