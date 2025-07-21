@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/shared/constants/app_spacing.dart';
-import 'package:ht_dashboard/shared/widgets/widgets.dart';
 import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart'; // Import for toFriendlyMessage
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template app_configuration_page}
 /// A page for managing the application's remote configuration.
@@ -42,7 +40,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -65,8 +63,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 child: Text(
                   l10n.appConfigurationPageDescription,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
               TabBar(
@@ -94,8 +92,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
@@ -113,8 +111,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     state.exception!.toFriendlyMessage(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onError,
-                        ),
+                      color: Theme.of(context).colorScheme.onError,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -229,7 +227,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       );
                     }
                   : null,
-              child: Text(context.l10n.discardChangesButton),
+              child: Text(AppLocalizationsX(context).l10n.discardChangesButton),
             ),
             const SizedBox(width: AppSpacing.md),
             ElevatedButton(
@@ -245,7 +243,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       }
                     }
                   : null,
-              child: Text(context.l10n.saveChangesButton),
+              child: Text(AppLocalizationsX(context).l10n.saveChangesButton),
             ),
           ],
         ),
@@ -259,17 +257,19 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           builder: (BuildContext dialogContext) {
             return AlertDialog(
               title: Text(
-                context.l10n.confirmConfigUpdateDialogTitle,
+                AppLocalizationsX(context).l10n.confirmConfigUpdateDialogTitle,
                 style: Theme.of(dialogContext).textTheme.titleLarge,
               ),
               content: Text(
-                context.l10n.confirmConfigUpdateDialogContent,
+                AppLocalizationsX(
+                  context,
+                ).l10n.confirmConfigUpdateDialogContent,
                 style: Theme.of(dialogContext).textTheme.bodyMedium,
               ),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(dialogContext).pop(false),
-                  child: Text(context.l10n.cancelButton),
+                  child: Text(AppLocalizationsX(context).l10n.cancelButton),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -279,7 +279,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       dialogContext,
                     ).colorScheme.onError,
                   ),
-                  child: Text(context.l10n.confirmSaveButton),
+                  child: Text(
+                    AppLocalizationsX(context).l10n.confirmSaveButton,
+                  ),
                 ),
               ],
             );
@@ -292,7 +294,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     RemoteConfig remoteConfig,
   ) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -371,7 +373,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     RemoteConfig remoteConfig,
   ) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -450,7 +452,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     RemoteConfig remoteConfig,
   ) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -509,7 +511,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     RemoteConfig remoteConfig,
   ) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return ExpansionTile(
       title: Text(l10n.maintenanceModeTitle),
       childrenPadding: const EdgeInsets.symmetric(
@@ -523,9 +525,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             Text(
               l10n.maintenanceModeDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color:
-                        Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
             SwitchListTile(
@@ -534,14 +535,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.isUnderMaintenance,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: remoteConfig.copyWith(
-                          appStatus: remoteConfig.appStatus.copyWith(
-                            isUnderMaintenance: value,
-                          ),
-                        ),
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        isUnderMaintenance: value,
                       ),
-                    );
+                    ),
+                  ),
+                );
               },
             ),
           ],
@@ -554,7 +555,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     BuildContext context,
     RemoteConfig remoteConfig,
   ) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return ExpansionTile(
       title: Text(l10n.forceUpdateTitle),
       childrenPadding: const EdgeInsets.symmetric(
@@ -568,9 +569,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             Text(
               l10n.forceUpdateDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color:
-                        Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
             _buildTextField(
@@ -580,14 +580,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.latestAppVersion,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: remoteConfig.copyWith(
-                          appStatus: remoteConfig.appStatus.copyWith(
-                            latestAppVersion: value,
-                          ),
-                        ),
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        latestAppVersion: value,
                       ),
-                    );
+                    ),
+                  ),
+                );
               },
             ),
             SwitchListTile(
@@ -596,14 +596,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.isLatestVersionOnly,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: remoteConfig.copyWith(
-                          appStatus: remoteConfig.appStatus.copyWith(
-                            isLatestVersionOnly: value,
-                          ),
-                        ),
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        isLatestVersionOnly: value,
                       ),
-                    );
+                    ),
+                  ),
+                );
               },
             ),
             _buildTextField(
@@ -613,14 +613,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.iosUpdateUrl,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: remoteConfig.copyWith(
-                          appStatus: remoteConfig.appStatus.copyWith(
-                            iosUpdateUrl: value,
-                          ),
-                        ),
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        iosUpdateUrl: value,
                       ),
-                    );
+                    ),
+                  ),
+                );
               },
             ),
             _buildTextField(
@@ -630,14 +630,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               value: remoteConfig.appStatus.androidUpdateUrl,
               onChanged: (value) {
                 context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(
-                        remoteConfig: remoteConfig.copyWith(
-                          appStatus: remoteConfig.appStatus.copyWith(
-                            androidUpdateUrl: value,
-                          ),
-                        ),
+                  AppConfigurationFieldChanged(
+                    remoteConfig: remoteConfig.copyWith(
+                      appStatus: remoteConfig.appStatus.copyWith(
+                        androidUpdateUrl: value,
                       ),
-                    );
+                    ),
+                  ),
+                );
               },
             ),
           ],
@@ -836,7 +836,7 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
   @override
   Widget build(BuildContext context) {
     final userPreferenceConfig = widget.remoteConfig.userPreferenceConfig;
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
 
     return Column(
       children: [
@@ -1103,7 +1103,7 @@ class _AdConfigFormState extends State<_AdConfigForm> {
   @override
   Widget build(BuildContext context) {
     final adConfig = widget.remoteConfig.adConfig;
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
 
     return Column(
       children: [
@@ -1310,7 +1310,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
   Widget build(BuildContext context) {
     final accountActionConfig = widget.remoteConfig.accountActionConfig;
     final relevantActionTypes = _getDaysMap(accountActionConfig).keys.toList();
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
 
     return Column(
       children: relevantActionTypes.map((actionType) {

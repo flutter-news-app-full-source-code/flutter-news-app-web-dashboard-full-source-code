@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/shared.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template dashboard_page}
 /// The main dashboard page, displaying key statistics and quick actions.
@@ -28,7 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       body: BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
@@ -150,7 +150,7 @@ class _QuickActionsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
     return Card(
@@ -193,7 +193,7 @@ class _RecentHeadlinesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
     return Card(

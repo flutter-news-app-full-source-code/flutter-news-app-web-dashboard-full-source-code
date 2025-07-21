@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/constants/app_spacing.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// A responsive scaffold shell for the main application sections.
 ///
@@ -24,7 +24,7 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.dashboard),
