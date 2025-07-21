@@ -261,7 +261,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 style: Theme.of(dialogContext).textTheme.titleLarge,
               ),
               content: Text(
-                AppLocalizationsX(context).l10n.confirmConfigUpdateDialogContent,
+                AppLocalizationsX(
+                  context,
+                ).l10n.confirmConfigUpdateDialogContent,
                 style: Theme.of(dialogContext).textTheme.bodyMedium,
               ),
               actions: <Widget>[
@@ -277,7 +279,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       dialogContext,
                     ).colorScheme.onError,
                   ),
-                  child: Text(AppLocalizationsX(context).l10n.confirmSaveButton),
+                  child: Text(
+                    AppLocalizationsX(context).l10n.confirmSaveButton,
+                  ),
                 ),
               ],
             );
