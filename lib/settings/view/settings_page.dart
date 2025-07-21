@@ -4,11 +4,9 @@ import 'package:ht_dashboard/app/bloc/app_bloc.dart';
 import 'package:ht_dashboard/l10n/app_localizations.dart';
 import 'package:ht_dashboard/l10n/l10n.dart';
 import 'package:ht_dashboard/settings/bloc/settings_bloc.dart';
-import 'package:ht_dashboard/shared/constants/app_spacing.dart';
-import 'package:ht_dashboard/shared/widgets/widgets.dart';
 import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart'; // Import for toFriendlyMessage
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 
 /// {@template settings_page}
 /// A page for user settings, allowing customization of theme and language.
@@ -34,7 +32,7 @@ class _SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.settings),
