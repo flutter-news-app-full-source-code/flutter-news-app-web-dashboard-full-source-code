@@ -8,8 +8,6 @@ import 'package:ht_auth_repository/ht_auth_repository.dart';
 import 'package:ht_dashboard/app/app.dart';
 import 'package:ht_dashboard/app/config/config.dart' as app_config;
 import 'package:ht_dashboard/bloc_observer.dart';
-import 'package:ht_dashboard/shared/localization/ar_timeago_messages.dart';
-import 'package:ht_dashboard/shared/localization/en_timeago_messages.dart';
 import 'package:ht_data_api/ht_data_api.dart';
 import 'package:ht_data_client/ht_data_client.dart';
 import 'package:ht_data_inmemory/ht_data_inmemory.dart';
@@ -17,6 +15,7 @@ import 'package:ht_data_repository/ht_data_repository.dart';
 import 'package:ht_http_client/ht_http_client.dart';
 import 'package:ht_kv_storage_shared_preferences/ht_kv_storage_shared_preferences.dart';
 import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:logging/logging.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -48,7 +47,6 @@ Future<Widget> bootstrap(
     httpClient = HtHttpClient(
       baseUrl: appConfig.baseUrl,
       tokenProvider: () => authenticationRepository.getAuthToken(),
-      isWeb: kIsWeb,
     );
     authClient = HtAuthApi(
       httpClient: httpClient,
