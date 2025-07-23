@@ -1,12 +1,12 @@
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ht_dashboard/app/bloc/app_bloc.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/settings/bloc/settings_bloc.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/settings/bloc/settings_bloc.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template settings_page}
 /// A page for user settings, allowing customization of theme and language.
@@ -20,7 +20,7 @@ class SettingsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => SettingsBloc(
         userAppSettingsRepository: context
-            .read<HtDataRepository<UserAppSettings>>(),
+            .read<DataRepository<UserAppSettings>>(),
       )..add(SettingsLoaded(userId: context.read<AppBloc>().state.user?.id)),
       child: const _SettingsView(),
     );
@@ -62,9 +62,7 @@ class _SettingsView extends StatelessWidget {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.settingsSavedSuccessfully),
-                ),
+                SnackBar(content: Text(l10n.settingsSavedSuccessfully)),
               );
             // Trigger AppBloc to reload settings for immediate UI update
             if (state.userAppSettings != null) {
@@ -77,9 +75,7 @@ class _SettingsView extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(
-                    state.exception.toFriendlyMessage(context),
-                  ),
+                  content: Text(state.exception.toFriendlyMessage(context)),
                 ),
               );
           }
@@ -89,9 +85,7 @@ class _SettingsView extends StatelessWidget {
               state is! SettingsLoadInProgress) {
             // If settings are null and not loading, try to load them
             context.read<SettingsBloc>().add(
-              SettingsLoaded(
-                userId: context.read<AppBloc>().state.user?.id,
-              ),
+              SettingsLoaded(userId: context.read<AppBloc>().state.user?.id),
             );
           }
 
@@ -138,9 +132,7 @@ class _SettingsView extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
-                                  SettingsBaseThemeChanged(
-                                    value,
-                                  ),
+                                  SettingsBaseThemeChanged(value),
                                 );
                               }
                             },
@@ -149,10 +141,7 @@ class _SettingsView extends StatelessWidget {
                                   (theme) => DropdownMenuItem(
                                     value: theme,
                                     child: Text(
-                                      _getAppBaseThemeName(
-                                        theme,
-                                        l10n,
-                                      ),
+                                      _getAppBaseThemeName(theme, l10n),
                                     ),
                                   ),
                                 )
@@ -169,9 +158,7 @@ class _SettingsView extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
-                                  SettingsAccentThemeChanged(
-                                    value,
-                                  ),
+                                  SettingsAccentThemeChanged(value),
                                 );
                               }
                             },
@@ -180,10 +167,7 @@ class _SettingsView extends StatelessWidget {
                                   (theme) => DropdownMenuItem(
                                     value: theme,
                                     child: Text(
-                                      _getAppAccentThemeName(
-                                        theme,
-                                        l10n,
-                                      ),
+                                      _getAppAccentThemeName(theme, l10n),
                                     ),
                                   ),
                                 )
@@ -207,9 +191,7 @@ class _SettingsView extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
-                                  SettingsFontFamilyChanged(
-                                    value,
-                                  ),
+                                  SettingsFontFamilyChanged(value),
                                 );
                               }
                             },
@@ -217,12 +199,7 @@ class _SettingsView extends StatelessWidget {
                                 .map(
                                   (font) => DropdownMenuItem(
                                     value: font,
-                                    child: Text(
-                                      _getFontFamilyName(
-                                        font,
-                                        l10n,
-                                      ),
-                                    ),
+                                    child: Text(_getFontFamilyName(font, l10n)),
                                   ),
                                 )
                                 .toList(),
@@ -239,9 +216,7 @@ class _SettingsView extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
-                                  SettingsTextScaleFactorChanged(
-                                    value,
-                                  ),
+                                  SettingsTextScaleFactorChanged(value),
                                 );
                               }
                             },
@@ -250,10 +225,7 @@ class _SettingsView extends StatelessWidget {
                                   (scale) => DropdownMenuItem(
                                     value: scale,
                                     child: Text(
-                                      _getAppTextScaleFactorName(
-                                        scale,
-                                        l10n,
-                                      ),
+                                      _getAppTextScaleFactorName(scale, l10n),
                                     ),
                                   ),
                                 )
@@ -270,9 +242,7 @@ class _SettingsView extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
-                                  SettingsFontWeightChanged(
-                                    value,
-                                  ),
+                                  SettingsFontWeightChanged(value),
                                 );
                               }
                             },
@@ -281,10 +251,7 @@ class _SettingsView extends StatelessWidget {
                                   (weight) => DropdownMenuItem(
                                     value: weight,
                                     child: Text(
-                                      _getAppFontWeightName(
-                                        weight,
-                                        l10n,
-                                      ),
+                                      _getAppFontWeightName(weight, l10n),
                                     ),
                                   ),
                                 )
@@ -338,10 +305,7 @@ class _SettingsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.xs),
               Text(
                 description,
@@ -467,10 +431,7 @@ class _LanguageSelectionList extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           trailing: isSelected
-              ? Icon(
-                  Icons.check,
-                  color: Theme.of(context).colorScheme.primary,
-                )
+              ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
               : null,
           onTap: () {
             if (!isSelected) {
@@ -495,8 +456,5 @@ class _LanguageSelectionList extends StatelessWidget {
     }
   }
 
-  static const List<AppLanguage> _supportedLanguages = [
-    'en',
-    'ar',
-  ];
+  static const List<AppLanguage> _supportedLanguages = ['en', 'ar'];
 }

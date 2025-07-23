@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
-    required HtDataRepository<UserAppSettings> userAppSettingsRepository,
+    required DataRepository<UserAppSettings> userAppSettingsRepository,
   }) : _userAppSettingsRepository = userAppSettingsRepository,
        super(const SettingsInitial()) {
     on<SettingsLoaded>(_onSettingsLoaded);
@@ -22,7 +22,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsLanguageChanged>(_onSettingsLanguageChanged);
   }
 
-  final HtDataRepository<UserAppSettings> _userAppSettingsRepository;
+  final DataRepository<UserAppSettings> _userAppSettingsRepository;
 
   Future<void> _onSettingsLoaded(
     SettingsLoaded event,
@@ -54,10 +54,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
       await _userAppSettingsRepository.create(item: defaultSettings);
       emit(SettingsLoadSuccess(userAppSettings: defaultSettings));
-    } on HtHttpException catch (e) {
-      emit(
-        SettingsLoadFailure(e, userAppSettings: state.userAppSettings),
-      );
+    } on HttpException catch (e) {
+      emit(SettingsLoadFailure(e, userAppSettings: state.userAppSettings));
     } catch (e) {
       emit(
         SettingsLoadFailure(
@@ -79,13 +77,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         item: updatedSettings,
       );
       emit(SettingsUpdateSuccess(userAppSettings: result));
-    } on HtHttpException catch (e) {
-      emit(
-        SettingsUpdateFailure(
-          e,
-          userAppSettings: state.userAppSettings,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(SettingsUpdateFailure(e, userAppSettings: state.userAppSettings));
     } catch (e) {
       emit(
         SettingsUpdateFailure(

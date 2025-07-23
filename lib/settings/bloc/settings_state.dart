@@ -42,7 +42,7 @@ final class SettingsLoadFailure extends SettingsState {
   const SettingsLoadFailure(this.exception, {super.userAppSettings});
 
   /// The error exception describing the failure.
-  final HtHttpException exception;
+  final HttpException exception;
 
   @override
   List<Object?> get props => [exception, userAppSettings];
@@ -72,7 +72,7 @@ final class SettingsUpdateFailure extends SettingsState {
   const SettingsUpdateFailure(this.exception, {super.userAppSettings});
 
   /// The error exception describing the failure.
-  final HtHttpException exception;
+  final HttpException exception;
 
   @override
   List<Object?> get props => [exception, userAppSettings];
