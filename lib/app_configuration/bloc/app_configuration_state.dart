@@ -39,7 +39,7 @@ class AppConfigurationState extends Equatable {
   final RemoteConfig? originalRemoteConfig;
 
   /// An error exception if an operation failed.
-  final HtHttpException? exception;
+  final HttpException? exception;
 
   /// Indicates if there are unsaved changes to the configuration.
   final bool isDirty;
@@ -52,7 +52,7 @@ class AppConfigurationState extends Equatable {
     AppConfigurationStatus? status,
     RemoteConfig? remoteConfig,
     RemoteConfig? originalRemoteConfig,
-    HtHttpException? exception,
+    HttpException? exception,
     bool? isDirty,
     bool clearException = false,
     bool? showSaveSuccess,

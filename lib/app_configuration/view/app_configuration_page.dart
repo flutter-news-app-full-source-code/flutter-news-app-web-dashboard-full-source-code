@@ -1,10 +1,10 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template app_configuration_page}
 /// A page for managing the application's remote configuration.
@@ -176,9 +176,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
-                      children: [
-                        _buildAdConfigSection(context, remoteConfig),
-                      ],
+                      children: [_buildAdConfigSection(context, remoteConfig)],
                     ),
                   ],
                 ),
@@ -316,9 +314,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -336,9 +332,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -356,9 +350,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -395,9 +387,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -415,9 +405,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -435,9 +423,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -474,9 +460,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -494,9 +478,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(
-                    remoteConfig: newConfig,
-                  ),
+                  AppConfigurationFieldChanged(remoteConfig: newConfig),
                 );
               },
               buildIntField: _buildIntField,
@@ -659,10 +641,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(label, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: AppSpacing.xs),
           Text(
             description,
@@ -704,10 +683,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(label, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: AppSpacing.xs),
           Text(
             description,
@@ -1326,9 +1302,7 @@ class _AccountActionConfigFormState extends State<_AccountActionConfigForm> {
         return widget.buildIntField(
           context,
           label: '$localizedActionType ${l10n.daysSuffix}',
-          description: l10n.daysBetweenPromptDescription(
-            localizedActionType,
-          ),
+          description: l10n.daysBetweenPromptDescription(localizedActionType),
           value: _getDaysMap(accountActionConfig)[actionType] ?? 0,
           onChanged: (value) {
             final currentMap = Map<FeedActionType, int>.from(
