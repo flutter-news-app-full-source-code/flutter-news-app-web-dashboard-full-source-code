@@ -27,13 +27,13 @@ final class DashboardState extends Equatable {
   final DashboardStatus status;
   final DashboardSummary? summary;
   final List<Headline> recentHeadlines;
-  final HtHttpException? exception;
+  final HttpException? exception;
 
   DashboardState copyWith({
     DashboardStatus? status,
     DashboardSummary? summary,
     List<Headline>? recentHeadlines,
-    HtHttpException? exception,
+    HttpException? exception,
   }) {
     return DashboardState(
       status: status ?? this.status,
@@ -44,10 +44,5 @@ final class DashboardState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-    status,
-    summary,
-    recentHeadlines,
-    exception,
-  ];
+  List<Object?> get props => [status, summary, recentHeadlines, exception];
 }

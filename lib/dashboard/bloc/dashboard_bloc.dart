@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
@@ -10,16 +10,16 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   /// {@macro dashboard_bloc}
   DashboardBloc({
-    required HtDataRepository<DashboardSummary> dashboardSummaryRepository,
-    required HtDataRepository<Headline> headlinesRepository,
+    required DataRepository<DashboardSummary> dashboardSummaryRepository,
+    required DataRepository<Headline> headlinesRepository,
   }) : _dashboardSummaryRepository = dashboardSummaryRepository,
        _headlinesRepository = headlinesRepository,
        super(const DashboardState()) {
     on<DashboardSummaryLoaded>(_onDashboardSummaryLoaded);
   }
 
-  final HtDataRepository<DashboardSummary> _dashboardSummaryRepository;
-  final HtDataRepository<Headline> _headlinesRepository;
+  final DataRepository<DashboardSummary> _dashboardSummaryRepository;
+  final DataRepository<Headline> _headlinesRepository;
 
   Future<void> _onDashboardSummaryLoaded(
     DashboardSummaryLoaded event,
@@ -28,10 +28,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     emit(state.copyWith(status: DashboardStatus.loading));
     try {
       // Fetch summary and recent headlines concurrently
-      final [
-        summaryResponse,
-        recentHeadlinesResponse,
-      ] = await Future.wait([
+      final [summaryResponse, recentHeadlinesResponse] = await Future.wait([
         _dashboardSummaryRepository.read(id: kDashboardSummaryId),
         _headlinesRepository.readAll(
           pagination: const PaginationOptions(limit: 5),
@@ -49,13 +46,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           recentHeadlines: recentHeadlines,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: DashboardStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: DashboardStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
