@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://avatars.githubusercontent.com/u/202675624?s=400&u=2daf23e8872a3b666bcd4f792a21fe2633097e79&v=4" alt="Flutter News App Toolkit Logo" width="220">
+<img src="https://avatars.githubusercontent.com/u/202675624?s=400&u=2daf23e8872a3b666bcd4f792a21fe2633097e79&v=4" alt="Flutter News App Dashboard Logo" width="220">
 
 # Flutter News App - Web Dashboard Full Source Code
 
@@ -102,7 +102,7 @@ Get started for free and purchase when you're ready to launch!
     ```bash
     flutter run -d chrome
     ```
-    *(Note: For `development` environment, ensure the [backend service](https://github.com/flutter-news-app-full-source-code/flutter-news-app-api-server-full-source-code) is running.)*
+    *(Note: For `development/production` environment, ensure the [backend service](https://github.com/flutter-news-app-full-source-code/flutter-news-app-api-server-full-source-code) is running.)*
 
 ---
 
