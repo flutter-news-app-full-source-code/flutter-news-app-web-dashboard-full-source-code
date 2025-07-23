@@ -1,122 +1,121 @@
 //
 // ignore_for_file: deprecated_member_use
 
+import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart' hide AppStatus;
+// Import for app_theme.dart
+import 'package:data_repository/data_repository.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/app_environment.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_dashboard/app/bloc/app_bloc.dart';
-import 'package:ht_dashboard/app/config/app_environment.dart';
-import 'package:ht_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
-import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/dashboard/bloc/dashboard_bloc.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_dashboard/router/router.dart';
-// Import for app_theme.dart
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
-import 'package:ht_shared/ht_shared.dart' hide AppStatus;
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:logging/logging.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 class App extends StatelessWidget {
   const App({
-    required HtAuthRepository htAuthenticationRepository,
-    required HtDataRepository<Headline> htHeadlinesRepository,
-    required HtDataRepository<Topic> htTopicsRepository,
-    required HtDataRepository<Country> htCountriesRepository,
-    required HtDataRepository<Source> htSourcesRepository,
-    required HtDataRepository<UserAppSettings> htUserAppSettingsRepository,
-    required HtDataRepository<UserContentPreferences>
-    htUserContentPreferencesRepository,
-    required HtDataRepository<RemoteConfig> htRemoteConfigRepository,
-    required HtDataRepository<DashboardSummary> htDashboardSummaryRepository,
-    required HtKVStorageService kvStorageService,
+    required AuthRepository authenticationRepository,
+    required DataRepository<Headline> headlinesRepository,
+    required DataRepository<Topic> topicsRepository,
+    required DataRepository<Country> countriesRepository,
+    required DataRepository<Source> sourcesRepository,
+    required DataRepository<UserAppSettings> userAppSettingsRepository,
+    required DataRepository<UserContentPreferences>
+    userContentPreferencesRepository,
+    required DataRepository<RemoteConfig> remoteConfigRepository,
+    required DataRepository<DashboardSummary> dashboardSummaryRepository,
+    required KVStorageService storageService,
     required AppEnvironment environment,
     super.key,
-  }) : _htAuthenticationRepository = htAuthenticationRepository,
-       _htHeadlinesRepository = htHeadlinesRepository,
-       _htTopicsRepository = htTopicsRepository,
-       _htCountriesRepository = htCountriesRepository,
-       _htSourcesRepository = htSourcesRepository,
-       _htUserAppSettingsRepository = htUserAppSettingsRepository,
-       _htUserContentPreferencesRepository = htUserContentPreferencesRepository,
-       _htRemoteConfigRepository = htRemoteConfigRepository,
-       _kvStorageService = kvStorageService,
-       _htDashboardSummaryRepository = htDashboardSummaryRepository,
+  }) : _authenticationRepository = authenticationRepository,
+       _headlinesRepository = headlinesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       _sourcesRepository = sourcesRepository,
+       _userAppSettingsRepository = userAppSettingsRepository,
+       _userContentPreferencesRepository = userContentPreferencesRepository,
+       _remoteConfigRepository = remoteConfigRepository,
+       _kvStorageService = storageService,
+       _dashboardSummaryRepository = dashboardSummaryRepository,
        _environment = environment;
 
-  final HtAuthRepository _htAuthenticationRepository;
-  final HtDataRepository<Headline> _htHeadlinesRepository;
-  final HtDataRepository<Topic> _htTopicsRepository;
-  final HtDataRepository<Country> _htCountriesRepository;
-  final HtDataRepository<Source> _htSourcesRepository;
-  final HtDataRepository<UserAppSettings> _htUserAppSettingsRepository;
-  final HtDataRepository<UserContentPreferences>
-  _htUserContentPreferencesRepository;
-  final HtDataRepository<RemoteConfig> _htRemoteConfigRepository;
-  final HtDataRepository<DashboardSummary> _htDashboardSummaryRepository;
-  final HtKVStorageService _kvStorageService;
+  final AuthRepository _authenticationRepository;
+  final DataRepository<Headline> _headlinesRepository;
+  final DataRepository<Topic> _topicsRepository;
+  final DataRepository<Country> _countriesRepository;
+  final DataRepository<Source> _sourcesRepository;
+  final DataRepository<UserAppSettings> _userAppSettingsRepository;
+  final DataRepository<UserContentPreferences>
+  _userContentPreferencesRepository;
+  final DataRepository<RemoteConfig> _remoteConfigRepository;
+  final DataRepository<DashboardSummary> _dashboardSummaryRepository;
+  final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider.value(value: _htAuthenticationRepository),
-        RepositoryProvider.value(value: _htHeadlinesRepository),
-        RepositoryProvider.value(value: _htTopicsRepository),
-        RepositoryProvider.value(value: _htCountriesRepository),
-        RepositoryProvider.value(value: _htSourcesRepository),
-        RepositoryProvider.value(value: _htUserAppSettingsRepository),
-        RepositoryProvider.value(value: _htUserContentPreferencesRepository),
-        RepositoryProvider.value(value: _htRemoteConfigRepository),
-        RepositoryProvider.value(value: _htDashboardSummaryRepository),
+        RepositoryProvider.value(value: _authenticationRepository),
+        RepositoryProvider.value(value: _headlinesRepository),
+        RepositoryProvider.value(value: _topicsRepository),
+        RepositoryProvider.value(value: _countriesRepository),
+        RepositoryProvider.value(value: _sourcesRepository),
+        RepositoryProvider.value(value: _userAppSettingsRepository),
+        RepositoryProvider.value(value: _userContentPreferencesRepository),
+        RepositoryProvider.value(value: _remoteConfigRepository),
+        RepositoryProvider.value(value: _dashboardSummaryRepository),
         RepositoryProvider.value(value: _kvStorageService),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AppBloc(
-              authenticationRepository: context.read<HtAuthRepository>(),
+              authenticationRepository: context.read<AuthRepository>(),
               userAppSettingsRepository: context
-                  .read<HtDataRepository<UserAppSettings>>(),
-              appConfigRepository: context
-                  .read<HtDataRepository<RemoteConfig>>(),
+                  .read<DataRepository<UserAppSettings>>(),
+              appConfigRepository: context.read<DataRepository<RemoteConfig>>(),
               environment: _environment,
               logger: Logger('AppBloc'),
             ),
           ),
           BlocProvider(
             create: (context) => AuthenticationBloc(
-              authenticationRepository: context.read<HtAuthRepository>(),
+              authenticationRepository: context.read<AuthRepository>(),
             ),
           ),
           BlocProvider(
             create: (context) => AppConfigurationBloc(
               remoteConfigRepository: context
-                  .read<HtDataRepository<RemoteConfig>>(),
+                  .read<DataRepository<RemoteConfig>>(),
             ),
           ),
           BlocProvider(
             create: (context) => ContentManagementBloc(
-              headlinesRepository: context.read<HtDataRepository<Headline>>(),
-              topicsRepository: context.read<HtDataRepository<Topic>>(),
-              sourcesRepository: context.read<HtDataRepository<Source>>(),
+              headlinesRepository: context.read<DataRepository<Headline>>(),
+              topicsRepository: context.read<DataRepository<Topic>>(),
+              sourcesRepository: context.read<DataRepository<Source>>(),
             ),
           ),
           BlocProvider(
             create: (context) => DashboardBloc(
               dashboardSummaryRepository: context
-                  .read<HtDataRepository<DashboardSummary>>(),
-              headlinesRepository: context.read<HtDataRepository<Headline>>(),
+                  .read<DataRepository<DashboardSummary>>(),
+              headlinesRepository: context.read<DataRepository<Headline>>(),
             ),
           ),
         ],
         child: _AppView(
-          htAuthenticationRepository: _htAuthenticationRepository,
+          authenticationRepository: _authenticationRepository,
           environment: _environment,
         ),
       ),
@@ -127,11 +126,11 @@ class App extends StatelessWidget {
 class _AppView extends StatefulWidget {
   /// {@macro app_view}
   const _AppView({
-    required this.htAuthenticationRepository,
+    required this.authenticationRepository,
     required this.environment,
   });
 
-  final HtAuthRepository htAuthenticationRepository;
+  final AuthRepository authenticationRepository;
   final AppEnvironment environment;
 
   @override
@@ -149,7 +148,7 @@ class _AppViewState extends State<_AppView> {
     _statusNotifier = ValueNotifier<AppStatus>(appBloc.state.status);
     _router = createRouter(
       authStatusNotifier: _statusNotifier,
-      htAuthenticationRepository: widget.htAuthenticationRepository,
+      authenticationRepository: widget.authenticationRepository,
       environment: widget.environment,
     );
   }
@@ -210,10 +209,10 @@ class _AppViewState extends State<_AppView> {
                   debugShowCheckedModeBanner: false,
                   routerConfig: _router,
                   localizationsDelegates: const [
-                    HtUiKitLocalizations.delegate,
+                    UiKitLocalizations.delegate,
                     ...AppLocalizations.localizationsDelegates,
                   ],
-                  supportedLocales: HtUiKitLocalizations.supportedLocales,
+                  supportedLocales: UiKitLocalizations.supportedLocales,
                   theme: baseTheme == AppBaseTheme.dark
                       ? darkThemeData
                       : lightThemeData,
