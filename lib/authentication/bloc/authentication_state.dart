@@ -48,7 +48,7 @@ final class AuthenticationState extends Equatable {
   final String? email;
 
   /// The error describing an authentication failure, if any.
-  final HtHttpException? exception;
+  final HttpException? exception;
 
   @override
   List<Object?> get props => [status, user, email, exception];
@@ -59,7 +59,7 @@ final class AuthenticationState extends Equatable {
     AuthenticationStatus? status,
     User? user,
     String? email,
-    HtHttpException? exception,
+    HttpException? exception,
   }) {
     return AuthenticationState(
       status: status ?? this.status,

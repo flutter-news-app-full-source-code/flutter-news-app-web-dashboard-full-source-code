@@ -37,7 +37,7 @@ final class EditTopicState extends Equatable {
   final String description;
   final String iconUrl;
   final ContentStatus contentStatus;
-  final HtHttpException? exception;
+  final HttpException? exception;
   final Topic? updatedTopic;
 
   /// Returns true if the form is valid and can be submitted.
@@ -52,7 +52,7 @@ final class EditTopicState extends Equatable {
     String? description,
     String? iconUrl,
     ContentStatus? contentStatus,
-    HtHttpException? exception,
+    HttpException? exception,
     Topic? updatedTopic,
   }) {
     return EditTopicState(

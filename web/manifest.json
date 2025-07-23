@@ -1,6 +1,6 @@
 {
-    "name": "Headlines Toolkit",
-    "short_name": "Headlines Toolkit",
+    "name": "Flutter News App Dashboard",
+    "short_name": "Flutter News App Dashboard",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FFFFFF",

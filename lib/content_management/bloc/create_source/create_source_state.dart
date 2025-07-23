@@ -44,7 +44,7 @@ final class CreateSourceState extends Equatable {
   final Country? headquarters;
   final List<Country> countries;
   final ContentStatus contentStatus;
-  final HtHttpException? exception;
+  final HttpException? exception;
   final Source? createdSource;
 
   /// Returns true if the form is valid and can be submitted.
@@ -66,7 +66,7 @@ final class CreateSourceState extends Equatable {
     ValueGetter<Country?>? headquarters,
     List<Country>? countries,
     ContentStatus? contentStatus,
-    HtHttpException? exception,
+    HttpException? exception,
     Source? createdSource,
   }) {
     return CreateSourceState(

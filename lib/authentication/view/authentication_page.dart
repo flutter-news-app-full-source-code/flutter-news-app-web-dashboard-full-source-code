@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template authentication_page}
 /// Displays authentication options for the dashboard.
@@ -23,10 +23,7 @@ class AuthenticationPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       body: SafeArea(
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           // Listener remains crucial for feedback (errors)
@@ -65,9 +62,7 @@ class AuthenticationPage extends StatelessWidget {
                     children: [
                       // --- Icon ---
                       Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: AppSpacing.xl,
-                        ),
+                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
                         child: Icon(
                           Icons.newspaper,
                           size: AppSpacing.xxl * 2,
@@ -98,9 +93,7 @@ class AuthenticationPage extends StatelessWidget {
                         onPressed: isLoading
                             ? null
                             : () {
-                                context.goNamed(
-                                  Routes.requestCodeName,
-                                );
+                                context.goNamed(Routes.requestCodeName);
                               },
                         label: Text(l10n.authenticationEmailSignInButton),
                         style: ElevatedButton.styleFrom(

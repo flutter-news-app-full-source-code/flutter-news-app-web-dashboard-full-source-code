@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 part 'edit_headline_event.dart';
 part 'edit_headline_state.dart';
@@ -11,10 +11,10 @@ part 'edit_headline_state.dart';
 class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   /// {@macro edit_headline_bloc}
   EditHeadlineBloc({
-    required HtDataRepository<Headline> headlinesRepository,
-    required HtDataRepository<Source> sourcesRepository,
-    required HtDataRepository<Topic> topicsRepository,
-    required HtDataRepository<Country> countriesRepository,
+    required DataRepository<Headline> headlinesRepository,
+    required DataRepository<Source> sourcesRepository,
+    required DataRepository<Topic> topicsRepository,
+    required DataRepository<Country> countriesRepository,
     required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
@@ -34,10 +34,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Headline> _headlinesRepository;
-  final HtDataRepository<Source> _sourcesRepository;
-  final HtDataRepository<Topic> _topicsRepository;
-  final HtDataRepository<Country> _countriesRepository;
+  final DataRepository<Headline> _headlinesRepository;
+  final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Topic> _topicsRepository;
+  final DataRepository<Country> _countriesRepository;
   final String _headlineId;
 
   Future<void> _onLoaded(
@@ -80,13 +80,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           contentStatus: headline.status,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
@@ -225,13 +220,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           updatedHeadline: updatedHeadline,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

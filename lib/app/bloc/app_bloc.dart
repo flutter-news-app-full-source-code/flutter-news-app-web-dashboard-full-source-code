@@ -2,12 +2,13 @@
 
 import 'dart:async';
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_dashboard/app/config/config.dart' as local_config;
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
+    as local_config;
 import 'package:logging/logging.dart';
 
 part 'app_event.dart';
@@ -15,18 +16,16 @@ part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
-    required HtAuthRepository authenticationRepository,
-    required HtDataRepository<UserAppSettings> userAppSettingsRepository,
-    required HtDataRepository<RemoteConfig> appConfigRepository,
+    required AuthRepository authenticationRepository,
+    required DataRepository<UserAppSettings> userAppSettingsRepository,
+    required DataRepository<RemoteConfig> appConfigRepository,
     required local_config.AppEnvironment environment,
     Logger? logger,
   }) : _authenticationRepository = authenticationRepository,
        _userAppSettingsRepository = userAppSettingsRepository,
        _appConfigRepository = appConfigRepository,
        _logger = logger ?? Logger('AppBloc'),
-       super(
-         AppState(environment: environment),
-       ) {
+       super(AppState(environment: environment)) {
     on<AppUserChanged>(_onAppUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);
     on<AppUserAppSettingsChanged>(_onAppUserAppSettingsChanged);
@@ -36,9 +35,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
   }
 
-  final HtAuthRepository _authenticationRepository;
-  final HtDataRepository<UserAppSettings> _userAppSettingsRepository;
-  final HtDataRepository<RemoteConfig> _appConfigRepository;
+  final AuthRepository _authenticationRepository;
+  final DataRepository<UserAppSettings> _userAppSettingsRepository;
+  final DataRepository<RemoteConfig> _appConfigRepository;
   final Logger _logger;
   late final StreamSubscription<User?> _userSubscription;
 
@@ -97,7 +96,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         );
         await _userAppSettingsRepository.create(item: defaultSettings);
         emit(state.copyWith(userAppSettings: defaultSettings));
-      } on HtHttpException catch (e, s) {
+      } on HttpException catch (e, s) {
         // Handle HTTP exceptions during settings load
         _logger.severe(
           'Error loading user app settings for user ${user.id}: ${e.message}',

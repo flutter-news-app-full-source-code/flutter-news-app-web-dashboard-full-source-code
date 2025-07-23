@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
@@ -13,10 +13,10 @@ class CreateHeadlineBloc
     extends Bloc<CreateHeadlineEvent, CreateHeadlineState> {
   /// {@macro create_headline_bloc}
   CreateHeadlineBloc({
-    required HtDataRepository<Headline> headlinesRepository,
-    required HtDataRepository<Source> sourcesRepository,
-    required HtDataRepository<Topic> topicsRepository,
-    required HtDataRepository<Country> countriesRepository,
+    required DataRepository<Headline> headlinesRepository,
+    required DataRepository<Source> sourcesRepository,
+    required DataRepository<Topic> topicsRepository,
+    required DataRepository<Country> countriesRepository,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
        _topicsRepository = topicsRepository,
@@ -34,10 +34,10 @@ class CreateHeadlineBloc
     on<CreateHeadlineSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Headline> _headlinesRepository;
-  final HtDataRepository<Source> _sourcesRepository;
-  final HtDataRepository<Topic> _topicsRepository;
-  final HtDataRepository<Country> _countriesRepository;
+  final DataRepository<Headline> _headlinesRepository;
+  final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Topic> _topicsRepository;
+  final DataRepository<Country> _countriesRepository;
   final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
@@ -68,13 +68,8 @@ class CreateHeadlineBloc
           countries: countries,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
@@ -176,13 +171,8 @@ class CreateHeadlineBloc
           createdHeadline: newHeadline,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

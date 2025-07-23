@@ -1,15 +1,15 @@
+import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/shared.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:intl/intl.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template topics_page}
 /// A page for displaying and managing Topics in a tabular format.
@@ -57,25 +57,14 @@ class _TopicPageState extends State<TopicPage> {
           }
 
           if (state.topics.isEmpty) {
-            return Center(
-              child: Text(l10n.noTopicsFound),
-            );
+            return Center(child: Text(l10n.noTopicsFound));
           }
 
           return PaginatedDataTable2(
             columns: [
-              DataColumn2(
-                label: Text(l10n.topicName),
-                size: ColumnSize.L,
-              ),
-              DataColumn2(
-                label: Text(l10n.status),
-                size: ColumnSize.S,
-              ),
-              DataColumn2(
-                label: Text(l10n.lastUpdated),
-                size: ColumnSize.M,
-              ),
+              DataColumn2(label: Text(l10n.topicName), size: ColumnSize.L),
+              DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
+              DataColumn2(label: Text(l10n.lastUpdated), size: ColumnSize.M),
               DataColumn2(
                 label: Text(l10n.actions),
                 size: ColumnSize.S,

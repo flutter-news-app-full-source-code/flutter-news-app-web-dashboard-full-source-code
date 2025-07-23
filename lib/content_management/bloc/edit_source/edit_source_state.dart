@@ -45,7 +45,7 @@ final class EditSourceState extends Equatable {
   final Country? headquarters;
   final List<Country> countries;
   final ContentStatus contentStatus;
-  final HtHttpException? exception;
+  final HttpException? exception;
   final Source? updatedSource;
 
   /// Returns true if the form is valid and can be submitted.
@@ -68,7 +68,7 @@ final class EditSourceState extends Equatable {
     ValueGetter<Country?>? headquarters,
     List<Country>? countries,
     ContentStatus? contentStatus,
-    HtHttpException? exception,
+    HttpException? exception,
     Source? updatedSource,
   }) {
     return EditSourceState(

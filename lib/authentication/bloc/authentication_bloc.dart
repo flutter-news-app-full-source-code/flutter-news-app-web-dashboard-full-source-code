@@ -1,13 +1,12 @@
 import 'dart:async';
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_shared/ht_shared.dart'
+import 'package:core/core.dart'
     show
         AuthenticationException,
         ForbiddenException,
-        HtHttpException,
+        HttpException,
         InvalidInputException,
         NetworkException,
         NotFoundException,
@@ -16,6 +15,7 @@ import 'package:ht_shared/ht_shared.dart'
         UnauthorizedException,
         UnknownException,
         User;
+import 'package:equatable/equatable.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -26,7 +26,7 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   /// {@macro authentication_bloc}
-  AuthenticationBloc({required HtAuthRepository authenticationRepository})
+  AuthenticationBloc({required AuthRepository authenticationRepository})
     : _authenticationRepository = authenticationRepository,
       super(const AuthenticationState()) {
     // Listen to authentication state changes from the repository
@@ -42,7 +42,7 @@ class AuthenticationBloc
     on<AuthenticationSignOutRequested>(_onAuthenticationSignOutRequested);
   }
 
-  final HtAuthRepository _authenticationRepository;
+  final AuthRepository _authenticationRepository;
   late final StreamSubscription<User?> _userAuthSubscription;
 
   /// Handles [_AuthenticationStatusChanged] events.
@@ -85,55 +85,20 @@ class AuthenticationBloc
         ),
       );
     } on InvalidInputException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on UnauthorizedException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on ForbiddenException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on NetworkException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on ServerException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on OperationFailedException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
-    } on HtHttpException catch (e) {
-      // Catch any other HtHttpException subtypes
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
+    } on HttpException catch (e) {
+      // Catch any other HttpException subtypes
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } catch (e) {
       // Catch any other unexpected errors
       emit(
@@ -161,55 +126,20 @@ class AuthenticationBloc
       // On success, the _AuthenticationStatusChanged listener will handle
       // emitting AuthenticationAuthenticated.
     } on InvalidInputException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on AuthenticationException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on NotFoundException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on NetworkException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on ServerException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on OperationFailedException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
-    } on HtHttpException catch (e) {
-      // Catch any other HtHttpException subtypes
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
+    } on HttpException catch (e) {
+      // Catch any other HttpException subtypes
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } catch (e) {
       // Catch any other unexpected errors
       emit(
@@ -233,34 +163,14 @@ class AuthenticationBloc
       // On success, the _AuthenticationStatusChanged listener will handle
       // emitting AuthenticationUnauthenticated.
     } on NetworkException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on ServerException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } on OperationFailedException catch (e) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
-    } on HtHttpException catch (e) {
-      // Catch any other HtHttpException subtypes
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.failure,
-          exception: e,
-        ),
-      );
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
+    } on HttpException catch (e) {
+      // Catch any other HttpException subtypes
+      emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

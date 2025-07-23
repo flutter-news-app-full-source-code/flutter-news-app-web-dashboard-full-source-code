@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/headlines_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/sources_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/topics_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/content_management/view/headlines_page.dart';
-import 'package:ht_dashboard/content_management/view/sources_page.dart';
-import 'package:ht_dashboard/content_management/view/topics_page.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -115,11 +115,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [
-            HeadlinesPage(),
-            TopicPage(),
-            SourcesPage(),
-          ],
+          children: const [HeadlinesPage(), TopicPage(), SourcesPage()],
         ),
       ),
     );

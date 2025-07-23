@@ -49,7 +49,7 @@ final class CreateHeadlineState extends Equatable {
   final List<Topic> topics;
   final List<Country> countries;
   final ContentStatus contentStatus;
-  final HtHttpException? exception;
+  final HttpException? exception;
   final Headline? createdHeadline;
 
   /// Returns true if the form is valid and can be submitted.
@@ -75,7 +75,7 @@ final class CreateHeadlineState extends Equatable {
     List<Topic>? topics,
     List<Country>? countries,
     ContentStatus? contentStatus,
-    HtHttpException? exception,
+    HttpException? exception,
     Headline? createdHeadline,
   }) {
     return CreateHeadlineState(

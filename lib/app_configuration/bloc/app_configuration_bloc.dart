@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 part 'app_configuration_event.dart';
 part 'app_configuration_state.dart';
@@ -9,18 +9,16 @@ part 'app_configuration_state.dart';
 class AppConfigurationBloc
     extends Bloc<AppConfigurationEvent, AppConfigurationState> {
   AppConfigurationBloc({
-    required HtDataRepository<RemoteConfig> remoteConfigRepository,
+    required DataRepository<RemoteConfig> remoteConfigRepository,
   }) : _remoteConfigRepository = remoteConfigRepository,
-       super(
-         const AppConfigurationState(),
-       ) {
+       super(const AppConfigurationState()) {
     on<AppConfigurationLoaded>(_onAppConfigurationLoaded);
     on<AppConfigurationUpdated>(_onAppConfigurationUpdated);
     on<AppConfigurationFieldChanged>(_onAppConfigurationFieldChanged);
     on<AppConfigurationDiscarded>(_onAppConfigurationDiscarded);
   }
 
-  final HtDataRepository<RemoteConfig> _remoteConfigRepository;
+  final DataRepository<RemoteConfig> _remoteConfigRepository;
 
   Future<void> _onAppConfigurationLoaded(
     AppConfigurationLoaded event,
@@ -41,12 +39,9 @@ class AppConfigurationBloc
               true, // Clear any previous success snackbar flag
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
-        state.copyWith(
-          status: AppConfigurationStatus.failure,
-          exception: e,
-        ),
+        state.copyWith(status: AppConfigurationStatus.failure, exception: e),
       );
     } catch (e) {
       emit(
@@ -77,12 +72,9 @@ class AppConfigurationBloc
           showSaveSuccess: true, // Set flag to show success snackbar
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
-        state.copyWith(
-          status: AppConfigurationStatus.failure,
-          exception: e,
-        ),
+        state.copyWith(status: AppConfigurationStatus.failure, exception: e),
       );
     } catch (e) {
       emit(

@@ -75,7 +75,7 @@ class ContentManagementState extends Equatable {
   final bool sourcesHasMore;
 
   /// The error describing an operation failure, if any.
-  final HtHttpException? exception;
+  final HttpException? exception;
 
   /// Creates a copy of this [ContentManagementState] with updated values.
   ContentManagementState copyWith({
@@ -92,7 +92,7 @@ class ContentManagementState extends Equatable {
     List<Source>? sources,
     String? sourcesCursor,
     bool? sourcesHasMore,
-    HtHttpException? exception,
+    HttpException? exception,
   }) {
     return ContentManagementState(
       activeTab: activeTab ?? this.activeTab,

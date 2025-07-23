@@ -1,14 +1,41 @@
-name: ht_dashboard
-description: "A Flutter web application for comprehensive content management and administration within the Headlines Toolkit ecosystem."
+name: flutter_news_app_web_dashboard_full_source_code
+description: "A Flutter web application for comprehensive content management and administration within the Flutter News App Full Source Code Toolkit."
 publish_to: none
-repository: https://github.com/headlines-toolkit/ht-dashboard
+repository: https://github.com/flutter-news-app-full-source-code/flutter-news-app-web-dashboard-full-source-code
 
 environment:
   sdk: ^3.8.0
 
 dependencies:
+  auth_api:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/auth-api.git
+  auth_client:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/auth-client.git
+  auth_inmemory:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/auth-inmemory
+  auth_repository:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/auth-repository.git
   bloc: ^9.0.0
   bloc_concurrency: ^0.3.0
+  core:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/core.git
+  data_api:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/data-api.git
+  data_client:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/data-client.git
+  data_inmemory:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/data-inmemory.git
+  data_repository:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/data-repository.git
   data_table_2: ^2.6.0
   device_preview: ^1.2.0
   equatable: ^2.0.7
@@ -21,48 +48,21 @@ dependencies:
     sdk: flutter
   go_router: ^16.0.0
   google_fonts: ^6.2.1
-  ht_auth_api:
+  http_client:
     git:
-      url: https://github.com/headlines-toolkit/ht-auth-api.git
-  ht_auth_client:
-    git:
-      url: https://github.com/headlines-toolkit/ht-auth-client.git
-  ht_auth_inmemory:
-    git:
-      url: https://github.com/headlines-toolkit/ht-auth-inmemory
-  ht_auth_repository:
-    git:
-      url: https://github.com/headlines-toolkit/ht-auth-repository.git
-  ht_data_api:
-    git:
-      url: https://github.com/headlines-toolkit/ht-data-api.git
-  ht_data_client:
-    git:
-      url: https://github.com/headlines-toolkit/ht-data-client.git
-  ht_data_inmemory:
-    git:
-      url: https://github.com/headlines-toolkit/ht-data-inmemory.git
-  ht_data_repository:
-    git:
-      url: https://github.com/headlines-toolkit/ht-data-repository.git
-  ht_http_client:
-    git:
-      url: https://github.com/headlines-toolkit/ht-http-client.git
-  ht_kv_storage_service:
-    git:
-      url: https://github.com/headlines-toolkit/ht-kv-storage-service.git
-  ht_kv_storage_shared_preferences:
-    git:
-      url: https://github.com/headlines-toolkit/ht-kv-storage-shared-preferences.git
-  ht_shared:
-    git:
-      url: https://github.com/headlines-toolkit/ht-shared.git
-  ht_ui_kit:
-    git:
-      url: https://github.com/headlines-toolkit/ht-ui-kit.git  
+      url: https://github.com/flutter-news-app-full-source-code/http-client.git
   intl: ^0.20.2
+  kv_storage_service:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/kv-storage-service.git
+  kv_storage_shared_preferences:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/kv-storage-shared-preferences.git
   logging: ^1.3.0
   timeago: ^3.7.1
+  ui_kit:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/ui-kit.git
   uuid: ^4.5.1
 
 

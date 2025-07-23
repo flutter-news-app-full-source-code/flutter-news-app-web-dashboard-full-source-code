@@ -1,13 +1,13 @@
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/content_management/bloc/edit_topic/edit_topic_bloc.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/shared/shared.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_topic_page}
 /// A page for editing an existing topic.
@@ -24,7 +24,7 @@ class EditTopicPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditTopicBloc(
-        topicsRepository: context.read<HtDataRepository<Topic>>(),
+        topicsRepository: context.read<DataRepository<Topic>>(),
         topicId: topicId,
       )..add(const EditTopicLoaded()),
       child: const _EditTopicView(),
@@ -141,9 +141,8 @@ class _EditTopicViewState extends State<_EditTopicView> {
               state.initialTopic == null) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context.read<EditTopicBloc>().add(
-                const EditTopicLoaded(),
-              ),
+              onRetry: () =>
+                  context.read<EditTopicBloc>().add(const EditTopicLoaded()),
             );
           }
 
