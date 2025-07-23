@@ -1,25 +1,26 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
+    as local_config;
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/view/app_shell.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/app_configuration_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/content_management_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_headline_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_topic_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_headline_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/view/dashboard_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_dashboard/app/bloc/app_bloc.dart';
-import 'package:ht_dashboard/app/config/config.dart' as local_config;
-import 'package:ht_dashboard/app/view/app_shell.dart';
-import 'package:ht_dashboard/app_configuration/view/app_configuration_page.dart';
-import 'package:ht_dashboard/authentication/bloc/authentication_bloc.dart';
-import 'package:ht_dashboard/authentication/view/authentication_page.dart';
-import 'package:ht_dashboard/authentication/view/email_code_verification_page.dart';
-import 'package:ht_dashboard/authentication/view/request_code_page.dart';
-import 'package:ht_dashboard/content_management/view/content_management_page.dart';
-import 'package:ht_dashboard/content_management/view/create_headline_page.dart';
-import 'package:ht_dashboard/content_management/view/create_source_page.dart';
-import 'package:ht_dashboard/content_management/view/create_topic_page.dart';
-import 'package:ht_dashboard/content_management/view/edit_headline_page.dart';
-import 'package:ht_dashboard/content_management/view/edit_source_page.dart';
-import 'package:ht_dashboard/content_management/view/edit_topic_page.dart';
-import 'package:ht_dashboard/dashboard/view/dashboard_page.dart';
-import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/settings/view/settings_page.dart';
 
 /// Creates and configures the GoRouter instance for the application.
 ///
@@ -27,7 +28,7 @@ import 'package:ht_dashboard/settings/view/settings_page.dart';
 /// authentication state changes.
 GoRouter createRouter({
   required ValueNotifier<AppStatus> authStatusNotifier,
-  required HtAuthRepository htAuthenticationRepository,
+  required AuthRepository authenticationRepository,
   required local_config.AppEnvironment environment,
 }) {
   return GoRouter(
@@ -99,7 +100,7 @@ GoRouter createRouter({
         builder: (BuildContext context, GoRouterState state) {
           return BlocProvider(
             create: (context) => AuthenticationBloc(
-              authenticationRepository: context.read<HtAuthRepository>(),
+              authenticationRepository: context.read<AuthRepository>(),
             ),
             child: const AuthenticationPage(),
           );
