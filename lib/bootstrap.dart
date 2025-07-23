@@ -1,22 +1,23 @@
+import 'package:auth_api/auth_api.dart';
+import 'package:auth_client/auth_client.dart';
+import 'package:auth_inmemory/auth_inmemory.dart';
+import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
+import 'package:data_api/data_api.dart';
+import 'package:data_client/data_client.dart';
+import 'package:data_inmemory/data_inmemory.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ht_auth_api/ht_auth_api.dart';
-import 'package:ht_auth_client/ht_auth_client.dart';
-import 'package:ht_auth_inmemory/ht_auth_inmemory.dart';
-import 'package:ht_auth_repository/ht_auth_repository.dart';
-import 'package:ht_dashboard/app/app.dart';
-import 'package:ht_dashboard/app/config/config.dart' as app_config;
-import 'package:ht_dashboard/bloc_observer.dart';
-import 'package:ht_data_api/ht_data_api.dart';
-import 'package:ht_data_client/ht_data_client.dart';
-import 'package:ht_data_inmemory/ht_data_inmemory.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_http_client/ht_http_client.dart';
-import 'package:ht_kv_storage_shared_preferences/ht_kv_storage_shared_preferences.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/app.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
+    as app_config;
+import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.dart';
+import 'package:http_client/http_client.dart';
+import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
 import 'package:logging/logging.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:ui_kit/ui_kit.dart';
 
 Future<Widget> bootstrap(
   app_config.AppConfig appConfig,
@@ -28,242 +29,235 @@ Future<Widget> bootstrap(
   timeago.setLocaleMessages('en', EnTimeagoMessages());
   timeago.setLocaleMessages('ar', ArTimeagoMessages());
 
-  final kvStorage = await HtKvStorageSharedPreferences.getInstance();
+  final kvStorage = await KVStorageSharedPreferences.getInstance();
 
-  late final HtAuthClient authClient;
-  late final HtAuthRepository authenticationRepository;
-  HtHttpClient? httpClient;
+  late final AuthClient authClient;
+  late final AuthRepository authenticationRepository;
+  HttpClient? httpClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
-    authClient = HtAuthInmemory(
-      logger: Logger('HtAuthInmemory'),
-    );
-    authenticationRepository = HtAuthRepository(
+    authClient = AuthInmemory(logger: Logger('AuthInmemory'));
+    authenticationRepository = AuthRepository(
       authClient: authClient,
       storageService: kvStorage,
     );
   } else {
-    httpClient = HtHttpClient(
+    httpClient = HttpClient(
       baseUrl: appConfig.baseUrl,
       tokenProvider: () => authenticationRepository.getAuthToken(),
     );
-    authClient = HtAuthApi(
-      httpClient: httpClient,
-      logger: Logger('HtAuthApi'),
-    );
-    authenticationRepository = HtAuthRepository(
+    authClient = AuthApi(httpClient: httpClient, logger: Logger('AuthApi'));
+    authenticationRepository = AuthRepository(
       authClient: authClient,
       storageService: kvStorage,
     );
   }
 
-  HtDataClient<Headline> headlinesClient;
-  HtDataClient<Topic> topicsClient;
-  HtDataClient<Country> countriesClient;
-  HtDataClient<Source> sourcesClient;
-  HtDataClient<UserContentPreferences> userContentPreferencesClient;
-  HtDataClient<UserAppSettings> userAppSettingsClient;
-  HtDataClient<RemoteConfig> remoteConfigClient;
-  HtDataClient<DashboardSummary> dashboardSummaryClient;
+  DataClient<Headline> headlinesClient;
+  DataClient<Topic> topicsClient;
+  DataClient<Country> countriesClient;
+  DataClient<Source> sourcesClient;
+  DataClient<UserContentPreferences> userContentPreferencesClient;
+  DataClient<UserAppSettings> userAppSettingsClient;
+  DataClient<RemoteConfig> remoteConfigClient;
+  DataClient<DashboardSummary> dashboardSummaryClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
-    headlinesClient = HtDataInMemory<Headline>(
+    headlinesClient = DataInMemory<Headline>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: headlinesFixturesData,
-      logger: Logger('HtDataInMemory<Headline>'),
+      logger: Logger('DataInMemory<Headline>'),
     );
-    topicsClient = HtDataInMemory<Topic>(
+    topicsClient = DataInMemory<Topic>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: topicsFixturesData,
-      logger: Logger('HtDataInMemory<Topic>'),
+      logger: Logger('DataInMemory<Topic>'),
     );
-    countriesClient = HtDataInMemory<Country>(
+    countriesClient = DataInMemory<Country>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: countriesFixturesData,
-      logger: Logger('HtDataInMemory<Country>'),
+      logger: Logger('DataInMemory<Country>'),
     );
-    sourcesClient = HtDataInMemory<Source>(
+    sourcesClient = DataInMemory<Source>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: sourcesFixturesData,
-      logger: Logger('HtDataInMemory<Source>'),
+      logger: Logger('DataInMemory<Source>'),
     );
-    userContentPreferencesClient = HtDataInMemory<UserContentPreferences>(
+    userContentPreferencesClient = DataInMemory<UserContentPreferences>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      logger: Logger('HtDataInMemory<UserContentPreferences>'),
+      logger: Logger('DataInMemory<UserContentPreferences>'),
     );
-    userAppSettingsClient = HtDataInMemory<UserAppSettings>(
+    userAppSettingsClient = DataInMemory<UserAppSettings>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      logger: Logger('HtDataInMemory<UserAppSettings>'),
+      logger: Logger('DataInMemory<UserAppSettings>'),
     );
-    remoteConfigClient = HtDataInMemory<RemoteConfig>(
+    remoteConfigClient = DataInMemory<RemoteConfig>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: remoteConfigsFixturesData,
-      logger: Logger('HtDataInMemory<RemoteConfig>'),
+      logger: Logger('DataInMemory<RemoteConfig>'),
     );
-    dashboardSummaryClient = HtDataInMemory<DashboardSummary>(
+    dashboardSummaryClient = DataInMemory<DashboardSummary>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       initialData: dashboardSummaryFixturesData,
-      logger: Logger('HtDataInMemory<DashboardSummary>'),
+      logger: Logger('DataInMemory<DashboardSummary>'),
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
-    headlinesClient = HtDataApi<Headline>(
+    headlinesClient = DataApi<Headline>(
       httpClient: httpClient!,
       modelName: 'headline',
       fromJson: Headline.fromJson,
       toJson: (headline) => headline.toJson(),
-      logger: Logger('HtDataApi<Headline>'),
+      logger: Logger('DataApi<Headline>'),
     );
-    topicsClient = HtDataApi<Topic>(
+    topicsClient = DataApi<Topic>(
       httpClient: httpClient,
       modelName: 'topic',
       fromJson: Topic.fromJson,
       toJson: (topic) => topic.toJson(),
-      logger: Logger('HtDataApi<Topic>'),
+      logger: Logger('DataApi<Topic>'),
     );
-    countriesClient = HtDataApi<Country>(
+    countriesClient = DataApi<Country>(
       httpClient: httpClient,
       modelName: 'country',
       fromJson: Country.fromJson,
       toJson: (country) => country.toJson(),
-      logger: Logger('HtDataApi<Country>'),
+      logger: Logger('DataApi<Country>'),
     );
-    sourcesClient = HtDataApi<Source>(
+    sourcesClient = DataApi<Source>(
       httpClient: httpClient,
       modelName: 'source',
       fromJson: Source.fromJson,
       toJson: (source) => source.toJson(),
-      logger: Logger('HtDataApi<Source>'),
+      logger: Logger('DataApi<Source>'),
     );
-    userContentPreferencesClient = HtDataApi<UserContentPreferences>(
+    userContentPreferencesClient = DataApi<UserContentPreferences>(
       httpClient: httpClient,
       modelName: 'user_content_preferences',
       fromJson: UserContentPreferences.fromJson,
       toJson: (prefs) => prefs.toJson(),
-      logger: Logger('HtDataApi<UserContentPreferences>'),
+      logger: Logger('DataApi<UserContentPreferences>'),
     );
-    userAppSettingsClient = HtDataApi<UserAppSettings>(
+    userAppSettingsClient = DataApi<UserAppSettings>(
       httpClient: httpClient,
       modelName: 'user_app_settings',
       fromJson: UserAppSettings.fromJson,
       toJson: (settings) => settings.toJson(),
-      logger: Logger('HtDataApi<UserAppSettings>'),
+      logger: Logger('DataApi<UserAppSettings>'),
     );
-    remoteConfigClient = HtDataApi<RemoteConfig>(
+    remoteConfigClient = DataApi<RemoteConfig>(
       httpClient: httpClient,
       modelName: 'remote_config',
       fromJson: RemoteConfig.fromJson,
       toJson: (config) => config.toJson(),
-      logger: Logger('HtDataApi<RemoteConfig>'),
+      logger: Logger('DataApi<RemoteConfig>'),
     );
-    dashboardSummaryClient = HtDataApi<DashboardSummary>(
+    dashboardSummaryClient = DataApi<DashboardSummary>(
       httpClient: httpClient,
       modelName: 'dashboard_summary',
       fromJson: DashboardSummary.fromJson,
       toJson: (summary) => summary.toJson(),
-      logger: Logger('HtDataApi<DashboardSummary>'),
+      logger: Logger('DataApi<DashboardSummary>'),
     );
   } else {
-    headlinesClient = HtDataApi<Headline>(
+    headlinesClient = DataApi<Headline>(
       httpClient: httpClient!,
       modelName: 'headline',
       fromJson: Headline.fromJson,
       toJson: (headline) => headline.toJson(),
-      logger: Logger('HtDataApi<Headline>'),
+      logger: Logger('DataApi<Headline>'),
     );
-    topicsClient = HtDataApi<Topic>(
+    topicsClient = DataApi<Topic>(
       httpClient: httpClient,
       modelName: 'topic',
       fromJson: Topic.fromJson,
       toJson: (topic) => topic.toJson(),
-      logger: Logger('HtDataApi<Topic>'),
+      logger: Logger('DataApi<Topic>'),
     );
-    countriesClient = HtDataApi<Country>(
+    countriesClient = DataApi<Country>(
       httpClient: httpClient,
       modelName: 'country',
       fromJson: Country.fromJson,
       toJson: (country) => country.toJson(),
-      logger: Logger('HtDataApi<Country>'),
+      logger: Logger('DataApi<Country>'),
     );
-    sourcesClient = HtDataApi<Source>(
+    sourcesClient = DataApi<Source>(
       httpClient: httpClient,
       modelName: 'source',
       fromJson: Source.fromJson,
       toJson: (source) => source.toJson(),
-      logger: Logger('HtDataApi<Source>'),
+      logger: Logger('DataApi<Source>'),
     );
-    userContentPreferencesClient = HtDataApi<UserContentPreferences>(
+    userContentPreferencesClient = DataApi<UserContentPreferences>(
       httpClient: httpClient,
       modelName: 'user_content_preferences',
       fromJson: UserContentPreferences.fromJson,
       toJson: (prefs) => prefs.toJson(),
-      logger: Logger('HtDataApi<UserContentPreferences>'),
+      logger: Logger('DataApi<UserContentPreferences>'),
     );
-    userAppSettingsClient = HtDataApi<UserAppSettings>(
+    userAppSettingsClient = DataApi<UserAppSettings>(
       httpClient: httpClient,
       modelName: 'user_app_settings',
       fromJson: UserAppSettings.fromJson,
       toJson: (settings) => settings.toJson(),
-      logger: Logger('HtDataApi<UserAppSettings>'),
+      logger: Logger('DataApi<UserAppSettings>'),
     );
-    remoteConfigClient = HtDataApi<RemoteConfig>(
+    remoteConfigClient = DataApi<RemoteConfig>(
       httpClient: httpClient,
       modelName: 'remote_config',
       fromJson: RemoteConfig.fromJson,
       toJson: (config) => config.toJson(),
-      logger: Logger('HtDataApi<RemoteConfig>'),
+      logger: Logger('DataApi<RemoteConfig>'),
     );
-    dashboardSummaryClient = HtDataApi<DashboardSummary>(
+    dashboardSummaryClient = DataApi<DashboardSummary>(
       httpClient: httpClient,
       modelName: 'dashboard_summary',
       fromJson: DashboardSummary.fromJson,
       toJson: (summary) => summary.toJson(),
-      logger: Logger('HtDataApi<DashboardSummary>'),
+      logger: Logger('DataApi<DashboardSummary>'),
     );
   }
 
-  final headlinesRepository = HtDataRepository<Headline>(
+  final headlinesRepository = DataRepository<Headline>(
     dataClient: headlinesClient,
   );
-  final topicsRepository = HtDataRepository<Topic>(
-    dataClient: topicsClient,
-  );
-  final countriesRepository = HtDataRepository<Country>(
+  final topicsRepository = DataRepository<Topic>(dataClient: topicsClient);
+  final countriesRepository = DataRepository<Country>(
     dataClient: countriesClient,
   );
-  final sourcesRepository = HtDataRepository<Source>(dataClient: sourcesClient);
+  final sourcesRepository = DataRepository<Source>(dataClient: sourcesClient);
   final userContentPreferencesRepository =
-      HtDataRepository<UserContentPreferences>(
+      DataRepository<UserContentPreferences>(
         dataClient: userContentPreferencesClient,
       );
-  final userAppSettingsRepository = HtDataRepository<UserAppSettings>(
+  final userAppSettingsRepository = DataRepository<UserAppSettings>(
     dataClient: userAppSettingsClient,
   );
-  final remoteConfigRepository = HtDataRepository<RemoteConfig>(
+  final remoteConfigRepository = DataRepository<RemoteConfig>(
     dataClient: remoteConfigClient,
   );
-  final dashboardSummaryRepository = HtDataRepository<DashboardSummary>(
+  final dashboardSummaryRepository = DataRepository<DashboardSummary>(
     dataClient: dashboardSummaryClient,
   );
 
   return App(
-    htAuthenticationRepository: authenticationRepository,
-    htHeadlinesRepository: headlinesRepository,
-    htTopicsRepository: topicsRepository,
-    htCountriesRepository: countriesRepository,
-    htSourcesRepository: sourcesRepository,
-    htUserAppSettingsRepository: userAppSettingsRepository,
-    htUserContentPreferencesRepository: userContentPreferencesRepository,
-    htRemoteConfigRepository: remoteConfigRepository,
-    htDashboardSummaryRepository: dashboardSummaryRepository,
-    kvStorageService: kvStorage,
+    authenticationRepository: authenticationRepository,
+    headlinesRepository: headlinesRepository,
+    topicsRepository: topicsRepository,
+    countriesRepository: countriesRepository,
+    sourcesRepository: sourcesRepository,
+    userAppSettingsRepository: userAppSettingsRepository,
+    userContentPreferencesRepository: userContentPreferencesRepository,
+    remoteConfigRepository: remoteConfigRepository,
+    dashboardSummaryRepository: dashboardSummaryRepository,
+    storageService: kvStorage,
     environment: environment,
   );
 }
