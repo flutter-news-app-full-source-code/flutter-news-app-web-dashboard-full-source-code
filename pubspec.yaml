@@ -7,20 +7,6 @@ environment:
   sdk: ^3.8.0
 
 dependencies:
-  bloc: ^9.0.0
-  bloc_concurrency: ^0.3.0
-  data_table_2: ^2.6.0
-  device_preview: ^1.2.0
-  equatable: ^2.0.7
-  flex_color_scheme: ^8.2.0
-  flutter:
-    sdk: flutter
-  flutter_adaptive_scaffold: ^0.3.3+1
-  flutter_bloc: ^9.1.1
-  flutter_localizations:
-    sdk: flutter
-  go_router: ^16.0.0
-  google_fonts: ^6.2.1
   auth_api:
     git:
       url: https://github.com/flutter-news-app-full-source-code/auth-api.git
@@ -33,6 +19,11 @@ dependencies:
   auth_repository:
     git:
       url: https://github.com/flutter-news-app-full-source-code/auth-repository.git
+  bloc: ^9.0.0
+  bloc_concurrency: ^0.3.0
+  core:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/core.git
   data_api:
     git:
       url: https://github.com/flutter-news-app-full-source-code/data-api.git
@@ -45,24 +36,33 @@ dependencies:
   data_repository:
     git:
       url: https://github.com/flutter-news-app-full-source-code/data-repository.git
+  data_table_2: ^2.6.0
+  device_preview: ^1.2.0
+  equatable: ^2.0.7
+  flex_color_scheme: ^8.2.0
+  flutter:
+    sdk: flutter
+  flutter_adaptive_scaffold: ^0.3.3+1
+  flutter_bloc: ^9.1.1
+  flutter_localizations:
+    sdk: flutter
+  go_router: ^16.0.0
+  google_fonts: ^6.2.1
   http_client:
     git:
       url: https://github.com/flutter-news-app-full-source-code/http-client.git
+  intl: ^0.20.2
   kv_storage_service:
     git:
       url: https://github.com/flutter-news-app-full-source-code/kv-storage-service.git
   kv_storage_shared_preferences:
     git:
       url: https://github.com/flutter-news-app-full-source-code/kv-storage-shared-preferences.git
-  core:
-    git:
-      url: https://github.com/flutter-news-app-full-source-code/core.git
-  ui_kit:
-    git:
-      url: https://github.com/flutter-news-app-full-source-code/ui-kit.git  
-  intl: ^0.20.2
   logging: ^1.3.0
   timeago: ^3.7.1
+  ui_kit:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/ui-kit.git
   uuid: ^4.5.1
 
 
