@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_topic_event.dart';
@@ -10,10 +10,9 @@ part 'create_topic_state.dart';
 /// A BLoC to manage the state of creating a new topic.
 class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   /// {@macro create_topic_bloc}
-  CreateTopicBloc({
-    required HtDataRepository<Topic> topicsRepository,
-  }) : _topicsRepository = topicsRepository,
-       super(const CreateTopicState()) {
+  CreateTopicBloc({required DataRepository<Topic> topicsRepository})
+    : _topicsRepository = topicsRepository,
+      super(const CreateTopicState()) {
     on<CreateTopicNameChanged>(_onNameChanged);
     on<CreateTopicDescriptionChanged>(_onDescriptionChanged);
     on<CreateTopicIconUrlChanged>(_onIconUrlChanged);
@@ -21,19 +20,14 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     on<CreateTopicSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Topic> _topicsRepository;
+  final DataRepository<Topic> _topicsRepository;
   final _uuid = const Uuid();
 
   void _onNameChanged(
     CreateTopicNameChanged event,
     Emitter<CreateTopicState> emit,
   ) {
-    emit(
-      state.copyWith(
-        name: event.name,
-        status: CreateTopicStatus.initial,
-      ),
-    );
+    emit(state.copyWith(name: event.name, status: CreateTopicStatus.initial));
   }
 
   void _onDescriptionChanged(
@@ -53,10 +47,7 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     Emitter<CreateTopicState> emit,
   ) {
     emit(
-      state.copyWith(
-        iconUrl: event.iconUrl,
-        status: CreateTopicStatus.initial,
-      ),
+      state.copyWith(iconUrl: event.iconUrl, status: CreateTopicStatus.initial),
     );
   }
 
@@ -98,13 +89,8 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
           createdTopic: newTopic,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateTopicStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateTopicStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

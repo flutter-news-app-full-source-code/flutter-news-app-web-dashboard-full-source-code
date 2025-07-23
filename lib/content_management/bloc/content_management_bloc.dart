@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';
@@ -21,9 +21,9 @@ enum ContentManagementTab {
 class ContentManagementBloc
     extends Bloc<ContentManagementEvent, ContentManagementState> {
   ContentManagementBloc({
-    required HtDataRepository<Headline> headlinesRepository,
-    required HtDataRepository<Topic> topicsRepository,
-    required HtDataRepository<Source> sourcesRepository,
+    required DataRepository<Headline> headlinesRepository,
+    required DataRepository<Topic> topicsRepository,
+    required DataRepository<Source> sourcesRepository,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
@@ -40,9 +40,9 @@ class ContentManagementBloc
     on<DeleteSourceRequested>(_onDeleteSourceRequested);
   }
 
-  final HtDataRepository<Headline> _headlinesRepository;
-  final HtDataRepository<Topic> _topicsRepository;
-  final HtDataRepository<Source> _sourcesRepository;
+  final DataRepository<Headline> _headlinesRepository;
+  final DataRepository<Topic> _topicsRepository;
+  final DataRepository<Source> _sourcesRepository;
 
   void _onContentManagementTabChanged(
     ContentManagementTabChanged event,
@@ -74,7 +74,7 @@ class ContentManagementBloc
           headlinesHasMore: paginatedHeadlines.hasMore,
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
@@ -101,7 +101,7 @@ class ContentManagementBloc
           .where((h) => h.id != event.id)
           .toList();
       emit(state.copyWith(headlines: updatedHeadlines));
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
@@ -153,7 +153,7 @@ class ContentManagementBloc
           topicsHasMore: paginatedTopics.hasMore,
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
@@ -180,7 +180,7 @@ class ContentManagementBloc
           .where((c) => c.id != event.id)
           .toList();
       emit(state.copyWith(topics: updatedTopics));
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
@@ -232,7 +232,7 @@ class ContentManagementBloc
           sourcesHasMore: paginatedSources.hasMore,
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
@@ -259,7 +259,7 @@ class ContentManagementBloc
           .where((s) => s.id != event.id)
           .toList();
       emit(state.copyWith(sources: updatedSources));
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,

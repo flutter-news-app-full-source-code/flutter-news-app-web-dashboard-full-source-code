@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 
 part 'edit_topic_event.dart';
 part 'edit_topic_state.dart';
@@ -10,7 +10,7 @@ part 'edit_topic_state.dart';
 class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   /// {@macro edit_topic_bloc}
   EditTopicBloc({
-    required HtDataRepository<Topic> topicsRepository,
+    required DataRepository<Topic> topicsRepository,
     required String topicId,
   }) : _topicsRepository = topicsRepository,
        _topicId = topicId,
@@ -23,7 +23,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     on<EditTopicSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Topic> _topicsRepository;
+  final DataRepository<Topic> _topicsRepository;
   final String _topicId;
 
   Future<void> _onLoaded(
@@ -43,13 +43,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           contentStatus: topic.status,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditTopicStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
@@ -90,10 +85,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     Emitter<EditTopicState> emit,
   ) {
     emit(
-      state.copyWith(
-        iconUrl: event.iconUrl,
-        status: EditTopicStatus.initial,
-      ),
+      state.copyWith(iconUrl: event.iconUrl, status: EditTopicStatus.initial),
     );
   }
 
@@ -140,23 +132,15 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         updatedAt: DateTime.now(),
       );
 
-      await _topicsRepository.update(
-        id: _topicId,
-        item: updatedTopic,
-      );
+      await _topicsRepository.update(id: _topicId, item: updatedTopic);
       emit(
         state.copyWith(
           status: EditTopicStatus.success,
           updatedTopic: updatedTopic,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditTopicStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

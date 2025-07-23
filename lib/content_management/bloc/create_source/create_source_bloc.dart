@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
@@ -12,8 +12,8 @@ part 'create_source_state.dart';
 class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
   CreateSourceBloc({
-    required HtDataRepository<Source> sourcesRepository,
-    required HtDataRepository<Country> countriesRepository,
+    required DataRepository<Source> sourcesRepository,
+    required DataRepository<Country> countriesRepository,
   }) : _sourcesRepository = sourcesRepository,
        _countriesRepository = countriesRepository,
        super(const CreateSourceState()) {
@@ -28,8 +28,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Source> _sourcesRepository;
-  final HtDataRepository<Country> _countriesRepository;
+  final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Country> _countriesRepository;
   final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
@@ -47,13 +47,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           countries: countries,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
@@ -147,13 +142,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           createdSource: newSource,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

@@ -1,16 +1,16 @@
+import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/router/routes.dart';
-import 'package:ht_dashboard/shared/extensions/content_status_l10n.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
 import 'package:intl/intl.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template sources_page}
 /// A page for displaying and managing Sources in a tabular format.
@@ -58,29 +58,15 @@ class _SourcesPageState extends State<SourcesPage> {
           }
 
           if (state.sources.isEmpty) {
-            return Center(
-              child: Text(l10n.noSourcesFound),
-            );
+            return Center(child: Text(l10n.noSourcesFound));
           }
 
           return PaginatedDataTable2(
             columns: [
-              DataColumn2(
-                label: Text(l10n.sourceName),
-                size: ColumnSize.L,
-              ),
-              DataColumn2(
-                label: Text(l10n.sourceType),
-                size: ColumnSize.M,
-              ),
-              DataColumn2(
-                label: Text(l10n.status),
-                size: ColumnSize.S,
-              ),
-              DataColumn2(
-                label: Text(l10n.lastUpdated),
-                size: ColumnSize.M,
-              ),
+              DataColumn2(label: Text(l10n.sourceName), size: ColumnSize.L),
+              DataColumn2(label: Text(l10n.sourceType), size: ColumnSize.M),
+              DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
+              DataColumn2(label: Text(l10n.lastUpdated), size: ColumnSize.M),
               DataColumn2(
                 label: Text(l10n.actions),
                 size: ColumnSize.S,

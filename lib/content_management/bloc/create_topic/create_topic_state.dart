@@ -33,7 +33,7 @@ final class CreateTopicState extends Equatable {
   final String description;
   final String iconUrl;
   final ContentStatus contentStatus;
-  final HtHttpException? exception;
+  final HttpException? exception;
   final Topic? createdTopic;
 
   /// Returns true if the form is valid and can be submitted.
@@ -47,7 +47,7 @@ final class CreateTopicState extends Equatable {
     String? description,
     String? iconUrl,
     ContentStatus? contentStatus,
-    HtHttpException? exception,
+    HttpException? exception,
     Topic? createdTopic,
   }) {
     return CreateTopicState(

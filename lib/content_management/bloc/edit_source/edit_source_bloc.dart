@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ht_dashboard/l10n/app_localizations.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -12,8 +12,8 @@ part 'edit_source_state.dart';
 class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
   EditSourceBloc({
-    required HtDataRepository<Source> sourcesRepository,
-    required HtDataRepository<Country> countriesRepository,
+    required DataRepository<Source> sourcesRepository,
+    required DataRepository<Country> countriesRepository,
     required String sourceId,
   }) : _sourcesRepository = sourcesRepository,
        _countriesRepository = countriesRepository,
@@ -30,8 +30,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceSubmitted>(_onSubmitted);
   }
 
-  final HtDataRepository<Source> _sourcesRepository;
-  final HtDataRepository<Country> _countriesRepository;
+  final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Country> _countriesRepository;
   final String _sourceId;
 
   Future<void> _onLoaded(
@@ -60,13 +60,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           countries: countries,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
@@ -190,13 +185,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           updatedSource: updatedSource,
         ),
       );
-    } on HtHttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: e,
-        ),
-      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(

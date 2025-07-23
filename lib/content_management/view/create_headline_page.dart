@@ -1,13 +1,13 @@
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ht_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:ht_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
-import 'package:ht_dashboard/l10n/l10n.dart';
-import 'package:ht_dashboard/shared/shared.dart';
-import 'package:ht_data_repository/ht_data_repository.dart';
-import 'package:ht_shared/ht_shared.dart';
-import 'package:ht_ui_kit/ht_ui_kit.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_headline_page}
 /// A page for creating a new headline.
@@ -21,10 +21,10 @@ class CreateHeadlinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CreateHeadlineBloc(
-        headlinesRepository: context.read<HtDataRepository<Headline>>(),
-        sourcesRepository: context.read<HtDataRepository<Source>>(),
-        topicsRepository: context.read<HtDataRepository<Topic>>(),
-        countriesRepository: context.read<HtDataRepository<Country>>(),
+        headlinesRepository: context.read<DataRepository<Headline>>(),
+        sourcesRepository: context.read<DataRepository<Source>>(),
+        topicsRepository: context.read<DataRepository<Topic>>(),
+        countriesRepository: context.read<DataRepository<Country>>(),
       )..add(const CreateHeadlineDataLoaded()),
       child: const _CreateHeadlineView(),
     );
