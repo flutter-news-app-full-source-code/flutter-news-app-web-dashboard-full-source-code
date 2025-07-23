@@ -1,15 +1,15 @@
-# 📊✨ ht_dashboard
+# 📊✨ flutter_news_app_web_dashboard_full_source_code
 
 ![coverage: percentage](https://img.shields.io/badge/coverage-XX-green)
-[![Demo: Live](https://img.shields.io/badge/Demo-Live-orange)](https://headlines-toolkit.github.io/ht-dashboard/)
+[![Demo: Live](https://img.shields.io/badge/Demo-Live-orange)](https://flutter-news-app-full-source-code.github.io/flutter-news-app-web-dashboard-full-source-code/)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 [![License: PolyForm Free Trial](https://img.shields.io/badge/License-PolyForm%20Free%20Trial-blue)](https://polyformproject.org/licenses/free-trial/1.0.0)
 
-`ht_dashboard` is a Flutter web application designed as a comprehensive content management and administration interface for the [Headlines Toolkit](https://github.com/headlines-toolkit) ecosystem. It provides a powerful, intuitive platform for managing news content, application configurations, and user-related settings, complementing the [mobile app](https://github.com/headlines-toolkit/ht-main) and the [backend service](https://github.com/headlines-toolkit/ht-api).
+`flutter_news_app_web_dashboard_full_source_code` is a Flutter web application designed as a comprehensive content management and administration interface for the [Headlines Toolkit](https://github.com/flutter-news-app-full-source-code) ecosystem. It provides a powerful, intuitive platform for managing news content, application configurations, and user-related settings, complementing the [mobile app](https://github.com/flutter-news-app-full-source-code/ht-main) and the [backend service](https://github.com/flutter-news-app-full-source-code/ht-api).
 
 ## ⭐ Features & Capabilities
 
-`ht_dashboard` offers a robust set of tools for efficient administration:
+`flutter_news_app_web_dashboard_full_source_code` offers a robust set of tools for efficient administration:
 
 #### 📰 **Comprehensive Content Management**
 Effortlessly manage all aspects of your news content, including:
@@ -57,10 +57,10 @@ Fully internationalized with working English and Arabic localizations (`.arb` fi
 
 ## 🔑 Access and Licensing
 
-`ht_dashboard` is source-available as part of the Headlines Toolkit ecosystem.
+`flutter_news_app_web_dashboard_full_source_code` is source-available as part of the Headlines Toolkit ecosystem.
 
 To acquire a commercial license for building unlimited news applications, please visit 
-the [Headlines Toolkit GitHub organization page](https://github.com/headlines-toolkit)
+the [Headlines Toolkit GitHub organization page](https://github.com/flutter-news-app-full-source-code)
 for more details.
 
 ---
@@ -70,8 +70,8 @@ for more details.
 1.  **Ensure Flutter is installed.** (See [Flutter documentation](https://flutter.dev/docs/get-started/install))
 2.  **Clone the repository:**
     ```bash
-    git clone https://github.com/headlines-toolkit/ht-dashboard.git
-    cd ht-dashboard
+    git clone https://github.com/flutter-news-app-full-source-code/flutter-news-app-web-dashboard-full-source-code.git
+    cd flutter-news-app-web-dashboard-full-source-code
     ```
 3.  **Get dependencies:**
     ```bash
