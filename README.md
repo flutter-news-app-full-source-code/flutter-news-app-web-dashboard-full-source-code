@@ -94,6 +94,7 @@ Get started for free and purchase when you're ready to launch!
 
     // Use `AppEnvironment.demo` to run with in-memory data (no API needed).
     // Use `AppEnvironment.development` to connect to a local backend API.
+    // Use `AppEnvironment.production` to connect to a live backend API.
     const appEnvironment = AppEnvironment.demo; 
     ```
 
