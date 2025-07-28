@@ -20,6 +20,8 @@ import 'package:equatable/equatable.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
+const _requestCodeCooldownDuration = Duration(seconds: 60);
+
 /// {@template authentication_bloc}
 /// Bloc responsible for managing the authentication state of the application.
 /// {@endtemplate}
@@ -40,6 +42,7 @@ class AuthenticationBloc
     );
     on<AuthenticationVerifyCodeRequested>(_onAuthenticationVerifyCodeRequested);
     on<AuthenticationSignOutRequested>(_onAuthenticationSignOutRequested);
+    on<AuthenticationCooldownCompleted>(_onAuthenticationCooldownCompleted);
   }
 
   final AuthRepository _authenticationRepository;
@@ -72,17 +75,31 @@ class AuthenticationBloc
     AuthenticationRequestSignInCodeRequested event,
     Emitter<AuthenticationState> emit,
   ) async {
+    // Prevent request if already in cooldown
+    if (state.status == AuthenticationStatus.requestCodeCooldown) return;
+
     emit(state.copyWith(status: AuthenticationStatus.requestCodeLoading));
     try {
       await _authenticationRepository.requestSignInCode(
         event.email,
         isDashboardLogin: true,
       );
+      final cooldownEndTime = DateTime.now().add(_requestCodeCooldownDuration);
       emit(
         state.copyWith(
           status: AuthenticationStatus.codeSentSuccess,
           email: event.email,
+          cooldownEndTime: cooldownEndTime,
         ),
+      );
+      // Transition to cooldown state after a brief moment
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      emit(state.copyWith(status: AuthenticationStatus.requestCodeCooldown));
+
+      // Start a timer to transition out of cooldown
+      Timer(
+        _requestCodeCooldownDuration,
+        () => add(const AuthenticationCooldownCompleted()),
       );
     } on InvalidInputException catch (e) {
       emit(state.copyWith(status: AuthenticationStatus.failure, exception: e));
@@ -178,6 +195,15 @@ class AuthenticationBloc
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
+    }
+  }
+
+  void _onAuthenticationCooldownCompleted(
+    AuthenticationCooldownCompleted event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    if (state.status == AuthenticationStatus.requestCodeCooldown) {
+      emit(state.copyWith(status: AuthenticationStatus.initial));
     }
   }
 
