@@ -158,6 +158,12 @@ abstract class AppLocalizations {
   /// **'Send Code'**
   String get requestCodeSendCodeButton;
 
+  /// Button label for resending the verification code after a cooldown
+  ///
+  /// In en, this message translates to:
+  /// **'Resend in {seconds}s'**
+  String requestCodeResendButtonCooldown(int seconds);
+
   /// Title for the email code verification page
   ///
   /// In en, this message translates to:

@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "authenticationPageHeadline": "Dashboard Access",
   "@authenticationPageHeadline": {
     "description": "Headline for the main authentication page"
@@ -38,6 +39,15 @@
   "requestCodeSendCodeButton": "Send Code",
   "@requestCodeSendCodeButton": {
     "description": "Button label for sending the verification code"
+  },
+  "requestCodeResendButtonCooldown": "Resend in {seconds}s",
+  "@requestCodeResendButtonCooldown": {
+    "description": "Button label for resending the verification code after a cooldown",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   },
   "emailCodeSentPageTitle": "Verify Code",
   "@emailCodeSentPageTitle": {
