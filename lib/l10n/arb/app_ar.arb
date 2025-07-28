@@ -39,6 +39,15 @@
   "@requestCodeSendCodeButton": {
     "description": "تسمية زر إرسال رمز التحقق"
   },
+  "requestCodeResendButtonCooldown": "إعادة الإرسال في {seconds} ثانية",
+  "@requestCodeResendButtonCooldown": {
+    "description": "تسمية زر إعادة إرسال رمز التحقق بعد فترة تهدئة",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
   "emailCodeSentPageTitle": "التحقق من الرمز",
   "@emailCodeSentPageTitle": {
     "description": "عنوان صفحة التحقق من رمز البريد الإلكتروني"

@@ -39,6 +39,15 @@
   "@requestCodeSendCodeButton": {
     "description": "Button label for sending the verification code"
   },
+  "requestCodeResendButtonCooldown": "Resend in {seconds}s",
+  "@requestCodeResendButtonCooldown": {
+    "description": "Button label for resending the verification code after a cooldown",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
   "emailCodeSentPageTitle": "Verify Code",
   "@emailCodeSentPageTitle": {
     "description": "Title for the email code verification page"
