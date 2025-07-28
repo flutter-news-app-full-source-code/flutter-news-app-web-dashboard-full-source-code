@@ -203,7 +203,12 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) {
     if (state.status == AuthenticationStatus.requestCodeCooldown) {
-      emit(state.copyWith(status: AuthenticationStatus.initial));
+      emit(
+        state.copyWith(
+          status: AuthenticationStatus.initial,
+          clearCooldownEndTime: true,
+        ),
+      );
     }
   }
 
