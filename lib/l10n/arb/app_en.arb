@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "authenticationPageHeadline": "Dashboard Access",
   "@authenticationPageHeadline": {
     "description": "Headline for the main authentication page"

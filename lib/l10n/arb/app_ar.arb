@@ -1,4 +1,5 @@
 {
+  "@@locale": "ar",
   "authenticationPageHeadline": "الوصول إلى لوحة التحكم",
   "@authenticationPageHeadline": {
     "description": "عنوان صفحة المصادقة الرئيسية"
