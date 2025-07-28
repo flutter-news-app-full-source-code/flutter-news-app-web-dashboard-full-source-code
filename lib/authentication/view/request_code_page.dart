@@ -192,8 +192,8 @@ class _EmailLinkFormState extends State<_EmailLinkForm> {
   void initState() {
     super.initState();
     final authState = context.read<AuthenticationBloc>().state;
-    if (authState.status == AuthenticationStatus.requestCodeCooldown &&
-        authState.cooldownEndTime != null) {
+    if (authState.cooldownEndTime != null &&
+        authState.cooldownEndTime!.isAfter(DateTime.now())) {
       _startCooldownTimer(authState.cooldownEndTime!);
     }
   }
