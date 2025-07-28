@@ -76,7 +76,10 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     // Prevent request if already in cooldown
-    if (state.status == AuthenticationStatus.requestCodeCooldown) return;
+    if (state.cooldownEndTime != null &&
+        state.cooldownEndTime!.isAfter(DateTime.now())) {
+      return;
+    }
 
     emit(state.copyWith(status: AuthenticationStatus.requestCodeLoading));
     try {
@@ -92,9 +95,6 @@ class AuthenticationBloc
           cooldownEndTime: cooldownEndTime,
         ),
       );
-      // Transition to cooldown state after a brief moment
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-      emit(state.copyWith(status: AuthenticationStatus.requestCodeCooldown));
 
       // Start a timer to transition out of cooldown
       Timer(
@@ -202,14 +202,12 @@ class AuthenticationBloc
     AuthenticationCooldownCompleted event,
     Emitter<AuthenticationState> emit,
   ) {
-    if (state.status == AuthenticationStatus.requestCodeCooldown) {
-      emit(
-        state.copyWith(
-          status: AuthenticationStatus.initial,
-          clearCooldownEndTime: true,
-        ),
-      );
-    }
+    emit(
+      state.copyWith(
+        status: AuthenticationStatus.initial,
+        clearCooldownEndTime: true,
+      ),
+    );
   }
 
   @override

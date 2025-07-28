@@ -248,9 +248,11 @@ class _EmailLinkFormState extends State<_EmailLinkForm> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listenWhen: (previous, current) =>
+          previous.cooldownEndTime != current.cooldownEndTime,
       listener: (context, state) {
-        if (state.status == AuthenticationStatus.requestCodeCooldown &&
-            state.cooldownEndTime != null) {
+        if (state.cooldownEndTime != null &&
+            state.cooldownEndTime!.isAfter(DateTime.now())) {
           _cooldownTimer?.cancel();
           _startCooldownTimer(state.cooldownEndTime!);
         }

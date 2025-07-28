@@ -22,9 +22,6 @@ enum AuthenticationStatus {
   /// The sign-in code was sent successfully.
   codeSentSuccess,
 
-  /// The user is in a cooldown period after requesting a code.
-  requestCodeCooldown,
-
   /// An authentication operation failed.
   failure,
 }
