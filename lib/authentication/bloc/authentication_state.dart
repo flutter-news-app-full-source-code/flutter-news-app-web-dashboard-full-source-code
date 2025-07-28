@@ -22,6 +22,9 @@ enum AuthenticationStatus {
   /// The sign-in code was sent successfully.
   codeSentSuccess,
 
+  /// The user is in a cooldown period after requesting a code.
+  requestCodeCooldown,
+
   /// An authentication operation failed.
   failure,
 }
@@ -36,6 +39,7 @@ final class AuthenticationState extends Equatable {
     this.user,
     this.email,
     this.exception,
+    this.cooldownEndTime,
   });
 
   /// The current status of the authentication process.
@@ -50,8 +54,11 @@ final class AuthenticationState extends Equatable {
   /// The error describing an authentication failure, if any.
   final HttpException? exception;
 
+  /// The time when the cooldown for requesting a new code ends.
+  final DateTime? cooldownEndTime;
+
   @override
-  List<Object?> get props => [status, user, email, exception];
+  List<Object?> get props => [status, user, email, exception, cooldownEndTime];
 
   /// Creates a copy of this [AuthenticationState] with the given fields
   /// replaced with the new values.
@@ -60,12 +67,14 @@ final class AuthenticationState extends Equatable {
     User? user,
     String? email,
     HttpException? exception,
+    DateTime? cooldownEndTime,
   }) {
     return AuthenticationState(
       status: status ?? this.status,
       user: user ?? this.user,
       email: email ?? this.email,
       exception: exception ?? this.exception,
+      cooldownEndTime: cooldownEndTime ?? this.cooldownEndTime,
     );
   }
 }
