@@ -222,10 +222,8 @@ class _EmailLinkFormState extends State<_EmailLinkForm> {
           setState(() {
             _cooldownSeconds = 0;
           });
-          // Optionally, trigger an event to reset the bloc state if needed
-          context
-              .read<AuthenticationBloc>()
-              .add(const AuthenticationCooldownCompleted());
+          // The BLoC handles resetting its own state. The UI timer is only
+          // responsible for updating the countdown on the screen.
         }
       });
     }
