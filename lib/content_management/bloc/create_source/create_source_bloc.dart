@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
@@ -13,9 +15,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
-    required DataRepository<Country> countriesRepository,
   }) : _sourcesRepository = sourcesRepository,
-       _countriesRepository = countriesRepository,
        super(const CreateSourceState()) {
     on<CreateSourceDataLoaded>(_onDataLoaded);
     on<CreateSourceNameChanged>(_onNameChanged);
@@ -29,36 +29,15 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   }
 
   final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Country> _countriesRepository;
   final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
     CreateSourceDataLoaded event,
     Emitter<CreateSourceState> emit,
   ) async {
-    emit(state.copyWith(status: CreateSourceStatus.loading));
-    try {
-      final countriesResponse = await _countriesRepository.readAll(
-        sort: [const SortOption('updatedAt', SortOrder.desc)],
-      );
-      final countries = countriesResponse.items;
-
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.initial,
-          countries: countries,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
+    // This event is now a no-op since we don't need to load countries.
+    // We just ensure the BLoC is in the initial state.
+    emit(state.copyWith(status: CreateSourceStatus.initial));
   }
 
   void _onNameChanged(
@@ -100,7 +79,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceHeadquartersChanged event,
     Emitter<CreateSourceState> emit,
   ) {
-    emit(state.copyWith(headquarters: () => event.headquarters));
+    final packageCountry = event.headquarters;
+    if (packageCountry == null) {
+      emit(state.copyWith(headquarters: () => null));
+    } else {
+      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
+      emit(state.copyWith(headquarters: () => coreCountry));
+    }
   }
 
   void _onStatusChanged(
