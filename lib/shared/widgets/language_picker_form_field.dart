@@ -14,6 +14,7 @@ class LanguagePickerFormField extends FormField<language_picker.Language> {
   /// standard [FormField] properties.
   ///
   /// The [labelText] is displayed as the input field's label.
+  /// The [onChanged] callback is invoked when a new language is selected.
   LanguagePickerFormField({
     super.key,
     super.onSaved,
@@ -21,6 +22,7 @@ class LanguagePickerFormField extends FormField<language_picker.Language> {
     super.initialValue,
     super.autovalidateMode,
     String? labelText,
+    void Function(language_picker.Language)? onChanged,
   }) : super(
           builder: (FormFieldState<language_picker.Language> state) {
             // This controller is just for displaying the text. The actual
@@ -46,6 +48,9 @@ class LanguagePickerFormField extends FormField<language_picker.Language> {
                       state.value ?? language_picker.Languages.english,
                   onValuePicked: (language_picker.Language language) {
                     state.didChange(language);
+                    if (onChanged != null) {
+                      onChanged(language);
+                    }
                     // Update the text in the read-only text field.
                     controller.text = language.name;
                   },
