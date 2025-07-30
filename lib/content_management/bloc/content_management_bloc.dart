@@ -61,6 +61,7 @@ class ContentManagementBloc
       final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
 
       final paginatedHeadlines = await _headlinesRepository.readAll(
+        sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
           limit: event.limit,
@@ -140,6 +141,7 @@ class ContentManagementBloc
       final previousTopics = isPaginating ? state.topics : <Topic>[];
 
       final paginatedTopics = await _topicsRepository.readAll(
+        sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
           limit: event.limit,
@@ -219,6 +221,7 @@ class ContentManagementBloc
       final previousSources = isPaginating ? state.sources : <Source>[];
 
       final paginatedSources = await _sourcesRepository.readAll(
+        sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
           limit: event.limit,
