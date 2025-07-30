@@ -27,7 +27,7 @@ final class EditSourceState extends Equatable {
     this.description = '',
     this.url = '',
     this.sourceType,
-    this.language = '',
+    this.language,
     this.headquarters,
     this.contentStatus = ContentStatus.active,
     this.exception,
@@ -40,7 +40,7 @@ final class EditSourceState extends Equatable {
   final String description;
   final String url;
   final SourceType? sourceType;
-  final String language;
+  final Language? language;
   final Country? headquarters;
   final ContentStatus contentStatus;
   final HttpException? exception;
@@ -52,7 +52,7 @@ final class EditSourceState extends Equatable {
       description.isNotEmpty &&
       url.isNotEmpty &&
       sourceType != null &&
-      language.isNotEmpty &&
+      language != null &&
       headquarters != null;
 
   EditSourceState copyWith({
@@ -62,7 +62,7 @@ final class EditSourceState extends Equatable {
     String? description,
     String? url,
     ValueGetter<SourceType?>? sourceType,
-    String? language,
+    ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
     ContentStatus? contentStatus,
     HttpException? exception,
@@ -75,7 +75,7 @@ final class EditSourceState extends Equatable {
       description: description ?? this.description,
       url: url ?? this.url,
       sourceType: sourceType != null ? sourceType() : this.sourceType,
-      language: language ?? this.language,
+      language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,

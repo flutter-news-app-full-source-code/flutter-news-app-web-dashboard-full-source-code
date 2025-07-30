@@ -160,15 +160,13 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
+                    LanguagePickerFormField(
+                      labelText: l10n.language,
                       initialValue: state.language,
-                      decoration: InputDecoration(
-                        labelText: l10n.language,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceLanguageChanged(value)),
+                      onChanged: (language) =>
+                          context.read<CreateSourceBloc>().add(
+                                CreateSourceLanguageChanged(language),
+                              ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(

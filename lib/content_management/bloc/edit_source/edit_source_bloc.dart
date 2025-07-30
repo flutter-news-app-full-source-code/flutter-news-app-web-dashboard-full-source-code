@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:language_picker/languages.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -48,7 +49,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           description: source.description,
           url: source.url,
           sourceType: () => source.sourceType,
-          language: source.language,
+          language: () => adaptLanguageCodeToPackageLanguage(
+            source.language,
+          ),
           headquarters: () => source.headquarters,
           contentStatus: source.status,
         ),
@@ -109,7 +112,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) {
     emit(
       state.copyWith(
-        language: event.language,
+        language: () => event.language,
         status: EditSourceStatus.initial,
       ),
     );
@@ -169,7 +172,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
-        language: state.language,
+        language: adaptPackageLanguageToLanguageCode(state.language!),
         headquarters: state.headquarters,
         status: state.contentStatus,
         updatedAt: DateTime.now(),
