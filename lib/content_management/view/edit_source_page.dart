@@ -112,7 +112,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
                 SnackBar(content: Text(l10n.sourceUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              SourceUpdated(state.updatedSource!),
+              const LoadSourcesRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
