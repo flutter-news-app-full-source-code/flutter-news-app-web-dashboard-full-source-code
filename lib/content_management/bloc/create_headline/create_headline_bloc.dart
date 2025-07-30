@@ -51,9 +51,15 @@ class CreateHeadlineBloc
         topicsResponse,
         countriesResponse,
       ] = await Future.wait([
-        _sourcesRepository.readAll(),
-        _topicsRepository.readAll(),
-        _countriesRepository.readAll(),
+        _sourcesRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+        _topicsRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+        _countriesRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
       ]);
 
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
