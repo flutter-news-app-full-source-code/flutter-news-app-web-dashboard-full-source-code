@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:language_picker/languages.dart';
 import 'package:uuid/uuid.dart';
