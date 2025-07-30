@@ -1,5 +1,6 @@
 part of 'edit_source_bloc.dart';
 
+import 'package:language_picker/language_picker.dart' as language_picker;
 /// Base class for all events related to the [EditSourceBloc].
 sealed class EditSourceEvent extends Equatable {
   const EditSourceEvent();
@@ -56,8 +57,7 @@ final class EditSourceTypeChanged extends EditSourceEvent {
 /// Event triggered when the source language input changes.
 final class EditSourceLanguageChanged extends EditSourceEvent {
   const EditSourceLanguageChanged(this.language);
-
-  final String language;
+  final language_picker.Language? language;
 
   @override
   List<Object?> get props => [language];
