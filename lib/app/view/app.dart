@@ -26,7 +26,6 @@ class App extends StatelessWidget {
     required AuthRepository authenticationRepository,
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
-    required DataRepository<Country> countriesRepository,
     required DataRepository<Source> sourcesRepository,
     required DataRepository<UserAppSettings> userAppSettingsRepository,
     required DataRepository<UserContentPreferences>
@@ -39,7 +38,6 @@ class App extends StatelessWidget {
   }) : _authenticationRepository = authenticationRepository,
        _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
-       _countriesRepository = countriesRepository,
        _sourcesRepository = sourcesRepository,
        _userAppSettingsRepository = userAppSettingsRepository,
        _userContentPreferencesRepository = userContentPreferencesRepository,
@@ -51,7 +49,6 @@ class App extends StatelessWidget {
   final AuthRepository _authenticationRepository;
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
-  final DataRepository<Country> _countriesRepository;
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<UserAppSettings> _userAppSettingsRepository;
   final DataRepository<UserContentPreferences>
@@ -68,7 +65,6 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _authenticationRepository),
         RepositoryProvider.value(value: _headlinesRepository),
         RepositoryProvider.value(value: _topicsRepository),
-        RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _sourcesRepository),
         RepositoryProvider.value(value: _userAppSettingsRepository),
         RepositoryProvider.value(value: _userContentPreferencesRepository),
