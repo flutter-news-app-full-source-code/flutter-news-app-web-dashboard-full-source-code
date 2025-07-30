@@ -114,7 +114,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                 SnackBar(content: Text(l10n.headlineUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              HeadlineUpdated(state.updatedHeadline!),
+              const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
