@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,6 @@ class EditSourcePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
         sourceId: sourceId,
       )..add(const EditSourceLoaded()),
       child: const _EditSourceView(),
@@ -151,19 +151,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
             );
           }
 
-          // Find the correct Country instance from the list to ensure
-          // the Dropdown can display the selection correctly.
-          Country? selectedHeadquarters;
-          if (state.headquarters != null) {
-            try {
-              selectedHeadquarters = state.countries.firstWhere(
-                (c) => c.id == state.headquarters!.id,
-              );
-            } catch (_) {
-              selectedHeadquarters = null;
-            }
-          }
-
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -237,24 +224,18 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Country?>(
-                      value: selectedHeadquarters,
-                      decoration: InputDecoration(
-                        labelText: l10n.headquarters,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.countries.map(
-                          (country) => DropdownMenuItem(
-                            value: country,
-                            child: Text(country.name),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceHeadquartersChanged(value),
-                      ),
+                    CountryPickerFormField(
+                      labelText: l10n.headquarters,
+                      initialValue: state.headquarters != null
+                          ? adaptCoreCountryToPackageCountry(
+                              state.headquarters!,
+                            )
+                          : null,
+                      onChanged: (picker.Country country) {
+                        context.read<EditSourceBloc>().add(
+                              EditSourceHeadquartersChanged(country),
+                            );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
