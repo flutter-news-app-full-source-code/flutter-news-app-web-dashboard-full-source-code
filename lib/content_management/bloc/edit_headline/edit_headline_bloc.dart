@@ -53,9 +53,15 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         countriesResponse,
       ] = await Future.wait([
         _headlinesRepository.read(id: _headlineId),
-        _sourcesRepository.readAll(),
-        _topicsRepository.readAll(),
-        _countriesRepository.readAll(),
+        _sourcesRepository.readAll(
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
+        ),
+        _topicsRepository.readAll(
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
+        ),
+        _countriesRepository.readAll(
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
+        ),
       ]);
 
       final headline = headlineResponse as Headline;

@@ -42,7 +42,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     try {
       final [sourceResponse, countriesResponse] = await Future.wait([
         _sourcesRepository.read(id: _sourceId),
-        _countriesRepository.readAll(),
+        _countriesRepository.readAll(
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
+        ),
       ]);
       final source = sourceResponse as Source;
       final countries = (countriesResponse as PaginatedResponse<Country>).items;
