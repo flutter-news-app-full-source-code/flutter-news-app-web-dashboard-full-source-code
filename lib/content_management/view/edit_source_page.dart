@@ -45,7 +45,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
-  late final TextEditingController _languageController;
 
   @override
   void initState() {
@@ -54,7 +53,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
     _nameController = TextEditingController(text: state.name);
     _descriptionController = TextEditingController(text: state.description);
     _urlController = TextEditingController(text: state.url);
-    _languageController = TextEditingController(text: state.language);
   }
 
   @override
@@ -62,7 +60,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
     _nameController.dispose();
     _descriptionController.dispose();
     _urlController.dispose();
-    _languageController.dispose();
     super.dispose();
   }
 
@@ -130,7 +127,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _urlController.text = state.url;
-            _languageController.text = state.language;
           }
         },
         builder: (context, state) {
@@ -193,15 +189,13 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _languageController,
-                      decoration: InputDecoration(
-                        labelText: l10n.language,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceLanguageChanged(value),
-                      ),
+                    LanguagePickerFormField(
+                      labelText: l10n.language,
+                      initialValue: state.language,
+                      onChanged: (language) =>
+                          context.read<EditSourceBloc>().add(
+                                EditSourceLanguageChanged(language),
+                              ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(

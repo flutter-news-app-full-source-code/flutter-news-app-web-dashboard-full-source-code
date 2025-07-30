@@ -1,6 +1,5 @@
 part of 'create_source_bloc.dart';
 
-import 'package:language_picker/language_picker.dart' as language_picker;
 /// Represents the status of the create source operation.
 enum CreateSourceStatus {
   /// Initial state, before any data is loaded.
