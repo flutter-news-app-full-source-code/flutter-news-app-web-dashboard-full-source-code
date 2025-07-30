@@ -39,7 +39,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(status: CreateSourceStatus.loading));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        sort: [const SortOption('updatedAt', SortOrder.asc)],
+        sort: [const SortOption('updatedAt', SortOrder.desc)],
       );
       final countries = countriesResponse.items;
 
