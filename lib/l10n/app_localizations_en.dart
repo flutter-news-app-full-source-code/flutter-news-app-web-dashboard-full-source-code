@@ -867,4 +867,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedActionTypeEnableNotifications => 'Enable Notifications';
+
+  @override
+  String get countryPickerSearchLabel => 'Search';
+
+  @override
+  String get countryPickerSearchHint => 'Start typing to search...';
+
+  @override
+  String get countryPickerSelectCountryLabel => 'Select a country';
 }

@@ -1645,6 +1645,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enable Notifications'**
   String get feedActionTypeEnableNotifications;
+
+  /// Label for the search input in the country picker
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get countryPickerSearchLabel;
+
+  /// Hint text for the search input in the country picker
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to search...'**
+  String get countryPickerSearchHint;
+
+  /// Label displayed when no country is selected in the picker form field
+  ///
+  /// In en, this message translates to:
+  /// **'Select a country'**
+  String get countryPickerSelectCountryLabel;
 }
 
 class _AppLocalizationsDelegate
