@@ -1077,4 +1077,17 @@
   "@feedActionTypeEnableNotifications": {
     "description": "Feed action type for enabling notifications"
   }
+  ,
+  "countryPickerSearchLabel": "Search",
+  "@countryPickerSearchLabel": {
+    "description": "Label for the search input in the country picker"
+  },
+  "countryPickerSearchHint": "Start typing to search...",
+  "@countryPickerSearchHint": {
+    "description": "Hint text for the search input in the country picker"
+  },
+  "countryPickerSelectCountryLabel": "Select a country",
+  "@countryPickerSelectCountryLabel": {
+    "description": "Label displayed when no country is selected in the picker form field"
+  }
 }

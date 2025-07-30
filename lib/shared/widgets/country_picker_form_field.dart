@@ -1,5 +1,6 @@
 import 'package:country_picker/country_picker.dart' as picker;
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// A form field for selecting a country using the `country_picker` package.
@@ -23,6 +24,7 @@ class CountryPickerFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
     return InkWell(
       onTap: () {
         picker.showCountryPicker(
@@ -37,9 +39,8 @@ class CountryPickerFormField extends StatelessWidget {
               topRight: Radius.circular(AppSpacing.md),
             ),
             inputDecoration: InputDecoration(
-              labelText: 'Search', // TODO(fulleni): Localize this string
-              hintText:
-                  'Start typing to search...', // TODO(fulleni): Localize this
+              labelText: l10n.countryPickerSearchLabel,
+              hintText: l10n.countryPickerSearchHint,
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -74,7 +75,7 @@ class CountryPickerFormField extends StatelessWidget {
             ] else
               Expanded(
                 child: Text(
-                  'Select a country', // TODO(you): Localize this string
+                  l10n.countryPickerSelectCountryLabel,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge

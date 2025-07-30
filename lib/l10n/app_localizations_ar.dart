@@ -868,4 +868,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get feedActionTypeEnableNotifications => 'تفعيل الإشعارات';
+
+  @override
+  String get countryPickerSearchLabel => 'بحث';
+
+  @override
+  String get countryPickerSearchHint => 'ابدأ الكتابة للبحث...';
+
+  @override
+  String get countryPickerSelectCountryLabel => 'اختر دولة';
 }

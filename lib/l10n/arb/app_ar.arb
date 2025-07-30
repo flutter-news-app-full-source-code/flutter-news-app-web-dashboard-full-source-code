@@ -1077,4 +1077,17 @@
   "@feedActionTypeEnableNotifications": {
     "description": "نوع إجراء الموجز لتفعيل الإشعارات"
   }
+  ,
+  "countryPickerSearchLabel": "بحث",
+  "@countryPickerSearchLabel": {
+    "description": "تسمية حقل البحث في منتقي البلد"
+  },
+  "countryPickerSearchHint": "ابدأ الكتابة للبحث...",
+  "@countryPickerSearchHint": {
+    "description": "نص تلميح لحقل البحث في منتقي البلد"
+  },
+  "countryPickerSelectCountryLabel": "اختر دولة",
+  "@countryPickerSelectCountryLabel": {
+    "description": "التسمية المعروضة عند عدم اختيار أي دولة في حقل نموذج منتقي البلد"
+  }
 }
