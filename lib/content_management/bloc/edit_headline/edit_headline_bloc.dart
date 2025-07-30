@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 
 part 'edit_headline_event.dart';
 part 'edit_headline_state.dart';
@@ -14,12 +16,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
-    required DataRepository<Country> countriesRepository,
     required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
        _topicsRepository = topicsRepository,
-       _countriesRepository = countriesRepository,
        _headlineId = headlineId,
        super(const EditHeadlineState()) {
     on<EditHeadlineLoaded>(_onLoaded);
@@ -37,7 +37,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Topic> _topicsRepository;
-  final DataRepository<Country> _countriesRepository;
   final String _headlineId;
 
   Future<void> _onLoaded(
@@ -50,7 +49,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         headlineResponse,
         sourcesResponse,
         topicsResponse,
-        countriesResponse,
       ] = await Future.wait([
         _headlinesRepository.read(id: _headlineId),
         _sourcesRepository.readAll(
@@ -59,15 +57,11 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         _topicsRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
         ),
-        _countriesRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-        ),
       ]);
 
       final headline = headlineResponse as Headline;
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
       final topics = (topicsResponse as PaginatedResponse<Topic>).items;
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
 
       emit(
         state.copyWith(
@@ -82,7 +76,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           eventCountry: () => headline.eventCountry,
           sources: sources,
           topics: topics,
-          countries: countries,
           contentStatus: headline.status,
         ),
       );
@@ -166,12 +159,16 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineCountryChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
-    emit(
-      state.copyWith(
-        eventCountry: () => event.country,
-        status: EditHeadlineStatus.initial,
-      ),
-    );
+    final packageCountry = event.country;
+    if (packageCountry == null) {
+      emit(state.copyWith(eventCountry: () => null));
+    } else {
+      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
+      emit(
+        state.copyWith(
+            eventCountry: () => coreCountry, status: EditHeadlineStatus.initial),
+      );
+    }
   }
 
   void _onStatusChanged(
