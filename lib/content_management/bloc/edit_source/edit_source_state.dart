@@ -1,6 +1,5 @@
 part of 'edit_source_bloc.dart';
 
-import 'package:language_picker/language_picker.dart' as language_picker;
 /// Represents the status of the edit source operation.
 enum EditSourceStatus {
   /// Initial state, before any data is loaded.
@@ -41,7 +40,7 @@ final class EditSourceState extends Equatable {
   final String description;
   final String url;
   final SourceType? sourceType;
-  final language_picker.Language? language;
+  final Language? language;
   final Country? headquarters;
   final ContentStatus contentStatus;
   final HttpException? exception;
@@ -63,7 +62,7 @@ final class EditSourceState extends Equatable {
     String? description,
     String? url,
     ValueGetter<SourceType?>? sourceType,
-    ValueGetter<language_picker.Language?>? language,
+    ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
     ContentStatus? contentStatus,
     HttpException? exception,

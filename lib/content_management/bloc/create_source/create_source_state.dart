@@ -39,7 +39,7 @@ final class CreateSourceState extends Equatable {
   final String description;
   final String url;
   final SourceType? sourceType;
-  final language_picker.Language? language;
+  final Language? language;
   final Country? headquarters;
   final ContentStatus contentStatus;
   final HttpException? exception;
@@ -60,7 +60,7 @@ final class CreateSourceState extends Equatable {
     String? description,
     String? url,
     ValueGetter<SourceType?>? sourceType,
-    ValueGetter<language_picker.Language?>? language,
+    ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
     ContentStatus? contentStatus,
     HttpException? exception,

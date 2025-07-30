@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
-import 'package:language_picker/language_picker.dart' as language_picker;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:language_picker/languages.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
