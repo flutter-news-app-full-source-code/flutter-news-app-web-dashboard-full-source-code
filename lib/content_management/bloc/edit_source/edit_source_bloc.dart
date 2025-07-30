@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -13,10 +15,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
-    required DataRepository<Country> countriesRepository,
     required String sourceId,
   }) : _sourcesRepository = sourcesRepository,
-       _countriesRepository = countriesRepository,
        _sourceId = sourceId,
        super(const EditSourceState()) {
     on<EditSourceLoaded>(_onLoaded);
@@ -31,7 +31,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   }
 
   final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Country> _countriesRepository;
   final String _sourceId;
 
   Future<void> _onLoaded(
@@ -40,14 +39,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
-      final [sourceResponse, countriesResponse] = await Future.wait([
-        _sourcesRepository.read(id: _sourceId),
-        _countriesRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-        ),
-      ]);
-      final source = sourceResponse as Source;
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
+      final source = await _sourcesRepository.read(id: _sourceId);
       emit(
         state.copyWith(
           status: EditSourceStatus.initial,
@@ -59,7 +51,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           language: source.language,
           headquarters: () => source.headquarters,
           contentStatus: source.status,
-          countries: countries,
         ),
       );
     } on HttpException catch (e) {
@@ -128,12 +119,16 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceHeadquartersChanged event,
     Emitter<EditSourceState> emit,
   ) {
-    emit(
-      state.copyWith(
-        headquarters: () => event.headquarters,
-        status: EditSourceStatus.initial,
-      ),
-    );
+    final packageCountry = event.headquarters;
+    if (packageCountry == null) {
+      emit(state.copyWith(headquarters: () => null));
+    } else {
+      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
+      emit(
+        state.copyWith(
+            headquarters: () => coreCountry, status: EditSourceStatus.initial),
+      );
+    }
   }
 
   void _onStatusChanged(

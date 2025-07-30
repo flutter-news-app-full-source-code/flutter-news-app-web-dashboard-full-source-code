@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,6 @@ class EditHeadlinePage extends StatelessWidget {
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
         headlineId: headlineId,
       )..add(const EditHeadlineLoaded()),
       child: const _EditHeadlineView(),
@@ -178,17 +178,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             }
           }
 
-          Country? selectedCountry;
-          if (state.eventCountry != null) {
-            try {
-              selectedCountry = state.countries.firstWhere(
-                (c) => c.id == state.eventCountry!.id,
-              );
-            } catch (_) {
-              selectedCountry = null;
-            }
-          }
-
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -282,24 +271,18 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Country?>(
-                      value: selectedCountry,
-                      decoration: InputDecoration(
-                        labelText: l10n.countryName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.countries.map(
-                          (country) => DropdownMenuItem(
-                            value: country,
-                            child: Text(country.name),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCountryChanged(value)),
+                    CountryPickerFormField(
+                      labelText: l10n.countryName,
+                      initialValue: state.eventCountry != null
+                          ? adaptCoreCountryToPackageCountry(
+                              state.eventCountry!,
+                            )
+                          : null,
+                      onChanged: (picker.Country country) {
+                        context.read<EditHeadlineBloc>().add(
+                              EditHeadlineCountryChanged(country),
+                            );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

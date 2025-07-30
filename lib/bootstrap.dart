@@ -55,7 +55,6 @@ Future<Widget> bootstrap(
 
   DataClient<Headline> headlinesClient;
   DataClient<Topic> topicsClient;
-  DataClient<Country> countriesClient;
   DataClient<Source> sourcesClient;
   DataClient<UserContentPreferences> userContentPreferencesClient;
   DataClient<UserAppSettings> userAppSettingsClient;
@@ -74,12 +73,6 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: topicsFixturesData,
       logger: Logger('DataInMemory<Topic>'),
-    );
-    countriesClient = DataInMemory<Country>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: countriesFixturesData,
-      logger: Logger('DataInMemory<Country>'),
     );
     sourcesClient = DataInMemory<Source>(
       toJson: (i) => i.toJson(),
@@ -123,13 +116,6 @@ Future<Widget> bootstrap(
       fromJson: Topic.fromJson,
       toJson: (topic) => topic.toJson(),
       logger: Logger('DataApi<Topic>'),
-    );
-    countriesClient = DataApi<Country>(
-      httpClient: httpClient,
-      modelName: 'country',
-      fromJson: Country.fromJson,
-      toJson: (country) => country.toJson(),
-      logger: Logger('DataApi<Country>'),
     );
     sourcesClient = DataApi<Source>(
       httpClient: httpClient,
@@ -181,13 +167,6 @@ Future<Widget> bootstrap(
       toJson: (topic) => topic.toJson(),
       logger: Logger('DataApi<Topic>'),
     );
-    countriesClient = DataApi<Country>(
-      httpClient: httpClient,
-      modelName: 'country',
-      fromJson: Country.fromJson,
-      toJson: (country) => country.toJson(),
-      logger: Logger('DataApi<Country>'),
-    );
     sourcesClient = DataApi<Source>(
       httpClient: httpClient,
       modelName: 'source',
@@ -229,9 +208,6 @@ Future<Widget> bootstrap(
     dataClient: headlinesClient,
   );
   final topicsRepository = DataRepository<Topic>(dataClient: topicsClient);
-  final countriesRepository = DataRepository<Country>(
-    dataClient: countriesClient,
-  );
   final sourcesRepository = DataRepository<Source>(dataClient: sourcesClient);
   final userContentPreferencesRepository =
       DataRepository<UserContentPreferences>(
@@ -251,7 +227,6 @@ Future<Widget> bootstrap(
     authenticationRepository: authenticationRepository,
     headlinesRepository: headlinesRepository,
     topicsRepository: topicsRepository,
-    countriesRepository: countriesRepository,
     sourcesRepository: sourcesRepository,
     userAppSettingsRepository: userAppSettingsRepository,
     userContentPreferencesRepository: userContentPreferencesRepository,

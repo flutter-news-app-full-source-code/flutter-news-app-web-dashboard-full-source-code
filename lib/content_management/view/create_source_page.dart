@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,6 @@ class CreateSourcePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
       )..add(const CreateSourceDataLoaded()),
       child: const _CreateSourceView(),
     );
@@ -109,8 +109,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
             );
           }
 
-          if (state.status == CreateSourceStatus.failure &&
-              state.countries.isEmpty) {
+          if (state.status == CreateSourceStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<CreateSourceBloc>().add(
@@ -192,24 +191,18 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Country?>(
-                      value: state.headquarters,
-                      decoration: InputDecoration(
-                        labelText: l10n.headquarters,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.countries.map(
-                          (country) => DropdownMenuItem(
-                            value: country,
-                            child: Text(country.name),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceHeadquartersChanged(value)),
+                    CountryPickerFormField(
+                      labelText: l10n.headquarters,
+                      initialValue: state.headquarters != null
+                          ? adaptCoreCountryToPackageCountry(
+                              state.headquarters!,
+                            )
+                          : null,
+                      onChanged: (picker.Country country) {
+                        context.read<CreateSourceBloc>().add(
+                              CreateSourceHeadquartersChanged(country),
+                            );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

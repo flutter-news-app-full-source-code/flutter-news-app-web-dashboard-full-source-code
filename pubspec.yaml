@@ -24,6 +24,7 @@ dependencies:
   core:
     git:
       url: https://github.com/flutter-news-app-full-source-code/core.git
+  country_picker: ^2.0.27
   data_api:
     git:
       url: https://github.com/flutter-news-app-full-source-code/data-api.git
