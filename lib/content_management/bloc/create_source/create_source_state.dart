@@ -1,5 +1,6 @@
 part of 'create_source_bloc.dart';
 
+import 'package:language_picker/language_picker.dart' as language_picker;
 /// Represents the status of the create source operation.
 enum CreateSourceStatus {
   /// Initial state, before any data is loaded.
@@ -27,7 +28,7 @@ final class CreateSourceState extends Equatable {
     this.description = '',
     this.url = '',
     this.sourceType,
-    this.language = '',
+    this.language,
     this.headquarters,
     this.contentStatus = ContentStatus.active,
     this.exception,
@@ -39,7 +40,7 @@ final class CreateSourceState extends Equatable {
   final String description;
   final String url;
   final SourceType? sourceType;
-  final String language;
+  final language_picker.Language? language;
   final Country? headquarters;
   final ContentStatus contentStatus;
   final HttpException? exception;
@@ -51,7 +52,7 @@ final class CreateSourceState extends Equatable {
       description.isNotEmpty &&
       url.isNotEmpty &&
       sourceType != null &&
-      language.isNotEmpty &&
+      language != null &&
       headquarters != null;
 
   CreateSourceState copyWith({
@@ -60,7 +61,7 @@ final class CreateSourceState extends Equatable {
     String? description,
     String? url,
     ValueGetter<SourceType?>? sourceType,
-    String? language,
+    ValueGetter<language_picker.Language?>? language,
     ValueGetter<Country?>? headquarters,
     ContentStatus? contentStatus,
     HttpException? exception,
@@ -72,7 +73,7 @@ final class CreateSourceState extends Equatable {
       description: description ?? this.description,
       url: url ?? this.url,
       sourceType: sourceType != null ? sourceType() : this.sourceType,
-      language: language ?? this.language,
+      language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,

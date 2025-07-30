@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:language_picker/language_picker.dart';
-import 'package:language_picker/languages.dart';
+import 'package:language_picker/language_picker.dart' as language_picker;
 
 /// A form field for selecting a language using the `language_picker` package.
 ///
@@ -8,7 +7,7 @@ import 'package:language_picker/languages.dart';
 /// [FormField], making it easy to integrate into forms for validation
 /// and state management. It presents as a read-only [TextFormField] that,
 /// when tapped, opens a language selection dialog.
-class LanguagePickerFormField extends FormField<Language> {
+class LanguagePickerFormField extends FormField<language_picker.Language> {
   /// Creates a [LanguagePickerFormField].
   ///
   /// The [onSaved], [validator], [initialValue], and [autovalidateMode] are
@@ -23,7 +22,7 @@ class LanguagePickerFormField extends FormField<Language> {
     super.autovalidateMode,
     String? labelText,
   }) : super(
-          builder: (FormFieldState<Language> state) {
+          builder: (FormFieldState<language_picker.Language> state) {
             // This controller is just for displaying the text. The actual
             // value is managed by the FormField's state.
             final controller = TextEditingController(
@@ -40,11 +39,12 @@ class LanguagePickerFormField extends FormField<Language> {
                 suffixIcon: const Icon(Icons.arrow_drop_down),
               ),
               onTap: () {
-                showLanguagePicker(
+                language_picker.showLanguagePicker(
                   context: state.context,
                   // Provide a default if no language is selected yet.
-                  selectedLanguage: state.value ?? Languages.english,
-                  onValuePicked: (Language language) {
+                  selectedLanguage:
+                      state.value ?? language_picker.Languages.english,
+                  onValuePicked: (language_picker.Language language) {
                     state.didChange(language);
                     // Update the text in the read-only text field.
                     controller.text = language.name;
