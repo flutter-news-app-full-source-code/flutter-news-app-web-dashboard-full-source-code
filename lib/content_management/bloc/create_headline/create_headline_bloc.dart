@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
+import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
@@ -16,11 +18,9 @@ class CreateHeadlineBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
-    required DataRepository<Country> countriesRepository,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
        _topicsRepository = topicsRepository,
-       _countriesRepository = countriesRepository,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
@@ -37,7 +37,6 @@ class CreateHeadlineBloc
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Topic> _topicsRepository;
-  final DataRepository<Country> _countriesRepository;
   final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
@@ -49,7 +48,6 @@ class CreateHeadlineBloc
       final [
         sourcesResponse,
         topicsResponse,
-        countriesResponse,
       ] = await Future.wait([
         _sourcesRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
@@ -57,21 +55,16 @@ class CreateHeadlineBloc
         _topicsRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
         ),
-        _countriesRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-        ),
       ]);
 
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
       final topics = (topicsResponse as PaginatedResponse<Topic>).items;
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
 
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.initial,
           sources: sources,
           topics: topics,
-          countries: countries,
         ),
       );
     } on HttpException catch (e) {
@@ -132,7 +125,13 @@ class CreateHeadlineBloc
     CreateHeadlineCountryChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    emit(state.copyWith(eventCountry: () => event.country));
+    final packageCountry = event.country;
+    if (packageCountry == null) {
+      emit(state.copyWith(eventCountry: () => null));
+    } else {
+      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
+      emit(state.copyWith(eventCountry: () => coreCountry));
+    }
   }
 
   void _onStatusChanged(
