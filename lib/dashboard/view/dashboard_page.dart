@@ -62,9 +62,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
                     final summaryCards = [
                       _SummaryCard(
-                        icon: Icons.category_outlined,
-                        title: l10n.totalTopics,
-                        value: summary.topicCount.toString(),
+                        icon: Icons.newspaper_outlined,
+                        title: l10n.totalHeadlines,
+                        value: summary.headlineCount.toString(),
                       ),
                       _SummaryCard(
                         icon: Icons.category_outlined,
