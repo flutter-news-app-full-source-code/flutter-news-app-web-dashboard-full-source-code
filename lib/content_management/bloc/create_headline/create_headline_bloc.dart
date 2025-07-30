@@ -52,13 +52,13 @@ class CreateHeadlineBloc
         countriesResponse,
       ] = await Future.wait([
         _sourcesRepository.readAll(
-          sort: [const SortOption('name', SortOrder.asc)],
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
         ),
         _topicsRepository.readAll(
-          sort: [const SortOption('name', SortOrder.asc)],
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
         ),
         _countriesRepository.readAll(
-          sort: [const SortOption('name', SortOrder.asc)],
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
         ),
       ]);
 

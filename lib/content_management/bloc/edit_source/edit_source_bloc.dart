@@ -43,7 +43,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final [sourceResponse, countriesResponse] = await Future.wait([
         _sourcesRepository.read(id: _sourceId),
         _countriesRepository.readAll(
-          sort: [const SortOption('name', SortOrder.asc)],
+          sort: [const SortOption('updatedAt', SortOrder.asc)],
         ),
       ]);
       final source = sourceResponse as Source;
