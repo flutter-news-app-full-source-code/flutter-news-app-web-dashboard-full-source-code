@@ -108,7 +108,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
                 SnackBar(content: Text(l10n.topicUpdatedSuccessfully)),
               );
             context.read<ContentManagementBloc>().add(
-              TopicUpdated(state.updatedTopic!),
+              const LoadTopicsRequested(limit: kDefaultRowsPerPage),
             );
             context.pop();
           }
