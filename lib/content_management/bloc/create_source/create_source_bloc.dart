@@ -134,7 +134,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
-        language: state.language!.code,
+        language: state.language!,
         createdAt: now,
         updatedAt: now,
         headquarters: state.headquarters!,
