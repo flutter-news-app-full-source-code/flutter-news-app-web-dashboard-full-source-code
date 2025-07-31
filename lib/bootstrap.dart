@@ -60,6 +60,8 @@ Future<Widget> bootstrap(
   DataClient<UserAppSettings> userAppSettingsClient;
   DataClient<RemoteConfig> remoteConfigClient;
   DataClient<DashboardSummary> dashboardSummaryClient;
+  DataClient<Country> countriesClient;
+  DataClient<Language> languagesClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -101,6 +103,18 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: dashboardSummaryFixturesData,
       logger: Logger('DataInMemory<DashboardSummary>'),
+    );
+    countriesClient = DataInMemory<Country>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: countriesFixturesData,
+      logger: Logger('DataInMemory<Country>'),
+    );
+    languagesClient = DataInMemory<Language>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: languagesFixturesData,
+      logger: Logger('DataInMemory<Language>'),
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
     headlinesClient = DataApi<Headline>(
@@ -152,6 +166,20 @@ Future<Widget> bootstrap(
       toJson: (summary) => summary.toJson(),
       logger: Logger('DataApi<DashboardSummary>'),
     );
+    countriesClient = DataApi<Country>(
+      httpClient: httpClient,
+      modelName: 'country',
+      fromJson: Country.fromJson,
+      toJson: (country) => country.toJson(),
+      logger: Logger('DataApi<Country>'),
+    );
+    languagesClient = DataApi<Language>(
+      httpClient: httpClient,
+      modelName: 'language',
+      fromJson: Language.fromJson,
+      toJson: (language) => language.toJson(),
+      logger: Logger('DataApi<Language>'),
+    );
   } else {
     headlinesClient = DataApi<Headline>(
       httpClient: httpClient!,
@@ -202,6 +230,20 @@ Future<Widget> bootstrap(
       toJson: (summary) => summary.toJson(),
       logger: Logger('DataApi<DashboardSummary>'),
     );
+    countriesClient = DataApi<Country>(
+      httpClient: httpClient,
+      modelName: 'country',
+      fromJson: Country.fromJson,
+      toJson: (country) => country.toJson(),
+      logger: Logger('DataApi<Country>'),
+    );
+    languagesClient = DataApi<Language>(
+      httpClient: httpClient,
+      modelName: 'language',
+      fromJson: Language.fromJson,
+      toJson: (language) => language.toJson(),
+      logger: Logger('DataApi<Language>'),
+    );
   }
 
   final headlinesRepository = DataRepository<Headline>(
@@ -222,6 +264,10 @@ Future<Widget> bootstrap(
   final dashboardSummaryRepository = DataRepository<DashboardSummary>(
     dataClient: dashboardSummaryClient,
   );
+  final countriesRepository =
+      DataRepository<Country>(dataClient: countriesClient);
+  final languagesRepository =
+      DataRepository<Language>(dataClient: languagesClient);
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -232,6 +278,8 @@ Future<Widget> bootstrap(
     userContentPreferencesRepository: userContentPreferencesRepository,
     remoteConfigRepository: remoteConfigRepository,
     dashboardSummaryRepository: dashboardSummaryRepository,
+    countriesRepository: countriesRepository,
+    languagesRepository: languagesRepository,
     storageService: kvStorage,
     environment: environment,
   );
