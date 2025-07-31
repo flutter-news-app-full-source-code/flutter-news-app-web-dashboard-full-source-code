@@ -83,3 +83,16 @@ final class EditHeadlineStatusChanged extends EditHeadlineEvent {
 final class EditHeadlineSubmitted extends EditHeadlineEvent {
   const EditHeadlineSubmitted();
 }
+
+/// Event for when the country search term is changed.
+final class EditHeadlineCountrySearchChanged extends EditHeadlineEvent {
+  const EditHeadlineCountrySearchChanged(this.searchTerm);
+  final String searchTerm;
+  @override
+  List<Object?> get props => [searchTerm];
+}
+
+/// Event to request loading more countries.
+final class EditHeadlineLoadMoreCountriesRequested extends EditHeadlineEvent {
+  const EditHeadlineLoadMoreCountriesRequested();
+}
