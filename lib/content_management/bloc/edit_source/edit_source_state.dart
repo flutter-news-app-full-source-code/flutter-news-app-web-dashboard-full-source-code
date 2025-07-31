@@ -20,7 +20,7 @@ enum EditSourceStatus {
 
 /// The state for the [EditSourceBloc].
 final class EditSourceState extends Equatable {
-  EditSourceState({
+  const EditSourceState({
     this.status = EditSourceStatus.initial,
     this.initialSource,
     this.name = '',

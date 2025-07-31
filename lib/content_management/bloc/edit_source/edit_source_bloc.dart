@@ -20,7 +20,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         _countriesRepository = countriesRepository,
         _languagesRepository = languagesRepository,
         _sourceId = sourceId,
-        super(EditSourceState()) {
+        super(const EditSourceState()) {
     on<EditSourceLoaded>(_onLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);

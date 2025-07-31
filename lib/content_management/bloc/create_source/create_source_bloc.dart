@@ -18,7 +18,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   })  : _sourcesRepository = sourcesRepository,
         _countriesRepository = countriesRepository,
         _languagesRepository = languagesRepository,
-        super(CreateSourceState()) {
+        super(const CreateSourceState()) {
     on<CreateSourceDataLoaded>(_onDataLoaded);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);

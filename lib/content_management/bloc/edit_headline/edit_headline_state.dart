@@ -20,7 +20,7 @@ enum EditHeadlineStatus {
 
 /// The state for the [EditHeadlineBloc].
 final class EditHeadlineState extends Equatable {
-  EditHeadlineState({
+  const EditHeadlineState({
     this.status = EditHeadlineStatus.initial,
     this.initialHeadline,
     this.title = '',

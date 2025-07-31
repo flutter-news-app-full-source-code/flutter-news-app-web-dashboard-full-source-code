@@ -21,7 +21,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         _topicsRepository = topicsRepository,
         _countriesRepository = countriesRepository,
         _headlineId = headlineId,
-        super(EditHeadlineState()) {
+        super(const EditHeadlineState()) {
     on<EditHeadlineLoaded>(_onLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
