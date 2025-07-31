@@ -134,13 +134,7 @@ class CreateHeadlineBloc
     CreateHeadlineCountryChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    final packageCountry = event.country;
-    if (packageCountry == null) {
-      emit(state.copyWith(eventCountry: () => null));
-    } else {
-      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
-      emit(state.copyWith(eventCountry: () => coreCountry));
-    }
+    emit(state.copyWith(eventCountry: () => event.country));
   }
 
   void _onStatusChanged(
