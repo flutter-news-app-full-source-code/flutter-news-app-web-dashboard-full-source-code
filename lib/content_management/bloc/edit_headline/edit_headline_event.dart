@@ -64,7 +64,7 @@ final class EditHeadlineTopicChanged extends EditHeadlineEvent {
 /// Event for when the headline's country is changed.
 final class EditHeadlineCountryChanged extends EditHeadlineEvent {
   const EditHeadlineCountryChanged(this.country);
-  final picker.Country? country;
+  final Country? country;
   @override
   List<Object?> get props => [country];
 }

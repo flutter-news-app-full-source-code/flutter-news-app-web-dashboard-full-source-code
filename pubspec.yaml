@@ -24,7 +24,6 @@ dependencies:
   core:
     git:
       url: https://github.com/flutter-news-app-full-source-code/core.git
-  country_picker: ^2.0.27
   data_api:
     git:
       url: https://github.com/flutter-news-app-full-source-code/data-api.git
@@ -59,7 +58,6 @@ dependencies:
   kv_storage_shared_preferences:
     git:
       url: https://github.com/flutter-news-app-full-source-code/kv-storage-shared-preferences.git
-  language_picker: ^0.4.5
   logging: ^1.3.0
   pinput: ^5.0.1
   timeago: ^3.7.1

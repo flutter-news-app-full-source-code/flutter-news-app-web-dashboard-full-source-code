@@ -29,6 +29,8 @@ final class EditSourceState extends Equatable {
     this.sourceType,
     this.language,
     this.headquarters,
+    this.countries = const [],
+    this.languages = const [],
     this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedSource,
@@ -42,6 +44,8 @@ final class EditSourceState extends Equatable {
   final SourceType? sourceType;
   final Language? language;
   final Country? headquarters;
+  final List<Country> countries;
+  final List<Language> languages;
   final ContentStatus contentStatus;
   final HttpException? exception;
   final Source? updatedSource;
@@ -64,6 +68,8 @@ final class EditSourceState extends Equatable {
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
+    List<Country>? countries,
+    List<Language>? languages,
     ContentStatus? contentStatus,
     HttpException? exception,
     Source? updatedSource,
@@ -77,6 +83,8 @@ final class EditSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
+      countries: countries ?? this.countries,
+      languages: languages ?? this.languages,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedSource: updatedSource ?? this.updatedSource,
@@ -93,6 +101,8 @@ final class EditSourceState extends Equatable {
     sourceType,
     language,
     headquarters,
+    countries,
+    languages,
     contentStatus,
     exception,
     updatedSource,

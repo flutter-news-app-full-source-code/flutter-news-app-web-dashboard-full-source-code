@@ -64,7 +64,7 @@ final class CreateHeadlineTopicChanged extends CreateHeadlineEvent {
 /// Event for when the headline's country is changed.
 final class CreateHeadlineCountryChanged extends CreateHeadlineEvent {
   const CreateHeadlineCountryChanged(this.country);
-  final picker.Country? country;
+  final Country? country;
   @override
   List<Object?> get props => [country];
 }

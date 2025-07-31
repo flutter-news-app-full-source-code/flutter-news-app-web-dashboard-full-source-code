@@ -56,7 +56,7 @@ final class CreateSourceLanguageChanged extends CreateSourceEvent {
 /// Event for when the source's headquarters is changed.
 final class CreateSourceHeadquartersChanged extends CreateSourceEvent {
   const CreateSourceHeadquartersChanged(this.headquarters);
-  final picker.Country? headquarters;
+  final Country? headquarters;
   @override
   List<Object?> get props => [headquarters];
 }

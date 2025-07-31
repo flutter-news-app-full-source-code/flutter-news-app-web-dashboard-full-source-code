@@ -1,11 +1,11 @@
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/source_type_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -26,6 +26,8 @@ class EditSourcePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
+        countriesRepository: context.read<DataRepository<Country>>(),
+        languagesRepository: context.read<DataRepository<Language>>(),
         sourceId: sourceId,
       )..add(const EditSourceLoaded()),
       child: const _EditSourceView(),
@@ -189,13 +191,13 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    LanguagePickerFormField(
+                    LanguageDropdownFormField(
                       labelText: l10n.language,
+                      languages: state.languages,
                       initialValue: state.language,
-                      onChanged: (language) =>
-                          context.read<EditSourceBloc>().add(
-                                EditSourceLanguageChanged(language),
-                              ),
+                      onChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -218,18 +220,13 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryPickerFormField(
+                    CountryDropdownFormField(
                       labelText: l10n.headquarters,
-                      initialValue: state.headquarters != null
-                          ? adaptCoreCountryToPackageCountry(
-                              state.headquarters!,
-                            )
-                          : null,
-                      onChanged: (picker.Country country) {
-                        context.read<EditSourceBloc>().add(
-                              EditSourceHeadquartersChanged(country),
-                            );
-                      },
+                      countries: state.countries,
+                      initialValue: state.headquarters,
+                      onChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

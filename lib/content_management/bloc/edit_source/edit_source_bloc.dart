@@ -1,12 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
-import 'package:language_picker/languages.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -16,10 +12,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
+    required DataRepository<Country> countriesRepository,
+    required DataRepository<Language> languagesRepository,
     required String sourceId,
-  }) : _sourcesRepository = sourcesRepository,
-       _sourceId = sourceId,
-       super(const EditSourceState()) {
+  })  : _sourcesRepository = sourcesRepository,
+        _countriesRepository = countriesRepository,
+        _languagesRepository = languagesRepository,
+        _sourceId = sourceId,
+        super(const EditSourceState()) {
     on<EditSourceLoaded>(_onLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
@@ -32,6 +32,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   }
 
   final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Country> _countriesRepository;
+  final DataRepository<Language> _languagesRepository;
   final String _sourceId;
 
   Future<void> _onLoaded(
@@ -40,7 +42,32 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
-      final source = await _sourcesRepository.read(id: _sourceId);
+      final [
+        sourceResponse,
+        countriesResponse,
+        languagesResponse,
+      ] = await Future.wait([
+        _sourcesRepository.read(id: _sourceId),
+        _countriesRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+        _languagesRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+      ]);
+
+      final source = sourceResponse as Source;
+      final countries = (countriesResponse as PaginatedResponse<Country>).items;
+      final languages = (languagesResponse as PaginatedResponse<Language>).items;
+
+      // The source contains a Language object. We need to find the equivalent
+      // object in the full list of languages to ensure the DropdownButton
+      // can correctly identify and display the initial selection by reference.
+      final selectedLanguage = languages.firstWhere(
+        (listLanguage) => listLanguage == source.language,
+        orElse: () => source.language,
+      );
+
       emit(
         state.copyWith(
           status: EditSourceStatus.initial,
@@ -49,11 +76,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           description: source.description,
           url: source.url,
           sourceType: () => source.sourceType,
-          language: () => adaptLanguageCodeToPackageLanguage(
-            source.language,
-          ),
+          language: () => selectedLanguage,
           headquarters: () => source.headquarters,
           contentStatus: source.status,
+          countries: countries,
+          languages: languages,
         ),
       );
     } on HttpException catch (e) {
@@ -122,16 +149,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceHeadquartersChanged event,
     Emitter<EditSourceState> emit,
   ) {
-    final packageCountry = event.headquarters;
-    if (packageCountry == null) {
-      emit(state.copyWith(headquarters: () => null));
-    } else {
-      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
-      emit(
-        state.copyWith(
-            headquarters: () => coreCountry, status: EditSourceStatus.initial),
-      );
-    }
+    emit(
+      state.copyWith(
+        headquarters: () => event.headquarters,
+        status: EditSourceStatus.initial,
+      ),
+    );
   }
 
   void _onStatusChanged(
@@ -172,7 +195,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
-        language: adaptPackageLanguageToLanguageCode(state.language!),
+        language: state.language,
         headquarters: state.headquarters,
         status: state.contentStatus,
         updatedAt: DateTime.now(),
@@ -194,36 +217,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
-    }
-  }
-}
-
-/// Adds localization support to the [SourceType] enum.
-extension SourceTypeL10n on SourceType {
-  /// Returns the localized name for the source type.
-  ///
-  /// This requires an [AppLocalizations] instance, which is typically
-  /// retrieved from the build context.
-  String localizedName(AppLocalizations l10n) {
-    switch (this) {
-      case SourceType.newsAgency:
-        return l10n.sourceTypeNewsAgency;
-      case SourceType.localNewsOutlet:
-        return l10n.sourceTypeLocalNewsOutlet;
-      case SourceType.nationalNewsOutlet:
-        return l10n.sourceTypeNationalNewsOutlet;
-      case SourceType.internationalNewsOutlet:
-        return l10n.sourceTypeInternationalNewsOutlet;
-      case SourceType.specializedPublisher:
-        return l10n.sourceTypeSpecializedPublisher;
-      case SourceType.blog:
-        return l10n.sourceTypeBlog;
-      case SourceType.governmentSource:
-        return l10n.sourceTypeGovernmentSource;
-      case SourceType.aggregator:
-        return l10n.sourceTypeAggregator;
-      case SourceType.other:
-        return l10n.sourceTypeOther;
     }
   }
 }

@@ -1,11 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
-import 'package:language_picker/languages.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
@@ -16,8 +13,12 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
-  }) : _sourcesRepository = sourcesRepository,
-       super(const CreateSourceState()) {
+    required DataRepository<Country> countriesRepository,
+    required DataRepository<Language> languagesRepository,
+  })  : _sourcesRepository = sourcesRepository,
+        _countriesRepository = countriesRepository,
+        _languagesRepository = languagesRepository,
+        super(const CreateSourceState()) {
     on<CreateSourceDataLoaded>(_onDataLoaded);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
@@ -30,15 +31,38 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   }
 
   final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Country> _countriesRepository;
+  final DataRepository<Language> _languagesRepository;
   final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
     CreateSourceDataLoaded event,
     Emitter<CreateSourceState> emit,
   ) async {
-    // This event is now a no-op since we don't need to load countries.
-    // We just ensure the BLoC is in the initial state.
-    emit(state.copyWith(status: CreateSourceStatus.initial));
+    emit(state.copyWith(status: CreateSourceStatus.loading));
+    try {
+      final [countriesResponse, languagesResponse] = await Future.wait([
+        _countriesRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+        _languagesRepository.readAll(
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+      ]);
+
+      final countries = (countriesResponse as PaginatedResponse<Country>).items;
+      final languages = (languagesResponse as PaginatedResponse<Language>).items;
+
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.initial,
+          countries: countries,
+          languages: languages,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure));
+    }
   }
 
   void _onNameChanged(
@@ -80,13 +104,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceHeadquartersChanged event,
     Emitter<CreateSourceState> emit,
   ) {
-    final packageCountry = event.headquarters;
-    if (packageCountry == null) {
-      emit(state.copyWith(headquarters: () => null));
-    } else {
-      final coreCountry = adaptPackageCountryToCoreCountry(packageCountry);
-      emit(state.copyWith(headquarters: () => coreCountry));
-    }
+    emit(state.copyWith(headquarters: () => event.headquarters));
   }
 
   void _onStatusChanged(
@@ -116,7 +134,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
-        language: adaptPackageLanguageToLanguageCode(state.language!),
+        language: state.language!,
         createdAt: now,
         updatedAt: now,
         headquarters: state.headquarters!,
