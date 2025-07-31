@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
