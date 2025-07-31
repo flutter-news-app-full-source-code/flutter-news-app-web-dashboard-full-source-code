@@ -196,7 +196,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
-        language: state.language!.code,
+        language: state.language,
         headquarters: state.headquarters,
         status: state.contentStatus,
         updatedAt: DateTime.now(),
