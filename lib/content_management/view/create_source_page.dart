@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_source/create_source_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +20,7 @@ class CreateSourcePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CreateSourceBloc(
+      create: (context) => CreateSourceBloc(sourcesRepository: sourcesRepository, countriesRepository: countriesRepository, languagesRepository: languagesRepository)(
         sourcesRepository: context.read<DataRepository<Source>>(),
         countriesRepository: context.read<DataRepository<Country>>(),
         languagesRepository: context.read<DataRepository<Language>>(),
@@ -161,13 +160,13 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    LanguagePickerFormField(
+                    LanguageDropdownFormField(
                       labelText: l10n.language,
+                      languages: state.languages,
                       initialValue: state.language,
-                      onChanged: (language) =>
-                          context.read<CreateSourceBloc>().add(
-                                CreateSourceLanguageChanged(language),
-                              ),
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -190,18 +189,13 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryPickerFormField(
+                    CountryDropdownFormField(
                       labelText: l10n.headquarters,
-                      initialValue: state.headquarters != null
-                          ? adaptCoreCountryToPackageCountry(
-                              state.headquarters!,
-                            )
-                          : null,
-                      onChanged: (picker.Country country) {
-                        context.read<CreateSourceBloc>().add(
-                              CreateSourceHeadquartersChanged(country),
-                            );
-                      },
+                      countries: state.countries,
+                      initialValue: state.headquarters,
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
