@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +23,8 @@ class CreateSourcePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
+        countriesRepository: context.read<DataRepository<Country>>(),
+        languagesRepository: context.read<DataRepository<Language>>(),
       )..add(const CreateSourceDataLoaded()),
       child: const _CreateSourceView(),
     );
