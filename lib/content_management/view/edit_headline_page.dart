@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,6 +178,17 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             }
           }
 
+          Country? selectedCountry;
+          if (state.eventCountry != null) {
+            try {
+              selectedCountry = state.countries.firstWhere(
+                (c) => c.id == state.eventCountry!.id,
+              );
+            } catch (_) {
+              selectedCountry = null;
+            }
+          }
+
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -272,18 +282,13 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryPickerFormField(
+                    CountryDropdownFormField(
                       labelText: l10n.countryName,
-                      initialValue: state.eventCountry != null
-                          ? adaptCoreCountryToPackageCountry(
-                              state.eventCountry!,
-                            )
-                          : null,
-                      onChanged: (picker.Country country) {
-                        context.read<EditHeadlineBloc>().add(
-                              EditHeadlineCountryChanged(country),
-                            );
-                      },
+                      countries: state.countries,
+                      initialValue: selectedCountry,
+                      onChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
