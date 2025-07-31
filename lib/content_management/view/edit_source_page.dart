@@ -26,6 +26,8 @@ class EditSourcePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
+        countriesRepository: context.read<DataRepository<Country>>(),
+        languagesRepository: context.read<DataRepository<Language>>(),
         sourceId: sourceId,
       )..add(const EditSourceLoaded()),
       child: const _EditSourceView(),
