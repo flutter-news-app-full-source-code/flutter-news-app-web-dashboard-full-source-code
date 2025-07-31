@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -191,13 +190,13 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    LanguagePickerFormField(
+                    LanguageDropdownFormField(
                       labelText: l10n.language,
+                      languages: state.languages,
                       initialValue: state.language,
-                      onChanged: (language) =>
-                          context.read<EditSourceBloc>().add(
-                                EditSourceLanguageChanged(language),
-                              ),
+                      onChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -220,18 +219,13 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryPickerFormField(
+                    CountryDropdownFormField(
                       labelText: l10n.headquarters,
-                      initialValue: state.headquarters != null
-                          ? adaptCoreCountryToPackageCountry(
-                              state.headquarters!,
-                            )
-                          : null,
-                      onChanged: (picker.Country country) {
-                        context.read<EditSourceBloc>().add(
-                              EditSourceHeadquartersChanged(country),
-                            );
-                      },
+                      countries: state.countries,
+                      initialValue: state.headquarters,
+                      onChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
