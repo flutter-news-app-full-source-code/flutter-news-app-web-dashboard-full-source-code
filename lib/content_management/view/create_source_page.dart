@@ -20,7 +20,7 @@ class CreateSourcePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CreateSourceBloc(sourcesRepository: sourcesRepository, countriesRepository: countriesRepository, languagesRepository: languagesRepository)(
+      create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
         countriesRepository: context.read<DataRepository<Country>>(),
         languagesRepository: context.read<DataRepository<Language>>(),
