@@ -71,13 +71,14 @@ class CreateHeadlineBloc
         sort: [const SortOption('name', SortOrder.asc)],
       ) as PaginatedResponse<Country>;
 
-      final countries = countriesResponse.items;
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.initial,
           sources: sources,
           topics: topics,
-          countries: countries,
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {
@@ -181,6 +182,68 @@ class CreateHeadlineBloc
         state.copyWith(
           status: CreateHeadlineStatus.success,
           createdHeadline: newHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCountrySearchChanged(
+    CreateHeadlineCountrySearchChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    emit(state.copyWith(countrySearchTerm: event.searchTerm));
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        filter: {'name': event.searchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
+
+      emit(
+        state.copyWith(
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreCountriesRequested(
+    CreateHeadlineLoadMoreCountriesRequested event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    if (!state.countriesHasMore) return;
+
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        cursor: state.countriesCursor,
+        filter: {'name': state.countrySearchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(countriesResponse.items),
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {
