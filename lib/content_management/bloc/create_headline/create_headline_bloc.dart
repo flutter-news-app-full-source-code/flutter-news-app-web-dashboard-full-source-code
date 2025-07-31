@@ -69,7 +69,7 @@ class CreateHeadlineBloc
 
       final countriesResponse = await _countriesRepository.readAll(
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -204,9 +204,10 @@ class CreateHeadlineBloc
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter: {'name': event.searchTerm},
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -235,10 +236,14 @@ class CreateHeadlineBloc
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        cursor: state.countriesCursor,
-        filter: {'name': state.countrySearchTerm},
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
