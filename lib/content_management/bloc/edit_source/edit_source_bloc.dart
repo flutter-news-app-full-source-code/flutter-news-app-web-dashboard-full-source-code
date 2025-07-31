@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/foundation.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
+
+const _searchDebounceDuration = Duration(milliseconds: 300);
 
 /// A BLoC to manage the state of editing a single source.
 class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
@@ -29,6 +32,20 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
+    on<EditSourceCountrySearchChanged>(
+      _onCountrySearchChanged,
+      transformer: debounce(_searchDebounceDuration),
+    );
+    on<EditSourceLoadMoreCountriesRequested>(
+      _onLoadMoreCountriesRequested,
+    );
+    on<EditSourceLanguageSearchChanged>(
+      _onLanguageSearchChanged,
+      transformer: debounce(_searchDebounceDuration),
+    );
+    on<EditSourceLoadMoreLanguagesRequested>(
+      _onLoadMoreLanguagesRequested,
+    );
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -42,23 +59,20 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
-      final [
-        sourceResponse,
-        countriesResponse,
-        languagesResponse,
-      ] = await Future.wait([
+      final [sourceResponse, countriesPaginated, languagesPaginated] =
+          await Future.wait([
         _sourcesRepository.read(id: _sourceId),
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
-        ),
+        ) as Future<PaginatedResponse<Country>>,
         _languagesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
-        ),
+        ) as Future<PaginatedResponse<Language>>,
       ]);
 
       final source = sourceResponse as Source;
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
-      final languages = (languagesResponse as PaginatedResponse<Language>).items;
+      final countries = countriesPaginated.items;
+      final languages = languagesPaginated.items;
 
       // The source contains a Language object. We need to find the equivalent
       // object in the full list of languages to ensure the DropdownButton
@@ -79,8 +93,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           language: () => selectedLanguage,
           headquarters: () => source.headquarters,
           contentStatus: source.status,
-          countries: countries,
-          languages: languages,
+          countries: countriesPaginated.items,
+          countriesCursor: countriesPaginated.cursor,
+          countriesHasMore: countriesPaginated.hasMore,
+          languages: languagesPaginated.items,
+          languagesCursor: languagesPaginated.cursor,
+          languagesHasMore: languagesPaginated.hasMore,
         ),
       );
     } on HttpException catch (e) {
@@ -217,6 +235,116 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
+    }
+  }
+
+  Future<void> _onCountrySearchChanged(
+    EditSourceCountrySearchChanged event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    emit(state.copyWith(countrySearchTerm: event.searchTerm));
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        filter: {'name': event.searchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
+
+      emit(
+        state.copyWith(
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreCountriesRequested(
+    EditSourceLoadMoreCountriesRequested event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    if (!state.countriesHasMore) return;
+
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        cursor: state.countriesCursor,
+        filter: {'name': state.countrySearchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(countriesResponse.items),
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLanguageSearchChanged(
+    EditSourceLanguageSearchChanged event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    emit(state.copyWith(languageSearchTerm: event.searchTerm));
+    try {
+      final languagesResponse = await _languagesRepository.readAll(
+        filter: {'name': event.searchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Language>;
+
+      emit(
+        state.copyWith(
+          languages: languagesResponse.items,
+          languagesCursor: languagesResponse.cursor,
+          languagesHasMore: languagesResponse.hasMore,
+        ),
+      );
+    } catch (e) {
+      // Proper error handling should be implemented here
+    }
+  }
+
+  Future<void> _onLoadMoreLanguagesRequested(
+    EditSourceLoadMoreLanguagesRequested event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    if (!state.languagesHasMore) return;
+
+    try {
+      final languagesResponse = await _languagesRepository.readAll(
+        cursor: state.languagesCursor,
+        filter: {'name': state.languageSearchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Language>;
+
+      emit(
+        state.copyWith(
+          languages: List.of(state.languages)..addAll(languagesResponse.items),
+          languagesCursor: languagesResponse.cursor,
+          languagesHasMore: languagesResponse.hasMore,
+        ),
+      );
+    } catch (e) {
+      // Proper error handling should be implemented here
     }
   }
 }
