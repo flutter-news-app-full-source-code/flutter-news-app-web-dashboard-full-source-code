@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 part 'edit_headline_event.dart';
 part 'edit_headline_state.dart';
 
+const _searchDebounceDuration = Duration(milliseconds: 300);
+
 /// A BLoC to manage the state of editing a single headline.
 class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   /// {@macro edit_headline_bloc}
@@ -33,6 +35,13 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
+    on<EditHeadlineCountrySearchChanged>(
+      _onCountrySearchChanged,
+      transformer: debounce(_searchDebounceDuration),
+    );
+    on<EditHeadlineLoadMoreCountriesRequested>(
+      _onLoadMoreCountriesRequested,
+    );
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -47,12 +56,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) async {
     emit(state.copyWith(status: EditHeadlineStatus.loading));
     try {
-      final [
-        headlineResponse,
-        sourcesResponse,
-        topicsResponse,
-        countriesResponse,
-      ] = await Future.wait([
+      final [headlineResponse, sourcesResponse, topicsResponse] =
+          await Future.wait([
         _headlinesRepository.read(id: _headlineId),
         _sourcesRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
@@ -60,15 +65,15 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         _topicsRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
         ),
-        _countriesRepository.readAll(
-          sort: [const SortOption('name', SortOrder.asc)],
-        ),
       ]);
 
       final headline = headlineResponse as Headline;
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
       final topics = (topicsResponse as PaginatedResponse<Topic>).items;
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
+
+      final countriesResponse = await _countriesRepository.readAll(
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
 
       emit(
         state.copyWith(
@@ -83,7 +88,9 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           eventCountry: () => headline.eventCountry,
           sources: sources,
           topics: topics,
-          countries: countries,
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
           contentStatus: headline.status,
         ),
       );
@@ -225,6 +232,68 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         state.copyWith(
           status: EditHeadlineStatus.success,
           updatedHeadline: updatedHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCountrySearchChanged(
+    EditHeadlineCountrySearchChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) async {
+    emit(state.copyWith(countrySearchTerm: event.searchTerm));
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        filter: {'name': event.searchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
+
+      emit(
+        state.copyWith(
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreCountriesRequested(
+    EditHeadlineLoadMoreCountriesRequested event,
+    Emitter<EditHeadlineState> emit,
+  ) async {
+    if (!state.countriesHasMore) return;
+
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        cursor: state.countriesCursor,
+        filter: {'name': state.countrySearchTerm},
+        sort: [const SortOption('name', SortOrder.asc)],
+      ) as PaginatedResponse<Country>;
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(countriesResponse.items),
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {
