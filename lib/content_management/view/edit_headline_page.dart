@@ -28,6 +28,7 @@ class EditHeadlinePage extends StatelessWidget {
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
+        countriesRepository: context.read<DataRepository<Country>>(),
         headlineId: headlineId,
       )..add(const EditHeadlineLoaded()),
       child: const _EditHeadlineView(),
