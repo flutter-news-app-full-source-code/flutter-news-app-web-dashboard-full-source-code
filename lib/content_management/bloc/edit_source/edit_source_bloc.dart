@@ -59,26 +59,21 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
-      final [sourceResponse, countriesPaginated, languagesPaginated] =
-          await Future.wait([
+      final responses = await Future.wait([
         _sourcesRepository.read(id: _sourceId),
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
-        ) as Future<PaginatedResponse<Country>>,
+        ),
         _languagesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
-        ) as Future<PaginatedResponse<Language>>,
+        ),
       ]);
 
-      final source = sourceResponse as Source;
-      final countries = countriesPaginated.items;
-      final languages = languagesPaginated.items;
+      final source = responses[0] as Source;
+      final countriesPaginated = responses[1] as PaginatedResponse<Country>;
+      final languagesPaginated = responses[2] as PaginatedResponse<Language>;
 
-      // The source contains a Language object. We need to find the equivalent
-      // object in the full list of languages to ensure the DropdownButton
-      // can correctly identify and display the initial selection by reference.
-      final selectedLanguage = languages.firstWhere(
-        (listLanguage) => listLanguage == source.language,
+      final selectedLanguage = languagesPaginated.items
         orElse: () => source.language,
       );
 
