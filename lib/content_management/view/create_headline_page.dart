@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:country_picker/country_picker.dart' as picker;
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +24,7 @@ class CreateHeadlinePage extends StatelessWidget {
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
+        countriesRepository: context.read<DataRepository<Country>>(),
       )..add(const CreateHeadlineDataLoaded()),
       child: const _CreateHeadlineView(),
     );
@@ -214,18 +214,13 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           .add(CreateHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryPickerFormField(
+                    CountryDropdownFormField(
                       labelText: l10n.countryName,
-                      initialValue: state.eventCountry != null
-                          ? adaptCoreCountryToPackageCountry(
-                              state.eventCountry!,
-                            )
-                          : null,
-                      onChanged: (picker.Country country) {
-                        context.read<CreateHeadlineBloc>().add(
-                              CreateHeadlineCountryChanged(country),
-                            );
-                      },
+                      countries: state.countries,
+                      initialValue: state.eventCountry,
+                      onChanged: (value) => context
+                          .read<CreateHeadlineBloc>()
+                          .add(CreateHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
