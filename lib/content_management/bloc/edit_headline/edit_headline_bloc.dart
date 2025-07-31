@@ -37,7 +37,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineSubmitted>(_onSubmitted);
     on<EditHeadlineCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: debounce(_searchDebounceDuration),
+      transformer: restartable(),
     );
     on<EditHeadlineLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
@@ -250,6 +250,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineCountrySearchChanged event,
     Emitter<EditHeadlineState> emit,
   ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(

@@ -34,14 +34,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceSubmitted>(_onSubmitted);
     on<EditSourceCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: debounce(_searchDebounceDuration),
+      transformer: restartable(),
     );
     on<EditSourceLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
     );
     on<EditSourceLanguageSearchChanged>(
       _onLanguageSearchChanged,
-      transformer: debounce(_searchDebounceDuration),
+      transformer: restartable(),
     );
     on<EditSourceLoadMoreLanguagesRequested>(
       _onLoadMoreLanguagesRequested,
@@ -242,6 +242,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceCountrySearchChanged event,
     Emitter<EditSourceState> emit,
   ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
@@ -304,6 +305,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceLanguageSearchChanged event,
     Emitter<EditSourceState> emit,
   ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
     emit(state.copyWith(languageSearchTerm: event.searchTerm));
     try {
       final languagesResponse = await _languagesRepository.readAll(
@@ -318,8 +320,15 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           languagesHasMore: languagesResponse.hasMore,
         ),
       );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
     } catch (e) {
-      // Proper error handling should be implemented here
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
     }
   }
 
@@ -343,8 +352,15 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           languagesHasMore: languagesResponse.hasMore,
         ),
       );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
     } catch (e) {
-      // Proper error handling should be implemented here
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
     }
   }
 }

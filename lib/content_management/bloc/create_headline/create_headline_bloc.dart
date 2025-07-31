@@ -37,7 +37,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineSubmitted>(_onSubmitted);
     on<CreateHeadlineCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: debounce(_searchDebounceDuration),
+      transformer: restartable(),
     );
     on<CreateHeadlineLoadMoreCountriesRequested>(
         _onLoadMoreCountriesRequested);
@@ -200,6 +200,7 @@ class CreateHeadlineBloc
     CreateHeadlineCountrySearchChanged event,
     Emitter<CreateHeadlineState> emit,
   ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
