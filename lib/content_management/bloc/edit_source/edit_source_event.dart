@@ -66,7 +66,7 @@ final class EditSourceLanguageChanged extends EditSourceEvent {
 final class EditSourceHeadquartersChanged extends EditSourceEvent {
   const EditSourceHeadquartersChanged(this.headquarters);
 
-  final picker.Country? headquarters;
+  final Country? headquarters;
 
   @override
   List<Object?> get props => [headquarters];
