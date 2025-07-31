@@ -31,6 +31,7 @@ final class CreateHeadlineState extends Equatable {
     this.eventCountry,
     this.sources = const [],
     this.topics = const [],
+    this.countries = const [],
     this.contentStatus = ContentStatus.active,
     this.exception,
     this.createdHeadline,
@@ -46,6 +47,7 @@ final class CreateHeadlineState extends Equatable {
   final Country? eventCountry;
   final List<Source> sources;
   final List<Topic> topics;
+  final List<Country> countries;
   final ContentStatus contentStatus;
   final HttpException? exception;
   final Headline? createdHeadline;
@@ -71,6 +73,7 @@ final class CreateHeadlineState extends Equatable {
     ValueGetter<Country?>? eventCountry,
     List<Source>? sources,
     List<Topic>? topics,
+    List<Country>? countries,
     ContentStatus? contentStatus,
     HttpException? exception,
     Headline? createdHeadline,
@@ -86,6 +89,7 @@ final class CreateHeadlineState extends Equatable {
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
       sources: sources ?? this.sources,
       topics: topics ?? this.topics,
+      countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
@@ -104,6 +108,7 @@ final class CreateHeadlineState extends Equatable {
     eventCountry,
     sources,
     topics,
+    countries,
     contentStatus,
     exception,
     createdHeadline,
