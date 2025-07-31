@@ -60,8 +60,15 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           languages: languages,
         ),
       );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
     }
   }
 
