@@ -75,3 +75,29 @@ final class CreateSourceStatusChanged extends CreateSourceEvent {
 final class CreateSourceSubmitted extends CreateSourceEvent {
   const CreateSourceSubmitted();
 }
+
+/// Event for when the country search term is changed.
+final class CreateSourceCountrySearchChanged extends CreateSourceEvent {
+  const CreateSourceCountrySearchChanged(this.searchTerm);
+  final String searchTerm;
+  @override
+  List<Object?> get props => [searchTerm];
+}
+
+/// Event to request loading more countries.
+final class CreateSourceLoadMoreCountriesRequested extends CreateSourceEvent {
+  const CreateSourceLoadMoreCountriesRequested();
+}
+
+/// Event for when the language search term is changed.
+final class CreateSourceLanguageSearchChanged extends CreateSourceEvent {
+  const CreateSourceLanguageSearchChanged(this.searchTerm);
+  final String searchTerm;
+  @override
+  List<Object?> get props => [searchTerm];
+}
+
+/// Event to request loading more languages.
+final class CreateSourceLoadMoreLanguagesRequested extends CreateSourceEvent {
+  const CreateSourceLoadMoreLanguagesRequested();
+}
