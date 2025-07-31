@@ -56,8 +56,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) async {
     emit(state.copyWith(status: EditHeadlineStatus.loading));
     try {
-      final [headlineResponse, sourcesResponse, topicsResponse] =
-          await Future.wait([
+      final responses = await Future.wait([
         _headlinesRepository.read(id: _headlineId),
         _sourcesRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
@@ -67,13 +66,13 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       ]);
 
-      final headline = headlineResponse as Headline;
-      final sources = (sourcesResponse as PaginatedResponse<Source>).items;
-      final topics = (topicsResponse as PaginatedResponse<Topic>).items;
+      final headline = responses[0] as Headline;
+      final sources = (responses[1] as PaginatedResponse<Source>).items;
+      final topics = (responses[2] as PaginatedResponse<Topic>).items;
 
       final countriesResponse = await _countriesRepository.readAll(
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -254,9 +253,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter: {'name': event.searchTerm},
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -285,10 +285,14 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        cursor: state.countriesCursor,
-        filter: {'name': state.countrySearchTerm},
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
