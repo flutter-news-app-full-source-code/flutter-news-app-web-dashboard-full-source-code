@@ -61,9 +61,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final countries = (countriesResponse as PaginatedResponse<Country>).items;
       final languages = (languagesResponse as PaginatedResponse<Language>).items;
 
+      // The source contains a Language object. We need to find the equivalent
+      // object in the full list of languages to ensure the DropdownButton
+      // can correctly identify and display the initial selection by reference.
       final selectedLanguage = languages.firstWhere(
-        (l) => l.code == source.language,
-        orElse: () => const Language(name: '', code: ''),
+        (listLanguage) => listLanguage == source.language,
+        orElse: () => source.language,
       );
 
       emit(
