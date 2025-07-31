@@ -58,15 +58,16 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   ) async {
     emit(state.copyWith(status: CreateSourceStatus.loading));
     try {
-      final [countriesPaginated, languagesPaginated] = await Future.wait([
+      final responses = await Future.wait([
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
-        ) as Future<PaginatedResponse<Country>>,
+        ),
         _languagesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
-        ) as Future<PaginatedResponse<Language>>,
+        ),
       ]);
-
+      final countriesPaginated = responses[0] as PaginatedResponse<Country>;
+      final languagesPaginated = responses[1] as PaginatedResponse<Language>;
       emit(
         state.copyWith(
           status: CreateSourceStatus.initial,
@@ -193,9 +194,10 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter: {'name': event.searchTerm},
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -224,10 +226,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        cursor: state.countriesCursor,
-        filter: {'name': state.countrySearchTerm},
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -256,9 +262,10 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(languageSearchTerm: event.searchTerm));
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        filter: {'name': event.searchTerm},
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Language>;
+      );
 
       emit(
         state.copyWith(
@@ -287,10 +294,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        cursor: state.languagesCursor,
-        filter: {'name': state.languageSearchTerm},
+        pagination: state.languagesCursor != null
+            ? PaginationOptions(cursor: state.languagesCursor)
+            : null,
+        filter: state.languageSearchTerm.isNotEmpty
+            ? {'name': state.languageSearchTerm}
+            : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Language>;
+      );
 
       emit(
         state.copyWith(
