@@ -59,7 +59,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
-      final responses = await Future.wait([
+      final responses = await Future.wait<dynamic>([
         _sourcesRepository.read(id: _sourceId),
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
@@ -73,9 +73,16 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final countriesPaginated = responses[1] as PaginatedResponse<Country>;
       final languagesPaginated = responses[2] as PaginatedResponse<Language>;
 
-      final selectedLanguage = languagesPaginated.items
-        orElse: () => source.language,
-      );
+      Language? selectedLanguage;
+      try {
+        // Find the equivalent language object from the full list.
+        // This ensures the DropdownButton can identify it by reference.
+        selectedLanguage = languagesPaginated.items.firstWhere(
+          (listLanguage) => listLanguage.id == source.language?.id,
+        );
+      } catch (_) {
+        selectedLanguage = source.language;
+      }
 
       emit(
         state.copyWith(
@@ -241,9 +248,10 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter: {'name': event.searchTerm},
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -272,10 +280,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        cursor: state.countriesCursor,
-        filter: {'name': state.countrySearchTerm},
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Country>;
+      );
 
       emit(
         state.copyWith(
@@ -304,9 +316,10 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(languageSearchTerm: event.searchTerm));
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        filter: {'name': event.searchTerm},
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Language>;
+      );
 
       emit(
         state.copyWith(
@@ -335,10 +348,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
 
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        cursor: state.languagesCursor,
-        filter: {'name': state.languageSearchTerm},
+        pagination: state.languagesCursor != null
+            ? PaginationOptions(cursor: state.languagesCursor)
+            : null,
+        filter: state.languageSearchTerm.isNotEmpty
+            ? {'name': state.languageSearchTerm}
+            : null,
         sort: [const SortOption('name', SortOrder.asc)],
-      ) as PaginatedResponse<Language>;
+      );
 
       emit(
         state.copyWith(
