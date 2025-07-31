@@ -161,13 +161,29 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    LanguageDropdownFormField(
+                    SearchableDropdownFormField<Language>(
                       labelText: l10n.language,
-                      languages: state.languages,
+                      items: state.languages,
                       initialValue: state.language,
+                      hasMore: state.languagesHasMore,
+                      isLoading: state.status == CreateSourceStatus.loading,
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceLanguageChanged(value)),
+                      onSearchChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceLanguageSearchChanged(value)),
+                      onLoadMore: () => context.read<CreateSourceBloc>().add(
+                            const CreateSourceLoadMoreLanguagesRequested(),
+                          ),
+                      itemBuilder: (context, language) {
+                        return ListTile(
+                          title: Text(language.name),
+                        );
+                      },
+                      selectedItemBuilder: (context, language) {
+                        return Text(language.name);
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -190,13 +206,54 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryDropdownFormField(
+                    SearchableDropdownFormField<Country>(
                       labelText: l10n.headquarters,
-                      countries: state.countries,
+                      items: state.countries,
                       initialValue: state.headquarters,
+                      hasMore: state.countriesHasMore,
+                      isLoading: state.status == CreateSourceStatus.loading,
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceHeadquartersChanged(value)),
+                      onSearchChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceCountrySearchChanged(value)),
+                      onLoadMore: () => context.read<CreateSourceBloc>().add(
+                            const CreateSourceLoadMoreCountriesRequested(),
+                          ),
+                      itemBuilder: (context, country) {
+                        return ListTile(
+                          leading: SizedBox(
+                            width: 32,
+                            height: 20,
+                            child: Image.network(
+                              country.flagUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.flag),
+                            ),
+                          ),
+                          title: Text(country.name),
+                        );
+                      },
+                      selectedItemBuilder: (context, country) {
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

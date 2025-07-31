@@ -282,13 +282,54 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryDropdownFormField(
+                    SearchableDropdownFormField<Country>(
                       labelText: l10n.countryName,
-                      countries: state.countries,
+                      items: state.countries,
                       initialValue: selectedCountry,
+                      hasMore: state.countriesHasMore,
+                      isLoading: state.status == EditHeadlineStatus.loading,
                       onChanged: (value) => context
                           .read<EditHeadlineBloc>()
                           .add(EditHeadlineCountryChanged(value)),
+                      onSearchChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineCountrySearchChanged(value)),
+                      onLoadMore: () => context.read<EditHeadlineBloc>().add(
+                            const EditHeadlineLoadMoreCountriesRequested(),
+                          ),
+                      itemBuilder: (context, country) {
+                        return ListTile(
+                          leading: SizedBox(
+                            width: 32,
+                            height: 20,
+                            child: Image.network(
+                              country.flagUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.flag),
+                            ),
+                          ),
+                          title: Text(country.name),
+                        );
+                      },
+                      selectedItemBuilder: (context, country) {
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

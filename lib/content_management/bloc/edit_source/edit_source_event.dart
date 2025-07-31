@@ -86,3 +86,29 @@ final class EditSourceStatusChanged extends EditSourceEvent {
 final class EditSourceSubmitted extends EditSourceEvent {
   const EditSourceSubmitted();
 }
+
+/// Event for when the country search term is changed.
+final class EditSourceCountrySearchChanged extends EditSourceEvent {
+  const EditSourceCountrySearchChanged(this.searchTerm);
+  final String searchTerm;
+  @override
+  List<Object?> get props => [searchTerm];
+}
+
+/// Event to request loading more countries.
+final class EditSourceLoadMoreCountriesRequested extends EditSourceEvent {
+  const EditSourceLoadMoreCountriesRequested();
+}
+
+/// Event for when the language search term is changed.
+final class EditSourceLanguageSearchChanged extends EditSourceEvent {
+  const EditSourceLanguageSearchChanged(this.searchTerm);
+  final String searchTerm;
+  @override
+  List<Object?> get props => [searchTerm];
+}
+
+/// Event to request loading more languages.
+final class EditSourceLoadMoreLanguagesRequested extends EditSourceEvent {
+  const EditSourceLoadMoreLanguagesRequested();
+}

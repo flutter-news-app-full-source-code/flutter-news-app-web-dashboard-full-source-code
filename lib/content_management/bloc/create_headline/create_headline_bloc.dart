@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -7,6 +8,8 @@ import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
+
+const _searchDebounceDuration = Duration(milliseconds: 300);
 
 /// A BLoC to manage the state of creating a new headline.
 class CreateHeadlineBloc
@@ -32,6 +35,12 @@ class CreateHeadlineBloc
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
+    on<CreateHeadlineCountrySearchChanged>(
+      _onCountrySearchChanged,
+      transformer: restartable(),
+    );
+    on<CreateHeadlineLoadMoreCountriesRequested>(
+        _onLoadMoreCountriesRequested);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -46,33 +55,30 @@ class CreateHeadlineBloc
   ) async {
     emit(state.copyWith(status: CreateHeadlineStatus.loading));
     try {
-      final [
-        sourcesResponse,
-        topicsResponse,
-        countriesResponse,
-      ] = await Future.wait([
+      final [sourcesResponse, topicsResponse] = await Future.wait([
         _sourcesRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
         ),
         _topicsRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
         ),
-        _countriesRepository.readAll(
-          sort: [const SortOption('name', SortOrder.asc)],
-        ),
       ]);
 
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
       final topics = (topicsResponse as PaginatedResponse<Topic>).items;
-      final countries =
-          (countriesResponse as PaginatedResponse<Country>).items;
+
+      final countriesResponse = await _countriesRepository.readAll(
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
 
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.initial,
           sources: sources,
           topics: topics,
-          countries: countries,
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {
@@ -176,6 +182,74 @@ class CreateHeadlineBloc
         state.copyWith(
           status: CreateHeadlineStatus.success,
           createdHeadline: newHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCountrySearchChanged(
+    CreateHeadlineCountrySearchChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
+    emit(state.copyWith(countrySearchTerm: event.searchTerm));
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreCountriesRequested(
+    CreateHeadlineLoadMoreCountriesRequested event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    if (!state.countriesHasMore) return;
+
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(countriesResponse.items),
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {

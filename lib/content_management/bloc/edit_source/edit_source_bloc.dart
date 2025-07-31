@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/foundation.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
+
+const _searchDebounceDuration = Duration(milliseconds: 300);
 
 /// A BLoC to manage the state of editing a single source.
 class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
@@ -29,6 +32,20 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
+    on<EditSourceCountrySearchChanged>(
+      _onCountrySearchChanged,
+      transformer: restartable(),
+    );
+    on<EditSourceLoadMoreCountriesRequested>(
+      _onLoadMoreCountriesRequested,
+    );
+    on<EditSourceLanguageSearchChanged>(
+      _onLanguageSearchChanged,
+      transformer: restartable(),
+    );
+    on<EditSourceLoadMoreLanguagesRequested>(
+      _onLoadMoreLanguagesRequested,
+    );
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -42,11 +59,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
-      final [
-        sourceResponse,
-        countriesResponse,
-        languagesResponse,
-      ] = await Future.wait([
+      final responses = await Future.wait<dynamic>([
         _sourcesRepository.read(id: _sourceId),
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
@@ -56,17 +69,20 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         ),
       ]);
 
-      final source = sourceResponse as Source;
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
-      final languages = (languagesResponse as PaginatedResponse<Language>).items;
+      final source = responses[0] as Source;
+      final countriesPaginated = responses[1] as PaginatedResponse<Country>;
+      final languagesPaginated = responses[2] as PaginatedResponse<Language>;
 
-      // The source contains a Language object. We need to find the equivalent
-      // object in the full list of languages to ensure the DropdownButton
-      // can correctly identify and display the initial selection by reference.
-      final selectedLanguage = languages.firstWhere(
-        (listLanguage) => listLanguage == source.language,
-        orElse: () => source.language,
-      );
+      Language? selectedLanguage;
+      try {
+        // Find the equivalent language object from the full list.
+        // This ensures the DropdownButton can identify it by reference.
+        selectedLanguage = languagesPaginated.items.firstWhere(
+          (listLanguage) => listLanguage.id == source.language?.id,
+        );
+      } catch (_) {
+        selectedLanguage = source.language;
+      }
 
       emit(
         state.copyWith(
@@ -79,8 +95,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           language: () => selectedLanguage,
           headquarters: () => source.headquarters,
           contentStatus: source.status,
-          countries: countries,
-          languages: languages,
+          countries: countriesPaginated.items,
+          countriesCursor: countriesPaginated.cursor,
+          countriesHasMore: countriesPaginated.hasMore,
+          languages: languagesPaginated.items,
+          languagesCursor: languagesPaginated.cursor,
+          languagesHasMore: languagesPaginated.hasMore,
         ),
       );
     } on HttpException catch (e) {
@@ -206,6 +226,142 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         state.copyWith(
           status: EditSourceStatus.success,
           updatedSource: updatedSource,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCountrySearchChanged(
+    EditSourceCountrySearchChanged event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
+    emit(state.copyWith(countrySearchTerm: event.searchTerm));
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreCountriesRequested(
+    EditSourceLoadMoreCountriesRequested event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    if (!state.countriesHasMore) return;
+
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(countriesResponse.items),
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLanguageSearchChanged(
+    EditSourceLanguageSearchChanged event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
+    emit(state.copyWith(languageSearchTerm: event.searchTerm));
+    try {
+      final languagesResponse = await _languagesRepository.readAll(
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          languages: languagesResponse.items,
+          languagesCursor: languagesResponse.cursor,
+          languagesHasMore: languagesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreLanguagesRequested(
+    EditSourceLoadMoreLanguagesRequested event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    if (!state.languagesHasMore) return;
+
+    try {
+      final languagesResponse = await _languagesRepository.readAll(
+        pagination: state.languagesCursor != null
+            ? PaginationOptions(cursor: state.languagesCursor)
+            : null,
+        filter: state.languageSearchTerm.isNotEmpty
+            ? {'name': state.languageSearchTerm}
+            : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          languages: List.of(state.languages)..addAll(languagesResponse.items),
+          languagesCursor: languagesResponse.cursor,
+          languagesHasMore: languagesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {

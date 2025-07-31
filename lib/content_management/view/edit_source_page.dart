@@ -191,13 +191,29 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    LanguageDropdownFormField(
+                    SearchableDropdownFormField<Language>(
                       labelText: l10n.language,
-                      languages: state.languages,
+                      items: state.languages,
                       initialValue: state.language,
+                      hasMore: state.languagesHasMore,
+                      isLoading: state.status == EditSourceStatus.loading,
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
                           .add(EditSourceLanguageChanged(value)),
+                      onSearchChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceLanguageSearchChanged(value)),
+                      onLoadMore: () => context.read<EditSourceBloc>().add(
+                            const EditSourceLoadMoreLanguagesRequested(),
+                          ),
+                      itemBuilder: (context, language) {
+                        return ListTile(
+                          title: Text(language.name),
+                        );
+                      },
+                      selectedItemBuilder: (context, language) {
+                        return Text(language.name);
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -220,13 +236,54 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    CountryDropdownFormField(
+                    SearchableDropdownFormField<Country>(
                       labelText: l10n.headquarters,
-                      countries: state.countries,
+                      items: state.countries,
                       initialValue: state.headquarters,
+                      hasMore: state.countriesHasMore,
+                      isLoading: state.status == EditSourceStatus.loading,
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
                           .add(EditSourceHeadquartersChanged(value)),
+                      onSearchChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceCountrySearchChanged(value)),
+                      onLoadMore: () => context.read<EditSourceBloc>().add(
+                            const EditSourceLoadMoreCountriesRequested(),
+                          ),
+                      itemBuilder: (context, country) {
+                        return ListTile(
+                          leading: SizedBox(
+                            width: 32,
+                            height: 20,
+                            child: Image.network(
+                              country.flagUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.flag),
+                            ),
+                          ),
+                          title: Text(country.name),
+                        );
+                      },
+                      selectedItemBuilder: (context, country) {
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

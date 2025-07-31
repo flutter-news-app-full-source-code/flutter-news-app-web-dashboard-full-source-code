@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -7,6 +8,8 @@ import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
 part 'create_source_state.dart';
+
+const _searchDebounceDuration = Duration(milliseconds: 300);
 
 /// A BLoC to manage the state of creating a new source.
 class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
@@ -28,6 +31,20 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<CreateSourceStatusChanged>(_onStatusChanged);
     on<CreateSourceSubmitted>(_onSubmitted);
+    on<CreateSourceCountrySearchChanged>(
+      _onCountrySearchChanged,
+      transformer: restartable(),
+    );
+    on<CreateSourceLoadMoreCountriesRequested>(
+      _onLoadMoreCountriesRequested,
+    );
+    on<CreateSourceLanguageSearchChanged>(
+      _onLanguageSearchChanged,
+      transformer: restartable(),
+    );
+    on<CreateSourceLoadMoreLanguagesRequested>(
+      _onLoadMoreLanguagesRequested,
+    );
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -41,7 +58,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   ) async {
     emit(state.copyWith(status: CreateSourceStatus.loading));
     try {
-      final [countriesResponse, languagesResponse] = await Future.wait([
+      final responses = await Future.wait([
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
         ),
@@ -49,19 +66,28 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           sort: [const SortOption('name', SortOrder.asc)],
         ),
       ]);
-
-      final countries = (countriesResponse as PaginatedResponse<Country>).items;
-      final languages = (languagesResponse as PaginatedResponse<Language>).items;
-
+      final countriesPaginated = responses[0] as PaginatedResponse<Country>;
+      final languagesPaginated = responses[1] as PaginatedResponse<Language>;
       emit(
         state.copyWith(
           status: CreateSourceStatus.initial,
-          countries: countries,
-          languages: languages,
+          countries: countriesPaginated.items,
+          countriesCursor: countriesPaginated.cursor,
+          countriesHasMore: countriesPaginated.hasMore,
+          languages: languagesPaginated.items,
+          languagesCursor: languagesPaginated.cursor,
+          languagesHasMore: languagesPaginated.hasMore,
         ),
       );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
     }
   }
 
@@ -146,6 +172,143 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         state.copyWith(
           status: CreateSourceStatus.success,
           createdSource: newSource,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCountrySearchChanged(
+    CreateSourceCountrySearchChanged event,
+    Emitter<CreateSourceState> emit,
+  ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
+    emit(state.copyWith(countrySearchTerm: event.searchTerm));
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: countriesResponse.items,
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreCountriesRequested(
+    CreateSourceLoadMoreCountriesRequested event,
+    Emitter<CreateSourceState> emit,
+  ) async {
+    if (!state.countriesHasMore) return;
+
+    try {
+      final countriesResponse = await _countriesRepository.readAll(
+        pagination: state.countriesCursor != null
+            ? PaginationOptions(cursor: state.countriesCursor)
+            : null,
+        filter: state.countrySearchTerm.isNotEmpty
+            ? {'name': state.countrySearchTerm}
+            : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(countriesResponse.items),
+          countriesCursor: countriesResponse.cursor,
+          countriesHasMore: countriesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLanguageSearchChanged(
+    CreateSourceLanguageSearchChanged event,
+    Emitter<CreateSourceState> emit,
+  ) async {
+    await Future<void>.delayed(_searchDebounceDuration);
+    emit(state.copyWith(languageSearchTerm: event.searchTerm));
+    try {
+      final languagesResponse = await _languagesRepository.readAll(
+        filter:
+            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          languages: languagesResponse.items,
+          languagesCursor: languagesResponse.cursor,
+          languagesHasMore: languagesResponse.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadMoreLanguagesRequested(
+    CreateSourceLoadMoreLanguagesRequested event,
+    Emitter<CreateSourceState> emit,
+  ) async {
+    if (!state.languagesHasMore) return;
+
+    try {
+      final languagesResponse = await _languagesRepository.readAll(
+        pagination: state.languagesCursor != null
+            ? PaginationOptions(cursor: state.languagesCursor)
+            : null,
+        filter: state.languageSearchTerm.isNotEmpty
+            ? {'name': state.languageSearchTerm}
+            : null,
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          languages: List.of(state.languages)
+            ..addAll(languagesResponse.items),
+          languagesCursor: languagesResponse.cursor,
+          languagesHasMore: languagesResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {
