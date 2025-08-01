@@ -35,10 +35,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
-    on<EditHeadlineCountrySearchChanged>(
-      _onCountrySearchChanged,
-      transformer: droppable(),
-    );
     on<EditHeadlineLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
     );
@@ -245,37 +241,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     }
   }
 
-  Future<void> _onCountrySearchChanged(
-    EditHeadlineCountrySearchChanged event,
-    Emitter<EditHeadlineState> emit,
-  ) async {
-    await Future<void>.delayed(_searchDebounceDuration);
-    emit(state.copyWith(countrySearchTerm: event.searchTerm));
-    try {
-      final countriesResponse = await _countriesRepository.readAll(
-        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          countries: countriesResponse.items,
-          countriesCursor: countriesResponse.cursor,
-          countriesHasMore: countriesResponse.hasMore,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
   Future<void> _onLoadMoreCountriesRequested(
     EditHeadlineLoadMoreCountriesRequested event,
     Emitter<EditHeadlineState> emit,
@@ -288,9 +253,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       final countriesResponse = await _countriesRepository.readAll(
         pagination: state.countriesCursor != null
             ? PaginationOptions(cursor: state.countriesCursor)
-            : null,
-        filter: state.countrySearchTerm.isNotEmpty
-            ? {'name': state.countrySearchTerm}
             : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
