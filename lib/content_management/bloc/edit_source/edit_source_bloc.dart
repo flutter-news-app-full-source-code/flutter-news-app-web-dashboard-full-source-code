@@ -90,7 +90,17 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         ),
       );
 
-      // Start background fetching for all countries
+      // After the initial page is loaded, start a background process to
+      // fetch all remaining pages for countries and languages.
+      //
+      // This approach is used for the following reasons:
+      // 1. UI Consistency: It allows us to use the standard
+      //    `DropdownButtonFormField`, which is used elsewhere in the app.
+      // 2. Technical Limitation: The standard dropdown does not expose a
+      //    scroll controller, making on-scroll pagination impossible.
+      //
+      // The UI will update progressively and silently in the background as
+      // more data arrives.
       while (state.countriesHasMore) {
         final nextCountries = await _countriesRepository.readAll(
           pagination: PaginationOptions(cursor: state.countriesCursor),
@@ -105,7 +115,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         );
       }
 
-      // Start background fetching for all languages
       while (state.languagesHasMore) {
         final nextLanguages = await _languagesRepository.readAll(
           pagination: PaginationOptions(cursor: state.languagesCursor),
