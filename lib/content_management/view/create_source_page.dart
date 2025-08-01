@@ -161,12 +161,15 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Language>(
+                    SearchableDropdownFormField<Language, CreateSourceBloc,
+                        CreateSourceState>(
                       labelText: l10n.language,
-                      items: state.languages,
+                      bloc: context.read<CreateSourceBloc>(),
                       initialValue: state.language,
-                      hasMore: state.languagesHasMore,
-                      isLoading: state.status == CreateSourceStatus.loading,
+                      itemsExtractor: (state) => state.languages,
+                      hasMoreExtractor: (state) => state.languagesHasMore,
+                      isLoadingExtractor: (state) =>
+                          state.status == CreateSourceStatus.loading,
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceLanguageChanged(value)),
@@ -206,12 +209,15 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Country>(
+                    SearchableDropdownFormField<Country, CreateSourceBloc,
+                        CreateSourceState>(
                       labelText: l10n.headquarters,
-                      items: state.countries,
+                      bloc: context.read<CreateSourceBloc>(),
                       initialValue: state.headquarters,
-                      hasMore: state.countriesHasMore,
-                      isLoading: state.status == CreateSourceStatus.loading,
+                      itemsExtractor: (state) => state.countries,
+                      hasMoreExtractor: (state) => state.countriesHasMore,
+                      isLoadingExtractor: (state) =>
+                          state.status == CreateSourceStatus.loading,
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceHeadquartersChanged(value)),
