@@ -221,7 +221,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceLoadMoreCountriesRequested event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.countriesHasMore) return;
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    emit(state.copyWith(countriesIsLoadingMore: true));
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
@@ -239,15 +241,23 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           countries: List.of(state.countries)..addAll(countriesResponse.items),
           countriesCursor: countriesResponse.cursor,
           countriesHasMore: countriesResponse.hasMore,
+          countriesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: e,
+          countriesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          countriesIsLoadingMore: false,
         ),
       );
     }
@@ -288,7 +298,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceLoadMoreLanguagesRequested event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.languagesHasMore) return;
+    if (!state.languagesHasMore || state.languagesIsLoadingMore) return;
+
+    emit(state.copyWith(languagesIsLoadingMore: true));
 
     try {
       final languagesResponse = await _languagesRepository.readAll(
@@ -306,15 +318,23 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           languages: List.of(state.languages)..addAll(languagesResponse.items),
           languagesCursor: languagesResponse.cursor,
           languagesHasMore: languagesResponse.hasMore,
+          languagesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: e,
+          languagesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          languagesIsLoadingMore: false,
         ),
       );
     }
