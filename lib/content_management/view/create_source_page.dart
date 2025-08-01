@@ -161,32 +161,34 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Language, CreateSourceBloc,
-                        CreateSourceState>(
-                      labelText: l10n.language,
-                      bloc: context.read<CreateSourceBloc>(),
-                      initialValue: state.language,
-                      itemsExtractor: (state) => state.languages,
-                      hasMoreExtractor: (state) => state.languagesHasMore,
-                      isLoadingExtractor: (state) =>
-                          state.status == CreateSourceStatus.loading,
+                    DropdownButtonFormField<Language?>(
+                      value: state.language,
+                      decoration: InputDecoration(
+                        labelText: l10n.language,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: [
+                        DropdownMenuItem(value: null, child: Text(l10n.none)),
+                        ...state.languages.map(
+                          (language) => DropdownMenuItem(
+                            value: language,
+                            child: Text(language.name),
+                          ),
+                        ),
+                        if (state.languagesHasMore)
+                          DropdownMenuItem(
+                            value: null,
+                            child: const Center(
+                              child: Text('Load More'),
+                            ),
+                            onTap: () => context.read<CreateSourceBloc>().add(
+                                  const CreateSourceLoadMoreLanguagesRequested(),
+                                ),
+                          ),
+                      ],
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceLanguageChanged(value)),
-                      onSearchChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceLanguageSearchChanged(value)),
-                      onLoadMore: () => context.read<CreateSourceBloc>().add(
-                            const CreateSourceLoadMoreLanguagesRequested(),
-                          ),
-                      itemBuilder: (context, language) {
-                        return ListTile(
-                          title: Text(language.name),
-                        );
-                      },
-                      selectedItemBuilder: (context, language) {
-                        return Text(language.name);
-                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -209,57 +211,50 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Country, CreateSourceBloc,
-                        CreateSourceState>(
-                      labelText: l10n.headquarters,
-                      bloc: context.read<CreateSourceBloc>(),
-                      initialValue: state.headquarters,
-                      itemsExtractor: (state) => state.countries,
-                      hasMoreExtractor: (state) => state.countriesHasMore,
-                      isLoadingExtractor: (state) =>
-                          state.status == CreateSourceStatus.loading,
+                    DropdownButtonFormField<Country?>(
+                      value: state.headquarters,
+                      decoration: InputDecoration(
+                        labelText: l10n.headquarters,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: [
+                        DropdownMenuItem(value: null, child: Text(l10n.none)),
+                        ...state.countries.map(
+                          (country) => DropdownMenuItem(
+                            value: country,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 32,
+                                  height: 20,
+                                  child: Image.network(
+                                    country.flagUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.flag),
+                                  ),
+                                ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(country.name),
+                              ],
+                            ),
+                          ),
+                        ),
+                        if (state.countriesHasMore)
+                          DropdownMenuItem(
+                            value: null,
+                            child: const Center(
+                              child: Text('Load More'),
+                            ),
+                            onTap: () => context.read<CreateSourceBloc>().add(
+                                  const CreateSourceLoadMoreCountriesRequested(),
+                                ),
+                          ),
+                      ],
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceHeadquartersChanged(value)),
-                      onSearchChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceCountrySearchChanged(value)),
-                      onLoadMore: () => context.read<CreateSourceBloc>().add(
-                            const CreateSourceLoadMoreCountriesRequested(),
-                          ),
-                      itemBuilder: (context, country) {
-                        return ListTile(
-                          leading: SizedBox(
-                            width: 32,
-                            height: 20,
-                            child: Image.network(
-                              country.flagUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.flag),
-                            ),
-                          ),
-                          title: Text(country.name),
-                        );
-                      },
-                      selectedItemBuilder: (context, country) {
-                        return Row(
-                          children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
-                              ),
-                            ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name),
-                          ],
-                        );
-                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
