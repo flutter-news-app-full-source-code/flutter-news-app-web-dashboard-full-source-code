@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// A generic type for the builder function that creates list items in the
@@ -21,17 +22,19 @@ typedef SearchableDropdownSelectedItemBuilder<T> = Widget Function(
 /// This widget is generic and can be used for any type [T]. It requires
 /// builders for constructing the list items and the selected item display,
 /// as well as callbacks to handle searching and pagination.
-class SearchableDropdownFormField<T> extends FormField<T> {
+class SearchableDropdownFormField<T, B extends BlocBase<S>, S>
+    extends FormField<T> {
   /// {@macro searchable_dropdown_form_field}
   SearchableDropdownFormField({
-    required List<T> items,
+    required B bloc,
+    required List<T> Function(S state) itemsExtractor,
+    required bool Function(S state) hasMoreExtractor,
+    required bool Function(S state) isLoadingExtractor,
     required ValueChanged<T?> onChanged,
     required ValueChanged<String> onSearchChanged,
     required VoidCallback onLoadMore,
     required SearchableDropdownItemBuilder<T> itemBuilder,
     required SearchableDropdownSelectedItemBuilder<T> selectedItemBuilder,
-    required bool hasMore,
-    bool? isLoading,
     super.key,
     T? initialValue,
     String? labelText,
@@ -49,13 +52,14 @@ class SearchableDropdownFormField<T> extends FormField<T> {
               onTap: () async {
                 final selectedItem = await showDialog<T>(
                   context: state.context,
-                  builder: (context) => _SearchableSelectionDialog<T>(
-                    items: items,
+                  builder: (context) => _SearchableSelectionDialog<T, B, S>(
+                    bloc: bloc,
+                    itemsExtractor: itemsExtractor,
+                    hasMoreExtractor: hasMoreExtractor,
+                    isLoadingExtractor: isLoadingExtractor,
                     onSearchChanged: onSearchChanged,
                     onLoadMore: onLoadMore,
                     itemBuilder: itemBuilder,
-                    hasMore: hasMore,
-                    isLoading: isLoading ?? false,
                     searchHintText: searchHintText,
                     noItemsFoundText: noItemsFoundText,
                   ),
@@ -83,35 +87,38 @@ class SearchableDropdownFormField<T> extends FormField<T> {
 }
 
 /// The modal dialog that contains the searchable and paginated list.
-class _SearchableSelectionDialog<T> extends StatefulWidget {
+class _SearchableSelectionDialog<T, B extends BlocBase<S>, S>
+    extends StatefulWidget {
   const _SearchableSelectionDialog({
-    required this.items,
+    required this.bloc,
+    required this.itemsExtractor,
+    required this.hasMoreExtractor,
+    required this.isLoadingExtractor,
     required this.onSearchChanged,
     required this.onLoadMore,
     required this.itemBuilder,
-    required this.hasMore,
-    required this.isLoading,
     this.searchHintText,
     this.noItemsFoundText,
     super.key,
   });
 
-  final List<T> items;
+  final B bloc;
+  final List<T> Function(S state) itemsExtractor;
+  final bool Function(S state) hasMoreExtractor;
+  final bool Function(S state) isLoadingExtractor;
   final ValueChanged<String> onSearchChanged;
   final VoidCallback onLoadMore;
   final SearchableDropdownItemBuilder<T> itemBuilder;
-  final bool hasMore;
-  final bool isLoading;
   final String? searchHintText;
   final String? noItemsFoundText;
 
   @override
-  State<_SearchableSelectionDialog<T>> createState() =>
-      _SearchableSelectionDialogState<T>();
+  State<_SearchableSelectionDialog<T, B, S>> createState() =>
+      _SearchableSelectionDialogState<T, B, S>();
 }
 
-class _SearchableSelectionDialogState<T>
-    extends State<_SearchableSelectionDialog<T>> {
+class _SearchableSelectionDialogState<T, B extends BlocBase<S>, S>
+    extends State<_SearchableSelectionDialog<T, B, S>> {
   final _scrollController = ScrollController();
   final _searchController = TextEditingController();
 
@@ -168,7 +175,16 @@ class _SearchableSelectionDialogState<T>
               ),
               const SizedBox(height: AppSpacing.md),
               Expanded(
-                child: _buildList(),
+                child: BlocBuilder<B, S>(
+                  bloc: widget.bloc,
+                  builder: (context, state) {
+                    final items = widget.itemsExtractor(state);
+                    final hasMore = widget.hasMoreExtractor(state);
+                    final isLoading = widget.isLoadingExtractor(state);
+
+                    return _buildList(items, hasMore, isLoading);
+                  },
+                ),
               ),
             ],
           ),
@@ -177,12 +193,12 @@ class _SearchableSelectionDialogState<T>
     );
   }
 
-  Widget _buildList() {
-    if (widget.isLoading && widget.items.isEmpty) {
+  Widget _buildList(List<T> items, bool hasMore, bool isLoading) {
+    if (isLoading && items.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (widget.items.isEmpty) {
+    if (items.isEmpty) {
       return Center(
         child: Text(widget.noItemsFoundText ?? 'No items found.'),
       );
@@ -190,16 +206,21 @@ class _SearchableSelectionDialogState<T>
 
     return ListView.builder(
       controller: _scrollController,
-      itemCount:
-          widget.hasMore ? widget.items.length + 1 : widget.items.length,
+      itemCount: items.length + (hasMore ? 1 : 0),
       itemBuilder: (context, index) {
-        if (index >= widget.items.length) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
-            child: Center(child: CircularProgressIndicator()),
-          );
+        if (index >= items.length) {
+          // This is the last item, which is the loading indicator.
+          // It's only shown if we have more items and are currently loading.
+          return isLoading
+              ? const Padding(
+                  padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              : const SizedBox.shrink();
         }
-        final item = widget.items[index];
+
+        // This is a regular item.
+        final item = items[index];
         return InkWell(
           onTap: () => Navigator.of(context).pop(item),
           child: widget.itemBuilder(context, item),
