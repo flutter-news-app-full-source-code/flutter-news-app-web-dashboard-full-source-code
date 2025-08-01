@@ -211,9 +211,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ],
                       onChanged: state.languagesIsLoadingMore
                           ? null
-                          : (value) => context
-                              .read<EditSourceBloc>()
-                              .add(EditSourceLanguageChanged(value)),
+                          : (value) => context.read<EditSourceBloc>().add(
+                              EditSourceLanguageChanged(value),
+                            ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -272,9 +272,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ],
                       onChanged: state.countriesIsLoadingMore
                           ? null
-                          : (value) => context
-                              .read<EditSourceBloc>()
-                              .add(EditSourceHeadquartersChanged(value)),
+                          : (value) => context.read<EditSourceBloc>().add(
+                              EditSourceHeadquartersChanged(value),
+                            ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

@@ -181,9 +181,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       ],
                       onChanged: state.languagesIsLoadingMore
                           ? null
-                          : (value) => context
-                              .read<CreateSourceBloc>()
-                              .add(CreateSourceLanguageChanged(value)),
+                          : (value) => context.read<CreateSourceBloc>().add(
+                              CreateSourceLanguageChanged(value),
+                            ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -242,9 +242,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       ],
                       onChanged: state.countriesIsLoadingMore
                           ? null
-                          : (value) => context
-                              .read<CreateSourceBloc>()
-                              .add(CreateSourceHeadquartersChanged(value)),
+                          : (value) => context.read<CreateSourceBloc>().add(
+                              CreateSourceHeadquartersChanged(value),
+                            ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

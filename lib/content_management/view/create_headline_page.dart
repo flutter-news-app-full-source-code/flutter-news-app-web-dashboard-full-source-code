@@ -250,9 +250,9 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                       ],
                       onChanged: state.countriesIsLoadingMore
                           ? null
-                          : (value) => context
-                              .read<CreateHeadlineBloc>()
-                              .add(CreateHeadlineCountryChanged(value)),
+                          : (value) => context.read<CreateHeadlineBloc>().add(
+                              CreateHeadlineCountryChanged(value),
+                            ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

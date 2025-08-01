@@ -264,10 +264,12 @@ Future<Widget> bootstrap(
   final dashboardSummaryRepository = DataRepository<DashboardSummary>(
     dataClient: dashboardSummaryClient,
   );
-  final countriesRepository =
-      DataRepository<Country>(dataClient: countriesClient);
-  final languagesRepository =
-      DataRepository<Language>(dataClient: languagesClient);
+  final countriesRepository = DataRepository<Country>(
+    dataClient: countriesClient,
+  );
+  final languagesRepository = DataRepository<Language>(
+    dataClient: languagesClient,
+  );
 
   return App(
     authenticationRepository: authenticationRepository,

@@ -37,18 +37,18 @@ class App extends StatelessWidget {
     required KVStorageService storageService,
     required AppEnvironment environment,
     super.key,
-  })  : _authenticationRepository = authenticationRepository,
-        _headlinesRepository = headlinesRepository,
-        _topicsRepository = topicsRepository,
-        _sourcesRepository = sourcesRepository,
-        _userAppSettingsRepository = userAppSettingsRepository,
-        _userContentPreferencesRepository = userContentPreferencesRepository,
-        _remoteConfigRepository = remoteConfigRepository,
-        _kvStorageService = storageService,
-        _dashboardSummaryRepository = dashboardSummaryRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        _environment = environment;
+  }) : _authenticationRepository = authenticationRepository,
+       _headlinesRepository = headlinesRepository,
+       _topicsRepository = topicsRepository,
+       _sourcesRepository = sourcesRepository,
+       _userAppSettingsRepository = userAppSettingsRepository,
+       _userContentPreferencesRepository = userContentPreferencesRepository,
+       _remoteConfigRepository = remoteConfigRepository,
+       _kvStorageService = storageService,
+       _dashboardSummaryRepository = dashboardSummaryRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       _environment = environment;
 
   final AuthRepository _authenticationRepository;
   final DataRepository<Headline> _headlinesRepository;
@@ -56,7 +56,7 @@ class App extends StatelessWidget {
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<UserAppSettings> _userAppSettingsRepository;
   final DataRepository<UserContentPreferences>
-      _userContentPreferencesRepository;
+  _userContentPreferencesRepository;
   final DataRepository<RemoteConfig> _remoteConfigRepository;
   final DataRepository<DashboardSummary> _dashboardSummaryRepository;
   final DataRepository<Country> _countriesRepository;

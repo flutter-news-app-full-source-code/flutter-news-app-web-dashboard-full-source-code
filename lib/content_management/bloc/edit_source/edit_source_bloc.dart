@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -16,8 +15,6 @@ final class _FetchNextLanguagePage extends EditSourceEvent {
   const _FetchNextLanguagePage();
 }
 
-const _searchDebounceDuration = Duration(milliseconds: 300);
-
 /// A BLoC to manage the state of editing a single source.
 class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
@@ -26,11 +23,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required String sourceId,
-  })  : _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        _sourceId = sourceId,
-        super(const EditSourceState()) {
+  }) : _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       _sourceId = sourceId,
+       super(const EditSourceState()) {
     on<EditSourceLoaded>(_onLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
@@ -74,7 +71,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         // Find the equivalent language object from the full list.
         // This ensures the DropdownButton can identify it by reference.
         selectedLanguage = languagesPaginated.items.firstWhere(
-          (listLanguage) => listLanguage.id == source.language?.id,
+          (listLanguage) => listLanguage.id == source.language.id,
         );
       } catch (_) {
         selectedLanguage = source.language;
@@ -212,6 +209,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     try {
       emit(state.copyWith(countriesIsLoadingMore: true));
 
+      // ignore: inference_failure_on_instance_creation
       await Future.delayed(const Duration(milliseconds: 400));
 
       final nextCountries = await _countriesRepository.readAll(
@@ -246,6 +244,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     try {
       emit(state.copyWith(languagesIsLoadingMore: true));
 
+      // ignore: inference_failure_on_instance_creation
       await Future.delayed(const Duration(milliseconds: 400));
 
       final nextLanguages = await _languagesRepository.readAll(

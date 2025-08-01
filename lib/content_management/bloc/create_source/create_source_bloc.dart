@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -17,8 +16,6 @@ final class _FetchNextLanguagePage extends CreateSourceEvent {
   const _FetchNextLanguagePage();
 }
 
-const _searchDebounceDuration = Duration(milliseconds: 300);
-
 /// A BLoC to manage the state of creating a new source.
 class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
@@ -26,10 +23,10 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-  })  : _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        super(const CreateSourceState()) {
+  }) : _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       super(const CreateSourceState()) {
     on<CreateSourceDataLoaded>(_onDataLoaded);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
@@ -168,6 +165,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     try {
       emit(state.copyWith(countriesIsLoadingMore: true));
 
+      // ignore: inference_failure_on_instance_creation
       await Future.delayed(const Duration(milliseconds: 400));
 
       final nextCountries = await _countriesRepository.readAll(
@@ -202,6 +200,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     try {
       emit(state.copyWith(languagesIsLoadingMore: true));
 
+      // ignore: inference_failure_on_instance_creation
       await Future.delayed(const Duration(milliseconds: 400));
 
       final nextLanguages = await _languagesRepository.readAll(

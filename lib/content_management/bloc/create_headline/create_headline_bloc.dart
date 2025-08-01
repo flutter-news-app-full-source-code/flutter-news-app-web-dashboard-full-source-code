@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -13,8 +12,6 @@ final class _FetchNextCountryPage extends CreateHeadlineEvent {
   const _FetchNextCountryPage();
 }
 
-const _searchDebounceDuration = Duration(milliseconds: 300);
-
 /// A BLoC to manage the state of creating a new headline.
 class CreateHeadlineBloc
     extends Bloc<CreateHeadlineEvent, CreateHeadlineState> {
@@ -24,11 +21,11 @@ class CreateHeadlineBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Country> countriesRepository,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _countriesRepository = countriesRepository,
-        super(const CreateHeadlineState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -177,6 +174,7 @@ class CreateHeadlineBloc
     try {
       emit(state.copyWith(countriesIsLoadingMore: true));
 
+      // ignore: inference_failure_on_instance_creation
       await Future.delayed(const Duration(milliseconds: 400));
 
       final nextCountries = await _countriesRepository.readAll(

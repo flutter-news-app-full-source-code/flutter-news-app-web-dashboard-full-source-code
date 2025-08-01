@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -12,8 +11,6 @@ final class _FetchNextCountryPage extends EditHeadlineEvent {
   const _FetchNextCountryPage();
 }
 
-const _searchDebounceDuration = Duration(milliseconds: 300);
-
 /// A BLoC to manage the state of editing a single headline.
 class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   /// {@macro edit_headline_bloc}
@@ -23,12 +20,12 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Country> countriesRepository,
     required String headlineId,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _countriesRepository = countriesRepository,
-        _headlineId = headlineId,
-        super(const EditHeadlineState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       _headlineId = headlineId,
+       super(const EditHeadlineState()) {
     on<EditHeadlineLoaded>(_onLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
@@ -215,6 +212,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     try {
       emit(state.copyWith(countriesIsLoadingMore: true));
 
+      // ignore: inference_failure_on_instance_creation
       await Future.delayed(const Duration(milliseconds: 400));
 
       final nextCountries = await _countriesRepository.readAll(

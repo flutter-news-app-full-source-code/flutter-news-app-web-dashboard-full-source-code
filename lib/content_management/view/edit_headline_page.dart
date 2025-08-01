@@ -318,9 +318,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       ],
                       onChanged: state.countriesIsLoadingMore
                           ? null
-                          : (value) => context
-                              .read<EditHeadlineBloc>()
-                              .add(EditHeadlineCountryChanged(value)),
+                          : (value) => context.read<EditHeadlineBloc>().add(
+                              EditHeadlineCountryChanged(value),
+                            ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
