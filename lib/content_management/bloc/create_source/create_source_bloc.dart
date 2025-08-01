@@ -18,10 +18,10 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-  })  : _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        super(const CreateSourceState()) {
+  }) : _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       super(const CreateSourceState()) {
     on<CreateSourceDataLoaded>(_onDataLoaded);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
@@ -33,14 +33,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceSubmitted>(_onSubmitted);
     on<CreateSourceCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<CreateSourceLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
     );
     on<CreateSourceLanguageSearchChanged>(
       _onLanguageSearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<CreateSourceLoadMoreLanguagesRequested>(
       _onLoadMoreLanguagesRequested,
@@ -194,8 +194,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -262,8 +261,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(languageSearchTerm: event.searchTerm));
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -305,8 +303,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
       emit(
         state.copyWith(
-          languages: List.of(state.languages)
-            ..addAll(languagesResponse.items),
+          languages: List.of(state.languages)..addAll(languagesResponse.items),
           languagesCursor: languagesResponse.cursor,
           languagesHasMore: languagesResponse.hasMore,
         ),

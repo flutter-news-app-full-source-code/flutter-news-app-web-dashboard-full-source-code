@@ -19,12 +19,12 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Country> countriesRepository,
     required String headlineId,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _countriesRepository = countriesRepository,
-        _headlineId = headlineId,
-        super(const EditHeadlineState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       _headlineId = headlineId,
+       super(const EditHeadlineState()) {
     on<EditHeadlineLoaded>(_onLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
@@ -37,7 +37,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineSubmitted>(_onSubmitted);
     on<EditHeadlineCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<EditHeadlineLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
@@ -253,8 +253,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 

@@ -20,11 +20,11 @@ class CreateHeadlineBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Country> countriesRepository,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _countriesRepository = countriesRepository,
-        super(const CreateHeadlineState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -37,10 +37,9 @@ class CreateHeadlineBloc
     on<CreateHeadlineSubmitted>(_onSubmitted);
     on<CreateHeadlineCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
-    on<CreateHeadlineLoadMoreCountriesRequested>(
-        _onLoadMoreCountriesRequested);
+    on<CreateHeadlineLoadMoreCountriesRequested>(_onLoadMoreCountriesRequested);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -204,8 +203,7 @@ class CreateHeadlineBloc
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
