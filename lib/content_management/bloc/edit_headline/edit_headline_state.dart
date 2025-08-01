@@ -36,7 +36,6 @@ final class EditHeadlineState extends Equatable {
     this.countriesHasMore = true,
     this.countriesIsLoadingMore = false,
     this.countriesCursor,
-    this.countrySearchTerm = '',
     this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedHeadline,
@@ -57,7 +56,6 @@ final class EditHeadlineState extends Equatable {
   final bool countriesHasMore;
   final bool countriesIsLoadingMore;
   final String? countriesCursor;
-  final String countrySearchTerm;
   final ContentStatus contentStatus;
   final HttpException? exception;
   final Headline? updatedHeadline;
@@ -88,7 +86,6 @@ final class EditHeadlineState extends Equatable {
     bool? countriesHasMore,
     bool? countriesIsLoadingMore,
     String? countriesCursor,
-    String? countrySearchTerm,
     ContentStatus? contentStatus,
     HttpException? exception,
     Headline? updatedHeadline,
@@ -110,7 +107,6 @@ final class EditHeadlineState extends Equatable {
       countriesIsLoadingMore:
           countriesIsLoadingMore ?? this.countriesIsLoadingMore,
       countriesCursor: countriesCursor ?? this.countriesCursor,
-      countrySearchTerm: countrySearchTerm ?? this.countrySearchTerm,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
@@ -134,7 +130,6 @@ final class EditHeadlineState extends Equatable {
     countriesHasMore,
     countriesIsLoadingMore,
     countriesCursor,
-    countrySearchTerm,
     contentStatus,
     exception,
     updatedHeadline,

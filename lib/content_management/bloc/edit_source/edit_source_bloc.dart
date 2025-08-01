@@ -32,16 +32,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
-    on<EditSourceCountrySearchChanged>(
-      _onCountrySearchChanged,
-      transformer: droppable(),
-    );
     on<EditSourceLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
-    );
-    on<EditSourceLanguageSearchChanged>(
-      _onLanguageSearchChanged,
-      transformer: droppable(),
     );
     on<EditSourceLoadMoreLanguagesRequested>(
       _onLoadMoreLanguagesRequested,
@@ -240,37 +232,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     }
   }
 
-  Future<void> _onCountrySearchChanged(
-    EditSourceCountrySearchChanged event,
-    Emitter<EditSourceState> emit,
-  ) async {
-    await Future<void>.delayed(_searchDebounceDuration);
-    emit(state.copyWith(countrySearchTerm: event.searchTerm));
-    try {
-      final countriesResponse = await _countriesRepository.readAll(
-        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          countries: countriesResponse.items,
-          countriesCursor: countriesResponse.cursor,
-          countriesHasMore: countriesResponse.hasMore,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
   Future<void> _onLoadMoreCountriesRequested(
     EditSourceLoadMoreCountriesRequested event,
     Emitter<EditSourceState> emit,
@@ -283,9 +244,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final countriesResponse = await _countriesRepository.readAll(
         pagination: state.countriesCursor != null
             ? PaginationOptions(cursor: state.countriesCursor)
-            : null,
-        filter: state.countrySearchTerm.isNotEmpty
-            ? {'name': state.countrySearchTerm}
             : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
@@ -317,37 +275,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     }
   }
 
-  Future<void> _onLanguageSearchChanged(
-    EditSourceLanguageSearchChanged event,
-    Emitter<EditSourceState> emit,
-  ) async {
-    await Future<void>.delayed(_searchDebounceDuration);
-    emit(state.copyWith(languageSearchTerm: event.searchTerm));
-    try {
-      final languagesResponse = await _languagesRepository.readAll(
-        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          languages: languagesResponse.items,
-          languagesCursor: languagesResponse.cursor,
-          languagesHasMore: languagesResponse.hasMore,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
   Future<void> _onLoadMoreLanguagesRequested(
     EditSourceLoadMoreLanguagesRequested event,
     Emitter<EditSourceState> emit,
@@ -360,9 +287,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final languagesResponse = await _languagesRepository.readAll(
         pagination: state.languagesCursor != null
             ? PaginationOptions(cursor: state.languagesCursor)
-            : null,
-        filter: state.languageSearchTerm.isNotEmpty
-            ? {'name': state.languageSearchTerm}
             : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );

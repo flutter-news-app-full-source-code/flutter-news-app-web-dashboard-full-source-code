@@ -84,14 +84,6 @@ final class CreateHeadlineSubmitted extends CreateHeadlineEvent {
   const CreateHeadlineSubmitted();
 }
 
-/// Event for when the country search term is changed.
-final class CreateHeadlineCountrySearchChanged extends CreateHeadlineEvent {
-  const CreateHeadlineCountrySearchChanged(this.searchTerm);
-  final String searchTerm;
-  @override
-  List<Object?> get props => [searchTerm];
-}
-
 /// Event to request loading more countries.
 final class CreateHeadlineLoadMoreCountriesRequested
     extends CreateHeadlineEvent {
