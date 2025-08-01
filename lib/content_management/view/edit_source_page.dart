@@ -205,16 +205,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
                             child: Text(language.name),
                           ),
                         ),
-                        if (state.languagesHasMore)
-                          DropdownMenuItem(
-                            value: null,
-                            child: const Center(
-                              child: Text('Load More'),
-                            ),
-                            onTap: () => context.read<EditSourceBloc>().add(
-                                  const EditSourceLoadMoreLanguagesRequested(),
-                                ),
-                          ),
                       ],
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
@@ -271,16 +261,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
                             ),
                           ),
                         ),
-                        if (state.countriesHasMore)
-                          DropdownMenuItem(
-                            value: null,
-                            child: const Center(
-                              child: Text('Load More'),
-                            ),
-                            onTap: () => context.read<EditSourceBloc>().add(
-                                  const EditSourceLoadMoreCountriesRequested(),
-                                ),
-                          ),
                       ],
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
