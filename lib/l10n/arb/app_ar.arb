@@ -854,6 +854,10 @@
   "@loadingData": {
     "description": "رسالة عامة تُعرض أثناء تحميل البيانات لنموذج"
   },
+  "loadingFullList": "جاري تحميل القائمة الكاملة...",
+  "@loadingFullList": {
+    "description": "رسالة تُعرض في قائمة منسدلة عند تحميل قائمتها الكاملة من العناصر في الخلفية."
+  },
   "createSource": "إنشاء مصدر",
   "@createSource": {
     "description": "عنوان صفحة إنشاء مصدر"
