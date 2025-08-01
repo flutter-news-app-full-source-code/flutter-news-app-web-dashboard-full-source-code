@@ -35,9 +35,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
-    on<EditHeadlineLoadMoreCountriesRequested>(
-      _onLoadMoreCountriesRequested,
-    );
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -89,6 +86,21 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           contentStatus: headline.status,
         ),
       );
+
+      // Start background fetching for all countries
+      while (state.countriesHasMore) {
+        final nextCountries = await _countriesRepository.readAll(
+          pagination: PaginationOptions(cursor: state.countriesCursor),
+          sort: [const SortOption('name', SortOrder.asc)],
+        );
+        emit(
+          state.copyWith(
+            countries: List.of(state.countries)..addAll(nextCountries.items),
+            countriesCursor: nextCountries.cursor,
+            countriesHasMore: nextCountries.hasMore,
+          ),
+        );
+      }
     } on HttpException catch (e) {
       emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
     } catch (e) {
@@ -236,49 +248,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         state.copyWith(
           status: EditHeadlineStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
-  Future<void> _onLoadMoreCountriesRequested(
-    EditHeadlineLoadMoreCountriesRequested event,
-    Emitter<EditHeadlineState> emit,
-  ) async {
-    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
-
-    emit(state.copyWith(countriesIsLoadingMore: true));
-
-    try {
-      final countriesResponse = await _countriesRepository.readAll(
-        pagination: state.countriesCursor != null
-            ? PaginationOptions(cursor: state.countriesCursor)
-            : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          countries: List.of(state.countries)..addAll(countriesResponse.items),
-          countriesCursor: countriesResponse.cursor,
-          countriesHasMore: countriesResponse.hasMore,
-          countriesIsLoadingMore: false,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: e,
-          countriesIsLoadingMore: false,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-          countriesIsLoadingMore: false,
         ),
       );
     }
