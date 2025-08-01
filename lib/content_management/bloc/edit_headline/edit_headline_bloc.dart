@@ -280,7 +280,9 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineLoadMoreCountriesRequested event,
     Emitter<EditHeadlineState> emit,
   ) async {
-    if (!state.countriesHasMore) return;
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    emit(state.copyWith(countriesIsLoadingMore: true));
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
@@ -298,15 +300,23 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           countries: List.of(state.countries)..addAll(countriesResponse.items),
           countriesCursor: countriesResponse.cursor,
           countriesHasMore: countriesResponse.hasMore,
+          countriesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: e,
+          countriesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditHeadlineStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          countriesIsLoadingMore: false,
         ),
       );
     }
