@@ -196,6 +196,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.language,
                         border: const OutlineInputBorder(),
+                        helperText: state.languagesIsLoadingMore
+                            ? l10n.loadingFullList
+                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -206,9 +209,11 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceLanguageChanged(value)),
+                      onChanged: state.languagesIsLoadingMore
+                          ? null
+                          : (value) => context
+                              .read<EditSourceBloc>()
+                              .add(EditSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -236,6 +241,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.headquarters,
                         border: const OutlineInputBorder(),
+                        helperText: state.countriesIsLoadingMore
+                            ? l10n.loadingFullList
+                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -262,9 +270,11 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceHeadquartersChanged(value)),
+                      onChanged: state.countriesIsLoadingMore
+                          ? null
+                          : (value) => context
+                              .read<EditSourceBloc>()
+                              .add(EditSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

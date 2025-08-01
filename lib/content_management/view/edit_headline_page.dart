@@ -287,6 +287,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       decoration: InputDecoration(
                         labelText: l10n.countryName,
                         border: const OutlineInputBorder(),
+                        helperText: state.countriesIsLoadingMore
+                            ? l10n.loadingFullList
+                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -313,9 +316,11 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           ),
                         ),
                       ],
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCountryChanged(value)),
+                      onChanged: state.countriesIsLoadingMore
+                          ? null
+                          : (value) => context
+                              .read<EditHeadlineBloc>()
+                              .add(EditHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

@@ -854,6 +854,10 @@
   "@loadingData": {
     "description": "Generic message displayed while loading data for a form"
   },
+  "loadingFullList": "Loading full list...",
+  "@loadingFullList": {
+    "description": "Message displayed in a dropdown when its full list of items is being loaded in the background."
+  },
   "createSource": "Create Source",
   "@createSource": {
     "description": "Title for the Create Source page"

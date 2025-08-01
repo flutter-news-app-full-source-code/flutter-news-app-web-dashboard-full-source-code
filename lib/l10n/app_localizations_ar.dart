@@ -697,6 +697,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingData => 'جاري تحميل البيانات...';
 
   @override
+  String get loadingFullList => 'جاري تحميل القائمة الكاملة...';
+
+  @override
   String get createSource => 'إنشاء مصدر';
 
   @override

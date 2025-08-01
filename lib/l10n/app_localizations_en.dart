@@ -696,6 +696,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadingData => 'Loading data...';
 
   @override
+  String get loadingFullList => 'Loading full list...';
+
+  @override
   String get createSource => 'Create Source';
 
   @override

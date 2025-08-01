@@ -166,6 +166,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.language,
                         border: const OutlineInputBorder(),
+                        helperText: state.languagesIsLoadingMore
+                            ? l10n.loadingFullList
+                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -176,9 +179,11 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceLanguageChanged(value)),
+                      onChanged: state.languagesIsLoadingMore
+                          ? null
+                          : (value) => context
+                              .read<CreateSourceBloc>()
+                              .add(CreateSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -206,6 +211,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.headquarters,
                         border: const OutlineInputBorder(),
+                        helperText: state.countriesIsLoadingMore
+                            ? l10n.loadingFullList
+                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -232,9 +240,11 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceHeadquartersChanged(value)),
+                      onChanged: state.countriesIsLoadingMore
+                          ? null
+                          : (value) => context
+                              .read<CreateSourceBloc>()
+                              .add(CreateSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
