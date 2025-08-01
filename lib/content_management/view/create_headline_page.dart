@@ -214,12 +214,15 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           .add(CreateHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Country>(
+                    SearchableDropdownFormField<Country, CreateHeadlineBloc,
+                        CreateHeadlineState>(
                       labelText: l10n.countryName,
-                      items: state.countries,
+                      bloc: context.read<CreateHeadlineBloc>(),
                       initialValue: state.eventCountry,
-                      hasMore: state.countriesHasMore,
-                      isLoading: state.status == CreateHeadlineStatus.loading,
+                      itemsExtractor: (state) => state.countries,
+                      hasMoreExtractor: (state) => state.countriesHasMore,
+                      isLoadingExtractor: (state) =>
+                          state.status == CreateHeadlineStatus.loading,
                       onChanged: (value) => context
                           .read<CreateHeadlineBloc>()
                           .add(CreateHeadlineCountryChanged(value)),
