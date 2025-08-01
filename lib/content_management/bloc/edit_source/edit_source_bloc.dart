@@ -8,6 +8,14 @@ import 'package:flutter/foundation.dart';
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
 
+final class _FetchNextCountryPage extends EditSourceEvent {
+  const _FetchNextCountryPage();
+}
+
+final class _FetchNextLanguagePage extends EditSourceEvent {
+  const _FetchNextLanguagePage();
+}
+
 const _searchDebounceDuration = Duration(milliseconds: 300);
 
 /// A BLoC to manage the state of editing a single source.
@@ -18,11 +26,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required String sourceId,
-  }) : _sourcesRepository = sourcesRepository,
-       _countriesRepository = countriesRepository,
-       _languagesRepository = languagesRepository,
-       _sourceId = sourceId,
-       super(const EditSourceState()) {
+  })  : _sourcesRepository = sourcesRepository,
+        _countriesRepository = countriesRepository,
+        _languagesRepository = languagesRepository,
+        _sourceId = sourceId,
+        super(const EditSourceState()) {
     on<EditSourceLoaded>(_onLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
@@ -32,6 +40,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
+    on<_FetchNextCountryPage>(_onFetchNextCountryPage);
+    on<_FetchNextLanguagePage>(_onFetchNextLanguagePage);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -90,34 +100,13 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         ),
       );
 
-      // Start background fetching for all countries
-      while (state.countriesHasMore) {
-        final nextCountries = await _countriesRepository.readAll(
-          pagination: PaginationOptions(cursor: state.countriesCursor),
-          sort: [const SortOption('name', SortOrder.asc)],
-        );
-        emit(
-          state.copyWith(
-            countries: List.of(state.countries)..addAll(nextCountries.items),
-            countriesCursor: nextCountries.cursor,
-            countriesHasMore: nextCountries.hasMore,
-          ),
-        );
+      // After the initial page is loaded, start background processes to
+      // fetch all remaining pages for countries and languages.
+      if (state.countriesHasMore) {
+        add(const _FetchNextCountryPage());
       }
-
-      // Start background fetching for all languages
-      while (state.languagesHasMore) {
-        final nextLanguages = await _languagesRepository.readAll(
-          pagination: PaginationOptions(cursor: state.languagesCursor),
-          sort: [const SortOption('name', SortOrder.asc)],
-        );
-        emit(
-          state.copyWith(
-            languages: List.of(state.languages)..addAll(nextLanguages.items),
-            languagesCursor: nextLanguages.cursor,
-            languagesHasMore: nextLanguages.hasMore,
-          ),
-        );
+      if (state.languagesHasMore) {
+        add(const _FetchNextLanguagePage());
       }
     } on HttpException catch (e) {
       emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
@@ -203,6 +192,83 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         status: EditSourceStatus.initial,
       ),
     );
+  }
+
+  // --- Background Data Fetching for Dropdown ---
+  // The DropdownButtonFormField widget does not natively support on-scroll
+  // pagination. To preserve UI consistency across the application, this BLoC
+  // employs an event-driven background fetching mechanism.
+  //
+  // After the first page of items is loaded, a chain of events is initiated
+  // to progressively fetch all remaining pages. This process is throttled
+  // and runs in the background, ensuring the UI remains responsive while the
+  // full list of dropdown options is populated over time.
+  Future<void> _onFetchNextCountryPage(
+    _FetchNextCountryPage event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    try {
+      emit(state.copyWith(countriesIsLoadingMore: true));
+
+      await Future.delayed(const Duration(milliseconds: 400));
+
+      final nextCountries = await _countriesRepository.readAll(
+        pagination: PaginationOptions(cursor: state.countriesCursor),
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(nextCountries.items),
+          countriesCursor: nextCountries.cursor,
+          countriesHasMore: nextCountries.hasMore,
+          countriesIsLoadingMore: false,
+        ),
+      );
+
+      if (nextCountries.hasMore) {
+        add(const _FetchNextCountryPage());
+      }
+    } catch (e) {
+      emit(state.copyWith(countriesIsLoadingMore: false));
+      // Optionally log the error without disrupting the user
+    }
+  }
+
+  Future<void> _onFetchNextLanguagePage(
+    _FetchNextLanguagePage event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    if (!state.languagesHasMore || state.languagesIsLoadingMore) return;
+
+    try {
+      emit(state.copyWith(languagesIsLoadingMore: true));
+
+      await Future.delayed(const Duration(milliseconds: 400));
+
+      final nextLanguages = await _languagesRepository.readAll(
+        pagination: PaginationOptions(cursor: state.languagesCursor),
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          languages: List.of(state.languages)..addAll(nextLanguages.items),
+          languagesCursor: nextLanguages.cursor,
+          languagesHasMore: nextLanguages.hasMore,
+          languagesIsLoadingMore: false,
+        ),
+      );
+
+      if (nextLanguages.hasMore) {
+        add(const _FetchNextLanguagePage());
+      }
+    } catch (e) {
+      emit(state.copyWith(languagesIsLoadingMore: false));
+      // Optionally log the error without disrupting the user
+    }
   }
 
   Future<void> _onSubmitted(

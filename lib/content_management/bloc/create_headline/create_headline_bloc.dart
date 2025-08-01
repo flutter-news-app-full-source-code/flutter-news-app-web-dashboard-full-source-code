@@ -9,6 +9,10 @@ import 'package:uuid/uuid.dart';
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
 
+final class _FetchNextCountryPage extends CreateHeadlineEvent {
+  const _FetchNextCountryPage();
+}
+
 const _searchDebounceDuration = Duration(milliseconds: 300);
 
 /// A BLoC to manage the state of creating a new headline.
@@ -20,11 +24,11 @@ class CreateHeadlineBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Country> countriesRepository,
-  }) : _headlinesRepository = headlinesRepository,
-       _sourcesRepository = sourcesRepository,
-       _topicsRepository = topicsRepository,
-       _countriesRepository = countriesRepository,
-       super(const CreateHeadlineState()) {
+  })  : _headlinesRepository = headlinesRepository,
+        _sourcesRepository = sourcesRepository,
+        _topicsRepository = topicsRepository,
+        _countriesRepository = countriesRepository,
+        super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -35,6 +39,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
+    on<_FetchNextCountryPage>(_onFetchNextCountryPage);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -76,19 +81,10 @@ class CreateHeadlineBloc
         ),
       );
 
-      // Start background fetching for all countries
-      while (state.countriesHasMore) {
-        final nextCountries = await _countriesRepository.readAll(
-          pagination: PaginationOptions(cursor: state.countriesCursor),
-          sort: [const SortOption('name', SortOrder.asc)],
-        );
-        emit(
-          state.copyWith(
-            countries: List.of(state.countries)..addAll(nextCountries.items),
-            countriesCursor: nextCountries.cursor,
-            countriesHasMore: nextCountries.hasMore,
-          ),
-        );
+      // After the initial page of countries is loaded, start a background
+      // process to fetch all remaining pages.
+      if (state.countriesHasMore) {
+        add(const _FetchNextCountryPage());
       }
     } on HttpException catch (e) {
       emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
@@ -161,6 +157,49 @@ class CreateHeadlineBloc
         status: CreateHeadlineStatus.initial,
       ),
     );
+  }
+
+  // --- Background Data Fetching for Dropdown ---
+  // The DropdownButtonFormField widget does not natively support on-scroll
+  // pagination. To preserve UI consistency across the application, this BLoC
+  // employs an event-driven background fetching mechanism.
+  //
+  // After the first page of items is loaded, a chain of events is initiated
+  // to progressively fetch all remaining pages. This process is throttled
+  // and runs in the background, ensuring the UI remains responsive while the
+  // full list of dropdown options is populated over time.
+  Future<void> _onFetchNextCountryPage(
+    _FetchNextCountryPage event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    try {
+      emit(state.copyWith(countriesIsLoadingMore: true));
+
+      await Future.delayed(const Duration(milliseconds: 400));
+
+      final nextCountries = await _countriesRepository.readAll(
+        pagination: PaginationOptions(cursor: state.countriesCursor),
+        sort: [const SortOption('name', SortOrder.asc)],
+      );
+
+      emit(
+        state.copyWith(
+          countries: List.of(state.countries)..addAll(nextCountries.items),
+          countriesCursor: nextCountries.cursor,
+          countriesHasMore: nextCountries.hasMore,
+          countriesIsLoadingMore: false,
+        ),
+      );
+
+      if (nextCountries.hasMore) {
+        add(const _FetchNextCountryPage());
+      }
+    } catch (e) {
+      emit(state.copyWith(countriesIsLoadingMore: false));
+      // Optionally log the error without disrupting the user
+    }
   }
 
   Future<void> _onSubmitted(
