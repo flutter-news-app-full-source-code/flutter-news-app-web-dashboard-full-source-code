@@ -33,12 +33,10 @@ final class EditSourceState extends Equatable {
     this.countriesHasMore = true,
     this.countriesIsLoadingMore = false,
     this.countriesCursor,
-    this.countrySearchTerm = '',
     this.languages = const [],
     this.languagesHasMore = true,
     this.languagesIsLoadingMore = false,
     this.languagesCursor,
-    this.languageSearchTerm = '',
     this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedSource,
@@ -56,12 +54,10 @@ final class EditSourceState extends Equatable {
   final bool countriesHasMore;
   final bool countriesIsLoadingMore;
   final String? countriesCursor;
-  final String countrySearchTerm;
   final List<Language> languages;
   final bool languagesHasMore;
   final bool languagesIsLoadingMore;
   final String? languagesCursor;
-  final String languageSearchTerm;
   final ContentStatus contentStatus;
   final HttpException? exception;
   final Source? updatedSource;
@@ -88,12 +84,10 @@ final class EditSourceState extends Equatable {
     bool? countriesHasMore,
     bool? countriesIsLoadingMore,
     String? countriesCursor,
-    String? countrySearchTerm,
     List<Language>? languages,
     bool? languagesHasMore,
     bool? languagesIsLoadingMore,
     String? languagesCursor,
-    String? languageSearchTerm,
     ContentStatus? contentStatus,
     HttpException? exception,
     Source? updatedSource,
@@ -112,13 +106,11 @@ final class EditSourceState extends Equatable {
       countriesIsLoadingMore:
           countriesIsLoadingMore ?? this.countriesIsLoadingMore,
       countriesCursor: countriesCursor ?? this.countriesCursor,
-      countrySearchTerm: countrySearchTerm ?? this.countrySearchTerm,
       languages: languages ?? this.languages,
       languagesHasMore: languagesHasMore ?? this.languagesHasMore,
       languagesIsLoadingMore:
           languagesIsLoadingMore ?? this.languagesIsLoadingMore,
       languagesCursor: languagesCursor ?? this.languagesCursor,
-      languageSearchTerm: languageSearchTerm ?? this.languageSearchTerm,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedSource: updatedSource ?? this.updatedSource,
@@ -139,12 +131,10 @@ final class EditSourceState extends Equatable {
     countriesHasMore,
     countriesIsLoadingMore,
     countriesCursor,
-    countrySearchTerm,
     languages,
     languagesHasMore,
     languagesIsLoadingMore,
     languagesCursor,
-    languageSearchTerm,
     contentStatus,
     exception,
     updatedSource,
