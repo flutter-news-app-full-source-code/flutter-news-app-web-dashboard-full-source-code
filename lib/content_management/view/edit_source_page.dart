@@ -191,12 +191,15 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Language>(
+                    SearchableDropdownFormField<Language, EditSourceBloc,
+                        EditSourceState>(
                       labelText: l10n.language,
-                      items: state.languages,
+                      bloc: context.read<EditSourceBloc>(),
                       initialValue: state.language,
-                      hasMore: state.languagesHasMore,
-                      isLoading: state.status == EditSourceStatus.loading,
+                      itemsExtractor: (state) => state.languages,
+                      hasMoreExtractor: (state) => state.languagesHasMore,
+                      isLoadingExtractor: (state) =>
+                          state.status == EditSourceStatus.loading,
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
                           .add(EditSourceLanguageChanged(value)),
@@ -236,12 +239,15 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Country>(
+                    SearchableDropdownFormField<Country, EditSourceBloc,
+                        EditSourceState>(
                       labelText: l10n.headquarters,
-                      items: state.countries,
+                      bloc: context.read<EditSourceBloc>(),
                       initialValue: state.headquarters,
-                      hasMore: state.countriesHasMore,
-                      isLoading: state.status == EditSourceStatus.loading,
+                      itemsExtractor: (state) => state.countries,
+                      hasMoreExtractor: (state) => state.countriesHasMore,
+                      isLoadingExtractor: (state) =>
+                          state.status == EditSourceStatus.loading,
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
                           .add(EditSourceHeadquartersChanged(value)),
