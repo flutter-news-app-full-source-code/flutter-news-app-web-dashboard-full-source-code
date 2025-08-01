@@ -31,16 +31,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<CreateSourceStatusChanged>(_onStatusChanged);
     on<CreateSourceSubmitted>(_onSubmitted);
-    on<CreateSourceCountrySearchChanged>(
-      _onCountrySearchChanged,
-      transformer: droppable(),
-    );
     on<CreateSourceLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
-    );
-    on<CreateSourceLanguageSearchChanged>(
-      _onLanguageSearchChanged,
-      transformer: droppable(),
     );
     on<CreateSourceLoadMoreLanguagesRequested>(
       _onLoadMoreLanguagesRequested,
@@ -186,37 +178,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     }
   }
 
-  Future<void> _onCountrySearchChanged(
-    CreateSourceCountrySearchChanged event,
-    Emitter<CreateSourceState> emit,
-  ) async {
-    await Future<void>.delayed(_searchDebounceDuration);
-    emit(state.copyWith(countrySearchTerm: event.searchTerm));
-    try {
-      final countriesResponse = await _countriesRepository.readAll(
-        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          countries: countriesResponse.items,
-          countriesCursor: countriesResponse.cursor,
-          countriesHasMore: countriesResponse.hasMore,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
   Future<void> _onLoadMoreCountriesRequested(
     CreateSourceLoadMoreCountriesRequested event,
     Emitter<CreateSourceState> emit,
@@ -229,9 +190,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       final countriesResponse = await _countriesRepository.readAll(
         pagination: state.countriesCursor != null
             ? PaginationOptions(cursor: state.countriesCursor)
-            : null,
-        filter: state.countrySearchTerm.isNotEmpty
-            ? {'name': state.countrySearchTerm}
             : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
@@ -263,37 +221,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     }
   }
 
-  Future<void> _onLanguageSearchChanged(
-    CreateSourceLanguageSearchChanged event,
-    Emitter<CreateSourceState> emit,
-  ) async {
-    await Future<void>.delayed(_searchDebounceDuration);
-    emit(state.copyWith(languageSearchTerm: event.searchTerm));
-    try {
-      final languagesResponse = await _languagesRepository.readAll(
-        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          languages: languagesResponse.items,
-          languagesCursor: languagesResponse.cursor,
-          languagesHasMore: languagesResponse.hasMore,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
   Future<void> _onLoadMoreLanguagesRequested(
     CreateSourceLoadMoreLanguagesRequested event,
     Emitter<CreateSourceState> emit,
@@ -306,9 +233,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       final languagesResponse = await _languagesRepository.readAll(
         pagination: state.languagesCursor != null
             ? PaginationOptions(cursor: state.languagesCursor)
-            : null,
-        filter: state.languageSearchTerm.isNotEmpty
-            ? {'name': state.languageSearchTerm}
             : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
