@@ -282,12 +282,15 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Country>(
+                    SearchableDropdownFormField<Country, EditHeadlineBloc,
+                        EditHeadlineState>(
                       labelText: l10n.countryName,
-                      items: state.countries,
+                      bloc: context.read<EditHeadlineBloc>(),
                       initialValue: selectedCountry,
-                      hasMore: state.countriesHasMore,
-                      isLoading: state.status == EditHeadlineStatus.loading,
+                      itemsExtractor: (state) => state.countries,
+                      hasMoreExtractor: (state) => state.countriesHasMore,
+                      isLoadingExtractor: (state) =>
+                          state.status == EditHeadlineStatus.loading,
                       onChanged: (value) => context
                           .read<EditHeadlineBloc>()
                           .add(EditHeadlineCountryChanged(value)),
