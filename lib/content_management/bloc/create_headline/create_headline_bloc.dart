@@ -20,11 +20,11 @@ class CreateHeadlineBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Country> countriesRepository,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _countriesRepository = countriesRepository,
-        super(const CreateHeadlineState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _countriesRepository = countriesRepository,
+       super(const CreateHeadlineState()) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -37,10 +37,9 @@ class CreateHeadlineBloc
     on<CreateHeadlineSubmitted>(_onSubmitted);
     on<CreateHeadlineCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
-    on<CreateHeadlineLoadMoreCountriesRequested>(
-        _onLoadMoreCountriesRequested);
+    on<CreateHeadlineLoadMoreCountriesRequested>(_onLoadMoreCountriesRequested);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -204,8 +203,7 @@ class CreateHeadlineBloc
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -232,7 +230,9 @@ class CreateHeadlineBloc
     CreateHeadlineLoadMoreCountriesRequested event,
     Emitter<CreateHeadlineState> emit,
   ) async {
-    if (!state.countriesHasMore) return;
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    emit(state.copyWith(countriesIsLoadingMore: true));
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
@@ -250,15 +250,23 @@ class CreateHeadlineBloc
           countries: List.of(state.countries)..addAll(countriesResponse.items),
           countriesCursor: countriesResponse.cursor,
           countriesHasMore: countriesResponse.hasMore,
+          countriesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: e,
+          countriesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          countriesIsLoadingMore: false,
         ),
       );
     }

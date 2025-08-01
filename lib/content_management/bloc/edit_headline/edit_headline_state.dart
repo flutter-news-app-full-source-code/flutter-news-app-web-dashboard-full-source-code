@@ -34,6 +34,7 @@ final class EditHeadlineState extends Equatable {
     this.topics = const [],
     this.countries = const [],
     this.countriesHasMore = true,
+    this.countriesIsLoadingMore = false,
     this.countriesCursor,
     this.countrySearchTerm = '',
     this.contentStatus = ContentStatus.active,
@@ -54,6 +55,7 @@ final class EditHeadlineState extends Equatable {
   final List<Topic> topics;
   final List<Country> countries;
   final bool countriesHasMore;
+  final bool countriesIsLoadingMore;
   final String? countriesCursor;
   final String countrySearchTerm;
   final ContentStatus contentStatus;
@@ -84,6 +86,7 @@ final class EditHeadlineState extends Equatable {
     List<Topic>? topics,
     List<Country>? countries,
     bool? countriesHasMore,
+    bool? countriesIsLoadingMore,
     String? countriesCursor,
     String? countrySearchTerm,
     ContentStatus? contentStatus,
@@ -104,6 +107,8 @@ final class EditHeadlineState extends Equatable {
       topics: topics ?? this.topics,
       countries: countries ?? this.countries,
       countriesHasMore: countriesHasMore ?? this.countriesHasMore,
+      countriesIsLoadingMore:
+          countriesIsLoadingMore ?? this.countriesIsLoadingMore,
       countriesCursor: countriesCursor ?? this.countriesCursor,
       countrySearchTerm: countrySearchTerm ?? this.countrySearchTerm,
       contentStatus: contentStatus ?? this.contentStatus,
@@ -127,6 +132,7 @@ final class EditHeadlineState extends Equatable {
     topics,
     countries,
     countriesHasMore,
+    countriesIsLoadingMore,
     countriesCursor,
     countrySearchTerm,
     contentStatus,

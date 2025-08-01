@@ -31,10 +31,12 @@ final class CreateSourceState extends Equatable {
     this.headquarters,
     this.countries = const [],
     this.countriesHasMore = true,
+    this.countriesIsLoadingMore = false,
     this.countriesCursor,
     this.countrySearchTerm = '',
     this.languages = const [],
     this.languagesHasMore = true,
+    this.languagesIsLoadingMore = false,
     this.languagesCursor,
     this.languageSearchTerm = '',
     this.contentStatus = ContentStatus.active,
@@ -51,10 +53,12 @@ final class CreateSourceState extends Equatable {
   final Country? headquarters;
   final List<Country> countries;
   final bool countriesHasMore;
+  final bool countriesIsLoadingMore;
   final String? countriesCursor;
   final String countrySearchTerm;
   final List<Language> languages;
   final bool languagesHasMore;
+  final bool languagesIsLoadingMore;
   final String? languagesCursor;
   final String languageSearchTerm;
   final ContentStatus contentStatus;
@@ -80,10 +84,12 @@ final class CreateSourceState extends Equatable {
     ValueGetter<Country?>? headquarters,
     List<Country>? countries,
     bool? countriesHasMore,
+    bool? countriesIsLoadingMore,
     String? countriesCursor,
     String? countrySearchTerm,
     List<Language>? languages,
     bool? languagesHasMore,
+    bool? languagesIsLoadingMore,
     String? languagesCursor,
     String? languageSearchTerm,
     ContentStatus? contentStatus,
@@ -100,10 +106,14 @@ final class CreateSourceState extends Equatable {
       headquarters: headquarters != null ? headquarters() : this.headquarters,
       countries: countries ?? this.countries,
       countriesHasMore: countriesHasMore ?? this.countriesHasMore,
+      countriesIsLoadingMore:
+          countriesIsLoadingMore ?? this.countriesIsLoadingMore,
       countriesCursor: countriesCursor ?? this.countriesCursor,
       countrySearchTerm: countrySearchTerm ?? this.countrySearchTerm,
       languages: languages ?? this.languages,
       languagesHasMore: languagesHasMore ?? this.languagesHasMore,
+      languagesIsLoadingMore:
+          languagesIsLoadingMore ?? this.languagesIsLoadingMore,
       languagesCursor: languagesCursor ?? this.languagesCursor,
       languageSearchTerm: languageSearchTerm ?? this.languageSearchTerm,
       contentStatus: contentStatus ?? this.contentStatus,
@@ -123,10 +133,12 @@ final class CreateSourceState extends Equatable {
     headquarters,
     countries,
     countriesHasMore,
+    countriesIsLoadingMore,
     countriesCursor,
     countrySearchTerm,
     languages,
     languagesHasMore,
+    languagesIsLoadingMore,
     languagesCursor,
     languageSearchTerm,
     contentStatus,

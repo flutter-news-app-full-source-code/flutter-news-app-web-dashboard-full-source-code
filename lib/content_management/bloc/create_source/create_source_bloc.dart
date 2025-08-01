@@ -18,10 +18,10 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-  })  : _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        super(const CreateSourceState()) {
+  }) : _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       super(const CreateSourceState()) {
     on<CreateSourceDataLoaded>(_onDataLoaded);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
@@ -33,14 +33,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceSubmitted>(_onSubmitted);
     on<CreateSourceCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<CreateSourceLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
     );
     on<CreateSourceLanguageSearchChanged>(
       _onLanguageSearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<CreateSourceLoadMoreLanguagesRequested>(
       _onLoadMoreLanguagesRequested,
@@ -194,8 +194,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -222,7 +221,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceLoadMoreCountriesRequested event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.countriesHasMore) return;
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    emit(state.copyWith(countriesIsLoadingMore: true));
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
@@ -240,15 +241,23 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           countries: List.of(state.countries)..addAll(countriesResponse.items),
           countriesCursor: countriesResponse.cursor,
           countriesHasMore: countriesResponse.hasMore,
+          countriesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: e,
+          countriesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          countriesIsLoadingMore: false,
         ),
       );
     }
@@ -262,8 +271,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(languageSearchTerm: event.searchTerm));
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -290,7 +298,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceLoadMoreLanguagesRequested event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.languagesHasMore) return;
+    if (!state.languagesHasMore || state.languagesIsLoadingMore) return;
+
+    emit(state.copyWith(languagesIsLoadingMore: true));
 
     try {
       final languagesResponse = await _languagesRepository.readAll(
@@ -305,19 +315,26 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
       emit(
         state.copyWith(
-          languages: List.of(state.languages)
-            ..addAll(languagesResponse.items),
+          languages: List.of(state.languages)..addAll(languagesResponse.items),
           languagesCursor: languagesResponse.cursor,
           languagesHasMore: languagesResponse.hasMore,
+          languagesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: e,
+          languagesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          languagesIsLoadingMore: false,
         ),
       );
     }

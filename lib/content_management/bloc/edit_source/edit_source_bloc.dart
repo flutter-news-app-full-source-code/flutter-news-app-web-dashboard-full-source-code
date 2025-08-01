@@ -18,11 +18,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required String sourceId,
-  })  : _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        _sourceId = sourceId,
-        super(const EditSourceState()) {
+  }) : _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       _sourceId = sourceId,
+       super(const EditSourceState()) {
     on<EditSourceLoaded>(_onLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
@@ -34,14 +34,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceSubmitted>(_onSubmitted);
     on<EditSourceCountrySearchChanged>(
       _onCountrySearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<EditSourceLoadMoreCountriesRequested>(
       _onLoadMoreCountriesRequested,
     );
     on<EditSourceLanguageSearchChanged>(
       _onLanguageSearchChanged,
-      transformer: restartable(),
+      transformer: droppable(),
     );
     on<EditSourceLoadMoreLanguagesRequested>(
       _onLoadMoreLanguagesRequested,
@@ -248,8 +248,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(countrySearchTerm: event.searchTerm));
     try {
       final countriesResponse = await _countriesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -276,7 +275,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceLoadMoreCountriesRequested event,
     Emitter<EditSourceState> emit,
   ) async {
-    if (!state.countriesHasMore) return;
+    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
+
+    emit(state.copyWith(countriesIsLoadingMore: true));
 
     try {
       final countriesResponse = await _countriesRepository.readAll(
@@ -294,15 +295,23 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           countries: List.of(state.countries)..addAll(countriesResponse.items),
           countriesCursor: countriesResponse.cursor,
           countriesHasMore: countriesResponse.hasMore,
+          countriesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: e,
+          countriesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          countriesIsLoadingMore: false,
         ),
       );
     }
@@ -316,8 +325,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(languageSearchTerm: event.searchTerm));
     try {
       final languagesResponse = await _languagesRepository.readAll(
-        filter:
-            event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
+        filter: event.searchTerm.isNotEmpty ? {'name': event.searchTerm} : null,
         sort: [const SortOption('name', SortOrder.asc)],
       );
 
@@ -344,7 +352,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceLoadMoreLanguagesRequested event,
     Emitter<EditSourceState> emit,
   ) async {
-    if (!state.languagesHasMore) return;
+    if (!state.languagesHasMore || state.languagesIsLoadingMore) return;
+
+    emit(state.copyWith(languagesIsLoadingMore: true));
 
     try {
       final languagesResponse = await _languagesRepository.readAll(
@@ -362,15 +372,23 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           languages: List.of(state.languages)..addAll(languagesResponse.items),
           languagesCursor: languagesResponse.cursor,
           languagesHasMore: languagesResponse.hasMore,
+          languagesIsLoadingMore: false,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: e,
+          languagesIsLoadingMore: false,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
+          languagesIsLoadingMore: false,
         ),
       );
     }
