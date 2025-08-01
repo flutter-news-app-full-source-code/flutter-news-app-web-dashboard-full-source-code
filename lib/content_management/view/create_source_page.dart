@@ -175,16 +175,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                             child: Text(language.name),
                           ),
                         ),
-                        if (state.languagesHasMore)
-                          DropdownMenuItem(
-                            value: null,
-                            child: const Center(
-                              child: Text('Load More'),
-                            ),
-                            onTap: () => context.read<CreateSourceBloc>().add(
-                                  const CreateSourceLoadMoreLanguagesRequested(),
-                                ),
-                          ),
                       ],
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
@@ -241,16 +231,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                             ),
                           ),
                         ),
-                        if (state.countriesHasMore)
-                          DropdownMenuItem(
-                            value: null,
-                            child: const Center(
-                              child: Text('Load More'),
-                            ),
-                            onTap: () => context.read<CreateSourceBloc>().add(
-                                  const CreateSourceLoadMoreCountriesRequested(),
-                                ),
-                          ),
                       ],
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()

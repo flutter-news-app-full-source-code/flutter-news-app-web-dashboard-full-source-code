@@ -83,9 +83,3 @@ final class CreateHeadlineStatusChanged extends CreateHeadlineEvent {
 final class CreateHeadlineSubmitted extends CreateHeadlineEvent {
   const CreateHeadlineSubmitted();
 }
-
-/// Event to request loading more countries.
-final class CreateHeadlineLoadMoreCountriesRequested
-    extends CreateHeadlineEvent {
-  const CreateHeadlineLoadMoreCountriesRequested();
-}

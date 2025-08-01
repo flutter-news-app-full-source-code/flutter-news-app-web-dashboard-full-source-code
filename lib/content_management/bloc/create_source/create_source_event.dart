@@ -75,13 +75,3 @@ final class CreateSourceStatusChanged extends CreateSourceEvent {
 final class CreateSourceSubmitted extends CreateSourceEvent {
   const CreateSourceSubmitted();
 }
-
-/// Event to request loading more countries.
-final class CreateSourceLoadMoreCountriesRequested extends CreateSourceEvent {
-  const CreateSourceLoadMoreCountriesRequested();
-}
-
-/// Event to request loading more languages.
-final class CreateSourceLoadMoreLanguagesRequested extends CreateSourceEvent {
-  const CreateSourceLoadMoreLanguagesRequested();
-}

@@ -32,12 +32,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
-    on<EditSourceLoadMoreCountriesRequested>(
-      _onLoadMoreCountriesRequested,
-    );
-    on<EditSourceLoadMoreLanguagesRequested>(
-      _onLoadMoreLanguagesRequested,
-    );
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -95,6 +89,36 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           languagesHasMore: languagesPaginated.hasMore,
         ),
       );
+
+      // Start background fetching for all countries
+      while (state.countriesHasMore) {
+        final nextCountries = await _countriesRepository.readAll(
+          pagination: PaginationOptions(cursor: state.countriesCursor),
+          sort: [const SortOption('name', SortOrder.asc)],
+        );
+        emit(
+          state.copyWith(
+            countries: List.of(state.countries)..addAll(nextCountries.items),
+            countriesCursor: nextCountries.cursor,
+            countriesHasMore: nextCountries.hasMore,
+          ),
+        );
+      }
+
+      // Start background fetching for all languages
+      while (state.languagesHasMore) {
+        final nextLanguages = await _languagesRepository.readAll(
+          pagination: PaginationOptions(cursor: state.languagesCursor),
+          sort: [const SortOption('name', SortOrder.asc)],
+        );
+        emit(
+          state.copyWith(
+            languages: List.of(state.languages)..addAll(nextLanguages.items),
+            languagesCursor: nextLanguages.cursor,
+            languagesHasMore: nextLanguages.hasMore,
+          ),
+        );
+      }
     } on HttpException catch (e) {
       emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
     } catch (e) {
@@ -227,92 +251,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         state.copyWith(
           status: EditSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
-  Future<void> _onLoadMoreCountriesRequested(
-    EditSourceLoadMoreCountriesRequested event,
-    Emitter<EditSourceState> emit,
-  ) async {
-    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
-
-    emit(state.copyWith(countriesIsLoadingMore: true));
-
-    try {
-      final countriesResponse = await _countriesRepository.readAll(
-        pagination: state.countriesCursor != null
-            ? PaginationOptions(cursor: state.countriesCursor)
-            : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          countries: List.of(state.countries)..addAll(countriesResponse.items),
-          countriesCursor: countriesResponse.cursor,
-          countriesHasMore: countriesResponse.hasMore,
-          countriesIsLoadingMore: false,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: e,
-          countriesIsLoadingMore: false,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-          countriesIsLoadingMore: false,
-        ),
-      );
-    }
-  }
-
-  Future<void> _onLoadMoreLanguagesRequested(
-    EditSourceLoadMoreLanguagesRequested event,
-    Emitter<EditSourceState> emit,
-  ) async {
-    if (!state.languagesHasMore || state.languagesIsLoadingMore) return;
-
-    emit(state.copyWith(languagesIsLoadingMore: true));
-
-    try {
-      final languagesResponse = await _languagesRepository.readAll(
-        pagination: state.languagesCursor != null
-            ? PaginationOptions(cursor: state.languagesCursor)
-            : null,
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          languages: List.of(state.languages)..addAll(languagesResponse.items),
-          languagesCursor: languagesResponse.cursor,
-          languagesHasMore: languagesResponse.hasMore,
-          languagesIsLoadingMore: false,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: e,
-          languagesIsLoadingMore: false,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-          languagesIsLoadingMore: false,
         ),
       );
     }

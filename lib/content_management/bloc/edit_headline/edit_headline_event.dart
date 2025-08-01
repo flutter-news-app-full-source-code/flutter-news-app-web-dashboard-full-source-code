@@ -83,8 +83,3 @@ final class EditHeadlineStatusChanged extends EditHeadlineEvent {
 final class EditHeadlineSubmitted extends EditHeadlineEvent {
   const EditHeadlineSubmitted();
 }
-
-/// Event to request loading more countries.
-final class EditHeadlineLoadMoreCountriesRequested extends EditHeadlineEvent {
-  const EditHeadlineLoadMoreCountriesRequested();
-}
