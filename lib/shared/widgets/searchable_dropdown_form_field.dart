@@ -141,7 +141,8 @@ class _SearchableSelectionDialogState<T, B extends BlocBase<S>, S>
   }
 
   void _onScroll() {
-    if (_isBottom) {
+    final isLoading = widget.isLoadingExtractor(widget.bloc.state);
+    if (_isBottom && !isLoading) {
       widget.onLoadMore();
     }
   }
