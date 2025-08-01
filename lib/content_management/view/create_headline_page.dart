@@ -247,8 +247,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                         if (state.countriesHasMore)
                           DropdownMenuItem(
                             value: null,
-                            child: Center(
-                              child: Text(l10n.loadMore),
+                            child: const Center(
+                              child: Text('Load More'),
                             ),
                             onTap: () => context.read<CreateHeadlineBloc>().add(
                                   const CreateHeadlineLoadMoreCountriesRequested(),
