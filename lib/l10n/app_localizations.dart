@@ -1328,6 +1328,12 @@ abstract class AppLocalizations {
   /// **'Loading data...'**
   String get loadingData;
 
+  /// Message displayed in a dropdown when its full list of items is being loaded in the background.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading full list...'**
+  String get loadingFullList;
+
   /// Title for the Create Source page
   ///
   /// In en, this message translates to:
