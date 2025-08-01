@@ -191,32 +191,34 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Language, EditSourceBloc,
-                        EditSourceState>(
-                      labelText: l10n.language,
-                      bloc: context.read<EditSourceBloc>(),
-                      initialValue: state.language,
-                      itemsExtractor: (state) => state.languages,
-                      hasMoreExtractor: (state) => state.languagesHasMore,
-                      isLoadingExtractor: (state) =>
-                          state.status == EditSourceStatus.loading,
+                    DropdownButtonFormField<Language?>(
+                      value: state.language,
+                      decoration: InputDecoration(
+                        labelText: l10n.language,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: [
+                        DropdownMenuItem(value: null, child: Text(l10n.none)),
+                        ...state.languages.map(
+                          (language) => DropdownMenuItem(
+                            value: language,
+                            child: Text(language.name),
+                          ),
+                        ),
+                        if (state.languagesHasMore)
+                          DropdownMenuItem(
+                            value: null,
+                            child: const Center(
+                              child: Text('Load More'),
+                            ),
+                            onTap: () => context.read<EditSourceBloc>().add(
+                                  const EditSourceLoadMoreLanguagesRequested(),
+                                ),
+                          ),
+                      ],
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
                           .add(EditSourceLanguageChanged(value)),
-                      onSearchChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceLanguageSearchChanged(value)),
-                      onLoadMore: () => context.read<EditSourceBloc>().add(
-                            const EditSourceLoadMoreLanguagesRequested(),
-                          ),
-                      itemBuilder: (context, language) {
-                        return ListTile(
-                          title: Text(language.name),
-                        );
-                      },
-                      selectedItemBuilder: (context, language) {
-                        return Text(language.name);
-                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -239,57 +241,50 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableDropdownFormField<Country, EditSourceBloc,
-                        EditSourceState>(
-                      labelText: l10n.headquarters,
-                      bloc: context.read<EditSourceBloc>(),
-                      initialValue: state.headquarters,
-                      itemsExtractor: (state) => state.countries,
-                      hasMoreExtractor: (state) => state.countriesHasMore,
-                      isLoadingExtractor: (state) =>
-                          state.status == EditSourceStatus.loading,
+                    DropdownButtonFormField<Country?>(
+                      value: state.headquarters,
+                      decoration: InputDecoration(
+                        labelText: l10n.headquarters,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: [
+                        DropdownMenuItem(value: null, child: Text(l10n.none)),
+                        ...state.countries.map(
+                          (country) => DropdownMenuItem(
+                            value: country,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 32,
+                                  height: 20,
+                                  child: Image.network(
+                                    country.flagUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.flag),
+                                  ),
+                                ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(country.name),
+                              ],
+                            ),
+                          ),
+                        ),
+                        if (state.countriesHasMore)
+                          DropdownMenuItem(
+                            value: null,
+                            child: const Center(
+                              child: Text('Load More'),
+                            ),
+                            onTap: () => context.read<EditSourceBloc>().add(
+                                  const EditSourceLoadMoreCountriesRequested(),
+                                ),
+                          ),
+                      ],
                       onChanged: (value) => context
                           .read<EditSourceBloc>()
                           .add(EditSourceHeadquartersChanged(value)),
-                      onSearchChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceCountrySearchChanged(value)),
-                      onLoadMore: () => context.read<EditSourceBloc>().add(
-                            const EditSourceLoadMoreCountriesRequested(),
-                          ),
-                      itemBuilder: (context, country) {
-                        return ListTile(
-                          leading: SizedBox(
-                            width: 32,
-                            height: 20,
-                            child: Image.network(
-                              country.flagUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.flag),
-                            ),
-                          ),
-                          title: Text(country.name),
-                        );
-                      },
-                      selectedItemBuilder: (context, country) {
-                        return Row(
-                          children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
-                              ),
-                            ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name),
-                          ],
-                        );
-                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
