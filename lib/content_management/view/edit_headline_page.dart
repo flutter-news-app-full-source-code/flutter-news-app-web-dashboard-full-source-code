@@ -312,16 +312,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                             ),
                           ),
                         ),
-                        if (state.countriesHasMore)
-                          DropdownMenuItem(
-                            value: null,
-                            child: const Center(
-                              child: Text('Load More'),
-                            ),
-                            onTap: () => context.read<EditHeadlineBloc>().add(
-                                  const EditHeadlineLoadMoreCountriesRequested(),
-                                ),
-                          ),
                       ],
                       onChanged: (value) => context
                           .read<EditHeadlineBloc>()
