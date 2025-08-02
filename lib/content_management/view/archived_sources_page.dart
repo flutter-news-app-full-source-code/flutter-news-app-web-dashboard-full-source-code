@@ -4,6 +4,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/archived_sources/archived_sources_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:intl/intl.dart';
@@ -35,10 +37,21 @@ class _ArchivedSourcesView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: BlocBuilder<ArchivedSourcesBloc, ArchivedSourcesState>(
-          builder: (context, state) {
-            if (state.status == ArchivedSourcesStatus.loading &&
-                state.sources.isEmpty) {
+        child: BlocListener<ArchivedSourcesBloc, ArchivedSourcesState>(
+          listenWhen: (previous, current) =>
+              previous.restoredSource != current.restoredSource,
+          listener: (context, state) {
+            if (state.restoredSource != null) {
+              context.read<ContentManagementBloc>().add(
+                    const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+                  );
+              context.read<DashboardBloc>().add(DashboardSummaryLoaded());
+            }
+          },
+          child: BlocBuilder<ArchivedSourcesBloc, ArchivedSourcesState>(
+            builder: (context, state) {
+              if (state.status == ArchivedSourcesStatus.loading &&
+                  state.sources.isEmpty) {
               return LoadingStateWidget(
                 icon: Icons.source,
                 headline: l10n.loadingArchivedSources,
@@ -116,7 +129,8 @@ class _ArchivedSourcesView extends StatelessWidget {
                 ),
               ],
             );
-          },
+            },
+          ),
         ),
       ),
     );

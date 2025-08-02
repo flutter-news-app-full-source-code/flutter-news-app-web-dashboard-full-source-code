@@ -74,10 +74,11 @@ class ArchivedSourcesBloc
     emit(state.copyWith(sources: updatedSources));
 
     try {
-      await _sourcesRepository.update(
+      final restoredSource = await _sourcesRepository.update(
         id: event.id,
         item: sourceToRestore.copyWith(status: ContentStatus.active),
       );
+      emit(state.copyWith(restoredSource: restoredSource));
     } on HttpException catch (e) {
       emit(state.copyWith(sources: originalSources, exception: e));
     } catch (e) {

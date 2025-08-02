@@ -16,6 +16,7 @@ class ArchivedSourcesState extends Equatable {
     this.cursor,
     this.hasMore = false,
     this.exception,
+    this.restoredSource,
   });
 
   final ArchivedSourcesStatus status;
@@ -23,6 +24,7 @@ class ArchivedSourcesState extends Equatable {
   final String? cursor;
   final bool hasMore;
   final HttpException? exception;
+  final Source? restoredSource;
 
   ArchivedSourcesState copyWith({
     ArchivedSourcesStatus? status,
@@ -30,6 +32,7 @@ class ArchivedSourcesState extends Equatable {
     String? cursor,
     bool? hasMore,
     HttpException? exception,
+    Source? restoredSource,
   }) {
     return ArchivedSourcesState(
       status: status ?? this.status,
@@ -37,6 +40,7 @@ class ArchivedSourcesState extends Equatable {
       cursor: cursor ?? this.cursor,
       hasMore: hasMore ?? this.hasMore,
       exception: exception ?? this.exception,
+      restoredSource: restoredSource,
     );
   }
 
@@ -47,5 +51,6 @@ class ArchivedSourcesState extends Equatable {
         cursor,
         hasMore,
         exception,
+        restoredSource,
       ];
 }
