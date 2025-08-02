@@ -129,8 +129,9 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                     dataRowHeight: 56,
                     columnSpacing: AppSpacing.md,
                     horizontalMargin: AppSpacing.md,
+                  ),
                 ),
-              ),
+              ],
             );
             },
           ),
