@@ -96,7 +96,16 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               icon: const Icon(Icons.inventory_2_outlined),
               tooltip: 'Archived Items', // TODO(you): Will be fixed in l10n phase.
               onPressed: () {
-                context.goNamed(Routes.archivedContentName);
+                final currentTab =
+                    context.read<ContentManagementBloc>().state.activeTab;
+                switch (currentTab) {
+                  case ContentManagementTab.headlines:
+                    context.goNamed(Routes.archivedHeadlinesName);
+                  case ContentManagementTab.topics:
+                    context.goNamed(Routes.archivedTopicsName);
+                  case ContentManagementTab.sources:
+                    context.goNamed(Routes.archivedSourcesName);
+                }
               },
             ),
             IconButton(
