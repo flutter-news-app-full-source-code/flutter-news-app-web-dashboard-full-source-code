@@ -94,7 +94,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           actions: [
             IconButton(
               icon: const Icon(Icons.inventory_2_outlined),
-              tooltip: 'Archived Items', // TODO(you): Will be fixed in l10n phase.
+              tooltip: l10n.archivedItems,
               onPressed: () {
                 final currentTab =
                     context.read<ContentManagementBloc>().state.activeTab;
@@ -110,7 +110,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             ),
             IconButton(
               icon: const Icon(Icons.add),
-              tooltip: 'Add New Item', // TODO(you): Will be fixed in l10n phase.
+              tooltip: l10n.addNewItem,
               onPressed: () {
                 final currentTab = context
                     .read<ContentManagementBloc>()
