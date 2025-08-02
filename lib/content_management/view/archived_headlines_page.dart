@@ -38,7 +38,8 @@ class _ArchivedHeadlinesView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: BlocListener<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
           listenWhen: (previous, current) =>
-              previous.status != current.status,
+              previous.status != current.status ||
+              previous.restoredHeadline != current.restoredHeadline,
           listener: (context, state) {
             if (state.status == ArchivedHeadlinesStatus.success &&
                 state.restoredHeadline != null) {
@@ -137,7 +138,6 @@ class _ArchivedHeadlinesView extends StatelessWidget {
       ),
     );
   }
-}
 }
 
 class _HeadlinesDataSource extends DataTableSource {
