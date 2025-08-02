@@ -51,6 +51,11 @@ class ContentManagementBloc
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
 
+  // --- Background Data Fetching for countries/languages for the ui Dropdown ---
+  //
+  // The DropdownButtonFormField widget does not natively support on-scroll
+  // pagination. To preserve UI consistency across the application, this BLoC
+  // employs an event-driven background fetching mechanism.
   Future<void> _onSharedDataRequested(
     SharedDataRequested event,
     Emitter<ContentManagementState> emit,
