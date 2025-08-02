@@ -50,52 +50,10 @@ class ThrottledFetchingService {
     cursor = initialResponse.cursor;
     hasMore = initialResponse.hasMore;
 
-    // If there are more pages, proceed with batched fetching.
-    if (hasMore) {
-      final pageFutures = <Future<PaginatedResponse<T>>>[];
-      do {
-        pageFutures.add(
-          repository.readAll(
-            sort: sort,
-            pagination: PaginationOptions(cursor: cursor),
-            filter: {'status': ContentStatus.active.name},
-          ),
-        );
-        // This is a simplification. A real implementation would need to know
-        // the next cursor before creating the future. The logic below handles
-        // this correctly by fetching sequentially but processing in batches.
-      } while (false); // Placeholder for a more complex pagination discovery
-
-      // Correct implementation: Sequentially discover cursors, but
-      // fetch pages in parallel batches.
-      while (hasMore) {
-        final batchFutures = <Future<PaginatedResponse<T>>>[];
-        for (var i = 0; i < batchSize && hasMore; i++) {
-          final future = repository.readAll(
-            sort: sort,
-            pagination: PaginationOptions(cursor: cursor),
-            filter: {'status': ContentStatus.active.name},
-          );
-
-          // This is tricky because we need the result of the PREVIOUS future
-          // to get the cursor for the NEXT one.
-          // A truly parallel approach requires knowing page numbers or total
-          // count. Given the cursor-based API, a sequential-discovery,
-          // batched-execution is the best we can do. Let's simplify to a
-          // more robust sequential fetch, as true parallelism isn't possible
-          // without more API info. The primary goal is to centralize this
-          // robust sequential logic.
-
-          // Reverting to a robust sequential loop, which is the correct pattern
-          // for cursor-based pagination when total pages are unknown.
-          // The "throttling" is inherent in its sequential nature.
-          break; // Exit the batch loop, the logic below is better.
-        }
-      }
-    }
-
-    // Correct, robust sequential fetching loop.
-    while (hasMore) {
+    // Sequentially fetch all remaining pages. The loop is resilient to a
+    // misbehaving API by also checking if the cursor is null, which would
+    // otherwise cause an infinite loop by re-fetching the first page.
+    while (hasMore && cursor != null) {
       final response = await repository.readAll(
         sort: sort,
         pagination: PaginationOptions(cursor: cursor),
