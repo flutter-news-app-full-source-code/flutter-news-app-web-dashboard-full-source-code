@@ -144,14 +144,14 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             _imageUrlController.text = state.imageUrl;
           }
         },
-          builder: (context, state) {
-            if (state.status == EditHeadlineStatus.loading) {
-              return LoadingStateWidget(
-                icon: Icons.newspaper,
-                headline: l10n.loadingHeadline,
-                subheadline: l10n.pleaseWait,
-              );
-            }
+        builder: (context, state) {
+          if (state.status == EditHeadlineStatus.loading) {
+            return LoadingStateWidget(
+              icon: Icons.newspaper,
+              headline: l10n.loadingHeadline,
+              subheadline: l10n.pleaseWait,
+            );
+          }
 
           if (state.status == EditHeadlineStatus.failure &&
               state.initialHeadline == null) {
