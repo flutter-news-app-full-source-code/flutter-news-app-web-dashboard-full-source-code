@@ -31,7 +31,7 @@ class _ArchivedTopicsView extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.archivedTopics), // TODO(you): Localize this string
+        title: Text(l10n.archivedTopics),
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -41,7 +41,7 @@ class _ArchivedTopicsView extends StatelessWidget {
                 state.topics.isEmpty) {
               return LoadingStateWidget(
                 icon: Icons.topic,
-                headline: l10n.loadingArchivedTopics, // TODO(you): Localize this string
+                headline: l10n.loadingArchivedTopics,
                 subheadline: l10n.pleaseWait,
               );
             }
@@ -58,7 +58,7 @@ class _ArchivedTopicsView extends StatelessWidget {
             }
 
             if (state.topics.isEmpty) {
-              return Center(child: Text(l10n.noArchivedTopicsFound)); // TODO(you): Localize this string
+              return Center(child: Text(l10n.noArchivedTopicsFound));
             }
 
             return Column(
