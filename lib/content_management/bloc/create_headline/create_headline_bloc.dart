@@ -31,6 +31,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
+    on<CreateHeadlineDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -179,5 +180,12 @@ class CreateHeadlineBloc
         ),
       );
     }
+  }
+
+  void _onDataUpdated(
+    CreateHeadlineDataUpdated event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(state.copyWith(countries: event.countries));
   }
 }
