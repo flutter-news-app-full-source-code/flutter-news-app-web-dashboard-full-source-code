@@ -86,3 +86,17 @@ final class EditSourceStatusChanged extends EditSourceEvent {
 final class EditSourceSubmitted extends EditSourceEvent {
   const EditSourceSubmitted();
 }
+
+/// Event to update the BLoC with the latest shared data.
+final class EditSourceDataUpdated extends EditSourceEvent {
+  const EditSourceDataUpdated({
+    required this.countries,
+    required this.languages,
+  });
+
+  final List<Country> countries;
+  final List<Language> languages;
+
+  @override
+  List<Object?> get props => [countries, languages];
+}

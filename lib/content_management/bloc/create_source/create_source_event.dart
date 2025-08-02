@@ -70,3 +70,17 @@ final class CreateSourceStatusChanged extends CreateSourceEvent {
 final class CreateSourceSubmitted extends CreateSourceEvent {
   const CreateSourceSubmitted();
 }
+
+/// Event to update the BLoC with the latest shared data.
+final class CreateSourceDataUpdated extends CreateSourceEvent {
+  const CreateSourceDataUpdated({
+    required this.countries,
+    required this.languages,
+  });
+
+  final List<Country> countries;
+  final List<Language> languages;
+
+  @override
+  List<Object?> get props => [countries, languages];
+}

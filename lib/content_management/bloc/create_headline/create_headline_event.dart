@@ -83,3 +83,13 @@ final class CreateHeadlineStatusChanged extends CreateHeadlineEvent {
 final class CreateHeadlineSubmitted extends CreateHeadlineEvent {
   const CreateHeadlineSubmitted();
 }
+
+/// Event to update the BLoC with the latest shared data.
+final class CreateHeadlineDataUpdated extends CreateHeadlineEvent {
+  const CreateHeadlineDataUpdated({required this.countries});
+
+  final List<Country> countries;
+
+  @override
+  List<Object?> get props => [countries];
+}

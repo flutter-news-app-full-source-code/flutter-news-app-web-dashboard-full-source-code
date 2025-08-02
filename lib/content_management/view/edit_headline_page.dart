@@ -22,18 +22,12 @@ class EditHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The list of all countries is fetched once and cached in the
-    // ContentManagementBloc. We read it here and provide it to the
-    // EditHeadlineBloc.
-    final contentManagementState = context.watch<ContentManagementBloc>().state;
-    final allCountries = contentManagementState.allCountries;
-
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
-        countries: allCountries,
+        countries: context.read<ContentManagementBloc>().state.allCountries,
         headlineId: headlineId,
       )..add(const EditHeadlineLoaded()),
       child: const _EditHeadlineView(),
@@ -106,262 +100,277 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
           ),
         ],
       ),
-      body: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
+      body: BlocListener<ContentManagementBloc, ContentManagementState>(
         listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.initialHeadline != current.initialHeadline,
-        listener: (context, state) {
-          if (state.status == EditHeadlineStatus.success &&
-              state.updatedHeadline != null &&
-              ModalRoute.of(context)!.isCurrent) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text(l10n.headlineUpdatedSuccessfully)),
-              );
-            context.read<ContentManagementBloc>().add(
-              const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-            );
-            context.pop();
-          }
-          if (state.status == EditHeadlineStatus.failure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
-                  backgroundColor: Theme.of(context).colorScheme.error,
-                ),
-              );
-          }
-          if (state.initialHeadline != null) {
-            _titleController.text = state.title;
-            _excerptController.text = state.excerpt;
-            _urlController.text = state.url;
-            _imageUrlController.text = state.imageUrl;
-          }
-        },
-        builder: (context, state) {
-          if (state.status == EditHeadlineStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.newspaper,
-              headline: l10n.loadingHeadline,
-              subheadline: l10n.pleaseWait,
-            );
-          }
-
-          if (state.status == EditHeadlineStatus.failure &&
-              state.initialHeadline == null) {
-            return FailureStateWidget(
-              exception: state.exception!,
-              onRetry: () => context.read<EditHeadlineBloc>().add(
-                const EditHeadlineLoaded(),
-              ),
-            );
-          }
-
-          // Find the correct instances from the lists to ensure
-          // the Dropdowns can display the selections correctly.
-          Source? selectedSource;
-          if (state.source != null) {
-            try {
-              selectedSource = state.sources.firstWhere(
-                (s) => s.id == state.source!.id,
-              );
-            } catch (_) {
-              selectedSource = null;
-            }
-          }
-
-          Topic? selectedTopic;
-          if (state.topic != null) {
-            try {
-              selectedTopic = state.topics.firstWhere(
-                (t) => t.id == state.topic!.id,
-              );
-            } catch (_) {
-              selectedTopic = null;
-            }
-          }
-
-          Country? selectedCountry;
-          if (state.eventCountry != null) {
-            try {
-              selectedCountry = state.countries.firstWhere(
-                (c) => c.id == state.eventCountry!.id,
-              );
-            } catch (_) {
-              selectedCountry = null;
-            }
-          }
-
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        labelText: l10n.headlineTitle,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineTitleChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _excerptController,
-                      decoration: InputDecoration(
-                        labelText: l10n.excerpt,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineExcerptChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _urlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineUrlChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _imageUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.imageUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineImageUrlChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Source?>(
-                      value: selectedSource,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.sources.map(
-                          (source) => DropdownMenuItem(
-                            value: source,
-                            child: Text(source.name),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineSourceChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Topic?>(
-                      value: selectedTopic,
-                      decoration: InputDecoration(
-                        labelText: l10n.topicName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.topics.map(
-                          (topic) => DropdownMenuItem(
-                            value: topic,
-                            child: Text(topic.name),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineTopicChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    BlocBuilder<ContentManagementBloc, ContentManagementState>(
-                      builder: (context, contentState) {
-                        final isLoading = contentState.allCountriesStatus ==
-                            ContentManagementStatus.loading;
-                        return DropdownButtonFormField<Country?>(
-                          value: selectedCountry,
-                          decoration: InputDecoration(
-                            labelText: l10n.countryName,
-                            border: const OutlineInputBorder(),
-                            helperText:
-                                isLoading ? l10n.loadingFullList : null,
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              value: null,
-                              child: Text(l10n.none),
-                            ),
-                            ...state.countries.map(
-                              (country) => DropdownMenuItem(
-                                value: country,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 32,
-                                      height: 20,
-                                      child: Image.network(
-                                        country.flagUrl,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                const Icon(Icons.flag),
-                                      ),
-                                    ),
-                                    const SizedBox(width: AppSpacing.md),
-                                    Text(country.name),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                          onChanged: isLoading
-                              ? null
-                              : (value) => context
-                                  .read<EditHeadlineBloc>()
-                                  .add(EditHeadlineCountryChanged(value)),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<ContentStatus>(
-                      value: state.contentStatus,
-                      decoration: InputDecoration(
-                        labelText: l10n.status,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: ContentStatus.values.map((status) {
-                        return DropdownMenuItem(
-                          value: status,
-                          child: Text(status.l10n(context)),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<EditHeadlineBloc>().add(
-                          EditHeadlineStatusChanged(value),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            previous.allCountriesStatus != current.allCountriesStatus &&
+            current.allCountriesStatus == ContentManagementStatus.success,
+        listener: (context, contentState) {
+          context.read<EditHeadlineBloc>().add(
+            EditHeadlineDataUpdated(countries: contentState.allCountries),
           );
         },
+        child: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
+          listenWhen: (previous, current) =>
+              previous.status != current.status ||
+              previous.initialHeadline != current.initialHeadline,
+          listener: (context, state) {
+            if (state.status == EditHeadlineStatus.success &&
+                state.updatedHeadline != null &&
+                ModalRoute.of(context)!.isCurrent) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text(l10n.headlineUpdatedSuccessfully)),
+                );
+              context.read<ContentManagementBloc>().add(
+                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+              );
+              context.pop();
+            }
+            if (state.status == EditHeadlineStatus.failure) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(state.exception!.toFriendlyMessage(context)),
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                  ),
+                );
+            }
+            if (state.initialHeadline != null) {
+              _titleController.text = state.title;
+              _excerptController.text = state.excerpt;
+              _urlController.text = state.url;
+              _imageUrlController.text = state.imageUrl;
+            }
+          },
+          builder: (context, state) {
+            if (state.status == EditHeadlineStatus.loading) {
+              return LoadingStateWidget(
+                icon: Icons.newspaper,
+                headline: l10n.loadingHeadline,
+                subheadline: l10n.pleaseWait,
+              );
+            }
+
+            if (state.status == EditHeadlineStatus.failure &&
+                state.initialHeadline == null) {
+              return FailureStateWidget(
+                exception: state.exception!,
+                onRetry: () => context.read<EditHeadlineBloc>().add(
+                  const EditHeadlineLoaded(),
+                ),
+              );
+            }
+
+            // Find the correct instances from the lists to ensure
+            // the Dropdowns can display the selections correctly.
+            Source? selectedSource;
+            if (state.source != null) {
+              try {
+                selectedSource = state.sources.firstWhere(
+                  (s) => s.id == state.source!.id,
+                );
+              } catch (_) {
+                selectedSource = null;
+              }
+            }
+
+            Topic? selectedTopic;
+            if (state.topic != null) {
+              try {
+                selectedTopic = state.topics.firstWhere(
+                  (t) => t.id == state.topic!.id,
+                );
+              } catch (_) {
+                selectedTopic = null;
+              }
+            }
+
+            Country? selectedCountry;
+            if (state.eventCountry != null) {
+              try {
+                selectedCountry = state.countries.firstWhere(
+                  (c) => c.id == state.eventCountry!.id,
+                );
+              } catch (_) {
+                selectedCountry = null;
+              }
+            }
+
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormField(
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                          labelText: l10n.headlineTitle,
+                          border: const OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineTitleChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      TextFormField(
+                        controller: _excerptController,
+                        decoration: InputDecoration(
+                          labelText: l10n.excerpt,
+                          border: const OutlineInputBorder(),
+                        ),
+                        maxLines: 3,
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineExcerptChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      TextFormField(
+                        controller: _urlController,
+                        decoration: InputDecoration(
+                          labelText: l10n.sourceUrl,
+                          border: const OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineUrlChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      TextFormField(
+                        controller: _imageUrlController,
+                        decoration: InputDecoration(
+                          labelText: l10n.imageUrl,
+                          border: const OutlineInputBorder(),
+                        ),
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineImageUrlChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      DropdownButtonFormField<Source?>(
+                        value: selectedSource,
+                        decoration: InputDecoration(
+                          labelText: l10n.sourceName,
+                          border: const OutlineInputBorder(),
+                        ),
+                        items: [
+                          DropdownMenuItem(value: null, child: Text(l10n.none)),
+                          ...state.sources.map(
+                            (source) => DropdownMenuItem(
+                              value: source,
+                              child: Text(source.name),
+                            ),
+                          ),
+                        ],
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineSourceChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      DropdownButtonFormField<Topic?>(
+                        value: selectedTopic,
+                        decoration: InputDecoration(
+                          labelText: l10n.topicName,
+                          border: const OutlineInputBorder(),
+                        ),
+                        items: [
+                          DropdownMenuItem(value: null, child: Text(l10n.none)),
+                          ...state.topics.map(
+                            (topic) => DropdownMenuItem(
+                              value: topic,
+                              child: Text(topic.name),
+                            ),
+                          ),
+                        ],
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineTopicChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      BlocBuilder<
+                        ContentManagementBloc,
+                        ContentManagementState
+                      >(
+                        builder: (context, contentState) {
+                          final isLoading =
+                              contentState.allCountriesStatus ==
+                              ContentManagementStatus.loading;
+                          return DropdownButtonFormField<Country?>(
+                            value: selectedCountry,
+                            decoration: InputDecoration(
+                              labelText: l10n.countryName,
+                              border: const OutlineInputBorder(),
+                              helperText: isLoading
+                                  ? l10n.loadingFullList
+                                  : null,
+                            ),
+                            items: [
+                              DropdownMenuItem(
+                                value: null,
+                                child: Text(l10n.none),
+                              ),
+                              ...state.countries.map(
+                                (country) => DropdownMenuItem(
+                                  value: country,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 32,
+                                        height: 20,
+                                        child: Image.network(
+                                          country.flagUrl,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  const Icon(Icons.flag),
+                                        ),
+                                      ),
+                                      const SizedBox(width: AppSpacing.md),
+                                      Text(country.name),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                            onChanged: isLoading
+                                ? null
+                                : (value) => context
+                                      .read<EditHeadlineBloc>()
+                                      .add(EditHeadlineCountryChanged(value)),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      DropdownButtonFormField<ContentStatus>(
+                        value: state.contentStatus,
+                        decoration: InputDecoration(
+                          labelText: l10n.status,
+                          border: const OutlineInputBorder(),
+                        ),
+                        items: ContentStatus.values.map((status) {
+                          return DropdownMenuItem(
+                            value: status,
+                            child: Text(status.l10n(context)),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          if (value == null) return;
+                          context.read<EditHeadlineBloc>().add(
+                            EditHeadlineStatusChanged(value),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

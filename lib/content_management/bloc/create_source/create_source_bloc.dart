@@ -30,6 +30,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<CreateSourceStatusChanged>(_onStatusChanged);
     on<CreateSourceSubmitted>(_onSubmitted);
+    on<CreateSourceDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -129,5 +130,12 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     }
+  }
+
+  void _onDataUpdated(
+    CreateSourceDataUpdated event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(state.copyWith(countries: event.countries, languages: event.languages));
   }
 }
