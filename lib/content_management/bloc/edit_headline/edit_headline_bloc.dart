@@ -31,6 +31,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
+    on<EditHeadlineDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -227,5 +228,12 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       );
     }
+  }
+
+  void _onDataUpdated(
+    EditHeadlineDataUpdated event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(state.copyWith(countries: event.countries));
   }
 }
