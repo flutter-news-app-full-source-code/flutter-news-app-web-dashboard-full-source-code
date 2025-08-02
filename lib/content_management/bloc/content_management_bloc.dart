@@ -24,10 +24,15 @@ class ContentManagementBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
+    required DataRepository<Country> countriesRepository,
+    required DataRepository<Language> languagesRepository,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
        super(const ContentManagementState()) {
+    on<SharedDataRequested>(_onSharedDataRequested);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
     on<HeadlineUpdated>(_onHeadlineUpdated);
@@ -43,6 +48,99 @@ class ContentManagementBloc
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Country> _countriesRepository;
+  final DataRepository<Language> _languagesRepository;
+
+  // --- Background Data Fetching for countries/languages for the ui Dropdown ---
+  //
+  // The DropdownButtonFormField widget does not natively support on-scroll
+  // pagination. To preserve UI consistency across the application, this BLoC
+  // employs an event-driven background fetching mechanism.
+  Future<void> _onSharedDataRequested(
+    SharedDataRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    // Helper function to fetch all items of a given type.
+    Future<List<T>> fetchAll<T>({
+      required DataRepository<T> repository,
+      required List<SortOption> sort,
+    }) async {
+      final allItems = <T>[];
+      String? cursor;
+      bool hasMore;
+
+      do {
+        final response = await repository.readAll(
+          sort: sort,
+          pagination: PaginationOptions(cursor: cursor),
+          filter: {'status': ContentStatus.active.name},
+        );
+        allItems.addAll(response.items);
+        cursor = response.cursor;
+        hasMore = response.hasMore;
+      } while (hasMore);
+
+      return allItems;
+    }
+
+    // Check if data is already loaded or is currently loading to prevent
+    // redundant fetches.
+    if (state.allCountriesStatus == ContentManagementStatus.success &&
+        state.allLanguagesStatus == ContentManagementStatus.success) {
+      return;
+    }
+
+    // Set loading status for both lists.
+    emit(
+      state.copyWith(
+        allCountriesStatus: ContentManagementStatus.loading,
+        allLanguagesStatus: ContentManagementStatus.loading,
+      ),
+    );
+
+    try {
+      // Fetch both lists in parallel.
+      final results = await Future.wait([
+        fetchAll<Country>(
+          repository: _countriesRepository,
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+        fetchAll<Language>(
+          repository: _languagesRepository,
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
+      ]);
+
+      final countries = results[0] as List<Country>;
+      final languages = results[1] as List<Language>;
+
+      // Update the state with the complete lists.
+      emit(
+        state.copyWith(
+          allCountries: countries,
+          allCountriesStatus: ContentManagementStatus.success,
+          allLanguages: languages,
+          allLanguagesStatus: ContentManagementStatus.success,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          allCountriesStatus: ContentManagementStatus.failure,
+          allLanguagesStatus: ContentManagementStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          allCountriesStatus: ContentManagementStatus.failure,
+          allLanguagesStatus: ContentManagementStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
 
   void _onContentManagementTabChanged(
     ContentManagementTabChanged event,

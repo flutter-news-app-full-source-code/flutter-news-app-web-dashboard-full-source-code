@@ -8,10 +8,6 @@ import 'package:uuid/uuid.dart';
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
 
-final class _FetchNextCountryPage extends CreateHeadlineEvent {
-  const _FetchNextCountryPage();
-}
-
 /// A BLoC to manage the state of creating a new headline.
 class CreateHeadlineBloc
     extends Bloc<CreateHeadlineEvent, CreateHeadlineState> {
@@ -20,12 +16,11 @@ class CreateHeadlineBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
-    required DataRepository<Country> countriesRepository,
+    required List<Country> countries,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
        _topicsRepository = topicsRepository,
-       _countriesRepository = countriesRepository,
-       super(const CreateHeadlineState()) {
+       super(CreateHeadlineState(countries: countries)) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -36,13 +31,11 @@ class CreateHeadlineBloc
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
-    on<_FetchNextCountryPage>(_onFetchNextCountryPage);
   }
 
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Topic> _topicsRepository;
-  final DataRepository<Country> _countriesRepository;
   final _uuid = const Uuid();
 
   Future<void> _onDataLoaded(
@@ -65,26 +58,13 @@ class CreateHeadlineBloc
       final sources = (sourcesResponse as PaginatedResponse<Source>).items;
       final topics = (topicsResponse as PaginatedResponse<Topic>).items;
 
-      final countriesResponse = await _countriesRepository.readAll(
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.initial,
           sources: sources,
           topics: topics,
-          countries: countriesResponse.items,
-          countriesCursor: countriesResponse.cursor,
-          countriesHasMore: countriesResponse.hasMore,
         ),
       );
-
-      // After the initial page of countries is loaded, start a background
-      // process to fetch all remaining pages.
-      if (state.countriesHasMore) {
-        add(const _FetchNextCountryPage());
-      }
     } on HttpException catch (e) {
       emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
     } catch (e) {
@@ -159,49 +139,6 @@ class CreateHeadlineBloc
   }
 
   // --- Background Data Fetching for Dropdown ---
-  // The DropdownButtonFormField widget does not natively support on-scroll
-  // pagination. To preserve UI consistency across the application, this BLoC
-  // employs an event-driven background fetching mechanism.
-  //
-  // After the first page of items is loaded, a chain of events is initiated
-  // to progressively fetch all remaining pages. This process is throttled
-  // and runs in the background, ensuring the UI remains responsive while the
-  // full list of dropdown options is populated over time.
-  Future<void> _onFetchNextCountryPage(
-    _FetchNextCountryPage event,
-    Emitter<CreateHeadlineState> emit,
-  ) async {
-    if (!state.countriesHasMore || state.countriesIsLoadingMore) return;
-
-    try {
-      emit(state.copyWith(countriesIsLoadingMore: true));
-
-      // ignore: inference_failure_on_instance_creation
-      await Future.delayed(const Duration(milliseconds: 400));
-
-      final nextCountries = await _countriesRepository.readAll(
-        pagination: PaginationOptions(cursor: state.countriesCursor),
-        sort: [const SortOption('name', SortOrder.asc)],
-      );
-
-      emit(
-        state.copyWith(
-          countries: List.of(state.countries)..addAll(nextCountries.items),
-          countriesCursor: nextCountries.cursor,
-          countriesHasMore: nextCountries.hasMore,
-          countriesIsLoadingMore: false,
-        ),
-      );
-
-      if (nextCountries.hasMore) {
-        add(const _FetchNextCountryPage());
-      }
-    } catch (e) {
-      emit(state.copyWith(countriesIsLoadingMore: false));
-      // Optionally log the error without disrupting the user
-    }
-  }
-
   Future<void> _onSubmitted(
     CreateHeadlineSubmitted event,
     Emitter<CreateHeadlineState> emit,

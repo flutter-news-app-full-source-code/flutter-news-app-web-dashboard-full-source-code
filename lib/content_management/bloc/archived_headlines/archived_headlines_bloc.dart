@@ -12,8 +12,8 @@ class ArchivedHeadlinesBloc
     extends Bloc<ArchivedHeadlinesEvent, ArchivedHeadlinesState> {
   ArchivedHeadlinesBloc({
     required DataRepository<Headline> headlinesRepository,
-  })  : _headlinesRepository = headlinesRepository,
-        super(const ArchivedHeadlinesState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       super(const ArchivedHeadlinesState()) {
     on<LoadArchivedHeadlinesRequested>(_onLoadArchivedHeadlinesRequested);
     on<RestoreHeadlineRequested>(_onRestoreHeadlineRequested);
     on<DeleteHeadlineForeverRequested>(_onDeleteHeadlineForeverRequested);

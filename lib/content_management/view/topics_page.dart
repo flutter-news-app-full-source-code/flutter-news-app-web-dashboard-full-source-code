@@ -27,8 +27,8 @@ class _TopicPageState extends State<TopicPage> {
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-          const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-        );
+      const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+    );
   }
 
   @override
@@ -51,8 +51,8 @@ class _TopicPageState extends State<TopicPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                    const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-                  ),
+                const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+              ),
             );
           }
 
@@ -97,11 +97,11 @@ class _TopicPageState extends State<TopicPage> {
                         state.topicsHasMore &&
                         state.topicsStatus != ContentManagementStatus.loading) {
                       context.read<ContentManagementBloc>().add(
-                            LoadTopicsRequested(
-                              startAfterId: state.topicsCursor,
-                              limit: kDefaultRowsPerPage,
-                            ),
-                          );
+                        LoadTopicsRequested(
+                          startAfterId: state.topicsCursor,
+                          limit: kDefaultRowsPerPage,
+                        ),
+                      );
                     }
                   },
                   empty: Center(child: Text(l10n.noTopicsFound)),
@@ -184,8 +184,8 @@ class _TopicsDataSource extends DataTableSource {
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                        ArchiveTopicRequested(topic.id),
-                      );
+                    ArchiveTopicRequested(topic.id),
+                  );
                 },
               ),
             ],

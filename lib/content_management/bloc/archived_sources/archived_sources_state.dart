@@ -46,11 +46,11 @@ class ArchivedSourcesState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        sources,
-        cursor,
-        hasMore,
-        exception,
-        restoredSource,
-      ];
+    status,
+    sources,
+    cursor,
+    hasMore,
+    exception,
+    restoredSource,
+  ];
 }

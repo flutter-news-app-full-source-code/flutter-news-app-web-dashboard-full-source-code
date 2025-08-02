@@ -27,8 +27,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-          const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-        );
+      const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+    );
   }
 
   @override
@@ -51,8 +51,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                    const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-                  ),
+                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+              ),
             );
           }
 
@@ -102,11 +102,11 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                         state.headlinesStatus !=
                             ContentManagementStatus.loading) {
                       context.read<ContentManagementBloc>().add(
-                            LoadHeadlinesRequested(
-                              startAfterId: state.headlinesCursor,
-                              limit: kDefaultRowsPerPage,
-                            ),
-                          );
+                        LoadHeadlinesRequested(
+                          startAfterId: state.headlinesCursor,
+                          limit: kDefaultRowsPerPage,
+                        ),
+                      );
                     }
                   },
                   empty: Center(child: Text(l10n.noHeadlinesFound)),
@@ -189,8 +189,8 @@ class _HeadlinesDataSource extends DataTableSource {
                 tooltip: l10n.archive,
                 onPressed: () {
                   context.read<ContentManagementBloc>().add(
-                        ArchiveHeadlineRequested(headline.id),
-                      );
+                    ArchiveHeadlineRequested(headline.id),
+                  );
                 },
               ),
             ],

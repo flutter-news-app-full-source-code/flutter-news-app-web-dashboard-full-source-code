@@ -155,3 +155,12 @@ final class SourceUpdated extends ContentManagementEvent {
   @override
   List<Object?> get props => [source];
 }
+
+/// {@template shared_data_requested}
+/// Event to request loading of shared data like countries and languages.
+/// This should be dispatched once when the content management section is loaded.
+/// {@endtemplate}
+final class SharedDataRequested extends ContentManagementEvent {
+  /// {@macro shared_data_requested}
+  const SharedDataRequested();
+}

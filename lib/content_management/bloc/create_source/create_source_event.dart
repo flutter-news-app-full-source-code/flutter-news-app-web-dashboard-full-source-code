@@ -8,11 +8,6 @@ sealed class CreateSourceEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event to signal that the data for dropdowns should be loaded.
-final class CreateSourceDataLoaded extends CreateSourceEvent {
-  const CreateSourceDataLoaded();
-}
-
 /// Event for when the source's name is changed.
 final class CreateSourceNameChanged extends CreateSourceEvent {
   const CreateSourceNameChanged(this.name);

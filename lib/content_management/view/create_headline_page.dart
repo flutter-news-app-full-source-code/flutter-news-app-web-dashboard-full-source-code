@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
@@ -20,12 +19,19 @@ class CreateHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The list of all countries is fetched once and cached in the
+    // ContentManagementBloc. We read it here and provide it to the
+    // CreateHeadlineBloc.
+    final allCountries = context
+        .read<ContentManagementBloc>()
+        .state
+        .allCountries;
     return BlocProvider(
       create: (context) => CreateHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
+        countries: allCountries,
       )..add(const CreateHeadlineDataLoaded()),
       child: const _CreateHeadlineView(),
     );
@@ -220,9 +226,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                       decoration: InputDecoration(
                         labelText: l10n.countryName,
                         border: const OutlineInputBorder(),
-                        helperText: state.countriesIsLoadingMore
-                            ? l10n.loadingFullList
-                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -249,11 +252,9 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           ),
                         ),
                       ],
-                      onChanged: state.countriesIsLoadingMore
-                          ? null
-                          : (value) => context.read<CreateHeadlineBloc>().add(
-                              CreateHeadlineCountryChanged(value),
-                            ),
+                      onChanged: (value) => context
+                          .read<CreateHeadlineBloc>()
+                          .add(CreateHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(

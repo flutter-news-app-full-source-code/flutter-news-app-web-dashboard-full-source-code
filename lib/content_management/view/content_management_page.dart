@@ -96,8 +96,10 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               icon: const Icon(Icons.inventory_2_outlined),
               tooltip: l10n.archivedItems,
               onPressed: () {
-                final currentTab =
-                    context.read<ContentManagementBloc>().state.activeTab;
+                final currentTab = context
+                    .read<ContentManagementBloc>()
+                    .state
+                    .activeTab;
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
                     context.goNamed(Routes.archivedHeadlinesName);
