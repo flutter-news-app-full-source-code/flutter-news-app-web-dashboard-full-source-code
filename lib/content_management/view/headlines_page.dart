@@ -27,8 +27,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-      const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-    );
+          const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+        );
   }
 
   @override
@@ -51,8 +51,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-              ),
+                    const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+                  ),
             );
           }
 
@@ -60,49 +60,66 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             return Center(child: Text(l10n.noHeadlinesFound));
           }
 
-          return PaginatedDataTable2(
-            columns: [
-              DataColumn2(label: Text(l10n.headlineTitle), size: ColumnSize.L),
-              DataColumn2(label: Text(l10n.sourceName), size: ColumnSize.M),
-              DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
-              DataColumn2(label: Text(l10n.lastUpdated), size: ColumnSize.M),
-              DataColumn2(
-                label: Text(l10n.actions),
-                size: ColumnSize.S,
-                fixedWidth: 120,
+          return Column(
+            children: [
+              if (state.headlinesStatus == ContentManagementStatus.loading &&
+                  state.headlines.isNotEmpty)
+                const LinearProgressIndicator(),
+              Expanded(
+                child: PaginatedDataTable2(
+                  columns: [
+                    DataColumn2(
+                      label: Text(l10n.headlineTitle),
+                      size: ColumnSize.L,
+                    ),
+                    DataColumn2(
+                      label: Text(l10n.sourceName),
+                      size: ColumnSize.M,
+                    ),
+                    DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
+                    DataColumn2(
+                      label: Text(l10n.lastUpdated),
+                      size: ColumnSize.M,
+                    ),
+                    DataColumn2(
+                      label: Text(l10n.actions),
+                      size: ColumnSize.S,
+                      fixedWidth: 120,
+                    ),
+                  ],
+                  source: _HeadlinesDataSource(
+                    context: context,
+                    headlines: state.headlines,
+                    hasMore: state.headlinesHasMore,
+                    l10n: l10n,
+                  ),
+                  rowsPerPage: kDefaultRowsPerPage,
+                  availableRowsPerPage: const [kDefaultRowsPerPage],
+                  onPageChanged: (pageIndex) {
+                    final newOffset = pageIndex * kDefaultRowsPerPage;
+                    if (newOffset >= state.headlines.length &&
+                        state.headlinesHasMore &&
+                        state.headlinesStatus !=
+                            ContentManagementStatus.loading) {
+                      context.read<ContentManagementBloc>().add(
+                            LoadHeadlinesRequested(
+                              startAfterId: state.headlinesCursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                    }
+                  },
+                  empty: Center(child: Text(l10n.noHeadlinesFound)),
+                  showCheckboxColumn: false,
+                  showFirstLastButtons: true,
+                  fit: FlexFit.tight,
+                  headingRowHeight: 56,
+                  dataRowHeight: 56,
+                  columnSpacing: AppSpacing.md,
+                  horizontalMargin: AppSpacing.md,
+                ),
               ),
             ],
-            source: _HeadlinesDataSource(
-              context: context,
-              headlines: state.headlines,
-              isLoading:
-                  state.headlinesStatus == ContentManagementStatus.loading,
-              hasMore: state.headlinesHasMore,
-              l10n: l10n,
-            ),
-            rowsPerPage: kDefaultRowsPerPage,
-            availableRowsPerPage: const [kDefaultRowsPerPage],
-            onPageChanged: (pageIndex) {
-              final newOffset = pageIndex * kDefaultRowsPerPage;
-              if (newOffset >= state.headlines.length &&
-                  state.headlinesHasMore &&
-                  state.headlinesStatus != ContentManagementStatus.loading) {
-                context.read<ContentManagementBloc>().add(
-                  LoadHeadlinesRequested(
-                    startAfterId: state.headlinesCursor,
-                    limit: kDefaultRowsPerPage,
-                  ),
-                );
-              }
-            },
-            empty: Center(child: Text(l10n.noHeadlinesFound)),
-            showCheckboxColumn: false,
-            showFirstLastButtons: true,
-            fit: FlexFit.tight,
-            headingRowHeight: 56,
-            dataRowHeight: 56,
-            columnSpacing: AppSpacing.md,
-            horizontalMargin: AppSpacing.md,
           );
         },
       ),
@@ -114,30 +131,18 @@ class _HeadlinesDataSource extends DataTableSource {
   _HeadlinesDataSource({
     required this.context,
     required this.headlines,
-    required this.isLoading,
     required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
   final List<Headline> headlines;
-  final bool isLoading;
   final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
     if (index >= headlines.length) {
-      // This can happen if hasMore is true and the user is on the last page.
-      // If we are loading, show a spinner. Otherwise, we've reached the end.
-      if (isLoading) {
-        return DataRow2(
-          cells: List.generate(
-            5,
-            (_) => const DataCell(Center(child: CircularProgressIndicator())),
-          ),
-        );
-      }
       return null;
     }
     final headline = headlines[index];
@@ -181,11 +186,11 @@ class _HeadlinesDataSource extends DataTableSource {
               ),
               IconButton(
                 icon: const Icon(Icons.archive),
-                tooltip: l10n.archive,
+                tooltip: 'Archive', // TODO(you): Will be fixed in l10n phase.
                 onPressed: () {
                   context.read<ContentManagementBloc>().add(
-                    ArchiveHeadlineRequested(headline.id),
-                  );
+                        ArchiveHeadlineRequested(headline.id),
+                      );
                 },
               ),
             ],
@@ -200,16 +205,6 @@ class _HeadlinesDataSource extends DataTableSource {
 
   @override
   int get rowCount {
-    // If we have more items to fetch, we add 1 to the current length.
-    // This signals to PaginatedDataTable2 that there is at least one more page,
-    // which enables the 'next page' button.
-    if (hasMore) {
-      // When loading, we show an extra row for the spinner.
-      // Otherwise, we just indicate that there are more rows.
-      return isLoading
-          ? headlines.length + 1
-          : headlines.length + kDefaultRowsPerPage;
-    }
     return headlines.length;
   }
 
