@@ -25,10 +25,9 @@ class EditHeadlinePage extends StatelessWidget {
     // The list of all countries is fetched once and cached in the
     // ContentManagementBloc. We read it here and provide it to the
     // EditHeadlineBloc.
-    final allCountries = context
-        .read<ContentManagementBloc>()
-        .state
-        .allCountries;
+    final contentManagementState = context.watch<ContentManagementBloc>().state;
+    final allCountries = contentManagementState.allCountries;
+
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
@@ -289,40 +288,53 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineTopicChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Country?>(
-                      value: selectedCountry,
-                      decoration: InputDecoration(
-                        labelText: l10n.countryName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.countries.map(
-                          (country) => DropdownMenuItem(
-                            value: country,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 32,
-                                  height: 20,
-                                  child: Image.network(
-                                    country.flagUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.flag),
-                                  ),
-                                ),
-                                const SizedBox(width: AppSpacing.md),
-                                Text(country.name),
-                              ],
-                            ),
+                    BlocBuilder<ContentManagementBloc, ContentManagementState>(
+                      builder: (context, contentState) {
+                        final isLoading = contentState.allCountriesStatus ==
+                            ContentManagementStatus.loading;
+                        return DropdownButtonFormField<Country?>(
+                          value: selectedCountry,
+                          decoration: InputDecoration(
+                            labelText: l10n.countryName,
+                            border: const OutlineInputBorder(),
+                            helperText:
+                                isLoading ? l10n.loadingFullList : null,
                           ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCountryChanged(value)),
+                          items: [
+                            DropdownMenuItem(
+                              value: null,
+                              child: Text(l10n.none),
+                            ),
+                            ...state.countries.map(
+                              (country) => DropdownMenuItem(
+                                value: country,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 32,
+                                      height: 20,
+                                      child: Image.network(
+                                        country.flagUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(Icons.flag),
+                                      ),
+                                    ),
+                                    const SizedBox(width: AppSpacing.md),
+                                    Text(country.name),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                          onChanged: isLoading
+                              ? null
+                              : (value) => context
+                                  .read<EditHeadlineBloc>()
+                                  .add(EditHeadlineCountryChanged(value)),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
