@@ -151,7 +151,13 @@ class _HeadlinesDataSource extends DataTableSource {
         }
       },
       cells: [
-        DataCell(Text(headline.title)),
+        DataCell(
+          Text(
+            headline.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         DataCell(Text(headline.source.name)),
         DataCell(Text(headline.status.l10n(context))),
         DataCell(
