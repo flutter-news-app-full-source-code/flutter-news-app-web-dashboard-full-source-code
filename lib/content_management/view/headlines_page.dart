@@ -174,11 +174,11 @@ class _HeadlinesDataSource extends DataTableSource {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.delete),
+                icon: const Icon(Icons.archive),
+                tooltip: l10n.archive,
                 onPressed: () {
-                  // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    DeleteHeadlineRequested(headline.id),
+                    ArchiveHeadlineRequested(headline.id),
                   );
                 },
               ),
