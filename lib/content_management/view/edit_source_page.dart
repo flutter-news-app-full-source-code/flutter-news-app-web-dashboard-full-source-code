@@ -24,11 +24,18 @@ class EditSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The lists of all countries and languages are fetched once and cached in
+    // the ContentManagementBloc. We read them here and provide them to the
+    // EditSourceBloc.
+    final contentManagementState = context.read<ContentManagementBloc>().state;
+    final allCountries = contentManagementState.allCountries;
+    final allLanguages = contentManagementState.allLanguages;
+
     return BlocProvider(
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
-        languagesRepository: context.read<DataRepository<Language>>(),
+        countries: allCountries,
+        languages: allLanguages,
         sourceId: sourceId,
       )..add(const EditSourceLoaded()),
       child: const _EditSourceView(),
@@ -197,9 +204,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.language,
                         border: const OutlineInputBorder(),
-                        helperText: state.languagesIsLoadingMore
-                            ? l10n.loadingFullList
-                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -210,11 +214,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: state.languagesIsLoadingMore
-                          ? null
-                          : (value) => context.read<EditSourceBloc>().add(
-                              EditSourceLanguageChanged(value),
-                            ),
+                      onChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -242,9 +244,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.headquarters,
                         border: const OutlineInputBorder(),
-                        helperText: state.countriesIsLoadingMore
-                            ? l10n.loadingFullList
-                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -271,11 +270,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: state.countriesIsLoadingMore
-                          ? null
-                          : (value) => context.read<EditSourceBloc>().add(
-                              EditSourceHeadquartersChanged(value),
-                            ),
+                      onChanged: (value) => context
+                          .read<EditSourceBloc>()
+                          .add(EditSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
