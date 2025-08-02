@@ -173,11 +173,12 @@ class _SourcesDataSource extends DataTableSource {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.delete),
+                icon: const Icon(Icons.archive),
+                tooltip: 'Archive', // TODO(you): Will be fixed in l10n phase.
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    DeleteSourceRequested(source.id),
+                    ArchiveSourceRequested(source.id),
                   );
                 },
               ),
