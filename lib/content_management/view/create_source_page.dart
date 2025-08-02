@@ -168,24 +168,35 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Language?>(
-                      value: state.language,
-                      decoration: InputDecoration(
-                        labelText: l10n.language,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.languages.map(
-                          (language) => DropdownMenuItem(
-                            value: language,
-                            child: Text(language.name),
+                    BlocBuilder<ContentManagementBloc, ContentManagementState>(
+                      builder: (context, contentState) {
+                        final isLoading = contentState.allLanguagesStatus ==
+                            ContentManagementStatus.loading;
+                        return DropdownButtonFormField<Language?>(
+                          value: state.language,
+                          decoration: InputDecoration(
+                            labelText: l10n.language,
+                            border: const OutlineInputBorder(),
+                            helperText:
+                                isLoading ? l10n.loadingFullList : null,
                           ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceLanguageChanged(value)),
+                          items: [
+                            DropdownMenuItem(
+                                value: null, child: Text(l10n.none)),
+                            ...state.languages.map(
+                              (language) => DropdownMenuItem(
+                                value: language,
+                                child: Text(language.name),
+                              ),
+                            ),
+                          ],
+                          onChanged: isLoading
+                              ? null
+                              : (value) => context
+                                  .read<CreateSourceBloc>()
+                                  .add(CreateSourceLanguageChanged(value)),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -208,40 +219,50 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<Country?>(
-                      value: state.headquarters,
-                      decoration: InputDecoration(
-                        labelText: l10n.headquarters,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...state.countries.map(
-                          (country) => DropdownMenuItem(
-                            value: country,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 32,
-                                  height: 20,
-                                  child: Image.network(
-                                    country.flagUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.flag),
-                                  ),
-                                ),
-                                const SizedBox(width: AppSpacing.md),
-                                Text(country.name),
-                              ],
-                            ),
+                    BlocBuilder<ContentManagementBloc, ContentManagementState>(
+                      builder: (context, contentState) {
+                        final isLoading = contentState.allCountriesStatus ==
+                            ContentManagementStatus.loading;
+                        return DropdownButtonFormField<Country?>(
+                          value: state.headquarters,
+                          decoration: InputDecoration(
+                            labelText: l10n.headquarters,
+                            border: const OutlineInputBorder(),
+                            helperText:
+                                isLoading ? l10n.loadingFullList : null,
                           ),
-                        ),
-                      ],
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceHeadquartersChanged(value)),
+                          items: [
+                            DropdownMenuItem(
+                                value: null, child: Text(l10n.none)),
+                            ...state.countries.map(
+                              (country) => DropdownMenuItem(
+                                value: country,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 32,
+                                      height: 20,
+                                      child: Image.network(
+                                        country.flagUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(Icons.flag),
+                                      ),
+                                    ),
+                                    const SizedBox(width: AppSpacing.md),
+                                    Text(country.name),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                          onChanged: isLoading
+                              ? null
+                              : (value) => context.read<CreateSourceBloc>().add(
+                                  CreateSourceHeadquartersChanged(value)),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
