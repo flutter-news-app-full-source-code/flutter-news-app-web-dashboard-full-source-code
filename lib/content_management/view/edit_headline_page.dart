@@ -22,18 +22,12 @@ class EditHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The list of all countries is fetched once and cached in the
-    // ContentManagementBloc. We read it here and provide it to the
-    // EditHeadlineBloc.
-    final contentManagementState = context.watch<ContentManagementBloc>().state;
-    final allCountries = contentManagementState.allCountries;
-
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
-        countries: allCountries,
+        countries: context.read<ContentManagementBloc>().state.allCountries,
         headlineId: headlineId,
       )..add(const EditHeadlineLoaded()),
       child: const _EditHeadlineView(),
@@ -106,14 +100,23 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
           ),
         ],
       ),
-      body: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
+      body: BlocListener<ContentManagementBloc, ContentManagementState>(
         listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.initialHeadline != current.initialHeadline,
-        listener: (context, state) {
-          if (state.status == EditHeadlineStatus.success &&
-              state.updatedHeadline != null &&
-              ModalRoute.of(context)!.isCurrent) {
+            previous.allCountriesStatus != current.allCountriesStatus &&
+            current.allCountriesStatus == ContentManagementStatus.success,
+        listener: (context, contentState) {
+          context.read<EditHeadlineBloc>().add(
+                EditHeadlineDataUpdated(countries: contentState.allCountries),
+              );
+        },
+        child: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
+          listenWhen: (previous, current) =>
+              previous.status != current.status ||
+              previous.initialHeadline != current.initialHeadline,
+          listener: (context, state) {
+            if (state.status == EditHeadlineStatus.success &&
+                state.updatedHeadline != null &&
+                ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -141,14 +144,14 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             _imageUrlController.text = state.imageUrl;
           }
         },
-        builder: (context, state) {
-          if (state.status == EditHeadlineStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.newspaper,
-              headline: l10n.loadingHeadline,
-              subheadline: l10n.pleaseWait,
-            );
-          }
+          builder: (context, state) {
+            if (state.status == EditHeadlineStatus.loading) {
+              return LoadingStateWidget(
+                icon: Icons.newspaper,
+                headline: l10n.loadingHeadline,
+                subheadline: l10n.pleaseWait,
+              );
+            }
 
           if (state.status == EditHeadlineStatus.failure &&
               state.initialHeadline == null) {
