@@ -16,6 +16,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:logging/logging.dart';
@@ -79,6 +80,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _kvStorageService),
+        RepositoryProvider(create: (context) => const ThrottledFetchingService()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -110,6 +112,7 @@ class App extends StatelessWidget {
               sourcesRepository: context.read<DataRepository<Source>>(),
               countriesRepository: context.read<DataRepository<Country>>(),
               languagesRepository: context.read<DataRepository<Language>>(),
+              fetchingService: context.read<ThrottledFetchingService>(),
             )..add(const SharedDataRequested()),
           ),
           BlocProvider(
