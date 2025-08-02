@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';
@@ -26,12 +27,14 @@ class ContentManagementBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-  }) : _headlinesRepository = headlinesRepository,
-       _topicsRepository = topicsRepository,
-       _sourcesRepository = sourcesRepository,
-       _countriesRepository = countriesRepository,
-       _languagesRepository = languagesRepository,
-       super(const ContentManagementState()) {
+    required ThrottledFetchingService fetchingService,
+  })  : _headlinesRepository = headlinesRepository,
+        _topicsRepository = topicsRepository,
+        _sourcesRepository = sourcesRepository,
+        _countriesRepository = countriesRepository,
+        _languagesRepository = languagesRepository,
+        _fetchingService = fetchingService,
+        super(const ContentManagementState()) {
     on<SharedDataRequested>(_onSharedDataRequested);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
@@ -50,39 +53,32 @@ class ContentManagementBloc
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
+  final ThrottledFetchingService _fetchingService;
 
-  // --- Background Data Fetching for countries/languages for the ui Dropdown ---
-  //
-  // The DropdownButtonFormField widget does not natively support on-scroll
-  // pagination. To preserve UI consistency across the application, this BLoC
-  // employs an event-driven background fetching mechanism.
+  /// Handles the pre-fetching of shared data required for the content
+  /// management section.
+  ///
+  /// **Strategy Rationale (The "Why"):**
+  /// This pre-fetching strategy is a direct result of a UI component choice
+  /// made to preserve visual consistency across the application. The standard
+  /// `DropdownButtonFormField` is used for selection fields in forms.
+  /// A key limitation of this widget is its lack of native support for
+  /// on-scroll pagination or dynamic data loading.
+  ///
+  /// To work around this, and to ensure a seamless user experience without
+  /// loading delays when a form is opened, we must load the entire dataset
+  /// for these dropdowns (e.g., all countries, all languages) into the state
+  /// ahead of time.
+  ///
+  /// **Implementation (The "How"):**
+  /// To execute this pre-fetch efficiently, this handler utilizes the
+  /// `ThrottledFetchingService`. This service fetches all pages of a given
+  /// resource in parallel, which dramatically reduces the load time compared
+  /// to fetching them sequentially, making the upfront data load manageable.
   Future<void> _onSharedDataRequested(
     SharedDataRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    // Helper function to fetch all items of a given type.
-    Future<List<T>> fetchAll<T>({
-      required DataRepository<T> repository,
-      required List<SortOption> sort,
-    }) async {
-      final allItems = <T>[];
-      String? cursor;
-      bool hasMore;
-
-      do {
-        final response = await repository.readAll(
-          sort: sort,
-          pagination: PaginationOptions(cursor: cursor),
-          filter: {'status': ContentStatus.active.name},
-        );
-        allItems.addAll(response.items);
-        cursor = response.cursor;
-        hasMore = response.hasMore;
-      } while (hasMore);
-
-      return allItems;
-    }
-
     // Check if data is already loaded or is currently loading to prevent
     // redundant fetches.
     if (state.allCountriesStatus == ContentManagementStatus.success &&
@@ -99,13 +95,13 @@ class ContentManagementBloc
     );
 
     try {
-      // Fetch both lists in parallel.
+      // Fetch both lists in parallel using the dedicated fetching service.
       final results = await Future.wait([
-        fetchAll<Country>(
+        _fetchingService.fetchAll<Country>(
           repository: _countriesRepository,
           sort: [const SortOption('name', SortOrder.asc)],
         ),
-        fetchAll<Language>(
+        _fetchingService.fetchAll<Language>(
           repository: _languagesRepository,
           sort: [const SortOption('name', SortOrder.asc)],
         ),
