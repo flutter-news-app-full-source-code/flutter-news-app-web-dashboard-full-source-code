@@ -894,4 +894,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteForever => 'Delete Forever';
+
+  @override
+  String get archivedTopics => 'Archived Topics';
+
+  @override
+  String get loadingArchivedTopics => 'Loading Archived Topics';
+
+  @override
+  String get noArchivedTopicsFound => 'No archived topics found.';
+
+  @override
+  String get archivedSources => 'Archived Sources';
+
+  @override
+  String get loadingArchivedSources => 'Loading Archived Sources';
+
+  @override
+  String get noArchivedSourcesFound => 'No archived sources found.';
+
+  @override
+  String get archivedItems => 'Archived Items';
+
+  @override
+  String get addNewItem => 'Add New Item';
+
+  @override
+  String get archive => 'Archive';
 }

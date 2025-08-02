@@ -1113,5 +1113,41 @@
   "deleteForever": "Delete Forever",
   "@deleteForever": {
     "description": "Tooltip for the delete forever button"
+  },
+  "archivedTopics": "Archived Topics",
+  "@archivedTopics": {
+    "description": "Title for the Archived Topics page"
+  },
+  "loadingArchivedTopics": "Loading Archived Topics",
+  "@loadingArchivedTopics": {
+    "description": "Headline for loading state of archived topics"
+  },
+  "noArchivedTopicsFound": "No archived topics found.",
+  "@noArchivedTopicsFound": {
+    "description": "Message when no archived topics are found"
+  },
+  "archivedSources": "Archived Sources",
+  "@archivedSources": {
+    "description": "Title for the Archived Sources page"
+  },
+  "loadingArchivedSources": "Loading Archived Sources",
+  "@loadingArchivedSources": {
+    "description": "Headline for loading state of archived sources"
+  },
+  "noArchivedSourcesFound": "No archived sources found.",
+  "@noArchivedSourcesFound": {
+    "description": "Message when no archived sources are found"
+  },
+  "archivedItems": "Archived Items",
+  "@archivedItems": {
+    "description": "Tooltip for the archived items button"
+  },
+  "addNewItem": "Add New Item",
+  "@addNewItem": {
+    "description": "Tooltip for the add new item button"
+  },
+  "archive": "Archive",
+  "@archive": {
+    "description": "Tooltip for the archive button"
   }
 }
