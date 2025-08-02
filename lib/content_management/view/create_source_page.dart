@@ -20,18 +20,11 @@ class CreateSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The lists of all countries and languages are fetched once and cached in
-    // the ContentManagementBloc. We read them here and provide them to the
-    // CreateSourceBloc.
-    final contentManagementState = context.read<ContentManagementBloc>().state;
-    final allCountries = contentManagementState.allCountries;
-    final allLanguages = contentManagementState.allLanguages;
-
     return BlocProvider(
       create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        countries: allCountries,
-        languages: allLanguages,
+        countries: context.read<ContentManagementBloc>().state.allCountries,
+        languages: context.read<ContentManagementBloc>().state.allLanguages,
       ),
       child: const _CreateSourceView(),
     );
@@ -80,12 +73,26 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           ),
         ],
       ),
-      body: BlocConsumer<CreateSourceBloc, CreateSourceState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          if (state.status == CreateSourceStatus.success &&
-              state.createdSource != null &&
-              ModalRoute.of(context)!.isCurrent) {
+      body: BlocListener<ContentManagementBloc, ContentManagementState>(
+        listenWhen: (previous, current) =>
+            (previous.allCountriesStatus != current.allCountriesStatus &&
+                current.allCountriesStatus == ContentManagementStatus.success) ||
+            (previous.allLanguagesStatus != current.allLanguagesStatus &&
+                current.allLanguagesStatus == ContentManagementStatus.success),
+        listener: (context, contentState) {
+          context.read<CreateSourceBloc>().add(
+                CreateSourceDataUpdated(
+                  countries: contentState.allCountries,
+                  languages: contentState.allLanguages,
+                ),
+              );
+        },
+        child: BlocConsumer<CreateSourceBloc, CreateSourceState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            if (state.status == CreateSourceStatus.success &&
+                state.createdSource != null &&
+                ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -108,14 +115,14 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               );
           }
         },
-        builder: (context, state) {
-          if (state.status == CreateSourceStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.source,
-              headline: l10n.loadingData,
-              subheadline: l10n.pleaseWait,
-            );
-          }
+          builder: (context, state) {
+            if (state.status == CreateSourceStatus.loading) {
+              return LoadingStateWidget(
+                icon: Icons.source,
+                headline: l10n.loadingData,
+                subheadline: l10n.pleaseWait,
+              );
+            }
 
           if (state.status == CreateSourceStatus.failure) {
             return FailureStateWidget(
