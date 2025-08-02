@@ -38,14 +38,14 @@ final class LoadHeadlinesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template delete_headline_requested}
-/// Event to request deletion of a headline.
+/// {@template archive_headline_requested}
+/// Event to request archiving of a headline.
 /// {@endtemplate}
-final class DeleteHeadlineRequested extends ContentManagementEvent {
-  /// {@macro delete_headline_requested}
-  const DeleteHeadlineRequested(this.id);
+final class ArchiveHeadlineRequested extends ContentManagementEvent {
+  /// {@macro archive_headline_requested}
+  const ArchiveHeadlineRequested(this.id);
 
-  /// The ID of the headline to delete.
+  /// The ID of the headline to archive.
   final String id;
 
   @override
@@ -83,14 +83,14 @@ final class LoadTopicsRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template delete_topic_requested}
-/// Event to request deletion of a topic.
+/// {@template archive_topic_requested}
+/// Event to request archiving of a topic.
 /// {@endtemplate}
-final class DeleteTopicRequested extends ContentManagementEvent {
-  /// {@macro delete_topic_requested}
-  const DeleteTopicRequested(this.id);
+final class ArchiveTopicRequested extends ContentManagementEvent {
+  /// {@macro archive_topic_requested}
+  const ArchiveTopicRequested(this.id);
 
-  /// The ID of the topic to delete.
+  /// The ID of the topic to archive.
   final String id;
 
   @override
@@ -128,14 +128,14 @@ final class LoadSourcesRequested extends ContentManagementEvent {
   List<Object?> get props => [startAfterId, limit];
 }
 
-/// {@template delete_source_requested}
-/// Event to request deletion of a source.
+/// {@template archive_source_requested}
+/// Event to request archiving of a source.
 /// {@endtemplate}
-final class DeleteSourceRequested extends ContentManagementEvent {
-  /// {@macro delete_source_requested}
-  const DeleteSourceRequested(this.id);
+final class ArchiveSourceRequested extends ContentManagementEvent {
+  /// {@macro archive_source_requested}
+  const ArchiveSourceRequested(this.id);
 
-  /// The ID of the source to delete.
+  /// The ID of the source to archive.
   final String id;
 
   @override

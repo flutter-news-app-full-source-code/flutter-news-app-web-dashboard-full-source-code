@@ -196,6 +196,24 @@ GoRouter createRouter({
                       return EditSourcePage(sourceId: id);
                     },
                   ),
+                  GoRoute(
+                    path: Routes.archivedHeadlines,
+                    name: Routes.archivedHeadlinesName,
+                    builder: (context, state) =>
+                        const Placeholder(),
+                  ),
+                  GoRoute(
+                    path: Routes.archivedTopics,
+                    name: Routes.archivedTopicsName,
+                    builder: (context, state) =>
+                        const Placeholder(),
+                  ),
+                  GoRoute(
+                    path: Routes.archivedSources,
+                    name: Routes.archivedSourcesName,
+                    builder: (context, state) =>
+                        const Placeholder(),
+                  ),
                 ],
               ),
             ],

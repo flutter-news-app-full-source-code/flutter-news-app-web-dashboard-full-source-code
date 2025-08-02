@@ -1669,6 +1669,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a country'**
   String get countryPickerSelectCountryLabel;
+
+  /// Title for the Archived Headlines page
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Headlines'**
+  String get archivedHeadlines;
+
+  /// Headline for loading state of archived headlines
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Archived Headlines'**
+  String get loadingArchivedHeadlines;
+
+  /// Message when no archived headlines are found
+  ///
+  /// In en, this message translates to:
+  /// **'No archived headlines found.'**
+  String get noArchivedHeadlinesFound;
+
+  /// Tooltip for the restore button
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// Tooltip for the delete forever button
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Forever'**
+  String get deleteForever;
+
+  /// Title for the Archived Topics page
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Topics'**
+  String get archivedTopics;
+
+  /// Headline for loading state of archived topics
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Archived Topics'**
+  String get loadingArchivedTopics;
+
+  /// Message when no archived topics are found
+  ///
+  /// In en, this message translates to:
+  /// **'No archived topics found.'**
+  String get noArchivedTopicsFound;
+
+  /// Title for the Archived Sources page
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Sources'**
+  String get archivedSources;
+
+  /// Headline for loading state of archived sources
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Archived Sources'**
+  String get loadingArchivedSources;
+
+  /// Message when no archived sources are found
+  ///
+  /// In en, this message translates to:
+  /// **'No archived sources found.'**
+  String get noArchivedSourcesFound;
+
+  /// Tooltip for the archived items button
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Items'**
+  String get archivedItems;
+
+  /// Tooltip for the add new item button
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Item'**
+  String get addNewItem;
+
+  /// Tooltip for the archive button
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
 }
 
 class _AppLocalizationsDelegate

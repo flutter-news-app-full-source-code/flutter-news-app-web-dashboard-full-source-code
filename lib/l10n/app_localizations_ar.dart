@@ -880,4 +880,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get countryPickerSelectCountryLabel => 'اختر دولة';
+
+  @override
+  String get archivedHeadlines => 'العناوين المؤرشفة';
+
+  @override
+  String get loadingArchivedHeadlines => 'جاري تحميل العناوين المؤرشفة';
+
+  @override
+  String get noArchivedHeadlinesFound => 'لم يتم العثور على عناوين مؤرشفة.';
+
+  @override
+  String get restore => 'استعادة';
+
+  @override
+  String get deleteForever => 'حذف نهائي';
+
+  @override
+  String get archivedTopics => 'المواضيع المؤرشفة';
+
+  @override
+  String get loadingArchivedTopics => 'جاري تحميل المواضيع المؤرشفة';
+
+  @override
+  String get noArchivedTopicsFound => 'لم يتم العثور على مواضيع مؤرشفة.';
+
+  @override
+  String get archivedSources => 'المصادر المؤرشفة';
+
+  @override
+  String get loadingArchivedSources => 'جاري تحميل المصادر المؤرشفة';
+
+  @override
+  String get noArchivedSourcesFound => 'لم يتم العثور على مصادر مؤرشفة.';
+
+  @override
+  String get archivedItems => 'العناصر المؤرشفة';
+
+  @override
+  String get addNewItem => 'إضافة عنصر جديد';
+
+  @override
+  String get archive => 'أرشفة';
 }

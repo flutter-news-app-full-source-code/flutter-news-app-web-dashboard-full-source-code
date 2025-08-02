@@ -1093,5 +1093,61 @@
   "countryPickerSelectCountryLabel": "اختر دولة",
   "@countryPickerSelectCountryLabel": {
     "description": "التسمية المعروضة عند عدم اختيار أي دولة في حقل نموذج منتقي البلد"
+  },
+  "archivedHeadlines": "العناوين المؤرشفة",
+  "@archivedHeadlines": {
+    "description": "عنوان صفحة العناوين المؤرشفة"
+  },
+  "loadingArchivedHeadlines": "جاري تحميل العناوين المؤرشفة",
+  "@loadingArchivedHeadlines": {
+    "description": "عنوان حالة تحميل العناوين المؤرشفة"
+  },
+  "noArchivedHeadlinesFound": "لم يتم العثور على عناوين مؤرشفة.",
+  "@noArchivedHeadlinesFound": {
+    "description": "رسالة عند عدم العثور على عناوين مؤرشفة"
+  },
+  "restore": "استعادة",
+  "@restore": {
+    "description": "تلميح لزر الاستعادة"
+  },
+  "deleteForever": "حذف نهائي",
+  "@deleteForever": {
+    "description": "تلميح لزر الحذف النهائي"
+  },
+  "archivedTopics": "المواضيع المؤرشفة",
+  "@archivedTopics": {
+    "description": "عنوان صفحة المواضيع المؤرشفة"
+  },
+  "loadingArchivedTopics": "جاري تحميل المواضيع المؤرشفة",
+  "@loadingArchivedTopics": {
+    "description": "عنوان حالة تحميل المواضيع المؤرشفة"
+  },
+  "noArchivedTopicsFound": "لم يتم العثور على مواضيع مؤرشفة.",
+  "@noArchivedTopicsFound": {
+    "description": "رسالة عند عدم العثور على مواضيع مؤرشفة"
+  },
+  "archivedSources": "المصادر المؤرشفة",
+  "@archivedSources": {
+    "description": "عنوان صفحة المصادر المؤرشفة"
+  },
+  "loadingArchivedSources": "جاري تحميل المصادر المؤرشفة",
+  "@loadingArchivedSources": {
+    "description": "عنوان حالة تحميل المصادر المؤرشفة"
+  },
+  "noArchivedSourcesFound": "لم يتم العثور على مصادر مؤرشفة.",
+  "@noArchivedSourcesFound": {
+    "description": "رسالة عند عدم العثور على مصادر مؤرشفة"
+  },
+  "archivedItems": "العناصر المؤرشفة",
+  "@archivedItems": {
+    "description": "تلميح لزر العناصر المؤرشفة"
+  },
+  "addNewItem": "إضافة عنصر جديد",
+  "@addNewItem": {
+    "description": "تلميح لزر إضافة عنصر جديد"
+  },
+  "archive": "أرشفة",
+  "@archive": {
+    "description": "تلميح لزر الأرشفة"
   }
 }

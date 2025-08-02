@@ -879,4 +879,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get countryPickerSelectCountryLabel => 'Select a country';
+
+  @override
+  String get archivedHeadlines => 'Archived Headlines';
+
+  @override
+  String get loadingArchivedHeadlines => 'Loading Archived Headlines';
+
+  @override
+  String get noArchivedHeadlinesFound => 'No archived headlines found.';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String get deleteForever => 'Delete Forever';
+
+  @override
+  String get archivedTopics => 'Archived Topics';
+
+  @override
+  String get loadingArchivedTopics => 'Loading Archived Topics';
+
+  @override
+  String get noArchivedTopicsFound => 'No archived topics found.';
+
+  @override
+  String get archivedSources => 'Archived Sources';
+
+  @override
+  String get loadingArchivedSources => 'Loading Archived Sources';
+
+  @override
+  String get noArchivedSourcesFound => 'No archived sources found.';
+
+  @override
+  String get archivedItems => 'Archived Items';
+
+  @override
+  String get addNewItem => 'Add New Item';
+
+  @override
+  String get archive => 'Archive';
 }

@@ -93,8 +93,24 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           ),
           actions: [
             IconButton(
+              icon: const Icon(Icons.inventory_2_outlined),
+              tooltip: l10n.archivedItems,
+              onPressed: () {
+                final currentTab =
+                    context.read<ContentManagementBloc>().state.activeTab;
+                switch (currentTab) {
+                  case ContentManagementTab.headlines:
+                    context.goNamed(Routes.archivedHeadlinesName);
+                  case ContentManagementTab.topics:
+                    context.goNamed(Routes.archivedTopicsName);
+                  case ContentManagementTab.sources:
+                    context.goNamed(Routes.archivedSourcesName);
+                }
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.add),
-              tooltip: 'Add New Item', // Consider localizing this tooltip
+              tooltip: l10n.addNewItem,
               onPressed: () {
                 final currentTab = context
                     .read<ContentManagementBloc>()
