@@ -54,9 +54,11 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       final responses = await Future.wait([
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
+          filter: {'status': ContentStatus.active.name},
         ),
         _languagesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
+          filter: {'status': ContentStatus.active.name},
         ),
       ]);
       final countriesPaginated = responses[0] as PaginatedResponse<Country>;
