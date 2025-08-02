@@ -83,3 +83,13 @@ final class EditHeadlineStatusChanged extends EditHeadlineEvent {
 final class EditHeadlineSubmitted extends EditHeadlineEvent {
   const EditHeadlineSubmitted();
 }
+
+/// Event to update the BLoC with the latest shared data.
+final class EditHeadlineDataUpdated extends EditHeadlineEvent {
+  const EditHeadlineDataUpdated({required this.countries});
+
+  final List<Country> countries;
+
+  @override
+  List<Object?> get props => [countries];
+}
