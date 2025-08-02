@@ -149,7 +149,13 @@ class _TopicsDataSource extends DataTableSource {
         }
       },
       cells: [
-        DataCell(Text(topic.name)),
+        DataCell(
+          Text(
+            topic.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         DataCell(Text(topic.status.l10n(context))),
         DataCell(
           Text(
@@ -172,7 +178,7 @@ class _TopicsDataSource extends DataTableSource {
               ),
               IconButton(
                 icon: const Icon(Icons.archive),
-                tooltip: 'Archive', // todo(you): Will be fixed in l10n phase.
+                tooltip: 'Archive', // TODO(you): Will be fixed in l10n phase.
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
