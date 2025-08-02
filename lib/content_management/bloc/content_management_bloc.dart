@@ -31,13 +31,13 @@ class ContentManagementBloc
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
     on<HeadlineUpdated>(_onHeadlineUpdated);
-    on<DeleteHeadlineRequested>(_onDeleteHeadlineRequested);
+    on<ArchiveHeadlineRequested>(_onArchiveHeadlineRequested);
     on<LoadTopicsRequested>(_onLoadTopicsRequested);
     on<TopicUpdated>(_onTopicUpdated);
-    on<DeleteTopicRequested>(_onDeleteTopicRequested);
+    on<ArchiveTopicRequested>(_onArchiveTopicRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
     on<SourceUpdated>(_onSourceUpdated);
-    on<DeleteSourceRequested>(_onDeleteSourceRequested);
+    on<ArchiveSourceRequested>(_onArchiveSourceRequested);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -92,17 +92,29 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onDeleteHeadlineRequested(
-    DeleteHeadlineRequested event,
+  Future<void> _onArchiveHeadlineRequested(
+    ArchiveHeadlineRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // Optimistically remove the headline from the list
+    final originalHeadlines = List<Headline>.from(state.headlines);
+    final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
+    if (headlineIndex == -1) return; // Headline not found
+
+    final headlineToArchive = originalHeadlines[headlineIndex];
+    final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
+
+    emit(state.copyWith(headlines: updatedHeadlines));
+
     try {
-      await _headlinesRepository.delete(id: event.id);
-      final updatedHeadlines = state.headlines
-          .where((h) => h.id != event.id)
-          .toList();
-      emit(state.copyWith(headlines: updatedHeadlines));
+      await _headlinesRepository.update(
+        id: event.id,
+        item: headlineToArchive.copyWith(status: ContentStatus.archived),
+      );
     } on HttpException catch (e) {
+      // If the update fails, revert the change in the UI
+      emit(state.copyWith(headlines: originalHeadlines));
+      // And then show the error
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
@@ -172,17 +184,29 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onDeleteTopicRequested(
-    DeleteTopicRequested event,
+  Future<void> _onArchiveTopicRequested(
+    ArchiveTopicRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // Optimistically remove the topic from the list
+    final originalTopics = List<Topic>.from(state.topics);
+    final topicIndex = originalTopics.indexWhere((t) => t.id == event.id);
+    if (topicIndex == -1) return; // Topic not found
+
+    final topicToArchive = originalTopics[topicIndex];
+    final updatedTopics = originalTopics..removeAt(topicIndex);
+
+    emit(state.copyWith(topics: updatedTopics));
+
     try {
-      await _topicsRepository.delete(id: event.id);
-      final updatedTopics = state.topics
-          .where((c) => c.id != event.id)
-          .toList();
-      emit(state.copyWith(topics: updatedTopics));
+      await _topicsRepository.update(
+        id: event.id,
+        item: topicToArchive.copyWith(status: ContentStatus.archived),
+      );
     } on HttpException catch (e) {
+      // If the update fails, revert the change in the UI
+      emit(state.copyWith(topics: originalTopics));
+      // And then show the error
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
@@ -252,17 +276,29 @@ class ContentManagementBloc
     }
   }
 
-  Future<void> _onDeleteSourceRequested(
-    DeleteSourceRequested event,
+  Future<void> _onArchiveSourceRequested(
+    ArchiveSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // Optimistically remove the source from the list
+    final originalSources = List<Source>.from(state.sources);
+    final sourceIndex = originalSources.indexWhere((s) => s.id == event.id);
+    if (sourceIndex == -1) return; // Source not found
+
+    final sourceToArchive = originalSources[sourceIndex];
+    final updatedSources = originalSources..removeAt(sourceIndex);
+
+    emit(state.copyWith(sources: updatedSources));
+
     try {
-      await _sourcesRepository.delete(id: event.id);
-      final updatedSources = state.sources
-          .where((s) => s.id != event.id)
-          .toList();
-      emit(state.copyWith(sources: updatedSources));
+      await _sourcesRepository.update(
+        id: event.id,
+        item: sourceToArchive.copyWith(status: ContentStatus.archived),
+      );
     } on HttpException catch (e) {
+      // If the update fails, revert the change in the UI
+      emit(state.copyWith(sources: originalSources));
+      // And then show the error
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
