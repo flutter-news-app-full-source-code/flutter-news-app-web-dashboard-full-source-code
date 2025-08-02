@@ -23,18 +23,11 @@ class EditSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The lists of all countries and languages are fetched once and cached in
-    // the ContentManagementBloc. We read them here and provide them to the
-    // EditSourceBloc.
-    final contentManagementState = context.read<ContentManagementBloc>().state;
-    final allCountries = contentManagementState.allCountries;
-    final allLanguages = contentManagementState.allLanguages;
-
     return BlocProvider(
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        countries: allCountries,
-        languages: allLanguages,
+        countries: context.read<ContentManagementBloc>().state.allCountries,
+        languages: context.read<ContentManagementBloc>().state.allLanguages,
         sourceId: sourceId,
       )..add(const EditSourceLoaded()),
       child: const _EditSourceView(),
@@ -104,14 +97,28 @@ class _EditSourceViewState extends State<_EditSourceView> {
           ),
         ],
       ),
-      body: BlocConsumer<EditSourceBloc, EditSourceState>(
+      body: BlocListener<ContentManagementBloc, ContentManagementState>(
         listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.initialSource != current.initialSource,
-        listener: (context, state) {
-          if (state.status == EditSourceStatus.success &&
-              state.updatedSource != null &&
-              ModalRoute.of(context)!.isCurrent) {
+            (previous.allCountriesStatus != current.allCountriesStatus &&
+                current.allCountriesStatus == ContentManagementStatus.success) ||
+            (previous.allLanguagesStatus != current.allLanguagesStatus &&
+                current.allLanguagesStatus == ContentManagementStatus.success),
+        listener: (context, contentState) {
+          context.read<EditSourceBloc>().add(
+                EditSourceDataUpdated(
+                  countries: contentState.allCountries,
+                  languages: contentState.allLanguages,
+                ),
+              );
+        },
+        child: BlocConsumer<EditSourceBloc, EditSourceState>(
+          listenWhen: (previous, current) =>
+              previous.status != current.status ||
+              previous.initialSource != current.initialSource,
+          listener: (context, state) {
+            if (state.status == EditSourceStatus.success &&
+                state.updatedSource != null &&
+                ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -138,14 +145,14 @@ class _EditSourceViewState extends State<_EditSourceView> {
             _urlController.text = state.url;
           }
         },
-        builder: (context, state) {
-          if (state.status == EditSourceStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.source,
-              headline: l10n.loadingSource,
-              subheadline: l10n.pleaseWait,
-            );
-          }
+          builder: (context, state) {
+            if (state.status == EditSourceStatus.loading) {
+              return LoadingStateWidget(
+                icon: Icons.source,
+                headline: l10n.loadingSource,
+                subheadline: l10n.pleaseWait,
+              );
+            }
 
           if (state.status == EditSourceStatus.failure &&
               state.initialSource == null) {
