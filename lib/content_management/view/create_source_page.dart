@@ -89,7 +89,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               // Refresh the list to show the new source
               const LoadSourcesRequested(limit: kDefaultRowsPerPage),
             );
-            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == CreateSourceStatus.failure) {

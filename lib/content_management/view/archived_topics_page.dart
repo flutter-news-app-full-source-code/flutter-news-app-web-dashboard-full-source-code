@@ -45,7 +45,6 @@ class _ArchivedTopicsView extends StatelessWidget {
               context
                   .read<ContentManagementBloc>()
                   .add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
-              context.read<DashboardBloc>().add( DashboardSummaryLoaded());
             }
           },
           child: BlocBuilder<ArchivedTopicsBloc, ArchivedTopicsState>(

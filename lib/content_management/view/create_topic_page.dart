@@ -86,7 +86,6 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
               // Refresh the list to show the new topic
               const LoadTopicsRequested(limit: kDefaultRowsPerPage),
             );
-            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == CreateTopicStatus.failure) {

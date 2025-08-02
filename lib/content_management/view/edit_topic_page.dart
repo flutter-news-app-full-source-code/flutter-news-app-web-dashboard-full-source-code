@@ -111,7 +111,6 @@ class _EditTopicViewState extends State<_EditTopicView> {
             context.read<ContentManagementBloc>().add(
               const LoadTopicsRequested(limit: kDefaultRowsPerPage),
             );
-            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == EditTopicStatus.failure) {
