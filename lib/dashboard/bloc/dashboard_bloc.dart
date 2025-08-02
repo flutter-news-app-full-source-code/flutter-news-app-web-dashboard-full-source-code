@@ -17,10 +17,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
-  })  : _dashboardSummaryRepository = dashboardSummaryRepository,
-        _headlinesRepository = headlinesRepository,
-        super(const DashboardState()) {
-    on<DashboardSummaryLoaded>(_onDashboardSummaryLoaded);
+  }) : _dashboardSummaryRepository = dashboardSummaryRepository,
+       _headlinesRepository = headlinesRepository,
+       super(const DashboardState()) {
+    on<DashboardSummaryRequested>(_onDashboardSummaryRequested);
     on<_DashboardEntityUpdated>(_onDashboardEntityUpdated);
 
     _entityUpdatedSubscription = headlinesRepository.entityUpdated
@@ -43,11 +43,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     _DashboardEntityUpdated event,
     Emitter<DashboardState> emit,
   ) {
-    add(DashboardSummaryLoaded());
+    add(DashboardSummaryRequested());
   }
 
-  Future<void> _onDashboardSummaryLoaded(
-    DashboardSummaryLoaded event,
+  Future<void> _onDashboardSummaryRequested(
+    DashboardSummaryRequested event,
     Emitter<DashboardState> emit,
   ) async {
     emit(state.copyWith(status: DashboardStatus.loading));

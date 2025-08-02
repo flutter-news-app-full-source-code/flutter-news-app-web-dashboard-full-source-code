@@ -23,7 +23,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
     // Dispatch the event to load dashboard data when the page is initialized.
-    context.read<DashboardBloc>().add(DashboardSummaryLoaded());
+    context.read<DashboardBloc>().add(DashboardSummaryRequested());
   }
 
   @override
@@ -44,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () {
-                context.read<DashboardBloc>().add(DashboardSummaryLoaded());
+                context.read<DashboardBloc>().add(DashboardSummaryRequested());
               },
             );
           }
