@@ -180,7 +180,7 @@ class _TopicsDataSource extends DataTableSource {
               ),
               IconButton(
                 icon: const Icon(Icons.archive),
-                tooltip: 'Archive', // TODO(you): Will be fixed in l10n phase.
+                tooltip: l10n.archive,
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
