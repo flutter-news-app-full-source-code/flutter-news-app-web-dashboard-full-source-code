@@ -171,11 +171,12 @@ class _TopicsDataSource extends DataTableSource {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.delete),
+                icon: const Icon(Icons.archive),
+                tooltip: 'Archive', // todo(you): Will be fixed in l10n phase.
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    DeleteTopicRequested(topic.id),
+                    ArchiveTopicRequested(topic.id),
                   );
                 },
               ),
