@@ -74,10 +74,11 @@ class ArchivedTopicsBloc
     emit(state.copyWith(topics: updatedTopics));
 
     try {
-      await _topicsRepository.update(
+      final restoredTopic = await _topicsRepository.update(
         id: event.id,
         item: topicToRestore.copyWith(status: ContentStatus.active),
       );
+      emit(state.copyWith(restoredTopic: restoredTopic));
     } on HttpException catch (e) {
       emit(state.copyWith(topics: originalTopics, exception: e));
     } catch (e) {
