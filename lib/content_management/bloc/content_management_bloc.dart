@@ -55,6 +55,26 @@ class ContentManagementBloc
   final DataRepository<Language> _languagesRepository;
   final ThrottledFetchingService _fetchingService;
 
+  /// Handles the pre-fetching of shared data required for the content
+  /// management section.
+  ///
+  /// **Strategy Rationale (The "Why"):**
+  /// This pre-fetching strategy is a direct result of a UI component choice
+  /// made to preserve visual consistency across the application. The standard
+  /// `DropdownButtonFormField` is used for selection fields in forms.
+  /// A key limitation of this widget is its lack of native support for
+  /// on-scroll pagination or dynamic data loading.
+  ///
+  /// To work around this, and to ensure a seamless user experience without
+  /// loading delays when a form is opened, we must load the entire dataset
+  /// for these dropdowns (e.g., all countries, all languages) into the state
+  /// ahead of time.
+  ///
+  /// **Implementation (The "How"):**
+  /// To execute this pre-fetch efficiently, this handler utilizes the
+  /// `ThrottledFetchingService`. This service fetches all pages of a given
+  /// resource in parallel, which dramatically reduces the load time compared
+  /// to fetching them sequentially, making the upfront data load manageable.
   Future<void> _onSharedDataRequested(
     SharedDataRequested event,
     Emitter<ContentManagementState> emit,
