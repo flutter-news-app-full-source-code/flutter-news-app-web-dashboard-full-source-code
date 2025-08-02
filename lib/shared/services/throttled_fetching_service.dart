@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_instance_creation
+
 import 'dart:async';
 
 import 'package:core/core.dart';
@@ -22,16 +24,17 @@ class ThrottledFetchingService {
   /// Fetches all items of type [T] from the provided [repository].
   ///
   /// It fetches pages in parallel batches to optimize loading time without
-  /// overwhelming the server.
+  /// overwhelming the server. It includes a configurable delay between
+  /// requests to act as a good API citizen.
   ///
   /// - [repository]: The data repository to fetch from.
   /// - [sort]: The sorting options for the query.
-  /// - [batchSize]: The number of pages to fetch in each concurrent batch.
-  ///   Defaults to 5.
+  /// - [delayBetweenRequests]: The duration to wait between fetching pages.
+  ///   Defaults to 200 milliseconds.
   Future<List<T>> fetchAll<T>({
     required DataRepository<T> repository,
     required List<SortOption> sort,
-    int batchSize = 5,
+    Duration delayBetweenRequests = const Duration(milliseconds: 200),
   }) async {
     final allItems = <T>[];
     String? cursor;
@@ -51,6 +54,9 @@ class ThrottledFetchingService {
     // misbehaving API by also checking if the cursor is null, which would
     // otherwise cause an infinite loop by re-fetching the first page.
     while (hasMore && cursor != null) {
+      // Introduce a delay to avoid overwhelming the server.
+      await Future.delayed(delayBetweenRequests);
+
       final response = await repository.readAll(
         sort: sort,
         pagination: PaginationOptions(cursor: cursor),
