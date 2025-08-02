@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/archived_topics/archived_topics_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -32,7 +31,7 @@ class _ArchivedTopicsView extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.archivedTopics), //TODO(you): Localize this string
+        title: Text(l10n.archivedTopics), // TODO(you): Localize this string
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -42,7 +41,7 @@ class _ArchivedTopicsView extends StatelessWidget {
                 state.topics.isEmpty) {
               return LoadingStateWidget(
                 icon: Icons.topic,
-                headline: l10n.loadingArchivedTopics, //TODO(you): Localize this string
+                headline: l10n.loadingArchivedTopics, // TODO(you): Localize this string
                 subheadline: l10n.pleaseWait,
               );
             }
@@ -59,7 +58,7 @@ class _ArchivedTopicsView extends StatelessWidget {
             }
 
             if (state.topics.isEmpty) {
-              return Center(child: Text(l10n.noArchivedTopicsFound)); //TODO(you): Localize this string
+              return Center(child: Text(l10n.noArchivedTopicsFound)); // TODO(you): Localize this string
             }
 
             return Column(
