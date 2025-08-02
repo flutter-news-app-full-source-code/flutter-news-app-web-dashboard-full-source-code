@@ -32,6 +32,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
+    on<EditSourceDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -194,5 +195,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         ),
       );
     }
+  }
+
+  void _onDataUpdated(
+    EditSourceDataUpdated event,
+    Emitter<EditSourceState> emit,
+  ) {
+    emit(state.copyWith(countries: event.countries, languages: event.languages));
   }
 }
