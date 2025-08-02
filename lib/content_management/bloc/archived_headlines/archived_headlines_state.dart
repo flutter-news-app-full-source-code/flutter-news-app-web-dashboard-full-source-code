@@ -17,6 +17,7 @@ class ArchivedHeadlinesState extends Equatable {
     this.hasMore = false,
     this.exception,
     this.restoredHeadline,
+    this.lastDeletedHeadline,
   });
 
   final ArchivedHeadlinesStatus status;
@@ -25,6 +26,7 @@ class ArchivedHeadlinesState extends Equatable {
   final bool hasMore;
   final HttpException? exception;
   final Headline? restoredHeadline;
+  final Headline? lastDeletedHeadline;
 
   ArchivedHeadlinesState copyWith({
     ArchivedHeadlinesStatus? status,
@@ -33,24 +35,27 @@ class ArchivedHeadlinesState extends Equatable {
     bool? hasMore,
     HttpException? exception,
     Headline? restoredHeadline,
+    Headline? lastDeletedHeadline,
   }) {
     return ArchivedHeadlinesState(
       status: status ?? this.status,
       headlines: headlines ?? this.headlines,
       cursor: cursor ?? this.cursor,
       hasMore: hasMore ?? this.hasMore,
-      exception: exception ?? this.exception,
+      exception: exception,
       restoredHeadline: restoredHeadline,
+      lastDeletedHeadline: lastDeletedHeadline,
     );
   }
 
   @override
   List<Object?> get props => [
-    status,
-    headlines,
-    cursor,
-    hasMore,
-    exception,
-    restoredHeadline,
-  ];
+        status,
+        headlines,
+        cursor,
+        hasMore,
+        exception,
+        restoredHeadline,
+        lastDeletedHeadline,
+      ];
 }

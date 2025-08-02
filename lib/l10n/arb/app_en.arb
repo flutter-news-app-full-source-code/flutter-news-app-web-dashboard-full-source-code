@@ -1080,8 +1080,7 @@
   "feedActionTypeEnableNotifications": "Enable Notifications",
   "@feedActionTypeEnableNotifications": {
     "description": "Feed action type for enabling notifications"
-  }
-  ,
+  },
   "countryPickerSearchLabel": "Search",
   "@countryPickerSearchLabel": {
     "description": "Label for the search input in the country picker"
@@ -1149,5 +1148,16 @@
   "archive": "Archive",
   "@archive": {
     "description": "Tooltip for the archive button"
-  }
+  },
+  "headlineDeleted": "Deleted ''{title}''.",
+  "@headlineDeleted": {
+    "description": "Snackbar message when a headline is deleted",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Breaking News"
+      }
+    }
+  },
+  "undo": "Undo"
 }

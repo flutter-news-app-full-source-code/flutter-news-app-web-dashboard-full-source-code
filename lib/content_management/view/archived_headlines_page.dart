@@ -7,6 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -38,14 +39,34 @@ class _ArchivedHeadlinesView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: BlocListener<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
           listenWhen: (previous, current) =>
-              previous.status != current.status ||
+              previous.lastDeletedHeadline != current.lastDeletedHeadline ||
               previous.restoredHeadline != current.restoredHeadline,
           listener: (context, state) {
-            if (state.status == ArchivedHeadlinesStatus.success &&
-                state.restoredHeadline != null) {
+            if (state.restoredHeadline != null) {
               context.read<ContentManagementBloc>().add(
                 const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
               );
+            }
+            if (state.lastDeletedHeadline != null) {
+              final truncatedTitle =
+                  state.lastDeletedHeadline!.title.truncate(30);
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      l10n.headlineDeleted(truncatedTitle),
+                    ),
+                    action: SnackBarAction(
+                      label: l10n.undo,
+                      onPressed: () {
+                        context
+                            .read<ArchivedHeadlinesBloc>()
+                            .add(const UndoDeleteHeadlineRequested());
+                      },
+                    ),
+                  ),
+                );
             }
           },
           child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(

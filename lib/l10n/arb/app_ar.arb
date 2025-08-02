@@ -1148,6 +1148,17 @@
   },
   "archive": "أرشفة",
   "@archive": {
-    "description": "تلميح لزر الأرشفة"
-  }
+    "description": "تلميح لأرشفة زر"
+  },
+  "headlineDeleted": "تم حذف ''{title}''.",
+  "@headlineDeleted": {
+    "description": "رسالة Snackbar عند حذف عنوان",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "عاجل"
+      }
+    }
+  },
+  "undo": "تراجع"
 }
