@@ -31,7 +31,7 @@ class _ArchivedSourcesView extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Archived Sources'), // TODO(you): Will be fixed in l10n phase.
+        title: Text(l10n.archivedSources),
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -41,7 +41,7 @@ class _ArchivedSourcesView extends StatelessWidget {
                 state.sources.isEmpty) {
               return LoadingStateWidget(
                 icon: Icons.source,
-                headline: 'Loading Archived Sources', // TODO(you): Will be fixed in l10n phase.
+                headline: l10n.loadingArchivedSources,
                 subheadline: l10n.pleaseWait,
               );
             }
@@ -58,7 +58,7 @@ class _ArchivedSourcesView extends StatelessWidget {
             }
 
             if (state.sources.isEmpty) {
-              return const Center(child: Text('No archived sources found.')); // TODO(you): Will be fixed in l10n phase.
+              return Center(child: Text(l10n.noArchivedSourcesFound));
             }
 
             return Column(
