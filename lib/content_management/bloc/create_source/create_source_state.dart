@@ -30,13 +30,7 @@ final class CreateSourceState extends Equatable {
     this.language,
     this.headquarters,
     this.countries = const [],
-    this.countriesHasMore = true,
-    this.countriesIsLoadingMore = false,
-    this.countriesCursor,
     this.languages = const [],
-    this.languagesHasMore = true,
-    this.languagesIsLoadingMore = false,
-    this.languagesCursor,
     this.contentStatus = ContentStatus.active,
     this.exception,
     this.createdSource,
@@ -50,13 +44,7 @@ final class CreateSourceState extends Equatable {
   final Language? language;
   final Country? headquarters;
   final List<Country> countries;
-  final bool countriesHasMore;
-  final bool countriesIsLoadingMore;
-  final String? countriesCursor;
   final List<Language> languages;
-  final bool languagesHasMore;
-  final bool languagesIsLoadingMore;
-  final String? languagesCursor;
   final ContentStatus contentStatus;
   final HttpException? exception;
   final Source? createdSource;
@@ -79,13 +67,7 @@ final class CreateSourceState extends Equatable {
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
     List<Country>? countries,
-    bool? countriesHasMore,
-    bool? countriesIsLoadingMore,
-    String? countriesCursor,
     List<Language>? languages,
-    bool? languagesHasMore,
-    bool? languagesIsLoadingMore,
-    String? languagesCursor,
     ContentStatus? contentStatus,
     HttpException? exception,
     Source? createdSource,
@@ -99,15 +81,7 @@ final class CreateSourceState extends Equatable {
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
       countries: countries ?? this.countries,
-      countriesHasMore: countriesHasMore ?? this.countriesHasMore,
-      countriesIsLoadingMore:
-          countriesIsLoadingMore ?? this.countriesIsLoadingMore,
-      countriesCursor: countriesCursor ?? this.countriesCursor,
       languages: languages ?? this.languages,
-      languagesHasMore: languagesHasMore ?? this.languagesHasMore,
-      languagesIsLoadingMore:
-          languagesIsLoadingMore ?? this.languagesIsLoadingMore,
-      languagesCursor: languagesCursor ?? this.languagesCursor,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       createdSource: createdSource ?? this.createdSource,
@@ -124,13 +98,7 @@ final class CreateSourceState extends Equatable {
     language,
     headquarters,
     countries,
-    countriesHasMore,
-    countriesIsLoadingMore,
-    countriesCursor,
     languages,
-    languagesHasMore,
-    languagesIsLoadingMore,
-    languagesCursor,
     contentStatus,
     exception,
     createdSource,

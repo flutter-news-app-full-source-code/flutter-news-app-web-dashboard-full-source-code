@@ -21,12 +21,19 @@ class CreateSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The lists of all countries and languages are fetched once and cached in
+    // the ContentManagementBloc. We read them here and provide them to the
+    // CreateSourceBloc.
+    final contentManagementState = context.read<ContentManagementBloc>().state;
+    final allCountries = contentManagementState.allCountries;
+    final allLanguages = contentManagementState.allLanguages;
+
     return BlocProvider(
       create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
-        languagesRepository: context.read<DataRepository<Language>>(),
-      )..add(const CreateSourceDataLoaded()),
+        countries: allCountries,
+        languages: allLanguages,
+      ),
       child: const _CreateSourceView(),
     );
   }
@@ -114,9 +121,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           if (state.status == CreateSourceStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context.read<CreateSourceBloc>().add(
-                const CreateSourceDataLoaded(),
-              ),
+              onRetry: () => context
+                  .read<ContentManagementBloc>()
+                  .add(const SharedDataRequested()),
             );
           }
 
@@ -167,9 +174,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.language,
                         border: const OutlineInputBorder(),
-                        helperText: state.languagesIsLoadingMore
-                            ? l10n.loadingFullList
-                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -180,11 +184,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: state.languagesIsLoadingMore
-                          ? null
-                          : (value) => context.read<CreateSourceBloc>().add(
-                              CreateSourceLanguageChanged(value),
-                            ),
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceLanguageChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<SourceType?>(
@@ -212,9 +214,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       decoration: InputDecoration(
                         labelText: l10n.headquarters,
                         border: const OutlineInputBorder(),
-                        helperText: state.countriesIsLoadingMore
-                            ? l10n.loadingFullList
-                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -241,11 +240,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: state.countriesIsLoadingMore
-                          ? null
-                          : (value) => context.read<CreateSourceBloc>().add(
-                              CreateSourceHeadquartersChanged(value),
-                            ),
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceHeadquartersChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
