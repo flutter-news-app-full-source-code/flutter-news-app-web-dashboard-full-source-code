@@ -27,8 +27,8 @@ class _TopicPageState extends State<TopicPage> {
   void initState() {
     super.initState();
     context.read<ContentManagementBloc>().add(
-      const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-    );
+          const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+        );
   }
 
   @override
@@ -51,8 +51,8 @@ class _TopicPageState extends State<TopicPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-              ),
+                    const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+                  ),
             );
           }
 
@@ -60,47 +60,61 @@ class _TopicPageState extends State<TopicPage> {
             return Center(child: Text(l10n.noTopicsFound));
           }
 
-          return PaginatedDataTable2(
-            columns: [
-              DataColumn2(label: Text(l10n.topicName), size: ColumnSize.L),
-              DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
-              DataColumn2(label: Text(l10n.lastUpdated), size: ColumnSize.M),
-              DataColumn2(
-                label: Text(l10n.actions),
-                size: ColumnSize.S,
-                fixedWidth: 120,
+          return Column(
+            children: [
+              if (state.topicsStatus == ContentManagementStatus.loading &&
+                  state.topics.isNotEmpty)
+                const LinearProgressIndicator(),
+              Expanded(
+                child: PaginatedDataTable2(
+                  columns: [
+                    DataColumn2(
+                      label: Text(l10n.topicName),
+                      size: ColumnSize.L,
+                    ),
+                    DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
+                    DataColumn2(
+                      label: Text(l10n.lastUpdated),
+                      size: ColumnSize.M,
+                    ),
+                    DataColumn2(
+                      label: Text(l10n.actions),
+                      size: ColumnSize.S,
+                      fixedWidth: 120,
+                    ),
+                  ],
+                  source: _TopicsDataSource(
+                    context: context,
+                    topics: state.topics,
+                    hasMore: state.topicsHasMore,
+                    l10n: l10n,
+                  ),
+                  rowsPerPage: kDefaultRowsPerPage,
+                  availableRowsPerPage: const [kDefaultRowsPerPage],
+                  onPageChanged: (pageIndex) {
+                    final newOffset = pageIndex * kDefaultRowsPerPage;
+                    if (newOffset >= state.topics.length &&
+                        state.topicsHasMore &&
+                        state.topicsStatus != ContentManagementStatus.loading) {
+                      context.read<ContentManagementBloc>().add(
+                            LoadTopicsRequested(
+                              startAfterId: state.topicsCursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                    }
+                  },
+                  empty: Center(child: Text(l10n.noTopicsFound)),
+                  showCheckboxColumn: false,
+                  showFirstLastButtons: true,
+                  fit: FlexFit.tight,
+                  headingRowHeight: 56,
+                  dataRowHeight: 56,
+                  columnSpacing: AppSpacing.md,
+                  horizontalMargin: AppSpacing.md,
+                ),
               ),
             ],
-            source: _TopicsDataSource(
-              context: context,
-              topics: state.topics,
-              isLoading: state.topicsStatus == ContentManagementStatus.loading,
-              hasMore: state.topicsHasMore,
-              l10n: l10n,
-            ),
-            rowsPerPage: kDefaultRowsPerPage,
-            availableRowsPerPage: const [kDefaultRowsPerPage],
-            onPageChanged: (pageIndex) {
-              final newOffset = pageIndex * kDefaultRowsPerPage;
-              if (newOffset >= state.topics.length &&
-                  state.topicsHasMore &&
-                  state.topicsStatus != ContentManagementStatus.loading) {
-                context.read<ContentManagementBloc>().add(
-                  LoadTopicsRequested(
-                    startAfterId: state.topicsCursor,
-                    limit: kDefaultRowsPerPage,
-                  ),
-                );
-              }
-            },
-            empty: Center(child: Text(l10n.noTopicsFound)),
-            showCheckboxColumn: false,
-            showFirstLastButtons: true,
-            fit: FlexFit.tight,
-            headingRowHeight: 56,
-            dataRowHeight: 56,
-            columnSpacing: AppSpacing.md,
-            horizontalMargin: AppSpacing.md,
           );
         },
       ),
@@ -112,30 +126,18 @@ class _TopicsDataSource extends DataTableSource {
   _TopicsDataSource({
     required this.context,
     required this.topics,
-    required this.isLoading,
     required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
   final List<Topic> topics;
-  final bool isLoading;
   final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
     if (index >= topics.length) {
-      // This can happen if hasMore is true and the user is on the last page.
-      // If we are loading, show a spinner. Otherwise, we've reached the end.
-      if (isLoading) {
-        return DataRow2(
-          cells: List.generate(
-            4,
-            (_) => const DataCell(Center(child: CircularProgressIndicator())),
-          ),
-        );
-      }
       return null;
     }
     final topic = topics[index];
@@ -182,8 +184,8 @@ class _TopicsDataSource extends DataTableSource {
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    ArchiveTopicRequested(topic.id),
-                  );
+                        ArchiveTopicRequested(topic.id),
+                      );
                 },
               ),
             ],
@@ -198,16 +200,6 @@ class _TopicsDataSource extends DataTableSource {
 
   @override
   int get rowCount {
-    // If we have more items to fetch, we add 1 to the current length.
-    // This signals to PaginatedDataTable2 that there is at least one more page,
-    // which enables the 'next page' button.
-    if (hasMore) {
-      // When loading, we show an extra row for the spinner.
-      // Otherwise, we just indicate that there are more rows.
-      return isLoading
-          ? topics.length + 1
-          : topics.length + kDefaultRowsPerPage;
-    }
     return topics.length;
   }
 
