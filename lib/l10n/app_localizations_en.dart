@@ -921,4 +921,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get archive => 'Archive';
+
+  @override
+  String headlineDeleted(String title) {
+    return 'Deleted \'\'$title\'\'.';
+  }
+
+  @override
+  String get undo => 'Undo';
 }

@@ -922,4 +922,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get archive => 'أرشفة';
+
+  @override
+  String headlineDeleted(String title) {
+    return 'تم حذف \'\'$title\'\'.';
+  }
+
+  @override
+  String get undo => 'تراجع';
 }
