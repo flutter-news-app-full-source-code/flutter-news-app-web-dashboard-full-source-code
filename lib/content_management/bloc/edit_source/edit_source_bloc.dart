@@ -56,9 +56,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         _sourcesRepository.read(id: _sourceId),
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
+          filter: {'status': ContentStatus.active.name},
         ),
         _languagesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
+          filter: {'status': ContentStatus.active.name},
         ),
       ]);
 
