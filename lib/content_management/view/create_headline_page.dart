@@ -107,17 +107,17 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                   content: Text(state.exception!.toFriendlyMessage(context)),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
-              );
+            );
           }
         },
-          builder: (context, state) {
-            if (state.status == CreateHeadlineStatus.loading) {
-              return LoadingStateWidget(
-                icon: Icons.newspaper,
-                headline: l10n.loadingData,
-                subheadline: l10n.pleaseWait,
-              );
-            }
+        builder: (context, state) {
+          if (state.status == CreateHeadlineStatus.loading) {
+            return LoadingStateWidget(
+              icon: Icons.newspaper,
+              headline: l10n.loadingData,
+              subheadline: l10n.pleaseWait,
+            );
+          }
 
           if (state.status == CreateHeadlineStatus.failure &&
               state.sources.isEmpty &&
