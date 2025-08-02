@@ -23,12 +23,17 @@ class EditHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The list of all countries is fetched once and cached in the
+    // ContentManagementBloc. We read it here and provide it to the
+    // EditHeadlineBloc.
+    final allCountries =
+        context.read<ContentManagementBloc>().state.allCountries;
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
-        countriesRepository: context.read<DataRepository<Country>>(),
+        countries: allCountries,
         headlineId: headlineId,
       )..add(const EditHeadlineLoaded()),
       child: const _EditHeadlineView(),
@@ -288,9 +293,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       decoration: InputDecoration(
                         labelText: l10n.countryName,
                         border: const OutlineInputBorder(),
-                        helperText: state.countriesIsLoadingMore
-                            ? l10n.loadingFullList
-                            : null,
                       ),
                       items: [
                         DropdownMenuItem(value: null, child: Text(l10n.none)),
@@ -317,11 +319,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           ),
                         ),
                       ],
-                      onChanged: state.countriesIsLoadingMore
-                          ? null
-                          : (value) => context.read<EditHeadlineBloc>().add(
-                              EditHeadlineCountryChanged(value),
-                            ),
+                      onChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineCountryChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
