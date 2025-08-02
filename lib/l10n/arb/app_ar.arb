@@ -1093,5 +1093,25 @@
   "countryPickerSelectCountryLabel": "اختر دولة",
   "@countryPickerSelectCountryLabel": {
     "description": "التسمية المعروضة عند عدم اختيار أي دولة في حقل نموذج منتقي البلد"
+  },
+  "archivedHeadlines": "العناوين المؤرشفة",
+  "@archivedHeadlines": {
+    "description": "عنوان صفحة العناوين المؤرشفة"
+  },
+  "loadingArchivedHeadlines": "جاري تحميل العناوين المؤرشفة",
+  "@loadingArchivedHeadlines": {
+    "description": "عنوان حالة تحميل العناوين المؤرشفة"
+  },
+  "noArchivedHeadlinesFound": "لم يتم العثور على عناوين مؤرشفة.",
+  "@noArchivedHeadlinesFound": {
+    "description": "رسالة عند عدم العثور على عناوين مؤرشفة"
+  },
+  "restore": "استعادة",
+  "@restore": {
+    "description": "تلميح لزر الاستعادة"
+  },
+  "deleteForever": "حذف نهائي",
+  "@deleteForever": {
+    "description": "تلميح لزر الحذف النهائي"
   }
 }

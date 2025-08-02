@@ -880,4 +880,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get countryPickerSelectCountryLabel => 'اختر دولة';
+
+  @override
+  String get archivedHeadlines => 'العناوين المؤرشفة';
+
+  @override
+  String get loadingArchivedHeadlines => 'جاري تحميل العناوين المؤرشفة';
+
+  @override
+  String get noArchivedHeadlinesFound => 'لم يتم العثور على عناوين مؤرشفة.';
+
+  @override
+  String get restore => 'استعادة';
+
+  @override
+  String get deleteForever => 'حذف نهائي';
 }
