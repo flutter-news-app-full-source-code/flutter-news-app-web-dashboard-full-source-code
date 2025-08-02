@@ -19,18 +19,12 @@ class CreateHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The list of all countries is fetched once and cached in the
-    // ContentManagementBloc. We read it here and provide it to the
-    // CreateHeadlineBloc.
-    final contentManagementState = context.watch<ContentManagementBloc>().state;
-    final allCountries = contentManagementState.allCountries;
-
     return BlocProvider(
       create: (context) => CreateHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
         topicsRepository: context.read<DataRepository<Topic>>(),
-        countries: allCountries,
+        countries: context.read<ContentManagementBloc>().state.allCountries,
       )..add(const CreateHeadlineDataLoaded()),
       child: const _CreateHeadlineView(),
     );
@@ -79,12 +73,21 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
           ),
         ],
       ),
-      body: BlocConsumer<CreateHeadlineBloc, CreateHeadlineState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          if (state.status == CreateHeadlineStatus.success &&
-              state.createdHeadline != null &&
-              ModalRoute.of(context)!.isCurrent) {
+      body: BlocListener<ContentManagementBloc, ContentManagementState>(
+        listenWhen: (previous, current) =>
+            previous.allCountriesStatus != current.allCountriesStatus &&
+            current.allCountriesStatus == ContentManagementStatus.success,
+        listener: (context, contentState) {
+          context.read<CreateHeadlineBloc>().add(
+                CreateHeadlineDataUpdated(countries: contentState.allCountries),
+              );
+        },
+        child: BlocConsumer<CreateHeadlineBloc, CreateHeadlineState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            if (state.status == CreateHeadlineStatus.success &&
+                state.createdHeadline != null &&
+                ModalRoute.of(context)!.isCurrent) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -107,14 +110,14 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               );
           }
         },
-        builder: (context, state) {
-          if (state.status == CreateHeadlineStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.newspaper,
-              headline: l10n.loadingData,
-              subheadline: l10n.pleaseWait,
-            );
-          }
+          builder: (context, state) {
+            if (state.status == CreateHeadlineStatus.loading) {
+              return LoadingStateWidget(
+                icon: Icons.newspaper,
+                headline: l10n.loadingData,
+                subheadline: l10n.pleaseWait,
+              );
+            }
 
           if (state.status == CreateHeadlineStatus.failure &&
               state.sources.isEmpty &&
