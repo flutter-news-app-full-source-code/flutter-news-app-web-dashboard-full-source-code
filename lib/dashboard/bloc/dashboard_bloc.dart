@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
@@ -12,14 +15,36 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc({
     required DataRepository<DashboardSummary> dashboardSummaryRepository,
     required DataRepository<Headline> headlinesRepository,
-  }) : _dashboardSummaryRepository = dashboardSummaryRepository,
-       _headlinesRepository = headlinesRepository,
-       super(const DashboardState()) {
+    required DataRepository<Topic> topicsRepository,
+    required DataRepository<Source> sourcesRepository,
+  })  : _dashboardSummaryRepository = dashboardSummaryRepository,
+        _headlinesRepository = headlinesRepository,
+        super(const DashboardState()) {
     on<DashboardSummaryLoaded>(_onDashboardSummaryLoaded);
+    on<_DashboardEntityUpdated>(_onDashboardEntityUpdated);
+
+    _entityUpdatedSubscription = headlinesRepository.entityUpdated
+        .merge(topicsRepository.entityUpdated)
+        .merge(sourcesRepository.entityUpdated)
+        .listen((_) => add(const _DashboardEntityUpdated()));
   }
 
   final DataRepository<DashboardSummary> _dashboardSummaryRepository;
   final DataRepository<Headline> _headlinesRepository;
+  late final StreamSubscription<void> _entityUpdatedSubscription;
+
+  @override
+  Future<void> close() {
+    _entityUpdatedSubscription.cancel();
+    return super.close();
+  }
+
+  void _onDashboardEntityUpdated(
+    _DashboardEntityUpdated event,
+    Emitter<DashboardState> emit,
+  ) {
+    add(DashboardSummaryLoaded());
+  }
 
   Future<void> _onDashboardSummaryLoaded(
     DashboardSummaryLoaded event,
