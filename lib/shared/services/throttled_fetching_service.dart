@@ -4,19 +4,16 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 
 /// {@template throttled_fetching_service}
-/// A service that provides a robust mechanism for fetching all items from a
-/// paginated data source.
+/// A service that provides a robust and efficient mechanism for fetching all
+/// items from a paginated data source.
 ///
-/// The DropdownButtonFormField widget in Flutter does not natively support
-/// on-scroll pagination. To ensure a good user experience and preserve UI
-/// consistency, it's often necessary to load the entire list of options
-/// upfront. However, fetching all pages sequentially can be slow, and fetching
-/// all pages in parallel can overwhelm the server.
+/// In scenarios where an entire dataset is needed upfront (e.g., for populating
+/// dropdowns, client-side searching, or when UI components don't support
+/// on-scroll pagination), this service offers an optimized solution.
 ///
-/// This service solves that problem by implementing a throttled, parallel
-/// fetching strategy. It fetches data in controlled, concurrent batches,
-/// providing a significant performance improvement over sequential fetching
-/// while remaining respectful of server resources.
+/// It fetches all pages from a repository, providing a significant performance
+/// improvement over fetching pages one by one, while avoiding the risk of
+/// overwhelming the server by fetching all pages at once.
 /// {@endtemplate}
 class ThrottledFetchingService {
   /// {@macro throttled_fetching_service}
