@@ -61,48 +61,66 @@ class _SourcesPageState extends State<SourcesPage> {
             return Center(child: Text(l10n.noSourcesFound));
           }
 
-          return PaginatedDataTable2(
-            columns: [
-              DataColumn2(label: Text(l10n.sourceName), size: ColumnSize.L),
-              DataColumn2(label: Text(l10n.sourceType), size: ColumnSize.M),
-              DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
-              DataColumn2(label: Text(l10n.lastUpdated), size: ColumnSize.M),
-              DataColumn2(
-                label: Text(l10n.actions),
-                size: ColumnSize.S,
-                fixedWidth: 120,
+          return Column(
+            children: [
+              if (state.sourcesStatus == ContentManagementStatus.loading &&
+                  state.sources.isNotEmpty)
+                const LinearProgressIndicator(),
+              Expanded(
+                child: PaginatedDataTable2(
+                  columns: [
+                    DataColumn2(
+                      label: Text(l10n.sourceName),
+                      size: ColumnSize.L,
+                    ),
+                    DataColumn2(
+                      label: Text(l10n.sourceType),
+                      size: ColumnSize.M,
+                    ),
+                    DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
+                    DataColumn2(
+                      label: Text(l10n.lastUpdated),
+                      size: ColumnSize.M,
+                    ),
+                    DataColumn2(
+                      label: Text(l10n.actions),
+                      size: ColumnSize.S,
+                      fixedWidth: 120,
+                    ),
+                  ],
+                  source: _SourcesDataSource(
+                    context: context,
+                    sources: state.sources,
+                    hasMore: state.sourcesHasMore,
+                    l10n: l10n,
+                  ),
+                  rowsPerPage: kDefaultRowsPerPage,
+                  availableRowsPerPage: const [kDefaultRowsPerPage],
+                  onPageChanged: (pageIndex) {
+                    final newOffset = pageIndex * kDefaultRowsPerPage;
+                    if (newOffset >= state.sources.length &&
+                        state.sourcesHasMore &&
+                        state.sourcesStatus !=
+                            ContentManagementStatus.loading) {
+                      context.read<ContentManagementBloc>().add(
+                            LoadSourcesRequested(
+                              startAfterId: state.sourcesCursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                    }
+                  },
+                  empty: Center(child: Text(l10n.noSourcesFound)),
+                  showCheckboxColumn: false,
+                  showFirstLastButtons: true,
+                  fit: FlexFit.tight,
+                  headingRowHeight: 56,
+                  dataRowHeight: 56,
+                  columnSpacing: AppSpacing.md,
+                  horizontalMargin: AppSpacing.md,
+                ),
               ),
             ],
-            source: _SourcesDataSource(
-              context: context,
-              sources: state.sources,
-              isLoading: state.sourcesStatus == ContentManagementStatus.loading,
-              hasMore: state.sourcesHasMore,
-              l10n: l10n,
-            ),
-            rowsPerPage: kDefaultRowsPerPage,
-            availableRowsPerPage: const [kDefaultRowsPerPage],
-            onPageChanged: (pageIndex) {
-              final newOffset = pageIndex * kDefaultRowsPerPage;
-              if (newOffset >= state.sources.length &&
-                  state.sourcesHasMore &&
-                  state.sourcesStatus != ContentManagementStatus.loading) {
-                context.read<ContentManagementBloc>().add(
-                  LoadSourcesRequested(
-                    startAfterId: state.sourcesCursor,
-                    limit: kDefaultRowsPerPage,
-                  ),
-                );
-              }
-            },
-            empty: Center(child: Text(l10n.noSourcesFound)),
-            showCheckboxColumn: false,
-            showFirstLastButtons: true,
-            fit: FlexFit.tight,
-            headingRowHeight: 56,
-            dataRowHeight: 56,
-            columnSpacing: AppSpacing.md,
-            horizontalMargin: AppSpacing.md,
           );
         },
       ),
@@ -114,29 +132,18 @@ class _SourcesDataSource extends DataTableSource {
   _SourcesDataSource({
     required this.context,
     required this.sources,
-    required this.isLoading,
     required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
   final List<Source> sources;
-  final bool isLoading;
   final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
     if (index >= sources.length) {
-      // This can happen if hasMore is true and the user is on the last page.
-      // If we are loading, show a spinner. Otherwise, we've reached the end.
-      if (isLoading) {
-        return DataRow2(
-          cells: List.generate(5, (_) {
-            return const DataCell(Center(child: CircularProgressIndicator()));
-          }),
-        );
-      }
       return null;
     }
     final source = sources[index];
@@ -184,8 +191,8 @@ class _SourcesDataSource extends DataTableSource {
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    ArchiveSourceRequested(source.id),
-                  );
+                        ArchiveSourceRequested(source.id),
+                      );
                 },
               ),
             ],
@@ -200,16 +207,6 @@ class _SourcesDataSource extends DataTableSource {
 
   @override
   int get rowCount {
-    // If we have more items to fetch, we add 1 to the current length.
-    // This signals to PaginatedDataTable2 that there is at least one more page,
-    // which enables the 'next page' button.
-    if (hasMore) {
-      // When loading, we show an extra row for the spinner.
-      // Otherwise, we just indicate that there are more rows.
-      return isLoading
-          ? sources.length + 1
-          : sources.length + kDefaultRowsPerPage;
-    }
     return sources.length;
   }
 
