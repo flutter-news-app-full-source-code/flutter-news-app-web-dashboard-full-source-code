@@ -33,6 +33,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         _headlinesRepository.readAll(
           pagination: const PaginationOptions(limit: 5),
           sort: const [SortOption('updatedAt', SortOrder.desc)],
+          filter: {'status': ContentStatus.active.name},
         ),
       ]);
 
