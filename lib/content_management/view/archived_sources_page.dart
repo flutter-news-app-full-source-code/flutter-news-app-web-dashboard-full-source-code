@@ -3,79 +3,75 @@ import 'package:data_repository/data_repository.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/archived_headlines/archived_headlines_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/archived_sources/archived_sources_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class ArchivedHeadlinesPage extends StatelessWidget {
-  const ArchivedHeadlinesPage({super.key});
+class ArchivedSourcesPage extends StatelessWidget {
+  const ArchivedSourcesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ArchivedHeadlinesBloc(
-        headlinesRepository: context.read<DataRepository<Headline>>(),
-      )..add(const LoadArchivedHeadlinesRequested(limit: kDefaultRowsPerPage)),
-      child: const _ArchivedHeadlinesView(),
+      create: (context) => ArchivedSourcesBloc(
+        sourcesRepository: context.read<DataRepository<Source>>(),
+      )..add(const LoadArchivedSourcesRequested(limit: kDefaultRowsPerPage)),
+      child: const _ArchivedSourcesView(),
     );
   }
 }
 
-class _ArchivedHeadlinesView extends StatelessWidget {
-  const _ArchivedHeadlinesView();
+class _ArchivedSourcesView extends StatelessWidget {
+  const _ArchivedSourcesView();
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.archivedHeadlines),
+        title: Text('Archived Sources'), // TODO(you): Will be fixed in l10n phase.
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
+        child: BlocBuilder<ArchivedSourcesBloc, ArchivedSourcesState>(
           builder: (context, state) {
-            if (state.status == ArchivedHeadlinesStatus.loading &&
-                state.headlines.isEmpty) {
+            if (state.status == ArchivedSourcesStatus.loading &&
+                state.sources.isEmpty) {
               return LoadingStateWidget(
-                icon: Icons.newspaper,
-                headline: l10n.loadingArchivedHeadlines,
+                icon: Icons.source,
+                headline: 'Loading Archived Sources', // TODO(you): Will be fixed in l10n phase.
                 subheadline: l10n.pleaseWait,
               );
             }
 
-            if (state.status == ArchivedHeadlinesStatus.failure) {
+            if (state.status == ArchivedSourcesStatus.failure) {
               return FailureStateWidget(
                 exception: state.exception!,
-                onRetry: () => context.read<ArchivedHeadlinesBloc>().add(
-                      const LoadArchivedHeadlinesRequested(
+                onRetry: () => context.read<ArchivedSourcesBloc>().add(
+                      const LoadArchivedSourcesRequested(
                         limit: kDefaultRowsPerPage,
                       ),
                     ),
               );
             }
 
-            if (state.headlines.isEmpty) {
-              return Center(child: Text(l10n.noArchivedHeadlinesFound));
+            if (state.sources.isEmpty) {
+              return Center(child: Text('No archived sources found.')); // TODO(you): Will be fixed in l10n phase.
             }
 
             return Column(
               children: [
-                if (state.status == ArchivedHeadlinesStatus.loading &&
-                    state.headlines.isNotEmpty)
+                if (state.status == ArchivedSourcesStatus.loading &&
+                    state.sources.isNotEmpty)
                   const LinearProgressIndicator(),
                 Expanded(
                   child: PaginatedDataTable2(
                     columns: [
                       DataColumn2(
-                        label: Text(l10n.headlineTitle),
-                        size: ColumnSize.L,
-                      ),
-                      DataColumn2(
                         label: Text(l10n.sourceName),
-                        size: ColumnSize.M,
+                        size: ColumnSize.L,
                       ),
                       DataColumn2(
                         label: Text(l10n.lastUpdated),
@@ -87,9 +83,9 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                         fixedWidth: 120,
                       ),
                     ],
-                    source: _HeadlinesDataSource(
+                    source: _SourcesDataSource(
                       context: context,
-                      headlines: state.headlines,
+                      sources: state.sources,
                       hasMore: state.hasMore,
                       l10n: l10n,
                     ),
@@ -97,18 +93,18 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                     availableRowsPerPage: const [kDefaultRowsPerPage],
                     onPageChanged: (pageIndex) {
                       final newOffset = pageIndex * kDefaultRowsPerPage;
-                      if (newOffset >= state.headlines.length &&
+                      if (newOffset >= state.sources.length &&
                           state.hasMore &&
-                          state.status != ArchivedHeadlinesStatus.loading) {
-                        context.read<ArchivedHeadlinesBloc>().add(
-                              LoadArchivedHeadlinesRequested(
+                          state.status != ArchivedSourcesStatus.loading) {
+                        context.read<ArchivedSourcesBloc>().add(
+                              LoadArchivedSourcesRequested(
                                 startAfterId: state.cursor,
                                 limit: kDefaultRowsPerPage,
                               ),
                             );
                       }
                     },
-                    empty: Center(child: Text(l10n.noHeadlinesFound)),
+                    empty: Center(child: Text(l10n.noSourcesFound)),
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
                     fit: FlexFit.tight,
@@ -127,38 +123,37 @@ class _ArchivedHeadlinesView extends StatelessWidget {
   }
 }
 
-class _HeadlinesDataSource extends DataTableSource {
-  _HeadlinesDataSource({
+class _SourcesDataSource extends DataTableSource {
+  _SourcesDataSource({
     required this.context,
-    required this.headlines,
+    required this.sources,
     required this.hasMore,
     required this.l10n,
   });
 
   final BuildContext context;
-  final List<Headline> headlines;
+  final List<Source> sources;
   final bool hasMore;
   final AppLocalizations l10n;
 
   @override
   DataRow? getRow(int index) {
-    if (index >= headlines.length) {
+    if (index >= sources.length) {
       return null;
     }
-    final headline = headlines[index];
+    final source = sources[index];
     return DataRow2(
       cells: [
         DataCell(
           Text(
-            headline.title,
+            source.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        DataCell(Text(headline.source.name)),
         DataCell(
           Text(
-            DateFormat('dd-MM-yyyy').format(headline.updatedAt.toLocal()),
+            DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),
           ),
         ),
         DataCell(
@@ -168,17 +163,8 @@ class _HeadlinesDataSource extends DataTableSource {
                 icon: const Icon(Icons.restore),
                 tooltip: l10n.restore,
                 onPressed: () {
-                  context.read<ArchivedHeadlinesBloc>().add(
-                        RestoreHeadlineRequested(headline.id),
-                      );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete_forever),
-                tooltip: l10n.deleteForever,
-                onPressed: () {
-                  context.read<ArchivedHeadlinesBloc>().add(
-                        DeleteHeadlineForeverRequested(headline.id),
+                  context.read<ArchivedSourcesBloc>().add(
+                        RestoreSourceRequested(source.id),
                       );
                 },
               ),
@@ -193,7 +179,7 @@ class _HeadlinesDataSource extends DataTableSource {
   bool get isRowCountApproximate => hasMore;
 
   @override
-  int get rowCount => headlines.length;
+  int get rowCount => sources.length;
 
   @override
   int get selectedRowCount => 0;
