@@ -186,7 +186,7 @@ class _HeadlinesDataSource extends DataTableSource {
               ),
               IconButton(
                 icon: const Icon(Icons.archive),
-                tooltip: 'Archive', // TODO(you): Will be fixed in l10n phase.
+                tooltip: l10n.archive,
                 onPressed: () {
                   context.read<ContentManagementBloc>().add(
                         ArchiveHeadlineRequested(headline.id),
