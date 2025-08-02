@@ -16,6 +16,7 @@ class ArchivedHeadlinesState extends Equatable {
     this.cursor,
     this.hasMore = false,
     this.exception,
+    this.restoredHeadline,
   });
 
   final ArchivedHeadlinesStatus status;
@@ -23,6 +24,7 @@ class ArchivedHeadlinesState extends Equatable {
   final String? cursor;
   final bool hasMore;
   final HttpException? exception;
+  final Headline? restoredHeadline;
 
   ArchivedHeadlinesState copyWith({
     ArchivedHeadlinesStatus? status,
@@ -30,6 +32,7 @@ class ArchivedHeadlinesState extends Equatable {
     String? cursor,
     bool? hasMore,
     HttpException? exception,
+    Headline? restoredHeadline,
   }) {
     return ArchivedHeadlinesState(
       status: status ?? this.status,
@@ -37,6 +40,7 @@ class ArchivedHeadlinesState extends Equatable {
       cursor: cursor ?? this.cursor,
       hasMore: hasMore ?? this.hasMore,
       exception: exception ?? this.exception,
+      restoredHeadline: restoredHeadline,
     );
   }
 
@@ -47,5 +51,6 @@ class ArchivedHeadlinesState extends Equatable {
         cursor,
         hasMore,
         exception,
+        restoredHeadline,
       ];
 }

@@ -75,10 +75,11 @@ class ArchivedHeadlinesBloc
     emit(state.copyWith(headlines: updatedHeadlines));
 
     try {
-      await _headlinesRepository.update(
+      final restoredHeadline = await _headlinesRepository.update(
         id: event.id,
         item: headlineToRestore.copyWith(status: ContentStatus.active),
       );
+      emit(state.copyWith(restoredHeadline: restoredHeadline));
     } on HttpException catch (e) {
       emit(state.copyWith(headlines: originalHeadlines, exception: e));
     } catch (e) {

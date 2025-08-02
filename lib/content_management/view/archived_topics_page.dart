@@ -4,6 +4,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/archived_topics/archived_topics_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:intl/intl.dart';
@@ -35,10 +37,21 @@ class _ArchivedTopicsView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: BlocBuilder<ArchivedTopicsBloc, ArchivedTopicsState>(
-          builder: (context, state) {
-            if (state.status == ArchivedTopicsStatus.loading &&
-                state.topics.isEmpty) {
+        child: BlocListener<ArchivedTopicsBloc, ArchivedTopicsState>(
+          listenWhen: (previous, current) =>
+              previous.restoredTopic != current.restoredTopic,
+          listener: (context, state) {
+            if (state.restoredTopic != null) {
+              context
+                  .read<ContentManagementBloc>()
+                  .add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
+              context.read<DashboardBloc>().add( DashboardSummaryLoaded());
+            }
+          },
+          child: BlocBuilder<ArchivedTopicsBloc, ArchivedTopicsState>(
+            builder: (context, state) {
+              if (state.status == ArchivedTopicsStatus.loading &&
+                  state.topics.isEmpty) {
               return LoadingStateWidget(
                 icon: Icons.topic,
                 headline: l10n.loadingArchivedTopics,
@@ -116,7 +129,8 @@ class _ArchivedTopicsView extends StatelessWidget {
                 ),
               ],
             );
-          },
+            },
+          ),
         ),
       ),
     );

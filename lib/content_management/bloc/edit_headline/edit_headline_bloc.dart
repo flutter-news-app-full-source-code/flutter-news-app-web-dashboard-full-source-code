@@ -55,9 +55,11 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         _headlinesRepository.read(id: _headlineId),
         _sourcesRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
+          filter: {'status': ContentStatus.active.name},
         ),
         _topicsRepository.readAll(
           sort: [const SortOption('updatedAt', SortOrder.desc)],
+          filter: {'status': ContentStatus.active.name},
         ),
       ]);
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
@@ -85,6 +86,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
               // Refresh the list to show the new topic
               const LoadTopicsRequested(limit: kDefaultRowsPerPage),
             );
+            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == CreateTopicStatus.failure) {

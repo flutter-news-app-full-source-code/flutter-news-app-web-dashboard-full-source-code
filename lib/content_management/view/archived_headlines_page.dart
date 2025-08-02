@@ -4,6 +4,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/archived_headlines/archived_headlines_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:intl/intl.dart';
@@ -35,16 +36,28 @@ class _ArchivedHeadlinesView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
-          builder: (context, state) {
-            if (state.status == ArchivedHeadlinesStatus.loading &&
-                state.headlines.isEmpty) {
-              return LoadingStateWidget(
-                icon: Icons.newspaper,
-                headline: l10n.loadingArchivedHeadlines,
-                subheadline: l10n.pleaseWait,
-              );
+        child: BlocListener<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
+          listenWhen: (previous, current) =>
+              previous.status != current.status ||
+              previous.restoredHeadline != current.restoredHeadline,
+          listener: (context, state) {
+            if (state.status == ArchivedHeadlinesStatus.success &&
+                state.restoredHeadline != null) {
+              context.read<ContentManagementBloc>().add(
+                    const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+                  );
             }
+          },
+          child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
+            builder: (context, state) {
+              if (state.status == ArchivedHeadlinesStatus.loading &&
+                  state.headlines.isEmpty) {
+                return LoadingStateWidget(
+                  icon: Icons.newspaper,
+                  headline: l10n.loadingArchivedHeadlines,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
 
             if (state.status == ArchivedHeadlinesStatus.failure) {
               return FailureStateWidget(
@@ -120,7 +133,8 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                 ),
               ],
             );
-          },
+            },
+          ),
         ),
       ),
     );
