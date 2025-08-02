@@ -150,7 +150,13 @@ class _SourcesDataSource extends DataTableSource {
         }
       },
       cells: [
-        DataCell(Text(source.name)),
+        DataCell(
+          Text(
+            source.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         DataCell(Text(source.sourceType.localizedName(l10n))),
         DataCell(Text(source.status.l10n(context))),
         DataCell(
