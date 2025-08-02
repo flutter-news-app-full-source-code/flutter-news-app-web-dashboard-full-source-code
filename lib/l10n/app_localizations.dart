@@ -1753,6 +1753,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Archive'**
   String get archive;
+
+  /// Snackbar message when a headline is deleted
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted \'\'{title}\'\'.'**
+  String headlineDeleted(String title);
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
 }
 
 class _AppLocalizationsDelegate

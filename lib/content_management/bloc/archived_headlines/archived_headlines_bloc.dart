@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
@@ -15,9 +17,18 @@ class ArchivedHeadlinesBloc
     on<LoadArchivedHeadlinesRequested>(_onLoadArchivedHeadlinesRequested);
     on<RestoreHeadlineRequested>(_onRestoreHeadlineRequested);
     on<DeleteHeadlineForeverRequested>(_onDeleteHeadlineForeverRequested);
+    on<UndoDeleteHeadlineRequested>(_onUndoDeleteHeadlineRequested);
+    on<_ConfirmDeleteHeadlineRequested>(_onConfirmDeleteHeadlineRequested);
   }
 
   final DataRepository<Headline> _headlinesRepository;
+  Timer? _deleteTimer;
+
+  @override
+  Future<void> close() {
+    _deleteTimer?.cancel();
+    return super.close();
+  }
 
   Future<void> _onLoadArchivedHeadlinesRequested(
     LoadArchivedHeadlinesRequested event,
@@ -96,22 +107,83 @@ class ArchivedHeadlinesBloc
     DeleteHeadlineForeverRequested event,
     Emitter<ArchivedHeadlinesState> emit,
   ) async {
-    final originalHeadlines = List<Headline>.from(state.headlines);
-    final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
+    _deleteTimer?.cancel();
+
+    final headlineIndex = state.headlines.indexWhere((h) => h.id == event.id);
     if (headlineIndex == -1) return;
 
-    final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
-    emit(state.copyWith(headlines: updatedHeadlines));
+    final headlineToDelete = state.headlines[headlineIndex];
+    final updatedHeadlines = List<Headline>.from(state.headlines)
+      ..removeAt(headlineIndex);
 
+    emit(
+      state.copyWith(
+        headlines: updatedHeadlines,
+        lastDeletedHeadline: headlineToDelete,
+      ),
+    );
+
+    _deleteTimer = Timer(
+      const Duration(seconds: 5),
+      () => add(_ConfirmDeleteHeadlineRequested(event.id)),
+    );
+  }
+
+  Future<void> _onConfirmDeleteHeadlineRequested(
+    _ConfirmDeleteHeadlineRequested event,
+    Emitter<ArchivedHeadlinesState> emit,
+  ) async {
     try {
       await _headlinesRepository.delete(id: event.id);
+      emit(state.copyWith(lastDeletedHeadline: null));
     } on HttpException catch (e) {
-      emit(state.copyWith(headlines: originalHeadlines, exception: e));
+      // If deletion fails, restore the headline to the list
+      final originalHeadlines = List<Headline>.from(state.headlines)
+        ..add(state.lastDeletedHeadline!);
+      emit(
+        state.copyWith(
+          headlines: originalHeadlines,
+          exception: e,
+          lastDeletedHeadline: null,
+        ),
+      );
     } catch (e) {
+      final originalHeadlines = List<Headline>.from(state.headlines)
+        ..add(state.lastDeletedHeadline!);
       emit(
         state.copyWith(
           headlines: originalHeadlines,
           exception: UnknownException('An unexpected error occurred: $e'),
+          lastDeletedHeadline: null,
+        ),
+      );
+    }
+  }
+
+  void _onUndoDeleteHeadlineRequested(
+    UndoDeleteHeadlineRequested event,
+    Emitter<ArchivedHeadlinesState> emit,
+  ) {
+    _deleteTimer?.cancel();
+    if (state.lastDeletedHeadline != null) {
+      final updatedHeadlines = List<Headline>.from(state.headlines)
+        ..insert(
+          state.headlines.indexWhere(
+                (h) =>
+                    h.updatedAt.isBefore(state.lastDeletedHeadline!.updatedAt),
+              ) !=
+              -1
+              ? state.headlines.indexWhere(
+                  (h) =>
+                      h.updatedAt.isBefore(state.lastDeletedHeadline!.updatedAt),
+                )
+              : state.headlines.length,
+          state.lastDeletedHeadline!,
+        );
+      emit(
+        state.copyWith(
+          headlines: updatedHeadlines,
+          lastDeletedHeadline: null,
         ),
       );
     }
