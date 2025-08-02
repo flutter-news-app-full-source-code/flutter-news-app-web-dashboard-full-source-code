@@ -44,6 +44,12 @@ abstract final class Routes {
   /// The name for the content management section route.
   static const String contentManagementName = 'contentManagement';
 
+  /// The path for the archived content page.
+  static const String archivedContent = 'archived-content';
+
+  /// The name for the archived content page route.
+  static const String archivedContentName = 'archivedContent';
+
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
