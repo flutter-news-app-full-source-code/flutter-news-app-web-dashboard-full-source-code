@@ -114,7 +114,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
             context.read<ContentManagementBloc>().add(
               const LoadSourcesRequested(limit: kDefaultRowsPerPage),
             );
-            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == EditSourceStatus.failure) {

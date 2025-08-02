@@ -89,7 +89,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               // Refresh the list to show the new headline
               const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
             );
-            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == CreateHeadlineStatus.failure) {

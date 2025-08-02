@@ -117,7 +117,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             context.read<ContentManagementBloc>().add(
               const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
             );
-            context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             context.pop();
           }
           if (state.status == EditHeadlineStatus.failure) {

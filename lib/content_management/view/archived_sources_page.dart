@@ -45,7 +45,6 @@ class _ArchivedSourcesView extends StatelessWidget {
               context.read<ContentManagementBloc>().add(
                     const LoadSourcesRequested(limit: kDefaultRowsPerPage),
                   );
-              context.read<DashboardBloc>().add(DashboardSummaryLoaded());
             }
           },
           child: BlocBuilder<ArchivedSourcesBloc, ArchivedSourcesState>(
