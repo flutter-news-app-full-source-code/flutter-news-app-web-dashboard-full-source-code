@@ -103,11 +103,11 @@ class _SourcesPageState extends State<SourcesPage> {
                         state.sourcesStatus !=
                             ContentManagementStatus.loading) {
                       context.read<ContentManagementBloc>().add(
-                            LoadSourcesRequested(
-                              startAfterId: state.sourcesCursor,
-                              limit: kDefaultRowsPerPage,
-                            ),
-                          );
+                        LoadSourcesRequested(
+                          startAfterId: state.sourcesCursor,
+                          limit: kDefaultRowsPerPage,
+                        ),
+                      );
                     }
                   },
                   empty: Center(child: Text(l10n.noSourcesFound)),
@@ -191,8 +191,8 @@ class _SourcesDataSource extends DataTableSource {
                 onPressed: () {
                   // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                        ArchiveSourceRequested(source.id),
-                      );
+                    ArchiveSourceRequested(source.id),
+                  );
                 },
               ),
             ],

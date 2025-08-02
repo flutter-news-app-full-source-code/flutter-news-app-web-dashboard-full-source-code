@@ -42,91 +42,91 @@ class _ArchivedSourcesView extends StatelessWidget {
           listener: (context, state) {
             if (state.restoredSource != null) {
               context.read<ContentManagementBloc>().add(
-                    const LoadSourcesRequested(limit: kDefaultRowsPerPage),
-                  );
+                const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+              );
             }
           },
           child: BlocBuilder<ArchivedSourcesBloc, ArchivedSourcesState>(
             builder: (context, state) {
               if (state.status == ArchivedSourcesStatus.loading &&
                   state.sources.isEmpty) {
-              return LoadingStateWidget(
-                icon: Icons.source,
-                headline: l10n.loadingArchivedSources,
-                subheadline: l10n.pleaseWait,
-              );
-            }
+                return LoadingStateWidget(
+                  icon: Icons.source,
+                  headline: l10n.loadingArchivedSources,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
 
-            if (state.status == ArchivedSourcesStatus.failure) {
-              return FailureStateWidget(
-                exception: state.exception!,
-                onRetry: () => context.read<ArchivedSourcesBloc>().add(
-                      const LoadArchivedSourcesRequested(
-                        limit: kDefaultRowsPerPage,
-                      ),
+              if (state.status == ArchivedSourcesStatus.failure) {
+                return FailureStateWidget(
+                  exception: state.exception!,
+                  onRetry: () => context.read<ArchivedSourcesBloc>().add(
+                    const LoadArchivedSourcesRequested(
+                      limit: kDefaultRowsPerPage,
                     ),
-              );
-            }
-
-            if (state.sources.isEmpty) {
-              return Center(child: Text(l10n.noArchivedSourcesFound));
-            }
-
-            return Column(
-              children: [
-                if (state.status == ArchivedSourcesStatus.loading &&
-                    state.sources.isNotEmpty)
-                  const LinearProgressIndicator(),
-                Expanded(
-                  child: PaginatedDataTable2(
-                    columns: [
-                      DataColumn2(
-                        label: Text(l10n.sourceName),
-                        size: ColumnSize.L,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.lastUpdated),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.actions),
-                        size: ColumnSize.S,
-                        fixedWidth: 120,
-                      ),
-                    ],
-                    source: _SourcesDataSource(
-                      context: context,
-                      sources: state.sources,
-                      hasMore: state.hasMore,
-                      l10n: l10n,
-                    ),
-                    rowsPerPage: kDefaultRowsPerPage,
-                    availableRowsPerPage: const [kDefaultRowsPerPage],
-                    onPageChanged: (pageIndex) {
-                      final newOffset = pageIndex * kDefaultRowsPerPage;
-                      if (newOffset >= state.sources.length &&
-                          state.hasMore &&
-                          state.status != ArchivedSourcesStatus.loading) {
-                        context.read<ArchivedSourcesBloc>().add(
-                              LoadArchivedSourcesRequested(
-                                startAfterId: state.cursor,
-                                limit: kDefaultRowsPerPage,
-                              ),
-                            );
-                      }
-                    },
-                    empty: Center(child: Text(l10n.noSourcesFound)),
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    fit: FlexFit.tight,
-                    headingRowHeight: 56,
-                    dataRowHeight: 56,
-                    columnSpacing: AppSpacing.md,
-                    horizontalMargin: AppSpacing.md,
                   ),
-                ),
-              ],
-            );
+                );
+              }
+
+              if (state.sources.isEmpty) {
+                return Center(child: Text(l10n.noArchivedSourcesFound));
+              }
+
+              return Column(
+                children: [
+                  if (state.status == ArchivedSourcesStatus.loading &&
+                      state.sources.isNotEmpty)
+                    const LinearProgressIndicator(),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.sourceName),
+                          size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.M,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                          fixedWidth: 120,
+                        ),
+                      ],
+                      source: _SourcesDataSource(
+                        context: context,
+                        sources: state.sources,
+                        hasMore: state.hasMore,
+                        l10n: l10n,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.sources.length &&
+                            state.hasMore &&
+                            state.status != ArchivedSourcesStatus.loading) {
+                          context.read<ArchivedSourcesBloc>().add(
+                            LoadArchivedSourcesRequested(
+                              startAfterId: state.cursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noSourcesFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    ),
+                  ),
+                ],
+              );
             },
           ),
         ),
@@ -176,8 +176,8 @@ class _SourcesDataSource extends DataTableSource {
                 tooltip: l10n.restore,
                 onPressed: () {
                   context.read<ArchivedSourcesBloc>().add(
-                        RestoreSourceRequested(source.id),
-                      );
+                    RestoreSourceRequested(source.id),
+                  );
                 },
               ),
             ],

@@ -114,8 +114,8 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => DashboardBloc(
-              dashboardSummaryRepository:
-                  context.read<DataRepository<DashboardSummary>>(),
+              dashboardSummaryRepository: context
+                  .read<DataRepository<DashboardSummary>>(),
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),

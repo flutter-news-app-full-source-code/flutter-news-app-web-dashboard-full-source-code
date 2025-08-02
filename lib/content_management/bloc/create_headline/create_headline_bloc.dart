@@ -17,10 +17,10 @@ class CreateHeadlineBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
     required List<Country> countries,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        super(CreateHeadlineState(countries: countries)) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       super(CreateHeadlineState(countries: countries)) {
     on<CreateHeadlineDataLoaded>(_onDataLoaded);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);

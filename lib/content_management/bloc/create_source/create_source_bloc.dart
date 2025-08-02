@@ -15,13 +15,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     required DataRepository<Source> sourcesRepository,
     required List<Country> countries,
     required List<Language> languages,
-  })  : _sourcesRepository = sourcesRepository,
-        super(
-          CreateSourceState(
-            countries: countries,
-            languages: languages,
-          ),
-        ) {
+  }) : _sourcesRepository = sourcesRepository,
+       super(
+         CreateSourceState(
+           countries: countries,
+           languages: languages,
+         ),
+       ) {
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);

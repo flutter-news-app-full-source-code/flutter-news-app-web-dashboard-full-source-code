@@ -25,8 +25,10 @@ class EditHeadlinePage extends StatelessWidget {
     // The list of all countries is fetched once and cached in the
     // ContentManagementBloc. We read it here and provide it to the
     // EditHeadlineBloc.
-    final allCountries =
-        context.read<ContentManagementBloc>().state.allCountries;
+    final allCountries = context
+        .read<ContentManagementBloc>()
+        .state
+        .allCountries;
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),

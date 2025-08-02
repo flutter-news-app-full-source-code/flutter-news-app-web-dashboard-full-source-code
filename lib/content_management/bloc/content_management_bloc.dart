@@ -26,12 +26,12 @@ class ContentManagementBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-  })  : _headlinesRepository = headlinesRepository,
-        _topicsRepository = topicsRepository,
-        _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        super(const ContentManagementState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _topicsRepository = topicsRepository,
+       _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       super(const ContentManagementState()) {
     on<SharedDataRequested>(_onSharedDataRequested);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);

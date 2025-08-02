@@ -10,8 +10,8 @@ class ArchivedTopicsBloc
     extends Bloc<ArchivedTopicsEvent, ArchivedTopicsState> {
   ArchivedTopicsBloc({
     required DataRepository<Topic> topicsRepository,
-  })  : _topicsRepository = topicsRepository,
-        super(const ArchivedTopicsState()) {
+  }) : _topicsRepository = topicsRepository,
+       super(const ArchivedTopicsState()) {
     on<LoadArchivedTopicsRequested>(_onLoadArchivedTopicsRequested);
     on<RestoreTopicRequested>(_onRestoreTopicRequested);
   }

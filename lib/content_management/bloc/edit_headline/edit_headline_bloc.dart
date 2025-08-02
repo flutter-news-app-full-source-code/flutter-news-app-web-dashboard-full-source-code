@@ -16,11 +16,11 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     required DataRepository<Topic> topicsRepository,
     required List<Country> countries,
     required String headlineId,
-  })  : _headlinesRepository = headlinesRepository,
-        _sourcesRepository = sourcesRepository,
-        _topicsRepository = topicsRepository,
-        _headlineId = headlineId,
-        super(EditHeadlineState(countries: countries)) {
+  }) : _headlinesRepository = headlinesRepository,
+       _sourcesRepository = sourcesRepository,
+       _topicsRepository = topicsRepository,
+       _headlineId = headlineId,
+       super(EditHeadlineState(countries: countries)) {
     on<EditHeadlineLoaded>(_onLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);

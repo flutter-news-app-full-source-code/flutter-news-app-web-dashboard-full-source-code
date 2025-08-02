@@ -15,14 +15,14 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required List<Country> countries,
     required List<Language> languages,
     required String sourceId,
-  })  : _sourcesRepository = sourcesRepository,
-        _sourceId = sourceId,
-        super(
-          EditSourceState(
-            countries: countries,
-            languages: languages,
-          ),
-        ) {
+  }) : _sourcesRepository = sourcesRepository,
+       _sourceId = sourceId,
+       super(
+         EditSourceState(
+           countries: countries,
+           languages: languages,
+         ),
+       ) {
     on<EditSourceLoaded>(_onLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);

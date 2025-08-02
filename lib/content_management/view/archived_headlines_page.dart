@@ -44,8 +44,8 @@ class _ArchivedHeadlinesView extends StatelessWidget {
             if (state.status == ArchivedHeadlinesStatus.success &&
                 state.restoredHeadline != null) {
               context.read<ContentManagementBloc>().add(
-                    const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-                  );
+                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+              );
             }
           },
           child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
@@ -59,80 +59,80 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                 );
               }
 
-            if (state.status == ArchivedHeadlinesStatus.failure) {
-              return FailureStateWidget(
-                exception: state.exception!,
-                onRetry: () => context.read<ArchivedHeadlinesBloc>().add(
-                      const LoadArchivedHeadlinesRequested(
-                        limit: kDefaultRowsPerPage,
-                      ),
+              if (state.status == ArchivedHeadlinesStatus.failure) {
+                return FailureStateWidget(
+                  exception: state.exception!,
+                  onRetry: () => context.read<ArchivedHeadlinesBloc>().add(
+                    const LoadArchivedHeadlinesRequested(
+                      limit: kDefaultRowsPerPage,
                     ),
-              );
-            }
-
-            if (state.headlines.isEmpty) {
-              return Center(child: Text(l10n.noArchivedHeadlinesFound));
-            }
-
-            return Column(
-              children: [
-                if (state.status == ArchivedHeadlinesStatus.loading &&
-                    state.headlines.isNotEmpty)
-                  const LinearProgressIndicator(),
-                Expanded(
-                  child: PaginatedDataTable2(
-                    columns: [
-                      DataColumn2(
-                        label: Text(l10n.headlineTitle),
-                        size: ColumnSize.L,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.sourceName),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.lastUpdated),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.actions),
-                        size: ColumnSize.S,
-                        fixedWidth: 120,
-                      ),
-                    ],
-                    source: _HeadlinesDataSource(
-                      context: context,
-                      headlines: state.headlines,
-                      hasMore: state.hasMore,
-                      l10n: l10n,
-                    ),
-                    rowsPerPage: kDefaultRowsPerPage,
-                    availableRowsPerPage: const [kDefaultRowsPerPage],
-                    onPageChanged: (pageIndex) {
-                      final newOffset = pageIndex * kDefaultRowsPerPage;
-                      if (newOffset >= state.headlines.length &&
-                          state.hasMore &&
-                          state.status != ArchivedHeadlinesStatus.loading) {
-                        context.read<ArchivedHeadlinesBloc>().add(
-                              LoadArchivedHeadlinesRequested(
-                                startAfterId: state.cursor,
-                                limit: kDefaultRowsPerPage,
-                              ),
-                            );
-                      }
-                    },
-                    empty: Center(child: Text(l10n.noHeadlinesFound)),
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    fit: FlexFit.tight,
-                    headingRowHeight: 56,
-                    dataRowHeight: 56,
-                    columnSpacing: AppSpacing.md,
-                    horizontalMargin: AppSpacing.md,
                   ),
-                ),
-              ],
-            );
+                );
+              }
+
+              if (state.headlines.isEmpty) {
+                return Center(child: Text(l10n.noArchivedHeadlinesFound));
+              }
+
+              return Column(
+                children: [
+                  if (state.status == ArchivedHeadlinesStatus.loading &&
+                      state.headlines.isNotEmpty)
+                    const LinearProgressIndicator(),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.headlineTitle),
+                          size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.sourceName),
+                          size: ColumnSize.M,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.M,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                          fixedWidth: 120,
+                        ),
+                      ],
+                      source: _HeadlinesDataSource(
+                        context: context,
+                        headlines: state.headlines,
+                        hasMore: state.hasMore,
+                        l10n: l10n,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.headlines.length &&
+                            state.hasMore &&
+                            state.status != ArchivedHeadlinesStatus.loading) {
+                          context.read<ArchivedHeadlinesBloc>().add(
+                            LoadArchivedHeadlinesRequested(
+                              startAfterId: state.cursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noHeadlinesFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    ),
+                  ),
+                ],
+              );
             },
           ),
         ),
@@ -183,8 +183,8 @@ class _HeadlinesDataSource extends DataTableSource {
                 tooltip: l10n.restore,
                 onPressed: () {
                   context.read<ArchivedHeadlinesBloc>().add(
-                        RestoreHeadlineRequested(headline.id),
-                      );
+                    RestoreHeadlineRequested(headline.id),
+                  );
                 },
               ),
               IconButton(
@@ -192,8 +192,8 @@ class _HeadlinesDataSource extends DataTableSource {
                 tooltip: l10n.deleteForever,
                 onPressed: () {
                   context.read<ArchivedHeadlinesBloc>().add(
-                        DeleteHeadlineForeverRequested(headline.id),
-                      );
+                    DeleteHeadlineForeverRequested(headline.id),
+                  );
                 },
               ),
             ],

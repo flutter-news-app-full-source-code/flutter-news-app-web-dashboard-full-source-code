@@ -120,9 +120,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           if (state.status == CreateSourceStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context
-                  .read<ContentManagementBloc>()
-                  .add(const SharedDataRequested()),
+              onRetry: () => context.read<ContentManagementBloc>().add(
+                const SharedDataRequested(),
+              ),
             );
           }
 

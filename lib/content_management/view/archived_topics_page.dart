@@ -41,92 +41,92 @@ class _ArchivedTopicsView extends StatelessWidget {
               previous.restoredTopic != current.restoredTopic,
           listener: (context, state) {
             if (state.restoredTopic != null) {
-              context
-                  .read<ContentManagementBloc>()
-                  .add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
+              context.read<ContentManagementBloc>().add(
+                const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+              );
             }
           },
           child: BlocBuilder<ArchivedTopicsBloc, ArchivedTopicsState>(
             builder: (context, state) {
               if (state.status == ArchivedTopicsStatus.loading &&
                   state.topics.isEmpty) {
-              return LoadingStateWidget(
-                icon: Icons.topic,
-                headline: l10n.loadingArchivedTopics,
-                subheadline: l10n.pleaseWait,
-              );
-            }
+                return LoadingStateWidget(
+                  icon: Icons.topic,
+                  headline: l10n.loadingArchivedTopics,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
 
-            if (state.status == ArchivedTopicsStatus.failure) {
-              return FailureStateWidget(
-                exception: state.exception!,
-                onRetry: () => context.read<ArchivedTopicsBloc>().add(
-                      const LoadArchivedTopicsRequested(
-                        limit: kDefaultRowsPerPage,
-                      ),
+              if (state.status == ArchivedTopicsStatus.failure) {
+                return FailureStateWidget(
+                  exception: state.exception!,
+                  onRetry: () => context.read<ArchivedTopicsBloc>().add(
+                    const LoadArchivedTopicsRequested(
+                      limit: kDefaultRowsPerPage,
                     ),
-              );
-            }
-
-            if (state.topics.isEmpty) {
-              return Center(child: Text(l10n.noArchivedTopicsFound));
-            }
-
-            return Column(
-              children: [
-                if (state.status == ArchivedTopicsStatus.loading &&
-                    state.topics.isNotEmpty)
-                  const LinearProgressIndicator(),
-                Expanded(
-                  child: PaginatedDataTable2(
-                    columns: [
-                      DataColumn2(
-                        label: Text(l10n.topicName),
-                        size: ColumnSize.L,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.lastUpdated),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.actions),
-                        size: ColumnSize.S,
-                        fixedWidth: 120,
-                      ),
-                    ],
-                    source: _TopicsDataSource(
-                      context: context,
-                      topics: state.topics,
-                      hasMore: state.hasMore,
-                      l10n: l10n,
-                    ),
-                    rowsPerPage: kDefaultRowsPerPage,
-                    availableRowsPerPage: const [kDefaultRowsPerPage],
-                    onPageChanged: (pageIndex) {
-                      final newOffset = pageIndex * kDefaultRowsPerPage;
-                      if (newOffset >= state.topics.length &&
-                          state.hasMore &&
-                          state.status != ArchivedTopicsStatus.loading) {
-                        context.read<ArchivedTopicsBloc>().add(
-                              LoadArchivedTopicsRequested(
-                                startAfterId: state.cursor,
-                                limit: kDefaultRowsPerPage,
-                              ),
-                            );
-                      }
-                    },
-                    empty: Center(child: Text(l10n.noTopicsFound)),
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    fit: FlexFit.tight,
-                    headingRowHeight: 56,
-                    dataRowHeight: 56,
-                    columnSpacing: AppSpacing.md,
-                    horizontalMargin: AppSpacing.md,
                   ),
-                ),
-              ],
-            );
+                );
+              }
+
+              if (state.topics.isEmpty) {
+                return Center(child: Text(l10n.noArchivedTopicsFound));
+              }
+
+              return Column(
+                children: [
+                  if (state.status == ArchivedTopicsStatus.loading &&
+                      state.topics.isNotEmpty)
+                    const LinearProgressIndicator(),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.topicName),
+                          size: ColumnSize.L,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.M,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                          fixedWidth: 120,
+                        ),
+                      ],
+                      source: _TopicsDataSource(
+                        context: context,
+                        topics: state.topics,
+                        hasMore: state.hasMore,
+                        l10n: l10n,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.topics.length &&
+                            state.hasMore &&
+                            state.status != ArchivedTopicsStatus.loading) {
+                          context.read<ArchivedTopicsBloc>().add(
+                            LoadArchivedTopicsRequested(
+                              startAfterId: state.cursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noTopicsFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    ),
+                  ),
+                ],
+              );
             },
           ),
         ),
@@ -176,8 +176,8 @@ class _TopicsDataSource extends DataTableSource {
                 tooltip: l10n.restore,
                 onPressed: () {
                   context.read<ArchivedTopicsBloc>().add(
-                        RestoreTopicRequested(topic.id),
-                      );
+                    RestoreTopicRequested(topic.id),
+                  );
                 },
               ),
             ],

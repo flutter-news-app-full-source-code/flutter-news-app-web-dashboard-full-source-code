@@ -10,8 +10,8 @@ class ArchivedSourcesBloc
     extends Bloc<ArchivedSourcesEvent, ArchivedSourcesState> {
   ArchivedSourcesBloc({
     required DataRepository<Source> sourcesRepository,
-  })  : _sourcesRepository = sourcesRepository,
-        super(const ArchivedSourcesState()) {
+  }) : _sourcesRepository = sourcesRepository,
+       super(const ArchivedSourcesState()) {
     on<LoadArchivedSourcesRequested>(_onLoadArchivedSourcesRequested);
     on<RestoreSourceRequested>(_onRestoreSourceRequested);
   }
