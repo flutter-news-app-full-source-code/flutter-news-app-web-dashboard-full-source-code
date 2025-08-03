@@ -6,7 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/confi
 import 'package:flutter_news_app_web_dashboard_full_source_code/bootstrap.dart';
 
 // Define the current application environment (production/development/demo).
-const AppEnvironment appEnvironment = AppEnvironment.development;
+const AppEnvironment appEnvironment = AppEnvironment.demo;
 
 @JS('removeSplashFromWeb')
 external void removeSplashFromWeb();
