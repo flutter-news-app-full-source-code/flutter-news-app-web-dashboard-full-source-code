@@ -57,11 +57,26 @@ class AppConfigurationBloc
     AppConfigurationUpdated event,
     Emitter<AppConfigurationState> emit,
   ) async {
+    if (state.originalRemoteConfig == null) {
+      emit(
+        state.copyWith(
+          status: AppConfigurationStatus.failure,
+          exception: const UnknownException(
+            'Original remote config is not available.',
+          ),
+        ),
+      );
+      return;
+    }
     emit(state.copyWith(status: AppConfigurationStatus.loading));
     try {
+      final configToUpdate = event.remoteConfig.copyWith(
+        createdAt: state.originalRemoteConfig!.createdAt,
+        updatedAt: DateTime.now(),
+      );
       final updatedConfig = await _remoteConfigRepository.update(
-        id: event.remoteConfig.id,
-        item: event.remoteConfig,
+        id: configToUpdate.id,
+        item: configToUpdate,
       );
       emit(
         state.copyWith(
