@@ -390,11 +390,29 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             children: [
               _FeedDecoratorForm(
                 decoratorType: decoratorType,
-                remoteConfig: remoteConfig,
+                remoteConfig: remoteConfig.copyWith(
+                  feedDecoratorConfig: Map.from(remoteConfig.feedDecoratorConfig)
+                    ..putIfAbsent(
+                      decoratorType,
+                      () => FeedDecoratorConfig(
+                        category: decoratorType == FeedDecoratorType.suggestedTopics ||
+                                decoratorType == FeedDecoratorType.suggestedSources
+                            ? FeedDecoratorCategory.contentCollection
+                            : FeedDecoratorCategory.callToAction,
+                        enabled: false,
+                        visibleTo: const {},
+                        itemsToDisplay:
+                            decoratorType == FeedDecoratorType.suggestedTopics ||
+                                    decoratorType == FeedDecoratorType.suggestedSources
+                                ? 0
+                                : null,
+                      ),
+                    ),
+                ),
                 onConfigChanged: (newConfig) {
                   context.read<AppConfigurationBloc>().add(
-                    AppConfigurationFieldChanged(remoteConfig: newConfig),
-                  );
+                        AppConfigurationFieldChanged(remoteConfig: newConfig),
+                      );
                 },
                 buildIntField: _buildIntField,
               ),
