@@ -132,6 +132,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'تكوين عدد مرات إدراج ودجات الإجراءات (مثل \'تقييم التطبيق\') في الموجز.';
 
   @override
+  String get feedDecoratorsTitle => 'زينة الموجز';
+
+  @override
+  String get feedDecoratorsDescription =>
+      'تكوين كيفية تزيين وعرض المحتوى في الموجز لأدوار المستخدمين المختلفة.';
+
+  @override
   String get adSettingsTitle => 'إعدادات الإعلانات';
 
   @override
@@ -150,7 +157,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get forceUpdateDescription =>
-      'تتحكم هذه الإعدادات في فرض إصدار التطبيق. سيتم إجبار المستخدمين الذين يستخدمون إصدارات أقل من الحد الأدنى المسموح به على التحديث.';
+      'تكوين تحديثات التطبيق الإلزامية للمستخدمين.';
 
   @override
   String get forceUpdateTab => 'تحديث إجباري';
@@ -782,7 +789,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appStatusMaintenance => 'صيانة';
 
   @override
-  String get appStatusOperational => 'تشغيلي';
+  String get appStatusOperational => 'يعاري';
 
   @override
   String get isUnderMaintenanceLabel => 'تحت الصيانة';
@@ -930,4 +937,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get undo => 'تراجع';
+
+  @override
+  String get enabledLabel => 'مفعل';
+
+  @override
+  String get itemsToDisplayLabel => 'العناصر المعروضة';
+
+  @override
+  String get itemsToDisplayDescription =>
+      'عدد العناصر التي تظهر في هذه الزينة.';
+
+  @override
+  String get roleSpecificSettingsTitle => 'إعدادات مخصصة للدور';
+
+  @override
+  String get daysBetweenViewsLabel => 'الأيام بين المشاهدات';
 }

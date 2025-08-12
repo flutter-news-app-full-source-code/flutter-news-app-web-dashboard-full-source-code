@@ -314,6 +314,18 @@ abstract class AppLocalizations {
   /// **'Configure how often to inject action widgets (e.g., \'Rate App\') into the feed.'**
   String get feedActionsDescription;
 
+  /// Title for the Feed Decorators section
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Decorators'**
+  String get feedDecoratorsTitle;
+
+  /// Description for the Feed Decorators section
+  ///
+  /// In en, this message translates to:
+  /// **'Configure how content is decorated and presented in the feed for different user roles.'**
+  String get feedDecoratorsDescription;
+
   /// Title for the Advertisement Settings section
   ///
   /// In en, this message translates to:
@@ -344,10 +356,10 @@ abstract class AppLocalizations {
   /// **'Force App Update'**
   String get forceUpdateTitle;
 
-  /// Description for Force Update Configuration section
+  /// Description for the Force App Update section
   ///
   /// In en, this message translates to:
-  /// **'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.'**
+  /// **'Configure mandatory app updates for users.'**
   String get forceUpdateDescription;
 
   /// Tab title for Force Update
@@ -1760,11 +1772,41 @@ abstract class AppLocalizations {
   /// **'Deleted \'\'{title}\'\'.'**
   String headlineDeleted(String title);
 
-  /// No description provided for @undo.
+  /// Label for undo button
   ///
   /// In en, this message translates to:
   /// **'Undo'**
   String get undo;
+
+  /// Label for enabled switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get enabledLabel;
+
+  /// Label for items to display input
+  ///
+  /// In en, this message translates to:
+  /// **'Items to Display'**
+  String get itemsToDisplayLabel;
+
+  /// Description for items to display input
+  ///
+  /// In en, this message translates to:
+  /// **'Number of items to display in this decorator.'**
+  String get itemsToDisplayDescription;
+
+  /// Title for role specific settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Role Specific Settings'**
+  String get roleSpecificSettingsTitle;
+
+  /// Label for days between views input
+  ///
+  /// In en, this message translates to:
+  /// **'Days Between Views'**
+  String get daysBetweenViewsLabel;
 }
 
 class _AppLocalizationsDelegate

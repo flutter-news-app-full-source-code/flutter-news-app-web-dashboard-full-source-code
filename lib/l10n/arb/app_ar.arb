@@ -159,6 +159,14 @@
   "@feedActionsDescription": {
     "description": "وصف قسم إجراءات الموجز"
   },
+  "feedDecoratorsTitle": "زينة الموجز",
+  "@feedDecoratorsTitle": {
+    "description": "عنوان قسم زينة الموجز"
+  },
+  "feedDecoratorsDescription": "تكوين كيفية تزيين وعرض المحتوى في الموجز لأدوار المستخدمين المختلفة.",
+  "@feedDecoratorsDescription": {
+    "description": "وصف قسم زينة الموجز"
+  },
   "adSettingsTitle": "إعدادات الإعلانات",
   "@adSettingsTitle": {
     "description": "عنوان قسم إعدادات الإعلانات"
@@ -411,10 +419,6 @@
   "forceUpdateConfigurationTitle": "إعدادات التحديث الإجباري",
   "@forceUpdateConfigurationTitle": {
     "description": "عنوان قسم إعدادات التحديث الإجباري"
-  },
-  "forceUpdateDescription": "تتحكم هذه الإعدادات في فرض إصدار التطبيق. سيتم إجبار المستخدمين الذين يستخدمون إصدارات أقل من الحد الأدنى المسموح به على التحديث.",
-  "@forceUpdateDescription": {
-    "description": "وصف قسم إعدادات التحديث الإجباري"
   },
   "minAllowedAppVersionLabel": "الحد الأدنى المسموح به لإصدار التطبيق",
   "@minAllowedAppVersionLabel": {
@@ -964,9 +968,9 @@
   "@appStatusMaintenance": {
     "description": "نص حالة التطبيق 'صيانة'"
   },
-  "appStatusOperational": "تشغيلي",
+  "appStatusOperational": "يعاري",
   "@appStatusOperational": {
-    "description": "نص حالة التطبيق 'تشغيلي'"
+    "description": "نص حالة التطبيق 'يعاري'"
   },
   "isUnderMaintenanceLabel": "تحت الصيانة",
   "@isUnderMaintenanceLabel": {
@@ -1160,5 +1164,28 @@
       }
     }
   },
-  "undo": "تراجع"
+  "undo": "تراجع",
+  "@undo": {
+    "description": "تلميح لزر التراجع"
+  },
+  "enabledLabel": "مفعل",
+  "@enabledLabel": {
+    "description": "تسمية مفتاح التفعيل"
+  },
+  "itemsToDisplayLabel": "العناصر المعروضة",
+  "@itemsToDisplayLabel": {
+    "description": "تسمية حقل العناصر المعروضة"
+  },
+  "itemsToDisplayDescription": "عدد العناصر التي تظهر في هذه الزينة.",
+  "@itemsToDisplayDescription": {
+    "description": "وصف حقل العناصر المعروضة"
+  },
+  "roleSpecificSettingsTitle": "إعدادات مخصصة للدور",
+  "@roleSpecificSettingsTitle": {
+    "description": "عنوان قسم الإعدادات المخصصة للدور"
+  },
+  "daysBetweenViewsLabel": "الأيام بين المشاهدات",
+  "@daysBetweenViewsLabel": {
+    "description": "تسمية حقل الأيام بين المشاهدات"
+  }
 }

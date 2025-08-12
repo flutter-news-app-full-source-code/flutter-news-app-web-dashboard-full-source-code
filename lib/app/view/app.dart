@@ -233,7 +233,7 @@ class _AppViewState extends State<_AppView> {
                     AppBaseTheme.dark => ThemeMode.dark,
                     _ => ThemeMode.system,
                   },
-                  locale: language != null ? Locale(language) : null,
+                  locale: language != null ? Locale(language.code) : null,
                 ),
               ),
             ),

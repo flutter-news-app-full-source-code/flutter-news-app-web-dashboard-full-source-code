@@ -35,6 +35,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
       emit(SettingsLoadSuccess(userAppSettings: userAppSettings));
     } on NotFoundException {
+      // If settings are not found, create default settings for the user.
+      // This ensures that a user always has a valid settings object.
       final defaultSettings = UserAppSettings(
         id: event.userId!,
         displaySettings: const DisplaySettings(
@@ -44,7 +46,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           textScaleFactor: AppTextScaleFactor.medium,
           fontWeight: AppFontWeight.regular,
         ),
-        language: 'en',
+        language: languagesFixturesData.firstWhere(
+          (l) => l.code == 'en',
+          orElse: () => throw StateError(
+            'Default language "en" not found in language fixtures.',
+          ),
+        ),
         feedPreferences: const FeedDisplayPreferences(
           headlineDensity: HeadlineDensity.standard,
           headlineImageStyle: HeadlineImageStyle.largeThumbnail,
