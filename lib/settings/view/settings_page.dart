@@ -418,12 +418,17 @@ class _LanguageSelectionList extends StatelessWidget {
   /// The localized strings for the application.
   final AppLocalizations l10n;
 
+  /// The list of supported languages for the application.
+  static final List<Language> _supportedLanguages = languagesFixturesData
+      .where((lang) => lang.code == 'en' || lang.code == 'ar')
+      .toList();
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: languagesFixturesData.length,
+      itemCount: _supportedLanguages.length,
       itemBuilder: (context, index) {
-        final language = languagesFixturesData[index];
+        final language = _supportedLanguages[index];
         final isSelected = language == currentLanguage;
         return ListTile(
           title: Text(
