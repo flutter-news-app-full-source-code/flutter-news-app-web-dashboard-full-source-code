@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template app_configuration_page}
@@ -366,8 +368,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     RemoteConfig remoteConfig,
   ) {
     final l10n = AppLocalizationsX(context).l10n;
-    final decoratorConfigs = remoteConfig.feedDecoratorConfig.entries.toList();
-
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -378,17 +379,17 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        for (final decoratorEntry in decoratorConfigs)
+        for (final decoratorType in FeedDecoratorType.values)
           ExpansionTile(
             title: Text(
-              decoratorEntry.key.name.toUpperCase(),
+              decoratorType.l10n(context),
             ),
             childrenPadding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xxl,
             ),
             children: [
               _FeedDecoratorForm(
-                decoratorType: decoratorEntry.key,
+                decoratorType: decoratorType,
                 remoteConfig: remoteConfig,
                 onConfigChanged: (newConfig) {
                   context.read<AppConfigurationBloc>().add(
@@ -1068,7 +1069,7 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
             return Column(
               children: [
                 CheckboxListTile(
-                  title: Text(role.name), // Will be localized later
+                  title: Text(role.l10n(context)),
                   value: roleConfig != null,
                   onChanged: (value) {
                     final newVisibleTo =
