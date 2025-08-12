@@ -40,7 +40,10 @@ class _SettingsViewState extends State<_SettingsView> {
   @override
   void initState() {
     super.initState();
-    _mainTileControllers = List.generate(2, (index) => ExpansionTileController());
+    _mainTileControllers = List.generate(
+      2,
+      (index) => ExpansionTileController(),
+    );
   }
 
   @override

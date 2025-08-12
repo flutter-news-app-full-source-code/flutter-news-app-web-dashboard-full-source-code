@@ -34,8 +34,10 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     // Initialize a controller for each of the 5 top-level ExpansionTiles.
-    _mainTileControllers =
-        List.generate(5, (index) => ExpansionTileController());
+    _mainTileControllers = List.generate(
+      5,
+      (index) => ExpansionTileController(),
+    );
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
@@ -163,7 +165,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       onExpansionChanged: (isExpanded) {
                         if (isExpanded) {
                           // Collapse other main tiles when this one expands
-                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
                             if (i != 0) {
                               _mainTileControllers[i].collapse();
                             }
@@ -187,7 +193,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       onExpansionChanged: (isExpanded) {
                         if (isExpanded) {
                           // Collapse other main tiles when this one expands
-                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
                             if (i != 1) {
                               _mainTileControllers[i].collapse();
                             }
@@ -213,7 +223,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       onExpansionChanged: (isExpanded) {
                         if (isExpanded) {
                           // Collapse other main tiles when this one expands
-                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
                             if (i != 2) {
                               _mainTileControllers[i].collapse();
                             }
@@ -237,7 +251,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       onExpansionChanged: (isExpanded) {
                         if (isExpanded) {
                           // Collapse other main tiles when this one expands
-                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
                             if (i != 3) {
                               _mainTileControllers[i].collapse();
                             }
@@ -260,7 +278,11 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                       onExpansionChanged: (isExpanded) {
                         if (isExpanded) {
                           // Collapse other main tiles when this one expands
-                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
                             if (i != 4) {
                               _mainTileControllers[i].collapse();
                             }
@@ -478,28 +500,33 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               _FeedDecoratorForm(
                 decoratorType: decoratorType,
                 remoteConfig: remoteConfig.copyWith(
-                  feedDecoratorConfig: Map.from(remoteConfig.feedDecoratorConfig)
-                    ..putIfAbsent(
-                      decoratorType,
-                      () => FeedDecoratorConfig(
-                        category: decoratorType == FeedDecoratorType.suggestedTopics ||
-                                decoratorType == FeedDecoratorType.suggestedSources
-                            ? FeedDecoratorCategory.contentCollection
-                            : FeedDecoratorCategory.callToAction,
-                        enabled: false,
-                        visibleTo: const {},
-                        itemsToDisplay:
-                            decoratorType == FeedDecoratorType.suggestedTopics ||
-                                    decoratorType == FeedDecoratorType.suggestedSources
-                                ? 0
-                                : null,
+                  feedDecoratorConfig:
+                      Map.from(remoteConfig.feedDecoratorConfig)..putIfAbsent(
+                        decoratorType,
+                        () => FeedDecoratorConfig(
+                          category:
+                              decoratorType ==
+                                      FeedDecoratorType.suggestedTopics ||
+                                  decoratorType ==
+                                      FeedDecoratorType.suggestedSources
+                              ? FeedDecoratorCategory.contentCollection
+                              : FeedDecoratorCategory.callToAction,
+                          enabled: false,
+                          visibleTo: const {},
+                          itemsToDisplay:
+                              decoratorType ==
+                                      FeedDecoratorType.suggestedTopics ||
+                                  decoratorType ==
+                                      FeedDecoratorType.suggestedSources
+                              ? 0
+                              : null,
+                        ),
                       ),
-                    ),
                 ),
                 onConfigChanged: (newConfig) {
                   context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(remoteConfig: newConfig),
-                      );
+                    AppConfigurationFieldChanged(remoteConfig: newConfig),
+                  );
                 },
                 buildIntField: _buildIntField,
               ),
@@ -849,38 +876,54 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _followedItemsLimitController = TextEditingController(
-          text: config.guestFollowedItemsLimit.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: config.guestFollowedItemsLimit.toString().length,
-          );
-        _savedHeadlinesLimitController = TextEditingController(
-          text: config.guestSavedHeadlinesLimit.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: config.guestSavedHeadlinesLimit.toString().length,
-          );
+        _followedItemsLimitController =
+            TextEditingController(
+                text: config.guestFollowedItemsLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.guestFollowedItemsLimit.toString().length,
+              );
+        _savedHeadlinesLimitController =
+            TextEditingController(
+                text: config.guestSavedHeadlinesLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.guestSavedHeadlinesLimit.toString().length,
+              );
       case AppUserRole.standardUser:
-        _followedItemsLimitController = TextEditingController(
-          text: config.authenticatedFollowedItemsLimit.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: config.authenticatedFollowedItemsLimit.toString().length,
-          );
-        _savedHeadlinesLimitController = TextEditingController(
-          text: config.authenticatedSavedHeadlinesLimit.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: config.authenticatedSavedHeadlinesLimit.toString().length,
-          );
+        _followedItemsLimitController =
+            TextEditingController(
+                text: config.authenticatedFollowedItemsLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.authenticatedFollowedItemsLimit
+                    .toString()
+                    .length,
+              );
+        _savedHeadlinesLimitController =
+            TextEditingController(
+                text: config.authenticatedSavedHeadlinesLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.authenticatedSavedHeadlinesLimit
+                    .toString()
+                    .length,
+              );
       case AppUserRole.premiumUser:
-        _followedItemsLimitController = TextEditingController(
-          text: config.premiumFollowedItemsLimit.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: config.premiumFollowedItemsLimit.toString().length,
-          );
-        _savedHeadlinesLimitController = TextEditingController(
-          text: config.premiumSavedHeadlinesLimit.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: config.premiumSavedHeadlinesLimit.toString().length,
-          );
+        _followedItemsLimitController =
+            TextEditingController(
+                text: config.premiumFollowedItemsLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.premiumFollowedItemsLimit.toString().length,
+              );
+        _savedHeadlinesLimitController =
+            TextEditingController(
+                text: config.premiumSavedHeadlinesLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.premiumSavedHeadlinesLimit.toString().length,
+              );
     }
   }
 
@@ -888,35 +931,37 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _followedItemsLimitController.text =
-            config.guestFollowedItemsLimit.toString();
+        _followedItemsLimitController.text = config.guestFollowedItemsLimit
+            .toString();
         _followedItemsLimitController.selection = TextSelection.collapsed(
           offset: _followedItemsLimitController.text.length,
         );
-        _savedHeadlinesLimitController.text =
-            config.guestSavedHeadlinesLimit.toString();
+        _savedHeadlinesLimitController.text = config.guestSavedHeadlinesLimit
+            .toString();
         _savedHeadlinesLimitController.selection = TextSelection.collapsed(
           offset: _savedHeadlinesLimitController.text.length,
         );
       case AppUserRole.standardUser:
-        _followedItemsLimitController.text =
-            config.authenticatedFollowedItemsLimit.toString();
+        _followedItemsLimitController.text = config
+            .authenticatedFollowedItemsLimit
+            .toString();
         _followedItemsLimitController.selection = TextSelection.collapsed(
           offset: _followedItemsLimitController.text.length,
         );
-        _savedHeadlinesLimitController.text =
-            config.authenticatedSavedHeadlinesLimit.toString();
+        _savedHeadlinesLimitController.text = config
+            .authenticatedSavedHeadlinesLimit
+            .toString();
         _savedHeadlinesLimitController.selection = TextSelection.collapsed(
           offset: _savedHeadlinesLimitController.text.length,
         );
       case AppUserRole.premiumUser:
-        _followedItemsLimitController.text =
-            config.premiumFollowedItemsLimit.toString();
+        _followedItemsLimitController.text = config.premiumFollowedItemsLimit
+            .toString();
         _followedItemsLimitController.selection = TextSelection.collapsed(
           offset: _followedItemsLimitController.text.length,
         );
-        _savedHeadlinesLimitController.text =
-            config.premiumSavedHeadlinesLimit.toString();
+        _savedHeadlinesLimitController.text = config.premiumSavedHeadlinesLimit
+            .toString();
         _savedHeadlinesLimitController.selection = TextSelection.collapsed(
           offset: _savedHeadlinesLimitController.text.length,
         );
@@ -1117,24 +1162,30 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
   void _initializeControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-        _itemsToDisplayController = TextEditingController(
-          text: decoratorConfig.itemsToDisplay?.toString() ?? '',
-        )..selection = TextSelection.collapsed(
+    _itemsToDisplayController =
+        TextEditingController(
+            text: decoratorConfig.itemsToDisplay?.toString() ?? '',
+          )
+          ..selection = TextSelection.collapsed(
             offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
           );
 
     _roleControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text:
-              decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ??
-              '',
-        )..selection = TextSelection.collapsed(
-            offset: decoratorConfig.visibleTo[role]?.daysBetweenViews
-                    .toString()
-                    .length ??
-                0,
-          ),
+        role:
+            TextEditingController(
+                text:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString() ??
+                    '',
+              )
+              ..selection = TextSelection.collapsed(
+                offset:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString()
+                        .length ??
+                    0,
+              ),
     };
   }
 
@@ -1219,7 +1270,8 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
                 CheckboxListTile(
                   title: Text(role.l10n(context)),
                   value: roleConfig != null,
-                  onChanged: widget.decoratorType == FeedDecoratorType.linkAccount &&
+                  onChanged:
+                      widget.decoratorType == FeedDecoratorType.linkAccount &&
                           (role == AppUserRole.standardUser ||
                               role == AppUserRole.premiumUser)
                       ? null // Disable for standard and premium users for linkAccount
@@ -1342,64 +1394,81 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     final adConfig = widget.remoteConfig.adConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _adFrequencyController = TextEditingController(
-          text: adConfig.guestAdFrequency.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: adConfig.guestAdFrequency.toString().length,
-          );
-        _adPlacementIntervalController = TextEditingController(
-          text: adConfig.guestAdPlacementInterval.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: adConfig.guestAdPlacementInterval.toString().length,
-          );
+        _adFrequencyController =
+            TextEditingController(
+                text: adConfig.guestAdFrequency.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.guestAdFrequency.toString().length,
+              );
+        _adPlacementIntervalController =
+            TextEditingController(
+                text: adConfig.guestAdPlacementInterval.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.guestAdPlacementInterval.toString().length,
+              );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-              text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
-                  .toString(),
-            )..selection = TextSelection.collapsed(
+                text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
+                    .toString(),
+              )
+              ..selection = TextSelection.collapsed(
                 offset: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
                     .toString()
                     .length,
               );
       case AppUserRole.standardUser:
-        _adFrequencyController = TextEditingController(
-          text: adConfig.authenticatedAdFrequency.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: adConfig.authenticatedAdFrequency.toString().length,
-          );
-        _adPlacementIntervalController = TextEditingController(
-          text: adConfig.authenticatedAdPlacementInterval.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: adConfig.authenticatedAdPlacementInterval.toString().length,
-          );
+        _adFrequencyController =
+            TextEditingController(
+                text: adConfig.authenticatedAdFrequency.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.authenticatedAdFrequency.toString().length,
+              );
+        _adPlacementIntervalController =
+            TextEditingController(
+                text: adConfig.authenticatedAdPlacementInterval.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.authenticatedAdPlacementInterval
+                    .toString()
+                    .length,
+              );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-              text: adConfig
-                  .standardUserArticlesToReadBeforeShowingInterstitialAds
-                  .toString(),
-            )..selection = TextSelection.collapsed(
+                text: adConfig
+                    .standardUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString(),
+              )
+              ..selection = TextSelection.collapsed(
                 offset: adConfig
                     .standardUserArticlesToReadBeforeShowingInterstitialAds
                     .toString()
                     .length,
               );
       case AppUserRole.premiumUser:
-        _adFrequencyController = TextEditingController(
-          text: adConfig.premiumAdFrequency.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: adConfig.premiumAdFrequency.toString().length,
-          );
-        _adPlacementIntervalController = TextEditingController(
-          text: adConfig.premiumAdPlacementInterval.toString(),
-        )..selection = TextSelection.collapsed(
-            offset: adConfig.premiumAdPlacementInterval.toString().length,
-          );
+        _adFrequencyController =
+            TextEditingController(
+                text: adConfig.premiumAdFrequency.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.premiumAdFrequency.toString().length,
+              );
+        _adPlacementIntervalController =
+            TextEditingController(
+                text: adConfig.premiumAdPlacementInterval.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.premiumAdPlacementInterval.toString().length,
+              );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-              text: adConfig
-                  .premiumUserArticlesToReadBeforeShowingInterstitialAds
-                  .toString(),
-            )..selection = TextSelection.collapsed(
+                text: adConfig
+                    .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString(),
+              )
+              ..selection = TextSelection.collapsed(
                 offset: adConfig
                     .premiumUserArticlesToReadBeforeShowingInterstitialAds
                     .toString()
@@ -1416,51 +1485,57 @@ class _AdConfigFormState extends State<_AdConfigForm> {
         _adFrequencyController.selection = TextSelection.collapsed(
           offset: _adFrequencyController.text.length,
         );
-        _adPlacementIntervalController.text =
-            adConfig.guestAdPlacementInterval.toString();
+        _adPlacementIntervalController.text = adConfig.guestAdPlacementInterval
+            .toString();
         _adPlacementIntervalController.selection = TextSelection.collapsed(
           offset: _adPlacementIntervalController.text.length,
         );
-        _articlesToReadBeforeShowingInterstitialAdsController.text =
-            adConfig.guestArticlesToReadBeforeShowingInterstitialAds.toString();
-        _articlesToReadBeforeShowingInterstitialAdsController.selection =
-            TextSelection.collapsed(
-          offset: _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
+            .guestArticlesToReadBeforeShowingInterstitialAds
+            .toString();
+        _articlesToReadBeforeShowingInterstitialAdsController
+            .selection = TextSelection.collapsed(
+          offset:
+              _articlesToReadBeforeShowingInterstitialAdsController.text.length,
         );
       case AppUserRole.standardUser:
-        _adFrequencyController.text =
-            adConfig.authenticatedAdFrequency.toString();
+        _adFrequencyController.text = adConfig.authenticatedAdFrequency
+            .toString();
         _adFrequencyController.selection = TextSelection.collapsed(
           offset: _adFrequencyController.text.length,
         );
-        _adPlacementIntervalController.text =
-            adConfig.authenticatedAdPlacementInterval.toString();
+        _adPlacementIntervalController.text = adConfig
+            .authenticatedAdPlacementInterval
+            .toString();
         _adPlacementIntervalController.selection = TextSelection.collapsed(
           offset: _adPlacementIntervalController.text.length,
         );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .standardUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
-        _articlesToReadBeforeShowingInterstitialAdsController.selection =
-            TextSelection.collapsed(
-          offset: _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        _articlesToReadBeforeShowingInterstitialAdsController
+            .selection = TextSelection.collapsed(
+          offset:
+              _articlesToReadBeforeShowingInterstitialAdsController.text.length,
         );
       case AppUserRole.premiumUser:
         _adFrequencyController.text = adConfig.premiumAdFrequency.toString();
         _adFrequencyController.selection = TextSelection.collapsed(
           offset: _adFrequencyController.text.length,
         );
-        _adPlacementIntervalController.text =
-            adConfig.premiumAdPlacementInterval.toString();
+        _adPlacementIntervalController.text = adConfig
+            .premiumAdPlacementInterval
+            .toString();
         _adPlacementIntervalController.selection = TextSelection.collapsed(
           offset: _adPlacementIntervalController.text.length,
         );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .premiumUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
-        _articlesToReadBeforeShowingInterstitialAdsController.selection =
-            TextSelection.collapsed(
-          offset: _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        _articlesToReadBeforeShowingInterstitialAdsController
+            .selection = TextSelection.collapsed(
+          offset:
+              _articlesToReadBeforeShowingInterstitialAdsController.text.length,
         );
     }
   }
