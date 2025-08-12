@@ -57,6 +57,9 @@ class _DashboardPageState extends State<DashboardPage> {
               children: [
                 LayoutBuilder(
                   builder: (context, constraints) {
+                    const tabletBreakpoint = 800;
+                    final isNarrow = constraints.maxWidth < tabletBreakpoint;
+
                     final summaryCards = [
                       _SummaryCard(
                         icon: Icons.newspaper_outlined,
@@ -75,39 +78,27 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     ];
 
-                    // Calculate item width for responsive wrapping
-                    // Aim for 3 cards per row on wider screens, 2 on medium, 1 on narrow
-                    final double totalWidth = constraints.maxWidth;
-                    const double minCardWidth =
-                        280; // Minimum readable width for a card
-                    const double spacing = AppSpacing.lg;
-
-                    // Calculate how many cards can fit in a row
-                    int crossAxisCount = (totalWidth / (minCardWidth + spacing))
-                        .floor();
-                    if (crossAxisCount == 0)
-                      crossAxisCount = 1; // Ensure at least one card
-                    if (crossAxisCount > summaryCards.length) {
-                      crossAxisCount =
-                          summaryCards.length; // Don't exceed number of cards
+                    if (isNarrow) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          summaryCards[0],
+                          const SizedBox(height: AppSpacing.lg),
+                          summaryCards[1],
+                          const SizedBox(height: AppSpacing.lg),
+                          summaryCards[2],
+                        ],
+                      );
                     }
-
-                    final double itemWidth =
-                        (totalWidth - (spacing * (crossAxisCount - 1))) /
-                        crossAxisCount;
-
-                    return Wrap(
-                      spacing: spacing, // Horizontal space between cards
-                      runSpacing: spacing, // Vertical space between rows
-                      alignment: WrapAlignment.start,
-                      children: summaryCards
-                          .map(
-                            (card) => SizedBox(
-                              width: itemWidth,
-                              child: card,
-                            ),
-                          )
-                          .toList(),
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: summaryCards[0]),
+                        const SizedBox(width: AppSpacing.lg),
+                        Expanded(child: summaryCards[1]),
+                        const SizedBox(width: AppSpacing.lg),
+                        Expanded(child: summaryCards[2]),
+                      ],
                     );
                   },
                 ),
