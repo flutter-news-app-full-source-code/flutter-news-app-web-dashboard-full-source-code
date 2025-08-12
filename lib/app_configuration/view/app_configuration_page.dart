@@ -764,24 +764,36 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
       case AppUserRole.guestUser:
         _followedItemsLimitController = TextEditingController(
           text: config.guestFollowedItemsLimit.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: config.guestFollowedItemsLimit.toString().length,
+          );
         _savedHeadlinesLimitController = TextEditingController(
           text: config.guestSavedHeadlinesLimit.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: config.guestSavedHeadlinesLimit.toString().length,
+          );
       case AppUserRole.standardUser:
         _followedItemsLimitController = TextEditingController(
           text: config.authenticatedFollowedItemsLimit.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: config.authenticatedFollowedItemsLimit.toString().length,
+          );
         _savedHeadlinesLimitController = TextEditingController(
           text: config.authenticatedSavedHeadlinesLimit.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: config.authenticatedSavedHeadlinesLimit.toString().length,
+          );
       case AppUserRole.premiumUser:
         _followedItemsLimitController = TextEditingController(
           text: config.premiumFollowedItemsLimit.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: config.premiumFollowedItemsLimit.toString().length,
+          );
         _savedHeadlinesLimitController = TextEditingController(
           text: config.premiumSavedHeadlinesLimit.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: config.premiumSavedHeadlinesLimit.toString().length,
+          );
     }
   }
 
@@ -789,22 +801,38 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _followedItemsLimitController.text = config.guestFollowedItemsLimit
-            .toString();
-        _savedHeadlinesLimitController.text = config.guestSavedHeadlinesLimit
-            .toString();
+        _followedItemsLimitController.text =
+            config.guestFollowedItemsLimit.toString();
+        _followedItemsLimitController.selection = TextSelection.collapsed(
+          offset: _followedItemsLimitController.text.length,
+        );
+        _savedHeadlinesLimitController.text =
+            config.guestSavedHeadlinesLimit.toString();
+        _savedHeadlinesLimitController.selection = TextSelection.collapsed(
+          offset: _savedHeadlinesLimitController.text.length,
+        );
       case AppUserRole.standardUser:
-        _followedItemsLimitController.text = config
-            .authenticatedFollowedItemsLimit
-            .toString();
-        _savedHeadlinesLimitController.text = config
-            .authenticatedSavedHeadlinesLimit
-            .toString();
+        _followedItemsLimitController.text =
+            config.authenticatedFollowedItemsLimit.toString();
+        _followedItemsLimitController.selection = TextSelection.collapsed(
+          offset: _followedItemsLimitController.text.length,
+        );
+        _savedHeadlinesLimitController.text =
+            config.authenticatedSavedHeadlinesLimit.toString();
+        _savedHeadlinesLimitController.selection = TextSelection.collapsed(
+          offset: _savedHeadlinesLimitController.text.length,
+        );
       case AppUserRole.premiumUser:
-        _followedItemsLimitController.text = config.premiumFollowedItemsLimit
-            .toString();
-        _savedHeadlinesLimitController.text = config.premiumSavedHeadlinesLimit
-            .toString();
+        _followedItemsLimitController.text =
+            config.premiumFollowedItemsLimit.toString();
+        _followedItemsLimitController.selection = TextSelection.collapsed(
+          offset: _followedItemsLimitController.text.length,
+        );
+        _savedHeadlinesLimitController.text =
+            config.premiumSavedHeadlinesLimit.toString();
+        _savedHeadlinesLimitController.selection = TextSelection.collapsed(
+          offset: _savedHeadlinesLimitController.text.length,
+        );
     }
   }
 
@@ -1002,9 +1030,11 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
   void _initializeControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-    _itemsToDisplayController = TextEditingController(
-      text: decoratorConfig.itemsToDisplay?.toString() ?? '',
-    );
+        _itemsToDisplayController = TextEditingController(
+          text: decoratorConfig.itemsToDisplay?.toString() ?? '',
+        )..selection = TextSelection.collapsed(
+            offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
+          );
 
     _roleControllers = {
       for (final role in AppUserRole.values)
@@ -1012,7 +1042,12 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
           text:
               decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ??
               '',
-        ),
+        )..selection = TextSelection.collapsed(
+            offset: decoratorConfig.visibleTo[role]?.daysBetweenViews
+                    .toString()
+                    .length ??
+                0,
+          ),
     };
   }
 
@@ -1021,9 +1056,15 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
     _itemsToDisplayController.text =
         decoratorConfig.itemsToDisplay?.toString() ?? '';
+    _itemsToDisplayController.selection = TextSelection.collapsed(
+      offset: _itemsToDisplayController.text.length,
+    );
     for (final role in AppUserRole.values) {
       _roleControllers[role]?.text =
           decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
+      _roleControllers[role]?.selection = TextSelection.collapsed(
+        offset: _roleControllers[role]?.text.length ?? 0,
+      );
     }
   }
 
@@ -1212,41 +1253,67 @@ class _AdConfigFormState extends State<_AdConfigForm> {
       case AppUserRole.guestUser:
         _adFrequencyController = TextEditingController(
           text: adConfig.guestAdFrequency.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: adConfig.guestAdFrequency.toString().length,
+          );
         _adPlacementIntervalController = TextEditingController(
           text: adConfig.guestAdPlacementInterval.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: adConfig.guestAdPlacementInterval.toString().length,
+          );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
               text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
                   .toString(),
-            );
+            )..selection = TextSelection.collapsed(
+                offset: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
+                    .toString()
+                    .length,
+              );
       case AppUserRole.standardUser:
         _adFrequencyController = TextEditingController(
           text: adConfig.authenticatedAdFrequency.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: adConfig.authenticatedAdFrequency.toString().length,
+          );
         _adPlacementIntervalController = TextEditingController(
           text: adConfig.authenticatedAdPlacementInterval.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: adConfig.authenticatedAdPlacementInterval.toString().length,
+          );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
               text: adConfig
                   .standardUserArticlesToReadBeforeShowingInterstitialAds
                   .toString(),
-            );
+            )..selection = TextSelection.collapsed(
+                offset: adConfig
+                    .standardUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString()
+                    .length,
+              );
       case AppUserRole.premiumUser:
         _adFrequencyController = TextEditingController(
           text: adConfig.premiumAdFrequency.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: adConfig.premiumAdFrequency.toString().length,
+          );
         _adPlacementIntervalController = TextEditingController(
           text: adConfig.premiumAdPlacementInterval.toString(),
-        );
+        )..selection = TextSelection.collapsed(
+            offset: adConfig.premiumAdPlacementInterval.toString().length,
+          );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
               text: adConfig
                   .premiumUserArticlesToReadBeforeShowingInterstitialAds
                   .toString(),
-            );
+            )..selection = TextSelection.collapsed(
+                offset: adConfig
+                    .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString()
+                    .length,
+              );
     }
   }
 
@@ -1255,28 +1322,55 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     switch (widget.userRole) {
       case AppUserRole.guestUser:
         _adFrequencyController.text = adConfig.guestAdFrequency.toString();
-        _adPlacementIntervalController.text = adConfig.guestAdPlacementInterval
-            .toString();
-        _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
-            .guestArticlesToReadBeforeShowingInterstitialAds
-            .toString();
+        _adFrequencyController.selection = TextSelection.collapsed(
+          offset: _adFrequencyController.text.length,
+        );
+        _adPlacementIntervalController.text =
+            adConfig.guestAdPlacementInterval.toString();
+        _adPlacementIntervalController.selection = TextSelection.collapsed(
+          offset: _adPlacementIntervalController.text.length,
+        );
+        _articlesToReadBeforeShowingInterstitialAdsController.text =
+            adConfig.guestArticlesToReadBeforeShowingInterstitialAds.toString();
+        _articlesToReadBeforeShowingInterstitialAdsController.selection =
+            TextSelection.collapsed(
+          offset: _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        );
       case AppUserRole.standardUser:
-        _adFrequencyController.text = adConfig.authenticatedAdFrequency
-            .toString();
-        _adPlacementIntervalController.text = adConfig
-            .authenticatedAdPlacementInterval
-            .toString();
+        _adFrequencyController.text =
+            adConfig.authenticatedAdFrequency.toString();
+        _adFrequencyController.selection = TextSelection.collapsed(
+          offset: _adFrequencyController.text.length,
+        );
+        _adPlacementIntervalController.text =
+            adConfig.authenticatedAdPlacementInterval.toString();
+        _adPlacementIntervalController.selection = TextSelection.collapsed(
+          offset: _adPlacementIntervalController.text.length,
+        );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .standardUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
+        _articlesToReadBeforeShowingInterstitialAdsController.selection =
+            TextSelection.collapsed(
+          offset: _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        );
       case AppUserRole.premiumUser:
         _adFrequencyController.text = adConfig.premiumAdFrequency.toString();
-        _adPlacementIntervalController.text = adConfig
-            .premiumAdPlacementInterval
-            .toString();
+        _adFrequencyController.selection = TextSelection.collapsed(
+          offset: _adFrequencyController.text.length,
+        );
+        _adPlacementIntervalController.text =
+            adConfig.premiumAdPlacementInterval.toString();
+        _adPlacementIntervalController.selection = TextSelection.collapsed(
+          offset: _adPlacementIntervalController.text.length,
+        );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .premiumUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
+        _articlesToReadBeforeShowingInterstitialAdsController.selection =
+            TextSelection.collapsed(
+          offset: _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        );
     }
   }
 
