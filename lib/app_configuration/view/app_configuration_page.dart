@@ -157,15 +157,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                         ),
                       ],
                     ),
-                    ExpansionTile(
-                      title: Text(l10n.feedActionsTitle),
-                      childrenPadding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.xxl,
-                      ),
-                      children: [
-                        _buildAccountActionConfigSection(context, remoteConfig),
-                      ],
-                    ),
+                    const SizedBox.shrink(),
                   ],
                 ),
                 ListView(
@@ -420,61 +412,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           children: [
             _AdConfigForm(
               userRole: AppUserRole.premiumUser,
-              remoteConfig: remoteConfig,
-              onConfigChanged: (newConfig) {
-                context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(remoteConfig: newConfig),
-                );
-              },
-              buildIntField: _buildIntField,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAccountActionConfigSection(
-    BuildContext context,
-    RemoteConfig remoteConfig,
-  ) {
-    final l10n = AppLocalizationsX(context).l10n;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          l10n.feedActionsDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        ExpansionTile(
-          title: Text(l10n.guestUserTab),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-          ),
-          children: [
-            _AccountActionConfigForm(
-              userRole: AppUserRole.guestUser,
-              remoteConfig: remoteConfig,
-              onConfigChanged: (newConfig) {
-                context.read<AppConfigurationBloc>().add(
-                  AppConfigurationFieldChanged(remoteConfig: newConfig),
-                );
-              },
-              buildIntField: _buildIntField,
-            ),
-          ],
-        ),
-        ExpansionTile(
-          title: Text(l10n.standardUserAdTab),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-          ),
-          children: [
-            _AccountActionConfigForm(
-              userRole: AppUserRole.standardUser,
               remoteConfig: remoteConfig,
               onConfigChanged: (newConfig) {
                 context.read<AppConfigurationBloc>().add(
