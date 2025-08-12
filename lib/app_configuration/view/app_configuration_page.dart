@@ -1132,31 +1132,35 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
                 CheckboxListTile(
                   title: Text(role.l10n(context)),
                   value: roleConfig != null,
-                  onChanged: (value) {
-                    final newVisibleTo =
-                        Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                          decoratorConfig.visibleTo,
-                        );
-                    if (value == true) {
-                      newVisibleTo[role] = const FeedDecoratorRoleConfig(
-                        daysBetweenViews: 7,
-                      );
-                    } else {
-                      newVisibleTo.remove(role);
-                    }
-                    final newDecoratorConfig = decoratorConfig.copyWith(
-                      visibleTo: newVisibleTo,
-                    );
-                    final newFeedDecoratorConfig =
-                        Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                          widget.remoteConfig.feedDecoratorConfig,
-                        )..[widget.decoratorType] = newDecoratorConfig;
-                    widget.onConfigChanged(
-                      widget.remoteConfig.copyWith(
-                        feedDecoratorConfig: newFeedDecoratorConfig,
-                      ),
-                    );
-                  },
+                  onChanged: widget.decoratorType == FeedDecoratorType.linkAccount &&
+                          (role == AppUserRole.standardUser ||
+                              role == AppUserRole.premiumUser)
+                      ? null // Disable for standard and premium users for linkAccount
+                      : (value) {
+                          final newVisibleTo =
+                              Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                                decoratorConfig.visibleTo,
+                              );
+                          if (value == true) {
+                            newVisibleTo[role] = const FeedDecoratorRoleConfig(
+                              daysBetweenViews: 7,
+                            );
+                          } else {
+                            newVisibleTo.remove(role);
+                          }
+                          final newDecoratorConfig = decoratorConfig.copyWith(
+                            visibleTo: newVisibleTo,
+                          );
+                          final newFeedDecoratorConfig =
+                              Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                                widget.remoteConfig.feedDecoratorConfig,
+                              )..[widget.decoratorType] = newDecoratorConfig;
+                          widget.onConfigChanged(
+                            widget.remoteConfig.copyWith(
+                              feedDecoratorConfig: newFeedDecoratorConfig,
+                            ),
+                          );
+                        },
                 ),
                 if (roleConfig != null)
                   Padding(
