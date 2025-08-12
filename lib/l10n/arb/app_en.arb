@@ -159,6 +159,14 @@
   "@feedActionsDescription": {
     "description": "Description for the Feed Actions section"
   },
+  "feedDecoratorsTitle": "Feed Decorators",
+  "@feedDecoratorsTitle": {
+    "description": "Title for the Feed Decorators section"
+  },
+  "feedDecoratorsDescription": "Configure how content is decorated and presented in the feed for different user roles.",
+  "@feedDecoratorsDescription": {
+    "description": "Description for the Feed Decorators section"
+  },
   "adSettingsTitle": "Advertisement Settings",
   "@adSettingsTitle": {
     "description": "Title for the Advertisement Settings section"
@@ -411,10 +419,6 @@
   "forceUpdateConfigurationTitle": "Force Update Configuration",
   "@forceUpdateConfigurationTitle": {
     "description": "Title for Force Update Configuration section"
-  },
-  "forceUpdateDescription": "These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.",
-  "@forceUpdateDescription": {
-    "description": "Description for Force Update Configuration section"
   },
   "minAllowedAppVersionLabel": "Minimum Allowed App Version",
   "@minAllowedAppVersionLabel": {
@@ -996,10 +1000,6 @@
   "@androidUpdateUrlLabel": {
     "description": "Label for Android Update URL"
   },
-  "androidUpdateUrlDescription": "URL to the app on the Google Play Store.",
-  "@androidUpdateUrlDescription": {
-    "description": "Description for Android Update URL"
-  },
   "followedItemsLimitLabel": "Followed Items Limit",
   "@followedItemsLimitLabel": {
     "description": "Label for Followed Items Limit"
@@ -1159,5 +1159,28 @@
       }
     }
   },
-  "undo": "Undo"
+  "undo": "Undo",
+  "@undo": {
+    "description": "Label for undo button"
+  },
+  "enabledLabel": "Enabled",
+  "@enabledLabel": {
+    "description": "Label for enabled switch"
+  },
+  "itemsToDisplayLabel": "Items to Display",
+  "@itemsToDisplayLabel": {
+    "description": "Label for items to display input"
+  },
+  "itemsToDisplayDescription": "Number of items to display in this decorator.",
+  "@itemsToDisplayDescription": {
+    "description": "Description for items to display input"
+  },
+  "roleSpecificSettingsTitle": "Role Specific Settings",
+  "@roleSpecificSettingsTitle": {
+    "description": "Title for role specific settings section"
+  },
+  "daysBetweenViewsLabel": "Days Between Views",
+  "@daysBetweenViewsLabel": {
+    "description": "Label for days between views input"
+  }
 }

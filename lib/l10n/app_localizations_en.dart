@@ -131,6 +131,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Configure how often to inject action widgets (e.g., \'Rate App\') into the feed.';
 
   @override
+  String get feedDecoratorsTitle => 'Feed Decorators';
+
+  @override
+  String get feedDecoratorsDescription =>
+      'Configure how content is decorated and presented in the feed for different user roles.';
+
+  @override
   String get adSettingsTitle => 'Advertisement Settings';
 
   @override
@@ -149,7 +156,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forceUpdateDescription =>
-      'These settings control app version enforcement. Users on versions below the minimum allowed will be forced to update.';
+      'Configure mandatory app updates for users.';
 
   @override
   String get forceUpdateTab => 'Force Update';
@@ -929,4 +936,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get undo => 'Undo';
+
+  @override
+  String get enabledLabel => 'Enabled';
+
+  @override
+  String get itemsToDisplayLabel => 'Items to Display';
+
+  @override
+  String get itemsToDisplayDescription =>
+      'Number of items to display in this decorator.';
+
+  @override
+  String get roleSpecificSettingsTitle => 'Role Specific Settings';
+
+  @override
+  String get daysBetweenViewsLabel => 'Days Between Views';
 }
