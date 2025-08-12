@@ -82,13 +82,18 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           displaySettings: const DisplaySettings(
             baseTheme: AppBaseTheme.system,
             accentTheme: AppAccentTheme.defaultBlue,
-            fontFamily: 'SystemDefault',
-            textScaleFactor: AppTextScaleFactor.medium,
-            fontWeight: AppFontWeight.regular,
+          fontFamily: 'SystemDefault',
+          textScaleFactor: AppTextScaleFactor.medium,
+          fontWeight: AppFontWeight.regular,
+        ),
+        language: languagesFixturesData.firstWhere(
+          (l) => l.code == 'en',
+          orElse: () => throw StateError(
+            'Default language "en" not found in language fixtures.',
           ),
-          language: 'en',
-          feedPreferences: const FeedDisplayPreferences(
-            headlineDensity: HeadlineDensity.standard,
+        ),
+        feedPreferences: const FeedDisplayPreferences(
+          headlineDensity: HeadlineDensity.standard,
             headlineImageStyle: HeadlineImageStyle.largeThumbnail,
             showSourceInHeadlineFeed: true,
             showPublishDateInHeadlineFeed: true,
