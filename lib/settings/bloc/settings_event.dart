@@ -97,8 +97,7 @@ final class SettingsLanguageChanged extends SettingsEvent {
   /// {@macro settings_language_changed}
   const SettingsLanguageChanged(this.language);
 
-  /// The new language.
-  final AppLanguage language;
+  final Language language;
 
   @override
   List<Object?> get props => [language];
