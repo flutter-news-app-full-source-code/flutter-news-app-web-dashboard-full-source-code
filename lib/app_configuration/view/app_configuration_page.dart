@@ -26,17 +26,26 @@ class AppConfigurationPage extends StatefulWidget {
 class _AppConfigurationPageState extends State<AppConfigurationPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  // Controllers for the top-level ExpansionTiles to manage their expanded state.
+  late List<ExpansionTileController> _mainTileControllers;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    // Initialize a controller for each of the 5 top-level ExpansionTiles.
+    _mainTileControllers =
+        List.generate(5, (index) => ExpansionTileController());
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    // Dispose of all ExpansionTileControllers to prevent memory leaks.
+    for (final controller in _mainTileControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -147,8 +156,20 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 ListView(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
+                    // Top-level ExpansionTile for User Content Limits
                     ExpansionTile(
+                      controller: _mainTileControllers[0],
                       title: Text(l10n.userContentLimitsTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                            if (i != 0) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -159,8 +180,20 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                         ),
                       ],
                     ),
+                    // Top-level ExpansionTile for Feed Decorators
                     ExpansionTile(
+                      controller: _mainTileControllers[1],
                       title: Text(l10n.feedDecoratorsTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                            if (i != 1) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -173,8 +206,20 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 ListView(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
+                    // Top-level ExpansionTile for Ad Settings
                     ExpansionTile(
+                      controller: _mainTileControllers[2],
                       title: Text(l10n.adSettingsTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                            if (i != 2) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -185,9 +230,51 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 ListView(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
-                    _buildMaintenanceSection(context, remoteConfig),
+                    // Top-level ExpansionTile for Maintenance Section
+                    ExpansionTile(
+                      controller: _mainTileControllers[3],
+                      title: Text(l10n.maintenanceModeTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                            if (i != 3) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                        vertical: AppSpacing.md,
+                      ),
+                      children: [
+                        _buildMaintenanceSection(context, remoteConfig),
+                      ],
+                    ),
                     const SizedBox(height: AppSpacing.lg),
-                    _buildForceUpdateSection(context, remoteConfig),
+                    // Top-level ExpansionTile for Force Update Section
+                    ExpansionTile(
+                      controller: _mainTileControllers[4],
+                      title: Text(l10n.forceUpdateTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (var i = 0; i < _mainTileControllers.length; i++) {
+                            if (i != 4) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                        vertical: AppSpacing.md,
+                      ),
+                      children: [
+                        _buildForceUpdateSection(context, remoteConfig),
+                      ],
+                    ),
                   ],
                 ),
               ],
