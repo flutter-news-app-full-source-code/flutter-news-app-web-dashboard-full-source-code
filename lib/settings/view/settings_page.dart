@@ -413,7 +413,7 @@ class _LanguageSelectionList extends StatelessWidget {
   });
 
   /// The currently selected language.
-  final AppLanguage currentLanguage;
+  final Language currentLanguage;
 
   /// The localized strings for the application.
   final AppLocalizations l10n;
@@ -421,13 +421,13 @@ class _LanguageSelectionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: _supportedLanguages.length,
+      itemCount: languagesFixturesData.length,
       itemBuilder: (context, index) {
-        final language = _supportedLanguages[index];
+        final language = languagesFixturesData[index];
         final isSelected = language == currentLanguage;
         return ListTile(
           title: Text(
-            _getLanguageName(language, l10n),
+            language.name,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           trailing: isSelected
@@ -436,25 +436,12 @@ class _LanguageSelectionList extends StatelessWidget {
           onTap: () {
             if (!isSelected) {
               context.read<SettingsBloc>().add(
-                SettingsLanguageChanged(language),
-              );
+                    SettingsLanguageChanged(language),
+                  );
             }
           },
         );
       },
     );
   }
-
-  String _getLanguageName(AppLanguage language, AppLocalizations l10n) {
-    switch (language) {
-      case 'en':
-        return l10n.englishLanguage;
-      case 'ar':
-        return l10n.arabicLanguage;
-      default:
-        return language;
-    }
-  }
-
-  static const List<AppLanguage> _supportedLanguages = ['en', 'ar'];
 }
