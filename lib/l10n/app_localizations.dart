@@ -1811,7 +1811,7 @@ abstract class AppLocalizations {
   /// Description for days between views input for feed decorators
   ///
   /// In en, this message translates to:
-  /// **'Minimum number of days that must pass before this decorator can be shown again to a user with this specific role.'**
+  /// **'This setting determines the minimum number of days that must pass before a decorator can be shown again to a user, provided the associated task has not yet been completed.'**
   String get daysBetweenViewsDescription;
 
   /// Localized name for FeedDecoratorType.linkAccount

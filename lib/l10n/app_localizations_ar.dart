@@ -956,7 +956,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get daysBetweenViewsDescription =>
-      'الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يمكن عرض هذه الزينة مرة أخرى لمستخدم بهذا الدور المحدد.';
+      'يحدد هذا الإعداد الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يمكن عرض هذه الزينة مرة أخرى للمستخدم، شريطة ألا يكون قد أكمل المهمة المرتبطة بها بعد.';
 
   @override
   String get feedDecoratorTypeLinkAccount => 'ربط الحساب';
