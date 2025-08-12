@@ -953,4 +953,35 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get daysBetweenViewsLabel => 'الأيام بين المشاهدات';
+
+  @override
+  String get daysBetweenViewsDescription =>
+      'الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يمكن عرض هذه الزينة مرة أخرى لمستخدم بهذا الدور المحدد.';
+
+  @override
+  String get feedDecoratorTypeLinkAccount => 'ربط الحساب';
+
+  @override
+  String get feedDecoratorTypeUpgrade => 'الترقية إلى مميز';
+
+  @override
+  String get feedDecoratorTypeRateApp => 'تقييم التطبيق';
+
+  @override
+  String get feedDecoratorTypeEnableNotifications => 'تفعيل الإشعارات';
+
+  @override
+  String get feedDecoratorTypeSuggestedTopics => 'مواضيع مقترحة';
+
+  @override
+  String get feedDecoratorTypeSuggestedSources => 'مصادر مقترحة';
+
+  @override
+  String get guestUserRole => 'مستخدم ضيف';
+
+  @override
+  String get standardUserRole => 'مستخدم عادي';
+
+  @override
+  String get premiumUserRole => 'مستخدم مميز';
 }

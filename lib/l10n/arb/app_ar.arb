@@ -1187,5 +1187,45 @@
   "daysBetweenViewsLabel": "الأيام بين المشاهدات",
   "@daysBetweenViewsLabel": {
     "description": "تسمية حقل الأيام بين المشاهدات"
+  },
+  "daysBetweenViewsDescription": "الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يمكن عرض هذه الزينة مرة أخرى لمستخدم بهذا الدور المحدد.",
+  "@daysBetweenViewsDescription": {
+    "description": "وصف حقل الأيام بين المشاهدات لزينة الموجز"
+  },
+  "feedDecoratorTypeLinkAccount": "ربط الحساب",
+  "@feedDecoratorTypeLinkAccount": {
+    "description": "الاسم المترجم لـ FeedDecoratorType.linkAccount"
+  },
+  "feedDecoratorTypeUpgrade": "الترقية إلى مميز",
+  "@feedDecoratorTypeUpgrade": {
+    "description": "الاسم المترجم لـ FeedDecoratorType.upgrade"
+  },
+  "feedDecoratorTypeRateApp": "تقييم التطبيق",
+  "@feedDecoratorTypeRateApp": {
+    "description": "الاسم المترجم لـ FeedDecoratorType.rateApp"
+  },
+  "feedDecoratorTypeEnableNotifications": "تفعيل الإشعارات",
+  "@feedDecoratorTypeEnableNotifications": {
+    "description": "الاسم المترجم لـ FeedDecoratorType.enableNotifications"
+  },
+  "feedDecoratorTypeSuggestedTopics": "مواضيع مقترحة",
+  "@feedDecoratorTypeSuggestedTopics": {
+    "description": "الاسم المترجم لـ FeedDecoratorType.suggestedTopics"
+  },
+  "feedDecoratorTypeSuggestedSources": "مصادر مقترحة",
+  "@feedDecoratorTypeSuggestedSources": {
+    "description": "الاسم المترجم لـ FeedDecoratorType.suggestedSources"
+  },
+  "guestUserRole": "مستخدم ضيف",
+  "@guestUserRole": {
+    "description": "الاسم المترجم لـ AppUserRole.guestUser"
+  },
+  "standardUserRole": "مستخدم عادي",
+  "@standardUserRole": {
+    "description": "الاسم المترجم لـ AppUserRole.standardUser"
+  },
+  "premiumUserRole": "مستخدم مميز",
+  "@premiumUserRole": {
+    "description": "الاسم المترجم لـ AppUserRole.premiumUser"
   }
 }

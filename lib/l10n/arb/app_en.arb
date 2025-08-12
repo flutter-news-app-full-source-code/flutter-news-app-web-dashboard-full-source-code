@@ -1182,5 +1182,45 @@
   "daysBetweenViewsLabel": "Days Between Views",
   "@daysBetweenViewsLabel": {
     "description": "Label for days between views input"
+  },
+  "daysBetweenViewsDescription": "Minimum number of days that must pass before this decorator can be shown again to a user with this specific role.",
+  "@daysBetweenViewsDescription": {
+    "description": "Description for days between views input for feed decorators"
+  },
+  "feedDecoratorTypeLinkAccount": "Link Account",
+  "@feedDecoratorTypeLinkAccount": {
+    "description": "Localized name for FeedDecoratorType.linkAccount"
+  },
+  "feedDecoratorTypeUpgrade": "Upgrade to Premium",
+  "@feedDecoratorTypeUpgrade": {
+    "description": "Localized name for FeedDecoratorType.upgrade"
+  },
+  "feedDecoratorTypeRateApp": "Rate App",
+  "@feedDecoratorTypeRateApp": {
+    "description": "Localized name for FeedDecoratorType.rateApp"
+  },
+  "feedDecoratorTypeEnableNotifications": "Enable Notifications",
+  "@feedDecoratorTypeEnableNotifications": {
+    "description": "Localized name for FeedDecoratorType.enableNotifications"
+  },
+  "feedDecoratorTypeSuggestedTopics": "Suggested Topics",
+  "@feedDecoratorTypeSuggestedTopics": {
+    "description": "Localized name for FeedDecoratorType.suggestedTopics"
+  },
+  "feedDecoratorTypeSuggestedSources": "Suggested Sources",
+  "@feedDecoratorTypeSuggestedSources": {
+    "description": "Localized name for FeedDecoratorType.suggestedSources"
+  },
+  "guestUserRole": "Guest User",
+  "@guestUserRole": {
+    "description": "Localized name for AppUserRole.guestUser"
+  },
+  "standardUserRole": "Standard User",
+  "@standardUserRole": {
+    "description": "Localized name for AppUserRole.standardUser"
+  },
+  "premiumUserRole": "Premium User",
+  "@premiumUserRole": {
+    "description": "Localized name for AppUserRole.premiumUser"
   }
 }
