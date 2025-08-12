@@ -169,13 +169,15 @@ class ArchivedHeadlinesBloc
       final updatedHeadlines = List<Headline>.from(state.headlines)
         ..insert(
           state.headlines.indexWhere(
-                (h) =>
-                    h.updatedAt.isBefore(state.lastDeletedHeadline!.updatedAt),
-              ) !=
-              -1
+                    (h) => h.updatedAt.isBefore(
+                      state.lastDeletedHeadline!.updatedAt,
+                    ),
+                  ) !=
+                  -1
               ? state.headlines.indexWhere(
-                  (h) =>
-                      h.updatedAt.isBefore(state.lastDeletedHeadline!.updatedAt),
+                  (h) => h.updatedAt.isBefore(
+                    state.lastDeletedHeadline!.updatedAt,
+                  ),
                 )
               : state.headlines.length,
           state.lastDeletedHeadline!,

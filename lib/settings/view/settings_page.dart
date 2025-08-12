@@ -27,8 +27,32 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class _SettingsView extends StatelessWidget {
+class _SettingsView extends StatefulWidget {
   const _SettingsView();
+
+  @override
+  State<_SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<_SettingsView> {
+  late List<ExpansionTileController> _mainTileControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _mainTileControllers = List.generate(
+      2,
+      (index) => ExpansionTileController(),
+    );
+  }
+
+  @override
+  void dispose() {
+    for (final controller in _mainTileControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +136,17 @@ class _SettingsView extends StatelessWidget {
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
                 ExpansionTile(
+                  controller: _mainTileControllers[0],
                   title: Text(l10n.appearanceSettingsLabel),
+                  onExpansionChanged: (isExpanded) {
+                    if (isExpanded) {
+                      for (var i = 0; i < _mainTileControllers.length; i++) {
+                        if (i != 0) {
+                          _mainTileControllers[i].collapse();
+                        }
+                      }
+                    }
+                  },
                   childrenPadding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.xxl,
                   ),
@@ -263,7 +297,17 @@ class _SettingsView extends StatelessWidget {
                   ],
                 ),
                 ExpansionTile(
+                  controller: _mainTileControllers[1],
                   title: Text(l10n.languageSettingsLabel),
+                  onExpansionChanged: (isExpanded) {
+                    if (isExpanded) {
+                      for (var i = 0; i < _mainTileControllers.length; i++) {
+                        if (i != 1) {
+                          _mainTileControllers[i].collapse();
+                        }
+                      }
+                    }
+                  },
                   childrenPadding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.xxl,
                   ),
@@ -418,12 +462,17 @@ class _LanguageSelectionList extends StatelessWidget {
   /// The localized strings for the application.
   final AppLocalizations l10n;
 
+  /// The list of supported languages for the application.
+  static final List<Language> _supportedLanguages = languagesFixturesData
+      .where((lang) => lang.code == 'en' || lang.code == 'ar')
+      .toList();
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: languagesFixturesData.length,
+      itemCount: _supportedLanguages.length,
       itemBuilder: (context, index) {
-        final language = languagesFixturesData[index];
+        final language = _supportedLanguages[index];
         final isSelected = language == currentLanguage;
         return ListTile(
           title: Text(
@@ -436,8 +485,8 @@ class _LanguageSelectionList extends StatelessWidget {
           onTap: () {
             if (!isSelected) {
               context.read<SettingsBloc>().add(
-                    SettingsLanguageChanged(language),
-                  );
+                SettingsLanguageChanged(language),
+              );
             }
           },
         );

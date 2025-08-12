@@ -32,7 +32,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9c25c6bff76c554e5220368536fcb9370758f48f"
+      resolved-ref: b47d995b24b8cfd9f47b7d0bc4d12d551777531c
       url: "https://github.com/flutter-news-app-full-source-code/auth-inmemory"
     source: git
     version: "0.0.0"

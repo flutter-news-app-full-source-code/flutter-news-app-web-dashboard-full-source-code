@@ -952,4 +952,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get daysBetweenViewsLabel => 'Days Between Views';
+
+  @override
+  String get daysBetweenViewsDescription =>
+      'This setting determines the minimum number of days that must pass before a decorator can be shown again to a user, provided the associated task has not yet been completed.';
+
+  @override
+  String get feedDecoratorTypeLinkAccount => 'Link Account';
+
+  @override
+  String get feedDecoratorTypeUpgrade => 'Upgrade to Premium';
+
+  @override
+  String get feedDecoratorTypeRateApp => 'Rate App';
+
+  @override
+  String get feedDecoratorTypeEnableNotifications => 'Enable Notifications';
+
+  @override
+  String get feedDecoratorTypeSuggestedTopics => 'Suggested Topics';
+
+  @override
+  String get feedDecoratorTypeSuggestedSources => 'Suggested Sources';
+
+  @override
+  String get guestUserRole => 'Guest User';
+
+  @override
+  String get standardUserRole => 'Standard User';
+
+  @override
+  String get premiumUserRole => 'Premium User';
 }

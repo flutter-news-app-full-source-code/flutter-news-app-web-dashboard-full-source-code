@@ -16,7 +16,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:logging/logging.dart';
@@ -80,7 +80,9 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _kvStorageService),
-        RepositoryProvider(create: (context) => const ThrottledFetchingService()),
+        RepositoryProvider(
+          create: (context) => const ThrottledFetchingService(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -204,7 +206,6 @@ class _AppViewState extends State<_AppView> {
             fontFamily: fontFamily,
           );
 
-          const double kMaxAppWidth = 1000; // Local constant for max width
           return Center(
             child: Card(
               margin: EdgeInsets.zero, // Remove default card margin
@@ -215,7 +216,9 @@ class _AppViewState extends State<_AppView> {
                 ), // Match cardRadius from theme
               ),
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: kMaxAppWidth),
+                constraints: const BoxConstraints(
+                  maxWidth: AppConstants.kMaxAppWidth,
+                ),
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
                   routerConfig: _router,

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template app_configuration_page}
@@ -24,17 +26,28 @@ class AppConfigurationPage extends StatefulWidget {
 class _AppConfigurationPageState extends State<AppConfigurationPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  // Controllers for the top-level ExpansionTiles to manage their expanded state.
+  late List<ExpansionTileController> _mainTileControllers;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    // Initialize a controller for each of the 5 top-level ExpansionTiles.
+    _mainTileControllers = List.generate(
+      5,
+      (index) => ExpansionTileController(),
+    );
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    // Dispose of all ExpansionTileControllers to prevent memory leaks.
+    for (final controller in _mainTileControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -145,8 +158,24 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 ListView(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
+                    // Top-level ExpansionTile for User Content Limits
                     ExpansionTile(
+                      controller: _mainTileControllers[0],
                       title: Text(l10n.userContentLimitsTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
+                            if (i != 0) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -157,8 +186,24 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                         ),
                       ],
                     ),
+                    // Top-level ExpansionTile for Feed Decorators
                     ExpansionTile(
+                      controller: _mainTileControllers[1],
                       title: Text(l10n.feedDecoratorsTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
+                            if (i != 1) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -171,8 +216,24 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 ListView(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
+                    // Top-level ExpansionTile for Ad Settings
                     ExpansionTile(
+                      controller: _mainTileControllers[2],
                       title: Text(l10n.adSettingsTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
+                            if (i != 2) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
                       childrenPadding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.xxl,
                       ),
@@ -183,9 +244,59 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 ListView(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   children: [
-                    _buildMaintenanceSection(context, remoteConfig),
+                    // Top-level ExpansionTile for Maintenance Section
+                    ExpansionTile(
+                      controller: _mainTileControllers[3],
+                      title: Text(l10n.maintenanceModeTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
+                            if (i != 3) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                        vertical: AppSpacing.md,
+                      ),
+                      children: [
+                        _buildMaintenanceSection(context, remoteConfig),
+                      ],
+                    ),
                     const SizedBox(height: AppSpacing.lg),
-                    _buildForceUpdateSection(context, remoteConfig),
+                    // Top-level ExpansionTile for Force Update Section
+                    ExpansionTile(
+                      controller: _mainTileControllers[4],
+                      title: Text(l10n.forceUpdateTitle),
+                      onExpansionChanged: (isExpanded) {
+                        if (isExpanded) {
+                          // Collapse other main tiles when this one expands
+                          for (
+                            var i = 0;
+                            i < _mainTileControllers.length;
+                            i++
+                          ) {
+                            if (i != 4) {
+                              _mainTileControllers[i].collapse();
+                            }
+                          }
+                        }
+                      },
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                        vertical: AppSpacing.md,
+                      ),
+                      children: [
+                        _buildForceUpdateSection(context, remoteConfig),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -366,7 +477,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     RemoteConfig remoteConfig,
   ) {
     final l10n = AppLocalizationsX(context).l10n;
-    final decoratorConfigs = remoteConfig.feedDecoratorConfig.entries.toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,26 +484,49 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
         Text(
           l10n.feedDecoratorsDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        for (final decoratorEntry in decoratorConfigs)
+        for (final decoratorType in FeedDecoratorType.values)
           ExpansionTile(
             title: Text(
-              decoratorEntry.key.name.toUpperCase(),
+              decoratorType.l10n(context),
             ),
             childrenPadding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xxl,
             ),
             children: [
               _FeedDecoratorForm(
-                decoratorType: decoratorEntry.key,
-                remoteConfig: remoteConfig,
+                decoratorType: decoratorType,
+                remoteConfig: remoteConfig.copyWith(
+                  feedDecoratorConfig:
+                      Map.from(remoteConfig.feedDecoratorConfig)..putIfAbsent(
+                        decoratorType,
+                        () => FeedDecoratorConfig(
+                          category:
+                              decoratorType ==
+                                      FeedDecoratorType.suggestedTopics ||
+                                  decoratorType ==
+                                      FeedDecoratorType.suggestedSources
+                              ? FeedDecoratorCategory.contentCollection
+                              : FeedDecoratorCategory.callToAction,
+                          enabled: false,
+                          visibleTo: const {},
+                          itemsToDisplay:
+                              decoratorType ==
+                                      FeedDecoratorType.suggestedTopics ||
+                                  decoratorType ==
+                                      FeedDecoratorType.suggestedSources
+                              ? 0
+                              : null,
+                        ),
+                      ),
+                ),
                 onConfigChanged: (newConfig) {
                   context.read<AppConfigurationBloc>().add(
-                        AppConfigurationFieldChanged(remoteConfig: newConfig),
-                      );
+                    AppConfigurationFieldChanged(remoteConfig: newConfig),
+                  );
                 },
                 buildIntField: _buildIntField,
               ),
@@ -743,26 +876,54 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _followedItemsLimitController = TextEditingController(
-          text: config.guestFollowedItemsLimit.toString(),
-        );
-        _savedHeadlinesLimitController = TextEditingController(
-          text: config.guestSavedHeadlinesLimit.toString(),
-        );
+        _followedItemsLimitController =
+            TextEditingController(
+                text: config.guestFollowedItemsLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.guestFollowedItemsLimit.toString().length,
+              );
+        _savedHeadlinesLimitController =
+            TextEditingController(
+                text: config.guestSavedHeadlinesLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.guestSavedHeadlinesLimit.toString().length,
+              );
       case AppUserRole.standardUser:
-        _followedItemsLimitController = TextEditingController(
-          text: config.authenticatedFollowedItemsLimit.toString(),
-        );
-        _savedHeadlinesLimitController = TextEditingController(
-          text: config.authenticatedSavedHeadlinesLimit.toString(),
-        );
+        _followedItemsLimitController =
+            TextEditingController(
+                text: config.authenticatedFollowedItemsLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.authenticatedFollowedItemsLimit
+                    .toString()
+                    .length,
+              );
+        _savedHeadlinesLimitController =
+            TextEditingController(
+                text: config.authenticatedSavedHeadlinesLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.authenticatedSavedHeadlinesLimit
+                    .toString()
+                    .length,
+              );
       case AppUserRole.premiumUser:
-        _followedItemsLimitController = TextEditingController(
-          text: config.premiumFollowedItemsLimit.toString(),
-        );
-        _savedHeadlinesLimitController = TextEditingController(
-          text: config.premiumSavedHeadlinesLimit.toString(),
-        );
+        _followedItemsLimitController =
+            TextEditingController(
+                text: config.premiumFollowedItemsLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.premiumFollowedItemsLimit.toString().length,
+              );
+        _savedHeadlinesLimitController =
+            TextEditingController(
+                text: config.premiumSavedHeadlinesLimit.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: config.premiumSavedHeadlinesLimit.toString().length,
+              );
     }
   }
 
@@ -772,20 +933,38 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
       case AppUserRole.guestUser:
         _followedItemsLimitController.text = config.guestFollowedItemsLimit
             .toString();
+        _followedItemsLimitController.selection = TextSelection.collapsed(
+          offset: _followedItemsLimitController.text.length,
+        );
         _savedHeadlinesLimitController.text = config.guestSavedHeadlinesLimit
             .toString();
+        _savedHeadlinesLimitController.selection = TextSelection.collapsed(
+          offset: _savedHeadlinesLimitController.text.length,
+        );
       case AppUserRole.standardUser:
         _followedItemsLimitController.text = config
             .authenticatedFollowedItemsLimit
             .toString();
+        _followedItemsLimitController.selection = TextSelection.collapsed(
+          offset: _followedItemsLimitController.text.length,
+        );
         _savedHeadlinesLimitController.text = config
             .authenticatedSavedHeadlinesLimit
             .toString();
+        _savedHeadlinesLimitController.selection = TextSelection.collapsed(
+          offset: _savedHeadlinesLimitController.text.length,
+        );
       case AppUserRole.premiumUser:
         _followedItemsLimitController.text = config.premiumFollowedItemsLimit
             .toString();
+        _followedItemsLimitController.selection = TextSelection.collapsed(
+          offset: _followedItemsLimitController.text.length,
+        );
         _savedHeadlinesLimitController.text = config.premiumSavedHeadlinesLimit
             .toString();
+        _savedHeadlinesLimitController.selection = TextSelection.collapsed(
+          offset: _savedHeadlinesLimitController.text.length,
+        );
     }
   }
 
@@ -954,7 +1133,8 @@ class _FeedDecoratorForm extends StatefulWidget {
     required int value,
     required ValueChanged<int> onChanged,
     TextEditingController? controller,
-  }) buildIntField;
+  })
+  buildIntField;
 
   @override
   State<_FeedDecoratorForm> createState() => _FeedDecoratorFormState();
@@ -982,16 +1162,30 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
   void _initializeControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-    _itemsToDisplayController = TextEditingController(
-      text: decoratorConfig.itemsToDisplay?.toString() ?? '',
-    );
+    _itemsToDisplayController =
+        TextEditingController(
+            text: decoratorConfig.itemsToDisplay?.toString() ?? '',
+          )
+          ..selection = TextSelection.collapsed(
+            offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
+          );
 
     _roleControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ??
-              '',
-        ),
+        role:
+            TextEditingController(
+                text:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString() ??
+                    '',
+              )
+              ..selection = TextSelection.collapsed(
+                offset:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString()
+                        .length ??
+                    0,
+              ),
     };
   }
 
@@ -1000,9 +1194,15 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
     _itemsToDisplayController.text =
         decoratorConfig.itemsToDisplay?.toString() ?? '';
+    _itemsToDisplayController.selection = TextSelection.collapsed(
+      offset: _itemsToDisplayController.text.length,
+    );
     for (final role in AppUserRole.values) {
       _roleControllers[role]?.text =
           decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
+      _roleControllers[role]?.selection = TextSelection.collapsed(
+        offset: _roleControllers[role]?.text.length ?? 0,
+      );
     }
   }
 
@@ -1030,8 +1230,8 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
             final newDecoratorConfig = decoratorConfig.copyWith(enabled: value);
             final newFeedDecoratorConfig =
                 Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-              widget.remoteConfig.feedDecoratorConfig,
-            )..[widget.decoratorType] = newDecoratorConfig;
+                  widget.remoteConfig.feedDecoratorConfig,
+                )..[widget.decoratorType] = newDecoratorConfig;
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 feedDecoratorConfig: newFeedDecoratorConfig,
@@ -1039,20 +1239,20 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
             );
           },
         ),
-        if (decoratorConfig.category ==
-            FeedDecoratorCategory.contentCollection)
+        if (decoratorConfig.category == FeedDecoratorCategory.contentCollection)
           widget.buildIntField(
             context,
             label: l10n.itemsToDisplayLabel,
             description: l10n.itemsToDisplayDescription,
             value: decoratorConfig.itemsToDisplay ?? 0,
             onChanged: (value) {
-              final newDecoratorConfig =
-                  decoratorConfig.copyWith(itemsToDisplay: value);
+              final newDecoratorConfig = decoratorConfig.copyWith(
+                itemsToDisplay: value,
+              );
               final newFeedDecoratorConfig =
                   Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                widget.remoteConfig.feedDecoratorConfig,
-              )..[widget.decoratorType] = newDecoratorConfig;
+                    widget.remoteConfig.feedDecoratorConfig,
+                  )..[widget.decoratorType] = newDecoratorConfig;
               widget.onConfigChanged(
                 widget.remoteConfig.copyWith(
                   feedDecoratorConfig: newFeedDecoratorConfig,
@@ -1065,63 +1265,78 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
           title: Text(l10n.roleSpecificSettingsTitle),
           children: AppUserRole.values.map((role) {
             final roleConfig = decoratorConfig.visibleTo[role];
-            return CheckboxListTile(
-              title: Text(role.name),
-              value: roleConfig != null,
-              onChanged: (value) {
-                final newVisibleTo =
-                    Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                  decoratorConfig.visibleTo,
-                );
-                if (value == true) {
-                  newVisibleTo[role] =
-                      const FeedDecoratorRoleConfig(daysBetweenViews: 7);
-                } else {
-                  newVisibleTo.remove(role);
-                }
-                final newDecoratorConfig =
-                    decoratorConfig.copyWith(visibleTo: newVisibleTo);
-                final newFeedDecoratorConfig =
-                    Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                  widget.remoteConfig.feedDecoratorConfig,
-                )..[widget.decoratorType] = newDecoratorConfig;
-                widget.onConfigChanged(
-                  widget.remoteConfig.copyWith(
-                    feedDecoratorConfig: newFeedDecoratorConfig,
-                  ),
-                );
-              },
-              secondary: SizedBox(
-                width: 100,
-                child: widget.buildIntField(
-                  context,
-                  label: l10n.daysBetweenViewsLabel,
-                  description: '',
-                  value: roleConfig?.daysBetweenViews ?? 0,
-                  onChanged: (value) {
-                    if (roleConfig != null) {
-                      final newRoleConfig =
-                          roleConfig.copyWith(daysBetweenViews: value);
-                      final newVisibleTo =
-                          Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                        decoratorConfig.visibleTo,
-                      )..[role] = newRoleConfig;
-                      final newDecoratorConfig =
-                          decoratorConfig.copyWith(visibleTo: newVisibleTo);
-                      final newFeedDecoratorConfig =
-                          Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                        widget.remoteConfig.feedDecoratorConfig,
-                      )..[widget.decoratorType] = newDecoratorConfig;
-                      widget.onConfigChanged(
-                        widget.remoteConfig.copyWith(
-                          feedDecoratorConfig: newFeedDecoratorConfig,
-                        ),
-                      );
-                    }
-                  },
-                  controller: _roleControllers[role],
+            return Column(
+              children: [
+                CheckboxListTile(
+                  title: Text(role.l10n(context)),
+                  value: roleConfig != null,
+                  onChanged:
+                      widget.decoratorType == FeedDecoratorType.linkAccount &&
+                          (role == AppUserRole.standardUser ||
+                              role == AppUserRole.premiumUser)
+                      ? null // Disable for standard and premium users for linkAccount
+                      : (value) {
+                          final newVisibleTo =
+                              Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                                decoratorConfig.visibleTo,
+                              );
+                          if (value == true) {
+                            newVisibleTo[role] = const FeedDecoratorRoleConfig(
+                              daysBetweenViews: 7,
+                            );
+                          } else {
+                            newVisibleTo.remove(role);
+                          }
+                          final newDecoratorConfig = decoratorConfig.copyWith(
+                            visibleTo: newVisibleTo,
+                          );
+                          final newFeedDecoratorConfig =
+                              Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                                widget.remoteConfig.feedDecoratorConfig,
+                              )..[widget.decoratorType] = newDecoratorConfig;
+                          widget.onConfigChanged(
+                            widget.remoteConfig.copyWith(
+                              feedDecoratorConfig: newFeedDecoratorConfig,
+                            ),
+                          );
+                        },
                 ),
-              ),
+                if (roleConfig != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.lg,
+                      vertical: AppSpacing.sm,
+                    ),
+                    child: widget.buildIntField(
+                      context,
+                      label: l10n.daysBetweenViewsLabel,
+                      description: l10n.daysBetweenViewsDescription,
+                      value: roleConfig.daysBetweenViews,
+                      onChanged: (value) {
+                        final newRoleConfig = roleConfig.copyWith(
+                          daysBetweenViews: value,
+                        );
+                        final newVisibleTo =
+                            Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                              decoratorConfig.visibleTo,
+                            )..[role] = newRoleConfig;
+                        final newDecoratorConfig = decoratorConfig.copyWith(
+                          visibleTo: newVisibleTo,
+                        );
+                        final newFeedDecoratorConfig =
+                            Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                              widget.remoteConfig.feedDecoratorConfig,
+                            )..[widget.decoratorType] = newDecoratorConfig;
+                        widget.onConfigChanged(
+                          widget.remoteConfig.copyWith(
+                            feedDecoratorConfig: newFeedDecoratorConfig,
+                          ),
+                        );
+                      },
+                      controller: _roleControllers[role],
+                    ),
+                  ),
+              ],
             );
           }).toList(),
         ),
@@ -1179,43 +1394,86 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     final adConfig = widget.remoteConfig.adConfig;
     switch (widget.userRole) {
       case AppUserRole.guestUser:
-        _adFrequencyController = TextEditingController(
-          text: adConfig.guestAdFrequency.toString(),
-        );
-        _adPlacementIntervalController = TextEditingController(
-          text: adConfig.guestAdPlacementInterval.toString(),
-        );
+        _adFrequencyController =
+            TextEditingController(
+                text: adConfig.guestAdFrequency.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.guestAdFrequency.toString().length,
+              );
+        _adPlacementIntervalController =
+            TextEditingController(
+                text: adConfig.guestAdPlacementInterval.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.guestAdPlacementInterval.toString().length,
+              );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-              text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
-                  .toString(),
-            );
+                text: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
+                    .toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.guestArticlesToReadBeforeShowingInterstitialAds
+                    .toString()
+                    .length,
+              );
       case AppUserRole.standardUser:
-        _adFrequencyController = TextEditingController(
-          text: adConfig.authenticatedAdFrequency.toString(),
-        );
-        _adPlacementIntervalController = TextEditingController(
-          text: adConfig.authenticatedAdPlacementInterval.toString(),
-        );
+        _adFrequencyController =
+            TextEditingController(
+                text: adConfig.authenticatedAdFrequency.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.authenticatedAdFrequency.toString().length,
+              );
+        _adPlacementIntervalController =
+            TextEditingController(
+                text: adConfig.authenticatedAdPlacementInterval.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.authenticatedAdPlacementInterval
+                    .toString()
+                    .length,
+              );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-              text: adConfig
-                  .standardUserArticlesToReadBeforeShowingInterstitialAds
-                  .toString(),
-            );
+                text: adConfig
+                    .standardUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig
+                    .standardUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString()
+                    .length,
+              );
       case AppUserRole.premiumUser:
-        _adFrequencyController = TextEditingController(
-          text: adConfig.premiumAdFrequency.toString(),
-        );
-        _adPlacementIntervalController = TextEditingController(
-          text: adConfig.premiumAdPlacementInterval.toString(),
-        );
+        _adFrequencyController =
+            TextEditingController(
+                text: adConfig.premiumAdFrequency.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.premiumAdFrequency.toString().length,
+              );
+        _adPlacementIntervalController =
+            TextEditingController(
+                text: adConfig.premiumAdPlacementInterval.toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig.premiumAdPlacementInterval.toString().length,
+              );
         _articlesToReadBeforeShowingInterstitialAdsController =
             TextEditingController(
-              text: adConfig
-                  .premiumUserArticlesToReadBeforeShowingInterstitialAds
-                  .toString(),
-            );
+                text: adConfig
+                    .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: adConfig
+                    .premiumUserArticlesToReadBeforeShowingInterstitialAds
+                    .toString()
+                    .length,
+              );
     }
   }
 
@@ -1224,28 +1482,61 @@ class _AdConfigFormState extends State<_AdConfigForm> {
     switch (widget.userRole) {
       case AppUserRole.guestUser:
         _adFrequencyController.text = adConfig.guestAdFrequency.toString();
+        _adFrequencyController.selection = TextSelection.collapsed(
+          offset: _adFrequencyController.text.length,
+        );
         _adPlacementIntervalController.text = adConfig.guestAdPlacementInterval
             .toString();
+        _adPlacementIntervalController.selection = TextSelection.collapsed(
+          offset: _adPlacementIntervalController.text.length,
+        );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .guestArticlesToReadBeforeShowingInterstitialAds
             .toString();
+        _articlesToReadBeforeShowingInterstitialAdsController
+            .selection = TextSelection.collapsed(
+          offset:
+              _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        );
       case AppUserRole.standardUser:
         _adFrequencyController.text = adConfig.authenticatedAdFrequency
             .toString();
+        _adFrequencyController.selection = TextSelection.collapsed(
+          offset: _adFrequencyController.text.length,
+        );
         _adPlacementIntervalController.text = adConfig
             .authenticatedAdPlacementInterval
             .toString();
+        _adPlacementIntervalController.selection = TextSelection.collapsed(
+          offset: _adPlacementIntervalController.text.length,
+        );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .standardUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
+        _articlesToReadBeforeShowingInterstitialAdsController
+            .selection = TextSelection.collapsed(
+          offset:
+              _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        );
       case AppUserRole.premiumUser:
         _adFrequencyController.text = adConfig.premiumAdFrequency.toString();
+        _adFrequencyController.selection = TextSelection.collapsed(
+          offset: _adFrequencyController.text.length,
+        );
         _adPlacementIntervalController.text = adConfig
             .premiumAdPlacementInterval
             .toString();
+        _adPlacementIntervalController.selection = TextSelection.collapsed(
+          offset: _adPlacementIntervalController.text.length,
+        );
         _articlesToReadBeforeShowingInterstitialAdsController.text = adConfig
             .premiumUserArticlesToReadBeforeShowingInterstitialAds
             .toString();
+        _articlesToReadBeforeShowingInterstitialAdsController
+            .selection = TextSelection.collapsed(
+          offset:
+              _articlesToReadBeforeShowingInterstitialAdsController.text.length,
+        );
     }
   }
 

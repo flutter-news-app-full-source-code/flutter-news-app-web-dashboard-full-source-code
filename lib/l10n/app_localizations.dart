@@ -1807,6 +1807,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Days Between Views'**
   String get daysBetweenViewsLabel;
+
+  /// Description for days between views input for feed decorators
+  ///
+  /// In en, this message translates to:
+  /// **'This setting determines the minimum number of days that must pass before a decorator can be shown again to a user, provided the associated task has not yet been completed.'**
+  String get daysBetweenViewsDescription;
+
+  /// Localized name for FeedDecoratorType.linkAccount
+  ///
+  /// In en, this message translates to:
+  /// **'Link Account'**
+  String get feedDecoratorTypeLinkAccount;
+
+  /// Localized name for FeedDecoratorType.upgrade
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Premium'**
+  String get feedDecoratorTypeUpgrade;
+
+  /// Localized name for FeedDecoratorType.rateApp
+  ///
+  /// In en, this message translates to:
+  /// **'Rate App'**
+  String get feedDecoratorTypeRateApp;
+
+  /// Localized name for FeedDecoratorType.enableNotifications
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get feedDecoratorTypeEnableNotifications;
+
+  /// Localized name for FeedDecoratorType.suggestedTopics
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Topics'**
+  String get feedDecoratorTypeSuggestedTopics;
+
+  /// Localized name for FeedDecoratorType.suggestedSources
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Sources'**
+  String get feedDecoratorTypeSuggestedSources;
+
+  /// Localized name for AppUserRole.guestUser
+  ///
+  /// In en, this message translates to:
+  /// **'Guest User'**
+  String get guestUserRole;
+
+  /// Localized name for AppUserRole.standardUser
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User'**
+  String get standardUserRole;
+
+  /// Localized name for AppUserRole.premiumUser
+  ///
+  /// In en, this message translates to:
+  /// **'Premium User'**
+  String get premiumUserRole;
 }
 
 class _AppLocalizationsDelegate

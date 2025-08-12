@@ -48,8 +48,9 @@ class _ArchivedHeadlinesView extends StatelessWidget {
               );
             }
             if (state.lastDeletedHeadline != null) {
-              final truncatedTitle =
-                  state.lastDeletedHeadline!.title.truncate(30);
+              final truncatedTitle = state.lastDeletedHeadline!.title.truncate(
+                30,
+              );
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
@@ -60,9 +61,9 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                     action: SnackBarAction(
                       label: l10n.undo,
                       onPressed: () {
-                        context
-                            .read<ArchivedHeadlinesBloc>()
-                            .add(const UndoDeleteHeadlineRequested());
+                        context.read<ArchivedHeadlinesBloc>().add(
+                          const UndoDeleteHeadlineRequested(),
+                        );
                       },
                     ),
                   ),
