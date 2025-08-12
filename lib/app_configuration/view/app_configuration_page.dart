@@ -157,7 +157,15 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                         ),
                       ],
                     ),
-                    const SizedBox.shrink(),
+                    ExpansionTile(
+                      title: Text(l10n.feedDecoratorsTitle),
+                      childrenPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xxl,
+                      ),
+                      children: [
+                        _buildFeedDecoratorConfigSection(context, remoteConfig),
+                      ],
+                    ),
                   ],
                 ),
                 ListView(
@@ -349,6 +357,48 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             ),
           ],
         ),
+      ],
+    );
+  }
+
+  Widget _buildFeedDecoratorConfigSection(
+    BuildContext context,
+    RemoteConfig remoteConfig,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    final decoratorConfigs = remoteConfig.feedDecoratorConfig.entries.toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.feedDecoratorsDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        for (final decoratorEntry in decoratorConfigs)
+          ExpansionTile(
+            title: Text(
+              decoratorEntry.key.name.toUpperCase(),
+            ),
+            childrenPadding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.xxl,
+            ),
+            children: [
+              _FeedDecoratorForm(
+                decoratorType: decoratorEntry.key,
+                remoteConfig: remoteConfig,
+                onConfigChanged: (newConfig) {
+                  context.read<AppConfigurationBloc>().add(
+                        AppConfigurationFieldChanged(remoteConfig: newConfig),
+                      );
+                },
+                buildIntField: _buildIntField,
+              ),
+            ],
+          ),
       ],
     );
   }
@@ -883,6 +933,200 @@ class _UserPreferenceLimitsFormState extends State<_UserPreferenceLimitsForm> {
       case AppUserRole.premiumUser:
         return config.copyWith(premiumSavedHeadlinesLimit: value);
     }
+  }
+}
+
+class _FeedDecoratorForm extends StatefulWidget {
+  const _FeedDecoratorForm({
+    required this.decoratorType,
+    required this.remoteConfig,
+    required this.onConfigChanged,
+    required this.buildIntField,
+  });
+
+  final FeedDecoratorType decoratorType;
+  final RemoteConfig remoteConfig;
+  final ValueChanged<RemoteConfig> onConfigChanged;
+  final Widget Function(
+    BuildContext context, {
+    required String label,
+    required String description,
+    required int value,
+    required ValueChanged<int> onChanged,
+    TextEditingController? controller,
+  }) buildIntField;
+
+  @override
+  State<_FeedDecoratorForm> createState() => _FeedDecoratorFormState();
+}
+
+class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
+  late final TextEditingController _itemsToDisplayController;
+  late final Map<AppUserRole, TextEditingController> _roleControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeControllers();
+  }
+
+  @override
+  void didUpdateWidget(covariant _FeedDecoratorForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.remoteConfig.feedDecoratorConfig[widget.decoratorType] !=
+        oldWidget.remoteConfig.feedDecoratorConfig[widget.decoratorType]) {
+      _updateControllers();
+    }
+  }
+
+  void _initializeControllers() {
+    final decoratorConfig =
+        widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
+    _itemsToDisplayController = TextEditingController(
+      text: decoratorConfig.itemsToDisplay?.toString() ?? '',
+    );
+
+    _roleControllers = {
+      for (final role in AppUserRole.values)
+        role: TextEditingController(
+          text: decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ??
+              '',
+        ),
+    };
+  }
+
+  void _updateControllers() {
+    final decoratorConfig =
+        widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
+    _itemsToDisplayController.text =
+        decoratorConfig.itemsToDisplay?.toString() ?? '';
+    for (final role in AppUserRole.values) {
+      _roleControllers[role]?.text =
+          decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
+    }
+  }
+
+  @override
+  void dispose() {
+    _itemsToDisplayController.dispose();
+    for (final controller in _roleControllers.values) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    final decoratorConfig =
+        widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
+
+    return Column(
+      children: [
+        SwitchListTile(
+          title: Text(l10n.enabledLabel),
+          value: decoratorConfig.enabled,
+          onChanged: (value) {
+            final newDecoratorConfig = decoratorConfig.copyWith(enabled: value);
+            final newFeedDecoratorConfig =
+                Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+              widget.remoteConfig.feedDecoratorConfig,
+            )..[widget.decoratorType] = newDecoratorConfig;
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                feedDecoratorConfig: newFeedDecoratorConfig,
+              ),
+            );
+          },
+        ),
+        if (decoratorConfig.category ==
+            FeedDecoratorCategory.contentCollection)
+          widget.buildIntField(
+            context,
+            label: l10n.itemsToDisplayLabel,
+            description: l10n.itemsToDisplayDescription,
+            value: decoratorConfig.itemsToDisplay ?? 0,
+            onChanged: (value) {
+              final newDecoratorConfig =
+                  decoratorConfig.copyWith(itemsToDisplay: value);
+              final newFeedDecoratorConfig =
+                  Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                widget.remoteConfig.feedDecoratorConfig,
+              )..[widget.decoratorType] = newDecoratorConfig;
+              widget.onConfigChanged(
+                widget.remoteConfig.copyWith(
+                  feedDecoratorConfig: newFeedDecoratorConfig,
+                ),
+              );
+            },
+            controller: _itemsToDisplayController,
+          ),
+        ExpansionTile(
+          title: Text(l10n.roleSpecificSettingsTitle),
+          children: AppUserRole.values.map((role) {
+            final roleConfig = decoratorConfig.visibleTo[role];
+            return CheckboxListTile(
+              title: Text(role.name),
+              value: roleConfig != null,
+              onChanged: (value) {
+                final newVisibleTo =
+                    Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                  decoratorConfig.visibleTo,
+                );
+                if (value == true) {
+                  newVisibleTo[role] =
+                      const FeedDecoratorRoleConfig(daysBetweenViews: 7);
+                } else {
+                  newVisibleTo.remove(role);
+                }
+                final newDecoratorConfig =
+                    decoratorConfig.copyWith(visibleTo: newVisibleTo);
+                final newFeedDecoratorConfig =
+                    Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                  widget.remoteConfig.feedDecoratorConfig,
+                )..[widget.decoratorType] = newDecoratorConfig;
+                widget.onConfigChanged(
+                  widget.remoteConfig.copyWith(
+                    feedDecoratorConfig: newFeedDecoratorConfig,
+                  ),
+                );
+              },
+              secondary: SizedBox(
+                width: 100,
+                child: widget.buildIntField(
+                  context,
+                  label: l10n.daysBetweenViewsLabel,
+                  description: '',
+                  value: roleConfig?.daysBetweenViews ?? 0,
+                  onChanged: (value) {
+                    if (roleConfig != null) {
+                      final newRoleConfig =
+                          roleConfig.copyWith(daysBetweenViews: value);
+                      final newVisibleTo =
+                          Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                        decoratorConfig.visibleTo,
+                      )..[role] = newRoleConfig;
+                      final newDecoratorConfig =
+                          decoratorConfig.copyWith(visibleTo: newVisibleTo);
+                      final newFeedDecoratorConfig =
+                          Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                        widget.remoteConfig.feedDecoratorConfig,
+                      )..[widget.decoratorType] = newDecoratorConfig;
+                      widget.onConfigChanged(
+                        widget.remoteConfig.copyWith(
+                          feedDecoratorConfig: newFeedDecoratorConfig,
+                        ),
+                      );
+                    }
+                  },
+                  controller: _roleControllers[role],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 }
 
