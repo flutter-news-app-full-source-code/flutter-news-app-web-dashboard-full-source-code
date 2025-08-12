@@ -1065,63 +1065,69 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
           title: Text(l10n.roleSpecificSettingsTitle),
           children: AppUserRole.values.map((role) {
             final roleConfig = decoratorConfig.visibleTo[role];
-            return CheckboxListTile(
-              title: Text(role.name),
-              value: roleConfig != null,
-              onChanged: (value) {
-                final newVisibleTo =
-                    Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                  decoratorConfig.visibleTo,
-                );
-                if (value == true) {
-                  newVisibleTo[role] =
-                      const FeedDecoratorRoleConfig(daysBetweenViews: 7);
-                } else {
-                  newVisibleTo.remove(role);
-                }
-                final newDecoratorConfig =
-                    decoratorConfig.copyWith(visibleTo: newVisibleTo);
-                final newFeedDecoratorConfig =
-                    Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                  widget.remoteConfig.feedDecoratorConfig,
-                )..[widget.decoratorType] = newDecoratorConfig;
-                widget.onConfigChanged(
-                  widget.remoteConfig.copyWith(
-                    feedDecoratorConfig: newFeedDecoratorConfig,
-                  ),
-                );
-              },
-              secondary: SizedBox(
-                width: 100,
-                child: widget.buildIntField(
-                  context,
-                  label: l10n.daysBetweenViewsLabel,
-                  description: '',
-                  value: roleConfig?.daysBetweenViews ?? 0,
+            return Column(
+              children: [
+                CheckboxListTile(
+                  title: Text(role.name), // Will be localized later
+                  value: roleConfig != null,
                   onChanged: (value) {
-                    if (roleConfig != null) {
-                      final newRoleConfig =
-                          roleConfig.copyWith(daysBetweenViews: value);
-                      final newVisibleTo =
-                          Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                        decoratorConfig.visibleTo,
-                      )..[role] = newRoleConfig;
-                      final newDecoratorConfig =
-                          decoratorConfig.copyWith(visibleTo: newVisibleTo);
-                      final newFeedDecoratorConfig =
-                          Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                        widget.remoteConfig.feedDecoratorConfig,
-                      )..[widget.decoratorType] = newDecoratorConfig;
-                      widget.onConfigChanged(
-                        widget.remoteConfig.copyWith(
-                          feedDecoratorConfig: newFeedDecoratorConfig,
-                        ),
-                      );
+                    final newVisibleTo =
+                        Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                      decoratorConfig.visibleTo,
+                    );
+                    if (value == true) {
+                      newVisibleTo[role] =
+                          const FeedDecoratorRoleConfig(daysBetweenViews: 7);
+                    } else {
+                      newVisibleTo.remove(role);
                     }
+                    final newDecoratorConfig =
+                        decoratorConfig.copyWith(visibleTo: newVisibleTo);
+                    final newFeedDecoratorConfig =
+                        Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                      widget.remoteConfig.feedDecoratorConfig,
+                    )..[widget.decoratorType] = newDecoratorConfig;
+                    widget.onConfigChanged(
+                      widget.remoteConfig.copyWith(
+                        feedDecoratorConfig: newFeedDecoratorConfig,
+                      ),
+                    );
                   },
-                  controller: _roleControllers[role],
                 ),
-              ),
+                if (roleConfig != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.lg,
+                      vertical: AppSpacing.sm,
+                    ),
+                    child: widget.buildIntField(
+                      context,
+                      label: l10n.daysBetweenViewsLabel,
+                      description: l10n.daysBetweenViewsDescription,
+                      value: roleConfig.daysBetweenViews,
+                      onChanged: (value) {
+                        final newRoleConfig =
+                            roleConfig.copyWith(daysBetweenViews: value);
+                        final newVisibleTo =
+                            Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                          decoratorConfig.visibleTo,
+                        )..[role] = newRoleConfig;
+                        final newDecoratorConfig =
+                            decoratorConfig.copyWith(visibleTo: newVisibleTo);
+                        final newFeedDecoratorConfig =
+                            Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                          widget.remoteConfig.feedDecoratorConfig,
+                        )..[widget.decoratorType] = newDecoratorConfig;
+                        widget.onConfigChanged(
+                          widget.remoteConfig.copyWith(
+                            feedDecoratorConfig: newFeedDecoratorConfig,
+                          ),
+                        );
+                      },
+                      controller: _roleControllers[role],
+                    ),
+                  ),
+              ],
             );
           }).toList(),
         ),
