@@ -136,6 +136,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceDataUpdated event,
     Emitter<CreateSourceState> emit,
   ) {
-    emit(state.copyWith(countries: event.countries, languages: event.languages));
+    emit(
+      state.copyWith(countries: event.countries, languages: event.languages),
+    );
   }
 }

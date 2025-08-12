@@ -28,13 +28,13 @@ class ContentManagementBloc
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required ThrottledFetchingService fetchingService,
-  })  : _headlinesRepository = headlinesRepository,
-        _topicsRepository = topicsRepository,
-        _sourcesRepository = sourcesRepository,
-        _countriesRepository = countriesRepository,
-        _languagesRepository = languagesRepository,
-        _fetchingService = fetchingService,
-        super(const ContentManagementState()) {
+  }) : _headlinesRepository = headlinesRepository,
+       _topicsRepository = topicsRepository,
+       _sourcesRepository = sourcesRepository,
+       _countriesRepository = countriesRepository,
+       _languagesRepository = languagesRepository,
+       _fetchingService = fetchingService,
+       super(const ContentManagementState()) {
     on<SharedDataRequested>(_onSharedDataRequested);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);

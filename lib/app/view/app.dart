@@ -80,7 +80,9 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _kvStorageService),
-        RepositoryProvider(create: (context) => const ThrottledFetchingService()),
+        RepositoryProvider(
+          create: (context) => const ThrottledFetchingService(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [

@@ -201,6 +201,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceDataUpdated event,
     Emitter<EditSourceState> emit,
   ) {
-    emit(state.copyWith(countries: event.countries, languages: event.languages));
+    emit(
+      state.copyWith(countries: event.countries, languages: event.languages),
+    );
   }
 }

@@ -50,12 +50,12 @@ class ArchivedHeadlinesState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        headlines,
-        cursor,
-        hasMore,
-        exception,
-        restoredHeadline,
-        lastDeletedHeadline,
-      ];
+    status,
+    headlines,
+    cursor,
+    hasMore,
+    exception,
+    restoredHeadline,
+    lastDeletedHeadline,
+  ];
 }

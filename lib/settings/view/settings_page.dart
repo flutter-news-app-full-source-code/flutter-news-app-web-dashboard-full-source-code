@@ -436,8 +436,8 @@ class _LanguageSelectionList extends StatelessWidget {
           onTap: () {
             if (!isSelected) {
               context.read<SettingsBloc>().add(
-                    SettingsLanguageChanged(language),
-                  );
+                SettingsLanguageChanged(language),
+              );
             }
           },
         );
