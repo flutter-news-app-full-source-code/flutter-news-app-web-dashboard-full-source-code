@@ -17,6 +17,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/d
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:logging/logging.dart';
@@ -206,7 +207,6 @@ class _AppViewState extends State<_AppView> {
             fontFamily: fontFamily,
           );
 
-          const double kMaxAppWidth = 1000; // Local constant for max width
           return Center(
             child: Card(
               margin: EdgeInsets.zero, // Remove default card margin
@@ -217,7 +217,8 @@ class _AppViewState extends State<_AppView> {
                 ), // Match cardRadius from theme
               ),
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: kMaxAppWidth),
+                constraints:
+                    const BoxConstraints(maxWidth: AppConstants.kMaxAppWidth),
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
                   routerConfig: _router,
