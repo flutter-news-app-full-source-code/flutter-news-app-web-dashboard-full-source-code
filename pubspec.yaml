@@ -4,7 +4,7 @@ publish_to: none
 repository: https://github.com/flutter-news-app-full-source-code/flutter-news-app-web-dashboard-full-source-code
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.9.0
 
 dependencies:
   auth_api:
@@ -39,7 +39,7 @@ dependencies:
   data_table_2: ^2.6.0
   device_preview: ^1.2.0
   equatable: ^2.0.7
-  flex_color_scheme: ^8.2.0
+  flex_color_scheme: ^8.3.0
   flutter:
     sdk: flutter
   flutter_adaptive_scaffold: ^0.3.3+1
