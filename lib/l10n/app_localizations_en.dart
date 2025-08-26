@@ -983,4 +983,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get premiumUserRole => 'Premium User';
+
+  @override
+  String get dashboardTitle => 'Dashboard';
 }

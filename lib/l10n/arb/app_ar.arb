@@ -1227,5 +1227,9 @@
   "premiumUserRole": "مستخدم مميز",
   "@premiumUserRole": {
     "description": "الاسم المترجم لـ AppUserRole.premiumUser"
+  },
+  "dashboardTitle": "لوحة القيادة",
+  "@dashboardTitle": {
+    "description": "عنوان شريط التطبيق الرئيسي للوحة القيادة"
   }
 }

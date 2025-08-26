@@ -27,7 +27,7 @@ class AppShell extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.overview),
+        title: Text(l10n.dashboardTitle),
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) {
