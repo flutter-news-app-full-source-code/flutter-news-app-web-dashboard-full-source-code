@@ -1280,7 +1280,7 @@ class _FeedDecoratorFormState extends State<_FeedDecoratorForm> {
                               Map<AppUserRole, FeedDecoratorRoleConfig>.from(
                                 decoratorConfig.visibleTo,
                               );
-                          if (value == true) {
+                          if (value ?? false) {
                             newVisibleTo[role] = const FeedDecoratorRoleConfig(
                               daysBetweenViews: 7,
                             );

@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -36,8 +36,8 @@ class _OverviewPageState extends State<OverviewPage> {
               state.status == OverviewStatus.initial) {
             return LoadingStateWidget(
               icon: Icons.dashboard_outlined,
-              headline: l10n.loadingDashboard,
-              subheadline: l10n.loadingDashboardSubheadline,
+              headline: l10n.loadingOverview,
+              subheadline: l10n.loadingOverviewSubheadline,
             );
           }
           if (state.status == OverviewStatus.failure) {

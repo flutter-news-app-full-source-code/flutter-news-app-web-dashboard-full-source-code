@@ -27,7 +27,7 @@ class AppShell extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.dashboard),
+        title: Text(l10n.overview),
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) {
@@ -73,7 +73,7 @@ class AppShell extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.dashboard_outlined),
             selectedIcon: const Icon(Icons.dashboard),
-            label: l10n.dashboard,
+            label: l10n.overview,
           ),
           NavigationDestination(
             icon: const Icon(Icons.folder_open_outlined),
