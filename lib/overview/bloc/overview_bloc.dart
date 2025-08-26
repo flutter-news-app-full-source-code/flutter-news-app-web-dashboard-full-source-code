@@ -21,7 +21,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
        _headlinesRepository = headlinesRepository,
        super(const OverviewState()) {
     on<OverviewSummaryRequested>(_onOverviewSummaryRequested);
-    on<_OverviewEntityUpdated>(__onOverviewEntityUpdated);
+    on<_OverviewEntityUpdated>(_onOverviewEntityUpdated);
 
     _entityUpdatedSubscription = headlinesRepository.entityUpdated
         .merge(topicsRepository.entityUpdated)
@@ -39,7 +39,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
     return super.close();
   }
 
-  void __onOverviewEntityUpdated(
+  void _onOverviewEntityUpdated(
     _OverviewEntityUpdated event,
     Emitter<OverviewState> emit,
   ) {
