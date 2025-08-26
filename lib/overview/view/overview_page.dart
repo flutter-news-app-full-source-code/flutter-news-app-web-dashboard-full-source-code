@@ -7,18 +7,18 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.da
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// {@template dashboard_page}
-/// The main dashboard page, displaying key statistics and quick actions.
+/// {@template overview_page}
+/// The main dashboard overiview page, displaying key statistics and quick actions.
 /// {@endtemplate}
-class DashboardPage extends StatefulWidget {
-  /// {@macro dashboard_page}
-  const DashboardPage({super.key});
+class OverviewPage extends StatefulWidget {
+  /// {@macro overview_page}
+  const OverviewPage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<OverviewPage> createState() => _OverviewPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _OverviewPageState extends State<OverviewPage> {
   @override
   void initState() {
     super.initState();
