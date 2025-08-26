@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template overview_page}
-/// The main dashboard overiview page, displaying key statistics and quick actions.
+/// The main dashboard overview page, displaying key statistics and quick actions.
 /// {@endtemplate}
 class OverviewPage extends StatefulWidget {
   /// {@macro overview_page}
@@ -22,7 +22,7 @@ class _OverviewPageState extends State<OverviewPage> {
   @override
   void initState() {
     super.initState();
-    // Dispatch the event to load dashboard data when the page is initialized.
+    // Dispatch the event to load dashboard overview data when the page is initialized.
     context.read<OverviewBloc>().add(OverviewSummaryRequested());
   }
 
@@ -251,7 +251,7 @@ class _RecentHeadlinesCard extends StatelessWidget {
   }
 }
 
-/// A private widget to display a single summary statistic on the dashboard.
+/// A private widget to display a single summary statistic on the dashboard overview.
 class _SummaryCard extends StatelessWidget {
   const _SummaryCard({
     required this.icon,
