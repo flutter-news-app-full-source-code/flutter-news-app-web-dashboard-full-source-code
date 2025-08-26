@@ -985,4 +985,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get premiumUserRole => 'مستخدم مميز';
+
+  @override
+  String get dashboardTitle => 'لوحة القيادة';
 }

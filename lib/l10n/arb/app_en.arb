@@ -1222,5 +1222,9 @@
   "premiumUserRole": "Premium User",
   "@premiumUserRole": {
     "description": "Localized name for AppUserRole.premiumUser"
+  },
+  "dashboardTitle": "Dashboard",
+  "@dashboardTitle": {
+    "description": "Title for the main dashboard app bar"
   }
 }

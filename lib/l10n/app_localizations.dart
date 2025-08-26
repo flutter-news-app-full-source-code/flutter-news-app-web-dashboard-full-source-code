@@ -1867,6 +1867,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Premium User'**
   String get premiumUserRole;
+
+  /// Title for the main dashboard app bar
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboardTitle;
 }
 
 class _AppLocalizationsDelegate
