@@ -32,11 +32,11 @@ abstract final class Routes {
   /// The name for the verify code page route within the linking flow.
   static const String linkingVerifyCodeName = 'linkingVerifyCode';
 
-  /// The path for the dashboard page.
-  static const String dashboard = '/dashboard';
+  /// The path for the dashboard overview page.
+  static const String overview = '/overview';
 
-  /// The name for the dashboard page route.
-  static const String dashboardName = 'dashboard';
+  /// The name for the dashboard overview page route.
+  static const String overviewName = 'overview';
 
   /// The path for the content management section.
   static const String contentManagement = '/content-management';

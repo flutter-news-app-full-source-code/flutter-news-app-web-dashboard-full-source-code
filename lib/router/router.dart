@@ -51,7 +51,7 @@ GoRouter createRouter({
 
       // --- Define Key Paths ---
       const authenticationPath = Routes.authentication;
-      const dashboardPath = Routes.dashboard;
+      const overviewPath = Routes.overview;
       final isGoingToAuth = currentLocation.startsWith(authenticationPath);
 
       // --- Case 1: Unauthenticated User ---
@@ -76,11 +76,11 @@ GoRouter createRouter({
         if (isGoingToAuth) {
           print(
             '    Action: Authenticated user on auth path ($currentLocation). '
-            'Redirecting to $dashboardPath',
+            'Redirecting to $overviewPath',
           );
-          return dashboardPath;
+          return overviewPath;
         }
-        // Allow access to other routes (non-auth paths), which should only be dashboard for now
+        // Allow access to other routes (non-auth paths), which should only be dashboard overview for now
         print(
           '    Action: Allowing navigation to $currentLocation for $appStatus '
           'user (non-auth path).',
@@ -133,11 +133,11 @@ GoRouter createRouter({
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.dashboard,
-                name: Routes.dashboardName,
+                path: Routes.overview,
+                name: Routes.overviewName,
                 builder: (context, state) => const OverviewPage(),
                 routes: [
-                  // The settings page is a sub-route of the dashboard.
+                  // The settings page is a sub-route of the dashboard overview.
                   // This allows it to be displayed within the AppShell
                   // (with sidebar and top bar visible) without adding
                   // a new item to the main navigation sidebar.
