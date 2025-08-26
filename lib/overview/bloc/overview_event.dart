@@ -1,6 +1,6 @@
 part of 'overview_bloc.dart';
 
-/// Base class for dashboard overviews events.
+/// Base class for dashboard overview events.
 sealed class OverviewEvent extends Equatable {
   const OverviewEvent();
 
