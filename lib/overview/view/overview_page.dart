@@ -23,33 +23,32 @@ class _OverviewPageState extends State<OverviewPage> {
   void initState() {
     super.initState();
     // Dispatch the event to load dashboard data when the page is initialized.
-    context.read<DashboardBloc>().add(DashboardSummaryRequested());
+    context.read<OverviewBloc>().add(OverviewSummaryRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
-      body: BlocBuilder<DashboardBloc, DashboardState>(
+      body: BlocBuilder<OverviewBloc, OverviewState>(
         builder: (context, state) {
-          if (state.status == DashboardStatus.loading ||
-              state.status == DashboardStatus.initial) {
+          if (state.status == OverviewStatus.loading ||
+              state.status == OverviewStatus.initial) {
             return LoadingStateWidget(
               icon: Icons.dashboard_outlined,
               headline: l10n.loadingDashboard,
               subheadline: l10n.loadingDashboardSubheadline,
             );
           }
-          if (state.status == DashboardStatus.failure) {
+          if (state.status == OverviewStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () {
-                context.read<DashboardBloc>().add(DashboardSummaryRequested());
+                context.read<OverviewBloc>().add(OverviewSummaryRequested());
               },
             );
           }
-          if (state.status == DashboardStatus.success &&
-              state.summary != null) {
+          if (state.status == OverviewStatus.success && state.summary != null) {
             final summary = state.summary!;
             final recentHeadlines = state.recentHeadlines;
             return ListView(

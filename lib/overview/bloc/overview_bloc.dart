@@ -9,24 +9,24 @@ import 'package:stream_transform/stream_transform.dart';
 part 'overview_event.dart';
 part 'overview_state.dart';
 
-/// A BLoC to manage the state of the dashboard.
-class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
-  /// {@macro dashboard_bloc}
-  DashboardBloc({
+/// A BLoC to manage the state of the dashboard overview.
+class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
+  /// {@macro overview_bloc}
+  OverviewBloc({
     required DataRepository<DashboardSummary> dashboardSummaryRepository,
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
   }) : _dashboardSummaryRepository = dashboardSummaryRepository,
        _headlinesRepository = headlinesRepository,
-       super(const DashboardState()) {
-    on<DashboardSummaryRequested>(_onDashboardSummaryRequested);
-    on<_DashboardEntityUpdated>(_onDashboardEntityUpdated);
+       super(const OverviewState()) {
+    on<OverviewSummaryRequested>(_onOverviewSummaryRequested);
+    on<_OverviewEntityUpdated>(__onOverviewEntityUpdated);
 
     _entityUpdatedSubscription = headlinesRepository.entityUpdated
         .merge(topicsRepository.entityUpdated)
         .merge(sourcesRepository.entityUpdated)
-        .listen((_) => add(const _DashboardEntityUpdated()));
+        .listen((_) => add(const _OverviewEntityUpdated()));
   }
 
   final DataRepository<DashboardSummary> _dashboardSummaryRepository;
@@ -39,18 +39,18 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     return super.close();
   }
 
-  void _onDashboardEntityUpdated(
-    _DashboardEntityUpdated event,
-    Emitter<DashboardState> emit,
+  void __onOverviewEntityUpdated(
+    _OverviewEntityUpdated event,
+    Emitter<OverviewState> emit,
   ) {
-    add(DashboardSummaryRequested());
+    add(OverviewSummaryRequested());
   }
 
-  Future<void> _onDashboardSummaryRequested(
-    DashboardSummaryRequested event,
-    Emitter<DashboardState> emit,
+  Future<void> _onOverviewSummaryRequested(
+    OverviewSummaryRequested event,
+    Emitter<OverviewState> emit,
   ) async {
-    emit(state.copyWith(status: DashboardStatus.loading));
+    emit(state.copyWith(status: OverviewStatus.loading));
     try {
       // Fetch summary and recent headlines concurrently
       final [summaryResponse, recentHeadlinesResponse] = await Future.wait([
@@ -67,17 +67,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           (recentHeadlinesResponse as PaginatedResponse<Headline>).items;
       emit(
         state.copyWith(
-          status: DashboardStatus.success,
+          status: OverviewStatus.success,
           summary: summary,
           recentHeadlines: recentHeadlines,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: DashboardStatus.failure, exception: e));
+      emit(state.copyWith(status: OverviewStatus.failure, exception: e));
     } catch (e) {
       emit(
         state.copyWith(
-          status: DashboardStatus.failure,
+          status: OverviewStatus.failure,
           exception: UnknownException('An unknown error occurred: $e'),
         ),
       );

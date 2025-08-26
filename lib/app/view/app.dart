@@ -118,7 +118,7 @@ class App extends StatelessWidget {
             )..add(const SharedDataRequested()),
           ),
           BlocProvider(
-            create: (context) => DashboardBloc(
+            create: (context) => OverviewBloc(
               dashboardSummaryRepository: context
                   .read<DataRepository<DashboardSummary>>(),
               headlinesRepository: context.read<DataRepository<Headline>>(),

@@ -1,17 +1,17 @@
 part of 'overview_bloc.dart';
 
-/// Base class for dashboard events.
-sealed class DashboardEvent extends Equatable {
-  const DashboardEvent();
+/// Base class for dashboard overviews events.
+sealed class OverviewEvent extends Equatable {
+  const OverviewEvent();
 
   @override
   List<Object> get props => [];
 }
 
-/// Event to load the dashboard summary data.
-final class DashboardSummaryRequested extends DashboardEvent {}
+/// Event to load the dashboard overview summary data.
+final class OverviewSummaryRequested extends OverviewEvent {}
 
 /// Internal event triggered when a listened-to entity is updated.
-final class _DashboardEntityUpdated extends DashboardEvent {
-  const _DashboardEntityUpdated();
+final class _OverviewEntityUpdated extends OverviewEvent {
+  const _OverviewEntityUpdated();
 }
