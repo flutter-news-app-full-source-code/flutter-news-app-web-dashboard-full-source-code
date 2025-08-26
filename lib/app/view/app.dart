@@ -206,40 +206,59 @@ class _AppViewState extends State<_AppView> {
             fontFamily: fontFamily,
           );
 
-          return Center(
-            child: Card(
-              margin: EdgeInsets.zero, // Remove default card margin
-              elevation: 4, // Add some elevation to make it "pop"
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  8,
-                ), // Match cardRadius from theme
-              ),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: AppConstants.kMaxAppWidth,
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: _router,
+            localizationsDelegates: const [
+              UiKitLocalizations.delegate,
+              ...AppLocalizations.localizationsDelegates,
+            ],
+            supportedLocales: UiKitLocalizations.supportedLocales,
+            theme: baseTheme == AppBaseTheme.dark
+                ? darkThemeData
+                : lightThemeData,
+            darkTheme: darkThemeData,
+            themeMode: switch (baseTheme) {
+              AppBaseTheme.light => ThemeMode.light,
+              AppBaseTheme.dark => ThemeMode.dark,
+              _ => ThemeMode.system,
+            },
+            locale: language != null ? Locale(language.code) : null,
+            // The builder is used to wrap the router's content with a Scaffold
+            // that provides a distinct background color for the areas outside
+            // the constrained app width. This ensures a consistent visual
+            // experience across different screen sizes, clearly separating
+            // the main application content from the browser's background.
+            builder: (context, child) {
+              return Scaffold(
+                // Use a distinct background color from the theme for the
+                // areas outside the main constrained content.
+                backgroundColor:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
+                body: Center(
+                  child: Card(
+                    // Remove default card margin to allow it to fill the
+                    // constrained box.
+                    margin: EdgeInsets.zero,
+                    // Add some elevation to make the main content "pop"
+                    // from the background.
+                    elevation: 4,
+                    // Match cardRadius from theme for consistent styling.
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ConstrainedBox(
+                      // Constrain the maximum width of the application content.
+                      constraints: const BoxConstraints(
+                        maxWidth: AppConstants.kMaxAppWidth,
+                      ),
+                      // The child here is the content provided by the GoRouter.
+                      child: child,
+                    ),
+                  ),
                 ),
-                child: MaterialApp.router(
-                  debugShowCheckedModeBanner: false,
-                  routerConfig: _router,
-                  localizationsDelegates: const [
-                    UiKitLocalizations.delegate,
-                    ...AppLocalizations.localizationsDelegates,
-                  ],
-                  supportedLocales: UiKitLocalizations.supportedLocales,
-                  theme: baseTheme == AppBaseTheme.dark
-                      ? darkThemeData
-                      : lightThemeData,
-                  darkTheme: darkThemeData,
-                  themeMode: switch (baseTheme) {
-                    AppBaseTheme.light => ThemeMode.light,
-                    AppBaseTheme.dark => ThemeMode.dark,
-                    _ => ThemeMode.system,
-                  },
-                  locale: language != null ? Locale(language.code) : null,
-                ),
-              ),
-            ),
+              );
+            },
           );
         },
       ),
