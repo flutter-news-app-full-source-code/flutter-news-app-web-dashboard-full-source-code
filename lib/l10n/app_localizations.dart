@@ -212,11 +212,11 @@ abstract class AppLocalizations {
   /// **'Verify Code'**
   String get emailCodeVerificationButtonLabel;
 
-  /// Label for the dashboard navigation item
+  /// Label for the dashboard overview navigation item
   ///
   /// In en, this message translates to:
-  /// **'Dashboard'**
-  String get dashboard;
+  /// **'Overview'**
+  String get overview;
 
   /// Label for the content management navigation item
   ///
@@ -1388,43 +1388,43 @@ abstract class AppLocalizations {
   /// **'Draft'**
   String get contentStatusDraft;
 
-  /// Label for the total headlines summary card on the dashboard
+  /// Label for the total headlines summary card on the dashboard overview
   ///
   /// In en, this message translates to:
   /// **'Total Headlines'**
   String get totalHeadlines;
 
-  /// Label for the total topics summary card on the dashboard
+  /// Label for the total topics summary card on the dashboard overview
   ///
   /// In en, this message translates to:
   /// **'Total Topics'**
   String get totalTopics;
 
-  /// Label for the total sources summary card on the dashboard
+  /// Label for the total sources summary card on the dashboard overview
   ///
   /// In en, this message translates to:
   /// **'Total Sources'**
   String get totalSources;
 
-  /// Headline for the dashboard loading state
+  /// Headline for the dashboard overview loading state
   ///
   /// In en, this message translates to:
-  /// **'Loading Dashboard'**
-  String get loadingDashboard;
+  /// **'Loading Dashboard Overview...'**
+  String get loadingOverview;
 
-  /// Subheadline for the dashboard loading state
+  /// Subheadline for the dashboard overview loading state
   ///
   /// In en, this message translates to:
   /// **'Fetching latest statistics...'**
-  String get loadingDashboardSubheadline;
+  String get loadingOverviewSubheadline;
 
-  /// Error message when dashboard data fails to load
+  /// Error message when dashboard overview data fails to load
   ///
   /// In en, this message translates to:
-  /// **'Failed to load dashboard data.'**
-  String get dashboardLoadFailure;
+  /// **'Failed to load dashboard overview data.'**
+  String get overviewLoadFailure;
 
-  /// Title for the recent headlines card on the dashboard
+  /// Title for the recent headlines card on the dashboard overview
   ///
   /// In en, this message translates to:
   /// **'Recent Headlines'**
@@ -1442,13 +1442,13 @@ abstract class AppLocalizations {
   /// **'No recent headlines to display.'**
   String get noRecentHeadlines;
 
-  /// Title for the system status card on the dashboard
+  /// Title for the system status card on the dashboard overview
   ///
   /// In en, this message translates to:
   /// **'System Status'**
   String get systemStatus;
 
-  /// Title for the quick actions card on the dashboard
+  /// Title for the quick actions card on the dashboard overview
   ///
   /// In en, this message translates to:
   /// **'Quick Actions'**

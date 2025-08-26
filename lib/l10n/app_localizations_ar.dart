@@ -77,7 +77,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emailCodeVerificationButtonLabel => 'التحقق من الرمز';
 
   @override
-  String get dashboard => 'لوحة القيادة';
+  String get overview => 'نظرة عامة';
 
   @override
   String get contentManagement => 'إدارة المحتوى';
@@ -737,13 +737,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get totalSources => 'إجمالي المصادر';
 
   @override
-  String get loadingDashboard => 'جاري تحميل لوحة القيادة';
+  String get loadingOverview => 'جاري تحميل نظرة عامة على لوحة القيادة';
 
   @override
-  String get loadingDashboardSubheadline => 'جاري جلب أحدث الإحصائيات...';
+  String get loadingOverviewSubheadline => 'جاري جلب أحدث الإحصائيات...';
 
   @override
-  String get dashboardLoadFailure => 'فشل تحميل بيانات لوحة القيادة.';
+  String get overviewLoadFailure =>
+      'فشل تحميل بيانات نظرة عامة على لوحة القيادة.';
 
   @override
   String get recentHeadlines => 'أحدث العناوين';
