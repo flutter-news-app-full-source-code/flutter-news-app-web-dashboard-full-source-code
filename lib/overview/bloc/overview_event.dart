@@ -1,4 +1,4 @@
-part of 'dashboard_bloc.dart';
+part of 'overview_bloc.dart';
 
 /// Base class for dashboard events.
 sealed class DashboardEvent extends Equatable {

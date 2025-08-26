@@ -6,8 +6,8 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-part 'dashboard_event.dart';
-part 'dashboard_state.dart';
+part 'overview_event.dart';
+part 'overview_state.dart';
 
 /// A BLoC to manage the state of the dashboard.
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {

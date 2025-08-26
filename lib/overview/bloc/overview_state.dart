@@ -1,4 +1,4 @@
-part of 'dashboard_bloc.dart';
+part of 'overview_bloc.dart';
 
 /// Represents the status of the dashboard data loading.
 enum DashboardStatus {
