@@ -1,7 +1,7 @@
-part of 'dashboard_bloc.dart';
+part of 'overview_bloc.dart';
 
-/// Represents the status of the dashboard data loading.
-enum DashboardStatus {
+/// Represents the status of the dashboard overview data loading.
+enum OverviewStatus {
   /// Initial state.
   initial,
 
@@ -15,27 +15,27 @@ enum DashboardStatus {
   failure,
 }
 
-/// The state for the [DashboardBloc].
-final class DashboardState extends Equatable {
-  const DashboardState({
-    this.status = DashboardStatus.initial,
+/// The state for the [OverviewBloc].
+final class OverviewState extends Equatable {
+  const OverviewState({
+    this.status = OverviewStatus.initial,
     this.summary,
     this.recentHeadlines = const [],
     this.exception,
   });
 
-  final DashboardStatus status;
+  final OverviewStatus status;
   final DashboardSummary? summary;
   final List<Headline> recentHeadlines;
   final HttpException? exception;
 
-  DashboardState copyWith({
-    DashboardStatus? status,
+  OverviewState copyWith({
+    OverviewStatus? status,
     DashboardSummary? summary,
     List<Headline>? recentHeadlines,
     HttpException? exception,
   }) {
-    return DashboardState(
+    return OverviewState(
       status: status ?? this.status,
       summary: summary ?? this.summary,
       recentHeadlines: recentHeadlines ?? this.recentHeadlines,

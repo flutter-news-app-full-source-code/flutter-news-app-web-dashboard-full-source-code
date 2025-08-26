@@ -76,7 +76,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailCodeVerificationButtonLabel => 'Verify Code';
 
   @override
-  String get dashboard => 'Dashboard';
+  String get overview => 'Overview';
 
   @override
   String get contentManagement => 'Content Management';
@@ -736,13 +736,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalSources => 'Total Sources';
 
   @override
-  String get loadingDashboard => 'Loading Dashboard';
+  String get loadingOverview => 'Loading Dashboard Overview...';
 
   @override
-  String get loadingDashboardSubheadline => 'Fetching latest statistics...';
+  String get loadingOverviewSubheadline => 'Fetching latest statistics...';
 
   @override
-  String get dashboardLoadFailure => 'Failed to load dashboard data.';
+  String get overviewLoadFailure => 'Failed to load dashboard overview data.';
 
   @override
   String get recentHeadlines => 'Recent Headlines';

@@ -91,9 +91,9 @@
   "@emailCodeVerificationButtonLabel": {
     "description": "Button label for verifying the code"
   },
-  "dashboard": "Dashboard",
-  "@dashboard": {
-    "description": "Label for the dashboard navigation item"
+  "overview": "Overview",
+  "@overview": {
+    "description": "Label for the dashboard overview navigation item"
   },
   "contentManagement": "Content Management",
   "@contentManagement": {
@@ -882,31 +882,31 @@
   "@contentStatusDraft": {},
   "totalHeadlines": "Total Headlines",
   "@totalHeadlines": {
-    "description": "Label for the total headlines summary card on the dashboard"
+    "description": "Label for the total headlines summary card on the dashboard overview"
   },
   "totalTopics": "Total Topics",
   "@totalTopics": {
-    "description": "Label for the total topics summary card on the dashboard"
+    "description": "Label for the total topics summary card on the dashboard overview"
   },
   "totalSources": "Total Sources",
   "@totalSources": {
-    "description": "Label for the total sources summary card on the dashboard"
+    "description": "Label for the total sources summary card on the dashboard overview"
   },
-  "loadingDashboard": "Loading Dashboard",
-  "@loadingDashboard": {
-    "description": "Headline for the dashboard loading state"
+  "loadingOverview": "Loading Dashboard Overview...",
+  "@loadingOverview": {
+    "description": "Headline for the dashboard overview loading state"
   },
-  "loadingDashboardSubheadline": "Fetching latest statistics...",
-  "@loadingDashboardSubheadline": {
-    "description": "Subheadline for the dashboard loading state"
+  "loadingOverviewSubheadline": "Fetching latest statistics...",
+  "@loadingOverviewSubheadline": {
+    "description": "Subheadline for the dashboard overview loading state"
   },
-  "dashboardLoadFailure": "Failed to load dashboard data.",
-  "@dashboardLoadFailure": {
-    "description": "Error message when dashboard data fails to load"
+  "overviewLoadFailure": "Failed to load dashboard overview data.",
+  "@overviewLoadFailure": {
+    "description": "Error message when dashboard overview data fails to load"
   },
   "recentHeadlines": "Recent Headlines",
   "@recentHeadlines": {
-    "description": "Title for the recent headlines card on the dashboard"
+    "description": "Title for the recent headlines card on the dashboard overview"
   },
   "viewAll": "View All",
   "@viewAll": {
@@ -918,11 +918,11 @@
   },
   "systemStatus": "System Status",
   "@systemStatus": {
-    "description": "Title for the system status card on the dashboard"
+    "description": "Title for the system status card on the dashboard overview"
   },
   "quickActions": "Quick Actions",
   "@quickActions": {
-    "description": "Title for the quick actions card on the dashboard"
+    "description": "Title for the quick actions card on the dashboard overview"
   },
   "createHeadlineAction": "Create Headline",
   "@createHeadlineAction": {

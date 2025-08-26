@@ -1,55 +1,54 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// {@template dashboard_page}
-/// The main dashboard page, displaying key statistics and quick actions.
+/// {@template overview_page}
+/// The main dashboard overview page, displaying key statistics and quick actions.
 /// {@endtemplate}
-class DashboardPage extends StatefulWidget {
-  /// {@macro dashboard_page}
-  const DashboardPage({super.key});
+class OverviewPage extends StatefulWidget {
+  /// {@macro overview_page}
+  const OverviewPage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<OverviewPage> createState() => _OverviewPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _OverviewPageState extends State<OverviewPage> {
   @override
   void initState() {
     super.initState();
-    // Dispatch the event to load dashboard data when the page is initialized.
-    context.read<DashboardBloc>().add(DashboardSummaryRequested());
+    // Dispatch the event to load dashboard overview data when the page is initialized.
+    context.read<OverviewBloc>().add(OverviewSummaryRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
-      body: BlocBuilder<DashboardBloc, DashboardState>(
+      body: BlocBuilder<OverviewBloc, OverviewState>(
         builder: (context, state) {
-          if (state.status == DashboardStatus.loading ||
-              state.status == DashboardStatus.initial) {
+          if (state.status == OverviewStatus.loading ||
+              state.status == OverviewStatus.initial) {
             return LoadingStateWidget(
               icon: Icons.dashboard_outlined,
-              headline: l10n.loadingDashboard,
-              subheadline: l10n.loadingDashboardSubheadline,
+              headline: l10n.loadingOverview,
+              subheadline: l10n.loadingOverviewSubheadline,
             );
           }
-          if (state.status == DashboardStatus.failure) {
+          if (state.status == OverviewStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () {
-                context.read<DashboardBloc>().add(DashboardSummaryRequested());
+                context.read<OverviewBloc>().add(OverviewSummaryRequested());
               },
             );
           }
-          if (state.status == DashboardStatus.success &&
-              state.summary != null) {
+          if (state.status == OverviewStatus.success && state.summary != null) {
             final summary = state.summary!;
             final recentHeadlines = state.recentHeadlines;
             return ListView(
@@ -252,7 +251,7 @@ class _RecentHeadlinesCard extends StatelessWidget {
   }
 }
 
-/// A private widget to display a single summary statistic on the dashboard.
+/// A private widget to display a single summary statistic on the dashboard overview.
 class _SummaryCard extends StatelessWidget {
   const _SummaryCard({
     required this.icon,

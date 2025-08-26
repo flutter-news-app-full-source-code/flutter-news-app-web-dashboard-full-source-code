@@ -91,9 +91,9 @@
   "@emailCodeVerificationButtonLabel": {
     "description": "تسمية زر التحقق من الرمز"
   },
-  "dashboard": "لوحة القيادة",
-  "@dashboard": {
-    "description": "تسمية عنصر التنقل للوحة القيادة"
+  "overview": "نظرة عامة",
+  "@overview": {
+    "description": "تسمية عنصر التنقل لنظرة عامة على لوحة القيادة"
   },
   "contentManagement": "إدارة المحتوى",
   "@contentManagement": {
@@ -882,31 +882,31 @@
   "@contentStatusDraft": {},
   "totalHeadlines": "إجمالي العناوين",
   "@totalHeadlines": {
-    "description": "تسمية بطاقة ملخص إجمالي العناوين في لوحة القيادة"
+    "description": "تسمية بطاقة ملخص إجمالي العناوين في نظرة عامة على لوحة القيادة"
   },
   "totalTopics": "إجمالي المواضيع",
   "@totalTopics": {
-    "description": "تسمية بطاقة ملخص إجمالي المواضيع في لوحة القيادة"
+    "description": "تسمية بطاقة ملخص إجمالي المواضيع في نظرة عامة على لوحة القيادة"
   },
   "totalSources": "إجمالي المصادر",
   "@totalSources": {
-    "description": "تسمية بطاقة ملخص إجمالي المصادر في لوحة القيادة"
+    "description": "تسمية بطاقة ملخص إجمالي المصادر في نظرة عامة على لوحة القيادة"
   },
-  "loadingDashboard": "جاري تحميل لوحة القيادة",
-  "@loadingDashboard": {
-    "description": "عنوان حالة تحميل لوحة القيادة"
+  "loadingOverview": "جاري تحميل نظرة عامة على لوحة القيادة",
+  "@loadingOverview": {
+    "description": "عنوان حالة تحميل نظرة عامة على لوحة القيادة"
   },
-  "loadingDashboardSubheadline": "جاري جلب أحدث الإحصائيات...",
-  "@loadingDashboardSubheadline": {
-    "description": "عنوان فرعي لحالة تحميل لوحة القيادة"
+  "loadingOverviewSubheadline": "جاري جلب أحدث الإحصائيات...",
+  "@loadingOverviewSubheadline": {
+    "description": "عنوان فرعي لحالة تحميل نظرة عامة على لوحة القيادة"
   },
-  "dashboardLoadFailure": "فشل تحميل بيانات لوحة القيادة.",
-  "@dashboardLoadFailure": {
-    "description": "رسالة خطأ عند فشل تحميل بيانات لوحة القيادة"
+  "overviewLoadFailure": "فشل تحميل بيانات نظرة عامة على لوحة القيادة.",
+  "@overviewLoadFailure": {
+    "description": "رسالة خطأ عند فشل تحميل بيانات نظرة عامة على لوحة القيادة"
   },
   "recentHeadlines": "أحدث العناوين",
   "@recentHeadlines": {
-    "description": "عنوان بطاقة أحدث العناوين في لوحة القيادة"
+    "description": "عنوان بطاقة أحدث العناوين في نظرة عامة على لوحة القيادة"
   },
   "viewAll": "عرض الكل",
   "@viewAll": {
@@ -918,11 +918,11 @@
   },
   "systemStatus": "حالة النظام",
   "@systemStatus": {
-    "description": "عنوان بطاقة حالة النظام في لوحة القيادة"
+    "description": "عنوان بطاقة حالة النظام في نظرة عامة على لوحة القيادة"
   },
   "quickActions": "إجراءات سريعة",
   "@quickActions": {
-    "description": "عنوان بطاقة الإجراءات السريعة في لوحة القيادة"
+    "description": "عنوان بطاقة الإجراءات السريعة في نظرة عامة على لوحة القيادة"
   },
   "createHeadlineAction": "إنشاء عنوان",
   "@createHeadlineAction": {
