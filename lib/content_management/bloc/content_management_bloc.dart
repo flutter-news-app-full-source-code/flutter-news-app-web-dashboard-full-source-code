@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';
@@ -27,15 +26,12 @@ class ContentManagementBloc
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-    required ThrottledFetchingService fetchingService,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
-       _fetchingService = fetchingService,
        super(const ContentManagementState()) {
-    on<SharedDataRequested>(_onSharedDataRequested);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
     on<HeadlineUpdated>(_onHeadlineUpdated);
@@ -53,90 +49,7 @@ class ContentManagementBloc
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
-  final ThrottledFetchingService _fetchingService;
 
-  /// Handles the pre-fetching of shared data required for the content
-  /// management section.
-  ///
-  /// **Strategy Rationale (The "Why"):**
-  /// This pre-fetching strategy is a direct result of a UI component choice
-  /// made to preserve visual consistency across the application. The standard
-  /// `DropdownButtonFormField` is used for selection fields in forms.
-  /// A key limitation of this widget is its lack of native support for
-  /// on-scroll pagination or dynamic data loading.
-  ///
-  /// To work around this, and to ensure a seamless user experience without
-  /// loading delays when a form is opened, we must load the entire dataset
-  /// for these dropdowns (e.g., all countries, all languages) into the state
-  /// ahead of time.
-  ///
-  /// **Implementation (The "How"):**
-  /// To execute this pre-fetch efficiently, this handler utilizes the
-  /// `ThrottledFetchingService`. This service fetches all pages of a given
-  /// resource in parallel, which dramatically reduces the load time compared
-  /// to fetching them sequentially, making the upfront data load manageable.
-  Future<void> _onSharedDataRequested(
-    SharedDataRequested event,
-    Emitter<ContentManagementState> emit,
-  ) async {
-    // Check if data is already loaded or is currently loading to prevent
-    // redundant fetches.
-    if (state.allCountriesStatus == ContentManagementStatus.success &&
-        state.allLanguagesStatus == ContentManagementStatus.success) {
-      return;
-    }
-
-    // Set loading status for both lists.
-    emit(
-      state.copyWith(
-        allCountriesStatus: ContentManagementStatus.loading,
-        allLanguagesStatus: ContentManagementStatus.loading,
-      ),
-    );
-
-    try {
-      // Fetch both lists in parallel using the dedicated fetching service.
-      final results = await Future.wait([
-        _fetchingService.fetchAll<Country>(
-          repository: _countriesRepository,
-          sort: [const SortOption('name', SortOrder.asc)],
-        ),
-        _fetchingService.fetchAll<Language>(
-          repository: _languagesRepository,
-          sort: [const SortOption('name', SortOrder.asc)],
-        ),
-      ]);
-
-      final countries = results[0] as List<Country>;
-      final languages = results[1] as List<Language>;
-
-      // Update the state with the complete lists.
-      emit(
-        state.copyWith(
-          allCountries: countries,
-          allCountriesStatus: ContentManagementStatus.success,
-          allLanguages: languages,
-          allLanguagesStatus: ContentManagementStatus.success,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(
-        state.copyWith(
-          allCountriesStatus: ContentManagementStatus.failure,
-          allLanguagesStatus: ContentManagementStatus.failure,
-          exception: e,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          allCountriesStatus: ContentManagementStatus.failure,
-          allLanguagesStatus: ContentManagementStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
 
   void _onContentManagementTabChanged(
     ContentManagementTabChanged event,
