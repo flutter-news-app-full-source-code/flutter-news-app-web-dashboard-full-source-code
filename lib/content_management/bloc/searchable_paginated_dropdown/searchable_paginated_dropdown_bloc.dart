@@ -6,9 +6,15 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'searchable_paginated_dropdown_event.dart';
 part 'searchable_paginated_dropdown_state.dart';
+
+EventTransformer<T> debounce<T>(Duration duration) {
+  return (events, mapper) => events.debounceTime(duration).flatMap(mapper);
+}
+
 
 /// {@template searchable_paginated_dropdown_bloc}
 /// A BLoC to manage the state of a searchable, paginated dropdown.
@@ -31,7 +37,7 @@ class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
         _limit = limit,
         super(
           SearchablePaginatedDropdownState(
-            selectedItem: () => initialSelectedItem,
+            selectedItem: initialSelectedItem,
           ),
         ) {
     on<SearchablePaginatedDropdownLoadRequested>(
