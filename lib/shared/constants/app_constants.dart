@@ -11,4 +11,7 @@ abstract final class AppConstants {
 
   /// The maximum height for the searchable paginated dropdown's overlay dialog.
   static const double kMaxDropdownOverlayHeight = 500;
+
+  /// The default card radius used across the application.
+  static const double kCardRadius = 8;
 }
