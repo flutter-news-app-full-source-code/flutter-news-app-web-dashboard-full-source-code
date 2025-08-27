@@ -13,15 +13,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
-    required List<Country> countries,
-    required List<Language> languages,
   }) : _sourcesRepository = sourcesRepository,
-       super(
-         CreateSourceState(
-           countries: countries,
-           languages: languages,
-         ),
-       ) {
+       super(const CreateSourceState()) {
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);
@@ -30,7 +23,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<CreateSourceStatusChanged>(_onStatusChanged);
     on<CreateSourceSubmitted>(_onSubmitted);
-    on<CreateSourceDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -90,7 +82,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     );
   }
 
-  // --- Background Data Fetching for Dropdown ---
   Future<void> _onSubmitted(
     CreateSourceSubmitted event,
     Emitter<CreateSourceState> emit,
@@ -130,14 +121,5 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     }
-  }
-
-  void _onDataUpdated(
-    CreateSourceDataUpdated event,
-    Emitter<CreateSourceState> emit,
-  ) {
-    emit(
-      state.copyWith(countries: event.countries, languages: event.languages),
-    );
   }
 }
