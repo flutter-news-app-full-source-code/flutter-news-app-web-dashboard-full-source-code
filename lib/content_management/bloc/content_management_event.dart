@@ -52,20 +52,6 @@ final class ArchiveHeadlineRequested extends ContentManagementEvent {
   List<Object?> get props => [id];
 }
 
-/// {@template headline_updated}
-/// Event to update an existing headline in the local state.
-/// {@endtemplate}
-final class HeadlineUpdated extends ContentManagementEvent {
-  /// {@macro headline_updated}
-  const HeadlineUpdated(this.headline);
-
-  /// The headline that was updated.
-  final Headline headline;
-
-  @override
-  List<Object?> get props => [headline];
-}
-
 /// {@template load_topics_requested}
 /// Event to request loading of topics.
 /// {@endtemplate}
@@ -97,20 +83,6 @@ final class ArchiveTopicRequested extends ContentManagementEvent {
   List<Object?> get props => [id];
 }
 
-/// {@template topic_updated}
-/// Event to update an existing topic in the local state.
-/// {@endtemplate}
-final class TopicUpdated extends ContentManagementEvent {
-  /// {@macro topic_updated}
-  const TopicUpdated(this.topic);
-
-  /// The topic that was updated.
-  final Topic topic;
-
-  @override
-  List<Object?> get props => [topic];
-}
-
 /// {@template load_sources_requested}
 /// Event to request loading of sources.
 /// {@endtemplate}
@@ -140,18 +112,4 @@ final class ArchiveSourceRequested extends ContentManagementEvent {
 
   @override
   List<Object?> get props => [id];
-}
-
-/// {@template source_updated}
-/// Event to update an existing source in the local state.
-/// {@endtemplate}
-final class SourceUpdated extends ContentManagementEvent {
-  /// {@macro source_updated}
-  const SourceUpdated(this.source);
-
-  /// The source that was updated.
-  final Source source;
-
-  @override
-  List<Object?> get props => [source];
 }
