@@ -986,4 +986,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dashboardTitle => 'Dashboard';
+
+  @override
+  String get clearSelection => 'Clear Selection';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get noResultsFound => 'No results found.';
+
+  @override
+  String get close => 'Close';
 }

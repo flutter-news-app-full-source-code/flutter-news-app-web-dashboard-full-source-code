@@ -988,4 +988,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dashboardTitle => 'لوحة القيادة';
+
+  @override
+  String get clearSelection => 'مسح التحديد';
+
+  @override
+  String get search => 'بحث';
+
+  @override
+  String get noResultsFound => 'لم يتم العثور على نتائج.';
+
+  @override
+  String get close => 'إغلاق';
 }
