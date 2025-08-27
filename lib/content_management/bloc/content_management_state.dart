@@ -32,7 +32,6 @@ class ContentManagementState extends Equatable {
     this.sources = const [],
     this.sourcesCursor,
     this.sourcesHasMore = false,
-    // Removed allCountriesStatus, allCountries, allLanguagesStatus, allLanguages
     this.exception,
   });
 
@@ -75,7 +74,6 @@ class ContentManagementState extends Equatable {
   /// Indicates if there are more sources to load.
   final bool sourcesHasMore;
 
-
   /// The error describing an operation failure, if any.
   final HttpException? exception;
 
@@ -94,7 +92,6 @@ class ContentManagementState extends Equatable {
     List<Source>? sources,
     String? sourcesCursor,
     bool? sourcesHasMore,
-
     HttpException? exception,
   }) {
     return ContentManagementState(
@@ -131,6 +128,5 @@ class ContentManagementState extends Equatable {
     sources,
     sourcesCursor,
     sourcesHasMore,
-
   ];
 }
