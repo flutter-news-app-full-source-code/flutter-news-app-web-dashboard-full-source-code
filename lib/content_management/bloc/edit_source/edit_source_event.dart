@@ -8,11 +8,6 @@ sealed class EditSourceEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event to load the initial source data for editing.
-final class EditSourceLoaded extends EditSourceEvent {
-  const EditSourceLoaded();
-}
-
 /// Event triggered when the source name input changes.
 final class EditSourceNameChanged extends EditSourceEvent {
   const EditSourceNameChanged(this.name);
@@ -85,18 +80,4 @@ final class EditSourceStatusChanged extends EditSourceEvent {
 /// Event to submit the edited source data.
 final class EditSourceSubmitted extends EditSourceEvent {
   const EditSourceSubmitted();
-}
-
-/// Event to update the BLoC with the latest shared data.
-final class EditSourceDataUpdated extends EditSourceEvent {
-  const EditSourceDataUpdated({
-    required this.countries,
-    required this.languages,
-  });
-
-  final List<Country> countries;
-  final List<Language> languages;
-
-  @override
-  List<Object?> get props => [countries, languages];
 }
