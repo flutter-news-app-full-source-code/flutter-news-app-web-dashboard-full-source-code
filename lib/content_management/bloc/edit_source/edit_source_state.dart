@@ -22,7 +22,7 @@ enum EditSourceStatus {
 final class EditSourceState extends Equatable {
   const EditSourceState({
     this.status = EditSourceStatus.initial,
-    this.initialSource,
+    required this.sourceId,
     this.name = '',
     this.description = '',
     this.url = '',
@@ -35,7 +35,7 @@ final class EditSourceState extends Equatable {
   });
 
   final EditSourceStatus status;
-  final Source? initialSource;
+  final String sourceId;
   final String name;
   final String description;
   final String url;
@@ -48,6 +48,7 @@ final class EditSourceState extends Equatable {
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
+      sourceId.isNotEmpty &&
       name.isNotEmpty &&
       description.isNotEmpty &&
       url.isNotEmpty &&
@@ -57,7 +58,7 @@ final class EditSourceState extends Equatable {
 
   EditSourceState copyWith({
     EditSourceStatus? status,
-    Source? initialSource,
+    String? sourceId,
     String? name,
     String? description,
     String? url,
@@ -70,7 +71,7 @@ final class EditSourceState extends Equatable {
   }) {
     return EditSourceState(
       status: status ?? this.status,
-      initialSource: initialSource ?? this.initialSource,
+      sourceId: sourceId ?? this.sourceId,
       name: name ?? this.name,
       description: description ?? this.description,
       url: url ?? this.url,
@@ -86,7 +87,7 @@ final class EditSourceState extends Equatable {
   @override
   List<Object?> get props => [
     status,
-    initialSource,
+    sourceId,
     name,
     description,
     url,
