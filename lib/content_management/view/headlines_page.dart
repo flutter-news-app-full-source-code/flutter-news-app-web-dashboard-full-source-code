@@ -32,6 +32,11 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
@@ -151,7 +156,6 @@ class _HeadlinesDataSource extends DataTableSource {
         if (selected ?? false) {
           context.goNamed(
             Routes.editHeadlineName,
-            pathParameters: {'id': headline.id},
             extra: headline,
           );
         }
@@ -179,7 +183,6 @@ class _HeadlinesDataSource extends DataTableSource {
                 onPressed: () {
                   context.goNamed(
                     Routes.editHeadlineName,
-                    pathParameters: {'id': headline.id},
                     extra: headline,
                   );
                 },
