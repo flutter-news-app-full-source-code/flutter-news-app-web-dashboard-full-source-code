@@ -2,11 +2,11 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/searchable_paginated_dropdown/searchable_paginated_dropdown_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/widgets/searchable_paginated_dropdown.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_paginated_dropdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -17,26 +17,19 @@ import 'package:ui_kit/ui_kit.dart';
 class EditHeadlinePage extends StatelessWidget {
   /// {@macro edit_headline_page}
   const EditHeadlinePage({
-    required this.headlineId,
-    required this.initialHeadline,
+    required this.headline,
     super.key,
   });
 
-  /// The ID of the headline to be edited.
-  final String headlineId;
-
-  /// The initial headline data passed via route extra.
-  final Headline initialHeadline;
+  /// The headline to be edited.
+  final Headline headline;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
-        sourcesRepository: context.read<DataRepository<Source>>(),
-        topicsRepository: context.read<DataRepository<Topic>>(),
-        headlineId: headlineId,
-        initialHeadline: initialHeadline,
+        initialHeadline: headline,
       ),
       child: const _EditHeadlineView(),
     );
@@ -60,10 +53,11 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.initialHeadline.title);
-    _excerptController = TextEditingController(text: widget.initialHeadline.excerpt);
-    _urlController = TextEditingController(text: widget.initialHeadline.url);
-    _imageUrlController = TextEditingController(text: widget.initialHeadline.imageUrl);
+    final state = context.read<EditHeadlineBloc>().state;
+    _titleController = TextEditingController(text: state.title);
+    _excerptController = TextEditingController(text: state.excerpt);
+    _urlController = TextEditingController(text: state.url);
+    _imageUrlController = TextEditingController(text: state.imageUrl);
   }
 
   @override
@@ -108,9 +102,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
         ],
       ),
       body: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
-        listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.initialHeadline != current.initialHeadline,
+        listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == EditHeadlineStatus.success &&
               state.updatedHeadline != null &&
@@ -120,9 +112,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.headlineUpdatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-            );
             context.pop();
           }
           if (state.status == EditHeadlineStatus.failure) {
@@ -136,32 +125,24 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               );
           }
           // Update text controllers if initialHeadline changes (e.g., due to hot reload)
-          if (state.initialHeadline != null) {
+          if (state.initialHeadline != null &&
+              _titleController.text != state.title) {
             _titleController.text = state.title;
+          }
+          if (state.initialHeadline != null &&
+              _excerptController.text != state.excerpt) {
             _excerptController.text = state.excerpt;
+          }
+          if (state.initialHeadline != null &&
+              _urlController.text != state.url) {
             _urlController.text = state.url;
+          }
+          if (state.initialHeadline != null &&
+              _imageUrlController.text != state.imageUrl) {
             _imageUrlController.text = state.imageUrl;
           }
         },
         builder: (context, state) {
-          if (state.status == EditHeadlineStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.newspaper,
-              headline: l10n.loadingHeadline,
-              subheadline: l10n.pleaseWait,
-            );
-          }
-
-          if (state.status == EditHeadlineStatus.failure &&
-              state.initialHeadline == null) {
-            return FailureStateWidget(
-              exception: state.exception!,
-              onRetry: () => context.read<EditHeadlineBloc>().add(
-                const EditHeadlineLoaded(),
-              ),
-            );
-          }
-
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -215,76 +196,106 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineImageUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchablePaginatedDropdown<Source>(
-                      label: l10n.sourceName,
-                      repository: context.read<DataRepository<Source>>(),
-                      selectedItem: state.source,
-                      itemBuilder: (context, source) => Text(source.name),
-                      itemToString: (source) => source.name,
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                '\$regex': searchTerm,
-                                '\$options': 'i',
-                              },
-                            },
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineSourceChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchablePaginatedDropdown<Topic>(
-                      label: l10n.topicName,
-                      repository: context.read<DataRepository<Topic>>(),
-                      selectedItem: state.topic,
-                      itemBuilder: (context, topic) => Text(topic.name),
-                      itemToString: (topic) => topic.name,
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                '\$regex': searchTerm,
-                                '\$options': 'i',
-                              },
-                            },
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineTopicChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchablePaginatedDropdown<Country>(
-                      label: l10n.countryName,
-                      repository: context.read<DataRepository<Country>>(),
-                      selectedItem: state.eventCountry,
-                      itemBuilder: (context, country) => Row(
-                        children: [
-                          SizedBox(
-                            width: 32,
-                            height: 20,
-                            child: Image.network(
-                              country.flagUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.flag),
-                            ),
+                    BlocProvider<SearchablePaginatedDropdownBloc<Source>>(
+                      create: (context) =>
+                          SearchablePaginatedDropdownBloc<Source>(
+                            repository: context.read<DataRepository<Source>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.source,
                           ),
-                          const SizedBox(width: AppSpacing.md),
-                          Text(country.name),
-                        ],
+                      child: SearchablePaginatedDropdown<Source>(
+                        label: l10n.sourceName,
+                        selectedItem: state.source,
+                        itemBuilder: (context, source) => Text(source.name),
+                        itemToString: (source) => source.name,
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineSourceChanged(value)),
                       ),
-                      itemToString: (country) => country.name,
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                '\$regex': searchTerm,
-                                '\$options': 'i',
-                              },
-                            },
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCountryChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    BlocProvider<SearchablePaginatedDropdownBloc<Topic>>(
+                      create: (context) =>
+                          SearchablePaginatedDropdownBloc<Topic>(
+                            repository: context.read<DataRepository<Topic>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.topic,
+                          ),
+                      child: SearchablePaginatedDropdown<Topic>(
+                        label: l10n.topicName,
+                        selectedItem: state.topic,
+                        itemBuilder: (context, topic) => Text(topic.name),
+                        itemToString: (topic) => topic.name,
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineTopicChanged(value)),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    BlocProvider<SearchablePaginatedDropdownBloc<Country>>(
+                      create: (context) =>
+                          SearchablePaginatedDropdownBloc<Country>(
+                            repository: context.read<DataRepository<Country>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.eventCountry,
+                          ),
+                      child: SearchablePaginatedDropdown<Country>(
+                        label: l10n.countryName,
+                        selectedItem: state.eventCountry,
+                        itemBuilder: (context, country) => Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name),
+                          ],
+                        ),
+                        itemToString: (country) => country.name,
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineCountryChanged(value)),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
