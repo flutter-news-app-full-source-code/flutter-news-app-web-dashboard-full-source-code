@@ -1,4 +1,5 @@
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart' hide AppStatus;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
@@ -170,7 +171,8 @@ GoRouter createRouter({
                     name: Routes.editHeadlineName,
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
-                      return EditHeadlinePage(headlineId: id);
+                      final headline = state.extra! as Headline;
+                      return EditHeadlinePage(headlineId: id, initialHeadline: headline);
                     },
                   ),
                   GoRoute(
