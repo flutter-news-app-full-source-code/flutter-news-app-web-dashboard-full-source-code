@@ -8,6 +8,11 @@ sealed class EditSourceEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to load the initial source data for editing.
+final class EditSourceLoaded extends EditSourceEvent {
+  const EditSourceLoaded();
+}
+
 /// Event triggered when the source name input changes.
 final class EditSourceNameChanged extends EditSourceEvent {
   const EditSourceNameChanged(this.name);
