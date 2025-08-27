@@ -8,6 +8,11 @@ sealed class EditHeadlineEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to load the initial headline data for editing.
+final class EditHeadlineLoaded extends EditHeadlineEvent {
+  const EditHeadlineLoaded();
+}
+
 /// Event for when the headline's title is changed.
 final class EditHeadlineTitleChanged extends EditHeadlineEvent {
   const EditHeadlineTitleChanged(this.title);
