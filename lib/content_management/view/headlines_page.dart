@@ -156,7 +156,7 @@ class _HeadlinesDataSource extends DataTableSource {
         if (selected ?? false) {
           context.goNamed(
             Routes.editHeadlineName,
-            extra: headline,
+            pathParameters: {'id': headline.id},
           );
         }
       },
@@ -183,7 +183,7 @@ class _HeadlinesDataSource extends DataTableSource {
                 onPressed: () {
                   context.goNamed(
                     Routes.editHeadlineName,
-                    extra: headline,
+                    pathParameters: {'id': headline.id},
                   );
                 },
               ),

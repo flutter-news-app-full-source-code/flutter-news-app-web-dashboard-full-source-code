@@ -17,19 +17,19 @@ import 'package:ui_kit/ui_kit.dart';
 class EditHeadlinePage extends StatelessWidget {
   /// {@macro edit_headline_page}
   const EditHeadlinePage({
-    required this.headline,
+    required this.headlineId,
     super.key,
   });
 
-  /// The headline to be edited.
-  final Headline headline;
+  /// The ID of the headline to be edited.
+  final String headlineId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
-        initialHeadline: headline,
+        headlineId: headlineId,
       ),
       child: const _EditHeadlineView(),
     );
@@ -53,11 +53,10 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
   @override
   void initState() {
     super.initState();
-    final state = context.read<EditHeadlineBloc>().state;
-    _titleController = TextEditingController(text: state.title);
-    _excerptController = TextEditingController(text: state.excerpt);
-    _urlController = TextEditingController(text: state.url);
-    _imageUrlController = TextEditingController(text: state.imageUrl);
+    _titleController = TextEditingController();
+    _excerptController = TextEditingController();
+    _urlController = TextEditingController();
+    _imageUrlController = TextEditingController();
   }
 
   @override
@@ -102,7 +101,12 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
         ],
       ),
       body: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
-        listenWhen: (previous, current) => previous.status != current.status,
+        listenWhen: (previous, current) =>
+            previous.status != current.status ||
+            previous.title != current.title ||
+            previous.excerpt != current.excerpt ||
+            previous.url != current.url ||
+            previous.imageUrl != current.imageUrl,
         listener: (context, state) {
           if (state.status == EditHeadlineStatus.success &&
               state.updatedHeadline != null &&
@@ -124,25 +128,33 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                 ),
               );
           }
-          // Update text controllers if initialHeadline changes (e.g., due to hot reload)
-          if (state.initialHeadline != null &&
-              _titleController.text != state.title) {
+          // Update text controllers when data is loaded or changed
+          if (state.status == EditHeadlineStatus.initial ||
+              state.status == EditHeadlineStatus.success) {
             _titleController.text = state.title;
-          }
-          if (state.initialHeadline != null &&
-              _excerptController.text != state.excerpt) {
             _excerptController.text = state.excerpt;
-          }
-          if (state.initialHeadline != null &&
-              _urlController.text != state.url) {
             _urlController.text = state.url;
-          }
-          if (state.initialHeadline != null &&
-              _imageUrlController.text != state.imageUrl) {
             _imageUrlController.text = state.imageUrl;
           }
         },
         builder: (context, state) {
+          if (state.status == EditHeadlineStatus.loading) {
+            return LoadingStateWidget(
+              icon: Icons.newspaper,
+              headline: l10n.loadingHeadline,
+              subheadline: l10n.pleaseWait,
+            );
+          }
+
+          if (state.status == EditHeadlineStatus.failure &&
+              state.title.isEmpty) {
+            return FailureStateWidget(
+              exception: state.exception!,
+              onRetry: () =>
+                  context.read<EditHeadlineBloc>().add(const EditHeadlineLoaded()),
+            );
+          }
+
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),

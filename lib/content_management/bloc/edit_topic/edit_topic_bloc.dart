@@ -11,25 +11,47 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   /// {@macro edit_topic_bloc}
   EditTopicBloc({
     required DataRepository<Topic> topicsRepository,
-    required Topic initialTopic,
+    required String topicId,
   }) : _topicsRepository = topicsRepository,
-       super(
-         EditTopicState(
-           initialTopic: initialTopic,
-           name: initialTopic.name,
-           description: initialTopic.description,
-           iconUrl: initialTopic.iconUrl,
-           contentStatus: initialTopic.status,
-         ),
-       ) {
+       super(EditTopicState(topicId: topicId, status: EditTopicStatus.loading)) {
+    on<EditTopicLoaded>(_onEditTopicLoaded);
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
     on<EditTopicIconUrlChanged>(_onIconUrlChanged);
     on<EditTopicStatusChanged>(_onStatusChanged);
     on<EditTopicSubmitted>(_onSubmitted);
+
+    add(const EditTopicLoaded());
   }
 
   final DataRepository<Topic> _topicsRepository;
+
+  Future<void> _onEditTopicLoaded(
+    EditTopicLoaded event,
+    Emitter<EditTopicState> emit,
+  ) async {
+    try {
+      final topic = await _topicsRepository.read(id: state.topicId);
+      emit(
+        state.copyWith(
+          status: EditTopicStatus.initial,
+          name: topic.name,
+          description: topic.description,
+          iconUrl: topic.iconUrl,
+          contentStatus: topic.status,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditTopicStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditTopicStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
 
   void _onNameChanged(
     EditTopicNameChanged event,
@@ -79,32 +101,19 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   ) async {
     if (!state.isFormValid) return;
 
-    // Safely access the initial topic to prevent null errors.
-    final initialTopic = state.initialTopic;
-    if (initialTopic == null) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: const UnknownException(
-            'Cannot update: Original topic data not loaded.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
-      // Use null for empty optional fields, which is cleaner for APIs.
-      final updatedTopic = initialTopic.copyWith(
+      final updatedTopic = Topic(
+        id: state.topicId,
         name: state.name,
         description: state.description,
         iconUrl: state.iconUrl,
         status: state.contentStatus,
+        createdAt: DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 
-      await _topicsRepository.update(id: initialTopic.id, item: updatedTopic);
+      await _topicsRepository.update(id: state.topicId, item: updatedTopic);
       emit(
         state.copyWith(
           status: EditTopicStatus.success,

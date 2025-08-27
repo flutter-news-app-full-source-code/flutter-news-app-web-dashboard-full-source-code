@@ -1,5 +1,4 @@
 import 'package:auth_repository/auth_repository.dart';
-import 'package:core/core.dart' hide AppStatus;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
@@ -170,8 +169,8 @@ GoRouter createRouter({
                     path: Routes.editHeadline,
                     name: Routes.editHeadlineName,
                     builder: (context, state) {
-                      final headline = state.extra! as Headline;
-                      return EditHeadlinePage(headline: headline);
+                      final headlineId = state.pathParameters['id']!;
+                      return EditHeadlinePage(headlineId: headlineId);
                     },
                   ),
                   GoRoute(
@@ -183,8 +182,8 @@ GoRouter createRouter({
                     path: Routes.editTopic,
                     name: Routes.editTopicName,
                     builder: (context, state) {
-                      final topic = state.extra! as Topic;
-                      return EditTopicPage(topic: topic);
+                      final topicId = state.pathParameters['id']!;
+                      return EditTopicPage(topicId: topicId);
                     },
                   ),
                   GoRoute(
@@ -196,8 +195,8 @@ GoRouter createRouter({
                     path: Routes.editSource,
                     name: Routes.editSourceName,
                     builder: (context, state) {
-                      final source = state.extra! as Source;
-                      return EditSourcePage(source: source);
+                      final sourceId = state.pathParameters['id']!;
+                      return EditSourcePage(sourceId: sourceId);
                     },
                   ),
                   GoRoute(

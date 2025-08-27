@@ -15,17 +15,17 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@endtemplate}
 class EditTopicPage extends StatelessWidget {
   /// {@macro edit_topic_page}
-  const EditTopicPage({required this.topic, super.key});
+  const EditTopicPage({required this.topicId, super.key});
 
   /// The ID of the topic to be edited.
-  final Topic topic;
+  final String topicId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
-        initialTopic: topic,
+        topicId: topicId,
       ),
       child: const _EditTopicView(),
     );
@@ -48,10 +48,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
   @override
   void initState() {
     super.initState();
-    final state = context.read<EditTopicBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
-    _iconUrlController = TextEditingController(text: state.iconUrl);
+    _nameController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _iconUrlController = TextEditingController();
   }
 
   @override
@@ -97,7 +96,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
       body: BlocConsumer<EditTopicBloc, EditTopicState>(
         listenWhen: (previous, current) =>
             previous.status != current.status ||
-            previous.initialTopic != current.initialTopic,
+            previous.name != current.name ||
+            previous.description != current.description ||
+            previous.iconUrl != current.iconUrl,
         listener: (context, state) {
           if (state.status == EditTopicStatus.success &&
               state.updatedTopic != null &&
@@ -122,7 +123,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
                 ),
               );
           }
-          if (state.initialTopic != null) {
+          // Update text controllers when data is loaded or changed
+          if (state.status == EditTopicStatus.initial ||
+              state.status == EditTopicStatus.success) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _iconUrlController.text = state.iconUrl;
@@ -137,8 +140,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
             );
           }
 
-          if (state.status == EditTopicStatus.failure &&
-              state.initialTopic == null) {
+          if (state.status == EditTopicStatus.failure && state.name.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () =>

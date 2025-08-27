@@ -16,17 +16,17 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@endtemplate}
 class EditSourcePage extends StatelessWidget {
   /// {@macro edit_source_page}
-  const EditSourcePage({required this.source, super.key});
+  const EditSourcePage({required this.sourceId, super.key});
 
-  /// The source to be edited.
-  final Source source;
+  /// The ID of the source to be edited.
+  final String sourceId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
-        initialSource: source,
+        sourceId: sourceId,
       ),
       child: const _EditSourceView(),
     );
@@ -49,10 +49,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
   @override
   void initState() {
     super.initState();
-    final state = context.read<EditSourceBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
-    _urlController = TextEditingController(text: state.url);
+    _nameController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _urlController = TextEditingController();
   }
 
   @override
@@ -96,7 +95,11 @@ class _EditSourceViewState extends State<_EditSourceView> {
         ],
       ),
       body: BlocConsumer<EditSourceBloc, EditSourceState>(
-        listenWhen: (previous, current) => previous.status != current.status,
+        listenWhen: (previous, current) =>
+            previous.status != current.status ||
+            previous.name != current.name ||
+            previous.description != current.description ||
+            previous.url != current.url,
         listener: (context, state) {
           if (state.status == EditSourceStatus.success &&
               state.updatedSource != null &&
@@ -106,7 +109,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.sourceUpdatedSuccessfully)),
               );
-            // Removed ContentManagementBloc.add(LoadSourcesRequested) as per plan
             context.pop();
           }
           if (state.status == EditSourceStatus.failure) {
@@ -119,13 +121,31 @@ class _EditSourceViewState extends State<_EditSourceView> {
                 ),
               );
           }
-          if (state.initialSource != null) {
+          // Update text controllers when data is loaded or changed
+          if (state.status == EditSourceStatus.initial ||
+              state.status == EditSourceStatus.success) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _urlController.text = state.url;
           }
         },
         builder: (context, state) {
+          if (state.status == EditSourceStatus.loading) {
+            return LoadingStateWidget(
+              icon: Icons.source,
+              headline: l10n.loadingSource,
+              subheadline: l10n.pleaseWait,
+            );
+          }
+
+          if (state.status == EditSourceStatus.failure && state.name.isEmpty) {
+            return FailureStateWidget(
+              exception: state.exception!,
+              onRetry: () =>
+                  context.read<EditSourceBloc>().add(const EditSourceLoaded()),
+            );
+          }
+
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
