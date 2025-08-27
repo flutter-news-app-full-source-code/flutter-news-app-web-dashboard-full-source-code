@@ -114,8 +114,7 @@ class App extends StatelessWidget {
               sourcesRepository: context.read<DataRepository<Source>>(),
               countriesRepository: context.read<DataRepository<Country>>(),
               languagesRepository: context.read<DataRepository<Language>>(),
-              fetchingService: context.read<ThrottledFetchingService>(),
-            )..add(const SharedDataRequested()),
+            ),
           ),
           BlocProvider(
             create: (context) => OverviewBloc(
