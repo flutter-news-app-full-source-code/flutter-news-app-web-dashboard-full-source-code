@@ -14,11 +14,9 @@ class CreateHeadlineBloc
   /// {@macro create_headline_bloc}
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
-    required DataRepository<Source> sourcesRepository,
-    required DataRepository<Topic> topicsRepository,
+
   }) : _headlinesRepository = headlinesRepository,
-       _sourcesRepository = sourcesRepository,
-       _topicsRepository = topicsRepository,
+
        super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -32,8 +30,7 @@ class CreateHeadlineBloc
   }
 
   final DataRepository<Headline> _headlinesRepository;
-  final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Topic> _topicsRepository;
+
   final _uuid = const Uuid();
 
   void _onTitleChanged(
