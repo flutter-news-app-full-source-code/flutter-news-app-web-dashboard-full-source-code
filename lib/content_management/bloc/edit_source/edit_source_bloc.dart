@@ -12,20 +12,10 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
-    required Source initialSource,
+    required String sourceId,
   }) : _sourcesRepository = sourcesRepository,
-       super(
-         EditSourceState(
-           initialSource: initialSource,
-           name: initialSource.name,
-           description: initialSource.description,
-           url: initialSource.url,
-           sourceType: initialSource.sourceType,
-           language: initialSource.language,
-           headquarters: initialSource.headquarters,
-           contentStatus: initialSource.status,
-         ),
-       ) {
+       super(EditSourceState(sourceId: sourceId, status: EditSourceStatus.loading)) {
+    on<EditSourceLoaded>(_onEditSourceLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
     on<EditSourceUrlChanged>(_onUrlChanged);
@@ -34,9 +24,41 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceStatusChanged>(_onStatusChanged);
     on<EditSourceSubmitted>(_onSubmitted);
+
+    add(const EditSourceLoaded());
   }
 
   final DataRepository<Source> _sourcesRepository;
+
+  Future<void> _onEditSourceLoaded(
+    EditSourceLoaded event,
+    Emitter<EditSourceState> emit,
+  ) async {
+    try {
+      final source = await _sourcesRepository.read(id: state.sourceId);
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.initial,
+          name: source.name,
+          description: source.description,
+          url: source.url,
+          sourceType: () => source.sourceType,
+          language: () => source.language,
+          headquarters: () => source.headquarters,
+          contentStatus: source.status,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
 
   void _onNameChanged(
     EditSourceNameChanged event,
@@ -120,23 +142,23 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     if (!state.isFormValid) return;
 
-    final initialSource = state.initialSource;
-
     emit(state.copyWith(status: EditSourceStatus.submitting));
     try {
-      final updatedSource = initialSource!.copyWith(
+      final updatedSource = Source(
+        id: state.sourceId,
         name: state.name,
         description: state.description,
         url: state.url,
-        sourceType: state.sourceType,
-        language: state.language,
-        headquarters: state.headquarters,
+        sourceType: state.sourceType!,
+        language: state.language!,
+        headquarters: state.headquarters!,
         status: state.contentStatus,
+        createdAt: DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 
       await _sourcesRepository.update(
-        id: initialSource.id,
+        id: state.sourceId,
         item: updatedSource,
       );
       emit(
