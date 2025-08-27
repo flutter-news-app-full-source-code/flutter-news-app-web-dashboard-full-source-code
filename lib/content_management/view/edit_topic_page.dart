@@ -15,18 +15,18 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@endtemplate}
 class EditTopicPage extends StatelessWidget {
   /// {@macro edit_topic_page}
-  const EditTopicPage({required this.topicId, super.key});
+  const EditTopicPage({required this.topic, super.key});
 
   /// The ID of the topic to be edited.
-  final String topicId;
+  final Topic topic;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
-        topicId: topicId,
-      )..add(const EditTopicLoaded()),
+        initialTopic: topic,
+      ),
       child: const _EditTopicView(),
     );
   }
