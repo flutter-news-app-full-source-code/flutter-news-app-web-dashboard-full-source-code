@@ -12,14 +12,21 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   /// {@macro edit_headline_bloc}
   EditHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
-    required DataRepository<Source> sourcesRepository,
-    required DataRepository<Topic> topicsRepository,
-    required String headlineId,
-  }) : _headlinesRepository = headlinesRepository,
-       _sourcesRepository = sourcesRepository,
-       _topicsRepository = topicsRepository,
-       _headlineId = headlineId,
-       super(const EditHeadlineState()) {
+    required Headline initialHeadline,
+  })  : _headlinesRepository = headlinesRepository,
+        super(
+          EditHeadlineState(
+            initialHeadline: initialHeadline,
+            title: initialHeadline.title,
+            excerpt: initialHeadline.excerpt,
+            url: initialHeadline.url,
+            imageUrl: initialHeadline.imageUrl,
+            source: initialHeadline.source,
+            topic: initialHeadline.topic,
+            eventCountry: initialHeadline.eventCountry,
+            contentStatus: initialHeadline.status,
+          ),
+        ) {
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
@@ -32,9 +39,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   }
 
   final DataRepository<Headline> _headlinesRepository;
-  final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Topic> _topicsRepository;
-  final String _headlineId;
 
   void _onTitleChanged(
     EditHeadlineTitleChanged event,
@@ -131,21 +135,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     if (!state.isFormValid) return;
 
     final initialHeadline = state.initialHeadline;
-    if (initialHeadline == null) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: const UnknownException(
-            'Cannot update: Original headline data not loaded.',
-          ),
-        ),
-      );
-      return;
-    }
 
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
-      final updatedHeadline = initialHeadline.copyWith(
+      final updatedHeadline = initialHeadline!.copyWith(
         title: state.title,
         excerpt: state.excerpt,
         url: state.url,
@@ -157,7 +150,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         updatedAt: DateTime.now(),
       );
 
-      await _headlinesRepository.update(id: _headlineId, item: updatedHeadline);
+      await _headlinesRepository.update(
+        id: initialHeadline.id,
+        item: updatedHeadline,
+      );
       emit(
         state.copyWith(
           status: EditHeadlineStatus.success,
