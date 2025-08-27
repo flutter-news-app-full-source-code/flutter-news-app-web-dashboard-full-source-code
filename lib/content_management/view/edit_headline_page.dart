@@ -7,6 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/widgets/searchable_paginated_dropdown.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -208,106 +209,88 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineImageUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    BlocProvider<SearchablePaginatedDropdownBloc<Source>>(
-                      create: (context) =>
-                          SearchablePaginatedDropdownBloc<Source>(
-                            repository: context.read<DataRepository<Source>>(),
-                            filterBuilder: (searchTerm) => searchTerm == null
-                                ? {}
-                                : {
-                                    'name': {
-                                      r'$regex': searchTerm,
-                                      r'$options': 'i',
-                                    },
-                                  },
-                            sortOptions: const [
-                              SortOption('name', SortOrder.asc),
-                            ],
-                            limit: kDefaultRowsPerPage,
-                            initialSelectedItem: state.source,
-                          ),
-                      child: SearchablePaginatedDropdown<Source>(
-                        label: l10n.sourceName,
-                        selectedItem: state.source,
-                        itemBuilder: (context, source) => Text(source.name),
-                        itemToString: (source) => source.name,
-                        onChanged: (value) => context
-                            .read<EditHeadlineBloc>()
-                            .add(EditHeadlineSourceChanged(value)),
-                      ),
+                    SearchableSelectionInput<Source>(
+                      label: l10n.sourceName,
+                      selectedItem: state.source,
+                      itemBuilder: (context, source) => Text(source.name),
+                      itemToString: (source) => source.name,
+                      onChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineSourceChanged(value)),
+                      repository: context.read<DataRepository<Source>>(),
+                      filterBuilder: (searchTerm) => searchTerm == null
+                          ? {}
+                          : {
+                              'name': {
+                                r'$regex': searchTerm,
+                                r'$options': 'i',
+                              },
+                            },
+                      sortOptions: const [
+                        SortOption('name', SortOrder.asc),
+                      ],
+                      limit: kDefaultRowsPerPage,
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    BlocProvider<SearchablePaginatedDropdownBloc<Topic>>(
-                      create: (context) =>
-                          SearchablePaginatedDropdownBloc<Topic>(
-                            repository: context.read<DataRepository<Topic>>(),
-                            filterBuilder: (searchTerm) => searchTerm == null
-                                ? {}
-                                : {
-                                    'name': {
-                                      r'$regex': searchTerm,
-                                      r'$options': 'i',
-                                    },
-                                  },
-                            sortOptions: const [
-                              SortOption('name', SortOrder.asc),
-                            ],
-                            limit: kDefaultRowsPerPage,
-                            initialSelectedItem: state.topic,
-                          ),
-                      child: SearchablePaginatedDropdown<Topic>(
-                        label: l10n.topicName,
-                        selectedItem: state.topic,
-                        itemBuilder: (context, topic) => Text(topic.name),
-                        itemToString: (topic) => topic.name,
-                        onChanged: (value) => context
-                            .read<EditHeadlineBloc>()
-                            .add(EditHeadlineTopicChanged(value)),
-                      ),
+                    SearchableSelectionInput<Topic>(
+                      label: l10n.topicName,
+                      selectedItem: state.topic,
+                      itemBuilder: (context, topic) => Text(topic.name),
+                      itemToString: (topic) => topic.name,
+                      onChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineTopicChanged(value)),
+                      repository: context.read<DataRepository<Topic>>(),
+                      filterBuilder: (searchTerm) => searchTerm == null
+                          ? {}
+                          : {
+                              'name': {
+                                r'$regex': searchTerm,
+                                r'$options': 'i',
+                              },
+                            },
+                      sortOptions: const [
+                        SortOption('name', SortOrder.asc),
+                      ],
+                      limit: kDefaultRowsPerPage,
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    BlocProvider<SearchablePaginatedDropdownBloc<Country>>(
-                      create: (context) =>
-                          SearchablePaginatedDropdownBloc<Country>(
-                            repository: context.read<DataRepository<Country>>(),
-                            filterBuilder: (searchTerm) => searchTerm == null
-                                ? {}
-                                : {
-                                    'name': {
-                                      r'$regex': searchTerm,
-                                      r'$options': 'i',
-                                    },
-                                  },
-                            sortOptions: const [
-                              SortOption('name', SortOrder.asc),
-                            ],
-                            limit: kDefaultRowsPerPage,
-                            initialSelectedItem: state.eventCountry,
-                          ),
-                      child: SearchablePaginatedDropdown<Country>(
-                        label: l10n.countryName,
-                        selectedItem: state.eventCountry,
-                        itemBuilder: (context, country) => Row(
-                          children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
-                              ),
+                    SearchableSelectionInput<Country>(
+                      label: l10n.countryName,
+                      selectedItem: state.eventCountry,
+                      itemBuilder: (context, country) => Row(
+                        children: [
+                          SizedBox(
+                            width: 32,
+                            height: 20,
+                            child: Image.network(
+                              country.flagUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.flag),
                             ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name),
-                          ],
-                        ),
-                        itemToString: (country) => country.name,
-                        onChanged: (value) => context
-                            .read<EditHeadlineBloc>()
-                            .add(EditHeadlineCountryChanged(value)),
+                          ),
+                          const SizedBox(width: AppSpacing.md),
+                          Text(country.name),
+                        ],
                       ),
+                      itemToString: (country) => country.name,
+                      onChanged: (value) => context
+                          .read<EditHeadlineBloc>()
+                          .add(EditHeadlineCountryChanged(value)),
+                      repository: context.read<DataRepository<Country>>(),
+                      filterBuilder: (searchTerm) => searchTerm == null
+                          ? {}
+                          : {
+                              'name': {
+                                r'$regex': searchTerm,
+                                r'$options': 'i',
+                              },
+                            },
+                      sortOptions: const [
+                        SortOption('name', SortOrder.asc),
+                      ],
+                      limit: kDefaultRowsPerPage,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<ContentStatus>(
