@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';
@@ -24,32 +27,52 @@ class ContentManagementBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
-    required DataRepository<Country> countriesRepository,
-    required DataRepository<Language> languagesRepository,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
-       _countriesRepository = countriesRepository,
-       _languagesRepository = languagesRepository,
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
-    on<HeadlineUpdated>(_onHeadlineUpdated);
     on<ArchiveHeadlineRequested>(_onArchiveHeadlineRequested);
     on<LoadTopicsRequested>(_onLoadTopicsRequested);
-    on<TopicUpdated>(_onTopicUpdated);
     on<ArchiveTopicRequested>(_onArchiveTopicRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
-    on<SourceUpdated>(_onSourceUpdated);
     on<ArchiveSourceRequested>(_onArchiveSourceRequested);
+
+    _headlineUpdateSubscription = _headlinesRepository.entityUpdated
+        .where((type) => type == Headline)
+        .listen((_) {
+      add(const LoadHeadlinesRequested(limit: kDefaultRowsPerPage));
+    });
+
+    _topicUpdateSubscription = _topicsRepository.entityUpdated
+        .where((type) => type == Topic)
+        .listen((_) {
+      add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
+    });
+
+    _sourceUpdateSubscription = _sourcesRepository.entityUpdated
+        .where((type) => type == Source)
+        .listen((_) {
+      add(const LoadSourcesRequested(limit: kDefaultRowsPerPage));
+    });
   }
 
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Country> _countriesRepository;
-  final DataRepository<Language> _languagesRepository;
 
+  late final StreamSubscription<Type> _headlineUpdateSubscription;
+  late final StreamSubscription<Type> _topicUpdateSubscription;
+  late final StreamSubscription<Type> _sourceUpdateSubscription;
+
+  @override
+  Future<void> close() {
+    _headlineUpdateSubscription.cancel();
+    _topicUpdateSubscription.cancel();
+    _sourceUpdateSubscription.cancel();
+    return super.close();
+  }
 
   void _onContentManagementTabChanged(
     ContentManagementTabChanged event,
@@ -139,18 +162,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onHeadlineUpdated(
-    HeadlineUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedHeadlines = List<Headline>.from(state.headlines);
-    final index = updatedHeadlines.indexWhere((h) => h.id == event.headline.id);
-    if (index != -1) {
-      updatedHeadlines[index] = event.headline;
-      emit(state.copyWith(headlines: updatedHeadlines));
-    }
-  }
-
   Future<void> _onLoadTopicsRequested(
     LoadTopicsRequested event,
     Emitter<ContentManagementState> emit,
@@ -232,18 +243,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onTopicUpdated(
-    TopicUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedTopics = List<Topic>.from(state.topics);
-    final index = updatedTopics.indexWhere((t) => t.id == event.topic.id);
-    if (index != -1) {
-      updatedTopics[index] = event.topic;
-      emit(state.copyWith(topics: updatedTopics));
-    }
-  }
-
   Future<void> _onLoadSourcesRequested(
     LoadSourcesRequested event,
     Emitter<ContentManagementState> emit,
@@ -322,18 +321,6 @@ class ContentManagementBloc
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
-    }
-  }
-
-  void _onSourceUpdated(
-    SourceUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedSources = List<Source>.from(state.sources);
-    final index = updatedSources.indexWhere((s) => s.id == event.source.id);
-    if (index != -1) {
-      updatedSources[index] = event.source;
-      emit(state.copyWith(sources: updatedSources));
     }
   }
 }
