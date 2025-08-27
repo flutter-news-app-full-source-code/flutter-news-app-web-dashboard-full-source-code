@@ -32,10 +32,7 @@ class ContentManagementState extends Equatable {
     this.sources = const [],
     this.sourcesCursor,
     this.sourcesHasMore = false,
-    this.allCountriesStatus = ContentManagementStatus.initial,
-    this.allCountries = const [],
-    this.allLanguagesStatus = ContentManagementStatus.initial,
-    this.allLanguages = const [],
+    // Removed allCountriesStatus, allCountries, allLanguagesStatus, allLanguages
     this.exception,
   });
 
@@ -78,17 +75,6 @@ class ContentManagementState extends Equatable {
   /// Indicates if there are more sources to load.
   final bool sourcesHasMore;
 
-  /// Status of all countries data operations.
-  final ContentManagementStatus allCountriesStatus;
-
-  /// Cached list of all countries.
-  final List<Country> allCountries;
-
-  /// Status of all languages data operations.
-  final ContentManagementStatus allLanguagesStatus;
-
-  /// Cached list of all languages.
-  final List<Language> allLanguages;
 
   /// The error describing an operation failure, if any.
   final HttpException? exception;
@@ -108,10 +94,7 @@ class ContentManagementState extends Equatable {
     List<Source>? sources,
     String? sourcesCursor,
     bool? sourcesHasMore,
-    ContentManagementStatus? allCountriesStatus,
-    List<Country>? allCountries,
-    ContentManagementStatus? allLanguagesStatus,
-    List<Language>? allLanguages,
+
     HttpException? exception,
   }) {
     return ContentManagementState(
@@ -128,10 +111,7 @@ class ContentManagementState extends Equatable {
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
-      allCountriesStatus: allCountriesStatus ?? this.allCountriesStatus,
-      allCountries: allCountries ?? this.allCountries,
-      allLanguagesStatus: allLanguagesStatus ?? this.allLanguagesStatus,
-      allLanguages: allLanguages ?? this.allLanguages,
+     
       exception: exception ?? this.exception,
     );
   }
@@ -151,10 +131,6 @@ class ContentManagementState extends Equatable {
     sources,
     sourcesCursor,
     sourcesHasMore,
-    allCountriesStatus,
-    allCountries,
-    allLanguagesStatus,
-    allLanguages,
-    exception,
+
   ];
 }
