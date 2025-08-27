@@ -42,20 +42,20 @@ class ContentManagementBloc
     _headlineUpdateSubscription = _headlinesRepository.entityUpdated
         .where((type) => type == Headline)
         .listen((_) {
-      add(const LoadHeadlinesRequested(limit: kDefaultRowsPerPage));
-    });
+          add(const LoadHeadlinesRequested(limit: kDefaultRowsPerPage));
+        });
 
     _topicUpdateSubscription = _topicsRepository.entityUpdated
         .where((type) => type == Topic)
         .listen((_) {
-      add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
-    });
+          add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
+        });
 
     _sourceUpdateSubscription = _sourcesRepository.entityUpdated
         .where((type) => type == Source)
         .listen((_) {
-      add(const LoadSourcesRequested(limit: kDefaultRowsPerPage));
-    });
+          add(const LoadSourcesRequested(limit: kDefaultRowsPerPage));
+        });
   }
 
   final DataRepository<Headline> _headlinesRepository;

@@ -127,9 +127,9 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           if (state.status == CreateSourceStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context
-                  .read<CreateSourceBloc>()
-                  .add(const CreateSourceSubmitted()), // Retry submission
+              onRetry: () => context.read<CreateSourceBloc>().add(
+                const CreateSourceSubmitted(),
+              ), // Retry submission
             );
           }
 
@@ -178,21 +178,22 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                     BlocProvider<SearchablePaginatedDropdownBloc<Language>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Language>(
-                        repository: context.read<DataRepository<Language>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.language,
-                      ),
+                            repository: context
+                                .read<DataRepository<Language>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.language,
+                          ),
                       child: SearchablePaginatedDropdown<Language>(
                         label: l10n.language,
                         selectedItem: state.language,
@@ -227,21 +228,21 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                     BlocProvider<SearchablePaginatedDropdownBloc<Country>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Country>(
-                        repository: context.read<DataRepository<Country>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.headquarters,
-                      ),
+                            repository: context.read<DataRepository<Country>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.headquarters,
+                          ),
                       child: SearchablePaginatedDropdown<Country>(
                         label: l10n.headquarters,
                         selectedItem: state.headquarters,

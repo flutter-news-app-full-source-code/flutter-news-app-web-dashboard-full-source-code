@@ -14,14 +14,14 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     required Topic initialTopic,
   }) : _topicsRepository = topicsRepository,
        super(
-          EditTopicState(
-            initialTopic: initialTopic,
-            name: initialTopic.name,
-            description: initialTopic.description,
-            iconUrl: initialTopic.iconUrl,
-            contentStatus: initialTopic.status,
-          ),
-        ) {
+         EditTopicState(
+           initialTopic: initialTopic,
+           name: initialTopic.name,
+           description: initialTopic.description,
+           iconUrl: initialTopic.iconUrl,
+           contentStatus: initialTopic.status,
+         ),
+       ) {
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
     on<EditTopicIconUrlChanged>(_onIconUrlChanged);

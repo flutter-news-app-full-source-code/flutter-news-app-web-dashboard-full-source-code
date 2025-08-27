@@ -56,8 +56,9 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
   @override
   void initState() {
     super.initState();
-    _textController.text =
-        widget.selectedItem != null ? widget.itemToString(widget.selectedItem!) : '';
+    _textController.text = widget.selectedItem != null
+        ? widget.itemToString(widget.selectedItem!)
+        : '';
     _focusNode.addListener(_onFocusChanged);
   }
 
@@ -65,8 +66,9 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
   void didUpdateWidget(covariant SearchablePaginatedDropdown<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.selectedItem != oldWidget.selectedItem) {
-      _textController.text =
-          widget.selectedItem != null ? widget.itemToString(widget.selectedItem!) : '';
+      _textController.text = widget.selectedItem != null
+          ? widget.itemToString(widget.selectedItem!)
+          : '';
     }
   }
 
@@ -99,10 +101,10 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
         left: offset.dx,
         child: Material(
           elevation: Theme.of(context).cardTheme.elevation ?? 4,
-          borderRadius: (Theme.of(context).cardTheme.shape
-                  as RoundedRectangleBorder?)
-              ?.borderRadius
-              .resolve(Directionality.of(context)) ??
+          borderRadius:
+              (Theme.of(context).cardTheme.shape as RoundedRectangleBorder?)
+                  ?.borderRadius
+                  .resolve(Directionality.of(context)) ??
               BorderRadius.circular(AppSpacing.sm),
           child: ConstrainedBox(
             constraints: const BoxConstraints(
@@ -134,8 +136,8 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
     Overlay.of(context).insert(overlayEntry);
     // Trigger initial load when overlay opens
     context.read<SearchablePaginatedDropdownBloc<T>>().add(
-          const SearchablePaginatedDropdownLoadRequested(),
-        );
+      const SearchablePaginatedDropdownLoadRequested(),
+    );
   }
 
   @override
@@ -161,8 +163,8 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
                   widget.onChanged(null);
                   _textController.clear();
                   context.read<SearchablePaginatedDropdownBloc<T>>().add(
-                        const SearchablePaginatedDropdownClearSelection(),
-                      );
+                    const SearchablePaginatedDropdownClearSelection(),
+                  );
                 },
               )
             : null,
@@ -218,8 +220,8 @@ class _OverlayContentState<T extends Equatable>
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       context.read<SearchablePaginatedDropdownBloc<T>>().add(
-            const SearchablePaginatedDropdownLoadMoreRequested(),
-          );
+        const SearchablePaginatedDropdownLoadMoreRequested(),
+      );
     }
   }
 
@@ -242,8 +244,8 @@ class _OverlayContentState<T extends Equatable>
                 onPressed: () {
                   _searchController.clear();
                   context.read<SearchablePaginatedDropdownBloc<T>>().add(
-                        const SearchablePaginatedDropdownSearchTermChanged(''),
-                      );
+                    const SearchablePaginatedDropdownSearchTermChanged(''),
+                  );
                 },
               ),
             ),
@@ -253,58 +255,65 @@ class _OverlayContentState<T extends Equatable>
           ),
         ),
         Expanded(
-          child: BlocBuilder<SearchablePaginatedDropdownBloc<T>,
-              SearchablePaginatedDropdownState<T>>(
-            builder: (context, state) {
-              if (state.status == SearchablePaginatedDropdownStatus.loading &&
-                  state.items.isEmpty) {
-                return LoadingStateWidget(
-                  icon: Icons.search,
-                  headline: l10n.loadingData,
-                  subheadline: l10n.pleaseWait,
-                );
-              }
+          child:
+              BlocBuilder<
+                SearchablePaginatedDropdownBloc<T>,
+                SearchablePaginatedDropdownState<T>
+              >(
+                builder: (context, state) {
+                  if (state.status ==
+                          SearchablePaginatedDropdownStatus.loading &&
+                      state.items.isEmpty) {
+                    return LoadingStateWidget(
+                      icon: Icons.search,
+                      headline: l10n.loadingData,
+                      subheadline: l10n.pleaseWait,
+                    );
+                  }
 
-              if (state.status == SearchablePaginatedDropdownStatus.failure &&
-                  state.items.isEmpty) {
-                return FailureStateWidget(
-                  exception: state.exception!,
-                  onRetry: () => context
-                      .read<SearchablePaginatedDropdownBloc<T>>()
-                      .add(const SearchablePaginatedDropdownLoadRequested()),
-                );
-              }
+                  if (state.status ==
+                          SearchablePaginatedDropdownStatus.failure &&
+                      state.items.isEmpty) {
+                    return FailureStateWidget(
+                      exception: state.exception!,
+                      onRetry: () => context
+                          .read<SearchablePaginatedDropdownBloc<T>>()
+                          .add(
+                            const SearchablePaginatedDropdownLoadRequested(),
+                          ),
+                    );
+                  }
 
-              if (state.items.isEmpty) {
-                return Center(
-                  child: Text(
-                    l10n.noResultsFound,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                );
-              }
-
-              return ListView.builder(
-                controller: _scrollController,
-                itemCount: state.items.length + (state.hasMore ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (index == state.items.length) {
-                    return const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(AppSpacing.md),
-                        child: CircularProgressIndicator(),
+                  if (state.items.isEmpty) {
+                    return Center(
+                      child: Text(
+                        l10n.noResultsFound,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     );
                   }
-                  final item = state.items[index];
-                  return ListTile(
-                    title: widget.itemBuilder(context, item),
-                    onTap: () => widget.onItemSelected(item),
+
+                  return ListView.builder(
+                    controller: _scrollController,
+                    itemCount: state.items.length + (state.hasMore ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      if (index == state.items.length) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(AppSpacing.md),
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      final item = state.items[index];
+                      return ListTile(
+                        title: widget.itemBuilder(context, item),
+                        onTap: () => widget.onItemSelected(item),
+                      );
+                    },
                   );
                 },
-              );
-            },
-          ),
+              ),
         ),
         Align(
           alignment: Alignment.bottomRight,

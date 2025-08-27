@@ -15,15 +15,18 @@ EventTransformer<T> debounce<T>(Duration duration) {
   return (events, mapper) => events.debounceTime(duration).flatMap(mapper);
 }
 
-
 /// {@template searchable_paginated_dropdown_bloc}
 /// A BLoC to manage the state of a searchable, paginated dropdown.
 ///
 /// This BLoC handles fetching data from a [DataRepository], applying search
 /// filters with debouncing, and managing pagination.
 /// {@endtemplate}
-class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
-    SearchablePaginatedDropdownEvent, SearchablePaginatedDropdownState<T>> {
+class SearchablePaginatedDropdownBloc<T extends Equatable>
+    extends
+        Bloc<
+          SearchablePaginatedDropdownEvent,
+          SearchablePaginatedDropdownState<T>
+        > {
   /// {@macro searchable_paginated_dropdown_bloc}
   SearchablePaginatedDropdownBloc({
     required DataRepository<T> repository,
@@ -31,15 +34,15 @@ class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
     required List<SortOption> sortOptions,
     required int limit,
     T? initialSelectedItem,
-  })  : _repository = repository,
-        _filterBuilder = filterBuilder,
-        _sortOptions = sortOptions,
-        _limit = limit,
-        super(
-          SearchablePaginatedDropdownState(
-            selectedItem: initialSelectedItem,
-          ),
-        ) {
+  }) : _repository = repository,
+       _filterBuilder = filterBuilder,
+       _sortOptions = sortOptions,
+       _limit = limit,
+       super(
+         SearchablePaginatedDropdownState(
+           selectedItem: initialSelectedItem,
+         ),
+       ) {
     on<SearchablePaginatedDropdownLoadRequested>(
       _onLoadRequested,
       transformer: restartable(),
@@ -69,7 +72,9 @@ class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
   ) async {
     emit(state.copyWith(status: SearchablePaginatedDropdownStatus.loading));
     try {
-      final filter = _filterBuilder(state.searchTerm.isEmpty ? null : state.searchTerm);
+      final filter = _filterBuilder(
+        state.searchTerm.isEmpty ? null : state.searchTerm,
+      );
       final response = await _repository.readAll(
         filter: filter,
         sort: _sortOptions,
@@ -85,7 +90,12 @@ class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: SearchablePaginatedDropdownStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: SearchablePaginatedDropdownStatus.failure,
+          exception: e,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -117,13 +127,16 @@ class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
     SearchablePaginatedDropdownLoadMoreRequested event,
     Emitter<SearchablePaginatedDropdownState<T>> emit,
   ) async {
-    if (!state.hasMore || state.status == SearchablePaginatedDropdownStatus.loading) {
+    if (!state.hasMore ||
+        state.status == SearchablePaginatedDropdownStatus.loading) {
       return;
     }
 
     emit(state.copyWith(status: SearchablePaginatedDropdownStatus.loading));
     try {
-      final filter = _filterBuilder(state.searchTerm.isEmpty ? null : state.searchTerm);
+      final filter = _filterBuilder(
+        state.searchTerm.isEmpty ? null : state.searchTerm,
+      );
       final response = await _repository.readAll(
         filter: filter,
         sort: _sortOptions,
@@ -139,7 +152,12 @@ class SearchablePaginatedDropdownBloc<T extends Equatable> extends Bloc<
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: SearchablePaginatedDropdownStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: SearchablePaginatedDropdownStatus.failure,
+          exception: e,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(

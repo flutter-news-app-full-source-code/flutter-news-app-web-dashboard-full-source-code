@@ -140,10 +140,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                         labelText: l10n.sourceName,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) =>
-                          context.read<EditSourceBloc>().add(
-                            EditSourceNameChanged(value),
-                          ),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceNameChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -153,10 +152,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                         border: const OutlineInputBorder(),
                       ),
                       maxLines: 3,
-                      onChanged: (value) =>
-                          context.read<EditSourceBloc>().add(
-                            EditSourceDescriptionChanged(value),
-                          ),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceDescriptionChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -165,38 +163,39 @@ class _EditSourceViewState extends State<_EditSourceView> {
                         labelText: l10n.sourceUrl,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) =>
-                          context.read<EditSourceBloc>().add(
-                            EditSourceUrlChanged(value),
-                          ),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceUrlChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     BlocProvider<SearchablePaginatedDropdownBloc<Language>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Language>(
-                        repository: context.read<DataRepository<Language>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.language,
-                      ),
+                            repository: context
+                                .read<DataRepository<Language>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.language,
+                          ),
                       child: SearchablePaginatedDropdown<Language>(
                         label: l10n.language,
                         selectedItem: state.language,
                         itemBuilder: (context, language) => Text(language.name),
                         itemToString: (language) => language.name,
-                        onChanged: (value) => context.read<EditSourceBloc>().add(
-                            EditSourceLanguageChanged(value),
-                          ),
+                        onChanged: (value) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceLanguageChanged(value),
+                            ),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
@@ -215,30 +214,29 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           ),
                         ),
                       ],
-                      onChanged: (value) =>
-                          context.read<EditSourceBloc>().add(
-                            EditSourceTypeChanged(value),
-                          ),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceTypeChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     BlocProvider<SearchablePaginatedDropdownBloc<Country>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Country>(
-                        repository: context.read<DataRepository<Country>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.headquarters,
-                      ),
+                            repository: context.read<DataRepository<Country>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.headquarters,
+                          ),
                       child: SearchablePaginatedDropdown<Country>(
                         label: l10n.headquarters,
                         selectedItem: state.headquarters,
@@ -259,9 +257,10 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           ],
                         ),
                         itemToString: (country) => country.name,
-                        onChanged: (value) => context.read<EditSourceBloc>().add(
-                            EditSourceHeadquartersChanged(value),
-                          ),
+                        onChanged: (value) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceHeadquartersChanged(value),
+                            ),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),

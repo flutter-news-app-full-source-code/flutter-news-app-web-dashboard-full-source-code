@@ -175,21 +175,21 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     BlocProvider<SearchablePaginatedDropdownBloc<Source>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Source>(
-                        repository: context.read<DataRepository<Source>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.source,
-                      ),
+                            repository: context.read<DataRepository<Source>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.source,
+                          ),
                       child: SearchablePaginatedDropdown<Source>(
                         label: l10n.sourceName,
                         selectedItem: state.source,
@@ -204,21 +204,21 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     BlocProvider<SearchablePaginatedDropdownBloc<Topic>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Topic>(
-                        repository: context.read<DataRepository<Topic>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.topic,
-                      ),
+                            repository: context.read<DataRepository<Topic>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.topic,
+                          ),
                       child: SearchablePaginatedDropdown<Topic>(
                         label: l10n.topicName,
                         selectedItem: state.topic,
@@ -233,21 +233,21 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     BlocProvider<SearchablePaginatedDropdownBloc<Country>>(
                       create: (context) =>
                           SearchablePaginatedDropdownBloc<Country>(
-                        repository: context.read<DataRepository<Country>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        initialSelectedItem: state.eventCountry,
-                      ),
+                            repository: context.read<DataRepository<Country>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: const [
+                              SortOption('name', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            initialSelectedItem: state.eventCountry,
+                          ),
                       child: SearchablePaginatedDropdown<Country>(
                         label: l10n.countryName,
                         selectedItem: state.eventCountry,

@@ -14,7 +14,6 @@ class CreateHeadlineBloc
   /// {@macro create_headline_bloc}
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
-
   }) : _headlinesRepository = headlinesRepository,
 
        super(const CreateHeadlineState()) {

@@ -230,8 +230,9 @@ class _AppViewState extends State<_AppView> {
               return Scaffold(
                 // Use a distinct background color from the theme for the
                 // areas outside the main constrained content.
-                backgroundColor:
-                    Theme.of(context).colorScheme.surfaceContainerHighest,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
                 body: Center(
                   child: Card(
                     // Remove default card margin to allow it to fill the

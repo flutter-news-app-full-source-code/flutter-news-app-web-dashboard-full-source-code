@@ -13,19 +13,19 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required Source initialSource,
-  })  : _sourcesRepository = sourcesRepository,
-        super(
-          EditSourceState(
-            initialSource: initialSource,
-            name: initialSource.name,
-            description: initialSource.description,
-            url: initialSource.url,
-            sourceType: initialSource.sourceType,
-            language: initialSource.language,
-            headquarters: initialSource.headquarters,
-            contentStatus: initialSource.status,
-          ),
-        ) {
+  }) : _sourcesRepository = sourcesRepository,
+       super(
+         EditSourceState(
+           initialSource: initialSource,
+           name: initialSource.name,
+           description: initialSource.description,
+           url: initialSource.url,
+           sourceType: initialSource.sourceType,
+           language: initialSource.language,
+           headquarters: initialSource.headquarters,
+           contentStatus: initialSource.status,
+         ),
+       ) {
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
     on<EditSourceUrlChanged>(_onUrlChanged);

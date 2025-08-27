@@ -13,20 +13,20 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   EditHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
     required Headline initialHeadline,
-  })  : _headlinesRepository = headlinesRepository,
-        super(
-          EditHeadlineState(
-            initialHeadline: initialHeadline,
-            title: initialHeadline.title,
-            excerpt: initialHeadline.excerpt,
-            url: initialHeadline.url,
-            imageUrl: initialHeadline.imageUrl,
-            source: initialHeadline.source,
-            topic: initialHeadline.topic,
-            eventCountry: initialHeadline.eventCountry,
-            contentStatus: initialHeadline.status,
-          ),
-        ) {
+  }) : _headlinesRepository = headlinesRepository,
+       super(
+         EditHeadlineState(
+           initialHeadline: initialHeadline,
+           title: initialHeadline.title,
+           excerpt: initialHeadline.excerpt,
+           url: initialHeadline.url,
+           imageUrl: initialHeadline.imageUrl,
+           source: initialHeadline.source,
+           topic: initialHeadline.topic,
+           eventCountry: initialHeadline.eventCountry,
+           contentStatus: initialHeadline.status,
+         ),
+       ) {
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
