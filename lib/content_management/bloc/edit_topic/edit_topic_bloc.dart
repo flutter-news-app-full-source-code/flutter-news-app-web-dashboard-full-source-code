@@ -11,11 +11,17 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   /// {@macro edit_topic_bloc}
   EditTopicBloc({
     required DataRepository<Topic> topicsRepository,
-    required String topicId,
+    required Topic initialTopic,
   }) : _topicsRepository = topicsRepository,
-       _topicId = topicId,
-       super(const EditTopicState()) {
-    on<EditTopicLoaded>(_onLoaded);
+       super(
+          EditTopicState(
+            initialTopic: initialTopic,
+            name: initialTopic.name,
+            description: initialTopic.description,
+            iconUrl: initialTopic.iconUrl,
+            contentStatus: initialTopic.status,
+          ),
+        ) {
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
     on<EditTopicIconUrlChanged>(_onIconUrlChanged);
@@ -24,47 +30,13 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   }
 
   final DataRepository<Topic> _topicsRepository;
-  final String _topicId;
-
-  Future<void> _onLoaded(
-    EditTopicLoaded event,
-    Emitter<EditTopicState> emit,
-  ) async {
-    emit(state.copyWith(status: EditTopicStatus.loading));
-    try {
-      final topic = await _topicsRepository.read(id: _topicId);
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.initial,
-          initialTopic: topic,
-          name: topic.name,
-          description: topic.description,
-          iconUrl: topic.iconUrl,
-          contentStatus: topic.status,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: EditTopicStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
 
   void _onNameChanged(
     EditTopicNameChanged event,
     Emitter<EditTopicState> emit,
   ) {
     emit(
-      state.copyWith(
-        name: event.name,
-        // Reset status to allow for re-submission after a failure.
-        status: EditTopicStatus.initial,
-      ),
+      state.copyWith(name: event.name, status: EditTopicStatus.initial),
     );
   }
 
@@ -132,7 +104,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         updatedAt: DateTime.now(),
       );
 
-      await _topicsRepository.update(id: _topicId, item: updatedTopic);
+      await _topicsRepository.update(id: initialTopic.id, item: updatedTopic);
       emit(
         state.copyWith(
           status: EditTopicStatus.success,
