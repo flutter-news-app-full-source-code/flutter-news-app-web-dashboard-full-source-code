@@ -99,7 +99,11 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
         left: offset.dx,
         child: Material(
           elevation: Theme.of(context).cardTheme.elevation ?? 4,
-          borderRadius: Theme.of(context).cardTheme.shape?.borderRadius.resolve(Directionality.of(context)) ?? BorderRadius.circular(AppSpacing.sm),
+          borderRadius: (Theme.of(context).cardTheme.shape
+                  as RoundedRectangleBorder?)
+              ?.borderRadius
+              .resolve(Directionality.of(context)) ??
+              BorderRadius.circular(AppSpacing.sm),
           child: ConstrainedBox(
             constraints: const BoxConstraints(
               maxHeight: AppConstants.kMaxDropdownOverlayHeight,
@@ -143,7 +147,7 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
       readOnly: true, // Prevent direct text input, only allow selection
       decoration: InputDecoration(
         labelText: widget.label,
-        border: const OutlineInputBorder(),
+        border: Theme.of(context).inputDecorationTheme.border,
         suffixIcon: IconButton(
           icon: const Icon(Icons.arrow_drop_down),
           onPressed: _focusNode.requestFocus,
@@ -232,7 +236,7 @@ class _OverlayContentState<T extends Equatable>
             controller: _searchController,
             decoration: InputDecoration(
               labelText: l10n.search,
-              border: const OutlineInputBorder(),
+              border: Theme.of(context).inputDecorationTheme.border,
               suffixIcon: IconButton(
                 icon: const Icon(Icons.clear),
                 onPressed: () {
@@ -272,7 +276,12 @@ class _OverlayContentState<T extends Equatable>
               }
 
               if (state.items.isEmpty) {
-                return Center(child: Text(l10n.noResultsFound));
+                return Center(
+                  child: Text(
+                    l10n.noResultsFound,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                );
               }
 
               return ListView.builder(
