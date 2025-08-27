@@ -170,9 +170,8 @@ GoRouter createRouter({
                     path: Routes.editHeadline,
                     name: Routes.editHeadlineName,
                     builder: (context, state) {
-                      final id = state.pathParameters['id']!;
                       final headline = state.extra! as Headline;
-                      return EditHeadlinePage(headlineId: id, initialHeadline: headline);
+                      return EditHeadlinePage(headline: headline);
                     },
                   ),
                   GoRoute(
@@ -184,8 +183,8 @@ GoRouter createRouter({
                     path: Routes.editTopic,
                     name: Routes.editTopicName,
                     builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return EditTopicPage(topicId: id);
+                      final topic = state.extra! as Topic;
+                      return EditTopicPage(topic: topic);
                     },
                   ),
                   GoRoute(
@@ -197,8 +196,8 @@ GoRouter createRouter({
                     path: Routes.editSource,
                     name: Routes.editSourceName,
                     builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return EditSourcePage(sourceId: id);
+                      final source = state.extra! as Source;
+                      return EditSourcePage(source: source);
                     },
                   ),
                   GoRoute(
