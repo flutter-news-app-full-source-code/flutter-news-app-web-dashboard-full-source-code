@@ -12,21 +12,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   /// {@macro edit_headline_bloc}
   EditHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
-    required Headline initialHeadline,
+    required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
-       super(
-         EditHeadlineState(
-           initialHeadline: initialHeadline,
-           title: initialHeadline.title,
-           excerpt: initialHeadline.excerpt,
-           url: initialHeadline.url,
-           imageUrl: initialHeadline.imageUrl,
-           source: initialHeadline.source,
-           topic: initialHeadline.topic,
-           eventCountry: initialHeadline.eventCountry,
-           contentStatus: initialHeadline.status,
-         ),
-       ) {
+       super(EditHeadlineState(headlineId: headlineId, status: EditHeadlineStatus.loading)) {
+    on<EditHeadlineLoaded>(_onEditHeadlineLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
@@ -36,9 +25,42 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
+
+    add(const EditHeadlineLoaded());
   }
 
   final DataRepository<Headline> _headlinesRepository;
+
+  Future<void> _onEditHeadlineLoaded(
+    EditHeadlineLoaded event,
+    Emitter<EditHeadlineState> emit,
+  ) async {
+    try {
+      final headline = await _headlinesRepository.read(id: state.headlineId);
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.initial,
+          title: headline.title,
+          excerpt: headline.excerpt,
+          url: headline.url,
+          imageUrl: headline.imageUrl,
+          source: () => headline.source,
+          topic: () => headline.topic,
+          eventCountry: () => headline.eventCountry,
+          contentStatus: headline.status,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
 
   void _onTitleChanged(
     EditHeadlineTitleChanged event,
@@ -134,24 +156,24 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) async {
     if (!state.isFormValid) return;
 
-    final initialHeadline = state.initialHeadline;
-
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
-      final updatedHeadline = initialHeadline!.copyWith(
+      final updatedHeadline = Headline(
+        id: state.headlineId,
         title: state.title,
         excerpt: state.excerpt,
         url: state.url,
         imageUrl: state.imageUrl,
-        source: state.source,
-        topic: state.topic,
-        eventCountry: state.eventCountry,
+        source: state.source!,
+        topic: state.topic!,
+        eventCountry: state.eventCountry!,
         status: state.contentStatus,
+        createdAt: DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 
       await _headlinesRepository.update(
-        id: initialHeadline.id,
+        id: state.headlineId,
         item: updatedHeadline,
       );
       emit(
