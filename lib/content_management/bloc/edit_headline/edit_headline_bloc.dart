@@ -14,80 +14,27 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Topic> topicsRepository,
-    required List<Country> countries,
     required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
        _sourcesRepository = sourcesRepository,
        _topicsRepository = topicsRepository,
        _headlineId = headlineId,
-       super(EditHeadlineState(countries: countries)) {
-    on<EditHeadlineLoaded>(_onLoaded);
+       super(const EditHeadlineState()) {
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
-    on<EditHeadlineImageUrlChanged>(_onImageUrlChanged);
+    on<EditHeadlineImageUrlChanged>(_onOnImageUrlChanged);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
     on<EditHeadlineTopicChanged>(_onTopicChanged);
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
-    on<EditHeadlineDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Topic> _topicsRepository;
   final String _headlineId;
-
-  Future<void> _onLoaded(
-    EditHeadlineLoaded event,
-    Emitter<EditHeadlineState> emit,
-  ) async {
-    emit(state.copyWith(status: EditHeadlineStatus.loading));
-    try {
-      final responses = await Future.wait([
-        _headlinesRepository.read(id: _headlineId),
-        _sourcesRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-          filter: {'status': ContentStatus.active.name},
-        ),
-        _topicsRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-          filter: {'status': ContentStatus.active.name},
-        ),
-      ]);
-
-      final headline = responses[0] as Headline;
-      final sources = (responses[1] as PaginatedResponse<Source>).items;
-      final topics = (responses[2] as PaginatedResponse<Topic>).items;
-
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.initial,
-          initialHeadline: headline,
-          title: headline.title,
-          excerpt: headline.excerpt,
-          url: headline.url,
-          imageUrl: headline.imageUrl,
-          source: () => headline.source,
-          topic: () => headline.topic,
-          eventCountry: () => headline.eventCountry,
-          sources: sources,
-          topics: topics,
-          contentStatus: headline.status,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
 
   void _onTitleChanged(
     EditHeadlineTitleChanged event,
@@ -117,7 +64,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     emit(state.copyWith(url: event.url, status: EditHeadlineStatus.initial));
   }
 
-  void _onImageUrlChanged(
+  void _onOnImageUrlChanged(
     EditHeadlineImageUrlChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
@@ -177,7 +124,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     );
   }
 
-  // --- Background Data Fetching for Dropdown ---
   Future<void> _onSubmitted(
     EditHeadlineSubmitted event,
     Emitter<EditHeadlineState> emit,
@@ -228,12 +174,5 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       );
     }
-  }
-
-  void _onDataUpdated(
-    EditHeadlineDataUpdated event,
-    Emitter<EditHeadlineState> emit,
-  ) {
-    emit(state.copyWith(countries: event.countries));
   }
 }
