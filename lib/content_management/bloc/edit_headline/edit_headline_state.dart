@@ -22,7 +22,7 @@ enum EditHeadlineStatus {
 final class EditHeadlineState extends Equatable {
   const EditHeadlineState({
     this.status = EditHeadlineStatus.initial,
-    this.initialHeadline,
+    required this.headlineId,
     this.title = '',
     this.excerpt = '',
     this.url = '',
@@ -36,7 +36,7 @@ final class EditHeadlineState extends Equatable {
   });
 
   final EditHeadlineStatus status;
-  final Headline? initialHeadline;
+  final String headlineId;
   final String title;
   final String excerpt;
   final String url;
@@ -50,6 +50,7 @@ final class EditHeadlineState extends Equatable {
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
+      headlineId.isNotEmpty &&
       title.isNotEmpty &&
       excerpt.isNotEmpty &&
       url.isNotEmpty &&
@@ -60,7 +61,7 @@ final class EditHeadlineState extends Equatable {
 
   EditHeadlineState copyWith({
     EditHeadlineStatus? status,
-    Headline? initialHeadline,
+    String? headlineId,
     String? title,
     String? excerpt,
     String? url,
@@ -74,7 +75,7 @@ final class EditHeadlineState extends Equatable {
   }) {
     return EditHeadlineState(
       status: status ?? this.status,
-      initialHeadline: initialHeadline ?? this.initialHeadline,
+      headlineId: headlineId ?? this.headlineId,
       title: title ?? this.title,
       excerpt: excerpt ?? this.excerpt,
       url: url ?? this.url,
@@ -91,7 +92,7 @@ final class EditHeadlineState extends Equatable {
   @override
   List<Object?> get props => [
     status,
-    initialHeadline,
+    headlineId,
     title,
     excerpt,
     url,
