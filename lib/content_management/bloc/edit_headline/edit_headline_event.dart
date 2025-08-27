@@ -8,11 +8,6 @@ sealed class EditHeadlineEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event to signal that the headline data should be loaded.
-final class EditHeadlineLoaded extends EditHeadlineEvent {
-  const EditHeadlineLoaded();
-}
-
 /// Event for when the headline's title is changed.
 final class EditHeadlineTitleChanged extends EditHeadlineEvent {
   const EditHeadlineTitleChanged(this.title);
@@ -82,14 +77,4 @@ final class EditHeadlineStatusChanged extends EditHeadlineEvent {
 /// Event to signal that the form should be submitted.
 final class EditHeadlineSubmitted extends EditHeadlineEvent {
   const EditHeadlineSubmitted();
-}
-
-/// Event to update the BLoC with the latest shared data.
-final class EditHeadlineDataUpdated extends EditHeadlineEvent {
-  const EditHeadlineDataUpdated({required this.countries});
-
-  final List<Country> countries;
-
-  @override
-  List<Object?> get props => [countries];
 }
