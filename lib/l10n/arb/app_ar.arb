@@ -99,7 +99,7 @@
   "@contentManagement": {
     "description": "تسمية عنصر التنقل لإدارة المحتوى"
   },
-  "contentManagementPageDescription": "إدارة العناوين الإخبارية والمواضيع والمصادر للوحة القيادة.",
+  "contentManagementPageDescription": "إدارة العناوين الإخبارية والمواضيع والمصادر لتطبيق الهاتف",
   "@contentManagementPageDescription": {
     "description": "وصف صفحة إدارة المحتوى"
   },
@@ -698,7 +698,7 @@
   "@noTopicsFound": {
     "description": "رسالة عند عدم العثور على مواضيع"
   },
-  "topicName": "اسم الموضوع",
+  "topicName": "الموضوع",
   "@topicName": {
     "description": "تسمية حقل اسم الموضوع في النماذج والجداول."
   },
@@ -718,7 +718,7 @@
   "@noSourcesFound": {
     "description": "رسالة عند عدم العثور على مصادر"
   },
-  "sourceName": "الاسم",
+  "sourceName": "المصدر",
   "@sourceName": {
     "description": "رأس العمود لاسم المصدر"
   },

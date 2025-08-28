@@ -99,7 +99,7 @@
   "@contentManagement": {
     "description": "Label for the content management navigation item"
   },
-  "contentManagementPageDescription": "Manage news headlines, topics, and sources for the Dashboard.",
+  "contentManagementPageDescription": "Manage news headlines, topics, and sources for the mobile application.",
   "@contentManagementPageDescription": {
     "description": "Description for the Content Management page"
   },
@@ -698,7 +698,7 @@
   "@noTopicsFound": {
     "description": "Message when no topics are found"
   },
-  "topicName": "Topic Name",
+  "topicName": "Topic",
   "@topicName": {
     "description": "Label for the topic name field in forms and tables."
   },
@@ -718,7 +718,7 @@
   "@noSourcesFound": {
     "description": "Message when no sources are found"
   },
-  "sourceName": "Name",
+  "sourceName": "Source",
   "@sourceName": {
     "description": "Column header for source name"
   },

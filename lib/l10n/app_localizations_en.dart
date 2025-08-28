@@ -83,7 +83,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Manage news headlines, topics, and sources for the Dashboard.';
+      'Manage news headlines, topics, and sources for the mobile application.';
 
   @override
   String get headlines => 'Headlines';
@@ -580,7 +580,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noTopicsFound => 'No topics found.';
 
   @override
-  String get topicName => 'Topic Name';
+  String get topicName => 'Topic';
 
   @override
   String get description => 'Description';
@@ -595,7 +595,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noSourcesFound => 'No sources found.';
 
   @override
-  String get sourceName => 'Name';
+  String get sourceName => 'Source';
 
   @override
   String get sourceType => 'Type';
