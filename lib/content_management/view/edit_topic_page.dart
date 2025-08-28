@@ -95,11 +95,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
         ],
       ),
       body: BlocConsumer<EditTopicBloc, EditTopicState>(
-        listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.name != current.name ||
-            previous.description != current.description ||
-            previous.iconUrl != current.iconUrl,
+        listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == EditTopicStatus.success &&
               state.updatedTopic != null &&
@@ -125,8 +121,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
               );
           }
           // Update text controllers when data is loaded or changed
-          if (state.status == EditTopicStatus.initial ||
-              state.status == EditTopicStatus.success) {
+          if (state.status == EditTopicStatus.initial) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _iconUrlController.text = state.iconUrl;
