@@ -105,14 +105,12 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
 
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
-      final updatedTopic = Topic(
-        id: state.topicId,
+      final originalTopic = await _topicsRepository.read(id: state.topicId);
+      final updatedTopic = originalTopic.copyWith(
         name: state.name,
         description: state.description,
         iconUrl: state.iconUrl,
         status: state.contentStatus,
-        createdAt:
-            DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 
