@@ -22,12 +22,15 @@ EventTransformer<T> debounce<T>(Duration duration) {
 ///
 /// This BLoC handles fetching data from a [DataRepository] or a static list,
 /// applying search filters with debouncing, and managing pagination.
+///
+/// Note: This BLoC operates on [Object] due to GoRouter's limitations with
+/// passing generic types. Items are expected to be cast to their specific
+/// types at the UI layer using the `itemType` from [SelectionPageArguments].
 /// {@endtemplate}
-class SearchableSelectionBloc<T extends Equatable>
-    extends Bloc<SearchableSelectionEvent, SearchableSelectionState<T>> {
+class SearchableSelectionBloc extends Bloc<SearchableSelectionEvent, SearchableSelectionState> {
   /// {@macro searchable_selection_bloc}
   SearchableSelectionBloc({
-    required SelectionPageArguments<T> arguments,
+    required SelectionPageArguments arguments,
   })  : _arguments = arguments,
         super(
           SearchableSelectionState(
@@ -52,11 +55,11 @@ class SearchableSelectionBloc<T extends Equatable>
     add(const SearchableSelectionLoadRequested());
   }
 
-  final SelectionPageArguments<T> _arguments;
+  final SelectionPageArguments _arguments;
 
   Future<void> _onLoadRequested(
     SearchableSelectionLoadRequested event,
-    Emitter<SearchableSelectionState<T>> emit,
+    Emitter<SearchableSelectionState> emit,
   ) async {
     emit(state.copyWith(status: SearchableSelectionStatus.loading));
     try {
@@ -81,7 +84,7 @@ class SearchableSelectionBloc<T extends Equatable>
         final filter = _arguments.filterBuilder!(
           state.searchTerm.isEmpty ? null : state.searchTerm,
         );
-        final response = await _arguments.repository!.readAll(
+        final response = await (_arguments.repository!).readAll(
           filter: filter,
           sort: _arguments.sortOptions,
           pagination: PaginationOptions(limit: _arguments.limit),
@@ -125,7 +128,7 @@ class SearchableSelectionBloc<T extends Equatable>
 
   void _onSearchTermChanged(
     SearchableSelectionSearchTermChanged event,
-    Emitter<SearchableSelectionState<T>> emit,
+    Emitter<SearchableSelectionState> emit,
   ) {
     emit(
       state.copyWith(
@@ -142,7 +145,7 @@ class SearchableSelectionBloc<T extends Equatable>
 
   Future<void> _onLoadMoreRequested(
     SearchableSelectionLoadMoreRequested event,
-    Emitter<SearchableSelectionState<T>> emit,
+    Emitter<SearchableSelectionState> emit,
   ) async {
     if (!state.hasMore ||
         state.status == SearchableSelectionStatus.loading ||
@@ -155,7 +158,7 @@ class SearchableSelectionBloc<T extends Equatable>
       final filter = _arguments.filterBuilder!(
         state.searchTerm.isEmpty ? null : state.searchTerm,
       );
-      final response = await _arguments.repository!.readAll(
+      final response = await (_arguments.repository!).readAll(
         filter: filter,
         sort: _arguments.sortOptions,
         pagination: PaginationOptions(cursor: state.cursor, limit: _arguments.limit),
@@ -188,8 +191,8 @@ class SearchableSelectionBloc<T extends Equatable>
 
   void _onSetSelectedItem(
     SearchableSelectionSetSelectedItem event,
-    Emitter<SearchableSelectionState<T>> emit,
+    Emitter<SearchableSelectionState> emit,
   ) {
-    emit(state.copyWith(selectedItem: () => event.item as T?));
+    emit(state.copyWith(selectedItem: () => event.item));
   }
 }
