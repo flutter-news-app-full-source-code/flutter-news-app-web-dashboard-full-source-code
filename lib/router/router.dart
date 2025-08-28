@@ -216,6 +216,18 @@ GoRouter createRouter({
                     name: Routes.archivedSourcesName,
                     builder: (context, state) => const ArchivedSourcesPage(),
                   ),
+                  // Moved searchableSelection as a sub-route of content-management
+                  GoRoute(
+                    path: Routes.searchableSelection,
+                    name: Routes.searchableSelectionName,
+                    pageBuilder: (context, state) {
+                      final arguments = state.extra! as SelectionPageArguments;
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: SearchableSelectionPage(arguments: arguments),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],
@@ -230,17 +242,6 @@ GoRouter createRouter({
             ],
           ),
         ],
-      ),
-      GoRoute(
-        path: Routes.searchableSelection,
-        name: Routes.searchableSelectionName,
-        pageBuilder: (context, state) {
-          final arguments = state.extra! as SelectionPageArguments;
-          return MaterialPage(
-            fullscreenDialog: true,
-            child: SearchableSelectionPage(arguments: arguments),
-          );
-        },
       ),
     ],
   );
