@@ -1226,5 +1226,21 @@
   "dashboardTitle": "Dashboard",
   "@dashboardTitle": {
     "description": "Title for the main dashboard app bar"
+  },
+  "clearSelection": "Clear Selection",
+  "@clearSelection": {
+    "description": "Tooltip for the clear selection button in a dropdown"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Label for the search input field"
+  },
+  "noResultsFound": "No results found.",
+  "@noResultsFound": {
+    "description": "Message when no search results are found"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Button text to close a modal or overlay"
   }
 }

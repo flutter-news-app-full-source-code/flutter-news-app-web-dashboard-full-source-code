@@ -13,30 +13,30 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     required DataRepository<Topic> topicsRepository,
     required String topicId,
   }) : _topicsRepository = topicsRepository,
-       _topicId = topicId,
-       super(const EditTopicState()) {
-    on<EditTopicLoaded>(_onLoaded);
+       super(
+         EditTopicState(topicId: topicId, status: EditTopicStatus.loading),
+       ) {
+    on<EditTopicLoaded>(_onEditTopicLoaded);
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
     on<EditTopicIconUrlChanged>(_onIconUrlChanged);
     on<EditTopicStatusChanged>(_onStatusChanged);
     on<EditTopicSubmitted>(_onSubmitted);
+
+    add(const EditTopicLoaded());
   }
 
   final DataRepository<Topic> _topicsRepository;
-  final String _topicId;
 
-  Future<void> _onLoaded(
+  Future<void> _onEditTopicLoaded(
     EditTopicLoaded event,
     Emitter<EditTopicState> emit,
   ) async {
-    emit(state.copyWith(status: EditTopicStatus.loading));
     try {
-      final topic = await _topicsRepository.read(id: _topicId);
+      final topic = await _topicsRepository.read(id: state.topicId);
       emit(
         state.copyWith(
           status: EditTopicStatus.initial,
-          initialTopic: topic,
           name: topic.name,
           description: topic.description,
           iconUrl: topic.iconUrl,
@@ -60,11 +60,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     Emitter<EditTopicState> emit,
   ) {
     emit(
-      state.copyWith(
-        name: event.name,
-        // Reset status to allow for re-submission after a failure.
-        status: EditTopicStatus.initial,
-      ),
+      state.copyWith(name: event.name, status: EditTopicStatus.initial),
     );
   }
 
@@ -107,24 +103,10 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   ) async {
     if (!state.isFormValid) return;
 
-    // Safely access the initial topic to prevent null errors.
-    final initialTopic = state.initialTopic;
-    if (initialTopic == null) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: const UnknownException(
-            'Cannot update: Original topic data not loaded.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
-      // Use null for empty optional fields, which is cleaner for APIs.
-      final updatedTopic = initialTopic.copyWith(
+      final originalTopic = await _topicsRepository.read(id: state.topicId);
+      final updatedTopic = originalTopic.copyWith(
         name: state.name,
         description: state.description,
         iconUrl: state.iconUrl,
@@ -132,7 +114,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         updatedAt: DateTime.now(),
       );
 
-      await _topicsRepository.update(id: _topicId, item: updatedTopic);
+      await _topicsRepository.update(id: state.topicId, item: updatedTopic);
       emit(
         state.copyWith(
           status: EditTopicStatus.success,

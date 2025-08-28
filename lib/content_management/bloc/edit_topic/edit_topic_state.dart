@@ -21,8 +21,8 @@ enum EditTopicStatus {
 /// The state for the [EditTopicBloc].
 final class EditTopicState extends Equatable {
   const EditTopicState({
+    required this.topicId,
     this.status = EditTopicStatus.initial,
-    this.initialTopic,
     this.name = '',
     this.description = '',
     this.iconUrl = '',
@@ -32,7 +32,7 @@ final class EditTopicState extends Equatable {
   });
 
   final EditTopicStatus status;
-  final Topic? initialTopic;
+  final String topicId;
   final String name;
   final String description;
   final String iconUrl;
@@ -43,11 +43,14 @@ final class EditTopicState extends Equatable {
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
   bool get isFormValid =>
-      name.isNotEmpty && description.isNotEmpty && iconUrl.isNotEmpty;
+      topicId.isNotEmpty &&
+      name.isNotEmpty &&
+      description.isNotEmpty &&
+      iconUrl.isNotEmpty;
 
   EditTopicState copyWith({
     EditTopicStatus? status,
-    Topic? initialTopic,
+    String? topicId,
     String? name,
     String? description,
     String? iconUrl,
@@ -57,7 +60,7 @@ final class EditTopicState extends Equatable {
   }) {
     return EditTopicState(
       status: status ?? this.status,
-      initialTopic: initialTopic ?? this.initialTopic,
+      topicId: topicId ?? this.topicId,
       name: name ?? this.name,
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
@@ -70,7 +73,7 @@ final class EditTopicState extends Equatable {
   @override
   List<Object?> get props => [
     status,
-    initialTopic,
+    topicId,
     name,
     description,
     iconUrl,

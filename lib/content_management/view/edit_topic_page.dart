@@ -6,6 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -26,7 +27,7 @@ class EditTopicPage extends StatelessWidget {
       create: (context) => EditTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
         topicId: topicId,
-      )..add(const EditTopicLoaded()),
+      ),
       child: const _EditTopicView(),
     );
   }
@@ -48,10 +49,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
   @override
   void initState() {
     super.initState();
-    final state = context.read<EditTopicBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
-    _iconUrlController = TextEditingController(text: state.iconUrl);
+    _nameController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _iconUrlController = TextEditingController();
   }
 
   @override
@@ -95,9 +95,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
         ],
       ),
       body: BlocConsumer<EditTopicBloc, EditTopicState>(
-        listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.initialTopic != current.initialTopic,
+        listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == EditTopicStatus.success &&
               state.updatedTopic != null &&
@@ -122,7 +120,8 @@ class _EditTopicViewState extends State<_EditTopicView> {
                 ),
               );
           }
-          if (state.initialTopic != null) {
+          // Update text controllers when data is loaded or changed
+          if (state.status == EditTopicStatus.initial) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _iconUrlController.text = state.iconUrl;
@@ -137,8 +136,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
             );
           }
 
-          if (state.status == EditTopicStatus.failure &&
-              state.initialTopic == null) {
+          if (state.status == EditTopicStatus.failure && state.name.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () =>
@@ -188,18 +186,13 @@ class _EditTopicViewState extends State<_EditTopicView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<ContentStatus>(
-                      value: state.contentStatus,
-                      decoration: InputDecoration(
-                        labelText: l10n.status,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: ContentStatus.values.map((status) {
-                        return DropdownMenuItem(
-                          value: status,
-                          child: Text(status.l10n(context)),
-                        );
-                      }).toList(),
+                    SearchableSelectionInput<ContentStatus>(
+                      label: l10n.status,
+                      selectedItem: state.contentStatus,
+                      staticItems: ContentStatus.values.toList(),
+                      itemBuilder: (context, status) =>
+                          Text(status.l10n(context)),
+                      itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<EditTopicBloc>().add(

@@ -8,11 +8,6 @@ sealed class CreateHeadlineEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event to signal that the data for dropdowns should be loaded.
-final class CreateHeadlineDataLoaded extends CreateHeadlineEvent {
-  const CreateHeadlineDataLoaded();
-}
-
 /// Event for when the headline's title is changed.
 final class CreateHeadlineTitleChanged extends CreateHeadlineEvent {
   const CreateHeadlineTitleChanged(this.title);
@@ -82,14 +77,4 @@ final class CreateHeadlineStatusChanged extends CreateHeadlineEvent {
 /// Event to signal that the form should be submitted.
 final class CreateHeadlineSubmitted extends CreateHeadlineEvent {
   const CreateHeadlineSubmitted();
-}
-
-/// Event to update the BLoC with the latest shared data.
-final class CreateHeadlineDataUpdated extends CreateHeadlineEvent {
-  const CreateHeadlineDataUpdated({required this.countries});
-
-  final List<Country> countries;
-
-  @override
-  List<Object?> get props => [countries];
 }

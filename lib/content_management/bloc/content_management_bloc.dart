@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';
@@ -25,117 +27,51 @@ class ContentManagementBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
-    required DataRepository<Country> countriesRepository,
-    required DataRepository<Language> languagesRepository,
-    required ThrottledFetchingService fetchingService,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
-       _countriesRepository = countriesRepository,
-       _languagesRepository = languagesRepository,
-       _fetchingService = fetchingService,
        super(const ContentManagementState()) {
-    on<SharedDataRequested>(_onSharedDataRequested);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
-    on<HeadlineUpdated>(_onHeadlineUpdated);
     on<ArchiveHeadlineRequested>(_onArchiveHeadlineRequested);
     on<LoadTopicsRequested>(_onLoadTopicsRequested);
-    on<TopicUpdated>(_onTopicUpdated);
     on<ArchiveTopicRequested>(_onArchiveTopicRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
-    on<SourceUpdated>(_onSourceUpdated);
     on<ArchiveSourceRequested>(_onArchiveSourceRequested);
+
+    _headlineUpdateSubscription = _headlinesRepository.entityUpdated
+        .where((type) => type == Headline)
+        .listen((_) {
+          add(const LoadHeadlinesRequested(limit: kDefaultRowsPerPage));
+        });
+
+    _topicUpdateSubscription = _topicsRepository.entityUpdated
+        .where((type) => type == Topic)
+        .listen((_) {
+          add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
+        });
+
+    _sourceUpdateSubscription = _sourcesRepository.entityUpdated
+        .where((type) => type == Source)
+        .listen((_) {
+          add(const LoadSourcesRequested(limit: kDefaultRowsPerPage));
+        });
   }
 
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Country> _countriesRepository;
-  final DataRepository<Language> _languagesRepository;
-  final ThrottledFetchingService _fetchingService;
 
-  /// Handles the pre-fetching of shared data required for the content
-  /// management section.
-  ///
-  /// **Strategy Rationale (The "Why"):**
-  /// This pre-fetching strategy is a direct result of a UI component choice
-  /// made to preserve visual consistency across the application. The standard
-  /// `DropdownButtonFormField` is used for selection fields in forms.
-  /// A key limitation of this widget is its lack of native support for
-  /// on-scroll pagination or dynamic data loading.
-  ///
-  /// To work around this, and to ensure a seamless user experience without
-  /// loading delays when a form is opened, we must load the entire dataset
-  /// for these dropdowns (e.g., all countries, all languages) into the state
-  /// ahead of time.
-  ///
-  /// **Implementation (The "How"):**
-  /// To execute this pre-fetch efficiently, this handler utilizes the
-  /// `ThrottledFetchingService`. This service fetches all pages of a given
-  /// resource in parallel, which dramatically reduces the load time compared
-  /// to fetching them sequentially, making the upfront data load manageable.
-  Future<void> _onSharedDataRequested(
-    SharedDataRequested event,
-    Emitter<ContentManagementState> emit,
-  ) async {
-    // Check if data is already loaded or is currently loading to prevent
-    // redundant fetches.
-    if (state.allCountriesStatus == ContentManagementStatus.success &&
-        state.allLanguagesStatus == ContentManagementStatus.success) {
-      return;
-    }
+  late final StreamSubscription<Type> _headlineUpdateSubscription;
+  late final StreamSubscription<Type> _topicUpdateSubscription;
+  late final StreamSubscription<Type> _sourceUpdateSubscription;
 
-    // Set loading status for both lists.
-    emit(
-      state.copyWith(
-        allCountriesStatus: ContentManagementStatus.loading,
-        allLanguagesStatus: ContentManagementStatus.loading,
-      ),
-    );
-
-    try {
-      // Fetch both lists in parallel using the dedicated fetching service.
-      final results = await Future.wait([
-        _fetchingService.fetchAll<Country>(
-          repository: _countriesRepository,
-          sort: [const SortOption('name', SortOrder.asc)],
-        ),
-        _fetchingService.fetchAll<Language>(
-          repository: _languagesRepository,
-          sort: [const SortOption('name', SortOrder.asc)],
-        ),
-      ]);
-
-      final countries = results[0] as List<Country>;
-      final languages = results[1] as List<Language>;
-
-      // Update the state with the complete lists.
-      emit(
-        state.copyWith(
-          allCountries: countries,
-          allCountriesStatus: ContentManagementStatus.success,
-          allLanguages: languages,
-          allLanguagesStatus: ContentManagementStatus.success,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(
-        state.copyWith(
-          allCountriesStatus: ContentManagementStatus.failure,
-          allLanguagesStatus: ContentManagementStatus.failure,
-          exception: e,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          allCountriesStatus: ContentManagementStatus.failure,
-          allLanguagesStatus: ContentManagementStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
+  @override
+  Future<void> close() {
+    _headlineUpdateSubscription.cancel();
+    _topicUpdateSubscription.cancel();
+    _sourceUpdateSubscription.cancel();
+    return super.close();
   }
 
   void _onContentManagementTabChanged(
@@ -226,18 +162,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onHeadlineUpdated(
-    HeadlineUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedHeadlines = List<Headline>.from(state.headlines);
-    final index = updatedHeadlines.indexWhere((h) => h.id == event.headline.id);
-    if (index != -1) {
-      updatedHeadlines[index] = event.headline;
-      emit(state.copyWith(headlines: updatedHeadlines));
-    }
-  }
-
   Future<void> _onLoadTopicsRequested(
     LoadTopicsRequested event,
     Emitter<ContentManagementState> emit,
@@ -319,18 +243,6 @@ class ContentManagementBloc
     }
   }
 
-  void _onTopicUpdated(
-    TopicUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedTopics = List<Topic>.from(state.topics);
-    final index = updatedTopics.indexWhere((t) => t.id == event.topic.id);
-    if (index != -1) {
-      updatedTopics[index] = event.topic;
-      emit(state.copyWith(topics: updatedTopics));
-    }
-  }
-
   Future<void> _onLoadSourcesRequested(
     LoadSourcesRequested event,
     Emitter<ContentManagementState> emit,
@@ -409,18 +321,6 @@ class ContentManagementBloc
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
-    }
-  }
-
-  void _onSourceUpdated(
-    SourceUpdated event,
-    Emitter<ContentManagementState> emit,
-  ) {
-    final updatedSources = List<Source>.from(state.sources);
-    final index = updatedSources.indexWhere((s) => s.id == event.source.id);
-    if (index != -1) {
-      updatedSources[index] = event.source;
-      emit(state.copyWith(sources: updatedSources));
     }
   }
 }

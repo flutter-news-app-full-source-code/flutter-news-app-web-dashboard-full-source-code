@@ -14,14 +14,9 @@ class CreateHeadlineBloc
   /// {@macro create_headline_bloc}
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
-    required DataRepository<Source> sourcesRepository,
-    required DataRepository<Topic> topicsRepository,
-    required List<Country> countries,
   }) : _headlinesRepository = headlinesRepository,
-       _sourcesRepository = sourcesRepository,
-       _topicsRepository = topicsRepository,
-       super(CreateHeadlineState(countries: countries)) {
-    on<CreateHeadlineDataLoaded>(_onDataLoaded);
+
+       super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
@@ -31,52 +26,11 @@ class CreateHeadlineBloc
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
-    on<CreateHeadlineDataUpdated>(_onDataUpdated);
   }
 
   final DataRepository<Headline> _headlinesRepository;
-  final DataRepository<Source> _sourcesRepository;
-  final DataRepository<Topic> _topicsRepository;
+
   final _uuid = const Uuid();
-
-  Future<void> _onDataLoaded(
-    CreateHeadlineDataLoaded event,
-    Emitter<CreateHeadlineState> emit,
-  ) async {
-    emit(state.copyWith(status: CreateHeadlineStatus.loading));
-    try {
-      final [sourcesResponse, topicsResponse] = await Future.wait([
-        _sourcesRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-          filter: {'status': ContentStatus.active.name},
-        ),
-        _topicsRepository.readAll(
-          sort: [const SortOption('updatedAt', SortOrder.desc)],
-          filter: {'status': ContentStatus.active.name},
-        ),
-      ]);
-
-      final sources = (sourcesResponse as PaginatedResponse<Source>).items;
-      final topics = (topicsResponse as PaginatedResponse<Topic>).items;
-
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.initial,
-          sources: sources,
-          topics: topics,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
 
   void _onTitleChanged(
     CreateHeadlineTitleChanged event,
@@ -139,7 +93,6 @@ class CreateHeadlineBloc
     );
   }
 
-  // --- Background Data Fetching for Dropdown ---
   Future<void> _onSubmitted(
     CreateHeadlineSubmitted event,
     Emitter<CreateHeadlineState> emit,
@@ -180,12 +133,5 @@ class CreateHeadlineBloc
         ),
       );
     }
-  }
-
-  void _onDataUpdated(
-    CreateHeadlineDataUpdated event,
-    Emitter<CreateHeadlineState> emit,
-  ) {
-    emit(state.copyWith(countries: event.countries));
   }
 }

@@ -112,10 +112,7 @@ class App extends StatelessWidget {
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
-              countriesRepository: context.read<DataRepository<Country>>(),
-              languagesRepository: context.read<DataRepository<Language>>(),
-              fetchingService: context.read<ThrottledFetchingService>(),
-            )..add(const SharedDataRequested()),
+            ),
           ),
           BlocProvider(
             create: (context) => OverviewBloc(
@@ -233,8 +230,9 @@ class _AppViewState extends State<_AppView> {
               return Scaffold(
                 // Use a distinct background color from the theme for the
                 // areas outside the main constrained content.
-                backgroundColor:
-                    Theme.of(context).colorScheme.surfaceContainerHighest,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
                 body: Center(
                   child: Card(
                     // Remove default card margin to allow it to fill the

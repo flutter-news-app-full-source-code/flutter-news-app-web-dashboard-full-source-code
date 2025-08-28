@@ -23,6 +23,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/selection_page_arguments.dart';
 import 'package:go_router/go_router.dart';
 
 /// Creates and configures the GoRouter instance for the application.
@@ -169,8 +171,8 @@ GoRouter createRouter({
                     path: Routes.editHeadline,
                     name: Routes.editHeadlineName,
                     builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return EditHeadlinePage(headlineId: id);
+                      final headlineId = state.pathParameters['id']!;
+                      return EditHeadlinePage(headlineId: headlineId);
                     },
                   ),
                   GoRoute(
@@ -182,8 +184,8 @@ GoRouter createRouter({
                     path: Routes.editTopic,
                     name: Routes.editTopicName,
                     builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return EditTopicPage(topicId: id);
+                      final topicId = state.pathParameters['id']!;
+                      return EditTopicPage(topicId: topicId);
                     },
                   ),
                   GoRoute(
@@ -195,8 +197,8 @@ GoRouter createRouter({
                     path: Routes.editSource,
                     name: Routes.editSourceName,
                     builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return EditSourcePage(sourceId: id);
+                      final sourceId = state.pathParameters['id']!;
+                      return EditSourcePage(sourceId: sourceId);
                     },
                   ),
                   GoRoute(
@@ -213,6 +215,18 @@ GoRouter createRouter({
                     path: Routes.archivedSources,
                     name: Routes.archivedSourcesName,
                     builder: (context, state) => const ArchivedSourcesPage(),
+                  ),
+                  // Moved searchableSelection as a sub-route of content-management
+                  GoRoute(
+                    path: Routes.searchableSelection,
+                    name: Routes.searchableSelectionName,
+                    pageBuilder: (context, state) {
+                      final arguments = state.extra! as SelectionPageArguments;
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: SearchableSelectionPage(arguments: arguments),
+                      );
+                    },
                   ),
                 ],
               ),

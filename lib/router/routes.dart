@@ -109,4 +109,10 @@ abstract final class Routes {
 
   /// The name for the settings page route.
   static const String settingsName = 'settings';
+
+  /// The path for the generic searchable selection page.
+  static const String searchableSelection = '/searchable-selection';
+
+  /// The name for the generic searchable selection page route.
+  static const String searchableSelectionName = 'searchableSelection';
 }

@@ -21,8 +21,8 @@ enum EditHeadlineStatus {
 /// The state for the [EditHeadlineBloc].
 final class EditHeadlineState extends Equatable {
   const EditHeadlineState({
+    required this.headlineId,
     this.status = EditHeadlineStatus.initial,
-    this.initialHeadline,
     this.title = '',
     this.excerpt = '',
     this.url = '',
@@ -30,16 +30,13 @@ final class EditHeadlineState extends Equatable {
     this.source,
     this.topic,
     this.eventCountry,
-    this.sources = const [],
-    this.topics = const [],
-    this.countries = const [],
     this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedHeadline,
   });
 
   final EditHeadlineStatus status;
-  final Headline? initialHeadline;
+  final String headlineId;
   final String title;
   final String excerpt;
   final String url;
@@ -47,15 +44,13 @@ final class EditHeadlineState extends Equatable {
   final Source? source;
   final Topic? topic;
   final Country? eventCountry;
-  final List<Source> sources;
-  final List<Topic> topics;
-  final List<Country> countries;
   final ContentStatus contentStatus;
   final HttpException? exception;
   final Headline? updatedHeadline;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
+      headlineId.isNotEmpty &&
       title.isNotEmpty &&
       excerpt.isNotEmpty &&
       url.isNotEmpty &&
@@ -66,7 +61,7 @@ final class EditHeadlineState extends Equatable {
 
   EditHeadlineState copyWith({
     EditHeadlineStatus? status,
-    Headline? initialHeadline,
+    String? headlineId,
     String? title,
     String? excerpt,
     String? url,
@@ -74,16 +69,13 @@ final class EditHeadlineState extends Equatable {
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
-    List<Source>? sources,
-    List<Topic>? topics,
-    List<Country>? countries,
     ContentStatus? contentStatus,
     HttpException? exception,
     Headline? updatedHeadline,
   }) {
     return EditHeadlineState(
       status: status ?? this.status,
-      initialHeadline: initialHeadline ?? this.initialHeadline,
+      headlineId: headlineId ?? this.headlineId,
       title: title ?? this.title,
       excerpt: excerpt ?? this.excerpt,
       url: url ?? this.url,
@@ -91,9 +83,6 @@ final class EditHeadlineState extends Equatable {
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
-      sources: sources ?? this.sources,
-      topics: topics ?? this.topics,
-      countries: countries ?? this.countries,
       contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
@@ -103,7 +92,7 @@ final class EditHeadlineState extends Equatable {
   @override
   List<Object?> get props => [
     status,
-    initialHeadline,
+    headlineId,
     title,
     excerpt,
     url,
@@ -111,9 +100,6 @@ final class EditHeadlineState extends Equatable {
     source,
     topic,
     eventCountry,
-    sources,
-    topics,
-    countries,
     contentStatus,
     exception,
     updatedHeadline,

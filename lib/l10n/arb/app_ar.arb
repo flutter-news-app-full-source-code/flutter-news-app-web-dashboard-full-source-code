@@ -1084,8 +1084,7 @@
   "feedActionTypeEnableNotifications": "تفعيل الإشعارات",
   "@feedActionTypeEnableNotifications": {
     "description": "نوع إجراء الموجز لتفعيل الإشعارات"
-  }
-  ,
+  },
   "countryPickerSearchLabel": "بحث",
   "@countryPickerSearchLabel": {
     "description": "تسمية حقل البحث في منتقي البلد"
@@ -1231,5 +1230,21 @@
   "dashboardTitle": "لوحة القيادة",
   "@dashboardTitle": {
     "description": "عنوان شريط التطبيق الرئيسي للوحة القيادة"
+  },
+  "clearSelection": "مسح التحديد",
+  "@clearSelection": {
+    "description": "تلميح لزر مسح التحديد في قائمة منسدلة"
+  },
+  "search": "بحث",
+  "@search": {
+    "description": "تسمية حقل إدخال البحث"
+  },
+  "noResultsFound": "لم يتم العثور على نتائج.",
+  "@noResultsFound": {
+    "description": "رسالة عند عدم العثور على نتائج بحث"
+  },
+  "close": "إغلاق",
+  "@close": {
+    "description": "نص زر إغلاق نافذة منبثقة أو تراكب"
   }
 }
