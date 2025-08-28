@@ -227,7 +227,7 @@ abstract class AppLocalizations {
   /// Description for the Content Management page
   ///
   /// In en, this message translates to:
-  /// **'Manage news headlines, topics, and sources for the Dashboard.'**
+  /// **'Manage news headlines, topics, and sources for the mobile application.'**
   String get contentManagementPageDescription;
 
   /// Label for the headlines subpage
@@ -1103,7 +1103,7 @@ abstract class AppLocalizations {
   /// Label for the topic name field in forms and tables.
   ///
   /// In en, this message translates to:
-  /// **'Topic Name'**
+  /// **'Topic'**
   String get topicName;
 
   /// Column header for description
@@ -1133,7 +1133,7 @@ abstract class AppLocalizations {
   /// Column header for source name
   ///
   /// In en, this message translates to:
-  /// **'Name'**
+  /// **'Source'**
   String get sourceName;
 
   /// Column header for source type

@@ -84,7 +84,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'إدارة العناوين الإخبارية والمواضيع والمصادر للوحة القيادة.';
+      'إدارة العناوين الإخبارية والمواضيع والمصادر لتطبيق الهاتف';
 
   @override
   String get headlines => 'العناوين الرئيسية';
@@ -581,7 +581,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noTopicsFound => 'لم يتم العثور على مواضيع.';
 
   @override
-  String get topicName => 'اسم الموضوع';
+  String get topicName => 'الموضوع';
 
   @override
   String get description => 'الوصف';
@@ -596,7 +596,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noSourcesFound => 'لم يتم العثور على مصادر.';
 
   @override
-  String get sourceName => 'الاسم';
+  String get sourceName => 'المصدر';
 
   @override
   String get sourceType => 'النوع';
