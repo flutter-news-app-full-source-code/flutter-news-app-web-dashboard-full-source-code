@@ -263,6 +263,14 @@ class ContentManagementBloc
     LoadSourcesRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // If sources are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.sourcesStatus == ContentManagementStatus.success &&
+        state.sources.isNotEmpty &&
+        event.startAfterId == null) {
+      return;
+    }
+
     emit(state.copyWith(sourcesStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
