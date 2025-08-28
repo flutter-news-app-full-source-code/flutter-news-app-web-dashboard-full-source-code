@@ -291,18 +291,12 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       limit: kDefaultRowsPerPage,
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<ContentStatus>(
-                      value: state.contentStatus,
-                      decoration: InputDecoration(
-                        labelText: l10n.status,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: ContentStatus.values.map((status) {
-                        return DropdownMenuItem(
-                          value: status,
-                          child: Text(status.l10n(context)),
-                        );
-                      }).toList(),
+                    SearchableSelectionInput<ContentStatus>(
+                      label: l10n.status,
+                      selectedItem: state.contentStatus,
+                      staticItems: ContentStatus.values.toList(),
+                      itemBuilder: (context, status) => Text(status.l10n(context)),
+                      itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<EditHeadlineBloc>().add(
