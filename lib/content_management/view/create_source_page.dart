@@ -3,10 +3,9 @@ import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_source/create_source_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/searchable_paginated_dropdown/searchable_paginated_dropdown_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/widgets/searchable_paginated_dropdown.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -175,112 +174,84 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .add(CreateSourceUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    BlocProvider<SearchablePaginatedDropdownBloc<Language>>(
-                      create: (context) =>
-                          SearchablePaginatedDropdownBloc<Language>(
-                            repository: context
-                                .read<DataRepository<Language>>(),
-                            filterBuilder: (searchTerm) => searchTerm == null
-                                ? {}
-                                : {
-                                    'name': {
-                                      r'$regex': searchTerm,
-                                      r'$options': 'i',
-                                    },
-                                  },
-                            sortOptions: const [
-                              SortOption('name', SortOrder.asc),
-                            ],
-                            limit: kDefaultRowsPerPage,
-                            initialSelectedItem: state.language,
-                          ),
-                      child: SearchablePaginatedDropdown<Language>(
-                        label: l10n.language,
-                        selectedItem: state.language,
-                        itemBuilder: (context, language) => Text(language.name),
-                        itemToString: (language) => language.name,
-                        onChanged: (value) => context
-                            .read<CreateSourceBloc>()
-                            .add(CreateSourceLanguageChanged(value)),
-                      ),
+                    SearchableSelectionInput<Language>(
+                      label: l10n.language,
+                      selectedItem: state.language,
+                      itemBuilder: (context, language) => Text(language.name),
+                      itemToString: (language) => language.name,
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceLanguageChanged(value)),
+                      repository: context.read<DataRepository<Language>>(),
+                      filterBuilder: (searchTerm) => searchTerm == null
+                          ? {}
+                          : {
+                              'name': {
+                                r'$regex': searchTerm,
+                                r'$options': 'i',
+                              },
+                            },
+                      sortOptions: const [
+                        SortOption('name', SortOrder.asc),
+                      ],
+                      limit: kDefaultRowsPerPage,
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<SourceType?>(
-                      value: state.sourceType,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceType,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: [
-                        DropdownMenuItem(value: null, child: Text(l10n.none)),
-                        ...SourceType.values.map(
-                          (type) => DropdownMenuItem(
-                            value: type,
-                            child: Text(type.localizedName(l10n)),
-                          ),
-                        ),
-                      ],
+                    SearchableSelectionInput<SourceType>(
+                      label: l10n.sourceType,
+                      selectedItem: state.sourceType,
+                      staticItems: SourceType.values.toList(),
+                      itemBuilder: (context, type) => Text(type.localizedName(l10n)),
+                      itemToString: (type) => type.localizedName(l10n),
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceTypeChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    BlocProvider<SearchablePaginatedDropdownBloc<Country>>(
-                      create: (context) =>
-                          SearchablePaginatedDropdownBloc<Country>(
-                            repository: context.read<DataRepository<Country>>(),
-                            filterBuilder: (searchTerm) => searchTerm == null
-                                ? {}
-                                : {
-                                    'name': {
-                                      r'$regex': searchTerm,
-                                      r'$options': 'i',
-                                    },
-                                  },
-                            sortOptions: const [
-                              SortOption('name', SortOrder.asc),
-                            ],
-                            limit: kDefaultRowsPerPage,
-                            initialSelectedItem: state.headquarters,
-                          ),
-                      child: SearchablePaginatedDropdown<Country>(
-                        label: l10n.headquarters,
-                        selectedItem: state.headquarters,
-                        itemBuilder: (context, country) => Row(
-                          children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
-                              ),
+                    SearchableSelectionInput<Country>(
+                      label: l10n.headquarters,
+                      selectedItem: state.headquarters,
+                      itemBuilder: (context, country) => Row(
+                        children: [
+                          SizedBox(
+                            width: 32,
+                            height: 20,
+                            child: Image.network(
+                              country.flagUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.flag),
                             ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name),
-                          ],
-                        ),
-                        itemToString: (country) => country.name,
-                        onChanged: (value) => context
-                            .read<CreateSourceBloc>()
-                            .add(CreateSourceHeadquartersChanged(value)),
+                          ),
+                          const SizedBox(width: AppSpacing.md),
+                          Text(country.name),
+                        ],
                       ),
+                      itemToString: (country) => country.name,
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceHeadquartersChanged(value)),
+                      repository: context.read<DataRepository<Country>>(),
+                      filterBuilder: (searchTerm) => searchTerm == null
+                          ? {}
+                          : {
+                              'name': {
+                                r'$regex': searchTerm,
+                                r'$options': 'i',
+                              },
+                            },
+                      sortOptions: const [
+                        SortOption('name', SortOrder.asc),
+                      ],
+                      limit: kDefaultRowsPerPage,
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<ContentStatus>(
-                      value: state.contentStatus,
-                      decoration: InputDecoration(
-                        labelText: l10n.status,
-                        border: const OutlineInputBorder(),
-                      ),
-                      items: ContentStatus.values.map((status) {
-                        return DropdownMenuItem(
-                          value: status,
-                          child: Text(status.l10n(context)),
-                        );
-                      }).toList(),
+                    SearchableSelectionInput<ContentStatus>(
+                      label: l10n.status,
+                      selectedItem: state.contentStatus,
+                      staticItems: ContentStatus.values.toList(),
+                      itemBuilder: (context, status) => Text(status.l10n(context)),
+                      itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<CreateSourceBloc>().add(
