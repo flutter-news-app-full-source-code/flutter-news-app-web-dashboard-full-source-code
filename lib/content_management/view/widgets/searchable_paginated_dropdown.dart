@@ -105,11 +105,6 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
   void _showOverlay() {
     // Dismiss any existing overlay before showing a new one to prevent stacking
     _currentOverlayEntry?.remove();
-
-    // Get the render box of the current widget to calculate its position
-    final renderBox = context.findRenderObject()! as RenderBox;
-    // Get the global offset of the widget
-    final offset = renderBox.localToGlobal(Offset.zero);
     // Get screen dimensions
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
