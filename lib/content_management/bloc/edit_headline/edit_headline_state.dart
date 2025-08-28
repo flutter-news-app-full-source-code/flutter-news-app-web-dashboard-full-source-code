@@ -21,8 +21,7 @@ enum EditHeadlineStatus {
 /// The state for the [EditHeadlineBloc].
 final class EditHeadlineState extends Equatable {
   const EditHeadlineState({
-    this.status = EditHeadlineStatus.initial,
-    required this.headlineId,
+    required this.headlineId, this.status = EditHeadlineStatus.initial,
     this.title = '',
     this.excerpt = '',
     this.url = '',
