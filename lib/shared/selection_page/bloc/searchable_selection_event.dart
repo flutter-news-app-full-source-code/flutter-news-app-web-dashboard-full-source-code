@@ -37,7 +37,7 @@ final class SearchableSelectionSetSelectedItem
   const SearchableSelectionSetSelectedItem(this.item);
 
   /// The item to set as selected.
-  final Equatable? item;
+  final Object? item;
 
   @override
   List<Object?> get props => [item];
