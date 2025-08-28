@@ -94,11 +94,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
         ],
       ),
       body: BlocConsumer<EditSourceBloc, EditSourceState>(
-        listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.name != current.name ||
-            previous.description != current.description ||
-            previous.url != current.url,
+        listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == EditSourceStatus.success &&
               state.updatedSource != null &&
@@ -121,8 +117,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
               );
           }
           // Update text controllers when data is loaded or changed
-          if (state.status == EditSourceStatus.initial ||
-              state.status == EditSourceStatus.success) {
+          if (state.status == EditSourceStatus.initial) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _urlController.text = state.url;
