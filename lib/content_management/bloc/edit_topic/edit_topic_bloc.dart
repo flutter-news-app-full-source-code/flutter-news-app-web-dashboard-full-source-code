@@ -13,7 +13,9 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     required DataRepository<Topic> topicsRepository,
     required String topicId,
   }) : _topicsRepository = topicsRepository,
-       super(EditTopicState(topicId: topicId, status: EditTopicStatus.loading)) {
+       super(
+         EditTopicState(topicId: topicId, status: EditTopicStatus.loading),
+       ) {
     on<EditTopicLoaded>(_onEditTopicLoaded);
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
@@ -109,7 +111,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         description: state.description,
         iconUrl: state.iconUrl,
         status: state.contentStatus,
-        createdAt: DateTime.now(), // This should ideally be the original createdAt
+        createdAt:
+            DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 

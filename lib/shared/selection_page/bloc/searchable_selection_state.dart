@@ -74,12 +74,12 @@ final class SearchableSelectionState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        items,
-        selectedItem,
-        searchTerm,
-        cursor,
-        hasMore,
-        exception,
-      ];
+    status,
+    items,
+    selectedItem,
+    searchTerm,
+    cursor,
+    hasMore,
+    exception,
+  ];
 }

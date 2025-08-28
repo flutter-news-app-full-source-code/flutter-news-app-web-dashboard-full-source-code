@@ -2,7 +2,8 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart' show SearchableSelectionPage;
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart'
+    show SearchableSelectionPage;
 
 /// {@template selection_page_arguments}
 /// Arguments passed to the [SearchableSelectionPage] to configure its behavior.
@@ -32,10 +33,13 @@ class SelectionPageArguments extends Equatable {
     this.staticItems,
     this.initialSelectedItem,
   }) : assert(
-          (repository != null && filterBuilder != null && sortOptions != null && limit != null) ^
-              (staticItems != null),
-          'Either repository-related parameters or staticItems must be provided, but not both.',
-        );
+         (repository != null &&
+                 filterBuilder != null &&
+                 sortOptions != null &&
+                 limit != null) ^
+             (staticItems != null),
+         'Either repository-related parameters or staticItems must be provided, but not both.',
+       );
 
   /// The title to display in the AppBar of the selection page.
   final String title;
@@ -79,15 +83,15 @@ class SelectionPageArguments extends Equatable {
 
   @override
   List<Object?> get props => [
-        title,
-        itemType,
-        itemBuilder,
-        itemToString,
-        repository,
-        filterBuilder,
-        sortOptions,
-        limit,
-        staticItems,
-        initialSelectedItem,
-      ];
+    title,
+    itemType,
+    itemBuilder,
+    itemToString,
+    repository,
+    filterBuilder,
+    sortOptions,
+    limit,
+    staticItems,
+    initialSelectedItem,
+  ];
 }

@@ -3,7 +3,8 @@ import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart' show SearchableSelectionPage;
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart'
+    show SearchableSelectionPage;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/selection_page_arguments.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,10 +34,13 @@ class SearchableSelectionInput<T> extends StatefulWidget {
     this.staticItems,
     super.key,
   }) : assert(
-          (repository != null && filterBuilder != null && sortOptions != null && limit != null) ^
-              (staticItems != null),
-          'Either repository-related parameters or staticItems must be provided, but not both.',
-        );
+         (repository != null &&
+                 filterBuilder != null &&
+                 sortOptions != null &&
+                 limit != null) ^
+             (staticItems != null),
+         'Either repository-related parameters or staticItems must be provided, but not both.',
+       );
 
   /// The label text for the input field.
   final String label;
@@ -160,7 +164,8 @@ class _SearchableSelectionInputState<T>
         border: Theme.of(context).inputDecorationTheme.border,
         suffixIcon: IconButton(
           icon: const Icon(Icons.arrow_drop_down),
-          onPressed: _openSelectionPage, // Open selection page on suffix icon tap
+          onPressed:
+              _openSelectionPage, // Open selection page on suffix icon tap
         ),
         // Show a clear button if an item is currently selected.
         prefixIcon: widget.selectedItem != null

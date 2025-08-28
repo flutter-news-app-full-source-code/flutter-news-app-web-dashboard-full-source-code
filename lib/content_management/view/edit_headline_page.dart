@@ -149,8 +149,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               state.title.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () =>
-                  context.read<EditHeadlineBloc>().add(const EditHeadlineLoaded()),
+              onRetry: () => context.read<EditHeadlineBloc>().add(
+                const EditHeadlineLoaded(),
+              ),
             );
           }
 
@@ -295,7 +296,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       label: l10n.status,
                       selectedItem: state.contentStatus,
                       staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) => Text(status.l10n(context)),
+                      itemBuilder: (context, status) =>
+                          Text(status.l10n(context)),
                       itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;

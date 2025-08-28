@@ -14,7 +14,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required DataRepository<Source> sourcesRepository,
     required String sourceId,
   }) : _sourcesRepository = sourcesRepository,
-       super(EditSourceState(sourceId: sourceId, status: EditSourceStatus.loading)) {
+       super(
+         EditSourceState(sourceId: sourceId, status: EditSourceStatus.loading),
+       ) {
     on<EditSourceLoaded>(_onEditSourceLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
@@ -153,7 +155,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         language: state.language!,
         headquarters: state.headquarters!,
         status: state.contentStatus,
-        createdAt: DateTime.now(), // This should ideally be the original createdAt
+        createdAt:
+            DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 

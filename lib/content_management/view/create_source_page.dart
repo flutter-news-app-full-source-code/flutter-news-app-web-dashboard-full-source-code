@@ -201,7 +201,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       label: l10n.sourceType,
                       selectedItem: state.sourceType,
                       staticItems: SourceType.values.toList(),
-                      itemBuilder: (context, type) => Text(type.localizedName(l10n)),
+                      itemBuilder: (context, type) =>
+                          Text(type.localizedName(l10n)),
                       itemToString: (type) => type.localizedName(l10n),
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
@@ -250,7 +251,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       label: l10n.status,
                       selectedItem: state.contentStatus,
                       staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) => Text(status.l10n(context)),
+                      itemBuilder: (context, status) =>
+                          Text(status.l10n(context)),
                       itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;

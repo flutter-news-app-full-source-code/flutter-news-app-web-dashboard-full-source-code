@@ -192,9 +192,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       selectedItem: state.language,
                       itemBuilder: (context, language) => Text(language.name),
                       itemToString: (language) => language.name,
-                      onChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceLanguageChanged(value)),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceLanguageChanged(value),
+                      ),
                       repository: context.read<DataRepository<Language>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
@@ -214,11 +214,12 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       label: l10n.sourceType,
                       selectedItem: state.sourceType,
                       staticItems: SourceType.values.toList(),
-                      itemBuilder: (context, type) => Text(type.localizedName(l10n)),
+                      itemBuilder: (context, type) =>
+                          Text(type.localizedName(l10n)),
                       itemToString: (type) => type.localizedName(l10n),
-                      onChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceTypeChanged(value)),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceTypeChanged(value),
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Country>(
@@ -241,9 +242,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                         ],
                       ),
                       itemToString: (country) => country.name,
-                      onChanged: (value) => context
-                          .read<EditSourceBloc>()
-                          .add(EditSourceHeadquartersChanged(value)),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceHeadquartersChanged(value),
+                      ),
                       repository: context.read<DataRepository<Country>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
@@ -263,7 +264,8 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       label: l10n.status,
                       selectedItem: state.contentStatus,
                       staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) => Text(status.l10n(context)),
+                      itemBuilder: (context, status) =>
+                          Text(status.l10n(context)),
                       itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;

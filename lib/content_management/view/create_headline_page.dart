@@ -259,7 +259,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                       label: l10n.status,
                       selectedItem: state.contentStatus,
                       staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) => Text(status.l10n(context)),
+                      itemBuilder: (context, status) =>
+                          Text(status.l10n(context)),
                       itemToString: (status) => status.l10n(context),
                       onChanged: (value) {
                         if (value == null) return;

@@ -112,7 +112,8 @@ class _SearchablePaginatedDropdownState<T extends Equatable>
     // Calculate the available space for the overlay.
     // This assumes the main content is within a Card, and we want the overlay
     // to fill that Card's area, not the entire browser window.
-    final cardContext = context.findAncestorRenderObjectOfType<RenderBox>()
+    final cardContext = context
+        .findAncestorRenderObjectOfType<RenderBox>()
         ?.paintBounds;
 
     // Determine the width, height, top, and left for the Positioned widget
@@ -308,72 +309,79 @@ class _OverlayContentState<T extends Equatable>
               ),
               onChanged: (value) =>
                   // Dispatch search term changed event on input
-                  widget.bloc.add(SearchablePaginatedDropdownSearchTermChanged(value)),
+                  widget.bloc.add(
+                    SearchablePaginatedDropdownSearchTermChanged(value),
+                  ),
             ),
           ),
         ),
       ),
-      body: BlocBuilder<
-          SearchablePaginatedDropdownBloc<T>,
-          SearchablePaginatedDropdownState<T>>(
-        bloc: widget.bloc,
-        builder: (context, state) {
-          // Show loading indicator if no items are loaded yet
-          if (state.status == SearchablePaginatedDropdownStatus.loading &&
-              state.items.isEmpty) {
-            return LoadingStateWidget(
-              icon: Icons.search,
-              headline: l10n.loadingData,
-              subheadline: l10n.pleaseWait,
-            );
-          }
+      body:
+          BlocBuilder<
+            SearchablePaginatedDropdownBloc<T>,
+            SearchablePaginatedDropdownState<T>
+          >(
+            bloc: widget.bloc,
+            builder: (context, state) {
+              // Show loading indicator if no items are loaded yet
+              if (state.status == SearchablePaginatedDropdownStatus.loading &&
+                  state.items.isEmpty) {
+                return LoadingStateWidget(
+                  icon: Icons.search,
+                  headline: l10n.loadingData,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
 
-          // Show error message if loading failed and no items are present
-          if (state.status == SearchablePaginatedDropdownStatus.failure &&
-              state.items.isEmpty) {
-            return FailureStateWidget(
-              exception: state.exception!,
-              onRetry: () =>
-                  // Retry loading data
-                  widget.bloc.add(const SearchablePaginatedDropdownLoadRequested()),
-            );
-          }
+              // Show error message if loading failed and no items are present
+              if (state.status == SearchablePaginatedDropdownStatus.failure &&
+                  state.items.isEmpty) {
+                return FailureStateWidget(
+                  exception: state.exception!,
+                  onRetry: () =>
+                      // Retry loading data
+                      widget.bloc.add(
+                        const SearchablePaginatedDropdownLoadRequested(),
+                      ),
+                );
+              }
 
-          // Show message if no results are found
-          if (state.items.isEmpty) {
-            return Center(
-              child: Text(
-                l10n.noResultsFound,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            );
-          }
-
-          // Display the list of items
-          return ListView.builder(
-            controller: _scrollController,
-            // Add 1 to itemCount if there are more items to load (for loading indicator)
-            itemCount: state.items.length + (state.hasMore ? 1 : 0),
-            itemBuilder: (context, index) {
-              // Show circular progress indicator at the end if more items are available
-              if (index == state.items.length) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(AppSpacing.md),
-                    child: CircularProgressIndicator(),
+              // Show message if no results are found
+              if (state.items.isEmpty) {
+                return Center(
+                  child: Text(
+                    l10n.noResultsFound,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 );
               }
-              // Build each item using the provided itemBuilder
-              final item = state.items[index];
-              return ListTile(
-                title: widget.itemBuilder(context, item),
-                onTap: () => widget.onItemSelected(item), // Select item on tap
+
+              // Display the list of items
+              return ListView.builder(
+                controller: _scrollController,
+                // Add 1 to itemCount if there are more items to load (for loading indicator)
+                itemCount: state.items.length + (state.hasMore ? 1 : 0),
+                itemBuilder: (context, index) {
+                  // Show circular progress indicator at the end if more items are available
+                  if (index == state.items.length) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(AppSpacing.md),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  // Build each item using the provided itemBuilder
+                  final item = state.items[index];
+                  return ListTile(
+                    title: widget.itemBuilder(context, item),
+                    onTap: () =>
+                        widget.onItemSelected(item), // Select item on tap
+                  );
+                },
               );
             },
-          );
-        },
-      ),
+          ),
     );
   }
 }

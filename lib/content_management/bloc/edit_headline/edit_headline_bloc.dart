@@ -14,7 +14,12 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     required DataRepository<Headline> headlinesRepository,
     required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
-       super(EditHeadlineState(headlineId: headlineId, status: EditHeadlineStatus.loading)) {
+       super(
+         EditHeadlineState(
+           headlineId: headlineId,
+           status: EditHeadlineStatus.loading,
+         ),
+       ) {
     on<EditHeadlineLoaded>(_onEditHeadlineLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
@@ -168,7 +173,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         topic: state.topic!,
         eventCountry: state.eventCountry!,
         status: state.contentStatus,
-        createdAt: DateTime.now(), // This should ideally be the original createdAt
+        createdAt:
+            DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 

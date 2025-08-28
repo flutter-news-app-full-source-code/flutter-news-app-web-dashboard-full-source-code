@@ -27,16 +27,17 @@ EventTransformer<T> debounce<T>(Duration duration) {
 /// passing generic types. Items are expected to be cast to their specific
 /// types at the UI layer using the `itemType` from [SelectionPageArguments].
 /// {@endtemplate}
-class SearchableSelectionBloc extends Bloc<SearchableSelectionEvent, SearchableSelectionState> {
+class SearchableSelectionBloc
+    extends Bloc<SearchableSelectionEvent, SearchableSelectionState> {
   /// {@macro searchable_selection_bloc}
   SearchableSelectionBloc({
     required SelectionPageArguments arguments,
-  })  : _arguments = arguments,
-        super(
-          SearchableSelectionState(
-            selectedItem: arguments.initialSelectedItem,
-          ),
-        ) {
+  }) : _arguments = arguments,
+       super(
+         SearchableSelectionState(
+           selectedItem: arguments.initialSelectedItem,
+         ),
+       ) {
     on<SearchableSelectionLoadRequested>(
       _onLoadRequested,
       transformer: restartable(),
@@ -67,7 +68,10 @@ class SearchableSelectionBloc extends Bloc<SearchableSelectionEvent, SearchableS
         // Handle static items
         final filteredItems = _arguments.staticItems!
             .where(
-              (item) => _arguments.itemToString(item).toLowerCase().contains(
+              (item) => _arguments
+                  .itemToString(item)
+                  .toLowerCase()
+                  .contains(
                     state.searchTerm.toLowerCase(),
                   ),
             )
@@ -161,7 +165,10 @@ class SearchableSelectionBloc extends Bloc<SearchableSelectionEvent, SearchableS
       final response = await (_arguments.repository!).readAll(
         filter: filter,
         sort: _arguments.sortOptions,
-        pagination: PaginationOptions(cursor: state.cursor, limit: _arguments.limit),
+        pagination: PaginationOptions(
+          cursor: state.cursor,
+          limit: _arguments.limit,
+        ),
       );
 
       emit(

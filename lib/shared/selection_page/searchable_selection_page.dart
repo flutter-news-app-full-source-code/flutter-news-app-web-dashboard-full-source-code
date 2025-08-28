@@ -135,9 +135,9 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
                   },
                 ),
               ),
-              onChanged: (value) => context
-                  .read<SearchableSelectionBloc>()
-                  .add(SearchableSelectionSearchTermChanged(value)),
+              onChanged: (value) => context.read<SearchableSelectionBloc>().add(
+                SearchableSelectionSearchTermChanged(value),
+              ),
             ),
           ),
         ),
@@ -195,8 +195,7 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
                   final item = state.items[index];
                   // Retrieve the itemBuilder function from arguments.
                   // This function expects an Object and will cast it internally.
-                  final itemBuilder =
-                      widget.arguments.itemBuilder;
+                  final itemBuilder = widget.arguments.itemBuilder;
 
                   return ListTile(
                     // Build the title using the provided itemBuilder.
