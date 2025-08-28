@@ -85,6 +85,14 @@ class ContentManagementBloc
     LoadHeadlinesRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // If headlines are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.headlinesStatus == ContentManagementStatus.success &&
+        state.headlines.isNotEmpty &&
+        event.startAfterId == null) {
+      return;
+    }
+
     emit(state.copyWith(headlinesStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
