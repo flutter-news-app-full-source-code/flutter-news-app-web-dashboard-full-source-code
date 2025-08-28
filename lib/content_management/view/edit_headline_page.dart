@@ -100,12 +100,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
         ],
       ),
       body: BlocConsumer<EditHeadlineBloc, EditHeadlineState>(
-        listenWhen: (previous, current) =>
-            previous.status != current.status ||
-            previous.title != current.title ||
-            previous.excerpt != current.excerpt ||
-            previous.url != current.url ||
-            previous.imageUrl != current.imageUrl,
+        listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == EditHeadlineStatus.success &&
               state.updatedHeadline != null &&
@@ -128,8 +123,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               );
           }
           // Update text controllers when data is loaded or changed
-          if (state.status == EditHeadlineStatus.initial ||
-              state.status == EditHeadlineStatus.success) {
+          if (state.status == EditHeadlineStatus.initial) {
             _titleController.text = state.title;
             _excerptController.text = state.excerpt;
             _urlController.text = state.url;
