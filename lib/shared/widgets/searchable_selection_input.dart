@@ -15,6 +15,9 @@ import 'package:ui_kit/ui_kit.dart';
 /// This widget replaces the functionality of a traditional dropdown with a
 /// more robust, page-based selection experience, supporting search and
 /// pagination on the selection page.
+///
+/// It handles the conversion of generic type [T] to [Object] for passing
+/// arguments via `GoRouter` and then casts the selected item back to [T].
 /// {@endtemplate}
 class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
   /// {@macro searchable_selection_input}
@@ -43,6 +46,7 @@ class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
   final T? selectedItem;
 
   /// A builder function to customize the display of each item in the list.
+  /// This function expects an item of type [T].
   final Widget Function(BuildContext context, T item) itemBuilder;
 
   /// A function to convert an item [T] to its string representation for
@@ -53,6 +57,7 @@ class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
   final ValueChanged<T?> onChanged;
 
   /// The [DataRepository] to use for fetching items (if not using static items).
+  /// The generic type of the repository must match [T].
   final DataRepository<T>? repository;
 
   /// A function to build the filter map for the repository based on a search term.
@@ -65,6 +70,7 @@ class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
   final int? limit;
 
   /// A static list of items to display (if not fetching from a repository).
+  /// The items in this list must be of type [T].
   final List<T>? staticItems;
 
   @override
@@ -75,48 +81,72 @@ class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
 /// State class for [SearchableSelectionInput].
 class _SearchableSelectionInputState<T extends Equatable>
     extends State<SearchableSelectionInput<T>> {
+  /// Controller for the text displayed in the input field.
   final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    // Initialize the text controller with the selected item's string representation.
     _updateTextController();
   }
 
   @override
   void didUpdateWidget(covariant SearchableSelectionInput<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // Update the text controller if the selected item changes externally.
     if (widget.selectedItem != oldWidget.selectedItem) {
       _updateTextController();
     }
   }
 
+  /// Updates the text controller's text based on the current selected item.
   void _updateTextController() {
     _textController.text = widget.selectedItem != null
         ? widget.itemToString(widget.selectedItem!)
         : '';
   }
 
+  /// Opens the [SearchableSelectionPage] as a new route.
+  ///
+  /// It constructs [SelectionPageArguments] by converting generic functions
+  /// and lists to operate on [Object] to bypass `GoRouter`'s generic limitations.
+  /// After selection, it casts the result back to type [T].
   Future<void> _openSelectionPage() async {
-    final arguments = SelectionPageArguments<T>(
-      title: widget.label,
-      itemBuilder: widget.itemBuilder,
-      itemToString: widget.itemToString,
-      initialSelectedItem: widget.selectedItem,
-      repository: widget.repository,
-      filterBuilder: widget.filterBuilder,
-      sortOptions: widget.sortOptions,
-      limit: widget.limit,
-      staticItems: widget.staticItems,
-    );
+    // Determine whether to use repository-based fetching or static items.
+    final SelectionPageArguments arguments;
+    if (widget.repository != null) {
+      arguments = SelectionPageArguments(
+        title: widget.label,
+        itemType: T,
+        itemBuilder: (context, item) => widget.itemBuilder(context, item as T),
+        itemToString: (item) => widget.itemToString(item as T),
+        initialSelectedItem: widget.selectedItem,
+        repository: widget.repository! as DataRepository<Object>,
+        filterBuilder: widget.filterBuilder,
+        sortOptions: widget.sortOptions,
+        limit: widget.limit,
+      );
+    } else {
+      arguments = SelectionPageArguments(
+        title: widget.label,
+        itemType: T,
+        itemBuilder: (context, item) => widget.itemBuilder(context, item as T),
+        itemToString: (item) => widget.itemToString(item as T),
+        initialSelectedItem: widget.selectedItem,
+        staticItems: widget.staticItems! as List<Object>,
+      );
+    }
 
-    final selectedItem = await context.pushNamed<T>(
+    // Push the searchable selection page and await a result.
+    final selectedItem = await context.pushNamed<Object?>(
       Routes.searchableSelectionName,
       extra: arguments,
     );
 
+    // If an item was selected, notify the parent widget.
     if (selectedItem != null) {
-      widget.onChanged(selectedItem);
+      widget.onChanged(selectedItem as T);
     }
   }
 
@@ -131,21 +161,21 @@ class _SearchableSelectionInputState<T extends Equatable>
         border: Theme.of(context).inputDecorationTheme.border,
         suffixIcon: IconButton(
           icon: const Icon(Icons.arrow_drop_down),
-          onPressed: _openSelectionPage,
+          onPressed: _openSelectionPage, // Open selection page on suffix icon tap
         ),
-        // Clear button if an item is selected
+        // Show a clear button if an item is currently selected.
         prefixIcon: widget.selectedItem != null
             ? IconButton(
                 icon: const Icon(Icons.clear),
                 tooltip: l10n.clearSelection,
                 onPressed: () {
-                  widget.onChanged(null);
-                  _textController.clear();
+                  widget.onChanged(null); // Clear the selected item
+                  _textController.clear(); // Clear the text field
                 },
               )
             : null,
       ),
-      onTap: _openSelectionPage,
+      onTap: _openSelectionPage, // Open selection page on text field tap
     );
   }
 }
