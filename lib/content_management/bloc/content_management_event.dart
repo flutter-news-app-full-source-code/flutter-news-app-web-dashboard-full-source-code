@@ -26,7 +26,11 @@ final class ContentManagementTabChanged extends ContentManagementEvent {
 /// {@endtemplate}
 final class LoadHeadlinesRequested extends ContentManagementEvent {
   /// {@macro load_headlines_requested}
-  const LoadHeadlinesRequested({this.startAfterId, this.limit});
+  const LoadHeadlinesRequested({
+    this.startAfterId,
+    this.limit,
+    this.forceRefresh = false,
+  });
 
   /// Optional ID to start pagination after.
   final String? startAfterId;
@@ -34,8 +38,11 @@ final class LoadHeadlinesRequested extends ContentManagementEvent {
   /// Optional maximum number of items to return.
   final int? limit;
 
+  /// If true, forces a refresh of the data, bypassing the cache.
+  final bool forceRefresh;
+
   @override
-  List<Object?> get props => [startAfterId, limit];
+  List<Object?> get props => [startAfterId, limit, forceRefresh];
 }
 
 /// {@template archive_headline_requested}
@@ -57,7 +64,11 @@ final class ArchiveHeadlineRequested extends ContentManagementEvent {
 /// {@endtemplate}
 final class LoadTopicsRequested extends ContentManagementEvent {
   /// {@macro load_topics_requested}
-  const LoadTopicsRequested({this.startAfterId, this.limit});
+  const LoadTopicsRequested({
+    this.startAfterId,
+    this.limit,
+    this.forceRefresh = false,
+  });
 
   /// Optional ID to start pagination after.
   final String? startAfterId;
@@ -65,8 +76,11 @@ final class LoadTopicsRequested extends ContentManagementEvent {
   /// Optional maximum number of items to return.
   final int? limit;
 
+  /// If true, forces a refresh of the data, bypassing the cache.
+  final bool forceRefresh;
+
   @override
-  List<Object?> get props => [startAfterId, limit];
+  List<Object?> get props => [startAfterId, limit, forceRefresh];
 }
 
 /// {@template archive_topic_requested}
@@ -88,7 +102,11 @@ final class ArchiveTopicRequested extends ContentManagementEvent {
 /// {@endtemplate}
 final class LoadSourcesRequested extends ContentManagementEvent {
   /// {@macro load_sources_requested}
-  const LoadSourcesRequested({this.startAfterId, this.limit});
+  const LoadSourcesRequested({
+    this.startAfterId,
+    this.limit,
+    this.forceRefresh = false,
+  });
 
   /// Optional ID to start pagination after.
   final String? startAfterId;
@@ -96,8 +114,11 @@ final class LoadSourcesRequested extends ContentManagementEvent {
   /// Optional maximum number of items to return.
   final int? limit;
 
+  /// If true, forces a refresh of the data, bypassing the cache.
+  final bool forceRefresh;
+
   @override
-  List<Object?> get props => [startAfterId, limit];
+  List<Object?> get props => [startAfterId, limit, forceRefresh];
 }
 
 /// {@template archive_source_requested}
