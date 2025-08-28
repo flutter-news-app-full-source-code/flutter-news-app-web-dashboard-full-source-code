@@ -1,5 +1,4 @@
-import 'package:core/core.dart';
-import 'package:equatable/equatable.dart';
+import 'package:data_repository/data_repository.dart' show DataRepository;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -196,7 +195,7 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
                   final item = state.items[index];
                   // Retrieve the itemBuilder function from arguments.
                   // This function expects an Object and will cast it internally.
-                  final Widget Function(BuildContext, Object) itemBuilder =
+                  final itemBuilder =
                       widget.arguments.itemBuilder;
 
                   return ListTile(
