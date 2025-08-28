@@ -174,6 +174,14 @@ class ContentManagementBloc
     LoadTopicsRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // If topics are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.topicsStatus == ContentManagementStatus.success &&
+        state.topics.isNotEmpty &&
+        event.startAfterId == null) {
+      return;
+    }
+
     emit(state.copyWith(topicsStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
