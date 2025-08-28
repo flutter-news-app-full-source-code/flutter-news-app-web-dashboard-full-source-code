@@ -18,7 +18,7 @@ enum SearchableSelectionStatus {
 /// {@template searchable_selection_state}
 /// The state for the [SearchableSelectionBloc].
 /// {@endtemplate}
-final class SearchableSelectionState<T extends Equatable> extends Equatable {
+final class SearchableSelectionState extends Equatable {
   /// {@macro searchable_selection_state}
   const SearchableSelectionState({
     this.status = SearchableSelectionStatus.initial,
@@ -34,10 +34,10 @@ final class SearchableSelectionState<T extends Equatable> extends Equatable {
   final SearchableSelectionStatus status;
 
   /// The list of currently loaded items.
-  final List<T> items;
+  final List<Object> items;
 
   /// The currently selected item.
-  final T? selectedItem;
+  final Object? selectedItem;
 
   /// The current search term applied to the items.
   final String searchTerm;
@@ -52,10 +52,10 @@ final class SearchableSelectionState<T extends Equatable> extends Equatable {
   final HttpException? exception;
 
   /// Creates a copy of this [SearchableSelectionState] with updated values.
-  SearchableSelectionState<T> copyWith({
+  SearchableSelectionState copyWith({
     SearchableSelectionStatus? status,
-    List<T>? items,
-    ValueGetter<T?>? selectedItem,
+    List<Object>? items,
+    ValueGetter<Object?>? selectedItem,
     String? searchTerm,
     String? cursor,
     bool? hasMore,
