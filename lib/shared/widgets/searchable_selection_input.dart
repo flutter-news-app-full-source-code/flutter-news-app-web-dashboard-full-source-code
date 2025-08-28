@@ -1,12 +1,11 @@
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart' show SearchableSelectionPage;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/selection_page_arguments.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template searchable_selection_input}
 /// A custom input widget that, when tapped, navigates to a full-page
@@ -103,7 +102,7 @@ class _SearchableSelectionInputState<T>
   /// Updates the text controller's text based on the current selected item.
   void _updateTextController() {
     _textController.text = widget.selectedItem != null
-        ? widget.itemToString(widget.selectedItem!)
+        ? widget.itemToString(widget.selectedItem as T)
         : '';
   }
 
