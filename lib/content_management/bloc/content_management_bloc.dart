@@ -98,7 +98,8 @@ class ContentManagementBloc
     // do not re-fetch. This prevents redundant API calls on tab changes.
     if (state.headlinesStatus == ContentManagementStatus.success &&
         state.headlines.isNotEmpty &&
-        event.startAfterId == null) {
+        event.startAfterId == null &&
+        !event.forceRefresh) {
       return;
     }
 
@@ -187,7 +188,8 @@ class ContentManagementBloc
     // do not re-fetch. This prevents redundant API calls on tab changes.
     if (state.topicsStatus == ContentManagementStatus.success &&
         state.topics.isNotEmpty &&
-        event.startAfterId == null) {
+        event.startAfterId == null &&
+        !event.forceRefresh) {
       return;
     }
 
@@ -276,7 +278,8 @@ class ContentManagementBloc
     // do not re-fetch. This prevents redundant API calls on tab changes.
     if (state.sourcesStatus == ContentManagementStatus.success &&
         state.sources.isNotEmpty &&
-        event.startAfterId == null) {
+        event.startAfterId == null &&
+        !event.forceRefresh) {
       return;
     }
 
