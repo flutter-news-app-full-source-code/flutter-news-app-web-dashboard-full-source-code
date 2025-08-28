@@ -32,11 +32,6 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
