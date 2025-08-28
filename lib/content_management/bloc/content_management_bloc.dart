@@ -42,19 +42,28 @@ class ContentManagementBloc
     _headlineUpdateSubscription = _headlinesRepository.entityUpdated
         .where((type) => type == Headline)
         .listen((_) {
-          add(const LoadHeadlinesRequested(limit: kDefaultRowsPerPage));
+          add(const LoadHeadlinesRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ));
         });
 
     _topicUpdateSubscription = _topicsRepository.entityUpdated
         .where((type) => type == Topic)
         .listen((_) {
-          add(const LoadTopicsRequested(limit: kDefaultRowsPerPage));
+          add(const LoadTopicsRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ));
         });
 
     _sourceUpdateSubscription = _sourcesRepository.entityUpdated
         .where((type) => type == Source)
         .listen((_) {
-          add(const LoadSourcesRequested(limit: kDefaultRowsPerPage));
+          add(const LoadSourcesRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ));
         });
   }
 
@@ -85,6 +94,15 @@ class ContentManagementBloc
     LoadHeadlinesRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // If headlines are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.headlinesStatus == ContentManagementStatus.success &&
+        state.headlines.isNotEmpty &&
+        event.startAfterId == null &&
+        !event.forceRefresh) {
+      return;
+    }
+
     emit(state.copyWith(headlinesStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
@@ -166,6 +184,15 @@ class ContentManagementBloc
     LoadTopicsRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // If topics are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.topicsStatus == ContentManagementStatus.success &&
+        state.topics.isNotEmpty &&
+        event.startAfterId == null &&
+        !event.forceRefresh) {
+      return;
+    }
+
     emit(state.copyWith(topicsStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
@@ -247,6 +274,15 @@ class ContentManagementBloc
     LoadSourcesRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
+    // If sources are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.sourcesStatus == ContentManagementStatus.success &&
+        state.sources.isNotEmpty &&
+        event.startAfterId == null &&
+        !event.forceRefresh) {
+      return;
+    }
+
     emit(state.copyWith(sourcesStatus: ContentManagementStatus.loading));
     try {
       final isPaginating = event.startAfterId != null;
