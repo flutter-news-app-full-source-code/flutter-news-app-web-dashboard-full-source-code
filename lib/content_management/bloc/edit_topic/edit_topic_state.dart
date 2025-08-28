@@ -21,8 +21,7 @@ enum EditTopicStatus {
 /// The state for the [EditTopicBloc].
 final class EditTopicState extends Equatable {
   const EditTopicState({
-    this.status = EditTopicStatus.initial,
-    required this.topicId,
+    required this.topicId, this.status = EditTopicStatus.initial,
     this.name = '',
     this.description = '',
     this.iconUrl = '',
