@@ -24,7 +24,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
-    on<EditHeadlineImageUrlChanged>(_onOnImageUrlChanged);
+    on<EditHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
     on<EditHeadlineTopicChanged>(_onTopicChanged);
     on<EditHeadlineCountryChanged>(_onCountryChanged);
@@ -95,7 +95,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     emit(state.copyWith(url: event.url, status: EditHeadlineStatus.initial));
   }
 
-  void _onOnImageUrlChanged(
+  void _onImageUrlChanged(
     EditHeadlineImageUrlChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
