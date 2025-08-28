@@ -19,7 +19,7 @@ import 'package:ui_kit/ui_kit.dart';
 /// It handles the conversion of generic type [T] to [Object] for passing
 /// arguments via `GoRouter` and then casts the selected item back to [T].
 /// {@endtemplate}
-class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
+class SearchableSelectionInput<T> extends StatefulWidget {
   /// {@macro searchable_selection_input}
   const SearchableSelectionInput({
     required this.label,
@@ -79,7 +79,7 @@ class SearchableSelectionInput<T extends Equatable> extends StatefulWidget {
 }
 
 /// State class for [SearchableSelectionInput].
-class _SearchableSelectionInputState<T extends Equatable>
+class _SearchableSelectionInputState<T>
     extends State<SearchableSelectionInput<T>> {
   /// Controller for the text displayed in the input field.
   final TextEditingController _textController = TextEditingController();
