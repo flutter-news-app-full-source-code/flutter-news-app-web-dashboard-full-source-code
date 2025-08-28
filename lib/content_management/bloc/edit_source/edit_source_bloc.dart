@@ -146,17 +146,15 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
 
     emit(state.copyWith(status: EditSourceStatus.submitting));
     try {
-      final updatedSource = Source(
-        id: state.sourceId,
+      final originalSource = await _sourcesRepository.read(id: state.sourceId);
+      final updatedSource = originalSource.copyWith(
         name: state.name,
         description: state.description,
         url: state.url,
-        sourceType: state.sourceType!,
-        language: state.language!,
-        headquarters: state.headquarters!,
+        sourceType: state.sourceType,
+        language: state.language,
+        headquarters: state.headquarters,
         status: state.contentStatus,
-        createdAt:
-            DateTime.now(), // This should ideally be the original createdAt
         updatedAt: DateTime.now(),
       );
 
