@@ -4,6 +4,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/in_article_ad_slot_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template article_ad_settings_form}
@@ -275,7 +276,7 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
             const SizedBox(height: AppSpacing.lg),
             ...articleAdConfig.inArticleAdSlotConfigurations.map(
               (slotConfig) => SwitchListTile(
-                title: Text(slotConfig.slotType.name),
+                title: Text(slotConfig.slotType.l10n(context)),
                 value: slotConfig.enabled,
                 onChanged: (value) {
                   final updatedSlots = articleAdConfig
