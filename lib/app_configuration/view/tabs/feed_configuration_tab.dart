@@ -35,8 +35,8 @@ class FeedConfigurationTab extends StatelessWidget {
         // Top-level ExpansionTile for User Content Limits
         ExpansionTile(
           title: Text(l10n.userContentLimitsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.xxl,
           ),
           children: [
             UserPreferenceLimitsForm(
@@ -49,9 +49,10 @@ class FeedConfigurationTab extends StatelessWidget {
         // New Top-level ExpansionTile for Feed Decorators
         ExpansionTile(
           title: Text(l10n.feedDecoratorsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.xxl,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
           children: [
             Text(
@@ -67,8 +68,8 @@ class FeedConfigurationTab extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: AppSpacing.md),
                 child: ExpansionTile(
                   title: Text(decoratorType.l10n(context)),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.xxl,
                   ),
                   children: [
                     FeedDecoratorForm(
