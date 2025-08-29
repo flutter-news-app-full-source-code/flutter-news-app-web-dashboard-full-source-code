@@ -72,17 +72,24 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
   void _updateControllers() {
     final feedAdConfig = widget.remoteConfig.adConfig.feedAdConfiguration;
     for (final role in AppUserRole.values) {
-      _adFrequencyControllers[role]?.text =
-          _getAdFrequency(feedAdConfig, role).toString();
-      _adFrequencyControllers[role]?.selection = TextSelection.collapsed(
-        offset: _adFrequencyControllers[role]!.text.length,
-      );
-      _adPlacementIntervalControllers[role]?.text =
+      final newFrequencyValue = _getAdFrequency(feedAdConfig, role).toString();
+      if (_adFrequencyControllers[role]?.text != newFrequencyValue) {
+        _adFrequencyControllers[role]?.text = newFrequencyValue;
+        _adFrequencyControllers[role]?.selection = TextSelection.collapsed(
+          offset: newFrequencyValue.length,
+        );
+      }
+
+      final newPlacementIntervalValue =
           _getAdPlacementInterval(feedAdConfig, role).toString();
-      _adPlacementIntervalControllers[role]?.selection =
-          TextSelection.collapsed(
-            offset: _adPlacementIntervalControllers[role]!.text.length,
-          );
+      if (_adPlacementIntervalControllers[role]?.text !=
+          newPlacementIntervalValue) {
+        _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
+        _adPlacementIntervalControllers[role]?.selection =
+            TextSelection.collapsed(
+          offset: newPlacementIntervalValue.length,
+        );
+      }
     }
   }
 
@@ -137,8 +144,14 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
                   ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Center(
+            Align(
+              alignment: AlignmentDirectional.centerStart,
               child: SegmentedButton<AdType>(
+                style: SegmentedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
                 segments: AdType.values
                     .where((type) => type == AdType.native || type == AdType.banner)
                     .map(
@@ -181,8 +194,14 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
                   ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Center(
+            Align(
+              alignment: AlignmentDirectional.centerStart,
               child: SegmentedButton<AppUserRole>(
+                style: SegmentedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
                 segments: AppUserRole.values
                     .map(
                       (role) => ButtonSegment<AppUserRole>(
