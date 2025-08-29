@@ -36,8 +36,11 @@ class FeedConfigurationTab extends StatelessWidget {
         ExpansionTile(
           title: Text(l10n.userContentLimitsTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.xxl,
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             UserPreferenceLimitsForm(
               remoteConfig: remoteConfig,
@@ -50,10 +53,11 @@ class FeedConfigurationTab extends StatelessWidget {
         ExpansionTile(
           title: Text(l10n.feedDecoratorsTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.xxl,
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.feedDecoratorsDescription,
@@ -69,8 +73,11 @@ class FeedConfigurationTab extends StatelessWidget {
                 child: ExpansionTile(
                   title: Text(decoratorType.l10n(context)),
                   childrenPadding: const EdgeInsetsDirectional.only(
-                    start: AppSpacing.xxl,
+                    start: AppSpacing.xl, // Further adjusted padding for nested hierarchy
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
                   ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
                   children: [
                     FeedDecoratorForm(
                       decoratorType: decoratorType,
