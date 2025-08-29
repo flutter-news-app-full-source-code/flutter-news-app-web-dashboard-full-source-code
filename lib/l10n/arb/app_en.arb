@@ -1387,5 +1387,17 @@
   "inArticleBannerAdIdDescription": "The AdMob unit ID for banner ads within articles.",
   "@inArticleBannerAdIdDescription": {
     "description": "Description for the In-Article Banner Ad ID input field"
+  },
+  "inArticleAdSlotTypeBelowMainArticleImage": "Below the main image of the article",
+  "@inArticleAdSlotTypeBelowMainArticleImage": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.belowMainArticleImage"
+  },
+  "inArticleAdSlotTypeAboveArticleContinueReadingButton": "Above the 'Continue Reading' button",
+  "@inArticleAdSlotTypeAboveArticleContinueReadingButton": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton"
+  },
+  "inArticleAdSlotTypeBelowArticleContinueReadingButton": "Below the 'Continue Reading' button",
+  "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton"
   }
 }

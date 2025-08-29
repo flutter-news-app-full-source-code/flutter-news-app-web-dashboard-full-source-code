@@ -2107,6 +2107,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The AdMob unit ID for banner ads within articles.'**
   String get inArticleBannerAdIdDescription;
+
+  /// الاسم المترجم لـ InArticleAdSlotType.belowMainArticleImage
+  ///
+  /// In en, this message translates to:
+  /// **'Below the main image of the article'**
+  String get inArticleAdSlotTypeBelowMainArticleImage;
+
+  /// الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton
+  ///
+  /// In en, this message translates to:
+  /// **'Above the \'Continue Reading\' button'**
+  String get inArticleAdSlotTypeAboveArticleContinueReadingButton;
+
+  /// الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton
+  ///
+  /// In en, this message translates to:
+  /// **'Below the \'Continue Reading\' button'**
+  String get inArticleAdSlotTypeBelowArticleContinueReadingButton;
 }
 
 class _AppLocalizationsDelegate

@@ -1120,4 +1120,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get inArticleBannerAdIdDescription =>
       'The AdMob unit ID for banner ads within articles.';
+
+  @override
+  String get inArticleAdSlotTypeBelowMainArticleImage =>
+      'Below the main image of the article';
+
+  @override
+  String get inArticleAdSlotTypeAboveArticleContinueReadingButton =>
+      'Above the \'Continue Reading\' button';
+
+  @override
+  String get inArticleAdSlotTypeBelowArticleContinueReadingButton =>
+      'Below the \'Continue Reading\' button';
 }

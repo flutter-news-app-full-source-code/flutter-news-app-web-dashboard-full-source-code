@@ -1391,5 +1391,17 @@
   "inArticleBannerAdIdDescription": "معرف وحدة AdMob لإعلانات البانر داخل المقالات.",
   "@inArticleBannerAdIdDescription": {
     "description": "وصف حقل إدخال معرف إعلان البانر داخل المقال"
+  },
+  "inArticleAdSlotTypeBelowMainArticleImage": "أسفل الصورة الرئيسية للمقال",
+  "@inArticleAdSlotTypeBelowMainArticleImage": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.belowMainArticleImage"
+  },
+  "inArticleAdSlotTypeAboveArticleContinueReadingButton": "فوق زر 'متابعة القراءة'",
+  "@inArticleAdSlotTypeAboveArticleContinueReadingButton": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton"
+  },
+  "inArticleAdSlotTypeBelowArticleContinueReadingButton": "أسفل زر 'متابعة القراءة'",
+  "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton"
   }
 }

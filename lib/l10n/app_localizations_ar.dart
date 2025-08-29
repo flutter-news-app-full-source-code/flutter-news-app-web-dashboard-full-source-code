@@ -1122,4 +1122,16 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get inArticleBannerAdIdDescription =>
       'معرف وحدة AdMob لإعلانات البانر داخل المقالات.';
+
+  @override
+  String get inArticleAdSlotTypeBelowMainArticleImage =>
+      'أسفل الصورة الرئيسية للمقال';
+
+  @override
+  String get inArticleAdSlotTypeAboveArticleContinueReadingButton =>
+      'فوق زر \'متابعة القراءة\'';
+
+  @override
+  String get inArticleAdSlotTypeBelowArticleContinueReadingButton =>
+      'أسفل زر \'متابعة القراءة\'';
 }
