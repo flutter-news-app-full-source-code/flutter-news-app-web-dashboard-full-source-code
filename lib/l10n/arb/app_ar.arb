@@ -1255,5 +1255,141 @@
         "type": "String"
       }
     }
+  },
+  "adPlatformConfigurationTitle": "إعدادات منصة الإعلان",
+  "@adPlatformConfigurationTitle": {
+    "description": "عنوان قسم إعدادات منصة الإعلانات"
+  },
+  "primaryAdPlatformTitle": "اختيار منصة الإعلانات الأساسية",
+  "@primaryAdPlatformTitle": {
+    "description": "عنوان قسم اختيار منصة الإعلانات الأساسية"
+  },
+  "primaryAdPlatformDescription": "اختر منصة الإعلانات الأساسية التي ستُستخدم في جميع أنحاء التطبيق.",
+  "@primaryAdPlatformDescription": {
+    "description": "وصف قسم اختيار منصة الإعلانات الأساسية"
+  },
+  "adUnitIdentifiersTitle": "معرفات الوحدات الإعلانية",
+  "@adUnitIdentifiersTitle": {
+    "description": "عنوان قسم معرفات الوحدات الإعلانية"
+  },
+  "adUnitIdentifiersDescription": "تكوين معرفات الوحدات الإعلانية لمنصة الإعلانات المختارة.",
+  "@adUnitIdentifiersDescription": {
+    "description": "وصف قسم معرفات الوحدات الإعلانية"
+  },
+  "localAdManagementTitle": "إدارة الإعلانات المحلية",
+  "@localAdManagementTitle": {
+    "description": "عنوان قسم إدارة الإعلانات المحلية"
+  },
+  "localAdManagementDescription": "إدارة الإعلانات المحلية المخصصة التي يمكن عرضها داخل التطبيق.",
+  "@localAdManagementDescription": {
+    "description": "وصف قسم إدارة الإعلانات المحلية"
+  },
+  "manageLocalAdsButton": "إدارة الإعلانات المحلية",
+  "@manageLocalAdsButton": {
+    "description": "نص زر إدارة الإعلانات المحلية"
+  },
+  "feedAdSettingsTitle": "إعدادات إعلانات الموجز",
+  "@feedAdSettingsTitle": {
+    "description": "عنوان قسم إعدادات إعلانات الموجز"
+  },
+  "enableFeedAdsLabel": "تفعيل إعلانات الموجز",
+  "@enableFeedAdsLabel": {
+    "description": "تسمية مفتاح تفعيل إعلانات الموجز"
+  },
+  "feedAdTypeSelectionTitle": "اختيار نوع إعلان الموجز",
+  "@feedAdTypeSelectionTitle": {
+    "description": "عنوان قسم اختيار نوع إعلان الموجز"
+  },
+  "feedAdTypeSelectionDescription": "اختر نوع الإعلانات التي ستُعرض في الموجز الرئيسي (أصلي أو بانر).",
+  "@feedAdTypeSelectionDescription": {
+    "description": "وصف قسم اختيار نوع إعلان الموجز"
+  },
+  "userRoleFrequencySettingsTitle": "إعدادات تكرار دور المستخدم",
+  "@userRoleFrequencySettingsTitle": {
+    "description": "عنوان قسم إعدادات تكرار دور المستخدم"
+  },
+  "userRoleFrequencySettingsDescription": "تكوين تكرار الإعلانات وفترات وضعها بناءً على أدوار المستخدمين.",
+  "@userRoleFrequencySettingsDescription": {
+    "description": "وصف قسم إعدادات تكرار دور المستخدم"
+  },
+  "articleAdSettingsTitle": "إعدادات إعلانات المقالات",
+  "@articleAdSettingsTitle": {
+    "description": "عنوان قسم إعدادات إعلانات المقالات"
+  },
+  "enableArticleAdsLabel": "تفعيل إعلانات المقالات",
+  "@enableArticleAdsLabel": {
+    "description": "تسمية مفتاح تفعيل إعلانات المقالات"
+  },
+  "defaultInArticleAdTypeSelectionTitle": "اختيار نوع الإعلان الافتراضي داخل المقال",
+  "@defaultInArticleAdTypeSelectionTitle": {
+    "description": "عنوان قسم اختيار نوع الإعلان الافتراضي داخل المقال"
+  },
+  "defaultInArticleAdTypeSelectionDescription": "اختر نوع الإعلانات الافتراضي الذي سيُعرض داخل المقالات (أصلي أو بانر).",
+  "@defaultInArticleAdTypeSelectionDescription": {
+    "description": "وصف قسم اختيار نوع الإعلان الافتراضي داخل المقال"
+  },
+  "interstitialAdSettingsTitle": "إعدادات الإعلانات البينية",
+  "@interstitialAdSettingsTitle": {
+    "description": "عنوان قسم إعدادات الإعلانات البينية"
+  },
+  "enableInterstitialAdsLabel": "تفعيل الإعلانات البينية",
+  "@enableInterstitialAdsLabel": {
+    "description": "تسمية مفتاح تفعيل الإعلانات البينية"
+  },
+  "userRoleInterstitialFrequencyTitle": "تكرار الإعلانات البينية حسب دور المستخدم",
+  "@userRoleInterstitialFrequencyTitle": {
+    "description": "عنوان قسم تكرار الإعلانات البينية حسب دور المستخدم"
+  },
+  "userRoleInterstitialFrequencyDescription": "تكوين عدد مرات عرض الإعلانات البينية بناءً على أدوار المستخدمين.",
+  "@userRoleInterstitialFrequencyDescription": {
+    "description": "وصف قسم تكرار الإعلانات البينية حسب دور المستخدم"
+  },
+  "inArticleAdSlotPlacementsTitle": "مواضع الإعلانات داخل المقال",
+  "@inArticleAdSlotPlacementsTitle": {
+    "description": "عنوان قسم مواضع فتحات الإعلانات داخل المقال"
+  },
+  "inArticleAdSlotPlacementsDescription": "تفعيل أو تعطيل فتحات إعلانية محددة داخل محتوى المقال.",
+  "@inArticleAdSlotPlacementsDescription": {
+    "description": "وصف قسم مواضع فتحات الإعلانات داخل المقال"
+  },
+  "feedNativeAdIdLabel": "معرف الإعلان الأصلي للموجز",
+  "@feedNativeAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف الإعلان الأصلي للموجز"
+  },
+  "feedNativeAdIdDescription": "معرف وحدة AdMob للإعلانات الأصلية في الموجز.",
+  "@feedNativeAdIdDescription": {
+    "description": "وصف حقل إدخال معرف الإعلان الأصلي للموجز"
+  },
+  "feedBannerAdIdLabel": "معرف إعلان البانر للموجز",
+  "@feedBannerAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف إعلان البانر للموجز"
+  },
+  "feedBannerAdIdDescription": "معرف وحدة AdMob لإعلانات البانر في الموجز.",
+  "@feedBannerAdIdDescription": {
+    "description": "وصف حقل إدخال معرف إعلان البانر للموجز"
+  },
+  "articleInterstitialAdIdLabel": "معرف الإعلان البيني للمقالات",
+  "@articleInterstitialAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف الإعلان البيني للمقالات"
+  },
+  "articleInterstitialAdIdDescription": "معرف وحدة AdMob للإعلانات البينية في المقالات.",
+  "@articleInterstitialAdIdDescription": {
+    "description": "وصف حقل إدخال معرف الإعلان البيني للمقالات"
+  },
+  "inArticleNativeAdIdLabel": "معرف الإعلان الأصلي داخل المقال",
+  "@inArticleNativeAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف الإعلان الأصلي داخل المقال"
+  },
+  "inArticleNativeAdIdDescription": "معرف وحدة AdMob للإعلانات الأصلية داخل المقالات.",
+  "@inArticleNativeAdIdDescription": {
+    "description": "وصف حقل إدخال معرف الإعلان الأصلي داخل المقال"
+  },
+  "inArticleBannerAdIdLabel": "معرف إعلان البانر داخل المقال",
+  "@inArticleBannerAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف إعلان البانر داخل المقال"
+  },
+  "inArticleBannerAdIdDescription": "معرف وحدة AdMob لإعلانات البانر داخل المقالات.",
+  "@inArticleBannerAdIdDescription": {
+    "description": "وصف حقل إدخال معرف إعلان البانر داخل المقال"
   }
 }

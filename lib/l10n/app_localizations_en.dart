@@ -1003,4 +1003,121 @@ class AppLocalizationsEn extends AppLocalizations {
   String visibleToRoleLabel(String roleName) {
     return 'Visible to $roleName';
   }
+
+  @override
+  String get adPlatformConfigurationTitle => 'Ad Platform Configuration';
+
+  @override
+  String get primaryAdPlatformTitle => 'Primary Ad Platform Selection';
+
+  @override
+  String get primaryAdPlatformDescription =>
+      'Choose the primary ad platform to be used across the application.';
+
+  @override
+  String get adUnitIdentifiersTitle => 'Ad Unit Identifiers';
+
+  @override
+  String get adUnitIdentifiersDescription =>
+      'Configure the ad unit IDs for the selected ad platform.';
+
+  @override
+  String get localAdManagementTitle => 'Local Ad Management';
+
+  @override
+  String get localAdManagementDescription =>
+      'Manage custom local ads that can be served within the application.';
+
+  @override
+  String get manageLocalAdsButton => 'Manage Local Ads';
+
+  @override
+  String get feedAdSettingsTitle => 'Feed Ad Settings';
+
+  @override
+  String get enableFeedAdsLabel => 'Enable Feed Ads';
+
+  @override
+  String get feedAdTypeSelectionTitle => 'Feed Ad Type Selection';
+
+  @override
+  String get feedAdTypeSelectionDescription =>
+      'Choose the type of ads to display in the main feed (Native or Banner).';
+
+  @override
+  String get userRoleFrequencySettingsTitle => 'User Role Frequency Settings';
+
+  @override
+  String get userRoleFrequencySettingsDescription =>
+      'Configure ad frequency and placement intervals based on user roles.';
+
+  @override
+  String get articleAdSettingsTitle => 'Article Ad Settings';
+
+  @override
+  String get enableArticleAdsLabel => 'Enable Article Ads';
+
+  @override
+  String get defaultInArticleAdTypeSelectionTitle =>
+      'Default In-Article Ad Type Selection';
+
+  @override
+  String get defaultInArticleAdTypeSelectionDescription =>
+      'Choose the default type of ads to display within articles (Native or Banner).';
+
+  @override
+  String get interstitialAdSettingsTitle => 'Interstitial Ad Settings';
+
+  @override
+  String get enableInterstitialAdsLabel => 'Enable Interstitial Ads';
+
+  @override
+  String get userRoleInterstitialFrequencyTitle =>
+      'User Role Interstitial Frequency';
+
+  @override
+  String get userRoleInterstitialFrequencyDescription =>
+      'Configure how often interstitial ads are shown based on user roles.';
+
+  @override
+  String get inArticleAdSlotPlacementsTitle => 'In-Article Ad Slot Placements';
+
+  @override
+  String get inArticleAdSlotPlacementsDescription =>
+      'Enable or disable specific ad slots within article content.';
+
+  @override
+  String get feedNativeAdIdLabel => 'Feed Native Ad ID';
+
+  @override
+  String get feedNativeAdIdDescription =>
+      'The AdMob unit ID for native ads in the feed.';
+
+  @override
+  String get feedBannerAdIdLabel => 'Feed Banner Ad ID';
+
+  @override
+  String get feedBannerAdIdDescription =>
+      'The AdMob unit ID for banner ads in the feed.';
+
+  @override
+  String get articleInterstitialAdIdLabel => 'Article Interstitial Ad ID';
+
+  @override
+  String get articleInterstitialAdIdDescription =>
+      'The AdMob unit ID for interstitial ads in articles.';
+
+  @override
+  String get inArticleNativeAdIdLabel => 'In-Article Native Ad ID';
+
+  @override
+  String get inArticleNativeAdIdDescription =>
+      'The AdMob unit ID for native ads within articles.';
+
+  @override
+  String get inArticleBannerAdIdLabel => 'In-Article Banner Ad ID';
+
+  @override
+  String get inArticleBannerAdIdDescription =>
+      'The AdMob unit ID for banner ads within articles.';
 }

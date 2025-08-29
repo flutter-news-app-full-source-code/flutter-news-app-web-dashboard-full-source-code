@@ -1903,6 +1903,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Visible to {roleName}'**
   String visibleToRoleLabel(String roleName);
+
+  /// Title for the Ad Platform Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Platform Configuration'**
+  String get adPlatformConfigurationTitle;
+
+  /// Title for the Primary Ad Platform Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Ad Platform Selection'**
+  String get primaryAdPlatformTitle;
+
+  /// Description for the Primary Ad Platform Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the primary ad platform to be used across the application.'**
+  String get primaryAdPlatformDescription;
+
+  /// Title for the Ad Unit Identifiers section
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Unit Identifiers'**
+  String get adUnitIdentifiersTitle;
+
+  /// Description for the Ad Unit Identifiers section
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the ad unit IDs for the selected ad platform.'**
+  String get adUnitIdentifiersDescription;
+
+  /// Title for the Local Ad Management section
+  ///
+  /// In en, this message translates to:
+  /// **'Local Ad Management'**
+  String get localAdManagementTitle;
+
+  /// Description for the Local Ad Management section
+  ///
+  /// In en, this message translates to:
+  /// **'Manage custom local ads that can be served within the application.'**
+  String get localAdManagementDescription;
+
+  /// Button text to manage local ads
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Local Ads'**
+  String get manageLocalAdsButton;
+
+  /// Title for the Feed Ad Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Ad Settings'**
+  String get feedAdSettingsTitle;
+
+  /// Label for the enable feed ads switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Feed Ads'**
+  String get enableFeedAdsLabel;
+
+  /// Title for the Feed Ad Type Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Ad Type Selection'**
+  String get feedAdTypeSelectionTitle;
+
+  /// Description for the Feed Ad Type Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the type of ads to display in the main feed (Native or Banner).'**
+  String get feedAdTypeSelectionDescription;
+
+  /// Title for the User Role Frequency Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'User Role Frequency Settings'**
+  String get userRoleFrequencySettingsTitle;
+
+  /// Description for the User Role Frequency Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Configure ad frequency and placement intervals based on user roles.'**
+  String get userRoleFrequencySettingsDescription;
+
+  /// Title for the Article Ad Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Article Ad Settings'**
+  String get articleAdSettingsTitle;
+
+  /// Label for the enable article ads switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Article Ads'**
+  String get enableArticleAdsLabel;
+
+  /// Title for the Default In-Article Ad Type Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Default In-Article Ad Type Selection'**
+  String get defaultInArticleAdTypeSelectionTitle;
+
+  /// Description for the Default In-Article Ad Type Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the default type of ads to display within articles (Native or Banner).'**
+  String get defaultInArticleAdTypeSelectionDescription;
+
+  /// Title for the Interstitial Ad Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial Ad Settings'**
+  String get interstitialAdSettingsTitle;
+
+  /// Label for the enable interstitial ads switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Interstitial Ads'**
+  String get enableInterstitialAdsLabel;
+
+  /// Title for the User Role Interstitial Frequency section
+  ///
+  /// In en, this message translates to:
+  /// **'User Role Interstitial Frequency'**
+  String get userRoleInterstitialFrequencyTitle;
+
+  /// Description for the User Role Interstitial Frequency section
+  ///
+  /// In en, this message translates to:
+  /// **'Configure how often interstitial ads are shown based on user roles.'**
+  String get userRoleInterstitialFrequencyDescription;
+
+  /// Title for the In-Article Ad Slot Placements section
+  ///
+  /// In en, this message translates to:
+  /// **'In-Article Ad Slot Placements'**
+  String get inArticleAdSlotPlacementsTitle;
+
+  /// Description for the In-Article Ad Slot Placements section
+  ///
+  /// In en, this message translates to:
+  /// **'Enable or disable specific ad slots within article content.'**
+  String get inArticleAdSlotPlacementsDescription;
+
+  /// Label for the Feed Native Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Native Ad ID'**
+  String get feedNativeAdIdLabel;
+
+  /// Description for the Feed Native Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'The AdMob unit ID for native ads in the feed.'**
+  String get feedNativeAdIdDescription;
+
+  /// Label for the Feed Banner Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Banner Ad ID'**
+  String get feedBannerAdIdLabel;
+
+  /// Description for the Feed Banner Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'The AdMob unit ID for banner ads in the feed.'**
+  String get feedBannerAdIdDescription;
+
+  /// Label for the Article Interstitial Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'Article Interstitial Ad ID'**
+  String get articleInterstitialAdIdLabel;
+
+  /// Description for the Article Interstitial Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'The AdMob unit ID for interstitial ads in articles.'**
+  String get articleInterstitialAdIdDescription;
+
+  /// Label for the In-Article Native Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'In-Article Native Ad ID'**
+  String get inArticleNativeAdIdLabel;
+
+  /// Description for the In-Article Native Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'The AdMob unit ID for native ads within articles.'**
+  String get inArticleNativeAdIdDescription;
+
+  /// Label for the In-Article Banner Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'In-Article Banner Ad ID'**
+  String get inArticleBannerAdIdLabel;
+
+  /// Description for the In-Article Banner Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'The AdMob unit ID for banner ads within articles.'**
+  String get inArticleBannerAdIdDescription;
 }
 
 class _AppLocalizationsDelegate

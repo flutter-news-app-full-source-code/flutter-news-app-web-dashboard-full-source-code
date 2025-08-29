@@ -1005,4 +1005,121 @@ class AppLocalizationsAr extends AppLocalizations {
   String visibleToRoleLabel(String roleName) {
     return 'مرئي لـ $roleName';
   }
+
+  @override
+  String get adPlatformConfigurationTitle => 'إعدادات منصة الإعلان';
+
+  @override
+  String get primaryAdPlatformTitle => 'اختيار منصة الإعلانات الأساسية';
+
+  @override
+  String get primaryAdPlatformDescription =>
+      'اختر منصة الإعلانات الأساسية التي ستُستخدم في جميع أنحاء التطبيق.';
+
+  @override
+  String get adUnitIdentifiersTitle => 'معرفات الوحدات الإعلانية';
+
+  @override
+  String get adUnitIdentifiersDescription =>
+      'تكوين معرفات الوحدات الإعلانية لمنصة الإعلانات المختارة.';
+
+  @override
+  String get localAdManagementTitle => 'إدارة الإعلانات المحلية';
+
+  @override
+  String get localAdManagementDescription =>
+      'إدارة الإعلانات المحلية المخصصة التي يمكن عرضها داخل التطبيق.';
+
+  @override
+  String get manageLocalAdsButton => 'إدارة الإعلانات المحلية';
+
+  @override
+  String get feedAdSettingsTitle => 'إعدادات إعلانات الموجز';
+
+  @override
+  String get enableFeedAdsLabel => 'تفعيل إعلانات الموجز';
+
+  @override
+  String get feedAdTypeSelectionTitle => 'اختيار نوع إعلان الموجز';
+
+  @override
+  String get feedAdTypeSelectionDescription =>
+      'اختر نوع الإعلانات التي ستُعرض في الموجز الرئيسي (أصلي أو بانر).';
+
+  @override
+  String get userRoleFrequencySettingsTitle => 'إعدادات تكرار دور المستخدم';
+
+  @override
+  String get userRoleFrequencySettingsDescription =>
+      'تكوين تكرار الإعلانات وفترات وضعها بناءً على أدوار المستخدمين.';
+
+  @override
+  String get articleAdSettingsTitle => 'إعدادات إعلانات المقالات';
+
+  @override
+  String get enableArticleAdsLabel => 'تفعيل إعلانات المقالات';
+
+  @override
+  String get defaultInArticleAdTypeSelectionTitle =>
+      'اختيار نوع الإعلان الافتراضي داخل المقال';
+
+  @override
+  String get defaultInArticleAdTypeSelectionDescription =>
+      'اختر نوع الإعلانات الافتراضي الذي سيُعرض داخل المقالات (أصلي أو بانر).';
+
+  @override
+  String get interstitialAdSettingsTitle => 'إعدادات الإعلانات البينية';
+
+  @override
+  String get enableInterstitialAdsLabel => 'تفعيل الإعلانات البينية';
+
+  @override
+  String get userRoleInterstitialFrequencyTitle =>
+      'تكرار الإعلانات البينية حسب دور المستخدم';
+
+  @override
+  String get userRoleInterstitialFrequencyDescription =>
+      'تكوين عدد مرات عرض الإعلانات البينية بناءً على أدوار المستخدمين.';
+
+  @override
+  String get inArticleAdSlotPlacementsTitle => 'مواضع الإعلانات داخل المقال';
+
+  @override
+  String get inArticleAdSlotPlacementsDescription =>
+      'تفعيل أو تعطيل فتحات إعلانية محددة داخل محتوى المقال.';
+
+  @override
+  String get feedNativeAdIdLabel => 'معرف الإعلان الأصلي للموجز';
+
+  @override
+  String get feedNativeAdIdDescription =>
+      'معرف وحدة AdMob للإعلانات الأصلية في الموجز.';
+
+  @override
+  String get feedBannerAdIdLabel => 'معرف إعلان البانر للموجز';
+
+  @override
+  String get feedBannerAdIdDescription =>
+      'معرف وحدة AdMob لإعلانات البانر في الموجز.';
+
+  @override
+  String get articleInterstitialAdIdLabel => 'معرف الإعلان البيني للمقالات';
+
+  @override
+  String get articleInterstitialAdIdDescription =>
+      'معرف وحدة AdMob للإعلانات البينية في المقالات.';
+
+  @override
+  String get inArticleNativeAdIdLabel => 'معرف الإعلان الأصلي داخل المقال';
+
+  @override
+  String get inArticleNativeAdIdDescription =>
+      'معرف وحدة AdMob للإعلانات الأصلية داخل المقالات.';
+
+  @override
+  String get inArticleBannerAdIdLabel => 'معرف إعلان البانر داخل المقال';
+
+  @override
+  String get inArticleBannerAdIdDescription =>
+      'معرف وحدة AdMob لإعلانات البانر داخل المقالات.';
 }
