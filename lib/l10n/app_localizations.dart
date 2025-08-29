@@ -1897,6 +1897,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get close;
+
+  /// Label for checkbox to control visibility of a decorator for a specific role
+  ///
+  /// In en, this message translates to:
+  /// **'Visible to {roleName}'**
+  String visibleToRoleLabel(String roleName);
 }
 
 class _AppLocalizationsDelegate

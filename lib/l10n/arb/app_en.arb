@@ -1242,5 +1242,14 @@
   "close": "Close",
   "@close": {
     "description": "Button text to close a modal or overlay"
+  },
+  "visibleToRoleLabel": "Visible to {roleName}",
+  "@visibleToRoleLabel": {
+    "description": "Label for checkbox to control visibility of a decorator for a specific role",
+    "placeholders": {
+      "roleName": {
+        "type": "String"
+      }
+    }
   }
 }

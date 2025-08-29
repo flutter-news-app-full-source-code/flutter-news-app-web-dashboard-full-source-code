@@ -1246,5 +1246,14 @@
   "close": "إغلاق",
   "@close": {
     "description": "نص زر إغلاق نافذة منبثقة أو تراكب"
+  },
+  "visibleToRoleLabel": "مرئي لـ {roleName}",
+  "@visibleToRoleLabel": {
+    "description": "تسمية مربع الاختيار للتحكم في رؤية الزينة لدور معين",
+    "placeholders": {
+      "roleName": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -1000,4 +1000,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get close => 'إغلاق';
+
+  @override
+  String visibleToRoleLabel(String roleName) {
+    return 'مرئي لـ $roleName';
+  }
 }
