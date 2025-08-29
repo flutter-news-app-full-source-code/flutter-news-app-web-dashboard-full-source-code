@@ -95,29 +95,36 @@ class _AdConfigFormState extends State<AdConfigForm> {
   void _updateControllers() {
     final adConfig = widget.remoteConfig.adConfig;
     for (final role in AppUserRole.values) {
-      _adFrequencyControllers[role]?.text = _getAdFrequency(
-        adConfig,
-        role,
-      ).toString();
-      _adFrequencyControllers[role]?.selection = TextSelection.collapsed(
-        offset: _adFrequencyControllers[role]!.text.length,
-      );
-      _adPlacementIntervalControllers[role]?.text = _getAdPlacementInterval(
-        adConfig,
-        role,
-      ).toString();
-      _adPlacementIntervalControllers[role]?.selection =
-          TextSelection.collapsed(
-            offset: _adPlacementIntervalControllers[role]!.text.length,
-          );
-      _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
+      final newFrequencyValue = _getAdFrequency(adConfig, role).toString();
+      if (_adFrequencyControllers[role]?.text != newFrequencyValue) {
+        _adFrequencyControllers[role]?.text = newFrequencyValue;
+        _adFrequencyControllers[role]?.selection = TextSelection.collapsed(
+          offset: newFrequencyValue.length,
+        );
+      }
+
+      final newPlacementIntervalValue =
+          _getAdPlacementInterval(adConfig, role).toString();
+      if (_adPlacementIntervalControllers[role]?.text !=
+          newPlacementIntervalValue) {
+        _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
+        _adPlacementIntervalControllers[role]?.selection =
+            TextSelection.collapsed(
+          offset: newPlacementIntervalValue.length,
+        );
+      }
+
+      final newInterstitialValue =
           _getArticlesBeforeInterstitial(adConfig, role).toString();
-      _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-          ?.selection = TextSelection.collapsed(
-        offset: _articlesToReadBeforeShowingInterstitialAdsControllers[role]!
-            .text
-            .length,
-      );
+      if (_articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text !=
+          newInterstitialValue) {
+        _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
+            newInterstitialValue;
+        _articlesToReadBeforeShowingInterstitialAdsControllers[role]
+            ?.selection = TextSelection.collapsed(
+          offset: newInterstitialValue.length,
+        );
+      }
     }
   }
 
@@ -151,8 +158,14 @@ class _AdConfigFormState extends State<AdConfigForm> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        Center(
+        Align(
+          alignment: AlignmentDirectional.centerStart,
           child: SegmentedButton<AppUserRole>(
+            style: SegmentedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+            ),
             segments: AppUserRole.values
                 .map(
                   (role) => ButtonSegment<AppUserRole>(
