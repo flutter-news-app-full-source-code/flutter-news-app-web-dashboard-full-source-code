@@ -128,7 +128,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               exception: state.exception!,
               onRetry: () => context.read<CreateSourceBloc>().add(
                 const CreateSourceSubmitted(),
-              ), // Retry submission
+              ),
             );
           }
 

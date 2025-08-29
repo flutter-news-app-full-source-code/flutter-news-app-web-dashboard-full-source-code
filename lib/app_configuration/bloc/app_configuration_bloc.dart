@@ -33,10 +33,9 @@ class AppConfigurationBloc
         state.copyWith(
           status: AppConfigurationStatus.success,
           remoteConfig: remoteConfig,
-          originalRemoteConfig: remoteConfig, // Store the original config
+          originalRemoteConfig: remoteConfig,
           isDirty: false,
-          clearShowSaveSuccess:
-              true, // Clear any previous success snackbar flag
+          clearShowSaveSuccess: true,
         ),
       );
     } on HttpException catch (e) {
@@ -82,9 +81,9 @@ class AppConfigurationBloc
         state.copyWith(
           status: AppConfigurationStatus.success,
           remoteConfig: updatedConfig,
-          originalRemoteConfig: updatedConfig, // Update original config on save
+          originalRemoteConfig: updatedConfig,
           isDirty: false,
-          showSaveSuccess: true, // Set flag to show success snackbar
+          showSaveSuccess: true,
         ),
       );
     } on HttpException catch (e) {
@@ -109,8 +108,8 @@ class AppConfigurationBloc
       state.copyWith(
         remoteConfig: event.remoteConfig,
         isDirty: true,
-        clearException: true, // Clear any previous error messages
-        clearShowSaveSuccess: true, // Clear success snackbar on field change
+        clearException: true,
+        clearShowSaveSuccess: true,
       ),
     );
   }
@@ -121,10 +120,10 @@ class AppConfigurationBloc
   ) {
     emit(
       state.copyWith(
-        remoteConfig: state.originalRemoteConfig, // Revert to original config
+        remoteConfig: state.originalRemoteConfig,
         isDirty: false,
-        clearException: true, // Clear any previous error messages
-        clearShowSaveSuccess: true, // Clear success snackbar
+        clearException: true,
+        clearShowSaveSuccess: true,
       ),
     );
   }
