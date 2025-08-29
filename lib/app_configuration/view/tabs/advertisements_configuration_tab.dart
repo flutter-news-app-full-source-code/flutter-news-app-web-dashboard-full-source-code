@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_platform_config_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/article_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -30,14 +32,42 @@ class AdvertisementsConfigurationTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
-        // Top-level ExpansionTile for Ad Settings
+        // Top-level ExpansionTile for Ad Platform Configuration
         ExpansionTile(
-          title: Text(l10n.adSettingsTitle),
+          title: Text(l10n.adPlatformConfigurationTitle),
           childrenPadding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.xxl,
           ),
           children: [
-            AdConfigForm(
+            AdPlatformConfigForm(
+              remoteConfig: remoteConfig,
+              onConfigChanged: onConfigChanged,
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        // Top-level ExpansionTile for Feed Ad Settings
+        ExpansionTile(
+          title: Text(l10n.feedAdSettingsTitle),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            FeedAdSettingsForm(
+              remoteConfig: remoteConfig,
+              onConfigChanged: onConfigChanged,
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        // Top-level ExpansionTile for Article Ad Settings
+        ExpansionTile(
+          title: Text(l10n.articleAdSettingsTitle),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+          ),
+          children: [
+            ArticleAdSettingsForm(
               remoteConfig: remoteConfig,
               onConfigChanged: onConfigChanged,
             ),
