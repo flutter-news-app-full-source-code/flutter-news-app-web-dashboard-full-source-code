@@ -34,10 +34,11 @@ class GeneralConfigurationTab extends StatelessWidget {
         ExpansionTile(
           title: Text(l10n.maintenanceModeTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.xxl,
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,10 +75,11 @@ class GeneralConfigurationTab extends StatelessWidget {
         ExpansionTile(
           title: Text(l10n.forceUpdateTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.xxl,
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
