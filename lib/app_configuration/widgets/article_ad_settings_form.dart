@@ -27,14 +27,16 @@ class ArticleAdSettingsForm extends StatefulWidget {
   State<ArticleAdSettingsForm> createState() => _ArticleAdSettingsFormState();
 }
 
-class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
-  AppUserRole _selectedUserRole = AppUserRole.guestUser;
+class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   late final Map<AppUserRole, TextEditingController>
-  _articlesToReadBeforeShowingInterstitialAdsControllers;
+      _articlesToReadBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
     _initializeControllers();
   }
 
@@ -52,19 +54,17 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
     final interstitialConfig = articleAdConfig.interstitialAdConfiguration;
     _articlesToReadBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role:
-            TextEditingController(
-                text: _getArticlesBeforeInterstitial(
-                  interstitialConfig,
-                  role,
-                ).toString(),
-              )
-              ..selection = TextSelection.collapsed(
-                offset: _getArticlesBeforeInterstitial(
-                  interstitialConfig,
-                  role,
-                ).toString().length,
-              ),
+        role: TextEditingController(
+          text: _getArticlesBeforeInterstitial(
+            interstitialConfig,
+            role,
+          ).toString(),
+        )..selection = TextSelection.collapsed(
+            offset: _getArticlesBeforeInterstitial(
+              interstitialConfig,
+              role,
+            ).toString().length,
+          ),
     };
   }
 
@@ -79,15 +79,15 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
             newInterstitialValue;
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-            ?.selection = TextSelection.collapsed(
-          offset: newInterstitialValue.length,
-        );
+                ?.selection =
+            TextSelection.collapsed(offset: newInterstitialValue.length);
       }
     }
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     for (final controller
         in _articlesToReadBeforeShowingInterstitialAdsControllers.values) {
       controller.dispose();
@@ -122,20 +122,29 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.defaultInArticleAdTypeSelectionTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.defaultInArticleAdTypeSelectionDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
+              textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
-            Center(
+            Align(
+              alignment: AlignmentDirectional.centerStart,
               child: SegmentedButton<AdType>(
+                style: SegmentedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
                 segments: AdType.values
                     .where(
                       (type) => type == AdType.native || type == AdType.banner,
@@ -166,10 +175,12 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.interstitialAdSettingsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             SwitchListTile(
               title: Text(l10n.enableInterstitialAdsLabel),
@@ -190,10 +201,12 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
             ),
             ExpansionTile(
               title: Text(l10n.userRoleInterstitialFrequencyTitle),
-              childrenPadding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.xxl,
-                vertical: AppSpacing.md,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.xl, // Further adjusted padding for nested hierarchy
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
               ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
               children: [
                 Text(
                   l10n.userRoleInterstitialFrequencyDescription,
@@ -202,38 +215,41 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
                       context,
                     ).colorScheme.onSurface.withOpacity(0.7),
                   ),
+                  textAlign: TextAlign.start, // Ensure text aligns to start
                 ),
                 const SizedBox(height: AppSpacing.lg),
+                // Replaced SegmentedButton with TabBar for role selection
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: SegmentedButton<AppUserRole>(
-                    style: SegmentedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
+                  child: SizedBox(
+                    height: kTextTabBarHeight,
+                    child: TabBar(
+                      controller: _tabController,
+                      tabAlignment: TabAlignment.start,
+                      isScrollable: true,
+                      tabs: AppUserRole.values
+                          .map((role) => Tab(text: role.l10n(context)))
+                          .toList(),
                     ),
-                    segments: AppUserRole.values
-                        .map(
-                          (role) => ButtonSegment<AppUserRole>(
-                            value: role,
-                            label: Text(role.l10n(context)),
-                          ),
-                        )
-                        .toList(),
-                    selected: {_selectedUserRole},
-                    onSelectionChanged: (newSelection) {
-                      setState(() {
-                        _selectedUserRole = newSelection.first;
-                      });
-                    },
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                _buildInterstitialRoleSpecificFields(
-                  context,
-                  l10n,
-                  _selectedUserRole,
-                  articleAdConfig.interstitialAdConfiguration,
+                // TabBarView to display role-specific fields
+                SizedBox(
+                  height: 250, // Fixed height for TabBarView within a ListView
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: AppUserRole.values
+                        .map(
+                          (role) => _buildInterstitialRoleSpecificFields(
+                            context,
+                            l10n,
+                            role,
+                            articleAdConfig.interstitialAdConfiguration,
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ],
             ),
@@ -242,16 +258,19 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.inArticleAdSlotPlacementsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.inArticleAdSlotPlacementsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
+              textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
             ...articleAdConfig.inArticleAdSlotConfigurations.map(
