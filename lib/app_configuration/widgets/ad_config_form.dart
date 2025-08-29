@@ -9,7 +9,7 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@template ad_config_form}
 /// A form widget for configuring ad settings based on user role.
 ///
-/// This widget uses a [SegmentedButton] to allow selection of an [AppUserRole]
+/// This widget uses a [TabBar] to allow selection of an [AppUserRole]
 /// and then conditionally renders the relevant input fields for that role.
 /// {@endtemplate}
 class AdConfigForm extends StatefulWidget {
@@ -30,17 +30,19 @@ class AdConfigForm extends StatefulWidget {
   State<AdConfigForm> createState() => _AdConfigFormState();
 }
 
-class _AdConfigFormState extends State<AdConfigForm> {
-  AppUserRole _selectedUserRole = AppUserRole.guestUser;
+class _AdConfigFormState extends State<AdConfigForm>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
   late final Map<AppUserRole, TextEditingController>
-  _adPlacementIntervalControllers;
+      _adPlacementIntervalControllers;
   late final Map<AppUserRole, TextEditingController>
-  _articlesToReadBeforeShowingInterstitialAdsControllers;
+      _articlesToReadBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
     _initializeControllers();
   }
 
@@ -56,39 +58,33 @@ class _AdConfigFormState extends State<AdConfigForm> {
     final adConfig = widget.remoteConfig.adConfig;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
-        role:
-            TextEditingController(
-                text: _getAdFrequency(adConfig, role).toString(),
-              )
-              ..selection = TextSelection.collapsed(
-                offset: _getAdFrequency(adConfig, role).toString().length,
-              ),
+        role: TextEditingController(
+          text: _getAdFrequency(adConfig, role).toString(),
+        )..selection = TextSelection.collapsed(
+            offset: _getAdFrequency(adConfig, role).toString().length,
+          ),
     };
     _adPlacementIntervalControllers = {
       for (final role in AppUserRole.values)
-        role:
-            TextEditingController(
-                text: _getAdPlacementInterval(adConfig, role).toString(),
-              )
-              ..selection = TextSelection.collapsed(
-                offset: _getAdPlacementInterval(
-                  adConfig,
-                  role,
-                ).toString().length,
-              ),
+        role: TextEditingController(
+          text: _getAdPlacementInterval(adConfig, role).toString(),
+        )..selection = TextSelection.collapsed(
+            offset: _getAdPlacementInterval(
+              adConfig,
+              role,
+            ).toString().length,
+          ),
     };
     _articlesToReadBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role:
-            TextEditingController(
-                text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
-              )
-              ..selection = TextSelection.collapsed(
-                offset: _getArticlesBeforeInterstitial(
-                  adConfig,
-                  role,
-                ).toString().length,
-              ),
+        role: TextEditingController(
+          text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
+        )..selection = TextSelection.collapsed(
+            offset: _getArticlesBeforeInterstitial(
+              adConfig,
+              role,
+            ).toString().length,
+          ),
     };
   }
 
@@ -121,15 +117,15 @@ class _AdConfigFormState extends State<AdConfigForm> {
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
             newInterstitialValue;
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-            ?.selection = TextSelection.collapsed(
-          offset: newInterstitialValue.length,
-        );
+                ?.selection =
+            TextSelection.collapsed(offset: newInterstitialValue.length);
       }
     }
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     for (final controller in _adFrequencyControllers.values) {
       controller.dispose();
     }
@@ -158,53 +154,39 @@ class _AdConfigFormState extends State<AdConfigForm> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
+        // Replaced SegmentedButton with TabBar for role selection
         Align(
           alignment: AlignmentDirectional.centerStart,
-          child: SegmentedButton<AppUserRole>(
-            style: SegmentedButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
-              ),
+          child: SizedBox(
+            height: kTextTabBarHeight,
+            child: TabBar(
+              controller: _tabController,
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              tabs: AppUserRole.values
+                  .map((role) => Tab(text: role.l10n(context)))
+                  .toList(),
             ),
-            segments: AppUserRole.values
-                .map(
-                  (role) => ButtonSegment<AppUserRole>(
-                    value: role,
-                    label: Text(role.l10n(context)),
-                  ),
-                )
-                .toList(),
-            selected: {_selectedUserRole},
-            onSelectionChanged: (newSelection) {
-              setState(() {
-                _selectedUserRole = newSelection.first;
-              });
-            },
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        // Conditionally render fields based on selected user role
-        if (_selectedUserRole == AppUserRole.guestUser)
-          _buildRoleSpecificFields(
-            context,
-            l10n,
-            AppUserRole.guestUser,
-            adConfig,
+        // TabBarView to display role-specific fields
+        SizedBox(
+          height: 400, // Fixed height for TabBarView within a ListView
+          child: TabBarView(
+            controller: _tabController,
+            children: AppUserRole.values
+                .map(
+                  (role) => _buildRoleSpecificFields(
+                    context,
+                    l10n,
+                    role,
+                    adConfig,
+                  ),
+                )
+                .toList(),
           ),
-        if (_selectedUserRole == AppUserRole.standardUser)
-          _buildRoleSpecificFields(
-            context,
-            l10n,
-            AppUserRole.standardUser,
-            adConfig,
-          ),
-        if (_selectedUserRole == AppUserRole.premiumUser)
-          _buildRoleSpecificFields(
-            context,
-            l10n,
-            AppUserRole.premiumUser,
-            adConfig,
-          ),
+        ),
       ],
     );
   }
