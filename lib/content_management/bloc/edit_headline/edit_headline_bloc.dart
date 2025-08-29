@@ -163,8 +163,9 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
 
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
-      final originalHeadline =
-          await _headlinesRepository.read(id: state.headlineId);
+      final originalHeadline = await _headlinesRepository.read(
+        id: state.headlineId,
+      );
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
         excerpt: state.excerpt,
