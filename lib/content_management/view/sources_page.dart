@@ -180,7 +180,7 @@ class _SourcesDataSource extends DataTableSource {
                 onPressed: () {
                   // Navigate to edit page
                   context.goNamed(
-                    Routes.editSourceName, // Assuming an edit route exists
+                    Routes.editSourceName,
                     pathParameters: {'id': source.id},
                   );
                 },

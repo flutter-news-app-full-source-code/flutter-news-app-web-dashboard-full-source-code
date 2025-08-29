@@ -11,7 +11,7 @@ import 'package:ui_kit/ui_kit.dart';
 ///
 /// This tab allows configuration of user content limits and feed decorators.
 /// {@endtemplate}
-class FeedConfigurationTab extends StatelessWidget {
+class FeedConfigurationTab extends StatefulWidget {
   /// {@macro feed_configuration_tab}
   const FeedConfigurationTab({
     required this.remoteConfig,
@@ -26,6 +26,22 @@ class FeedConfigurationTab extends StatelessWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
+  State<FeedConfigurationTab> createState() => _FeedConfigurationTabState();
+}
+
+class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
+  /// Notifier for the index of the currently expanded top-level ExpansionTile.
+  ///
+  /// A value of `null` means no tile is expanded.
+  final ValueNotifier<int?> _expandedTileIndex = ValueNotifier<int?>(null);
+
+  @override
+  void dispose() {
+    _expandedTileIndex.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
 
@@ -33,78 +49,115 @@ class FeedConfigurationTab extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
         // Top-level ExpansionTile for User Content Limits
-        ExpansionTile(
-          title: Text(l10n.userContentLimitsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-          ),
-          children: [
-            UserPreferenceLimitsForm(
-              remoteConfig: remoteConfig,
-              onConfigChanged: onConfigChanged,
-            ),
-          ],
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 0;
+            return ExpansionTile(
+              key: ValueKey('userContentLimitsTile_$expandedIndex'),
+              title: Text(l10n.userContentLimitsTitle),
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              onExpansionChanged: (isExpanded) {
+                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+              },
+              initiallyExpanded: expandedIndex == tileIndex,
+              children: [
+                UserPreferenceLimitsForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+              ],
+            );
+          },
         ),
         const SizedBox(height: AppSpacing.lg),
         // New Top-level ExpansionTile for Feed Decorators
-        ExpansionTile(
-          title: Text(l10n.feedDecoratorsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
-          ),
-          children: [
-            Text(
-              l10n.feedDecoratorsDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 1;
+            return ExpansionTile(
+              key: ValueKey('feedDecoratorsTile_$expandedIndex'),
+              title: Text(l10n.feedDecoratorsTitle),
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
               ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            // Individual ExpansionTiles for each Feed Decorator, nested
-            for (final decoratorType in FeedDecoratorType.values)
-              Padding(
-                padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                child: ExpansionTile(
-                  title: Text(decoratorType.l10n(context)),
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              onExpansionChanged: (isExpanded) {
+                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+              },
+              initiallyExpanded: expandedIndex == tileIndex,
+              children: [
+                Text(
+                  l10n.feedDecoratorsDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
                   ),
-                  children: [
-                    FeedDecoratorForm(
-                      decoratorType: decoratorType,
-                      remoteConfig: remoteConfig.copyWith(
-                        feedDecoratorConfig:
-                            Map.from(
-                              remoteConfig.feedDecoratorConfig,
-                            )..putIfAbsent(
-                              decoratorType,
-                              () => FeedDecoratorConfig(
-                                category:
-                                    decoratorType ==
-                                            FeedDecoratorType.suggestedTopics ||
-                                        decoratorType ==
-                                            FeedDecoratorType.suggestedSources
-                                    ? FeedDecoratorCategory.contentCollection
-                                    : FeedDecoratorCategory.callToAction,
-                                enabled: false,
-                                visibleTo: const {},
-                                itemsToDisplay:
-                                    decoratorType ==
-                                            FeedDecoratorType.suggestedTopics ||
-                                        decoratorType ==
-                                            FeedDecoratorType.suggestedSources
-                                    ? 0
-                                    : null,
-                              ),
-                            ),
-                      ),
-                      onConfigChanged: onConfigChanged,
-                    ),
-                  ],
                 ),
-              ),
-          ],
+                const SizedBox(height: AppSpacing.lg),
+                // Individual ExpansionTiles for each Feed Decorator, nested
+                for (final decoratorType in FeedDecoratorType.values)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                    child: ExpansionTile(
+                      title: Text(decoratorType.l10n(context)),
+                      childrenPadding: const EdgeInsetsDirectional.only(
+                        start: AppSpacing.xl,
+                        top: AppSpacing.md,
+                        bottom: AppSpacing.md,
+                      ),
+                      expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FeedDecoratorForm(
+                          decoratorType: decoratorType,
+                          remoteConfig: widget.remoteConfig.copyWith(
+                            feedDecoratorConfig:
+                                Map.from(
+                                  widget.remoteConfig.feedDecoratorConfig,
+                                )..putIfAbsent(
+                                  decoratorType,
+                                  () => FeedDecoratorConfig(
+                                    category:
+                                        decoratorType ==
+                                                FeedDecoratorType
+                                                    .suggestedTopics ||
+                                            decoratorType ==
+                                                FeedDecoratorType
+                                                    .suggestedSources
+                                        ? FeedDecoratorCategory
+                                              .contentCollection
+                                        : FeedDecoratorCategory.callToAction,
+                                    enabled: false,
+                                    visibleTo: const {},
+                                    itemsToDisplay:
+                                        decoratorType ==
+                                                FeedDecoratorType
+                                                    .suggestedTopics ||
+                                            decoratorType ==
+                                                FeedDecoratorType
+                                                    .suggestedSources
+                                        ? 0
+                                        : null,
+                                  ),
+                                ),
+                          ),
+                          onConfigChanged: widget.onConfigChanged,
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ],
     );

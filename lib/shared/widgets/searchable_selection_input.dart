@@ -158,14 +158,13 @@ class _SearchableSelectionInputState<T>
     final l10n = AppLocalizationsX(context).l10n;
     return TextFormField(
       controller: _textController,
-      readOnly: true, // Prevent direct text input, only allow selection
+      readOnly: true,
       decoration: InputDecoration(
         labelText: widget.label,
         border: Theme.of(context).inputDecorationTheme.border,
         suffixIcon: IconButton(
           icon: const Icon(Icons.arrow_drop_down),
-          onPressed:
-              _openSelectionPage, // Open selection page on suffix icon tap
+          onPressed: _openSelectionPage,
         ),
         // Show a clear button if an item is currently selected.
         prefixIcon: widget.selectedItem != null
@@ -179,7 +178,7 @@ class _SearchableSelectionInputState<T>
               )
             : null,
       ),
-      onTap: _openSelectionPage, // Open selection page on text field tap
+      onTap: _openSelectionPage,
     );
   }
 }

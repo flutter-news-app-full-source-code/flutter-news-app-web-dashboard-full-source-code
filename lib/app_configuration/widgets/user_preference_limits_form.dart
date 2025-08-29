@@ -9,7 +9,7 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@template user_preference_limits_form}
 /// A form widget for configuring user content preference limits based on role.
 ///
-/// This widget uses a [SegmentedButton] to allow selection of an [AppUserRole]
+/// This widget uses a [TabBar] to allow selection of an [AppUserRole]
 /// and then conditionally renders the relevant input fields for that role.
 /// {@endtemplate}
 class UserPreferenceLimitsForm extends StatefulWidget {
@@ -31,8 +31,9 @@ class UserPreferenceLimitsForm extends StatefulWidget {
       _UserPreferenceLimitsFormState();
 }
 
-class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
-  AppUserRole _selectedUserRole = AppUserRole.guestUser;
+class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   late final Map<AppUserRole, TextEditingController>
   _followedItemsLimitControllers;
   late final Map<AppUserRole, TextEditingController>
@@ -41,6 +42,10 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -90,26 +95,36 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
 
   void _updateControllers() {
     for (final role in AppUserRole.values) {
-      _followedItemsLimitControllers[role]?.text = _getFollowedItemsLimit(
+      final newFollowedItemsLimit = _getFollowedItemsLimit(
         widget.remoteConfig.userPreferenceConfig,
         role,
       ).toString();
-      _followedItemsLimitControllers[role]?.selection = TextSelection.collapsed(
-        offset: _followedItemsLimitControllers[role]!.text.length,
-      );
-      _savedHeadlinesLimitControllers[role]?.text = _getSavedHeadlinesLimit(
+      if (_followedItemsLimitControllers[role]?.text != newFollowedItemsLimit) {
+        _followedItemsLimitControllers[role]?.text = newFollowedItemsLimit;
+        _followedItemsLimitControllers[role]?.selection =
+            TextSelection.collapsed(
+              offset: newFollowedItemsLimit.length,
+            );
+      }
+
+      final newSavedHeadlinesLimit = _getSavedHeadlinesLimit(
         widget.remoteConfig.userPreferenceConfig,
         role,
       ).toString();
-      _savedHeadlinesLimitControllers[role]?.selection =
-          TextSelection.collapsed(
-            offset: _savedHeadlinesLimitControllers[role]!.text.length,
-          );
+      if (_savedHeadlinesLimitControllers[role]?.text !=
+          newSavedHeadlinesLimit) {
+        _savedHeadlinesLimitControllers[role]?.text = newSavedHeadlinesLimit;
+        _savedHeadlinesLimitControllers[role]?.selection =
+            TextSelection.collapsed(
+              offset: newSavedHeadlinesLimit.length,
+            );
+      }
     }
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     for (final controller in _followedItemsLimitControllers.values) {
       controller.dispose();
     }
@@ -134,47 +149,39 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        Center(
-          child: SegmentedButton<AppUserRole>(
-            segments: AppUserRole.values
-                .map(
-                  (role) => ButtonSegment<AppUserRole>(
-                    value: role,
-                    label: Text(role.l10n(context)),
-                  ),
-                )
-                .toList(),
-            selected: {_selectedUserRole},
-            onSelectionChanged: (newSelection) {
-              setState(() {
-                _selectedUserRole = newSelection.first;
-              });
-            },
+        // Replaced SegmentedButton with TabBar for role selection
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            height: kTextTabBarHeight,
+            child: TabBar(
+              controller: _tabController,
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              tabs: AppUserRole.values
+                  .map((role) => Tab(text: role.l10n(context)))
+                  .toList(),
+            ),
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        // Conditionally render fields based on selected user role
-        if (_selectedUserRole == AppUserRole.guestUser)
-          _buildRoleSpecificFields(
-            context,
-            l10n,
-            AppUserRole.guestUser,
-            userPreferenceConfig,
+        // TabBarView to display role-specific fields
+        SizedBox(
+          height: 250, // Fixed height for TabBarView within a ListView
+          child: TabBarView(
+            controller: _tabController,
+            children: AppUserRole.values
+                .map(
+                  (role) => _buildRoleSpecificFields(
+                    context,
+                    l10n,
+                    role,
+                    userPreferenceConfig,
+                  ),
+                )
+                .toList(),
           ),
-        if (_selectedUserRole == AppUserRole.standardUser)
-          _buildRoleSpecificFields(
-            context,
-            l10n,
-            AppUserRole.standardUser,
-            userPreferenceConfig,
-          ),
-        if (_selectedUserRole == AppUserRole.premiumUser)
-          _buildRoleSpecificFields(
-            context,
-            l10n,
-            AppUserRole.premiumUser,
-            userPreferenceConfig,
-          ),
+        ),
       ],
     );
   }

@@ -1251,5 +1251,153 @@
         "type": "String"
       }
     }
+  },
+  "adPlatformConfigurationTitle": "Ad Platform Configuration",
+  "@adPlatformConfigurationTitle": {
+    "description": "Title for the Ad Platform Configuration section"
+  },
+  "primaryAdPlatformTitle": "Primary Ad Platform Selection",
+  "@primaryAdPlatformTitle": {
+    "description": "Title for the Primary Ad Platform Selection section"
+  },
+  "primaryAdPlatformDescription": "Choose the primary ad platform to be used across the application.",
+  "@primaryAdPlatformDescription": {
+    "description": "Description for the Primary Ad Platform Selection section"
+  },
+  "adUnitIdentifiersTitle": "Ad Unit Identifiers",
+  "@adUnitIdentifiersTitle": {
+    "description": "Title for the Ad Unit Identifiers section"
+  },
+  "adUnitIdentifiersDescription": "Configure the ad unit IDs for the selected ad platform.",
+  "@adUnitIdentifiersDescription": {
+    "description": "Description for the Ad Unit Identifiers section"
+  },
+  "localAdManagementTitle": "Local Ad Management",
+  "@localAdManagementTitle": {
+    "description": "Title for the Local Ad Management section"
+  },
+  "localAdManagementDescription": "Manage custom local ads that can be served within the application.",
+  "@localAdManagementDescription": {
+    "description": "Description for the Local Ad Management section"
+  },
+  "manageLocalAdsButton": "Manage Local Ads",
+  "@manageLocalAdsButton": {
+    "description": "Button text to manage local ads"
+  },
+  "feedAdSettingsTitle": "Feed Ad Settings",
+  "@feedAdSettingsTitle": {
+    "description": "Title for the Feed Ad Settings section"
+  },
+  "enableFeedAdsLabel": "Enable Feed Ads",
+  "@enableFeedAdsLabel": {
+    "description": "Label for the enable feed ads switch"
+  },
+  "feedAdTypeSelectionTitle": "Feed Ad Type Selection",
+  "@feedAdTypeSelectionTitle": {
+    "description": "Title for the Feed Ad Type Selection section"
+  },
+  "feedAdTypeSelectionDescription": "Choose the type of ads to display in the main feed (Native or Banner).",
+  "@feedAdTypeSelectionDescription": {
+    "description": "Description for the Feed Ad Type Selection section"
+  },
+  "userRoleFrequencySettingsTitle": "User Role Frequency Settings",
+  "@userRoleFrequencySettingsTitle": {
+    "description": "Title for the User Role Frequency Settings section"
+  },
+  "userRoleFrequencySettingsDescription": "Configure ad frequency and placement intervals based on user roles.",
+  "@userRoleFrequencySettingsDescription": {
+    "description": "Description for the User Role Frequency Settings section"
+  },
+  "articleAdSettingsTitle": "Article Ad Settings",
+  "@articleAdSettingsTitle": {
+    "description": "Title for the Article Ad Settings section"
+  },
+  "enableArticleAdsLabel": "Enable Article Ads",
+  "@enableArticleAdsLabel": {
+    "description": "Label for the enable article ads switch"
+  },
+  "defaultInArticleAdTypeSelectionTitle": "Default In-Article Ad Type Selection",
+  "@defaultInArticleAdTypeSelectionTitle": {
+    "description": "Title for the Default In-Article Ad Type Selection section"
+  },
+  "defaultInArticleAdTypeSelectionDescription": "Choose the default type of ads to display within articles (Native or Banner).",
+  "@defaultInArticleAdTypeSelectionDescription": {
+    "description": "Description for the Default In-Article Ad Type Selection section"
+  },
+  "interstitialAdSettingsTitle": "Interstitial Ad Settings",
+  "@interstitialAdSettingsTitle": {
+    "description": "Title for the Interstitial Ad Settings section"
+  },
+  "enableInterstitialAdsLabel": "Enable Interstitial Ads",
+  "@enableInterstitialAdsLabel": {
+    "description": "Label for the enable interstitial ads switch"
+  },
+  "userRoleInterstitialFrequencyTitle": "User Role Interstitial Frequency",
+  "@userRoleInterstitialFrequencyTitle": {
+    "description": "Title for the User Role Interstitial Frequency section"
+  },
+  "userRoleInterstitialFrequencyDescription": "Configure how often interstitial ads are shown based on user roles.",
+  "@userRoleInterstitialFrequencyDescription": {
+    "description": "Description for the User Role Interstitial Frequency section"
+  },
+  "inArticleAdSlotPlacementsTitle": "In-Article Ad Slot Placements",
+  "@inArticleAdSlotPlacementsTitle": {
+    "description": "Title for the In-Article Ad Slot Placements section"
+  },
+  "inArticleAdSlotPlacementsDescription": "Enable or disable specific ad slots within article content.",
+  "@inArticleAdSlotPlacementsDescription": {
+    "description": "Description for the In-Article Ad Slot Placements section"
+  },
+  "feedNativeAdIdLabel": "Feed Native Ad ID",
+  "@feedNativeAdIdLabel": {
+    "description": "Label for the Feed Native Ad ID input field"
+  },
+  "feedNativeAdIdDescription": "The AdMob unit ID for native ads in the feed.",
+  "@feedNativeAdIdDescription": {
+    "description": "Description for the Feed Native Ad ID input field"
+  },
+  "feedBannerAdIdLabel": "Feed Banner Ad ID",
+  "@feedBannerAdIdLabel": {
+    "description": "Label for the Feed Banner Ad ID input field"
+  },
+  "feedBannerAdIdDescription": "The AdMob unit ID for banner ads in the feed.",
+  "@feedBannerAdIdDescription": {
+    "description": "Description for the Feed Banner Ad ID input field"
+  },
+  "articleInterstitialAdIdLabel": "Article Interstitial Ad ID",
+  "@articleInterstitialAdIdLabel": {
+    "description": "Label for the Article Interstitial Ad ID input field"
+  },
+  "articleInterstitialAdIdDescription": "The AdMob unit ID for interstitial ads in articles.",
+  "@articleInterstitialAdIdDescription": {
+    "description": "Description for the Article Interstitial Ad ID input field"
+  },
+  "inArticleNativeAdIdLabel": "In-Article Native Ad ID",
+  "@inArticleNativeAdIdLabel": {
+    "description": "Label for the In-Article Native Ad ID input field"
+  },
+  "inArticleNativeAdIdDescription": "The AdMob unit ID for native ads within articles.",
+  "@inArticleNativeAdIdDescription": {
+    "description": "Description for the In-Article Native Ad ID input field"
+  },
+  "inArticleBannerAdIdLabel": "In-Article Banner Ad ID",
+  "@inArticleBannerAdIdLabel": {
+    "description": "Label for the In-Article Banner Ad ID input field"
+  },
+  "inArticleBannerAdIdDescription": "The AdMob unit ID for banner ads within articles.",
+  "@inArticleBannerAdIdDescription": {
+    "description": "Description for the In-Article Banner Ad ID input field"
+  },
+  "inArticleAdSlotTypeBelowMainArticleImage": "Below the main image of the article",
+  "@inArticleAdSlotTypeBelowMainArticleImage": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.belowMainArticleImage"
+  },
+  "inArticleAdSlotTypeAboveArticleContinueReadingButton": "Above the 'Continue Reading' button",
+  "@inArticleAdSlotTypeAboveArticleContinueReadingButton": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton"
+  },
+  "inArticleAdSlotTypeBelowArticleContinueReadingButton": "Below the 'Continue Reading' button",
+  "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
+    "description": "الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton"
   }
 }

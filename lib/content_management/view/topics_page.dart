@@ -173,7 +173,7 @@ class _TopicsDataSource extends DataTableSource {
                 onPressed: () {
                   // Navigate to edit page
                   context.goNamed(
-                    Routes.editTopicName, // Assuming an edit route exists
+                    Routes.editTopicName,
                     pathParameters: {'id': topic.id},
                   );
                 },

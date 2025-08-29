@@ -31,14 +31,19 @@ class FeedDecoratorForm extends StatefulWidget {
   State<FeedDecoratorForm> createState() => _FeedDecoratorFormState();
 }
 
-class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
-  AppUserRole _selectedUserRole = AppUserRole.guestUser;
+class _FeedDecoratorFormState extends State<FeedDecoratorForm>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   late final TextEditingController _itemsToDisplayController;
   late final Map<AppUserRole, TextEditingController> _roleControllers;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -84,22 +89,29 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
   void _updateControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-    _itemsToDisplayController.text =
-        decoratorConfig.itemsToDisplay?.toString() ?? '';
-    _itemsToDisplayController.selection = TextSelection.collapsed(
-      offset: _itemsToDisplayController.text.length,
-    );
-    for (final role in AppUserRole.values) {
-      _roleControllers[role]?.text =
-          decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
-      _roleControllers[role]?.selection = TextSelection.collapsed(
-        offset: _roleControllers[role]?.text.length ?? 0,
+    final newItemsToDisplay = decoratorConfig.itemsToDisplay?.toString() ?? '';
+    if (_itemsToDisplayController.text != newItemsToDisplay) {
+      _itemsToDisplayController.text = newItemsToDisplay;
+      _itemsToDisplayController.selection = TextSelection.collapsed(
+        offset: newItemsToDisplay.length,
       );
+    }
+
+    for (final role in AppUserRole.values) {
+      final newDaysBetweenViews =
+          decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
+      if (_roleControllers[role]?.text != newDaysBetweenViews) {
+        _roleControllers[role]?.text = newDaysBetweenViews;
+        _roleControllers[role]?.selection = TextSelection.collapsed(
+          offset: newDaysBetweenViews.length,
+        );
+      }
     }
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     _itemsToDisplayController.dispose();
     for (final controller in _roleControllers.values) {
       controller.dispose();
@@ -114,6 +126,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SwitchListTile(
           title: Text(l10n.enabledLabel),
@@ -153,30 +166,38 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
             controller: _itemsToDisplayController,
           ),
         const SizedBox(height: AppSpacing.lg),
-        Center(
-          child: SegmentedButton<AppUserRole>(
-            segments: AppUserRole.values
-                .map(
-                  (role) => ButtonSegment<AppUserRole>(
-                    value: role,
-                    label: Text(role.l10n(context)),
-                  ),
-                )
-                .toList(),
-            selected: {_selectedUserRole},
-            onSelectionChanged: (newSelection) {
-              setState(() {
-                _selectedUserRole = newSelection.first;
-              });
-            },
+        // Replaced SegmentedButton with TabBar for role selection
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            height: kTextTabBarHeight,
+            child: TabBar(
+              controller: _tabController,
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              tabs: AppUserRole.values
+                  .map((role) => Tab(text: role.l10n(context)))
+                  .toList(),
+            ),
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        _buildRoleSpecificFields(
-          context,
-          l10n,
-          _selectedUserRole,
-          decoratorConfig,
+        // TabBarView to display role-specific fields
+        SizedBox(
+          height: 250, // Fixed height for TabBarView within a ListView
+          child: TabBarView(
+            controller: _tabController,
+            children: AppUserRole.values
+                .map(
+                  (role) => _buildRoleSpecificFields(
+                    context,
+                    l10n,
+                    role,
+                    decoratorConfig,
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ],
     );
