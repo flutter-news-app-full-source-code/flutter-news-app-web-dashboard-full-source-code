@@ -313,7 +313,7 @@ class _SettingsViewState extends State<_SettingsView> {
                   ),
                   children: [
                     SizedBox(
-                      height: 250, // Example fixed height
+                      height: 250,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.xxl,
@@ -362,7 +362,7 @@ class _SettingsViewState extends State<_SettingsView> {
         ),
         const SizedBox(
           width: AppSpacing.lg,
-        ), // Add some spacing between text and dropdown
+        ),
         child,
       ],
     );

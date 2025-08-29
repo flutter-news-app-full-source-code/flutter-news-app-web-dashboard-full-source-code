@@ -80,7 +80,7 @@ class SearchableSelectionBloc
           state.copyWith(
             status: SearchableSelectionStatus.success,
             items: filteredItems,
-            hasMore: false, // Static lists don't have more to load
+            hasMore: false,
           ),
         );
       } else if (_arguments.repository != null) {
@@ -137,9 +137,9 @@ class SearchableSelectionBloc
     emit(
       state.copyWith(
         searchTerm: event.searchTerm,
-        items: [], // Clear items on new search
-        cursor: null, // Reset cursor
-        hasMore: true, // Assume more results for dynamic data
+        items: [],
+        cursor: null,
+        hasMore: true,
         status: SearchableSelectionStatus.loading,
       ),
     );
