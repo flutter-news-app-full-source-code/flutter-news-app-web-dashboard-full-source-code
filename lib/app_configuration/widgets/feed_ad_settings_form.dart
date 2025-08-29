@@ -27,8 +27,9 @@ class FeedAdSettingsForm extends StatefulWidget {
   State<FeedAdSettingsForm> createState() => _FeedAdSettingsFormState();
 }
 
-class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
-  AppUserRole _selectedUserRole = AppUserRole.guestUser;
+class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
   late final Map<AppUserRole, TextEditingController>
       _adPlacementIntervalControllers;
@@ -36,6 +37,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
     _initializeControllers();
   }
 
@@ -95,6 +97,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
 
   @override
   void dispose() {
+    _tabController.dispose();
     for (final controller in _adFrequencyControllers.values) {
       controller.dispose();
     }
@@ -129,10 +132,12 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.feedAdTypeSelectionTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.feedAdTypeSelectionDescription,
@@ -142,6 +147,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
                         .onSurface
                         .withOpacity(0.7),
                   ),
+              textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
             Align(
@@ -179,10 +185,12 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.userRoleFrequencySettingsTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.userRoleFrequencySettingsDescription,
@@ -192,38 +200,41 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm> {
                         .onSurface
                         .withOpacity(0.7),
                   ),
+              textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
+            // Replaced SegmentedButton with TabBar for role selection
             Align(
               alignment: AlignmentDirectional.centerStart,
-              child: SegmentedButton<AppUserRole>(
-                style: SegmentedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
+              child: SizedBox(
+                height: kTextTabBarHeight,
+                child: TabBar(
+                  controller: _tabController,
+                  tabAlignment: TabAlignment.start,
+                  isScrollable: true,
+                  tabs: AppUserRole.values
+                      .map((role) => Tab(text: role.l10n(context)))
+                      .toList(),
                 ),
-                segments: AppUserRole.values
-                    .map(
-                      (role) => ButtonSegment<AppUserRole>(
-                        value: role,
-                        label: Text(role.l10n(context)),
-                      ),
-                    )
-                    .toList(),
-                selected: {_selectedUserRole},
-                onSelectionChanged: (newSelection) {
-                  setState(() {
-                    _selectedUserRole = newSelection.first;
-                  });
-                },
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            _buildRoleSpecificFields(
-              context,
-              l10n,
-              _selectedUserRole,
-              feedAdConfig,
+            // TabBarView to display role-specific fields
+            SizedBox(
+              height: 250, // Fixed height for TabBarView within a ListView
+              child: TabBarView(
+                controller: _tabController,
+                children: AppUserRole.values
+                    .map(
+                      (role) => _buildRoleSpecificFields(
+                        context,
+                        l10n,
+                        role,
+                        feedAdConfig,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ],
         ),
