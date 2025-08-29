@@ -33,9 +33,10 @@ class GeneralConfigurationTab extends StatelessWidget {
         // Top-level ExpansionTile for Maintenance Section
         ExpansionTile(
           title: Text(l10n.maintenanceModeTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.xxl,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
           children: [
             Column(
@@ -72,9 +73,10 @@ class GeneralConfigurationTab extends StatelessWidget {
         // Top-level ExpansionTile for Force Update Section
         ExpansionTile(
           title: Text(l10n.forceUpdateTitle),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xxl,
-            vertical: AppSpacing.md,
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.xxl,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
           ),
           children: [
             Column(
