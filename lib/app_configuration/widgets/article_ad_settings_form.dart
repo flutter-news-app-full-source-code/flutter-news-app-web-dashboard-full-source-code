@@ -72,14 +72,17 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
     final articleAdConfig = widget.remoteConfig.adConfig.articleAdConfiguration;
     final interstitialConfig = articleAdConfig.interstitialAdConfiguration;
     for (final role in AppUserRole.values) {
-      _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
+      final newInterstitialValue =
           _getArticlesBeforeInterstitial(interstitialConfig, role).toString();
-      _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-          ?.selection = TextSelection.collapsed(
-        offset: _articlesToReadBeforeShowingInterstitialAdsControllers[role]!
-            .text
-            .length,
-      );
+      if (_articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text !=
+          newInterstitialValue) {
+        _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
+            newInterstitialValue;
+        _articlesToReadBeforeShowingInterstitialAdsControllers[role]
+            ?.selection = TextSelection.collapsed(
+          offset: newInterstitialValue.length,
+        );
+      }
     }
   }
 
@@ -201,8 +204,14 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                Center(
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
                   child: SegmentedButton<AppUserRole>(
+                    style: SegmentedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
                     segments: AppUserRole.values
                         .map(
                           (role) => ButtonSegment<AppUserRole>(
