@@ -101,42 +101,66 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
   void _updateControllers() {
     for (final platform in AdPlatformType.values) {
-      _platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.feedNativeAdId ??
+      final feedNativeAdId = widget.remoteConfig.adConfig
+              .platformAdIdentifiers[platform]?.feedNativeAdId ??
           '';
-      _platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.feedBannerAdId ??
+      if (_platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text !=
+          feedNativeAdId) {
+        _platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text =
+            feedNativeAdId;
+        _platformAdIdentifierControllers[platform]!['feedNativeAdId']
+            ?.selection = TextSelection.collapsed(offset: feedNativeAdId.length);
+      }
+
+      final feedBannerAdId = widget.remoteConfig.adConfig
+              .platformAdIdentifiers[platform]?.feedBannerAdId ??
           '';
-      _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
-              ?.text =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.articleInterstitialAdId ??
+      if (_platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text !=
+          feedBannerAdId) {
+        _platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text =
+            feedBannerAdId;
+        _platformAdIdentifierControllers[platform]!['feedBannerAdId']
+            ?.selection = TextSelection.collapsed(offset: feedBannerAdId.length);
+      }
+
+      final articleInterstitialAdId = widget.remoteConfig.adConfig
+              .platformAdIdentifiers[platform]?.articleInterstitialAdId ??
           '';
-      _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']?.text =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.inArticleNativeAdId ??
+      if (_platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+              ?.text !=
+          articleInterstitialAdId) {
+        _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+            ?.text = articleInterstitialAdId;
+        _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+            ?.selection =
+            TextSelection.collapsed(offset: articleInterstitialAdId.length);
+      }
+
+      final inArticleNativeAdId = widget.remoteConfig.adConfig
+              .platformAdIdentifiers[platform]?.inArticleNativeAdId ??
           '';
-      _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']?.text =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.inArticleBannerAdId ??
+      if (_platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
+              ?.text !=
+          inArticleNativeAdId) {
+        _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
+            ?.text = inArticleNativeAdId;
+        _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
+            ?.selection =
+            TextSelection.collapsed(offset: inArticleNativeAdId.length);
+      }
+
+      final inArticleBannerAdId = widget.remoteConfig.adConfig
+              .platformAdIdentifiers[platform]?.inArticleBannerAdId ??
           '';
+      if (_platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
+              ?.text !=
+          inArticleBannerAdId) {
+        _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
+            ?.text = inArticleBannerAdId;
+        _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
+            ?.selection =
+            TextSelection.collapsed(offset: inArticleBannerAdId.length);
+      }
     }
   }
 
@@ -173,8 +197,14 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Center(
+            Align(
+              alignment: AlignmentDirectional.centerStart,
               child: SegmentedButton<AdPlatformType>(
+                style: SegmentedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
                 segments: AdPlatformType.values
                     .map(
                       (platform) => ButtonSegment<AdPlatformType>(
