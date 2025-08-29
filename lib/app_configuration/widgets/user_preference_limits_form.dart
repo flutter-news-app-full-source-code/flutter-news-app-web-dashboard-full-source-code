@@ -90,21 +90,31 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
 
   void _updateControllers() {
     for (final role in AppUserRole.values) {
-      _followedItemsLimitControllers[role]?.text = _getFollowedItemsLimit(
+      final newFollowedItemsLimit = _getFollowedItemsLimit(
         widget.remoteConfig.userPreferenceConfig,
         role,
       ).toString();
-      _followedItemsLimitControllers[role]?.selection = TextSelection.collapsed(
-        offset: _followedItemsLimitControllers[role]!.text.length,
-      );
-      _savedHeadlinesLimitControllers[role]?.text = _getSavedHeadlinesLimit(
+      if (_followedItemsLimitControllers[role]?.text !=
+          newFollowedItemsLimit) {
+        _followedItemsLimitControllers[role]?.text = newFollowedItemsLimit;
+        _followedItemsLimitControllers[role]?.selection =
+            TextSelection.collapsed(
+          offset: newFollowedItemsLimit.length,
+        );
+      }
+
+      final newSavedHeadlinesLimit = _getSavedHeadlinesLimit(
         widget.remoteConfig.userPreferenceConfig,
         role,
       ).toString();
-      _savedHeadlinesLimitControllers[role]?.selection =
-          TextSelection.collapsed(
-            offset: _savedHeadlinesLimitControllers[role]!.text.length,
-          );
+      if (_savedHeadlinesLimitControllers[role]?.text !=
+          newSavedHeadlinesLimit) {
+        _savedHeadlinesLimitControllers[role]?.text = newSavedHeadlinesLimit;
+        _savedHeadlinesLimitControllers[role]?.selection =
+            TextSelection.collapsed(
+          offset: newSavedHeadlinesLimit.length,
+        );
+      }
     }
   }
 
@@ -134,8 +144,14 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        Center(
+        Align(
+          alignment: AlignmentDirectional.centerStart,
           child: SegmentedButton<AppUserRole>(
+            style: SegmentedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+            ),
             segments: AppUserRole.values
                 .map(
                   (role) => ButtonSegment<AppUserRole>(
