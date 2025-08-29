@@ -78,7 +78,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           'User app settings not found for user ${user.id}. Creating default.',
         );
         final defaultSettings = UserAppSettings(
-          id: user.id, 
+          id: user.id,
           displaySettings: const DisplaySettings(
             baseTheme: AppBaseTheme.system,
             accentTheme: AppAccentTheme.defaultBlue,

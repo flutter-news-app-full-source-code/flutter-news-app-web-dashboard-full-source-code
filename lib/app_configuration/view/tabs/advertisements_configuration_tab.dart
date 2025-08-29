@@ -4,7 +4,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/article_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter/foundation.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template advertisements_configuration_tab}

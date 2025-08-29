@@ -35,14 +35,17 @@ class _AdConfigFormState extends State<AdConfigForm>
   late TabController _tabController;
   late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
   late final Map<AppUserRole, TextEditingController>
-      _adPlacementIntervalControllers;
+  _adPlacementIntervalControllers;
   late final Map<AppUserRole, TextEditingController>
-      _articlesToReadBeforeShowingInterstitialAdsControllers;
+  _articlesToReadBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -58,33 +61,39 @@ class _AdConfigFormState extends State<AdConfigForm>
     final adConfig = widget.remoteConfig.adConfig;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdFrequency(adConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdFrequency(adConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdFrequency(adConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdFrequency(adConfig, role).toString().length,
+              ),
     };
     _adPlacementIntervalControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdPlacementInterval(adConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdPlacementInterval(
-              adConfig,
-              role,
-            ).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdPlacementInterval(adConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdPlacementInterval(
+                  adConfig,
+                  role,
+                ).toString().length,
+              ),
     };
     _articlesToReadBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getArticlesBeforeInterstitial(
-              adConfig,
-              role,
-            ).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getArticlesBeforeInterstitial(
+                  adConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
@@ -99,26 +108,31 @@ class _AdConfigFormState extends State<AdConfigForm>
         );
       }
 
-      final newPlacementIntervalValue =
-          _getAdPlacementInterval(adConfig, role).toString();
+      final newPlacementIntervalValue = _getAdPlacementInterval(
+        adConfig,
+        role,
+      ).toString();
       if (_adPlacementIntervalControllers[role]?.text !=
           newPlacementIntervalValue) {
         _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
         _adPlacementIntervalControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newPlacementIntervalValue.length,
-        );
+              offset: newPlacementIntervalValue.length,
+            );
       }
 
-      final newInterstitialValue =
-          _getArticlesBeforeInterstitial(adConfig, role).toString();
+      final newInterstitialValue = _getArticlesBeforeInterstitial(
+        adConfig,
+        role,
+      ).toString();
       if (_articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text !=
           newInterstitialValue) {
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
             newInterstitialValue;
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-                ?.selection =
-            TextSelection.collapsed(offset: newInterstitialValue.length);
+            ?.selection = TextSelection.collapsed(
+          offset: newInterstitialValue.length,
+        );
       }
     }
   }

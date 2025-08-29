@@ -32,12 +32,15 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   late TabController _tabController;
   late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
   late final Map<AppUserRole, TextEditingController>
-      _adPlacementIntervalControllers;
+  _adPlacementIntervalControllers;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -54,20 +57,26 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     final feedAdConfig = widget.remoteConfig.adConfig.feedAdConfiguration;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdFrequency(feedAdConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdFrequency(feedAdConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdFrequency(feedAdConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdFrequency(feedAdConfig, role).toString().length,
+              ),
     };
     _adPlacementIntervalControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdPlacementInterval(feedAdConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset:
-                _getAdPlacementInterval(feedAdConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdPlacementInterval(feedAdConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdPlacementInterval(
+                  feedAdConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
@@ -82,15 +91,17 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
         );
       }
 
-      final newPlacementIntervalValue =
-          _getAdPlacementInterval(feedAdConfig, role).toString();
+      final newPlacementIntervalValue = _getAdPlacementInterval(
+        feedAdConfig,
+        role,
+      ).toString();
       if (_adPlacementIntervalControllers[role]?.text !=
           newPlacementIntervalValue) {
         _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
         _adPlacementIntervalControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newPlacementIntervalValue.length,
-        );
+              offset: newPlacementIntervalValue.length,
+            );
       }
     }
   }
@@ -137,16 +148,14 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.feedAdTypeSelectionDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -159,7 +168,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                   ),
                 ),
                 segments: AdType.values
-                    .where((type) => type == AdType.native || type == AdType.banner)
+                    .where(
+                      (type) => type == AdType.native || type == AdType.banner,
+                    )
                     .map(
                       (type) => ButtonSegment<AdType>(
                         value: type,
@@ -172,8 +183,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
                       adConfig: adConfig.copyWith(
-                        feedAdConfiguration:
-                            feedAdConfig.copyWith(adType: newSelection.first),
+                        feedAdConfiguration: feedAdConfig.copyWith(
+                          adType: newSelection.first,
+                        ),
                       ),
                     ),
                   );
@@ -190,16 +202,14 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.userRoleFrequencySettingsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -273,8 +283,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 adConfig: widget.remoteConfig.adConfig.copyWith(
-                  feedAdConfiguration:
-                      _updateAdPlacementInterval(config, value, role),
+                  feedAdConfiguration: _updateAdPlacementInterval(
+                    config,
+                    value,
+                    role,
+                  ),
                 ),
               ),
             );
@@ -315,18 +328,21 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     switch (role) {
       case AppUserRole.guestUser:
         return config.copyWith(
-          frequencyConfig:
-              config.frequencyConfig.copyWith(guestAdFrequency: value),
+          frequencyConfig: config.frequencyConfig.copyWith(
+            guestAdFrequency: value,
+          ),
         );
       case AppUserRole.standardUser:
         return config.copyWith(
-          frequencyConfig:
-              config.frequencyConfig.copyWith(authenticatedAdFrequency: value),
+          frequencyConfig: config.frequencyConfig.copyWith(
+            authenticatedAdFrequency: value,
+          ),
         );
       case AppUserRole.premiumUser:
         return config.copyWith(
-          frequencyConfig:
-              config.frequencyConfig.copyWith(premiumAdFrequency: value),
+          frequencyConfig: config.frequencyConfig.copyWith(
+            premiumAdFrequency: value,
+          ),
         );
     }
   }
@@ -339,18 +355,21 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     switch (role) {
       case AppUserRole.guestUser:
         return config.copyWith(
-          frequencyConfig:
-              config.frequencyConfig.copyWith(guestAdPlacementInterval: value),
+          frequencyConfig: config.frequencyConfig.copyWith(
+            guestAdPlacementInterval: value,
+          ),
         );
       case AppUserRole.standardUser:
         return config.copyWith(
-          frequencyConfig: config.frequencyConfig
-              .copyWith(authenticatedAdPlacementInterval: value),
+          frequencyConfig: config.frequencyConfig.copyWith(
+            authenticatedAdPlacementInterval: value,
+          ),
         );
       case AppUserRole.premiumUser:
         return config.copyWith(
-          frequencyConfig: config.frequencyConfig
-              .copyWith(premiumAdPlacementInterval: value),
+          frequencyConfig: config.frequencyConfig.copyWith(
+            premiumAdPlacementInterval: value,
+          ),
         );
     }
   }

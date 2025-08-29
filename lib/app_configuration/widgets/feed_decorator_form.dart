@@ -40,7 +40,10 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -56,23 +59,30 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
   void _initializeControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-    _itemsToDisplayController = TextEditingController(
-      text: decoratorConfig.itemsToDisplay?.toString() ?? '',
-    )..selection = TextSelection.collapsed(
-        offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
-      );
+    _itemsToDisplayController =
+        TextEditingController(
+            text: decoratorConfig.itemsToDisplay?.toString() ?? '',
+          )
+          ..selection = TextSelection.collapsed(
+            offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
+          );
 
     _roleControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ??
-              '',
-        )..selection = TextSelection.collapsed(
-            offset: decoratorConfig.visibleTo[role]?.daysBetweenViews
-                    .toString()
-                    .length ??
-                0,
-          ),
+        role:
+            TextEditingController(
+                text:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString() ??
+                    '',
+              )
+              ..selection = TextSelection.collapsed(
+                offset:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString()
+                        .length ??
+                    0,
+              ),
     };
   }
 

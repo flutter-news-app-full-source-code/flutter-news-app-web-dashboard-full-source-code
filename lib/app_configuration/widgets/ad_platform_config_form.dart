@@ -29,7 +29,7 @@ class AdPlatformConfigForm extends StatefulWidget {
 class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
   late AdPlatformType _selectedPlatform;
   late Map<AdPlatformType, Map<String, TextEditingController>>
-      _platformAdIdentifierControllers;
+  _platformAdIdentifierControllers;
 
   @override
   void initState() {
@@ -101,65 +101,95 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
   void _updateControllers() {
     for (final platform in AdPlatformType.values) {
-      final feedNativeAdId = widget.remoteConfig.adConfig
-              .platformAdIdentifiers[platform]?.feedNativeAdId ??
+      final feedNativeAdId =
+          widget
+              .remoteConfig
+              .adConfig
+              .platformAdIdentifiers[platform]
+              ?.feedNativeAdId ??
           '';
       if (_platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text !=
           feedNativeAdId) {
         _platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text =
             feedNativeAdId;
         _platformAdIdentifierControllers[platform]!['feedNativeAdId']
-            ?.selection = TextSelection.collapsed(offset: feedNativeAdId.length);
+            ?.selection = TextSelection.collapsed(
+          offset: feedNativeAdId.length,
+        );
       }
 
-      final feedBannerAdId = widget.remoteConfig.adConfig
-              .platformAdIdentifiers[platform]?.feedBannerAdId ??
+      final feedBannerAdId =
+          widget
+              .remoteConfig
+              .adConfig
+              .platformAdIdentifiers[platform]
+              ?.feedBannerAdId ??
           '';
       if (_platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text !=
           feedBannerAdId) {
         _platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text =
             feedBannerAdId;
         _platformAdIdentifierControllers[platform]!['feedBannerAdId']
-            ?.selection = TextSelection.collapsed(offset: feedBannerAdId.length);
+            ?.selection = TextSelection.collapsed(
+          offset: feedBannerAdId.length,
+        );
       }
 
-      final articleInterstitialAdId = widget.remoteConfig.adConfig
-              .platformAdIdentifiers[platform]?.articleInterstitialAdId ??
+      final articleInterstitialAdId =
+          widget
+              .remoteConfig
+              .adConfig
+              .platformAdIdentifiers[platform]
+              ?.articleInterstitialAdId ??
           '';
       if (_platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
               ?.text !=
           articleInterstitialAdId) {
         _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
-            ?.text = articleInterstitialAdId;
+                ?.text =
+            articleInterstitialAdId;
         _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
-            ?.selection =
-            TextSelection.collapsed(offset: articleInterstitialAdId.length);
+            ?.selection = TextSelection.collapsed(
+          offset: articleInterstitialAdId.length,
+        );
       }
 
-      final inArticleNativeAdId = widget.remoteConfig.adConfig
-              .platformAdIdentifiers[platform]?.inArticleNativeAdId ??
+      final inArticleNativeAdId =
+          widget
+              .remoteConfig
+              .adConfig
+              .platformAdIdentifiers[platform]
+              ?.inArticleNativeAdId ??
           '';
       if (_platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
               ?.text !=
           inArticleNativeAdId) {
         _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
-            ?.text = inArticleNativeAdId;
+                ?.text =
+            inArticleNativeAdId;
         _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
-            ?.selection =
-            TextSelection.collapsed(offset: inArticleNativeAdId.length);
+            ?.selection = TextSelection.collapsed(
+          offset: inArticleNativeAdId.length,
+        );
       }
 
-      final inArticleBannerAdId = widget.remoteConfig.adConfig
-              .platformAdIdentifiers[platform]?.inArticleBannerAdId ??
+      final inArticleBannerAdId =
+          widget
+              .remoteConfig
+              .adConfig
+              .platformAdIdentifiers[platform]
+              ?.inArticleBannerAdId ??
           '';
       if (_platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
               ?.text !=
           inArticleBannerAdId) {
         _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
-            ?.text = inArticleBannerAdId;
+                ?.text =
+            inArticleBannerAdId;
         _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
-            ?.selection =
-            TextSelection.collapsed(offset: inArticleBannerAdId.length);
+            ?.selection = TextSelection.collapsed(
+          offset: inArticleBannerAdId.length,
+        );
       }
     }
   }
@@ -190,7 +220,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.primaryAdPlatformDescription,
@@ -243,7 +274,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.adUnitIdentifiersDescription,
@@ -272,7 +304,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
               top: AppSpacing.md,
               bottom: AppSpacing.md,
             ),
-            expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+            expandedCrossAxisAlignment:
+                CrossAxisAlignment.start, // Align content to start
             children: [
               Text(
                 l10n.localAdManagementDescription,

@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter/foundation.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template general_configuration_tab}
@@ -25,7 +24,8 @@ class GeneralConfigurationTab extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<GeneralConfigurationTab> createState() => _GeneralConfigurationTabState();
+  State<GeneralConfigurationTab> createState() =>
+      _GeneralConfigurationTabState();
 }
 
 class _GeneralConfigurationTabState extends State<GeneralConfigurationTab> {

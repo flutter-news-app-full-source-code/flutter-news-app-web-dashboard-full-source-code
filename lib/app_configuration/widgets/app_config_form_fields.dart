@@ -37,7 +37,8 @@ class AppConfigIntField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Ensure alignment to start
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Ensure alignment to start
         children: [
           Text(label, style: theme.textTheme.titleMedium),
           const SizedBox(height: AppSpacing.xs),
@@ -106,7 +107,8 @@ class AppConfigTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Ensure alignment to start
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Ensure alignment to start
         children: [
           Text(label, style: theme.textTheme.titleMedium),
           const SizedBox(height: AppSpacing.xs),

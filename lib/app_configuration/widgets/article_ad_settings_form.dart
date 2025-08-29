@@ -32,12 +32,15 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late final Map<AppUserRole, TextEditingController>
-      _articlesToReadBeforeShowingInterstitialAdsControllers;
+  _articlesToReadBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: AppUserRole.values.length, vsync: this);
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -55,17 +58,19 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
     final interstitialConfig = articleAdConfig.interstitialAdConfiguration;
     _articlesToReadBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getArticlesBeforeInterstitial(
-            interstitialConfig,
-            role,
-          ).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getArticlesBeforeInterstitial(
-              interstitialConfig,
-              role,
-            ).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getArticlesBeforeInterstitial(
+                  interstitialConfig,
+                  role,
+                ).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getArticlesBeforeInterstitial(
+                  interstitialConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
@@ -73,15 +78,18 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
     final articleAdConfig = widget.remoteConfig.adConfig.articleAdConfiguration;
     final interstitialConfig = articleAdConfig.interstitialAdConfiguration;
     for (final role in AppUserRole.values) {
-      final newInterstitialValue =
-          _getArticlesBeforeInterstitial(interstitialConfig, role).toString();
+      final newInterstitialValue = _getArticlesBeforeInterstitial(
+        interstitialConfig,
+        role,
+      ).toString();
       if (_articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text !=
           newInterstitialValue) {
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
             newInterstitialValue;
         _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-                ?.selection =
-            TextSelection.collapsed(offset: newInterstitialValue.length);
+            ?.selection = TextSelection.collapsed(
+          offset: newInterstitialValue.length,
+        );
       }
     }
   }
@@ -128,7 +136,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.defaultInArticleAdTypeSelectionDescription,
@@ -181,7 +190,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             SwitchListTile(
               title: Text(l10n.enableInterstitialAdsLabel),
@@ -203,11 +213,13 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
             ExpansionTile(
               title: Text(l10n.userRoleInterstitialFrequencyTitle),
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.xl, // Further adjusted padding for nested hierarchy
+                start: AppSpacing
+                    .xl, // Further adjusted padding for nested hierarchy
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+              expandedCrossAxisAlignment:
+                  CrossAxisAlignment.start, // Align content to start
               children: [
                 Text(
                   l10n.userRoleInterstitialFrequencyDescription,
@@ -264,7 +276,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
           children: [
             Text(
               l10n.inArticleAdSlotPlacementsDescription,

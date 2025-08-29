@@ -4,7 +4,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
-import 'package:flutter/foundation.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template feed_configuration_tab}
@@ -99,7 +98,9 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                 Text(
                   l10n.feedDecoratorsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
@@ -127,18 +128,23 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                                   () => FeedDecoratorConfig(
                                     category:
                                         decoratorType ==
-                                                FeedDecoratorType.suggestedTopics ||
+                                                FeedDecoratorType
+                                                    .suggestedTopics ||
                                             decoratorType ==
-                                                FeedDecoratorType.suggestedSources
-                                        ? FeedDecoratorCategory.contentCollection
+                                                FeedDecoratorType
+                                                    .suggestedSources
+                                        ? FeedDecoratorCategory
+                                              .contentCollection
                                         : FeedDecoratorCategory.callToAction,
                                     enabled: false,
                                     visibleTo: const {},
                                     itemsToDisplay:
                                         decoratorType ==
-                                                FeedDecoratorType.suggestedTopics ||
+                                                FeedDecoratorType
+                                                    .suggestedTopics ||
                                             decoratorType ==
-                                                FeedDecoratorType.suggestedSources
+                                                FeedDecoratorType
+                                                    .suggestedSources
                                         ? 0
                                         : null,
                                   ),
