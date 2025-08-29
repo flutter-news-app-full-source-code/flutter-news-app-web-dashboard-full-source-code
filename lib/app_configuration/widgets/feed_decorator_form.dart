@@ -84,17 +84,23 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
   void _updateControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-    _itemsToDisplayController.text =
-        decoratorConfig.itemsToDisplay?.toString() ?? '';
-    _itemsToDisplayController.selection = TextSelection.collapsed(
-      offset: _itemsToDisplayController.text.length,
-    );
-    for (final role in AppUserRole.values) {
-      _roleControllers[role]?.text =
-          decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
-      _roleControllers[role]?.selection = TextSelection.collapsed(
-        offset: _roleControllers[role]?.text.length ?? 0,
+    final newItemsToDisplay = decoratorConfig.itemsToDisplay?.toString() ?? '';
+    if (_itemsToDisplayController.text != newItemsToDisplay) {
+      _itemsToDisplayController.text = newItemsToDisplay;
+      _itemsToDisplayController.selection = TextSelection.collapsed(
+        offset: newItemsToDisplay.length,
       );
+    }
+
+    for (final role in AppUserRole.values) {
+      final newDaysBetweenViews =
+          decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
+      if (_roleControllers[role]?.text != newDaysBetweenViews) {
+        _roleControllers[role]?.text = newDaysBetweenViews;
+        _roleControllers[role]?.selection = TextSelection.collapsed(
+          offset: newDaysBetweenViews.length,
+        );
+      }
     }
   }
 
@@ -153,8 +159,14 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
             controller: _itemsToDisplayController,
           ),
         const SizedBox(height: AppSpacing.lg),
-        Center(
+        Align(
+          alignment: AlignmentDirectional.centerStart,
           child: SegmentedButton<AppUserRole>(
+            style: SegmentedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+            ),
             segments: AppUserRole.values
                 .map(
                   (role) => ButtonSegment<AppUserRole>(
