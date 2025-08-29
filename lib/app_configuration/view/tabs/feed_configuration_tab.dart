@@ -48,51 +48,60 @@ class FeedConfigurationTab extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
-        // Description for Feed Decorators section
-        Text(
-          l10n.feedDecoratorsDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        // New Top-level ExpansionTile for Feed Decorators
+        ExpansionTile(
+          title: Text(l10n.feedDecoratorsTitle),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxl,
+            vertical: AppSpacing.md,
           ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        // Individual ExpansionTiles for each Feed Decorator
-        for (final decoratorType in FeedDecoratorType.values)
-          Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.md),
-            child: ExpansionTile(
-              title: Text(decoratorType.l10n(context)), // Use localized decorator name
-              childrenPadding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.xxl,
+          children: [
+            Text(
+              l10n.feedDecoratorsDescription,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
-              children: [
-                FeedDecoratorForm(
-                  decoratorType: decoratorType,
-                  remoteConfig: remoteConfig.copyWith(
-                    feedDecoratorConfig:
-                        Map.from(remoteConfig.feedDecoratorConfig)..putIfAbsent(
-                          decoratorType,
-                          () => FeedDecoratorConfig(
-                            category:
-                                decoratorType == FeedDecoratorType.suggestedTopics ||
-                                    decoratorType == FeedDecoratorType.suggestedSources
-                                ? FeedDecoratorCategory.contentCollection
-                                : FeedDecoratorCategory.callToAction,
-                            enabled: false,
-                            visibleTo: const {},
-                            itemsToDisplay:
-                                decoratorType == FeedDecoratorType.suggestedTopics ||
-                                    decoratorType == FeedDecoratorType.suggestedSources
-                                ? 0
-                                : null,
-                          ),
-                        ),
-                  ),
-                  onConfigChanged: onConfigChanged,
-                ),
-              ],
             ),
-          ),
+            const SizedBox(height: AppSpacing.lg),
+            // Individual ExpansionTiles for each Feed Decorator, nested
+            for (final decoratorType in FeedDecoratorType.values)
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                child: ExpansionTile(
+                  title: Text(decoratorType.l10n(context)),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  children: [
+                    FeedDecoratorForm(
+                      decoratorType: decoratorType,
+                      remoteConfig: remoteConfig.copyWith(
+                        feedDecoratorConfig:
+                            Map.from(remoteConfig.feedDecoratorConfig)..putIfAbsent(
+                              decoratorType,
+                              () => FeedDecoratorConfig(
+                                category:
+                                    decoratorType == FeedDecoratorType.suggestedTopics ||
+                                        decoratorType == FeedDecoratorType.suggestedSources
+                                    ? FeedDecoratorCategory.contentCollection
+                                    : FeedDecoratorCategory.callToAction,
+                                enabled: false,
+                                visibleTo: const {},
+                                itemsToDisplay:
+                                    decoratorType == FeedDecoratorType.suggestedTopics ||
+                                        decoratorType == FeedDecoratorType.suggestedSources
+                                    ? 0
+                                    : null,
+                              ),
+                            ),
+                      ),
+                      onConfigChanged: onConfigChanged,
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ],
     );
   }
