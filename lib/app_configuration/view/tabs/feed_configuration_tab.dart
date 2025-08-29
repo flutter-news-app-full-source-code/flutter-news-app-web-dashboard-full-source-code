@@ -1,7 +1,5 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -77,19 +75,25 @@ class FeedConfigurationTab extends StatelessWidget {
                       decoratorType: decoratorType,
                       remoteConfig: remoteConfig.copyWith(
                         feedDecoratorConfig:
-                            Map.from(remoteConfig.feedDecoratorConfig)..putIfAbsent(
+                            Map.from(
+                              remoteConfig.feedDecoratorConfig,
+                            )..putIfAbsent(
                               decoratorType,
                               () => FeedDecoratorConfig(
                                 category:
-                                    decoratorType == FeedDecoratorType.suggestedTopics ||
-                                        decoratorType == FeedDecoratorType.suggestedSources
+                                    decoratorType ==
+                                            FeedDecoratorType.suggestedTopics ||
+                                        decoratorType ==
+                                            FeedDecoratorType.suggestedSources
                                     ? FeedDecoratorCategory.contentCollection
                                     : FeedDecoratorCategory.callToAction,
                                 enabled: false,
                                 visibleTo: const {},
                                 itemsToDisplay:
-                                    decoratorType == FeedDecoratorType.suggestedTopics ||
-                                        decoratorType == FeedDecoratorType.suggestedSources
+                                    decoratorType ==
+                                            FeedDecoratorType.suggestedTopics ||
+                                        decoratorType ==
+                                            FeedDecoratorType.suggestedSources
                                     ? 0
                                     : null,
                               ),

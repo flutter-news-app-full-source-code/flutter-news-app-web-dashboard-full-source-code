@@ -54,23 +54,30 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
   void _initializeControllers() {
     final decoratorConfig =
         widget.remoteConfig.feedDecoratorConfig[widget.decoratorType]!;
-    _itemsToDisplayController = TextEditingController(
-      text: decoratorConfig.itemsToDisplay?.toString() ?? '',
-    )..selection = TextSelection.collapsed(
-        offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
-      );
+    _itemsToDisplayController =
+        TextEditingController(
+            text: decoratorConfig.itemsToDisplay?.toString() ?? '',
+          )
+          ..selection = TextSelection.collapsed(
+            offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
+          );
 
     _roleControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ??
-              '',
-        )..selection = TextSelection.collapsed(
-            offset: decoratorConfig.visibleTo[role]?.daysBetweenViews
-                    .toString()
-                    .length ??
-                0,
-          ),
+        role:
+            TextEditingController(
+                text:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString() ??
+                    '',
+              )
+              ..selection = TextSelection.collapsed(
+                offset:
+                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                        .toString()
+                        .length ??
+                    0,
+              ),
     };
   }
 
@@ -115,8 +122,8 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
             final newDecoratorConfig = decoratorConfig.copyWith(enabled: value);
             final newFeedDecoratorConfig =
                 Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-              widget.remoteConfig.feedDecoratorConfig,
-            )..[widget.decoratorType] = newDecoratorConfig;
+                  widget.remoteConfig.feedDecoratorConfig,
+                )..[widget.decoratorType] = newDecoratorConfig;
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 feedDecoratorConfig: newFeedDecoratorConfig,
@@ -135,8 +142,8 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
               );
               final newFeedDecoratorConfig =
                   Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                widget.remoteConfig.feedDecoratorConfig,
-              )..[widget.decoratorType] = newDecoratorConfig;
+                    widget.remoteConfig.feedDecoratorConfig,
+                  )..[widget.decoratorType] = newDecoratorConfig;
               widget.onConfigChanged(
                 widget.remoteConfig.copyWith(
                   feedDecoratorConfig: newFeedDecoratorConfig,
@@ -165,7 +172,12 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        _buildRoleSpecificFields(context, l10n, _selectedUserRole, decoratorConfig),
+        _buildRoleSpecificFields(
+          context,
+          l10n,
+          _selectedUserRole,
+          decoratorConfig,
+        ),
       ],
     );
   }
@@ -179,8 +191,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
     final roleConfig = decoratorConfig.visibleTo[role];
     final isLinkAccountForStandardOrPremium =
         widget.decoratorType == FeedDecoratorType.linkAccount &&
-            (role == AppUserRole.standardUser ||
-                role == AppUserRole.premiumUser);
+        (role == AppUserRole.standardUser || role == AppUserRole.premiumUser);
 
     return Column(
       children: [
@@ -192,8 +203,8 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
               : (value) {
                   final newVisibleTo =
                       Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                    decoratorConfig.visibleTo,
-                  );
+                        decoratorConfig.visibleTo,
+                      );
                   if (value ?? false) {
                     newVisibleTo[role] = const FeedDecoratorRoleConfig(
                       daysBetweenViews: 7,
@@ -206,8 +217,8 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
                   );
                   final newFeedDecoratorConfig =
                       Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                    widget.remoteConfig.feedDecoratorConfig,
-                  )..[widget.decoratorType] = newDecoratorConfig;
+                        widget.remoteConfig.feedDecoratorConfig,
+                      )..[widget.decoratorType] = newDecoratorConfig;
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
                       feedDecoratorConfig: newFeedDecoratorConfig,
@@ -231,15 +242,15 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm> {
                 );
                 final newVisibleTo =
                     Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                  decoratorConfig.visibleTo,
-                )..[role] = newRoleConfig;
+                      decoratorConfig.visibleTo,
+                    )..[role] = newRoleConfig;
                 final newDecoratorConfig = decoratorConfig.copyWith(
                   visibleTo: newVisibleTo,
                 );
                 final newFeedDecoratorConfig =
                     Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                  widget.remoteConfig.feedDecoratorConfig,
-                )..[widget.decoratorType] = newDecoratorConfig;
+                      widget.remoteConfig.feedDecoratorConfig,
+                    )..[widget.decoratorType] = newDecoratorConfig;
                 widget.onConfigChanged(
                   widget.remoteConfig.copyWith(
                     feedDecoratorConfig: newFeedDecoratorConfig,

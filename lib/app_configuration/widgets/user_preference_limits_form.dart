@@ -33,8 +33,10 @@ class UserPreferenceLimitsForm extends StatefulWidget {
 
 class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
   AppUserRole _selectedUserRole = AppUserRole.guestUser;
-  late final Map<AppUserRole, TextEditingController> _followedItemsLimitControllers;
-  late final Map<AppUserRole, TextEditingController> _savedHeadlinesLimitControllers;
+  late final Map<AppUserRole, TextEditingController>
+  _followedItemsLimitControllers;
+  late final Map<AppUserRole, TextEditingController>
+  _savedHeadlinesLimitControllers;
 
   @override
   void initState() {
@@ -54,42 +56,55 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm> {
   void _initializeControllers() {
     _followedItemsLimitControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getFollowedItemsLimit(widget.remoteConfig.userPreferenceConfig, role)
-              .toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getFollowedItemsLimit(widget.remoteConfig.userPreferenceConfig, role)
-                .toString()
-                .length,
-          ),
+        role:
+            TextEditingController(
+                text: _getFollowedItemsLimit(
+                  widget.remoteConfig.userPreferenceConfig,
+                  role,
+                ).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getFollowedItemsLimit(
+                  widget.remoteConfig.userPreferenceConfig,
+                  role,
+                ).toString().length,
+              ),
     };
     _savedHeadlinesLimitControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getSavedHeadlinesLimit(widget.remoteConfig.userPreferenceConfig, role)
-              .toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getSavedHeadlinesLimit(widget.remoteConfig.userPreferenceConfig, role)
-                .toString()
-                .length,
-          ),
+        role:
+            TextEditingController(
+                text: _getSavedHeadlinesLimit(
+                  widget.remoteConfig.userPreferenceConfig,
+                  role,
+                ).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getSavedHeadlinesLimit(
+                  widget.remoteConfig.userPreferenceConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
   void _updateControllers() {
     for (final role in AppUserRole.values) {
-      _followedItemsLimitControllers[role]?.text =
-          _getFollowedItemsLimit(widget.remoteConfig.userPreferenceConfig, role)
-              .toString();
+      _followedItemsLimitControllers[role]?.text = _getFollowedItemsLimit(
+        widget.remoteConfig.userPreferenceConfig,
+        role,
+      ).toString();
       _followedItemsLimitControllers[role]?.selection = TextSelection.collapsed(
         offset: _followedItemsLimitControllers[role]!.text.length,
       );
-      _savedHeadlinesLimitControllers[role]?.text =
-          _getSavedHeadlinesLimit(widget.remoteConfig.userPreferenceConfig, role)
-              .toString();
-      _savedHeadlinesLimitControllers[role]?.selection = TextSelection.collapsed(
-        offset: _savedHeadlinesLimitControllers[role]!.text.length,
-      );
+      _savedHeadlinesLimitControllers[role]?.text = _getSavedHeadlinesLimit(
+        widget.remoteConfig.userPreferenceConfig,
+        role,
+      ).toString();
+      _savedHeadlinesLimitControllers[role]?.selection =
+          TextSelection.collapsed(
+            offset: _savedHeadlinesLimitControllers[role]!.text.length,
+          );
     }
   }
 

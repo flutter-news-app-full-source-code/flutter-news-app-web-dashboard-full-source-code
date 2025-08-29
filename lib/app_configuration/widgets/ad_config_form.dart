@@ -33,9 +33,10 @@ class AdConfigForm extends StatefulWidget {
 class _AdConfigFormState extends State<AdConfigForm> {
   AppUserRole _selectedUserRole = AppUserRole.guestUser;
   late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
-  late final Map<AppUserRole, TextEditingController> _adPlacementIntervalControllers;
   late final Map<AppUserRole, TextEditingController>
-      _articlesToReadBeforeShowingInterstitialAdsControllers;
+  _adPlacementIntervalControllers;
+  late final Map<AppUserRole, TextEditingController>
+  _articlesToReadBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
@@ -55,49 +56,64 @@ class _AdConfigFormState extends State<AdConfigForm> {
     final adConfig = widget.remoteConfig.adConfig;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdFrequency(adConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdFrequency(adConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdFrequency(adConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdFrequency(adConfig, role).toString().length,
+              ),
     };
     _adPlacementIntervalControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdPlacementInterval(adConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdPlacementInterval(adConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdPlacementInterval(adConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdPlacementInterval(
+                  adConfig,
+                  role,
+                ).toString().length,
+              ),
     };
     _articlesToReadBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getArticlesBeforeInterstitial(adConfig, role)
-                .toString()
-                .length,
-          ),
+        role:
+            TextEditingController(
+                text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getArticlesBeforeInterstitial(
+                  adConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
   void _updateControllers() {
     final adConfig = widget.remoteConfig.adConfig;
     for (final role in AppUserRole.values) {
-      _adFrequencyControllers[role]?.text =
-          _getAdFrequency(adConfig, role).toString();
+      _adFrequencyControllers[role]?.text = _getAdFrequency(
+        adConfig,
+        role,
+      ).toString();
       _adFrequencyControllers[role]?.selection = TextSelection.collapsed(
         offset: _adFrequencyControllers[role]!.text.length,
       );
-      _adPlacementIntervalControllers[role]?.text =
-          _getAdPlacementInterval(adConfig, role).toString();
-      _adPlacementIntervalControllers[role]?.selection = TextSelection.collapsed(
-        offset: _adPlacementIntervalControllers[role]!.text.length,
-      );
+      _adPlacementIntervalControllers[role]?.text = _getAdPlacementInterval(
+        adConfig,
+        role,
+      ).toString();
+      _adPlacementIntervalControllers[role]?.selection =
+          TextSelection.collapsed(
+            offset: _adPlacementIntervalControllers[role]!.text.length,
+          );
       _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
           _getArticlesBeforeInterstitial(adConfig, role).toString();
-      _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.selection =
-          TextSelection.collapsed(
+      _articlesToReadBeforeShowingInterstitialAdsControllers[role]
+          ?.selection = TextSelection.collapsed(
         offset: _articlesToReadBeforeShowingInterstitialAdsControllers[role]!
             .text
             .length,
@@ -221,11 +237,16 @@ class _AdConfigFormState extends State<AdConfigForm> {
           onChanged: (value) {
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
-                adConfig: _updateArticlesBeforeInterstitial(config, value, role),
+                adConfig: _updateArticlesBeforeInterstitial(
+                  config,
+                  value,
+                  role,
+                ),
               ),
             );
           },
-          controller: _articlesToReadBeforeShowingInterstitialAdsControllers[role],
+          controller:
+              _articlesToReadBeforeShowingInterstitialAdsControllers[role],
         ),
       ],
     );
@@ -236,7 +257,10 @@ class _AdConfigFormState extends State<AdConfigForm> {
       case AppUserRole.guestUser:
         return config.feedAdConfiguration.frequencyConfig.guestAdFrequency;
       case AppUserRole.standardUser:
-        return config.feedAdConfiguration.frequencyConfig.authenticatedAdFrequency;
+        return config
+            .feedAdConfiguration
+            .frequencyConfig
+            .authenticatedAdFrequency;
       case AppUserRole.premiumUser:
         return config.feedAdConfiguration.frequencyConfig.premiumAdFrequency;
     }
@@ -245,25 +269,43 @@ class _AdConfigFormState extends State<AdConfigForm> {
   int _getAdPlacementInterval(AdConfig config, AppUserRole role) {
     switch (role) {
       case AppUserRole.guestUser:
-        return config.feedAdConfiguration.frequencyConfig.guestAdPlacementInterval;
+        return config
+            .feedAdConfiguration
+            .frequencyConfig
+            .guestAdPlacementInterval;
       case AppUserRole.standardUser:
-        return config.feedAdConfiguration.frequencyConfig.authenticatedAdPlacementInterval;
+        return config
+            .feedAdConfiguration
+            .frequencyConfig
+            .authenticatedAdPlacementInterval;
       case AppUserRole.premiumUser:
-        return config.feedAdConfiguration.frequencyConfig.premiumAdPlacementInterval;
+        return config
+            .feedAdConfiguration
+            .frequencyConfig
+            .premiumAdPlacementInterval;
     }
   }
 
   int _getArticlesBeforeInterstitial(AdConfig config, AppUserRole role) {
     switch (role) {
       case AppUserRole.guestUser:
-        return config.articleAdConfiguration.interstitialAdConfiguration
-            .frequencyConfig.guestArticlesToReadBeforeShowingInterstitialAds;
+        return config
+            .articleAdConfiguration
+            .interstitialAdConfiguration
+            .frequencyConfig
+            .guestArticlesToReadBeforeShowingInterstitialAds;
       case AppUserRole.standardUser:
-        return config.articleAdConfiguration.interstitialAdConfiguration
-            .frequencyConfig.standardUserArticlesToReadBeforeShowingInterstitialAds;
+        return config
+            .articleAdConfiguration
+            .interstitialAdConfiguration
+            .frequencyConfig
+            .standardUserArticlesToReadBeforeShowingInterstitialAds;
       case AppUserRole.premiumUser:
-        return config.articleAdConfiguration.interstitialAdConfiguration
-            .frequencyConfig.premiumUserArticlesToReadBeforeShowingInterstitialAds;
+        return config
+            .articleAdConfiguration
+            .interstitialAdConfiguration
+            .frequencyConfig
+            .premiumUserArticlesToReadBeforeShowingInterstitialAds;
     }
   }
 
@@ -328,8 +370,10 @@ class _AdConfigFormState extends State<AdConfigForm> {
     int value,
     AppUserRole role,
   ) {
-    final currentFrequencyConfig =
-        config.articleAdConfiguration.interstitialAdConfiguration.frequencyConfig;
+    final currentFrequencyConfig = config
+        .articleAdConfiguration
+        .interstitialAdConfiguration
+        .frequencyConfig;
 
     ArticleInterstitialAdFrequencyConfig newFrequencyConfig;
 
@@ -338,23 +382,21 @@ class _AdConfigFormState extends State<AdConfigForm> {
         newFrequencyConfig = currentFrequencyConfig.copyWith(
           guestArticlesToReadBeforeShowingInterstitialAds: value,
         );
-        break;
       case AppUserRole.standardUser:
         newFrequencyConfig = currentFrequencyConfig.copyWith(
           standardUserArticlesToReadBeforeShowingInterstitialAds: value,
         );
-        break;
       case AppUserRole.premiumUser:
         newFrequencyConfig = currentFrequencyConfig.copyWith(
           premiumUserArticlesToReadBeforeShowingInterstitialAds: value,
         );
-        break;
     }
 
     return config.copyWith(
       articleAdConfiguration: config.articleAdConfiguration.copyWith(
         interstitialAdConfiguration: config
-            .articleAdConfiguration.interstitialAdConfiguration
+            .articleAdConfiguration
+            .interstitialAdConfiguration
             .copyWith(frequencyConfig: newFrequencyConfig),
       ),
     );

@@ -1,15 +1,9 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/advertisements_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/feed_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/general_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
