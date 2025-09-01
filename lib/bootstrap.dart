@@ -120,7 +120,7 @@ Future<Widget> bootstrap(
     localAdsClient = DataInMemory<LocalAd>(
       toJson: FeedItem.toJson,
       getId: (i) => i.id,
-      initialData: localAdsFixturesData/*  */,
+      initialData: localAdsFixturesData,
       logger: Logger('DataInMemory<LocalAd>'),
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
