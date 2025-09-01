@@ -62,6 +62,7 @@ Future<Widget> bootstrap(
   DataClient<DashboardSummary> dashboardSummaryClient;
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
+  DataClient<LocalAd> localAdsClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -69,6 +70,11 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: headlinesFixturesData,
       logger: Logger('DataInMemory<Headline>'),
+    );
+    localAdsClient = DataInMemory<LocalAd>(
+      toJson: FeedItem.toJson,
+      getId: (i) => i.id,
+      logger: Logger('DataInMemory<LocalAd>'),
     );
     topicsClient = DataInMemory<Topic>(
       toJson: (i) => i.toJson(),
@@ -244,6 +250,13 @@ Future<Widget> bootstrap(
       toJson: (language) => language.toJson(),
       logger: Logger('DataApi<Language>'),
     );
+    localAdsClient = DataApi<LocalAd>(
+      httpClient: httpClient,
+      modelName: 'local_ad',
+      fromJson: LocalAd.fromJson,
+      toJson: FeedItem.toJson,
+      logger: Logger('DataApi<LocalAd>'),
+    );
   }
 
   final headlinesRepository = DataRepository<Headline>(
@@ -270,6 +283,9 @@ Future<Widget> bootstrap(
   final languagesRepository = DataRepository<Language>(
     dataClient: languagesClient,
   );
+  final localAdsRepository = DataRepository<LocalAd>(
+    dataClient: localAdsClient,
+  );
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -282,6 +298,7 @@ Future<Widget> bootstrap(
     dashboardSummaryRepository: dashboardSummaryRepository,
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
+    localAdsRepository: localAdsRepository,
     storageService: kvStorage,
     environment: environment,
   );
