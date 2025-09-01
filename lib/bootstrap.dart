@@ -71,11 +71,6 @@ Future<Widget> bootstrap(
       initialData: headlinesFixturesData,
       logger: Logger('DataInMemory<Headline>'),
     );
-    localAdsClient = DataInMemory<LocalAd>(
-      toJson: FeedItem.toJson,
-      getId: (i) => i.id,
-      logger: Logger('DataInMemory<LocalAd>'),
-    );
     topicsClient = DataInMemory<Topic>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
@@ -121,6 +116,12 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: languagesFixturesData,
       logger: Logger('DataInMemory<Language>'),
+    );
+    localAdsClient = DataInMemory<LocalAd>(
+      toJson: FeedItem.toJson,
+      getId: (i) => i.id,
+      initialData: localAdsFixturesData/*  */,
+      logger: Logger('DataInMemory<LocalAd>'),
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
     headlinesClient = DataApi<Headline>(
@@ -185,6 +186,13 @@ Future<Widget> bootstrap(
       fromJson: Language.fromJson,
       toJson: (language) => language.toJson(),
       logger: Logger('DataApi<Language>'),
+    );
+    localAdsClient = DataApi<LocalAd>(
+      httpClient: httpClient,
+      modelName: 'local_ad',
+      fromJson: LocalAd.fromJson,
+      toJson: LocalAd.toJson,
+      logger: Logger('DataApi<LocalAd>'),
     );
   } else {
     headlinesClient = DataApi<Headline>(
