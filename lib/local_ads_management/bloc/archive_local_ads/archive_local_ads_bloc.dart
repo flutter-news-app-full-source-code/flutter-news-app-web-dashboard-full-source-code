@@ -6,15 +6,15 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-part 'archived_local_ads_event.dart';
-part 'archived_local_ads_state.dart';
+part 'archive_local_ads_event.dart';
+part 'archive_local_ads_state.dart';
 
-class ArchivedLocalAdsBloc
-    extends Bloc<ArchivedLocalAdsEvent, ArchivedLocalAdsState> {
-  ArchivedLocalAdsBloc({
+class ArchiveLocalAdsBloc
+    extends Bloc<ArchiveLocalAdsEvent, ArchiveLocalAdsState> {
+  ArchiveLocalAdsBloc({
     required DataRepository<LocalAd> localAdsRepository,
   }) : _localAdsRepository = localAdsRepository,
-       super(const ArchivedLocalAdsState()) {
+       super(const ArchiveLocalAdsState()) {
     on<LoadArchivedLocalAdsRequested>(_onLoadArchivedLocalAdsRequested);
     on<RestoreLocalAdRequested>(_onRestoreLocalAdRequested);
     on<DeleteLocalAdForeverRequested>(_onDeleteLocalAdForeverRequested);
@@ -64,22 +64,22 @@ class ArchivedLocalAdsBloc
 
   Future<void> _onLoadArchivedLocalAdsRequested(
     LoadArchivedLocalAdsRequested event,
-    Emitter<ArchivedLocalAdsState> emit,
+    Emitter<ArchiveLocalAdsState> emit,
   ) async {
     // Determine current state and emit loading status
     switch (event.adType) {
       case AdType.native:
-        emit(state.copyWith(nativeAdsStatus: ArchivedLocalAdsStatus.loading));
+        emit(state.copyWith(nativeAdsStatus: ArchiveLocalAdsStatus.loading));
       case AdType.banner:
-        emit(state.copyWith(bannerAdsStatus: ArchivedLocalAdsStatus.loading));
+        emit(state.copyWith(bannerAdsStatus: ArchiveLocalAdsStatus.loading));
       case AdType.interstitial:
         emit(
           state.copyWith(
-            interstitialAdsStatus: ArchivedLocalAdsStatus.loading,
+            interstitialAdsStatus: ArchiveLocalAdsStatus.loading,
           ),
         );
       case AdType.video:
-        emit(state.copyWith(videoAdsStatus: ArchivedLocalAdsStatus.loading));
+        emit(state.copyWith(videoAdsStatus: ArchiveLocalAdsStatus.loading));
     }
 
     try {
@@ -101,7 +101,7 @@ class ArchivedLocalAdsBloc
           final previousAds = isPaginating ? state.nativeAds : <LocalNativeAd>[];
           emit(
             state.copyWith(
-              nativeAdsStatus: ArchivedLocalAdsStatus.success,
+              nativeAdsStatus: ArchiveLocalAdsStatus.success,
               nativeAds: [
                 ...previousAds,
                 ...paginatedAds.items.cast<LocalNativeAd>(),
@@ -114,7 +114,7 @@ class ArchivedLocalAdsBloc
           final previousAds = isPaginating ? state.bannerAds : <LocalBannerAd>[];
           emit(
             state.copyWith(
-              bannerAdsStatus: ArchivedLocalAdsStatus.success,
+              bannerAdsStatus: ArchiveLocalAdsStatus.success,
               bannerAds: [
                 ...previousAds,
                 ...paginatedAds.items.cast<LocalBannerAd>(),
@@ -128,7 +128,7 @@ class ArchivedLocalAdsBloc
               isPaginating ? state.interstitialAds : <LocalInterstitialAd>[];
           emit(
             state.copyWith(
-              interstitialAdsStatus: ArchivedLocalAdsStatus.success,
+              interstitialAdsStatus: ArchiveLocalAdsStatus.success,
               interstitialAds: [
                 ...previousAds,
                 ...paginatedAds.items.cast<LocalInterstitialAd>(),
@@ -141,7 +141,7 @@ class ArchivedLocalAdsBloc
           final previousAds = isPaginating ? state.videoAds : <LocalVideoAd>[];
           emit(
             state.copyWith(
-              videoAdsStatus: ArchivedLocalAdsStatus.success,
+              videoAdsStatus: ArchiveLocalAdsStatus.success,
               videoAds: [
                 ...previousAds,
                 ...paginatedAds.items.cast<LocalVideoAd>(),
@@ -156,28 +156,28 @@ class ArchivedLocalAdsBloc
         case AdType.native:
           emit(
             state.copyWith(
-              nativeAdsStatus: ArchivedLocalAdsStatus.failure,
+              nativeAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: e,
             ),
           );
         case AdType.banner:
           emit(
             state.copyWith(
-              bannerAdsStatus: ArchivedLocalAdsStatus.failure,
+              bannerAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: e,
             ),
           );
         case AdType.interstitial:
           emit(
             state.copyWith(
-              interstitialAdsStatus: ArchivedLocalAdsStatus.failure,
+              interstitialAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: e,
             ),
           );
         case AdType.video:
           emit(
             state.copyWith(
-              videoAdsStatus: ArchivedLocalAdsStatus.failure,
+              videoAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: e,
             ),
           );
@@ -187,28 +187,28 @@ class ArchivedLocalAdsBloc
         case AdType.native:
           emit(
             state.copyWith(
-              nativeAdsStatus: ArchivedLocalAdsStatus.failure,
+              nativeAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: UnknownException('An unexpected error occurred: $e'),
             ),
           );
         case AdType.banner:
           emit(
             state.copyWith(
-              bannerAdsStatus: ArchivedLocalAdsStatus.failure,
+              bannerAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: UnknownException('An unexpected error occurred: $e'),
             ),
           );
         case AdType.interstitial:
           emit(
             state.copyWith(
-              interstitialAdsStatus: ArchivedLocalAdsStatus.failure,
+              interstitialAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: UnknownException('An unexpected error occurred: $e'),
             ),
           );
         case AdType.video:
           emit(
             state.copyWith(
-              videoAdsStatus: ArchivedLocalAdsStatus.failure,
+              videoAdsStatus: ArchiveLocalAdsStatus.failure,
               exception: UnknownException('An unexpected error occurred: $e'),
             ),
           );
@@ -218,7 +218,7 @@ class ArchivedLocalAdsBloc
 
   Future<void> _onRestoreLocalAdRequested(
     RestoreLocalAdRequested event,
-    Emitter<ArchivedLocalAdsState> emit,
+    Emitter<ArchiveLocalAdsState> emit,
   ) async {
     LocalAd? adToRestore;
     final originalNativeAds = List<LocalNativeAd>.from(state.nativeAds);
@@ -291,7 +291,7 @@ class ArchivedLocalAdsBloc
 
   Future<void> _onDeleteLocalAdForeverRequested(
     DeleteLocalAdForeverRequested event,
-    Emitter<ArchivedLocalAdsState> emit,
+    Emitter<ArchiveLocalAdsState> emit,
   ) async {
     _deleteTimer?.cancel();
 
@@ -347,7 +347,7 @@ class ArchivedLocalAdsBloc
 
   Future<void> _onConfirmDeleteLocalAdRequested(
     _ConfirmDeleteLocalAdRequested event,
-    Emitter<ArchivedLocalAdsState> emit,
+    Emitter<ArchiveLocalAdsState> emit,
   ) async {
     try {
       await _localAdsRepository.delete(id: event.id);
@@ -409,7 +409,7 @@ class ArchivedLocalAdsBloc
 
   void _onUndoDeleteLocalAdRequested(
     UndoDeleteLocalAdRequested event,
-    Emitter<ArchivedLocalAdsState> emit,
+    Emitter<ArchiveLocalAdsState> emit,
   ) {
     _deleteTimer?.cancel();
     if (state.lastDeletedLocalAd != null) {

@@ -1,7 +1,7 @@
-part of 'archived_local_ads_bloc.dart';
+part of 'archive_local_ads_bloc.dart';
 
 /// Represents the status of archived local ad operations.
-enum ArchivedLocalAdsStatus {
+enum ArchiveLocalAdsStatus {
   initial,
   loading,
   success,
@@ -9,9 +9,9 @@ enum ArchivedLocalAdsStatus {
 }
 
 /// Defines the state for the archived local ads feature.
-class ArchivedLocalAdsState extends Equatable {
-  const ArchivedLocalAdsState({
-    this.status = ArchivedLocalAdsStatus.initial,
+class ArchiveLocalAdsState extends Equatable {
+  const ArchiveLocalAdsState({
+    this.status = ArchiveLocalAdsStatus.initial,
     this.nativeAds = const [],
     this.nativeAdsCursor,
     this.nativeAdsHasMore = false,
@@ -28,7 +28,7 @@ class ArchivedLocalAdsState extends Equatable {
     this.lastDeletedLocalAd,
   });
 
-  final ArchivedLocalAdsStatus status;
+  final ArchiveLocalAdsStatus status;
 
   /// List of archived native ads.
   final List<LocalNativeAd> nativeAds;
@@ -72,8 +72,8 @@ class ArchivedLocalAdsState extends Equatable {
   /// The last deleted local ad, used for undo functionality.
   final LocalAd? lastDeletedLocalAd;
 
-  ArchivedLocalAdsState copyWith({
-    ArchivedLocalAdsStatus? status,
+  ArchiveLocalAdsState copyWith({
+    ArchiveLocalAdsStatus? status,
     List<LocalNativeAd>? nativeAds,
     String? nativeAdsCursor,
     bool? nativeAdsHasMore,
@@ -90,7 +90,7 @@ class ArchivedLocalAdsState extends Equatable {
     LocalAd? lastDeletedLocalAd,
     bool clearLastDeletedLocalAd = false,
   }) {
-    return ArchivedLocalAdsState(
+    return ArchiveLocalAdsState(
       status: status ?? this.status,
       nativeAds: nativeAds ?? this.nativeAds,
       nativeAdsCursor: nativeAdsCursor ?? this.nativeAdsCursor,
@@ -99,33 +99,36 @@ class ArchivedLocalAdsState extends Equatable {
       bannerAdsCursor: bannerAdsCursor ?? this.bannerAdsCursor,
       bannerAdsHasMore: bannerAdsHasMore ?? this.bannerAdsHasMore,
       interstitialAds: interstitialAds ?? this.interstitialAds,
-      interstitialAdsCursor: interstitialAdsCursor ?? this.interstitialAdsCursor,
-      interstitialAdsHasMore: interstitialAdsHasMore ?? this.interstitialAdsHasMore,
+      interstitialAdsCursor:
+          interstitialAdsCursor ?? this.interstitialAdsCursor,
+      interstitialAdsHasMore:
+          interstitialAdsHasMore ?? this.interstitialAdsHasMore,
       videoAds: videoAds ?? this.videoAds,
       videoAdsCursor: videoAdsCursor ?? this.videoAdsCursor,
       videoAdsHasMore: videoAdsHasMore ?? this.videoAdsHasMore,
       exception: exception ?? this.exception,
-      lastDeletedLocalAd:
-          clearLastDeletedLocalAd ? null : lastDeletedLocalAd ?? this.lastDeletedLocalAd,
+      lastDeletedLocalAd: clearLastDeletedLocalAd
+          ? null
+          : lastDeletedLocalAd ?? this.lastDeletedLocalAd,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
-        nativeAds,
-        nativeAdsCursor,
-        nativeAdsHasMore,
-        bannerAds,
-        bannerAdsCursor,
-        bannerAdsHasMore,
-        interstitialAds,
-        interstitialAdsCursor,
-        interstitialAdsHasMore,
-        videoAds,
-        videoAdsCursor,
-        videoAdsHasMore,
-        exception,
-        lastDeletedLocalAd,
-      ];
+    status,
+    nativeAds,
+    nativeAdsCursor,
+    nativeAdsHasMore,
+    bannerAds,
+    bannerAdsCursor,
+    bannerAdsHasMore,
+    interstitialAds,
+    interstitialAdsCursor,
+    interstitialAdsHasMore,
+    videoAds,
+    videoAdsCursor,
+    videoAdsHasMore,
+    exception,
+    lastDeletedLocalAd,
+  ];
 }

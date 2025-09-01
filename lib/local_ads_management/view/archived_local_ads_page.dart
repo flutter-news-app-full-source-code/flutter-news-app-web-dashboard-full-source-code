@@ -4,7 +4,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/archive_local_ads/archived_local_ads_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/archive_local_ads/archive_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
@@ -21,13 +21,16 @@ class ArchivedLocalAdsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ArchivedLocalAdsBloc(
-        localAdsRepository: context.read<DataRepository<LocalAd>>(),
-      )
-        ..add(const LoadArchivedLocalAdsRequested(adType: AdType.native))
-        ..add(const LoadArchivedLocalAdsRequested(adType: AdType.banner))
-        ..add(const LoadArchivedLocalAdsRequested(adType: AdType.interstitial))
-        ..add(const LoadArchivedLocalAdsRequested(adType: AdType.video)),
+      create: (context) =>
+          ArchiveLocalAdsBloc(
+              localAdsRepository: context.read<DataRepository<LocalAd>>(),
+            )
+            ..add(const LoadArchivedLocalAdsRequested(adType: AdType.native))
+            ..add(const LoadArchivedLocalAdsRequested(adType: AdType.banner))
+            ..add(
+              const LoadArchivedLocalAdsRequested(adType: AdType.interstitial),
+            )
+            ..add(const LoadArchivedLocalAdsRequested(adType: AdType.video)),
       child: const _ArchivedLocalAdsView(),
     );
   }
@@ -74,14 +77,15 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
               .toList(),
         ),
       ),
-      body: BlocListener<ArchivedLocalAdsBloc, ArchivedLocalAdsState>(
+      body: BlocListener<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
         listenWhen: (previous, current) =>
             previous.lastDeletedLocalAd != current.lastDeletedLocalAd ||
             (previous.nativeAds.length != current.nativeAds.length &&
                 current.lastDeletedLocalAd == null) ||
             (previous.bannerAds.length != current.bannerAds.length &&
                 current.lastDeletedLocalAd == null) ||
-            (previous.interstitialAds.length != current.interstitialAds.length &&
+            (previous.interstitialAds.length !=
+                    current.interstitialAds.length &&
                 current.lastDeletedLocalAd == null) ||
             (previous.videoAds.length != current.videoAds.length &&
                 current.lastDeletedLocalAd == null),
@@ -99,8 +103,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                     .truncate(30);
               case 'interstitial':
                 truncatedTitle =
-                    (state.lastDeletedLocalAd! as LocalInterstitialAd)
-                        .imageUrl
+                    (state.lastDeletedLocalAd! as LocalInterstitialAd).imageUrl
                         .truncate(30);
               case 'video':
                 truncatedTitle = (state.lastDeletedLocalAd! as LocalVideoAd)
@@ -120,9 +123,9 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                   action: SnackBarAction(
                     label: l10n.undo,
                     onPressed: () {
-                      context.read<ArchivedLocalAdsBloc>().add(
-                            const UndoDeleteLocalAdRequested(),
-                          );
+                      context.read<ArchiveLocalAdsBloc>().add(
+                        const UndoDeleteLocalAdRequested(),
+                      );
                     },
                   ),
                 ),
@@ -131,11 +134,11 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
           // Trigger refresh of active ads in LocalAdsManagementBloc if an ad was restored
           if (state.restoredLocalAd != null) {
             context.read<LocalAdsManagementBloc>().add(
-                  LoadLocalAdsRequested(
-                    adType: state.restoredLocalAd!.toAdType(),
-                    forceRefresh: true,
-                  ),
-                );
+              LoadLocalAdsRequested(
+                adType: state.restoredLocalAd!.toAdType(),
+                forceRefresh: true,
+              ),
+            );
           }
         },
         child: TabBarView(
@@ -157,7 +160,7 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    return BlocBuilder<ArchivedLocalAdsBloc, ArchivedLocalAdsState>(
+    return BlocBuilder<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
       builder: (context, state) {
         ArchivedLocalAdsStatus status;
         List<LocalAd> ads;
@@ -198,12 +201,12 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
         if (status == ArchivedLocalAdsStatus.failure) {
           return FailureStateWidget(
             exception: state.exception!,
-            onRetry: () => context.read<ArchivedLocalAdsBloc>().add(
-                  LoadArchivedLocalAdsRequested(
-                    adType: adType,
-                    limit: kDefaultRowsPerPage,
-                  ),
-                ),
+            onRetry: () => context.read<ArchiveLocalAdsBloc>().add(
+              LoadArchivedLocalAdsRequested(
+                adType: adType,
+                limit: kDefaultRowsPerPage,
+              ),
+            ),
           );
         }
 
@@ -250,13 +253,13 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
                   if (newOffset >= ads.length &&
                       hasMore &&
                       status != ArchivedLocalAdsStatus.loading) {
-                    context.read<ArchivedLocalAdsBloc>().add(
-                          LoadArchivedLocalAdsRequested(
-                            adType: adType,
-                            startAfterId: cursor,
-                            limit: kDefaultRowsPerPage,
-                          ),
-                        );
+                    context.read<ArchiveLocalAdsBloc>().add(
+                      LoadArchivedLocalAdsRequested(
+                        adType: adType,
+                        startAfterId: cursor,
+                        limit: kDefaultRowsPerPage,
+                      ),
+                    );
                   }
                 },
                 empty: Center(child: Text(l10n.noArchivedLocalAdsFound)),
@@ -351,18 +354,18 @@ class _ArchivedLocalAdsDataSource extends DataTableSource {
                 icon: const Icon(Icons.restore),
                 tooltip: l10n.restore,
                 onPressed: () {
-                  context.read<ArchivedLocalAdsBloc>().add(
-                        RestoreLocalAdRequested(ad.id, adType),
-                      );
+                  context.read<ArchiveLocalAdsBloc>().add(
+                    RestoreLocalAdRequested(ad.id, adType),
+                  );
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.delete_forever),
                 tooltip: l10n.deleteForever,
                 onPressed: () {
-                  context.read<ArchivedLocalAdsBloc>().add(
-                        DeleteLocalAdForeverRequested(ad.id, adType),
-                      );
+                  context.read<ArchiveLocalAdsBloc>().add(
+                    DeleteLocalAdForeverRequested(ad.id, adType),
+                  );
                 },
               ),
             ],

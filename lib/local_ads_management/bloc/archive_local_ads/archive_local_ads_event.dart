@@ -1,7 +1,7 @@
-part of 'archived_local_ads_bloc.dart';
+part of 'archive_local_ads_bloc.dart';
 
-sealed class ArchivedLocalAdsEvent extends Equatable {
-  const ArchivedLocalAdsEvent();
+sealed class ArchiveLocalAdsEvent extends Equatable {
+  const ArchiveLocalAdsEvent();
 
   @override
   List<Object?> get props => [];
@@ -10,7 +10,7 @@ sealed class ArchivedLocalAdsEvent extends Equatable {
 /// {@template load_archived_local_ads_requested}
 /// Event to request loading of archived local ads for a specific type.
 /// {@endtemplate}
-final class LoadArchivedLocalAdsRequested extends ArchivedLocalAdsEvent {
+final class LoadArchivedLocalAdsRequested extends ArchiveLocalAdsEvent {
   /// {@macro load_archived_local_ads_requested}
   const LoadArchivedLocalAdsRequested({
     required this.adType,
@@ -34,7 +34,7 @@ final class LoadArchivedLocalAdsRequested extends ArchivedLocalAdsEvent {
 /// {@template restore_local_ad_requested}
 /// Event to restore an archived local ad.
 /// {@endtemplate}
-final class RestoreLocalAdRequested extends ArchivedLocalAdsEvent {
+final class RestoreLocalAdRequested extends ArchiveLocalAdsEvent {
   /// {@macro restore_local_ad_requested}
   const RestoreLocalAdRequested(this.id, this.adType);
 
@@ -51,7 +51,7 @@ final class RestoreLocalAdRequested extends ArchivedLocalAdsEvent {
 /// {@template delete_local_ad_forever_requested}
 /// Event to permanently delete an archived local ad.
 /// {@endtemplate}
-final class DeleteLocalAdForeverRequested extends ArchivedLocalAdsEvent {
+final class DeleteLocalAdForeverRequested extends ArchiveLocalAdsEvent {
   /// {@macro delete_local_ad_forever_requested}
   const DeleteLocalAdForeverRequested(this.id, this.adType);
 
@@ -68,13 +68,13 @@ final class DeleteLocalAdForeverRequested extends ArchivedLocalAdsEvent {
 /// {@template undo_delete_local_ad_requested}
 /// Event to undo the deletion of a local ad.
 /// {@endtemplate}
-final class UndoDeleteLocalAdRequested extends ArchivedLocalAdsEvent {
+final class UndoDeleteLocalAdRequested extends ArchiveLocalAdsEvent {
   /// {@macro undo_delete_local_ad_requested}
   const UndoDeleteLocalAdRequested();
 }
 
 /// Internal event to confirm the permanent deletion of a local ad after a delay.
-final class _ConfirmDeleteLocalAdRequested extends ArchivedLocalAdsEvent {
+final class _ConfirmDeleteLocalAdRequested extends ArchiveLocalAdsEvent {
   /// {@macro _confirm_delete_local_ad_requested}
   const _ConfirmDeleteLocalAdRequested(this.id, this.adType);
 
