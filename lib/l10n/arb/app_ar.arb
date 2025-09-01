@@ -871,15 +871,26 @@
     "description": "رسالة تُعرض عند إنشاء المصدر بنجاح"
   },
   "status": "الحالة",
-  "@status": {},
+  "@status": {
+    "description": "تسمية لحالة المحتوى"
+  },
   "lastUpdated": "آخر تحديث",
-  "@lastUpdated": {},
+  "@lastUpdated": {
+    "description": "رأس العمود لتاريخ آخر تحديث"
+  },
   "contentStatusActive": "نشط",
-  "@contentStatusActive": {},
+  "@contentStatusActive": {
+    "description": "حالة المحتوى: نشط"
+
+  },
   "contentStatusArchived": "مؤرشف",
-  "@contentStatusArchived": {},
+  "@contentStatusArchived": {
+    "description": "حالة المحتوى: مؤرشف"
+  },
   "contentStatusDraft": "مسودة",
-  "@contentStatusDraft": {},
+  "@contentStatusDraft": {
+    "description": "حالة المحتوى: مسودة"
+  },
   "totalHeadlines": "إجمالي العناوين",
   "@totalHeadlines": {
     "description": "تسمية بطاقة ملخص إجمالي العناوين في نظرة عامة على لوحة القيادة"
@@ -1403,5 +1414,129 @@
   "inArticleAdSlotTypeBelowArticleContinueReadingButton": "أسفل زر 'متابعة القراءة'",
   "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
     "description": "الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton"
+  },
+  "localAdsManagement": "إدارة الإعلانات المحلية",
+  "@localAdsManagement": {
+    "description": "تسمية عنصر التنقل لإدارة الإعلانات المحلية"
+  },
+  "archivedLocalAdsTitle": "الإعلانات المحلية المؤرشفة",
+  "@archivedLocalAdsTitle": {
+    "description": "عنوان صفحة الإعلانات المحلية المؤرشفة"
+  },
+  "loadingArchivedLocalAds": "جاري تحميل الإعلانات المحلية المؤرشفة",
+  "@loadingArchivedLocalAds": {
+    "description": "عنوان حالة تحميل الإعلانات المحلية المؤرشفة"
+  },
+  "noArchivedLocalAdsFound": "لم يتم العثور على إعلانات محلية مؤرشفة.",
+  "@noArchivedLocalAdsFound": {
+    "description": "رسالة عند عدم العثور على إعلانات محلية مؤرشفة"
+  },
+  "loadingLocalAds": "جاري تحميل الإعلانات المحلية",
+  "@loadingLocalAds": {
+    "description": "عنوان حالة تحميل الإعلانات المحلية"
+  },
+  "noLocalAdsFound": "لم يتم العثور على إعلانات محلية.",
+  "@noLocalAdsFound": {
+    "description": "رسالة عند عدم العثور على إعلانات محلية"
+  },
+  "localAdDeleted": "تم حذف '{title}'.",
+  "@localAdDeleted": {
+    "description": "رسالة Snackbar عند حذف إعلان محلي",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "عنوان الإعلان"
+      }
+    }
+  },
+  "createLocalNativeAdTitle": "إنشاء إعلان أصلي",
+  "@createLocalNativeAdTitle": {
+    "description": "عنوان صفحة إنشاء إعلان أصلي محلي"
+  },
+  "localNativeAdCreatedSuccessfully": "تم إنشاء الإعلان الأصلي بنجاح.",
+  "@localNativeAdCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء إعلان أصلي بنجاح"
+  },
+  "editLocalNativeAdTitle": "تعديل إعلان أصلي",
+  "@editLocalNativeAdTitle": {
+    "description": "عنوان صفحة تعديل إعلان أصلي محلي"
+  },
+  "localNativeAdUpdatedSuccessfully": "تم تحديث الإعلان الأصلي بنجاح.",
+  "@localNativeAdUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث إعلان أصلي بنجاح"
+  },
+  "adSubtitle": "عنوان فرعي",
+  "@adSubtitle": {
+    "description": "تسمية حقل إدخال العنوان الفرعي للإعلان"
+  },
+  "createLocalBannerAdTitle": "إنشاء إعلان بانر",
+  "@createLocalBannerAdTitle": {
+    "description": "عنوان صفحة إنشاء إعلان بانر محلي"
+  },
+  "localBannerAdCreatedSuccessfully": "تم إنشاء إعلان البانر بنجاح.",
+  "@localBannerAdCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء إعلان بانر بنجاح"
+  },
+  "editLocalBannerAdTitle": "تعديل إعلان بانر",
+  "@editLocalBannerAdTitle": {
+    "description": "عنوان صفحة تعديل إعلان بانر محلي"
+  },
+  "localBannerAdUpdatedSuccessfully": "تم تحديث إعلان البانر بنجاح.",
+  "@localBannerAdUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث إعلان بانر بنجاح"
+  },
+  "createLocalInterstitialAdTitle": "إنشاء إعلان بيني",
+  "@createLocalInterstitialAdTitle": {
+    "description": "عنوان صفحة إنشاء إعلان بيني محلي"
+  },
+  "localInterstitialAdCreatedSuccessfully": "تم إنشاء الإعلان البيني بنجاح.",
+  "@localInterstitialAdCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء إعلان بيني بنجاح"
+  },
+  "editLocalInterstitialAdTitle": "تعديل إعلان بيني",
+  "@editLocalInterstitialAdTitle": {
+    "description": "عنوان صفحة تعديل إعلان بيني محلي"
+  },
+  "localInterstitialAdUpdatedSuccessfully": "تم تحديث الإعلان البيني بنجاح.",
+  "@localInterstitialAdUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث إعلان بيني بنجاح"
+  },
+  "createLocalVideoAdTitle": "إنشاء إعلان فيديو",
+  "@createLocalVideoAdTitle": {
+    "description": "عنوان صفحة إنشاء إعلان فيديو محلي"
+  },
+  "localVideoAdCreatedSuccessfully": "تم إنشاء إعلان الفيديو بنجاح.",
+  "@localVideoAdCreatedSuccessfully": {
+    "description": "رسالة تُعرض عند إنشاء إعلان فيديو بنجاح"
+  },
+  "editLocalVideoAdTitle": "تعديل إعلان فيديو",
+  "@editLocalVideoAdTitle": {
+    "description": "عنوان صفحة تعديل إعلان فيديو محلي"
+  },
+  "localVideoAdUpdatedSuccessfully": "تم تحديث إعلان الفيديو بنجاح.",
+  "@localVideoAdUpdatedSuccessfully": {
+    "description": "رسالة تُعرض عند تحديث إعلان فيديو بنجاح"
+  },
+  "videoUrl": "رابط الفيديو",
+  "@videoUrl": {
+    "description": "تسمية حقل إدخال رابط الفيديو"
+  },
+  "targetUrl": "رابط الهدف",
+  "@targetUrl": {
+    "description": "تسمية حقل إدخال رابط الهدف"
+  },
+  "loadingLocalAd": "جاري تحميل الإعلان المحلي",
+  "@loadingLocalAd": {
+    "description": "عنوان حالة تحميل إعلان محلي واحد"
+  },
+  "idCopiedToClipboard": "تم نسخ المعرف '{id}' إلى الحافظة.",
+  "@idCopiedToClipboard": {
+    "description": "رسالة Snackbar عند نسخ معرف إلى الحافظة",
+    "placeholders": {
+      "id": {
+        "type": "String",
+        "example": "UUID"
+      }
+    }
   }
 }
