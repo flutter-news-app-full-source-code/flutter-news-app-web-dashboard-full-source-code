@@ -10,7 +10,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 // Added import
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/local_ads_management_tab_l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
