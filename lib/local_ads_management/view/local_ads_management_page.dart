@@ -8,7 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart'; // Added import
+// Added import
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -400,7 +400,7 @@ class _LocalAdsDataSource extends DataTableSource {
               ),
               IconButton(
                 icon: const Icon(Icons.edit),
-                tooltip: l10n.edit,
+                tooltip: l10n.editLocalAds,
                 onPressed: () {
                   // Navigate to edit page based on ad type
                   switch (ad.adType) {

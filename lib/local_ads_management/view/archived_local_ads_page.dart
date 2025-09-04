@@ -9,11 +9,10 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart'
     hide
         DeleteLocalAdForeverRequested,
-        UndoDeleteLocalAdRequested,
-        RestoreLocalAdRequested;
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
+        RestoreLocalAdRequested,
+        UndoDeleteLocalAdRequested;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/local_ad_to_ad_type.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 

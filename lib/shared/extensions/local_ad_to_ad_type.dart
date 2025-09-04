@@ -1,12 +1,11 @@
 import 'package:core/core.dart';
 
-/// Defines extension methods for [LocalAd] to convert its `adType` string
-/// to the corresponding [AdType] enum.
-extension LocalAdToAdType on LocalAd {
-  /// Converts the `adType` string of this [LocalAd] instance to an [AdType] enum.
+/// Extension on [LocalAd] to provide a convenient way to get its [AdType].
+extension LocalAdX on LocalAd {
+  /// Converts the [LocalAd]'s `adType` string to an [AdType] enum value.
   ///
-  /// Throws a [StateError] if the `adType` string does not correspond to a
-  /// valid [AdType] enum value.
+  /// Throws a [FormatException] if the `adType` string does not correspond
+  /// to a valid [AdType] enum value.
   AdType toAdType() {
     switch (adType) {
       case 'native':
@@ -18,7 +17,7 @@ extension LocalAdToAdType on LocalAd {
       case 'video':
         return AdType.video;
       default:
-        throw StateError('Unknown adType: $adType');
+        throw FormatException('Unknown AdType for LocalAd: $adType');
     }
   }
 }

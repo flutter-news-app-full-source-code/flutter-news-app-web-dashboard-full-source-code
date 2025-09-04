@@ -264,10 +264,10 @@ class ArchiveLocalAdsBloc
 
     try {
       final updatedAd = switch (adToRestore) {
-        LocalNativeAd ad => ad.copyWith(status: ContentStatus.active),
-        LocalBannerAd ad => ad.copyWith(status: ContentStatus.active),
-        LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.active),
-        LocalVideoAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalNativeAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalBannerAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalVideoAd ad => ad.copyWith(status: ContentStatus.active),
         _ => throw StateError(
           'Unknown LocalAd type: ${adToRestore.runtimeType}',
         ),
