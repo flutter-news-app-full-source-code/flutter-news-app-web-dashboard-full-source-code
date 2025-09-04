@@ -6,7 +6,7 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/selection_page_arguments.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/selection_page_arguments.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'searchable_selection_event.dart';
