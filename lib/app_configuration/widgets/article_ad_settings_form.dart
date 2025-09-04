@@ -43,107 +43,102 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
     final adConfig = widget.remoteConfig.adConfig;
     final articleAdConfig = adConfig.articleAdConfiguration;
 
-    return AbsorbPointer(
-      absorbing: !adConfig.enabled,
-      child: Opacity(
-        opacity: adConfig.enabled ? 1.0 : 0.5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SwitchListTile(
-              title: Text(l10n.enableArticleAdsLabel),
-              value: articleAdConfig.enabled,
-              onChanged: (value) {
-                widget.onConfigChanged(
-                  widget.remoteConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      articleAdConfiguration: articleAdConfig.copyWith(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          title: Text(l10n.enableArticleAdsLabel),
+          value: articleAdConfig.enabled,
+          onChanged: (value) {
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                adConfig: adConfig.copyWith(
+                  articleAdConfiguration: articleAdConfig.copyWith(
                         enabled: value,
                       ),
-                    ),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            ExpansionTile(
-              title: Text(l10n.defaultInArticleAdTypeSelectionTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg, // Adjusted padding for hierarchy
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
+                ),
               ),
-              expandedCrossAxisAlignment:
-                  CrossAxisAlignment.start, // Align content to start
-              children: [
-                Text(
-                  l10n.defaultInArticleAdTypeSelectionDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        ExpansionTile(
+          title: Text(l10n.defaultInArticleAdTypeSelectionTitle),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
+          children: [
+            Text(
+              l10n.defaultInArticleAdTypeSelectionDescription,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(
                       context,
                     ).colorScheme.onSurface.withOpacity(0.7),
+              ),
+              textAlign: TextAlign.start, // Ensure text aligns to start
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: SegmentedButton<AdType>(
+                style: SegmentedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
                   ),
-                  textAlign: TextAlign.start, // Ensure text aligns to start
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: SegmentedButton<AdType>(
-                    style: SegmentedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+                segments: AdType.values
+                    .where(
+                      (type) => type == AdType.native || type == AdType.banner,
+                    )
+                    .map(
+                      (type) => ButtonSegment<AdType>(
+                        value: type,
+                        label: Text(type.name),
                       ),
-                    ),
-                    segments: AdType.values
-                        .where(
-                          (type) =>
-                              type == AdType.native || type == AdType.banner,
-                        )
-                        .map(
-                          (type) => ButtonSegment<AdType>(
-                            value: type,
-                            label: Text(type.name),
-                          ),
-                        )
-                        .toList(),
-                    selected: {articleAdConfig.defaultInArticleAdType},
-                    onSelectionChanged: (newSelection) {
-                      widget.onConfigChanged(
-                        widget.remoteConfig.copyWith(
-                          adConfig: adConfig.copyWith(
-                            articleAdConfiguration: articleAdConfig.copyWith(
+                    )
+                    .toList(),
+                selected: {articleAdConfig.defaultInArticleAdType},
+                onSelectionChanged: (newSelection) {
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      adConfig: adConfig.copyWith(
+                        articleAdConfiguration: articleAdConfig.copyWith(
                               defaultInArticleAdType: newSelection.first,
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            ExpansionTile(
-              title: Text(l10n.inArticleAdSlotPlacementsTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg, // Adjusted padding for hierarchy
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
+                      ),
+                    ),
+                  );
+                },
               ),
-              expandedCrossAxisAlignment:
-                  CrossAxisAlignment.start, // Align content to start
-              children: [
-                Text(
-                  l10n.inArticleAdSlotPlacementsDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        ExpansionTile(
+          title: Text(l10n.inArticleAdSlotPlacementsTitle),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          expandedCrossAxisAlignment:
+              CrossAxisAlignment.start, // Align content to start
+          children: [
+            Text(
+              l10n.inArticleAdSlotPlacementsDescription,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(
                       context,
                     ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
-                  textAlign: TextAlign.start, // Ensure text aligns to start
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                ...articleAdConfig.inArticleAdSlotConfigurations.map(
+              ),
+              textAlign: TextAlign.start, // Ensure text aligns to start
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            ...articleAdConfig.inArticleAdSlotConfigurations.map(
                   (slotConfig) => SwitchListTile(
                     title: Text(slotConfig.slotType.l10n(context)),
                     value: slotConfig.enabled,
@@ -160,19 +155,17 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
                         widget.remoteConfig.copyWith(
                           adConfig: adConfig.copyWith(
                             articleAdConfiguration: articleAdConfig.copyWith(
-                              inArticleAdSlotConfigurations: updatedSlots,
-                            ),
+                                  inArticleAdSlotConfigurations: updatedSlots,
+                                ),
                           ),
                         ),
                       );
                     },
                   ),
                 ),
-              ],
-            ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
