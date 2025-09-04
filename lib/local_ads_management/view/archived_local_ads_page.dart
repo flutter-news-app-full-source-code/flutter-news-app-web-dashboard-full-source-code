@@ -3,11 +3,17 @@ import 'package:data_repository/data_repository.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/archive_local_ads/archive_local_ads_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart'
+    hide
+        DeleteLocalAdForeverRequested,
+        UndoDeleteLocalAdRequested,
+        RestoreLocalAdRequested;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -88,7 +94,9 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                     current.interstitialAds.length &&
                 current.lastDeletedLocalAd == null) ||
             (previous.videoAds.length != current.videoAds.length &&
-                current.lastDeletedLocalAd == null),
+                current.lastDeletedLocalAd == null) ||
+            (previous.restoredLocalAd == null &&
+                current.restoredLocalAd != null),
         listener: (context, state) {
           if (state.lastDeletedLocalAd != null) {
             String truncatedTitle;
@@ -162,7 +170,7 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return BlocBuilder<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
       builder: (context, state) {
-        ArchivedLocalAdsStatus status;
+        ArchiveLocalAdsStatus status;
         List<LocalAd> ads;
         String? cursor;
         bool hasMore;
@@ -190,7 +198,7 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
             hasMore = state.videoAdsHasMore;
         }
 
-        if (status == ArchivedLocalAdsStatus.loading && ads.isEmpty) {
+        if (status == ArchiveLocalAdsStatus.loading && ads.isEmpty) {
           return LoadingStateWidget(
             icon: Icons.ads_click,
             headline: l10n.loadingArchivedLocalAds,
@@ -198,7 +206,7 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
           );
         }
 
-        if (status == ArchivedLocalAdsStatus.failure) {
+        if (status == ArchiveLocalAdsStatus.failure) {
           return FailureStateWidget(
             exception: state.exception!,
             onRetry: () => context.read<ArchiveLocalAdsBloc>().add(
@@ -216,7 +224,7 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
 
         return Column(
           children: [
-            if (status == ArchivedLocalAdsStatus.loading && ads.isNotEmpty)
+            if (status == ArchiveLocalAdsStatus.loading && ads.isNotEmpty)
               const LinearProgressIndicator(),
             Expanded(
               child: PaginatedDataTable2(
@@ -252,7 +260,7 @@ class _ArchivedLocalAdsDataTable extends StatelessWidget {
                   final newOffset = pageIndex * kDefaultRowsPerPage;
                   if (newOffset >= ads.length &&
                       hasMore &&
-                      status != ArchivedLocalAdsStatus.loading) {
+                      status != ArchiveLocalAdsStatus.loading) {
                     context.read<ArchiveLocalAdsBloc>().add(
                       LoadArchivedLocalAdsRequested(
                         adType: adType,
@@ -383,21 +391,4 @@ class _ArchivedLocalAdsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-}
-
-extension on LocalAd {
-  AdType toAdType() {
-    switch (adType) {
-      case 'native':
-        return AdType.native;
-      case 'banner':
-        return AdType.banner;
-      case 'interstitial':
-        return AdType.interstitial;
-      case 'video':
-        return AdType.video;
-      default:
-        throw FormatException('Unknown AdType: $adType');
-    }
-  }
 }
