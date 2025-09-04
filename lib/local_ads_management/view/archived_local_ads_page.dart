@@ -12,7 +12,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
         RestoreLocalAdRequested,
         UndoDeleteLocalAdRequested;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/local_ad_to_ad_type.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 

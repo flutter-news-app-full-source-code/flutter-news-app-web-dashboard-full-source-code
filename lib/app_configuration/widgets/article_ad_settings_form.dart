@@ -54,8 +54,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
               widget.remoteConfig.copyWith(
                 adConfig: adConfig.copyWith(
                   articleAdConfiguration: articleAdConfig.copyWith(
-                        enabled: value,
-                      ),
+                    enabled: value,
+                  ),
                 ),
               ),
             );
@@ -76,8 +76,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
               l10n.defaultInArticleAdTypeSelectionDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start, // Ensure text aligns to start
             ),
@@ -107,8 +107,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
                     widget.remoteConfig.copyWith(
                       adConfig: adConfig.copyWith(
                         articleAdConfiguration: articleAdConfig.copyWith(
-                              defaultInArticleAdType: newSelection.first,
-                            ),
+                          defaultInArticleAdType: newSelection.first,
+                        ),
                       ),
                     ),
                   );
@@ -132,37 +132,37 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
               l10n.inArticleAdSlotPlacementsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start, // Ensure text aligns to start
             ),
             const SizedBox(height: AppSpacing.lg),
             ...articleAdConfig.inArticleAdSlotConfigurations.map(
-                  (slotConfig) => SwitchListTile(
-                    title: Text(slotConfig.slotType.l10n(context)),
-                    value: slotConfig.enabled,
-                    onChanged: (value) {
-                      final updatedSlots = articleAdConfig
-                          .inArticleAdSlotConfigurations
-                          .map(
-                            (e) => e.slotType == slotConfig.slotType
-                                ? e.copyWith(enabled: value)
-                                : e,
-                          )
-                          .toList();
-                      widget.onConfigChanged(
-                        widget.remoteConfig.copyWith(
-                          adConfig: adConfig.copyWith(
-                            articleAdConfiguration: articleAdConfig.copyWith(
-                                  inArticleAdSlotConfigurations: updatedSlots,
-                                ),
-                          ),
+              (slotConfig) => SwitchListTile(
+                title: Text(slotConfig.slotType.l10n(context)),
+                value: slotConfig.enabled,
+                onChanged: (value) {
+                  final updatedSlots = articleAdConfig
+                      .inArticleAdSlotConfigurations
+                      .map(
+                        (e) => e.slotType == slotConfig.slotType
+                            ? e.copyWith(enabled: value)
+                            : e,
+                      )
+                      .toList();
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      adConfig: adConfig.copyWith(
+                        articleAdConfiguration: articleAdConfig.copyWith(
+                          inArticleAdSlotConfigurations: updatedSlots,
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ],

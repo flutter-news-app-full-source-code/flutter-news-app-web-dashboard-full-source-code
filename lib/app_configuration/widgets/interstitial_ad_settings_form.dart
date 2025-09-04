@@ -120,8 +120,9 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 adConfig: adConfig.copyWith(
-                  interstitialAdConfiguration: interstitialAdConfig
-                      .copyWith(enabled: value),
+                  interstitialAdConfiguration: interstitialAdConfig.copyWith(
+                    enabled: value,
+                  ),
                 ),
               ),
             );
@@ -140,8 +141,8 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
               l10n.userRoleInterstitialFrequencyDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start,
             ),
