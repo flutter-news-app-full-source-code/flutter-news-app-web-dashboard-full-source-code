@@ -1257,4 +1257,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get transitionsBeforeInterstitialAdsDescription =>
       'عدد الانتقالات (مثل فتح المقالات) التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.';
+
+  @override
+  String get adPlatformTypeAdmob => 'أدموب';
+
+  @override
+  String get adPlatformTypeLocal => 'محلي';
 }

@@ -1569,5 +1569,13 @@
   "transitionsBeforeInterstitialAdsDescription": "The number of transitions (e.g., opening articles) a user must make before an interstitial ad is displayed.",
   "@transitionsBeforeInterstitialAdsDescription": {
     "description": "Description for the number of transitions a user must make before an interstitial ad is shown."
+  },
+  "adPlatformTypeAdmob": "AdMob",
+  "@adPlatformTypeAdmob": {
+    "description": "The name of the AdMob ad platform."
+  },
+  "adPlatformTypeLocal": "Local",
+  "@adPlatformTypeLocal": {
+    "description": "The name of the Local ad platform for custom ads."
   }
 }

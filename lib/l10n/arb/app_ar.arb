@@ -1573,5 +1573,13 @@
   "transitionsBeforeInterstitialAdsDescription": "عدد الانتقالات (مثل فتح المقالات) التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
   "@transitionsBeforeInterstitialAdsDescription": {
     "description": "Description for the number of transitions a user must make before an interstitial ad is shown."
+  },
+  "adPlatformTypeAdmob": "أدموب",
+  "@adPlatformTypeAdmob": {
+    "description": "اسم منصة إعلانات أدموب."
+  },
+  "adPlatformTypeLocal": "محلي",
+  "@adPlatformTypeLocal": {
+    "description": "اسم منصة الإعلانات المحلية للإعلانات المخصصة."
   }
 }

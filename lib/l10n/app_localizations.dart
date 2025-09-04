@@ -2347,6 +2347,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The number of transitions (e.g., opening articles) a user must make before an interstitial ad is displayed.'**
   String get transitionsBeforeInterstitialAdsDescription;
+
+  /// The name of the AdMob ad platform.
+  ///
+  /// In en, this message translates to:
+  /// **'AdMob'**
+  String get adPlatformTypeAdmob;
+
+  /// The name of the Local ad platform for custom ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Local'**
+  String get adPlatformTypeLocal;
 }
 
 class _AppLocalizationsDelegate

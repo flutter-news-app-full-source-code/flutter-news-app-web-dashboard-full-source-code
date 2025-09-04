@@ -1259,4 +1259,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get transitionsBeforeInterstitialAdsDescription =>
       'The number of transitions (e.g., opening articles) a user must make before an interstitial ad is displayed.';
+
+  @override
+  String get adPlatformTypeAdmob => 'AdMob';
+
+  @override
+  String get adPlatformTypeLocal => 'Local';
 }
