@@ -293,9 +293,18 @@ class LocalAdsManagementBloc
     }
 
     try {
+      final updatedAd = switch (adToArchive) {
+        LocalNativeAd ad => ad.copyWith(status: ContentStatus.archived),
+        LocalBannerAd ad => ad.copyWith(status: ContentStatus.archived),
+        LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.archived),
+        LocalVideoAd ad => ad.copyWith(status: ContentStatus.archived),
+        _ => throw StateError(
+          'Unknown LocalAd type: ${adToArchive.runtimeType}',
+        ),
+      };
       await _localAdsRepository.update(
         id: event.id,
-        item: adToArchive.copyWith(status: ContentStatus.archived),
+        item: updatedAd,
       );
     } on HttpException catch (e) {
       // Revert UI on failure
@@ -336,9 +345,18 @@ class LocalAdsManagementBloc
     try {
       // Fetch the ad to restore (it's currently archived)
       final adToRestore = await _localAdsRepository.read(id: event.id);
+      final updatedAd = switch (adToRestore) {
+        LocalNativeAd ad => ad.copyWith(status: ContentStatus.active),
+        LocalBannerAd ad => ad.copyWith(status: ContentStatus.active),
+        LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.active),
+        LocalVideoAd ad => ad.copyWith(status: ContentStatus.active),
+        _ => throw StateError(
+          'Unknown LocalAd type: ${adToRestore.runtimeType}',
+        ),
+      };
       await _localAdsRepository.update(
         id: event.id,
-        item: adToRestore.copyWith(status: ContentStatus.active),
+        item: updatedAd,
       );
       // The entityUpdated stream will trigger a reload of active ads.
     } on HttpException catch (e) {
