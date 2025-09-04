@@ -1366,7 +1366,7 @@
   "@feedNativeAdIdLabel": {
     "description": "تسمية حقل إدخال معرف الإعلان الأصلي للموجز"
   },
-  "feedNativeAdIdDescription": "معرف وحدة AdMob للإعلانات الأصلية في الموجز.",
+  "feedNativeAdIdDescription": "معرف وحدة الإعلانات الأصلية في الموجز.",
   "@feedNativeAdIdDescription": {
     "description": "وصف حقل إدخال معرف الإعلان الأصلي للموجز"
   },
@@ -1382,7 +1382,7 @@
   "@articleInterstitialAdIdLabel": {
     "description": "تسمية حقل إدخال معرف الإعلان البيني للمقالات"
   },
-  "articleInterstitialAdIdDescription": "معرف وحدة AdMob للإعلانات البينية في المقالات.",
+  "articleInterstitialAdIdDescription": "معرف وحدة الإعلانات البينية في المقالات.",
   "@articleInterstitialAdIdDescription": {
     "description": "وصف حقل إدخال معرف الإعلان البيني للمقالات"
   },
@@ -1390,7 +1390,7 @@
   "@inArticleNativeAdIdLabel": {
     "description": "تسمية حقل إدخال معرف الإعلان الأصلي داخل المقال"
   },
-  "inArticleNativeAdIdDescription": "معرف وحدة AdMob للإعلانات الأصلية داخل المقالات.",
+  "inArticleNativeAdIdDescription": "معرف وحدة الإعلانات الأصلية داخل المقالات.",
   "@inArticleNativeAdIdDescription": {
     "description": "وصف حقل إدخال معرف الإعلان الأصلي داخل المقال"
   },
@@ -1398,7 +1398,7 @@
   "@inArticleBannerAdIdLabel": {
     "description": "تسمية حقل إدخال معرف إعلان البانر داخل المقال"
   },
-  "inArticleBannerAdIdDescription": "معرف وحدة AdMob لإعلانات البانر داخل المقالات.",
+  "inArticleBannerAdIdDescription": "معرف وحدة إعلانات البانر داخل المقالات.",
   "@inArticleBannerAdIdDescription": {
     "description": "وصف حقل إدخال معرف إعلان البانر داخل المقال"
   },

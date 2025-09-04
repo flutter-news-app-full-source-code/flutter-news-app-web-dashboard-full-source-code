@@ -1093,7 +1093,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get feedNativeAdIdDescription =>
-      'معرف وحدة AdMob للإعلانات الأصلية في الموجز.';
+      'معرف وحدة الإعلانات الأصلية في الموجز.';
 
   @override
   String get feedBannerAdIdLabel => 'معرف إعلان البانر للموجز';
@@ -1107,21 +1107,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get articleInterstitialAdIdDescription =>
-      'معرف وحدة AdMob للإعلانات البينية في المقالات.';
+      'معرف وحدة الإعلانات البينية في المقالات.';
 
   @override
   String get inArticleNativeAdIdLabel => 'معرف الإعلان الأصلي داخل المقال';
 
   @override
   String get inArticleNativeAdIdDescription =>
-      'معرف وحدة AdMob للإعلانات الأصلية داخل المقالات.';
+      'معرف وحدة الإعلانات الأصلية داخل المقالات.';
 
   @override
   String get inArticleBannerAdIdLabel => 'معرف إعلان البانر داخل المقال';
 
   @override
   String get inArticleBannerAdIdDescription =>
-      'معرف وحدة AdMob لإعلانات البانر داخل المقالات.';
+      'معرف وحدة إعلانات البانر داخل المقالات.';
 
   @override
   String get inArticleAdSlotTypeBelowMainArticleImage =>

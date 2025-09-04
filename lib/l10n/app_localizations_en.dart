@@ -1091,35 +1091,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedNativeAdIdDescription =>
-      'The AdMob unit ID for native ads in the feed.';
+      'The unit ID for native ads in the feed.';
 
   @override
   String get feedBannerAdIdLabel => 'Feed Banner Ad ID';
 
   @override
   String get feedBannerAdIdDescription =>
-      'The AdMob unit ID for banner ads in the feed.';
+      'The unit ID for banner ads in the feed.';
 
   @override
   String get articleInterstitialAdIdLabel => 'Article Interstitial Ad ID';
 
   @override
   String get articleInterstitialAdIdDescription =>
-      'The AdMob unit ID for interstitial ads in articles.';
+      'The unit ID for interstitial ads in articles.';
 
   @override
   String get inArticleNativeAdIdLabel => 'In-Article Native Ad ID';
 
   @override
   String get inArticleNativeAdIdDescription =>
-      'The AdMob unit ID for native ads within articles.';
+      'The unit ID for native ads within articles.';
 
   @override
   String get inArticleBannerAdIdLabel => 'In-Article Banner Ad ID';
 
   @override
   String get inArticleBannerAdIdDescription =>
-      'The AdMob unit ID for banner ads within articles.';
+      'The unit ID for banner ads within articles.';
 
   @override
   String get inArticleAdSlotTypeBelowMainArticleImage =>

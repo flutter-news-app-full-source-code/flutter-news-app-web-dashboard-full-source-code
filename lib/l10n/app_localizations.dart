@@ -2057,7 +2057,7 @@ abstract class AppLocalizations {
   /// Description for the Feed Native Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for native ads in the feed.'**
+  /// **'The unit ID for native ads in the feed.'**
   String get feedNativeAdIdDescription;
 
   /// Label for the Feed Banner Ad ID input field
@@ -2069,7 +2069,7 @@ abstract class AppLocalizations {
   /// Description for the Feed Banner Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for banner ads in the feed.'**
+  /// **'The unit ID for banner ads in the feed.'**
   String get feedBannerAdIdDescription;
 
   /// Label for the Article Interstitial Ad ID input field
@@ -2081,7 +2081,7 @@ abstract class AppLocalizations {
   /// Description for the Article Interstitial Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for interstitial ads in articles.'**
+  /// **'The unit ID for interstitial ads in articles.'**
   String get articleInterstitialAdIdDescription;
 
   /// Label for the In-Article Native Ad ID input field
@@ -2093,7 +2093,7 @@ abstract class AppLocalizations {
   /// Description for the In-Article Native Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for native ads within articles.'**
+  /// **'The unit ID for native ads within articles.'**
   String get inArticleNativeAdIdDescription;
 
   /// Label for the In-Article Banner Ad ID input field
@@ -2105,7 +2105,7 @@ abstract class AppLocalizations {
   /// Description for the In-Article Banner Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for banner ads within articles.'**
+  /// **'The unit ID for banner ads within articles.'**
   String get inArticleBannerAdIdDescription;
 
   /// Localized name for InArticleAdSlotType.belowMainArticleImage

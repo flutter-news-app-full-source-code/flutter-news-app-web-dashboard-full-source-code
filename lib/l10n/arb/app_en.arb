@@ -1362,7 +1362,7 @@
   "@feedNativeAdIdLabel": {
     "description": "Label for the Feed Native Ad ID input field"
   },
-  "feedNativeAdIdDescription": "The AdMob unit ID for native ads in the feed.",
+  "feedNativeAdIdDescription": "The unit ID for native ads in the feed.",
   "@feedNativeAdIdDescription": {
     "description": "Description for the Feed Native Ad ID input field"
   },
@@ -1370,7 +1370,7 @@
   "@feedBannerAdIdLabel": {
     "description": "Label for the Feed Banner Ad ID input field"
   },
-  "feedBannerAdIdDescription": "The AdMob unit ID for banner ads in the feed.",
+  "feedBannerAdIdDescription": "The unit ID for banner ads in the feed.",
   "@feedBannerAdIdDescription": {
     "description": "Description for the Feed Banner Ad ID input field"
   },
@@ -1378,7 +1378,7 @@
   "@articleInterstitialAdIdLabel": {
     "description": "Label for the Article Interstitial Ad ID input field"
   },
-  "articleInterstitialAdIdDescription": "The AdMob unit ID for interstitial ads in articles.",
+  "articleInterstitialAdIdDescription": "The unit ID for interstitial ads in articles.",
   "@articleInterstitialAdIdDescription": {
     "description": "Description for the Article Interstitial Ad ID input field"
   },
@@ -1386,7 +1386,7 @@
   "@inArticleNativeAdIdLabel": {
     "description": "Label for the In-Article Native Ad ID input field"
   },
-  "inArticleNativeAdIdDescription": "The AdMob unit ID for native ads within articles.",
+  "inArticleNativeAdIdDescription": "The unit ID for native ads within articles.",
   "@inArticleNativeAdIdDescription": {
     "description": "Description for the In-Article Native Ad ID input field"
   },
@@ -1394,7 +1394,7 @@
   "@inArticleBannerAdIdLabel": {
     "description": "Label for the In-Article Banner Ad ID input field"
   },
-  "inArticleBannerAdIdDescription": "The AdMob unit ID for banner ads within articles.",
+  "inArticleBannerAdIdDescription": "The unit ID for banner ads within articles.",
   "@inArticleBannerAdIdDescription": {
     "description": "Description for the In-Article Banner Ad ID input field"
   },
