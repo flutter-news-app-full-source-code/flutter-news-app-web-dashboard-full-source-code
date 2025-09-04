@@ -245,78 +245,81 @@ GoRouter createRouter({
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.localAdsManagement,
-                name: Routes.localAdsManagementName,
-                builder: (context, state) => const LocalAdsManagementPage(),
-                routes: [
-                  GoRoute(
-                    path: Routes.archivedLocalAds,
-                    name: Routes.archivedLocalAdsName,
-                    builder: (context, state) => const ArchivedLocalAdsPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.createLocalNativeAd,
-                    name: Routes.createLocalNativeAdName,
-                    builder: (context, state) => const CreateLocalNativeAdPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.editLocalNativeAd,
-                    name: Routes.editLocalNativeAdName,
-                    builder: (context, state) {
-                      final adId = state.pathParameters['id']!;
-                      return EditLocalNativeAdPage(adId: adId);
-                    },
-                  ),
-                  GoRoute(
-                    path: Routes.createLocalBannerAd,
-                    name: Routes.createLocalBannerAdName,
-                    builder: (context, state) => const CreateLocalBannerAdPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.editLocalBannerAd,
-                    name: Routes.editLocalBannerAdName,
-                    builder: (context, state) {
-                      final adId = state.pathParameters['id']!;
-                      return EditLocalBannerAdPage(adId: adId);
-                    },
-                  ),
-                  GoRoute(
-                    path: Routes.createLocalInterstitialAd,
-                    name: Routes.createLocalInterstitialAdName,
-                    builder: (context, state) =>
-                        const CreateLocalInterstitialAdPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.editLocalInterstitialAd,
-                    name: Routes.editLocalInterstitialAdName,
-                    builder: (context, state) {
-                      final adId = state.pathParameters['id']!;
-                      return EditLocalInterstitialAdPage(adId: adId);
-                    },
-                  ),
-                  GoRoute(
-                    path: Routes.createLocalVideoAd,
-                    name: Routes.createLocalVideoAdName,
-                    builder: (context, state) => const CreateLocalVideoAdPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.editLocalVideoAd,
-                    name: Routes.editLocalVideoAdName,
-                    builder: (context, state) {
-                      final adId = state.pathParameters['id']!;
-                      return EditLocalVideoAdPage(adId: adId);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
                 path: Routes.appConfiguration,
                 name: Routes.appConfigurationName,
                 builder: (context, state) => const AppConfigurationPage(),
+                routes: [
+                  // Nested local ads management routes
+                  GoRoute(
+                    path: Routes.localAdsManagement,
+                    name: Routes.localAdsManagementName,
+                    builder: (context, state) => const LocalAdsManagementPage(),
+                    routes: [
+                      GoRoute(
+                        path: Routes.archivedLocalAds,
+                        name: Routes.archivedLocalAdsName,
+                        builder: (context, state) =>
+                            const ArchivedLocalAdsPage(),
+                      ),
+                      GoRoute(
+                        path: Routes.createLocalNativeAd,
+                        name: Routes.createLocalNativeAdName,
+                        builder: (context, state) =>
+                            const CreateLocalNativeAdPage(),
+                      ),
+                      GoRoute(
+                        path: Routes.editLocalNativeAd,
+                        name: Routes.editLocalNativeAdName,
+                        builder: (context, state) {
+                          final adId = state.pathParameters['id']!;
+                          return EditLocalNativeAdPage(adId: adId);
+                        },
+                      ),
+                      GoRoute(
+                        path: Routes.createLocalBannerAd,
+                        name: Routes.createLocalBannerAdName,
+                        builder: (context, state) =>
+                            const CreateLocalBannerAdPage(),
+                      ),
+                      GoRoute(
+                        path: Routes.editLocalBannerAd,
+                        name: Routes.editLocalBannerAdName,
+                        builder: (context, state) {
+                          final adId = state.pathParameters['id']!;
+                          return EditLocalBannerAdPage(adId: adId);
+                        },
+                      ),
+                      GoRoute(
+                        path: Routes.createLocalInterstitialAd,
+                        name: Routes.createLocalInterstitialAdName,
+                        builder: (context, state) =>
+                            const CreateLocalInterstitialAdPage(),
+                      ),
+                      GoRoute(
+                        path: Routes.editLocalInterstitialAd,
+                        name: Routes.editLocalInterstitialAdName,
+                        builder: (context, state) {
+                          final adId = state.pathParameters['id']!;
+                          return EditLocalInterstitialAdPage(adId: adId);
+                        },
+                      ),
+                      GoRoute(
+                        path: Routes.createLocalVideoAd,
+                        name: Routes.createLocalVideoAdName,
+                        builder: (context, state) =>
+                            const CreateLocalVideoAdPage(),
+                      ),
+                      GoRoute(
+                        path: Routes.editLocalVideoAd,
+                        name: Routes.editLocalVideoAdName,
+                        builder: (context, state) {
+                          final adId = state.pathParameters['id']!;
+                          return EditLocalVideoAdPage(adId: adId);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
