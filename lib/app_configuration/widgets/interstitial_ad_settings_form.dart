@@ -110,82 +110,76 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
     final adConfig = widget.remoteConfig.adConfig;
     final interstitialAdConfig = adConfig.interstitialAdConfiguration;
 
-    return AbsorbPointer(
-      absorbing: !adConfig.enabled,
-      child: Opacity(
-        opacity: adConfig.enabled ? 1.0 : 0.5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SwitchListTile(
-              title: Text(l10n.enableInterstitialAdsLabel),
-              value: interstitialAdConfig.enabled,
-              onChanged: (value) {
-                widget.onConfigChanged(
-                  widget.remoteConfig.copyWith(
-                    adConfig: adConfig.copyWith(
-                      interstitialAdConfiguration: interstitialAdConfig
-                          .copyWith(enabled: value),
-                    ),
-                  ),
-                );
-              },
-            ),
-            ExpansionTile(
-              title: Text(l10n.userRoleInterstitialFrequencyTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          title: Text(l10n.enableInterstitialAdsLabel),
+          value: interstitialAdConfig.enabled,
+          onChanged: (value) {
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                adConfig: adConfig.copyWith(
+                  interstitialAdConfiguration: interstitialAdConfig
+                      .copyWith(enabled: value),
+                ),
               ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.userRoleInterstitialFrequencyDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
+            );
+          },
+        ),
+        ExpansionTile(
+          title: Text(l10n.userRoleInterstitialFrequencyTitle),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.userRoleInterstitialFrequencyDescription,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(
                       context,
                     ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
-                  textAlign: TextAlign.start,
+              ),
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: SizedBox(
+                height: kTextTabBarHeight,
+                child: TabBar(
+                  controller: _tabController,
+                  tabAlignment: TabAlignment.start,
+                  isScrollable: true,
+                  tabs: AppUserRole.values
+                      .map((role) => Tab(text: role.l10n(context)))
+                      .toList(),
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: SizedBox(
-                    height: kTextTabBarHeight,
-                    child: TabBar(
-                      controller: _tabController,
-                      tabAlignment: TabAlignment.start,
-                      isScrollable: true,
-                      tabs: AppUserRole.values
-                          .map((role) => Tab(text: role.l10n(context)))
-                          .toList(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SizedBox(
-                  height: 250, // Fixed height for TabBarView within a ListView
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: AppUserRole.values
-                        .map(
-                          (role) => _buildInterstitialRoleSpecificFields(
-                            context,
-                            l10n,
-                            role,
-                            interstitialAdConfig,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            SizedBox(
+              height: 250, // Fixed height for TabBarView within a ListView
+              child: TabBarView(
+                controller: _tabController,
+                children: AppUserRole.values
+                    .map(
+                      (role) => _buildInterstitialRoleSpecificFields(
+                        context,
+                        l10n,
+                        role,
+                        interstitialAdConfig,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 
