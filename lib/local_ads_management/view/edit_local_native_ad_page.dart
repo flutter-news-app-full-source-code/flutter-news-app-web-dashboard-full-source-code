@@ -30,13 +30,15 @@ class EditLocalNativeAdPage extends StatelessWidget {
         localAdsRepository: context.read<DataRepository<LocalAd>>(),
         id: adId,
       ),
-      child: const _EditLocalNativeAdView(),
+      child: _EditLocalNativeAdView(adId: adId),
     );
   }
 }
 
 class _EditLocalNativeAdView extends StatefulWidget {
-  const _EditLocalNativeAdView();
+  const _EditLocalNativeAdView({required this.adId});
+
+  final String adId;
 
   @override
   State<_EditLocalNativeAdView> createState() => _EditLocalNativeAdViewState();
