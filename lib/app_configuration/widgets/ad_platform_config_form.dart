@@ -297,7 +297,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        // Local Ad Management (Non-functional as requested)
+        // Local Ad Management
         if (_selectedPlatform == AdPlatformType.local)
           ExpansionTile(
             title: Text(l10n.localAdManagementTitle),
