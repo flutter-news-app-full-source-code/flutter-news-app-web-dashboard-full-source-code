@@ -1265,4 +1265,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adPlatformTypeLocal => 'Local';
+
+  @override
+  String get nativeAdsTab => 'Native Ads';
+
+  @override
+  String get bannerAdsTab => 'Banner Ads';
+
+  @override
+  String get interstitialAdsTab => 'Interstitial Ads';
+
+  @override
+  String get videoAdsTab => 'Video Ads';
+
+  @override
+  String get bannerAdType => 'Banner';
+
+  @override
+  String get nativeAdType => 'Native';
+
+  @override
+  String get interstitialAdType => 'Interstitial';
+
+  @override
+  String get videoAdType => 'Video';
 }

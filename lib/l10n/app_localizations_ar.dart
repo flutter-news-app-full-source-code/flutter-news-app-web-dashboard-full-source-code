@@ -1263,4 +1263,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adPlatformTypeLocal => 'محلي';
+
+  @override
+  String get nativeAdsTab => 'إعلانات أصلية';
+
+  @override
+  String get bannerAdsTab => 'إعلانات بانر';
+
+  @override
+  String get interstitialAdsTab => 'إعلانات بينية';
+
+  @override
+  String get videoAdsTab => 'إعلانات فيديو';
+
+  @override
+  String get bannerAdType => 'بانر';
+
+  @override
+  String get nativeAdType => 'أصلي';
+
+  @override
+  String get interstitialAdType => 'بيني';
+
+  @override
+  String get videoAdType => 'فيديو';
 }
