@@ -11,6 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
         DeleteLocalAdForeverRequested,
         RestoreLocalAdRequested,
         UndoDeleteLocalAdRequested;
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_type_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -77,7 +78,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: AdType.values
-              .map((type) => Tab(text: type.name.capitalize()))
+              .map((type) => Tab(text: type.l10n(context)))
               .toList(),
         ),
       ),
