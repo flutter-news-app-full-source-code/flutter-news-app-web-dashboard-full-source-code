@@ -1374,7 +1374,7 @@
   "@feedBannerAdIdLabel": {
     "description": "تسمية حقل إدخال معرف إعلان البانر للموجز"
   },
-  "feedBannerAdIdDescription": "معرف وحدة AdMob لإعلانات البانر في الموجز.",
+  "feedBannerAdIdDescription": "معرف وحدة إعلانات البانر في الموجز.",
   "@feedBannerAdIdDescription": {
     "description": "وصف حقل إدخال معرف إعلان البانر للموجز"
   },

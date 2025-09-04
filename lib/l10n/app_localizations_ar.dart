@@ -1099,8 +1099,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get feedBannerAdIdLabel => 'معرف إعلان البانر للموجز';
 
   @override
-  String get feedBannerAdIdDescription =>
-      'معرف وحدة AdMob لإعلانات البانر في الموجز.';
+  String get feedBannerAdIdDescription => 'معرف وحدة إعلانات البانر في الموجز.';
 
   @override
   String get articleInterstitialAdIdLabel => 'معرف الإعلان البيني للمقالات';
