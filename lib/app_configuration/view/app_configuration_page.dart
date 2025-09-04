@@ -73,9 +73,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
                 tabs: [
+                  Tab(text: l10n.generalTab),
                   Tab(text: l10n.feedTab),
                   Tab(text: l10n.advertisementsTab),
-                  Tab(text: l10n.generalTab),
                 ],
               ),
             ],
@@ -143,6 +143,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             return TabBarView(
               controller: _tabController,
               children: [
+                GeneralConfigurationTab(
+                  remoteConfig: remoteConfig,
+                  onConfigChanged: (newConfig) {
+                    context.read<AppConfigurationBloc>().add(
+                      AppConfigurationFieldChanged(remoteConfig: newConfig),
+                    );
+                  },
+                ),
                 FeedConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
@@ -152,14 +160,6 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   },
                 ),
                 AdvertisementsConfigurationTab(
-                  remoteConfig: remoteConfig,
-                  onConfigChanged: (newConfig) {
-                    context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(remoteConfig: newConfig),
-                    );
-                  },
-                ),
-                GeneralConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
