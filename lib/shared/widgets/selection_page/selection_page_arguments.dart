@@ -2,7 +2,7 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart'
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart'
     show SearchableSelectionPage;
 
 /// {@template selection_page_arguments}

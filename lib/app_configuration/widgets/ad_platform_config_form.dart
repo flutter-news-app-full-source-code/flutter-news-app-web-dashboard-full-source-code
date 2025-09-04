@@ -4,6 +4,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_platform_type_l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -70,13 +71,13 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                     ?.feedBannerAdId ??
                 '',
           ),
-          'articleInterstitialAdId': TextEditingController(
+          'feedToArticleInterstitialAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .adConfig
                     .platformAdIdentifiers[platform]
-                    ?.articleInterstitialAdId ??
+                    ?.feedToArticleInterstitialAdId ??
                 '',
           ),
           'inArticleNativeAdId': TextEditingController(
@@ -137,22 +138,22 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
         );
       }
 
-      final articleInterstitialAdId =
+      final feedToArticleInterstitialAdId =
           widget
               .remoteConfig
               .adConfig
               .platformAdIdentifiers[platform]
-              ?.articleInterstitialAdId ??
+              ?.feedToArticleInterstitialAdId ??
           '';
-      if (_platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+      if (_platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
               ?.text !=
-          articleInterstitialAdId) {
-        _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+          feedToArticleInterstitialAdId) {
+        _platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
                 ?.text =
-            articleInterstitialAdId;
-        _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+            feedToArticleInterstitialAdId;
+        _platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
             ?.selection = TextSelection.collapsed(
-          offset: articleInterstitialAdId.length,
+          offset: feedToArticleInterstitialAdId.length,
         );
       }
 
@@ -228,7 +229,9 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             Text(
               l10n.primaryAdPlatformDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start, // Ensure text aligns to start
             ),
@@ -245,7 +248,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                     .map(
                       (platform) => ButtonSegment<AdPlatformType>(
                         value: platform,
-                        label: Text(platform.name),
+                        label: Text(platform.l10n(context)),
                       ),
                     )
                     .toList(),
@@ -282,7 +285,9 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             Text(
               l10n.adUnitIdentifiersDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start, // Ensure text aligns to start
             ),
@@ -350,9 +355,9 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
           newIdentifiers = platformIdentifiers.copyWith(feedNativeAdId: value);
         case 'feedBannerAdId':
           newIdentifiers = platformIdentifiers.copyWith(feedBannerAdId: value);
-        case 'articleInterstitialAdId':
+        case 'feedToArticleInterstitialAdId':
           newIdentifiers = platformIdentifiers.copyWith(
-            articleInterstitialAdId: value,
+            feedToArticleInterstitialAdId: value,
           );
         case 'inArticleNativeAdId':
           newIdentifiers = platformIdentifiers.copyWith(
@@ -399,12 +404,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
           controller: controllers['feedBannerAdId'],
         ),
         AppConfigTextField(
-          label: l10n.articleInterstitialAdIdLabel,
-          description: l10n.articleInterstitialAdIdDescription,
-          value: platformIdentifiers.articleInterstitialAdId,
+          label: l10n.feedToArticleInterstitialAdIdLabel,
+          description: l10n.feedToArticleInterstitialAdIdDescription,
+          value: platformIdentifiers.feedToArticleInterstitialAdId,
           onChanged: (value) =>
-              updatePlatformIdentifiers('articleInterstitialAdId', value),
-          controller: controllers['articleInterstitialAdId'],
+              updatePlatformIdentifiers('feedToArticleInterstitialAdId', value),
+          controller: controllers['feedToArticleInterstitialAdId'],
         ),
         AppConfigTextField(
           label: l10n.inArticleNativeAdIdLabel,

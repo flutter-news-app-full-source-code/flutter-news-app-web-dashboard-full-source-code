@@ -1334,22 +1334,6 @@
   "@defaultInArticleAdTypeSelectionDescription": {
     "description": "Description for the Default In-Article Ad Type Selection section"
   },
-  "interstitialAdSettingsTitle": "Interstitial Ad Settings",
-  "@interstitialAdSettingsTitle": {
-    "description": "Title for the Interstitial Ad Settings section"
-  },
-  "enableInterstitialAdsLabel": "Enable Interstitial Ads",
-  "@enableInterstitialAdsLabel": {
-    "description": "Label for the enable interstitial ads switch"
-  },
-  "userRoleInterstitialFrequencyTitle": "User Role Interstitial Frequency",
-  "@userRoleInterstitialFrequencyTitle": {
-    "description": "Title for the User Role Interstitial Frequency section"
-  },
-  "userRoleInterstitialFrequencyDescription": "Configure how often interstitial ads are shown based on user roles.",
-  "@userRoleInterstitialFrequencyDescription": {
-    "description": "Description for the User Role Interstitial Frequency section"
-  },
   "inArticleAdSlotPlacementsTitle": "In-Article Ad Slot Placements",
   "@inArticleAdSlotPlacementsTitle": {
     "description": "Title for the In-Article Ad Slot Placements section"
@@ -1549,5 +1533,49 @@
   "copyId": "Copy ID",
   "@copyId": {
     "description": "Tooltip for the copy ID button."
+  },
+  "enableGlobalAdsLabel": "Enable Ads",
+  "@enableGlobalAdsLabel": {
+    "description": "Label for the switch to enable or disable all ads globally."
+  },
+  "feedToArticleInterstitialAdIdLabel": "Feed to Article Interstitial Ad ID",
+  "@feedToArticleInterstitialAdIdLabel": {
+    "description": "Label for the ad unit ID for interstitial ads shown when transitioning from feed to article."
+  },
+  "feedToArticleInterstitialAdIdDescription": "The ad unit ID for interstitial ads displayed when a user navigates from a feed to an article.",
+  "@feedToArticleInterstitialAdIdDescription": {
+    "description": "Description for the ad unit ID for interstitial ads shown when transitioning from feed to article."
+  },
+  "interstitialAdSettingsTitle": "Interstitial Ad Settings",
+  "@interstitialAdSettingsTitle": {
+    "description": "Title for the section configuring global interstitial ad settings."
+  },
+  "enableInterstitialAdsLabel": "Enable Interstitial Ads",
+  "@enableInterstitialAdsLabel": {
+    "description": "Label for the switch to enable or disable interstitial ads."
+  },
+  "userRoleInterstitialFrequencyTitle": "Interstitial Ad Frequency by User Role",
+  "@userRoleInterstitialFrequencyTitle": {
+    "description": "Title for the section configuring interstitial ad frequency based on user roles."
+  },
+  "userRoleInterstitialFrequencyDescription": "Configure how many transitions a user must make before an interstitial ad is shown, based on their role.",
+  "@userRoleInterstitialFrequencyDescription": {
+    "description": "Description for the interstitial ad frequency settings by user role."
+  },
+  "transitionsBeforeInterstitialAdsLabel": "Transitions Before Interstitial Ads",
+  "@transitionsBeforeInterstitialAdsLabel": {
+    "description": "Label for the number of transitions a user must make before an interstitial ad is shown."
+  },
+  "transitionsBeforeInterstitialAdsDescription": "The number of transitions (e.g., opening articles) a user must make before an interstitial ad is displayed.",
+  "@transitionsBeforeInterstitialAdsDescription": {
+    "description": "Description for the number of transitions a user must make before an interstitial ad is shown."
+  },
+  "adPlatformTypeAdmob": "AdMob",
+  "@adPlatformTypeAdmob": {
+    "description": "The name of the AdMob ad platform."
+  },
+  "adPlatformTypeLocal": "Local",
+  "@adPlatformTypeLocal": {
+    "description": "The name of the Local ad platform for custom ads."
   }
 }

@@ -1,10 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template ad_config_form}
 /// A form widget for configuring ad settings based on user role.
@@ -36,8 +32,6 @@ class _AdConfigFormState extends State<AdConfigForm>
   late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
   late final Map<AppUserRole, TextEditingController>
   _adPlacementIntervalControllers;
-  late final Map<AppUserRole, TextEditingController>
-  _articlesToReadBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
@@ -82,19 +76,6 @@ class _AdConfigFormState extends State<AdConfigForm>
                 ).toString().length,
               ),
     };
-    _articlesToReadBeforeShowingInterstitialAdsControllers = {
-      for (final role in AppUserRole.values)
-        role:
-            TextEditingController(
-                text: _getArticlesBeforeInterstitial(adConfig, role).toString(),
-              )
-              ..selection = TextSelection.collapsed(
-                offset: _getArticlesBeforeInterstitial(
-                  adConfig,
-                  role,
-                ).toString().length,
-              ),
-    };
   }
 
   void _updateControllers() {
@@ -120,20 +101,6 @@ class _AdConfigFormState extends State<AdConfigForm>
               offset: newPlacementIntervalValue.length,
             );
       }
-
-      final newInterstitialValue = _getArticlesBeforeInterstitial(
-        adConfig,
-        role,
-      ).toString();
-      if (_articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text !=
-          newInterstitialValue) {
-        _articlesToReadBeforeShowingInterstitialAdsControllers[role]?.text =
-            newInterstitialValue;
-        _articlesToReadBeforeShowingInterstitialAdsControllers[role]
-            ?.selection = TextSelection.collapsed(
-          offset: newInterstitialValue.length,
-        );
-      }
     }
   }
 
@@ -144,10 +111,6 @@ class _AdConfigFormState extends State<AdConfigForm>
       controller.dispose();
     }
     for (final controller in _adPlacementIntervalControllers.values) {
-      controller.dispose();
-    }
-    for (final controller
-        in _articlesToReadBeforeShowingInterstitialAdsControllers.values) {
       controller.dispose();
     }
     super.dispose();
@@ -161,101 +124,16 @@ class _AdConfigFormState extends State<AdConfigForm>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.adSettingsDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        // Replaced SegmentedButton with TabBar for role selection
-        Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: SizedBox(
-            height: kTextTabBarHeight,
-            child: TabBar(
-              controller: _tabController,
-              tabAlignment: TabAlignment.start,
-              isScrollable: true,
-              tabs: AppUserRole.values
-                  .map((role) => Tab(text: role.l10n(context)))
-                  .toList(),
-            ),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        // TabBarView to display role-specific fields
-        SizedBox(
-          height: 400, // Fixed height for TabBarView within a ListView
-          child: TabBarView(
-            controller: _tabController,
-            children: AppUserRole.values
-                .map(
-                  (role) => _buildRoleSpecificFields(
-                    context,
-                    l10n,
-                    role,
-                    adConfig,
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRoleSpecificFields(
-    BuildContext context,
-    AppLocalizations l10n,
-    AppUserRole role,
-    AdConfig config,
-  ) {
-    return Column(
-      children: [
-        AppConfigIntField(
-          label: l10n.adFrequencyLabel,
-          description: l10n.adFrequencyDescription,
-          value: _getAdFrequency(config, role),
+        SwitchListTile(
+          title: Text(l10n.enableGlobalAdsLabel),
+          value: adConfig.enabled,
           onChanged: (value) {
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
-                adConfig: _updateAdFrequency(config, value, role),
+                adConfig: adConfig.copyWith(enabled: value),
               ),
             );
           },
-          controller: _adFrequencyControllers[role],
-        ),
-        AppConfigIntField(
-          label: l10n.adPlacementIntervalLabel,
-          description: l10n.adPlacementIntervalDescription,
-          value: _getAdPlacementInterval(config, role),
-          onChanged: (value) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                adConfig: _updateAdPlacementInterval(config, value, role),
-              ),
-            );
-          },
-          controller: _adPlacementIntervalControllers[role],
-        ),
-        AppConfigIntField(
-          label: l10n.articlesBeforeInterstitialAdsLabel,
-          description: l10n.articlesBeforeInterstitialAdsDescription,
-          value: _getArticlesBeforeInterstitial(config, role),
-          onChanged: (value) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                adConfig: _updateArticlesBeforeInterstitial(
-                  config,
-                  value,
-                  role,
-                ),
-              ),
-            );
-          },
-          controller:
-              _articlesToReadBeforeShowingInterstitialAdsControllers[role],
         ),
       ],
     );
@@ -293,121 +171,5 @@ class _AdConfigFormState extends State<AdConfigForm>
             .frequencyConfig
             .premiumAdPlacementInterval;
     }
-  }
-
-  int _getArticlesBeforeInterstitial(AdConfig config, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config
-            .articleAdConfiguration
-            .interstitialAdConfiguration
-            .frequencyConfig
-            .guestArticlesToReadBeforeShowingInterstitialAds;
-      case AppUserRole.standardUser:
-        return config
-            .articleAdConfiguration
-            .interstitialAdConfiguration
-            .frequencyConfig
-            .standardUserArticlesToReadBeforeShowingInterstitialAds;
-      case AppUserRole.premiumUser:
-        return config
-            .articleAdConfiguration
-            .interstitialAdConfiguration
-            .frequencyConfig
-            .premiumUserArticlesToReadBeforeShowingInterstitialAds;
-    }
-  }
-
-  AdConfig _updateAdFrequency(AdConfig config, int value, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(guestAdFrequency: value),
-          ),
-        );
-      case AppUserRole.standardUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(authenticatedAdFrequency: value),
-          ),
-        );
-      case AppUserRole.premiumUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(premiumAdFrequency: value),
-          ),
-        );
-    }
-  }
-
-  AdConfig _updateAdPlacementInterval(
-    AdConfig config,
-    int value,
-    AppUserRole role,
-  ) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(guestAdPlacementInterval: value),
-          ),
-        );
-      case AppUserRole.standardUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(authenticatedAdPlacementInterval: value),
-          ),
-        );
-      case AppUserRole.premiumUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(premiumAdPlacementInterval: value),
-          ),
-        );
-    }
-  }
-
-  AdConfig _updateArticlesBeforeInterstitial(
-    AdConfig config,
-    int value,
-    AppUserRole role,
-  ) {
-    final currentFrequencyConfig = config
-        .articleAdConfiguration
-        .interstitialAdConfiguration
-        .frequencyConfig;
-
-    ArticleInterstitialAdFrequencyConfig newFrequencyConfig;
-
-    switch (role) {
-      case AppUserRole.guestUser:
-        newFrequencyConfig = currentFrequencyConfig.copyWith(
-          guestArticlesToReadBeforeShowingInterstitialAds: value,
-        );
-      case AppUserRole.standardUser:
-        newFrequencyConfig = currentFrequencyConfig.copyWith(
-          standardUserArticlesToReadBeforeShowingInterstitialAds: value,
-        );
-      case AppUserRole.premiumUser:
-        newFrequencyConfig = currentFrequencyConfig.copyWith(
-          premiumUserArticlesToReadBeforeShowingInterstitialAds: value,
-        );
-    }
-
-    return config.copyWith(
-      articleAdConfiguration: config.articleAdConfiguration.copyWith(
-        interstitialAdConfiguration: config
-            .articleAdConfiguration
-            .interstitialAdConfiguration
-            .copyWith(frequencyConfig: newFrequencyConfig),
-      ),
-    );
   }
 }

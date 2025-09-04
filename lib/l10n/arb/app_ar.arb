@@ -1338,22 +1338,6 @@
   "@defaultInArticleAdTypeSelectionDescription": {
     "description": "وصف قسم اختيار نوع الإعلان الافتراضي داخل المقال"
   },
-  "interstitialAdSettingsTitle": "إعدادات الإعلانات البينية",
-  "@interstitialAdSettingsTitle": {
-    "description": "عنوان قسم إعدادات الإعلانات البينية"
-  },
-  "enableInterstitialAdsLabel": "تفعيل الإعلانات البينية",
-  "@enableInterstitialAdsLabel": {
-    "description": "تسمية مفتاح تفعيل الإعلانات البينية"
-  },
-  "userRoleInterstitialFrequencyTitle": "تكرار الإعلانات البينية حسب دور المستخدم",
-  "@userRoleInterstitialFrequencyTitle": {
-    "description": "عنوان قسم تكرار الإعلانات البينية حسب دور المستخدم"
-  },
-  "userRoleInterstitialFrequencyDescription": "تكوين عدد مرات عرض الإعلانات البينية بناءً على أدوار المستخدمين.",
-  "@userRoleInterstitialFrequencyDescription": {
-    "description": "وصف قسم تكرار الإعلانات البينية حسب دور المستخدم"
-  },
   "inArticleAdSlotPlacementsTitle": "مواضع الإعلانات داخل المقال",
   "@inArticleAdSlotPlacementsTitle": {
     "description": "عنوان قسم مواضع فتحات الإعلانات داخل المقال"
@@ -1553,5 +1537,49 @@
   "copyId": "نسخ المعرف",
   "@copyId": {
     "description": "Tooltip for the copy ID button."
+  },
+  "enableGlobalAdsLabel": "تفعيل الإعلانات",
+  "@enableGlobalAdsLabel": {
+    "description": "Label for the switch to enable or disable all ads globally."
+  },
+  "feedToArticleInterstitialAdIdLabel": "معرف الإعلان البيني للانتقال من الموجز إلى المقال",
+  "@feedToArticleInterstitialAdIdLabel": {
+    "description": "Label for the ad unit ID for interstitial ads shown when transitioning from feed to article."
+  },
+  "feedToArticleInterstitialAdIdDescription": "معرف الوحدة الإعلانية للإعلانات البينية التي تظهر عندما ينتقل المستخدم من الموجز إلى المقال.",
+  "@feedToArticleInterstitialAdIdDescription": {
+    "description": "Description for the ad unit ID for interstitial ads shown when transitioning from feed to article."
+  },
+  "interstitialAdSettingsTitle": "إعدادات الإعلانات البينية",
+  "@interstitialAdSettingsTitle": {
+    "description": "Title for the section configuring global interstitial ad settings."
+  },
+  "enableInterstitialAdsLabel": "تفعيل الإعلانات البينية",
+  "@enableInterstitialAdsLabel": {
+    "description": "Label for the switch to enable or disable interstitial ads."
+  },
+  "userRoleInterstitialFrequencyTitle": "تكرار الإعلانات البينية حسب دور المستخدم",
+  "@userRoleInterstitialFrequencyTitle": {
+    "description": "Title for the section configuring interstitial ad frequency based on user roles."
+  },
+  "userRoleInterstitialFrequencyDescription": "تكوين عدد الانتقالات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني، بناءً على دوره.",
+  "@userRoleInterstitialFrequencyDescription": {
+    "description": "Description for the interstitial ad frequency settings by user role."
+  },
+  "transitionsBeforeInterstitialAdsLabel": "الانتقالات قبل الإعلانات البينية",
+  "@transitionsBeforeInterstitialAdsLabel": {
+    "description": "Label for the number of transitions a user must make before an interstitial ad is shown."
+  },
+  "transitionsBeforeInterstitialAdsDescription": "عدد الانتقالات (مثل فتح المقالات) التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
+  "@transitionsBeforeInterstitialAdsDescription": {
+    "description": "Description for the number of transitions a user must make before an interstitial ad is shown."
+  },
+  "adPlatformTypeAdmob": "أدموب",
+  "@adPlatformTypeAdmob": {
+    "description": "اسم منصة إعلانات أدموب."
+  },
+  "adPlatformTypeLocal": "محلي",
+  "@adPlatformTypeLocal": {
+    "description": "اسم منصة الإعلانات المحلية للإعلانات المخصصة."
   }
 }

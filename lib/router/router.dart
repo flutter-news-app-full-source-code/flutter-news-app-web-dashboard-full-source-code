@@ -33,8 +33,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/searchable_selection_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/selection_page/selection_page_arguments.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/selection_page_arguments.dart';
 import 'package:go_router/go_router.dart';
 
 /// Creates and configures the GoRouter instance for the application.

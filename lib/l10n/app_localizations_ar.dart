@@ -1068,20 +1068,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'اختر نوع الإعلانات الافتراضي الذي سيُعرض داخل المقالات (أصلي أو بانر).';
 
   @override
-  String get interstitialAdSettingsTitle => 'إعدادات الإعلانات البينية';
-
-  @override
-  String get enableInterstitialAdsLabel => 'تفعيل الإعلانات البينية';
-
-  @override
-  String get userRoleInterstitialFrequencyTitle =>
-      'تكرار الإعلانات البينية حسب دور المستخدم';
-
-  @override
-  String get userRoleInterstitialFrequencyDescription =>
-      'تكوين عدد مرات عرض الإعلانات البينية بناءً على أدوار المستخدمين.';
-
-  @override
   String get inArticleAdSlotPlacementsTitle => 'مواضع الإعلانات داخل المقال';
 
   @override
@@ -1238,4 +1224,43 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get copyId => 'نسخ المعرف';
+
+  @override
+  String get enableGlobalAdsLabel => 'تفعيل الإعلانات';
+
+  @override
+  String get feedToArticleInterstitialAdIdLabel =>
+      'معرف الإعلان البيني للانتقال من الموجز إلى المقال';
+
+  @override
+  String get feedToArticleInterstitialAdIdDescription =>
+      'معرف الوحدة الإعلانية للإعلانات البينية التي تظهر عندما ينتقل المستخدم من الموجز إلى المقال.';
+
+  @override
+  String get interstitialAdSettingsTitle => 'إعدادات الإعلانات البينية';
+
+  @override
+  String get enableInterstitialAdsLabel => 'تفعيل الإعلانات البينية';
+
+  @override
+  String get userRoleInterstitialFrequencyTitle =>
+      'تكرار الإعلانات البينية حسب دور المستخدم';
+
+  @override
+  String get userRoleInterstitialFrequencyDescription =>
+      'تكوين عدد الانتقالات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني، بناءً على دوره.';
+
+  @override
+  String get transitionsBeforeInterstitialAdsLabel =>
+      'الانتقالات قبل الإعلانات البينية';
+
+  @override
+  String get transitionsBeforeInterstitialAdsDescription =>
+      'عدد الانتقالات (مثل فتح المقالات) التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.';
+
+  @override
+  String get adPlatformTypeAdmob => 'أدموب';
+
+  @override
+  String get adPlatformTypeLocal => 'محلي';
 }
