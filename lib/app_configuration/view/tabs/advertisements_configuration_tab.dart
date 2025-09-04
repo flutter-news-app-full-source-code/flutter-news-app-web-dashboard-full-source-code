@@ -1,8 +1,10 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_platform_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/article_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/interstitial_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -46,10 +48,17 @@ class _AdvertisementsConfigurationTabState
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final adConfig = widget.remoteConfig.adConfig;
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
+        // Global Ad Configuration (AdConfigForm now includes the global switch)
+        AdConfigForm(
+          remoteConfig: widget.remoteConfig,
+          onConfigChanged: widget.onConfigChanged,
+        ),
+        const SizedBox(height: AppSpacing.lg),
         // Top-level ExpansionTile for Ad Platform Configuration
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
@@ -64,10 +73,12 @@ class _AdvertisementsConfigurationTabState
                 bottom: AppSpacing.md,
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
+              onExpansionChanged: adConfig.enabled
+                  ? (isExpanded) {
+                      _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                    }
+                  : null, // Disable expansion if global ads are off
+              initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
               children: [
                 AdPlatformConfigForm(
                   remoteConfig: widget.remoteConfig,
@@ -92,10 +103,12 @@ class _AdvertisementsConfigurationTabState
                 bottom: AppSpacing.md,
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
+              onExpansionChanged: adConfig.enabled
+                  ? (isExpanded) {
+                      _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                    }
+                  : null, // Disable expansion if global ads are off
+              initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
               children: [
                 FeedAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
@@ -120,12 +133,44 @@ class _AdvertisementsConfigurationTabState
                 bottom: AppSpacing.md,
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
+              onExpansionChanged: adConfig.enabled
+                  ? (isExpanded) {
+                      _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                    }
+                  : null, // Disable expansion if global ads are off
+              initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
               children: [
                 ArticleAdSettingsForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        // Top-level ExpansionTile for Interstitial Ad Settings
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 3;
+            return ExpansionTile(
+              key: ValueKey('interstitialAdSettingsTile_$expandedIndex'),
+              title: Text(l10n.interstitialAdSettingsTitle),
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              onExpansionChanged: adConfig.enabled
+                  ? (isExpanded) {
+                      _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                    }
+                  : null, // Disable expansion if global ads are off
+              initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
+              children: [
+                InterstitialAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
