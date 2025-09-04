@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_type_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/in_article_ad_slot_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -97,7 +98,7 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
                     .map(
                       (type) => ButtonSegment<AdType>(
                         value: type,
-                        label: Text(type.name),
+                        label: Text(type.l10n(context)),
                       ),
                     )
                     .toList(),
