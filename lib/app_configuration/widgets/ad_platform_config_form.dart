@@ -70,13 +70,13 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                     ?.feedBannerAdId ??
                 '',
           ),
-          'articleInterstitialAdId': TextEditingController(
+          'feedToArticleInterstitialAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .adConfig
                     .platformAdIdentifiers[platform]
-                    ?.articleInterstitialAdId ??
+                    ?.feedToArticleInterstitialAdId ??
                 '',
           ),
           'inArticleNativeAdId': TextEditingController(
@@ -137,22 +137,22 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
         );
       }
 
-      final articleInterstitialAdId =
+      final feedToArticleInterstitialAdId =
           widget
               .remoteConfig
               .adConfig
               .platformAdIdentifiers[platform]
-              ?.articleInterstitialAdId ??
+              ?.feedToArticleInterstitialAdId ??
           '';
-      if (_platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+      if (_platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
               ?.text !=
-          articleInterstitialAdId) {
-        _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+          feedToArticleInterstitialAdId) {
+        _platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
                 ?.text =
-            articleInterstitialAdId;
-        _platformAdIdentifierControllers[platform]!['articleInterstitialAdId']
+            feedToArticleInterstitialAdId;
+        _platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
             ?.selection = TextSelection.collapsed(
-          offset: articleInterstitialAdId.length,
+          offset: feedToArticleInterstitialAdId.length,
         );
       }
 
@@ -211,124 +211,134 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
     final l10n = AppLocalizationsX(context).l10n;
     final adConfig = widget.remoteConfig.adConfig;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Primary Ad Platform Selection
-        ExpansionTile(
-          title: Text(l10n.primaryAdPlatformTitle),
-          childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg, // Adjusted padding for hierarchy
-            top: AppSpacing.md,
-            bottom: AppSpacing.md,
-          ),
-          expandedCrossAxisAlignment:
-              CrossAxisAlignment.start, // Align content to start
+    return AbsorbPointer(
+      absorbing: !adConfig.enabled,
+      child: Opacity(
+        opacity: adConfig.enabled ? 1.0 : 0.5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              l10n.primaryAdPlatformDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            // Primary Ad Platform Selection
+            ExpansionTile(
+              title: Text(l10n.primaryAdPlatformTitle),
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg, // Adjusted padding for hierarchy
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
               ),
-              textAlign: TextAlign.start, // Ensure text aligns to start
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: SegmentedButton<AdPlatformType>(
-                style: SegmentedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
+              expandedCrossAxisAlignment:
+                  CrossAxisAlignment.start, // Align content to start
+              children: [
+                Text(
+                  l10n.primaryAdPlatformDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
                   ),
+                  textAlign: TextAlign.start, // Ensure text aligns to start
                 ),
-                segments: AdPlatformType.values
-                    .map(
-                      (platform) => ButtonSegment<AdPlatformType>(
-                        value: platform,
-                        label: Text(platform.name),
-                      ),
-                    )
-                    .toList(),
-                selected: {_selectedPlatform},
-                onSelectionChanged: (newSelection) {
-                  setState(() {
-                    _selectedPlatform = newSelection.first;
-                  });
-                  widget.onConfigChanged(
-                    widget.remoteConfig.copyWith(
-                      adConfig: adConfig.copyWith(
-                        primaryAdPlatform: newSelection.first,
+                const SizedBox(height: AppSpacing.lg),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: SegmentedButton<AdPlatformType>(
+                    style: SegmentedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Ad Unit Identifiers
-        ExpansionTile(
-          title: Text(l10n.adUnitIdentifiersTitle),
-          childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg, // Adjusted padding for hierarchy
-            top: AppSpacing.md,
-            bottom: AppSpacing.md,
-          ),
-          expandedCrossAxisAlignment:
-              CrossAxisAlignment.start, // Align content to start
-          children: [
-            Text(
-              l10n.adUnitIdentifiersDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
-              textAlign: TextAlign.start, // Ensure text aligns to start
+                    segments: AdPlatformType.values
+                        .map(
+                          (platform) => ButtonSegment<AdPlatformType>(
+                            value: platform,
+                            label: Text(platform.name),
+                          ),
+                        )
+                        .toList(),
+                    selected: {_selectedPlatform},
+                    onSelectionChanged: (newSelection) {
+                      setState(() {
+                        _selectedPlatform = newSelection.first;
+                      });
+                      widget.onConfigChanged(
+                        widget.remoteConfig.copyWith(
+                          adConfig: adConfig.copyWith(
+                            primaryAdPlatform: newSelection.first,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: AppSpacing.lg),
-            _buildAdUnitIdentifierFields(
-              context,
-              l10n,
-              _selectedPlatform,
-              adConfig,
+
+            // Ad Unit Identifiers
+            ExpansionTile(
+              title: Text(l10n.adUnitIdentifiersTitle),
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg, // Adjusted padding for hierarchy
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment:
+                  CrossAxisAlignment.start, // Align content to start
+              children: [
+                Text(
+                  l10n.adUnitIdentifiersDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
+                  textAlign: TextAlign.start, // Ensure text aligns to start
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                _buildAdUnitIdentifierFields(
+                  context,
+                  l10n,
+                  _selectedPlatform,
+                  adConfig,
+                ),
+              ],
             ),
+            const SizedBox(height: AppSpacing.lg),
+
+            // Local Ad Management
+            if (_selectedPlatform == AdPlatformType.local)
+              ExpansionTile(
+                title: Text(l10n.localAdManagementTitle),
+                childrenPadding: const EdgeInsetsDirectional.only(
+                  start: AppSpacing.lg, // Adjusted padding for hierarchy
+                  top: AppSpacing.md,
+                  bottom: AppSpacing.md,
+                ),
+                expandedCrossAxisAlignment:
+                    CrossAxisAlignment.start, // Align content to start
+                children: [
+                  Text(
+                    l10n.localAdManagementDescription,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                    textAlign: TextAlign.start, // Ensure text aligns to start
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () =>
+                          context.goNamed(Routes.localAdsManagementName),
+                      child: Text(l10n.manageLocalAdsButton),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Local Ad Management
-        if (_selectedPlatform == AdPlatformType.local)
-          ExpansionTile(
-            title: Text(l10n.localAdManagementTitle),
-            childrenPadding: const EdgeInsetsDirectional.only(
-              start: AppSpacing.lg, // Adjusted padding for hierarchy
-              top: AppSpacing.md,
-              bottom: AppSpacing.md,
-            ),
-            expandedCrossAxisAlignment:
-                CrossAxisAlignment.start, // Align content to start
-            children: [
-              Text(
-                l10n.localAdManagementDescription,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
-                textAlign: TextAlign.start, // Ensure text aligns to start
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () =>
-                      context.goNamed(Routes.localAdsManagementName),
-                  child: Text(l10n.manageLocalAdsButton),
-                ),
-              ),
-            ],
-          ),
-      ],
+      ),
     );
   }
 
@@ -350,9 +360,9 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
           newIdentifiers = platformIdentifiers.copyWith(feedNativeAdId: value);
         case 'feedBannerAdId':
           newIdentifiers = platformIdentifiers.copyWith(feedBannerAdId: value);
-        case 'articleInterstitialAdId':
+        case 'feedToArticleInterstitialAdId':
           newIdentifiers = platformIdentifiers.copyWith(
-            articleInterstitialAdId: value,
+            feedToArticleInterstitialAdId: value,
           );
         case 'inArticleNativeAdId':
           newIdentifiers = platformIdentifiers.copyWith(
@@ -399,12 +409,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
           controller: controllers['feedBannerAdId'],
         ),
         AppConfigTextField(
-          label: l10n.articleInterstitialAdIdLabel,
-          description: l10n.articleInterstitialAdIdDescription,
-          value: platformIdentifiers.articleInterstitialAdId,
+          label: l10n.feedToArticleInterstitialAdIdLabel,
+          description: l10n.feedToArticleInterstitialAdIdDescription,
+          value: platformIdentifiers.feedToArticleInterstitialAdId,
           onChanged: (value) =>
-              updatePlatformIdentifiers('articleInterstitialAdId', value),
-          controller: controllers['articleInterstitialAdId'],
+              updatePlatformIdentifiers('feedToArticleInterstitialAdId', value),
+          controller: controllers['feedToArticleInterstitialAdId'],
         ),
         AppConfigTextField(
           label: l10n.inArticleNativeAdIdLabel,
