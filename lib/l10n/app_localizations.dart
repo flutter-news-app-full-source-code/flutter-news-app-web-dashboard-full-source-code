@@ -2012,30 +2012,6 @@ abstract class AppLocalizations {
   /// **'Choose the default type of ads to display within articles (Native or Banner).'**
   String get defaultInArticleAdTypeSelectionDescription;
 
-  /// Title for the Interstitial Ad Settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Interstitial Ad Settings'**
-  String get interstitialAdSettingsTitle;
-
-  /// Label for the enable interstitial ads switch
-  ///
-  /// In en, this message translates to:
-  /// **'Enable Interstitial Ads'**
-  String get enableInterstitialAdsLabel;
-
-  /// Title for the User Role Interstitial Frequency section
-  ///
-  /// In en, this message translates to:
-  /// **'User Role Interstitial Frequency'**
-  String get userRoleInterstitialFrequencyTitle;
-
-  /// Description for the User Role Interstitial Frequency section
-  ///
-  /// In en, this message translates to:
-  /// **'Configure how often interstitial ads are shown based on user roles.'**
-  String get userRoleInterstitialFrequencyDescription;
-
   /// Title for the In-Article Ad Slot Placements section
   ///
   /// In en, this message translates to:
@@ -2317,6 +2293,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copy ID'**
   String get copyId;
+
+  /// Label for the switch to enable or disable all ads globally.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Ads'**
+  String get enableGlobalAdsLabel;
+
+  /// Label for the ad unit ID for interstitial ads shown when transitioning from feed to article.
+  ///
+  /// In en, this message translates to:
+  /// **'Feed to Article Interstitial Ad ID'**
+  String get feedToArticleInterstitialAdIdLabel;
+
+  /// Description for the ad unit ID for interstitial ads shown when transitioning from feed to article.
+  ///
+  /// In en, this message translates to:
+  /// **'The ad unit ID for interstitial ads displayed when a user navigates from a feed to an article.'**
+  String get feedToArticleInterstitialAdIdDescription;
+
+  /// Title for the section configuring global interstitial ad settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial Ad Settings'**
+  String get interstitialAdSettingsTitle;
+
+  /// Label for the switch to enable or disable interstitial ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Interstitial Ads'**
+  String get enableInterstitialAdsLabel;
+
+  /// Title for the section configuring interstitial ad frequency based on user roles.
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial Ad Frequency by User Role'**
+  String get userRoleInterstitialFrequencyTitle;
+
+  /// Description for the interstitial ad frequency settings by user role.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure how many transitions a user must make before an interstitial ad is shown, based on their role.'**
+  String get userRoleInterstitialFrequencyDescription;
+
+  /// Label for the number of transitions a user must make before an interstitial ad is shown.
+  ///
+  /// In en, this message translates to:
+  /// **'Transitions Before Interstitial Ads'**
+  String get transitionsBeforeInterstitialAdsLabel;
+
+  /// Description for the number of transitions a user must make before an interstitial ad is shown.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of transitions (e.g., opening articles) a user must make before an interstitial ad is displayed.'**
+  String get transitionsBeforeInterstitialAdsDescription;
 }
 
 class _AppLocalizationsDelegate

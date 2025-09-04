@@ -1066,20 +1066,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Choose the default type of ads to display within articles (Native or Banner).';
 
   @override
-  String get interstitialAdSettingsTitle => 'Interstitial Ad Settings';
-
-  @override
-  String get enableInterstitialAdsLabel => 'Enable Interstitial Ads';
-
-  @override
-  String get userRoleInterstitialFrequencyTitle =>
-      'User Role Interstitial Frequency';
-
-  @override
-  String get userRoleInterstitialFrequencyDescription =>
-      'Configure how often interstitial ads are shown based on user roles.';
-
-  @override
   String get inArticleAdSlotPlacementsTitle => 'In-Article Ad Slot Placements';
 
   @override
@@ -1240,4 +1226,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get copyId => 'Copy ID';
+
+  @override
+  String get enableGlobalAdsLabel => 'Enable Ads';
+
+  @override
+  String get feedToArticleInterstitialAdIdLabel =>
+      'Feed to Article Interstitial Ad ID';
+
+  @override
+  String get feedToArticleInterstitialAdIdDescription =>
+      'The ad unit ID for interstitial ads displayed when a user navigates from a feed to an article.';
+
+  @override
+  String get interstitialAdSettingsTitle => 'Interstitial Ad Settings';
+
+  @override
+  String get enableInterstitialAdsLabel => 'Enable Interstitial Ads';
+
+  @override
+  String get userRoleInterstitialFrequencyTitle =>
+      'Interstitial Ad Frequency by User Role';
+
+  @override
+  String get userRoleInterstitialFrequencyDescription =>
+      'Configure how many transitions a user must make before an interstitial ad is shown, based on their role.';
+
+  @override
+  String get transitionsBeforeInterstitialAdsLabel =>
+      'Transitions Before Interstitial Ads';
+
+  @override
+  String get transitionsBeforeInterstitialAdsDescription =>
+      'The number of transitions (e.g., opening articles) a user must make before an interstitial ad is displayed.';
 }
