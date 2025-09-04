@@ -30,13 +30,15 @@ class EditLocalVideoAdPage extends StatelessWidget {
         localAdsRepository: context.read<DataRepository<LocalAd>>(),
         id: adId,
       ),
-      child: const _EditLocalVideoAdView(),
+      child: _EditLocalVideoAdView(adId: adId),
     );
   }
 }
 
 class _EditLocalVideoAdView extends StatefulWidget {
-  const _EditLocalVideoAdView();
+  const _EditLocalVideoAdView({required this.adId});
+
+  final String adId;
 
   @override
   State<_EditLocalVideoAdView> createState() => _EditLocalVideoAdViewState();
