@@ -153,7 +153,7 @@ class _LocalAdsManagementViewState extends State<_LocalAdsManagementView>
             tabAlignment: TabAlignment.start,
             isScrollable: true,
             tabs: LocalAdsManagementTab.values
-                .map((tab) => Tab(text: tab.name.capitalize()))
+                .map((tab) => Tab(text: tab.l10n(context)))
                 .toList(),
           ),
           actions: [

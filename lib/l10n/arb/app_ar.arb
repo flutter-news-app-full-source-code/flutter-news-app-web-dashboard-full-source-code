@@ -1581,5 +1581,37 @@
   "adPlatformTypeLocal": "محلي",
   "@adPlatformTypeLocal": {
     "description": "اسم منصة الإعلانات المحلية للإعلانات المخصصة."
+  },
+  "nativeAdsTab": "إعلانات أصلية",
+  "@nativeAdsTab": {
+    "description": "عنوان تبويب الإعلانات الأصلية في إدارة الإعلانات المحلية."
+  },
+  "bannerAdsTab": "إعلانات بانر",
+  "@bannerAdsTab": {
+    "description": "عنوان تبويب إعلانات البانر في إدارة الإعلانات المحلية."
+  },
+  "interstitialAdsTab": "إعلانات بينية",
+  "@interstitialAdsTab": {
+    "description": "عنوان تبويب الإعلانات البينية في إدارة الإعلانات المحلية."
+  },
+  "videoAdsTab": "إعلانات فيديو",
+  "@videoAdsTab": {
+    "description": "عنوان تبويب إعلانات الفيديو في إدارة الإعلانات المحلية."
+  },
+  "bannerAdType": "بانر",
+  "@bannerAdType": {
+    "description": "تسمية نوع إعلان البانر."
+  },
+  "nativeAdType": "أصلي",
+  "@nativeAdType": {
+    "description": "تسمية نوع الإعلان الأصلي."
+  },
+  "interstitialAdType": "بيني",
+  "@interstitialAdType": {
+    "description": "تسمية نوع الإعلان البيني."
+  },
+  "videoAdType": "فيديو",
+  "@videoAdType": {
+    "description": "تسمية نوع إعلان الفيديو."
   }
 }

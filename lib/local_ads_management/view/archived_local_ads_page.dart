@@ -77,7 +77,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: AdType.values
-              .map((type) => Tab(text: type.name.capitalize()))
+              .map((type) => Tab(text: type.l10n(context)))
               .toList(),
         ),
       ),

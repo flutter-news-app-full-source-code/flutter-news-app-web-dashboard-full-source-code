@@ -1577,5 +1577,37 @@
   "adPlatformTypeLocal": "Local",
   "@adPlatformTypeLocal": {
     "description": "The name of the Local ad platform for custom ads."
+  },
+  "nativeAdsTab": "Native Ads",
+  "@nativeAdsTab": {
+    "description": "Tab title for Native Ads in local ads management."
+  },
+  "bannerAdsTab": "Banner Ads",
+  "@bannerAdsTab": {
+    "description": "Tab title for Banner Ads in local ads management."
+  },
+  "interstitialAdsTab": "Interstitial Ads",
+  "@interstitialAdsTab": {
+    "description": "Tab title for Interstitial Ads in local ads management."
+  },
+  "videoAdsTab": "Video Ads",
+  "@videoAdsTab": {
+    "description": "Tab title for Video Ads in local ads management."
+  },
+  "bannerAdType": "Banner",
+  "@bannerAdType": {
+    "description": "Label for Banner Ad Type."
+  },
+  "nativeAdType": "Native",
+  "@nativeAdType": {
+    "description": "Label for Native Ad Type."
+  },
+  "interstitialAdType": "Interstitial",
+  "@interstitialAdType": {
+    "description": "Label for Interstitial Ad Type."
+  },
+  "videoAdType": "Video",
+  "@videoAdType": {
+    "description": "Label for Video Ad Type."
   }
 }

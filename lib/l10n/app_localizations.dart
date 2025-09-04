@@ -2359,6 +2359,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Local'**
   String get adPlatformTypeLocal;
+
+  /// Tab title for Native Ads in local ads management.
+  ///
+  /// In en, this message translates to:
+  /// **'Native Ads'**
+  String get nativeAdsTab;
+
+  /// Tab title for Banner Ads in local ads management.
+  ///
+  /// In en, this message translates to:
+  /// **'Banner Ads'**
+  String get bannerAdsTab;
+
+  /// Tab title for Interstitial Ads in local ads management.
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial Ads'**
+  String get interstitialAdsTab;
+
+  /// Tab title for Video Ads in local ads management.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Ads'**
+  String get videoAdsTab;
+
+  /// Label for Banner Ad Type.
+  ///
+  /// In en, this message translates to:
+  /// **'Banner'**
+  String get bannerAdType;
+
+  /// Label for Native Ad Type.
+  ///
+  /// In en, this message translates to:
+  /// **'Native'**
+  String get nativeAdType;
+
+  /// Label for Interstitial Ad Type.
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial'**
+  String get interstitialAdType;
+
+  /// Label for Video Ad Type.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get videoAdType;
 }
 
 class _AppLocalizationsDelegate
