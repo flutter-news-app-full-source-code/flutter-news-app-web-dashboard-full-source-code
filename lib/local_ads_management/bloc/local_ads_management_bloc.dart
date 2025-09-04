@@ -294,10 +294,10 @@ class LocalAdsManagementBloc
 
     try {
       final updatedAd = switch (adToArchive) {
-        LocalNativeAd ad => ad.copyWith(status: ContentStatus.archived),
-        LocalBannerAd ad => ad.copyWith(status: ContentStatus.archived),
-        LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.archived),
-        LocalVideoAd ad => ad.copyWith(status: ContentStatus.archived),
+        final LocalNativeAd ad => ad.copyWith(status: ContentStatus.archived),
+        final LocalBannerAd ad => ad.copyWith(status: ContentStatus.archived),
+        final LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.archived),
+        final LocalVideoAd ad => ad.copyWith(status: ContentStatus.archived),
         _ => throw StateError(
           'Unknown LocalAd type: ${adToArchive.runtimeType}',
         ),
@@ -346,10 +346,10 @@ class LocalAdsManagementBloc
       // Fetch the ad to restore (it's currently archived)
       final adToRestore = await _localAdsRepository.read(id: event.id);
       final updatedAd = switch (adToRestore) {
-        LocalNativeAd ad => ad.copyWith(status: ContentStatus.active),
-        LocalBannerAd ad => ad.copyWith(status: ContentStatus.active),
-        LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.active),
-        LocalVideoAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalNativeAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalBannerAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalVideoAd ad => ad.copyWith(status: ContentStatus.active),
         _ => throw StateError(
           'Unknown LocalAd type: ${adToRestore.runtimeType}',
         ),
