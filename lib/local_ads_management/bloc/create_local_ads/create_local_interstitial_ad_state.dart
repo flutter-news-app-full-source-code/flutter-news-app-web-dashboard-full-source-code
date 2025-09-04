@@ -73,11 +73,11 @@ class CreateLocalInterstitialAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        imageUrl,
-        targetUrl,
-        contentStatus,
-        exception,
-        createdLocalInterstitialAd,
-      ];
+    status,
+    imageUrl,
+    targetUrl,
+    contentStatus,
+    exception,
+    createdLocalInterstitialAd,
+  ];
 }

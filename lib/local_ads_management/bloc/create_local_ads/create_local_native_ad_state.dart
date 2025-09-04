@@ -88,13 +88,13 @@ class CreateLocalNativeAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        title,
-        subtitle,
-        imageUrl,
-        targetUrl,
-        contentStatus,
-        exception,
-        createdLocalNativeAd,
-      ];
+    status,
+    title,
+    subtitle,
+    imageUrl,
+    targetUrl,
+    contentStatus,
+    exception,
+    createdLocalNativeAd,
+  ];
 }

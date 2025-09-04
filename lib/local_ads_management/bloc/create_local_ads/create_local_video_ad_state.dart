@@ -72,11 +72,11 @@ class CreateLocalVideoAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        videoUrl,
-        targetUrl,
-        contentStatus,
-        exception,
-        createdLocalVideoAd,
-      ];
+    status,
+    videoUrl,
+    targetUrl,
+    contentStatus,
+    exception,
+    createdLocalVideoAd,
+  ];
 }

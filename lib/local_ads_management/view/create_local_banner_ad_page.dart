@@ -80,8 +80,8 @@ class _CreateLocalBannerAdViewState extends State<_CreateLocalBannerAdView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
                     ? () => context.read<CreateLocalBannerAdBloc>().add(
-                          const CreateLocalBannerAdSubmitted(),
-                        )
+                        const CreateLocalBannerAdSubmitted(),
+                      )
                     : null,
               );
             },
@@ -153,8 +153,8 @@ class _CreateLocalBannerAdViewState extends State<_CreateLocalBannerAdView> {
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<CreateLocalBannerAdBloc>().add(
-                              CreateLocalBannerAdStatusChanged(value),
-                            );
+                          CreateLocalBannerAdStatusChanged(value),
+                        );
                       },
                     ),
                   ],

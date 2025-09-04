@@ -15,9 +15,9 @@ class UpdateLocalVideoAdBloc
   UpdateLocalVideoAdBloc({
     required DataRepository<LocalAd> localAdsRepository,
     required String id,
-  })  : _localAdsRepository = localAdsRepository,
-        _id = id,
-        super(const UpdateLocalVideoAdState()) {
+  }) : _localAdsRepository = localAdsRepository,
+       _id = id,
+       super(const UpdateLocalVideoAdState()) {
     on<UpdateLocalVideoAdLoaded>(_onLoaded);
     on<UpdateLocalVideoAdVideoUrlChanged>(_onVideoUrlChanged);
     on<UpdateLocalVideoAdTargetUrlChanged>(_onTargetUrlChanged);
@@ -48,7 +48,9 @@ class UpdateLocalVideoAdBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: UpdateLocalVideoAdStatus.failure, exception: e));
+      emit(
+        state.copyWith(status: UpdateLocalVideoAdStatus.failure, exception: e),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -107,7 +109,9 @@ class UpdateLocalVideoAdBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: UpdateLocalVideoAdStatus.failure, exception: e));
+      emit(
+        state.copyWith(status: UpdateLocalVideoAdStatus.failure, exception: e),
+      );
     } catch (e) {
       emit(
         state.copyWith(

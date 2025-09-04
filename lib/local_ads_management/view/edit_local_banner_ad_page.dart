@@ -87,8 +87,8 @@ class _EditLocalBannerAdViewState extends State<_EditLocalBannerAdView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid && state.isDirty
                     ? () => context.read<UpdateLocalBannerAdBloc>().add(
-                          const UpdateLocalBannerAdSubmitted(),
-                        )
+                        const UpdateLocalBannerAdSubmitted(),
+                      )
                     : null,
               );
             },
@@ -141,8 +141,8 @@ class _EditLocalBannerAdViewState extends State<_EditLocalBannerAdView> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<UpdateLocalBannerAdBloc>().add(
-                    UpdateLocalBannerAdLoaded(widget.adId),
-                  ),
+                UpdateLocalBannerAdLoaded(widget.adId),
+              ),
             );
           }
 
@@ -186,8 +186,8 @@ class _EditLocalBannerAdViewState extends State<_EditLocalBannerAdView> {
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<UpdateLocalBannerAdBloc>().add(
-                              UpdateLocalBannerAdStatusChanged(value),
-                            );
+                          UpdateLocalBannerAdStatusChanged(value),
+                        );
                       },
                     ),
                   ],

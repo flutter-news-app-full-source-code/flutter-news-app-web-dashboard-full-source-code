@@ -24,33 +24,34 @@ class LocalAdsManagementPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LocalAdsManagementBloc(
-        localAdsRepository: context.read<DataRepository<LocalAd>>(),
-      )
-        ..add(
-          const LoadLocalAdsRequested(
-            adType: AdType.native,
-            limit: kDefaultRowsPerPage,
-          ),
-        )
-        ..add(
-          const LoadLocalAdsRequested(
-            adType: AdType.banner,
-            limit: kDefaultRowsPerPage,
-          ),
-        )
-        ..add(
-          const LoadLocalAdsRequested(
-            adType: AdType.interstitial,
-            limit: kDefaultRowsPerPage,
-          ),
-        )
-        ..add(
-          const LoadLocalAdsRequested(
-            adType: AdType.video,
-            limit: kDefaultRowsPerPage,
-          ),
-        ),
+      create: (context) =>
+          LocalAdsManagementBloc(
+              localAdsRepository: context.read<DataRepository<LocalAd>>(),
+            )
+            ..add(
+              const LoadLocalAdsRequested(
+                adType: AdType.native,
+                limit: kDefaultRowsPerPage,
+              ),
+            )
+            ..add(
+              const LoadLocalAdsRequested(
+                adType: AdType.banner,
+                limit: kDefaultRowsPerPage,
+              ),
+            )
+            ..add(
+              const LoadLocalAdsRequested(
+                adType: AdType.interstitial,
+                limit: kDefaultRowsPerPage,
+              ),
+            )
+            ..add(
+              const LoadLocalAdsRequested(
+                adType: AdType.video,
+                limit: kDefaultRowsPerPage,
+              ),
+            ),
       child: const _LocalAdsManagementView(),
     );
   }
@@ -90,8 +91,8 @@ class _LocalAdsManagementViewState extends State<_LocalAdsManagementView>
     if (!_tabController.indexIsChanging) {
       final tab = LocalAdsManagementTab.values[_tabController.index];
       context.read<LocalAdsManagementBloc>().add(
-            LocalAdsManagementTabChanged(tab),
-          );
+        LocalAdsManagementTabChanged(tab),
+      );
     }
   }
 
@@ -106,17 +107,21 @@ class _LocalAdsManagementViewState extends State<_LocalAdsManagementView>
           String truncatedTitle;
           switch (state.lastDeletedLocalAd!.adType) {
             case 'native':
-              truncatedTitle =
-                  (state.lastDeletedLocalAd! as LocalNativeAd).title.truncate(30);
+              truncatedTitle = (state.lastDeletedLocalAd! as LocalNativeAd)
+                  .title
+                  .truncate(30);
             case 'banner':
-              truncatedTitle =
-                  (state.lastDeletedLocalAd! as LocalBannerAd).imageUrl.truncate(30);
+              truncatedTitle = (state.lastDeletedLocalAd! as LocalBannerAd)
+                  .imageUrl
+                  .truncate(30);
             case 'interstitial':
               truncatedTitle =
-                  (state.lastDeletedLocalAd! as LocalInterstitialAd).imageUrl.truncate(30);
+                  (state.lastDeletedLocalAd! as LocalInterstitialAd).imageUrl
+                      .truncate(30);
             case 'video':
-              truncatedTitle =
-                  (state.lastDeletedLocalAd! as LocalVideoAd).videoUrl.truncate(30);
+              truncatedTitle = (state.lastDeletedLocalAd! as LocalVideoAd)
+                  .videoUrl
+                  .truncate(30);
             default:
               truncatedTitle = state.lastDeletedLocalAd!.id.truncate(30);
           }
@@ -132,8 +137,8 @@ class _LocalAdsManagementViewState extends State<_LocalAdsManagementView>
                   label: l10n.undo,
                   onPressed: () {
                     context.read<LocalAdsManagementBloc>().add(
-                          const UndoDeleteLocalAdRequested(),
-                        );
+                      const UndoDeleteLocalAdRequested(),
+                    );
                   },
                 ),
               ),
@@ -163,8 +168,10 @@ class _LocalAdsManagementViewState extends State<_LocalAdsManagementView>
               icon: const Icon(Icons.add),
               tooltip: l10n.addNewItem,
               onPressed: () {
-                final currentTab =
-                    context.read<LocalAdsManagementBloc>().state.activeTab;
+                final currentTab = context
+                    .read<LocalAdsManagementBloc>()
+                    .state
+                    .activeTab;
                 switch (currentTab) {
                   case LocalAdsManagementTab.native:
                     context.goNamed(Routes.createLocalNativeAdName);
@@ -241,11 +248,11 @@ class _LocalAdsDataTable extends StatelessWidget {
           return FailureStateWidget(
             exception: state.exception!,
             onRetry: () => context.read<LocalAdsManagementBloc>().add(
-                  LoadLocalAdsRequested(
-                    adType: adType.toAdType(),
-                    limit: kDefaultRowsPerPage,
-                  ),
-                ),
+              LoadLocalAdsRequested(
+                adType: adType.toAdType(),
+                limit: kDefaultRowsPerPage,
+              ),
+            ),
           );
         }
 
@@ -293,12 +300,12 @@ class _LocalAdsDataTable extends StatelessWidget {
                       hasMore &&
                       status != LocalAdsManagementStatus.loading) {
                     context.read<LocalAdsManagementBloc>().add(
-                          LoadLocalAdsRequested(
-                            adType: adType.toAdType(),
-                            startAfterId: cursor,
-                            limit: kDefaultRowsPerPage,
-                          ),
-                        );
+                      LoadLocalAdsRequested(
+                        adType: adType.toAdType(),
+                        startAfterId: cursor,
+                        limit: kDefaultRowsPerPage,
+                      ),
+                    );
                   }
                 },
                 empty: Center(child: Text(l10n.noLocalAdsFound)),
@@ -394,8 +401,8 @@ class _LocalAdsDataSource extends DataTableSource {
                 tooltip: l10n.archive,
                 onPressed: () {
                   context.read<LocalAdsManagementBloc>().add(
-                        ArchiveLocalAdRequested(ad.id, adType.toAdType()),
-                      );
+                    ArchiveLocalAdRequested(ad.id, adType.toAdType()),
+                  );
                 },
               ),
               IconButton(

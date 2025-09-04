@@ -24,7 +24,8 @@ final class UpdateLocalBannerAdLoaded extends UpdateLocalBannerAdEvent {
 /// {@template update_local_banner_ad_image_url_changed}
 /// Event to notify that the image URL of the local banner ad has changed.
 /// {@endtemplate}
-final class UpdateLocalBannerAdImageUrlChanged extends UpdateLocalBannerAdEvent {
+final class UpdateLocalBannerAdImageUrlChanged
+    extends UpdateLocalBannerAdEvent {
   /// {@macro update_local_banner_ad_image_url_changed}
   const UpdateLocalBannerAdImageUrlChanged(this.imageUrl);
 
@@ -38,7 +39,8 @@ final class UpdateLocalBannerAdImageUrlChanged extends UpdateLocalBannerAdEvent 
 /// {@template update_local_banner_ad_target_url_changed}
 /// Event to notify that the target URL of the local banner ad has changed.
 /// {@endtemplate}
-final class UpdateLocalBannerAdTargetUrlChanged extends UpdateLocalBannerAdEvent {
+final class UpdateLocalBannerAdTargetUrlChanged
+    extends UpdateLocalBannerAdEvent {
   /// {@macro update_local_banner_ad_target_url_changed}
   const UpdateLocalBannerAdTargetUrlChanged(this.targetUrl);
 

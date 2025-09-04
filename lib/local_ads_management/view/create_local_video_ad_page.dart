@@ -80,8 +80,8 @@ class _CreateLocalVideoAdViewState extends State<_CreateLocalVideoAdView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
                     ? () => context.read<CreateLocalVideoAdBloc>().add(
-                          const CreateLocalVideoAdSubmitted(),
-                        )
+                        const CreateLocalVideoAdSubmitted(),
+                      )
                     : null,
               );
             },
@@ -153,8 +153,8 @@ class _CreateLocalVideoAdViewState extends State<_CreateLocalVideoAdView> {
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<CreateLocalVideoAdBloc>().add(
-                              CreateLocalVideoAdStatusChanged(value),
-                            );
+                          CreateLocalVideoAdStatusChanged(value),
+                        );
                       },
                     ),
                   ],

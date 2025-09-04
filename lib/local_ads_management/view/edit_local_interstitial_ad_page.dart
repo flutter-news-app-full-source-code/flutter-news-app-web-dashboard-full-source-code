@@ -72,8 +72,10 @@ class _EditLocalInterstitialAdViewState
       appBar: AppBar(
         title: Text(l10n.editLocalInterstitialAdTitle),
         actions: [
-          BlocBuilder<UpdateLocalInterstitialAdBloc,
-              UpdateLocalInterstitialAdState>(
+          BlocBuilder<
+            UpdateLocalInterstitialAdBloc,
+            UpdateLocalInterstitialAdState
+          >(
             builder: (context, state) {
               if (state.status == UpdateLocalInterstitialAdStatus.submitting) {
                 return const Padding(
@@ -90,117 +92,130 @@ class _EditLocalInterstitialAdViewState
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid && state.isDirty
                     ? () => context.read<UpdateLocalInterstitialAdBloc>().add(
-                          const UpdateLocalInterstitialAdSubmitted(),
-                        )
+                        const UpdateLocalInterstitialAdSubmitted(),
+                      )
                     : null,
               );
             },
           ),
         ],
       ),
-      body: BlocConsumer<UpdateLocalInterstitialAdBloc,
-          UpdateLocalInterstitialAdState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          if (state.status == UpdateLocalInterstitialAdStatus.success &&
-              state.updatedAd != null &&
-              ModalRoute.of(context)!.isCurrent) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.localInterstitialAdUpdatedSuccessfully),
-                ),
-              );
-            context.pop();
-          }
-          if (state.status == UpdateLocalInterstitialAdStatus.failure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
-                  backgroundColor: Theme.of(context).colorScheme.error,
-                ),
-              );
-          }
-          // Update text controllers when data is loaded or changed
-          if (state.status == UpdateLocalInterstitialAdStatus.initial &&
-              state.initialAd != null) {
-            _imageUrlController.text = state.imageUrl;
-            _targetUrlController.text = state.targetUrl;
-          }
-        },
-        builder: (context, state) {
-          if (state.status == UpdateLocalInterstitialAdStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.ads_click,
-              headline: l10n.loadingLocalAd,
-              subheadline: l10n.pleaseWait,
-            );
-          }
-
-          if (state.status == UpdateLocalInterstitialAdStatus.failure &&
-              state.initialAd == null) {
-            return FailureStateWidget(
-              exception: state.exception!,
-              onRetry: () => context.read<UpdateLocalInterstitialAdBloc>().add(
-                    UpdateLocalInterstitialAdLoaded(widget.adId),
-                  ),
-            );
-          }
-
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: _imageUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.imageUrl,
-                        border: const OutlineInputBorder(),
+      body:
+          BlocConsumer<
+            UpdateLocalInterstitialAdBloc,
+            UpdateLocalInterstitialAdState
+          >(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            listener: (context, state) {
+              if (state.status == UpdateLocalInterstitialAdStatus.success &&
+                  state.updatedAd != null &&
+                  ModalRoute.of(context)!.isCurrent) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        l10n.localInterstitialAdUpdatedSuccessfully,
                       ),
-                      onChanged: (value) => context
-                          .read<UpdateLocalInterstitialAdBloc>()
-                          .add(UpdateLocalInterstitialAdImageUrlChanged(value)),
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _targetUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.targetUrl,
-                        border: const OutlineInputBorder(),
+                  );
+                context.pop();
+              }
+              if (state.status == UpdateLocalInterstitialAdStatus.failure) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        state.exception!.toFriendlyMessage(context),
                       ),
-                      onChanged: (value) => context
-                          .read<UpdateLocalInterstitialAdBloc>()
-                          .add(UpdateLocalInterstitialAdTargetUrlChanged(value)),
+                      backgroundColor: Theme.of(context).colorScheme.error,
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<UpdateLocalInterstitialAdBloc>().add(
+                  );
+              }
+              // Update text controllers when data is loaded or changed
+              if (state.status == UpdateLocalInterstitialAdStatus.initial &&
+                  state.initialAd != null) {
+                _imageUrlController.text = state.imageUrl;
+                _targetUrlController.text = state.targetUrl;
+              }
+            },
+            builder: (context, state) {
+              if (state.status == UpdateLocalInterstitialAdStatus.loading) {
+                return LoadingStateWidget(
+                  icon: Icons.ads_click,
+                  headline: l10n.loadingLocalAd,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
+
+              if (state.status == UpdateLocalInterstitialAdStatus.failure &&
+                  state.initialAd == null) {
+                return FailureStateWidget(
+                  exception: state.exception!,
+                  onRetry: () =>
+                      context.read<UpdateLocalInterstitialAdBloc>().add(
+                        UpdateLocalInterstitialAdLoaded(widget.adId),
+                      ),
+                );
+              }
+
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          controller: _imageUrlController,
+                          decoration: InputDecoration(
+                            labelText: l10n.imageUrl,
+                            border: const OutlineInputBorder(),
+                          ),
+                          onChanged: (value) =>
+                              context.read<UpdateLocalInterstitialAdBloc>().add(
+                                UpdateLocalInterstitialAdImageUrlChanged(value),
+                              ),
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        TextFormField(
+                          controller: _targetUrlController,
+                          decoration: InputDecoration(
+                            labelText: l10n.targetUrl,
+                            border: const OutlineInputBorder(),
+                          ),
+                          onChanged: (value) =>
+                              context.read<UpdateLocalInterstitialAdBloc>().add(
+                                UpdateLocalInterstitialAdTargetUrlChanged(
+                                  value,
+                                ),
+                              ),
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        SearchableSelectionInput<ContentStatus>(
+                          label: l10n.status,
+                          selectedItem: state.contentStatus,
+                          staticItems: ContentStatus.values.toList(),
+                          itemBuilder: (context, status) =>
+                              Text(status.l10n(context)),
+                          itemToString: (status) => status.l10n(context),
+                          onChanged: (value) {
+                            if (value == null) return;
+                            context.read<UpdateLocalInterstitialAdBloc>().add(
                               UpdateLocalInterstitialAdStatusChanged(value),
                             );
-                      },
+                          },
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
     );
   }
 }

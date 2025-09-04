@@ -321,7 +321,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
               const SizedBox(height: AppSpacing.lg),
               Center(
                 child: ElevatedButton(
-                  onPressed: () => context.goNamed(Routes.localAdsManagementName),
+                  onPressed: () =>
+                      context.goNamed(Routes.localAdsManagementName),
                   child: Text(l10n.manageLocalAdsButton),
                 ),
               ),

@@ -9,7 +9,8 @@ part 'create_local_interstitial_ad_state.dart';
 
 /// A BLoC to manage the state of creating a new local interstitial ad.
 class CreateLocalInterstitialAdBloc
-    extends Bloc<CreateLocalInterstitialAdEvent, CreateLocalInterstitialAdState> {
+    extends
+        Bloc<CreateLocalInterstitialAdEvent, CreateLocalInterstitialAdState> {
   /// {@macro create_local_interstitial_ad_bloc}
   CreateLocalInterstitialAdBloc({
     required DataRepository<LocalAd> localAdsRepository,

@@ -87,8 +87,8 @@ class _EditLocalVideoAdViewState extends State<_EditLocalVideoAdView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid && state.isDirty
                     ? () => context.read<UpdateLocalVideoAdBloc>().add(
-                          const UpdateLocalVideoAdSubmitted(),
-                        )
+                        const UpdateLocalVideoAdSubmitted(),
+                      )
                     : null,
               );
             },
@@ -139,8 +139,8 @@ class _EditLocalVideoAdViewState extends State<_EditLocalVideoAdView> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<UpdateLocalVideoAdBloc>().add(
-                    UpdateLocalVideoAdLoaded(widget.adId),
-                  ),
+                UpdateLocalVideoAdLoaded(widget.adId),
+              ),
             );
           }
 
@@ -184,8 +184,8 @@ class _EditLocalVideoAdViewState extends State<_EditLocalVideoAdView> {
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<UpdateLocalVideoAdBloc>().add(
-                              UpdateLocalVideoAdStatusChanged(value),
-                            );
+                          UpdateLocalVideoAdStatusChanged(value),
+                        );
                       },
                     ),
                   ],

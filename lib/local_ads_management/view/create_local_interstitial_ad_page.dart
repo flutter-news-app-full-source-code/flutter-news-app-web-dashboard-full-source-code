@@ -64,8 +64,10 @@ class _CreateLocalInterstitialAdViewState
       appBar: AppBar(
         title: Text(l10n.createLocalInterstitialAdTitle),
         actions: [
-          BlocBuilder<CreateLocalInterstitialAdBloc,
-              CreateLocalInterstitialAdState>(
+          BlocBuilder<
+            CreateLocalInterstitialAdBloc,
+            CreateLocalInterstitialAdState
+          >(
             builder: (context, state) {
               if (state.status == CreateLocalInterstitialAdStatus.submitting) {
                 return const Padding(
@@ -82,93 +84,105 @@ class _CreateLocalInterstitialAdViewState
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
                     ? () => context.read<CreateLocalInterstitialAdBloc>().add(
-                          const CreateLocalInterstitialAdSubmitted(),
-                        )
+                        const CreateLocalInterstitialAdSubmitted(),
+                      )
                     : null,
               );
             },
           ),
         ],
       ),
-      body: BlocConsumer<CreateLocalInterstitialAdBloc,
-          CreateLocalInterstitialAdState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          if (state.status == CreateLocalInterstitialAdStatus.success &&
-              state.createdLocalInterstitialAd != null &&
-              ModalRoute.of(context)!.isCurrent) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(l10n.localInterstitialAdCreatedSuccessfully),
-                ),
-              );
-            context.pop();
-          }
-          if (state.status == CreateLocalInterstitialAdStatus.failure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
-                  backgroundColor: Theme.of(context).colorScheme.error,
-                ),
-              );
-          }
-        },
-        builder: (context, state) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: _imageUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.imageUrl,
-                        border: const OutlineInputBorder(),
+      body:
+          BlocConsumer<
+            CreateLocalInterstitialAdBloc,
+            CreateLocalInterstitialAdState
+          >(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            listener: (context, state) {
+              if (state.status == CreateLocalInterstitialAdStatus.success &&
+                  state.createdLocalInterstitialAd != null &&
+                  ModalRoute.of(context)!.isCurrent) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        l10n.localInterstitialAdCreatedSuccessfully,
                       ),
-                      onChanged: (value) => context
-                          .read<CreateLocalInterstitialAdBloc>()
-                          .add(CreateLocalInterstitialAdImageUrlChanged(value)),
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _targetUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.targetUrl,
-                        border: const OutlineInputBorder(),
+                  );
+                context.pop();
+              }
+              if (state.status == CreateLocalInterstitialAdStatus.failure) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        state.exception!.toFriendlyMessage(context),
                       ),
-                      onChanged: (value) => context
-                          .read<CreateLocalInterstitialAdBloc>()
-                          .add(CreateLocalInterstitialAdTargetUrlChanged(value)),
+                      backgroundColor: Theme.of(context).colorScheme.error,
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<CreateLocalInterstitialAdBloc>().add(
+                  );
+              }
+            },
+            builder: (context, state) {
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          controller: _imageUrlController,
+                          decoration: InputDecoration(
+                            labelText: l10n.imageUrl,
+                            border: const OutlineInputBorder(),
+                          ),
+                          onChanged: (value) =>
+                              context.read<CreateLocalInterstitialAdBloc>().add(
+                                CreateLocalInterstitialAdImageUrlChanged(value),
+                              ),
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        TextFormField(
+                          controller: _targetUrlController,
+                          decoration: InputDecoration(
+                            labelText: l10n.targetUrl,
+                            border: const OutlineInputBorder(),
+                          ),
+                          onChanged: (value) =>
+                              context.read<CreateLocalInterstitialAdBloc>().add(
+                                CreateLocalInterstitialAdTargetUrlChanged(
+                                  value,
+                                ),
+                              ),
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        SearchableSelectionInput<ContentStatus>(
+                          label: l10n.status,
+                          selectedItem: state.contentStatus,
+                          staticItems: ContentStatus.values.toList(),
+                          itemBuilder: (context, status) =>
+                              Text(status.l10n(context)),
+                          itemToString: (status) => status.l10n(context),
+                          onChanged: (value) {
+                            if (value == null) return;
+                            context.read<CreateLocalInterstitialAdBloc>().add(
                               CreateLocalInterstitialAdStatusChanged(value),
                             );
-                      },
+                          },
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
     );
   }
 }

@@ -10,7 +10,8 @@ sealed class CreateLocalBannerAdEvent extends Equatable {
 /// {@template create_local_banner_ad_image_url_changed}
 /// Event to notify that the image URL of the local banner ad has changed.
 /// {@endtemplate}
-final class CreateLocalBannerAdImageUrlChanged extends CreateLocalBannerAdEvent {
+final class CreateLocalBannerAdImageUrlChanged
+    extends CreateLocalBannerAdEvent {
   /// {@macro create_local_banner_ad_image_url_changed}
   const CreateLocalBannerAdImageUrlChanged(this.imageUrl);
 
@@ -24,7 +25,8 @@ final class CreateLocalBannerAdImageUrlChanged extends CreateLocalBannerAdEvent 
 /// {@template create_local_banner_ad_target_url_changed}
 /// Event to notify that the target URL of the local banner ad has changed.
 /// {@endtemplate}
-final class CreateLocalBannerAdTargetUrlChanged extends CreateLocalBannerAdEvent {
+final class CreateLocalBannerAdTargetUrlChanged
+    extends CreateLocalBannerAdEvent {
   /// {@macro create_local_banner_ad_target_url_changed}
   const CreateLocalBannerAdTargetUrlChanged(this.targetUrl);
 

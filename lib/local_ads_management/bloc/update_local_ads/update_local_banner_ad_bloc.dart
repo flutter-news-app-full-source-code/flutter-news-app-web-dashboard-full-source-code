@@ -15,9 +15,9 @@ class UpdateLocalBannerAdBloc
   UpdateLocalBannerAdBloc({
     required DataRepository<LocalAd> localAdsRepository,
     required String id,
-  })  : _localAdsRepository = localAdsRepository,
-        _id = id,
-        super(const UpdateLocalBannerAdState()) {
+  }) : _localAdsRepository = localAdsRepository,
+       _id = id,
+       super(const UpdateLocalBannerAdState()) {
     on<UpdateLocalBannerAdLoaded>(_onLoaded);
     on<UpdateLocalBannerAdImageUrlChanged>(_onImageUrlChanged);
     on<UpdateLocalBannerAdTargetUrlChanged>(_onTargetUrlChanged);
@@ -48,7 +48,9 @@ class UpdateLocalBannerAdBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: UpdateLocalBannerAdStatus.failure, exception: e));
+      emit(
+        state.copyWith(status: UpdateLocalBannerAdStatus.failure, exception: e),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -107,7 +109,9 @@ class UpdateLocalBannerAdBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: UpdateLocalBannerAdStatus.failure, exception: e));
+      emit(
+        state.copyWith(status: UpdateLocalBannerAdStatus.failure, exception: e),
+      );
     } catch (e) {
       emit(
         state.copyWith(

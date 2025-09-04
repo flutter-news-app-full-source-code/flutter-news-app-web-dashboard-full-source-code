@@ -86,8 +86,8 @@ class _CreateLocalNativeAdViewState extends State<_CreateLocalNativeAdView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
                     ? () => context.read<CreateLocalNativeAdBloc>().add(
-                          const CreateLocalNativeAdSubmitted(),
-                        )
+                        const CreateLocalNativeAdSubmitted(),
+                      )
                     : null,
               );
             },
@@ -182,8 +182,8 @@ class _CreateLocalNativeAdViewState extends State<_CreateLocalNativeAdView> {
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<CreateLocalNativeAdBloc>().add(
-                              CreateLocalNativeAdStatusChanged(value),
-                            );
+                          CreateLocalNativeAdStatusChanged(value),
+                        );
                       },
                     ),
                   ],

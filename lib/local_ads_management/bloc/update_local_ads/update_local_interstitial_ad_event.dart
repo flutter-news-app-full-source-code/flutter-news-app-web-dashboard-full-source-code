@@ -10,7 +10,8 @@ sealed class UpdateLocalInterstitialAdEvent extends Equatable {
 /// {@template update_local_interstitial_ad_loaded}
 /// Event to request loading of an existing local interstitial ad for editing.
 /// {@endtemplate}
-final class UpdateLocalInterstitialAdLoaded extends UpdateLocalInterstitialAdEvent {
+final class UpdateLocalInterstitialAdLoaded
+    extends UpdateLocalInterstitialAdEvent {
   /// {@macro update_local_interstitial_ad_loaded}
   const UpdateLocalInterstitialAdLoaded(this.id);
 
@@ -24,7 +25,8 @@ final class UpdateLocalInterstitialAdLoaded extends UpdateLocalInterstitialAdEve
 /// {@template update_local_interstitial_ad_image_url_changed}
 /// Event to notify that the image URL of the local interstitial ad has changed.
 /// {@endtemplate}
-final class UpdateLocalInterstitialAdImageUrlChanged extends UpdateLocalInterstitialAdEvent {
+final class UpdateLocalInterstitialAdImageUrlChanged
+    extends UpdateLocalInterstitialAdEvent {
   /// {@macro update_local_interstitial_ad_image_url_changed}
   const UpdateLocalInterstitialAdImageUrlChanged(this.imageUrl);
 
@@ -38,7 +40,8 @@ final class UpdateLocalInterstitialAdImageUrlChanged extends UpdateLocalIntersti
 /// {@template update_local_interstitial_ad_target_url_changed}
 /// Event to notify that the target URL of the local interstitial ad has changed.
 /// {@endtemplate}
-final class UpdateLocalInterstitialAdTargetUrlChanged extends UpdateLocalInterstitialAdEvent {
+final class UpdateLocalInterstitialAdTargetUrlChanged
+    extends UpdateLocalInterstitialAdEvent {
   /// {@macro update_local_interstitial_ad_target_url_changed}
   const UpdateLocalInterstitialAdTargetUrlChanged(this.targetUrl);
 
@@ -52,7 +55,8 @@ final class UpdateLocalInterstitialAdTargetUrlChanged extends UpdateLocalInterst
 /// {@template update_local_interstitial_ad_status_changed}
 /// Event to notify that the content status of the local interstitial ad has changed.
 /// {@endtemplate}
-final class UpdateLocalInterstitialAdStatusChanged extends UpdateLocalInterstitialAdEvent {
+final class UpdateLocalInterstitialAdStatusChanged
+    extends UpdateLocalInterstitialAdEvent {
   /// {@macro update_local_interstitial_ad_status_changed}
   const UpdateLocalInterstitialAdStatusChanged(this.status);
 
@@ -66,7 +70,8 @@ final class UpdateLocalInterstitialAdStatusChanged extends UpdateLocalInterstiti
 /// {@template update_local_interstitial_ad_submitted}
 /// Event to request submission of the updated local interstitial ad.
 /// {@endtemplate}
-final class UpdateLocalInterstitialAdSubmitted extends UpdateLocalInterstitialAdEvent {
+final class UpdateLocalInterstitialAdSubmitted
+    extends UpdateLocalInterstitialAdEvent {
   /// {@macro update_local_interstitial_ad_submitted}
   const UpdateLocalInterstitialAdSubmitted();
 }

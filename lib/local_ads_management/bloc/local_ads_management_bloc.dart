@@ -135,7 +135,9 @@ class LocalAdsManagementBloc
 
       switch (event.adType) {
         case AdType.native:
-          final previousAds = isPaginating ? state.nativeAds : <LocalNativeAd>[];
+          final previousAds = isPaginating
+              ? state.nativeAds
+              : <LocalNativeAd>[];
           emit(
             state.copyWith(
               nativeAdsStatus: LocalAdsManagementStatus.success,
@@ -148,7 +150,9 @@ class LocalAdsManagementBloc
             ),
           );
         case AdType.banner:
-          final previousAds = isPaginating ? state.bannerAds : <LocalBannerAd>[];
+          final previousAds = isPaginating
+              ? state.bannerAds
+              : <LocalBannerAd>[];
           emit(
             state.copyWith(
               bannerAdsStatus: LocalAdsManagementStatus.success,
@@ -161,8 +165,9 @@ class LocalAdsManagementBloc
             ),
           );
         case AdType.interstitial:
-          final previousAds =
-              isPaginating ? state.interstitialAds : <LocalInterstitialAd>[];
+          final previousAds = isPaginating
+              ? state.interstitialAds
+              : <LocalInterstitialAd>[];
           emit(
             state.copyWith(
               interstitialAdsStatus: LocalAdsManagementStatus.success,
@@ -260,8 +265,9 @@ class LocalAdsManagementBloc
     LocalAd? adToArchive;
     final originalNativeAds = List<LocalNativeAd>.from(state.nativeAds);
     final originalBannerAds = List<LocalBannerAd>.from(state.bannerAds);
-    final originalInterstitialAds =
-        List<LocalInterstitialAd>.from(state.interstitialAds);
+    final originalInterstitialAds = List<LocalInterstitialAd>.from(
+      state.interstitialAds,
+    );
     final originalVideoAds = List<LocalVideoAd>.from(state.videoAds);
 
     switch (event.adType) {
@@ -278,8 +284,9 @@ class LocalAdsManagementBloc
         originalBannerAds.removeAt(index);
         emit(state.copyWith(bannerAds: originalBannerAds));
       case AdType.interstitial:
-        final index =
-            originalInterstitialAds.indexWhere((ad) => ad.id == event.id);
+        final index = originalInterstitialAds.indexWhere(
+          (ad) => ad.id == event.id,
+        );
         if (index == -1) return;
         adToArchive = originalInterstitialAds[index];
         originalInterstitialAds.removeAt(index);
@@ -296,7 +303,9 @@ class LocalAdsManagementBloc
       final updatedAd = switch (adToArchive) {
         final LocalNativeAd ad => ad.copyWith(status: ContentStatus.archived),
         final LocalBannerAd ad => ad.copyWith(status: ContentStatus.archived),
-        final LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.archived),
+        final LocalInterstitialAd ad => ad.copyWith(
+          status: ContentStatus.archived,
+        ),
         final LocalVideoAd ad => ad.copyWith(status: ContentStatus.archived),
         _ => throw StateError(
           'Unknown LocalAd type: ${adToArchive.runtimeType}',
@@ -330,7 +339,11 @@ class LocalAdsManagementBloc
         case AdType.video:
           emit(state.copyWith(videoAds: originalVideoAds));
       }
-      emit(state.copyWith(exception: UnknownException('An unexpected error occurred: $e')));
+      emit(
+        state.copyWith(
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
     }
   }
 
@@ -348,7 +361,9 @@ class LocalAdsManagementBloc
       final updatedAd = switch (adToRestore) {
         final LocalNativeAd ad => ad.copyWith(status: ContentStatus.active),
         final LocalBannerAd ad => ad.copyWith(status: ContentStatus.active),
-        final LocalInterstitialAd ad => ad.copyWith(status: ContentStatus.active),
+        final LocalInterstitialAd ad => ad.copyWith(
+          status: ContentStatus.active,
+        ),
         final LocalVideoAd ad => ad.copyWith(status: ContentStatus.active),
         _ => throw StateError(
           'Unknown LocalAd type: ${adToRestore.runtimeType}',
@@ -362,7 +377,11 @@ class LocalAdsManagementBloc
     } on HttpException catch (e) {
       emit(state.copyWith(exception: e));
     } catch (e) {
-      emit(state.copyWith(exception: UnknownException('An unexpected error occurred: $e')));
+      emit(
+        state.copyWith(
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
     }
   }
 
@@ -375,8 +394,9 @@ class LocalAdsManagementBloc
     LocalAd? adToDelete;
     final currentNativeAds = List<LocalNativeAd>.from(state.nativeAds);
     final currentBannerAds = List<LocalBannerAd>.from(state.bannerAds);
-    final currentInterstitialAds =
-        List<LocalInterstitialAd>.from(state.interstitialAds);
+    final currentInterstitialAds = List<LocalInterstitialAd>.from(
+      state.interstitialAds,
+    );
     final currentVideoAds = List<LocalVideoAd>.from(state.videoAds);
 
     // Find and remove the ad from the current active list
@@ -442,8 +462,9 @@ class LocalAdsManagementBloc
               ..add(restoredAd as LocalBannerAd);
             emit(state.copyWith(bannerAds: updatedAds));
           case 'interstitial':
-            final updatedAds = List<LocalInterstitialAd>.from(state.interstitialAds)
-              ..add(restoredAd as LocalInterstitialAd);
+            final updatedAds = List<LocalInterstitialAd>.from(
+              state.interstitialAds,
+            )..add(restoredAd as LocalInterstitialAd);
             emit(state.copyWith(interstitialAds: updatedAds));
           case 'video':
             final updatedAds = List<LocalVideoAd>.from(state.videoAds)
@@ -465,8 +486,9 @@ class LocalAdsManagementBloc
               ..add(restoredAd as LocalBannerAd);
             emit(state.copyWith(bannerAds: updatedAds));
           case 'interstitial':
-            final updatedAds = List<LocalInterstitialAd>.from(state.interstitialAds)
-              ..add(restoredAd as LocalInterstitialAd);
+            final updatedAds = List<LocalInterstitialAd>.from(
+              state.interstitialAds,
+            )..add(restoredAd as LocalInterstitialAd);
             emit(state.copyWith(interstitialAds: updatedAds));
           case 'video':
             final updatedAds = List<LocalVideoAd>.from(state.videoAds)
@@ -493,7 +515,10 @@ class LocalAdsManagementBloc
       switch (restoredAd.adType) {
         case 'native':
           final updatedAds = List<LocalNativeAd>.from(state.nativeAds)
-            ..insert(0, restoredAd as LocalNativeAd); // Insert at beginning for simplicity
+            ..insert(
+              0,
+              restoredAd as LocalNativeAd,
+            ); // Insert at beginning for simplicity
           emit(
             state.copyWith(
               nativeAds: updatedAds,
@@ -510,8 +535,9 @@ class LocalAdsManagementBloc
             ),
           );
         case 'interstitial':
-          final updatedAds = List<LocalInterstitialAd>.from(state.interstitialAds)
-            ..insert(0, restoredAd as LocalInterstitialAd);
+          final updatedAds = List<LocalInterstitialAd>.from(
+            state.interstitialAds,
+          )..insert(0, restoredAd as LocalInterstitialAd);
           emit(
             state.copyWith(
               interstitialAds: updatedAds,

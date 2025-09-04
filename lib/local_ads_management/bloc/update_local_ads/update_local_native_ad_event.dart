@@ -38,7 +38,8 @@ final class UpdateLocalNativeAdTitleChanged extends UpdateLocalNativeAdEvent {
 /// {@template update_local_native_ad_subtitle_changed}
 /// Event to notify that the subtitle of the local native ad has changed.
 /// {@endtemplate}
-final class UpdateLocalNativeAdSubtitleChanged extends UpdateLocalNativeAdEvent {
+final class UpdateLocalNativeAdSubtitleChanged
+    extends UpdateLocalNativeAdEvent {
   /// {@macro update_local_native_ad_subtitle_changed}
   const UpdateLocalNativeAdSubtitleChanged(this.subtitle);
 
@@ -52,7 +53,8 @@ final class UpdateLocalNativeAdSubtitleChanged extends UpdateLocalNativeAdEvent 
 /// {@template update_local_native_ad_image_url_changed}
 /// Event to notify that the image URL of the local native ad has changed.
 /// {@endtemplate}
-final class UpdateLocalNativeAdImageUrlChanged extends UpdateLocalNativeAdEvent {
+final class UpdateLocalNativeAdImageUrlChanged
+    extends UpdateLocalNativeAdEvent {
   /// {@macro update_local_native_ad_image_url_changed}
   const UpdateLocalNativeAdImageUrlChanged(this.imageUrl);
 
@@ -66,7 +68,8 @@ final class UpdateLocalNativeAdImageUrlChanged extends UpdateLocalNativeAdEvent 
 /// {@template update_local_native_ad_target_url_changed}
 /// Event to notify that the target URL of the local native ad has changed.
 /// {@endtemplate}
-final class UpdateLocalNativeAdTargetUrlChanged extends UpdateLocalNativeAdEvent {
+final class UpdateLocalNativeAdTargetUrlChanged
+    extends UpdateLocalNativeAdEvent {
   /// {@macro update_local_native_ad_target_url_changed}
   const UpdateLocalNativeAdTargetUrlChanged(this.targetUrl);
 

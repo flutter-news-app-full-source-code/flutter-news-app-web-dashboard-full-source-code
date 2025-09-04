@@ -93,8 +93,8 @@ class _EditLocalNativeAdViewState extends State<_EditLocalNativeAdView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid && state.isDirty
                     ? () => context.read<UpdateLocalNativeAdBloc>().add(
-                          const UpdateLocalNativeAdSubmitted(),
-                        )
+                        const UpdateLocalNativeAdSubmitted(),
+                      )
                     : null,
               );
             },
@@ -147,8 +147,8 @@ class _EditLocalNativeAdViewState extends State<_EditLocalNativeAdView> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<UpdateLocalNativeAdBloc>().add(
-                    UpdateLocalNativeAdLoaded(widget.adId),
-                  ),
+                UpdateLocalNativeAdLoaded(widget.adId),
+              ),
             );
           }
 
@@ -215,8 +215,8 @@ class _EditLocalNativeAdViewState extends State<_EditLocalNativeAdView> {
                       onChanged: (value) {
                         if (value == null) return;
                         context.read<UpdateLocalNativeAdBloc>().add(
-                              UpdateLocalNativeAdStatusChanged(value),
-                            );
+                          UpdateLocalNativeAdStatusChanged(value),
+                        );
                       },
                     ),
                   ],

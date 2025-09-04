@@ -10,14 +10,15 @@ part 'update_local_interstitial_ad_state.dart';
 
 /// A BLoC to manage the state of updating an existing local interstitial ad.
 class UpdateLocalInterstitialAdBloc
-    extends Bloc<UpdateLocalInterstitialAdEvent, UpdateLocalInterstitialAdState> {
+    extends
+        Bloc<UpdateLocalInterstitialAdEvent, UpdateLocalInterstitialAdState> {
   /// {@macro update_local_interstitial_ad_bloc}
   UpdateLocalInterstitialAdBloc({
     required DataRepository<LocalAd> localAdsRepository,
     required String id,
-  })  : _localAdsRepository = localAdsRepository,
-        _id = id,
-        super(const UpdateLocalInterstitialAdState()) {
+  }) : _localAdsRepository = localAdsRepository,
+       _id = id,
+       super(const UpdateLocalInterstitialAdState()) {
     on<UpdateLocalInterstitialAdLoaded>(_onLoaded);
     on<UpdateLocalInterstitialAdImageUrlChanged>(_onImageUrlChanged);
     on<UpdateLocalInterstitialAdTargetUrlChanged>(_onTargetUrlChanged);
@@ -48,7 +49,12 @@ class UpdateLocalInterstitialAdBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: UpdateLocalInterstitialAdStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: UpdateLocalInterstitialAdStatus.failure,
+          exception: e,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -107,7 +113,12 @@ class UpdateLocalInterstitialAdBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: UpdateLocalInterstitialAdStatus.failure, exception: e));
+      emit(
+        state.copyWith(
+          status: UpdateLocalInterstitialAdStatus.failure,
+          exception: e,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(

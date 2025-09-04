@@ -145,40 +145,44 @@ class LocalAdsManagementState extends Equatable {
       bannerAds: bannerAds ?? this.bannerAds,
       bannerAdsCursor: bannerAdsCursor ?? this.bannerAdsCursor,
       bannerAdsHasMore: bannerAdsHasMore ?? this.bannerAdsHasMore,
-      interstitialAdsStatus: interstitialAdsStatus ?? this.interstitialAdsStatus,
+      interstitialAdsStatus:
+          interstitialAdsStatus ?? this.interstitialAdsStatus,
       interstitialAds: interstitialAds ?? this.interstitialAds,
-      interstitialAdsCursor: interstitialAdsCursor ?? this.interstitialAdsCursor,
-      interstitialAdsHasMore: interstitialAdsHasMore ?? this.interstitialAdsHasMore,
+      interstitialAdsCursor:
+          interstitialAdsCursor ?? this.interstitialAdsCursor,
+      interstitialAdsHasMore:
+          interstitialAdsHasMore ?? this.interstitialAdsHasMore,
       videoAdsStatus: videoAdsStatus ?? this.videoAdsStatus,
       videoAds: videoAds ?? this.videoAds,
       videoAdsCursor: videoAdsCursor ?? this.videoAdsCursor,
       videoAdsHasMore: videoAdsHasMore ?? this.videoAdsHasMore,
       exception: exception ?? this.exception,
-      lastDeletedLocalAd:
-          clearLastDeletedLocalAd ? null : lastDeletedLocalAd ?? this.lastDeletedLocalAd,
+      lastDeletedLocalAd: clearLastDeletedLocalAd
+          ? null
+          : lastDeletedLocalAd ?? this.lastDeletedLocalAd,
     );
   }
 
   @override
   List<Object?> get props => [
-        activeTab,
-        nativeAdsStatus,
-        nativeAds,
-        nativeAdsCursor,
-        nativeAdsHasMore,
-        bannerAdsStatus,
-        bannerAds,
-        bannerAdsCursor,
-        bannerAdsHasMore,
-        interstitialAdsStatus,
-        interstitialAds,
-        interstitialAdsCursor,
-        interstitialAdsHasMore,
-        videoAdsStatus,
-        videoAds,
-        videoAdsCursor,
-        videoAdsHasMore,
-        exception,
-        lastDeletedLocalAd,
-      ];
+    activeTab,
+    nativeAdsStatus,
+    nativeAds,
+    nativeAdsCursor,
+    nativeAdsHasMore,
+    bannerAdsStatus,
+    bannerAds,
+    bannerAdsCursor,
+    bannerAdsHasMore,
+    interstitialAdsStatus,
+    interstitialAds,
+    interstitialAdsCursor,
+    interstitialAdsHasMore,
+    videoAdsStatus,
+    videoAds,
+    videoAdsCursor,
+    videoAdsHasMore,
+    exception,
+    lastDeletedLocalAd,
+  ];
 }

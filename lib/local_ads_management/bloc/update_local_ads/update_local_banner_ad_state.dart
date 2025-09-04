@@ -71,12 +71,12 @@ final class UpdateLocalBannerAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        initialAd,
-        imageUrl,
-        targetUrl,
-        contentStatus,
-        exception,
-        updatedAd,
-      ];
+    status,
+    initialAd,
+    imageUrl,
+    targetUrl,
+    contentStatus,
+    exception,
+    updatedAd,
+  ];
 }

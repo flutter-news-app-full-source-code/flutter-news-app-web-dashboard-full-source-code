@@ -72,11 +72,11 @@ class CreateLocalBannerAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        imageUrl,
-        targetUrl,
-        contentStatus,
-        exception,
-        createdLocalBannerAd,
-      ];
+    status,
+    imageUrl,
+    targetUrl,
+    contentStatus,
+    exception,
+    createdLocalBannerAd,
+  ];
 }
