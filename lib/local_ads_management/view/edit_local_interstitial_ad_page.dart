@@ -30,13 +30,15 @@ class EditLocalInterstitialAdPage extends StatelessWidget {
         localAdsRepository: context.read<DataRepository<LocalAd>>(),
         id: adId,
       ),
-      child: const _EditLocalInterstitialAdView(),
+      child: _EditLocalInterstitialAdView(adId: adId),
     );
   }
 }
 
 class _EditLocalInterstitialAdView extends StatefulWidget {
-  const _EditLocalInterstitialAdView();
+  const _EditLocalInterstitialAdView({required this.adId});
+
+  final String adId;
 
   @override
   State<_EditLocalInterstitialAdView> createState() =>
