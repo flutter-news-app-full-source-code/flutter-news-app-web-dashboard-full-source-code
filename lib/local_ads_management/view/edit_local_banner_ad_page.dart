@@ -30,13 +30,15 @@ class EditLocalBannerAdPage extends StatelessWidget {
         localAdsRepository: context.read<DataRepository<LocalAd>>(),
         id: adId,
       ),
-      child: const _EditLocalBannerAdView(),
+      child: _EditLocalBannerAdView(adId: adId),
     );
   }
 }
 
 class _EditLocalBannerAdView extends StatefulWidget {
-  const _EditLocalBannerAdView();
+  const _EditLocalBannerAdView({required this.adId});
+
+  final String adId;
 
   @override
   State<_EditLocalBannerAdView> createState() => _EditLocalBannerAdViewState();
