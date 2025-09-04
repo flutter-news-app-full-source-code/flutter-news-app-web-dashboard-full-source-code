@@ -1,10 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template ad_config_form}
 /// A form widget for configuring ad settings based on user role.
@@ -139,96 +135,6 @@ class _AdConfigFormState extends State<AdConfigForm>
             );
           },
         ),
-        const SizedBox(height: AppSpacing.lg),
-        AbsorbPointer(
-          absorbing: !adConfig.enabled,
-          child: Opacity(
-            opacity: adConfig.enabled ? 1.0 : 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.adSettingsDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: SizedBox(
-                    height: kTextTabBarHeight,
-                    child: TabBar(
-                      controller: _tabController,
-                      tabAlignment: TabAlignment.start,
-                      isScrollable: true,
-                      tabs: AppUserRole.values
-                          .map((role) => Tab(text: role.l10n(context)))
-                          .toList(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SizedBox(
-                  height: 400,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: AppUserRole.values
-                        .map(
-                          (role) => _buildRoleSpecificFields(
-                            context,
-                            l10n,
-                            role,
-                            adConfig,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRoleSpecificFields(
-    BuildContext context,
-    AppLocalizations l10n,
-    AppUserRole role,
-    AdConfig config,
-  ) {
-    return Column(
-      children: [
-        AppConfigIntField(
-          label: l10n.adFrequencyLabel,
-          description: l10n.adFrequencyDescription,
-          value: _getAdFrequency(config, role),
-          onChanged: (value) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                adConfig: _updateAdFrequency(config, value, role),
-              ),
-            );
-          },
-          controller: _adFrequencyControllers[role],
-        ),
-        AppConfigIntField(
-          label: l10n.adPlacementIntervalLabel,
-          description: l10n.adPlacementIntervalDescription,
-          value: _getAdPlacementInterval(config, role),
-          onChanged: (value) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                adConfig: _updateAdPlacementInterval(config, value, role),
-              ),
-            );
-          },
-          controller: _adPlacementIntervalControllers[role],
-        ),
       ],
     );
   }
@@ -264,62 +170,6 @@ class _AdConfigFormState extends State<AdConfigForm>
             .feedAdConfiguration
             .frequencyConfig
             .premiumAdPlacementInterval;
-    }
-  }
-
-  AdConfig _updateAdFrequency(AdConfig config, int value, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(guestAdFrequency: value),
-          ),
-        );
-      case AppUserRole.standardUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(authenticatedAdFrequency: value),
-          ),
-        );
-      case AppUserRole.premiumUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(premiumAdFrequency: value),
-          ),
-        );
-    }
-  }
-
-  AdConfig _updateAdPlacementInterval(
-    AdConfig config,
-    int value,
-    AppUserRole role,
-  ) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(guestAdPlacementInterval: value),
-          ),
-        );
-      case AppUserRole.standardUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(authenticatedAdPlacementInterval: value),
-          ),
-        );
-      case AppUserRole.premiumUser:
-        return config.copyWith(
-          feedAdConfiguration: config.feedAdConfiguration.copyWith(
-            frequencyConfig: config.feedAdConfiguration.frequencyConfig
-                .copyWith(premiumAdPlacementInterval: value),
-          ),
-        );
     }
   }
 }
