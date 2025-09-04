@@ -62,6 +62,7 @@ Future<Widget> bootstrap(
   DataClient<DashboardSummary> dashboardSummaryClient;
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
+  DataClient<LocalAd> localAdsClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -115,6 +116,12 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: languagesFixturesData,
       logger: Logger('DataInMemory<Language>'),
+    );
+    localAdsClient = DataInMemory<LocalAd>(
+      toJson: FeedItem.toJson,
+      getId: (i) => i.id,
+      initialData: localAdsFixturesData,
+      logger: Logger('DataInMemory<LocalAd>'),
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
     headlinesClient = DataApi<Headline>(
@@ -180,6 +187,13 @@ Future<Widget> bootstrap(
       toJson: (language) => language.toJson(),
       logger: Logger('DataApi<Language>'),
     );
+    localAdsClient = DataApi<LocalAd>(
+      httpClient: httpClient,
+      modelName: 'local_ad',
+      fromJson: LocalAd.fromJson,
+      toJson: LocalAd.toJson,
+      logger: Logger('DataApi<LocalAd>'),
+    );
   } else {
     headlinesClient = DataApi<Headline>(
       httpClient: httpClient!,
@@ -244,6 +258,13 @@ Future<Widget> bootstrap(
       toJson: (language) => language.toJson(),
       logger: Logger('DataApi<Language>'),
     );
+    localAdsClient = DataApi<LocalAd>(
+      httpClient: httpClient,
+      modelName: 'local_ad',
+      fromJson: LocalAd.fromJson,
+      toJson: FeedItem.toJson,
+      logger: Logger('DataApi<LocalAd>'),
+    );
   }
 
   final headlinesRepository = DataRepository<Headline>(
@@ -270,6 +291,9 @@ Future<Widget> bootstrap(
   final languagesRepository = DataRepository<Language>(
     dataClient: languagesClient,
   );
+  final localAdsRepository = DataRepository<LocalAd>(
+    dataClient: localAdsClient,
+  );
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -282,6 +306,7 @@ Future<Widget> bootstrap(
     dashboardSummaryRepository: dashboardSummaryRepository,
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
+    localAdsRepository: localAdsRepository,
     storageService: kvStorage,
     environment: environment,
   );

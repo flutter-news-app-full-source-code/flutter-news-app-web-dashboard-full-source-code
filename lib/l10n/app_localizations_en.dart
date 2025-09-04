@@ -1091,35 +1091,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedNativeAdIdDescription =>
-      'The AdMob unit ID for native ads in the feed.';
+      'The unit ID for native ads in the feed.';
 
   @override
   String get feedBannerAdIdLabel => 'Feed Banner Ad ID';
 
   @override
   String get feedBannerAdIdDescription =>
-      'The AdMob unit ID for banner ads in the feed.';
+      'The unit ID for banner ads in the feed.';
 
   @override
   String get articleInterstitialAdIdLabel => 'Article Interstitial Ad ID';
 
   @override
   String get articleInterstitialAdIdDescription =>
-      'The AdMob unit ID for interstitial ads in articles.';
+      'The unit ID for interstitial ads in articles.';
 
   @override
   String get inArticleNativeAdIdLabel => 'In-Article Native Ad ID';
 
   @override
   String get inArticleNativeAdIdDescription =>
-      'The AdMob unit ID for native ads within articles.';
+      'The unit ID for native ads within articles.';
 
   @override
   String get inArticleBannerAdIdLabel => 'In-Article Banner Ad ID';
 
   @override
   String get inArticleBannerAdIdDescription =>
-      'The AdMob unit ID for banner ads within articles.';
+      'The unit ID for banner ads within articles.';
 
   @override
   String get inArticleAdSlotTypeBelowMainArticleImage =>
@@ -1132,4 +1132,112 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get inArticleAdSlotTypeBelowArticleContinueReadingButton =>
       'Below the \'Continue Reading\' button';
+
+  @override
+  String get localAdsManagement => 'Local Ads Management';
+
+  @override
+  String get archivedLocalAdsTitle => 'Archived Local Ads';
+
+  @override
+  String get loadingArchivedLocalAds => 'Loading Archived Local Ads';
+
+  @override
+  String get noArchivedLocalAdsFound => 'No archived local ads found.';
+
+  @override
+  String get loadingLocalAds => 'Loading Local Ads';
+
+  @override
+  String get noLocalAdsFound => 'No local ads found.';
+
+  @override
+  String localAdDeleted(String title) {
+    return 'Deleted \'$title\'.';
+  }
+
+  @override
+  String get createLocalNativeAdTitle => 'Create Native Ad';
+
+  @override
+  String get localNativeAdCreatedSuccessfully =>
+      'Native ad created successfully.';
+
+  @override
+  String get editLocalNativeAdTitle => 'Edit Native Ad';
+
+  @override
+  String get localNativeAdUpdatedSuccessfully =>
+      'Native ad updated successfully.';
+
+  @override
+  String get adSubtitle => 'Subtitle';
+
+  @override
+  String get createLocalBannerAdTitle => 'Create Banner Ad';
+
+  @override
+  String get localBannerAdCreatedSuccessfully =>
+      'Banner ad created successfully.';
+
+  @override
+  String get editLocalBannerAdTitle => 'Edit Banner Ad';
+
+  @override
+  String get localBannerAdUpdatedSuccessfully =>
+      'Banner ad updated successfully.';
+
+  @override
+  String get createLocalInterstitialAdTitle => 'Create Interstitial Ad';
+
+  @override
+  String get localInterstitialAdCreatedSuccessfully =>
+      'Interstitial ad created successfully.';
+
+  @override
+  String get editLocalInterstitialAdTitle => 'Edit Interstitial Ad';
+
+  @override
+  String get localInterstitialAdUpdatedSuccessfully =>
+      'Interstitial ad updated successfully.';
+
+  @override
+  String get createLocalVideoAdTitle => 'Create Video Ad';
+
+  @override
+  String get localVideoAdCreatedSuccessfully =>
+      'Video ad created successfully.';
+
+  @override
+  String get editLocalVideoAdTitle => 'Edit Video Ad';
+
+  @override
+  String get localVideoAdUpdatedSuccessfully =>
+      'Video ad updated successfully.';
+
+  @override
+  String get videoUrl => 'Video URL';
+
+  @override
+  String get targetUrl => 'Target URL';
+
+  @override
+  String get loadingLocalAd => 'Loading Local Ad';
+
+  @override
+  String idCopiedToClipboard(String id) {
+    return 'ID \'$id\' copied to clipboard.';
+  }
+
+  @override
+  String get adTitle => 'Ad Title';
+
+  @override
+  String get localAdsManagementTitle => 'Local Ads Management';
+
+  @override
+  String get editLocalAds => 'Edit Local Ads';
+
+  @override
+  String get copyId => 'Copy ID';
 }

@@ -1358,31 +1358,31 @@ abstract class AppLocalizations {
   /// **'Source created successfully.'**
   String get sourceCreatedSuccessfully;
 
-  /// No description provided for @status.
+  /// Label for content status
   ///
   /// In en, this message translates to:
   /// **'Status'**
   String get status;
 
-  /// No description provided for @lastUpdated.
+  /// Column header for last updated date
   ///
   /// In en, this message translates to:
   /// **'Last Updated'**
   String get lastUpdated;
 
-  /// No description provided for @contentStatusActive.
+  /// Content status: Active
   ///
   /// In en, this message translates to:
   /// **'Active'**
   String get contentStatusActive;
 
-  /// No description provided for @contentStatusArchived.
+  /// Content status: Archived
   ///
   /// In en, this message translates to:
   /// **'Archived'**
   String get contentStatusArchived;
 
-  /// No description provided for @contentStatusDraft.
+  /// Content status: Draft
   ///
   /// In en, this message translates to:
   /// **'Draft'**
@@ -2057,7 +2057,7 @@ abstract class AppLocalizations {
   /// Description for the Feed Native Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for native ads in the feed.'**
+  /// **'The unit ID for native ads in the feed.'**
   String get feedNativeAdIdDescription;
 
   /// Label for the Feed Banner Ad ID input field
@@ -2069,7 +2069,7 @@ abstract class AppLocalizations {
   /// Description for the Feed Banner Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for banner ads in the feed.'**
+  /// **'The unit ID for banner ads in the feed.'**
   String get feedBannerAdIdDescription;
 
   /// Label for the Article Interstitial Ad ID input field
@@ -2081,7 +2081,7 @@ abstract class AppLocalizations {
   /// Description for the Article Interstitial Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for interstitial ads in articles.'**
+  /// **'The unit ID for interstitial ads in articles.'**
   String get articleInterstitialAdIdDescription;
 
   /// Label for the In-Article Native Ad ID input field
@@ -2093,7 +2093,7 @@ abstract class AppLocalizations {
   /// Description for the In-Article Native Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for native ads within articles.'**
+  /// **'The unit ID for native ads within articles.'**
   String get inArticleNativeAdIdDescription;
 
   /// Label for the In-Article Banner Ad ID input field
@@ -2105,26 +2105,218 @@ abstract class AppLocalizations {
   /// Description for the In-Article Banner Ad ID input field
   ///
   /// In en, this message translates to:
-  /// **'The AdMob unit ID for banner ads within articles.'**
+  /// **'The unit ID for banner ads within articles.'**
   String get inArticleBannerAdIdDescription;
 
-  /// الاسم المترجم لـ InArticleAdSlotType.belowMainArticleImage
+  /// Localized name for InArticleAdSlotType.belowMainArticleImage
   ///
   /// In en, this message translates to:
   /// **'Below the main image of the article'**
   String get inArticleAdSlotTypeBelowMainArticleImage;
 
-  /// الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton
+  /// Localized name for InArticleAdSlotType.aboveArticleContinueReadingButton
   ///
   /// In en, this message translates to:
   /// **'Above the \'Continue Reading\' button'**
   String get inArticleAdSlotTypeAboveArticleContinueReadingButton;
 
-  /// الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton
+  /// Localized name for InArticleAdSlotType.belowArticleContinueReadingButton
   ///
   /// In en, this message translates to:
   /// **'Below the \'Continue Reading\' button'**
   String get inArticleAdSlotTypeBelowArticleContinueReadingButton;
+
+  /// Label for the local ads management navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Local Ads Management'**
+  String get localAdsManagement;
+
+  /// Title for the Archived Local Ads page
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Local Ads'**
+  String get archivedLocalAdsTitle;
+
+  /// Headline for loading state of archived local ads
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Archived Local Ads'**
+  String get loadingArchivedLocalAds;
+
+  /// Message when no archived local ads are found
+  ///
+  /// In en, this message translates to:
+  /// **'No archived local ads found.'**
+  String get noArchivedLocalAdsFound;
+
+  /// Headline for loading state of local ads
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Local Ads'**
+  String get loadingLocalAds;
+
+  /// Message when no local ads are found
+  ///
+  /// In en, this message translates to:
+  /// **'No local ads found.'**
+  String get noLocalAdsFound;
+
+  /// Snackbar message when a local ad is deleted
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted \'{title}\'.'**
+  String localAdDeleted(String title);
+
+  /// Title for the Create Local Native Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Native Ad'**
+  String get createLocalNativeAdTitle;
+
+  /// Message displayed when a native ad is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Native ad created successfully.'**
+  String get localNativeAdCreatedSuccessfully;
+
+  /// Title for the Edit Local Native Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Native Ad'**
+  String get editLocalNativeAdTitle;
+
+  /// Message displayed when a native ad is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Native ad updated successfully.'**
+  String get localNativeAdUpdatedSuccessfully;
+
+  /// Label for the ad subtitle input field
+  ///
+  /// In en, this message translates to:
+  /// **'Subtitle'**
+  String get adSubtitle;
+
+  /// Title for the Create Local Banner Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Banner Ad'**
+  String get createLocalBannerAdTitle;
+
+  /// Message displayed when a banner ad is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Banner ad created successfully.'**
+  String get localBannerAdCreatedSuccessfully;
+
+  /// Title for the Edit Local Banner Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Banner Ad'**
+  String get editLocalBannerAdTitle;
+
+  /// Message displayed when a banner ad is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Banner ad updated successfully.'**
+  String get localBannerAdUpdatedSuccessfully;
+
+  /// Title for the Create Local Interstitial Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Interstitial Ad'**
+  String get createLocalInterstitialAdTitle;
+
+  /// Message displayed when an interstitial ad is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial ad created successfully.'**
+  String get localInterstitialAdCreatedSuccessfully;
+
+  /// Title for the Edit Local Interstitial Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Interstitial Ad'**
+  String get editLocalInterstitialAdTitle;
+
+  /// Message displayed when an interstitial ad is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial ad updated successfully.'**
+  String get localInterstitialAdUpdatedSuccessfully;
+
+  /// Title for the Create Local Video Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Video Ad'**
+  String get createLocalVideoAdTitle;
+
+  /// Message displayed when a video ad is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Video ad created successfully.'**
+  String get localVideoAdCreatedSuccessfully;
+
+  /// Title for the Edit Local Video Ad page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Video Ad'**
+  String get editLocalVideoAdTitle;
+
+  /// Message displayed when a video ad is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Video ad updated successfully.'**
+  String get localVideoAdUpdatedSuccessfully;
+
+  /// Label for the video URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Video URL'**
+  String get videoUrl;
+
+  /// Label for the target URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Target URL'**
+  String get targetUrl;
+
+  /// Headline for loading state of a single local ad
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Local Ad'**
+  String get loadingLocalAd;
+
+  /// Snackbar message when an ID is copied to clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'ID \'{id}\' copied to clipboard.'**
+  String idCopiedToClipboard(String id);
+
+  /// Label for the ad title input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Title'**
+  String get adTitle;
+
+  /// Title for the local ads management page.
+  ///
+  /// In en, this message translates to:
+  /// **'Local Ads Management'**
+  String get localAdsManagementTitle;
+
+  /// Tooltip for the edit local ads button.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Local Ads'**
+  String get editLocalAds;
+
+  /// Tooltip for the copy ID button.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy ID'**
+  String get copyId;
 }
 
 class _AppLocalizationsDelegate

@@ -3,7 +3,6 @@
 
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart' hide AppStatus;
-// Import for app_theme.dart
 import 'package:data_repository/data_repository.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +34,7 @@ class App extends StatelessWidget {
     required DataRepository<DashboardSummary> dashboardSummaryRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
+    required DataRepository<LocalAd> localAdsRepository,
     required KVStorageService storageService,
     required AppEnvironment environment,
     super.key,
@@ -49,6 +49,7 @@ class App extends StatelessWidget {
        _dashboardSummaryRepository = dashboardSummaryRepository,
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
+       _localAdsRepository = localAdsRepository,
        _environment = environment;
 
   final AuthRepository _authenticationRepository;
@@ -62,6 +63,7 @@ class App extends StatelessWidget {
   final DataRepository<DashboardSummary> _dashboardSummaryRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
+  final DataRepository<LocalAd> _localAdsRepository;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
 
@@ -79,6 +81,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _dashboardSummaryRepository),
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
+        RepositoryProvider.value(value: _localAdsRepository),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
           create: (context) => const ThrottledFetchingService(),

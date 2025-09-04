@@ -1093,35 +1093,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get feedNativeAdIdDescription =>
-      'معرف وحدة AdMob للإعلانات الأصلية في الموجز.';
+      'معرف وحدة الإعلانات الأصلية في الموجز.';
 
   @override
   String get feedBannerAdIdLabel => 'معرف إعلان البانر للموجز';
 
   @override
-  String get feedBannerAdIdDescription =>
-      'معرف وحدة AdMob لإعلانات البانر في الموجز.';
+  String get feedBannerAdIdDescription => 'معرف وحدة إعلانات البانر في الموجز.';
 
   @override
   String get articleInterstitialAdIdLabel => 'معرف الإعلان البيني للمقالات';
 
   @override
   String get articleInterstitialAdIdDescription =>
-      'معرف وحدة AdMob للإعلانات البينية في المقالات.';
+      'معرف وحدة الإعلانات البينية في المقالات.';
 
   @override
   String get inArticleNativeAdIdLabel => 'معرف الإعلان الأصلي داخل المقال';
 
   @override
   String get inArticleNativeAdIdDescription =>
-      'معرف وحدة AdMob للإعلانات الأصلية داخل المقالات.';
+      'معرف وحدة الإعلانات الأصلية داخل المقالات.';
 
   @override
   String get inArticleBannerAdIdLabel => 'معرف إعلان البانر داخل المقال';
 
   @override
   String get inArticleBannerAdIdDescription =>
-      'معرف وحدة AdMob لإعلانات البانر داخل المقالات.';
+      'معرف وحدة إعلانات البانر داخل المقالات.';
 
   @override
   String get inArticleAdSlotTypeBelowMainArticleImage =>
@@ -1134,4 +1133,109 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get inArticleAdSlotTypeBelowArticleContinueReadingButton =>
       'أسفل زر \'متابعة القراءة\'';
+
+  @override
+  String get localAdsManagement => 'إدارة الإعلانات المحلية';
+
+  @override
+  String get archivedLocalAdsTitle => 'الإعلانات المحلية المؤرشفة';
+
+  @override
+  String get loadingArchivedLocalAds => 'جاري تحميل الإعلانات المحلية المؤرشفة';
+
+  @override
+  String get noArchivedLocalAdsFound =>
+      'لم يتم العثور على إعلانات محلية مؤرشفة.';
+
+  @override
+  String get loadingLocalAds => 'جاري تحميل الإعلانات المحلية';
+
+  @override
+  String get noLocalAdsFound => 'لم يتم العثور على إعلانات محلية.';
+
+  @override
+  String localAdDeleted(String title) {
+    return 'تم حذف \'$title\'.';
+  }
+
+  @override
+  String get createLocalNativeAdTitle => 'إنشاء إعلان أصلي';
+
+  @override
+  String get localNativeAdCreatedSuccessfully =>
+      'تم إنشاء الإعلان الأصلي بنجاح.';
+
+  @override
+  String get editLocalNativeAdTitle => 'تعديل إعلان أصلي';
+
+  @override
+  String get localNativeAdUpdatedSuccessfully =>
+      'تم تحديث الإعلان الأصلي بنجاح.';
+
+  @override
+  String get adSubtitle => 'عنوان فرعي';
+
+  @override
+  String get createLocalBannerAdTitle => 'إنشاء إعلان بانر';
+
+  @override
+  String get localBannerAdCreatedSuccessfully => 'تم إنشاء إعلان البانر بنجاح.';
+
+  @override
+  String get editLocalBannerAdTitle => 'تعديل إعلان بانر';
+
+  @override
+  String get localBannerAdUpdatedSuccessfully => 'تم تحديث إعلان البانر بنجاح.';
+
+  @override
+  String get createLocalInterstitialAdTitle => 'إنشاء إعلان بيني';
+
+  @override
+  String get localInterstitialAdCreatedSuccessfully =>
+      'تم إنشاء الإعلان البيني بنجاح.';
+
+  @override
+  String get editLocalInterstitialAdTitle => 'تعديل إعلان بيني';
+
+  @override
+  String get localInterstitialAdUpdatedSuccessfully =>
+      'تم تحديث الإعلان البيني بنجاح.';
+
+  @override
+  String get createLocalVideoAdTitle => 'إنشاء إعلان فيديو';
+
+  @override
+  String get localVideoAdCreatedSuccessfully => 'تم إنشاء إعلان الفيديو بنجاح.';
+
+  @override
+  String get editLocalVideoAdTitle => 'تعديل إعلان فيديو';
+
+  @override
+  String get localVideoAdUpdatedSuccessfully => 'تم تحديث إعلان الفيديو بنجاح.';
+
+  @override
+  String get videoUrl => 'رابط الفيديو';
+
+  @override
+  String get targetUrl => 'رابط الهدف';
+
+  @override
+  String get loadingLocalAd => 'جاري تحميل الإعلان المحلي';
+
+  @override
+  String idCopiedToClipboard(String id) {
+    return 'تم نسخ المعرف \'$id\' إلى الحافظة.';
+  }
+
+  @override
+  String get adTitle => 'عنوان الإعلان';
+
+  @override
+  String get localAdsManagementTitle => 'إدارة الإعلانات المحلية';
+
+  @override
+  String get editLocalAds => 'تعديل الإعلانات المحلية';
+
+  @override
+  String get copyId => 'نسخ المعرف';
 }

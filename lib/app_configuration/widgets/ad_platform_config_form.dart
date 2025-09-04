@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template ad_platform_config_form}
@@ -295,7 +297,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        // Local Ad Management (Non-functional as requested)
+        // Local Ad Management
         if (_selectedPlatform == AdPlatformType.local)
           ExpansionTile(
             title: Text(l10n.localAdManagementTitle),
@@ -319,7 +321,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
               const SizedBox(height: AppSpacing.lg),
               Center(
                 child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () =>
+                      context.goNamed(Routes.localAdsManagementName),
                   child: Text(l10n.manageLocalAdsButton),
                 ),
               ),

@@ -115,4 +115,67 @@ abstract final class Routes {
 
   /// The name for the generic searchable selection page route.
   static const String searchableSelectionName = 'searchableSelection';
+
+  /// The path for the local ads management page.
+  static const String localAdsManagement = '/local-ads-management';
+
+  /// The name for the local ads management page route.
+  static const String localAdsManagementName = 'localAdsManagement';
+
+  /// The path for the archived local ads page.
+  static const String archivedLocalAds = 'archived-local-ads';
+
+  /// The name for the archived local ads page route.
+  static const String archivedLocalAdsName = 'archivedLocalAds';
+
+  /// The path for creating a new local native ad.
+  static const String createLocalNativeAd = 'create-local-native-ad';
+
+  /// The name for the create local native ad page route.
+  static const String createLocalNativeAdName = 'createLocalNativeAd';
+
+  /// The path for editing an existing local native ad.
+  static const String editLocalNativeAd = 'edit-local-native-ad/:id';
+
+  /// The name for the edit local native ad page route.
+  static const String editLocalNativeAdName = 'editLocalNativeAd';
+
+  /// The path for creating a new local banner ad.
+  static const String createLocalBannerAd = 'create-local-banner-ad';
+
+  /// The name for the create local banner ad page route.
+  static const String createLocalBannerAdName = 'createLocalBannerAd';
+
+  /// The path for editing an existing local banner ad.
+  static const String editLocalBannerAd = 'edit-local-banner-ad/:id';
+
+  /// The name for the edit local banner ad page route.
+  static const String editLocalBannerAdName = 'editLocalBannerAd';
+
+  /// The path for creating a new local interstitial ad.
+  static const String createLocalInterstitialAd =
+      'create-local-interstitial-ad';
+
+  /// The name for the create local interstitial ad page route.
+  static const String createLocalInterstitialAdName =
+      'createLocalInterstitialAd';
+
+  /// The path for editing an existing local interstitial ad.
+  static const String editLocalInterstitialAd =
+      'edit-local-interstitial-ad/:id';
+
+  /// The name for the edit local interstitial ad page route.
+  static const String editLocalInterstitialAdName = 'editLocalInterstitialAd';
+
+  /// The path for creating a new local video ad.
+  static const String createLocalVideoAd = 'create-local-video-ad';
+
+  /// The name for the create local video ad page route.
+  static const String createLocalVideoAdName = 'createLocalVideoAd';
+
+  /// The path for editing an existing local video ad.
+  static const String editLocalVideoAd = 'edit-local-video-ad/:id';
+
+  /// The name for the edit local video ad page route.
+  static const String editLocalVideoAdName = 'editLocalVideoAd';
 }
