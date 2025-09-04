@@ -1228,4 +1228,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String idCopiedToClipboard(String id) {
     return 'ID \'$id\' copied to clipboard.';
   }
+
+  @override
+  String get adTitle => 'Ad Title';
+
+  @override
+  String get localAdsManagementTitle => 'Local Ads Management';
+
+  @override
+  String get editLocalAds => 'Edit Local Ads';
+
+  @override
+  String get copyId => 'Copy ID';
 }

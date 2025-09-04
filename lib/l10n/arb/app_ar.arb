@@ -881,7 +881,6 @@
   "contentStatusActive": "نشط",
   "@contentStatusActive": {
     "description": "حالة المحتوى: نشط"
-
   },
   "contentStatusArchived": "مؤرشف",
   "@contentStatusArchived": {
@@ -1538,5 +1537,21 @@
         "example": "UUID"
       }
     }
+  },
+  "adTitle": "عنوان الإعلان",
+  "@adTitle": {
+    "description": "Label for the ad title input field."
+  },
+  "localAdsManagementTitle": "إدارة الإعلانات المحلية",
+  "@localAdsManagementTitle": {
+    "description": "Title for the local ads management page."
+  },
+  "editLocalAds": "تعديل الإعلانات المحلية",
+  "@editLocalAds": {
+    "description": "Tooltip for the edit local ads button."
+  },
+  "copyId": "نسخ المعرف",
+  "@copyId": {
+    "description": "Tooltip for the copy ID button."
   }
 }

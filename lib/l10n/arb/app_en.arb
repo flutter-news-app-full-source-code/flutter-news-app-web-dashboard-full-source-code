@@ -1533,5 +1533,21 @@
         "example": "UUID"
       }
     }
+  },
+  "adTitle": "Ad Title",
+  "@adTitle": {
+    "description": "Label for the ad title input field."
+  },
+  "localAdsManagementTitle": "Local Ads Management",
+  "@localAdsManagementTitle": {
+    "description": "Title for the local ads management page."
+  },
+  "editLocalAds": "Edit Local Ads",
+  "@editLocalAds": {
+    "description": "Tooltip for the edit local ads button."
+  },
+  "copyId": "Copy ID",
+  "@copyId": {
+    "description": "Tooltip for the copy ID button."
   }
 }

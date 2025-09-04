@@ -2293,6 +2293,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ID \'{id}\' copied to clipboard.'**
   String idCopiedToClipboard(String id);
+
+  /// Label for the ad title input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Title'**
+  String get adTitle;
+
+  /// Title for the local ads management page.
+  ///
+  /// In en, this message translates to:
+  /// **'Local Ads Management'**
+  String get localAdsManagementTitle;
+
+  /// Tooltip for the edit local ads button.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Local Ads'**
+  String get editLocalAds;
+
+  /// Tooltip for the copy ID button.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy ID'**
+  String get copyId;
 }
 
 class _AppLocalizationsDelegate

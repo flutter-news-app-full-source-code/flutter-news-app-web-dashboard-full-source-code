@@ -1227,4 +1227,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String idCopiedToClipboard(String id) {
     return 'تم نسخ المعرف \'$id\' إلى الحافظة.';
   }
+
+  @override
+  String get adTitle => 'عنوان الإعلان';
+
+  @override
+  String get localAdsManagementTitle => 'إدارة الإعلانات المحلية';
+
+  @override
+  String get editLocalAds => 'تعديل الإعلانات المحلية';
+
+  @override
+  String get copyId => 'نسخ المعرف';
 }
