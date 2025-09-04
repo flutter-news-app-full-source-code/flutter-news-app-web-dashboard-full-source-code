@@ -4,6 +4,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_platform_type_l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -251,7 +252,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                         .map(
                           (platform) => ButtonSegment<AdPlatformType>(
                             value: platform,
-                            label: Text(platform.name),
+                            label: Text(platform.l10n(context)),
                           ),
                         )
                         .toList(),
