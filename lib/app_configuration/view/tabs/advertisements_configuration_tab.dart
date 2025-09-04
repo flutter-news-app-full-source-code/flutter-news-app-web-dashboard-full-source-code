@@ -77,8 +77,9 @@ class _AdvertisementsConfigurationTabState
                   ? (isExpanded) {
                       _expandedTileIndex.value = isExpanded ? tileIndex : null;
                     }
-                  : null, // Disable expansion if global ads are off
+                  : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
+              enabled: adConfig.enabled, // Disable the tile itself
               children: [
                 AdPlatformConfigForm(
                   remoteConfig: widget.remoteConfig,
@@ -107,8 +108,9 @@ class _AdvertisementsConfigurationTabState
                   ? (isExpanded) {
                       _expandedTileIndex.value = isExpanded ? tileIndex : null;
                     }
-                  : null, // Disable expansion if global ads are off
+                  : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
+              enabled: adConfig.enabled, // Disable the tile itself
               children: [
                 FeedAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
@@ -137,8 +139,9 @@ class _AdvertisementsConfigurationTabState
                   ? (isExpanded) {
                       _expandedTileIndex.value = isExpanded ? tileIndex : null;
                     }
-                  : null, // Disable expansion if global ads are off
+                  : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
+              enabled: adConfig.enabled, // Disable the tile itself
               children: [
                 ArticleAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
@@ -167,8 +170,9 @@ class _AdvertisementsConfigurationTabState
                   ? (isExpanded) {
                       _expandedTileIndex.value = isExpanded ? tileIndex : null;
                     }
-                  : null, // Disable expansion if global ads are off
+                  : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
+              enabled: adConfig.enabled, // Disable the tile itself
               children: [
                 InterstitialAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
