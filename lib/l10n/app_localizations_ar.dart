@@ -1109,10 +1109,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'معرف وحدة إعلانات البانر داخل المقالات.';
 
   @override
-  String get inArticleAdSlotTypeBelowMainArticleImage =>
-      'أسفل الصورة الرئيسية للمقال';
-
-  @override
   String get inArticleAdSlotTypeAboveArticleContinueReadingButton =>
       'فوق زر \'متابعة القراءة\'';
 
@@ -1287,4 +1283,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get videoAdType => 'فيديو';
+
+  @override
+  String get bannerAdShapeSelectionTitle => 'شكل إعلان البانر';
+
+  @override
+  String get bannerAdShapeSelectionDescription =>
+      'اختر الشكل المرئي المفضل لإعلانات البانر المعروضة في المقالات.';
+
+  @override
+  String get bannerAdShapeSquare => 'مربع';
+
+  @override
+  String get bannerAdShapeRectangle => 'مستطيل';
 }

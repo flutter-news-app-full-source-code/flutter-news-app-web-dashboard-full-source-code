@@ -1382,10 +1382,6 @@
   "@inArticleBannerAdIdDescription": {
     "description": "Description for the In-Article Banner Ad ID input field"
   },
-  "inArticleAdSlotTypeBelowMainArticleImage": "Below the main image of the article",
-  "@inArticleAdSlotTypeBelowMainArticleImage": {
-    "description": "Localized name for InArticleAdSlotType.belowMainArticleImage"
-  },
   "inArticleAdSlotTypeAboveArticleContinueReadingButton": "Above the 'Continue Reading' button",
   "@inArticleAdSlotTypeAboveArticleContinueReadingButton": {
     "description": "Localized name for InArticleAdSlotType.aboveArticleContinueReadingButton"
@@ -1609,5 +1605,21 @@
   "videoAdType": "Video",
   "@videoAdType": {
     "description": "Label for Video Ad Type."
+  },
+  "bannerAdShapeSelectionTitle": "Banner Ad Shape",
+  "@bannerAdShapeSelectionTitle": {
+    "description": "Title for the Banner Ad Shape Selection section"
+  },
+  "bannerAdShapeSelectionDescription": "Select the preferred visual shape for banner ads displayed in articles.",
+  "@bannerAdShapeSelectionDescription": {
+    "description": "Description for the Banner Ad Shape Selection section"
+  },
+  "bannerAdShapeSquare": "Square",
+  "@bannerAdShapeSquare": {
+    "description": "Label for the Square banner ad shape option"
+  },
+  "bannerAdShapeRectangle": "Rectangle",
+  "@bannerAdShapeRectangle": {
+    "description": "Label for the Rectangle banner ad shape option"
   }
 }

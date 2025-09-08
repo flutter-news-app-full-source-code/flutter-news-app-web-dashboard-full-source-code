@@ -2084,12 +2084,6 @@ abstract class AppLocalizations {
   /// **'The unit ID for banner ads within articles.'**
   String get inArticleBannerAdIdDescription;
 
-  /// Localized name for InArticleAdSlotType.belowMainArticleImage
-  ///
-  /// In en, this message translates to:
-  /// **'Below the main image of the article'**
-  String get inArticleAdSlotTypeBelowMainArticleImage;
-
   /// Localized name for InArticleAdSlotType.aboveArticleContinueReadingButton
   ///
   /// In en, this message translates to:
@@ -2407,6 +2401,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Video'**
   String get videoAdType;
+
+  /// Title for the Banner Ad Shape Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Banner Ad Shape'**
+  String get bannerAdShapeSelectionTitle;
+
+  /// Description for the Banner Ad Shape Selection section
+  ///
+  /// In en, this message translates to:
+  /// **'Select the preferred visual shape for banner ads displayed in articles.'**
+  String get bannerAdShapeSelectionDescription;
+
+  /// Label for the Square banner ad shape option
+  ///
+  /// In en, this message translates to:
+  /// **'Square'**
+  String get bannerAdShapeSquare;
+
+  /// Label for the Rectangle banner ad shape option
+  ///
+  /// In en, this message translates to:
+  /// **'Rectangle'**
+  String get bannerAdShapeRectangle;
 }
 
 class _AppLocalizationsDelegate

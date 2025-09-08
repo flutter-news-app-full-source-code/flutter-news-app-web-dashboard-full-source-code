@@ -245,10 +245,16 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                   ),
                 ),
                 segments: AdPlatformType.values
+                    .where(
+                      (type) =>
+                          type !=
+                          AdPlatformType
+                              .demo, // Ignore demo ad platform for dashboard
+                    )
                     .map(
-                      (platform) => ButtonSegment<AdPlatformType>(
-                        value: platform,
-                        label: Text(platform.l10n(context)),
+                      (type) => ButtonSegment<AdPlatformType>(
+                        value: type,
+                        label: Text(type.l10n(context)),
                       ),
                     )
                     .toList(),
