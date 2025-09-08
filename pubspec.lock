@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "36be72f1b7bd22236eb0cdf97e5f2545c7a47d34"
+      resolved-ref: "8995bd33bcd3888675a6b18e11f3e8dc873261be"
       url: "https://github.com/flutter-news-app-full-source-code/core.git"
     source: git
     version: "0.0.0"
