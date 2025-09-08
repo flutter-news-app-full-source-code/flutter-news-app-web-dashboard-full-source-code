@@ -10,8 +10,6 @@ extension InArticleAdSlotTypeL10n on InArticleAdSlotType {
   String l10n(BuildContext context) {
     final l10n = context.l10n;
     switch (this) {
-      case InArticleAdSlotType.belowMainArticleImage:
-        return l10n.inArticleAdSlotTypeBelowMainArticleImage;
       case InArticleAdSlotType.aboveArticleContinueReadingButton:
         return l10n.inArticleAdSlotTypeAboveArticleContinueReadingButton;
       case InArticleAdSlotType.belowArticleContinueReadingButton:
