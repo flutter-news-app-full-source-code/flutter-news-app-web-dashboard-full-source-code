@@ -1108,10 +1108,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'The unit ID for banner ads within articles.';
 
   @override
-  String get inArticleAdSlotTypeBelowMainArticleImage =>
-      'Below the main image of the article';
-
-  @override
   String get inArticleAdSlotTypeAboveArticleContinueReadingButton =>
       'Above the \'Continue Reading\' button';
 
@@ -1289,4 +1285,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get videoAdType => 'Video';
+
+  @override
+  String get bannerAdShapeSelectionTitle => 'Banner Ad Shape';
+
+  @override
+  String get bannerAdShapeSelectionDescription =>
+      'Select the preferred visual shape for banner ads displayed in articles.';
+
+  @override
+  String get bannerAdShapeSquare => 'Square';
+
+  @override
+  String get bannerAdShapeRectangle => 'Rectangle';
 }

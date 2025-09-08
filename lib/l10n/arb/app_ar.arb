@@ -1386,10 +1386,6 @@
   "@inArticleBannerAdIdDescription": {
     "description": "وصف حقل إدخال معرف إعلان البانر داخل المقال"
   },
-  "inArticleAdSlotTypeBelowMainArticleImage": "أسفل الصورة الرئيسية للمقال",
-  "@inArticleAdSlotTypeBelowMainArticleImage": {
-    "description": "الاسم المترجم لـ InArticleAdSlotType.belowMainArticleImage"
-  },
   "inArticleAdSlotTypeAboveArticleContinueReadingButton": "فوق زر 'متابعة القراءة'",
   "@inArticleAdSlotTypeAboveArticleContinueReadingButton": {
     "description": "الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton"
@@ -1613,5 +1609,21 @@
   "videoAdType": "فيديو",
   "@videoAdType": {
     "description": "تسمية نوع إعلان الفيديو."
+  },
+  "bannerAdShapeSelectionTitle": "شكل إعلان البانر",
+  "@bannerAdShapeSelectionTitle": {
+    "description": "Title for the Banner Ad Shape Selection section"
+  },
+  "bannerAdShapeSelectionDescription": "اختر الشكل المرئي المفضل لإعلانات البانر المعروضة في المقالات.",
+  "@bannerAdShapeSelectionDescription": {
+    "description": "Description for the Banner Ad Shape Selection section"
+  },
+  "bannerAdShapeSquare": "مربع",
+  "@bannerAdShapeSquare": {
+    "description": "Label for the Square banner ad shape option"
+  },
+  "bannerAdShapeRectangle": "مستطيل",
+  "@bannerAdShapeRectangle": {
+    "description": "Label for the Rectangle banner ad shape option"
   }
 }
