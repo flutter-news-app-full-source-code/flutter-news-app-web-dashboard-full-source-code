@@ -19,11 +19,11 @@ This repository contains the complete, production-ready source code for a Flutte
 This dashboard comes packed with all the features you need to manage a professional news application.
 
 #### 📰 **Comprehensive Content Management**
-Effortlessly manage all aspects of your news content with full CRUD (Create, Read, Update, Delete) capabilities:
-*   **Headlines:** Create, edit, and publish news articles.
-*   **Topics:** Organize and define news topics.
-*   **Sources:** Maintain and update news sources.
-> **Your Advantage:** You get a powerful, centralized system to control your content, ensuring accuracy and consistency across your news platform. ✍️
+Effortlessly manage the entire lifecycle of your news content with full CRUD (Create, Read, Update, Delete) capabilities, complemented by advanced archiving and restoration features:
+*   **Headlines:** Create, edit, publish, archive, restore, and permanently delete news articles.
+*   **Topics:** Organize, define, archive, and restore news topics.
+*   **Sources:** Maintain, update, archive, and restore news sources.
+> **Your Advantage:** Gain unparalleled control over your content. This centralized system ensures accuracy, consistency, and data integrity, allowing you to manage active content flows and easily retrieve or permanently remove archived items with robust undo functionality. ✍️
 
 #### ⚙️ **Dynamic Application Configuration**
 Control the behavior and appearance of the mobile application remotely:
