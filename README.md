@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://avatars.githubusercontent.com/u/202675624?s=400&u=2daf23e8872a3b666bcd4f792a21fe2633097e79&v=4" alt="Flutter News App Dashboard Logo" width="220">
   <h1>Flutter News App Web Dashboard</h1>
-  <p><strong>Complete, production-ready source code for a comprehensive content management web dashboard.</strong></p>
+  <p><strong>Complete, production-ready source code for a comprehensive Flutter news app web dashboard.</strong></p>
 </div>
 
 <p align="center">
