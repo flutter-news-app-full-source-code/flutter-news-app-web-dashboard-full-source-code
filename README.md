@@ -25,6 +25,15 @@ Effortlessly manage the entire lifecycle of your news content with full CRUD (Cr
 *   **Sources:** Maintain, update, archive, and restore news sources.
 > **Your Advantage:** Gain unparalleled control over your content. This centralized system ensures accuracy, consistency, and data integrity, allowing you to manage active content flows and easily retrieve or permanently remove archived items with robust undo functionality. ✍️
 
+#### 📺 **Flexible Local Ads Management**
+Take full control of your in-app advertising strategy with a dedicated management suite for local ads. Create, edit, and manage various ad formats, including:
+*   **Native Ads:** Design ads that blend seamlessly with your content.
+*   **Banner Ads:** Implement traditional banner advertisements.
+*   **Interstitial Ads:** Configure full-screen ads for strategic placements.
+*   **Video Ads:** Integrate engaging video advertisements.
+Each ad type supports full CRUD operations, along with archiving, restoration, and permanent deletion, providing complete lifecycle management.
+> **Your Advantage:** Monetize your application effectively with flexible, locally managed ad campaigns. This feature empowers you to rapidly deploy and iterate on ad content without relying on external ad networks or app store updates, ensuring maximum control and revenue potential. 💰
+
 #### ⚙️ **Dynamic Application Configuration**
 Control the behavior and appearance of the mobile application remotely:
 *   **User Preference Limits:** Set limits for followed items and saved headlines based on user roles (Guest, Authenticated, Premium).
