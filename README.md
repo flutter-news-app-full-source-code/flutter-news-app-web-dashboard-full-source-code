@@ -7,14 +7,14 @@
 <p align="center">
   <a href="https://flutter-news-app-full-source-code.github.io/flutter-news-app-web-dashboard-full-source-code/"><img src="https://img.shields.io/badge/LIVE_DEMO-VIEW-orange?style=for-the-badge" alt="Live Demo: View"></a>
   <a href="https://flutter-news-app-full-source-code.github.io/docs/web-dashboard/local-setup/"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
-  <img src="https://img.shields.io/badge/coverage-0%25-green?style=for-the-badge" alt="coverage: 0%">
+  <img src="https://img.shields.io/badge/coverage-_%25-green?style=for-the-badge" alt="coverage: 0%">
 </p>
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>
   <a href="https://github.com/sponsors/flutter-news-app-full-source-code"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
 </p>
 
-This repository contains the complete, production-ready source code for a Flutter web dashboard designed for comprehensive content management. It is a key component of the [**Flutter News App Full Source Code Toolkit**](https://github.com/flutter-news-app-full-source-code), an ecosystem that also includes a Dart Frog [backend API](https://github.com/flutter-news-app-full-source-code/flutter-news-app-api-server-full-source-code) and a [mobile client](https://github.com/flutter-news-app-full-source-code/flutter-news-app-mobile-client-full-source-code).
+This repository contains the complete, production-ready source code for a Flutter news app web dashboard designed for comprehensive content management. It is a key component of the [**Flutter News App Full Source Code Toolkit**](https://github.com/flutter-news-app-full-source-code), an ecosystem that also includes a Dart Frog [backend API](https://github.com/flutter-news-app-full-source-code/flutter-news-app-api-server-full-source-code) and a [mobile client](https://github.com/flutter-news-app-full-source-code/flutter-news-app-mobile-client-full-source-code).
 
 ## ⭐ Feature Showcase: Everything You Get, Ready to Go
 
