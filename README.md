@@ -41,6 +41,28 @@ Get a quick, real-time overview of your content ecosystem with key statistics an
 *   **Quick Actions:** Directly create new headlines, topics, or sources from the overview.
 > **Your Advantage:** Instantly understand the pulse of your content operation and jump directly into key management tasks, streamlining your workflow. 📈
 
+#### ⚙️ **Customizable Dashboard Settings**
+Provide your administrative team with the ability to personalize their dashboard experience through a robust settings interface. This feature allows individual administrators and publishers to tailor the dashboard's appearance and behavior to their preferences, including:
+*   **Appearance Settings:** Adjust base themes (light/dark/system), accent colors, font families, text scale factors, and font weights for the dashboard UI.
+*   **Language Selection:** Choose their preferred language for the dashboard interface.
+These settings are user-specific, ensuring a comfortable and efficient working environment for each team member.
+> **Your Advantage:** Enhance the productivity and satisfaction of your administrative team with a highly customizable dashboard. By allowing personalized display and language options, you create a more efficient and user-friendly management experience. 🎨
+
+#### 📱 **App Configuration: Dynamic Remote Settings for Mobile Client**
+Manage the mobile client's remote configuration directly from the dashboard. This powerful feature allows you to dynamically control various aspects of the mobile application without requiring an app store update, ensuring agility and responsiveness to business needs. Configurable elements include:
+*   **Maintenance Mode:** Instantly enable or disable maintenance mode for the mobile app, displaying a custom message to users.
+*   **Force Update:** Mandate app updates to a specific version (`latestAppVersion`), with an option to force users to update (`isLatestVersionOnly`). Configurable update URLs for iOS and Android are also available.
+*   **Ad Settings:** Comprehensive control over advertising strategy:
+    *   **Global Ad Enablement:** A master switch to enable or disable all ads.
+    *   **Primary Ad Platform:** Choose between `AdMob` or `Local` ad platforms.
+    *   **Ad Unit Identifiers:** Configure specific ad unit IDs for each platform, including `feedNativeAdId`, `feedBannerAdId`, `feedToArticleInterstitialAdId`, `inArticleNativeAdId`, and `inArticleBannerAdId`.
+    *   **Feed Ad Configuration:** Define ad types (`native`, `banner`) and frequency (`adFrequency`, `adPlacementInterval`) based on user roles (`guestUser`, `standardUser`, `premiumUser`).
+    *   **Article Ad Configuration:** Control in-article ad enablement, preferred `bannerAdShape` (`square`, `rectangle`), and specific `inArticleAdSlotConfigurations` (`aboveArticleContinueReadingButton`, `belowArticleContinueReadingButton`).
+    *   **Interstitial Ad Configuration:** Manage global interstitial ad enablement and frequency (`transitionsBeforeShowingInterstitialAds`) for page transitions, also tiered by user role.
+*   **Feed Decorators:** Manage the enablement and visibility of various in-feed promotional and engagement elements, such as `linkAccount`, `upgrade`, `rateApp`, `enableNotifications`, `suggestedTopics`, and `suggestedSources`. Each decorator can be configured for specific user roles and `daysBetweenViews`.
+*   **User Preference Limits:** Set maximum limits for followed items (countries, sources, topics) and saved headlines, tiered by user roles (`guestUser`, `standardUser`, `premiumUser`).
+> **Your Advantage:** Gain dynamic control over your mobile application's behavior and monetization strategy. Adjust critical settings on the fly, ensuring your users always have the best experience and your business goals are met without the overhead of app store releases. 🚀
+
 #### 🔐 **Robust User Authentication**
 Secure and flexible authentication flows are built-in for administrators and publishers using Email + Code (Passwordless) Sign-In.
 > **Your Advantage:** All the complex security and user management for your administrative team is already done for you. ✅
