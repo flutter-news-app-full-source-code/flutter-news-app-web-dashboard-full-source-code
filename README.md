@@ -34,18 +34,12 @@ Take full control of your in-app advertising strategy with a dedicated managemen
 Each ad type supports full CRUD operations, along with archiving, restoration, and permanent deletion, providing complete lifecycle management.
 > **Your Advantage:** Monetize your application effectively with flexible, locally managed ad campaigns. This feature empowers you to rapidly deploy and iterate on ad content without relying on external ad networks or app store updates, ensuring maximum control and revenue potential. 💰
 
-#### ⚙️ **Dynamic Application Configuration**
-Control the behavior and appearance of the mobile application remotely:
-*   **User Preference Limits:** Set limits for followed items and saved headlines based on user roles (Guest, Authenticated, Premium).
-*   **Ad Settings:** Configure ad frequency and placement intervals for different user tiers.
-*   **In-App Prompts:** Manage the display frequency of account-related calls-to-action.
-*   **Operational Status:** Remotely enable maintenance mode or suggest app updates to users.
-> **Your Advantage:** Granular control over app features and monetization strategies without requiring app store updates. 🚀
-
-#### 📊 **Dashboard Analytics**
-Get a quick overview of your content ecosystem with key statistics:
+#### 📊 **Dashboard Overview**
+Get a quick, real-time overview of your content ecosystem with key statistics and quick actions:
 *   **Content Counts:** View the total number of headlines, topics, and sources at a glance.
-> **Your Advantage:** Instantly understand the scale of your content operation. 📈
+*   **Recent Activity:** See recently created headlines to stay on top of new content.
+*   **Quick Actions:** Directly create new headlines, topics, or sources from the overview.
+> **Your Advantage:** Instantly understand the pulse of your content operation and jump directly into key management tasks, streamlining your workflow. 📈
 
 #### 🔐 **Robust User Authentication**
 Secure and flexible authentication flows are built-in for administrators and publishers using Email + Code (Passwordless) Sign-In.
