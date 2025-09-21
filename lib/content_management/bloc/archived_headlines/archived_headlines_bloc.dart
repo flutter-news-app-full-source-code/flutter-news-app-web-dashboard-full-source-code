@@ -32,12 +32,15 @@ class ArchivedHeadlinesBloc
       _onDeletionServiceStatusChanged,
     ); // Handle deletion service events
 
-    // Listen to deletion events from the PendingDeletionsService
-    _deletionEventSubscription = _pendingDeletionsService.deletionEvents
-        .where(
-          (event) => event.id.startsWith('headline_'),
-        ) // Filter for headline deletions
-        .listen((event) => add(_DeletionServiceStatusChanged(event)));
+    // Listen to deletion events from the PendingDeletionsService.
+    // The filter now correctly checks the type of the item in the event.
+    _deletionEventSubscription = _pendingDeletionsService.deletionEvents.listen(
+      (event) {
+        if (event.item is Headline) {
+          add(_DeletionServiceStatusChanged(event));
+        }
+      },
+    );
 
     on<DeleteHeadlineForeverRequested>(_onDeleteHeadlineForeverRequested);
     on<UndoDeleteHeadlineRequested>(_onUndoDeleteHeadlineRequested);
