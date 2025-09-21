@@ -183,20 +183,12 @@ class ArchivedHeadlinesBloc
     } else if (status == DeletionStatus.undone) {
       // Deletion undone, restore the headline to the main list.
       if (item is Headline) {
+        final insertionIndex = state.headlines.indexWhere(
+          (h) => h.updatedAt.isBefore(item.updatedAt),
+        );
         final updatedHeadlines = List<Headline>.from(state.headlines)
           ..insert(
-            state.headlines.indexWhere(
-                      (h) => h.updatedAt.isBefore(
-                        item.updatedAt,
-                      ),
-                    ) !=
-                    -1
-                ? state.headlines.indexWhere(
-                    (h) => h.updatedAt.isBefore(
-                      item.updatedAt,
-                    ),
-                  )
-                : state.headlines.length,
+            insertionIndex != -1 ? insertionIndex : state.headlines.length,
             item,
           );
         emit(
