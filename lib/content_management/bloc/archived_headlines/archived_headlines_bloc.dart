@@ -49,7 +49,7 @@ class ArchivedHeadlinesBloc
   _pendingDeletionsService; // The injected service
 
   /// Subscription to deletion events from the PendingDeletionsService.
-  late final StreamSubscription<DeletionEvent> _deletionEventSubscription;
+  late final StreamSubscription<DeletionEvent<dynamic>> _deletionEventSubscription;
 
   @override
   Future<void> close() async {
@@ -123,12 +123,10 @@ class ArchivedHeadlinesBloc
     emit(
       state.copyWith(
         headlines: updatedHeadlines,
-        // Also remove from pendingDeletions if it was there, as it's being restored.
-        pendingDeletions: Map<String, Headline>.from(state.pendingDeletions)
-          ..remove(event.id),
         lastPendingDeletionId: state.lastPendingDeletionId == event.id
             ? null
             : state.lastPendingDeletionId,
+        snackbarHeadlineTitle: null, // Clear snackbar when restoring
       ),
     );
 
@@ -139,13 +137,11 @@ class ArchivedHeadlinesBloc
       );
       emit(state.copyWith(restoredHeadline: restoredHeadline));
     } on HttpException catch (e) {
-      // If the update fails, revert the change in the UI and re-add to pendingDeletions
+      // If the update fails, revert the change in the UI
       emit(
         state.copyWith(
           headlines: originalHeadlines,
           exception: e,
-          pendingDeletions: Map<String, Headline>.from(state.pendingDeletions)
-            ..[event.id] = headlineToRestore,
           lastPendingDeletionId: state.lastPendingDeletionId,
         ),
       );
@@ -154,8 +150,6 @@ class ArchivedHeadlinesBloc
         state.copyWith(
           headlines: originalHeadlines,
           exception: UnknownException('An unexpected error occurred: $e'),
-          pendingDeletions: Map<String, Headline>.from(state.pendingDeletions)
-            ..[event.id] = headlineToRestore,
           lastPendingDeletionId: state.lastPendingDeletionId,
         ),
       );
@@ -172,55 +166,48 @@ class ArchivedHeadlinesBloc
   ) async {
     final id = event.event.id;
     final status = event.event.status;
-
-    final headlineInPending = state.pendingDeletions[id];
-    if (headlineInPending == null) {
-      // If the headline is not in pending deletions, it might have been
-      // restored by other means or was never pending.
-      return;
-    }
-
-    final updatedPendingDeletions = Map<String, Headline>.from(
-      state.pendingDeletions,
-    )..remove(id);
+    final item = event.event.item;
 
     if (status == DeletionStatus.confirmed) {
-      // Deletion confirmed, simply update pending deletions.
+      // Deletion confirmed, no action needed in BLoC as it was optimistically removed.
+      // Ensure lastPendingDeletionId and snackbarHeadlineTitle are cleared if this was the one.
       emit(
         state.copyWith(
-          pendingDeletions: updatedPendingDeletions,
           lastPendingDeletionId: state.lastPendingDeletionId == id
               ? null
               : state.lastPendingDeletionId,
+          snackbarHeadlineTitle: null,
         ),
       );
     } else if (status == DeletionStatus.undone) {
       // Deletion undone, restore the headline to the main list.
-      final updatedHeadlines = List<Headline>.from(state.headlines)
-        ..insert(
-          state.headlines.indexWhere(
+      if (item is Headline) {
+        final updatedHeadlines = List<Headline>.from(state.headlines)
+          ..insert(
+            state.headlines.indexWhere(
+                      (h) => h.updatedAt.isBefore(
+                        item.updatedAt,
+                      ),
+                    ) !=
+                    -1
+                ? state.headlines.indexWhere(
                     (h) => h.updatedAt.isBefore(
-                      headlineInPending.updatedAt,
+                      item.updatedAt,
                     ),
-                  ) !=
-                  -1
-              ? state.headlines.indexWhere(
-                  (h) => h.updatedAt.isBefore(
-                    headlineInPending.updatedAt,
-                  ),
-                )
-              : state.headlines.length,
-          headlineInPending,
+                  )
+                : state.headlines.length,
+            item,
+          );
+        emit(
+          state.copyWith(
+            headlines: updatedHeadlines,
+            lastPendingDeletionId: state.lastPendingDeletionId == id
+                ? null
+                : state.lastPendingDeletionId,
+            snackbarHeadlineTitle: null,
+          ),
         );
-      emit(
-        state.copyWith(
-          headlines: updatedHeadlines,
-          pendingDeletions: updatedPendingDeletions,
-          lastPendingDeletionId: state.lastPendingDeletionId == id
-              ? null
-              : state.lastPendingDeletionId,
-        ),
-      );
+      }
     }
   }
 
@@ -243,9 +230,8 @@ class ArchivedHeadlinesBloc
     emit(
       state.copyWith(
         headlines: updatedHeadlines,
-        pendingDeletions: Map<String, Headline>.from(state.pendingDeletions)
-          ..[event.id] = headlineToDelete,
         lastPendingDeletionId: event.id,
+        snackbarHeadlineTitle: headlineToDelete.title, // Set title for snackbar
       ),
     );
 
@@ -277,6 +263,6 @@ class ArchivedHeadlinesBloc
     ClearRestoredHeadline event,
     Emitter<ArchivedHeadlinesState> emit,
   ) {
-    emit(state.copyWith(restoredHeadline: null));
+    emit(state.copyWith(restoredHeadline: null, snackbarHeadlineTitle: null));
   }
 }
