@@ -4,32 +4,64 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 
 part 'archived_headlines_event.dart';
 part 'archived_headlines_state.dart';
 
+/// {@template archived_headlines_bloc}
+/// A BLoC responsible for managing the state of archived headlines.
+///
+/// It handles loading, restoring, and permanently deleting archived headlines,
+/// including a temporary "undo" period for deletions.
+/// {@endtemplate}
 class ArchivedHeadlinesBloc
     extends Bloc<ArchivedHeadlinesEvent, ArchivedHeadlinesState> {
+  /// {@macro archived_headlines_bloc}
   ArchivedHeadlinesBloc({
     required DataRepository<Headline> headlinesRepository,
+    required PendingDeletionsService pendingDeletionsService,
   }) : _headlinesRepository = headlinesRepository,
+       _pendingDeletionsService = pendingDeletionsService,
        super(const ArchivedHeadlinesState()) {
     on<LoadArchivedHeadlinesRequested>(_onLoadArchivedHeadlinesRequested);
     on<RestoreHeadlineRequested>(_onRestoreHeadlineRequested);
+    on<_DeletionServiceStatusChanged>(
+      _onDeletionServiceStatusChanged,
+    );
+
+    // Listen to deletion events from the PendingDeletionsService.
+    // The filter now correctly checks the type of the item in the event.
+    _deletionEventSubscription = _pendingDeletionsService.deletionEvents.listen(
+      (event) {
+        if (event.item is Headline) {
+          add(_DeletionServiceStatusChanged(event));
+        }
+      },
+    );
+
     on<DeleteHeadlineForeverRequested>(_onDeleteHeadlineForeverRequested);
     on<UndoDeleteHeadlineRequested>(_onUndoDeleteHeadlineRequested);
-    on<_ConfirmDeleteHeadlineRequested>(_onConfirmDeleteHeadlineRequested);
+    on<ClearRestoredHeadline>(_onClearRestoredHeadline);
   }
 
   final DataRepository<Headline> _headlinesRepository;
-  Timer? _deleteTimer;
+  final PendingDeletionsService _pendingDeletionsService;
+
+  /// Subscription to deletion events from the PendingDeletionsService.
+  late final StreamSubscription<DeletionEvent<dynamic>>
+  _deletionEventSubscription;
 
   @override
-  Future<void> close() {
-    _deleteTimer?.cancel();
+  Future<void> close() async {
+    // Cancel the subscription to deletion events to prevent memory leaks.
+    await _deletionEventSubscription.cancel();
     return super.close();
   }
 
+  /// Handles the request to load archived headlines.
+  ///
+  /// Fetches paginated archived headlines from the repository and updates the state.
   Future<void> _onLoadArchivedHeadlinesRequested(
     LoadArchivedHeadlinesRequested event,
     Emitter<ArchivedHeadlinesState> emit,
@@ -72,6 +104,11 @@ class ArchivedHeadlinesBloc
     }
   }
 
+  /// Handles the request to restore an archived headline.
+  ///
+  /// Optimistically removes the headline from the UI, updates its status to active
+  /// in the repository, and then updates the state. If the headline was pending
+  /// deletion, its pending deletion is cancelled.
   Future<void> _onRestoreHeadlineRequested(
     RestoreHeadlineRequested event,
     Emitter<ArchivedHeadlinesState> emit,
@@ -83,7 +120,16 @@ class ArchivedHeadlinesBloc
     final headlineToRestore = originalHeadlines[headlineIndex];
     final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
 
-    emit(state.copyWith(headlines: updatedHeadlines));
+    // Optimistically remove the headline from the UI.
+    emit(
+      state.copyWith(
+        headlines: updatedHeadlines,
+        lastPendingDeletionId: state.lastPendingDeletionId == event.id
+            ? null
+            : state.lastPendingDeletionId,
+        snackbarHeadlineTitle: null,
+      ),
+    );
 
     try {
       final restoredHeadline = await _headlinesRepository.update(
@@ -92,102 +138,124 @@ class ArchivedHeadlinesBloc
       );
       emit(state.copyWith(restoredHeadline: restoredHeadline));
     } on HttpException catch (e) {
-      emit(state.copyWith(headlines: originalHeadlines, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          headlines: originalHeadlines,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
-  Future<void> _onDeleteHeadlineForeverRequested(
-    DeleteHeadlineForeverRequested event,
-    Emitter<ArchivedHeadlinesState> emit,
-  ) async {
-    _deleteTimer?.cancel();
-
-    final headlineIndex = state.headlines.indexWhere((h) => h.id == event.id);
-    if (headlineIndex == -1) return;
-
-    final headlineToDelete = state.headlines[headlineIndex];
-    final updatedHeadlines = List<Headline>.from(state.headlines)
-      ..removeAt(headlineIndex);
-
-    emit(
-      state.copyWith(
-        headlines: updatedHeadlines,
-        lastDeletedHeadline: headlineToDelete,
-      ),
-    );
-
-    _deleteTimer = Timer(
-      const Duration(seconds: 5),
-      () => add(_ConfirmDeleteHeadlineRequested(event.id)),
-    );
-  }
-
-  Future<void> _onConfirmDeleteHeadlineRequested(
-    _ConfirmDeleteHeadlineRequested event,
-    Emitter<ArchivedHeadlinesState> emit,
-  ) async {
-    try {
-      await _headlinesRepository.delete(id: event.id);
-      emit(state.copyWith(lastDeletedHeadline: null));
-    } on HttpException catch (e) {
-      // If deletion fails, restore the headline to the list
-      final originalHeadlines = List<Headline>.from(state.headlines)
-        ..add(state.lastDeletedHeadline!);
+      // If the update fails, revert the change in the UI
       emit(
         state.copyWith(
           headlines: originalHeadlines,
           exception: e,
-          lastDeletedHeadline: null,
+          lastPendingDeletionId: state.lastPendingDeletionId,
         ),
       );
     } catch (e) {
-      final originalHeadlines = List<Headline>.from(state.headlines)
-        ..add(state.lastDeletedHeadline!);
       emit(
         state.copyWith(
           headlines: originalHeadlines,
           exception: UnknownException('An unexpected error occurred: $e'),
-          lastDeletedHeadline: null,
+          lastPendingDeletionId: state.lastPendingDeletionId,
         ),
       );
     }
   }
 
-  void _onUndoDeleteHeadlineRequested(
-    UndoDeleteHeadlineRequested event,
+  /// Handles deletion events from the [PendingDeletionsService].
+  ///
+  /// This method is called when an item's deletion is confirmed or undone
+  /// by the service. It updates the BLoC's state accordingly.
+  Future<void> _onDeletionServiceStatusChanged(
+    _DeletionServiceStatusChanged event,
     Emitter<ArchivedHeadlinesState> emit,
-  ) {
-    _deleteTimer?.cancel();
-    if (state.lastDeletedHeadline != null) {
-      final updatedHeadlines = List<Headline>.from(state.headlines)
-        ..insert(
-          state.headlines.indexWhere(
-                    (h) => h.updatedAt.isBefore(
-                      state.lastDeletedHeadline!.updatedAt,
-                    ),
-                  ) !=
-                  -1
-              ? state.headlines.indexWhere(
-                  (h) => h.updatedAt.isBefore(
-                    state.lastDeletedHeadline!.updatedAt,
-                  ),
-                )
-              : state.headlines.length,
-          state.lastDeletedHeadline!,
-        );
+  ) async {
+    final id = event.event.id;
+    final status = event.event.status;
+    final item = event.event.item;
+
+    if (status == DeletionStatus.confirmed) {
+      // Deletion confirmed, no action needed in BLoC as it was optimistically removed.
+      // Ensure lastPendingDeletionId and snackbarHeadlineTitle are cleared if this was the one.
       emit(
         state.copyWith(
-          headlines: updatedHeadlines,
-          lastDeletedHeadline: null,
+          lastPendingDeletionId: state.lastPendingDeletionId == id
+              ? null
+              : state.lastPendingDeletionId,
+          snackbarHeadlineTitle: null,
         ),
       );
+    } else if (status == DeletionStatus.undone) {
+      // Deletion undone, restore the headline to the main list.
+      if (item is Headline) {
+        final insertionIndex = state.headlines.indexWhere(
+          (h) => h.updatedAt.isBefore(item.updatedAt),
+        );
+        final updatedHeadlines = List<Headline>.from(state.headlines)
+          ..insert(
+            insertionIndex != -1 ? insertionIndex : state.headlines.length,
+            item,
+          );
+        emit(
+          state.copyWith(
+            headlines: updatedHeadlines,
+            lastPendingDeletionId: state.lastPendingDeletionId == id
+                ? null
+                : state.lastPendingDeletionId,
+            snackbarHeadlineTitle: null,
+          ),
+        );
+      }
     }
+  }
+
+  /// Handles the request to permanently delete an archived headline.
+  ///
+  /// This optimistically removes the headline from the UI and initiates a
+  /// timed deletion via the [PendingDeletionsService].
+  Future<void> _onDeleteHeadlineForeverRequested(
+    DeleteHeadlineForeverRequested event,
+    Emitter<ArchivedHeadlinesState> emit,
+  ) async {
+    final headlineToDelete = state.headlines.firstWhere(
+      (h) => h.id == event.id,
+    );
+
+    // Optimistically remove the headline from the UI.
+    final updatedHeadlines = List<Headline>.from(state.headlines)
+      ..removeWhere((h) => h.id == event.id);
+
+    emit(
+      state.copyWith(
+        headlines: updatedHeadlines,
+        lastPendingDeletionId: event.id,
+        snackbarHeadlineTitle: headlineToDelete.title,
+      ),
+    );
+
+    // Request deletion via the service.
+    _pendingDeletionsService.requestDeletion(
+      item: headlineToDelete,
+      repository: _headlinesRepository,
+      undoDuration: const Duration(seconds: 5),
+    );
+  }
+
+  /// Handles the request to undo a pending deletion of an archived headline.
+  ///
+  /// This cancels the deletion timer in the [PendingDeletionsService].
+  Future<void> _onUndoDeleteHeadlineRequested(
+    UndoDeleteHeadlineRequested event,
+    Emitter<ArchivedHeadlinesState> emit,
+  ) async {
+    _pendingDeletionsService.undoDeletion(event.id);
+    // The _onDeletionServiceStatusChanged will handle re-adding to the list
+    // and updating pendingDeletions when DeletionStatus.undone is emitted.
+  }
+
+  /// Handles the request to clear the restored headline from the state.
+  ///
+  /// This is typically called after the UI has processed the restored headline
+  /// and no longer needs it in the state.
+  void _onClearRestoredHeadline(
+    ClearRestoredHeadline event,
+    Emitter<ArchivedHeadlinesState> emit,
+  ) {
+    emit(state.copyWith(restoredHeadline: null, snackbarHeadlineTitle: null));
   }
 }

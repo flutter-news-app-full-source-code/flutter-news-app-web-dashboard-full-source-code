@@ -174,7 +174,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             icon: Icons.settings_applications_outlined,
             headline: l10n.appConfigurationPageTitle,
             subheadline: l10n.loadAppSettingsSubheadline,
-          ); // Fallback
+          );
         },
       ),
       bottomNavigationBar: _buildBottomAppBar(context),

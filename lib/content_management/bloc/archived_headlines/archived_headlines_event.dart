@@ -28,27 +28,45 @@ final class RestoreHeadlineRequested extends ArchivedHeadlinesEvent {
   List<Object?> get props => [id];
 }
 
-/// Event to permanently delete an archived headline.
+/// Event to request permanent deletion of an archived headline.
 final class DeleteHeadlineForeverRequested extends ArchivedHeadlinesEvent {
+  /// {@macro delete_headline_forever_requested}
   const DeleteHeadlineForeverRequested(this.id);
 
+  /// The ID of the headline to permanently delete.
   final String id;
 
   @override
   List<Object?> get props => [id];
 }
 
-/// Event to undo the deletion of a headline.
+/// Event to undo a pending deletion of an archived headline.
 final class UndoDeleteHeadlineRequested extends ArchivedHeadlinesEvent {
-  const UndoDeleteHeadlineRequested();
-}
+  /// {@macro undo_delete_headline_requested}
+  const UndoDeleteHeadlineRequested(this.id);
 
-/// Internal event to confirm the permanent deletion of a headline after a delay.
-final class _ConfirmDeleteHeadlineRequested extends ArchivedHeadlinesEvent {
-  const _ConfirmDeleteHeadlineRequested(this.id);
-
+  /// The ID of the headline whose deletion should be undone.
   final String id;
 
   @override
   List<Object?> get props => [id];
+}
+
+/// Event to clear the restored headline from the state.
+final class ClearRestoredHeadline extends ArchivedHeadlinesEvent {
+  /// {@macro clear_restored_headline}
+  const ClearRestoredHeadline();
+
+  @override
+  List<Object?> get props => [];
+}
+
+/// Event to handle updates from the pending deletions service.
+final class _DeletionServiceStatusChanged extends ArchivedHeadlinesEvent {
+  const _DeletionServiceStatusChanged(this.event);
+
+  final DeletionEvent<dynamic> event;
+
+  @override
+  List<Object?> get props => [event];
 }

@@ -163,7 +163,7 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
             ),
             const SizedBox(height: AppSpacing.lg),
             SizedBox(
-              height: 250, // Fixed height for TabBarView within a ListView
+              height: 250,
               child: TabBarView(
                 controller: _tabController,
                 children: AppUserRole.values

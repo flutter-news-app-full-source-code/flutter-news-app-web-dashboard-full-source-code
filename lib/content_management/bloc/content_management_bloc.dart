@@ -154,7 +154,7 @@ class ContentManagementBloc
     // Optimistically remove the headline from the list
     final originalHeadlines = List<Headline>.from(state.headlines);
     final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
-    if (headlineIndex == -1) return; // Headline not found
+    if (headlineIndex == -1) return;
 
     final headlineToArchive = originalHeadlines[headlineIndex];
     final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
@@ -244,7 +244,7 @@ class ContentManagementBloc
     // Optimistically remove the topic from the list
     final originalTopics = List<Topic>.from(state.topics);
     final topicIndex = originalTopics.indexWhere((t) => t.id == event.id);
-    if (topicIndex == -1) return; // Topic not found
+    if (topicIndex == -1) return;
 
     final topicToArchive = originalTopics[topicIndex];
     final updatedTopics = originalTopics..removeAt(topicIndex);
@@ -334,7 +334,7 @@ class ContentManagementBloc
     // Optimistically remove the source from the list
     final originalSources = List<Source>.from(state.sources);
     final sourceIndex = originalSources.indexWhere((s) => s.id == event.id);
-    if (sourceIndex == -1) return; // Source not found
+    if (sourceIndex == -1) return;
 
     final sourceToArchive = originalSources[sourceIndex];
     final updatedSources = originalSources..removeAt(sourceIndex);

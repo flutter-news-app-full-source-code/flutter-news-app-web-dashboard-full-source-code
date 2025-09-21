@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -19,6 +20,7 @@ class ArchivedHeadlinesPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ArchivedHeadlinesBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
+        pendingDeletionsService: context.read<PendingDeletionsService>(),
       )..add(const LoadArchivedHeadlinesRequested(limit: kDefaultRowsPerPage)),
       child: const _ArchivedHeadlinesView(),
     );
@@ -31,6 +33,7 @@ class _ArchivedHeadlinesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final pendingDeletionsService = context.read<PendingDeletionsService>();
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.archivedHeadlines),
@@ -39,18 +42,25 @@ class _ArchivedHeadlinesView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: BlocListener<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
           listenWhen: (previous, current) =>
-              previous.lastDeletedHeadline != current.lastDeletedHeadline ||
-              previous.restoredHeadline != current.restoredHeadline,
+              previous.lastPendingDeletionId != current.lastPendingDeletionId ||
+              previous.restoredHeadline != current.restoredHeadline ||
+              previous.snackbarHeadlineTitle != current.snackbarHeadlineTitle,
           listener: (context, state) {
             if (state.restoredHeadline != null) {
+              // When a headline is restored, refresh the main headlines list.
               context.read<ContentManagementBloc>().add(
                 const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
               );
-            }
-            if (state.lastDeletedHeadline != null) {
-              final truncatedTitle = state.lastDeletedHeadline!.title.truncate(
-                30,
+              // Clear the restoredHeadline after it's been handled.
+              context.read<ArchivedHeadlinesBloc>().add(
+                const ClearRestoredHeadline(),
               );
+            }
+
+            // Show snackbar for pending deletions.
+            if (state.snackbarHeadlineTitle != null) {
+              final headlineId = state.lastPendingDeletionId!;
+              final truncatedTitle = state.snackbarHeadlineTitle!.truncate(30);
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
@@ -61,9 +71,8 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                     action: SnackBarAction(
                       label: l10n.undo,
                       onPressed: () {
-                        context.read<ArchivedHeadlinesBloc>().add(
-                          const UndoDeleteHeadlineRequested(),
-                        );
+                        // Directly call undoDeletion on the service.
+                        pendingDeletionsService.undoDeletion(headlineId);
                       },
                     ),
                   ),

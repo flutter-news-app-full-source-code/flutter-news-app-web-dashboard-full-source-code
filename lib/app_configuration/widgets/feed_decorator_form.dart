@@ -184,7 +184,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
         const SizedBox(height: AppSpacing.lg),
         // TabBarView to display role-specific fields
         SizedBox(
-          height: 250, // Fixed height for TabBarView within a ListView
+          height: 250,
           child: TabBarView(
             controller: _tabController,
             children: AppUserRole.values

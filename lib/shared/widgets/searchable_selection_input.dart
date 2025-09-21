@@ -172,8 +172,8 @@ class _SearchableSelectionInputState<T>
                 icon: const Icon(Icons.clear),
                 tooltip: l10n.clearSelection,
                 onPressed: () {
-                  widget.onChanged(null); // Clear the selected item
-                  _textController.clear(); // Clear the text field
+                  widget.onChanged(null);
+                  _textController.clear();
                 },
               )
             : null,

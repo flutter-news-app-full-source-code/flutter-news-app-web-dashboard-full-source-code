@@ -79,7 +79,7 @@ class _AdvertisementsConfigurationTabState
                     }
                   : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
-              enabled: adConfig.enabled, // Disable the tile itself
+              enabled: adConfig.enabled,
               children: [
                 AdPlatformConfigForm(
                   remoteConfig: widget.remoteConfig,
@@ -110,7 +110,7 @@ class _AdvertisementsConfigurationTabState
                     }
                   : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
-              enabled: adConfig.enabled, // Disable the tile itself
+              enabled: adConfig.enabled,
               children: [
                 FeedAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
@@ -141,7 +141,7 @@ class _AdvertisementsConfigurationTabState
                     }
                   : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
-              enabled: adConfig.enabled, // Disable the tile itself
+              enabled: adConfig.enabled,
               children: [
                 ArticleAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
@@ -172,7 +172,7 @@ class _AdvertisementsConfigurationTabState
                     }
                   : null,
               initiallyExpanded: expandedIndex == tileIndex && adConfig.enabled,
-              enabled: adConfig.enabled, // Disable the tile itself
+              enabled: adConfig.enabled,
               children: [
                 InterstitialAdSettingsForm(
                   remoteConfig: widget.remoteConfig,

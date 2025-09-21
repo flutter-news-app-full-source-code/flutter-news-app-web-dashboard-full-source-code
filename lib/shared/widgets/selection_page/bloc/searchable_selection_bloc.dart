@@ -154,7 +154,7 @@ class SearchableSelectionBloc
     if (!state.hasMore ||
         state.status == SearchableSelectionStatus.loading ||
         _arguments.staticItems != null) {
-      return; // No more items, already loading, or static list
+      return;
     }
 
     emit(state.copyWith(status: SearchableSelectionStatus.loading));
