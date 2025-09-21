@@ -30,8 +30,8 @@ class ArchivedHeadlinesState extends Equatable {
     this.hasMore = false,
     this.exception,
     this.restoredHeadline,
-    this.pendingDeletions = const {},
     this.lastPendingDeletionId,
+    this.snackbarHeadlineTitle,
   });
 
   /// The current status of the archived headlines operations.
@@ -53,13 +53,14 @@ class ArchivedHeadlinesState extends Equatable {
   /// The headline that was most recently restored, if any.
   final Headline? restoredHeadline;
 
-  /// A map of headlines that are currently pending permanent deletion,
-  /// keyed by their ID.
-  final Map<String, Headline> pendingDeletions;
-
   /// The ID of the headline that was most recently added to pending deletions.
   /// Used to trigger the snackbar display.
   final String? lastPendingDeletionId;
+
+  /// The title of the headline for which the snackbar should be displayed.
+  /// This is set when a deletion is requested and cleared when the snackbar
+  /// is no longer needed.
+  final String? snackbarHeadlineTitle;
 
   /// Creates a copy of this [ArchivedHeadlinesState] with updated values.
   ArchivedHeadlinesState copyWith({
@@ -69,8 +70,8 @@ class ArchivedHeadlinesState extends Equatable {
     bool? hasMore,
     HttpException? exception,
     Headline? restoredHeadline,
-    Map<String, Headline>? pendingDeletions,
     String? lastPendingDeletionId,
+    String? snackbarHeadlineTitle,
   }) {
     return ArchivedHeadlinesState(
       status: status ?? this.status,
@@ -81,9 +82,9 @@ class ArchivedHeadlinesState extends Equatable {
       // to ensure they are cleared after being handled.
       exception: exception,
       restoredHeadline: restoredHeadline,
-      pendingDeletions: pendingDeletions ?? this.pendingDeletions,
       lastPendingDeletionId:
           lastPendingDeletionId, // Explicitly allow null to clear
+      snackbarHeadlineTitle: snackbarHeadlineTitle,
     );
   }
 
@@ -95,7 +96,7 @@ class ArchivedHeadlinesState extends Equatable {
     hasMore,
     exception,
     restoredHeadline,
-    pendingDeletions,
     lastPendingDeletionId,
+    snackbarHeadlineTitle,
   ];
 }
