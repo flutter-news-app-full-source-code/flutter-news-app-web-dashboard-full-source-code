@@ -20,9 +20,9 @@ enum DeletionStatus {
 /// Contains the ID of the item and its new status.
 /// {@endtemplate}
 @immutable
-class DeletionEvent extends Equatable {
+class DeletionEvent<T> extends Equatable {
   /// {@macro deletion_event}
-  const DeletionEvent(this.id, this.status);
+  const DeletionEvent(this.id, this.status, {this.item});
 
   /// The unique identifier of the item.
   final String id;
@@ -30,8 +30,12 @@ class DeletionEvent extends Equatable {
   /// The new status of the deletion.
   final DeletionStatus status;
 
+  /// The item associated with the deletion event.
+  /// This is typically provided when a deletion is undone.
+  final T? item;
+
   @override
-  List<Object> get props => [id, status];
+  List<Object?> get props => [id, status, item];
 }
 
 /// {@template pending_deletions_service}
@@ -49,7 +53,7 @@ abstract class PendingDeletionsService {
   ///
   /// BLoCs can listen to this stream to react to deletion status changes,
   /// such as removing an item from the state permanently or re-inserting it.
-  Stream<DeletionEvent> get deletionEvents;
+  Stream<DeletionEvent<dynamic>> get deletionEvents;
 
   /// Requests the deletion of an item of a specific type [T].
   ///
@@ -87,13 +91,13 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
   final Logger _logger;
 
   /// The stream controller that broadcasts [DeletionEvent]s.
-  final _deletionEventController = StreamController<DeletionEvent>.broadcast();
+  final _deletionEventController = StreamController<DeletionEvent<dynamic>>.broadcast();
 
   /// A map that stores the `Timer` for each pending deletion, keyed by item ID.
-  final Map<String, Timer> _pendingDeletionTimers = {};
+  final Map<String, _PendingDeletion<dynamic>> _pendingDeletionTimers = {};
 
   @override
-  Stream<DeletionEvent> get deletionEvents => _deletionEventController.stream;
+  Stream<DeletionEvent<dynamic>> get deletionEvents => _deletionEventController.stream;
 
   @override
   void requestDeletion<T>({
@@ -108,16 +112,15 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
     // If there's already a pending deletion for this item, cancel it first.
     if (_pendingDeletionTimers.containsKey(id)) {
       _logger.info('Cancelling existing pending deletion for ID: $id');
-      _pendingDeletionTimers.remove(id)?.cancel();
+      _pendingDeletionTimers.remove(id)?.timer.cancel();
     }
 
-    // Start a new timer for the deletion.
-    _pendingDeletionTimers[id] = Timer(undoDuration, () async {
+    final timer = Timer(undoDuration, () async {
       try {
         await repository.delete(id: id);
         _logger.info('Deletion confirmed for item ID: $id');
         _deletionEventController.add(
-          DeletionEvent(id, DeletionStatus.confirmed),
+          DeletionEvent<T>(id, DeletionStatus.confirmed),
         );
       } catch (error) {
         _logger.severe('Error confirming deletion for item ID: $id: $error');
@@ -127,18 +130,22 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
         _pendingDeletionTimers.remove(id);
       }
     });
+
+    _pendingDeletionTimers[id] = _PendingDeletion<T>(timer: timer, item: item);
   }
 
   @override
   void undoDeletion(String id) {
     _logger.info('Attempting to undo deletion for item ID: $id');
     // Cancel the timer and remove it from the map.
-    final timer = _pendingDeletionTimers.remove(id);
-    if (timer != null) {
-      timer.cancel();
+    final pendingDeletion = _pendingDeletionTimers.remove(id);
+    if (pendingDeletion != null) {
+      pendingDeletion.timer.cancel();
       _logger.info('Deletion undone for item ID: $id');
-      // Notify listeners that the deletion was undone.
-      _deletionEventController.add(DeletionEvent(id, DeletionStatus.undone));
+      // Notify listeners that the deletion was undone, including the item.
+      _deletionEventController.add(
+        DeletionEvent<dynamic>(id, DeletionStatus.undone, item: pendingDeletion.item),
+      );
     } else {
       _logger.warning('No pending deletion found for ID: $id to undo.');
     }
@@ -150,10 +157,22 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
       'Disposing PendingDeletionsService. Cancelling ${_pendingDeletionTimers.length} pending timers.',
     );
     // Cancel all pending timers to prevent memory leaks.
-    for (final timer in _pendingDeletionTimers.values) {
-      timer.cancel();
+    for (final pendingDeletion in _pendingDeletionTimers.values) {
+      pendingDeletion.timer.cancel();
     }
     _pendingDeletionTimers.clear();
     _deletionEventController.close();
   }
+}
+
+/// A private class to hold the timer and the item for a pending deletion.
+@immutable
+class _PendingDeletion<T> extends Equatable {
+  const _PendingDeletion({required this.timer, required this.item});
+
+  final Timer timer;
+  final T item;
+
+  @override
+  List<Object?> get props => [timer, item];
 }
