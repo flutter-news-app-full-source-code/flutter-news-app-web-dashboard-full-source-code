@@ -65,7 +65,7 @@ final class ClearRestoredHeadline extends ArchivedHeadlinesEvent {
 final class _DeletionServiceStatusChanged extends ArchivedHeadlinesEvent {
   const _DeletionServiceStatusChanged(this.event);
 
-  final DeletionEvent event;
+  final DeletionEvent<dynamic> event;
 
   @override
   List<Object?> get props => [event];
