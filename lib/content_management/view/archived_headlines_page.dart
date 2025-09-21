@@ -34,6 +34,7 @@ class _ArchivedHeadlinesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final pendingDeletionsService = context.read<PendingDeletionsService>();
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.archivedHeadlines),
@@ -42,10 +43,9 @@ class _ArchivedHeadlinesView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: BlocListener<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
           listenWhen: (previous, current) =>
-              previous.pendingDeletions.length !=
-                  current.pendingDeletions.length ||
+              previous.lastPendingDeletionId != current.lastPendingDeletionId ||
               previous.restoredHeadline != current.restoredHeadline ||
-              previous.lastPendingDeletionId != current.lastPendingDeletionId,
+              previous.snackbarHeadlineTitle != current.snackbarHeadlineTitle,
           listener: (context, state) {
             if (state.restoredHeadline != null) {
               // When a headline is restored, refresh the main headlines list.
@@ -59,33 +59,25 @@ class _ArchivedHeadlinesView extends StatelessWidget {
             }
 
             // Show snackbar for pending deletions.
-            if (state.lastPendingDeletionId != null &&
-                state.pendingDeletions.containsKey(
-                  state.lastPendingDeletionId,
-                )) {
-              final headline =
-                  state.pendingDeletions[state.lastPendingDeletionId];
-              if (headline != null) {
-                final truncatedTitle = headline.title.truncate(30);
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        l10n.headlineDeleted(truncatedTitle),
-                      ),
-                      action: SnackBarAction(
-                        label: l10n.undo,
-                        onPressed: () {
-                          // Dispatch UndoDeleteHeadlineRequested to the BLoC.
-                          context.read<ArchivedHeadlinesBloc>().add(
-                            UndoDeleteHeadlineRequested(headline.id),
-                          );
-                        },
-                      ),
+            if (state.snackbarHeadlineTitle != null) {
+              final headlineId = state.lastPendingDeletionId!;
+              final truncatedTitle = state.snackbarHeadlineTitle!.truncate(30);
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      l10n.headlineDeleted(truncatedTitle),
                     ),
-                  );
-              }
+                    action: SnackBarAction(
+                      label: l10n.undo,
+                      onPressed: () {
+                        // Directly call undoDeletion on the service.
+                        pendingDeletionsService.undoDeletion(headlineId);
+                      },
+                    ),
+                  ),
+                );
             }
           },
           child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
