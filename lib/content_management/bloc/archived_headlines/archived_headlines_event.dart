@@ -40,7 +40,12 @@ final class DeleteHeadlineForeverRequested extends ArchivedHeadlinesEvent {
 
 /// Event to undo the deletion of a headline.
 final class UndoDeleteHeadlineRequested extends ArchivedHeadlinesEvent {
-  const UndoDeleteHeadlineRequested();
+  const UndoDeleteHeadlineRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
 }
 
 /// Internal event to confirm the permanent deletion of a headline after a delay.
