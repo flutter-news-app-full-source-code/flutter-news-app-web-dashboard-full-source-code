@@ -53,16 +53,12 @@ class ArchivedHeadlinesState extends Equatable {
   /// The headline that was most recently restored, if any.
   final Headline? restoredHeadline;
 
-  /// A map of headlines that are currently in a "pending deletion" state.
-  ///
-  /// The key is the headline ID, and the value is the Headline object.
-  /// These headlines have been optimistically removed from the main list
-  /// and are awaiting permanent deletion after an undo period.
+  /// A map of headlines that are currently pending permanent deletion,
+  /// keyed by their ID.
   final Map<String, Headline> pendingDeletions;
 
-  /// The ID of the headline that was most recently moved to pending deletion.
-  ///
-  /// Used to identify which headline's undo snackbar should be displayed.
+  /// The ID of the headline that was most recently added to pending deletions.
+  /// Used to trigger the snackbar display.
   final String? lastPendingDeletionId;
 
   /// Creates a copy of this [ArchivedHeadlinesState] with updated values.
@@ -87,7 +83,7 @@ class ArchivedHeadlinesState extends Equatable {
       restoredHeadline: restoredHeadline,
       pendingDeletions: pendingDeletions ?? this.pendingDeletions,
       lastPendingDeletionId:
-          lastPendingDeletionId ?? this.lastPendingDeletionId,
+          lastPendingDeletionId, // Explicitly allow null to clear
     );
   }
 
