@@ -39,7 +39,8 @@ class _ArchivedHeadlinesView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: BlocListener<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
           listenWhen: (previous, current) =>
-              previous.lastDeletedHeadline != current.lastDeletedHeadline ||
+              previous.pendingDeletions.length !=
+                  current.pendingDeletions.length ||
               previous.restoredHeadline != current.restoredHeadline,
           listener: (context, state) {
             if (state.restoredHeadline != null) {
@@ -47,27 +48,30 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                 const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
               );
             }
-            if (state.lastDeletedHeadline != null) {
-              final truncatedTitle = state.lastDeletedHeadline!.title.truncate(
-                30,
-              );
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      l10n.headlineDeleted(truncatedTitle),
+
+            if (state.lastPendingDeletionId != null &&
+                state.pendingDeletions.containsKey(state.lastPendingDeletionId)) {
+              final headline = state.pendingDeletions[state.lastPendingDeletionId];
+              if (headline != null) {
+                final truncatedTitle = headline.title.truncate(30);
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        l10n.headlineDeleted(truncatedTitle),
+                      ),
+                      action: SnackBarAction(
+                        label: l10n.undo,
+                        onPressed: () {
+                          context.read<ArchivedHeadlinesBloc>().add(
+                            UndoDeleteHeadlineRequested(headline.id),
+                          );
+                        },
+                      ),
                     ),
-                    action: SnackBarAction(
-                      label: l10n.undo,
-                      onPressed: () {
-                        context.read<ArchivedHeadlinesBloc>().add(
-                          const UndoDeleteHeadlineRequested(),
-                        );
-                      },
-                    ),
-                  ),
-                );
+                  );
+              }
             }
           },
           child: BlocBuilder<ArchivedHeadlinesBloc, ArchivedHeadlinesState>(
