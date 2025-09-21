@@ -15,6 +15,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart'; // Import the PendingDeletionsService
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kv_storage_service/kv_storage_service.dart';
@@ -37,6 +38,8 @@ class App extends StatelessWidget {
     required DataRepository<LocalAd> localAdsRepository,
     required KVStorageService storageService,
     required AppEnvironment environment,
+    required PendingDeletionsService
+    pendingDeletionsService, // Add PendingDeletionsService to constructor
     super.key,
   }) : _authenticationRepository = authenticationRepository,
        _headlinesRepository = headlinesRepository,
@@ -50,7 +53,9 @@ class App extends StatelessWidget {
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
        _localAdsRepository = localAdsRepository,
-       _environment = environment;
+       _environment = environment,
+       _pendingDeletionsService =
+           pendingDeletionsService; // Initialize the service
 
   final AuthRepository _authenticationRepository;
   final DataRepository<Headline> _headlinesRepository;
@@ -66,6 +71,9 @@ class App extends StatelessWidget {
   final DataRepository<LocalAd> _localAdsRepository;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
+
+  /// The service for managing pending deletions with an undo period.
+  final PendingDeletionsService _pendingDeletionsService;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +93,10 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
           create: (context) => const ThrottledFetchingService(),
+        ),
+        RepositoryProvider.value(
+          value:
+              _pendingDeletionsService, // Provide the PendingDeletionsService
         ),
       ],
       child: MultiBlocProvider(

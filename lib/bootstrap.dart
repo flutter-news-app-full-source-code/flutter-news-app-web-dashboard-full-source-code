@@ -13,6 +13,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/app.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
     as app_config;
 import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:http_client/http_client.dart';
 import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
 import 'package:logging/logging.dart';
@@ -34,6 +35,7 @@ Future<Widget> bootstrap(
   late final AuthClient authClient;
   late final AuthRepository authenticationRepository;
   HttpClient? httpClient;
+  late final PendingDeletionsService pendingDeletionsService;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     authClient = AuthInmemory(logger: Logger('AuthInmemory'));
@@ -50,6 +52,9 @@ Future<Widget> bootstrap(
     authenticationRepository = AuthRepository(
       authClient: authClient,
       storageService: kvStorage,
+    );
+    pendingDeletionsService = PendingDeletionsServiceImpl(
+      logger: Logger('PendingDeletionsService'),
     );
   }
 
@@ -267,6 +272,10 @@ Future<Widget> bootstrap(
     );
   }
 
+  pendingDeletionsService = PendingDeletionsServiceImpl(
+    logger: Logger('PendingDeletionsService'),
+  );
+
   final headlinesRepository = DataRepository<Headline>(
     dataClient: headlinesClient,
   );
@@ -309,5 +318,6 @@ Future<Widget> bootstrap(
     localAdsRepository: localAdsRepository,
     storageService: kvStorage,
     environment: environment,
+    pendingDeletionsService: pendingDeletionsService,
   );
 }
