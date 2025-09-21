@@ -53,9 +53,6 @@ Future<Widget> bootstrap(
       authClient: authClient,
       storageService: kvStorage,
     );
-    pendingDeletionsService = PendingDeletionsServiceImpl(
-      logger: Logger('PendingDeletionsService'),
-    );
   }
 
   DataClient<Headline> headlinesClient;
