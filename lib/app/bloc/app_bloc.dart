@@ -135,7 +135,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     unawaited(_authenticationRepository.signOut());
     emit(
       state.copyWith(clearUserAppSettings: true),
-    ); // Clear settings on logout
+    );
   }
 
   @override

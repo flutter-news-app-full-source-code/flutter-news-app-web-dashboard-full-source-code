@@ -28,7 +28,7 @@ class LocalAdsManagementBloc
         .listen((_) {
           add(
             const LoadLocalAdsRequested(
-              adType: AdType.native, // Default to native for refresh
+              adType: AdType.native,
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
             ),
@@ -518,7 +518,7 @@ class LocalAdsManagementBloc
             ..insert(
               0,
               restoredAd as LocalNativeAd,
-            ); // Insert at beginning for simplicity
+            );
           emit(
             state.copyWith(
               nativeAds: updatedAds,

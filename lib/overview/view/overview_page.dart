@@ -136,7 +136,7 @@ class _OverviewPageState extends State<OverviewPage> {
               ],
             );
           }
-          return const SizedBox.shrink(); // Fallback for unexpected states
+          return const SizedBox.shrink();
         },
       ),
     );

@@ -219,12 +219,11 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
         ExpansionTile(
           title: Text(l10n.primaryAdPlatformTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            start: AppSpacing.lg,
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment:
-              CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               l10n.primaryAdPlatformDescription,
@@ -233,7 +232,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                   context,
                 ).colorScheme.onSurface.withOpacity(0.7),
               ),
-              textAlign: TextAlign.start, // Ensure text aligns to start
+              textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
             Align(
@@ -246,10 +245,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                 ),
                 segments: AdPlatformType.values
                     .where(
-                      (type) =>
-                          type !=
-                          AdPlatformType
-                              .demo, // Ignore demo ad platform for dashboard
+                      (type) => type != AdPlatformType.demo,
                     )
                     .map(
                       (type) => ButtonSegment<AdPlatformType>(
@@ -281,12 +277,11 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
         ExpansionTile(
           title: Text(l10n.adUnitIdentifiersTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            start: AppSpacing.lg,
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment:
-              CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               l10n.adUnitIdentifiersDescription,
@@ -295,7 +290,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                   context,
                 ).colorScheme.onSurface.withOpacity(0.7),
               ),
-              textAlign: TextAlign.start, // Ensure text aligns to start
+              textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
             _buildAdUnitIdentifierFields(
@@ -313,12 +308,11 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
           ExpansionTile(
             title: Text(l10n.localAdManagementTitle),
             childrenPadding: const EdgeInsetsDirectional.only(
-              start: AppSpacing.lg, // Adjusted padding for hierarchy
+              start: AppSpacing.lg,
               top: AppSpacing.md,
               bottom: AppSpacing.md,
             ),
-            expandedCrossAxisAlignment:
-                CrossAxisAlignment.start, // Align content to start
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 l10n.localAdManagementDescription,
@@ -327,7 +321,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                     context,
                   ).colorScheme.onSurface.withOpacity(0.7),
                 ),
-                textAlign: TextAlign.start, // Ensure text aligns to start
+                textAlign: TextAlign.start,
               ),
               const SizedBox(height: AppSpacing.lg),
               Center(

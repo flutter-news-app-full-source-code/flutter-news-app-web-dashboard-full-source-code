@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart'; // Import the pending deletions service
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 
 part 'archived_headlines_event.dart';
 part 'archived_headlines_state.dart';
@@ -20,17 +20,15 @@ class ArchivedHeadlinesBloc
   /// {@macro archived_headlines_bloc}
   ArchivedHeadlinesBloc({
     required DataRepository<Headline> headlinesRepository,
-    required PendingDeletionsService
-    pendingDeletionsService, // Inject PendingDeletionsService
+    required PendingDeletionsService pendingDeletionsService,
   }) : _headlinesRepository = headlinesRepository,
-       _pendingDeletionsService =
-           pendingDeletionsService, // Initialize the service
+       _pendingDeletionsService = pendingDeletionsService,
        super(const ArchivedHeadlinesState()) {
     on<LoadArchivedHeadlinesRequested>(_onLoadArchivedHeadlinesRequested);
     on<RestoreHeadlineRequested>(_onRestoreHeadlineRequested);
     on<_DeletionServiceStatusChanged>(
       _onDeletionServiceStatusChanged,
-    ); // Handle deletion service events
+    );
 
     // Listen to deletion events from the PendingDeletionsService.
     // The filter now correctly checks the type of the item in the event.
@@ -48,11 +46,11 @@ class ArchivedHeadlinesBloc
   }
 
   final DataRepository<Headline> _headlinesRepository;
-  final PendingDeletionsService
-  _pendingDeletionsService; // The injected service
+  final PendingDeletionsService _pendingDeletionsService;
 
   /// Subscription to deletion events from the PendingDeletionsService.
-  late final StreamSubscription<DeletionEvent<dynamic>> _deletionEventSubscription;
+  late final StreamSubscription<DeletionEvent<dynamic>>
+  _deletionEventSubscription;
 
   @override
   Future<void> close() async {
@@ -129,7 +127,7 @@ class ArchivedHeadlinesBloc
         lastPendingDeletionId: state.lastPendingDeletionId == event.id
             ? null
             : state.lastPendingDeletionId,
-        snackbarHeadlineTitle: null, // Clear snackbar when restoring
+        snackbarHeadlineTitle: null,
       ),
     );
 
@@ -234,7 +232,7 @@ class ArchivedHeadlinesBloc
       state.copyWith(
         headlines: updatedHeadlines,
         lastPendingDeletionId: event.id,
-        snackbarHeadlineTitle: headlineToDelete.title, // Set title for snackbar
+        snackbarHeadlineTitle: headlineToDelete.title,
       ),
     );
 
@@ -242,7 +240,7 @@ class ArchivedHeadlinesBloc
     _pendingDeletionsService.requestDeletion(
       item: headlineToDelete,
       repository: _headlinesRepository,
-      undoDuration: const Duration(seconds: 5), // Configurable undo duration
+      undoDuration: const Duration(seconds: 5),
     );
   }
 

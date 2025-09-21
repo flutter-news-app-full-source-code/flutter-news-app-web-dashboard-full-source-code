@@ -145,19 +145,18 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
         ExpansionTile(
           title: Text(l10n.feedAdTypeSelectionTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            start: AppSpacing.lg,
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment:
-              CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               l10n.feedAdTypeSelectionDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
-              textAlign: TextAlign.start, // Ensure text aligns to start
+              textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
             Align(
@@ -199,19 +198,18 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
         ExpansionTile(
           title: Text(l10n.userRoleFrequencySettingsTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg, // Adjusted padding for hierarchy
+            start: AppSpacing.lg,
             top: AppSpacing.md,
             bottom: AppSpacing.md,
           ),
-          expandedCrossAxisAlignment:
-              CrossAxisAlignment.start, // Align content to start
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               l10n.userRoleFrequencySettingsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
-              textAlign: TextAlign.start, // Ensure text aligns to start
+              textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
             // Replaced SegmentedButton with TabBar for role selection
@@ -232,7 +230,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             const SizedBox(height: AppSpacing.lg),
             // TabBarView to display role-specific fields
             SizedBox(
-              height: 250, // Fixed height for TabBarView within a ListView
+              height: 250,
               child: TabBarView(
                 controller: _tabController,
                 children: AppUserRole.values

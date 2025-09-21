@@ -8,7 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart'; // Import PendingDeletionsService
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -20,8 +20,7 @@ class ArchivedHeadlinesPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ArchivedHeadlinesBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
-        pendingDeletionsService: context
-            .read<PendingDeletionsService>(), // Provide the service
+        pendingDeletionsService: context.read<PendingDeletionsService>(),
       )..add(const LoadArchivedHeadlinesRequested(limit: kDefaultRowsPerPage)),
       child: const _ArchivedHeadlinesView(),
     );

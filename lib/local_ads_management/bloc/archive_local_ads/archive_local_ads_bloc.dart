@@ -26,7 +26,7 @@ class ArchiveLocalAdsBloc
         .listen((_) {
           add(
             const LoadArchivedLocalAdsRequested(
-              adType: AdType.native, // Default to native for refresh
+              adType: AdType.native,
               limit: kDefaultRowsPerPage,
             ),
           );
@@ -445,7 +445,7 @@ class ArchiveLocalAdsBloc
             ..insert(
               0,
               restoredAd as LocalNativeAd,
-            ); // Insert at beginning for simplicity
+            );
           emit(
             state.copyWith(
               nativeAds: updatedAds,

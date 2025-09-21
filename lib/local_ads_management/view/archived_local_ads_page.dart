@@ -319,23 +319,23 @@ class _ArchivedLocalAdsDataSource extends DataTableSource {
         status = nativeAd.status;
       case 'banner':
         final bannerAd = ad as LocalBannerAd;
-        title = bannerAd.imageUrl; // Use image URL as title for banners
+        title = bannerAd.imageUrl;
         updatedAt = bannerAd.updatedAt;
         status = bannerAd.status;
       case 'interstitial':
         final interstitialAd = ad as LocalInterstitialAd;
-        title = interstitialAd.imageUrl; // Use image URL as title
+        title = interstitialAd.imageUrl;
         updatedAt = interstitialAd.updatedAt;
         status = interstitialAd.status;
       case 'video':
         final videoAd = ad as LocalVideoAd;
-        title = videoAd.videoUrl; // Use video URL as title
+        title = videoAd.videoUrl;
         updatedAt = videoAd.updatedAt;
         status = videoAd.status;
       default:
         title = 'Unknown Ad Type';
         updatedAt = DateTime.now();
-        status = ContentStatus.active; // Default status
+        status = ContentStatus.active;
     }
 
     return DataRow2(

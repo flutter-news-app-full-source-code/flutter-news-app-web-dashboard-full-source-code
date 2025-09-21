@@ -15,7 +15,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart'; // Import the PendingDeletionsService
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kv_storage_service/kv_storage_service.dart';
@@ -38,8 +38,7 @@ class App extends StatelessWidget {
     required DataRepository<LocalAd> localAdsRepository,
     required KVStorageService storageService,
     required AppEnvironment environment,
-    required PendingDeletionsService
-    pendingDeletionsService, // Add PendingDeletionsService to constructor
+    required PendingDeletionsService pendingDeletionsService,
     super.key,
   }) : _authenticationRepository = authenticationRepository,
        _headlinesRepository = headlinesRepository,
@@ -54,8 +53,7 @@ class App extends StatelessWidget {
        _languagesRepository = languagesRepository,
        _localAdsRepository = localAdsRepository,
        _environment = environment,
-       _pendingDeletionsService =
-           pendingDeletionsService; // Initialize the service
+       _pendingDeletionsService = pendingDeletionsService;
 
   final AuthRepository _authenticationRepository;
   final DataRepository<Headline> _headlinesRepository;
@@ -95,8 +93,7 @@ class App extends StatelessWidget {
           create: (context) => const ThrottledFetchingService(),
         ),
         RepositoryProvider.value(
-          value:
-              _pendingDeletionsService, // Provide the PendingDeletionsService
+          value: _pendingDeletionsService,
         ),
       ],
       child: MultiBlocProvider(

@@ -13,8 +13,7 @@ extension AppUserRoleL10n on AppUserRole {
       case AppUserRole.guestUser:
         return l10n.guestUserTab;
       case AppUserRole.standardUser:
-        return l10n
-            .authenticatedUserTab; // Using authenticatedUserTab for standardUser
+        return l10n.authenticatedUserTab;
       case AppUserRole.premiumUser:
         return l10n.premiumUserTab;
     }

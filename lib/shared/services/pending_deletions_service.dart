@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart'; // Import the logging package
+import 'package:logging/logging.dart';
 
 /// Represents the status of a pending deletion.
 enum DeletionStatus {
@@ -91,13 +91,15 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
   final Logger _logger;
 
   /// The stream controller that broadcasts [DeletionEvent]s.
-  final _deletionEventController = StreamController<DeletionEvent<dynamic>>.broadcast();
+  final _deletionEventController =
+      StreamController<DeletionEvent<dynamic>>.broadcast();
 
   /// A map that stores the `Timer` for each pending deletion, keyed by item ID.
   final Map<String, _PendingDeletion<dynamic>> _pendingDeletionTimers = {};
 
   @override
-  Stream<DeletionEvent<dynamic>> get deletionEvents => _deletionEventController.stream;
+  Stream<DeletionEvent<dynamic>> get deletionEvents =>
+      _deletionEventController.stream;
 
   @override
   void requestDeletion<T>({
@@ -144,7 +146,11 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
       _logger.info('Deletion undone for item ID: $id');
       // Notify listeners that the deletion was undone, including the item.
       _deletionEventController.add(
-        DeletionEvent<dynamic>(id, DeletionStatus.undone, item: pendingDeletion.item),
+        DeletionEvent<dynamic>(
+          id,
+          DeletionStatus.undone,
+          item: pendingDeletion.item,
+        ),
       );
     } else {
       _logger.warning('No pending deletion found for ID: $id to undo.');
