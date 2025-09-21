@@ -50,8 +50,11 @@ class _ArchivedHeadlinesView extends StatelessWidget {
             }
 
             if (state.lastPendingDeletionId != null &&
-                state.pendingDeletions.containsKey(state.lastPendingDeletionId)) {
-              final headline = state.pendingDeletions[state.lastPendingDeletionId];
+                state.pendingDeletions.containsKey(
+                  state.lastPendingDeletionId,
+                )) {
+              final headline =
+                  state.pendingDeletions[state.lastPendingDeletionId];
               if (headline != null) {
                 final truncatedTitle = headline.title.truncate(30);
                 ScaffoldMessenger.of(context)

@@ -34,7 +34,8 @@ class ArchivedHeadlinesBloc
   ///
   /// Each entry maps a headline ID to its corresponding StreamSubscription,
   /// allowing for independent undo functionality.
-  final Map<String, StreamSubscription<void>> _pendingDeletionSubscriptions = {};
+  final Map<String, StreamSubscription<void>> _pendingDeletionSubscriptions =
+      {};
 
   @override
   Future<void> close() async {
@@ -117,8 +118,7 @@ class ArchivedHeadlinesBloc
     emit(
       state.copyWith(
         headlines: updatedHeadlines,
-        pendingDeletions: Map.from(state.pendingDeletions)
-          ..remove(event.id),
+        pendingDeletions: Map.from(state.pendingDeletions)..remove(event.id),
       ),
     );
 
@@ -186,10 +186,11 @@ class ArchivedHeadlinesBloc
 
     // Start a new delayed deletion subscription.
     // The `add` method returns a Future, which is intentionally not awaited here.
-    _pendingDeletionSubscriptions[event.id] = Future.delayed(
-      const Duration(seconds: 5),
-      () => add(_ConfirmDeleteHeadlineRequested(event.id)),
-    ).asStream().listen(
+    _pendingDeletionSubscriptions[event.id] =
+        Future.delayed(
+          const Duration(seconds: 5),
+          () => add(_ConfirmDeleteHeadlineRequested(event.id)),
+        ).asStream().listen(
           (_) {}, // No-op, just to keep the stream alive
           onError: (Object error) {
             // Handle potential errors during the delay, though unlikely.
@@ -252,7 +253,8 @@ class ArchivedHeadlinesBloc
         state.copyWith(
           headlines: originalHeadlines,
           exception: e,
-          pendingDeletions: updatedPendingDeletions..[event.id] = headlineToDelete,
+          pendingDeletions: updatedPendingDeletions
+            ..[event.id] = headlineToDelete,
         ),
       );
     } catch (e) {
@@ -276,7 +278,8 @@ class ArchivedHeadlinesBloc
         state.copyWith(
           headlines: originalHeadlines,
           exception: UnknownException('An unexpected error occurred: $e'),
-          pendingDeletions: updatedPendingDeletions..[event.id] = headlineToDelete,
+          pendingDeletions: updatedPendingDeletions
+            ..[event.id] = headlineToDelete,
         ),
       );
     }
