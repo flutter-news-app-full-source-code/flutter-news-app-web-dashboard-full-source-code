@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart'; // Import PendingDeletionsService
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -19,6 +20,8 @@ class ArchivedHeadlinesPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ArchivedHeadlinesBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
+        pendingDeletionsService: context
+            .read<PendingDeletionsService>(), // Provide the service
       )..add(const LoadArchivedHeadlinesRequested(limit: kDefaultRowsPerPage)),
       child: const _ArchivedHeadlinesView(),
     );
@@ -41,14 +44,21 @@ class _ArchivedHeadlinesView extends StatelessWidget {
           listenWhen: (previous, current) =>
               previous.pendingDeletions.length !=
                   current.pendingDeletions.length ||
-              previous.restoredHeadline != current.restoredHeadline,
+              previous.restoredHeadline != current.restoredHeadline ||
+              previous.lastPendingDeletionId != current.lastPendingDeletionId,
           listener: (context, state) {
             if (state.restoredHeadline != null) {
+              // When a headline is restored, refresh the main headlines list.
               context.read<ContentManagementBloc>().add(
                 const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
               );
+              // Clear the restoredHeadline after it's been handled.
+              context.read<ArchivedHeadlinesBloc>().add(
+                const ClearRestoredHeadline(),
+              );
             }
 
+            // Show snackbar for pending deletions.
             if (state.lastPendingDeletionId != null &&
                 state.pendingDeletions.containsKey(
                   state.lastPendingDeletionId,
@@ -67,6 +77,7 @@ class _ArchivedHeadlinesView extends StatelessWidget {
                       action: SnackBarAction(
                         label: l10n.undo,
                         onPressed: () {
+                          // Dispatch UndoDeleteHeadlineRequested to the BLoC.
                           context.read<ArchivedHeadlinesBloc>().add(
                             UndoDeleteHeadlineRequested(headline.id),
                           );
