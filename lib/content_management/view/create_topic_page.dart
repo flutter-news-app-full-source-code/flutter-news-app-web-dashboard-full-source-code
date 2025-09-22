@@ -57,36 +57,6 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
     super.dispose();
   }
 
-  /// Shows a dialog to the user when the form is invalid, offering options
-  /// to complete the form or discard changes.
-  Future<void> _showInvalidFormDialog(BuildContext context) async {
-    final l10n = AppLocalizationsX(context).l10n;
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.invalidFormTitle),
-        content: Text(l10n.invalidFormMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.completeForm),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.discard),
-          ),
-        ],
-      ),
-    );
-
-    if (result ?? false) {
-      // If user chooses to discard, pop the page.
-      if (context.mounted) {
-        context.pop();
-      }
-    }
-  }
-
   /// Shows a dialog to the user to choose between publishing or saving as draft.
   Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
     final l10n = AppLocalizationsX(context).l10n;
@@ -128,27 +98,28 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                   ),
                 );
               }
+              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
-                onPressed: () async {
-                  if (state.isFormValid) {
-                    final selectedStatus = await _showSaveOptionsDialog(
-                      context,
-                    );
-                    if (selectedStatus == ContentStatus.active) {
-                      context.read<CreateTopicBloc>().add(
-                        const CreateTopicPublished(),
-                      );
-                    } else if (selectedStatus == ContentStatus.draft) {
-                      context.read<CreateTopicBloc>().add(
-                        const CreateTopicSavedAsDraft(),
-                      );
-                    }
-                  } else {
-                    await _showInvalidFormDialog(context);
-                  }
-                },
+                onPressed: state.isFormValid
+                    ? () async {
+                        final selectedStatus = await _showSaveOptionsDialog(
+                          context,
+                        );
+                        if (selectedStatus == ContentStatus.active &&
+                            context.mounted) {
+                          context.read<CreateTopicBloc>().add(
+                            const CreateTopicPublished(),
+                          );
+                        } else if (selectedStatus == ContentStatus.draft &&
+                            context.mounted) {
+                          context.read<CreateTopicBloc>().add(
+                            const CreateTopicSavedAsDraft(),
+                          );
+                        }
+                      }
+                    : null, // Disable button if form is not valid
               );
             },
           ),
