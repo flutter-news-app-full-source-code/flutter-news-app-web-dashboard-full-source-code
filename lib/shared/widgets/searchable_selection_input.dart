@@ -136,6 +136,7 @@ class _SearchableSelectionInputState<T>
         filterBuilder: widget.filterBuilder,
         sortOptions: widget.sortOptions,
         limit: widget.limit,
+        // Pass the flag to the selection page arguments.
         includeInactiveSelectedItem: widget.includeInactiveSelectedItem,
       );
     } else {
@@ -146,6 +147,7 @@ class _SearchableSelectionInputState<T>
         itemToString: (item) => widget.itemToString(item as T),
         initialSelectedItem: widget.selectedItem,
         staticItems: widget.staticItems! as List<Object>,
+        // Pass the flag to the selection page arguments.
         includeInactiveSelectedItem: widget.includeInactiveSelectedItem,
       );
     }
