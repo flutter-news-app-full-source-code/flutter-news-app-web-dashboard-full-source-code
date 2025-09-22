@@ -32,6 +32,7 @@ class SearchableSelectionInput<T> extends StatefulWidget {
     this.sortOptions,
     this.limit,
     this.staticItems,
+    this.includeInactiveSelectedItem = false,
     super.key,
   }) : assert(
          (repository != null &&
@@ -47,6 +48,12 @@ class SearchableSelectionInput<T> extends StatefulWidget {
 
   /// The currently selected item.
   final T? selectedItem;
+
+  /// If true, the [selectedItem] will be included in the fetched results
+  /// even if it does not match the current filter criteria (e.g., if it's
+  /// an inactive item that was previously selected). This is useful for edit
+  /// pages where the previously selected item should always be visible.
+  final bool includeInactiveSelectedItem;
 
   /// A builder function to customize the display of each item in the list.
   /// This function expects an item of type [T].
@@ -129,6 +136,7 @@ class _SearchableSelectionInputState<T>
         filterBuilder: widget.filterBuilder,
         sortOptions: widget.sortOptions,
         limit: widget.limit,
+        includeInactiveSelectedItem: widget.includeInactiveSelectedItem,
       );
     } else {
       arguments = SelectionPageArguments(
@@ -138,6 +146,7 @@ class _SearchableSelectionInputState<T>
         itemToString: (item) => widget.itemToString(item as T),
         initialSelectedItem: widget.selectedItem,
         staticItems: widget.staticItems! as List<Object>,
+        includeInactiveSelectedItem: widget.includeInactiveSelectedItem,
       );
     }
 
