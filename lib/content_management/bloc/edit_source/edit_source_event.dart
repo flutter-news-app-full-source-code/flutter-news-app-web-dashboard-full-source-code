@@ -72,17 +72,12 @@ final class EditSourceHeadquartersChanged extends EditSourceEvent {
   List<Object?> get props => [headquarters];
 }
 
-/// Event for when the source's status is changed.
-final class EditSourceStatusChanged extends EditSourceEvent {
-  const EditSourceStatusChanged(this.status);
-
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
+/// Event to save the source as a draft.
+final class EditSourceSavedAsDraft extends EditSourceEvent {
+  const EditSourceSavedAsDraft();
 }
 
-/// Event to submit the edited source data.
-final class EditSourceSubmitted extends EditSourceEvent {
-  const EditSourceSubmitted();
+/// Event to publish the source.
+final class EditSourcePublished extends EditSourceEvent {
+  const EditSourcePublished();
 }
