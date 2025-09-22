@@ -56,17 +56,12 @@ final class CreateSourceHeadquartersChanged extends CreateSourceEvent {
   List<Object?> get props => [headquarters];
 }
 
-/// Event for when the source's status is changed.
-final class CreateSourceStatusChanged extends CreateSourceEvent {
-  const CreateSourceStatusChanged(this.status);
-
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
+/// Event to save the source as a draft.
+final class CreateSourceSavedAsDraft extends CreateSourceEvent {
+  const CreateSourceSavedAsDraft();
 }
 
-/// Event to signal that the form should be submitted.
-final class CreateSourceSubmitted extends CreateSourceEvent {
-  const CreateSourceSubmitted();
+/// Event to publish the source.
+final class CreateSourcePublished extends CreateSourceEvent {
+  const CreateSourcePublished();
 }
