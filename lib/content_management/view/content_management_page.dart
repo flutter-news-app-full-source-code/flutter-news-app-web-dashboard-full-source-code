@@ -29,7 +29,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: 4,
+      length: 3,
       vsync: this,
     );
     _tabController.addListener(_onTabChanged);
@@ -90,13 +90,32 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     Tab(text: l10n.headlines),
                     Tab(text: l10n.topics),
                     Tab(text: l10n.sources),
-                    Tab(text: l10n.drafts),
                   ],
                 ),
               ],
             ),
           ),
           actions: [
+            IconButton(
+              icon: const Icon(Icons.edit_note),
+              tooltip: l10n.draftsIconTooltip,
+              onPressed: () {
+                final currentTab = context
+                    .read<ContentManagementBloc>()
+                    .state
+                    .activeTab;
+                switch (currentTab) {
+                  case ContentManagementTab.headlines:
+                    context.goNamed(Routes.draftHeadlinesName);
+                  case ContentManagementTab.topics:
+                    // Placeholder for Draft Topics Page
+                    context.goNamed(Routes.draftTopicsName);
+                  case ContentManagementTab.sources:
+                    // Placeholder for Draft Sources Page
+                    context.goNamed(Routes.draftSourcesName);
+                }
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.inventory_2_outlined),
               tooltip: l10n.archivedItems,
@@ -112,10 +131,6 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     context.goNamed(Routes.archivedTopicsName);
                   case ContentManagementTab.sources:
                     context.goNamed(Routes.archivedSourcesName);
-                  case ContentManagementTab.drafts:
-                    context.goNamed(
-                      Routes.archivedHeadlinesName,
-                    );
                 }
               },
             ),
@@ -129,7 +144,6 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     .activeTab;
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
-                  case ContentManagementTab.drafts:
                     context.goNamed(Routes.createHeadlineName);
                   case ContentManagementTab.topics:
                     context.goNamed(Routes.createTopicName);
@@ -147,7 +161,6 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             HeadlinesPage(),
             TopicPage(),
             SourcesPage(),
-            DraftHeadlinesPage(),
           ],
         ),
       ),
