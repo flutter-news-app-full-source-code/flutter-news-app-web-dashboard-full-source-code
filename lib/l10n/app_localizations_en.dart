@@ -1298,4 +1298,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bannerAdShapeRectangle => 'Rectangle';
+
+  @override
+  String get loadingDraftHeadlines => 'Loading Draft Headlines';
+
+  @override
+  String get noDraftHeadlinesFound => 'No Draft Headlines Found';
+
+  @override
+  String get publish => 'Publish';
+
+  @override
+  String get saveAsDraft => 'Save as Draft';
+
+  @override
+  String get invalidFormTitle => 'Invalid Form';
+
+  @override
+  String get invalidFormMessage =>
+      'Please complete all required fields before publishing. You can save as a draft or discard your changes.';
+
+  @override
+  String get completeForm => 'Complete Form';
+
+  @override
+  String get discard => 'Discard';
+
+  @override
+  String get drafts => 'Drafts';
 }

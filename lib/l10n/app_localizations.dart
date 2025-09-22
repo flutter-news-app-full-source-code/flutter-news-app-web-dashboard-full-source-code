@@ -2425,6 +2425,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rectangle'**
   String get bannerAdShapeRectangle;
+
+  /// Text displayed when draft headlines are being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Draft Headlines'**
+  String get loadingDraftHeadlines;
+
+  /// Text displayed when no draft headlines are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No Draft Headlines Found'**
+  String get noDraftHeadlinesFound;
+
+  /// Button text to publish a headline (either new, edited, or from drafts).
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get publish;
+
+  /// Button text to save a headline as a draft.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as Draft'**
+  String get saveAsDraft;
+
+  /// Title for the dialog shown when a form is invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Form'**
+  String get invalidFormTitle;
+
+  /// Message for the dialog shown when a form is invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete all required fields before publishing. You can save as a draft or discard your changes.'**
+  String get invalidFormMessage;
+
+  /// Button text in the invalid form dialog to return to the form.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Form'**
+  String get completeForm;
+
+  /// Button text in the invalid form dialog to discard changes.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
+  /// Label for the 'Drafts' tab in content management.
+  ///
+  /// In en, this message translates to:
+  /// **'Drafts'**
+  String get drafts;
 }
 
 class _AppLocalizationsDelegate

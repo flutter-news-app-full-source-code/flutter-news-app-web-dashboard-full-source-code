@@ -1296,4 +1296,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bannerAdShapeRectangle => 'مستطيل';
+
+  @override
+  String get loadingDraftHeadlines => 'جاري تحميل العناوين المسودة';
+
+  @override
+  String get noDraftHeadlinesFound => 'لا توجد عناوين مسودة';
+
+  @override
+  String get publish => 'نشر';
+
+  @override
+  String get saveAsDraft => 'حفظ كمسودة';
+
+  @override
+  String get invalidFormTitle => 'نموذج غير صالح';
+
+  @override
+  String get invalidFormMessage =>
+      'يرجى إكمال جميع الحقول المطلوبة قبل النشر. يمكنك الحفظ كمسودة أو تجاهل التغييرات.';
+
+  @override
+  String get completeForm => 'إكمال النموذج';
+
+  @override
+  String get discard => 'تجاهل';
+
+  @override
+  String get drafts => 'المسودات';
 }

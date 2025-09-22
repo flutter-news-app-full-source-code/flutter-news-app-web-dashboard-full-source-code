@@ -1621,5 +1621,41 @@
   "bannerAdShapeRectangle": "Rectangle",
   "@bannerAdShapeRectangle": {
     "description": "Label for the Rectangle banner ad shape option"
+  },
+  "loadingDraftHeadlines": "Loading Draft Headlines",
+  "@loadingDraftHeadlines": {
+    "description": "Text displayed when draft headlines are being loaded."
+  },
+  "noDraftHeadlinesFound": "No Draft Headlines Found",
+  "@noDraftHeadlinesFound": {
+    "description": "Text displayed when no draft headlines are available."
+  },
+  "publish": "Publish",
+  "@publish": {
+    "description": "Button text to publish a headline (either new, edited, or from drafts)."
+  },
+  "saveAsDraft": "Save as Draft",
+  "@saveAsDraft": {
+    "description": "Button text to save a headline as a draft."
+  },
+  "invalidFormTitle": "Invalid Form",
+  "@invalidFormTitle": {
+    "description": "Title for the dialog shown when a form is invalid."
+  },
+  "invalidFormMessage": "Please complete all required fields before publishing. You can save as a draft or discard your changes.",
+  "@invalidFormMessage": {
+    "description": "Message for the dialog shown when a form is invalid."
+  },
+  "completeForm": "Complete Form",
+  "@completeForm": {
+    "description": "Button text in the invalid form dialog to return to the form."
+  },
+  "discard": "Discard",
+  "@discard": {
+    "description": "Button text in the invalid form dialog to discard changes."
+  },
+  "drafts": "Drafts",
+  "@drafts": {
+    "description": "Label for the 'Drafts' tab in content management."
   }
 }

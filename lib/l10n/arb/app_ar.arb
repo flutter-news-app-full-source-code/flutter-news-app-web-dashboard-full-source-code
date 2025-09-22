@@ -1625,5 +1625,41 @@
   "bannerAdShapeRectangle": "مستطيل",
   "@bannerAdShapeRectangle": {
     "description": "Label for the Rectangle banner ad shape option"
+  },
+  "loadingDraftHeadlines": "جاري تحميل العناوين المسودة",
+  "@loadingDraftHeadlines": {
+    "description": "النص الذي يظهر عند تحميل العناوين المسودة."
+  },
+  "noDraftHeadlinesFound": "لا توجد عناوين مسودة",
+  "@noDraftHeadlinesFound": {
+    "description": "النص الذي يظهر عندما لا تتوفر عناوين مسودة."
+  },
+  "publish": "نشر",
+  "@publish": {
+    "description": "نص الزر لنشر عنوان (جديد، معدّل، أو من المسودات)."
+  },
+  "saveAsDraft": "حفظ كمسودة",
+  "@saveAsDraft": {
+    "description": "نص الزر لحفظ عنوان كمسودة."
+  },
+  "invalidFormTitle": "نموذج غير صالح",
+  "@invalidFormTitle": {
+    "description": "عنوان مربع الحوار الذي يظهر عندما يكون النموذج غير صالح."
+  },
+  "invalidFormMessage": "يرجى إكمال جميع الحقول المطلوبة قبل النشر. يمكنك الحفظ كمسودة أو تجاهل التغييرات.",
+  "@invalidFormMessage": {
+    "description": "رسالة مربع الحوار الذي يظهر عندما يكون النموذج غير صالح."
+  },
+  "completeForm": "إكمال النموذج",
+  "@completeForm": {
+    "description": "نص الزر في مربع حوار النموذج غير الصالح للعودة إلى النموذج."
+  },
+  "discard": "تجاهل",
+  "@discard": {
+    "description": "نص الزر في مربع حوار النموذج غير الصالح لتجاهل التغييرات."
+  },
+  "drafts": "المسودات",
+  "@drafts": {
+    "description": "تسمية لعلامة التبويب 'المسودات' في إدارة المحتوى."
   }
 }
