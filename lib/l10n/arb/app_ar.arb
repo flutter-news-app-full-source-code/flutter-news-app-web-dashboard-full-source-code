@@ -1625,5 +1625,125 @@
   "bannerAdShapeRectangle": "مستطيل",
   "@bannerAdShapeRectangle": {
     "description": "Label for the Rectangle banner ad shape option"
+  },
+  "loadingDraftHeadlines": "جاري تحميل العناوين المسودة",
+  "@loadingDraftHeadlines": {
+    "description": "النص الذي يظهر عند تحميل العناوين المسودة."
+  },
+  "noDraftHeadlinesFound": "لا توجد عناوين مسودة",
+  "@noDraftHeadlinesFound": {
+    "description": "النص الذي يظهر عندما لا تتوفر عناوين مسودة."
+  },
+  "publish": "نشر",
+  "@publish": {
+    "description": "نص الزر لنشر عنوان (جديد، معدّل، أو من المسودات)."
+  },
+  "saveAsDraft": "حفظ كمسودة",
+  "@saveAsDraft": {
+    "description": "نص الزر لحفظ عنوان كمسودة."
+  },
+  "invalidFormTitle": "نموذج غير صالح",
+  "@invalidFormTitle": {
+    "description": "عنوان مربع الحوار الذي يظهر عندما يكون النموذج غير صالح."
+  },
+  "invalidFormMessage": "يرجى إكمال جميع الحقول المطلوبة قبل النشر. يمكنك الحفظ كمسودة أو تجاهل التغييرات.",
+  "@invalidFormMessage": {
+    "description": "رسالة مربع الحوار الذي يظهر عندما يكون النموذج غير صالح."
+  },
+  "completeForm": "إكمال النموذج",
+  "@completeForm": {
+    "description": "نص الزر في مربع حوار النموذج غير الصالح للعودة إلى النموذج."
+  },
+  "discard": "تجاهل",
+  "@discard": {
+    "description": "نص الزر في مربع حوار النموذج غير الصالح لتجاهل التغييرات."
+  },
+  "drafts": "المسودات",
+  "@drafts": {
+    "description": "تسمية لعلامة التبويب 'المسودات' في إدارة المحتوى."
+  },
+  "draftsIconTooltip": "المسودات",
+  "@draftsIconTooltip": {
+    "description": "Tooltip for the drafts icon button in the AppBar"
+  },
+  "draftHeadlines": "مسودات العناوين",
+  "@draftHeadlines": {
+    "description": "Title for the Draft Headlines page"
+  },
+  "draftTopics": "مسودات المواضيع",
+  "@draftTopics": {
+    "description": "Title for the Draft Topics page"
+  },
+  "draftSources": "مسودات المصادر",
+  "@draftSources": {
+    "description": "Title for the Draft Sources page"
+  },
+  "saveHeadlineTitle": "حفظ العنوان",
+  "@saveHeadlineTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ العنوان."
+  },
+  "saveHeadlineMessage": "هل تريد نشر هذا العنوان أم حفظه كمسودة؟",
+  "@saveHeadlineMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ العنوان."
+  },
+  "saveTopicTitle": "حفظ الموضوع",
+  "@saveTopicTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ الموضوع."
+  },
+  "saveTopicMessage": "هل تريد نشر هذا الموضوع أم حفظه كمسودة؟",
+  "@saveTopicMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ الموضوع."
+  },
+  "saveSourceTitle": "حفظ المصدر",
+  "@saveSourceTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
+  },
+  "saveSourceMessage": "هل تريد نشر هذا المصدر أم حفظه كمسودة؟",
+  "@saveSourceMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
+  },
+  "loadingDraftTopics": "جاري تحميل مسودات المواضيع...",
+  "@loadingDraftTopics": {
+    "description": "رسالة تعرض عند تحميل مسودات المواضيع."
+  },
+  "noDraftTopicsFound": "لم يتم العثور على مسودات مواضيع.",
+  "@noDraftTopicsFound": {
+    "description": "رسالة تعرض عندما لا تتوفر مسودات مواضيع."
+  },
+  "topicDeleted": "تم حذف الموضوع \"{topicTitle}\".",
+  "@topicDeleted": {
+    "description": "رسالة شريط التنبيه عند حذف موضوع.",
+    "placeholders": {
+      "topicTitle": {
+        "type": "String",
+        "example": "التكنولوجيا"
+      }
+    }
+  },
+  "loadingDraftSources": "جاري تحميل مسودات المصادر...",
+  "@loadingDraftSources": {
+    "description": "رسالة تعرض عند تحميل مسودات المصادر."
+  },
+  "noDraftSourcesFound": "لم يتم العثور على مسودات مصادر.",
+  "@noDraftSourcesFound": {
+    "description": "رسالة تعرض عندما لا تتوفر مسودات مصادر."
+  },
+  "sourceDeleted": "تم حذف المصدر \"{sourceName}\".",
+  "@sourceDeleted": {
+    "description": "رسالة شريط التنبيه عند حذف مصدر.",
+    "placeholders": {
+      "sourceName": {
+        "type": "String",
+        "example": "بي بي سي نيوز"
+      }
+    }
+  },
+  "publishTopic": "نشر الموضوع",
+  "@publishTopic": {
+    "description": "تلميح زر نشر الموضوع."
+  },
+  "publishSource": "نشر المصدر",
+  "@publishSource": {
+    "description": "تلميح زر نشر المصدر."
   }
 }

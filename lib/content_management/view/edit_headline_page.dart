@@ -85,14 +85,34 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                   ),
                 );
               }
+              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<EditHeadlineBloc>().add(
-                        const EditHeadlineSubmitted(),
-                      )
-                    : null,
+                    ? () async {
+                        // On edit page, directly save without a prompt.
+                        // The status (draft/active) is determined by the original headline
+                        // and is not changed by this save action unless a specific
+                        // "change status" UI element is introduced (out of scope).
+                        // For now, we assume the current status is maintained.
+                        final originalHeadline = await context
+                            .read<DataRepository<Headline>>()
+                            .read(id: state.headlineId);
+
+                        if (context.mounted) {
+                          if (originalHeadline.status == ContentStatus.active) {
+                            context.read<EditHeadlineBloc>().add(
+                              const EditHeadlinePublished(),
+                            );
+                          } else {
+                            context.read<EditHeadlineBloc>().add(
+                              const EditHeadlineSavedAsDraft(),
+                            );
+                          }
+                        }
+                      }
+                    : null, // Disable button if form is not valid
               );
             },
           ),
@@ -222,6 +242,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
+                      includeInactiveSelectedItem: true,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Topic>(
@@ -245,6 +266,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
+                      includeInactiveSelectedItem: true,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Country>(
@@ -283,21 +305,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<EditHeadlineBloc>().add(
-                          EditHeadlineStatusChanged(value),
-                        );
-                      },
+                      includeInactiveSelectedItem: true,
                     ),
                   ],
                 ),

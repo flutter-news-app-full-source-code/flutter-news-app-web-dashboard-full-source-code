@@ -64,17 +64,12 @@ final class CreateHeadlineCountryChanged extends CreateHeadlineEvent {
   List<Object?> get props => [country];
 }
 
-/// Event for when the headline's status is changed.
-final class CreateHeadlineStatusChanged extends CreateHeadlineEvent {
-  const CreateHeadlineStatusChanged(this.status);
-
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
+/// Event to save the headline as a draft.
+final class CreateHeadlineSavedAsDraft extends CreateHeadlineEvent {
+  const CreateHeadlineSavedAsDraft();
 }
 
-/// Event to signal that the form should be submitted.
-final class CreateHeadlineSubmitted extends CreateHeadlineEvent {
-  const CreateHeadlineSubmitted();
+/// Event to publish the headline.
+final class CreateHeadlinePublished extends CreateHeadlineEvent {
+  const CreateHeadlinePublished();
 }

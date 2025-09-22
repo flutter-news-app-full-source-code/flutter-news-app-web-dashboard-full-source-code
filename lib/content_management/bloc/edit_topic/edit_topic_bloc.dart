@@ -20,8 +20,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
     on<EditTopicIconUrlChanged>(_onIconUrlChanged);
-    on<EditTopicStatusChanged>(_onStatusChanged);
-    on<EditTopicSubmitted>(_onSubmitted);
+    on<EditTopicSavedAsDraft>(_onSavedAsDraft);
+    on<EditTopicPublished>(_onPublished);
 
     add(const EditTopicLoaded());
   }
@@ -40,7 +40,6 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           name: topic.name,
           description: topic.description,
           iconUrl: topic.iconUrl,
-          contentStatus: topic.status,
         ),
       );
     } on HttpException catch (e) {
@@ -85,24 +84,11 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     );
   }
 
-  void _onStatusChanged(
-    EditTopicStatusChanged event,
-    Emitter<EditTopicState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: EditTopicStatus.initial,
-      ),
-    );
-  }
-
-  Future<void> _onSubmitted(
-    EditTopicSubmitted event,
+  /// Handles saving the topic as a draft.
+  Future<void> _onSavedAsDraft(
+    EditTopicSavedAsDraft event,
     Emitter<EditTopicState> emit,
   ) async {
-    if (!state.isFormValid) return;
-
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
       final originalTopic = await _topicsRepository.read(id: state.topicId);
@@ -110,7 +96,42 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         name: state.name,
         description: state.description,
         iconUrl: state.iconUrl,
-        status: state.contentStatus,
+        status: ContentStatus.draft,
+        updatedAt: DateTime.now(),
+      );
+
+      await _topicsRepository.update(id: state.topicId, item: updatedTopic);
+      emit(
+        state.copyWith(
+          status: EditTopicStatus.success,
+          updatedTopic: updatedTopic,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditTopicStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditTopicStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the topic.
+  Future<void> _onPublished(
+    EditTopicPublished event,
+    Emitter<EditTopicState> emit,
+  ) async {
+    emit(state.copyWith(status: EditTopicStatus.submitting));
+    try {
+      final originalTopic = await _topicsRepository.read(id: state.topicId);
+      final updatedTopic = originalTopic.copyWith(
+        name: state.name,
+        description: state.description,
+        iconUrl: state.iconUrl,
+        status: ContentStatus.active,
         updatedAt: DateTime.now(),
       );
 

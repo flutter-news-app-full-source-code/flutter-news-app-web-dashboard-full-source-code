@@ -1621,5 +1621,125 @@
   "bannerAdShapeRectangle": "Rectangle",
   "@bannerAdShapeRectangle": {
     "description": "Label for the Rectangle banner ad shape option"
+  },
+  "loadingDraftHeadlines": "Loading Draft Headlines",
+  "@loadingDraftHeadlines": {
+    "description": "Text displayed when draft headlines are being loaded."
+  },
+  "noDraftHeadlinesFound": "No Draft Headlines Found",
+  "@noDraftHeadlinesFound": {
+    "description": "Text displayed when no draft headlines are available."
+  },
+  "publish": "Publish",
+  "@publish": {
+    "description": "Button text to publish a headline (either new, edited, or from drafts)."
+  },
+  "saveAsDraft": "Save as Draft",
+  "@saveAsDraft": {
+    "description": "Button text to save a headline as a draft."
+  },
+  "invalidFormTitle": "Invalid Form",
+  "@invalidFormTitle": {
+    "description": "Title for the dialog shown when a form is invalid."
+  },
+  "invalidFormMessage": "Please complete all required fields before publishing. You can save as a draft or discard your changes.",
+  "@invalidFormMessage": {
+    "description": "Message for the dialog shown when a form is invalid."
+  },
+  "completeForm": "Complete Form",
+  "@completeForm": {
+    "description": "Button text in the invalid form dialog to return to the form."
+  },
+  "discard": "Discard",
+  "@discard": {
+    "description": "Button text in the invalid form dialog to discard changes."
+  },
+  "drafts": "Drafts",
+  "@drafts": {
+    "description": "Label for the 'Drafts' tab in content management."
+  },
+  "draftsIconTooltip": "Drafts",
+  "@draftsIconTooltip": {
+    "description": "Tooltip for the drafts icon button in the AppBar"
+  },
+  "draftHeadlines": "Draft Headlines",
+  "@draftHeadlines": {
+    "description": "Title for the Draft Headlines page"
+  },
+  "draftTopics": "Draft Topics",
+  "@draftTopics": {
+    "description": "Title for the Draft Topics page"
+  },
+  "draftSources": "Draft Sources",
+  "@draftSources": {
+    "description": "Title for the Draft Sources page"
+  },
+  "saveHeadlineTitle": "Save Headline",
+  "@saveHeadlineTitle": {
+    "description": "Title for the dialog asking how to save a headline."
+  },
+  "saveHeadlineMessage": "Do you want to publish this headline or save it as a draft?",
+  "@saveHeadlineMessage": {
+    "description": "Message for the dialog asking how to save a headline."
+  },
+  "saveTopicTitle": "Save Topic",
+  "@saveTopicTitle": {
+    "description": "Title for the dialog asking how to save a topic."
+  },
+  "saveTopicMessage": "Do you want to publish this topic or save it as a draft?",
+  "@saveTopicMessage": {
+    "description": "Message for the dialog asking how to save a topic."
+  },
+  "saveSourceTitle": "Save Source",
+  "@saveSourceTitle": {
+    "description": "Title for the dialog asking how to save a source."
+  },
+  "saveSourceMessage": "Do you want to publish this source or save it as a draft?",
+  "@saveSourceMessage": {
+    "description": "Message for the dialog asking how to save a source."
+  },
+  "loadingDraftTopics": "Loading Draft Topics...",
+  "@loadingDraftTopics": {
+    "description": "Message displayed when draft topics are being loaded."
+  },
+  "noDraftTopicsFound": "No draft topics found.",
+  "@noDraftTopicsFound": {
+    "description": "Message displayed when no draft topics are available."
+  },
+  "topicDeleted": "Topic \"{topicTitle}\" deleted.",
+  "@topicDeleted": {
+    "description": "Snackbar message when a topic is deleted.",
+    "placeholders": {
+      "topicTitle": {
+        "type": "String",
+        "example": "Technology"
+      }
+    }
+  },
+  "loadingDraftSources": "Loading Draft Sources...",
+  "@loadingDraftSources": {
+    "description": "Message displayed when draft sources are being loaded."
+  },
+  "noDraftSourcesFound": "No draft sources found.",
+  "@noDraftSourcesFound": {
+    "description": "Message displayed when no draft sources are available."
+  },
+  "sourceDeleted": "Source \"{sourceName}\" deleted.",
+  "@sourceDeleted": {
+    "description": "Snackbar message when a source is deleted.",
+    "placeholders": {
+      "sourceName": {
+        "type": "String",
+        "example": "BBC News"
+      }
+    }
+  },
+  "publishTopic": "Publish Topic",
+  "@publishTopic": {
+    "description": "Tooltip for the publish topic button."
+  },
+  "publishSource": "Publish Source",
+  "@publishSource": {
+    "description": "Tooltip for the publish source button."
   }
 }

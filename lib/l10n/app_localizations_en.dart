@@ -1298,4 +1298,93 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bannerAdShapeRectangle => 'Rectangle';
+
+  @override
+  String get loadingDraftHeadlines => 'Loading Draft Headlines';
+
+  @override
+  String get noDraftHeadlinesFound => 'No Draft Headlines Found';
+
+  @override
+  String get publish => 'Publish';
+
+  @override
+  String get saveAsDraft => 'Save as Draft';
+
+  @override
+  String get invalidFormTitle => 'Invalid Form';
+
+  @override
+  String get invalidFormMessage =>
+      'Please complete all required fields before publishing. You can save as a draft or discard your changes.';
+
+  @override
+  String get completeForm => 'Complete Form';
+
+  @override
+  String get discard => 'Discard';
+
+  @override
+  String get drafts => 'Drafts';
+
+  @override
+  String get draftsIconTooltip => 'Drafts';
+
+  @override
+  String get draftHeadlines => 'Draft Headlines';
+
+  @override
+  String get draftTopics => 'Draft Topics';
+
+  @override
+  String get draftSources => 'Draft Sources';
+
+  @override
+  String get saveHeadlineTitle => 'Save Headline';
+
+  @override
+  String get saveHeadlineMessage =>
+      'Do you want to publish this headline or save it as a draft?';
+
+  @override
+  String get saveTopicTitle => 'Save Topic';
+
+  @override
+  String get saveTopicMessage =>
+      'Do you want to publish this topic or save it as a draft?';
+
+  @override
+  String get saveSourceTitle => 'Save Source';
+
+  @override
+  String get saveSourceMessage =>
+      'Do you want to publish this source or save it as a draft?';
+
+  @override
+  String get loadingDraftTopics => 'Loading Draft Topics...';
+
+  @override
+  String get noDraftTopicsFound => 'No draft topics found.';
+
+  @override
+  String topicDeleted(String topicTitle) {
+    return 'Topic \"$topicTitle\" deleted.';
+  }
+
+  @override
+  String get loadingDraftSources => 'Loading Draft Sources...';
+
+  @override
+  String get noDraftSourcesFound => 'No draft sources found.';
+
+  @override
+  String sourceDeleted(String sourceName) {
+    return 'Source \"$sourceName\" deleted.';
+  }
+
+  @override
+  String get publishTopic => 'Publish Topic';
+
+  @override
+  String get publishSource => 'Publish Source';
 }

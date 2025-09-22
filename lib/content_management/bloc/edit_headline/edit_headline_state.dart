@@ -30,7 +30,6 @@ final class EditHeadlineState extends Equatable {
     this.source,
     this.topic,
     this.eventCountry,
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedHeadline,
   });
@@ -44,7 +43,6 @@ final class EditHeadlineState extends Equatable {
   final Source? source;
   final Topic? topic;
   final Country? eventCountry;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final Headline? updatedHeadline;
 
@@ -69,7 +67,6 @@ final class EditHeadlineState extends Equatable {
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
-    ContentStatus? contentStatus,
     HttpException? exception,
     Headline? updatedHeadline,
   }) {
@@ -83,7 +80,6 @@ final class EditHeadlineState extends Equatable {
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
     );
@@ -100,7 +96,6 @@ final class EditHeadlineState extends Equatable {
     source,
     topic,
     eventCountry,
-    contentStatus,
     exception,
     updatedHeadline,
   ];

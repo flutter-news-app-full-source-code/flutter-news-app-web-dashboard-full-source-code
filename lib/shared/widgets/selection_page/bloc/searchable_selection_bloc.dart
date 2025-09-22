@@ -64,9 +64,13 @@ class SearchableSelectionBloc
   ) async {
     emit(state.copyWith(status: SearchableSelectionStatus.loading));
     try {
+      var fetchedItems = <Object>[];
+      var hasMore = false;
+      String? cursor;
+
       if (_arguments.staticItems != null) {
         // Handle static items
-        final filteredItems = _arguments.staticItems!
+        fetchedItems = _arguments.staticItems!
             .where(
               (item) => _arguments
                   .itemToString(item)
@@ -76,32 +80,41 @@ class SearchableSelectionBloc
                   ),
             )
             .toList();
-        emit(
-          state.copyWith(
-            status: SearchableSelectionStatus.success,
-            items: filteredItems,
-            hasMore: false,
-          ),
-        );
+        hasMore = false;
       } else if (_arguments.repository != null) {
         // Handle repository-fetched items
-        final filter = _arguments.filterBuilder!(
+        final baseFilter = _arguments.filterBuilder!(
           state.searchTerm.isEmpty ? null : state.searchTerm,
         );
+
+        // Apply default filter for active items unless includeInactiveSelectedItem is true
+        final finalFilter = _arguments.includeInactiveSelectedItem
+            ? baseFilter
+            : {
+                ...baseFilter,
+                'status': ContentStatus.active.name,
+              };
+
         final response = await (_arguments.repository!).readAll(
-          filter: filter,
+          filter: finalFilter,
           sort: _arguments.sortOptions,
           pagination: PaginationOptions(limit: _arguments.limit),
         );
 
-        emit(
-          state.copyWith(
-            status: SearchableSelectionStatus.success,
-            items: response.items,
-            cursor: response.cursor,
-            hasMore: response.hasMore,
-          ),
-        );
+        fetchedItems = response.items;
+        cursor = response.cursor;
+        hasMore = response.hasMore;
+
+        // If includeInactiveSelectedItem is true and initialSelectedItem is provided,
+        // ensure it's in the list, even if it doesn't match the current filter.
+        if (_arguments.includeInactiveSelectedItem &&
+            _arguments.initialSelectedItem != null &&
+            !fetchedItems.contains(_arguments.initialSelectedItem)) {
+          fetchedItems = [
+            _arguments.initialSelectedItem!,
+            ...fetchedItems,
+          ];
+        }
       } else {
         // This case should ideally not be reached due to the assert in arguments
         emit(
@@ -112,7 +125,17 @@ class SearchableSelectionBloc
             ),
           ),
         );
+        return;
       }
+
+      emit(
+        state.copyWith(
+          status: SearchableSelectionStatus.success,
+          items: fetchedItems,
+          cursor: cursor,
+          hasMore: hasMore,
+        ),
+      );
     } on HttpException catch (e) {
       emit(
         state.copyWith(
@@ -159,11 +182,20 @@ class SearchableSelectionBloc
 
     emit(state.copyWith(status: SearchableSelectionStatus.loading));
     try {
-      final filter = _arguments.filterBuilder!(
+      final baseFilter = _arguments.filterBuilder!(
         state.searchTerm.isEmpty ? null : state.searchTerm,
       );
+
+      // Apply default filter for active items unless includeInactiveSelectedItem is true
+      final finalFilter = _arguments.includeInactiveSelectedItem
+          ? baseFilter
+          : {
+              ...baseFilter,
+              'status': ContentStatus.active.name,
+            };
+
       final response = await (_arguments.repository!).readAll(
-        filter: filter,
+        filter: finalFilter,
         sort: _arguments.sortOptions,
         pagination: PaginationOptions(
           cursor: state.cursor,
@@ -171,10 +203,24 @@ class SearchableSelectionBloc
         ),
       );
 
+      var newItems = <Object>[...state.items, ...response.items];
+
+      // If includeInactiveSelectedItem is true and initialSelectedItem is provided,
+      // ensure it's in the list, even if it doesn't match the current filter.
+      // This check is only needed if it wasn't already added in the initial load.
+      if (_arguments.includeInactiveSelectedItem &&
+          _arguments.initialSelectedItem != null &&
+          !newItems.contains(_arguments.initialSelectedItem)) {
+        newItems = [
+          _arguments.initialSelectedItem!,
+          ...newItems,
+        ];
+      }
+
       emit(
         state.copyWith(
           status: SearchableSelectionStatus.success,
-          items: [...state.items, ...response.items],
+          items: newItems,
           cursor: response.cursor,
           hasMore: response.hasMore,
         ),

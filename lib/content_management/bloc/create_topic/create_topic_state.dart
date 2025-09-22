@@ -23,7 +23,6 @@ final class CreateTopicState extends Equatable {
     this.name = '',
     this.description = '',
     this.iconUrl = '',
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.createdTopic,
   });
@@ -32,7 +31,6 @@ final class CreateTopicState extends Equatable {
   final String name;
   final String description;
   final String iconUrl;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final Topic? createdTopic;
 
@@ -46,7 +44,6 @@ final class CreateTopicState extends Equatable {
     String? name,
     String? description,
     String? iconUrl,
-    ContentStatus? contentStatus,
     HttpException? exception,
     Topic? createdTopic,
   }) {
@@ -55,7 +52,6 @@ final class CreateTopicState extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       createdTopic: createdTopic ?? this.createdTopic,
     );
@@ -67,7 +63,6 @@ final class CreateTopicState extends Equatable {
     name,
     description,
     iconUrl,
-    contentStatus,
     exception,
     createdTopic,
   ];

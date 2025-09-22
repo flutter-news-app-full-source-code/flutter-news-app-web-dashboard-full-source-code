@@ -79,14 +79,34 @@ class _EditSourceViewState extends State<_EditSourceView> {
                   ),
                 );
               }
+              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<EditSourceBloc>().add(
-                        const EditSourceSubmitted(),
-                      )
-                    : null,
+                    ? () async {
+                        // On edit page, directly save without a prompt.
+                        // The status (draft/active) is determined by the original source
+                        // and is not changed by this save action unless a specific
+                        // "change status" UI element is introduced (out of scope).
+                        // For now, we assume the current status is maintained.
+                        final originalSource = await context
+                            .read<DataRepository<Source>>()
+                            .read(id: state.sourceId);
+
+                        if (context.mounted) {
+                          if (originalSource.status == ContentStatus.active) {
+                            context.read<EditSourceBloc>().add(
+                              const EditSourcePublished(),
+                            );
+                          } else {
+                            context.read<EditSourceBloc>().add(
+                              const EditSourceSavedAsDraft(),
+                            );
+                          }
+                        }
+                      }
+                    : null, // Disable button if form is not valid
               );
             },
           ),
@@ -252,21 +272,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<EditSourceBloc>().add(
-                          EditSourceStatusChanged(value),
-                        );
-                      },
                     ),
                   ],
                 ),

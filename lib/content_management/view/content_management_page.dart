@@ -27,7 +27,10 @@ class _ContentManagementPageState extends State<ContentManagementPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+    );
     _tabController.addListener(_onTabChanged);
   }
 
@@ -93,7 +96,25 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.inventory_2_outlined),
+              icon: const Icon(Icons.drafts_outlined),
+              tooltip: l10n.draftsIconTooltip,
+              onPressed: () {
+                final currentTab = context
+                    .read<ContentManagementBloc>()
+                    .state
+                    .activeTab;
+                switch (currentTab) {
+                  case ContentManagementTab.headlines:
+                    context.goNamed(Routes.draftHeadlinesName);
+                  case ContentManagementTab.topics:
+                    context.goNamed(Routes.draftTopicsName);
+                  case ContentManagementTab.sources:
+                    context.goNamed(Routes.draftSourcesName);
+                }
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.archive_outlined),
               tooltip: l10n.archivedItems,
               onPressed: () {
                 final currentTab = context
@@ -111,7 +132,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               },
             ),
             IconButton(
-              icon: const Icon(Icons.add),
+              icon: const Icon(Icons.add_outlined),
               tooltip: l10n.addNewItem,
               onPressed: () {
                 final currentTab = context
@@ -133,7 +154,11 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [HeadlinesPage(), TopicPage(), SourcesPage()],
+          children: const [
+            HeadlinesPage(),
+            TopicPage(),
+            SourcesPage(),
+          ],
         ),
       ),
     );

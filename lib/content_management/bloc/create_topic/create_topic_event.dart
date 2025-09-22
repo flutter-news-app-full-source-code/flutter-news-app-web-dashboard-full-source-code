@@ -32,16 +32,12 @@ final class CreateTopicIconUrlChanged extends CreateTopicEvent {
   List<Object?> get props => [iconUrl];
 }
 
-/// Event for when the topic's status is changed.
-final class CreateTopicStatusChanged extends CreateTopicEvent {
-  const CreateTopicStatusChanged(this.status);
-
-  final ContentStatus status;
-  @override
-  List<Object?> get props => [status];
+/// Event to save the topic as a draft.
+final class CreateTopicSavedAsDraft extends CreateTopicEvent {
+  const CreateTopicSavedAsDraft();
 }
 
-/// Event to signal that the form should be submitted.
-final class CreateTopicSubmitted extends CreateTopicEvent {
-  const CreateTopicSubmitted();
+/// Event to publish the topic.
+final class CreateTopicPublished extends CreateTopicEvent {
+  const CreateTopicPublished();
 }

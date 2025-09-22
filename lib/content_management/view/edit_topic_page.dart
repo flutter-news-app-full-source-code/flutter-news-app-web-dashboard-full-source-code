@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -80,14 +79,34 @@ class _EditTopicViewState extends State<_EditTopicView> {
                   ),
                 );
               }
+              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<EditTopicBloc>().add(
-                        const EditTopicSubmitted(),
-                      )
-                    : null,
+                    ? () async {
+                        // On edit page, directly save without a prompt.
+                        // The status (draft/active) is determined by the original topic
+                        // and is not changed by this save action unless a specific
+                        // "change status" UI element is introduced (out of scope).
+                        // For now, we assume the current status is maintained.
+                        final originalTopic = await context
+                            .read<DataRepository<Topic>>()
+                            .read(id: state.topicId);
+
+                        if (context.mounted) {
+                          if (originalTopic.status == ContentStatus.active) {
+                            context.read<EditTopicBloc>().add(
+                              const EditTopicPublished(),
+                            );
+                          } else {
+                            context.read<EditTopicBloc>().add(
+                              const EditTopicSavedAsDraft(),
+                            );
+                          }
+                        }
+                      }
+                    : null, // Disable button if form is not valid
               );
             },
           ),
@@ -183,21 +202,6 @@ class _EditTopicViewState extends State<_EditTopicView> {
                       onChanged: (value) => context.read<EditTopicBloc>().add(
                         EditTopicIconUrlChanged(value),
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<EditTopicBloc>().add(
-                          EditTopicStatusChanged(value),
-                        );
-                      },
                     ),
                   ],
                 ),

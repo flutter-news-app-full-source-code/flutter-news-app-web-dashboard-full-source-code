@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -37,6 +36,48 @@ class _CreateTopicView extends StatefulWidget {
 
 class _CreateTopicViewState extends State<_CreateTopicView> {
   final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _nameController;
+  late final TextEditingController _descriptionController;
+  late final TextEditingController _iconUrlController;
+
+  @override
+  void initState() {
+    super.initState();
+    final state = context.read<CreateTopicBloc>().state;
+    _nameController = TextEditingController(text: state.name);
+    _descriptionController = TextEditingController(text: state.description);
+    _iconUrlController = TextEditingController(text: state.iconUrl);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    _iconUrlController.dispose();
+    super.dispose();
+  }
+
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.saveTopicTitle),
+        content: Text(l10n.saveTopicMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +98,28 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                   ),
                 );
               }
+              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<CreateTopicBloc>().add(
-                        const CreateTopicSubmitted(),
-                      )
-                    : null,
+                    ? () async {
+                        final selectedStatus = await _showSaveOptionsDialog(
+                          context,
+                        );
+                        if (selectedStatus == ContentStatus.active &&
+                            context.mounted) {
+                          context.read<CreateTopicBloc>().add(
+                            const CreateTopicPublished(),
+                          );
+                        } else if (selectedStatus == ContentStatus.draft &&
+                            context.mounted) {
+                          context.read<CreateTopicBloc>().add(
+                            const CreateTopicSavedAsDraft(),
+                          );
+                        }
+                      }
+                    : null, // Disable button if form is not valid
               );
             },
           ),
@@ -108,7 +163,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextFormField(
-                      initialValue: state.name,
+                      controller: _nameController,
                       decoration: InputDecoration(
                         labelText: l10n.topicName,
                         border: const OutlineInputBorder(),
@@ -119,7 +174,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
-                      initialValue: state.description,
+                      controller: _descriptionController,
                       decoration: InputDecoration(
                         labelText: l10n.description,
                         border: const OutlineInputBorder(),
@@ -131,7 +186,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
-                      initialValue: state.iconUrl,
+                      controller: _iconUrlController,
                       decoration: InputDecoration(
                         labelText: l10n.iconUrl,
                         border: const OutlineInputBorder(),
@@ -139,21 +194,6 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                       onChanged: (value) => context.read<CreateTopicBloc>().add(
                         CreateTopicIconUrlChanged(value),
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<CreateTopicBloc>().add(
-                          CreateTopicStatusChanged(value),
-                        );
-                      },
                     ),
                   ],
                 ),

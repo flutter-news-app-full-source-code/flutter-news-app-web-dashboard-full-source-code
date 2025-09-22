@@ -2425,6 +2425,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rectangle'**
   String get bannerAdShapeRectangle;
+
+  /// Text displayed when draft headlines are being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Draft Headlines'**
+  String get loadingDraftHeadlines;
+
+  /// Text displayed when no draft headlines are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No Draft Headlines Found'**
+  String get noDraftHeadlinesFound;
+
+  /// Button text to publish a headline (either new, edited, or from drafts).
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get publish;
+
+  /// Button text to save a headline as a draft.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as Draft'**
+  String get saveAsDraft;
+
+  /// Title for the dialog shown when a form is invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Form'**
+  String get invalidFormTitle;
+
+  /// Message for the dialog shown when a form is invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete all required fields before publishing. You can save as a draft or discard your changes.'**
+  String get invalidFormMessage;
+
+  /// Button text in the invalid form dialog to return to the form.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Form'**
+  String get completeForm;
+
+  /// Button text in the invalid form dialog to discard changes.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
+  /// Label for the 'Drafts' tab in content management.
+  ///
+  /// In en, this message translates to:
+  /// **'Drafts'**
+  String get drafts;
+
+  /// Tooltip for the drafts icon button in the AppBar
+  ///
+  /// In en, this message translates to:
+  /// **'Drafts'**
+  String get draftsIconTooltip;
+
+  /// Title for the Draft Headlines page
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Headlines'**
+  String get draftHeadlines;
+
+  /// Title for the Draft Topics page
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Topics'**
+  String get draftTopics;
+
+  /// Title for the Draft Sources page
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Sources'**
+  String get draftSources;
+
+  /// Title for the dialog asking how to save a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Headline'**
+  String get saveHeadlineTitle;
+
+  /// Message for the dialog asking how to save a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this headline or save it as a draft?'**
+  String get saveHeadlineMessage;
+
+  /// Title for the dialog asking how to save a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Topic'**
+  String get saveTopicTitle;
+
+  /// Message for the dialog asking how to save a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this topic or save it as a draft?'**
+  String get saveTopicMessage;
+
+  /// Title for the dialog asking how to save a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Source'**
+  String get saveSourceTitle;
+
+  /// Message for the dialog asking how to save a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this source or save it as a draft?'**
+  String get saveSourceMessage;
+
+  /// Message displayed when draft topics are being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Draft Topics...'**
+  String get loadingDraftTopics;
+
+  /// Message displayed when no draft topics are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No draft topics found.'**
+  String get noDraftTopicsFound;
+
+  /// Snackbar message when a topic is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic \"{topicTitle}\" deleted.'**
+  String topicDeleted(String topicTitle);
+
+  /// Message displayed when draft sources are being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Draft Sources...'**
+  String get loadingDraftSources;
+
+  /// Message displayed when no draft sources are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No draft sources found.'**
+  String get noDraftSourcesFound;
+
+  /// Snackbar message when a source is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Source \"{sourceName}\" deleted.'**
+  String sourceDeleted(String sourceName);
+
+  /// Tooltip for the publish topic button.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Topic'**
+  String get publishTopic;
+
+  /// Tooltip for the publish source button.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Source'**
+  String get publishSource;
 }
 
 class _AppLocalizationsDelegate

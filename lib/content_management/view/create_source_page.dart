@@ -57,6 +57,28 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
     super.dispose();
   }
 
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.saveSourceTitle),
+        content: Text(l10n.saveSourceMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -76,14 +98,28 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                   ),
                 );
               }
+              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<CreateSourceBloc>().add(
-                        const CreateSourceSubmitted(),
-                      )
-                    : null,
+                    ? () async {
+                        final selectedStatus = await _showSaveOptionsDialog(
+                          context,
+                        );
+                        if (selectedStatus == ContentStatus.active &&
+                            context.mounted) {
+                          context.read<CreateSourceBloc>().add(
+                            const CreateSourcePublished(),
+                          );
+                        } else if (selectedStatus == ContentStatus.draft &&
+                            context.mounted) {
+                          context.read<CreateSourceBloc>().add(
+                            const CreateSourceSavedAsDraft(),
+                          );
+                        }
+                      }
+                    : null, // Disable button if form is not valid
               );
             },
           ),
@@ -123,12 +159,14 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           }
 
           if (state.status == CreateSourceStatus.failure) {
-            return FailureStateWidget(
-              exception: state.exception!,
-              onRetry: () => context.read<CreateSourceBloc>().add(
-                const CreateSourceSubmitted(),
-              ),
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.exception!.toFriendlyMessage(context)),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+              );
           }
 
           return SingleChildScrollView(
@@ -244,21 +282,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<CreateSourceBloc>().add(
-                          CreateSourceStatusChanged(value),
-                        );
-                      },
                     ),
                   ],
                 ),

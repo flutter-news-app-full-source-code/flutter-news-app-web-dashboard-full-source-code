@@ -43,17 +43,12 @@ final class EditTopicIconUrlChanged extends EditTopicEvent {
   List<Object?> get props => [iconUrl];
 }
 
-/// Event for when the topic's status is changed.
-final class EditTopicStatusChanged extends EditTopicEvent {
-  const EditTopicStatusChanged(this.status);
-
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
+/// Event to save the topic as a draft.
+final class EditTopicSavedAsDraft extends EditTopicEvent {
+  const EditTopicSavedAsDraft();
 }
 
-/// Event to submit the edited topic data.
-final class EditTopicSubmitted extends EditTopicEvent {
-  const EditTopicSubmitted();
+/// Event to publish the topic.
+final class EditTopicPublished extends EditTopicEvent {
+  const EditTopicPublished();
 }

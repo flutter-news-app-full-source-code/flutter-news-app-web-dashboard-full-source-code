@@ -1296,4 +1296,90 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bannerAdShapeRectangle => 'مستطيل';
+
+  @override
+  String get loadingDraftHeadlines => 'جاري تحميل العناوين المسودة';
+
+  @override
+  String get noDraftHeadlinesFound => 'لا توجد عناوين مسودة';
+
+  @override
+  String get publish => 'نشر';
+
+  @override
+  String get saveAsDraft => 'حفظ كمسودة';
+
+  @override
+  String get invalidFormTitle => 'نموذج غير صالح';
+
+  @override
+  String get invalidFormMessage =>
+      'يرجى إكمال جميع الحقول المطلوبة قبل النشر. يمكنك الحفظ كمسودة أو تجاهل التغييرات.';
+
+  @override
+  String get completeForm => 'إكمال النموذج';
+
+  @override
+  String get discard => 'تجاهل';
+
+  @override
+  String get drafts => 'المسودات';
+
+  @override
+  String get draftsIconTooltip => 'المسودات';
+
+  @override
+  String get draftHeadlines => 'مسودات العناوين';
+
+  @override
+  String get draftTopics => 'مسودات المواضيع';
+
+  @override
+  String get draftSources => 'مسودات المصادر';
+
+  @override
+  String get saveHeadlineTitle => 'حفظ العنوان';
+
+  @override
+  String get saveHeadlineMessage => 'هل تريد نشر هذا العنوان أم حفظه كمسودة؟';
+
+  @override
+  String get saveTopicTitle => 'حفظ الموضوع';
+
+  @override
+  String get saveTopicMessage => 'هل تريد نشر هذا الموضوع أم حفظه كمسودة؟';
+
+  @override
+  String get saveSourceTitle => 'حفظ المصدر';
+
+  @override
+  String get saveSourceMessage => 'هل تريد نشر هذا المصدر أم حفظه كمسودة؟';
+
+  @override
+  String get loadingDraftTopics => 'جاري تحميل مسودات المواضيع...';
+
+  @override
+  String get noDraftTopicsFound => 'لم يتم العثور على مسودات مواضيع.';
+
+  @override
+  String topicDeleted(String topicTitle) {
+    return 'تم حذف الموضوع \"$topicTitle\".';
+  }
+
+  @override
+  String get loadingDraftSources => 'جاري تحميل مسودات المصادر...';
+
+  @override
+  String get noDraftSourcesFound => 'لم يتم العثور على مسودات مصادر.';
+
+  @override
+  String sourceDeleted(String sourceName) {
+    return 'تم حذف المصدر \"$sourceName\".';
+  }
+
+  @override
+  String get publishTopic => 'نشر الموضوع';
+
+  @override
+  String get publishSource => 'نشر المصدر';
 }

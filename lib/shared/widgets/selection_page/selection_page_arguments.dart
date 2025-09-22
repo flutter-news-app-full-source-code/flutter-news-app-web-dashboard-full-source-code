@@ -32,6 +32,7 @@ class SelectionPageArguments extends Equatable {
     this.limit,
     this.staticItems,
     this.initialSelectedItem,
+    this.includeInactiveSelectedItem = false,
   }) : assert(
          (repository != null &&
                  filterBuilder != null &&
@@ -81,6 +82,12 @@ class SelectionPageArguments extends Equatable {
   /// The item is of type [Object] and must be cast to [itemType] before use.
   final Object? initialSelectedItem;
 
+  /// If true, the [initialSelectedItem] will be included in the fetched results
+  /// even if it does not match the current filter criteria (e.g., if it's
+  /// an inactive item that was previously selected). This is useful for edit
+  /// pages where the previously selected item should always be visible.
+  final bool includeInactiveSelectedItem;
+
   @override
   List<Object?> get props => [
     title,
@@ -93,5 +100,6 @@ class SelectionPageArguments extends Equatable {
     limit,
     staticItems,
     initialSelectedItem,
+    includeInactiveSelectedItem,
   ];
 }

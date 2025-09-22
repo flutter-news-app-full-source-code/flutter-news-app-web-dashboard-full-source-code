@@ -27,10 +27,10 @@ Click on any category to explore.
 
 ### 📰 Comprehensive Content Management
 Manage the entire lifecycle of your news content with full CRUD (Create, Read, Update, Delete) capabilities, complemented by advanced archiving and restoration features:
-- **Headlines:** Create, edit, publish, archive, restore, and permanently delete news articles.
-- **Topics:** Organize, define, archive, and restore news topics.
-- **Sources:** Maintain, update, archive, and restore news sources.
-> **💡 Your Advantage:** Gain detailed control over your content. This centralized system ensures accuracy and consistency, allowing you to manage active content and easily retrieve or remove archived items.
+- **Headlines:** Draft, Create, edit, publish, archive, restore, and permanently delete news articles.
+- **Topics:** Draft, Create, edit, archive, and restore news topics.
+- **Sources:** Draft, Create, edit, archive, and restore news sources.
+> **💡 Your Advantage:** Gain detailed control over your content. This centralized system ensures accuracy and consistency, allowing you to manage draft/active content and easily retrieve or remove archived items.
 
 ---
 
