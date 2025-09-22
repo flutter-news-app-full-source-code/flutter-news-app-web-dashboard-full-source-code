@@ -21,8 +21,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceTypeChanged>(_onSourceTypeChanged);
     on<CreateSourceLanguageChanged>(_onLanguageChanged);
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
-    on<CreateSourceStatusChanged>(_onStatusChanged);
-    on<CreateSourceSubmitted>(_onSubmitted);
+    on<CreateSourceSavedAsDraft>(_onSavedAsDraft);
+    on<CreateSourcePublished>(_onPublished);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -70,23 +70,22 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(headquarters: () => event.headquarters));
   }
 
-  void _onStatusChanged(
-    CreateSourceStatusChanged event,
-    Emitter<CreateSourceState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: CreateSourceStatus.initial,
-      ),
-    );
-  }
-
-  Future<void> _onSubmitted(
-    CreateSourceSubmitted event,
+  /// Handles saving the source as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateSourceSavedAsDraft event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.isFormValid) return;
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
 
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
@@ -101,7 +100,59 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         createdAt: now,
         updatedAt: now,
         headquarters: state.headquarters!,
-        status: state.contentStatus,
+        status: ContentStatus.draft,
+      );
+
+      await _sourcesRepository.create(item: newSource);
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.success,
+          createdSource: newSource,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the source.
+  Future<void> _onPublished(
+    CreateSourcePublished event,
+    Emitter<CreateSourceState> emit,
+  ) async {
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(state.copyWith(status: CreateSourceStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newSource = Source(
+        id: _uuid.v4(),
+        name: state.name,
+        description: state.description,
+        url: state.url,
+        sourceType: state.sourceType!,
+        language: state.language!,
+        createdAt: now,
+        updatedAt: now,
+        headquarters: state.headquarters!,
+        status: ContentStatus.active,
       );
 
       await _sourcesRepository.create(item: newSource);
