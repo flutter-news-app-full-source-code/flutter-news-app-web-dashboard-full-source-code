@@ -96,7 +96,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.edit_note),
+              icon: const Icon(Icons.drafts_outlined),
               tooltip: l10n.draftsIconTooltip,
               onPressed: () {
                 final currentTab = context
@@ -114,7 +114,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               },
             ),
             IconButton(
-              icon: const Icon(Icons.inventory_2_outlined),
+              icon: const Icon(Icons.archive_outlined),
               tooltip: l10n.archivedItems,
               onPressed: () {
                 final currentTab = context
@@ -132,7 +132,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               },
             ),
             IconButton(
-              icon: const Icon(Icons.add),
+              icon: const Icon(Icons.add_outlined),
               tooltip: l10n.addNewItem,
               onPressed: () {
                 final currentTab = context
