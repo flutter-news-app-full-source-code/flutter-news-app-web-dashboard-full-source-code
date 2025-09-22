@@ -26,6 +26,8 @@ class CreateHeadlineBloc
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineStatusChanged>(_onStatusChanged);
     on<CreateHeadlineSubmitted>(_onSubmitted);
+    on<CreateHeadlineSavedAsDraft>(_onSavedAsDraft);
+    on<CreateHeadlinePublished>(_onPublished);
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -114,6 +116,100 @@ class CreateHeadlineBloc
         createdAt: now,
         updatedAt: now,
         status: state.contentStatus,
+      );
+
+      await _headlinesRepository.create(item: newHeadline);
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.success,
+          createdHeadline: newHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles saving the headline as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateHeadlineSavedAsDraft event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    emit(state.copyWith(status: CreateHeadlineStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newHeadline = Headline(
+        id: _uuid.v4(),
+        title: state.title,
+        excerpt: state.excerpt,
+        url: state.url,
+        imageUrl: state.imageUrl,
+        source: state.source!,
+        eventCountry: state.eventCountry!,
+        topic: state.topic!,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      await _headlinesRepository.create(item: newHeadline);
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.success,
+          createdHeadline: newHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the headline.
+  Future<void> _onPublished(
+    CreateHeadlinePublished event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(state.copyWith(status: CreateHeadlineStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newHeadline = Headline(
+        id: _uuid.v4(),
+        title: state.title,
+        excerpt: state.excerpt,
+        url: state.url,
+        imageUrl: state.imageUrl,
+        source: state.source!,
+        eventCountry: state.eventCountry!,
+        topic: state.topic!,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.active,
       );
 
       await _headlinesRepository.create(item: newHeadline);
