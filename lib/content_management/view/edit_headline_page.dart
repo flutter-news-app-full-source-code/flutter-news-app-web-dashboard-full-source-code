@@ -96,6 +96,28 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
     }
   }
 
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.saveHeadlineTitle),
+        content: Text(l10n.saveHeadlineMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -115,35 +137,27 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                   ),
                 );
               }
-              return Row(
-                children: [
-                  TextButton(
-                    onPressed: () async {
-                      if (state.isFormValid) {
-                        context.read<EditHeadlineBloc>().add(
-                          const EditHeadlinePublished(),
-                        );
-                      } else {
-                        await _showInvalidFormDialog(context);
-                      }
-                    },
-                    child: Text(l10n.publish),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (state.isFormValid) {
-                        context.read<EditHeadlineBloc>().add(
-                          const EditHeadlineSavedAsDraft(),
-                        );
-                      } else {
-                        await _showInvalidFormDialog(context);
-                      }
-                    },
-                    child: Text(l10n.saveAsDraft),
-                  ),
-                  const SizedBox(width: AppSpacing.lg),
-                ],
+              return IconButton(
+                icon: const Icon(Icons.save),
+                tooltip: l10n.saveChanges,
+                onPressed: () async {
+                  if (state.isFormValid) {
+                    final selectedStatus = await _showSaveOptionsDialog(
+                      context,
+                    );
+                    if (selectedStatus == ContentStatus.active) {
+                      context.read<EditHeadlineBloc>().add(
+                        const EditHeadlinePublished(),
+                      );
+                    } else if (selectedStatus == ContentStatus.draft) {
+                      context.read<EditHeadlineBloc>().add(
+                        const EditHeadlineSavedAsDraft(),
+                      );
+                    }
+                  } else {
+                    await _showInvalidFormDialog(context);
+                  }
+                },
               );
             },
           ),
@@ -336,22 +350,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
-                      includeInactiveSelectedItem: true,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<EditHeadlineBloc>().add(
-                          EditHeadlineStatusChanged(value),
-                        );
-                      },
                       includeInactiveSelectedItem: true,
                     ),
                   ],
