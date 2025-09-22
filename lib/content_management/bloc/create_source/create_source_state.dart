@@ -29,7 +29,6 @@ final class CreateSourceState extends Equatable {
     this.sourceType,
     this.language,
     this.headquarters,
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.createdSource,
   });
@@ -41,7 +40,6 @@ final class CreateSourceState extends Equatable {
   final SourceType? sourceType;
   final Language? language;
   final Country? headquarters;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final Source? createdSource;
 
@@ -62,7 +60,6 @@ final class CreateSourceState extends Equatable {
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
-    ContentStatus? contentStatus,
     HttpException? exception,
     Source? createdSource,
   }) {
@@ -74,7 +71,6 @@ final class CreateSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       createdSource: createdSource ?? this.createdSource,
     );
@@ -89,7 +85,6 @@ final class CreateSourceState extends Equatable {
     sourceType,
     language,
     headquarters,
-    contentStatus,
     exception,
     createdSource,
   ];
