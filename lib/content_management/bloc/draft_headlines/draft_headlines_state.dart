@@ -82,8 +82,10 @@ class DraftHeadlinesState extends Equatable {
       // to ensure they are cleared after being handled.
       exception: exception,
       publishedHeadline: publishedHeadline,
-      lastPendingDeletionId: lastPendingDeletionId,
-      snackbarHeadlineTitle: snackbarHeadlineTitle,
+      lastPendingDeletionId:
+          lastPendingDeletionId ?? this.lastPendingDeletionId,
+      snackbarHeadlineTitle:
+          snackbarHeadlineTitle ?? this.snackbarHeadlineTitle,
     );
   }
 
