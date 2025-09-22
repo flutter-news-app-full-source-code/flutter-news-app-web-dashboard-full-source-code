@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_headlines_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/headlines_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/sources_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/topics_page.dart';
