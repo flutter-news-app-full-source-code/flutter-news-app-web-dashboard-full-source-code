@@ -62,6 +62,12 @@ abstract final class Routes {
   /// The name for the archived sources page route.
   static const String archivedSourcesName = 'archivedSources';
 
+  /// The path for the draft headlines page.
+  static const String draftHeadlines = 'draft-headlines';
+
+  /// The name for the draft headlines page route.
+  static const String draftHeadlinesName = 'draftHeadlines';
+
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
