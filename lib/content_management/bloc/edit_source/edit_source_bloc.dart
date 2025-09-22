@@ -130,18 +130,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceSavedAsDraft event,
     Emitter<EditSourceState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditSourceStatus.submitting));
     try {
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
@@ -183,18 +171,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourcePublished event,
     Emitter<EditSourceState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditSourceStatus.submitting));
     try {
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
