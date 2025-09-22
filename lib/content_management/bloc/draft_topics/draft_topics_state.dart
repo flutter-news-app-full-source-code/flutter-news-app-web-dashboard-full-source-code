@@ -82,8 +82,9 @@ class DraftTopicsState extends Equatable {
       // to ensure they are cleared after being handled.
       exception: exception,
       publishedTopic: publishedTopic,
-      lastPendingDeletionId: lastPendingDeletionId,
-      snackbarTopicTitle: snackbarTopicTitle,
+      lastPendingDeletionId:
+          lastPendingDeletionId ?? this.lastPendingDeletionId,
+      snackbarTopicTitle: snackbarTopicTitle ?? this.snackbarTopicTitle,
     );
   }
 
