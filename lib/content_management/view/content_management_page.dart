@@ -107,10 +107,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                   case ContentManagementTab.headlines:
                     context.goNamed(Routes.draftHeadlinesName);
                   case ContentManagementTab.topics:
-                    // Placeholder for Draft Topics Page
                     context.goNamed(Routes.draftTopicsName);
                   case ContentManagementTab.sources:
-                    // Placeholder for Draft Sources Page
                     context.goNamed(Routes.draftSourcesName);
                 }
               },
