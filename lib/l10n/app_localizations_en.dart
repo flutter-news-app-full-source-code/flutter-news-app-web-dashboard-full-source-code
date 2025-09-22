@@ -1326,4 +1326,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get drafts => 'Drafts';
+
+  @override
+  String get draftsIconTooltip => 'Drafts';
+
+  @override
+  String get draftHeadlines => 'Draft Headlines';
+
+  @override
+  String get draftTopics => 'Draft Topics';
+
+  @override
+  String get draftSources => 'Draft Sources';
 }

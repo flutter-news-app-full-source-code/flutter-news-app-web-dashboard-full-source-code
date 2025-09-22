@@ -1661,5 +1661,21 @@
   "drafts": "المسودات",
   "@drafts": {
     "description": "تسمية لعلامة التبويب 'المسودات' في إدارة المحتوى."
+  },
+  "draftsIconTooltip": "المسودات",
+  "@draftsIconTooltip": {
+    "description": "Tooltip for the drafts icon button in the AppBar"
+  },
+  "draftHeadlines": "مسودات العناوين",
+  "@draftHeadlines": {
+    "description": "Title for the Draft Headlines page"
+  },
+  "draftTopics": "مسودات المواضيع",
+  "@draftTopics": {
+    "description": "Title for the Draft Topics page"
+  },
+  "draftSources": "مسودات المصادر",
+  "@draftSources": {
+    "description": "Title for the Draft Sources page"
   }
 }

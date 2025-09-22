@@ -2479,6 +2479,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Drafts'**
   String get drafts;
+
+  /// Tooltip for the drafts icon button in the AppBar
+  ///
+  /// In en, this message translates to:
+  /// **'Drafts'**
+  String get draftsIconTooltip;
+
+  /// Title for the Draft Headlines page
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Headlines'**
+  String get draftHeadlines;
+
+  /// Title for the Draft Topics page
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Topics'**
+  String get draftTopics;
+
+  /// Title for the Draft Sources page
+  ///
+  /// In en, this message translates to:
+  /// **'Draft Sources'**
+  String get draftSources;
 }
 
 class _AppLocalizationsDelegate

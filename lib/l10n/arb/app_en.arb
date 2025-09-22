@@ -1657,5 +1657,21 @@
   "drafts": "Drafts",
   "@drafts": {
     "description": "Label for the 'Drafts' tab in content management."
+  },
+  "draftsIconTooltip": "Drafts",
+  "@draftsIconTooltip": {
+    "description": "Tooltip for the drafts icon button in the AppBar"
+  },
+  "draftHeadlines": "Draft Headlines",
+  "@draftHeadlines": {
+    "description": "Title for the Draft Headlines page"
+  },
+  "draftTopics": "Draft Topics",
+  "@draftTopics": {
+    "description": "Title for the Draft Topics page"
+  },
+  "draftSources": "Draft Sources",
+  "@draftSources": {
+    "description": "Title for the Draft Sources page"
   }
 }

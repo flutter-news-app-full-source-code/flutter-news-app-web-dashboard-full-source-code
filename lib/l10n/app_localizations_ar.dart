@@ -1324,4 +1324,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get drafts => 'المسودات';
+
+  @override
+  String get draftsIconTooltip => 'المسودات';
+
+  @override
+  String get draftHeadlines => 'مسودات العناوين';
+
+  @override
+  String get draftTopics => 'مسودات المواضيع';
+
+  @override
+  String get draftSources => 'مسودات المصادر';
 }
