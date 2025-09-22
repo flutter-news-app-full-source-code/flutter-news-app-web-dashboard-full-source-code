@@ -18,6 +18,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_headlines_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_sources_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_topics_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
@@ -231,6 +233,16 @@ GoRouter createRouter({
                     path: Routes.draftHeadlines,
                     name: Routes.draftHeadlinesName,
                     builder: (context, state) => const DraftHeadlinesPage(),
+                  ),
+                  GoRoute(
+                    path: Routes.draftSources,
+                    name: Routes.draftSourcesName,
+                    builder: (context, state) => const DraftSourcesPage(),
+                  ),
+                  GoRoute(
+                    path: Routes.draftTopics,
+                    name: Routes.draftTopicsName,
+                    builder: (context, state) => const DraftTopicsPage(),
                   ),
                   // Moved searchableSelection as a sub-route of content-management
                   GoRoute(
