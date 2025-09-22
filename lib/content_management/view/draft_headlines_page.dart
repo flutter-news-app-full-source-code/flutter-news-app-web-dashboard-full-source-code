@@ -23,148 +23,144 @@ class DraftHeadlinesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DraftHeadlinesBloc(
-        headlinesRepository: context.read<DataRepository<Headline>>(),
-        pendingDeletionsService: context.read<PendingDeletionsService>(),
-      )..add(const LoadDraftHeadlinesRequested(limit: kDefaultRowsPerPage)),
-      child: const _DraftHeadlinesView(),
-    );
-  }
-}
-
-class _DraftHeadlinesView extends StatelessWidget {
-  const _DraftHeadlinesView();
-
-  @override
-  Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     final pendingDeletionsService = context.read<PendingDeletionsService>();
-    return BlocListener<DraftHeadlinesBloc, DraftHeadlinesState>(
-      listenWhen: (previous, current) =>
-          previous.lastPendingDeletionId != current.lastPendingDeletionId ||
-          previous.publishedHeadline != current.publishedHeadline ||
-          previous.snackbarHeadlineTitle != current.snackbarHeadlineTitle,
-      listener: (context, state) {
-        if (state.publishedHeadline != null) {
-          // When a headline is published, refresh the main headlines list.
-          context.read<ContentManagementBloc>().add(
-            const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
-          );
-          // Clear the publishedHeadline after it's been handled.
-          context.read<DraftHeadlinesBloc>().add(
-            const ClearPublishedHeadline(),
-          );
-        }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.draftHeadlines),
+      ),
+      body: BlocProvider(
+        create: (context) => DraftHeadlinesBloc(
+          headlinesRepository: context.read<DataRepository<Headline>>(),
+          pendingDeletionsService: pendingDeletionsService,
+        )..add(const LoadDraftHeadlinesRequested(limit: kDefaultRowsPerPage)),
+        child: BlocListener<DraftHeadlinesBloc, DraftHeadlinesState>(
+          listenWhen: (previous, current) =>
+              previous.lastPendingDeletionId != current.lastPendingDeletionId ||
+              previous.publishedHeadline != current.publishedHeadline ||
+              previous.snackbarHeadlineTitle != current.snackbarHeadlineTitle,
+          listener: (context, state) {
+            if (state.publishedHeadline != null) {
+              // When a headline is published, refresh the main headlines list.
+              context.read<ContentManagementBloc>().add(
+                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+              );
+              // Clear the publishedHeadline after it's been handled.
+              context.read<DraftHeadlinesBloc>().add(
+                const ClearPublishedHeadline(),
+              );
+            }
 
-        // Show snackbar for pending deletions.
-        if (state.snackbarHeadlineTitle != null) {
-          final headlineId = state.lastPendingDeletionId!;
-          final truncatedTitle = state.snackbarHeadlineTitle!.truncate(30);
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(
-                  l10n.headlineDeleted(truncatedTitle),
-                ),
-                action: SnackBarAction(
-                  label: l10n.undo,
-                  onPressed: () {
-                    // Directly call undoDeletion on the service.
-                    pendingDeletionsService.undoDeletion(headlineId);
-                  },
-                ),
-              ),
-            );
-        }
-      },
-      child: BlocBuilder<DraftHeadlinesBloc, DraftHeadlinesState>(
-        builder: (context, state) {
-          if (state.status == DraftHeadlinesStatus.loading &&
-              state.headlines.isEmpty) {
-            return LoadingStateWidget(
-              icon: Icons.edit_note,
-              headline: l10n.loadingDraftHeadlines,
-              subheadline: l10n.pleaseWait,
-            );
-          }
-
-          if (state.status == DraftHeadlinesStatus.failure) {
-            return FailureStateWidget(
-              exception: state.exception!,
-              onRetry: () => context.read<DraftHeadlinesBloc>().add(
-                const LoadDraftHeadlinesRequested(
-                  limit: kDefaultRowsPerPage,
-                ),
-              ),
-            );
-          }
-
-          if (state.headlines.isEmpty) {
-            return Center(child: Text(l10n.noDraftHeadlinesFound));
-          }
-
-          return Column(
-            children: [
-              if (state.status == DraftHeadlinesStatus.loading &&
-                  state.headlines.isNotEmpty)
-                const LinearProgressIndicator(),
-              Expanded(
-                child: PaginatedDataTable2(
-                  columns: [
-                    DataColumn2(
-                      label: Text(l10n.headlineTitle),
-                      size: ColumnSize.L,
+            // Show snackbar for pending deletions.
+            if (state.snackbarHeadlineTitle != null) {
+              final headlineId = state.lastPendingDeletionId!;
+              final truncatedTitle = state.snackbarHeadlineTitle!.truncate(30);
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      l10n.headlineDeleted(truncatedTitle),
                     ),
-                    DataColumn2(
-                      label: Text(l10n.sourceName),
-                      size: ColumnSize.M,
+                    action: SnackBarAction(
+                      label: l10n.undo,
+                      onPressed: () {
+                        // Directly call undoDeletion on the service.
+                        pendingDeletionsService.undoDeletion(headlineId);
+                      },
                     ),
-                    DataColumn2(
-                      label: Text(l10n.lastUpdated),
-                      size: ColumnSize.M,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.actions),
-                      size: ColumnSize.S,
-                      fixedWidth: 120,
-                    ),
-                  ],
-                  source: _DraftHeadlinesDataSource(
-                    context: context,
-                    headlines: state.headlines,
-                    hasMore: state.hasMore,
-                    l10n: l10n,
                   ),
-                  rowsPerPage: kDefaultRowsPerPage,
-                  availableRowsPerPage: const [kDefaultRowsPerPage],
-                  onPageChanged: (pageIndex) {
-                    final newOffset = pageIndex * kDefaultRowsPerPage;
-                    if (newOffset >= state.headlines.length &&
-                        state.hasMore &&
-                        state.status != DraftHeadlinesStatus.loading) {
-                      context.read<DraftHeadlinesBloc>().add(
-                        LoadDraftHeadlinesRequested(
-                          startAfterId: state.cursor,
-                          limit: kDefaultRowsPerPage,
+                );
+            }
+          },
+          child: BlocBuilder<DraftHeadlinesBloc, DraftHeadlinesState>(
+            builder: (context, state) {
+              if (state.status == DraftHeadlinesStatus.loading &&
+                  state.headlines.isEmpty) {
+                return LoadingStateWidget(
+                  icon: Icons.edit_note,
+                  headline: l10n.loadingDraftHeadlines,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
+
+              if (state.status == DraftHeadlinesStatus.failure) {
+                return FailureStateWidget(
+                  exception: state.exception!,
+                  onRetry: () => context.read<DraftHeadlinesBloc>().add(
+                    const LoadDraftHeadlinesRequested(
+                      limit: kDefaultRowsPerPage,
+                    ),
+                  ),
+                );
+              }
+
+              if (state.headlines.isEmpty) {
+                return Center(child: Text(l10n.noDraftHeadlinesFound));
+              }
+
+              return Column(
+                children: [
+                  if (state.status == DraftHeadlinesStatus.loading &&
+                      state.headlines.isNotEmpty)
+                    const LinearProgressIndicator(),
+                  Expanded(
+                    child: PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.headlineTitle),
+                          size: ColumnSize.L,
                         ),
-                      );
-                    }
-                  },
-                  empty: Center(child: Text(l10n.noHeadlinesFound)),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  fit: FlexFit.tight,
-                  headingRowHeight: 56,
-                  dataRowHeight: 56,
-                  columnSpacing: AppSpacing.md,
-                  horizontalMargin: AppSpacing.md,
-                ),
-              ),
-            ],
-          );
-        },
+                        DataColumn2(
+                          label: Text(l10n.sourceName),
+                          size: ColumnSize.M,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.M,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                          fixedWidth: 120,
+                        ),
+                      ],
+                      source: _DraftHeadlinesDataSource(
+                        context: context,
+                        headlines: state.headlines,
+                        hasMore: state.hasMore,
+                        l10n: l10n,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.headlines.length &&
+                            state.hasMore &&
+                            state.status != DraftHeadlinesStatus.loading) {
+                          context.read<DraftHeadlinesBloc>().add(
+                            LoadDraftHeadlinesRequested(
+                              startAfterId: state.cursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noHeadlinesFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -226,7 +222,7 @@ class _DraftHeadlinesDataSource extends DataTableSource {
               ),
               IconButton(
                 icon: const Icon(Icons.edit),
-                tooltip: l10n.edit,
+                tooltip: l10n.editHeadline,
                 onPressed: () {
                   context.goNamed(
                     Routes.editHeadlineName,
