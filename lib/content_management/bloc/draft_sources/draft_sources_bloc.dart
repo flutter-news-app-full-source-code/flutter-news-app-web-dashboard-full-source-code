@@ -113,12 +113,12 @@ class DraftSourcesBloc extends Bloc<DraftSourcesEvent, DraftSourcesState> {
     PublishDraftSourceRequested event,
     Emitter<DraftSourcesState> emit,
   ) async {
-    final originalSources = List<Source>.from(state.sources);
+    final originalSources = state.sources;
     final sourceIndex = originalSources.indexWhere((s) => s.id == event.id);
     if (sourceIndex == -1) return;
-
     final sourceToPublish = originalSources[sourceIndex];
-    final updatedSources = originalSources..removeAt(sourceIndex);
+    final updatedSources = List<Source>.from(originalSources)
+      ..removeAt(sourceIndex);
 
     // Optimistically remove the source from the UI.
     emit(
