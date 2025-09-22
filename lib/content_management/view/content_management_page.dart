@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_headlines_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/headlines_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/sources_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/topics_page.dart';
@@ -27,7 +28,10 @@ class _ContentManagementPageState extends State<ContentManagementPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+      length: 4,
+      vsync: this,
+    );
     _tabController.addListener(_onTabChanged);
   }
 
@@ -86,6 +90,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     Tab(text: l10n.headlines),
                     Tab(text: l10n.topics),
                     Tab(text: l10n.sources),
+                    Tab(text: l10n.drafts),
                   ],
                 ),
               ],
@@ -107,6 +112,10 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     context.goNamed(Routes.archivedTopicsName);
                   case ContentManagementTab.sources:
                     context.goNamed(Routes.archivedSourcesName);
+                  case ContentManagementTab.drafts: // New case
+                    context.goNamed(
+                      Routes.archivedHeadlinesName,
+                    );
                 }
               },
             ),
@@ -120,6 +129,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     .activeTab;
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
+                  case ContentManagementTab
+                      .drafts: // Drafts also create new headlines
                     context.goNamed(Routes.createHeadlineName);
                   case ContentManagementTab.topics:
                     context.goNamed(Routes.createTopicName);
@@ -133,7 +144,12 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [HeadlinesPage(), TopicPage(), SourcesPage()],
+          children: const [
+            HeadlinesPage(),
+            TopicPage(),
+            SourcesPage(),
+            DraftHeadlinesPage(),
+          ],
         ),
       ),
     );
