@@ -1677,5 +1677,29 @@
   "draftSources": "مسودات المصادر",
   "@draftSources": {
     "description": "Title for the Draft Sources page"
+  },
+  "saveHeadlineTitle": "حفظ العنوان",
+  "@saveHeadlineTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ العنوان."
+  },
+  "saveHeadlineMessage": "هل تريد نشر هذا العنوان أم حفظه كمسودة؟",
+  "@saveHeadlineMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ العنوان."
+  },
+  "saveTopicTitle": "حفظ الموضوع",
+  "@saveTopicTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ الموضوع."
+  },
+  "saveTopicMessage": "هل تريد نشر هذا الموضوع أم حفظه كمسودة؟",
+  "@saveTopicMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ الموضوع."
+  },
+  "saveSourceTitle": "حفظ المصدر",
+  "@saveSourceTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
+  },
+  "saveSourceMessage": "هل تريد نشر هذا المصدر أم حفظه كمسودة؟",
+  "@saveSourceMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
   }
 }

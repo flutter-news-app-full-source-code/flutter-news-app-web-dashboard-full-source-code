@@ -1336,4 +1336,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get draftSources => 'مسودات المصادر';
+
+  @override
+  String get saveHeadlineTitle => 'حفظ العنوان';
+
+  @override
+  String get saveHeadlineMessage => 'هل تريد نشر هذا العنوان أم حفظه كمسودة؟';
+
+  @override
+  String get saveTopicTitle => 'حفظ الموضوع';
+
+  @override
+  String get saveTopicMessage => 'هل تريد نشر هذا الموضوع أم حفظه كمسودة؟';
+
+  @override
+  String get saveSourceTitle => 'حفظ المصدر';
+
+  @override
+  String get saveSourceMessage => 'هل تريد نشر هذا المصدر أم حفظه كمسودة؟';
 }

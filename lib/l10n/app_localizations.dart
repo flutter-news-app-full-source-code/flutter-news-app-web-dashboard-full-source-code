@@ -2503,6 +2503,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Draft Sources'**
   String get draftSources;
+
+  /// Title for the dialog asking how to save a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Headline'**
+  String get saveHeadlineTitle;
+
+  /// Message for the dialog asking how to save a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this headline or save it as a draft?'**
+  String get saveHeadlineMessage;
+
+  /// Title for the dialog asking how to save a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Topic'**
+  String get saveTopicTitle;
+
+  /// Message for the dialog asking how to save a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this topic or save it as a draft?'**
+  String get saveTopicMessage;
+
+  /// Title for the dialog asking how to save a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Source'**
+  String get saveSourceTitle;
+
+  /// Message for the dialog asking how to save a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this source or save it as a draft?'**
+  String get saveSourceMessage;
 }
 
 class _AppLocalizationsDelegate

@@ -1673,5 +1673,29 @@
   "draftSources": "Draft Sources",
   "@draftSources": {
     "description": "Title for the Draft Sources page"
+  },
+  "saveHeadlineTitle": "Save Headline",
+  "@saveHeadlineTitle": {
+    "description": "Title for the dialog asking how to save a headline."
+  },
+  "saveHeadlineMessage": "Do you want to publish this headline or save it as a draft?",
+  "@saveHeadlineMessage": {
+    "description": "Message for the dialog asking how to save a headline."
+  },
+  "saveTopicTitle": "Save Topic",
+  "@saveTopicTitle": {
+    "description": "Title for the dialog asking how to save a topic."
+  },
+  "saveTopicMessage": "Do you want to publish this topic or save it as a draft?",
+  "@saveTopicMessage": {
+    "description": "Message for the dialog asking how to save a topic."
+  },
+  "saveSourceTitle": "Save Source",
+  "@saveSourceTitle": {
+    "description": "Title for the dialog asking how to save a source."
+  },
+  "saveSourceMessage": "Do you want to publish this source or save it as a draft?",
+  "@saveSourceMessage": {
+    "description": "Message for the dialog asking how to save a source."
   }
 }

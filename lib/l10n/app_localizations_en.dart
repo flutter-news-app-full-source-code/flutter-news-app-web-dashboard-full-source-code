@@ -1338,4 +1338,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get draftSources => 'Draft Sources';
+
+  @override
+  String get saveHeadlineTitle => 'Save Headline';
+
+  @override
+  String get saveHeadlineMessage =>
+      'Do you want to publish this headline or save it as a draft?';
+
+  @override
+  String get saveTopicTitle => 'Save Topic';
+
+  @override
+  String get saveTopicMessage =>
+      'Do you want to publish this topic or save it as a draft?';
+
+  @override
+  String get saveSourceTitle => 'Save Source';
+
+  @override
+  String get saveSourceMessage =>
+      'Do you want to publish this source or save it as a draft?';
 }
