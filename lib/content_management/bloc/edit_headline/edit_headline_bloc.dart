@@ -30,6 +30,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineStatusChanged>(_onStatusChanged);
     on<EditHeadlineSubmitted>(_onSubmitted);
+    on<EditHeadlineSavedAsDraft>(_onSavedAsDraft);
+    on<EditHeadlinePublished>(_onPublished);
 
     add(const EditHeadlineLoaded());
   }
@@ -175,6 +177,106 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         topic: state.topic,
         eventCountry: state.eventCountry,
         status: state.contentStatus,
+        updatedAt: DateTime.now(),
+      );
+
+      await _headlinesRepository.update(
+        id: state.headlineId,
+        item: updatedHeadline,
+      );
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.success,
+          updatedHeadline: updatedHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles saving the headline as a draft.
+  Future<void> _onSavedAsDraft(
+    EditHeadlineSavedAsDraft event,
+    Emitter<EditHeadlineState> emit,
+  ) async {
+    emit(state.copyWith(status: EditHeadlineStatus.submitting));
+    try {
+      final originalHeadline = await _headlinesRepository.read(
+        id: state.headlineId,
+      );
+      final updatedHeadline = originalHeadline.copyWith(
+        title: state.title,
+        excerpt: state.excerpt,
+        url: state.url,
+        imageUrl: state.imageUrl,
+        source: state.source,
+        topic: state.topic,
+        eventCountry: state.eventCountry,
+        status: ContentStatus.draft,
+        updatedAt: DateTime.now(),
+      );
+
+      await _headlinesRepository.update(
+        id: state.headlineId,
+        item: updatedHeadline,
+      );
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.success,
+          updatedHeadline: updatedHeadline,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the headline.
+  Future<void> _onPublished(
+    EditHeadlinePublished event,
+    Emitter<EditHeadlineState> emit,
+  ) async {
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(state.copyWith(status: EditHeadlineStatus.submitting));
+    try {
+      final originalHeadline = await _headlinesRepository.read(
+        id: state.headlineId,
+      );
+      final updatedHeadline = originalHeadline.copyWith(
+        title: state.title,
+        excerpt: state.excerpt,
+        url: state.url,
+        imageUrl: state.imageUrl,
+        source: state.source,
+        topic: state.topic,
+        eventCountry: state.eventCountry,
+        status: ContentStatus.active,
         updatedAt: DateTime.now(),
       );
 
