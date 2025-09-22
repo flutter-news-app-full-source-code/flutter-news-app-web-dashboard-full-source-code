@@ -147,18 +147,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineSavedAsDraft event,
     Emitter<EditHeadlineState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
       final originalHeadline = await _headlinesRepository.read(
@@ -203,18 +191,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlinePublished event,
     Emitter<EditHeadlineState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: EditHeadlineStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
       final originalHeadline = await _headlinesRepository.read(
