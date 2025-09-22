@@ -112,7 +112,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     context.goNamed(Routes.archivedTopicsName);
                   case ContentManagementTab.sources:
                     context.goNamed(Routes.archivedSourcesName);
-                  case ContentManagementTab.drafts: // New case
+                  case ContentManagementTab.drafts:
                     context.goNamed(
                       Routes.archivedHeadlinesName,
                     );
@@ -129,8 +129,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     .activeTab;
                 switch (currentTab) {
                   case ContentManagementTab.headlines:
-                  case ContentManagementTab
-                      .drafts: // Drafts also create new headlines
+                  case ContentManagementTab.drafts:
                     context.goNamed(Routes.createHeadlineName);
                   case ContentManagementTab.topics:
                     context.goNamed(Routes.createTopicName);
