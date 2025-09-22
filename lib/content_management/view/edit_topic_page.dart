@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -61,6 +60,58 @@ class _EditTopicViewState extends State<_EditTopicView> {
     super.dispose();
   }
 
+  /// Shows a dialog to the user when the form is invalid, offering options
+  /// to complete the form or discard changes.
+  Future<void> _showInvalidFormDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.invalidFormTitle),
+        content: Text(l10n.invalidFormMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.completeForm),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.discard),
+          ),
+        ],
+      ),
+    );
+
+    if (result ?? false) {
+      // If user chooses to discard, pop the page.
+      if (context.mounted) {
+        context.pop();
+      }
+    }
+  }
+
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.saveTopicTitle),
+        content: Text(l10n.saveTopicMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -83,11 +134,24 @@ class _EditTopicViewState extends State<_EditTopicView> {
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
-                onPressed: state.isFormValid
-                    ? () => context.read<EditTopicBloc>().add(
-                        const EditTopicSubmitted(),
-                      )
-                    : null,
+                onPressed: () async {
+                  if (state.isFormValid) {
+                    final selectedStatus = await _showSaveOptionsDialog(
+                      context,
+                    );
+                    if (selectedStatus == ContentStatus.active) {
+                      context.read<EditTopicBloc>().add(
+                        const EditTopicPublished(),
+                      );
+                    } else if (selectedStatus == ContentStatus.draft) {
+                      context.read<EditTopicBloc>().add(
+                        const EditTopicSavedAsDraft(),
+                      );
+                    }
+                  } else {
+                    await _showInvalidFormDialog(context);
+                  }
+                },
               );
             },
           ),
@@ -183,21 +247,6 @@ class _EditTopicViewState extends State<_EditTopicView> {
                       onChanged: (value) => context.read<EditTopicBloc>().add(
                         EditTopicIconUrlChanged(value),
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<EditTopicBloc>().add(
-                          EditTopicStatusChanged(value),
-                        );
-                      },
                     ),
                   ],
                 ),
