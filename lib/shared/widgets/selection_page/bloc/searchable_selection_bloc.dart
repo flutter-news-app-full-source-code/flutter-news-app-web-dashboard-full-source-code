@@ -83,12 +83,20 @@ class SearchableSelectionBloc
         hasMore = false;
       } else if (_arguments.repository != null) {
         // Handle repository-fetched items
-        final filter = _arguments.filterBuilder!(
+        final baseFilter = _arguments.filterBuilder!(
           state.searchTerm.isEmpty ? null : state.searchTerm,
         );
 
+        // Apply default filter for active items unless includeInactiveSelectedItem is true
+        final finalFilter = _arguments.includeInactiveSelectedItem
+            ? baseFilter
+            : {
+                ...baseFilter,
+                'status': ContentStatus.active.name,
+              };
+
         final response = await (_arguments.repository!).readAll(
-          filter: filter,
+          filter: finalFilter,
           sort: _arguments.sortOptions,
           pagination: PaginationOptions(limit: _arguments.limit),
         );
@@ -174,11 +182,20 @@ class SearchableSelectionBloc
 
     emit(state.copyWith(status: SearchableSelectionStatus.loading));
     try {
-      final filter = _arguments.filterBuilder!(
+      final baseFilter = _arguments.filterBuilder!(
         state.searchTerm.isEmpty ? null : state.searchTerm,
       );
+
+      // Apply default filter for active items unless includeInactiveSelectedItem is true
+      final finalFilter = _arguments.includeInactiveSelectedItem
+          ? baseFilter
+          : {
+              ...baseFilter,
+              'status': ContentStatus.active.name,
+            };
+
       final response = await (_arguments.repository!).readAll(
-        filter: filter,
+        filter: finalFilter,
         sort: _arguments.sortOptions,
         pagination: PaginationOptions(
           cursor: state.cursor,
