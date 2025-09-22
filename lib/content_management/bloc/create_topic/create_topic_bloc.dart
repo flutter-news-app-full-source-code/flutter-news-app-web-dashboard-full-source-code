@@ -56,18 +56,6 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     CreateTopicSavedAsDraft event,
     Emitter<CreateTopicState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: CreateTopicStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: CreateTopicStatus.submitting));
     try {
       final now = DateTime.now();
@@ -105,18 +93,6 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     CreateTopicPublished event,
     Emitter<CreateTopicState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: CreateTopicStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: CreateTopicStatus.submitting));
     try {
       final now = DateTime.now();
