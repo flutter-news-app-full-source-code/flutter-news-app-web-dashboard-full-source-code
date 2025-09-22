@@ -114,13 +114,13 @@ class DraftHeadlinesBloc
     PublishDraftHeadlineRequested event,
     Emitter<DraftHeadlinesState> emit,
   ) async {
-    final originalHeadlines = List<Headline>.from(state.headlines);
+    final originalHeadlines = state.headlines;
     final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
     if (headlineIndex == -1) return;
-
     final headlineToPublish = originalHeadlines[headlineIndex];
-    final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
-
+    final updatedHeadlines = List<Headline>.from(originalHeadlines)
+      ..removeAt(headlineIndex);
+      
     // Optimistically remove the headline from the UI.
     emit(
       state.copyWith(
