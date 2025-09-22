@@ -75,18 +75,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceSavedAsDraft event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
       final now = DateTime.now();
@@ -127,18 +115,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourcePublished event,
     Emitter<CreateSourceState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
       final now = DateTime.now();
