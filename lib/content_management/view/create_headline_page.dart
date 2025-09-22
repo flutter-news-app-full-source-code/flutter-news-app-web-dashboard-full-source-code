@@ -60,6 +60,36 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
     super.dispose();
   }
 
+  /// Shows a dialog to the user when the form is invalid, offering options
+  /// to complete the form or discard changes.
+  Future<void> _showInvalidFormDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.invalidFormTitle),
+        content: Text(l10n.invalidFormMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.completeForm),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.discard),
+          ),
+        ],
+      ),
+    );
+
+    if (result ?? false) {
+      // If user chooses to discard, pop the page.
+      if (context.mounted) {
+        context.pop();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -79,14 +109,35 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                   ),
                 );
               }
-              return IconButton(
-                icon: const Icon(Icons.save),
-                tooltip: l10n.saveChanges,
-                onPressed: state.isFormValid
-                    ? () => context.read<CreateHeadlineBloc>().add(
-                        const CreateHeadlineSubmitted(),
-                      )
-                    : null,
+              return Row(
+                children: [
+                  TextButton(
+                    onPressed: () async {
+                      if (state.isFormValid) {
+                        context.read<CreateHeadlineBloc>().add(
+                          const CreateHeadlinePublished(),
+                        );
+                      } else {
+                        await _showInvalidFormDialog(context);
+                      }
+                    },
+                    child: Text(l10n.publish),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (state.isFormValid) {
+                        context.read<CreateHeadlineBloc>().add(
+                          const CreateHeadlineSavedAsDraft(),
+                        );
+                      } else {
+                        await _showInvalidFormDialog(context);
+                      }
+                    },
+                    child: Text(l10n.saveAsDraft),
+                  ),
+                  const SizedBox(width: AppSpacing.lg),
+                ],
               );
             },
           ),
@@ -191,6 +242,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
+                      includeInactiveSelectedItem: false,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Topic>(
@@ -214,6 +266,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
+                      includeInactiveSelectedItem: false,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Country>(
@@ -252,6 +305,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                         SortOption('name', SortOrder.asc),
                       ],
                       limit: kDefaultRowsPerPage,
+                      includeInactiveSelectedItem: false,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<ContentStatus>(
@@ -267,6 +321,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           CreateHeadlineStatusChanged(value),
                         );
                       },
+                      includeInactiveSelectedItem: false,
                     ),
                   ],
                 ),
