@@ -85,18 +85,6 @@ class CreateHeadlineBloc
     CreateHeadlineSavedAsDraft event,
     Emitter<CreateHeadlineState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: CreateHeadlineStatus.submitting));
     try {
       final now = DateTime.now();
@@ -138,18 +126,6 @@ class CreateHeadlineBloc
     CreateHeadlinePublished event,
     Emitter<CreateHeadlineState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: CreateHeadlineStatus.submitting));
     try {
       final now = DateTime.now();
