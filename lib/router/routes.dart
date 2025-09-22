@@ -68,6 +68,18 @@ abstract final class Routes {
   /// The name for the draft headlines page route.
   static const String draftHeadlinesName = 'draftHeadlines';
 
+  /// The path for the draft topics page.
+  static const String draftTopics = 'draft-topics';
+
+  /// The name for the draft topics page route.
+  static const String draftTopicsName = 'draftTopics';
+
+  /// The path for the draft sources page.
+  static const String draftSources = 'draft-sources';
+
+  /// The name for the draft sources page route.
+  static const String draftSourcesName = 'draftSources';
+
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
