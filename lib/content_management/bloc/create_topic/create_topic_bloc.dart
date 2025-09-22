@@ -16,8 +16,8 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     on<CreateTopicNameChanged>(_onNameChanged);
     on<CreateTopicDescriptionChanged>(_onDescriptionChanged);
     on<CreateTopicIconUrlChanged>(_onIconUrlChanged);
-    on<CreateTopicStatusChanged>(_onStatusChanged);
-    on<CreateTopicSubmitted>(_onSubmitted);
+    on<CreateTopicSavedAsDraft>(_onSavedAsDraft);
+    on<CreateTopicPublished>(_onPublished);
   }
 
   final DataRepository<Topic> _topicsRepository;
@@ -51,23 +51,22 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     );
   }
 
-  void _onStatusChanged(
-    CreateTopicStatusChanged event,
-    Emitter<CreateTopicState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: CreateTopicStatus.initial,
-      ),
-    );
-  }
-
-  Future<void> _onSubmitted(
-    CreateTopicSubmitted event,
+  /// Handles saving the topic as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateTopicSavedAsDraft event,
     Emitter<CreateTopicState> emit,
   ) async {
-    if (!state.isFormValid) return;
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: CreateTopicStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
 
     emit(state.copyWith(status: CreateTopicStatus.submitting));
     try {
@@ -77,7 +76,56 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
         name: state.name,
         description: state.description,
         iconUrl: state.iconUrl,
-        status: state.contentStatus,
+        status: ContentStatus.draft,
+        createdAt: now,
+        updatedAt: now,
+      );
+
+      await _topicsRepository.create(item: newTopic);
+      emit(
+        state.copyWith(
+          status: CreateTopicStatus.success,
+          createdTopic: newTopic,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(state.copyWith(status: CreateTopicStatus.failure, exception: e));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateTopicStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the topic.
+  Future<void> _onPublished(
+    CreateTopicPublished event,
+    Emitter<CreateTopicState> emit,
+  ) async {
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: CreateTopicStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(state.copyWith(status: CreateTopicStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newTopic = Topic(
+        id: _uuid.v4(),
+        name: state.name,
+        description: state.description,
+        iconUrl: state.iconUrl,
+        status: ContentStatus.active,
         createdAt: now,
         updatedAt: now,
       );
