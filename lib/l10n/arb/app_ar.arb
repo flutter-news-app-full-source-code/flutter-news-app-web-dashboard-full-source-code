@@ -1701,5 +1701,49 @@
   "saveSourceMessage": "هل تريد نشر هذا المصدر أم حفظه كمسودة؟",
   "@saveSourceMessage": {
     "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
+  },
+  "loadingDraftTopics": "جاري تحميل مسودات المواضيع...",
+  "@loadingDraftTopics": {
+    "description": "رسالة تعرض عند تحميل مسودات المواضيع."
+  },
+  "noDraftTopicsFound": "لم يتم العثور على مسودات مواضيع.",
+  "@noDraftTopicsFound": {
+    "description": "رسالة تعرض عندما لا تتوفر مسودات مواضيع."
+  },
+  "topicDeleted": "تم حذف الموضوع \"{topicTitle}\".",
+  "@topicDeleted": {
+    "description": "رسالة شريط التنبيه عند حذف موضوع.",
+    "placeholders": {
+      "topicTitle": {
+        "type": "String",
+        "example": "التكنولوجيا"
+      }
+    }
+  },
+  "loadingDraftSources": "جاري تحميل مسودات المصادر...",
+  "@loadingDraftSources": {
+    "description": "رسالة تعرض عند تحميل مسودات المصادر."
+  },
+  "noDraftSourcesFound": "لم يتم العثور على مسودات مصادر.",
+  "@noDraftSourcesFound": {
+    "description": "رسالة تعرض عندما لا تتوفر مسودات مصادر."
+  },
+  "sourceDeleted": "تم حذف المصدر \"{sourceName}\".",
+  "@sourceDeleted": {
+    "description": "رسالة شريط التنبيه عند حذف مصدر.",
+    "placeholders": {
+      "sourceName": {
+        "type": "String",
+        "example": "بي بي سي نيوز"
+      }
+    }
+  },
+  "publishTopic": "نشر الموضوع",
+  "@publishTopic": {
+    "description": "تلميح زر نشر الموضوع."
+  },
+  "publishSource": "نشر المصدر",
+  "@publishSource": {
+    "description": "تلميح زر نشر المصدر."
   }
 }

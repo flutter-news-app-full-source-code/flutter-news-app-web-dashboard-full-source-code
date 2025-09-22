@@ -1359,4 +1359,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get saveSourceMessage =>
       'Do you want to publish this source or save it as a draft?';
+
+  @override
+  String get loadingDraftTopics => 'Loading Draft Topics...';
+
+  @override
+  String get noDraftTopicsFound => 'No draft topics found.';
+
+  @override
+  String topicDeleted(String topicTitle) {
+    return 'Topic \"$topicTitle\" deleted.';
+  }
+
+  @override
+  String get loadingDraftSources => 'Loading Draft Sources...';
+
+  @override
+  String get noDraftSourcesFound => 'No draft sources found.';
+
+  @override
+  String sourceDeleted(String sourceName) {
+    return 'Source \"$sourceName\" deleted.';
+  }
+
+  @override
+  String get publishTopic => 'Publish Topic';
+
+  @override
+  String get publishSource => 'Publish Source';
 }

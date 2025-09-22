@@ -2539,6 +2539,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to publish this source or save it as a draft?'**
   String get saveSourceMessage;
+
+  /// Message displayed when draft topics are being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Draft Topics...'**
+  String get loadingDraftTopics;
+
+  /// Message displayed when no draft topics are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No draft topics found.'**
+  String get noDraftTopicsFound;
+
+  /// Snackbar message when a topic is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic \"{topicTitle}\" deleted.'**
+  String topicDeleted(String topicTitle);
+
+  /// Message displayed when draft sources are being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Draft Sources...'**
+  String get loadingDraftSources;
+
+  /// Message displayed when no draft sources are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No draft sources found.'**
+  String get noDraftSourcesFound;
+
+  /// Snackbar message when a source is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Source \"{sourceName}\" deleted.'**
+  String sourceDeleted(String sourceName);
+
+  /// Tooltip for the publish topic button.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Topic'**
+  String get publishTopic;
+
+  /// Tooltip for the publish source button.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Source'**
+  String get publishSource;
 }
 
 class _AppLocalizationsDelegate

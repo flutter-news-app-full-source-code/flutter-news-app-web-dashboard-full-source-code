@@ -1354,4 +1354,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get saveSourceMessage => 'هل تريد نشر هذا المصدر أم حفظه كمسودة؟';
+
+  @override
+  String get loadingDraftTopics => 'جاري تحميل مسودات المواضيع...';
+
+  @override
+  String get noDraftTopicsFound => 'لم يتم العثور على مسودات مواضيع.';
+
+  @override
+  String topicDeleted(String topicTitle) {
+    return 'تم حذف الموضوع \"$topicTitle\".';
+  }
+
+  @override
+  String get loadingDraftSources => 'جاري تحميل مسودات المصادر...';
+
+  @override
+  String get noDraftSourcesFound => 'لم يتم العثور على مسودات مصادر.';
+
+  @override
+  String sourceDeleted(String sourceName) {
+    return 'تم حذف المصدر \"$sourceName\".';
+  }
+
+  @override
+  String get publishTopic => 'نشر الموضوع';
+
+  @override
+  String get publishSource => 'نشر المصدر';
 }
