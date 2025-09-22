@@ -82,8 +82,9 @@ class DraftSourcesState extends Equatable {
       // to ensure they are cleared after being handled.
       exception: exception,
       publishedSource: publishedSource,
-      lastPendingDeletionId: lastPendingDeletionId,
-      snackbarSourceTitle: snackbarSourceTitle,
+      lastPendingDeletionId:
+          lastPendingDeletionId ?? this.lastPendingDeletionId,
+      snackbarSourceTitle: snackbarSourceTitle ?? this.snackbarSourceTitle,
     );
   }
 
