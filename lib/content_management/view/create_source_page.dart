@@ -159,9 +159,14 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
           }
 
           if (state.status == CreateSourceStatus.failure) {
-            return FailureStateWidget(
-              exception: state.exception!,
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.exception!.toFriendlyMessage(context)),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+              );
           }
 
           return SingleChildScrollView(
