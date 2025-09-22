@@ -8,7 +8,7 @@ enum EditTopicStatus {
   /// Data is being loaded.
   loading,
 
-  /// Data has been successfully loaded or an operation completed.
+  /// An operation completed successfully.
   success,
 
   /// An error occurred.
@@ -26,7 +26,6 @@ final class EditTopicState extends Equatable {
     this.name = '',
     this.description = '',
     this.iconUrl = '',
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedTopic,
   });
@@ -36,7 +35,6 @@ final class EditTopicState extends Equatable {
   final String name;
   final String description;
   final String iconUrl;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final Topic? updatedTopic;
 
@@ -54,7 +52,6 @@ final class EditTopicState extends Equatable {
     String? name,
     String? description,
     String? iconUrl,
-    ContentStatus? contentStatus,
     HttpException? exception,
     Topic? updatedTopic,
   }) {
@@ -64,7 +61,6 @@ final class EditTopicState extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       iconUrl: iconUrl ?? this.iconUrl,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception ?? this.exception,
       updatedTopic: updatedTopic ?? this.updatedTopic,
     );
@@ -77,7 +73,6 @@ final class EditTopicState extends Equatable {
     name,
     description,
     iconUrl,
-    contentStatus,
     exception,
     updatedTopic,
   ];
