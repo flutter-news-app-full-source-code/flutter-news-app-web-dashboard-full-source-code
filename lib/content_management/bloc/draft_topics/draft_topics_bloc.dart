@@ -113,13 +113,13 @@ class DraftTopicsBloc extends Bloc<DraftTopicsEvent, DraftTopicsState> {
     PublishDraftTopicRequested event,
     Emitter<DraftTopicsState> emit,
   ) async {
-    final originalTopics = List<Topic>.from(state.topics);
+    final originalTopics = state.topics;
     final topicIndex = originalTopics.indexWhere((t) => t.id == event.id);
     if (topicIndex == -1) return;
-
     final topicToPublish = originalTopics[topicIndex];
-    final updatedTopics = originalTopics..removeAt(topicIndex);
-
+    final updatedTopics = List<Topic>.from(originalTopics)
+      ..removeAt(topicIndex);
+      
     // Optimistically remove the topic from the UI.
     emit(
       state.copyWith(
