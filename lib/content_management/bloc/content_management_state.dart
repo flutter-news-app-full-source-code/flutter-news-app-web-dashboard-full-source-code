@@ -32,10 +32,6 @@ class ContentManagementState extends Equatable {
     this.sources = const [],
     this.sourcesCursor,
     this.sourcesHasMore = false,
-    this.draftsStatus = ContentManagementStatus.initial,
-    this.drafts = const [],
-    this.draftsCursor,
-    this.draftsHasMore = false,
     this.exception,
   });
 
@@ -78,18 +74,6 @@ class ContentManagementState extends Equatable {
   /// Indicates if there are more sources to load.
   final bool sourcesHasMore;
 
-  /// Status of draft headline data operations.
-  final ContentManagementStatus draftsStatus;
-
-  /// List of draft headlines.
-  final List<Headline> drafts;
-
-  /// Cursor for draft headline pagination.
-  final String? draftsCursor;
-
-  /// Indicates if there are more draft headlines to load.
-  final bool draftsHasMore;
-
   /// The error describing an operation failure, if any.
   final HttpException? exception;
 
@@ -108,10 +92,6 @@ class ContentManagementState extends Equatable {
     List<Source>? sources,
     String? sourcesCursor,
     bool? sourcesHasMore,
-    ContentManagementStatus? draftsStatus,
-    List<Headline>? drafts,
-    String? draftsCursor,
-    bool? draftsHasMore,
     HttpException? exception,
   }) {
     return ContentManagementState(
@@ -128,10 +108,6 @@ class ContentManagementState extends Equatable {
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
-      draftsStatus: draftsStatus ?? this.draftsStatus,
-      drafts: drafts ?? this.drafts,
-      draftsCursor: draftsCursor ?? this.draftsCursor,
-      draftsHasMore: draftsHasMore ?? this.draftsHasMore,
       exception: exception ?? this.exception,
     );
   }
@@ -151,9 +127,5 @@ class ContentManagementState extends Equatable {
     sources,
     sourcesCursor,
     sourcesHasMore,
-    draftsStatus,
-    drafts,
-    draftsCursor,
-    draftsHasMore,
   ];
 }
