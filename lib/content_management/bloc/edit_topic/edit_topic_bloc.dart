@@ -89,18 +89,6 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     EditTopicSavedAsDraft event,
     Emitter<EditTopicState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
       final originalTopic = await _topicsRepository.read(id: state.topicId);
@@ -136,18 +124,6 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     EditTopicPublished event,
     Emitter<EditTopicState> emit,
   ) async {
-    if (!state.isFormValid) {
-      emit(
-        state.copyWith(
-          status: EditTopicStatus.failure,
-          exception: const InvalidInputException(
-            'Form is not valid. Please complete all required fields.',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
       final originalTopic = await _topicsRepository.read(id: state.topicId);
