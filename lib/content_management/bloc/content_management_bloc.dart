@@ -19,6 +19,9 @@ enum ContentManagementTab {
 
   /// Represents the Sources tab.
   sources,
+
+  /// Represents the Drafts tab.
+  drafts,
 }
 
 class ContentManagementBloc
@@ -38,12 +41,20 @@ class ContentManagementBloc
     on<ArchiveTopicRequested>(_onArchiveTopicRequested);
     on<LoadSourcesRequested>(_onLoadSourcesRequested);
     on<ArchiveSourceRequested>(_onArchiveSourceRequested);
+    on<LoadDraftHeadlinesRequested>(_onLoadDraftHeadlinesRequested);
 
     _headlineUpdateSubscription = _headlinesRepository.entityUpdated
         .where((type) => type == Headline)
         .listen((_) {
           add(
             const LoadHeadlinesRequested(
+              limit: kDefaultRowsPerPage,
+              forceRefresh: true,
+            ),
+          );
+          // Also trigger a refresh for draft headlines
+          add(
+            const LoadDraftHeadlinesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
             ),
@@ -360,6 +371,60 @@ class ContentManagementBloc
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles the request to load draft headlines.
+  ///
+  /// Fetches paginated draft headlines from the repository and updates the state.
+  Future<void> _onLoadDraftHeadlinesRequested(
+    LoadDraftHeadlinesRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    // If draft headlines are already loaded and it's not a pagination request,
+    // do not re-fetch. This prevents redundant API calls on tab changes.
+    if (state.draftsStatus == ContentManagementStatus.success &&
+        state.drafts.isNotEmpty &&
+        event.startAfterId == null &&
+        !event.forceRefresh) {
+      return;
+    }
+
+    emit(state.copyWith(draftsStatus: ContentManagementStatus.loading));
+    try {
+      final isPaginating = event.startAfterId != null;
+      final previousHeadlines = isPaginating ? state.drafts : <Headline>[];
+
+      final paginatedHeadlines = await _headlinesRepository.readAll(
+        filter: {'status': ContentStatus.draft.name},
+        sort: [const SortOption('updatedAt', SortOrder.desc)],
+        pagination: PaginationOptions(
+          cursor: event.startAfterId,
+          limit: event.limit,
+        ),
+      );
+      emit(
+        state.copyWith(
+          draftsStatus: ContentManagementStatus.success,
+          drafts: [...previousHeadlines, ...paginatedHeadlines.items],
+          draftsCursor: paginatedHeadlines.cursor,
+          draftsHasMore: paginatedHeadlines.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          draftsStatus: ContentManagementStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          draftsStatus: ContentManagementStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );
