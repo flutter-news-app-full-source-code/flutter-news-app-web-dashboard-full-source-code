@@ -15,7 +15,6 @@ class CreateHeadlineBloc
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
   }) : _headlinesRepository = headlinesRepository,
-
        super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
@@ -24,8 +23,6 @@ class CreateHeadlineBloc
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
-    on<CreateHeadlineStatusChanged>(_onStatusChanged);
-    on<CreateHeadlineSubmitted>(_onSubmitted);
     on<CreateHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<CreateHeadlinePublished>(_onPublished);
   }
@@ -83,65 +80,23 @@ class CreateHeadlineBloc
     emit(state.copyWith(eventCountry: () => event.country));
   }
 
-  void _onStatusChanged(
-    CreateHeadlineStatusChanged event,
-    Emitter<CreateHeadlineState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: CreateHeadlineStatus.initial,
-      ),
-    );
-  }
-
-  Future<void> _onSubmitted(
-    CreateHeadlineSubmitted event,
-    Emitter<CreateHeadlineState> emit,
-  ) async {
-    if (!state.isFormValid) return;
-
-    emit(state.copyWith(status: CreateHeadlineStatus.submitting));
-    try {
-      final now = DateTime.now();
-      final newHeadline = Headline(
-        id: _uuid.v4(),
-        title: state.title,
-        excerpt: state.excerpt,
-        url: state.url,
-        imageUrl: state.imageUrl,
-        source: state.source!,
-        eventCountry: state.eventCountry!,
-        topic: state.topic!,
-        createdAt: now,
-        updatedAt: now,
-        status: state.contentStatus,
-      );
-
-      await _headlinesRepository.create(item: newHeadline);
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.success,
-          createdHeadline: newHeadline,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
-  }
-
   /// Handles saving the headline as a draft.
   Future<void> _onSavedAsDraft(
     CreateHeadlineSavedAsDraft event,
     Emitter<CreateHeadlineState> emit,
   ) async {
+    if (!state.isFormValid) {
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: const InvalidInputException(
+            'Form is not valid. Please complete all required fields.',
+          ),
+        ),
+      );
+      return;
+    }
+
     emit(state.copyWith(status: CreateHeadlineStatus.submitting));
     try {
       final now = DateTime.now();
