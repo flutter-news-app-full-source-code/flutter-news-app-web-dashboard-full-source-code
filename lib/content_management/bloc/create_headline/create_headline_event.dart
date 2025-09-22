@@ -78,3 +78,13 @@ final class CreateHeadlineStatusChanged extends CreateHeadlineEvent {
 final class CreateHeadlineSubmitted extends CreateHeadlineEvent {
   const CreateHeadlineSubmitted();
 }
+
+/// Event to save the headline as a draft.
+final class CreateHeadlineSavedAsDraft extends CreateHeadlineEvent {
+  const CreateHeadlineSavedAsDraft();
+}
+
+/// Event to publish the headline.
+final class CreateHeadlinePublished extends CreateHeadlineEvent {
+  const CreateHeadlinePublished();
+}
