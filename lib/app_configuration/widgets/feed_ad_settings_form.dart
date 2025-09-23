@@ -270,7 +270,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             ),
             const SizedBox(height: AppSpacing.lg),
             SizedBox(
-              height: 250,
+              height: 350, // Increased height for better spacing
               child: TabBarView(
                 controller: _tabController,
                 children: AppUserRole.values
@@ -307,8 +307,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
 
     return Column(
       children: [
-        CheckboxListTile(
-          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+        SwitchListTile(
+          // Changed from CheckboxListTile to SwitchListTile for consistency
+          title: Text(l10n.enableInArticleAdsForRoleLabel(role.l10n(context))),
           value: roleConfig != null && isEnabled,
           onChanged: isEnabled
               ? (value) {
@@ -316,7 +317,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                       Map<AppUserRole, FeedAdFrequencyConfig>.from(
                     config.visibleTo,
                   );
-                  if (value ?? false) {
+                  if (value) {
                     // Default values when enabling for a role
                     newVisibleTo[role] = const FeedAdFrequencyConfig(
                       adFrequency: 5,
