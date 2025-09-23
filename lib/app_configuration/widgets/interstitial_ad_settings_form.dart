@@ -42,6 +42,40 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
       vsync: this,
     );
     _initializeControllers();
+    _tabController.addListener(_onTabChanged);
+  }
+
+  void _onTabChanged() {
+    if (_tabController.indexIsChanging) return;
+
+    final selectedRole = AppUserRole.values[_tabController.index];
+    if (selectedRole == AppUserRole.premiumUser) {
+      final adConfig = widget.remoteConfig.adConfig;
+      final interstitialAdConfig = adConfig.interstitialAdConfiguration;
+
+      // If the value for premium is not 0, update the config.
+      // This enforces the business rule that premium users do not see ads.
+      if (interstitialAdConfig
+              .feedInterstitialAdFrequencyConfig
+              .premiumUserTransitionsBeforeShowingInterstitialAds !=
+          0) {
+        final updatedFrequencyConfig = interstitialAdConfig
+            .feedInterstitialAdFrequencyConfig
+            .copyWith(
+              premiumUserTransitionsBeforeShowingInterstitialAds: 0,
+            );
+        final updatedInterstitialAdConfig = interstitialAdConfig.copyWith(
+          feedInterstitialAdFrequencyConfig: updatedFrequencyConfig,
+        );
+        widget.onConfigChanged(
+          widget.remoteConfig.copyWith(
+            adConfig: adConfig.copyWith(
+              interstitialAdConfiguration: updatedInterstitialAdConfig,
+            ),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -96,7 +130,9 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController
+      ..removeListener(_onTabChanged)
+      ..dispose();
     for (final controller
         in _transitionsBeforeShowingInterstitialAdsControllers.values) {
       controller.dispose();
@@ -190,6 +226,9 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
     AppUserRole role,
     InterstitialAdConfiguration config,
   ) {
+    // Premium users do not see ads, so their settings are disabled.
+    final isEnabled = role != AppUserRole.premiumUser;
+
     return Column(
       children: [
         AppConfigIntField(
@@ -211,6 +250,7 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
             );
           },
           controller: _transitionsBeforeShowingInterstitialAdsControllers[role],
+          enabled: isEnabled,
         ),
       ],
     );
@@ -255,8 +295,10 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
           standardUserTransitionsBeforeShowingInterstitialAds: value,
         );
       case AppUserRole.premiumUser:
+        // Premium users should not see ads, so their frequency is always 0.
+        // The UI field is disabled, but this is a safeguard.
         newFrequencyConfig = currentFrequencyConfig.copyWith(
-          premiumUserTransitionsBeforeShowingInterstitialAds: value,
+          premiumUserTransitionsBeforeShowingInterstitialAds: 0,
         );
     }
 

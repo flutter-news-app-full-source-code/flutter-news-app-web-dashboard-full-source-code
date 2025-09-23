@@ -51,11 +51,19 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  // Statically define the tab order to ensure consistency.
+  final List<AdType> _tabs = [
+    AdType.native,
+    AdType.banner,
+    AdType.interstitial,
+    AdType.video,
+  ];
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: AdType.values.length,
+      length: _tabs.length,
       vsync: this,
     );
   }
@@ -76,9 +84,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
           controller: _tabController,
           tabAlignment: TabAlignment.start,
           isScrollable: true,
-          tabs: AdType.values
-              .map((type) => Tab(text: type.l10n(context)))
-              .toList(),
+          tabs: _tabs.map((type) => Tab(text: type.l10n(context))).toList(),
         ),
       ),
       body: BlocListener<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
@@ -149,9 +155,9 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
         },
         child: TabBarView(
           controller: _tabController,
-          children: AdType.values.map((type) {
-            return _ArchivedLocalAdsDataTable(adType: type);
-          }).toList(),
+          children: _tabs
+              .map((type) => _ArchivedLocalAdsDataTable(adType: type))
+              .toList(),
         ),
       ),
     );

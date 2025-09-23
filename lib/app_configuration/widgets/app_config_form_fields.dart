@@ -13,6 +13,7 @@ class AppConfigIntField extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.controller,
+    this.enabled = true,
     super.key,
   });
 
@@ -30,6 +31,9 @@ class AppConfigIntField extends StatelessWidget {
 
   /// Optional text editing controller for more control.
   final TextEditingController? controller;
+
+  /// Whether the input field is enabled. Defaults to true.
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,7 @@ class AppConfigIntField extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.xs),
           TextFormField(
+            enabled: enabled,
             controller: controller,
             initialValue: controller == null ? value.toString() : null,
             keyboardType: TextInputType.number,
