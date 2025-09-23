@@ -119,7 +119,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                           );
                         }
                       }
-                    : null, // Disable button if form is not valid
+                    : null,
               );
             },
           ),

@@ -106,7 +106,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
                           }
                         }
                       }
-                    : null, // Disable button if form is not valid
+                    : null,
               );
             },
           ),

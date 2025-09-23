@@ -35,7 +35,7 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
   /// Controllers for transitions before showing interstitial ads, mapped by user role.
   /// These are used to manage text input for each role's interstitial ad frequency.
   late final Map<AppUserRole, TextEditingController>
-      _transitionsBeforeShowingInterstitialAdsControllers;
+  _transitionsBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
@@ -56,17 +56,19 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
         widget.remoteConfig.adConfig.interstitialAdConfiguration;
     _transitionsBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getTransitionsBeforeInterstitial(
-            interstitialConfig,
-            role,
-          ).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getTransitionsBeforeInterstitial(
-              interstitialConfig,
-              role,
-            ).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getTransitionsBeforeInterstitial(
+                  interstitialConfig,
+                  role,
+                ).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getTransitionsBeforeInterstitial(
+                  interstitialConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
@@ -86,12 +88,11 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
             newInterstitialValue;
         _transitionsBeforeShowingInterstitialAdsControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newInterstitialValue.length,
-        );
+              offset: newInterstitialValue.length,
+            );
       }
     }
   }
-
 
   @override
   void didUpdateWidget(covariant InterstitialAdSettingsForm oldWidget) {
@@ -104,8 +105,7 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
 
   @override
   void dispose() {
-    _tabController
-      .dispose();
+    _tabController.dispose();
     for (final controller
         in _transitionsBeforeShowingInterstitialAdsControllers.values) {
       controller.dispose();
@@ -210,12 +210,12 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
       children: [
         SwitchListTile(
           title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-          value: roleConfig != null, // Value is true if roleConfig exists
+          value: roleConfig != null,
           onChanged: (value) {
             final newVisibleTo =
                 Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
-              config.visibleTo,
-            );
+                  config.visibleTo,
+                );
             if (value) {
               // Default value when enabling for a role
               newVisibleTo[role] = const InterstitialAdFrequencyConfig(
@@ -251,8 +251,8 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
                 );
                 final newVisibleTo =
                     Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
-                  config.visibleTo,
-                )..[role] = newRoleConfig;
+                      config.visibleTo,
+                    )..[role] = newRoleConfig;
                 widget.onConfigChanged(
                   widget.remoteConfig.copyWith(
                     adConfig: widget.remoteConfig.adConfig.copyWith(

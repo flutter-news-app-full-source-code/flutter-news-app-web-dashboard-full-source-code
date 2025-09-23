@@ -119,7 +119,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           );
                         }
                       }
-                    : null, // Disable button if form is not valid
+                    : null,
               );
             },
           ),

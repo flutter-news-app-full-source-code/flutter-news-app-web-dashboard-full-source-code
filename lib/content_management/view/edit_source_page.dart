@@ -106,7 +106,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
                           }
                         }
                       }
-                    : null, // Disable button if form is not valid
+                    : null,
               );
             },
           ),

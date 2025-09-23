@@ -39,7 +39,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// Controllers for ad placement interval fields, mapped by user role.
   /// These are used to manage text input for each role's ad placement interval.
   late final Map<AppUserRole, TextEditingController>
-      _adPlacementIntervalControllers;
+  _adPlacementIntervalControllers;
 
   @override
   void initState() {
@@ -59,20 +59,26 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     final feedAdConfig = widget.remoteConfig.adConfig.feedAdConfiguration;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdFrequency(feedAdConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdFrequency(feedAdConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdFrequency(feedAdConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdFrequency(feedAdConfig, role).toString().length,
+              ),
     };
     _adPlacementIntervalControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdPlacementInterval(feedAdConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset:
-                _getAdPlacementInterval(feedAdConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdPlacementInterval(feedAdConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdPlacementInterval(
+                  feedAdConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
@@ -89,19 +95,20 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
         );
       }
 
-      final newPlacementIntervalValue =
-          _getAdPlacementInterval(feedAdConfig, role).toString();
+      final newPlacementIntervalValue = _getAdPlacementInterval(
+        feedAdConfig,
+        role,
+      ).toString();
       if (_adPlacementIntervalControllers[role]?.text !=
           newPlacementIntervalValue) {
         _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
         _adPlacementIntervalControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newPlacementIntervalValue.length,
-        );
+              offset: newPlacementIntervalValue.length,
+            );
       }
     }
   }
-
 
   @override
   void didUpdateWidget(covariant FeedAdSettingsForm oldWidget) {
@@ -233,7 +240,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             ),
             const SizedBox(height: AppSpacing.lg),
             SizedBox(
-              height: 350, // Increased height for better spacing
+              height: 350,
               child: TabBarView(
                 controller: _tabController,
                 children: AppUserRole.values
@@ -271,10 +278,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
       children: [
         SwitchListTile(
           title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-          value: roleConfig != null, // Value is true if roleConfig exists
+          value: roleConfig != null,
           onChanged: (value) {
-            final newVisibleTo =
-                Map<AppUserRole, FeedAdFrequencyConfig>.from(
+            final newVisibleTo = Map<AppUserRole, FeedAdFrequencyConfig>.from(
               config.visibleTo,
             );
             if (value) {
@@ -310,12 +316,13 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                   description: l10n.adFrequencyDescription,
                   value: roleConfig.adFrequency,
                   onChanged: (value) {
-                    final newRoleConfig =
-                        roleConfig.copyWith(adFrequency: value);
+                    final newRoleConfig = roleConfig.copyWith(
+                      adFrequency: value,
+                    );
                     final newVisibleTo =
                         Map<AppUserRole, FeedAdFrequencyConfig>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleConfig;
+                          config.visibleTo,
+                        )..[role] = newRoleConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
                         adConfig: widget.remoteConfig.adConfig.copyWith(
@@ -333,12 +340,13 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                   description: l10n.adPlacementIntervalDescription,
                   value: roleConfig.adPlacementInterval,
                   onChanged: (value) {
-                    final newRoleConfig =
-                        roleConfig.copyWith(adPlacementInterval: value);
+                    final newRoleConfig = roleConfig.copyWith(
+                      adPlacementInterval: value,
+                    );
                     final newVisibleTo =
                         Map<AppUserRole, FeedAdFrequencyConfig>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleConfig;
+                          config.visibleTo,
+                        )..[role] = newRoleConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
                         adConfig: widget.remoteConfig.adConfig.copyWith(
