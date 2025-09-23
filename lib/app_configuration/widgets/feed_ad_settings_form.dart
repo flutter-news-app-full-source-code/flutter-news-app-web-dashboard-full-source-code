@@ -62,8 +62,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
           premiumAdFrequency: 0,
           premiumAdPlacementInterval: 0,
         );
-        final updatedFeedAdConfig =
-            feedAdConfig.copyWith(frequencyConfig: updatedFrequencyConfig);
+        final updatedFeedAdConfig = feedAdConfig.copyWith(
+          frequencyConfig: updatedFrequencyConfig,
+        );
         widget.onConfigChanged(
           widget.remoteConfig.copyWith(
             adConfig: adConfig.copyWith(

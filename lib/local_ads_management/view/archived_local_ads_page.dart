@@ -155,8 +155,9 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
         },
         child: TabBarView(
           controller: _tabController,
-          children:
-              _tabs.map((type) => _ArchivedLocalAdsDataTable(adType: type)).toList(),
+          children: _tabs
+              .map((type) => _ArchivedLocalAdsDataTable(adType: type))
+              .toList(),
         ),
       ),
     );

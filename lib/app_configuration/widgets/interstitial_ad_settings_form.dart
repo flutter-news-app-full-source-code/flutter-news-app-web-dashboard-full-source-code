@@ -55,14 +55,15 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
 
       // If the value for premium is not 0, update the config.
       // This enforces the business rule that premium users do not see ads.
-      if (interstitialAdConfig.feedInterstitialAdFrequencyConfig
+      if (interstitialAdConfig
+              .feedInterstitialAdFrequencyConfig
               .premiumUserTransitionsBeforeShowingInterstitialAds !=
           0) {
         final updatedFrequencyConfig = interstitialAdConfig
             .feedInterstitialAdFrequencyConfig
             .copyWith(
-          premiumUserTransitionsBeforeShowingInterstitialAds: 0,
-        );
+              premiumUserTransitionsBeforeShowingInterstitialAds: 0,
+            );
         final updatedInterstitialAdConfig = interstitialAdConfig.copyWith(
           feedInterstitialAdFrequencyConfig: updatedFrequencyConfig,
         );
