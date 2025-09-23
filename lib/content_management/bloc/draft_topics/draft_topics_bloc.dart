@@ -119,7 +119,7 @@ class DraftTopicsBloc extends Bloc<DraftTopicsEvent, DraftTopicsState> {
     final topicToPublish = originalTopics[topicIndex];
     final updatedTopics = List<Topic>.from(originalTopics)
       ..removeAt(topicIndex);
-      
+
     // Optimistically remove the topic from the UI.
     emit(
       state.copyWith(
