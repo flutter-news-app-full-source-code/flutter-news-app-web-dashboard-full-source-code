@@ -243,7 +243,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
       children: [
         CheckboxListTile(
           title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-          value: roleConfig != null,
+          value: roleConfig != null && isApplicable,
           // Disable the checkbox if the decorator is not applicable to the role.
           onChanged: isApplicable
               ? (value) {
