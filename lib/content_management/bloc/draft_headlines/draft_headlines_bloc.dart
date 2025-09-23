@@ -120,7 +120,7 @@ class DraftHeadlinesBloc
     final headlineToPublish = originalHeadlines[headlineIndex];
     final updatedHeadlines = List<Headline>.from(originalHeadlines)
       ..removeAt(headlineIndex);
-      
+
     // Optimistically remove the headline from the UI.
     emit(
       state.copyWith(
