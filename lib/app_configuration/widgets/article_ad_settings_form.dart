@@ -202,38 +202,78 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
 
     return Column(
       children: [
-        // Checkbox for each InArticleAdSlotType
-        for (final slotType in InArticleAdSlotType.values)
-          CheckboxListTile(
-            title: Text(slotType.l10n(context)),
-            value: (roleSlots != null && roleSlots[slotType] == true) &&
-                isEnabled,
-            onChanged: isEnabled
-                ? (value) {
-                    final newRoleSlots =
-                        Map<InArticleAdSlotType, bool>.from(roleSlots ?? {});
-                    if (value ?? false) {
-                      newRoleSlots[slotType] = true;
-                    } else {
-                      newRoleSlots.remove(slotType);
-                    }
+        SwitchListTile(
+          // Changed from CheckboxListTile to SwitchListTile for consistency
+          title: Text(l10n.enableInArticleAdsForRoleLabel(role.l10n(context))),
+          value: roleSlots != null && isEnabled,
+          onChanged: isEnabled
+              ? (value) {
+                  final newVisibleTo =
+                      Map<AppUserRole, Map<InArticleAdSlotType, bool>>.from(
+                    config.visibleTo,
+                  );
+                  if (value) {
+                    // Default values when enabling for a role
+                    newVisibleTo[role] = {
+                      InArticleAdSlotType.aboveArticleContinueReadingButton: true,
+                      InArticleAdSlotType.belowArticleContinueReadingButton: true,
+                    };
+                  } else {
+                    newVisibleTo.remove(role);
+                  }
 
-                    final newVisibleTo =
-                        Map<AppUserRole, Map<InArticleAdSlotType, bool>>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleSlots;
-
-                    widget.onConfigChanged(
-                      widget.remoteConfig.copyWith(
-                        adConfig: widget.remoteConfig.adConfig.copyWith(
-                          articleAdConfiguration: config.copyWith(
-                            visibleTo: newVisibleTo,
-                          ),
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      adConfig: widget.remoteConfig.adConfig.copyWith(
+                        articleAdConfiguration: config.copyWith(
+                          visibleTo: newVisibleTo,
                         ),
                       ),
-                    );
-                  }
-                : null,
+                    ),
+                  );
+                }
+              : null,
+        ),
+        if (roleSlots != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.lg,
+              vertical: AppSpacing.sm,
+            ),
+            child: Column(
+              children: [
+                // SwitchListTile for each InArticleAdSlotType
+                for (final slotType in InArticleAdSlotType.values)
+                  SwitchListTile(
+                    title: Text(slotType.l10n(context)),
+                    value: roleSlots[slotType] == true,
+                    onChanged: (value) {
+                      final newRoleSlots =
+                          Map<InArticleAdSlotType, bool>.from(roleSlots);
+                      if (value) {
+                        newRoleSlots[slotType] = true;
+                      } else {
+                        newRoleSlots.remove(slotType);
+                      }
+
+                      final newVisibleTo =
+                          Map<AppUserRole, Map<InArticleAdSlotType, bool>>.from(
+                        config.visibleTo,
+                      )..[role] = newRoleSlots;
+
+                      widget.onConfigChanged(
+                        widget.remoteConfig.copyWith(
+                          adConfig: widget.remoteConfig.adConfig.copyWith(
+                            articleAdConfiguration: config.copyWith(
+                              visibleTo: newVisibleTo,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+              ],
+            ),
           ),
       ],
     );
