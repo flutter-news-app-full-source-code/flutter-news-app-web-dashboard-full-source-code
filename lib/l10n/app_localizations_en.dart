@@ -1387,4 +1387,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get publishSource => 'Publish Source';
+
+  @override
+  String enableInArticleAdsForRoleLabel(String role) {
+    return 'Enable In-Article Ads for $role';
+  }
 }

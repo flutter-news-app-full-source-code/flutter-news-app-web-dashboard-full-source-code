@@ -122,7 +122,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           );
                         }
                       }
-                    : null, // Disable button if form is not valid
+                    : null,
               );
             },
           ),

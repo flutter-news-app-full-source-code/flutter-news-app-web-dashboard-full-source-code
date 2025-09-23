@@ -31,6 +31,9 @@ class InterstitialAdSettingsForm extends StatefulWidget {
 class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
+  /// Controllers for transitions before showing interstitial ads, mapped by user role.
+  /// These are used to manage text input for each role's interstitial ad frequency.
   late final Map<AppUserRole, TextEditingController>
   _transitionsBeforeShowingInterstitialAdsControllers;
 
@@ -42,51 +45,12 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
       vsync: this,
     );
     _initializeControllers();
-    _tabController.addListener(_onTabChanged);
+    // Removed _tabController.addListener(_onTabChanged); as automatic disabling
+    // for premium users is no longer required.
   }
 
-  void _onTabChanged() {
-    if (_tabController.indexIsChanging) return;
-
-    final selectedRole = AppUserRole.values[_tabController.index];
-    if (selectedRole == AppUserRole.premiumUser) {
-      final adConfig = widget.remoteConfig.adConfig;
-      final interstitialAdConfig = adConfig.interstitialAdConfiguration;
-
-      // If the value for premium is not 0, update the config.
-      // This enforces the business rule that premium users do not see ads.
-      if (interstitialAdConfig
-              .feedInterstitialAdFrequencyConfig
-              .premiumUserTransitionsBeforeShowingInterstitialAds !=
-          0) {
-        final updatedFrequencyConfig = interstitialAdConfig
-            .feedInterstitialAdFrequencyConfig
-            .copyWith(
-              premiumUserTransitionsBeforeShowingInterstitialAds: 0,
-            );
-        final updatedInterstitialAdConfig = interstitialAdConfig.copyWith(
-          feedInterstitialAdFrequencyConfig: updatedFrequencyConfig,
-        );
-        widget.onConfigChanged(
-          widget.remoteConfig.copyWith(
-            adConfig: adConfig.copyWith(
-              interstitialAdConfiguration: updatedInterstitialAdConfig,
-            ),
-          ),
-        );
-      }
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant InterstitialAdSettingsForm oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.remoteConfig.adConfig.interstitialAdConfiguration !=
-        oldWidget.remoteConfig.adConfig.interstitialAdConfiguration) {
-      _updateControllers();
-    }
-  }
-
+  /// Initializes text editing controllers for each user role based on current
+  /// remote config values.
   void _initializeControllers() {
     final interstitialConfig =
         widget.remoteConfig.adConfig.interstitialAdConfiguration;
@@ -108,6 +72,8 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
     };
   }
 
+  /// Updates text editing controllers when the widget's remote config changes.
+  /// This ensures the form fields reflect the latest configuration.
   void _updateControllers() {
     final interstitialConfig =
         widget.remoteConfig.adConfig.interstitialAdConfiguration;
@@ -129,10 +95,17 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
   }
 
   @override
+  void didUpdateWidget(covariant InterstitialAdSettingsForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.remoteConfig.adConfig.interstitialAdConfiguration !=
+        oldWidget.remoteConfig.adConfig.interstitialAdConfiguration) {
+      _updateControllers();
+    }
+  }
+
+  @override
   void dispose() {
-    _tabController
-      ..removeListener(_onTabChanged)
-      ..dispose();
+    _tabController.dispose();
     for (final controller
         in _transitionsBeforeShowingInterstitialAdsControllers.values) {
       controller.dispose();
@@ -220,90 +193,91 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
     );
   }
 
+  /// Builds role-specific configuration fields for interstitial ad frequency.
+  ///
+  /// This widget displays an input field for `transitionsBeforeShowingInterstitialAds`
+  /// for a given [AppUserRole].
   Widget _buildInterstitialRoleSpecificFields(
     BuildContext context,
     AppLocalizations l10n,
     AppUserRole role,
     InterstitialAdConfiguration config,
   ) {
-    // Premium users do not see ads, so their settings are disabled.
-    final isEnabled = role != AppUserRole.premiumUser;
+    final roleConfig = config.visibleTo[role];
+    // Removed isEnabled check as premium users can now be manually configured.
 
     return Column(
       children: [
-        AppConfigIntField(
-          label: l10n.transitionsBeforeInterstitialAdsLabel,
-          description: l10n.transitionsBeforeInterstitialAdsDescription,
-          value: _getTransitionsBeforeInterstitial(config, role),
+        SwitchListTile(
+          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+          value: roleConfig != null,
           onChanged: (value) {
+            final newVisibleTo =
+                Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
+                  config.visibleTo,
+                );
+            if (value) {
+              // Default value when enabling for a role
+              newVisibleTo[role] = const InterstitialAdFrequencyConfig(
+                transitionsBeforeShowingInterstitialAds: 5,
+              );
+            } else {
+              newVisibleTo.remove(role);
+            }
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 adConfig: widget.remoteConfig.adConfig.copyWith(
-                  interstitialAdConfiguration:
-                      _updateTransitionsBeforeInterstitial(
-                        config,
-                        value,
-                        role,
-                      ),
+                  interstitialAdConfiguration: config.copyWith(
+                    visibleTo: newVisibleTo,
+                  ),
                 ),
               ),
             );
           },
-          controller: _transitionsBeforeShowingInterstitialAdsControllers[role],
-          enabled: isEnabled,
         ),
+        if (roleConfig != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.lg,
+              vertical: AppSpacing.sm,
+            ),
+            child: AppConfigIntField(
+              label: l10n.transitionsBeforeInterstitialAdsLabel,
+              description: l10n.transitionsBeforeInterstitialAdsDescription,
+              value: roleConfig.transitionsBeforeShowingInterstitialAds,
+              onChanged: (value) {
+                final newRoleConfig = roleConfig.copyWith(
+                  transitionsBeforeShowingInterstitialAds: value,
+                );
+                final newVisibleTo =
+                    Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
+                      config.visibleTo,
+                    )..[role] = newRoleConfig;
+                widget.onConfigChanged(
+                  widget.remoteConfig.copyWith(
+                    adConfig: widget.remoteConfig.adConfig.copyWith(
+                      interstitialAdConfiguration: config.copyWith(
+                        visibleTo: newVisibleTo,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              controller:
+                  _transitionsBeforeShowingInterstitialAdsControllers[role],
+              // Removed enabled: isEnabled
+            ),
+          ),
       ],
     );
   }
 
+  /// Retrieves the number of transitions before showing an interstitial ad
+  /// for a specific role from the configuration.
   int _getTransitionsBeforeInterstitial(
     InterstitialAdConfiguration config,
     AppUserRole role,
   ) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config
-            .feedInterstitialAdFrequencyConfig
-            .guestTransitionsBeforeShowingInterstitialAds;
-      case AppUserRole.standardUser:
-        return config
-            .feedInterstitialAdFrequencyConfig
-            .standardUserTransitionsBeforeShowingInterstitialAds;
-      case AppUserRole.premiumUser:
-        return config
-            .feedInterstitialAdFrequencyConfig
-            .premiumUserTransitionsBeforeShowingInterstitialAds;
-    }
-  }
-
-  InterstitialAdConfiguration _updateTransitionsBeforeInterstitial(
-    InterstitialAdConfiguration config,
-    int value,
-    AppUserRole role,
-  ) {
-    final currentFrequencyConfig = config.feedInterstitialAdFrequencyConfig;
-
-    InterstitialAdFrequencyConfig newFrequencyConfig;
-
-    switch (role) {
-      case AppUserRole.guestUser:
-        newFrequencyConfig = currentFrequencyConfig.copyWith(
-          guestTransitionsBeforeShowingInterstitialAds: value,
-        );
-      case AppUserRole.standardUser:
-        newFrequencyConfig = currentFrequencyConfig.copyWith(
-          standardUserTransitionsBeforeShowingInterstitialAds: value,
-        );
-      case AppUserRole.premiumUser:
-        // Premium users should not see ads, so their frequency is always 0.
-        // The UI field is disabled, but this is a safeguard.
-        newFrequencyConfig = currentFrequencyConfig.copyWith(
-          premiumUserTransitionsBeforeShowingInterstitialAds: 0,
-        );
-    }
-
-    return config.copyWith(
-      feedInterstitialAdFrequencyConfig: newFrequencyConfig,
-    );
+    return config.visibleTo[role]?.transitionsBeforeShowingInterstitialAds ?? 0;
   }
 }
