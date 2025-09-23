@@ -119,6 +119,30 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
     super.dispose();
   }
 
+  /// Determines if a given decorator type is logically applicable to a user role.
+  ///
+  /// This method centralizes the business logic for decorator visibility
+  /// to prevent illogical configurations in the dashboard.
+  bool _isDecoratorApplicableToRole(
+    FeedDecoratorType decoratorType,
+    AppUserRole role,
+  ) {
+    switch (decoratorType) {
+      // The 'linkAccount' decorator is only for guest users.
+      case FeedDecoratorType.linkAccount:
+        return role == AppUserRole.guestUser;
+      // The 'upgrade' decorator is only for standard users.
+      case FeedDecoratorType.upgrade:
+        return role == AppUserRole.standardUser;
+      // All other decorators are applicable to any user role.
+      case FeedDecoratorType.rateApp:
+      case FeedDecoratorType.enableNotifications:
+      case FeedDecoratorType.suggestedTopics:
+      case FeedDecoratorType.suggestedSources:
+        return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -210,18 +234,19 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
     FeedDecoratorConfig decoratorConfig,
   ) {
     final roleConfig = decoratorConfig.visibleTo[role];
-    final isLinkAccountForStandardOrPremium =
-        widget.decoratorType == FeedDecoratorType.linkAccount &&
-        (role == AppUserRole.standardUser || role == AppUserRole.premiumUser);
+    final isApplicable = _isDecoratorApplicableToRole(
+      widget.decoratorType,
+      role,
+    );
 
     return Column(
       children: [
         CheckboxListTile(
           title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
           value: roleConfig != null,
-          onChanged: isLinkAccountForStandardOrPremium
-              ? null // Disable for standard and premium users for linkAccount
-              : (value) {
+          // Disable the checkbox if the decorator is not applicable to the role.
+          onChanged: isApplicable
+              ? (value) {
                   final newVisibleTo =
                       Map<AppUserRole, FeedDecoratorRoleConfig>.from(
                         decoratorConfig.visibleTo,
@@ -245,7 +270,8 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
                       feedDecoratorConfig: newFeedDecoratorConfig,
                     ),
                   );
-                },
+                }
+              : null,
         ),
         if (roleConfig != null)
           Padding(
