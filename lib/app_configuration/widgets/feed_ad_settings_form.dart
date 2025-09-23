@@ -49,7 +49,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
       vsync: this,
     );
     _initializeControllers();
-    _tabController.addListener(_onTabChanged);
+    // Removed _tabController.addListener(_onTabChanged); as automatic disabling
+    // for premium users is no longer required.
   }
 
   /// Initializes text editing controllers for each user role based on current
@@ -101,42 +102,6 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     }
   }
 
-  /// Listener for tab changes to enforce business rules, specifically for
-  /// premium users who should not see ads.
-  void _onTabChanged() {
-    if (_tabController.indexIsChanging) return;
-
-    final selectedRole = AppUserRole.values[_tabController.index];
-    if (selectedRole == AppUserRole.premiumUser) {
-      final adConfig = widget.remoteConfig.adConfig;
-      final feedAdConfig = adConfig.feedAdConfiguration;
-
-      // If the values for premium are not 0, update the config.
-      // This enforces the business rule that premium users do not see ads.
-      final premiumRoleConfig = feedAdConfig.visibleTo[AppUserRole.premiumUser];
-      if (premiumRoleConfig != null &&
-          (premiumRoleConfig.adFrequency != 0 ||
-              premiumRoleConfig.adPlacementInterval != 0)) {
-        final updatedVisibleTo =
-            Map<AppUserRole, FeedAdFrequencyConfig>.from(feedAdConfig.visibleTo)
-              ..[AppUserRole.premiumUser] = const FeedAdFrequencyConfig(
-                adFrequency: 0,
-                adPlacementInterval: 0,
-              );
-
-        final updatedFeedAdConfig =
-            feedAdConfig.copyWith(visibleTo: updatedVisibleTo);
-
-        widget.onConfigChanged(
-          widget.remoteConfig.copyWith(
-            adConfig: adConfig.copyWith(
-              feedAdConfiguration: updatedFeedAdConfig,
-            ),
-          ),
-        );
-      }
-    }
-  }
 
   @override
   void didUpdateWidget(covariant FeedAdSettingsForm oldWidget) {
@@ -149,9 +114,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
 
   @override
   void dispose() {
-    _tabController
-      ..removeListener(_onTabChanged)
-      ..dispose();
+    _tabController.dispose();
     for (final controller in _adFrequencyControllers.values) {
       controller.dispose();
     }
@@ -294,8 +257,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// Builds role-specific configuration fields for feed ad frequency.
   ///
   /// This widget displays input fields for ad frequency and placement interval
-  /// for a given [AppUserRole]. Premium users have these fields disabled
-  /// as they should not see ads.
+  /// for a given [AppUserRole].
   Widget _buildRoleSpecificFields(
     BuildContext context,
     AppLocalizations l10n,
@@ -303,40 +265,37 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     FeedAdConfiguration config,
   ) {
     final roleConfig = config.visibleTo[role];
-    final isEnabled = role != AppUserRole.premiumUser;
+    // Removed isEnabled check as premium users can now be manually configured.
 
     return Column(
       children: [
         SwitchListTile(
-          // Changed from CheckboxListTile to SwitchListTile for consistency
-          title: Text(l10n.enableInArticleAdsForRoleLabel(role.l10n(context))),
-          value: roleConfig != null && isEnabled,
-          onChanged: isEnabled
-              ? (value) {
-                  final newVisibleTo =
-                      Map<AppUserRole, FeedAdFrequencyConfig>.from(
-                    config.visibleTo,
-                  );
-                  if (value) {
-                    // Default values when enabling for a role
-                    newVisibleTo[role] = const FeedAdFrequencyConfig(
-                      adFrequency: 5,
-                      adPlacementInterval: 3,
-                    );
-                  } else {
-                    newVisibleTo.remove(role);
-                  }
-                  widget.onConfigChanged(
-                    widget.remoteConfig.copyWith(
-                      adConfig: widget.remoteConfig.adConfig.copyWith(
-                        feedAdConfiguration: config.copyWith(
-                          visibleTo: newVisibleTo,
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              : null,
+          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+          value: roleConfig != null, // Value is true if roleConfig exists
+          onChanged: (value) {
+            final newVisibleTo =
+                Map<AppUserRole, FeedAdFrequencyConfig>.from(
+              config.visibleTo,
+            );
+            if (value) {
+              // Default values when enabling for a role
+              newVisibleTo[role] = const FeedAdFrequencyConfig(
+                adFrequency: 5,
+                adPlacementInterval: 3,
+              );
+            } else {
+              newVisibleTo.remove(role);
+            }
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                adConfig: widget.remoteConfig.adConfig.copyWith(
+                  feedAdConfiguration: config.copyWith(
+                    visibleTo: newVisibleTo,
+                  ),
+                ),
+              ),
+            );
+          },
         ),
         if (roleConfig != null)
           Padding(
@@ -368,7 +327,6 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                     );
                   },
                   controller: _adFrequencyControllers[role],
-                  enabled: isEnabled,
                 ),
                 AppConfigIntField(
                   label: l10n.adPlacementIntervalLabel,
@@ -392,7 +350,6 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                     );
                   },
                   controller: _adPlacementIntervalControllers[role],
-                  enabled: isEnabled,
                 ),
               ],
             ),
