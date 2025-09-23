@@ -2587,6 +2587,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Publish Source'**
   String get publishSource;
+
+  /// Label for a checkbox to enable/disable in-article ads for a specific user role.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable In-Article Ads for {role}'**
+  String enableInArticleAdsForRoleLabel(String role);
 }
 
 class _AppLocalizationsDelegate

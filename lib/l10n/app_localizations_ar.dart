@@ -1382,4 +1382,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get publishSource => 'نشر المصدر';
+
+  @override
+  String enableInArticleAdsForRoleLabel(String role) {
+    return 'تمكين الإعلانات داخل المقال لـ $role';
+  }
 }
