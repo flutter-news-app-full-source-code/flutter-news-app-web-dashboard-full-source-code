@@ -35,7 +35,7 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
   /// Controllers for transitions before showing interstitial ads, mapped by user role.
   /// These are used to manage text input for each role's interstitial ad frequency.
   late final Map<AppUserRole, TextEditingController>
-      _transitionsBeforeShowingInterstitialAdsControllers;
+  _transitionsBeforeShowingInterstitialAdsControllers;
 
   @override
   void initState() {
@@ -55,17 +55,19 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
         widget.remoteConfig.adConfig.interstitialAdConfiguration;
     _transitionsBeforeShowingInterstitialAdsControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getTransitionsBeforeInterstitial(
-            interstitialConfig,
-            role,
-          ).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getTransitionsBeforeInterstitial(
-              interstitialConfig,
-              role,
-            ).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getTransitionsBeforeInterstitial(
+                  interstitialConfig,
+                  role,
+                ).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getTransitionsBeforeInterstitial(
+                  interstitialConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
@@ -85,8 +87,8 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
             newInterstitialValue;
         _transitionsBeforeShowingInterstitialAdsControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newInterstitialValue.length,
-        );
+              offset: newInterstitialValue.length,
+            );
       }
     }
   }
@@ -107,14 +109,17 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
           interstitialAdConfig.visibleTo[AppUserRole.premiumUser];
       if (premiumRoleConfig != null &&
           premiumRoleConfig.transitionsBeforeShowingInterstitialAds != 0) {
-        final updatedVisibleTo = Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
-          interstitialAdConfig.visibleTo,
-        )..[AppUserRole.premiumUser] = const InterstitialAdFrequencyConfig(
-            transitionsBeforeShowingInterstitialAds: 0,
-          );
+        final updatedVisibleTo =
+            Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
+                interstitialAdConfig.visibleTo,
+              )
+              ..[AppUserRole.premiumUser] = const InterstitialAdFrequencyConfig(
+                transitionsBeforeShowingInterstitialAds: 0,
+              );
 
-        final updatedInterstitialAdConfig =
-            interstitialAdConfig.copyWith(visibleTo: updatedVisibleTo);
+        final updatedInterstitialAdConfig = interstitialAdConfig.copyWith(
+          visibleTo: updatedVisibleTo,
+        );
 
         widget.onConfigChanged(
           widget.remoteConfig.copyWith(
@@ -244,16 +249,17 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
 
     return Column(
       children: [
-        CheckboxListTile(
-          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+        SwitchListTile(
+          // Changed from CheckboxListTile to SwitchListTile for consistency
+          title: Text(l10n.enableInArticleAdsForRoleLabel(role.l10n(context))),
           value: roleConfig != null && isEnabled,
           onChanged: isEnabled
               ? (value) {
                   final newVisibleTo =
                       Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
-                    config.visibleTo,
-                  );
-                  if (value ?? false) {
+                        config.visibleTo,
+                      );
+                  if (value) {
                     // Default value when enabling for a role
                     newVisibleTo[role] = const InterstitialAdFrequencyConfig(
                       transitionsBeforeShowingInterstitialAds: 5,
@@ -284,12 +290,13 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
               description: l10n.transitionsBeforeInterstitialAdsDescription,
               value: roleConfig.transitionsBeforeShowingInterstitialAds,
               onChanged: (value) {
-                final newRoleConfig =
-                    roleConfig.copyWith(transitionsBeforeShowingInterstitialAds: value);
+                final newRoleConfig = roleConfig.copyWith(
+                  transitionsBeforeShowingInterstitialAds: value,
+                );
                 final newVisibleTo =
                     Map<AppUserRole, InterstitialAdFrequencyConfig>.from(
-                  config.visibleTo,
-                )..[role] = newRoleConfig;
+                      config.visibleTo,
+                    )..[role] = newRoleConfig;
                 widget.onConfigChanged(
                   widget.remoteConfig.copyWith(
                     adConfig: widget.remoteConfig.adConfig.copyWith(
@@ -300,7 +307,8 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
                   ),
                 );
               },
-              controller: _transitionsBeforeShowingInterstitialAdsControllers[role],
+              controller:
+                  _transitionsBeforeShowingInterstitialAdsControllers[role],
               enabled: isEnabled,
             ),
           ),
