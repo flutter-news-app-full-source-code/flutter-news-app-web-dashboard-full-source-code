@@ -43,6 +43,36 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
       vsync: this,
     );
     _initializeControllers();
+    _tabController.addListener(_onTabChanged);
+  }
+
+  void _onTabChanged() {
+    if (_tabController.indexIsChanging) return;
+
+    final selectedRole = AppUserRole.values[_tabController.index];
+    if (selectedRole == AppUserRole.premiumUser) {
+      final adConfig = widget.remoteConfig.adConfig;
+      final feedAdConfig = adConfig.feedAdConfiguration;
+
+      // If the values for premium are not 0, update the config.
+      // This enforces the business rule that premium users do not see ads.
+      if (feedAdConfig.frequencyConfig.premiumAdFrequency != 0 ||
+          feedAdConfig.frequencyConfig.premiumAdPlacementInterval != 0) {
+        final updatedFrequencyConfig = feedAdConfig.frequencyConfig.copyWith(
+          premiumAdFrequency: 0,
+          premiumAdPlacementInterval: 0,
+        );
+        final updatedFeedAdConfig =
+            feedAdConfig.copyWith(frequencyConfig: updatedFrequencyConfig);
+        widget.onConfigChanged(
+          widget.remoteConfig.copyWith(
+            adConfig: adConfig.copyWith(
+              feedAdConfiguration: updatedFeedAdConfig,
+            ),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -109,7 +139,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController
+      ..removeListener(_onTabChanged)
+      ..dispose();
     for (final controller in _adFrequencyControllers.values) {
       controller.dispose();
     }
@@ -257,6 +289,9 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     AppUserRole role,
     FeedAdConfiguration config,
   ) {
+    // Premium users do not see ads, so their settings are disabled.
+    final isEnabled = role != AppUserRole.premiumUser;
+
     return Column(
       children: [
         AppConfigIntField(
@@ -273,6 +308,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             );
           },
           controller: _adFrequencyControllers[role],
+          enabled: isEnabled,
         ),
         AppConfigIntField(
           label: l10n.adPlacementIntervalLabel,
@@ -292,6 +328,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             );
           },
           controller: _adPlacementIntervalControllers[role],
+          enabled: isEnabled,
         ),
       ],
     );
@@ -338,9 +375,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
           ),
         );
       case AppUserRole.premiumUser:
+        // Premium users should not see ads, so their frequency is always 0.
+        // The UI field is disabled, but this is a safeguard.
         return config.copyWith(
           frequencyConfig: config.frequencyConfig.copyWith(
-            premiumAdFrequency: value,
+            premiumAdFrequency: 0,
           ),
         );
     }
@@ -365,9 +404,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
           ),
         );
       case AppUserRole.premiumUser:
+        // Premium users should not see ads, so their interval is always 0.
+        // The UI field is disabled, but this is a safeguard.
         return config.copyWith(
           frequencyConfig: config.frequencyConfig.copyWith(
-            premiumAdPlacementInterval: value,
+            premiumAdPlacementInterval: 0,
           ),
         );
     }
