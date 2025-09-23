@@ -198,41 +198,37 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
     ArticleAdConfiguration config,
   ) {
     final roleSlots = config.visibleTo[role];
-    final isEnabled = role != AppUserRole.premiumUser;
 
     return Column(
       children: [
         SwitchListTile(
-          // Changed from CheckboxListTile to SwitchListTile for consistency
           title: Text(l10n.enableInArticleAdsForRoleLabel(role.l10n(context))),
-          value: roleSlots != null && isEnabled,
-          onChanged: isEnabled
-              ? (value) {
-                  final newVisibleTo =
-                      Map<AppUserRole, Map<InArticleAdSlotType, bool>>.from(
-                    config.visibleTo,
-                  );
-                  if (value) {
-                    // Default values when enabling for a role
-                    newVisibleTo[role] = {
-                      InArticleAdSlotType.aboveArticleContinueReadingButton: true,
-                      InArticleAdSlotType.belowArticleContinueReadingButton: true,
-                    };
-                  } else {
-                    newVisibleTo.remove(role);
-                  }
+          value: roleSlots != null, // Value is true if roleSlots exists
+          onChanged: (value) {
+            final newVisibleTo =
+                Map<AppUserRole, Map<InArticleAdSlotType, bool>>.from(
+                  config.visibleTo,
+                );
+            if (value) {
+              // Default values when enabling for a role
+              newVisibleTo[role] = {
+                InArticleAdSlotType.aboveArticleContinueReadingButton: true,
+                InArticleAdSlotType.belowArticleContinueReadingButton: true,
+              };
+            } else {
+              newVisibleTo.remove(role);
+            }
 
-                  widget.onConfigChanged(
-                    widget.remoteConfig.copyWith(
-                      adConfig: widget.remoteConfig.adConfig.copyWith(
-                        articleAdConfiguration: config.copyWith(
-                          visibleTo: newVisibleTo,
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              : null,
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                adConfig: widget.remoteConfig.adConfig.copyWith(
+                  articleAdConfiguration: config.copyWith(
+                    visibleTo: newVisibleTo,
+                  ),
+                ),
+              ),
+            );
+          },
         ),
         if (roleSlots != null)
           Padding(
@@ -244,13 +240,14 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
               children: [
                 // SwitchListTile for each InArticleAdSlotType
                 for (final slotType in InArticleAdSlotType.values)
-                  SwitchListTile(
+                  CheckboxListTile(
                     title: Text(slotType.l10n(context)),
-                    value: roleSlots[slotType] == true,
+                    value: roleSlots[slotType] ?? false,
                     onChanged: (value) {
-                      final newRoleSlots =
-                          Map<InArticleAdSlotType, bool>.from(roleSlots);
-                      if (value) {
+                      final newRoleSlots = Map<InArticleAdSlotType, bool>.from(
+                        roleSlots,
+                      );
+                      if (value ?? false) {
                         newRoleSlots[slotType] = true;
                       } else {
                         newRoleSlots.remove(slotType);
@@ -258,8 +255,8 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
 
                       final newVisibleTo =
                           Map<AppUserRole, Map<InArticleAdSlotType, bool>>.from(
-                        config.visibleTo,
-                      )..[role] = newRoleSlots;
+                            config.visibleTo,
+                          )..[role] = newRoleSlots;
 
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
