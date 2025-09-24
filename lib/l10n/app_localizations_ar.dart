@@ -1387,4 +1387,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String enableInArticleAdsForRoleLabel(String role) {
     return 'تمكين الإعلانات داخل المقال لـ $role';
   }
+
+  @override
+  String get moreActions => 'المزيد من الإجراءات';
 }

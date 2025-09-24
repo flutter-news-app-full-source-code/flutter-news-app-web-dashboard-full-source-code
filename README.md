@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://flutter-news-app-full-source-code.github.io/flutter-news-app-web-dashboard-full-source-code/"><img src="https://img.shields.io/badge/LIVE_DEMO-VIEW-orange?style=for-the-badge" alt="Live Demo: View"></a>
   <a href="https://flutter-news-app-full-source-code.github.io/docs/web-dashboard/local-setup/"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
-  <img src="https://img.shields.io/badge/coverage-_%25-green?style=for-the-badge" alt="coverage: 0%">
+  <img src="https://img.shields.io/badge/coverage-_%25-red?style=for-the-badge" alt="">
 </p>
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>

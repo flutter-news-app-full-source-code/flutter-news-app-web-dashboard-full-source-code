@@ -118,7 +118,6 @@ class DraftSourcesPage extends StatelessWidget {
                         DataColumn2(
                           label: Text(l10n.actions),
                           size: ColumnSize.S,
-                          fixedWidth: 120,
                         ),
                       ],
                       source: _DraftSourcesDataSource(
@@ -206,6 +205,7 @@ class _DraftSourcesDataSource extends DataTableSource {
         DataCell(
           Row(
             children: [
+              // Primary action: Publish button
               IconButton(
                 icon: const Icon(Icons.publish),
                 tooltip: l10n.publish,
@@ -215,24 +215,44 @@ class _DraftSourcesDataSource extends DataTableSource {
                   );
                 },
               ),
-              IconButton(
-                icon: const Icon(Icons.edit),
-                tooltip: l10n.editSource,
-                onPressed: () {
-                  context.goNamed(
-                    Routes.editSourceName,
-                    pathParameters: {'id': source.id},
-                  );
+              // Secondary actions: Edit and Delete via PopupMenuButton
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert),
+                tooltip: l10n.moreActions,
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    context.goNamed(
+                      Routes.editSourceName,
+                      pathParameters: {'id': source.id},
+                    );
+                  } else if (value == 'delete') {
+                    context.read<DraftSourcesBloc>().add(
+                      DeleteDraftSourceForeverRequested(source.id),
+                    );
+                  }
                 },
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete_forever),
-                tooltip: l10n.deleteForever,
-                onPressed: () {
-                  context.read<DraftSourcesBloc>().add(
-                    DeleteDraftSourceForeverRequested(source.id),
-                  );
-                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'edit',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.edit),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(l10n.editSource),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'delete',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.delete_forever),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(l10n.deleteForever),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
