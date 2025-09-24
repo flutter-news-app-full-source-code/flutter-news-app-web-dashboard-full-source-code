@@ -66,20 +66,6 @@ final class CreateLocalNativeAdTargetUrlChanged
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_native_ad_status_changed}
-/// Event to notify that the content status of the local native ad has changed.
-/// {@endtemplate}
-final class CreateLocalNativeAdStatusChanged extends CreateLocalNativeAdEvent {
-  /// {@macro create_local_native_ad_status_changed}
-  const CreateLocalNativeAdStatusChanged(this.status);
-
-  /// The new content status.
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
-}
-
 /// {@template create_local_native_ad_submitted}
 /// Event to request submission of the new local native ad.
 /// {@endtemplate}
