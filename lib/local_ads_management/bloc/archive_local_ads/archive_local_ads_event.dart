@@ -73,17 +73,12 @@ final class UndoDeleteLocalAdRequested extends ArchiveLocalAdsEvent {
   const UndoDeleteLocalAdRequested();
 }
 
-/// Internal event to confirm the permanent deletion of a local ad after a delay.
-final class _ConfirmDeleteLocalAdRequested extends ArchiveLocalAdsEvent {
-  /// {@macro _confirm_delete_local_ad_requested}
-  const _ConfirmDeleteLocalAdRequested(this.id, this.adType);
+/// Event to handle updates from the pending deletions service.
+final class _DeletionServiceStatusChanged extends ArchiveLocalAdsEvent {
+  const _DeletionServiceStatusChanged(this.event);
 
-  /// The ID of the local ad to confirm deletion for.
-  final String id;
-
-  /// The type of the local ad to confirm deletion for.
-  final AdType adType;
+  final DeletionEvent<dynamic> event;
 
   @override
-  List<Object?> get props => [id, adType];
+  List<Object?> get props => [event];
 }
