@@ -27,7 +27,6 @@ class CreateLocalNativeAdState extends Equatable {
     this.subtitle = '',
     this.imageUrl = '',
     this.targetUrl = '',
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.createdLocalNativeAd,
   });
@@ -46,9 +45,6 @@ class CreateLocalNativeAdState extends Equatable {
 
   /// The target URL of the local native ad.
   final String targetUrl;
-
-  /// The content status of the local native ad.
-  final ContentStatus contentStatus;
 
   /// The exception encountered during form submission, if any.
   final HttpException? exception;
@@ -70,7 +66,6 @@ class CreateLocalNativeAdState extends Equatable {
     String? subtitle,
     String? imageUrl,
     String? targetUrl,
-    ContentStatus? contentStatus,
     HttpException? exception,
     LocalNativeAd? createdLocalNativeAd,
   }) {
@@ -80,7 +75,6 @@ class CreateLocalNativeAdState extends Equatable {
       subtitle: subtitle ?? this.subtitle,
       imageUrl: imageUrl ?? this.imageUrl,
       targetUrl: targetUrl ?? this.targetUrl,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception ?? this.exception,
       createdLocalNativeAd: createdLocalNativeAd ?? this.createdLocalNativeAd,
     );
@@ -93,7 +87,6 @@ class CreateLocalNativeAdState extends Equatable {
     subtitle,
     imageUrl,
     targetUrl,
-    contentStatus,
     exception,
     createdLocalNativeAd,
   ];
