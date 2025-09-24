@@ -75,17 +75,15 @@ class _SourcesPageState extends State<SourcesPage> {
                     ),
                     DataColumn2(
                       label: Text(l10n.sourceType),
-                      size: ColumnSize.M,
+                      size: ColumnSize.S,
                     ),
-                    DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
                     DataColumn2(
                       label: Text(l10n.lastUpdated),
-                      size: ColumnSize.M,
+                      size: ColumnSize.S,
                     ),
                     DataColumn2(
                       label: Text(l10n.actions),
                       size: ColumnSize.S,
-                      fixedWidth: 120,
                     ),
                   ],
                   source: _SourcesDataSource(
@@ -165,7 +163,6 @@ class _SourcesDataSource extends DataTableSource {
           ),
         ),
         DataCell(Text(source.sourceType.localizedName(l10n))),
-        DataCell(Text(source.status.l10n(context))),
         DataCell(
           Text(
             // TODO(fulleni): Make date format configurable by admin.
