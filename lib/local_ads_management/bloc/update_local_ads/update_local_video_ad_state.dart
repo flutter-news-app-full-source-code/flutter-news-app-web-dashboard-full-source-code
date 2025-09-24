@@ -25,7 +25,6 @@ final class UpdateLocalVideoAdState extends Equatable {
     this.initialAd,
     this.videoUrl = '',
     this.targetUrl = '',
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedAd,
   });
@@ -34,7 +33,6 @@ final class UpdateLocalVideoAdState extends Equatable {
   final LocalVideoAd? initialAd;
   final String videoUrl;
   final String targetUrl;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final LocalVideoAd? updatedAd;
 
@@ -45,16 +43,13 @@ final class UpdateLocalVideoAdState extends Equatable {
   /// Returns true if there are changes compared to the initial ad.
   bool get isDirty =>
       initialAd != null &&
-      (videoUrl != initialAd!.videoUrl ||
-          targetUrl != initialAd!.targetUrl ||
-          contentStatus != initialAd!.status);
+      (videoUrl != initialAd!.videoUrl || targetUrl != initialAd!.targetUrl);
 
   UpdateLocalVideoAdState copyWith({
     UpdateLocalVideoAdStatus? status,
     LocalVideoAd? initialAd,
     String? videoUrl,
     String? targetUrl,
-    ContentStatus? contentStatus,
     HttpException? exception,
     LocalVideoAd? updatedAd,
   }) {
@@ -63,7 +58,6 @@ final class UpdateLocalVideoAdState extends Equatable {
       initialAd: initialAd ?? this.initialAd,
       videoUrl: videoUrl ?? this.videoUrl,
       targetUrl: targetUrl ?? this.targetUrl,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedAd: updatedAd ?? this.updatedAd,
     );
@@ -75,7 +69,6 @@ final class UpdateLocalVideoAdState extends Equatable {
     initialAd,
     videoUrl,
     targetUrl,
-    contentStatus,
     exception,
     updatedAd,
   ];
