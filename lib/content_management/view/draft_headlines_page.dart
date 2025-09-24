@@ -122,7 +122,6 @@ class DraftHeadlinesPage extends StatelessWidget {
                         DataColumn2(
                           label: Text(l10n.actions),
                           size: ColumnSize.S,
-                          fixedWidth: 120,
                         ),
                       ],
                       source: _DraftHeadlinesDataSource(
@@ -211,6 +210,7 @@ class _DraftHeadlinesDataSource extends DataTableSource {
         DataCell(
           Row(
             children: [
+              // Primary action: Publish button
               IconButton(
                 icon: const Icon(Icons.publish),
                 tooltip: l10n.publish,
@@ -220,24 +220,44 @@ class _DraftHeadlinesDataSource extends DataTableSource {
                   );
                 },
               ),
-              IconButton(
-                icon: const Icon(Icons.edit),
-                tooltip: l10n.editHeadline,
-                onPressed: () {
-                  context.goNamed(
-                    Routes.editHeadlineName,
-                    pathParameters: {'id': headline.id},
-                  );
+              // Secondary actions: Edit and Delete via PopupMenuButton
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert),
+                tooltip: l10n.moreActions,
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    context.goNamed(
+                      Routes.editHeadlineName,
+                      pathParameters: {'id': headline.id},
+                    );
+                  } else if (value == 'delete') {
+                    context.read<DraftHeadlinesBloc>().add(
+                      DeleteDraftHeadlineForeverRequested(headline.id),
+                    );
+                  }
                 },
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete_forever),
-                tooltip: l10n.deleteForever,
-                onPressed: () {
-                  context.read<DraftHeadlinesBloc>().add(
-                    DeleteDraftHeadlineForeverRequested(headline.id),
-                  );
-                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'edit',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.edit),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(l10n.editHeadline),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'delete',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.delete_forever),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(l10n.deleteForever),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
