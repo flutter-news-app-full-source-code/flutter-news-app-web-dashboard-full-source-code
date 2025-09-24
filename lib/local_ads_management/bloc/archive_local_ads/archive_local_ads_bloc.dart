@@ -22,9 +22,9 @@ class ArchiveLocalAdsBloc
   ArchiveLocalAdsBloc({
     required DataRepository<LocalAd> localAdsRepository,
     required PendingDeletionsService pendingDeletionsService,
-  })  : _localAdsRepository = localAdsRepository,
-        _pendingDeletionsService = pendingDeletionsService,
-        super(const ArchiveLocalAdsState()) {
+  }) : _localAdsRepository = localAdsRepository,
+       _pendingDeletionsService = pendingDeletionsService,
+       super(const ArchiveLocalAdsState()) {
     on<LoadArchivedLocalAdsRequested>(_onLoadArchivedLocalAdsRequested);
     on<RestoreLocalAdRequested>(_onRestoreLocalAdRequested);
     on<DeleteLocalAdForeverRequested>(_onDeleteLocalAdForeverRequested);
@@ -46,7 +46,7 @@ class ArchiveLocalAdsBloc
 
   /// Subscription to deletion events from the PendingDeletionsService.
   late final StreamSubscription<DeletionEvent<dynamic>>
-      _deletionEventSubscription;
+  _deletionEventSubscription;
 
   @override
   Future<void> close() {
@@ -93,7 +93,9 @@ class ArchiveLocalAdsBloc
 
       switch (event.adType) {
         case AdType.native:
-          final previousAds = isPaginating ? state.nativeAds : <LocalNativeAd>[];
+          final previousAds = isPaginating
+              ? state.nativeAds
+              : <LocalNativeAd>[];
           emit(
             state.copyWith(
               nativeAdsStatus: ArchiveLocalAdsStatus.success,
@@ -106,7 +108,9 @@ class ArchiveLocalAdsBloc
             ),
           );
         case AdType.banner:
-          final previousAds = isPaginating ? state.bannerAds : <LocalBannerAd>[];
+          final previousAds = isPaginating
+              ? state.bannerAds
+              : <LocalBannerAd>[];
           emit(
             state.copyWith(
               bannerAdsStatus: ArchiveLocalAdsStatus.success,
