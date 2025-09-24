@@ -19,7 +19,6 @@ class CreateLocalNativeAdBloc
     on<CreateLocalNativeAdSubtitleChanged>(_onSubtitleChanged);
     on<CreateLocalNativeAdImageUrlChanged>(_onImageUrlChanged);
     on<CreateLocalNativeAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalNativeAdStatusChanged>(_onStatusChanged);
     on<CreateLocalNativeAdSubmitted>(_onSubmitted);
   }
 
@@ -54,18 +53,6 @@ class CreateLocalNativeAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  void _onStatusChanged(
-    CreateLocalNativeAdStatusChanged event,
-    Emitter<CreateLocalNativeAdState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: CreateLocalNativeAdStatus.initial,
-      ),
-    );
-  }
-
   Future<void> _onSubmitted(
     CreateLocalNativeAdSubmitted event,
     Emitter<CreateLocalNativeAdState> emit,
@@ -83,7 +70,7 @@ class CreateLocalNativeAdBloc
         targetUrl: state.targetUrl,
         createdAt: now,
         updatedAt: now,
-        status: state.contentStatus,
+        status: ContentStatus.active, // Set status to active on creation
       );
 
       await _localAdsRepository.create(item: newLocalNativeAd);
