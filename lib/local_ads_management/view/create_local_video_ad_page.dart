@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/create_local_ads/create_local_video_ad_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -143,20 +141,6 @@ class _CreateLocalVideoAdViewState extends State<_CreateLocalVideoAdView> {
                           .add(CreateLocalVideoAdTargetUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<CreateLocalVideoAdBloc>().add(
-                          CreateLocalVideoAdStatusChanged(value),
-                        );
-                      },
-                    ),
                   ],
                 ),
               ),
