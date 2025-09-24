@@ -5,7 +5,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 part 'archive_local_ads_event.dart';
 part 'archive_local_ads_state.dart';

@@ -139,7 +139,8 @@ class ArchiveLocalAdsState extends Equatable {
       videoAdsCursor: videoAdsCursor ?? this.videoAdsCursor,
       videoAdsHasMore: videoAdsHasMore ?? this.videoAdsHasMore,
       exception: exception,
-      lastPendingDeletionId: lastPendingDeletionId ?? this.lastPendingDeletionId,
+      lastPendingDeletionId:
+          lastPendingDeletionId ?? this.lastPendingDeletionId,
       snackbarLocalAdTitle: snackbarLocalAdTitle,
     );
   }
