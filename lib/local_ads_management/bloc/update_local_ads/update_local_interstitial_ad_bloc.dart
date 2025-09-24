@@ -22,7 +22,6 @@ class UpdateLocalInterstitialAdBloc
     on<UpdateLocalInterstitialAdLoaded>(_onLoaded);
     on<UpdateLocalInterstitialAdImageUrlChanged>(_onImageUrlChanged);
     on<UpdateLocalInterstitialAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<UpdateLocalInterstitialAdStatusChanged>(_onStatusChanged);
     on<UpdateLocalInterstitialAdSubmitted>(_onSubmitted);
 
     add(UpdateLocalInterstitialAdLoaded(_id));
@@ -45,7 +44,6 @@ class UpdateLocalInterstitialAdBloc
           initialAd: localInterstitialAd,
           imageUrl: localInterstitialAd.imageUrl,
           targetUrl: localInterstitialAd.targetUrl,
-          contentStatus: localInterstitialAd.status,
         ),
       );
     } on HttpException catch (e) {
@@ -79,13 +77,6 @@ class UpdateLocalInterstitialAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  void _onStatusChanged(
-    UpdateLocalInterstitialAdStatusChanged event,
-    Emitter<UpdateLocalInterstitialAdState> emit,
-  ) {
-    emit(state.copyWith(contentStatus: event.status));
-  }
-
   Future<void> _onSubmitted(
     UpdateLocalInterstitialAdSubmitted event,
     Emitter<UpdateLocalInterstitialAdState> emit,
@@ -99,7 +90,7 @@ class UpdateLocalInterstitialAdBloc
         imageUrl: state.imageUrl,
         targetUrl: state.targetUrl,
         updatedAt: now,
-        status: state.contentStatus,
+        status: state.initialAd!.status, // Maintain original status
       );
 
       await _localAdsRepository.update(
