@@ -2593,6 +2593,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enable In-Article Ads for {role}'**
   String enableInArticleAdsForRoleLabel(String role);
+
+  /// Tooltip for the button that opens a menu with more actions for a table row.
+  ///
+  /// In en, this message translates to:
+  /// **'More Actions'**
+  String get moreActions;
 }
 
 class _AppLocalizationsDelegate
