@@ -313,7 +313,6 @@ class ArchiveLocalAdsBloc
         id: event.id,
         item: updatedAd,
       );
-      emit(state.copyWith(restoredLocalAd: updatedAd));
     } on HttpException catch (e) {
       // Revert UI on failure
       switch (event.adType) {
@@ -519,7 +518,6 @@ class ArchiveLocalAdsBloc
                     ? null
                     : state.lastPendingDeletionId,
                 snackbarLocalAdTitle: null,
-                restoredLocalAd: item,
               ),
             );
           case 'banner':
@@ -532,7 +530,6 @@ class ArchiveLocalAdsBloc
                     ? null
                     : state.lastPendingDeletionId,
                 snackbarLocalAdTitle: null,
-                restoredLocalAd: item,
               ),
             );
           case 'interstitial':
@@ -546,7 +543,6 @@ class ArchiveLocalAdsBloc
                     ? null
                     : state.lastPendingDeletionId,
                 snackbarLocalAdTitle: null,
-                restoredLocalAd: item,
               ),
             );
           case 'video':
@@ -559,7 +555,6 @@ class ArchiveLocalAdsBloc
                     ? null
                     : state.lastPendingDeletionId,
                 snackbarLocalAdTitle: null,
-                restoredLocalAd: item,
               ),
             );
         }
