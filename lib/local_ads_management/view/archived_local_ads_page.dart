@@ -12,6 +12,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
         RestoreLocalAdRequested,
         UndoDeleteLocalAdRequested;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -28,6 +29,7 @@ class ArchivedLocalAdsPage extends StatelessWidget {
       create: (context) =>
           ArchiveLocalAdsBloc(
               localAdsRepository: context.read<DataRepository<LocalAd>>(),
+              pendingDeletionsService: context.read<PendingDeletionsService>(),
             )
             ..add(const LoadArchivedLocalAdsRequested(adType: AdType.native))
             ..add(const LoadArchivedLocalAdsRequested(adType: AdType.banner))
@@ -77,6 +79,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final pendingDeletionsService = context.read<PendingDeletionsService>();
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.archivedLocalAdsTitle),
@@ -89,42 +92,14 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
       ),
       body: BlocListener<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
         listenWhen: (previous, current) =>
-            previous.lastDeletedLocalAd != current.lastDeletedLocalAd ||
-            (previous.nativeAds.length != current.nativeAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.bannerAds.length != current.bannerAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.interstitialAds.length !=
-                    current.interstitialAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.videoAds.length != current.videoAds.length &&
-                current.lastDeletedLocalAd == null) ||
+            previous.lastPendingDeletionId != current.lastPendingDeletionId ||
+            previous.snackbarLocalAdTitle != current.snackbarLocalAdTitle ||
             (previous.restoredLocalAd == null &&
                 current.restoredLocalAd != null),
         listener: (context, state) {
-          if (state.lastDeletedLocalAd != null) {
-            String truncatedTitle;
-            switch (state.lastDeletedLocalAd!.adType) {
-              case 'native':
-                truncatedTitle = (state.lastDeletedLocalAd! as LocalNativeAd)
-                    .title
-                    .truncate(30);
-              case 'banner':
-                truncatedTitle = (state.lastDeletedLocalAd! as LocalBannerAd)
-                    .imageUrl
-                    .truncate(30);
-              case 'interstitial':
-                truncatedTitle =
-                    (state.lastDeletedLocalAd! as LocalInterstitialAd).imageUrl
-                        .truncate(30);
-              case 'video':
-                truncatedTitle = (state.lastDeletedLocalAd! as LocalVideoAd)
-                    .videoUrl
-                    .truncate(30);
-              default:
-                truncatedTitle = state.lastDeletedLocalAd!.id.truncate(30);
-            }
-
+          if (state.snackbarLocalAdTitle != null) {
+            final adId = state.lastPendingDeletionId!;
+            final truncatedTitle = state.snackbarLocalAdTitle!.truncate(30);
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -135,9 +110,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                   action: SnackBarAction(
                     label: l10n.undo,
                     onPressed: () {
-                      context.read<ArchiveLocalAdsBloc>().add(
-                        const UndoDeleteLocalAdRequested(),
-                      );
+                      pendingDeletionsService.undoDeletion(adId);
                     },
                   ),
                 ),
