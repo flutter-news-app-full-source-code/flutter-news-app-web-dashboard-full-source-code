@@ -51,20 +51,6 @@ final class UpdateLocalBannerAdTargetUrlChanged
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template update_local_banner_ad_status_changed}
-/// Event to notify that the content status of the local banner ad has changed.
-/// {@endtemplate}
-final class UpdateLocalBannerAdStatusChanged extends UpdateLocalBannerAdEvent {
-  /// {@macro update_local_banner_ad_status_changed}
-  const UpdateLocalBannerAdStatusChanged(this.status);
-
-  /// The new content status.
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
-}
-
 /// {@template update_local_banner_ad_submitted}
 /// Event to request submission of the updated local banner ad.
 /// {@endtemplate}

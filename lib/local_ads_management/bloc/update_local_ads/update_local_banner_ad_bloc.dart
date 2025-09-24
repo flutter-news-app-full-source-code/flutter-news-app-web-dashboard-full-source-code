@@ -21,7 +21,6 @@ class UpdateLocalBannerAdBloc
     on<UpdateLocalBannerAdLoaded>(_onLoaded);
     on<UpdateLocalBannerAdImageUrlChanged>(_onImageUrlChanged);
     on<UpdateLocalBannerAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<UpdateLocalBannerAdStatusChanged>(_onStatusChanged);
     on<UpdateLocalBannerAdSubmitted>(_onSubmitted);
 
     add(UpdateLocalBannerAdLoaded(_id));
@@ -44,7 +43,6 @@ class UpdateLocalBannerAdBloc
           initialAd: localBannerAd,
           imageUrl: localBannerAd.imageUrl,
           targetUrl: localBannerAd.targetUrl,
-          contentStatus: localBannerAd.status,
         ),
       );
     } on HttpException catch (e) {
@@ -75,13 +73,6 @@ class UpdateLocalBannerAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  void _onStatusChanged(
-    UpdateLocalBannerAdStatusChanged event,
-    Emitter<UpdateLocalBannerAdState> emit,
-  ) {
-    emit(state.copyWith(contentStatus: event.status));
-  }
-
   Future<void> _onSubmitted(
     UpdateLocalBannerAdSubmitted event,
     Emitter<UpdateLocalBannerAdState> emit,
@@ -95,7 +86,7 @@ class UpdateLocalBannerAdBloc
         imageUrl: state.imageUrl,
         targetUrl: state.targetUrl,
         updatedAt: now,
-        status: state.contentStatus,
+        status: state.initialAd!.status, // Maintain original status
       );
 
       await _localAdsRepository.update(

@@ -21,7 +21,6 @@ class UpdateLocalVideoAdBloc
     on<UpdateLocalVideoAdLoaded>(_onLoaded);
     on<UpdateLocalVideoAdVideoUrlChanged>(_onVideoUrlChanged);
     on<UpdateLocalVideoAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<UpdateLocalVideoAdStatusChanged>(_onStatusChanged);
     on<UpdateLocalVideoAdSubmitted>(_onSubmitted);
 
     add(UpdateLocalVideoAdLoaded(_id));
@@ -44,7 +43,6 @@ class UpdateLocalVideoAdBloc
           initialAd: localVideoAd,
           videoUrl: localVideoAd.videoUrl,
           targetUrl: localVideoAd.targetUrl,
-          contentStatus: localVideoAd.status,
         ),
       );
     } on HttpException catch (e) {
@@ -75,13 +73,6 @@ class UpdateLocalVideoAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  void _onStatusChanged(
-    UpdateLocalVideoAdStatusChanged event,
-    Emitter<UpdateLocalVideoAdState> emit,
-  ) {
-    emit(state.copyWith(contentStatus: event.status));
-  }
-
   Future<void> _onSubmitted(
     UpdateLocalVideoAdSubmitted event,
     Emitter<UpdateLocalVideoAdState> emit,
@@ -95,7 +86,7 @@ class UpdateLocalVideoAdBloc
         videoUrl: state.videoUrl,
         targetUrl: state.targetUrl,
         updatedAt: now,
-        status: state.contentStatus,
+        status: state.initialAd!.status, // Maintain original status
       );
 
       await _localAdsRepository.update(

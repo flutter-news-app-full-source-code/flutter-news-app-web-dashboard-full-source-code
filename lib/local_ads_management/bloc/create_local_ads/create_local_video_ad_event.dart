@@ -35,20 +35,6 @@ final class CreateLocalVideoAdTargetUrlChanged extends CreateLocalVideoAdEvent {
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_video_ad_status_changed}
-/// Event to notify that the content status of the local video ad has changed.
-/// {@endtemplate}
-final class CreateLocalVideoAdStatusChanged extends CreateLocalVideoAdEvent {
-  /// {@macro create_local_video_ad_status_changed}
-  const CreateLocalVideoAdStatusChanged(this.status);
-
-  /// The new content status.
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
-}
-
 /// {@template create_local_video_ad_submitted}
 /// Event to request submission of the new local video ad.
 /// {@endtemplate}

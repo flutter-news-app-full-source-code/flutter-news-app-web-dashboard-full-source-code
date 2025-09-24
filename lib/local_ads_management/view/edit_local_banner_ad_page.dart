@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/update_local_ads/update_local_banner_ad_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -176,20 +174,6 @@ class _EditLocalBannerAdViewState extends State<_EditLocalBannerAdView> {
                           .add(UpdateLocalBannerAdTargetUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<ContentStatus>(
-                      label: l10n.status,
-                      selectedItem: state.contentStatus,
-                      staticItems: ContentStatus.values.toList(),
-                      itemBuilder: (context, status) =>
-                          Text(status.l10n(context)),
-                      itemToString: (status) => status.l10n(context),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        context.read<UpdateLocalBannerAdBloc>().add(
-                          UpdateLocalBannerAdStatusChanged(value),
-                        );
-                      },
-                    ),
                   ],
                 ),
               ),

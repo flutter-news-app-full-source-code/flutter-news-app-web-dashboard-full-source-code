@@ -27,7 +27,6 @@ final class UpdateLocalNativeAdState extends Equatable {
     this.subtitle = '',
     this.imageUrl = '',
     this.targetUrl = '',
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedAd,
   });
@@ -38,7 +37,6 @@ final class UpdateLocalNativeAdState extends Equatable {
   final String subtitle;
   final String imageUrl;
   final String targetUrl;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final LocalNativeAd? updatedAd;
 
@@ -56,8 +54,7 @@ final class UpdateLocalNativeAdState extends Equatable {
       (title != initialAd!.title ||
           subtitle != initialAd!.subtitle ||
           imageUrl != initialAd!.imageUrl ||
-          targetUrl != initialAd!.targetUrl ||
-          contentStatus != initialAd!.status);
+          targetUrl != initialAd!.targetUrl);
 
   UpdateLocalNativeAdState copyWith({
     UpdateLocalNativeAdStatus? status,
@@ -66,7 +63,6 @@ final class UpdateLocalNativeAdState extends Equatable {
     String? subtitle,
     String? imageUrl,
     String? targetUrl,
-    ContentStatus? contentStatus,
     HttpException? exception,
     LocalNativeAd? updatedAd,
   }) {
@@ -77,7 +73,6 @@ final class UpdateLocalNativeAdState extends Equatable {
       subtitle: subtitle ?? this.subtitle,
       imageUrl: imageUrl ?? this.imageUrl,
       targetUrl: targetUrl ?? this.targetUrl,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedAd: updatedAd ?? this.updatedAd,
     );
@@ -91,7 +86,6 @@ final class UpdateLocalNativeAdState extends Equatable {
     subtitle,
     imageUrl,
     targetUrl,
-    contentStatus,
     exception,
     updatedAd,
   ];

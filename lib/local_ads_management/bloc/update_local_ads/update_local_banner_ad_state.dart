@@ -25,7 +25,6 @@ final class UpdateLocalBannerAdState extends Equatable {
     this.initialAd,
     this.imageUrl = '',
     this.targetUrl = '',
-    this.contentStatus = ContentStatus.active,
     this.exception,
     this.updatedAd,
   });
@@ -34,7 +33,6 @@ final class UpdateLocalBannerAdState extends Equatable {
   final LocalBannerAd? initialAd;
   final String imageUrl;
   final String targetUrl;
-  final ContentStatus contentStatus;
   final HttpException? exception;
   final LocalBannerAd? updatedAd;
 
@@ -45,16 +43,13 @@ final class UpdateLocalBannerAdState extends Equatable {
   /// Returns true if there are changes compared to the initial ad.
   bool get isDirty =>
       initialAd != null &&
-      (imageUrl != initialAd!.imageUrl ||
-          targetUrl != initialAd!.targetUrl ||
-          contentStatus != initialAd!.status);
+      (imageUrl != initialAd!.imageUrl || targetUrl != initialAd!.targetUrl);
 
   UpdateLocalBannerAdState copyWith({
     UpdateLocalBannerAdStatus? status,
     LocalBannerAd? initialAd,
     String? imageUrl,
     String? targetUrl,
-    ContentStatus? contentStatus,
     HttpException? exception,
     LocalBannerAd? updatedAd,
   }) {
@@ -63,7 +58,6 @@ final class UpdateLocalBannerAdState extends Equatable {
       initialAd: initialAd ?? this.initialAd,
       imageUrl: imageUrl ?? this.imageUrl,
       targetUrl: targetUrl ?? this.targetUrl,
-      contentStatus: contentStatus ?? this.contentStatus,
       exception: exception,
       updatedAd: updatedAd ?? this.updatedAd,
     );
@@ -75,7 +69,6 @@ final class UpdateLocalBannerAdState extends Equatable {
     initialAd,
     imageUrl,
     targetUrl,
-    contentStatus,
     exception,
     updatedAd,
   ];

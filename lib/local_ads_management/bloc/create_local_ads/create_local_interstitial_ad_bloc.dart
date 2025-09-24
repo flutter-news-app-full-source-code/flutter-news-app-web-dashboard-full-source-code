@@ -18,7 +18,6 @@ class CreateLocalInterstitialAdBloc
        super(const CreateLocalInterstitialAdState()) {
     on<CreateLocalInterstitialAdImageUrlChanged>(_onImageUrlChanged);
     on<CreateLocalInterstitialAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalInterstitialAdStatusChanged>(_onStatusChanged);
     on<CreateLocalInterstitialAdSubmitted>(_onSubmitted);
   }
 
@@ -39,18 +38,6 @@ class CreateLocalInterstitialAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  void _onStatusChanged(
-    CreateLocalInterstitialAdStatusChanged event,
-    Emitter<CreateLocalInterstitialAdState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: CreateLocalInterstitialAdStatus.initial,
-      ),
-    );
-  }
-
   Future<void> _onSubmitted(
     CreateLocalInterstitialAdSubmitted event,
     Emitter<CreateLocalInterstitialAdState> emit,
@@ -66,7 +53,7 @@ class CreateLocalInterstitialAdBloc
         targetUrl: state.targetUrl,
         createdAt: now,
         updatedAt: now,
-        status: state.contentStatus,
+        status: ContentStatus.active, // Set status to active on creation
       );
 
       await _localAdsRepository.create(item: newLocalInterstitialAd);

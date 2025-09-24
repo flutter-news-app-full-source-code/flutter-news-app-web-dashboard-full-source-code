@@ -17,7 +17,6 @@ class CreateLocalBannerAdBloc
        super(const CreateLocalBannerAdState()) {
     on<CreateLocalBannerAdImageUrlChanged>(_onImageUrlChanged);
     on<CreateLocalBannerAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalBannerAdStatusChanged>(_onStatusChanged);
     on<CreateLocalBannerAdSubmitted>(_onSubmitted);
   }
 
@@ -38,18 +37,6 @@ class CreateLocalBannerAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  void _onStatusChanged(
-    CreateLocalBannerAdStatusChanged event,
-    Emitter<CreateLocalBannerAdState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        contentStatus: event.status,
-        status: CreateLocalBannerAdStatus.initial,
-      ),
-    );
-  }
-
   Future<void> _onSubmitted(
     CreateLocalBannerAdSubmitted event,
     Emitter<CreateLocalBannerAdState> emit,
@@ -65,7 +52,7 @@ class CreateLocalBannerAdBloc
         targetUrl: state.targetUrl,
         createdAt: now,
         updatedAt: now,
-        status: state.contentStatus,
+        status: ContentStatus.active, // Set status to active on creation
       );
 
       await _localAdsRepository.create(item: newLocalBannerAd);
