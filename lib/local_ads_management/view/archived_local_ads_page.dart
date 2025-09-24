@@ -79,6 +79,13 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    // Read the PendingDeletionsService instance directly.
+    // This is safe because PendingDeletionsService is a singleton and does not
+    // depend on the widget's BuildContext for its operations, preventing
+    // "deactivated widget's ancestor" errors when the SnackBar is dismissed
+    // after the widget has been unmounted.
+    final pendingDeletionsService = context.read<PendingDeletionsService>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.archivedLocalAdsTitle),
@@ -92,9 +99,7 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
       body: BlocListener<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
         listenWhen: (previous, current) =>
             previous.lastPendingDeletionId != current.lastPendingDeletionId ||
-            previous.snackbarLocalAdTitle != current.snackbarLocalAdTitle ||
-            (previous.restoredLocalAd == null &&
-                current.restoredLocalAd != null),
+            previous.snackbarLocalAdTitle != current.snackbarLocalAdTitle,
         listener: (context, state) {
           if (state.snackbarLocalAdTitle != null) {
             final adId = state.lastPendingDeletionId!;
@@ -109,22 +114,14 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                   action: SnackBarAction(
                     label: l10n.undo,
                     onPressed: () {
-                      context.read<ArchiveLocalAdsBloc>().add(
-                        const UndoDeleteLocalAdRequested(),
-                      );
+                      // Directly call undoDeletion on the service.
+                      // This avoids using context.read on a potentially deactivated
+                      // widget, which caused the "deactivated widget's ancestor" error.
+                      pendingDeletionsService.undoDeletion(adId);
                     },
                   ),
                 ),
               );
-          }
-          // Trigger refresh of active ads in LocalAdsManagementBloc if an ad was restored
-          if (state.restoredLocalAd != null) {
-            context.read<LocalAdsManagementBloc>().add(
-              LoadLocalAdsRequested(
-                adType: state.restoredLocalAd!.toAdType(),
-                forceRefresh: true,
-              ),
-            );
           }
         },
         child: TabBarView(
