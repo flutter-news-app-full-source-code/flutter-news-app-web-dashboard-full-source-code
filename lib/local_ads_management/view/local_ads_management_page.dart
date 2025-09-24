@@ -273,16 +273,11 @@ class _LocalAdsDataTable extends StatelessWidget {
                   ),
                   DataColumn2(
                     label: Text(l10n.lastUpdated),
-                    size: ColumnSize.M,
-                  ),
-                  DataColumn2(
-                    label: Text(l10n.status),
                     size: ColumnSize.S,
                   ),
                   DataColumn2(
                     label: Text(l10n.actions),
                     size: ColumnSize.S,
-                    fixedWidth: 180,
                   ),
                 ],
                 source: _LocalAdsDataSource(
@@ -348,6 +343,7 @@ class _LocalAdsDataSource extends DataTableSource {
     final ad = ads[index];
     String title;
     DateTime updatedAt;
+    // ignore: unused_local_variable
     ContentStatus status;
 
     // Determine title, updatedAt, and status based on ad type
@@ -392,48 +388,10 @@ class _LocalAdsDataSource extends DataTableSource {
             DateFormat('dd-MM-yyyy').format(updatedAt.toLocal()),
           ),
         ),
-        DataCell(Text(status.l10n(context))),
         DataCell(
           Row(
             children: [
-              IconButton(
-                icon: const Icon(Icons.archive),
-                tooltip: l10n.archive,
-                onPressed: () {
-                  context.read<LocalAdsManagementBloc>().add(
-                    ArchiveLocalAdRequested(ad.id, adType.toAdType()),
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.edit),
-                tooltip: l10n.editLocalAds,
-                onPressed: () {
-                  // Navigate to edit page based on ad type
-                  switch (ad.adType) {
-                    case 'native':
-                      context.goNamed(
-                        Routes.editLocalNativeAdName,
-                        pathParameters: {'id': ad.id},
-                      );
-                    case 'banner':
-                      context.goNamed(
-                        Routes.editLocalBannerAdName,
-                        pathParameters: {'id': ad.id},
-                      );
-                    case 'interstitial':
-                      context.goNamed(
-                        Routes.editLocalInterstitialAdName,
-                        pathParameters: {'id': ad.id},
-                      );
-                    case 'video':
-                      context.goNamed(
-                        Routes.editLocalVideoAdName,
-                        pathParameters: {'id': ad.id},
-                      );
-                  }
-                },
-              ),
+              // Primary action: Copy ID button
               IconButton(
                 icon: const Icon(Icons.copy),
                 tooltip: l10n.copyId,
@@ -447,6 +405,64 @@ class _LocalAdsDataSource extends DataTableSource {
                       ),
                     );
                 },
+              ),
+              // Secondary actions: Edit and Archive via PopupMenuButton
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert),
+                tooltip: l10n.moreActions,
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    // Navigate to edit page based on ad type
+                    switch (ad.adType) {
+                      case 'native':
+                        context.goNamed(
+                          Routes.editLocalNativeAdName,
+                          pathParameters: {'id': ad.id},
+                        );
+                      case 'banner':
+                        context.goNamed(
+                          Routes.editLocalBannerAdName,
+                          pathParameters: {'id': ad.id},
+                        );
+                      case 'interstitial':
+                        context.goNamed(
+                          Routes.editLocalInterstitialAdName,
+                          pathParameters: {'id': ad.id},
+                        );
+                      case 'video':
+                        context.goNamed(
+                          Routes.editLocalVideoAdName,
+                          pathParameters: {'id': ad.id},
+                        );
+                    }
+                  } else if (value == 'archive') {
+                    context.read<LocalAdsManagementBloc>().add(
+                      ArchiveLocalAdRequested(ad.id, adType.toAdType()),
+                    );
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'edit',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.edit),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(l10n.editLocalAds),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'archive',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.archive),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(l10n.archive),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
