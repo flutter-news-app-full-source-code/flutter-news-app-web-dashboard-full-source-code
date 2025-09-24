@@ -79,7 +79,6 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final pendingDeletionsService = context.read<PendingDeletionsService>();
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.archivedLocalAdsTitle),
@@ -110,7 +109,9 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                   action: SnackBarAction(
                     label: l10n.undo,
                     onPressed: () {
-                      pendingDeletionsService.undoDeletion(adId);
+                      context.read<ArchiveLocalAdsBloc>().add(
+                        const UndoDeleteLocalAdRequested(),
+                      );
                     },
                   ),
                 ),
