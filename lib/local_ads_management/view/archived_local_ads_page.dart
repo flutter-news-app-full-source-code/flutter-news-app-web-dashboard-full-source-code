@@ -6,12 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/archive_local_ads/archive_local_ads_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart'
-    hide
-        DeleteLocalAdForeverRequested,
-        RestoreLocalAdRequested,
-        UndoDeleteLocalAdRequested;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -28,6 +24,7 @@ class ArchivedLocalAdsPage extends StatelessWidget {
       create: (context) =>
           ArchiveLocalAdsBloc(
               localAdsRepository: context.read<DataRepository<LocalAd>>(),
+              pendingDeletionsService: context.read<PendingDeletionsService>(),
             )
             ..add(const LoadArchivedLocalAdsRequested(adType: AdType.native))
             ..add(const LoadArchivedLocalAdsRequested(adType: AdType.banner))
@@ -77,6 +74,13 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    // Read the PendingDeletionsService instance directly.
+    // This is safe because PendingDeletionsService is a singleton and does not
+    // depend on the widget's BuildContext for its operations, preventing
+    // "deactivated widget's ancestor" errors when the SnackBar is dismissed
+    // after the widget has been unmounted.
+    final pendingDeletionsService = context.read<PendingDeletionsService>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.archivedLocalAdsTitle),
@@ -89,42 +93,12 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
       ),
       body: BlocListener<ArchiveLocalAdsBloc, ArchiveLocalAdsState>(
         listenWhen: (previous, current) =>
-            previous.lastDeletedLocalAd != current.lastDeletedLocalAd ||
-            (previous.nativeAds.length != current.nativeAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.bannerAds.length != current.bannerAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.interstitialAds.length !=
-                    current.interstitialAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.videoAds.length != current.videoAds.length &&
-                current.lastDeletedLocalAd == null) ||
-            (previous.restoredLocalAd == null &&
-                current.restoredLocalAd != null),
+            previous.lastPendingDeletionId != current.lastPendingDeletionId ||
+            previous.snackbarLocalAdTitle != current.snackbarLocalAdTitle,
         listener: (context, state) {
-          if (state.lastDeletedLocalAd != null) {
-            String truncatedTitle;
-            switch (state.lastDeletedLocalAd!.adType) {
-              case 'native':
-                truncatedTitle = (state.lastDeletedLocalAd! as LocalNativeAd)
-                    .title
-                    .truncate(30);
-              case 'banner':
-                truncatedTitle = (state.lastDeletedLocalAd! as LocalBannerAd)
-                    .imageUrl
-                    .truncate(30);
-              case 'interstitial':
-                truncatedTitle =
-                    (state.lastDeletedLocalAd! as LocalInterstitialAd).imageUrl
-                        .truncate(30);
-              case 'video':
-                truncatedTitle = (state.lastDeletedLocalAd! as LocalVideoAd)
-                    .videoUrl
-                    .truncate(30);
-              default:
-                truncatedTitle = state.lastDeletedLocalAd!.id.truncate(30);
-            }
-
+          if (state.snackbarLocalAdTitle != null) {
+            final adId = state.lastPendingDeletionId!;
+            final truncatedTitle = state.snackbarLocalAdTitle!.truncate(30);
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -135,22 +109,14 @@ class _ArchivedLocalAdsViewState extends State<_ArchivedLocalAdsView>
                   action: SnackBarAction(
                     label: l10n.undo,
                     onPressed: () {
-                      context.read<ArchiveLocalAdsBloc>().add(
-                        const UndoDeleteLocalAdRequested(),
-                      );
+                      // Directly call undoDeletion on the service.
+                      // This avoids using context.read on a potentially deactivated
+                      // widget, which caused the "deactivated widget's ancestor" error.
+                      pendingDeletionsService.undoDeletion(adId);
                     },
                   ),
                 ),
               );
-          }
-          // Trigger refresh of active ads in LocalAdsManagementBloc if an ad was restored
-          if (state.restoredLocalAd != null) {
-            context.read<LocalAdsManagementBloc>().add(
-              LoadLocalAdsRequested(
-                adType: state.restoredLocalAd!.toAdType(),
-                forceRefresh: true,
-              ),
-            );
           }
         },
         child: TabBarView(

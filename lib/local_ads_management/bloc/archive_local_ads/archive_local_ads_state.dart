@@ -29,8 +29,8 @@ class ArchiveLocalAdsState extends Equatable {
     this.videoAdsCursor,
     this.videoAdsHasMore = false,
     this.exception,
-    this.lastDeletedLocalAd,
-    this.restoredLocalAd,
+    this.lastPendingDeletionId,
+    this.snackbarLocalAdTitle,
   });
 
   final ArchiveLocalAdsStatus status;
@@ -86,11 +86,14 @@ class ArchiveLocalAdsState extends Equatable {
   /// The error describing an operation failure, if any.
   final HttpException? exception;
 
-  /// The last deleted local ad, used for undo functionality.
-  final LocalAd? lastDeletedLocalAd;
+  /// The ID of the local ad that was most recently added to pending deletions.
+  /// Used to trigger the snackbar display.
+  final String? lastPendingDeletionId;
 
-  /// The last restored local ad, used for triggering UI updates.
-  final LocalAd? restoredLocalAd;
+  /// The title of the local ad for which the snackbar should be displayed.
+  /// This is set when a deletion is requested and cleared when the snackbar
+  /// is no longer needed.
+  final String? snackbarLocalAdTitle;
 
   ArchiveLocalAdsState copyWith({
     ArchiveLocalAdsStatus? status,
@@ -111,10 +114,8 @@ class ArchiveLocalAdsState extends Equatable {
     String? videoAdsCursor,
     bool? videoAdsHasMore,
     HttpException? exception,
-    LocalAd? lastDeletedLocalAd,
-    LocalAd? restoredLocalAd,
-    bool clearLastDeletedLocalAd = false,
-    bool clearRestoredLocalAd = false,
+    String? lastPendingDeletionId,
+    String? snackbarLocalAdTitle,
   }) {
     return ArchiveLocalAdsState(
       status: status ?? this.status,
@@ -137,13 +138,10 @@ class ArchiveLocalAdsState extends Equatable {
       videoAds: videoAds ?? this.videoAds,
       videoAdsCursor: videoAdsCursor ?? this.videoAdsCursor,
       videoAdsHasMore: videoAdsHasMore ?? this.videoAdsHasMore,
-      exception: exception ?? this.exception,
-      lastDeletedLocalAd: clearLastDeletedLocalAd
-          ? null
-          : lastDeletedLocalAd ?? this.lastDeletedLocalAd,
-      restoredLocalAd: clearRestoredLocalAd
-          ? null
-          : restoredLocalAd ?? this.restoredLocalAd,
+      exception: exception,
+      lastPendingDeletionId:
+          lastPendingDeletionId ?? this.lastPendingDeletionId,
+      snackbarLocalAdTitle: snackbarLocalAdTitle,
     );
   }
 
@@ -167,7 +165,7 @@ class ArchiveLocalAdsState extends Equatable {
     videoAdsCursor,
     videoAdsHasMore,
     exception,
-    lastDeletedLocalAd,
-    restoredLocalAd,
+    lastPendingDeletionId,
+    snackbarLocalAdTitle,
   ];
 }
