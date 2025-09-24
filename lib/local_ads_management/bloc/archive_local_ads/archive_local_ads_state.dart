@@ -29,7 +29,6 @@ class ArchiveLocalAdsState extends Equatable {
     this.videoAdsCursor,
     this.videoAdsHasMore = false,
     this.exception,
-    this.restoredLocalAd,
     this.lastPendingDeletionId,
     this.snackbarLocalAdTitle,
   });
@@ -87,9 +86,6 @@ class ArchiveLocalAdsState extends Equatable {
   /// The error describing an operation failure, if any.
   final HttpException? exception;
 
-  /// The last restored local ad, used for triggering UI updates.
-  final LocalAd? restoredLocalAd;
-
   /// The ID of the local ad that was most recently added to pending deletions.
   /// Used to trigger the snackbar display.
   final String? lastPendingDeletionId;
@@ -118,7 +114,6 @@ class ArchiveLocalAdsState extends Equatable {
     String? videoAdsCursor,
     bool? videoAdsHasMore,
     HttpException? exception,
-    LocalAd? restoredLocalAd,
     String? lastPendingDeletionId,
     String? snackbarLocalAdTitle,
   }) {
@@ -143,10 +138,9 @@ class ArchiveLocalAdsState extends Equatable {
       videoAds: videoAds ?? this.videoAds,
       videoAdsCursor: videoAdsCursor ?? this.videoAdsCursor,
       videoAdsHasMore: videoAdsHasMore ?? this.videoAdsHasMore,
-      exception: exception ?? this.exception,
-      restoredLocalAd: restoredLocalAd ?? this.restoredLocalAd,
+      exception: exception,
       lastPendingDeletionId: lastPendingDeletionId ?? this.lastPendingDeletionId,
-      snackbarLocalAdTitle: snackbarLocalAdTitle ?? this.snackbarLocalAdTitle,
+      snackbarLocalAdTitle: snackbarLocalAdTitle,
     );
   }
 
@@ -170,7 +164,6 @@ class ArchiveLocalAdsState extends Equatable {
     videoAdsCursor,
     videoAdsHasMore,
     exception,
-    restoredLocalAd,
     lastPendingDeletionId,
     snackbarLocalAdTitle,
   ];
