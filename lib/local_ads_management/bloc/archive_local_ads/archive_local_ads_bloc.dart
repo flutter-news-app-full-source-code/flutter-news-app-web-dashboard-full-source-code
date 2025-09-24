@@ -4,64 +4,59 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 part 'archive_local_ads_event.dart';
 part 'archive_local_ads_state.dart';
 
+/// {@template archive_local_ads_bloc}
+/// A BLoC responsible for managing the state of archived local ads.
+///
+/// It handles loading, restoring, and permanently deleting archived local ads,
+/// leveraging the [PendingDeletionsService] for undo functionality.
+/// {@endtemplate}
 class ArchiveLocalAdsBloc
     extends Bloc<ArchiveLocalAdsEvent, ArchiveLocalAdsState> {
+  /// {@macro archive_local_ads_bloc}
   ArchiveLocalAdsBloc({
     required DataRepository<LocalAd> localAdsRepository,
-  }) : _localAdsRepository = localAdsRepository,
-       super(const ArchiveLocalAdsState()) {
+    required PendingDeletionsService pendingDeletionsService,
+  })  : _localAdsRepository = localAdsRepository,
+        _pendingDeletionsService = pendingDeletionsService,
+        super(const ArchiveLocalAdsState()) {
     on<LoadArchivedLocalAdsRequested>(_onLoadArchivedLocalAdsRequested);
     on<RestoreLocalAdRequested>(_onRestoreLocalAdRequested);
     on<DeleteLocalAdForeverRequested>(_onDeleteLocalAdForeverRequested);
     on<UndoDeleteLocalAdRequested>(_onUndoDeleteLocalAdRequested);
-    on<_ConfirmDeleteLocalAdRequested>(_onConfirmDeleteLocalAdRequested);
+    on<_DeletionServiceStatusChanged>(_onDeletionServiceStatusChanged);
 
-    _localAdUpdateSubscription = _localAdsRepository.entityUpdated
-        .where((type) => type == LocalAd)
-        .listen((_) {
-          add(
-            const LoadArchivedLocalAdsRequested(
-              adType: AdType.native,
-              limit: kDefaultRowsPerPage,
-            ),
-          );
-          add(
-            const LoadArchivedLocalAdsRequested(
-              adType: AdType.banner,
-              limit: kDefaultRowsPerPage,
-            ),
-          );
-          add(
-            const LoadArchivedLocalAdsRequested(
-              adType: AdType.interstitial,
-              limit: kDefaultRowsPerPage,
-            ),
-          );
-          add(
-            const LoadArchivedLocalAdsRequested(
-              adType: AdType.video,
-              limit: kDefaultRowsPerPage,
-            ),
-          );
-        });
+    // Listen to deletion events from the PendingDeletionsService.
+    _deletionEventSubscription = _pendingDeletionsService.deletionEvents.listen(
+      (event) {
+        if (event.item is LocalAd) {
+          add(_DeletionServiceStatusChanged(event));
+        }
+      },
+    );
   }
 
   final DataRepository<LocalAd> _localAdsRepository;
-  late final StreamSubscription<Type> _localAdUpdateSubscription;
-  Timer? _deleteTimer;
+  final PendingDeletionsService _pendingDeletionsService;
+
+  /// Subscription to deletion events from the PendingDeletionsService.
+  late final StreamSubscription<DeletionEvent<dynamic>>
+      _deletionEventSubscription;
 
   @override
   Future<void> close() {
-    _localAdUpdateSubscription.cancel();
-    _deleteTimer?.cancel();
+    _deletionEventSubscription.cancel();
     return super.close();
   }
 
+  /// Handles the request to load archived local ads for a specific type.
+  ///
+  /// Fetches paginated archived local ads from the repository and updates the state.
   Future<void> _onLoadArchivedLocalAdsRequested(
     LoadArchivedLocalAdsRequested event,
     Emitter<ArchiveLocalAdsState> emit,
@@ -98,9 +93,7 @@ class ArchiveLocalAdsBloc
 
       switch (event.adType) {
         case AdType.native:
-          final previousAds = isPaginating
-              ? state.nativeAds
-              : <LocalNativeAd>[];
+          final previousAds = isPaginating ? state.nativeAds : <LocalNativeAd>[];
           emit(
             state.copyWith(
               nativeAdsStatus: ArchiveLocalAdsStatus.success,
@@ -113,9 +106,7 @@ class ArchiveLocalAdsBloc
             ),
           );
         case AdType.banner:
-          final previousAds = isPaginating
-              ? state.bannerAds
-              : <LocalBannerAd>[];
+          final previousAds = isPaginating ? state.bannerAds : <LocalBannerAd>[];
           emit(
             state.copyWith(
               bannerAdsStatus: ArchiveLocalAdsStatus.success,
@@ -221,10 +212,18 @@ class ArchiveLocalAdsBloc
     }
   }
 
+  /// Handles the request to restore an archived local ad.
+  ///
+  /// Optimistically removes the ad from the UI, updates its status to active
+  /// in the repository, and then updates the state. If the ad was pending
+  /// deletion, its pending deletion is cancelled.
   Future<void> _onRestoreLocalAdRequested(
     RestoreLocalAdRequested event,
     Emitter<ArchiveLocalAdsState> emit,
   ) async {
+    // Cancel any pending deletion for this ad.
+    _pendingDeletionsService.undoDeletion(event.id);
+
     LocalAd? adToRestore;
     final originalNativeAds = List<LocalNativeAd>.from(state.nativeAds);
     final originalBannerAds = List<LocalBannerAd>.from(state.bannerAds);
@@ -239,13 +238,29 @@ class ArchiveLocalAdsBloc
         if (index == -1) return;
         adToRestore = originalNativeAds[index];
         originalNativeAds.removeAt(index);
-        emit(state.copyWith(nativeAds: originalNativeAds));
+        emit(
+          state.copyWith(
+            nativeAds: originalNativeAds,
+            lastPendingDeletionId: state.lastPendingDeletionId == event.id
+                ? null
+                : state.lastPendingDeletionId,
+            snackbarLocalAdTitle: null,
+          ),
+        );
       case AdType.banner:
         final index = originalBannerAds.indexWhere((ad) => ad.id == event.id);
         if (index == -1) return;
         adToRestore = originalBannerAds[index];
         originalBannerAds.removeAt(index);
-        emit(state.copyWith(bannerAds: originalBannerAds));
+        emit(
+          state.copyWith(
+            bannerAds: originalBannerAds,
+            lastPendingDeletionId: state.lastPendingDeletionId == event.id
+                ? null
+                : state.lastPendingDeletionId,
+            snackbarLocalAdTitle: null,
+          ),
+        );
       case AdType.interstitial:
         final index = originalInterstitialAds.indexWhere(
           (ad) => ad.id == event.id,
@@ -253,13 +268,29 @@ class ArchiveLocalAdsBloc
         if (index == -1) return;
         adToRestore = originalInterstitialAds[index];
         originalInterstitialAds.removeAt(index);
-        emit(state.copyWith(interstitialAds: originalInterstitialAds));
+        emit(
+          state.copyWith(
+            interstitialAds: originalInterstitialAds,
+            lastPendingDeletionId: state.lastPendingDeletionId == event.id
+                ? null
+                : state.lastPendingDeletionId,
+            snackbarLocalAdTitle: null,
+          ),
+        );
       case AdType.video:
         final index = originalVideoAds.indexWhere((ad) => ad.id == event.id);
         if (index == -1) return;
         adToRestore = originalVideoAds[index];
         originalVideoAds.removeAt(index);
-        emit(state.copyWith(videoAds: originalVideoAds));
+        emit(
+          state.copyWith(
+            videoAds: originalVideoAds,
+            lastPendingDeletionId: state.lastPendingDeletionId == event.id
+                ? null
+                : state.lastPendingDeletionId,
+            snackbarLocalAdTitle: null,
+          ),
+        );
     }
 
     try {
@@ -283,40 +314,84 @@ class ArchiveLocalAdsBloc
       // Revert UI on failure
       switch (event.adType) {
         case AdType.native:
-          emit(state.copyWith(nativeAds: originalNativeAds));
+          emit(
+            state.copyWith(
+              nativeAds: originalNativeAds,
+              exception: e,
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
         case AdType.banner:
-          emit(state.copyWith(bannerAds: originalBannerAds));
+          emit(
+            state.copyWith(
+              bannerAds: originalBannerAds,
+              exception: e,
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
         case AdType.interstitial:
-          emit(state.copyWith(interstitialAds: originalInterstitialAds));
+          emit(
+            state.copyWith(
+              interstitialAds: originalInterstitialAds,
+              exception: e,
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
         case AdType.video:
-          emit(state.copyWith(videoAds: originalVideoAds));
+          emit(
+            state.copyWith(
+              videoAds: originalVideoAds,
+              exception: e,
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
       }
-      emit(state.copyWith(exception: e));
     } catch (e) {
       switch (event.adType) {
         case AdType.native:
-          emit(state.copyWith(nativeAds: originalNativeAds));
+          emit(
+            state.copyWith(
+              nativeAds: originalNativeAds,
+              exception: UnknownException('An unexpected error occurred: $e'),
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
         case AdType.banner:
-          emit(state.copyWith(bannerAds: originalBannerAds));
+          emit(
+            state.copyWith(
+              bannerAds: originalBannerAds,
+              exception: UnknownException('An unexpected error occurred: $e'),
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
         case AdType.interstitial:
-          emit(state.copyWith(interstitialAds: originalInterstitialAds));
+          emit(
+            state.copyWith(
+              interstitialAds: originalInterstitialAds,
+              exception: UnknownException('An unexpected error occurred: $e'),
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
         case AdType.video:
-          emit(state.copyWith(videoAds: originalVideoAds));
+          emit(
+            state.copyWith(
+              videoAds: originalVideoAds,
+              exception: UnknownException('An unexpected error occurred: $e'),
+              lastPendingDeletionId: state.lastPendingDeletionId,
+            ),
+          );
       }
-      emit(
-        state.copyWith(
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
     }
   }
 
+  /// Handles the request to permanently delete an archived local ad.
+  ///
+  /// This optimistically removes the ad from the UI and initiates a
+  /// timed deletion via the [PendingDeletionsService].
   Future<void> _onDeleteLocalAdForeverRequested(
     DeleteLocalAdForeverRequested event,
     Emitter<ArchiveLocalAdsState> emit,
   ) async {
-    _deleteTimer?.cancel();
-
     LocalAd? adToDelete;
     final currentNativeAds = List<LocalNativeAd>.from(state.nativeAds);
     final currentBannerAds = List<LocalBannerAd>.from(state.bannerAds);
@@ -360,130 +435,130 @@ class ArchiveLocalAdsBloc
         emit(state.copyWith(videoAds: currentVideoAds));
     }
 
-    emit(state.copyWith(lastDeletedLocalAd: adToDelete));
+    String snackbarTitle;
+    switch (adToDelete.adType) {
+      case 'native':
+        snackbarTitle = (adToDelete as LocalNativeAd).title;
+      case 'banner':
+        snackbarTitle = (adToDelete as LocalBannerAd).imageUrl;
+      case 'interstitial':
+        snackbarTitle = (adToDelete as LocalInterstitialAd).imageUrl;
+      case 'video':
+        snackbarTitle = (adToDelete as LocalVideoAd).videoUrl;
+      default:
+        snackbarTitle = adToDelete.id;
+    }
 
-    _deleteTimer = Timer(
-      const Duration(seconds: 5),
-      () => add(_ConfirmDeleteLocalAdRequested(event.id, event.adType)),
+    emit(
+      state.copyWith(
+        lastPendingDeletionId: event.id,
+        snackbarLocalAdTitle: snackbarTitle,
+      ),
+    );
+
+    // Request deletion via the service.
+    _pendingDeletionsService.requestDeletion(
+      item: adToDelete,
+      repository: _localAdsRepository,
+      undoDuration: const Duration(seconds: 5),
     );
   }
 
-  Future<void> _onConfirmDeleteLocalAdRequested(
-    _ConfirmDeleteLocalAdRequested event,
-    Emitter<ArchiveLocalAdsState> emit,
-  ) async {
-    try {
-      await _localAdsRepository.delete(id: event.id);
-      emit(state.copyWith(clearLastDeletedLocalAd: true));
-    } on HttpException catch (e) {
-      // If deletion fails, restore the ad to the list
-      if (state.lastDeletedLocalAd != null) {
-        final restoredAd = state.lastDeletedLocalAd!;
-        switch (restoredAd.adType) {
-          case 'native':
-            final updatedAds = List<LocalNativeAd>.from(state.nativeAds)
-              ..add(restoredAd as LocalNativeAd);
-            emit(state.copyWith(nativeAds: updatedAds));
-          case 'banner':
-            final updatedAds = List<LocalBannerAd>.from(state.bannerAds)
-              ..add(restoredAd as LocalBannerAd);
-            emit(state.copyWith(bannerAds: updatedAds));
-          case 'interstitial':
-            final updatedAds = List<LocalInterstitialAd>.from(
-              state.interstitialAds,
-            )..add(restoredAd as LocalInterstitialAd);
-            emit(state.copyWith(interstitialAds: updatedAds));
-          case 'video':
-            final updatedAds = List<LocalVideoAd>.from(state.videoAds)
-              ..add(restoredAd as LocalVideoAd);
-            emit(state.copyWith(videoAds: updatedAds));
-        }
-      }
-      emit(state.copyWith(exception: e, clearLastDeletedLocalAd: true));
-    } catch (e) {
-      if (state.lastDeletedLocalAd != null) {
-        final restoredAd = state.lastDeletedLocalAd!;
-        switch (restoredAd.adType) {
-          case 'native':
-            final updatedAds = List<LocalNativeAd>.from(state.nativeAds)
-              ..add(restoredAd as LocalNativeAd);
-            emit(state.copyWith(nativeAds: updatedAds));
-          case 'banner':
-            final updatedAds = List<LocalBannerAd>.from(state.bannerAds)
-              ..add(restoredAd as LocalBannerAd);
-            emit(state.copyWith(bannerAds: updatedAds));
-          case 'interstitial':
-            final updatedAds = List<LocalInterstitialAd>.from(
-              state.interstitialAds,
-            )..add(restoredAd as LocalInterstitialAd);
-            emit(state.copyWith(interstitialAds: updatedAds));
-          case 'video':
-            final updatedAds = List<LocalVideoAd>.from(state.videoAds)
-              ..add(restoredAd as LocalVideoAd);
-            emit(state.copyWith(videoAds: updatedAds));
-        }
-      }
-      emit(
-        state.copyWith(
-          exception: UnknownException('An unexpected error occurred: $e'),
-          clearLastDeletedLocalAd: true,
-        ),
-      );
-    }
-  }
-
-  void _onUndoDeleteLocalAdRequested(
+  /// Handles the request to undo a pending deletion of an archived local ad.
+  ///
+  /// This cancels the deletion timer in the [PendingDeletionsService].
+  Future<void> _onUndoDeleteLocalAdRequested(
     UndoDeleteLocalAdRequested event,
     Emitter<ArchiveLocalAdsState> emit,
-  ) {
-    _deleteTimer?.cancel();
-    if (state.lastDeletedLocalAd != null) {
-      final restoredAd = state.lastDeletedLocalAd!;
-      switch (restoredAd.adType) {
-        case 'native':
-          final updatedAds = List<LocalNativeAd>.from(state.nativeAds)
-            ..insert(
-              0,
-              restoredAd as LocalNativeAd,
+  ) async {
+    if (state.lastPendingDeletionId != null) {
+      _pendingDeletionsService.undoDeletion(state.lastPendingDeletionId!);
+    }
+    // The _onDeletionServiceStatusChanged will handle re-adding to the list
+    // and updating pendingDeletions when DeletionStatus.undone is emitted.
+  }
+
+  /// Handles deletion events from the [PendingDeletionsService].
+  ///
+  /// This method is called when an item's deletion is confirmed or undone
+  /// by the service. It updates the BLoC's state accordingly.
+  Future<void> _onDeletionServiceStatusChanged(
+    _DeletionServiceStatusChanged event,
+    Emitter<ArchiveLocalAdsState> emit,
+  ) async {
+    final id = event.event.id;
+    final status = event.event.status;
+    final item = event.event.item;
+
+    if (status == DeletionStatus.confirmed) {
+      // Deletion confirmed, no action needed in BLoC as it was optimistically removed.
+      // Ensure lastPendingDeletionId and snackbarLocalAdTitle are cleared if this was the one.
+      emit(
+        state.copyWith(
+          lastPendingDeletionId: state.lastPendingDeletionId == id
+              ? null
+              : state.lastPendingDeletionId,
+          snackbarLocalAdTitle: null,
+        ),
+      );
+    } else if (status == DeletionStatus.undone) {
+      // Deletion undone, restore the local ad to the main list.
+      if (item is LocalAd) {
+        switch (item.adType) {
+          case 'native':
+            final updatedAds = List<LocalNativeAd>.from(state.nativeAds)
+              ..insert(0, item as LocalNativeAd);
+            emit(
+              state.copyWith(
+                nativeAds: updatedAds,
+                lastPendingDeletionId: state.lastPendingDeletionId == id
+                    ? null
+                    : state.lastPendingDeletionId,
+                snackbarLocalAdTitle: null,
+                restoredLocalAd: item,
+              ),
             );
-          emit(
-            state.copyWith(
-              nativeAds: updatedAds,
-              clearLastDeletedLocalAd: true,
-              restoredLocalAd: restoredAd,
-            ),
-          );
-        case 'banner':
-          final updatedAds = List<LocalBannerAd>.from(state.bannerAds)
-            ..insert(0, restoredAd as LocalBannerAd);
-          emit(
-            state.copyWith(
-              bannerAds: updatedAds,
-              clearLastDeletedLocalAd: true,
-              restoredLocalAd: restoredAd,
-            ),
-          );
-        case 'interstitial':
-          final updatedAds = List<LocalInterstitialAd>.from(
-            state.interstitialAds,
-          )..insert(0, restoredAd as LocalInterstitialAd);
-          emit(
-            state.copyWith(
-              interstitialAds: updatedAds,
-              clearLastDeletedLocalAd: true,
-              restoredLocalAd: restoredAd,
-            ),
-          );
-        case 'video':
-          final updatedAds = List<LocalVideoAd>.from(state.videoAds)
-            ..insert(0, restoredAd as LocalVideoAd);
-          emit(
-            state.copyWith(
-              videoAds: updatedAds,
-              clearLastDeletedLocalAd: true,
-              restoredLocalAd: restoredAd,
-            ),
-          );
+          case 'banner':
+            final updatedAds = List<LocalBannerAd>.from(state.bannerAds)
+              ..insert(0, item as LocalBannerAd);
+            emit(
+              state.copyWith(
+                bannerAds: updatedAds,
+                lastPendingDeletionId: state.lastPendingDeletionId == id
+                    ? null
+                    : state.lastPendingDeletionId,
+                snackbarLocalAdTitle: null,
+                restoredLocalAd: item,
+              ),
+            );
+          case 'interstitial':
+            final updatedAds = List<LocalInterstitialAd>.from(
+              state.interstitialAds,
+            )..insert(0, item as LocalInterstitialAd);
+            emit(
+              state.copyWith(
+                interstitialAds: updatedAds,
+                lastPendingDeletionId: state.lastPendingDeletionId == id
+                    ? null
+                    : state.lastPendingDeletionId,
+                snackbarLocalAdTitle: null,
+                restoredLocalAd: item,
+              ),
+            );
+          case 'video':
+            final updatedAds = List<LocalVideoAd>.from(state.videoAds)
+              ..insert(0, item as LocalVideoAd);
+            emit(
+              state.copyWith(
+                videoAds: updatedAds,
+                lastPendingDeletionId: state.lastPendingDeletionId == id
+                    ? null
+                    : state.lastPendingDeletionId,
+                snackbarLocalAdTitle: null,
+                restoredLocalAd: item,
+              ),
+            );
+        }
       }
     }
   }
