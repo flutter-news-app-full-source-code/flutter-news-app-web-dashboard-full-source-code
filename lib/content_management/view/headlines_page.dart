@@ -74,17 +74,15 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                     ),
                     DataColumn2(
                       label: Text(l10n.sourceName),
-                      size: ColumnSize.M,
+                      size: ColumnSize.S,
                     ),
-                    DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
                     DataColumn2(
                       label: Text(l10n.lastUpdated),
-                      size: ColumnSize.M,
+                      size: ColumnSize.S,
                     ),
                     DataColumn2(
                       label: Text(l10n.actions),
                       size: ColumnSize.S,
-                      fixedWidth: 120,
                     ),
                   ],
                   source: _HeadlinesDataSource(
@@ -164,7 +162,6 @@ class _HeadlinesDataSource extends DataTableSource {
           ),
         ),
         DataCell(Text(headline.source.name)),
-        DataCell(Text(headline.status.l10n(context))),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(headline.updatedAt.toLocal()),
