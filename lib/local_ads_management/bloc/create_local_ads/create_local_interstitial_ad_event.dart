@@ -37,21 +37,6 @@ final class CreateLocalInterstitialAdTargetUrlChanged
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_interstitial_ad_status_changed}
-/// Event to notify that the content status of the local interstitial ad has changed.
-/// {@endtemplate}
-final class CreateLocalInterstitialAdStatusChanged
-    extends CreateLocalInterstitialAdEvent {
-  /// {@macro create_local_interstitial_ad_status_changed}
-  const CreateLocalInterstitialAdStatusChanged(this.status);
-
-  /// The new content status.
-  final ContentStatus status;
-
-  @override
-  List<Object?> get props => [status];
-}
-
 /// {@template create_local_interstitial_ad_submitted}
 /// Event to request submission of the new local interstitial ad.
 /// {@endtemplate}
