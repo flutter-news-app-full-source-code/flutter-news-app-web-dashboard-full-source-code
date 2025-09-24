@@ -72,15 +72,13 @@ class _TopicPageState extends State<TopicPage> {
                       label: Text(l10n.topicName),
                       size: ColumnSize.L,
                     ),
-                    DataColumn2(label: Text(l10n.status), size: ColumnSize.S),
                     DataColumn2(
                       label: Text(l10n.lastUpdated),
-                      size: ColumnSize.M,
+                      size: ColumnSize.S,
                     ),
                     DataColumn2(
                       label: Text(l10n.actions),
                       size: ColumnSize.S,
-                      fixedWidth: 120,
                     ),
                   ],
                   source: _TopicsDataSource(
@@ -158,7 +156,6 @@ class _TopicsDataSource extends DataTableSource {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        DataCell(Text(topic.status.l10n(context))),
         DataCell(
           Text(
             // TODO(fulleni): Make date format configurable by admin.
