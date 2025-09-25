@@ -71,6 +71,11 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
   /// Controller for the scrollable list, used to detect when to load more items.
   final ScrollController _scrollController = ScrollController();
 
+  /// Temporary local state for selected items, used when in multi-select mode.
+  /// This list is modified directly by user taps and only returned when "Apply"
+  /// is pressed.
+  late List<Object> _tempSelectedItems;
+
   @override
   void initState() {
     super.initState();
@@ -82,6 +87,11 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
         .read<SearchableSelectionBloc>()
         .state
         .searchTerm;
+
+    // Initialize temporary selected items from the BLoC's initial state.
+    _tempSelectedItems = List.from(
+      context.read<SearchableSelectionBloc>().state.selectedItems,
+    );
   }
 
   @override
@@ -115,6 +125,17 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
           icon: const Icon(Icons.close),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          if (widget.arguments.isMultiSelect)
+            IconButton(
+              icon: const Icon(Icons.check),
+              tooltip: l10n.apply, // Assuming l10n.apply exists
+              onPressed: () {
+                // Return the locally managed selected items.
+                Navigator.of(context).pop(_tempSelectedItems);
+              },
+            ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Padding(
@@ -201,17 +222,26 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
                     // Build the title using the provided itemBuilder.
                     title: itemBuilder(context, item),
                     onTap: () {
-                      // Dispatch an event to the BLoC to set the selected item.
-                      context.read<SearchableSelectionBloc>().add(
-                        SearchableSelectionSetSelectedItem(item),
-                      );
-                      // Pop the page with the selected item as the result.
-                      Navigator.of(context).pop(item);
+                      if (widget.arguments.isMultiSelect) {
+                        setState(() {
+                          if (_tempSelectedItems.contains(item)) {
+                            _tempSelectedItems.remove(item);
+                          } else {
+                            _tempSelectedItems.add(item);
+                          }
+                        });
+                      } else {
+                        // For single select, set the item and pop immediately.
+                        context.read<SearchableSelectionBloc>().add(
+                          SearchableSelectionSetSelectedItems([item]),
+                        );
+                        Navigator.of(context).pop([item]);
+                      }
                     },
-                    // Highlight the selected item.
-                    selected: item == state.selectedItem,
-                    // Show a checkmark for the selected item.
-                    trailing: item == state.selectedItem
+                    // Highlight the selected item(s).
+                    selected: _tempSelectedItems.contains(item),
+                    // Show a checkmark for the selected item(s).
+                    trailing: _tempSelectedItems.contains(item)
                         ? Icon(Icons.check, color: theme.colorScheme.primary)
                         : null,
                   );
