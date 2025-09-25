@@ -10,12 +10,10 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/headlines_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/sources_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/topics_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart'; // Import the new FilterDialog
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart'; // New import for FilterDialogBloc
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -264,48 +262,17 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                 final languagesRepository = context
                     .read<DataRepository<Language>>();
 
-                showGeneralDialog<void>(
-                  context: context,
-                  pageBuilder: (dialogContext, animation, secondaryAnimation) {
-                    return BlocProvider<FilterDialogBloc>(
-                      create: (providerContext) {
-                        final filterDialogBloc =
-                            FilterDialogBloc(
-                                activeTab:
-                                    contentManagementBloc.state.activeTab,
-                                sourcesRepository: sourcesRepository,
-                                topicsRepository: topicsRepository,
-                                countriesRepository: countriesRepository,
-                                languagesRepository: languagesRepository,
-                              )
-                              // Dispatch initial state after creation
-                              ..add(
-                                FilterDialogInitialized(
-                                  activeTab:
-                                      contentManagementBloc.state.activeTab,
-                                  headlinesFilterState: context
-                                      .read<HeadlinesFilterBloc>()
-                                      .state,
-                                  topicsFilterState: context
-                                      .read<TopicsFilterBloc>()
-                                      .state,
-                                  sourcesFilterState: context
-                                      .read<SourcesFilterBloc>()
-                                      .state,
-                                ),
-                              );
-                        return filterDialogBloc;
-                      },
-                      child: FilterDialog(
-                        activeTab: contentManagementBloc.state.activeTab,
-                        sourcesRepository: sourcesRepository,
-                        topicsRepository: topicsRepository,
-                        countriesRepository: countriesRepository,
-                        languagesRepository: languagesRepository,
-                      ),
-                    );
-                  },
-                );
+                // Construct arguments map to pass to the filter dialog route
+                final arguments = <String, dynamic>{
+                  'activeTab': contentManagementBloc.state.activeTab,
+                  'sourcesRepository': sourcesRepository,
+                  'topicsRepository': topicsRepository,
+                  'countriesRepository': countriesRepository,
+                  'languagesRepository': languagesRepository,
+                };
+
+                // Push the filter dialog as a new route
+                context.pushNamed(Routes.filterDialogName, extra: arguments);
               },
             ),
           ],
