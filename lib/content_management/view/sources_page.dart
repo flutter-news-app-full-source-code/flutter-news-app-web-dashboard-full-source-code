@@ -66,55 +66,62 @@ class _SourcesPageState extends State<SourcesPage> {
                   state.sources.isNotEmpty)
                 const LinearProgressIndicator(),
               Expanded(
-                child: PaginatedDataTable2(
-                  columns: [
-                    DataColumn2(
-                      label: Text(l10n.sourceName),
-                      size: ColumnSize.L,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.sourceType),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.lastUpdated),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.actions),
-                      size: ColumnSize.S,
-                    ),
-                  ],
-                  source: _SourcesDataSource(
-                    context: context,
-                    sources: state.sources,
-                    hasMore: state.sourcesHasMore,
-                    l10n: l10n,
-                  ),
-                  rowsPerPage: kDefaultRowsPerPage,
-                  availableRowsPerPage: const [kDefaultRowsPerPage],
-                  onPageChanged: (pageIndex) {
-                    final newOffset = pageIndex * kDefaultRowsPerPage;
-                    if (newOffset >= state.sources.length &&
-                        state.sourcesHasMore &&
-                        state.sourcesStatus !=
-                            ContentManagementStatus.loading) {
-                      context.read<ContentManagementBloc>().add(
-                        LoadSourcesRequested(
-                          startAfterId: state.sourcesCursor,
-                          limit: kDefaultRowsPerPage,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 600;
+                    return PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.sourceName),
+                          size: ColumnSize.L,
                         ),
-                      );
-                    }
+                        if (!isMobile) // Conditionally show Source Type
+                          DataColumn2(
+                            label: Text(l10n.sourceType),
+                            size: ColumnSize.S,
+                          ),
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.S,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      source: _SourcesDataSource(
+                        context: context,
+                        sources: state.sources,
+                        hasMore: state.sourcesHasMore,
+                        l10n: l10n,
+                        isMobile: isMobile, // Pass isMobile to data source
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.sources.length &&
+                            state.sourcesHasMore &&
+                            state.sourcesStatus !=
+                                ContentManagementStatus.loading) {
+                          context.read<ContentManagementBloc>().add(
+                            LoadSourcesRequested(
+                              startAfterId: state.sourcesCursor,
+                              limit: kDefaultRowsPerPage,
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noSourcesFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    );
                   },
-                  empty: Center(child: Text(l10n.noSourcesFound)),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  fit: FlexFit.tight,
-                  headingRowHeight: 56,
-                  dataRowHeight: 56,
-                  columnSpacing: AppSpacing.md,
-                  horizontalMargin: AppSpacing.md,
                 ),
               ),
             ],
@@ -131,12 +138,14 @@ class _SourcesDataSource extends DataTableSource {
     required this.sources,
     required this.hasMore,
     required this.l10n,
+    required this.isMobile, // New parameter
   });
 
   final BuildContext context;
   final List<Source> sources;
   final bool hasMore;
   final AppLocalizations l10n;
+  final bool isMobile; // New parameter
 
   @override
   DataRow? getRow(int index) {
@@ -161,7 +170,8 @@ class _SourcesDataSource extends DataTableSource {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        DataCell(Text(source.sourceType.localizedName(l10n))),
+        if (!isMobile) // Conditionally show Source Type
+          DataCell(Text(source.sourceType.localizedName(l10n))),
         DataCell(
           Text(
             // TODO(fulleni): Make date format configurable by admin.
@@ -181,13 +191,42 @@ class _SourcesDataSource extends DataTableSource {
                   );
                 },
               ),
+              if (source.status == ContentStatus.draft)
+                IconButton(
+                  icon: const Icon(Icons.publish),
+                  tooltip: l10n.publish,
+                  onPressed: () {
+                    context.read<ContentManagementBloc>().add(
+                      PublishSourceRequested(source.id),
+                    );
+                  },
+                )
+              else if (source.status == ContentStatus.archived)
+                IconButton(
+                  icon: const Icon(Icons.unarchive),
+                  tooltip: l10n.restore,
+                  onPressed: () {
+                    context.read<ContentManagementBloc>().add(
+                      RestoreSourceRequested(source.id),
+                    );
+                  },
+                )
+              else // For active status, show archive
+                IconButton(
+                  icon: const Icon(Icons.archive),
+                  tooltip: l10n.archive,
+                  onPressed: () {
+                    context.read<ContentManagementBloc>().add(
+                      ArchiveSourceRequested(source.id),
+                    );
+                  },
+                ),
               IconButton(
-                icon: const Icon(Icons.archive),
-                tooltip: l10n.archive,
+                icon: const Icon(Icons.delete_forever),
+                tooltip: l10n.deleteForever,
                 onPressed: () {
-                  // Dispatch delete event
                   context.read<ContentManagementBloc>().add(
-                    ArchiveSourceRequested(source.id),
+                    DeleteSourceForeverRequested(source.id),
                   );
                 },
               ),
