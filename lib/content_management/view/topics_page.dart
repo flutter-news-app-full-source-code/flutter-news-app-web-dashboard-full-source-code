@@ -3,6 +3,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
@@ -171,58 +172,9 @@ class _TopicsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  // Navigate to edit page
-                  context.goNamed(
-                    Routes.editTopicName,
-                    pathParameters: {'id': topic.id},
-                  );
-                },
-              ),
-              if (topic.status == ContentStatus.draft)
-                IconButton(
-                  icon: const Icon(Icons.publish),
-                  tooltip: l10n.publish,
-                  onPressed: () {
-                    context.read<ContentManagementBloc>().add(
-                      PublishTopicRequested(topic.id),
-                    );
-                  },
-                )
-              else if (topic.status == ContentStatus.archived)
-                IconButton(
-                  icon: const Icon(Icons.unarchive),
-                  tooltip: l10n.restore,
-                  onPressed: () {
-                    context.read<ContentManagementBloc>().add(
-                      RestoreTopicRequested(topic.id),
-                    );
-                  },
-                )
-              else // For active status, show archive
-                IconButton(
-                  icon: const Icon(Icons.archive),
-                  tooltip: l10n.archive,
-                  onPressed: () {
-                    context.read<ContentManagementBloc>().add(
-                      ArchiveTopicRequested(topic.id),
-                    );
-                  },
-                ),
-              IconButton(
-                icon: const Icon(Icons.delete_forever),
-                tooltip: l10n.deleteForever,
-                onPressed: () {
-                  context.read<ContentManagementBloc>().add(
-                    DeleteTopicForeverRequested(topic.id),
-                  );
-                },
-              ),
-            ],
+          ContentActionButtons(
+            item: topic,
+            l10n: l10n,
           ),
         ),
       ],
