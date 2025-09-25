@@ -175,7 +175,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                       fit: FlexFit.tight,
                       headingRowHeight: 56,
                       dataRowHeight: 56,
-                      columnSpacing: AppSpacing.md,
+                      columnSpacing: AppSpacing.sm,
                       horizontalMargin: AppSpacing.md,
                     );
                   },
