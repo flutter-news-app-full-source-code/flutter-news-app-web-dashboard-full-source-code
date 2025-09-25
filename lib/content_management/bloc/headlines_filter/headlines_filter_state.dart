@@ -11,27 +11,51 @@ class HeadlinesFilterState extends Equatable {
   const HeadlinesFilterState({
     this.searchQuery = '',
     // Default to showing only active items.
-    this.selectedStatuses = const {ContentStatus.active},
+    this.selectedStatus = ContentStatus.active,
+    this.selectedSourceIds = const [],
+    this.selectedTopicIds = const [],
+    this.selectedCountryIds = const [],
   });
 
   /// The current text in the search query field.
   final String searchQuery;
 
-  /// The set of content statuses to be included in the filter.
-  final Set<ContentStatus> selectedStatuses;
+  /// The single content status to be included in the filter.
+  final ContentStatus selectedStatus;
+
+  /// The list of source IDs to be included in the filter.
+  final List<String> selectedSourceIds;
+
+  /// The list of topic IDs to be included in the filter.
+  final List<String> selectedTopicIds;
+
+  /// The list of country IDs to be included in the filter.
+  final List<String> selectedCountryIds;
 
   /// Creates a copy of this state with the given fields replaced with the
   /// new values.
   HeadlinesFilterState copyWith({
     String? searchQuery,
-    Set<ContentStatus>? selectedStatuses,
+    ContentStatus? selectedStatus,
+    List<String>? selectedSourceIds,
+    List<String>? selectedTopicIds,
+    List<String>? selectedCountryIds,
   }) {
     return HeadlinesFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedStatuses: selectedStatuses ?? this.selectedStatuses,
+      selectedStatus: selectedStatus ?? this.selectedStatus,
+      selectedSourceIds: selectedSourceIds ?? this.selectedSourceIds,
+      selectedTopicIds: selectedTopicIds ?? this.selectedTopicIds,
+      selectedCountryIds: selectedCountryIds ?? this.selectedCountryIds,
     );
   }
 
   @override
-  List<Object> get props => [searchQuery, selectedStatuses];
+  List<Object> get props => [
+    searchQuery,
+    selectedStatus,
+    selectedSourceIds,
+    selectedTopicIds,
+    selectedCountryIds,
+  ];
 }
