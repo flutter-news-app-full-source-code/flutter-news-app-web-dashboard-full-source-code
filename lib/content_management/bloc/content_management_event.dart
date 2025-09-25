@@ -47,6 +47,16 @@ final class ArchiveHeadlineRequested extends ContentManagementEvent {
   List<Object?> get props => [id];
 }
 
+/// Event received when a deletion event occurs in the PendingDeletionsService.
+final class DeletionEventReceived extends ContentManagementEvent {
+  const DeletionEventReceived(this.event);
+
+  final DeletionEvent<dynamic> event;
+
+  @override
+  List<Object?> get props => [event];
+}
+
 /// Event to publish a draft headline.
 final class PublishHeadlineRequested extends ContentManagementEvent {
   const PublishHeadlineRequested(this.id);
