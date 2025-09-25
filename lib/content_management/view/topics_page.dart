@@ -38,6 +38,12 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
+  /// Checks if any filters are currently active in the TopicsFilterBloc.
+  bool _areFiltersActive(TopicsFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedStatus != ContentStatus.active;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -45,6 +51,9 @@ class _TopicPageState extends State<TopicPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
+          final topicsFilterState = context.watch<TopicsFilterBloc>().state;
+          final filtersActive = _areFiltersActive(topicsFilterState);
+
           if (state.topicsStatus == ContentManagementStatus.loading &&
               state.topics.isEmpty) {
             return LoadingStateWidget(
@@ -72,6 +81,29 @@ class _TopicPageState extends State<TopicPage> {
           }
 
           if (state.topics.isEmpty) {
+            if (filtersActive) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.noResultsWithCurrentFilters,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<TopicsFilterBloc>().add(
+                              const TopicsFilterReset(),
+                            );
+                      },
+                      child: Text(l10n.resetFiltersButtonText),
+                    ),
+                  ],
+                ),
+              );
+            }
             return Center(child: Text(l10n.noTopicsFound));
           }
 
