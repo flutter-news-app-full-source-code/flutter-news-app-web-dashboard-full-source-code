@@ -50,10 +50,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           children: [
             Text(
               l10n.appConfigurationPageTitle,
-              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(
-              width: AppSpacing.xs,
+              width: AppSpacing.sm,
             ), // Spacing between title and icon
             AboutIcon(
               dialogTitle: l10n.appConfigurationPageTitle,
