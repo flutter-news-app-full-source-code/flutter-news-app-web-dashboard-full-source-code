@@ -20,6 +20,10 @@ abstract final class AppConstants {
 
   /// The maximum number of items to fetch in a single API request for filter options.
   static const int kMaxItemsPerRequest = 25;
+
+  /// The duration for which a snackbar message is displayed,
+  /// also used as the undo duration for pending deletions.
+  static const Duration kSnackbarDuration = Duration(seconds: 5);
 }
 
 /// A dummy [DateTime] used for placeholder models in UI.
