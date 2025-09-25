@@ -3,6 +3,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
@@ -25,9 +27,21 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
+    // Initial load of topics, applying the default filter from TopicsFilterBloc
     context.read<ContentManagementBloc>().add(
-      const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+      LoadTopicsRequested(
+        limit: kDefaultRowsPerPage,
+        filter: context
+            .read<ContentManagementBloc>()
+            .buildTopicsFilterMap(context.read<TopicsFilterBloc>().state),
+      ),
     );
+  }
+
+  /// Checks if any filters are currently active in the TopicsFilterBloc.
+  bool _areFiltersActive(TopicsFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedStatus != ContentStatus.active;
   }
 
   @override
@@ -37,6 +51,9 @@ class _TopicPageState extends State<TopicPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
+          final topicsFilterState = context.watch<TopicsFilterBloc>().state;
+          final filtersActive = _areFiltersActive(topicsFilterState);
+
           if (state.topicsStatus == ContentManagementStatus.loading &&
               state.topics.isEmpty) {
             return LoadingStateWidget(
@@ -50,12 +67,43 @@ class _TopicPageState extends State<TopicPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+                LoadTopicsRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: context
+                      .read<ContentManagementBloc>()
+                      .buildTopicsFilterMap(
+                        context.read<TopicsFilterBloc>().state,
+                      ),
+                ),
               ),
             );
           }
 
           if (state.topics.isEmpty) {
+            if (filtersActive) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.noResultsWithCurrentFilters,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<TopicsFilterBloc>().add(
+                              const TopicsFilterReset(),
+                            );
+                      },
+                      child: Text(l10n.resetFiltersButtonText),
+                    ),
+                  ],
+                ),
+              );
+            }
             return Center(child: Text(l10n.noTopicsFound));
           }
 
@@ -65,50 +113,62 @@ class _TopicPageState extends State<TopicPage> {
                   state.topics.isNotEmpty)
                 const LinearProgressIndicator(),
               Expanded(
-                child: PaginatedDataTable2(
-                  columns: [
-                    DataColumn2(
-                      label: Text(l10n.topicName),
-                      size: ColumnSize.L,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.lastUpdated),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.actions),
-                      size: ColumnSize.S,
-                    ),
-                  ],
-                  source: _TopicsDataSource(
-                    context: context,
-                    topics: state.topics,
-                    hasMore: state.topicsHasMore,
-                    l10n: l10n,
-                  ),
-                  rowsPerPage: kDefaultRowsPerPage,
-                  availableRowsPerPage: const [kDefaultRowsPerPage],
-                  onPageChanged: (pageIndex) {
-                    final newOffset = pageIndex * kDefaultRowsPerPage;
-                    if (newOffset >= state.topics.length &&
-                        state.topicsHasMore &&
-                        state.topicsStatus != ContentManagementStatus.loading) {
-                      context.read<ContentManagementBloc>().add(
-                        LoadTopicsRequested(
-                          startAfterId: state.topicsCursor,
-                          limit: kDefaultRowsPerPage,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 600;
+                    return PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.topicName),
+                          size: ColumnSize.L,
                         ),
-                      );
-                    }
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.S,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      source: _TopicsDataSource(
+                        context: context,
+                        topics: state.topics,
+                        hasMore: state.topicsHasMore,
+                        l10n: l10n,
+                        isMobile: isMobile, // Pass isMobile to data source
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.topics.length &&
+                            state.topicsHasMore &&
+                            state.topicsStatus !=
+                                ContentManagementStatus.loading) {
+                          context.read<ContentManagementBloc>().add(
+                            LoadTopicsRequested(
+                              startAfterId: state.topicsCursor,
+                              limit: kDefaultRowsPerPage,
+                              filter: context
+                                  .read<ContentManagementBloc>()
+                                  .buildTopicsFilterMap(
+                                    context.read<TopicsFilterBloc>().state,
+                                  ),
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noTopicsFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    );
                   },
-                  empty: Center(child: Text(l10n.noTopicsFound)),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  fit: FlexFit.tight,
-                  headingRowHeight: 56,
-                  dataRowHeight: 56,
-                  columnSpacing: AppSpacing.md,
-                  horizontalMargin: AppSpacing.md,
                 ),
               ),
             ],
@@ -125,12 +185,14 @@ class _TopicsDataSource extends DataTableSource {
     required this.topics,
     required this.hasMore,
     required this.l10n,
+    required this.isMobile, // New parameter
   });
 
   final BuildContext context;
   final List<Topic> topics;
   final bool hasMore;
   final AppLocalizations l10n;
+  final bool isMobile; // New parameter
 
   @override
   DataRow? getRow(int index) {
@@ -162,29 +224,9 @@ class _TopicsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  // Navigate to edit page
-                  context.goNamed(
-                    Routes.editTopicName,
-                    pathParameters: {'id': topic.id},
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.archive),
-                tooltip: l10n.archive,
-                onPressed: () {
-                  // Dispatch delete event
-                  context.read<ContentManagementBloc>().add(
-                    ArchiveTopicRequested(topic.id),
-                  );
-                },
-              ),
-            ],
+          ContentActionButtons(
+            item: topic,
+            l10n: l10n,
           ),
         ),
       ],

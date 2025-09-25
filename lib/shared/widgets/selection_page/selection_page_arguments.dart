@@ -31,8 +31,9 @@ class SelectionPageArguments extends Equatable {
     this.sortOptions,
     this.limit,
     this.staticItems,
-    this.initialSelectedItem,
+    this.initialSelectedItems, // Changed to List<Object>?
     this.includeInactiveSelectedItem = false,
+    this.isMultiSelect = false, // New parameter
   }) : assert(
          (repository != null &&
                  filterBuilder != null &&
@@ -78,15 +79,19 @@ class SelectionPageArguments extends Equatable {
   /// Items are of type [Object] and must be cast to [itemType] before use.
   final List<Object>? staticItems;
 
-  /// The item that is initially selected when the page opens.
-  /// The item is of type [Object] and must be cast to [itemType] before use.
-  final Object? initialSelectedItem;
+  /// The items that are initially selected when the page opens.
+  /// The items are of type [Object] and must be cast to [itemType] before use.
+  final List<Object>? initialSelectedItems; // Changed to List<Object>?
 
-  /// If true, the [initialSelectedItem] will be included in the fetched results
-  /// even if it does not match the current filter criteria (e.g., if it's
-  /// an inactive item that was previously selected). This is useful for edit
-  /// pages where the previously selected item should always be visible.
+  /// If true, the [initialSelectedItems] will be included in the fetched results
+  /// even if they do not match the current filter criteria (e.g., if they are
+  /// inactive items that were previously selected). This is useful for edit
+  /// pages where the previously selected item(s) should always be visible.
   final bool includeInactiveSelectedItem;
+
+  /// If true, the selection page will allow multiple items to be selected.
+  /// Defaults to false for single selection.
+  final bool isMultiSelect; // New parameter
 
   @override
   List<Object?> get props => [
@@ -99,7 +104,8 @@ class SelectionPageArguments extends Equatable {
     sortOptions,
     limit,
     staticItems,
-    initialSelectedItem,
+    initialSelectedItems, // Updated
     includeInactiveSelectedItem,
+    isMultiSelect, // New parameter
   ];
 }

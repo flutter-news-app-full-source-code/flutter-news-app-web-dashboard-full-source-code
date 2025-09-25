@@ -522,6 +522,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get languageDescription => 'اختر لغة التطبيق.';
 
   @override
+  String get edit => 'تعديل';
+
+  @override
   String get englishLanguage => 'الإنجليزية';
 
   @override
@@ -1002,6 +1005,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get close => 'إغلاق';
 
   @override
+  String get apply => 'تطبيق';
+
+  @override
   String visibleToRoleLabel(String roleName) {
     return 'مرئي لـ $roleName';
   }
@@ -1390,4 +1396,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get moreActions => 'المزيد من الإجراءات';
+
+  @override
+  String get filter => 'تصفية';
+
+  @override
+  String get applyFilters => 'تطبيق الفلاتر';
+
+  @override
+  String get filterHeadlines => 'تصفية العناوين';
+
+  @override
+  String get filterTopics => 'تصفية المواضيع';
+
+  @override
+  String get filterSources => 'تصفية المصادر';
+
+  @override
+  String get searchByHeadlineTitle => 'البحث بعنوان الخبر...';
+
+  @override
+  String get searchByTopicName => 'البحث باسم الموضوع...';
+
+  @override
+  String get searchBySourceName => 'البحث باسم المصدر...';
+
+  @override
+  String get selectSources => 'اختر المصادر';
+
+  @override
+  String get selectTopics => 'اختر المواضيع';
+
+  @override
+  String get countries => 'البلدان';
+
+  @override
+  String get selectCountries => 'اختر البلدان';
+
+  @override
+  String get selectSourceTypes => 'اختر أنواع المصادر';
+
+  @override
+  String get selectLanguages => 'اختر اللغات';
+
+  @override
+  String get selectHeadquarters => 'اختر المقر الرئيسي';
+
+  @override
+  String get resetFiltersButtonText => 'إعادة تعيين الفلاتر';
+
+  @override
+  String get noResultsWithCurrentFilters =>
+      'لم يتم العثور على نتائج باستخدام الفلاتر الحالية. حاول إعادة تعيينها.';
 }

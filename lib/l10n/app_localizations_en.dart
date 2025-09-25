@@ -521,6 +521,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageDescription => 'Select the application language.';
 
   @override
+  String get edit => 'Edit';
+
+  @override
   String get englishLanguage => 'English';
 
   @override
@@ -1000,6 +1003,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get close => 'Close';
 
   @override
+  String get apply => 'Apply';
+
+  @override
   String visibleToRoleLabel(String roleName) {
     return 'Visible to $roleName';
   }
@@ -1395,4 +1401,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreActions => 'More Actions';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get applyFilters => 'Apply Filters';
+
+  @override
+  String get filterHeadlines => 'Filter Headlines';
+
+  @override
+  String get filterTopics => 'Filter Topics';
+
+  @override
+  String get filterSources => 'Filter Sources';
+
+  @override
+  String get searchByHeadlineTitle => 'Search by headline title...';
+
+  @override
+  String get searchByTopicName => 'Search by topic name...';
+
+  @override
+  String get searchBySourceName => 'Search by source name...';
+
+  @override
+  String get selectSources => 'Select Sources';
+
+  @override
+  String get selectTopics => 'Select Topics';
+
+  @override
+  String get countries => 'Countries';
+
+  @override
+  String get selectCountries => 'Select Countries';
+
+  @override
+  String get selectSourceTypes => 'Select Source Types';
+
+  @override
+  String get selectLanguages => 'Select Languages';
+
+  @override
+  String get selectHeadquarters => 'Select Headquarters';
+
+  @override
+  String get resetFiltersButtonText => 'Reset Filters';
+
+  @override
+  String get noResultsWithCurrentFilters =>
+      'No results found with current filters. Try resetting them.';
 }

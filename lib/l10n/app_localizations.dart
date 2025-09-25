@@ -986,6 +986,12 @@ abstract class AppLocalizations {
   /// **'Select the application language.'**
   String get languageDescription;
 
+  /// Tooltip for the edit button
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
   /// Option for English language
   ///
   /// In en, this message translates to:
@@ -1898,6 +1904,12 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// Button text to apply changes or selections
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
   /// Label for checkbox to control visibility of a decorator for a specific role
   ///
   /// In en, this message translates to:
@@ -2599,6 +2611,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More Actions'**
   String get moreActions;
+
+  /// Tooltip for the filter icon button.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// Text for the button to apply filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get applyFilters;
+
+  /// Title for the filter dialog when filtering headlines.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Headlines'**
+  String get filterHeadlines;
+
+  /// Title for the filter dialog when filtering topics.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Topics'**
+  String get filterTopics;
+
+  /// Title for the filter dialog when filtering sources.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Sources'**
+  String get filterSources;
+
+  /// Hint text for the headline search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by headline title...'**
+  String get searchByHeadlineTitle;
+
+  /// Hint text for the topic search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by topic name...'**
+  String get searchByTopicName;
+
+  /// Hint text for the source search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by source name...'**
+  String get searchBySourceName;
+
+  /// Hint text for selecting sources in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Sources'**
+  String get selectSources;
+
+  /// Hint text for selecting topics in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Topics'**
+  String get selectTopics;
+
+  /// Label for countries filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Countries'**
+  String get countries;
+
+  /// Hint text for selecting countries in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Countries'**
+  String get selectCountries;
+
+  /// Hint text for selecting source types in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Source Types'**
+  String get selectSourceTypes;
+
+  /// Hint text for selecting languages in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Languages'**
+  String get selectLanguages;
+
+  /// Hint text for selecting headquarters in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Headquarters'**
+  String get selectHeadquarters;
+
+  /// Text for the button to reset filters to their default state.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Filters'**
+  String get resetFiltersButtonText;
+
+  /// Message displayed when no results are found due to active filters, prompting the user to reset them.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found with current filters. Try resetting them.'**
+  String get noResultsWithCurrentFilters;
 }
 
 class _AppLocalizationsDelegate

@@ -1257,6 +1257,10 @@
   "@close": {
     "description": "نص زر إغلاق نافذة منبثقة أو تراكب"
   },
+  "apply": "تطبيق",
+  "@apply": {
+    "description": "نص زر لتطبيق التغييرات أو التحديدات"
+  },
   "visibleToRoleLabel": "مرئي لـ {roleName}",
   "@visibleToRoleLabel": {
     "description": "تسمية مربع الاختيار للتحكم في رؤية الزينة لدور معين",
@@ -1759,5 +1763,77 @@
   "moreActions": "المزيد من الإجراءات",
   "@moreActions": {
     "description": "تلميح الزر الذي يفتح قائمة تحتوي على المزيد من الإجراءات لصف في الجدول."
+  },
+  "filter": "تصفية",
+  "@filter": {
+    "description": "تلميح زر أيقونة التصفية."
+  },
+  "applyFilters": "تطبيق الفلاتر",
+  "@applyFilters": {
+    "description": "نص زر تطبيق الفلاتر."
+  },
+  "filterHeadlines": "تصفية العناوين",
+  "@filterHeadlines": {
+    "description": "عنوان مربع حوار التصفية عند تصفية العناوين."
+  },
+  "filterTopics": "تصفية المواضيع",
+  "@filterTopics": {
+    "description": "عنوان مربع حوار التصفية عند تصفية المواضيع."
+  },
+  "filterSources": "تصفية المصادر",
+  "@filterSources": {
+    "description": "عنوان مربع حوار التصفية عند تصفية المصادر."
+  },
+  "searchByHeadlineTitle": "البحث بعنوان الخبر...",
+  "@searchByHeadlineTitle": {
+    "description": "نص تلميح حقل البحث عن العناوين."
+  },
+  "searchByTopicName": "البحث باسم الموضوع...",
+  "@searchByTopicName": {
+    "description": "نص تلميح حقل البحث عن المواضيع."
+  },
+  "searchBySourceName": "البحث باسم المصدر...",
+  "@searchBySourceName": {
+    "description": "نص تلميح حقل البحث عن المصادر."
+  },
+  "selectSources": "اختر المصادر",
+  "@selectSources": {
+    "description": "نص تلميح لاختيار المصادر في مربع حوار التصفية."
+  },
+  "selectTopics": "اختر المواضيع",
+  "@selectTopics": {
+    "description": "نص تلميح لاختيار المواضيع في مربع حوار التصفية."
+  },
+  "countries": "البلدان",
+  "@countries": {
+    "description": "تسمية لفلتر البلدان."
+  },
+  "selectCountries": "اختر البلدان",
+  "@selectCountries": {
+    "description": "نص تلميح لاختيار البلدان في مربع حوار التصفية."
+  },
+  "selectSourceTypes": "اختر أنواع المصادر",
+  "@selectSourceTypes": {
+    "description": "نص تلميح لاختيار أنواع المصادر في مربع حوار التصفية."
+  },
+  "selectLanguages": "اختر اللغات",
+  "@selectLanguages": {
+    "description": "نص تلميح لاختيار اللغات في مربع حوار التصفية."
+  },
+  "selectHeadquarters": "اختر المقر الرئيسي",
+  "@selectHeadquarters": {
+    "description": "نص تلميح لاختيار المقر الرئيسي في مربع حوار التصفية."
+  },
+  "edit": "تعديل",
+  "@edit": {
+    "description": "Tooltip for the edit button"
+  },
+  "resetFiltersButtonText": "إعادة تعيين الفلاتر",
+  "@resetFiltersButtonText": {
+    "description": "Text for the button to reset filters to their default state."
+  },
+  "noResultsWithCurrentFilters": "لم يتم العثور على نتائج باستخدام الفلاتر الحالية. حاول إعادة تعيينها.",
+  "@noResultsWithCurrentFilters": {
+    "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
   }
 }

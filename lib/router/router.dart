@@ -1,4 +1,6 @@
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart' hide AppStatus; // Hide AppStatus from core.dart
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
@@ -10,19 +12,19 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/archived_headlines_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/archived_sources_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/archived_topics_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/content_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_topic_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_headlines_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_sources_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_topics_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/archived_local_ads_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_banner_ad_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_interstitial_ad_page.dart';
@@ -214,36 +216,6 @@ GoRouter createRouter({
                       return EditSourcePage(sourceId: sourceId);
                     },
                   ),
-                  GoRoute(
-                    path: Routes.archivedHeadlines,
-                    name: Routes.archivedHeadlinesName,
-                    builder: (context, state) => const ArchivedHeadlinesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.archivedTopics,
-                    name: Routes.archivedTopicsName,
-                    builder: (context, state) => const ArchivedTopicsPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.archivedSources,
-                    name: Routes.archivedSourcesName,
-                    builder: (context, state) => const ArchivedSourcesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.draftHeadlines,
-                    name: Routes.draftHeadlinesName,
-                    builder: (context, state) => const DraftHeadlinesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.draftSources,
-                    name: Routes.draftSourcesName,
-                    builder: (context, state) => const DraftSourcesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.draftTopics,
-                    name: Routes.draftTopicsName,
-                    builder: (context, state) => const DraftTopicsPage(),
-                  ),
                   // Moved searchableSelection as a sub-route of content-management
                   GoRoute(
                     path: Routes.searchableSelection,
@@ -253,6 +225,65 @@ GoRouter createRouter({
                       return MaterialPage(
                         fullscreenDialog: true,
                         child: SearchableSelectionPage(arguments: arguments),
+                      );
+                    },
+                  ),
+                  // New route for the FilterDialog
+                  GoRoute(
+                    path: Routes.filterDialog,
+                    name: Routes.filterDialogName,
+                    pageBuilder: (context, state) {
+                      final args = state.extra! as Map<String, dynamic>;
+                      final activeTab =
+                          args['activeTab'] as ContentManagementTab;
+                      final sourcesRepository =
+                          args['sourcesRepository'] as DataRepository<Source>;
+                      final topicsRepository =
+                          args['topicsRepository'] as DataRepository<Topic>;
+                      final countriesRepository =
+                          args['countriesRepository']
+                              as DataRepository<Country>;
+                      final languagesRepository =
+                          args['languagesRepository']
+                              as DataRepository<Language>;
+
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: BlocProvider<FilterDialogBloc>(
+                          create: (providerContext) {
+                            final filterDialogBloc =
+                                FilterDialogBloc(
+                                    activeTab: activeTab,
+                                    sourcesRepository: sourcesRepository,
+                                    topicsRepository: topicsRepository,
+                                    countriesRepository: countriesRepository,
+                                    languagesRepository: languagesRepository,
+                                  )
+                                  // Dispatch initial state after creation
+                                  ..add(
+                                    FilterDialogInitialized(
+                                      activeTab: activeTab,
+                                      headlinesFilterState: providerContext
+                                          .read<HeadlinesFilterBloc>()
+                                          .state,
+                                      topicsFilterState: providerContext
+                                          .read<TopicsFilterBloc>()
+                                          .state,
+                                      sourcesFilterState: providerContext
+                                          .read<SourcesFilterBloc>()
+                                          .state,
+                                    ),
+                                  );
+                            return filterDialogBloc;
+                          },
+                          child: FilterDialog(
+                            activeTab: activeTab,
+                            sourcesRepository: sourcesRepository,
+                            topicsRepository: topicsRepository,
+                            countriesRepository: countriesRepository,
+                            languagesRepository: languagesRepository,
+                          ),
+                        ),
                       );
                     },
                   ),

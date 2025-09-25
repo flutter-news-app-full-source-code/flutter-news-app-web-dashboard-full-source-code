@@ -1,6 +1,6 @@
 part of 'content_management_bloc.dart';
 
-/// Represents the status of content loading and operations.
+/// Represents the status of content management operations.
 enum ContentManagementStatus {
   /// The operation is in its initial state.
   initial,
@@ -15,7 +15,9 @@ enum ContentManagementStatus {
   failure,
 }
 
-/// Defines the state for the content management feature.
+/// {@template content_management_state}
+/// The state for the content management feature.
+/// {@endtemplate}
 class ContentManagementState extends Equatable {
   /// {@macro content_management_state}
   const ContentManagementState({
@@ -33,49 +35,59 @@ class ContentManagementState extends Equatable {
     this.sourcesCursor,
     this.sourcesHasMore = false,
     this.exception,
+    this.lastPendingDeletionId,
+    this.snackbarMessage,
   });
 
   /// The currently active tab in the content management section.
   final ContentManagementTab activeTab;
 
-  /// Status of headline data operations.
+  /// The status of the headlines loading operation.
   final ContentManagementStatus headlinesStatus;
 
-  /// List of headlines.
+  /// The list of headlines currently displayed.
   final List<Headline> headlines;
 
-  /// Cursor for headline pagination.
+  /// The cursor for fetching the next page of headlines.
   final String? headlinesCursor;
 
-  /// Indicates if there are more headlines to load.
+  /// Indicates if there are more headlines available to load.
   final bool headlinesHasMore;
 
-  /// Status of topic data operations.
+  /// The status of the topics loading operation.
   final ContentManagementStatus topicsStatus;
 
-  /// List of topics.
+  /// The list of topics currently displayed.
   final List<Topic> topics;
 
-  /// Cursor for topic pagination.
+  /// The cursor for fetching the next page of topics.
   final String? topicsCursor;
 
-  /// Indicates if there are more topics to load.
+  /// Indicates if there are more topics available to load.
   final bool topicsHasMore;
 
-  /// Status of source data operations.
+  /// The status of the sources loading operation.
   final ContentManagementStatus sourcesStatus;
 
-  /// List of sources.
+  /// The list of sources currently displayed.
   final List<Source> sources;
 
-  /// Cursor for source pagination.
+  /// The cursor for fetching the next page of sources.
   final String? sourcesCursor;
 
-  /// Indicates if there are more sources to load.
+  /// Indicates if there are more sources available to load.
   final bool sourcesHasMore;
 
-  /// The error describing an operation failure, if any.
+  /// The exception encountered during a failed operation, if any.
   final HttpException? exception;
+
+  /// The ID of the item that was most recently added to pending deletions.
+  /// Used to trigger the snackbar display.
+  final String? lastPendingDeletionId;
+
+  /// The message to display in the snackbar for pending deletions or other
+  /// transient messages.
+  final String? snackbarMessage;
 
   /// Creates a copy of this [ContentManagementState] with updated values.
   ContentManagementState copyWith({
@@ -93,6 +105,8 @@ class ContentManagementState extends Equatable {
     String? sourcesCursor,
     bool? sourcesHasMore,
     HttpException? exception,
+    String? lastPendingDeletionId,
+    String? snackbarMessage,
   }) {
     return ContentManagementState(
       activeTab: activeTab ?? this.activeTab,
@@ -108,7 +122,11 @@ class ContentManagementState extends Equatable {
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
-      exception: exception ?? this.exception,
+      exception: exception, // Explicitly set to null if not provided
+      lastPendingDeletionId:
+          lastPendingDeletionId, // Explicitly set to null if not provided
+      snackbarMessage:
+          snackbarMessage, // Explicitly set to null if not provided
     );
   }
 
@@ -127,5 +145,8 @@ class ContentManagementState extends Equatable {
     sources,
     sourcesCursor,
     sourcesHasMore,
+    exception,
+    lastPendingDeletionId,
+    snackbarMessage,
   ];
 }

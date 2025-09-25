@@ -31,13 +31,26 @@ final class SearchableSelectionLoadMoreRequested
   const SearchableSelectionLoadMoreRequested();
 }
 
-/// Event to set the selected item.
-final class SearchableSelectionSetSelectedItem
+/// Event to set the selected items (for single or multi-selection).
+final class SearchableSelectionSetSelectedItems
     extends SearchableSelectionEvent {
-  const SearchableSelectionSetSelectedItem(this.item);
+  const SearchableSelectionSetSelectedItems(this.items);
 
-  /// The item to set as selected.
-  final Object? item;
+  /// The list of items to set as selected.
+  final List<Object> items;
+
+  @override
+  List<Object?> get props => [items];
+}
+
+/// Event to toggle the selection status of a single item.
+///
+/// Used in multi-select mode to add or remove an item from the selected list.
+final class SearchableSelectionToggleItem extends SearchableSelectionEvent {
+  const SearchableSelectionToggleItem(this.item);
+
+  /// The item to toggle.
+  final Object item;
 
   @override
   List<Object?> get props => [item];

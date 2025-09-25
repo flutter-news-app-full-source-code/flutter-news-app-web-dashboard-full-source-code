@@ -44,42 +44,6 @@ abstract final class Routes {
   /// The name for the content management section route.
   static const String contentManagementName = 'contentManagement';
 
-  /// The path for the archived headlines page.
-  static const String archivedHeadlines = 'archived-headlines';
-
-  /// The name for the archived headlines page route.
-  static const String archivedHeadlinesName = 'archivedHeadlines';
-
-  /// The path for the archived topics page.
-  static const String archivedTopics = 'archived-topics';
-
-  /// The name for the archived topics page route.
-  static const String archivedTopicsName = 'archivedTopics';
-
-  /// The path for the archived sources page.
-  static const String archivedSources = 'archived-sources';
-
-  /// The name for the archived sources page route.
-  static const String archivedSourcesName = 'archivedSources';
-
-  /// The path for the draft headlines page.
-  static const String draftHeadlines = 'draft-headlines';
-
-  /// The name for the draft headlines page route.
-  static const String draftHeadlinesName = 'draftHeadlines';
-
-  /// The path for the draft topics page.
-  static const String draftTopics = 'draft-topics';
-
-  /// The name for the draft topics page route.
-  static const String draftTopicsName = 'draftTopics';
-
-  /// The path for the draft sources page.
-  static const String draftSources = 'draft-sources';
-
-  /// The name for the draft sources page route.
-  static const String draftSourcesName = 'draftSources';
-
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
@@ -129,10 +93,16 @@ abstract final class Routes {
   static const String settingsName = 'settings';
 
   /// The path for the generic searchable selection page.
-  static const String searchableSelection = '/searchable-selection';
+  static const String searchableSelection = 'searchable-selection';
 
   /// The name for the generic searchable selection page route.
   static const String searchableSelectionName = 'searchableSelection';
+
+  /// The path for the filter dialog.
+  static const String filterDialog = 'filter-dialog';
+
+  /// The name for the filter dialog route.
+  static const String filterDialogName = 'filterDialog';
 
   /// The path for the local ads management page.
   static const String localAdsManagement = '/local-ads-management';

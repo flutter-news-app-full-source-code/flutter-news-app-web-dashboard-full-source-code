@@ -5,7 +5,6 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/selection_page_arguments.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -22,6 +21,7 @@ EventTransformer<T> debounce<T>(Duration duration) {
 ///
 /// This BLoC handles fetching data from a [DataRepository] or a static list,
 /// applying search filters with debouncing, and managing pagination.
+/// It supports both single and multi-selection modes.
 ///
 /// Note: This BLoC operates on [Object] due to GoRouter's limitations with
 /// passing generic types. Items are expected to be cast to their specific
@@ -35,7 +35,7 @@ class SearchableSelectionBloc
   }) : _arguments = arguments,
        super(
          SearchableSelectionState(
-           selectedItem: arguments.initialSelectedItem,
+           selectedItems: arguments.initialSelectedItems ?? const [],
          ),
        ) {
     on<SearchableSelectionLoadRequested>(
@@ -50,7 +50,8 @@ class SearchableSelectionBloc
       _onLoadMoreRequested,
       transformer: sequential(),
     );
-    on<SearchableSelectionSetSelectedItem>(_onSetSelectedItem);
+    on<SearchableSelectionSetSelectedItems>(_onSetSelectedItems);
+    on<SearchableSelectionToggleItem>(_onToggleItem);
 
     // Initial load
     add(const SearchableSelectionLoadRequested());
@@ -105,15 +106,15 @@ class SearchableSelectionBloc
         cursor = response.cursor;
         hasMore = response.hasMore;
 
-        // If includeInactiveSelectedItem is true and initialSelectedItem is provided,
-        // ensure it's in the list, even if it doesn't match the current filter.
+        // If includeInactiveSelectedItem is true and initialSelectedItems are provided,
+        // ensure they are in the list, even if they don't match the current filter.
         if (_arguments.includeInactiveSelectedItem &&
-            _arguments.initialSelectedItem != null &&
-            !fetchedItems.contains(_arguments.initialSelectedItem)) {
-          fetchedItems = [
-            _arguments.initialSelectedItem!,
-            ...fetchedItems,
-          ];
+            _arguments.initialSelectedItems != null &&
+            _arguments.initialSelectedItems!.isNotEmpty) {
+          final itemsToAdd = _arguments.initialSelectedItems!
+              .where((item) => !fetchedItems.contains(item))
+              .toList();
+          fetchedItems = [...itemsToAdd, ...fetchedItems];
         }
       } else {
         // This case should ideally not be reached due to the assert in arguments
@@ -205,16 +206,16 @@ class SearchableSelectionBloc
 
       var newItems = <Object>[...state.items, ...response.items];
 
-      // If includeInactiveSelectedItem is true and initialSelectedItem is provided,
-      // ensure it's in the list, even if it doesn't match the current filter.
-      // This check is only needed if it wasn't already added in the initial load.
+      // If includeInactiveSelectedItem is true and initialSelectedItems are provided,
+      // ensure they are in the list, even if they don't match the current filter.
+      // This check is only needed if they weren't already added in the initial load.
       if (_arguments.includeInactiveSelectedItem &&
-          _arguments.initialSelectedItem != null &&
-          !newItems.contains(_arguments.initialSelectedItem)) {
-        newItems = [
-          _arguments.initialSelectedItem!,
-          ...newItems,
-        ];
+          _arguments.initialSelectedItems != null &&
+          _arguments.initialSelectedItems!.isNotEmpty) {
+        final itemsToAdd = _arguments.initialSelectedItems!
+            .where((item) => !newItems.contains(item))
+            .toList();
+        newItems = [...itemsToAdd, ...newItems];
       }
 
       emit(
@@ -242,10 +243,28 @@ class SearchableSelectionBloc
     }
   }
 
-  void _onSetSelectedItem(
-    SearchableSelectionSetSelectedItem event,
+  /// Handles setting the list of selected items.
+  void _onSetSelectedItems(
+    SearchableSelectionSetSelectedItems event,
     Emitter<SearchableSelectionState> emit,
   ) {
-    emit(state.copyWith(selectedItem: () => event.item));
+    emit(state.copyWith(selectedItems: event.items));
+  }
+
+  /// Handles toggling a single item's selection status.
+  ///
+  /// This is used in multi-select mode to add or remove an item from the
+  /// currently selected list.
+  void _onToggleItem(
+    SearchableSelectionToggleItem event,
+    Emitter<SearchableSelectionState> emit,
+  ) {
+    final currentSelectedItems = List<Object>.from(state.selectedItems);
+    if (currentSelectedItems.contains(event.item)) {
+      currentSelectedItems.remove(event.item);
+    } else {
+      currentSelectedItems.add(event.item);
+    }
+    emit(state.copyWith(selectedItems: currentSelectedItems));
   }
 }

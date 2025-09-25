@@ -3,10 +3,12 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/source_type_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -26,9 +28,24 @@ class _SourcesPageState extends State<SourcesPage> {
   @override
   void initState() {
     super.initState();
+    // Initial load of sources, applying the default filter from SourcesFilterBloc
     context.read<ContentManagementBloc>().add(
-      const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+      LoadSourcesRequested(
+        limit: kDefaultRowsPerPage,
+        filter: context
+            .read<ContentManagementBloc>()
+            .buildSourcesFilterMap(context.read<SourcesFilterBloc>().state),
+      ),
     );
+  }
+
+  /// Checks if any filters are currently active in the SourcesFilterBloc.
+  bool _areFiltersActive(SourcesFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedStatus != ContentStatus.active ||
+        state.selectedSourceTypes.isNotEmpty ||
+        state.selectedLanguageCodes.isNotEmpty ||
+        state.selectedHeadquartersCountryIds.isNotEmpty;
   }
 
   @override
@@ -38,10 +55,13 @@ class _SourcesPageState extends State<SourcesPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
+          final sourcesFilterState = context.watch<SourcesFilterBloc>().state;
+          final filtersActive = _areFiltersActive(sourcesFilterState);
+
           if (state.sourcesStatus == ContentManagementStatus.loading &&
               state.sources.isEmpty) {
             return LoadingStateWidget(
-              icon: Icons.source,
+              icon: Icons.rss_feed,
               headline: l10n.loadingSources,
               subheadline: l10n.pleaseWait,
             );
@@ -51,12 +71,43 @@ class _SourcesPageState extends State<SourcesPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+                LoadSourcesRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: context
+                      .read<ContentManagementBloc>()
+                      .buildSourcesFilterMap(
+                        context.read<SourcesFilterBloc>().state,
+                      ),
+                ),
               ),
             );
           }
 
           if (state.sources.isEmpty) {
+            if (filtersActive) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.noResultsWithCurrentFilters,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<SourcesFilterBloc>().add(
+                              const SourcesFilterReset(),
+                            );
+                      },
+                      child: Text(l10n.resetFiltersButtonText),
+                    ),
+                  ],
+                ),
+              );
+            }
             return Center(child: Text(l10n.noSourcesFound));
           }
 
@@ -66,55 +117,66 @@ class _SourcesPageState extends State<SourcesPage> {
                   state.sources.isNotEmpty)
                 const LinearProgressIndicator(),
               Expanded(
-                child: PaginatedDataTable2(
-                  columns: [
-                    DataColumn2(
-                      label: Text(l10n.sourceName),
-                      size: ColumnSize.L,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.sourceType),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.lastUpdated),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.actions),
-                      size: ColumnSize.S,
-                    ),
-                  ],
-                  source: _SourcesDataSource(
-                    context: context,
-                    sources: state.sources,
-                    hasMore: state.sourcesHasMore,
-                    l10n: l10n,
-                  ),
-                  rowsPerPage: kDefaultRowsPerPage,
-                  availableRowsPerPage: const [kDefaultRowsPerPage],
-                  onPageChanged: (pageIndex) {
-                    final newOffset = pageIndex * kDefaultRowsPerPage;
-                    if (newOffset >= state.sources.length &&
-                        state.sourcesHasMore &&
-                        state.sourcesStatus !=
-                            ContentManagementStatus.loading) {
-                      context.read<ContentManagementBloc>().add(
-                        LoadSourcesRequested(
-                          startAfterId: state.sourcesCursor,
-                          limit: kDefaultRowsPerPage,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 600;
+                    return PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.sourceName),
+                          size: ColumnSize.L,
                         ),
-                      );
-                    }
+                        DataColumn2(
+                          label: Text(l10n.sourceType),
+                          size: ColumnSize.S,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.lastUpdated),
+                          size: ColumnSize.S,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      source: _SourcesDataSource(
+                        context: context,
+                        sources: state.sources,
+                        hasMore: state.sourcesHasMore,
+                        l10n: l10n,
+                        isMobile: isMobile,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.sources.length &&
+                            state.sourcesHasMore &&
+                            state.sourcesStatus !=
+                                ContentManagementStatus.loading) {
+                          context.read<ContentManagementBloc>().add(
+                            LoadSourcesRequested(
+                              startAfterId: state.sourcesCursor,
+                              limit: kDefaultRowsPerPage,
+                              filter: context
+                                  .read<ContentManagementBloc>()
+                                  .buildSourcesFilterMap(
+                                    context.read<SourcesFilterBloc>().state,
+                                  ),
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noSourcesFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.md,
+                      horizontalMargin: AppSpacing.md,
+                    );
                   },
-                  empty: Center(child: Text(l10n.noSourcesFound)),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  fit: FlexFit.tight,
-                  headingRowHeight: 56,
-                  dataRowHeight: 56,
-                  columnSpacing: AppSpacing.md,
-                  horizontalMargin: AppSpacing.md,
                 ),
               ),
             ],
@@ -131,12 +193,14 @@ class _SourcesDataSource extends DataTableSource {
     required this.sources,
     required this.hasMore,
     required this.l10n,
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<Source> sources;
   final bool hasMore;
   final AppLocalizations l10n;
+  final bool isMobile;
 
   @override
   DataRow? getRow(int index) {
@@ -161,37 +225,22 @@ class _SourcesDataSource extends DataTableSource {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        DataCell(Text(source.sourceType.localizedName(l10n))),
         DataCell(
           Text(
-            // TODO(fulleni): Make date format configurable by admin.
+            source.sourceType.localizedName(l10n),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        DataCell(
+          Text(
             DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),
           ),
         ),
         DataCell(
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  // Navigate to edit page
-                  context.goNamed(
-                    Routes.editSourceName,
-                    pathParameters: {'id': source.id},
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.archive),
-                tooltip: l10n.archive,
-                onPressed: () {
-                  // Dispatch delete event
-                  context.read<ContentManagementBloc>().add(
-                    ArchiveSourceRequested(source.id),
-                  );
-                },
-              ),
-            ],
+          ContentActionButtons(
+            item: source,
+            l10n: l10n,
           ),
         ),
       ],

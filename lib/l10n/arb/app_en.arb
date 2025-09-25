@@ -622,6 +622,10 @@
   "@languageDescription": {
     "description": "Description for language setting"
   },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Tooltip for the edit button"
+  },
   "englishLanguage": "English",
   "@englishLanguage": {
     "description": "Option for English language"
@@ -1253,6 +1257,10 @@
   "@close": {
     "description": "Button text to close a modal or overlay"
   },
+  "apply": "Apply",
+  "@apply": {
+    "description": "Button text to apply changes or selections"
+  },
   "visibleToRoleLabel": "Visible to {roleName}",
   "@visibleToRoleLabel": {
     "description": "Label for checkbox to control visibility of a decorator for a specific role",
@@ -1755,5 +1763,73 @@
   "moreActions": "More Actions",
   "@moreActions": {
     "description": "Tooltip for the button that opens a menu with more actions for a table row."
+  },
+  "filter": "Filter",
+  "@filter": {
+    "description": "Tooltip for the filter icon button."
+  },
+  "applyFilters": "Apply Filters",
+  "@applyFilters": {
+    "description": "Text for the button to apply filters."
+  },
+  "filterHeadlines": "Filter Headlines",
+  "@filterHeadlines": {
+    "description": "Title for the filter dialog when filtering headlines."
+  },
+  "filterTopics": "Filter Topics",
+  "@filterTopics": {
+    "description": "Title for the filter dialog when filtering topics."
+  },
+  "filterSources": "Filter Sources",
+  "@filterSources": {
+    "description": "Title for the filter dialog when filtering sources."
+  },
+  "searchByHeadlineTitle": "Search by headline title...",
+  "@searchByHeadlineTitle": {
+    "description": "Hint text for the headline search field."
+  },
+  "searchByTopicName": "Search by topic name...",
+  "@searchByTopicName": {
+    "description": "Hint text for the topic search field."
+  },
+  "searchBySourceName": "Search by source name...",
+  "@searchBySourceName": {
+    "description": "Hint text for the source search field."
+  },
+  "selectSources": "Select Sources",
+  "@selectSources": {
+    "description": "Hint text for selecting sources in a filter dialog."
+  },
+  "selectTopics": "Select Topics",
+  "@selectTopics": {
+    "description": "Hint text for selecting topics in a filter dialog."
+  },
+  "countries": "Countries",
+  "@countries": {
+    "description": "Label for countries filter."
+  },
+  "selectCountries": "Select Countries",
+  "@selectCountries": {
+    "description": "Hint text for selecting countries in a filter dialog."
+  },
+  "selectSourceTypes": "Select Source Types",
+  "@selectSourceTypes": {
+    "description": "Hint text for selecting source types in a filter dialog."
+  },
+  "selectLanguages": "Select Languages",
+  "@selectLanguages": {
+    "description": "Hint text for selecting languages in a filter dialog."
+  },
+  "selectHeadquarters": "Select Headquarters",
+  "@selectHeadquarters": {
+    "description": "Hint text for selecting headquarters in a filter dialog."
+  },
+  "resetFiltersButtonText": "Reset Filters",
+  "@resetFiltersButtonText": {
+    "description": "Text for the button to reset filters to their default state."
+  },
+  "noResultsWithCurrentFilters": "No results found with current filters. Try resetting them.",
+  "@noResultsWithCurrentFilters": {
+    "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
   }
 }

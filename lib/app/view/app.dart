@@ -12,6 +12,9 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/app_e
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
@@ -120,10 +123,23 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
+            create: (context) => HeadlinesFilterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => TopicsFilterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => SourcesFilterBloc(),
+          ),
+          BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
+              headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
+              topicsFilterBloc: context.read<TopicsFilterBloc>(),
+              sourcesFilterBloc: context.read<SourcesFilterBloc>(),
+              pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
           BlocProvider(
