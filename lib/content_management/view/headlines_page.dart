@@ -38,6 +38,15 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
     );
   }
 
+  /// Checks if any filters are currently active in the HeadlinesFilterBloc.
+  bool _areFiltersActive(HeadlinesFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedStatus != ContentStatus.active ||
+        state.selectedSourceIds.isNotEmpty ||
+        state.selectedTopicIds.isNotEmpty ||
+        state.selectedCountryIds.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -45,6 +54,10 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
+          final headlinesFilterState =
+              context.watch<HeadlinesFilterBloc>().state;
+          final filtersActive = _areFiltersActive(headlinesFilterState);
+
           if (state.headlinesStatus == ContentManagementStatus.loading &&
               state.headlines.isEmpty) {
             return LoadingStateWidget(
@@ -72,6 +85,29 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
           }
 
           if (state.headlines.isEmpty) {
+            if (filtersActive) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.noResultsWithCurrentFilters,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<HeadlinesFilterBloc>().add(
+                              const HeadlinesFilterReset(),
+                            );
+                      },
+                      child: Text(l10n.resetFiltersButtonText),
+                    ),
+                  ],
+                ),
+              );
+            }
             return Center(child: Text(l10n.noHeadlinesFound));
           }
 
