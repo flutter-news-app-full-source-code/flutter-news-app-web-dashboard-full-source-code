@@ -10,7 +10,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-
 /// {@template filter_dialog}
 /// A full-screen dialog for applying filters to content management lists.
 ///
@@ -47,11 +46,20 @@ class _FilterDialogState extends State<FilterDialog> {
   void _loadInitialFilterState() {
     switch (widget.activeTab) {
       case ContentManagementTab.headlines:
-        _searchController.text = context.read<HeadlinesFilterBloc>().state.searchQuery;
+        _searchController.text = context
+            .read<HeadlinesFilterBloc>()
+            .state
+            .searchQuery;
       case ContentManagementTab.topics:
-        _searchController.text = context.read<TopicsFilterBloc>().state.searchQuery;
+        _searchController.text = context
+            .read<TopicsFilterBloc>()
+            .state
+            .searchQuery;
       case ContentManagementTab.sources:
-        _searchController.text = context.read<SourcesFilterBloc>().state.searchQuery;
+        _searchController.text = context
+            .read<SourcesFilterBloc>()
+            .state
+            .searchQuery;
     }
   }
 
@@ -141,7 +149,9 @@ class _FilterDialogState extends State<FilterDialog> {
   void _dispatchSearchQueryChanged(String query) {
     switch (widget.activeTab) {
       case ContentManagementTab.headlines:
-        context.read<HeadlinesFilterBloc>().add(HeadlinesSearchQueryChanged(query));
+        context.read<HeadlinesFilterBloc>().add(
+          HeadlinesSearchQueryChanged(query),
+        );
       case ContentManagementTab.topics:
         context.read<TopicsFilterBloc>().add(TopicsSearchQueryChanged(query));
       case ContentManagementTab.sources:

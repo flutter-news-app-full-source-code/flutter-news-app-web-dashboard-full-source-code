@@ -29,6 +29,7 @@ final class LoadHeadlinesRequested extends ContentManagementEvent {
   final String? startAfterId;
   final int? limit;
   final bool forceRefresh;
+
   /// Optional filter to apply to the headlines query.
   final Map<String, dynamic>? filter;
 
@@ -98,6 +99,7 @@ final class LoadTopicsRequested extends ContentManagementEvent {
   final String? startAfterId;
   final int? limit;
   final bool forceRefresh;
+
   /// Optional filter to apply to the topics query.
   final Map<String, dynamic>? filter;
 
@@ -167,6 +169,7 @@ final class LoadSourcesRequested extends ContentManagementEvent {
   final String? startAfterId;
   final int? limit;
   final bool forceRefresh;
+
   /// Optional filter to apply to the sources query.
   final Map<String, dynamic>? filter;
 

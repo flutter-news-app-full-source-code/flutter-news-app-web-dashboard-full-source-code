@@ -311,7 +311,9 @@ class ContentManagementBloc
             ),
           );
         });
-        emit(state.copyWith(lastPendingDeletionId: null, snackbarMessage: null));
+        emit(
+          state.copyWith(lastPendingDeletionId: null, snackbarMessage: null),
+        );
       }
     });
   }
@@ -529,7 +531,9 @@ class ContentManagementBloc
             ),
           );
         });
-        emit(state.copyWith(lastPendingDeletionId: null, snackbarMessage: null));
+        emit(
+          state.copyWith(lastPendingDeletionId: null, snackbarMessage: null),
+        );
       }
     });
   }
@@ -742,7 +746,9 @@ class ContentManagementBloc
             ),
           );
         });
-        emit(state.copyWith(lastPendingDeletionId: null, snackbarMessage: null));
+        emit(
+          state.copyWith(lastPendingDeletionId: null, snackbarMessage: null),
+        );
       }
     });
   }
