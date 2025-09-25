@@ -1448,4 +1448,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noResultsWithCurrentFilters =>
       'لم يتم العثور على نتائج باستخدام الفلاتر الحالية. حاول إعادة تعيينها.';
+
+  @override
+  String get aboutIconTooltip => 'حول هذه الصفحة';
+
+  @override
+  String get closeButtonText => 'إغلاق';
 }

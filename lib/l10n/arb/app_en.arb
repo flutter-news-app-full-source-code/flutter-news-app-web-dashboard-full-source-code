@@ -1831,5 +1831,13 @@
   "noResultsWithCurrentFilters": "No results found with current filters. Try resetting them.",
   "@noResultsWithCurrentFilters": {
     "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
+  },
+  "aboutIconTooltip": "About this page",
+  "@aboutIconTooltip": {
+    "description": "Tooltip for the information icon that shows page description."
+  },
+  "closeButtonText": "Close",
+  "@closeButtonText": {
+    "description": "Text for the close button in a dialog."
   }
 }
