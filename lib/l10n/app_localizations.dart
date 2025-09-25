@@ -2713,6 +2713,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No results found with current filters. Try resetting them.'**
   String get noResultsWithCurrentFilters;
+
+  /// Tooltip for the information icon that shows page description.
+  ///
+  /// In en, this message translates to:
+  /// **'About this page'**
+  String get aboutIconTooltip;
+
+  /// Text for the close button in a dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get closeButtonText;
 }
 
 class _AppLocalizationsDelegate

@@ -86,7 +86,7 @@ class UpdateLocalVideoAdBloc
         videoUrl: state.videoUrl,
         targetUrl: state.targetUrl,
         updatedAt: now,
-        status: state.initialAd!.status, // Maintain original status
+        status: state.initialAd!.status,
       );
 
       await _localAdsRepository.update(

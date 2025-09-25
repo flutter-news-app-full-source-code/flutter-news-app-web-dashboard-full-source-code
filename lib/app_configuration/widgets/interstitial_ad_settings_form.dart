@@ -45,8 +45,6 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
       vsync: this,
     );
     _initializeControllers();
-    // Removed _tabController.addListener(_onTabChanged); as automatic disabling
-    // for premium users is no longer required.
   }
 
   /// Initializes text editing controllers for each user role based on current
@@ -204,7 +202,6 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
     InterstitialAdConfiguration config,
   ) {
     final roleConfig = config.visibleTo[role];
-    // Removed isEnabled check as premium users can now be manually configured.
 
     return Column(
       children: [
@@ -265,7 +262,6 @@ class _InterstitialAdSettingsFormState extends State<InterstitialAdSettingsForm>
               },
               controller:
                   _transitionsBeforeShowingInterstitialAdsControllers[role],
-              // Removed enabled: isEnabled
             ),
           ),
       ],

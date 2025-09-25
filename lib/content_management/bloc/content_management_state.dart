@@ -122,11 +122,9 @@ class ContentManagementState extends Equatable {
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
-      exception: exception, // Explicitly set to null if not provided
-      lastPendingDeletionId:
-          lastPendingDeletionId, // Explicitly set to null if not provided
-      snackbarMessage:
-          snackbarMessage, // Explicitly set to null if not provided
+      exception: exception,
+      lastPendingDeletionId: lastPendingDeletionId,
+      snackbarMessage: snackbarMessage,
     );
   }
 

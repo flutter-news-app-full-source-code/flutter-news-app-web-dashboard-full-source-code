@@ -32,9 +32,9 @@ class _SourcesPageState extends State<SourcesPage> {
     context.read<ContentManagementBloc>().add(
       LoadSourcesRequested(
         limit: kDefaultRowsPerPage,
-        filter: context
-            .read<ContentManagementBloc>()
-            .buildSourcesFilterMap(context.read<SourcesFilterBloc>().state),
+        filter: context.read<ContentManagementBloc>().buildSourcesFilterMap(
+          context.read<SourcesFilterBloc>().state,
+        ),
       ),
     );
   }
@@ -52,7 +52,7 @@ class _SourcesPageState extends State<SourcesPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
           final sourcesFilterState = context.watch<SourcesFilterBloc>().state;
@@ -99,8 +99,8 @@ class _SourcesPageState extends State<SourcesPage> {
                     ElevatedButton(
                       onPressed: () {
                         context.read<SourcesFilterBloc>().add(
-                              const SourcesFilterReset(),
-                            );
+                          const SourcesFilterReset(),
+                        );
                       },
                       child: Text(l10n.resetFiltersButtonText),
                     ),

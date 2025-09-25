@@ -1,4 +1,4 @@
-import 'package:collection/collection.dart'; // For deep equality check on filter maps
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/topics_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -66,10 +67,14 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           listenWhen: (previous, current) =>
               previous.searchQuery != current.searchQuery ||
               previous.selectedStatus != current.selectedStatus ||
-              !const DeepCollectionEquality()
-                  .equals(previous.selectedSourceIds, current.selectedSourceIds) ||
-              !const DeepCollectionEquality()
-                  .equals(previous.selectedTopicIds, current.selectedTopicIds) ||
+              !const DeepCollectionEquality().equals(
+                previous.selectedSourceIds,
+                current.selectedSourceIds,
+              ) ||
+              !const DeepCollectionEquality().equals(
+                previous.selectedTopicIds,
+                current.selectedTopicIds,
+              ) ||
               !const DeepCollectionEquality().equals(
                 previous.selectedCountryIds,
                 current.selectedCountryIds,
@@ -146,22 +151,22 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                         switch (activeTab) {
                           case ContentManagementTab.headlines:
                             context.read<ContentManagementBloc>().add(
-                                  UndoDeleteHeadlineRequested(
-                                    lastPendingDeletionId,
-                                  ),
-                                );
+                              UndoDeleteHeadlineRequested(
+                                lastPendingDeletionId,
+                              ),
+                            );
                           case ContentManagementTab.topics:
                             context.read<ContentManagementBloc>().add(
-                                  UndoDeleteTopicRequested(
-                                    lastPendingDeletionId,
-                                  ),
-                                );
+                              UndoDeleteTopicRequested(
+                                lastPendingDeletionId,
+                              ),
+                            );
                           case ContentManagementTab.sources:
                             context.read<ContentManagementBloc>().add(
-                                  UndoDeleteSourceRequested(
-                                    lastPendingDeletionId,
-                                  ),
-                                );
+                              UndoDeleteSourceRequested(
+                                lastPendingDeletionId,
+                              ),
+                            );
                         }
                       }
                     },
@@ -173,39 +178,18 @@ class _ContentManagementPageState extends State<ContentManagementPage>
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.contentManagement),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(
-              kTextTabBarHeight + AppSpacing.lg,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: AppSpacing.lg,
-                    right: AppSpacing.lg,
-                    bottom: AppSpacing.lg,
-                  ),
-                  child: Text(
-                    l10n.contentManagementPageDescription,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ),
-                TabBar(
-                  controller: _tabController,
-                  tabAlignment: TabAlignment.start,
-                  isScrollable: true,
-                  tabs: [
-                    Tab(text: l10n.headlines),
-                    Tab(text: l10n.topics),
-                    Tab(text: l10n.sources),
-                  ],
-                ),
-              ],
-            ),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.contentManagement),
+              const SizedBox(
+                width: AppSpacing.xs,
+              ),
+              AboutIcon(
+                dialogTitle: l10n.contentManagement,
+                dialogDescription: l10n.contentManagementPageDescription,
+              ),
+            ],
           ),
           actions: [
             IconButton(
@@ -229,7 +213,9 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                   'topicsRepository': topicsRepository,
                   'countriesRepository': countriesRepository,
                   'languagesRepository': languagesRepository,
-                  'headlinesFilterState': context.read<HeadlinesFilterBloc>().state,
+                  'headlinesFilterState': context
+                      .read<HeadlinesFilterBloc>()
+                      .state,
                   'topicsFilterState': context.read<TopicsFilterBloc>().state,
                   'sourcesFilterState': context.read<SourcesFilterBloc>().state,
                 };
@@ -239,6 +225,16 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               },
             ),
           ],
+          bottom: TabBar(
+            controller: _tabController,
+            tabAlignment: TabAlignment.start,
+            isScrollable: true,
+            tabs: [
+              Tab(text: l10n.headlines),
+              Tab(text: l10n.topics),
+              Tab(text: l10n.sources),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

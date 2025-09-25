@@ -23,7 +23,7 @@ final class SearchableSelectionState extends Equatable {
   const SearchableSelectionState({
     this.status = SearchableSelectionStatus.initial,
     this.items = const [],
-    this.selectedItems = const [], // Changed to List<Object>
+    this.selectedItems = const [],
     this.searchTerm = '',
     this.cursor,
     this.hasMore = true,
@@ -37,7 +37,7 @@ final class SearchableSelectionState extends Equatable {
   final List<Object> items;
 
   /// The currently selected items.
-  final List<Object> selectedItems; // Changed to List<Object>
+  final List<Object> selectedItems;
 
   /// The current search term applied to the items.
   final String searchTerm;
@@ -55,7 +55,7 @@ final class SearchableSelectionState extends Equatable {
   SearchableSelectionState copyWith({
     SearchableSelectionStatus? status,
     List<Object>? items,
-    List<Object>? selectedItems, // Changed to List<Object>
+    List<Object>? selectedItems,
     String? searchTerm,
     String? cursor,
     bool? hasMore,
@@ -64,7 +64,7 @@ final class SearchableSelectionState extends Equatable {
     return SearchableSelectionState(
       status: status ?? this.status,
       items: items ?? this.items,
-      selectedItems: selectedItems ?? this.selectedItems, // Updated
+      selectedItems: selectedItems ?? this.selectedItems,
       searchTerm: searchTerm ?? this.searchTerm,
       cursor: cursor ?? this.cursor,
       hasMore: hasMore ?? this.hasMore,
@@ -76,7 +76,7 @@ final class SearchableSelectionState extends Equatable {
   List<Object?> get props => [
     status,
     items,
-    selectedItems, // Updated
+    selectedItems,
     searchTerm,
     cursor,
     hasMore,

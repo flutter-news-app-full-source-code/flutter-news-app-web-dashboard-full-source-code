@@ -47,12 +47,14 @@ class ContentActionButtons extends StatelessWidget {
       itemId = (item as Source).id;
       status = (item as Source).status;
     } else {
-      return const SizedBox.shrink(); // Should not happen with current FeedItem types
+      return const SizedBox.shrink();
     }
 
     // Action 1: Edit (always visible as the first action)
     visibleActions.add(
       IconButton(
+        visualDensity: VisualDensity.compact,
+        iconSize: 20,
         icon: const Icon(Icons.edit),
         tooltip: l10n.edit,
         onPressed: () {
@@ -152,70 +154,74 @@ class ContentActionButtons extends StatelessWidget {
     // (publish/archive/restore for draft/active/archived, and delete for draft/archived headlines).
     // So, we will always show the ellipsis.
     visibleActions.add(
-      PopupMenuButton<String>(
-        icon: const Icon(Icons.more_vert),
-        tooltip: l10n.moreActions,
-        onSelected: (value) {
-          switch (value) {
-            case 'publish':
-              if (item is Headline) {
-                context.read<ContentManagementBloc>().add(
-                  PublishHeadlineRequested(itemId),
-                );
-              } else if (item is Topic) {
-                context.read<ContentManagementBloc>().add(
-                  PublishTopicRequested(itemId),
-                );
-              } else if (item is Source) {
-                context.read<ContentManagementBloc>().add(
-                  PublishSourceRequested(itemId),
-                );
-              }
-            case 'archive':
-              if (item is Headline) {
-                context.read<ContentManagementBloc>().add(
-                  ArchiveHeadlineRequested(itemId),
-                );
-              } else if (item is Topic) {
-                context.read<ContentManagementBloc>().add(
-                  ArchiveTopicRequested(itemId),
-                );
-              } else if (item is Source) {
-                context.read<ContentManagementBloc>().add(
-                  ArchiveSourceRequested(itemId),
-                );
-              }
-            case 'restore':
-              if (item is Headline) {
-                context.read<ContentManagementBloc>().add(
-                  RestoreHeadlineRequested(itemId),
-                );
-              } else if (item is Topic) {
-                context.read<ContentManagementBloc>().add(
-                  RestoreTopicRequested(itemId),
-                );
-              } else if (item is Source) {
-                context.read<ContentManagementBloc>().add(
-                  RestoreSourceRequested(itemId),
-                );
-              }
-            case 'delete':
-              if (item is Headline) {
-                context.read<ContentManagementBloc>().add(
-                  DeleteHeadlineForeverRequested(itemId),
-                );
-              } else if (item is Topic) {
-                context.read<ContentManagementBloc>().add(
-                  DeleteTopicForeverRequested(itemId),
-                );
-              } else if (item is Source) {
-                context.read<ContentManagementBloc>().add(
-                  DeleteSourceForeverRequested(itemId),
-                );
-              }
-          }
-        },
-        itemBuilder: (BuildContext context) => overflowMenuItems,
+      SizedBox(
+        width: 32,
+        child: PopupMenuButton<String>(
+          iconSize: 20,
+          icon: const Icon(Icons.more_vert),
+          tooltip: l10n.moreActions,
+          onSelected: (value) {
+            switch (value) {
+              case 'publish':
+                if (item is Headline) {
+                  context.read<ContentManagementBloc>().add(
+                    PublishHeadlineRequested(itemId),
+                  );
+                } else if (item is Topic) {
+                  context.read<ContentManagementBloc>().add(
+                    PublishTopicRequested(itemId),
+                  );
+                } else if (item is Source) {
+                  context.read<ContentManagementBloc>().add(
+                    PublishSourceRequested(itemId),
+                  );
+                }
+              case 'archive':
+                if (item is Headline) {
+                  context.read<ContentManagementBloc>().add(
+                    ArchiveHeadlineRequested(itemId),
+                  );
+                } else if (item is Topic) {
+                  context.read<ContentManagementBloc>().add(
+                    ArchiveTopicRequested(itemId),
+                  );
+                } else if (item is Source) {
+                  context.read<ContentManagementBloc>().add(
+                    ArchiveSourceRequested(itemId),
+                  );
+                }
+              case 'restore':
+                if (item is Headline) {
+                  context.read<ContentManagementBloc>().add(
+                    RestoreHeadlineRequested(itemId),
+                  );
+                } else if (item is Topic) {
+                  context.read<ContentManagementBloc>().add(
+                    RestoreTopicRequested(itemId),
+                  );
+                } else if (item is Source) {
+                  context.read<ContentManagementBloc>().add(
+                    RestoreSourceRequested(itemId),
+                  );
+                }
+              case 'delete':
+                if (item is Headline) {
+                  context.read<ContentManagementBloc>().add(
+                    DeleteHeadlineForeverRequested(itemId),
+                  );
+                } else if (item is Topic) {
+                  context.read<ContentManagementBloc>().add(
+                    DeleteTopicForeverRequested(itemId),
+                  );
+                } else if (item is Source) {
+                  context.read<ContentManagementBloc>().add(
+                    DeleteSourceForeverRequested(itemId),
+                  );
+                }
+            }
+          },
+          itemBuilder: (BuildContext context) => overflowMenuItems,
+        ),
       ),
     );
 

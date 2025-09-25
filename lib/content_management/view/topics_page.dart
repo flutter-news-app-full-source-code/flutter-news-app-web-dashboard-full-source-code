@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
@@ -31,9 +31,9 @@ class _TopicPageState extends State<TopicPage> {
     context.read<ContentManagementBloc>().add(
       LoadTopicsRequested(
         limit: kDefaultRowsPerPage,
-        filter: context
-            .read<ContentManagementBloc>()
-            .buildTopicsFilterMap(context.read<TopicsFilterBloc>().state),
+        filter: context.read<ContentManagementBloc>().buildTopicsFilterMap(
+          context.read<TopicsFilterBloc>().state,
+        ),
       ),
     );
   }
@@ -48,7 +48,7 @@ class _TopicPageState extends State<TopicPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
           final topicsFilterState = context.watch<TopicsFilterBloc>().state;
@@ -95,8 +95,8 @@ class _TopicPageState extends State<TopicPage> {
                     ElevatedButton(
                       onPressed: () {
                         context.read<TopicsFilterBloc>().add(
-                              const TopicsFilterReset(),
-                            );
+                          const TopicsFilterReset(),
+                        );
                       },
                       child: Text(l10n.resetFiltersButtonText),
                     ),
@@ -136,7 +136,7 @@ class _TopicPageState extends State<TopicPage> {
                         topics: state.topics,
                         hasMore: state.topicsHasMore,
                         l10n: l10n,
-                        isMobile: isMobile, // Pass isMobile to data source
+                        isMobile: isMobile,
                       ),
                       rowsPerPage: kDefaultRowsPerPage,
                       availableRowsPerPage: const [kDefaultRowsPerPage],
@@ -185,14 +185,14 @@ class _TopicsDataSource extends DataTableSource {
     required this.topics,
     required this.hasMore,
     required this.l10n,
-    required this.isMobile, // New parameter
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<Topic> topics;
   final bool hasMore;
   final AppLocalizations l10n;
-  final bool isMobile; // New parameter
+  final bool isMobile;
 
   @override
   DataRow? getRow(int index) {

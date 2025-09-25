@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
@@ -31,9 +31,9 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
     context.read<ContentManagementBloc>().add(
       LoadHeadlinesRequested(
         limit: kDefaultRowsPerPage,
-        filter: context
-            .read<ContentManagementBloc>()
-            .buildHeadlinesFilterMap(context.read<HeadlinesFilterBloc>().state),
+        filter: context.read<ContentManagementBloc>().buildHeadlinesFilterMap(
+          context.read<HeadlinesFilterBloc>().state,
+        ),
       ),
     );
   }
@@ -51,11 +51,12 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
-          final headlinesFilterState =
-              context.watch<HeadlinesFilterBloc>().state;
+          final headlinesFilterState = context
+              .watch<HeadlinesFilterBloc>()
+              .state;
           final filtersActive = _areFiltersActive(headlinesFilterState);
 
           if (state.headlinesStatus == ContentManagementStatus.loading &&
@@ -99,8 +100,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                     ElevatedButton(
                       onPressed: () {
                         context.read<HeadlinesFilterBloc>().add(
-                              const HeadlinesFilterReset(),
-                            );
+                          const HeadlinesFilterReset(),
+                        );
                       },
                       child: Text(l10n.resetFiltersButtonText),
                     ),
@@ -145,7 +146,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                         headlines: state.headlines,
                         hasMore: state.headlinesHasMore,
                         l10n: l10n,
-                        isMobile: isMobile, // Pass isMobile to data source
+                        isMobile: isMobile,
                       ),
                       rowsPerPage: kDefaultRowsPerPage,
                       availableRowsPerPage: const [kDefaultRowsPerPage],
@@ -174,7 +175,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                       fit: FlexFit.tight,
                       headingRowHeight: 56,
                       dataRowHeight: 56,
-                      columnSpacing: AppSpacing.md,
+                      columnSpacing: AppSpacing.sm,
                       horizontalMargin: AppSpacing.md,
                     );
                   },
@@ -194,14 +195,14 @@ class _HeadlinesDataSource extends DataTableSource {
     required this.headlines,
     required this.hasMore,
     required this.l10n,
-    required this.isMobile, // New parameter
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<Headline> headlines;
   final bool hasMore;
   final AppLocalizations l10n;
-  final bool isMobile; // New parameter
+  final bool isMobile;
 
   @override
   DataRow? getRow(int index) {

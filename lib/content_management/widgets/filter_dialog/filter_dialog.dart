@@ -118,20 +118,22 @@ class _FilterDialogState extends State<FilterDialog> {
                 onPressed: () {
                   // Dispatch reset event
                   context.read<FilterDialogBloc>().add(
-                        const FilterDialogReset(),
-                      );
+                    const FilterDialogReset(),
+                  );
                   // After reset, get the new state and apply filters
-                  final resetState =
-                      context.read<FilterDialogBloc>().state.copyWith(
-                            searchQuery: '',
-                            selectedStatus: ContentStatus.active,
-                            selectedSourceIds: [],
-                            selectedTopicIds: [],
-                            selectedCountryIds: [],
-                            selectedSourceTypes: [],
-                            selectedLanguageCodes: [],
-                            selectedHeadquartersCountryIds: [],
-                          );
+                  final resetState = context
+                      .read<FilterDialogBloc>()
+                      .state
+                      .copyWith(
+                        searchQuery: '',
+                        selectedStatus: ContentStatus.active,
+                        selectedSourceIds: [],
+                        selectedTopicIds: [],
+                        selectedCountryIds: [],
+                        selectedSourceTypes: [],
+                        selectedLanguageCodes: [],
+                        selectedHeadquartersCountryIds: [],
+                      );
                   _dispatchFilterApplied(resetState);
                   Navigator.of(context).pop();
                 },
@@ -387,7 +389,7 @@ class _FilterDialogState extends State<FilterDialog> {
           ],
         );
       case ContentManagementTab.topics:
-        return const SizedBox.shrink(); // No additional filters for topics
+        return const SizedBox.shrink();
       case ContentManagementTab.sources:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1453,4 +1453,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noResultsWithCurrentFilters =>
       'No results found with current filters. Try resetting them.';
+
+  @override
+  String get aboutIconTooltip => 'About this page';
+
+  @override
+  String get closeButtonText => 'Close';
 }

@@ -49,8 +49,6 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
       vsync: this,
     );
     _initializeControllers();
-    // Removed _tabController.addListener(_onTabChanged); as automatic disabling
-    // for premium users is no longer required.
   }
 
   /// Initializes text editing controllers for each user role based on current
@@ -272,7 +270,6 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     FeedAdConfiguration config,
   ) {
     final roleConfig = config.visibleTo[role];
-    // Removed isEnabled check as premium users can now be manually configured.
 
     return Column(
       children: [

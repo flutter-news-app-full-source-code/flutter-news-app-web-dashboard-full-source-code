@@ -25,42 +25,12 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
+
+    // Use the same text style as the NavigationRail labels for consistency.
+    final navRailLabelStyle = theme.textTheme.labelMedium;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.dashboardTitle),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'settings') {
-                context.goNamed(Routes.settingsName);
-              } else if (value == 'signOut') {
-                context.read<AppBloc>().add(const AppLogoutRequested());
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'settings',
-                child: Text(l10n.settings),
-              ),
-              PopupMenuItem<String>(
-                value: 'signOut',
-                child: Text(l10n.signOut),
-              ),
-            ],
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.sm),
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                child: Icon(
-                  Icons.person,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: AppSpacing.sm),
-        ],
-      ),
       body: AdaptiveScaffold(
         selectedIndex: navigationShell.currentIndex,
         onSelectedIndexChange: (index) {
@@ -86,6 +56,104 @@ class AppShell extends StatelessWidget {
             label: l10n.appConfiguration,
           ),
         ],
+        leadingUnextendedNavRail: const Padding(
+          padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
+          child: Icon(Icons.newspaper_outlined),
+        ),
+        leadingExtendedNavRail: Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Row(
+            children: [
+              const Icon(Icons.newspaper_outlined),
+              const SizedBox(width: AppSpacing.md),
+              Text(
+                l10n.dashboardTitle,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+            ],
+          ),
+        ),
+        trailingNavRail: Builder(
+          builder: (context) {
+            final isExtended =
+                Breakpoints.mediumLarge.isActive(context) ||
+                Breakpoints.small.isActive(context);
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Settings Tile
+                    InkWell(
+                      onTap: () => context.goNamed(Routes.settingsName),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.md,
+                          horizontal: isExtended ? 24 : 16,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: isExtended
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.settings_outlined,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              size: 24,
+                            ),
+                            if (isExtended) ...[
+                              const SizedBox(width: AppSpacing.lg),
+                              Text(
+                                l10n.settings,
+                                style: navRailLabelStyle,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Sign Out Tile
+                    InkWell(
+                      onTap: () => context.read<AppBloc>().add(
+                        const AppLogoutRequested(),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.md,
+                          horizontal: isExtended ? 24 : 16,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: isExtended
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: theme.colorScheme.error,
+                              size: 24,
+                            ),
+                            if (isExtended) ...[
+                              const SizedBox(width: AppSpacing.lg),
+                              Text(
+                                l10n.signOut,
+                                style: navRailLabelStyle?.copyWith(
+                                  color: theme.colorScheme.error,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
         body: (_) => Padding(
           padding: const EdgeInsets.fromLTRB(
             0,

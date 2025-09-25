@@ -86,7 +86,7 @@ class UpdateLocalBannerAdBloc
         imageUrl: state.imageUrl,
         targetUrl: state.targetUrl,
         updatedAt: now,
-        status: state.initialAd!.status, // Maintain original status
+        status: state.initialAd!.status,
       );
 
       await _localAdsRepository.update(
