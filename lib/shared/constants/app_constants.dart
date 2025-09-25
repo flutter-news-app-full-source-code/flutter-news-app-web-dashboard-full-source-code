@@ -14,4 +14,13 @@ abstract final class AppConstants {
 
   /// The default card radius used across the application.
   static const double kCardRadius = 8;
+
+  /// The default number of rows per page for paginated tables.
+  static const int kDefaultRowsPerPage = 10;
+
+  /// The maximum number of items to fetch in a single API request for filter options.
+  static const int kMaxItemsPerRequest = 25;
 }
+
+/// A dummy [DateTime] used for placeholder models in UI.
+final dummyDate = DateTime.fromMillisecondsSinceEpoch(0);
