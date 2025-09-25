@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/user_navigation_rail_footer.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -23,6 +25,11 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
+
+    // Use the same text style as the NavigationRail labels for consistency.
+    final navRailLabelStyle = theme.textTheme.labelMedium;
+
     return Scaffold(
       body: AdaptiveScaffold(
         selectedIndex: navigationShell.currentIndex,
@@ -49,29 +56,102 @@ class AppShell extends StatelessWidget {
             label: l10n.appConfiguration,
           ),
         ],
-        // App name at the top of the navigation rail for both extended and unextended states.
-        leadingUnextendedNavRail: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
-          child: Text(
-            l10n.dashboardTitle,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
+        leadingUnextendedNavRail: const Padding(
+          padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
+          child: Icon(Icons.newspaper_outlined),
         ),
         leadingExtendedNavRail: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
-          child: Text(
-            l10n.dashboardTitle,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Row(
+            children: [
+              const Icon(Icons.newspaper_outlined),
+              const SizedBox(width: AppSpacing.md),
+              Text(
+                l10n.dashboardTitle,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+            ],
           ),
         ),
-        // UserNavigationRailFooter pinned to the bottom of the navigation rail.
-        trailingNavRail: const UserNavigationRailFooter(),
-        // Ensure the navigation rail items are aligned to the start, pushing the footer to the end.
-        groupAlignment: 1,
+        trailingNavRail: Builder(
+          builder: (context) {
+            final isExtended = Breakpoints.mediumLarge.isActive(context);
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Settings Tile
+                    InkWell(
+                      onTap: () => context.goNamed(Routes.settingsName),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.md,
+                          horizontal: isExtended ? 24 : 16,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: isExtended
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.settings_outlined,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              size: 24,
+                            ),
+                            if (isExtended) ...[
+                              const SizedBox(width: AppSpacing.lg),
+                              Text(
+                                l10n.settings,
+                                style: navRailLabelStyle,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Sign Out Tile
+                    InkWell(
+                      onTap: () => context.read<AppBloc>().add(
+                        const AppLogoutRequested(),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.md,
+                          horizontal: isExtended ? 24 : 16,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: isExtended
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: theme.colorScheme.error,
+                              size: 24,
+                            ),
+                            if (isExtended) ...[
+                              const SizedBox(width: AppSpacing.lg),
+                              Text(
+                                l10n.signOut,
+                                style: navRailLabelStyle?.copyWith(
+                                  color: theme.colorScheme.error,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
         body: (_) => Padding(
           padding: const EdgeInsets.fromLTRB(
             0,
