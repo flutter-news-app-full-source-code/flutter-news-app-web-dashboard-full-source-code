@@ -208,12 +208,16 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                     .read<ContentManagementBloc>()
                     .state
                     .activeTab;
-                showGeneralDialog<void>(
-                  context: context,
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return FilterDialog(activeTab: currentTab);
-                  },
-                );
+                  showGeneralDialog<void>(
+                    context: context,
+                    pageBuilder: (dialogContext, animation, secondaryAnimation) {
+                      return Builder(
+                        builder: (builderContext) {
+                          return FilterDialog(activeTab: currentTab);
+                        },
+                      );
+                    },
+                  );
               },
             ),
           ],
