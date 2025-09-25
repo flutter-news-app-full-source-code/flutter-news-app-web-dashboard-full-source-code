@@ -1257,6 +1257,10 @@
   "@close": {
     "description": "Button text to close a modal or overlay"
   },
+  "apply": "Apply",
+  "@apply": {
+    "description": "Button text to apply changes or selections"
+  },
   "visibleToRoleLabel": "Visible to {roleName}",
   "@visibleToRoleLabel": {
     "description": "Label for checkbox to control visibility of a decorator for a specific role",
@@ -1791,5 +1795,33 @@
   "searchBySourceName": "Search by source name...",
   "@searchBySourceName": {
     "description": "Hint text for the source search field."
+  },
+  "selectSources": "Select Sources",
+  "@selectSources": {
+    "description": "Hint text for selecting sources in a filter dialog."
+  },
+  "selectTopics": "Select Topics",
+  "@selectTopics": {
+    "description": "Hint text for selecting topics in a filter dialog."
+  },
+  "countries": "Countries",
+  "@countries": {
+    "description": "Label for countries filter."
+  },
+  "selectCountries": "Select Countries",
+  "@selectCountries": {
+    "description": "Hint text for selecting countries in a filter dialog."
+  },
+  "selectSourceTypes": "Select Source Types",
+  "@selectSourceTypes": {
+    "description": "Hint text for selecting source types in a filter dialog."
+  },
+  "selectLanguages": "Select Languages",
+  "@selectLanguages": {
+    "description": "Hint text for selecting languages in a filter dialog."
+  },
+  "selectHeadquarters": "Select Headquarters",
+  "@selectHeadquarters": {
+    "description": "Hint text for selecting headquarters in a filter dialog."
   }
 }

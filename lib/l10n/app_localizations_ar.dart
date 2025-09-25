@@ -1005,6 +1005,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get close => 'إغلاق';
 
   @override
+  String get apply => 'تطبيق';
+
+  @override
   String visibleToRoleLabel(String roleName) {
     return 'مرئي لـ $roleName';
   }
@@ -1417,4 +1420,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get searchBySourceName => 'البحث باسم المصدر...';
+
+  @override
+  String get selectSources => 'اختر المصادر';
+
+  @override
+  String get selectTopics => 'اختر المواضيع';
+
+  @override
+  String get countries => 'البلدان';
+
+  @override
+  String get selectCountries => 'اختر البلدان';
+
+  @override
+  String get selectSourceTypes => 'اختر أنواع المصادر';
+
+  @override
+  String get selectLanguages => 'اختر اللغات';
+
+  @override
+  String get selectHeadquarters => 'اختر المقر الرئيسي';
 }

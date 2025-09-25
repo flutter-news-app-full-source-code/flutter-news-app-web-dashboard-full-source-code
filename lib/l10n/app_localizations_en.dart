@@ -1003,6 +1003,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get close => 'Close';
 
   @override
+  String get apply => 'Apply';
+
+  @override
   String visibleToRoleLabel(String roleName) {
     return 'Visible to $roleName';
   }
@@ -1422,4 +1425,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchBySourceName => 'Search by source name...';
+
+  @override
+  String get selectSources => 'Select Sources';
+
+  @override
+  String get selectTopics => 'Select Topics';
+
+  @override
+  String get countries => 'Countries';
+
+  @override
+  String get selectCountries => 'Select Countries';
+
+  @override
+  String get selectSourceTypes => 'Select Source Types';
+
+  @override
+  String get selectLanguages => 'Select Languages';
+
+  @override
+  String get selectHeadquarters => 'Select Headquarters';
 }

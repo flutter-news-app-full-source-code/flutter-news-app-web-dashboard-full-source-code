@@ -1904,6 +1904,12 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
+  /// Button text to apply changes or selections
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
   /// Label for checkbox to control visibility of a decorator for a specific role
   ///
   /// In en, this message translates to:
@@ -2653,6 +2659,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search by source name...'**
   String get searchBySourceName;
+
+  /// Hint text for selecting sources in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Sources'**
+  String get selectSources;
+
+  /// Hint text for selecting topics in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Topics'**
+  String get selectTopics;
+
+  /// Label for countries filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Countries'**
+  String get countries;
+
+  /// Hint text for selecting countries in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Countries'**
+  String get selectCountries;
+
+  /// Hint text for selecting source types in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Source Types'**
+  String get selectSourceTypes;
+
+  /// Hint text for selecting languages in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Languages'**
+  String get selectLanguages;
+
+  /// Hint text for selecting headquarters in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Headquarters'**
+  String get selectHeadquarters;
 }
 
 class _AppLocalizationsDelegate

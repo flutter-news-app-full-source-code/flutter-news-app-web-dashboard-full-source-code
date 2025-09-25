@@ -1257,6 +1257,10 @@
   "@close": {
     "description": "نص زر إغلاق نافذة منبثقة أو تراكب"
   },
+  "apply": "تطبيق",
+  "@apply": {
+    "description": "نص زر لتطبيق التغييرات أو التحديدات"
+  },
   "visibleToRoleLabel": "مرئي لـ {roleName}",
   "@visibleToRoleLabel": {
     "description": "تسمية مربع الاختيار للتحكم في رؤية الزينة لدور معين",
@@ -1791,6 +1795,34 @@
   "searchBySourceName": "البحث باسم المصدر...",
   "@searchBySourceName": {
     "description": "نص تلميح حقل البحث عن المصادر."
+  },
+  "selectSources": "اختر المصادر",
+  "@selectSources": {
+    "description": "نص تلميح لاختيار المصادر في مربع حوار التصفية."
+  },
+  "selectTopics": "اختر المواضيع",
+  "@selectTopics": {
+    "description": "نص تلميح لاختيار المواضيع في مربع حوار التصفية."
+  },
+  "countries": "البلدان",
+  "@countries": {
+    "description": "تسمية لفلتر البلدان."
+  },
+  "selectCountries": "اختر البلدان",
+  "@selectCountries": {
+    "description": "نص تلميح لاختيار البلدان في مربع حوار التصفية."
+  },
+  "selectSourceTypes": "اختر أنواع المصادر",
+  "@selectSourceTypes": {
+    "description": "نص تلميح لاختيار أنواع المصادر في مربع حوار التصفية."
+  },
+  "selectLanguages": "اختر اللغات",
+  "@selectLanguages": {
+    "description": "نص تلميح لاختيار اللغات في مربع حوار التصفية."
+  },
+  "selectHeadquarters": "اختر المقر الرئيسي",
+  "@selectHeadquarters": {
+    "description": "نص تلميح لاختيار المقر الرئيسي في مربع حوار التصفية."
   },
   "edit": "تعديل",
   "@edit": {
