@@ -52,7 +52,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               l10n.appConfigurationPageTitle,
             ),
             const SizedBox(
-              width: AppSpacing.sm,
+              width: AppSpacing.xs,
             ),
             AboutIcon(
               dialogTitle: l10n.appConfigurationPageTitle,

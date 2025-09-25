@@ -65,7 +65,7 @@ class _SettingsViewState extends State<_SettingsView> {
           children: [
             Text(l10n.settings),
             const SizedBox(
-              width: AppSpacing.sm,
+              width: AppSpacing.xs,
             ),
             AboutIcon(
               dialogTitle: l10n.settings,

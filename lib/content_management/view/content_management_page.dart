@@ -183,7 +183,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             children: [
               Text(l10n.contentManagement),
               const SizedBox(
-                width: AppSpacing.sm,
+                width: AppSpacing.xs,
               ),
               AboutIcon(
                 dialogTitle: l10n.contentManagement,
