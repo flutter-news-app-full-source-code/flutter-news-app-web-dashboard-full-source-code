@@ -14,6 +14,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -177,13 +178,20 @@ class _ContentManagementPageState extends State<ContentManagementPage>
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.contentManagement),
-          // Removed bottom description
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.contentManagement),
+              const SizedBox(
+                width: AppSpacing.xs,
+              ), // Spacing between title and icon
+              AboutIcon(
+                dialogTitle: l10n.contentManagement,
+                dialogDescription: l10n.contentManagementPageDescription,
+              ),
+            ],
+          ),
           actions: [
-            AboutIcon(
-              dialogTitle: l10n.contentManagement,
-              dialogDescription: l10n.contentManagementPageDescription,
-            ),
             IconButton(
               icon: const Icon(Icons.filter_list),
               tooltip: l10n.filter,

@@ -4,7 +4,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template user_navigation_rail_footer}
 /// A widget designed to be placed at the bottom of a [NavigationRail]
@@ -19,52 +18,44 @@ class UserNavigationRailFooter extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: AppSpacing.md,
-      ),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(AppSpacing.sm),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Settings Tile
-          ListTile(
-            leading: Icon(
-              Icons.settings,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Settings Tile
+        ListTile(
+          leading: Icon(
+            Icons.settings,
+            color: theme.colorScheme.onSurface,
+            size: 24, // Explicitly set icon size
+          ),
+          title: Text(
+            l10n.settings,
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurface,
             ),
-            title: Text(
-              l10n.settings,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface,
-              ),
-            ),
-            onTap: () {
-              context.goNamed(Routes.settingsName);
-            },
           ),
-          // Sign Out Tile
-          ListTile(
-            leading: Icon(
-              Icons.logout,
+          onTap: () {
+            context.goNamed(Routes.settingsName);
+          },
+        ),
+        // Sign Out Tile
+        ListTile(
+          leading: Icon(
+            Icons.logout,
+            color: theme.colorScheme.error,
+            size: 24, // Explicitly set icon size
+          ),
+          title: Text(
+            l10n.signOut,
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.error,
             ),
-            title: Text(
-              l10n.signOut,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.error,
-              ),
-            ),
-            onTap: () {
-              context.read<AppBloc>().add(const AppLogoutRequested());
-            },
           ),
-        ],
-      ),
+          onTap: () {
+            context.read<AppBloc>().add(const AppLogoutRequested());
+          },
+        ),
+      ],
     );
   }
 }

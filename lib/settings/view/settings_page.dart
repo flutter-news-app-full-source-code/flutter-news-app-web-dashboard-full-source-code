@@ -60,13 +60,19 @@ class _SettingsViewState extends State<_SettingsView> {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.settings),
-        actions: [
-          AboutIcon(
-            dialogTitle: l10n.settings,
-            dialogDescription: l10n.settingsPageDescription,
-          ),
-        ],
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(l10n.settings),
+            const SizedBox(
+              width: AppSpacing.xs,
+            ), // Spacing between title and icon
+            AboutIcon(
+              dialogTitle: l10n.settings,
+              dialogDescription: l10n.settingsPageDescription,
+            ),
+          ],
+        ),
       ),
       body: BlocConsumer<SettingsBloc, SettingsState>(
         listenWhen: (previous, current) =>
