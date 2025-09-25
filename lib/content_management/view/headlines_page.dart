@@ -31,34 +31,11 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
     context.read<ContentManagementBloc>().add(
       LoadHeadlinesRequested(
         limit: kDefaultRowsPerPage,
-        filter: _buildHeadlinesFilterMap(
-          context.read<HeadlinesFilterBloc>().state,
-        ),
+        filter: context
+            .read<ContentManagementBloc>()
+            .buildHeadlinesFilterMap(context.read<HeadlinesFilterBloc>().state),
       ),
     );
-  }
-
-  /// Builds a filter map for headlines from the given filter state.
-  Map<String, dynamic> _buildHeadlinesFilterMap(HeadlinesFilterState state) {
-    final filter = <String, dynamic>{};
-
-    if (state.searchQuery.isNotEmpty) {
-      filter['title'] = {r'$regex': state.searchQuery, r'$options': 'i'};
-    }
-
-    filter['status'] = state.selectedStatus.name;
-
-    if (state.selectedSourceIds.isNotEmpty) {
-      filter['source.id'] = {r'$in': state.selectedSourceIds};
-    }
-    if (state.selectedTopicIds.isNotEmpty) {
-      filter['topic.id'] = {r'$in': state.selectedTopicIds};
-    }
-    if (state.selectedCountryIds.isNotEmpty) {
-      filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
-    }
-
-    return filter;
   }
 
   @override
@@ -84,9 +61,11 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                 LoadHeadlinesRequested(
                   limit: kDefaultRowsPerPage,
                   forceRefresh: true,
-                  filter: _buildHeadlinesFilterMap(
-                    context.read<HeadlinesFilterBloc>().state,
-                  ),
+                  filter: context
+                      .read<ContentManagementBloc>()
+                      .buildHeadlinesFilterMap(
+                        context.read<HeadlinesFilterBloc>().state,
+                      ),
                 ),
               ),
             );
@@ -144,9 +123,11 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                             LoadHeadlinesRequested(
                               startAfterId: state.headlinesCursor,
                               limit: kDefaultRowsPerPage,
-                              filter: _buildHeadlinesFilterMap(
-                                context.read<HeadlinesFilterBloc>().state,
-                              ),
+                              filter: context
+                                  .read<ContentManagementBloc>()
+                                  .buildHeadlinesFilterMap(
+                                    context.read<HeadlinesFilterBloc>().state,
+                                  ),
                             ),
                           );
                         }
