@@ -116,7 +116,7 @@ class ContentActionButtons extends StatelessWidget {
             ),
           ),
         );
-        // Delete is NOT allowed for active items
+      // Delete is NOT allowed for active items
       case ContentStatus.archived:
         overflowMenuItems.add(
           PopupMenuItem<String>(
@@ -160,58 +160,58 @@ class ContentActionButtons extends StatelessWidget {
             case 'publish':
               if (item is Headline) {
                 context.read<ContentManagementBloc>().add(
-                      PublishHeadlineRequested(itemId),
-                    );
+                  PublishHeadlineRequested(itemId),
+                );
               } else if (item is Topic) {
                 context.read<ContentManagementBloc>().add(
-                      PublishTopicRequested(itemId),
-                    );
+                  PublishTopicRequested(itemId),
+                );
               } else if (item is Source) {
                 context.read<ContentManagementBloc>().add(
-                      PublishSourceRequested(itemId),
-                    );
+                  PublishSourceRequested(itemId),
+                );
               }
             case 'archive':
               if (item is Headline) {
                 context.read<ContentManagementBloc>().add(
-                      ArchiveHeadlineRequested(itemId),
-                    );
+                  ArchiveHeadlineRequested(itemId),
+                );
               } else if (item is Topic) {
                 context.read<ContentManagementBloc>().add(
-                      ArchiveTopicRequested(itemId),
-                    );
+                  ArchiveTopicRequested(itemId),
+                );
               } else if (item is Source) {
                 context.read<ContentManagementBloc>().add(
-                      ArchiveSourceRequested(itemId),
-                    );
+                  ArchiveSourceRequested(itemId),
+                );
               }
             case 'restore':
               if (item is Headline) {
                 context.read<ContentManagementBloc>().add(
-                      RestoreHeadlineRequested(itemId),
-                    );
+                  RestoreHeadlineRequested(itemId),
+                );
               } else if (item is Topic) {
                 context.read<ContentManagementBloc>().add(
-                      RestoreTopicRequested(itemId),
-                    );
+                  RestoreTopicRequested(itemId),
+                );
               } else if (item is Source) {
                 context.read<ContentManagementBloc>().add(
-                      RestoreSourceRequested(itemId),
-                    );
+                  RestoreSourceRequested(itemId),
+                );
               }
             case 'delete':
               if (item is Headline) {
                 context.read<ContentManagementBloc>().add(
-                      DeleteHeadlineForeverRequested(itemId),
-                    );
+                  DeleteHeadlineForeverRequested(itemId),
+                );
               } else if (item is Topic) {
                 context.read<ContentManagementBloc>().add(
-                        DeleteTopicForeverRequested(itemId),
-                      );
+                  DeleteTopicForeverRequested(itemId),
+                );
               } else if (item is Source) {
                 context.read<ContentManagementBloc>().add(
-                        DeleteSourceForeverRequested(itemId),
-                      );
+                  DeleteSourceForeverRequested(itemId),
+                );
               }
           }
         },
