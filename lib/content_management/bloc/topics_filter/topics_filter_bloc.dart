@@ -10,12 +10,15 @@ part 'topics_filter_state.dart';
 ///
 /// It handles user input for search queries and status selections,
 /// and builds a filter map to be used by the data-fetching BLoC.
+/// Filters are applied only when explicitly requested via [TopicsFilterApplied].
 /// {@endtemplate}
 class TopicsFilterBloc extends Bloc<TopicsFilterEvent, TopicsFilterState> {
   /// {@macro topics_filter_bloc}
   TopicsFilterBloc() : super(const TopicsFilterState()) {
     on<TopicsSearchQueryChanged>(_onTopicsSearchQueryChanged);
     on<TopicsStatusFilterChanged>(_onTopicsStatusFilterChanged);
+    on<TopicsFilterApplied>(_onTopicsFilterApplied);
+    on<TopicsFilterReset>(_onTopicsFilterReset);
   }
 
   /// Handles changes to the search query text field.
@@ -26,20 +29,38 @@ class TopicsFilterBloc extends Bloc<TopicsFilterEvent, TopicsFilterState> {
     emit(state.copyWith(searchQuery: event.query));
   }
 
-  /// Handles toggling of the status filter chips.
+  /// Handles changes to the selected content status.
+  ///
+  /// This updates the single selected status for the filter.
   void _onTopicsStatusFilterChanged(
     TopicsStatusFilterChanged event,
     Emitter<TopicsFilterState> emit,
   ) {
-    final currentStatuses = Set<ContentStatus>.from(state.selectedStatuses);
-    if (event.isSelected) {
-      currentStatuses.add(event.status);
-    } else {
-      // Prevent removing the last status to ensure at least one is selected.
-      if (currentStatuses.length > 1) {
-        currentStatuses.remove(event.status);
-      }
-    }
-    emit(state.copyWith(selectedStatuses: currentStatuses));
+    emit(state.copyWith(selectedStatus: event.status));
+  }
+
+  /// Handles the application of all current filter settings.
+  ///
+  /// This event is dispatched when the user explicitly confirms the filters
+  /// (e.g., by clicking an "Apply" button). It updates the BLoC's state
+  /// with the final filter values.
+  void _onTopicsFilterApplied(
+    TopicsFilterApplied event,
+    Emitter<TopicsFilterState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        searchQuery: event.searchQuery,
+        selectedStatus: event.selectedStatus,
+      ),
+    );
+  }
+
+  /// Handles the request to reset all filters to their initial state.
+  void _onTopicsFilterReset(
+    TopicsFilterReset event,
+    Emitter<TopicsFilterState> emit,
+  ) {
+    emit(const TopicsFilterState());
   }
 }
