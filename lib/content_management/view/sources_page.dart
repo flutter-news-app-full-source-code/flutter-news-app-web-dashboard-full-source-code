@@ -3,6 +3,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -27,9 +28,42 @@ class _SourcesPageState extends State<SourcesPage> {
   @override
   void initState() {
     super.initState();
+    // Initial load of sources, applying the default filter from SourcesFilterBloc
     context.read<ContentManagementBloc>().add(
-      const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+      LoadSourcesRequested(
+        limit: kDefaultRowsPerPage,
+        filter: _buildSourcesFilterMap(
+          context.read<SourcesFilterBloc>().state,
+        ),
+      ),
     );
+  }
+
+  /// Builds a filter map for sources from the given filter state.
+  Map<String, dynamic> _buildSourcesFilterMap(SourcesFilterState state) {
+    final filter = <String, dynamic>{};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+    }
+
+    filter['status'] = state.selectedStatus.name;
+
+    if (state.selectedSourceTypes.isNotEmpty) {
+      filter['sourceType'] = {
+        r'$in': state.selectedSourceTypes.map((s) => s.name).toList(),
+      };
+    }
+    if (state.selectedLanguageCodes.isNotEmpty) {
+      filter['language.code'] = {r'$in': state.selectedLanguageCodes};
+    }
+    if (state.selectedHeadquartersCountryIds.isNotEmpty) {
+      filter['headquarters.id'] = {
+        r'$in': state.selectedHeadquartersCountryIds,
+      };
+    }
+
+    return filter;
   }
 
   @override
@@ -52,7 +86,13 @@ class _SourcesPageState extends State<SourcesPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadSourcesRequested(limit: kDefaultRowsPerPage),
+                LoadSourcesRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: _buildSourcesFilterMap(
+                    context.read<SourcesFilterBloc>().state,
+                  ),
+                ),
               ),
             );
           }
@@ -109,6 +149,9 @@ class _SourcesPageState extends State<SourcesPage> {
                             LoadSourcesRequested(
                               startAfterId: state.sourcesCursor,
                               limit: kDefaultRowsPerPage,
+                              filter: _buildSourcesFilterMap(
+                                context.read<SourcesFilterBloc>().state,
+                              ),
                             ),
                           );
                         }
