@@ -1759,5 +1759,37 @@
   "moreActions": "المزيد من الإجراءات",
   "@moreActions": {
     "description": "تلميح الزر الذي يفتح قائمة تحتوي على المزيد من الإجراءات لصف في الجدول."
+  },
+  "filter": "تصفية",
+  "@filter": {
+    "description": "تلميح زر أيقونة التصفية."
+  },
+  "applyFilters": "تطبيق الفلاتر",
+  "@applyFilters": {
+    "description": "نص زر تطبيق الفلاتر."
+  },
+  "filterHeadlines": "تصفية العناوين",
+  "@filterHeadlines": {
+    "description": "عنوان مربع حوار التصفية عند تصفية العناوين."
+  },
+  "filterTopics": "تصفية المواضيع",
+  "@filterTopics": {
+    "description": "عنوان مربع حوار التصفية عند تصفية المواضيع."
+  },
+  "filterSources": "تصفية المصادر",
+  "@filterSources": {
+    "description": "عنوان مربع حوار التصفية عند تصفية المصادر."
+  },
+  "searchByHeadlineTitle": "البحث بعنوان الخبر...",
+  "@searchByHeadlineTitle": {
+    "description": "نص تلميح حقل البحث عن العناوين."
+  },
+  "searchByTopicName": "البحث باسم الموضوع...",
+  "@searchByTopicName": {
+    "description": "نص تلميح حقل البحث عن المواضيع."
+  },
+  "searchBySourceName": "البحث باسم المصدر...",
+  "@searchBySourceName": {
+    "description": "نص تلميح حقل البحث عن المصادر."
   }
 }

@@ -1390,4 +1390,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get moreActions => 'المزيد من الإجراءات';
+
+  @override
+  String get filter => 'تصفية';
+
+  @override
+  String get applyFilters => 'تطبيق الفلاتر';
+
+  @override
+  String get filterHeadlines => 'تصفية العناوين';
+
+  @override
+  String get filterTopics => 'تصفية المواضيع';
+
+  @override
+  String get filterSources => 'تصفية المصادر';
+
+  @override
+  String get searchByHeadlineTitle => 'البحث بعنوان الخبر...';
+
+  @override
+  String get searchByTopicName => 'البحث باسم الموضوع...';
+
+  @override
+  String get searchBySourceName => 'البحث باسم المصدر...';
 }

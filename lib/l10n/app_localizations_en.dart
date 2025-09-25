@@ -1395,4 +1395,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreActions => 'More Actions';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get applyFilters => 'Apply Filters';
+
+  @override
+  String get filterHeadlines => 'Filter Headlines';
+
+  @override
+  String get filterTopics => 'Filter Topics';
+
+  @override
+  String get filterSources => 'Filter Sources';
+
+  @override
+  String get searchByHeadlineTitle => 'Search by headline title...';
+
+  @override
+  String get searchByTopicName => 'Search by topic name...';
+
+  @override
+  String get searchBySourceName => 'Search by source name...';
 }

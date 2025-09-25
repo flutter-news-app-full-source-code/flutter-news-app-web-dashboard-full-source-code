@@ -2599,6 +2599,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More Actions'**
   String get moreActions;
+
+  /// Tooltip for the filter icon button.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// Text for the button to apply filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get applyFilters;
+
+  /// Title for the filter dialog when filtering headlines.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Headlines'**
+  String get filterHeadlines;
+
+  /// Title for the filter dialog when filtering topics.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Topics'**
+  String get filterTopics;
+
+  /// Title for the filter dialog when filtering sources.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Sources'**
+  String get filterSources;
+
+  /// Hint text for the headline search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by headline title...'**
+  String get searchByHeadlineTitle;
+
+  /// Hint text for the topic search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by topic name...'**
+  String get searchByTopicName;
+
+  /// Hint text for the source search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by source name...'**
+  String get searchBySourceName;
 }
 
 class _AppLocalizationsDelegate
