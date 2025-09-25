@@ -113,6 +113,30 @@ class _FilterDialogState extends State<FilterDialog> {
             ),
             actions: [
               IconButton(
+                icon: const Icon(Icons.refresh),
+                tooltip: l10n.resetFiltersButtonText,
+                onPressed: () {
+                  // Dispatch reset event
+                  context.read<FilterDialogBloc>().add(
+                        const FilterDialogReset(),
+                      );
+                  // After reset, get the new state and apply filters
+                  final resetState =
+                      context.read<FilterDialogBloc>().state.copyWith(
+                            searchQuery: '',
+                            selectedStatus: ContentStatus.active,
+                            selectedSourceIds: [],
+                            selectedTopicIds: [],
+                            selectedCountryIds: [],
+                            selectedSourceTypes: [],
+                            selectedLanguageCodes: [],
+                            selectedHeadquartersCountryIds: [],
+                          );
+                  _dispatchFilterApplied(resetState);
+                  Navigator.of(context).pop();
+                },
+              ),
+              IconButton(
                 icon: const Icon(Icons.check),
                 tooltip: l10n.applyFilters,
                 onPressed: () {
