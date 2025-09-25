@@ -48,7 +48,7 @@ class _TopicPageState extends State<TopicPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
           final topicsFilterState = context.watch<TopicsFilterBloc>().state;

@@ -51,7 +51,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
           final headlinesFilterState = context
