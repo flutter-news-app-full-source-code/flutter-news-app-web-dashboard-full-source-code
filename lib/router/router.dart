@@ -167,22 +167,7 @@ GoRouter createRouter({
               GoRoute(
                 path: Routes.contentManagement,
                 name: Routes.contentManagementName,
-                builder: (context, state) {
-                  return MultiBlocProvider(
-                    providers: [
-                      BlocProvider(
-                        create: (context) => HeadlinesFilterBloc(),
-                      ),
-                      BlocProvider(
-                        create: (context) => TopicsFilterBloc(),
-                      ),
-                      BlocProvider(
-                        create: (context) => SourcesFilterBloc(),
-                      ),
-                    ],
-                    child: const ContentManagementPage(),
-                  );
-                },
+                builder: (context, state) => const ContentManagementPage(),
                 routes: [
                   // The create/edit routes are now direct children of
                   // content-management, so navigating back will always land on
