@@ -24,13 +24,6 @@ class AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.dashboardTitle),
-        // Removed PopupMenuButton for user actions
-        actions: const [
-          SizedBox(width: AppSpacing.sm),
-        ],
-      ),
       body: AdaptiveScaffold(
         selectedIndex: navigationShell.currentIndex,
         onSelectedIndexChange: (index) {
@@ -56,18 +49,29 @@ class AppShell extends StatelessWidget {
             label: l10n.appConfiguration,
           ),
         ],
-        // Add the app name at the top of the navigation rail
-        leadingExtendedNavRail: Padding(
+        // App name at the top of the navigation rail for both extended and unextended states.
+        leadingUnextendedNavRail: Padding(
           padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
           child: Text(
-            l10n.dashboardTitle, // App name at the top
+            l10n.dashboardTitle,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
-        // Add the UserNavigationRailFooter at the bottom of the navigation rail
+        leadingExtendedNavRail: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+          child: Text(
+            l10n.dashboardTitle,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
+        // UserNavigationRailFooter pinned to the bottom of the navigation rail.
         trailingNavRail: const UserNavigationRailFooter(),
+        // Ensure the navigation rail items are aligned to the start, pushing the footer to the end.
+        groupAlignment: 1,
         body: (_) => Padding(
           padding: const EdgeInsets.fromLTRB(
             0,
