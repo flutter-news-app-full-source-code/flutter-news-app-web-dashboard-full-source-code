@@ -7,128 +7,217 @@ sealed class ContentManagementEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// {@template content_management_tab_changed}
-/// Event to change the active content management tab.
-/// {@endtemplate}
+/// Event to notify the BLoC that the active tab has changed.
 final class ContentManagementTabChanged extends ContentManagementEvent {
-  /// {@macro content_management_tab_changed}
   const ContentManagementTabChanged(this.tab);
 
-  /// The new active tab.
   final ContentManagementTab tab;
 
   @override
   List<Object?> get props => [tab];
 }
 
-/// {@template load_headlines_requested}
 /// Event to request loading of headlines.
-/// {@endtemplate}
 final class LoadHeadlinesRequested extends ContentManagementEvent {
-  /// {@macro load_headlines_requested}
   const LoadHeadlinesRequested({
     this.startAfterId,
     this.limit,
     this.forceRefresh = false,
+    this.filter,
   });
 
-  /// Optional ID to start pagination after.
   final String? startAfterId;
-
-  /// Optional maximum number of items to return.
   final int? limit;
-
-  /// If true, forces a refresh of the data, bypassing the cache.
   final bool forceRefresh;
+  /// Optional filter to apply to the headlines query.
+  final Map<String, dynamic>? filter;
 
   @override
-  List<Object?> get props => [startAfterId, limit, forceRefresh];
+  List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
 }
 
-/// {@template archive_headline_requested}
-/// Event to request archiving of a headline.
-/// {@endtemplate}
+/// Event to archive a headline.
 final class ArchiveHeadlineRequested extends ContentManagementEvent {
-  /// {@macro archive_headline_requested}
   const ArchiveHeadlineRequested(this.id);
 
-  /// The ID of the headline to archive.
   final String id;
 
   @override
   List<Object?> get props => [id];
 }
 
-/// {@template load_topics_requested}
+/// Event to publish a draft headline.
+final class PublishHeadlineRequested extends ContentManagementEvent {
+  const PublishHeadlineRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to restore an archived headline.
+final class RestoreHeadlineRequested extends ContentManagementEvent {
+  const RestoreHeadlineRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to request permanent deletion of a headline.
+final class DeleteHeadlineForeverRequested extends ContentManagementEvent {
+  const DeleteHeadlineForeverRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to undo a pending deletion of a headline.
+final class UndoDeleteHeadlineRequested extends ContentManagementEvent {
+  const UndoDeleteHeadlineRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
 /// Event to request loading of topics.
-/// {@endtemplate}
 final class LoadTopicsRequested extends ContentManagementEvent {
-  /// {@macro load_topics_requested}
   const LoadTopicsRequested({
     this.startAfterId,
     this.limit,
     this.forceRefresh = false,
+    this.filter,
   });
 
-  /// Optional ID to start pagination after.
   final String? startAfterId;
-
-  /// Optional maximum number of items to return.
   final int? limit;
-
-  /// If true, forces a refresh of the data, bypassing the cache.
   final bool forceRefresh;
+  /// Optional filter to apply to the topics query.
+  final Map<String, dynamic>? filter;
 
   @override
-  List<Object?> get props => [startAfterId, limit, forceRefresh];
+  List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
 }
 
-/// {@template archive_topic_requested}
-/// Event to request archiving of a topic.
-/// {@endtemplate}
+/// Event to archive a topic.
 final class ArchiveTopicRequested extends ContentManagementEvent {
-  /// {@macro archive_topic_requested}
   const ArchiveTopicRequested(this.id);
 
-  /// The ID of the topic to archive.
   final String id;
 
   @override
   List<Object?> get props => [id];
 }
 
-/// {@template load_sources_requested}
+/// Event to publish a draft topic.
+final class PublishTopicRequested extends ContentManagementEvent {
+  const PublishTopicRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to restore an archived topic.
+final class RestoreTopicRequested extends ContentManagementEvent {
+  const RestoreTopicRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to request permanent deletion of a topic.
+final class DeleteTopicForeverRequested extends ContentManagementEvent {
+  const DeleteTopicForeverRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to undo a pending deletion of a topic.
+final class UndoDeleteTopicRequested extends ContentManagementEvent {
+  const UndoDeleteTopicRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
 /// Event to request loading of sources.
-/// {@endtemplate}
 final class LoadSourcesRequested extends ContentManagementEvent {
-  /// {@macro load_sources_requested}
   const LoadSourcesRequested({
     this.startAfterId,
     this.limit,
     this.forceRefresh = false,
+    this.filter,
   });
 
-  /// Optional ID to start pagination after.
   final String? startAfterId;
-
-  /// Optional maximum number of items to return.
   final int? limit;
-
-  /// If true, forces a refresh of the data, bypassing the cache.
   final bool forceRefresh;
+  /// Optional filter to apply to the sources query.
+  final Map<String, dynamic>? filter;
 
   @override
-  List<Object?> get props => [startAfterId, limit, forceRefresh];
+  List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
 }
 
-/// {@template archive_source_requested}
-/// Event to request archiving of a source.
-/// {@endtemplate}
+/// Event to archive a source.
 final class ArchiveSourceRequested extends ContentManagementEvent {
-  /// {@macro archive_source_requested}
   const ArchiveSourceRequested(this.id);
 
-  /// The ID of the source to archive.
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to publish a draft source.
+final class PublishSourceRequested extends ContentManagementEvent {
+  const PublishSourceRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to restore an archived source.
+final class RestoreSourceRequested extends ContentManagementEvent {
+  const RestoreSourceRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to request permanent deletion of a source.
+final class DeleteSourceForeverRequested extends ContentManagementEvent {
+  const DeleteSourceForeverRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to undo a pending deletion of a source.
+final class UndoDeleteSourceRequested extends ContentManagementEvent {
+  const UndoDeleteSourceRequested(this.id);
+
   final String id;
 
   @override
