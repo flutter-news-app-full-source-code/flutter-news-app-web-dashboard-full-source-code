@@ -3,6 +3,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -26,9 +27,38 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   @override
   void initState() {
     super.initState();
+    // Initial load of headlines, applying the default filter from HeadlinesFilterBloc
     context.read<ContentManagementBloc>().add(
-      const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+      LoadHeadlinesRequested(
+        limit: kDefaultRowsPerPage,
+        filter: _buildHeadlinesFilterMap(
+          context.read<HeadlinesFilterBloc>().state,
+        ),
+      ),
     );
+  }
+
+  /// Builds a filter map for headlines from the given filter state.
+  Map<String, dynamic> _buildHeadlinesFilterMap(HeadlinesFilterState state) {
+    final filter = <String, dynamic>{};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter['title'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+    }
+
+    filter['status'] = state.selectedStatus.name;
+
+    if (state.selectedSourceIds.isNotEmpty) {
+      filter['source.id'] = {r'$in': state.selectedSourceIds};
+    }
+    if (state.selectedTopicIds.isNotEmpty) {
+      filter['topic.id'] = {r'$in': state.selectedTopicIds};
+    }
+    if (state.selectedCountryIds.isNotEmpty) {
+      filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
+    }
+
+    return filter;
   }
 
   @override
@@ -51,7 +81,13 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadHeadlinesRequested(limit: kDefaultRowsPerPage),
+                LoadHeadlinesRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: _buildHeadlinesFilterMap(
+                    context.read<HeadlinesFilterBloc>().state,
+                  ),
+                ),
               ),
             );
           }
@@ -108,6 +144,9 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                             LoadHeadlinesRequested(
                               startAfterId: state.headlinesCursor,
                               limit: kDefaultRowsPerPage,
+                              filter: _buildHeadlinesFilterMap(
+                                context.read<HeadlinesFilterBloc>().state,
+                              ),
                             ),
                           );
                         }
