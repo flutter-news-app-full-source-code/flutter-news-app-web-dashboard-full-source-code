@@ -7,6 +7,7 @@ sealed class TopicsFilterEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to notify the BLoC that the search query has changed.
 final class TopicsSearchQueryChanged extends TopicsFilterEvent {
   const TopicsSearchQueryChanged(this.query);
 
@@ -16,16 +17,31 @@ final class TopicsSearchQueryChanged extends TopicsFilterEvent {
   List<Object?> get props => [query];
 }
 
+/// Event to notify the BLoC that the selected content status has changed.
 final class TopicsStatusFilterChanged extends TopicsFilterEvent {
-  const TopicsStatusFilterChanged(this.status, this.isSelected);
+  const TopicsStatusFilterChanged(this.status);
 
   final ContentStatus status;
-  final bool isSelected;
 
   @override
-  List<Object?> get props => [status, isSelected];
+  List<Object?> get props => [status];
 }
 
+/// Event to request applying all current filters.
 final class TopicsFilterApplied extends TopicsFilterEvent {
-  const TopicsFilterApplied();
+  const TopicsFilterApplied({
+    required this.searchQuery,
+    required this.selectedStatus,
+  });
+
+  final String searchQuery;
+  final ContentStatus selectedStatus;
+
+  @override
+  List<Object?> get props => [searchQuery, selectedStatus];
+}
+
+/// Event to request resetting all filters to their initial state.
+final class TopicsFilterReset extends TopicsFilterEvent {
+  const TopicsFilterReset();
 }
