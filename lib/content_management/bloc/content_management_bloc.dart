@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 part 'content_management_event.dart';
@@ -33,20 +35,24 @@ class ContentManagementBloc
     required HeadlinesFilterBloc headlinesFilterBloc,
     required TopicsFilterBloc topicsFilterBloc,
     required SourcesFilterBloc sourcesFilterBloc,
+    required PendingDeletionsService pendingDeletionsService,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
        _headlinesFilterBloc = headlinesFilterBloc,
        _topicsFilterBloc = topicsFilterBloc,
        _sourcesFilterBloc = sourcesFilterBloc,
+       _pendingDeletionsService = pendingDeletionsService,
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
+
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
     on<ArchiveHeadlineRequested>(_onArchiveHeadlineRequested);
     on<PublishHeadlineRequested>(_onPublishHeadlineRequested);
     on<RestoreHeadlineRequested>(_onRestoreHeadlineRequested);
     on<DeleteHeadlineForeverRequested>(_onDeleteHeadlineForeverRequested);
     on<UndoDeleteHeadlineRequested>(_onUndoDeleteHeadlineRequested);
+    on<DeletionEventReceived>(_onDeletionEventReceived);
 
     on<LoadTopicsRequested>(_onLoadTopicsRequested);
     on<ArchiveTopicRequested>(_onArchiveTopicRequested);
@@ -69,7 +75,7 @@ class ContentManagementBloc
             LoadHeadlinesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+              filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
             ),
           );
         });
@@ -81,7 +87,7 @@ class ContentManagementBloc
             LoadTopicsRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+              filter: buildTopicsFilterMap(_topicsFilterBloc.state),
             ),
           );
         });
@@ -93,10 +99,14 @@ class ContentManagementBloc
             LoadSourcesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+              filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
             ),
           );
         });
+
+    _deletionEventsSubscription = _pendingDeletionsService.deletionEvents.listen(
+      (event) => add(DeletionEventReceived(event)),
+    );
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -105,21 +115,24 @@ class ContentManagementBloc
   final HeadlinesFilterBloc _headlinesFilterBloc;
   final TopicsFilterBloc _topicsFilterBloc;
   final SourcesFilterBloc _sourcesFilterBloc;
+  final PendingDeletionsService _pendingDeletionsService;
 
   late final StreamSubscription<Type> _headlineUpdateSubscription;
   late final StreamSubscription<Type> _topicUpdateSubscription;
   late final StreamSubscription<Type> _sourceUpdateSubscription;
+  late final StreamSubscription<DeletionEvent<dynamic>> _deletionEventsSubscription;
 
   @override
   Future<void> close() {
     _headlineUpdateSubscription.cancel();
     _topicUpdateSubscription.cancel();
     _sourceUpdateSubscription.cancel();
+    _deletionEventsSubscription.cancel();
     return super.close();
   }
 
   /// Builds a filter map for headlines from the given filter state.
-  Map<String, dynamic> _buildHeadlinesFilterMap(HeadlinesFilterState state) {
+  Map<String, dynamic> buildHeadlinesFilterMap(HeadlinesFilterState state) {
     final filter = <String, dynamic>{};
 
     if (state.searchQuery.isNotEmpty) {
@@ -142,7 +155,7 @@ class ContentManagementBloc
   }
 
   /// Builds a filter map for topics from the given filter state.
-  Map<String, dynamic> _buildTopicsFilterMap(TopicsFilterState state) {
+  Map<String, dynamic> buildTopicsFilterMap(TopicsFilterState state) {
     final filter = <String, dynamic>{};
 
     if (state.searchQuery.isNotEmpty) {
@@ -155,7 +168,7 @@ class ContentManagementBloc
   }
 
   /// Builds a filter map for sources from the given filter state.
-  Map<String, dynamic> _buildSourcesFilterMap(SourcesFilterState state) {
+  Map<String, dynamic> buildSourcesFilterMap(SourcesFilterState state) {
     final filter = <String, dynamic>{};
 
     if (state.searchQuery.isNotEmpty) {
@@ -208,9 +221,7 @@ class ContentManagementBloc
       final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
 
       final paginatedHeadlines = await _headlinesRepository.readAll(
-        filter:
-            event.filter ??
-            _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+        filter: event.filter ?? buildHeadlinesFilterMap(_headlinesFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -258,7 +269,7 @@ class ContentManagementBloc
         LoadHeadlinesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+          filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -295,7 +306,7 @@ class ContentManagementBloc
         LoadHeadlinesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+          filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -332,7 +343,7 @@ class ContentManagementBloc
         LoadHeadlinesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+          filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -372,26 +383,11 @@ class ContentManagementBloc
       ),
     );
 
-    // Simulate pending deletion with undo option
-    Future.delayed(const Duration(seconds: 5), () {
-      if (state.lastPendingDeletionId == event.id) {
-        // ignore: inference_failure_on_untyped_parameter
-        _headlinesRepository.delete(id: event.id).catchError((e) {
-          // Handle error if actual deletion fails after undo period
-          emit(
-            state.copyWith(
-              headlinesStatus: ContentManagementStatus.failure,
-              exception: e is HttpException
-                  ? e
-                  : UnknownException('Failed to delete headline: $e'),
-            ),
-          );
-        });
-        emit(
-          state.copyWith(lastPendingDeletionId: null, snackbarMessage: null),
-        );
-      }
-    });
+    _pendingDeletionsService.requestDeletion(
+      item: headlineToDelete,
+      repository: _headlinesRepository,
+      undoDuration: AppConstants.kSnackbarDuration,
+    );
   }
 
   /// Handles the request to undo a pending deletion of a headline.
@@ -399,12 +395,7 @@ class ContentManagementBloc
     UndoDeleteHeadlineRequested event,
     Emitter<ContentManagementState> emit,
   ) {
-    // Find the headline that was optimistically removed
-    // This would typically involve storing the removed item temporarily
-    // For now, we'll just clear the pending deletion status
-    emit(state.copyWith(lastPendingDeletionId: null, snackbarMessage: null));
-    // A real implementation would re-add the item to the list here
-    // and cancel the actual deletion.
+    _pendingDeletionsService.undoDeletion(event.id);
   }
 
   Future<void> _onLoadTopicsRequested(
@@ -427,7 +418,7 @@ class ContentManagementBloc
       final previousTopics = isPaginating ? state.topics : <Topic>[];
 
       final paginatedTopics = await _topicsRepository.readAll(
-        filter: event.filter ?? _buildTopicsFilterMap(_topicsFilterBloc.state),
+        filter: event.filter ?? buildTopicsFilterMap(_topicsFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -473,7 +464,7 @@ class ContentManagementBloc
         LoadTopicsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+          filter: buildTopicsFilterMap(_topicsFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -508,7 +499,7 @@ class ContentManagementBloc
         LoadTopicsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+          filter: buildTopicsFilterMap(_topicsFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -543,7 +534,7 @@ class ContentManagementBloc
         LoadTopicsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+          filter: buildTopicsFilterMap(_topicsFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -583,26 +574,11 @@ class ContentManagementBloc
       ),
     );
 
-    // Simulate pending deletion with undo option
-    Future.delayed(const Duration(seconds: 5), () {
-      if (state.lastPendingDeletionId == event.id) {
-        // ignore: inference_failure_on_untyped_parameter
-        _topicsRepository.delete(id: event.id).catchError((e) {
-          // Handle error if actual deletion fails after undo period
-          emit(
-            state.copyWith(
-              topicsStatus: ContentManagementStatus.failure,
-              exception: e is HttpException
-                  ? e
-                  : UnknownException('Failed to delete topic: $e'),
-            ),
-          );
-        });
-        emit(
-          state.copyWith(lastPendingDeletionId: null, snackbarMessage: null),
-        );
-      }
-    });
+    _pendingDeletionsService.requestDeletion(
+      item: topicToDelete,
+      repository: _topicsRepository,
+      undoDuration: AppConstants.kSnackbarDuration,
+    );
   }
 
   /// Handles the request to undo a pending deletion of a topic.
@@ -610,7 +586,7 @@ class ContentManagementBloc
     UndoDeleteTopicRequested event,
     Emitter<ContentManagementState> emit,
   ) {
-    emit(state.copyWith(lastPendingDeletionId: null, snackbarMessage: null));
+    _pendingDeletionsService.undoDeletion(event.id);
   }
 
   Future<void> _onLoadSourcesRequested(
@@ -634,7 +610,7 @@ class ContentManagementBloc
 
       final paginatedSources = await _sourcesRepository.readAll(
         filter:
-            event.filter ?? _buildSourcesFilterMap(_sourcesFilterBloc.state),
+            event.filter ?? buildSourcesFilterMap(_sourcesFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -680,7 +656,7 @@ class ContentManagementBloc
         LoadSourcesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+          filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -715,7 +691,7 @@ class ContentManagementBloc
         LoadSourcesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+          filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -750,7 +726,7 @@ class ContentManagementBloc
         LoadSourcesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+          filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
         ),
       );
     } on HttpException catch (e) {
@@ -790,26 +766,11 @@ class ContentManagementBloc
       ),
     );
 
-    // Simulate pending deletion with undo option
-    Future.delayed(const Duration(seconds: 5), () {
-      if (state.lastPendingDeletionId == event.id) {
-        // ignore: inference_failure_on_untyped_parameter
-        _sourcesRepository.delete(id: event.id).catchError((e) {
-          // Handle error if actual deletion fails after undo period
-          emit(
-            state.copyWith(
-              sourcesStatus: ContentManagementStatus.failure,
-              exception: e is HttpException
-                  ? e
-                  : UnknownException('Failed to delete source: $e'),
-            ),
-          );
-        });
-        emit(
-          state.copyWith(lastPendingDeletionId: null, snackbarMessage: null),
-        );
-      }
-    });
+    _pendingDeletionsService.requestDeletion(
+      item: sourceToDelete,
+      repository: _sourcesRepository,
+      undoDuration: AppConstants.kSnackbarDuration,
+    );
   }
 
   /// Handles the request to undo a pending deletion of a source.
@@ -817,6 +778,64 @@ class ContentManagementBloc
     UndoDeleteSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) {
-    emit(state.copyWith(lastPendingDeletionId: null, snackbarMessage: null));
+    _pendingDeletionsService.undoDeletion(event.id);
+  }
+
+  /// Handles deletion events from the [PendingDeletionsService].
+  ///
+  /// This method is responsible for updating the BLoC state based on whether
+  /// a deletion was confirmed or undone.
+  Future<void> _onDeletionEventReceived(
+    DeletionEventReceived event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    switch (event.event.status) {
+      case DeletionStatus.confirmed:
+        // If deletion is confirmed, clear pending status.
+        // The item was already optimistically removed from the list.
+        emit(
+          state.copyWith(
+            lastPendingDeletionId: null,
+            snackbarMessage: null,
+          ),
+        );
+      case DeletionStatus.undone:
+        // If deletion is undone, re-add the item to the appropriate list.
+        final item = event.event.item;
+        if (item is Headline) {
+          final updatedHeadlines = List<Headline>.from(state.headlines)
+            ..add(item)
+            ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+          emit(
+            state.copyWith(
+              headlines: updatedHeadlines,
+              lastPendingDeletionId: null,
+              snackbarMessage: null,
+            ),
+          );
+        } else if (item is Topic) {
+          final updatedTopics = List<Topic>.from(state.topics)
+            ..add(item)
+            ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+          emit(
+            state.copyWith(
+              topics: updatedTopics,
+              lastPendingDeletionId: null,
+              snackbarMessage: null,
+            ),
+          );
+        } else if (item is Source) {
+          final updatedSources = List<Source>.from(state.sources)
+            ..add(item)
+            ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+          emit(
+            state.copyWith(
+              sources: updatedSources,
+              lastPendingDeletionId: null,
+              snackbarMessage: null,
+            ),
+          );
+        }
+    }
   }
 }
