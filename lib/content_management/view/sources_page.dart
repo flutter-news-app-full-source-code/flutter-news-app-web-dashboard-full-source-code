@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/source_type_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -32,38 +32,11 @@ class _SourcesPageState extends State<SourcesPage> {
     context.read<ContentManagementBloc>().add(
       LoadSourcesRequested(
         limit: kDefaultRowsPerPage,
-        filter: _buildSourcesFilterMap(
-          context.read<SourcesFilterBloc>().state,
-        ),
+        filter: context
+            .read<ContentManagementBloc>()
+            .buildSourcesFilterMap(context.read<SourcesFilterBloc>().state),
       ),
     );
-  }
-
-  /// Builds a filter map for sources from the given filter state.
-  Map<String, dynamic> _buildSourcesFilterMap(SourcesFilterState state) {
-    final filter = <String, dynamic>{};
-
-    if (state.searchQuery.isNotEmpty) {
-      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
-    }
-
-    filter['status'] = state.selectedStatus.name;
-
-    if (state.selectedSourceTypes.isNotEmpty) {
-      filter['sourceType'] = {
-        r'$in': state.selectedSourceTypes.map((s) => s.name).toList(),
-      };
-    }
-    if (state.selectedLanguageCodes.isNotEmpty) {
-      filter['language.code'] = {r'$in': state.selectedLanguageCodes};
-    }
-    if (state.selectedHeadquartersCountryIds.isNotEmpty) {
-      filter['headquarters.id'] = {
-        r'$in': state.selectedHeadquartersCountryIds,
-      };
-    }
-
-    return filter;
   }
 
   @override
@@ -76,7 +49,7 @@ class _SourcesPageState extends State<SourcesPage> {
           if (state.sourcesStatus == ContentManagementStatus.loading &&
               state.sources.isEmpty) {
             return LoadingStateWidget(
-              icon: Icons.source,
+              icon: Icons.rss_feed,
               headline: l10n.loadingSources,
               subheadline: l10n.pleaseWait,
             );
@@ -89,9 +62,11 @@ class _SourcesPageState extends State<SourcesPage> {
                 LoadSourcesRequested(
                   limit: kDefaultRowsPerPage,
                   forceRefresh: true,
-                  filter: _buildSourcesFilterMap(
-                    context.read<SourcesFilterBloc>().state,
-                  ),
+                  filter: context
+                      .read<ContentManagementBloc>()
+                      .buildSourcesFilterMap(
+                        context.read<SourcesFilterBloc>().state,
+                      ),
                 ),
               ),
             );
@@ -116,11 +91,10 @@ class _SourcesPageState extends State<SourcesPage> {
                           label: Text(l10n.sourceName),
                           size: ColumnSize.L,
                         ),
-                        if (!isMobile) // Conditionally show Source Type
-                          DataColumn2(
-                            label: Text(l10n.sourceType),
-                            size: ColumnSize.S,
-                          ),
+                        DataColumn2(
+                          label: Text(l10n.sourceType),
+                          size: ColumnSize.S,
+                        ),
                         DataColumn2(
                           label: Text(l10n.lastUpdated),
                           size: ColumnSize.S,
@@ -135,7 +109,7 @@ class _SourcesPageState extends State<SourcesPage> {
                         sources: state.sources,
                         hasMore: state.sourcesHasMore,
                         l10n: l10n,
-                        isMobile: isMobile, // Pass isMobile to data source
+                        isMobile: isMobile,
                       ),
                       rowsPerPage: kDefaultRowsPerPage,
                       availableRowsPerPage: const [kDefaultRowsPerPage],
@@ -149,9 +123,11 @@ class _SourcesPageState extends State<SourcesPage> {
                             LoadSourcesRequested(
                               startAfterId: state.sourcesCursor,
                               limit: kDefaultRowsPerPage,
-                              filter: _buildSourcesFilterMap(
-                                context.read<SourcesFilterBloc>().state,
-                              ),
+                              filter: context
+                                  .read<ContentManagementBloc>()
+                                  .buildSourcesFilterMap(
+                                    context.read<SourcesFilterBloc>().state,
+                                  ),
                             ),
                           );
                         }
@@ -182,14 +158,14 @@ class _SourcesDataSource extends DataTableSource {
     required this.sources,
     required this.hasMore,
     required this.l10n,
-    required this.isMobile, // New parameter
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<Source> sources;
   final bool hasMore;
   final AppLocalizations l10n;
-  final bool isMobile; // New parameter
+  final bool isMobile;
 
   @override
   DataRow? getRow(int index) {
@@ -214,11 +190,15 @@ class _SourcesDataSource extends DataTableSource {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        if (!isMobile) // Conditionally show Source Type
-          DataCell(Text(source.sourceType.localizedName(l10n))),
         DataCell(
           Text(
-            // TODO(fulleni): Make date format configurable by admin.
+            source.sourceType.localizedName(l10n),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        DataCell(
+          Text(
             DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),
           ),
         ),
