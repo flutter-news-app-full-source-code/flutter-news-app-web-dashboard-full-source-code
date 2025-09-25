@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/user_navigation_rail_footer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -28,37 +26,9 @@ class AppShell extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.dashboardTitle),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'settings') {
-                context.goNamed(Routes.settingsName);
-              } else if (value == 'signOut') {
-                context.read<AppBloc>().add(const AppLogoutRequested());
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'settings',
-                child: Text(l10n.settings),
-              ),
-              PopupMenuItem<String>(
-                value: 'signOut',
-                child: Text(l10n.signOut),
-              ),
-            ],
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.sm),
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                child: Icon(
-                  Icons.person,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: AppSpacing.sm),
+        // Removed PopupMenuButton for user actions
+        actions: const [
+          SizedBox(width: AppSpacing.sm),
         ],
       ),
       body: AdaptiveScaffold(
@@ -86,6 +56,18 @@ class AppShell extends StatelessWidget {
             label: l10n.appConfiguration,
           ),
         ],
+        // Add the app name at the top of the navigation rail
+        leadingExtendedNavRail: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+          child: Text(
+            l10n.dashboardTitle, // App name at the top
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
+        // Add the UserNavigationRailFooter at the bottom of the navigation rail
+        trailingNavRail: const UserNavigationRailFooter(),
         body: (_) => Padding(
           padding: const EdgeInsets.fromLTRB(
             0,
