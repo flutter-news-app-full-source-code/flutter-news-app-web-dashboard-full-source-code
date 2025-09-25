@@ -223,12 +223,14 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Source>(
                       label: l10n.sourceName,
-                      selectedItem: state.source,
+                      selectedItems: state.source != null
+                          ? [state.source!]
+                          : [],
                       itemBuilder: (context, source) => Text(source.name),
                       itemToString: (source) => source.name,
-                      onChanged: (value) => context
+                      onChanged: (items) => context
                           .read<EditHeadlineBloc>()
-                          .add(EditHeadlineSourceChanged(value)),
+                          .add(EditHeadlineSourceChanged(items?.first)),
                       repository: context.read<DataRepository<Source>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
@@ -247,12 +249,12 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Topic>(
                       label: l10n.topicName,
-                      selectedItem: state.topic,
+                      selectedItems: state.topic != null ? [state.topic!] : [],
                       itemBuilder: (context, topic) => Text(topic.name),
                       itemToString: (topic) => topic.name,
-                      onChanged: (value) => context
+                      onChanged: (items) => context
                           .read<EditHeadlineBloc>()
-                          .add(EditHeadlineTopicChanged(value)),
+                          .add(EditHeadlineTopicChanged(items?.first)),
                       repository: context.read<DataRepository<Topic>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
@@ -271,7 +273,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Country>(
                       label: l10n.countryName,
-                      selectedItem: state.eventCountry,
+                      selectedItems: state.eventCountry != null
+                          ? [state.eventCountry!]
+                          : [],
                       itemBuilder: (context, country) => Row(
                         children: [
                           SizedBox(
@@ -289,9 +293,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                         ],
                       ),
                       itemToString: (country) => country.name,
-                      onChanged: (value) => context
+                      onChanged: (items) => context
                           .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCountryChanged(value)),
+                          .add(EditHeadlineCountryChanged(items?.first)),
                       repository: context.read<DataRepository<Country>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
