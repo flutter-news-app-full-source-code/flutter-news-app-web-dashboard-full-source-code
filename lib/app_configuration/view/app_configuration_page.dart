@@ -45,16 +45,22 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          l10n.appConfigurationPageTitle,
-          style: Theme.of(context).textTheme.headlineSmall,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              l10n.appConfigurationPageTitle,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(
+              width: AppSpacing.xs,
+            ), // Spacing between title and icon
+            AboutIcon(
+              dialogTitle: l10n.appConfigurationPageTitle,
+              dialogDescription: l10n.appConfigurationPageDescription,
+            ),
+          ],
         ),
-        actions: [
-          AboutIcon(
-            dialogTitle: l10n.appConfigurationPageTitle,
-            dialogDescription: l10n.appConfigurationPageDescription,
-          ),
-        ],
         bottom: TabBar(
           controller: _tabController,
           tabAlignment: TabAlignment.start,
