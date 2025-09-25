@@ -68,6 +68,7 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
     on<FilterDialogHeadquartersCountryIdsChanged>(
       _onFilterDialogHeadquartersCountryIdsChanged,
     );
+    on<FilterDialogReset>(_onFilterDialogReset);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -240,5 +241,13 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
     Emitter<FilterDialogState> emit,
   ) {
     emit(state.copyWith(selectedHeadquartersCountryIds: event.countryIds));
+  }
+
+  /// Resets all temporary filter selections in the dialog to their initial state.
+  void _onFilterDialogReset(
+    FilterDialogReset event,
+    Emitter<FilterDialogState> emit,
+  ) {
+    emit(FilterDialogState(activeTab: state.activeTab));
   }
 }
