@@ -4,6 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 part 'content_management_event.dart';
@@ -27,9 +30,15 @@ class ContentManagementBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
+    required HeadlinesFilterBloc headlinesFilterBloc,
+    required TopicsFilterBloc topicsFilterBloc,
+    required SourcesFilterBloc sourcesFilterBloc,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
+       _headlinesFilterBloc = headlinesFilterBloc,
+       _topicsFilterBloc = topicsFilterBloc,
+       _sourcesFilterBloc = sourcesFilterBloc,
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
@@ -57,9 +66,10 @@ class ContentManagementBloc
         .where((type) => type == Headline)
         .listen((_) {
           add(
-            const LoadHeadlinesRequested(
+            LoadHeadlinesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
+              filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
             ),
           );
         });
@@ -68,9 +78,10 @@ class ContentManagementBloc
         .where((type) => type == Topic)
         .listen((_) {
           add(
-            const LoadTopicsRequested(
+            LoadTopicsRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
+              filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
             ),
           );
         });
@@ -79,9 +90,10 @@ class ContentManagementBloc
         .where((type) => type == Source)
         .listen((_) {
           add(
-            const LoadSourcesRequested(
+            LoadSourcesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
+              filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
             ),
           );
         });
@@ -90,6 +102,9 @@ class ContentManagementBloc
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
+  final HeadlinesFilterBloc _headlinesFilterBloc;
+  final TopicsFilterBloc _topicsFilterBloc;
+  final SourcesFilterBloc _sourcesFilterBloc;
 
   late final StreamSubscription<Type> _headlineUpdateSubscription;
   late final StreamSubscription<Type> _topicUpdateSubscription;
@@ -101,6 +116,69 @@ class ContentManagementBloc
     _topicUpdateSubscription.cancel();
     _sourceUpdateSubscription.cancel();
     return super.close();
+  }
+
+  /// Builds a filter map for headlines from the given filter state.
+  Map<String, dynamic> _buildHeadlinesFilterMap(HeadlinesFilterState state) {
+    final filter = <String, dynamic>{};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter['title'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+    }
+
+    filter['status'] = state.selectedStatus.name;
+
+    if (state.selectedSourceIds.isNotEmpty) {
+      filter['source.id'] = {r'$in': state.selectedSourceIds};
+    }
+    if (state.selectedTopicIds.isNotEmpty) {
+      filter['topic.id'] = {r'$in': state.selectedTopicIds};
+    }
+    if (state.selectedCountryIds.isNotEmpty) {
+      filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
+    }
+
+    return filter;
+  }
+
+  /// Builds a filter map for topics from the given filter state.
+  Map<String, dynamic> _buildTopicsFilterMap(TopicsFilterState state) {
+    final filter = <String, dynamic>{};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+    }
+
+    filter['status'] = state.selectedStatus.name;
+
+    return filter;
+  }
+
+  /// Builds a filter map for sources from the given filter state.
+  Map<String, dynamic> _buildSourcesFilterMap(SourcesFilterState state) {
+    final filter = <String, dynamic>{};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+    }
+
+    filter['status'] = state.selectedStatus.name;
+
+    if (state.selectedSourceTypes.isNotEmpty) {
+      filter['sourceType'] = {
+        r'$in': state.selectedSourceTypes.map((s) => s.name).toList(),
+      };
+    }
+    if (state.selectedLanguageCodes.isNotEmpty) {
+      filter['language.code'] = {r'$in': state.selectedLanguageCodes};
+    }
+    if (state.selectedHeadquartersCountryIds.isNotEmpty) {
+      filter['headquarters.id'] = {
+        r'$in': state.selectedHeadquartersCountryIds,
+      };
+    }
+
+    return filter;
   }
 
   void _onContentManagementTabChanged(
@@ -130,7 +208,9 @@ class ContentManagementBloc
       final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
 
       final paginatedHeadlines = await _headlinesRepository.readAll(
-        filter: event.filter, // Use the provided filter
+        filter:
+            event.filter ??
+            _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -166,26 +246,22 @@ class ContentManagementBloc
     ArchiveHeadlineRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    // Optimistically remove the headline from the list
-    final originalHeadlines = List<Headline>.from(state.headlines);
-    final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
-    if (headlineIndex == -1) return;
-
-    final headlineToArchive = originalHeadlines[headlineIndex];
-    final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
-
-    emit(state.copyWith(headlines: updatedHeadlines));
-
     try {
+      final headlineToUpdate = state.headlines.firstWhere(
+        (h) => h.id == event.id,
+      );
       await _headlinesRepository.update(
         id: event.id,
-        item: headlineToArchive.copyWith(status: ContentStatus.archived),
+        item: headlineToUpdate.copyWith(status: ContentStatus.archived),
       );
-      // No need to re-fetch, the entityUpdated stream will trigger a refresh
+      add(
+        LoadHeadlinesRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+        ),
+      );
     } on HttpException catch (e) {
-      // If the update fails, revert the change in the UI
-      emit(state.copyWith(headlines: originalHeadlines));
-      // And then show the error
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
@@ -207,22 +283,22 @@ class ContentManagementBloc
     PublishHeadlineRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    final originalHeadlines = List<Headline>.from(state.headlines);
-    final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
-    if (headlineIndex == -1) return;
-
-    final headlineToPublish = originalHeadlines[headlineIndex];
-    final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
-
-    emit(state.copyWith(headlines: updatedHeadlines));
-
     try {
+      final headlineToUpdate = state.headlines.firstWhere(
+        (h) => h.id == event.id,
+      );
       await _headlinesRepository.update(
         id: event.id,
-        item: headlineToPublish.copyWith(status: ContentStatus.active),
+        item: headlineToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        LoadHeadlinesRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(headlines: originalHeadlines));
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
@@ -244,22 +320,22 @@ class ContentManagementBloc
     RestoreHeadlineRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    final originalHeadlines = List<Headline>.from(state.headlines);
-    final headlineIndex = originalHeadlines.indexWhere((h) => h.id == event.id);
-    if (headlineIndex == -1) return;
-
-    final headlineToRestore = originalHeadlines[headlineIndex];
-    final updatedHeadlines = originalHeadlines..removeAt(headlineIndex);
-
-    emit(state.copyWith(headlines: updatedHeadlines));
-
     try {
+      final headlineToUpdate = state.headlines.firstWhere(
+        (h) => h.id == event.id,
+      );
       await _headlinesRepository.update(
         id: event.id,
-        item: headlineToRestore.copyWith(status: ContentStatus.active),
+        item: headlineToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        LoadHeadlinesRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(headlines: originalHeadlines));
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.failure,
@@ -351,7 +427,7 @@ class ContentManagementBloc
       final previousTopics = isPaginating ? state.topics : <Topic>[];
 
       final paginatedTopics = await _topicsRepository.readAll(
-        filter: event.filter, // Use the provided filter
+        filter: event.filter ?? _buildTopicsFilterMap(_topicsFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -387,25 +463,20 @@ class ContentManagementBloc
     ArchiveTopicRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    // Optimistically remove the topic from the list
-    final originalTopics = List<Topic>.from(state.topics);
-    final topicIndex = originalTopics.indexWhere((t) => t.id == event.id);
-    if (topicIndex == -1) return;
-
-    final topicToArchive = originalTopics[topicIndex];
-    final updatedTopics = originalTopics..removeAt(topicIndex);
-
-    emit(state.copyWith(topics: updatedTopics));
-
     try {
+      final topicToUpdate = state.topics.firstWhere((t) => t.id == event.id);
       await _topicsRepository.update(
         id: event.id,
-        item: topicToArchive.copyWith(status: ContentStatus.archived),
+        item: topicToUpdate.copyWith(status: ContentStatus.archived),
+      );
+      add(
+        LoadTopicsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      // If the update fails, revert the change in the UI
-      emit(state.copyWith(topics: originalTopics));
-      // And then show the error
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
@@ -427,22 +498,20 @@ class ContentManagementBloc
     PublishTopicRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    final originalTopics = List<Topic>.from(state.topics);
-    final topicIndex = originalTopics.indexWhere((t) => t.id == event.id);
-    if (topicIndex == -1) return;
-
-    final topicToPublish = originalTopics[topicIndex];
-    final updatedTopics = originalTopics..removeAt(topicIndex);
-
-    emit(state.copyWith(topics: updatedTopics));
-
     try {
+      final topicToUpdate = state.topics.firstWhere((t) => t.id == event.id);
       await _topicsRepository.update(
         id: event.id,
-        item: topicToPublish.copyWith(status: ContentStatus.active),
+        item: topicToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        LoadTopicsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(topics: originalTopics));
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
@@ -464,22 +533,20 @@ class ContentManagementBloc
     RestoreTopicRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    final originalTopics = List<Topic>.from(state.topics);
-    final topicIndex = originalTopics.indexWhere((t) => t.id == event.id);
-    if (topicIndex == -1) return;
-
-    final topicToRestore = originalTopics[topicIndex];
-    final updatedTopics = originalTopics..removeAt(topicIndex);
-
-    emit(state.copyWith(topics: updatedTopics));
-
     try {
+      final topicToUpdate = state.topics.firstWhere((t) => t.id == event.id);
       await _topicsRepository.update(
         id: event.id,
-        item: topicToRestore.copyWith(status: ContentStatus.active),
+        item: topicToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        LoadTopicsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildTopicsFilterMap(_topicsFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(topics: originalTopics));
       emit(
         state.copyWith(
           topicsStatus: ContentManagementStatus.failure,
@@ -566,7 +633,8 @@ class ContentManagementBloc
       final previousSources = isPaginating ? state.sources : <Source>[];
 
       final paginatedSources = await _sourcesRepository.readAll(
-        filter: event.filter, // Use the provided filter
+        filter:
+            event.filter ?? _buildSourcesFilterMap(_sourcesFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -602,25 +670,20 @@ class ContentManagementBloc
     ArchiveSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    // Optimistically remove the source from the list
-    final originalSources = List<Source>.from(state.sources);
-    final sourceIndex = originalSources.indexWhere((s) => s.id == event.id);
-    if (sourceIndex == -1) return;
-
-    final sourceToArchive = originalSources[sourceIndex];
-    final updatedSources = originalSources..removeAt(sourceIndex);
-
-    emit(state.copyWith(sources: updatedSources));
-
     try {
+      final sourceToUpdate = state.sources.firstWhere((s) => s.id == event.id);
       await _sourcesRepository.update(
         id: event.id,
-        item: sourceToArchive.copyWith(status: ContentStatus.archived),
+        item: sourceToUpdate.copyWith(status: ContentStatus.archived),
+      );
+      add(
+        LoadSourcesRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      // If the update fails, revert the change in the UI
-      emit(state.copyWith(sources: originalSources));
-      // And then show the error
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
@@ -642,22 +705,20 @@ class ContentManagementBloc
     PublishSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    final originalSources = List<Source>.from(state.sources);
-    final sourceIndex = originalSources.indexWhere((s) => s.id == event.id);
-    if (sourceIndex == -1) return;
-
-    final sourceToPublish = originalSources[sourceIndex];
-    final updatedSources = originalSources..removeAt(sourceIndex);
-
-    emit(state.copyWith(sources: updatedSources));
-
     try {
+      final sourceToUpdate = state.sources.firstWhere((s) => s.id == event.id);
       await _sourcesRepository.update(
         id: event.id,
-        item: sourceToPublish.copyWith(status: ContentStatus.active),
+        item: sourceToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        LoadSourcesRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(sources: originalSources));
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
@@ -679,22 +740,20 @@ class ContentManagementBloc
     RestoreSourceRequested event,
     Emitter<ContentManagementState> emit,
   ) async {
-    final originalSources = List<Source>.from(state.sources);
-    final sourceIndex = originalSources.indexWhere((s) => s.id == event.id);
-    if (sourceIndex == -1) return;
-
-    final sourceToRestore = originalSources[sourceIndex];
-    final updatedSources = originalSources..removeAt(sourceIndex);
-
-    emit(state.copyWith(sources: updatedSources));
-
     try {
+      final sourceToUpdate = state.sources.firstWhere((s) => s.id == event.id);
       await _sourcesRepository.update(
         id: event.id,
-        item: sourceToRestore.copyWith(status: ContentStatus.active),
+        item: sourceToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        LoadSourcesRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: _buildSourcesFilterMap(_sourcesFilterBloc.state),
+        ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(sources: originalSources));
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.failure,
