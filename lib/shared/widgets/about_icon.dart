@@ -22,8 +22,13 @@ class AboutIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
     return IconButton(
-      icon: const Icon(Icons.info_outline),
+      icon: Icon(
+        Icons.info_outline,
+        color: theme.colorScheme.onSurfaceVariant,
+      ),
+      iconSize: 20,
       tooltip: l10n.aboutIconTooltip,
       onPressed: () {
         showDialog<void>(
