@@ -31,9 +31,9 @@ class _TopicPageState extends State<TopicPage> {
     context.read<ContentManagementBloc>().add(
       LoadTopicsRequested(
         limit: kDefaultRowsPerPage,
-        filter: context
-            .read<ContentManagementBloc>()
-            .buildTopicsFilterMap(context.read<TopicsFilterBloc>().state),
+        filter: context.read<ContentManagementBloc>().buildTopicsFilterMap(
+          context.read<TopicsFilterBloc>().state,
+        ),
       ),
     );
   }
@@ -95,8 +95,8 @@ class _TopicPageState extends State<TopicPage> {
                     ElevatedButton(
                       onPressed: () {
                         context.read<TopicsFilterBloc>().add(
-                              const TopicsFilterReset(),
-                            );
+                          const TopicsFilterReset(),
+                        );
                       },
                       child: Text(l10n.resetFiltersButtonText),
                     ),

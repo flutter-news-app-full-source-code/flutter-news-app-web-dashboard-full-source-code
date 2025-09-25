@@ -31,9 +31,9 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
     context.read<ContentManagementBloc>().add(
       LoadHeadlinesRequested(
         limit: kDefaultRowsPerPage,
-        filter: context
-            .read<ContentManagementBloc>()
-            .buildHeadlinesFilterMap(context.read<HeadlinesFilterBloc>().state),
+        filter: context.read<ContentManagementBloc>().buildHeadlinesFilterMap(
+          context.read<HeadlinesFilterBloc>().state,
+        ),
       ),
     );
   }
@@ -54,8 +54,9 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
-          final headlinesFilterState =
-              context.watch<HeadlinesFilterBloc>().state;
+          final headlinesFilterState = context
+              .watch<HeadlinesFilterBloc>()
+              .state;
           final filtersActive = _areFiltersActive(headlinesFilterState);
 
           if (state.headlinesStatus == ContentManagementStatus.loading &&
@@ -99,8 +100,8 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                     ElevatedButton(
                       onPressed: () {
                         context.read<HeadlinesFilterBloc>().add(
-                              const HeadlinesFilterReset(),
-                            );
+                          const HeadlinesFilterReset(),
+                        );
                       },
                       child: Text(l10n.resetFiltersButtonText),
                     ),
