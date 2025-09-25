@@ -11,27 +11,27 @@ class TopicsFilterState extends Equatable {
   const TopicsFilterState({
     this.searchQuery = '',
     // Default to showing only active items.
-    this.selectedStatuses = const {ContentStatus.active},
+    this.selectedStatus = ContentStatus.active,
   });
 
   /// The current text in the search query field.
   final String searchQuery;
 
-  /// The set of content statuses to be included in the filter.
-  final Set<ContentStatus> selectedStatuses;
+  /// The single content status to be included in the filter.
+  final ContentStatus selectedStatus;
 
   /// Creates a copy of this state with the given fields replaced with the
   /// new values.
   TopicsFilterState copyWith({
     String? searchQuery,
-    Set<ContentStatus>? selectedStatuses,
+    ContentStatus? selectedStatus,
   }) {
     return TopicsFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedStatuses: selectedStatuses ?? this.selectedStatuses,
+      selectedStatus: selectedStatus ?? this.selectedStatus,
     );
   }
 
   @override
-  List<Object> get props => [searchQuery, selectedStatuses];
+  List<Object> get props => [searchQuery, selectedStatus];
 }
