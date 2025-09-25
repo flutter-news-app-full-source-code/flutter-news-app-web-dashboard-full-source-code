@@ -31,24 +31,11 @@ class _TopicPageState extends State<TopicPage> {
     context.read<ContentManagementBloc>().add(
       LoadTopicsRequested(
         limit: kDefaultRowsPerPage,
-        filter: _buildTopicsFilterMap(
-          context.read<TopicsFilterBloc>().state,
-        ),
+        filter: context
+            .read<ContentManagementBloc>()
+            .buildTopicsFilterMap(context.read<TopicsFilterBloc>().state),
       ),
     );
-  }
-
-  /// Builds a filter map for topics from the given filter state.
-  Map<String, dynamic> _buildTopicsFilterMap(TopicsFilterState state) {
-    final filter = <String, dynamic>{};
-
-    if (state.searchQuery.isNotEmpty) {
-      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
-    }
-
-    filter['status'] = state.selectedStatus.name;
-
-    return filter;
   }
 
   @override
@@ -74,9 +61,11 @@ class _TopicPageState extends State<TopicPage> {
                 LoadTopicsRequested(
                   limit: kDefaultRowsPerPage,
                   forceRefresh: true,
-                  filter: _buildTopicsFilterMap(
-                    context.read<TopicsFilterBloc>().state,
-                  ),
+                  filter: context
+                      .read<ContentManagementBloc>()
+                      .buildTopicsFilterMap(
+                        context.read<TopicsFilterBloc>().state,
+                      ),
                 ),
               ),
             );
@@ -129,9 +118,11 @@ class _TopicPageState extends State<TopicPage> {
                             LoadTopicsRequested(
                               startAfterId: state.topicsCursor,
                               limit: kDefaultRowsPerPage,
-                              filter: _buildTopicsFilterMap(
-                                context.read<TopicsFilterBloc>().state,
-                              ),
+                              filter: context
+                                  .read<ContentManagementBloc>()
+                                  .buildTopicsFilterMap(
+                                    context.read<TopicsFilterBloc>().state,
+                                  ),
                             ),
                           );
                         }
