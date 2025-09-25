@@ -203,11 +203,13 @@ class _EditSourceViewState extends State<_EditSourceView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Language>(
                       label: l10n.language,
-                      selectedItem: state.language,
+                      selectedItems: state.language != null
+                          ? [state.language!]
+                          : [],
                       itemBuilder: (context, language) => Text(language.name),
                       itemToString: (language) => language.name,
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceLanguageChanged(value),
+                      onChanged: (items) => context.read<EditSourceBloc>().add(
+                        EditSourceLanguageChanged(items?.first),
                       ),
                       repository: context.read<DataRepository<Language>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
@@ -226,19 +228,23 @@ class _EditSourceViewState extends State<_EditSourceView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<SourceType>(
                       label: l10n.sourceType,
-                      selectedItem: state.sourceType,
+                      selectedItems: state.sourceType != null
+                          ? [state.sourceType!]
+                          : [],
                       staticItems: SourceType.values.toList(),
                       itemBuilder: (context, type) =>
                           Text(type.localizedName(l10n)),
                       itemToString: (type) => type.localizedName(l10n),
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceTypeChanged(value),
+                      onChanged: (items) => context.read<EditSourceBloc>().add(
+                        EditSourceTypeChanged(items?.first),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Country>(
                       label: l10n.headquarters,
-                      selectedItem: state.headquarters,
+                      selectedItems: state.headquarters != null
+                          ? [state.headquarters!]
+                          : [],
                       itemBuilder: (context, country) => Row(
                         children: [
                           SizedBox(
@@ -256,8 +262,8 @@ class _EditSourceViewState extends State<_EditSourceView> {
                         ],
                       ),
                       itemToString: (country) => country.name,
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceHeadquartersChanged(value),
+                      onChanged: (items) => context.read<EditSourceBloc>().add(
+                        EditSourceHeadquartersChanged(items?.first),
                       ),
                       repository: context.read<DataRepository<Country>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
