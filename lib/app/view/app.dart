@@ -139,6 +139,7 @@ class App extends StatelessWidget {
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
+              pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
           BlocProvider(
