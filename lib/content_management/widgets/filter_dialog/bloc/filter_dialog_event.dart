@@ -116,3 +116,9 @@ final class FilterDialogHeadquartersCountryIdsChanged
   @override
   List<Object?> get props => [countryIds];
 }
+
+/// Event to reset all temporary filter selections in the dialog to their
+/// initial state.
+final class FilterDialogReset extends FilterDialogEvent {
+  const FilterDialogReset();
+}
