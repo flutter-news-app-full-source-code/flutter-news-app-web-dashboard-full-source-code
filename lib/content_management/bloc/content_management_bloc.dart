@@ -104,9 +104,10 @@ class ContentManagementBloc
           );
         });
 
-    _deletionEventsSubscription = _pendingDeletionsService.deletionEvents.listen(
-      (event) => add(DeletionEventReceived(event)),
-    );
+    _deletionEventsSubscription = _pendingDeletionsService.deletionEvents
+        .listen(
+          (event) => add(DeletionEventReceived(event)),
+        );
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -120,7 +121,8 @@ class ContentManagementBloc
   late final StreamSubscription<Type> _headlineUpdateSubscription;
   late final StreamSubscription<Type> _topicUpdateSubscription;
   late final StreamSubscription<Type> _sourceUpdateSubscription;
-  late final StreamSubscription<DeletionEvent<dynamic>> _deletionEventsSubscription;
+  late final StreamSubscription<DeletionEvent<dynamic>>
+  _deletionEventsSubscription;
 
   @override
   Future<void> close() {
@@ -221,7 +223,8 @@ class ContentManagementBloc
       final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
 
       final paginatedHeadlines = await _headlinesRepository.readAll(
-        filter: event.filter ?? buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+        filter:
+            event.filter ?? buildHeadlinesFilterMap(_headlinesFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -609,8 +612,7 @@ class ContentManagementBloc
       final previousSources = isPaginating ? state.sources : <Source>[];
 
       final paginatedSources = await _sourcesRepository.readAll(
-        filter:
-            event.filter ?? buildSourcesFilterMap(_sourcesFilterBloc.state),
+        filter: event.filter ?? buildSourcesFilterMap(_sourcesFilterBloc.state),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
