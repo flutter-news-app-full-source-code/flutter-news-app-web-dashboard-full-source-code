@@ -2,6 +2,7 @@ analyzer:
   errors:
     avoid_bool_literals_in_conditional_expressions: ignore
     avoid_catches_without_on_clauses: ignore
+    avoid_positional_boolean_parameters: ignore
     avoid_print: ignore
     avoid_redundant_argument_values: ignore
     deprecated_member_use: ignore
