@@ -62,8 +62,8 @@ class _FilterDialogState extends State<FilterDialog> {
     super.initState();
     _searchController = TextEditingController();
     // Initialize the FilterDialogBloc with current filter states.
-    // The FilterDialogBloc is now provided by a parent widget, so we can
-    // safely access it here.
+    // The FilterDialogBloc is now provided by a parent widget (the GoRouter route),
+    // so we can safely access it here.
     _loadInitialFilterState();
   }
 
@@ -99,8 +99,8 @@ class _FilterDialogState extends State<FilterDialog> {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
-    // The BlocProvider for FilterDialogBloc is now handled by the parent
-    // ContentManagementPage, so we can directly use BlocBuilder here.
+    // The BlocProvider for FilterDialogBloc is now handled by the GoRouter route,
+    // so we can directly use BlocBuilder here.
     return BlocBuilder<FilterDialogBloc, FilterDialogState>(
       builder: (context, filterDialogState) {
         _searchController.text = filterDialogState.searchQuery;
