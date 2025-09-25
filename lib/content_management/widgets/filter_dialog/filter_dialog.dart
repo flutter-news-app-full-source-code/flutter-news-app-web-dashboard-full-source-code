@@ -61,18 +61,24 @@ class _FilterDialogState extends State<FilterDialog> {
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-    // Initialize the FilterDialogBloc with current filter states
+    // Initialize the FilterDialogBloc with current filter states.
+    // The FilterDialogBloc is now provided by a parent widget, so we can
+    // safely access it here.
     _loadInitialFilterState();
   }
 
   /// Loads the initial filter state from the appropriate BLoC and dispatches
   /// it to the FilterDialogBloc.
   void _loadInitialFilterState() {
+    // Access the FilterDialogBloc directly from the context, as it's now
+    // provided higher up in the widget tree.
+    final filterDialogBloc = context.read<FilterDialogBloc>();
+
     final headlinesState = context.read<HeadlinesFilterBloc>().state;
     final topicsState = context.read<TopicsFilterBloc>().state;
     final sourcesState = context.read<SourcesFilterBloc>().state;
 
-    context.read<FilterDialogBloc>().add(
+    filterDialogBloc.add(
       FilterDialogInitialized(
         activeTab: widget.activeTab,
         headlinesFilterState: headlinesState,
@@ -93,71 +99,64 @@ class _FilterDialogState extends State<FilterDialog> {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
-    return BlocProvider(
-      create: (context) => FilterDialogBloc(
-        sourcesRepository: widget.sourcesRepository,
-        topicsRepository: widget.topicsRepository,
-        countriesRepository: widget.countriesRepository,
-        languagesRepository: widget.languagesRepository,
-        activeTab: widget.activeTab,
-      ),
-      child: BlocBuilder<FilterDialogBloc, FilterDialogState>(
-        builder: (context, filterDialogState) {
-          _searchController.text = filterDialogState.searchQuery;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(_getDialogTitle(l10n)),
-              leading: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.check),
-                  tooltip: l10n.applyFilters,
-                  onPressed: () {
-                    _dispatchFilterApplied(filterDialogState);
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
+    // The BlocProvider for FilterDialogBloc is now handled by the parent
+    // ContentManagementPage, so we can directly use BlocBuilder here.
+    return BlocBuilder<FilterDialogBloc, FilterDialogState>(
+      builder: (context, filterDialogState) {
+        _searchController.text = filterDialogState.searchQuery;
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(_getDialogTitle(l10n)),
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        labelText: l10n.search,
-                        hintText: _getSearchHint(l10n),
-                        prefixIcon: const Icon(Icons.search),
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (query) {
-                        context.read<FilterDialogBloc>().add(
-                          FilterDialogSearchQueryChanged(query),
-                        );
-                      },
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.check),
+                tooltip: l10n.applyFilters,
+                onPressed: () {
+                  _dispatchFilterApplied(filterDialogState);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      labelText: l10n.search,
+                      hintText: _getSearchHint(l10n),
+                      prefixIcon: const Icon(Icons.search),
+                      border: const OutlineInputBorder(),
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      l10n.status,
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildStatusFilterChips(l10n, theme, filterDialogState),
-                    const SizedBox(height: AppSpacing.lg),
-                    _buildAdditionalFilters(l10n, filterDialogState),
-                  ],
-                ),
+                    onChanged: (query) {
+                      context.read<FilterDialogBloc>().add(
+                        FilterDialogSearchQueryChanged(query),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    l10n.status,
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  _buildStatusFilterChips(l10n, theme, filterDialogState),
+                  const SizedBox(height: AppSpacing.lg),
+                  _buildAdditionalFilters(l10n, filterDialogState),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
