@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart'; // For deep equality check on filter maps
 import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/headlines_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/sources_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/topics_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog.dart'; // Import the new FilterDialog
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart'; // Import the new FilterDialog
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
@@ -60,8 +61,14 @@ class _ContentManagementPageState extends State<ContentManagementPage>
   /// Builds a filter map from the given search query and selected statuses.
   Map<String, dynamic> _buildFilterMap({
     required String searchQuery,
-    required Set<ContentStatus> selectedStatuses,
+    required ContentStatus selectedStatus,
     String? searchField,
+    List<String>? selectedSourceIds,
+    List<String>? selectedTopicIds,
+    List<String>? selectedCountryIds,
+    List<SourceType>? selectedSourceTypes,
+    List<String>? selectedLanguageCodes,
+    List<String>? selectedHeadquartersCountryIds,
   }) {
     final filter = <String, dynamic>{};
 
@@ -69,8 +76,29 @@ class _ContentManagementPageState extends State<ContentManagementPage>
       filter[searchField] = {r'$regex': searchQuery, r'$options': 'i'};
     }
 
-    if (selectedStatuses.isNotEmpty) {
-      filter['status'] = {r'$in': selectedStatuses.map((s) => s.name).toList()};
+    // Always include the selected status
+    filter['status'] = selectedStatus.name;
+
+    if (selectedSourceIds != null && selectedSourceIds.isNotEmpty) {
+      filter['source.id'] = {r'$in': selectedSourceIds};
+    }
+    if (selectedTopicIds != null && selectedTopicIds.isNotEmpty) {
+      filter['topic.id'] = {r'$in': selectedTopicIds};
+    }
+    if (selectedCountryIds != null && selectedCountryIds.isNotEmpty) {
+      filter['eventCountry.id'] = {r'$in': selectedCountryIds};
+    }
+    if (selectedSourceTypes != null && selectedSourceTypes.isNotEmpty) {
+      filter['sourceType'] = {
+        r'$in': selectedSourceTypes.map((s) => s.name).toList(),
+      };
+    }
+    if (selectedLanguageCodes != null && selectedLanguageCodes.isNotEmpty) {
+      filter['language.code'] = {r'$in': selectedLanguageCodes};
+    }
+    if (selectedHeadquartersCountryIds != null &&
+        selectedHeadquartersCountryIds.isNotEmpty) {
+      filter['headquarters.id'] = {r'$in': selectedHeadquartersCountryIds};
     }
 
     return filter;
@@ -86,13 +114,19 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               !const DeepCollectionEquality().equals(
                 _buildFilterMap(
                   searchQuery: previous.searchQuery,
-                  selectedStatuses: previous.selectedStatuses,
+                  selectedStatus: previous.selectedStatus,
                   searchField: 'title',
+                  selectedSourceIds: previous.selectedSourceIds,
+                  selectedTopicIds: previous.selectedTopicIds,
+                  selectedCountryIds: previous.selectedCountryIds,
                 ),
                 _buildFilterMap(
                   searchQuery: current.searchQuery,
-                  selectedStatuses: current.selectedStatuses,
+                  selectedStatus: current.selectedStatus,
                   searchField: 'title',
+                  selectedSourceIds: current.selectedSourceIds,
+                  selectedTopicIds: current.selectedTopicIds,
+                  selectedCountryIds: current.selectedCountryIds,
                 ),
               ),
           listener: (context, state) {
@@ -100,8 +134,11 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               LoadHeadlinesRequested(
                 filter: _buildFilterMap(
                   searchQuery: state.searchQuery,
-                  selectedStatuses: state.selectedStatuses,
+                  selectedStatus: state.selectedStatus,
                   searchField: 'title',
+                  selectedSourceIds: state.selectedSourceIds,
+                  selectedTopicIds: state.selectedTopicIds,
+                  selectedCountryIds: state.selectedCountryIds,
                 ),
                 forceRefresh: true,
               ),
@@ -113,12 +150,12 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               !const DeepCollectionEquality().equals(
                 _buildFilterMap(
                   searchQuery: previous.searchQuery,
-                  selectedStatuses: previous.selectedStatuses,
+                  selectedStatus: previous.selectedStatus,
                   searchField: 'name',
                 ),
                 _buildFilterMap(
                   searchQuery: current.searchQuery,
-                  selectedStatuses: current.selectedStatuses,
+                  selectedStatus: current.selectedStatus,
                   searchField: 'name',
                 ),
               ),
@@ -127,7 +164,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               LoadTopicsRequested(
                 filter: _buildFilterMap(
                   searchQuery: state.searchQuery,
-                  selectedStatuses: state.selectedStatuses,
+                  selectedStatus: state.selectedStatus,
                   searchField: 'name',
                 ),
                 forceRefresh: true,
@@ -140,13 +177,21 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               !const DeepCollectionEquality().equals(
                 _buildFilterMap(
                   searchQuery: previous.searchQuery,
-                  selectedStatuses: previous.selectedStatuses,
+                  selectedStatus: previous.selectedStatus,
                   searchField: 'name',
+                  selectedSourceTypes: previous.selectedSourceTypes,
+                  selectedLanguageCodes: previous.selectedLanguageCodes,
+                  selectedHeadquartersCountryIds:
+                      previous.selectedHeadquartersCountryIds,
                 ),
                 _buildFilterMap(
                   searchQuery: current.searchQuery,
-                  selectedStatuses: current.selectedStatuses,
+                  selectedStatus: current.selectedStatus,
                   searchField: 'name',
+                  selectedSourceTypes: current.selectedSourceTypes,
+                  selectedLanguageCodes: current.selectedLanguageCodes,
+                  selectedHeadquartersCountryIds:
+                      current.selectedHeadquartersCountryIds,
                 ),
               ),
           listener: (context, state) {
@@ -154,8 +199,12 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               LoadSourcesRequested(
                 filter: _buildFilterMap(
                   searchQuery: state.searchQuery,
-                  selectedStatuses: state.selectedStatuses,
+                  selectedStatus: state.selectedStatus,
                   searchField: 'name',
+                  selectedSourceTypes: state.selectedSourceTypes,
+                  selectedLanguageCodes: state.selectedLanguageCodes,
+                  selectedHeadquartersCountryIds:
+                      state.selectedHeadquartersCountryIds,
                 ),
                 forceRefresh: true,
               ),
@@ -204,20 +253,32 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               icon: const Icon(Icons.filter_list),
               tooltip: l10n.filter, // Assuming l10n.filter exists
               onPressed: () {
-                final currentTab = context
-                    .read<ContentManagementBloc>()
-                    .state
-                    .activeTab;
-                  showGeneralDialog<void>(
-                    context: context,
-                    pageBuilder: (dialogContext, animation, secondaryAnimation) {
-                      return Builder(
-                        builder: (builderContext) {
-                          return FilterDialog(activeTab: currentTab);
-                        },
-                      );
-                    },
-                  );
+                final contentManagementBloc = context
+                    .read<ContentManagementBloc>();
+                final topicsRepository = context.read<DataRepository<Topic>>();
+                final sourcesRepository = context
+                    .read<DataRepository<Source>>();
+                final countriesRepository = context
+                    .read<DataRepository<Country>>();
+                final languagesRepository = context
+                    .read<DataRepository<Language>>();
+
+                showGeneralDialog<void>(
+                  context: context,
+                  pageBuilder: (dialogContext, animation, secondaryAnimation) {
+                    return Builder(
+                      builder: (builderContext) {
+                        return FilterDialog(
+                          activeTab: contentManagementBloc.state.activeTab,
+                          sourcesRepository: sourcesRepository,
+                          topicsRepository: topicsRepository,
+                          countriesRepository: countriesRepository,
+                          languagesRepository: languagesRepository,
+                        );
+                      },
+                    );
+                  },
+                );
               },
             ),
           ],
