@@ -6,6 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/bloc/settings_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template settings_page}
@@ -60,22 +61,12 @@ class _SettingsViewState extends State<_SettingsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.settings),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight + AppSpacing.lg),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: AppSpacing.lg,
-              right: AppSpacing.lg,
-              bottom: AppSpacing.lg,
-            ),
-            child: Text(
-              l10n.settingsPageDescription,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
+        actions: [
+          AboutIcon(
+            dialogTitle: l10n.settings,
+            dialogDescription: l10n.settingsPageDescription,
           ),
-        ),
+        ],
       ),
       body: BlocConsumer<SettingsBloc, SettingsState>(
         listenWhen: (previous, current) =>
