@@ -5,6 +5,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/feed_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/general_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template app_configuration_page}
@@ -48,38 +49,21 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           l10n.appConfigurationPageTitle,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(
-            kTextTabBarHeight + AppSpacing.lg,
+        actions: [
+          AboutIcon(
+            dialogTitle: l10n.appConfigurationPageTitle,
+            dialogDescription: l10n.appConfigurationPageDescription,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: AppSpacing.lg,
-                  right: AppSpacing.lg,
-                  bottom: AppSpacing.lg,
-                ),
-                child: Text(
-                  l10n.appConfigurationPageDescription,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
-              TabBar(
-                controller: _tabController,
-                tabAlignment: TabAlignment.start,
-                isScrollable: true,
-                tabs: [
-                  Tab(text: l10n.generalTab),
-                  Tab(text: l10n.feedTab),
-                  Tab(text: l10n.advertisementsTab),
-                ],
-              ),
-            ],
-          ),
+        ],
+        bottom: TabBar(
+          controller: _tabController,
+          tabAlignment: TabAlignment.start,
+          isScrollable: true,
+          tabs: [
+            Tab(text: l10n.generalTab),
+            Tab(text: l10n.feedTab),
+            Tab(text: l10n.advertisementsTab),
+          ],
         ),
       ),
       body: BlocConsumer<AppConfigurationBloc, AppConfigurationState>(
