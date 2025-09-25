@@ -3,6 +3,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'; // Import the new widget
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -26,9 +27,28 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
+    // Initial load of topics, applying the default filter from TopicsFilterBloc
     context.read<ContentManagementBloc>().add(
-      const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+      LoadTopicsRequested(
+        limit: kDefaultRowsPerPage,
+        filter: _buildTopicsFilterMap(
+          context.read<TopicsFilterBloc>().state,
+        ),
+      ),
     );
+  }
+
+  /// Builds a filter map for topics from the given filter state.
+  Map<String, dynamic> _buildTopicsFilterMap(TopicsFilterState state) {
+    final filter = <String, dynamic>{};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+    }
+
+    filter['status'] = state.selectedStatus.name;
+
+    return filter;
   }
 
   @override
@@ -51,7 +71,13 @@ class _TopicPageState extends State<TopicPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<ContentManagementBloc>().add(
-                const LoadTopicsRequested(limit: kDefaultRowsPerPage),
+                LoadTopicsRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: _buildTopicsFilterMap(
+                    context.read<TopicsFilterBloc>().state,
+                  ),
+                ),
               ),
             );
           }
@@ -103,6 +129,9 @@ class _TopicPageState extends State<TopicPage> {
                             LoadTopicsRequested(
                               startAfterId: state.topicsCursor,
                               limit: kDefaultRowsPerPage,
+                              filter: _buildTopicsFilterMap(
+                                context.read<TopicsFilterBloc>().state,
+                              ),
                             ),
                           );
                         }
