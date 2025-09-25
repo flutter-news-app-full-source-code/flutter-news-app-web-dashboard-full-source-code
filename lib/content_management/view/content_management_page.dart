@@ -57,52 +57,6 @@ class _ContentManagementPageState extends State<ContentManagementPage>
     }
   }
 
-  /// Builds a filter map from the given search query and selected statuses.
-  Map<String, dynamic> _buildFilterMap({
-    required String searchQuery,
-    required ContentStatus selectedStatus,
-    String? searchField,
-    List<String>? selectedSourceIds,
-    List<String>? selectedTopicIds,
-    List<String>? selectedCountryIds,
-    List<SourceType>? selectedSourceTypes,
-    List<String>? selectedLanguageCodes,
-    List<String>? selectedHeadquartersCountryIds,
-  }) {
-    final filter = <String, dynamic>{};
-
-    if (searchQuery.isNotEmpty && searchField != null) {
-      filter[searchField] = {r'$regex': searchQuery, r'$options': 'i'};
-    }
-
-    // Always include the selected status
-    filter['status'] = selectedStatus.name;
-
-    if (selectedSourceIds != null && selectedSourceIds.isNotEmpty) {
-      filter['source.id'] = {r'$in': selectedSourceIds};
-    }
-    if (selectedTopicIds != null && selectedTopicIds.isNotEmpty) {
-      filter['topic.id'] = {r'$in': selectedTopicIds};
-    }
-    if (selectedCountryIds != null && selectedCountryIds.isNotEmpty) {
-      filter['eventCountry.id'] = {r'$in': selectedCountryIds};
-    }
-    if (selectedSourceTypes != null && selectedSourceTypes.isNotEmpty) {
-      filter['sourceType'] = {
-        r'$in': selectedSourceTypes.map((s) => s.name).toList(),
-      };
-    }
-    if (selectedLanguageCodes != null && selectedLanguageCodes.isNotEmpty) {
-      filter['language.code'] = {r'$in': selectedLanguageCodes};
-    }
-    if (selectedHeadquartersCountryIds != null &&
-        selectedHeadquartersCountryIds.isNotEmpty) {
-      filter['headquarters.id'] = {r'$in': selectedHeadquartersCountryIds};
-    }
-
-    return filter;
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -110,35 +64,22 @@ class _ContentManagementPageState extends State<ContentManagementPage>
       listeners: [
         BlocListener<HeadlinesFilterBloc, HeadlinesFilterState>(
           listenWhen: (previous, current) =>
+              previous.searchQuery != current.searchQuery ||
+              previous.selectedStatus != current.selectedStatus ||
+              !const DeepCollectionEquality()
+                  .equals(previous.selectedSourceIds, current.selectedSourceIds) ||
+              !const DeepCollectionEquality()
+                  .equals(previous.selectedTopicIds, current.selectedTopicIds) ||
               !const DeepCollectionEquality().equals(
-                _buildFilterMap(
-                  searchQuery: previous.searchQuery,
-                  selectedStatus: previous.selectedStatus,
-                  searchField: 'title',
-                  selectedSourceIds: previous.selectedSourceIds,
-                  selectedTopicIds: previous.selectedTopicIds,
-                  selectedCountryIds: previous.selectedCountryIds,
-                ),
-                _buildFilterMap(
-                  searchQuery: current.searchQuery,
-                  selectedStatus: current.selectedStatus,
-                  searchField: 'title',
-                  selectedSourceIds: current.selectedSourceIds,
-                  selectedTopicIds: current.selectedTopicIds,
-                  selectedCountryIds: current.selectedCountryIds,
-                ),
+                previous.selectedCountryIds,
+                current.selectedCountryIds,
               ),
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadHeadlinesRequested(
-                filter: _buildFilterMap(
-                  searchQuery: state.searchQuery,
-                  selectedStatus: state.selectedStatus,
-                  searchField: 'title',
-                  selectedSourceIds: state.selectedSourceIds,
-                  selectedTopicIds: state.selectedTopicIds,
-                  selectedCountryIds: state.selectedCountryIds,
-                ),
+                filter: context
+                    .read<ContentManagementBloc>()
+                    .buildHeadlinesFilterMap(state),
                 forceRefresh: true,
               ),
             );
@@ -146,26 +87,14 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         BlocListener<TopicsFilterBloc, TopicsFilterState>(
           listenWhen: (previous, current) =>
-              !const DeepCollectionEquality().equals(
-                _buildFilterMap(
-                  searchQuery: previous.searchQuery,
-                  selectedStatus: previous.selectedStatus,
-                  searchField: 'name',
-                ),
-                _buildFilterMap(
-                  searchQuery: current.searchQuery,
-                  selectedStatus: current.selectedStatus,
-                  searchField: 'name',
-                ),
-              ),
+              previous.searchQuery != current.searchQuery ||
+              previous.selectedStatus != current.selectedStatus,
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadTopicsRequested(
-                filter: _buildFilterMap(
-                  searchQuery: state.searchQuery,
-                  selectedStatus: state.selectedStatus,
-                  searchField: 'name',
-                ),
+                filter: context
+                    .read<ContentManagementBloc>()
+                    .buildTopicsFilterMap(state),
                 forceRefresh: true,
               ),
             );
@@ -173,41 +102,72 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         BlocListener<SourcesFilterBloc, SourcesFilterState>(
           listenWhen: (previous, current) =>
+              previous.searchQuery != current.searchQuery ||
+              previous.selectedStatus != current.selectedStatus ||
               !const DeepCollectionEquality().equals(
-                _buildFilterMap(
-                  searchQuery: previous.searchQuery,
-                  selectedStatus: previous.selectedStatus,
-                  searchField: 'name',
-                  selectedSourceTypes: previous.selectedSourceTypes,
-                  selectedLanguageCodes: previous.selectedLanguageCodes,
-                  selectedHeadquartersCountryIds:
-                      previous.selectedHeadquartersCountryIds,
-                ),
-                _buildFilterMap(
-                  searchQuery: current.searchQuery,
-                  selectedStatus: current.selectedStatus,
-                  searchField: 'name',
-                  selectedSourceTypes: current.selectedSourceTypes,
-                  selectedLanguageCodes: current.selectedLanguageCodes,
-                  selectedHeadquartersCountryIds:
-                      current.selectedHeadquartersCountryIds,
-                ),
+                previous.selectedSourceTypes,
+                current.selectedSourceTypes,
+              ) ||
+              !const DeepCollectionEquality().equals(
+                previous.selectedLanguageCodes,
+                current.selectedLanguageCodes,
+              ) ||
+              !const DeepCollectionEquality().equals(
+                previous.selectedHeadquartersCountryIds,
+                current.selectedHeadquartersCountryIds,
               ),
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadSourcesRequested(
-                filter: _buildFilterMap(
-                  searchQuery: state.searchQuery,
-                  selectedStatus: state.selectedStatus,
-                  searchField: 'name',
-                  selectedSourceTypes: state.selectedSourceTypes,
-                  selectedLanguageCodes: state.selectedLanguageCodes,
-                  selectedHeadquartersCountryIds:
-                      state.selectedHeadquartersCountryIds,
-                ),
+                filter: context
+                    .read<ContentManagementBloc>()
+                    .buildSourcesFilterMap(state),
                 forceRefresh: true,
               ),
             );
+          },
+        ),
+        BlocListener<ContentManagementBloc, ContentManagementState>(
+          listenWhen: (previous, current) =>
+              previous.snackbarMessage != current.snackbarMessage &&
+              current.snackbarMessage != null,
+          listener: (context, state) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.snackbarMessage!),
+                  action: SnackBarAction(
+                    label: l10n.undo,
+                    onPressed: () {
+                      final activeTab = state.activeTab;
+                      final lastPendingDeletionId = state.lastPendingDeletionId;
+                      if (lastPendingDeletionId != null) {
+                        switch (activeTab) {
+                          case ContentManagementTab.headlines:
+                            context.read<ContentManagementBloc>().add(
+                                  UndoDeleteHeadlineRequested(
+                                    lastPendingDeletionId,
+                                  ),
+                                );
+                          case ContentManagementTab.topics:
+                            context.read<ContentManagementBloc>().add(
+                                  UndoDeleteTopicRequested(
+                                    lastPendingDeletionId,
+                                  ),
+                                );
+                          case ContentManagementTab.sources:
+                            context.read<ContentManagementBloc>().add(
+                                  UndoDeleteSourceRequested(
+                                    lastPendingDeletionId,
+                                  ),
+                                );
+                        }
+                      }
+                    },
+                  ),
+                ),
+              );
           },
         ),
       ],
@@ -250,7 +210,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           actions: [
             IconButton(
               icon: const Icon(Icons.filter_list),
-              tooltip: l10n.filter, // Assuming l10n.filter exists
+              tooltip: l10n.filter,
               onPressed: () {
                 final contentManagementBloc = context
                     .read<ContentManagementBloc>();
@@ -269,6 +229,9 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                   'topicsRepository': topicsRepository,
                   'countriesRepository': countriesRepository,
                   'languagesRepository': languagesRepository,
+                  'headlinesFilterState': context.read<HeadlinesFilterBloc>().state,
+                  'topicsFilterState': context.read<TopicsFilterBloc>().state,
+                  'sourcesFilterState': context.read<SourcesFilterBloc>().state,
                 };
 
                 // Push the filter dialog as a new route
