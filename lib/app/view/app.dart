@@ -123,10 +123,22 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
+            create: (context) => HeadlinesFilterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => TopicsFilterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => SourcesFilterBloc(),
+          ),
+          BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
+              headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
+              topicsFilterBloc: context.read<TopicsFilterBloc>(),
+              sourcesFilterBloc: context.read<SourcesFilterBloc>(),
             ),
           ),
           BlocProvider(
@@ -137,15 +149,6 @@ class App extends StatelessWidget {
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
             ),
-          ),
-          BlocProvider(
-            create: (context) => HeadlinesFilterBloc(),
-          ),
-          BlocProvider(
-            create: (context) => TopicsFilterBloc(),
-          ),
-          BlocProvider(
-            create: (context) => SourcesFilterBloc(),
           ),
         ],
         child: _AppView(
