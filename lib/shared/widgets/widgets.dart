@@ -1,3 +1,2 @@
 export 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 export 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
-export 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/user_navigation_rail_footer.dart';
