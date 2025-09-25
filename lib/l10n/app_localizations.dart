@@ -986,6 +986,12 @@ abstract class AppLocalizations {
   /// **'Select the application language.'**
   String get languageDescription;
 
+  /// Tooltip for the edit button
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
   /// Option for English language
   ///
   /// In en, this message translates to:

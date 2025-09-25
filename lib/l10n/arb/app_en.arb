@@ -622,6 +622,10 @@
   "@languageDescription": {
     "description": "Description for language setting"
   },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Tooltip for the edit button"
+  },
   "englishLanguage": "English",
   "@englishLanguage": {
     "description": "Option for English language"

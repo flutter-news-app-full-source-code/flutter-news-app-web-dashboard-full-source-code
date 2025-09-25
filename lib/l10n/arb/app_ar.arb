@@ -1791,5 +1791,9 @@
   "searchBySourceName": "البحث باسم المصدر...",
   "@searchBySourceName": {
     "description": "نص تلميح حقل البحث عن المصادر."
+  },
+  "edit": "تعديل",
+  "@edit": {
+    "description": "Tooltip for the edit button"
   }
 }

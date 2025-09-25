@@ -522,6 +522,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get languageDescription => 'اختر لغة التطبيق.';
 
   @override
+  String get edit => 'تعديل';
+
+  @override
   String get englishLanguage => 'الإنجليزية';
 
   @override
