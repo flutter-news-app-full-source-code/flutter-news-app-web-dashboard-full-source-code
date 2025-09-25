@@ -93,10 +93,16 @@ abstract final class Routes {
   static const String settingsName = 'settings';
 
   /// The path for the generic searchable selection page.
-  static const String searchableSelection = '/searchable-selection';
+  static const String searchableSelection = 'searchable-selection';
 
   /// The name for the generic searchable selection page route.
   static const String searchableSelectionName = 'searchableSelection';
+
+  /// The path for the filter dialog.
+  static const String filterDialog = 'filter-dialog';
+
+  /// The name for the filter dialog route.
+  static const String filterDialogName = 'filterDialog';
 
   /// The path for the local ads management page.
   static const String localAdsManagement = '/local-ads-management';
