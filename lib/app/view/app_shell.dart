@@ -78,7 +78,7 @@ class AppShell extends StatelessWidget {
         trailingNavRail: Builder(
           builder: (context) {
             final isExtended =
-                Breakpoints.mediumLarge.isActive(context) ||
+                Breakpoints.mediumLargeAndUp.isActive(context) ||
                 Breakpoints.small.isActive(context);
             return Expanded(
               child: Padding(
