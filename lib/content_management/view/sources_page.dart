@@ -39,6 +39,15 @@ class _SourcesPageState extends State<SourcesPage> {
     );
   }
 
+  /// Checks if any filters are currently active in the SourcesFilterBloc.
+  bool _areFiltersActive(SourcesFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedStatus != ContentStatus.active ||
+        state.selectedSourceTypes.isNotEmpty ||
+        state.selectedLanguageCodes.isNotEmpty ||
+        state.selectedHeadquartersCountryIds.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -46,6 +55,9 @@ class _SourcesPageState extends State<SourcesPage> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
+          final sourcesFilterState = context.watch<SourcesFilterBloc>().state;
+          final filtersActive = _areFiltersActive(sourcesFilterState);
+
           if (state.sourcesStatus == ContentManagementStatus.loading &&
               state.sources.isEmpty) {
             return LoadingStateWidget(
@@ -73,6 +85,29 @@ class _SourcesPageState extends State<SourcesPage> {
           }
 
           if (state.sources.isEmpty) {
+            if (filtersActive) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.noResultsWithCurrentFilters,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<SourcesFilterBloc>().add(
+                              const SourcesFilterReset(),
+                            );
+                      },
+                      child: Text(l10n.resetFiltersButtonText),
+                    ),
+                  ],
+                ),
+              );
+            }
             return Center(child: Text(l10n.noSourcesFound));
           }
 
