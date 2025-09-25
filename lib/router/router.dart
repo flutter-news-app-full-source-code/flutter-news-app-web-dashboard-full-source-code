@@ -10,16 +10,13 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/archived_headlines_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/archived_sources_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/archived_topics_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/content_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_topic_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_headlines_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_sources_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/draft_topics_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
@@ -170,7 +167,22 @@ GoRouter createRouter({
               GoRoute(
                 path: Routes.contentManagement,
                 name: Routes.contentManagementName,
-                builder: (context, state) => const ContentManagementPage(),
+                builder: (context, state) {
+                  return MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => HeadlinesFilterBloc(),
+                      ),
+                      BlocProvider(
+                        create: (context) => TopicsFilterBloc(),
+                      ),
+                      BlocProvider(
+                        create: (context) => SourcesFilterBloc(),
+                      ),
+                    ],
+                    child: const ContentManagementPage(),
+                  );
+                },
                 routes: [
                   // The create/edit routes are now direct children of
                   // content-management, so navigating back will always land on
@@ -213,36 +225,6 @@ GoRouter createRouter({
                       final sourceId = state.pathParameters['id']!;
                       return EditSourcePage(sourceId: sourceId);
                     },
-                  ),
-                  GoRoute(
-                    path: Routes.archivedHeadlines,
-                    name: Routes.archivedHeadlinesName,
-                    builder: (context, state) => const ArchivedHeadlinesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.archivedTopics,
-                    name: Routes.archivedTopicsName,
-                    builder: (context, state) => const ArchivedTopicsPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.archivedSources,
-                    name: Routes.archivedSourcesName,
-                    builder: (context, state) => const ArchivedSourcesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.draftHeadlines,
-                    name: Routes.draftHeadlinesName,
-                    builder: (context, state) => const DraftHeadlinesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.draftSources,
-                    name: Routes.draftSourcesName,
-                    builder: (context, state) => const DraftSourcesPage(),
-                  ),
-                  GoRoute(
-                    path: Routes.draftTopics,
-                    name: Routes.draftTopicsName,
-                    builder: (context, state) => const DraftTopicsPage(),
                   ),
                   // Moved searchableSelection as a sub-route of content-management
                   GoRoute(
