@@ -11,27 +11,53 @@ class SourcesFilterState extends Equatable {
   const SourcesFilterState({
     this.searchQuery = '',
     // Default to showing only active items.
-    this.selectedStatuses = const {ContentStatus.active},
+    this.selectedStatus = ContentStatus.active,
+    this.selectedSourceTypes = const [],
+    this.selectedLanguageCodes = const [],
+    this.selectedHeadquartersCountryIds = const [],
   });
 
   /// The current text in the search query field.
   final String searchQuery;
 
-  /// The set of content statuses to be included in the filter.
-  final Set<ContentStatus> selectedStatuses;
+  /// The single content status to be included in the filter.
+  final ContentStatus selectedStatus;
+
+  /// The list of source types to be included in the filter.
+  final List<SourceType> selectedSourceTypes;
+
+  /// The list of language codes to be included in the filter.
+  final List<String> selectedLanguageCodes;
+
+  /// The list of headquarters country IDs to be included in the filter.
+  final List<String> selectedHeadquartersCountryIds;
 
   /// Creates a copy of this state with the given fields replaced with the
   /// new values.
   SourcesFilterState copyWith({
     String? searchQuery,
-    Set<ContentStatus>? selectedStatuses,
+    ContentStatus? selectedStatus,
+    List<SourceType>? selectedSourceTypes,
+    List<String>? selectedLanguageCodes,
+    List<String>? selectedHeadquartersCountryIds,
   }) {
     return SourcesFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedStatuses: selectedStatuses ?? this.selectedStatuses,
+      selectedStatus: selectedStatus ?? this.selectedStatus,
+      selectedSourceTypes: selectedSourceTypes ?? this.selectedSourceTypes,
+      selectedLanguageCodes:
+          selectedLanguageCodes ?? this.selectedLanguageCodes,
+      selectedHeadquartersCountryIds:
+          selectedHeadquartersCountryIds ?? this.selectedHeadquartersCountryIds,
     );
   }
 
   @override
-  List<Object> get props => [searchQuery, selectedStatuses];
+  List<Object> get props => [
+    searchQuery,
+    selectedStatus,
+    selectedSourceTypes,
+    selectedLanguageCodes,
+    selectedHeadquartersCountryIds,
+  ];
 }
