@@ -1441,4 +1441,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectHeadquarters => 'اختر المقر الرئيسي';
+
+  @override
+  String get resetFiltersButtonText => 'إعادة تعيين الفلاتر';
+
+  @override
+  String get noResultsWithCurrentFilters =>
+      'لم يتم العثور على نتائج باستخدام الفلاتر الحالية. حاول إعادة تعيينها.';
 }

@@ -1827,5 +1827,13 @@
   "edit": "تعديل",
   "@edit": {
     "description": "Tooltip for the edit button"
+  },
+  "resetFiltersButtonText": "إعادة تعيين الفلاتر",
+  "@resetFiltersButtonText": {
+    "description": "Text for the button to reset filters to their default state."
+  },
+  "noResultsWithCurrentFilters": "لم يتم العثور على نتائج باستخدام الفلاتر الحالية. حاول إعادة تعيينها.",
+  "@noResultsWithCurrentFilters": {
+    "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
   }
 }

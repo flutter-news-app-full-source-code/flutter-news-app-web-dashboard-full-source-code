@@ -1823,5 +1823,13 @@
   "selectHeadquarters": "Select Headquarters",
   "@selectHeadquarters": {
     "description": "Hint text for selecting headquarters in a filter dialog."
+  },
+  "resetFiltersButtonText": "Reset Filters",
+  "@resetFiltersButtonText": {
+    "description": "Text for the button to reset filters to their default state."
+  },
+  "noResultsWithCurrentFilters": "No results found with current filters. Try resetting them.",
+  "@noResultsWithCurrentFilters": {
+    "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
   }
 }

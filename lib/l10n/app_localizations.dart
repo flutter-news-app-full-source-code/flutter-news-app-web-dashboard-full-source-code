@@ -2701,6 +2701,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Headquarters'**
   String get selectHeadquarters;
+
+  /// Text for the button to reset filters to their default state.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Filters'**
+  String get resetFiltersButtonText;
+
+  /// Message displayed when no results are found due to active filters, prompting the user to reset them.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found with current filters. Try resetting them.'**
+  String get noResultsWithCurrentFilters;
 }
 
 class _AppLocalizationsDelegate

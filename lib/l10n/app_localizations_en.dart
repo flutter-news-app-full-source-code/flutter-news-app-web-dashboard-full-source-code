@@ -1446,4 +1446,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectHeadquarters => 'Select Headquarters';
+
+  @override
+  String get resetFiltersButtonText => 'Reset Filters';
+
+  @override
+  String get noResultsWithCurrentFilters =>
+      'No results found with current filters. Try resetting them.';
 }
