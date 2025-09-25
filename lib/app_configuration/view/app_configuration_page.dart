@@ -53,7 +53,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             ),
             const SizedBox(
               width: AppSpacing.sm,
-            ), // Spacing between title and icon
+            ),
             AboutIcon(
               dialogTitle: l10n.appConfigurationPageTitle,
               dialogDescription: l10n.appConfigurationPageDescription,

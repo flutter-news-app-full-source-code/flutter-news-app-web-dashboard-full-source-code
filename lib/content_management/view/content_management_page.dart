@@ -1,4 +1,4 @@
-import 'package:collection/collection.dart'; // For deep equality check on filter maps
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -184,7 +184,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               Text(l10n.contentManagement),
               const SizedBox(
                 width: AppSpacing.sm,
-              ), // Spacing between title and icon
+              ),
               AboutIcon(
                 dialogTitle: l10n.contentManagement,
                 dialogDescription: l10n.contentManagementPageDescription,

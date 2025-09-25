@@ -31,9 +31,9 @@ class SelectionPageArguments extends Equatable {
     this.sortOptions,
     this.limit,
     this.staticItems,
-    this.initialSelectedItems, // Changed to List<Object>?
+    this.initialSelectedItems,
     this.includeInactiveSelectedItem = false,
-    this.isMultiSelect = false, // New parameter
+    this.isMultiSelect = false,
   }) : assert(
          (repository != null &&
                  filterBuilder != null &&
@@ -81,7 +81,7 @@ class SelectionPageArguments extends Equatable {
 
   /// The items that are initially selected when the page opens.
   /// The items are of type [Object] and must be cast to [itemType] before use.
-  final List<Object>? initialSelectedItems; // Changed to List<Object>?
+  final List<Object>? initialSelectedItems;
 
   /// If true, the [initialSelectedItems] will be included in the fetched results
   /// even if they do not match the current filter criteria (e.g., if they are
@@ -91,7 +91,7 @@ class SelectionPageArguments extends Equatable {
 
   /// If true, the selection page will allow multiple items to be selected.
   /// Defaults to false for single selection.
-  final bool isMultiSelect; // New parameter
+  final bool isMultiSelect;
 
   @override
   List<Object?> get props => [
@@ -104,8 +104,8 @@ class SelectionPageArguments extends Equatable {
     sortOptions,
     limit,
     staticItems,
-    initialSelectedItems, // Updated
+    initialSelectedItems,
     includeInactiveSelectedItem,
-    isMultiSelect, // New parameter
+    isMultiSelect,
   ];
 }

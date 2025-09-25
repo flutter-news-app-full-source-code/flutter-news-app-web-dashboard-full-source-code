@@ -129,7 +129,7 @@ class _SearchableSelectionViewState extends State<_SearchableSelectionView> {
           if (widget.arguments.isMultiSelect)
             IconButton(
               icon: const Icon(Icons.check),
-              tooltip: l10n.apply, // Assuming l10n.apply exists
+              tooltip: l10n.apply,
               onPressed: () {
                 // Return the locally managed selected items.
                 Navigator.of(context).pop(_tempSelectedItems);

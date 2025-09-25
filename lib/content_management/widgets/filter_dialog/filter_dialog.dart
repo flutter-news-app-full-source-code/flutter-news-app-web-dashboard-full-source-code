@@ -389,7 +389,7 @@ class _FilterDialogState extends State<FilterDialog> {
           ],
         );
       case ContentManagementTab.topics:
-        return const SizedBox.shrink(); // No additional filters for topics
+        return const SizedBox.shrink();
       case ContentManagementTab.sources:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

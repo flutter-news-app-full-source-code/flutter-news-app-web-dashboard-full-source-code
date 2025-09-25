@@ -26,15 +26,15 @@ class SearchableSelectionInput<T> extends StatefulWidget {
     required this.itemBuilder,
     required this.itemToString,
     required this.onChanged,
-    this.selectedItems, // Changed to List<T>?
+    this.selectedItems,
     this.repository,
     this.filterBuilder,
     this.sortOptions,
     this.limit,
     this.staticItems,
     this.includeInactiveSelectedItem = false,
-    this.isMultiSelect = false, // New parameter
-    this.hintText, // New parameter
+    this.isMultiSelect = false,
+    this.hintText,
     super.key,
   }) : assert(
          (repository != null &&
@@ -49,7 +49,7 @@ class SearchableSelectionInput<T> extends StatefulWidget {
   final String label;
 
   /// The currently selected item(s).
-  final List<T>? selectedItems; // Changed to List<T>?
+  final List<T>? selectedItems;
 
   /// If true, the [selectedItems] will be included in the fetched results
   /// even if they do not match the current filter criteria (e.g., if they are
@@ -66,7 +66,7 @@ class SearchableSelectionInput<T> extends StatefulWidget {
   final String Function(T item) itemToString;
 
   /// Callback when item(s) are selected or cleared.
-  final ValueChanged<List<T>?> onChanged; // Changed to ValueChanged<List<T>?>
+  final ValueChanged<List<T>?> onChanged;
 
   /// The [DataRepository] to use for fetching items (if not using static items).
   /// The generic type of the repository must match [T].
@@ -175,7 +175,7 @@ class _SearchableSelectionInputState<T>
     if (result != null) {
       widget.onChanged(result.cast<T>());
     } else {
-      widget.onChanged(null); // Clear selection if nothing was chosen
+      widget.onChanged(null);
     }
   }
 
@@ -187,7 +187,7 @@ class _SearchableSelectionInputState<T>
       readOnly: true,
       decoration: InputDecoration(
         labelText: widget.label,
-        hintText: widget.hintText, // Use new hintText parameter
+        hintText: widget.hintText,
         border: Theme.of(context).inputDecorationTheme.border,
         suffixIcon: IconButton(
           icon: const Icon(Icons.arrow_drop_down),

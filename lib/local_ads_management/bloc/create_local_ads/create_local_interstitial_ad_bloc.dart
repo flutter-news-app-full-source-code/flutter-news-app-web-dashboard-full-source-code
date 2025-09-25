@@ -53,7 +53,7 @@ class CreateLocalInterstitialAdBloc
         targetUrl: state.targetUrl,
         createdAt: now,
         updatedAt: now,
-        status: ContentStatus.active, // Set status to active on creation
+        status: ContentStatus.active,
       );
 
       await _localAdsRepository.create(item: newLocalInterstitialAd);

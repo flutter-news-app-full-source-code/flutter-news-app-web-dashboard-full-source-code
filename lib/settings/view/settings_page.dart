@@ -66,7 +66,7 @@ class _SettingsViewState extends State<_SettingsView> {
             Text(l10n.settings),
             const SizedBox(
               width: AppSpacing.sm,
-            ), // Spacing between title and icon
+            ),
             AboutIcon(
               dialogTitle: l10n.settings,
               dialogDescription: l10n.settingsPageDescription,

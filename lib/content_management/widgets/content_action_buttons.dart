@@ -47,7 +47,7 @@ class ContentActionButtons extends StatelessWidget {
       itemId = (item as Source).id;
       status = (item as Source).status;
     } else {
-      return const SizedBox.shrink(); // Should not happen with current FeedItem types
+      return const SizedBox.shrink();
     }
 
     // Action 1: Edit (always visible as the first action)
