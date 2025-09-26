@@ -29,6 +29,7 @@ class CreateLocalNativeAdState extends Equatable {
     this.targetUrl = '',
     this.exception,
     this.createdLocalNativeAd,
+    this.contentStatus = ContentStatus.draft,
   });
 
   /// The current status of the form submission.
@@ -52,6 +53,9 @@ class CreateLocalNativeAdState extends Equatable {
   /// The local native ad created upon successful submission.
   final LocalNativeAd? createdLocalNativeAd;
 
+  /// The content status of the ad (draft or active).
+  final ContentStatus contentStatus;
+
   /// Returns true if the form is valid, false otherwise.
   bool get isFormValid =>
       title.isNotEmpty &&
@@ -68,6 +72,7 @@ class CreateLocalNativeAdState extends Equatable {
     String? targetUrl,
     HttpException? exception,
     LocalNativeAd? createdLocalNativeAd,
+    ContentStatus? contentStatus,
   }) {
     return CreateLocalNativeAdState(
       status: status ?? this.status,
@@ -77,6 +82,7 @@ class CreateLocalNativeAdState extends Equatable {
       targetUrl: targetUrl ?? this.targetUrl,
       exception: exception ?? this.exception,
       createdLocalNativeAd: createdLocalNativeAd ?? this.createdLocalNativeAd,
+      contentStatus: contentStatus ?? this.contentStatus,
     );
   }
 
@@ -89,5 +95,6 @@ class CreateLocalNativeAdState extends Equatable {
     targetUrl,
     exception,
     createdLocalNativeAd,
+    contentStatus,
   ];
 }
