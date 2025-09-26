@@ -17,7 +17,8 @@ class CreateLocalVideoAdBloc
        super(const CreateLocalVideoAdState()) {
     on<CreateLocalVideoAdVideoUrlChanged>(_onVideoUrlChanged);
     on<CreateLocalVideoAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalVideoAdSubmitted>(_onSubmitted);
+    on<CreateLocalVideoAdSavedAsDraft>(_onSavedAsDraft);
+    on<CreateLocalVideoAdPublished>(_onPublished);
   }
 
   final DataRepository<LocalAd> _localAdsRepository;
@@ -37,8 +38,52 @@ class CreateLocalVideoAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  Future<void> _onSubmitted(
-    CreateLocalVideoAdSubmitted event,
+  /// Handles saving the local video ad as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateLocalVideoAdSavedAsDraft event,
+    Emitter<CreateLocalVideoAdState> emit,
+  ) async {
+    if (!state.isFormValid) return;
+
+    emit(state.copyWith(status: CreateLocalVideoAdStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newLocalVideoAd = LocalVideoAd(
+        id: _uuid.v4(),
+        videoUrl: state.videoUrl,
+        targetUrl: state.targetUrl,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      await _localAdsRepository.create(item: newLocalVideoAd);
+      emit(
+        state.copyWith(
+          status: CreateLocalVideoAdStatus.success,
+          createdLocalVideoAd: newLocalVideoAd,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalVideoAdStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalVideoAdStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the local video ad.
+  Future<void> _onPublished(
+    CreateLocalVideoAdPublished event,
     Emitter<CreateLocalVideoAdState> emit,
   ) async {
     if (!state.isFormValid) return;
