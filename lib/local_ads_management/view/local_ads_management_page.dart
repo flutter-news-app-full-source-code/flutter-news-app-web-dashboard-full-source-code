@@ -114,26 +114,6 @@ class _LocalAdsManagementPageState extends State<LocalAdsManagementPage>
                 );
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.add),
-              tooltip: l10n.addNewItem,
-              onPressed: () {
-                final currentTab = context
-                    .read<LocalAdsManagementBloc>()
-                    .state
-                    .activeTab;
-                switch (currentTab) {
-                  case LocalAdsManagementTab.native:
-                    context.goNamed(Routes.createLocalNativeAdName);
-                  case LocalAdsManagementTab.banner:
-                    context.goNamed(Routes.createLocalBannerAdName);
-                  case LocalAdsManagementTab.interstitial:
-                    context.goNamed(Routes.createLocalInterstitialAdName);
-                  case LocalAdsManagementTab.video:
-                    context.goNamed(Routes.createLocalVideoAdName);
-                }
-              },
-            ),
             const SizedBox(width: AppSpacing.md),
           ],
         ),
@@ -145,6 +125,25 @@ class _LocalAdsManagementPageState extends State<LocalAdsManagementPage>
             InterstitialAdsPage(),
             VideoAdsPage(),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            final currentTab = context
+                .read<LocalAdsManagementBloc>()
+                .state
+                .activeTab;
+            switch (currentTab) {
+              case LocalAdsManagementTab.native:
+                context.goNamed(Routes.createLocalNativeAdName);
+              case LocalAdsManagementTab.banner:
+                context.goNamed(Routes.createLocalBannerAdName);
+              case LocalAdsManagementTab.interstitial:
+                context.goNamed(Routes.createLocalInterstitialAdName);
+              case LocalAdsManagementTab.video:
+                context.goNamed(Routes.createLocalVideoAdName);
+            }
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );
