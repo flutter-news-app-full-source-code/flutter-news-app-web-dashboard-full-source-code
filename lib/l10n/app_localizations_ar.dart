@@ -1454,4 +1454,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get closeButtonText => 'إغلاق';
+
+  @override
+  String get filterLocalAds => 'تصفية الإعلانات المحلية';
+
+  @override
+  String get searchByAdTitleOrUrl => 'البحث بعنوان الإعلان أو الرابط...';
+
+  @override
+  String get adType => 'نوع الإعلان';
+
+  @override
+  String get loadingNativeAds => 'جاري تحميل الإعلانات الأصلية';
+
+  @override
+  String get noNativeAdsFound => 'لم يتم العثور على إعلانات أصلية.';
+
+  @override
+  String get loadingBannerAds => 'جاري تحميل إعلانات البانر';
+
+  @override
+  String get noBannerAdsFound => 'لم يتم العثور على إعلانات بانر.';
+
+  @override
+  String get adImageUrl => 'رابط الصورة';
+
+  @override
+  String get loadingInterstitialAds => 'جاري تحميل الإعلانات البينية';
+
+  @override
+  String get noInterstitialAdsFound => 'لم يتم العثور على إعلانات بينية.';
+
+  @override
+  String get loadingVideoAds => 'جاري تحميل إعلانات الفيديو';
+
+  @override
+  String get noVideoAdsFound => 'لم يتم العثور على إعلانات فيديو.';
+
+  @override
+  String get adVideoUrl => 'رابط الفيديو';
+
+  @override
+  String get idCopied => 'تم نسخ المعرف إلى الحافظة';
+
+  @override
+  String get copyIdTooltip => 'نسخ معرف الإعلان';
+
+  @override
+  String get saveAdTitle => 'حفظ الإعلان';
+
+  @override
+  String get saveAdMessage => 'هل تريد نشر هذا الإعلان أم حفظه كمسودة؟';
 }

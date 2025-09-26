@@ -176,7 +176,7 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                       headingRowHeight: 56,
                       dataRowHeight: 56,
                       columnSpacing: AppSpacing.sm,
-                      horizontalMargin: AppSpacing.md,
+                      horizontalMargin: AppSpacing.sm,
                     );
                   },
                 ),

@@ -18,7 +18,8 @@ class CreateLocalInterstitialAdBloc
        super(const CreateLocalInterstitialAdState()) {
     on<CreateLocalInterstitialAdImageUrlChanged>(_onImageUrlChanged);
     on<CreateLocalInterstitialAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalInterstitialAdSubmitted>(_onSubmitted);
+    on<CreateLocalInterstitialAdSavedAsDraft>(_onSavedAsDraft);
+    on<CreateLocalInterstitialAdPublished>(_onPublished);
   }
 
   final DataRepository<LocalAd> _localAdsRepository;
@@ -38,8 +39,52 @@ class CreateLocalInterstitialAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  Future<void> _onSubmitted(
-    CreateLocalInterstitialAdSubmitted event,
+  /// Handles saving the local interstitial ad as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateLocalInterstitialAdSavedAsDraft event,
+    Emitter<CreateLocalInterstitialAdState> emit,
+  ) async {
+    if (!state.isFormValid) return;
+
+    emit(state.copyWith(status: CreateLocalInterstitialAdStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newLocalInterstitialAd = LocalInterstitialAd(
+        id: _uuid.v4(),
+        imageUrl: state.imageUrl,
+        targetUrl: state.targetUrl,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      await _localAdsRepository.create(item: newLocalInterstitialAd);
+      emit(
+        state.copyWith(
+          status: CreateLocalInterstitialAdStatus.success,
+          createdLocalInterstitialAd: newLocalInterstitialAd,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalInterstitialAdStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalInterstitialAdStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the local interstitial ad.
+  Future<void> _onPublished(
+    CreateLocalInterstitialAdPublished event,
     Emitter<CreateLocalInterstitialAdState> emit,
   ) async {
     if (!state.isFormValid) return;

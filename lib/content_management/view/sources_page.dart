@@ -126,10 +126,11 @@ class _SourcesPageState extends State<SourcesPage> {
                           label: Text(l10n.sourceName),
                           size: ColumnSize.L,
                         ),
-                        DataColumn2(
-                          label: Text(l10n.sourceType),
-                          size: ColumnSize.S,
-                        ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.sourceType),
+                            size: ColumnSize.S,
+                          ),
                         DataColumn2(
                           label: Text(l10n.lastUpdated),
                           size: ColumnSize.S,
@@ -173,8 +174,8 @@ class _SourcesPageState extends State<SourcesPage> {
                       fit: FlexFit.tight,
                       headingRowHeight: 56,
                       dataRowHeight: 56,
-                      columnSpacing: AppSpacing.md,
-                      horizontalMargin: AppSpacing.md,
+                      columnSpacing: AppSpacing.sm,
+                      horizontalMargin: AppSpacing.sm,
                     );
                   },
                 ),
@@ -225,13 +226,14 @@ class _SourcesDataSource extends DataTableSource {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        DataCell(
-          Text(
-            source.sourceType.localizedName(l10n),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+        if (!isMobile)
+          DataCell(
+            Text(
+              source.sourceType.localizedName(l10n),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),

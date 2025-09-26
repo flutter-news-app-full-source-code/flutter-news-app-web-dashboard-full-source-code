@@ -16,6 +16,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
@@ -132,6 +134,9 @@ class App extends StatelessWidget {
             create: (context) => SourcesFilterBloc(),
           ),
           BlocProvider(
+            create: (context) => FilterLocalAdsBloc(),
+          ),
+          BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
@@ -139,6 +144,13 @@ class App extends StatelessWidget {
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
+              pendingDeletionsService: context.read<PendingDeletionsService>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => LocalAdsManagementBloc(
+              localAdsRepository: context.read<DataRepository<LocalAd>>(),
+              filterLocalAdsBloc: context.read<FilterLocalAdsBloc>(),
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),

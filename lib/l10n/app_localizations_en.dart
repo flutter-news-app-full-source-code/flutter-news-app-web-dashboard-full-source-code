@@ -1459,4 +1459,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get closeButtonText => 'Close';
+
+  @override
+  String get filterLocalAds => 'Filter Local Ads';
+
+  @override
+  String get searchByAdTitleOrUrl => 'Search by ad title or URL...';
+
+  @override
+  String get adType => 'Ad Type';
+
+  @override
+  String get loadingNativeAds => 'Loading Native Ads';
+
+  @override
+  String get noNativeAdsFound => 'No native ads found.';
+
+  @override
+  String get loadingBannerAds => 'Loading Banner Ads';
+
+  @override
+  String get noBannerAdsFound => 'No banner ads found.';
+
+  @override
+  String get adImageUrl => 'Image URL';
+
+  @override
+  String get loadingInterstitialAds => 'Loading Interstitial Ads';
+
+  @override
+  String get noInterstitialAdsFound => 'No interstitial ads found.';
+
+  @override
+  String get loadingVideoAds => 'Loading Video Ads';
+
+  @override
+  String get noVideoAdsFound => 'No video ads found.';
+
+  @override
+  String get adVideoUrl => 'Video URL';
+
+  @override
+  String get idCopied => 'ID copied to clipboard';
+
+  @override
+  String get copyIdTooltip => 'Copy Ad ID';
+
+  @override
+  String get saveAdTitle => 'Save Ad';
+
+  @override
+  String get saveAdMessage =>
+      'Do you want to publish this ad or save it as a draft?';
 }

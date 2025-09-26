@@ -27,6 +27,7 @@ class CreateLocalVideoAdState extends Equatable {
     this.targetUrl = '',
     this.exception,
     this.createdLocalVideoAd,
+    this.contentStatus = ContentStatus.draft,
   });
 
   /// The current status of the form submission.
@@ -44,6 +45,9 @@ class CreateLocalVideoAdState extends Equatable {
   /// The local video ad created upon successful submission.
   final LocalVideoAd? createdLocalVideoAd;
 
+  /// The content status of the ad (draft or active).
+  final ContentStatus contentStatus;
+
   /// Returns true if the form is valid, false otherwise.
   bool get isFormValid => videoUrl.isNotEmpty && targetUrl.isNotEmpty;
 
@@ -54,6 +58,7 @@ class CreateLocalVideoAdState extends Equatable {
     String? targetUrl,
     HttpException? exception,
     LocalVideoAd? createdLocalVideoAd,
+    ContentStatus? contentStatus,
   }) {
     return CreateLocalVideoAdState(
       status: status ?? this.status,
@@ -61,6 +66,7 @@ class CreateLocalVideoAdState extends Equatable {
       targetUrl: targetUrl ?? this.targetUrl,
       exception: exception ?? this.exception,
       createdLocalVideoAd: createdLocalVideoAd ?? this.createdLocalVideoAd,
+      contentStatus: contentStatus ?? this.contentStatus,
     );
   }
 
@@ -71,5 +77,6 @@ class CreateLocalVideoAdState extends Equatable {
     targetUrl,
     exception,
     createdLocalVideoAd,
+    contentStatus,
   ];
 }

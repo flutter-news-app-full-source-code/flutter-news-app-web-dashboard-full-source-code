@@ -202,7 +202,7 @@ class _ArticleAdSettingsFormState extends State<ArticleAdSettingsForm>
     return Column(
       children: [
         SwitchListTile(
-          title: Text(l10n.enableInArticleAdsForRoleLabel(role.l10n(context))),
+          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
           value: roleSlots != null,
           onChanged: (value) {
             final newVisibleTo =

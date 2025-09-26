@@ -56,21 +56,25 @@ class AppShell extends StatelessWidget {
             label: l10n.appConfiguration,
           ),
         ],
-        leadingUnextendedNavRail: const Padding(
-          padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-          child: Icon(Icons.newspaper_outlined),
+        leadingUnextendedNavRail: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+          child: Icon(
+            Icons.newspaper_outlined,
+            color: theme.colorScheme.primary,
+          ),
         ),
         leadingExtendedNavRail: Padding(
           padding: const EdgeInsets.all(AppSpacing.lg),
           child: Row(
             children: [
-              const Icon(Icons.newspaper_outlined),
+              Icon(
+                Icons.newspaper_outlined,
+                color: theme.colorScheme.primary,
+              ),
               const SizedBox(width: AppSpacing.md),
               Text(
                 l10n.dashboardTitle,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
+                style: theme.textTheme.titleLarge,
               ),
             ],
           ),

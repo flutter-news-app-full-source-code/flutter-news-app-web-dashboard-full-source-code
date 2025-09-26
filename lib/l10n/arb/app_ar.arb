@@ -1836,12 +1836,80 @@
   "@noResultsWithCurrentFilters": {
     "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
   },
-"aboutIconTooltip": "حول هذه الصفحة",
+  "aboutIconTooltip": "حول هذه الصفحة",
   "@aboutIconTooltip": {
     "description": "Tooltip for the information icon that shows page description."
   },
   "closeButtonText": "إغلاق",
   "@closeButtonText": {
     "description": "Text for the close button in a dialog."
+  },
+  "filterLocalAds": "تصفية الإعلانات المحلية",
+  "@filterLocalAds": {
+    "description": "عنوان مربع حوار التصفية عند تصفية الإعلانات المحلية."
+  },
+  "searchByAdTitleOrUrl": "البحث بعنوان الإعلان أو الرابط...",
+  "@searchByAdTitleOrUrl": {
+    "description": "نص تلميح حقل البحث عن عنوان الإعلان أو الرابط."
+  },
+  "adType": "نوع الإعلان",
+  "@adType": {
+    "description": "تسمية لفلتر نوع الإعلان."
+  },
+  "loadingNativeAds": "جاري تحميل الإعلانات الأصلية",
+  "@loadingNativeAds": {
+    "description": "عنوان حالة تحميل الإعلانات الأصلية."
+  },
+  "noNativeAdsFound": "لم يتم العثور على إعلانات أصلية.",
+  "@noNativeAdsFound": {
+    "description": "رسالة عند عدم العثور على إعلانات أصلية."
+  },
+  "loadingBannerAds": "جاري تحميل إعلانات البانر",
+  "@loadingBannerAds": {
+    "description": "عنوان حالة تحميل إعلانات البانر."
+  },
+  "noBannerAdsFound": "لم يتم العثور على إعلانات بانر.",
+  "@noBannerAdsFound": {
+    "description": "رسالة عند عدم العثور على إعلانات بانر."
+  },
+  "adImageUrl": "رابط الصورة",
+  "@adImageUrl": {
+    "description": "رأس العمود لرابط صورة الإعلان."
+  },
+  "loadingInterstitialAds": "جاري تحميل الإعلانات البينية",
+  "@loadingInterstitialAds": {
+    "description": "عنوان حالة تحميل الإعلانات البينية."
+  },
+  "noInterstitialAdsFound": "لم يتم العثور على إعلانات بينية.",
+  "@noInterstitialAdsFound": {
+    "description": "رسالة عند عدم العثور على إعلانات بينية."
+  },
+  "loadingVideoAds": "جاري تحميل إعلانات الفيديو",
+  "@loadingVideoAds": {
+    "description": "عنوان حالة تحميل إعلانات الفيديو."
+  },
+  "noVideoAdsFound": "لم يتم العثور على إعلانات فيديو.",
+  "@noVideoAdsFound": {
+    "description": "رسالة عند عدم العثور على إعلانات فيديو."
+  },
+  "adVideoUrl": "رابط الفيديو",
+  "@adVideoUrl": {
+    "description": "رأس العمود لرابط فيديو الإعلان."
+  },
+  "idCopied": "تم نسخ المعرف إلى الحافظة",
+  "@idCopied": {
+    "description": "Snackbar message displayed when an ad ID is successfully copied to the clipboard."
+  },
+  "copyIdTooltip": "نسخ معرف الإعلان",
+  "@copyIdTooltip": {
+    "description": "Tooltip for the copy ID action button."
+  },
+  "saveAdTitle": "حفظ الإعلان",
+  "@saveAdTitle": {
+    "description": "عنوان مربع الحوار الذي يطلب حفظ إعلان"
+  },
+  "saveAdMessage": "هل تريد نشر هذا الإعلان أم حفظه كمسودة؟",
+  "@saveAdMessage": {
+    "description": "رسالة مربع الحوار الذي يطلب حفظ إعلان"
   }
 }

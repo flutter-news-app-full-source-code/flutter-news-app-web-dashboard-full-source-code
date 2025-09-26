@@ -37,11 +37,20 @@ final class CreateLocalInterstitialAdTargetUrlChanged
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_interstitial_ad_submitted}
-/// Event to request submission of the new local interstitial ad.
+/// {@template create_local_interstitial_ad_saved_as_draft}
+/// Event to request saving the new local interstitial ad as a draft.
 /// {@endtemplate}
-final class CreateLocalInterstitialAdSubmitted
+final class CreateLocalInterstitialAdSavedAsDraft
     extends CreateLocalInterstitialAdEvent {
-  /// {@macro create_local_interstitial_ad_submitted}
-  const CreateLocalInterstitialAdSubmitted();
+  /// {@macro create_local_interstitial_ad_saved_as_draft}
+  const CreateLocalInterstitialAdSavedAsDraft();
+}
+
+/// {@template create_local_interstitial_ad_published}
+/// Event to request publishing the new local interstitial ad.
+/// {@endtemplate}
+final class CreateLocalInterstitialAdPublished
+    extends CreateLocalInterstitialAdEvent {
+  /// {@macro create_local_interstitial_ad_published}
+  const CreateLocalInterstitialAdPublished();
 }

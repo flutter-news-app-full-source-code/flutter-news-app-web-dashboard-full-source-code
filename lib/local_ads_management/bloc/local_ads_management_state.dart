@@ -52,7 +52,7 @@ class LocalAdsManagementState extends Equatable {
     this.videoAdsCursor,
     this.videoAdsHasMore = false,
     this.exception,
-    this.lastDeletedLocalAd,
+    this.snackbarMessage,
   });
 
   /// The currently active tab in the local ads management section.
@@ -106,11 +106,12 @@ class LocalAdsManagementState extends Equatable {
   /// Indicates if there are more video ads to load.
   final bool videoAdsHasMore;
 
-  /// The error describing an operation failure, if any.
+  /// The exception encountered during a failed operation, if any.
   final HttpException? exception;
 
-  /// The last deleted local ad, used for undo functionality.
-  final LocalAd? lastDeletedLocalAd;
+  /// The message to display in the snackbar for pending deletions or other
+  /// transient messages.
+  final String? snackbarMessage;
 
   /// Creates a copy of this [LocalAdsManagementState] with updated values.
   LocalAdsManagementState copyWith({
@@ -132,8 +133,7 @@ class LocalAdsManagementState extends Equatable {
     String? videoAdsCursor,
     bool? videoAdsHasMore,
     HttpException? exception,
-    LocalAd? lastDeletedLocalAd,
-    bool clearLastDeletedLocalAd = false,
+    String? snackbarMessage,
   }) {
     return LocalAdsManagementState(
       activeTab: activeTab ?? this.activeTab,
@@ -156,10 +156,8 @@ class LocalAdsManagementState extends Equatable {
       videoAds: videoAds ?? this.videoAds,
       videoAdsCursor: videoAdsCursor ?? this.videoAdsCursor,
       videoAdsHasMore: videoAdsHasMore ?? this.videoAdsHasMore,
-      exception: exception ?? this.exception,
-      lastDeletedLocalAd: clearLastDeletedLocalAd
-          ? null
-          : lastDeletedLocalAd ?? this.lastDeletedLocalAd,
+      exception: exception,
+      snackbarMessage: snackbarMessage,
     );
   }
 
@@ -183,6 +181,6 @@ class LocalAdsManagementState extends Equatable {
     videoAdsCursor,
     videoAdsHasMore,
     exception,
-    lastDeletedLocalAd,
+    snackbarMessage,
   ];
 }

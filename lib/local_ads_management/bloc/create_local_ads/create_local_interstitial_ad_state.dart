@@ -27,6 +27,7 @@ class CreateLocalInterstitialAdState extends Equatable {
     this.targetUrl = '',
     this.exception,
     this.createdLocalInterstitialAd,
+    this.contentStatus = ContentStatus.draft,
   });
 
   /// The current status of the form submission.
@@ -44,6 +45,9 @@ class CreateLocalInterstitialAdState extends Equatable {
   /// The local interstitial ad created upon successful submission.
   final LocalInterstitialAd? createdLocalInterstitialAd;
 
+  /// The content status of the ad (draft or active).
+  final ContentStatus contentStatus;
+
   /// Returns true if the form is valid, false otherwise.
   bool get isFormValid => imageUrl.isNotEmpty && targetUrl.isNotEmpty;
 
@@ -54,6 +58,7 @@ class CreateLocalInterstitialAdState extends Equatable {
     String? targetUrl,
     HttpException? exception,
     LocalInterstitialAd? createdLocalInterstitialAd,
+    ContentStatus? contentStatus,
   }) {
     return CreateLocalInterstitialAdState(
       status: status ?? this.status,
@@ -62,6 +67,7 @@ class CreateLocalInterstitialAdState extends Equatable {
       exception: exception ?? this.exception,
       createdLocalInterstitialAd:
           createdLocalInterstitialAd ?? this.createdLocalInterstitialAd,
+      contentStatus: contentStatus ?? this.contentStatus,
     );
   }
 
@@ -72,5 +78,6 @@ class CreateLocalInterstitialAdState extends Equatable {
     targetUrl,
     exception,
     createdLocalInterstitialAd,
+    contentStatus,
   ];
 }

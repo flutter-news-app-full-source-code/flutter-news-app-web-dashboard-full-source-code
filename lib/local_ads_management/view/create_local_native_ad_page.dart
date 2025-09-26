@@ -60,6 +60,28 @@ class _CreateLocalNativeAdViewState extends State<_CreateLocalNativeAdView> {
     super.dispose();
   }
 
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.saveAdTitle),
+        content: Text(l10n.saveAdMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -83,9 +105,22 @@ class _CreateLocalNativeAdViewState extends State<_CreateLocalNativeAdView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () => context.read<CreateLocalNativeAdBloc>().add(
-                        const CreateLocalNativeAdSubmitted(),
-                      )
+                    ? () async {
+                        final selectedStatus = await _showSaveOptionsDialog(
+                          context,
+                        );
+                        if (selectedStatus == ContentStatus.active &&
+                            context.mounted) {
+                          context.read<CreateLocalNativeAdBloc>().add(
+                            const CreateLocalNativeAdPublished(),
+                          );
+                        } else if (selectedStatus == ContentStatus.draft &&
+                            context.mounted) {
+                          context.read<CreateLocalNativeAdBloc>().add(
+                            const CreateLocalNativeAdSavedAsDraft(),
+                          );
+                        }
+                      }
                     : null,
               );
             },

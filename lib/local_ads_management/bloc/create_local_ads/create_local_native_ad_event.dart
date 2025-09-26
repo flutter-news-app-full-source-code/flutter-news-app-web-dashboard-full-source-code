@@ -66,10 +66,18 @@ final class CreateLocalNativeAdTargetUrlChanged
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_native_ad_submitted}
-/// Event to request submission of the new local native ad.
+/// {@template create_local_native_ad_saved_as_draft}
+/// Event to request saving the new local native ad as a draft.
 /// {@endtemplate}
-final class CreateLocalNativeAdSubmitted extends CreateLocalNativeAdEvent {
-  /// {@macro create_local_native_ad_submitted}
-  const CreateLocalNativeAdSubmitted();
+final class CreateLocalNativeAdSavedAsDraft extends CreateLocalNativeAdEvent {
+  /// {@macro create_local_native_ad_saved_as_draft}
+  const CreateLocalNativeAdSavedAsDraft();
+}
+
+/// {@template create_local_native_ad_published}
+/// Event to request publishing the new local native ad.
+/// {@endtemplate}
+final class CreateLocalNativeAdPublished extends CreateLocalNativeAdEvent {
+  /// {@macro create_local_native_ad_published}
+  const CreateLocalNativeAdPublished();
 }
