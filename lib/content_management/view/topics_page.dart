@@ -165,8 +165,8 @@ class _TopicPageState extends State<TopicPage> {
                       fit: FlexFit.tight,
                       headingRowHeight: 56,
                       dataRowHeight: 56,
-                      columnSpacing: AppSpacing.md,
-                      horizontalMargin: AppSpacing.md,
+                      columnSpacing: AppSpacing.sm,
+                      horizontalMargin: AppSpacing.sm,
                     );
                   },
                 ),
