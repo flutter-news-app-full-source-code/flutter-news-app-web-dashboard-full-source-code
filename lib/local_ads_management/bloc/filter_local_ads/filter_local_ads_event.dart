@@ -27,33 +27,20 @@ final class FilterLocalAdsStatusChanged extends FilterLocalAdsEvent {
   List<Object?> get props => [status];
 }
 
-/// Event to notify the BLoC that the selected ad type has changed.
-final class FilterLocalAdsAdTypeChanged extends FilterLocalAdsEvent {
-  const FilterLocalAdsAdTypeChanged(this.adType);
-
-  final AdType adType;
-
-  @override
-  List<Object?> get props => [adType];
-}
-
 /// Event to request applying all current filters.
 final class FilterLocalAdsApplied extends FilterLocalAdsEvent {
   const FilterLocalAdsApplied({
     required this.searchQuery,
     required this.selectedStatus,
-    required this.selectedAdType,
   });
 
   final String searchQuery;
   final ContentStatus selectedStatus;
-  final AdType selectedAdType;
 
   @override
   List<Object?> get props => [
     searchQuery,
     selectedStatus,
-    selectedAdType,
   ];
 }
 
