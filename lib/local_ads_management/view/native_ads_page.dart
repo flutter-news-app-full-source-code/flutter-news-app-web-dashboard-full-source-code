@@ -31,10 +31,10 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
       LoadLocalAdsRequested(
         limit: kDefaultRowsPerPage,
         filter: context.read<LocalAdsManagementBloc>().buildLocalAdsFilterMap(
-          context.read<FilterLocalAdsBloc>().state.copyWith(
-            selectedAdType: AdType.native,
-          ),
+          context.read<FilterLocalAdsBloc>().state,
+          currentAdType: AdType.native,
         ),
+        adType: AdType.native,
       ),
     );
   }
@@ -49,8 +49,7 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
           final filterLocalAdsState = context.watch<FilterLocalAdsBloc>().state;
           final filtersActive =
               filterLocalAdsState.searchQuery.isNotEmpty ||
-              filterLocalAdsState.selectedStatus != ContentStatus.active ||
-              filterLocalAdsState.selectedAdType != AdType.native;
+              filterLocalAdsState.selectedStatus != ContentStatus.active;
 
           if (state.nativeAdsStatus == LocalAdsManagementStatus.loading &&
               state.nativeAds.isEmpty) {
@@ -71,10 +70,10 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
                   filter: context
                       .read<LocalAdsManagementBloc>()
                       .buildLocalAdsFilterMap(
-                        context.read<FilterLocalAdsBloc>().state.copyWith(
-                          selectedAdType: AdType.native,
-                        ),
+                        context.read<FilterLocalAdsBloc>().state,
+                        currentAdType: AdType.native,
                       ),
+                  adType: AdType.native,
                 ),
               ),
             );
@@ -102,7 +101,6 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
                           const FilterLocalAdsApplied(
                             searchQuery: '',
                             selectedStatus: ContentStatus.active,
-                            selectedAdType: AdType.native,
                           ),
                         );
                       },
@@ -157,13 +155,10 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
                           filter: context
                               .read<LocalAdsManagementBloc>()
                               .buildLocalAdsFilterMap(
-                                context
-                                    .read<FilterLocalAdsBloc>()
-                                    .state
-                                    .copyWith(
-                                      selectedAdType: AdType.native,
-                                    ),
+                                context.read<FilterLocalAdsBloc>().state,
+                                currentAdType: AdType.native,
                               ),
+                          adType: AdType.native,
                         ),
                       );
                     }
