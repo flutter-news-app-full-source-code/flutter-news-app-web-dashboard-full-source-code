@@ -2725,6 +2725,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get closeButtonText;
+
+  /// Title for the filter dialog when filtering local ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Local Ads'**
+  String get filterLocalAds;
+
+  /// Hint text for the ad title or URL search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by ad title or URL...'**
+  String get searchByAdTitleOrUrl;
+
+  /// Label for the ad type filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Type'**
+  String get adType;
+
+  /// Headline for loading state of native ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Native Ads'**
+  String get loadingNativeAds;
+
+  /// Message when no native ads are found.
+  ///
+  /// In en, this message translates to:
+  /// **'No native ads found.'**
+  String get noNativeAdsFound;
+
+  /// Headline for loading state of banner ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Banner Ads'**
+  String get loadingBannerAds;
+
+  /// Message when no banner ads are found.
+  ///
+  /// In en, this message translates to:
+  /// **'No banner ads found.'**
+  String get noBannerAdsFound;
+
+  /// Column header for ad image URL.
+  ///
+  /// In en, this message translates to:
+  /// **'Image URL'**
+  String get adImageUrl;
+
+  /// Headline for loading state of interstitial ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Interstitial Ads'**
+  String get loadingInterstitialAds;
+
+  /// Message when no interstitial ads are found.
+  ///
+  /// In en, this message translates to:
+  /// **'No interstitial ads found.'**
+  String get noInterstitialAdsFound;
+
+  /// Headline for loading state of video ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Video Ads'**
+  String get loadingVideoAds;
+
+  /// Message when no video ads are found.
+  ///
+  /// In en, this message translates to:
+  /// **'No video ads found.'**
+  String get noVideoAdsFound;
+
+  /// Column header for ad video URL.
+  ///
+  /// In en, this message translates to:
+  /// **'Video URL'**
+  String get adVideoUrl;
 }
 
 class _AppLocalizationsDelegate
