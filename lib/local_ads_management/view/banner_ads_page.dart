@@ -1,15 +1,13 @@
 import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ad_action_buttons.dart'; // Import the new action buttons widget
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -227,64 +225,7 @@ class _BannerAdsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          Row(
-            children: [
-              // Primary action: Copy ID button
-              IconButton(
-                icon: const Icon(Icons.copy),
-                tooltip: l10n.copyId,
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: ad.id));
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.idCopiedToClipboard(ad.id)),
-                      ),
-                    );
-                },
-              ),
-              // Secondary actions: Edit and Archive via PopupMenuButton
-              PopupMenuButton<String>(
-                icon: const Icon(Icons.more_vert),
-                tooltip: l10n.moreActions,
-                onSelected: (value) {
-                  if (value == 'edit') {
-                    context.goNamed(
-                      Routes.editLocalBannerAdName,
-                      pathParameters: {'id': ad.id},
-                    );
-                  } else if (value == 'archive') {
-                    context.read<LocalAdsManagementBloc>().add(
-                      ArchiveLocalAdRequested(ad.id),
-                    );
-                  }
-                },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                    value: 'edit',
-                    child: Row(
-                      children: [
-                        const Icon(Icons.edit),
-                        const SizedBox(width: AppSpacing.sm),
-                        Text(l10n.editLocalAds),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'archive',
-                    child: Row(
-                      children: [
-                        const Icon(Icons.archive),
-                        const SizedBox(width: AppSpacing.sm),
-                        Text(l10n.archive),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          LocalAdActionButtons(item: ad, l10n: l10n), // Use the new widget
         ),
       ],
     );
