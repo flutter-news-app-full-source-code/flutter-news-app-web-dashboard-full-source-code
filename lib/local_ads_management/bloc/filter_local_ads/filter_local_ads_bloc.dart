@@ -27,7 +27,6 @@ class FilterLocalAdsBloc
       transformer: debounce(const Duration(milliseconds: 300)),
     );
     on<FilterLocalAdsStatusChanged>(_onFilterLocalAdsStatusChanged);
-    on<FilterLocalAdsAdTypeChanged>(_onFilterLocalAdsAdTypeChanged);
     on<FilterLocalAdsApplied>(_onFilterLocalAdsApplied);
     on<FilterLocalAdsReset>(_onFilterLocalAdsReset);
   }
@@ -50,16 +49,6 @@ class FilterLocalAdsBloc
     emit(state.copyWith(selectedStatus: event.status));
   }
 
-  /// Handles changes to the selected ad type.
-  ///
-  /// This updates the single selected ad type for the filter.
-  void _onFilterLocalAdsAdTypeChanged(
-    FilterLocalAdsAdTypeChanged event,
-    Emitter<FilterLocalAdsState> emit,
-  ) {
-    emit(state.copyWith(selectedAdType: event.adType));
-  }
-
   /// Handles the application of all current filter settings.
   ///
   /// This event is dispatched when the user explicitly confirms the filters
@@ -73,7 +62,6 @@ class FilterLocalAdsBloc
       state.copyWith(
         searchQuery: event.searchQuery,
         selectedStatus: event.selectedStatus,
-        selectedAdType: event.selectedAdType,
       ),
     );
   }
