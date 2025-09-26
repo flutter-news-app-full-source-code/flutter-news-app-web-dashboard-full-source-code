@@ -149,7 +149,6 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        // Replaced SegmentedButton with TabBar for role selection
         Align(
           alignment: AlignmentDirectional.centerStart,
           child: SizedBox(
