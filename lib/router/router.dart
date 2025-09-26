@@ -318,9 +318,7 @@ GoRouter createRouter({
                             fullscreenDialog: true,
                             child: BlocProvider<LocalAdsFilterDialogBloc>(
                               create: (providerContext) =>
-                                  LocalAdsFilterDialogBloc(
-                                    filterLocalAdsBloc: filterLocalAdsBloc,
-                                  )..add(
+                                  LocalAdsFilterDialogBloc()..add(
                                     LocalAdsFilterDialogInitialized(
                                       filterLocalAdsState:
                                           filterLocalAdsBloc.state,
