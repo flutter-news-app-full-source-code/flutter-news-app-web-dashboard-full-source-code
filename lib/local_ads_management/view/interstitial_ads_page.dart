@@ -31,10 +31,10 @@ class _InterstitialAdsPageState extends State<InterstitialAdsPage> {
       LoadLocalAdsRequested(
         limit: kDefaultRowsPerPage,
         filter: context.read<LocalAdsManagementBloc>().buildLocalAdsFilterMap(
-          context.read<FilterLocalAdsBloc>().state.copyWith(
-            selectedAdType: AdType.interstitial,
-          ),
+          context.read<FilterLocalAdsBloc>().state,
+          currentAdType: AdType.interstitial,
         ),
+        adType: AdType.interstitial,
       ),
     );
   }
@@ -43,8 +43,7 @@ class _InterstitialAdsPageState extends State<InterstitialAdsPage> {
   /// for the interstitial ad type.
   bool _areFiltersActive(FilterLocalAdsState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedStatus != ContentStatus.active ||
-        state.selectedAdType != AdType.interstitial;
+        state.selectedStatus != ContentStatus.active;
   }
 
   @override
@@ -76,10 +75,10 @@ class _InterstitialAdsPageState extends State<InterstitialAdsPage> {
                   filter: context
                       .read<LocalAdsManagementBloc>()
                       .buildLocalAdsFilterMap(
-                        context.read<FilterLocalAdsBloc>().state.copyWith(
-                          selectedAdType: AdType.interstitial,
-                        ),
+                        context.read<FilterLocalAdsBloc>().state,
+                        currentAdType: AdType.interstitial,
                       ),
+                  adType: AdType.interstitial,
                 ),
               ),
             );
@@ -107,7 +106,6 @@ class _InterstitialAdsPageState extends State<InterstitialAdsPage> {
                           const FilterLocalAdsApplied(
                             searchQuery: '',
                             selectedStatus: ContentStatus.active,
-                            selectedAdType: AdType.interstitial,
                           ),
                         );
                       },
@@ -163,13 +161,10 @@ class _InterstitialAdsPageState extends State<InterstitialAdsPage> {
                           filter: context
                               .read<LocalAdsManagementBloc>()
                               .buildLocalAdsFilterMap(
-                                context
-                                    .read<FilterLocalAdsBloc>()
-                                    .state
-                                    .copyWith(
-                                      selectedAdType: AdType.interstitial,
-                                    ),
+                                context.read<FilterLocalAdsBloc>().state,
+                                currentAdType: AdType.interstitial,
                               ),
+                          adType: AdType.interstitial,
                         ),
                       );
                     }
