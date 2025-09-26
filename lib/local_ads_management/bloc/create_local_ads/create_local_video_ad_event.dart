@@ -35,10 +35,18 @@ final class CreateLocalVideoAdTargetUrlChanged extends CreateLocalVideoAdEvent {
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_video_ad_submitted}
-/// Event to request submission of the new local video ad.
+/// {@template create_local_video_ad_saved_as_draft}
+/// Event to request saving the new local video ad as a draft.
 /// {@endtemplate}
-final class CreateLocalVideoAdSubmitted extends CreateLocalVideoAdEvent {
-  /// {@macro create_local_video_ad_submitted}
-  const CreateLocalVideoAdSubmitted();
+final class CreateLocalVideoAdSavedAsDraft extends CreateLocalVideoAdEvent {
+  /// {@macro create_local_video_ad_saved_as_draft}
+  const CreateLocalVideoAdSavedAsDraft();
+}
+
+/// {@template create_local_video_ad_published}
+/// Event to request publishing the new local video ad.
+/// {@endtemplate}
+final class CreateLocalVideoAdPublished extends CreateLocalVideoAdEvent {
+  /// {@macro create_local_video_ad_published}
+  const CreateLocalVideoAdPublished();
 }
