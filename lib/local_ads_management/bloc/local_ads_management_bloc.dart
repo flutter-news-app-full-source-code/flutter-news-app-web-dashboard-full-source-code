@@ -327,6 +327,14 @@ class LocalAdsManagementBloc
           exception: null,
         ),
       ); // Clear exception on success
+      // Explicitly trigger a refresh after archiving
+      add(
+        LoadLocalAdsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+        ),
+      );
     } on HttpException catch (e) {
       emit(state.copyWith(exception: e));
     } catch (e) {
@@ -365,6 +373,14 @@ class LocalAdsManagementBloc
           exception: null,
         ),
       ); // Clear exception on success
+      // Explicitly trigger a refresh after restoring
+      add(
+        LoadLocalAdsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+          filter: buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+        ),
+      );
     } on HttpException catch (e) {
       emit(state.copyWith(exception: e));
     } catch (e) {
