@@ -175,7 +175,7 @@ class LocalAdActionButtons extends StatelessWidget {
                 // Local ads are not expected to be 'published' from draft,
                 // but including for completeness.
                 context.read<LocalAdsManagementBloc>().add(
-                  ArchiveLocalAdRequested(itemId),
+                  RestoreLocalAdRequested(itemId),
                 );
               case 'copyId':
                 // Copy the ad ID to the clipboard
