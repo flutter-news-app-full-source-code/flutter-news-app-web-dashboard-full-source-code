@@ -27,14 +27,11 @@ final class LocalAdsManagementTabChanged extends LocalAdsManagementEvent {
 final class LoadLocalAdsRequested extends LocalAdsManagementEvent {
   /// {@macro load_local_ads_requested}
   const LoadLocalAdsRequested({
-    required this.adType,
     this.startAfterId,
     this.limit,
     this.forceRefresh = false,
+    this.filter,
   });
-
-  /// The type of ad to load.
-  final AdType adType;
 
   /// Optional ID to start pagination after.
   final String? startAfterId;
@@ -45,8 +42,11 @@ final class LoadLocalAdsRequested extends LocalAdsManagementEvent {
   /// If true, forces a refresh of the data, bypassing the cache.
   final bool forceRefresh;
 
+  /// Optional filter to apply to the local ads query.
+  final Map<String, dynamic>? filter;
+
   @override
-  List<Object?> get props => [adType, startAfterId, limit, forceRefresh];
+  List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
 }
 
 /// {@template archive_local_ad_requested}
@@ -54,16 +54,13 @@ final class LoadLocalAdsRequested extends LocalAdsManagementEvent {
 /// {@endtemplate}
 final class ArchiveLocalAdRequested extends LocalAdsManagementEvent {
   /// {@macro archive_local_ad_requested}
-  const ArchiveLocalAdRequested(this.id, this.adType);
+  const ArchiveLocalAdRequested(this.id);
 
   /// The ID of the local ad to archive.
   final String id;
 
-  /// The type of the local ad to archive.
-  final AdType adType;
-
   @override
-  List<Object?> get props => [id, adType];
+  List<Object?> get props => [id];
 }
 
 /// {@template restore_local_ad_requested}
@@ -71,16 +68,13 @@ final class ArchiveLocalAdRequested extends LocalAdsManagementEvent {
 /// {@endtemplate}
 final class RestoreLocalAdRequested extends LocalAdsManagementEvent {
   /// {@macro restore_local_ad_requested}
-  const RestoreLocalAdRequested(this.id, this.adType);
+  const RestoreLocalAdRequested(this.id);
 
   /// The ID of the local ad to restore.
   final String id;
 
-  /// The type of the local ad to restore.
-  final AdType adType;
-
   @override
-  List<Object?> get props => [id, adType];
+  List<Object?> get props => [id];
 }
 
 /// {@template delete_local_ad_forever_requested}
@@ -102,17 +96,21 @@ final class DeleteLocalAdForeverRequested extends LocalAdsManagementEvent {
 /// {@endtemplate}
 final class UndoDeleteLocalAdRequested extends LocalAdsManagementEvent {
   /// {@macro undo_delete_local_ad_requested}
-  const UndoDeleteLocalAdRequested();
-}
+  const UndoDeleteLocalAdRequested(this.id);
 
-/// Internal event to confirm permanent deletion after a delay.
-final class _ConfirmDeleteLocalAdRequested extends LocalAdsManagementEvent {
-  /// {@macro _confirm_delete_local_ad_requested}
-  const _ConfirmDeleteLocalAdRequested(this.id);
-
-  /// The ID of the local ad to confirm deletion for.
+  /// The ID of the local ad to undo deletion for.
   final String id;
 
   @override
   List<Object?> get props => [id];
+}
+
+/// Event received when a deletion event occurs in the PendingDeletionsService.
+final class DeletionEventReceived extends LocalAdsManagementEvent {
+  const DeletionEventReceived(this.event);
+
+  final DeletionEvent<dynamic> event;
+
+  @override
+  List<Object?> get props => [event];
 }
