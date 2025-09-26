@@ -25,7 +25,6 @@ final class FilterLocalAdsState extends Equatable {
     this.exception,
     this.searchQuery = '',
     this.selectedStatus = ContentStatus.active,
-    this.selectedAdType = AdType.native,
   });
 
   /// The current status of the filter dialog's main operations.
@@ -40,23 +39,18 @@ final class FilterLocalAdsState extends Equatable {
   /// The single content status to be included in the filter.
   final ContentStatus selectedStatus;
 
-  /// The single ad type to be included in the filter.
-  final AdType selectedAdType;
-
   /// Creates a copy of this [FilterLocalAdsState] with updated values.
   FilterLocalAdsState copyWith({
     FilterLocalAdsStatus? status,
     HttpException? exception,
     String? searchQuery,
     ContentStatus? selectedStatus,
-    AdType? selectedAdType,
   }) {
     return FilterLocalAdsState(
       status: status ?? this.status,
       exception: exception,
       searchQuery: searchQuery ?? this.searchQuery,
       selectedStatus: selectedStatus ?? this.selectedStatus,
-      selectedAdType: selectedAdType ?? this.selectedAdType,
     );
   }
 
@@ -66,6 +60,5 @@ final class FilterLocalAdsState extends Equatable {
     exception,
     searchQuery,
     selectedStatus,
-    selectedAdType,
   ];
 }
