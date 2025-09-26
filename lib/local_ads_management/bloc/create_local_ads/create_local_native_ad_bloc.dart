@@ -19,7 +19,8 @@ class CreateLocalNativeAdBloc
     on<CreateLocalNativeAdSubtitleChanged>(_onSubtitleChanged);
     on<CreateLocalNativeAdImageUrlChanged>(_onImageUrlChanged);
     on<CreateLocalNativeAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalNativeAdSubmitted>(_onSubmitted);
+    on<CreateLocalNativeAdSavedAsDraft>(_onSavedAsDraft);
+    on<CreateLocalNativeAdPublished>(_onPublished);
   }
 
   final DataRepository<LocalAd> _localAdsRepository;
@@ -53,8 +54,54 @@ class CreateLocalNativeAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  Future<void> _onSubmitted(
-    CreateLocalNativeAdSubmitted event,
+  /// Handles saving the local native ad as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateLocalNativeAdSavedAsDraft event,
+    Emitter<CreateLocalNativeAdState> emit,
+  ) async {
+    if (!state.isFormValid) return;
+
+    emit(state.copyWith(status: CreateLocalNativeAdStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newLocalNativeAd = LocalNativeAd(
+        id: _uuid.v4(),
+        title: state.title,
+        subtitle: state.subtitle,
+        imageUrl: state.imageUrl,
+        targetUrl: state.targetUrl,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      await _localAdsRepository.create(item: newLocalNativeAd);
+      emit(
+        state.copyWith(
+          status: CreateLocalNativeAdStatus.success,
+          createdLocalNativeAd: newLocalNativeAd,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalNativeAdStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalNativeAdStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the local native ad.
+  Future<void> _onPublished(
+    CreateLocalNativeAdPublished event,
     Emitter<CreateLocalNativeAdState> emit,
   ) async {
     if (!state.isFormValid) return;
