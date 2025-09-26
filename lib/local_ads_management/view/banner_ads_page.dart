@@ -31,10 +31,10 @@ class _BannerAdsPageState extends State<BannerAdsPage> {
       LoadLocalAdsRequested(
         limit: kDefaultRowsPerPage,
         filter: context.read<LocalAdsManagementBloc>().buildLocalAdsFilterMap(
-          context.read<FilterLocalAdsBloc>().state.copyWith(
-            selectedAdType: AdType.banner,
-          ),
+          context.read<FilterLocalAdsBloc>().state,
+          currentAdType: AdType.banner,
         ),
+        adType: AdType.banner,
       ),
     );
   }
@@ -43,8 +43,7 @@ class _BannerAdsPageState extends State<BannerAdsPage> {
   /// for the banner ad type.
   bool _areFiltersActive(FilterLocalAdsState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedStatus != ContentStatus.active ||
-        state.selectedAdType != AdType.banner;
+        state.selectedStatus != ContentStatus.active;
   }
 
   @override
@@ -76,10 +75,10 @@ class _BannerAdsPageState extends State<BannerAdsPage> {
                   filter: context
                       .read<LocalAdsManagementBloc>()
                       .buildLocalAdsFilterMap(
-                        context.read<FilterLocalAdsBloc>().state.copyWith(
-                          selectedAdType: AdType.banner,
-                        ),
+                        context.read<FilterLocalAdsBloc>().state,
+                        currentAdType: AdType.banner,
                       ),
+                  adType: AdType.banner,
                 ),
               ),
             );
@@ -106,7 +105,6 @@ class _BannerAdsPageState extends State<BannerAdsPage> {
                           const FilterLocalAdsApplied(
                             searchQuery: '',
                             selectedStatus: ContentStatus.active,
-                            selectedAdType: AdType.banner,
                           ),
                         );
                       },
@@ -161,13 +159,10 @@ class _BannerAdsPageState extends State<BannerAdsPage> {
                           filter: context
                               .read<LocalAdsManagementBloc>()
                               .buildLocalAdsFilterMap(
-                                context
-                                    .read<FilterLocalAdsBloc>()
-                                    .state
-                                    .copyWith(
-                                      selectedAdType: AdType.banner,
-                                    ),
+                                context.read<FilterLocalAdsBloc>().state,
+                                currentAdType: AdType.banner,
                               ),
+                          adType: AdType.banner,
                         ),
                       );
                     }
