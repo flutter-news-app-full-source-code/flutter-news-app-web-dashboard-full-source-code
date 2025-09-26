@@ -9,6 +9,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/video_ads_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -87,7 +88,19 @@ class _LocalAdsManagementPageState extends State<LocalAdsManagementPage>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.localAdsManagementTitle),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.localAdManagementTitle),
+              const SizedBox(
+                width: AppSpacing.xs,
+              ),
+              AboutIcon(
+                dialogTitle: l10n.aboutIconTooltip,
+                dialogDescription: l10n.localAdManagementDescription,
+              ),
+            ],
+          ),
           bottom: TabBar(
             controller: _tabController,
             tabAlignment: TabAlignment.start,
