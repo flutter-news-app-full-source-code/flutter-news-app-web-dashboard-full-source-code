@@ -1498,4 +1498,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adVideoUrl => 'Video URL';
+
+  @override
+  String get idCopied => 'ID copied to clipboard';
+
+  @override
+  String get copyIdTooltip => 'Copy Ad ID';
 }

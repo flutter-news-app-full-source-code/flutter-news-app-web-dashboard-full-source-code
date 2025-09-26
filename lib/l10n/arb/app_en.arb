@@ -1891,5 +1891,13 @@
   "adVideoUrl": "Video URL",
   "@adVideoUrl": {
     "description": "Column header for ad video URL."
+  },
+  "idCopied": "ID copied to clipboard",
+  "@idCopied": {
+    "description": "Snackbar message displayed when an ad ID is successfully copied to the clipboard."
+  },
+  "copyIdTooltip": "Copy Ad ID",
+  "@copyIdTooltip": {
+    "description": "Tooltip for the copy ID action button."
   }
 }

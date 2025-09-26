@@ -2803,6 +2803,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Video URL'**
   String get adVideoUrl;
+
+  /// Snackbar message displayed when an ad ID is successfully copied to the clipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'ID copied to clipboard'**
+  String get idCopied;
+
+  /// Tooltip for the copy ID action button.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Ad ID'**
+  String get copyIdTooltip;
 }
 
 class _AppLocalizationsDelegate

@@ -1493,4 +1493,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adVideoUrl => 'رابط الفيديو';
+
+  @override
+  String get idCopied => 'تم نسخ المعرف إلى الحافظة';
+
+  @override
+  String get copyIdTooltip => 'نسخ معرف الإعلان';
 }

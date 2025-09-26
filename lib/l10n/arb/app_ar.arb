@@ -1836,11 +1836,11 @@
   "@noResultsWithCurrentFilters": {
     "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
   },
-"aboutIconTooltip": "حول هذه الصفحة",
+  "aboutIconTooltip": "حول هذه الصفحة",
   "@aboutIconTooltip": {
     "description": "Tooltip for the information icon that shows page description."
   },
-"closeButtonText": "إغلاق",
+  "closeButtonText": "إغلاق",
   "@closeButtonText": {
     "description": "Text for the close button in a dialog."
   },
@@ -1895,5 +1895,13 @@
   "adVideoUrl": "رابط الفيديو",
   "@adVideoUrl": {
     "description": "رأس العمود لرابط فيديو الإعلان."
+  },
+  "idCopied": "تم نسخ المعرف إلى الحافظة",
+  "@idCopied": {
+    "description": "Snackbar message displayed when an ad ID is successfully copied to the clipboard."
+  },
+  "copyIdTooltip": "نسخ معرف الإعلان",
+  "@copyIdTooltip": {
+    "description": "Tooltip for the copy ID action button."
   }
 }
