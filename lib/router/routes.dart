@@ -110,11 +110,11 @@ abstract final class Routes {
   /// The name for the local ads management page route.
   static const String localAdsManagementName = 'localAdsManagement';
 
-  /// The path for the archived local ads page.
-  static const String archivedLocalAds = 'archived-local-ads';
+  /// The path for the generic searchable selection page.
+  static const String localAdsFilterDialog = 'local-ads-filter-dialog';
 
-  /// The name for the archived local ads page route.
-  static const String archivedLocalAdsName = 'archivedLocalAds';
+  /// The name for the generic searchable selection page route.
+  static const String localAdsFilterDialogName = 'localAdsFilterDialog';
 
   /// The path for creating a new local native ad.
   static const String createLocalNativeAd = 'create-local-native-ad';

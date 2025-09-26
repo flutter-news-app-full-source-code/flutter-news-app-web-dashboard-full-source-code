@@ -25,7 +25,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/archived_local_ads_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_banner_ad_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_interstitial_ad_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_native_ad_page.dart';
@@ -35,6 +35,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/edit_local_native_ad_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/edit_local_video_ad_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/local_ads_management_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/bloc/local_ads_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/local_ads_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
@@ -305,10 +307,31 @@ GoRouter createRouter({
                     builder: (context, state) => const LocalAdsManagementPage(),
                     routes: [
                       GoRoute(
-                        path: Routes.archivedLocalAds,
-                        name: Routes.archivedLocalAdsName,
-                        builder: (context, state) =>
-                            const ArchivedLocalAdsPage(),
+                        path: Routes.localAdsFilterDialog,
+                        name: Routes.localAdsFilterDialogName,
+                        pageBuilder: (context, state) {
+                          final args = state.extra! as Map<String, dynamic>;
+                          final filterLocalAdsBloc =
+                              args['filterLocalAdsBloc'] as FilterLocalAdsBloc;
+
+                          return MaterialPage(
+                            fullscreenDialog: true,
+                            child: BlocProvider<LocalAdsFilterDialogBloc>(
+                              create: (providerContext) =>
+                                  LocalAdsFilterDialogBloc(
+                                    filterLocalAdsBloc: filterLocalAdsBloc,
+                                  )..add(
+                                    LocalAdsFilterDialogInitialized(
+                                      filterLocalAdsState:
+                                          filterLocalAdsBloc.state,
+                                    ),
+                                  ),
+                              child: LocalAdsFilterDialog(
+                                filterLocalAdsBloc: filterLocalAdsBloc,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       GoRoute(
                         path: Routes.createLocalNativeAd,
