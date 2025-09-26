@@ -5,15 +5,13 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/bloc/local_ads_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_type_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template local_ads_filter_dialog}
 /// A full-screen dialog for applying filters to local ads lists.
 ///
-/// This dialog provides a search text field and filter chips for content status
-/// and ad type.
+/// This dialog provides a search text field and filter chips for content status.
 /// {@endtemplate}
 class LocalAdsFilterDialog extends StatefulWidget {
   /// {@macro local_ads_filter_dialog}
@@ -80,7 +78,6 @@ class _LocalAdsFilterDialogState extends State<LocalAdsFilterDialog> {
                     FilterLocalAdsApplied(
                       searchQuery: resetState.searchQuery,
                       selectedStatus: resetState.selectedStatus,
-                      selectedAdType: resetState.selectedAdType,
                     ),
                   );
                   Navigator.of(context).pop();
@@ -94,7 +91,6 @@ class _LocalAdsFilterDialogState extends State<LocalAdsFilterDialog> {
                     FilterLocalAdsApplied(
                       searchQuery: filterDialogState.searchQuery,
                       selectedStatus: filterDialogState.selectedStatus,
-                      selectedAdType: filterDialogState.selectedAdType,
                     ),
                   );
                   Navigator.of(context).pop();
@@ -129,13 +125,6 @@ class _LocalAdsFilterDialogState extends State<LocalAdsFilterDialog> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   _buildStatusFilterChips(l10n, theme, filterDialogState),
-                  const SizedBox(height: AppSpacing.lg),
-                  Text(
-                    l10n.adType,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: AppSpacing.sm),
-                  _buildAdTypeFilterChips(l10n, theme, filterDialogState),
                 ],
               ),
             ),
@@ -173,50 +162,5 @@ class _LocalAdsFilterDialogState extends State<LocalAdsFilterDialog> {
         );
       }).toList(),
     );
-  }
-
-  /// Builds the ad type filter chips.
-  Widget _buildAdTypeFilterChips(
-    AppLocalizations l10n,
-    ThemeData theme,
-    LocalAdsFilterDialogState filterDialogState,
-  ) {
-    return Wrap(
-      spacing: AppSpacing.sm,
-      children: AdType.values.map((adType) {
-        return ChoiceChip(
-          avatar: Icon(_getAdTypeIcon(adType)),
-          label: Text(adType.l10n(context)),
-          selected: filterDialogState.selectedAdType == adType,
-          onSelected: (isSelected) {
-            if (isSelected) {
-              context.read<LocalAdsFilterDialogBloc>().add(
-                LocalAdsFilterDialogAdTypeChanged(adType),
-              );
-            }
-          },
-          selectedColor: theme.colorScheme.primaryContainer,
-          labelStyle: TextStyle(
-            color: filterDialogState.selectedAdType == adType
-                ? theme.colorScheme.onPrimaryContainer
-                : theme.colorScheme.onSurface,
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  /// Returns the appropriate icon for a given AdType.
-  IconData _getAdTypeIcon(AdType adType) {
-    switch (adType) {
-      case AdType.native:
-        return Icons.article;
-      case AdType.banner:
-        return Icons.view_carousel;
-      case AdType.interstitial:
-        return Icons.fullscreen;
-      case AdType.video:
-        return Icons.videocam;
-    }
   }
 }
