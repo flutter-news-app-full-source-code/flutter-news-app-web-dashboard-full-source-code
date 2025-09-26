@@ -39,7 +39,11 @@ class LocalAdsManagementBloc
             LoadLocalAdsRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+              filter: buildLocalAdsFilterMap(
+                _filterLocalAdsBloc.state,
+                currentAdType: _mapTabToAdType(state.activeTab),
+              ),
+              adType: _mapTabToAdType(state.activeTab),
             ),
           );
         });
@@ -49,7 +53,11 @@ class LocalAdsManagementBloc
         LoadLocalAdsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+          filter: buildLocalAdsFilterMap(
+            _filterLocalAdsBloc.state,
+            currentAdType: _mapTabToAdType(state.activeTab),
+          ),
+          adType: _mapTabToAdType(state.activeTab),
         ),
       );
     });
@@ -78,26 +86,52 @@ class LocalAdsManagementBloc
     return super.close();
   }
 
+  /// Maps a [LocalAdsManagementTab] to its corresponding [AdType].
+  AdType _mapTabToAdType(LocalAdsManagementTab tab) {
+    switch (tab) {
+      case LocalAdsManagementTab.native:
+        return AdType.native;
+      case LocalAdsManagementTab.banner:
+        return AdType.banner;
+      case LocalAdsManagementTab.interstitial:
+        return AdType.interstitial;
+      case LocalAdsManagementTab.video:
+        return AdType.video;
+    }
+  }
+
   /// Builds a filter map for local ads from the given filter state.
-  Map<String, dynamic> buildLocalAdsFilterMap(FilterLocalAdsState state) {
+  ///
+  /// [currentAdType] is used to specify the ad type for filtering.
+  Map<String, dynamic> buildLocalAdsFilterMap(
+    FilterLocalAdsState state, {
+    required AdType currentAdType,
+  }) {
     final filter = <String, dynamic>{};
 
     if (state.searchQuery.isNotEmpty) {
-      filter[r'$or'] = [
-        {
-          'title': {r'$regex': state.searchQuery, r'$options': 'i'},
-        },
-        {
-          'imageUrl': {r'$regex': state.searchQuery, r'$options': 'i'},
-        },
-        {
-          'videoUrl': {r'$regex': state.searchQuery, r'$options': 'i'},
-        },
-      ];
+      // Search only by title for native ads, imageUrl for banner/interstitial,
+      // and videoUrl for video ads.
+      switch (currentAdType) {
+        case AdType.native:
+          filter[r'$or'] = [
+            {
+              'title': {r'$regex': state.searchQuery, r'$options': 'i'},
+            },
+            {
+              'subtitle': {r'$regex': state.searchQuery, r'$options': 'i'},
+            },
+          ];
+        case AdType.banner:
+        case AdType.interstitial:
+          filter['imageUrl'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+        case AdType.video:
+          filter['videoUrl'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+      }
     }
 
     filter['status'] = state.selectedStatus.name;
-    filter['adType'] = state.selectedAdType.name;
+    filter['adType'] = currentAdType.name;
 
     return filter;
   }
@@ -114,7 +148,8 @@ class LocalAdsManagementBloc
     Emitter<LocalAdsManagementState> emit,
   ) async {
     // Determine current state and emit loading status
-    final currentFilterAdType = _filterLocalAdsBloc.state.selectedAdType;
+    final currentFilterAdType =
+        event.adType ?? _mapTabToAdType(state.activeTab);
 
     switch (currentFilterAdType) {
       case AdType.native:
@@ -163,7 +198,11 @@ class LocalAdsManagementBloc
       final isPaginating = event.startAfterId != null;
       final paginatedAds = await _localAdsRepository.readAll(
         filter:
-            event.filter ?? buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+            event.filter ??
+            buildLocalAdsFilterMap(
+              _filterLocalAdsBloc.state,
+              currentAdType: currentFilterAdType,
+            ),
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -332,7 +371,11 @@ class LocalAdsManagementBloc
         LoadLocalAdsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+          filter: buildLocalAdsFilterMap(
+            _filterLocalAdsBloc.state,
+            currentAdType: _mapTabToAdType(state.activeTab),
+          ),
+          adType: _mapTabToAdType(state.activeTab),
         ),
       );
     } on HttpException catch (e) {
@@ -378,7 +421,11 @@ class LocalAdsManagementBloc
         LoadLocalAdsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildLocalAdsFilterMap(_filterLocalAdsBloc.state),
+          filter: buildLocalAdsFilterMap(
+            _filterLocalAdsBloc.state,
+            currentAdType: _mapTabToAdType(state.activeTab),
+          ),
+          adType: _mapTabToAdType(state.activeTab),
         ),
       );
     } on HttpException catch (e) {
