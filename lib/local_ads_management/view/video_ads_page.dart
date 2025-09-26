@@ -31,10 +31,10 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
       LoadLocalAdsRequested(
         limit: kDefaultRowsPerPage,
         filter: context.read<LocalAdsManagementBloc>().buildLocalAdsFilterMap(
-          context.read<FilterLocalAdsBloc>().state.copyWith(
-            selectedAdType: AdType.video,
-          ),
+          context.read<FilterLocalAdsBloc>().state,
+          currentAdType: AdType.video,
         ),
+        adType: AdType.video,
       ),
     );
   }
@@ -43,8 +43,7 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
   /// for the video ad type.
   bool _areFiltersActive(FilterLocalAdsState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedStatus != ContentStatus.active ||
-        state.selectedAdType != AdType.video;
+        state.selectedStatus != ContentStatus.active;
   }
 
   @override
@@ -76,10 +75,10 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
                   filter: context
                       .read<LocalAdsManagementBloc>()
                       .buildLocalAdsFilterMap(
-                        context.read<FilterLocalAdsBloc>().state.copyWith(
-                          selectedAdType: AdType.video,
-                        ),
+                        context.read<FilterLocalAdsBloc>().state,
+                        currentAdType: AdType.video,
                       ),
+                  adType: AdType.video,
                 ),
               ),
             );
@@ -107,7 +106,6 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
                           const FilterLocalAdsApplied(
                             searchQuery: '',
                             selectedStatus: ContentStatus.active,
-                            selectedAdType: AdType.video,
                           ),
                         );
                       },
@@ -164,13 +162,10 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
                           filter: context
                               .read<LocalAdsManagementBloc>()
                               .buildLocalAdsFilterMap(
-                                context
-                                    .read<FilterLocalAdsBloc>()
-                                    .state
-                                    .copyWith(
-                                      selectedAdType: AdType.video,
-                                    ),
+                                context.read<FilterLocalAdsBloc>().state,
+                                currentAdType: AdType.video,
                               ),
+                          adType: AdType.video,
                         ),
                       );
                     }
