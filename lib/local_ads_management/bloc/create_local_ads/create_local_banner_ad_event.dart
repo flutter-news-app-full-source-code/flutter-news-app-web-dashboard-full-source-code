@@ -37,10 +37,18 @@ final class CreateLocalBannerAdTargetUrlChanged
   List<Object?> get props => [targetUrl];
 }
 
-/// {@template create_local_banner_ad_submitted}
-/// Event to request submission of the new local banner ad.
+/// {@template create_local_banner_ad_saved_as_draft}
+/// Event to request saving the new local banner ad as a draft.
 /// {@endtemplate}
-final class CreateLocalBannerAdSubmitted extends CreateLocalBannerAdEvent {
-  /// {@macro create_local_banner_ad_submitted}
-  const CreateLocalBannerAdSubmitted();
+final class CreateLocalBannerAdSavedAsDraft extends CreateLocalBannerAdEvent {
+  /// {@macro create_local_banner_ad_saved_as_draft}
+  const CreateLocalBannerAdSavedAsDraft();
+}
+
+/// {@template create_local_banner_ad_published}
+/// Event to request publishing the new local banner ad.
+/// {@endtemplate}
+final class CreateLocalBannerAdPublished extends CreateLocalBannerAdEvent {
+  /// {@macro create_local_banner_ad_published}
+  const CreateLocalBannerAdPublished();
 }
