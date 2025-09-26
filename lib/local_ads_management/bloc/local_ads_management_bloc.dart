@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:collection/collection.dart'; // Import for firstWhereOrNull
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart'; // Import for truncate
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -185,7 +185,7 @@ class LocalAdsManagementBloc
               ],
               nativeAdsCursor: paginatedAds.cursor,
               nativeAdsHasMore: paginatedAds.hasMore,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         case AdType.banner:
@@ -201,7 +201,7 @@ class LocalAdsManagementBloc
               ],
               bannerAdsCursor: paginatedAds.cursor,
               bannerAdsHasMore: paginatedAds.hasMore,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         case AdType.interstitial:
@@ -217,7 +217,7 @@ class LocalAdsManagementBloc
               ],
               interstitialAdsCursor: paginatedAds.cursor,
               interstitialAdsHasMore: paginatedAds.hasMore,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         case AdType.video:
@@ -231,7 +231,7 @@ class LocalAdsManagementBloc
               ],
               videoAdsCursor: paginatedAds.cursor,
               videoAdsHasMore: paginatedAds.hasMore,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
       }
@@ -326,7 +326,7 @@ class LocalAdsManagementBloc
           snackbarMessage: 'Ad archived successfully.',
           exception: null,
         ),
-      ); // Clear exception on success
+      );
       // Explicitly trigger a refresh after archiving
       add(
         LoadLocalAdsRequested(
@@ -372,7 +372,7 @@ class LocalAdsManagementBloc
           snackbarMessage: 'Ad restored successfully.',
           exception: null,
         ),
-      ); // Clear exception on success
+      );
       // Explicitly trigger a refresh after restoring
       add(
         LoadLocalAdsRequested(
@@ -442,7 +442,7 @@ class LocalAdsManagementBloc
         snackbarMessage: 'Ad "${adToDelete.id.truncate(30)}" deleted.',
         exception: null,
       ),
-    ); // Clear exception on success
+    );
 
     _pendingDeletionsService.requestDeletion(
       item: adToDelete,
@@ -473,7 +473,7 @@ class LocalAdsManagementBloc
         emit(
           state.copyWith(
             snackbarMessage: null,
-            exception: null, // Clear any previous exception
+            exception: null,
           ),
         );
       case DeletionStatus.undone:
@@ -487,7 +487,7 @@ class LocalAdsManagementBloc
             state.copyWith(
               nativeAds: updatedAds,
               snackbarMessage: null,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         } else if (item is LocalBannerAd) {
@@ -498,7 +498,7 @@ class LocalAdsManagementBloc
             state.copyWith(
               bannerAds: updatedAds,
               snackbarMessage: null,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         } else if (item is LocalInterstitialAd) {
@@ -510,7 +510,7 @@ class LocalAdsManagementBloc
             state.copyWith(
               interstitialAds: updatedAds,
               snackbarMessage: null,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         } else if (item is LocalVideoAd) {
@@ -521,7 +521,7 @@ class LocalAdsManagementBloc
             state.copyWith(
               videoAds: updatedAds,
               snackbarMessage: null,
-              exception: null, // Clear any previous exception
+              exception: null,
             ),
           );
         }

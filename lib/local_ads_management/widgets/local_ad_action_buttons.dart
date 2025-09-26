@@ -1,7 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart' show ContentActionButtons;
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'
+    show ContentActionButtons;
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
@@ -160,7 +161,7 @@ class LocalAdActionButtons extends StatelessWidget {
                 // Local ads are not expected to be 'published' from draft,
                 // but including for completeness.
                 context.read<LocalAdsManagementBloc>().add(
-                  ArchiveLocalAdRequested(itemId), // Treat publish as archive for now
+                  ArchiveLocalAdRequested(itemId),
                 );
               case 'archive':
                 context.read<LocalAdsManagementBloc>().add(

@@ -6,7 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ad_action_buttons.dart'; // Import the new action buttons widget
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ad_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -32,7 +32,7 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
         limit: kDefaultRowsPerPage,
         filter: context.read<LocalAdsManagementBloc>().buildLocalAdsFilterMap(
           context.read<FilterLocalAdsBloc>().state.copyWith(
-            selectedAdType: AdType.native, // Ensure correct ad type is set for filter
+            selectedAdType: AdType.native,
           ),
         ),
       ),
@@ -46,10 +46,11 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<LocalAdsManagementBloc, LocalAdsManagementState>(
         builder: (context, state) {
-          final filterLocalAdsState = context.watch<FilterLocalAdsBloc>().state; // Watch filter state
-          final filtersActive = filterLocalAdsState.searchQuery.isNotEmpty ||
+          final filterLocalAdsState = context.watch<FilterLocalAdsBloc>().state;
+          final filtersActive =
+              filterLocalAdsState.searchQuery.isNotEmpty ||
               filterLocalAdsState.selectedStatus != ContentStatus.active ||
-              filterLocalAdsState.selectedAdType != AdType.native; // Check filters for native ads
+              filterLocalAdsState.selectedAdType != AdType.native;
 
           if (state.nativeAdsStatus == LocalAdsManagementStatus.loading &&
               state.nativeAds.isEmpty) {
@@ -80,7 +81,8 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
           }
 
           if (state.nativeAds.isEmpty) {
-            if (filtersActive) { // Conditionally show reset button if filters are active
+            if (filtersActive) {
+              // Conditionally show reset button if filters are active
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -155,9 +157,12 @@ class _NativeAdsPageState extends State<NativeAdsPage> {
                           filter: context
                               .read<LocalAdsManagementBloc>()
                               .buildLocalAdsFilterMap(
-                                context.read<FilterLocalAdsBloc>().state.copyWith(
-                                  selectedAdType: AdType.native,
-                                ),
+                                context
+                                    .read<FilterLocalAdsBloc>()
+                                    .state
+                                    .copyWith(
+                                      selectedAdType: AdType.native,
+                                    ),
                               ),
                         ),
                       );
@@ -216,7 +221,7 @@ class _NativeAdsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          LocalAdActionButtons(item: ad, l10n: l10n), // Use the new widget
+          LocalAdActionButtons(item: ad, l10n: l10n),
         ),
       ],
     );

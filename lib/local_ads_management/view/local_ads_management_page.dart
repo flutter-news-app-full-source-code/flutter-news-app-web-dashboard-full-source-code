@@ -77,7 +77,7 @@ class _LocalAdsManagementPageState extends State<LocalAdsManagementPage>
                     UndoDeleteLocalAdRequested(
                       state.snackbarMessage!.split(
                         '"',
-                      )[1], // Extract ID from message
+                      )[1],
                     ),
                   );
                 },

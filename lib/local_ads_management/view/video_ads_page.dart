@@ -6,7 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ad_action_buttons.dart'; // Import the new action buttons widget
+import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ad_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/string_truncate.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -32,7 +32,7 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
         limit: kDefaultRowsPerPage,
         filter: context.read<LocalAdsManagementBloc>().buildLocalAdsFilterMap(
           context.read<FilterLocalAdsBloc>().state.copyWith(
-            selectedAdType: AdType.video, // Ensure correct ad type is set for filter
+            selectedAdType: AdType.video,
           ),
         ),
       ),
@@ -54,7 +54,7 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<LocalAdsManagementBloc, LocalAdsManagementState>(
         builder: (context, state) {
-          final filterLocalAdsState = context.watch<FilterLocalAdsBloc>().state; // Watch filter state
+          final filterLocalAdsState = context.watch<FilterLocalAdsBloc>().state;
           final filtersActive = _areFiltersActive(filterLocalAdsState);
 
           if (state.videoAdsStatus == LocalAdsManagementStatus.loading &&
@@ -86,7 +86,8 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
           }
 
           if (state.videoAds.isEmpty) {
-            if (filtersActive) { // Conditionally show reset button if filters are active
+            if (filtersActive) {
+              // Conditionally show reset button if filters are active
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +129,9 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
                 child: PaginatedDataTable2(
                   columns: [
                     DataColumn2(
-                      label: Text(l10n.adVideoUrl), // Changed label to adVideoUrl
+                      label: Text(
+                        l10n.adVideoUrl,
+                      ),
                       size: ColumnSize.L,
                     ),
                     DataColumn2(
@@ -161,9 +164,12 @@ class _VideoAdsPageState extends State<VideoAdsPage> {
                           filter: context
                               .read<LocalAdsManagementBloc>()
                               .buildLocalAdsFilterMap(
-                                context.read<FilterLocalAdsBloc>().state.copyWith(
-                                  selectedAdType: AdType.video,
-                                ),
+                                context
+                                    .read<FilterLocalAdsBloc>()
+                                    .state
+                                    .copyWith(
+                                      selectedAdType: AdType.video,
+                                    ),
                               ),
                         ),
                       );
@@ -211,7 +217,7 @@ class _VideoAdsDataSource extends DataTableSource {
       cells: [
         DataCell(
           Text(
-            ad.videoUrl.truncate(50), // Changed to videoUrl
+            ad.videoUrl.truncate(50),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -222,7 +228,7 @@ class _VideoAdsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          LocalAdActionButtons(item: ad, l10n: l10n), // Use the new widget
+          LocalAdActionButtons(item: ad, l10n: l10n),
         ),
       ],
     );
