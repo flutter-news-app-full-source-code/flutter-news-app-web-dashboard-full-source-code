@@ -1899,5 +1899,13 @@
   "copyIdTooltip": "Copy Ad ID",
   "@copyIdTooltip": {
     "description": "Tooltip for the copy ID action button."
+  },
+  "saveAdTitle": "Save Ad",
+  "@saveAdTitle": {
+    "description": "Title for the dialog asking to save an ad"
+  },
+  "saveAdMessage": "Do you want to publish this ad or save it as a draft?",
+  "@saveAdMessage": {
+    "description": "Message for the dialog asking to save an ad"
   }
 }

@@ -2815,6 +2815,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copy Ad ID'**
   String get copyIdTooltip;
+
+  /// Title for the dialog asking to save an ad
+  ///
+  /// In en, this message translates to:
+  /// **'Save Ad'**
+  String get saveAdTitle;
+
+  /// Message for the dialog asking to save an ad
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this ad or save it as a draft?'**
+  String get saveAdMessage;
 }
 
 class _AppLocalizationsDelegate

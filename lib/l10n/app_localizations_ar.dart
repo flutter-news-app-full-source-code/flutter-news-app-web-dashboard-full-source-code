@@ -1499,4 +1499,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get copyIdTooltip => 'نسخ معرف الإعلان';
+
+  @override
+  String get saveAdTitle => 'حفظ الإعلان';
+
+  @override
+  String get saveAdMessage => 'هل تريد نشر هذا الإعلان أم حفظه كمسودة؟';
 }

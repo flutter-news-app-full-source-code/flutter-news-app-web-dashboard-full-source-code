@@ -1504,4 +1504,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get copyIdTooltip => 'Copy Ad ID';
+
+  @override
+  String get saveAdTitle => 'Save Ad';
+
+  @override
+  String get saveAdMessage =>
+      'Do you want to publish this ad or save it as a draft?';
 }

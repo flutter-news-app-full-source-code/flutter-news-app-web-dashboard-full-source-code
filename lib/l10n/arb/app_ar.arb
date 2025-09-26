@@ -1903,5 +1903,13 @@
   "copyIdTooltip": "نسخ معرف الإعلان",
   "@copyIdTooltip": {
     "description": "Tooltip for the copy ID action button."
+  },
+  "saveAdTitle": "حفظ الإعلان",
+  "@saveAdTitle": {
+    "description": "عنوان مربع الحوار الذي يطلب حفظ إعلان"
+  },
+  "saveAdMessage": "هل تريد نشر هذا الإعلان أم حفظه كمسودة؟",
+  "@saveAdMessage": {
+    "description": "رسالة مربع الحوار الذي يطلب حفظ إعلان"
   }
 }
