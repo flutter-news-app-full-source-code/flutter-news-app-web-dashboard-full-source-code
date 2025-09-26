@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart'
     show ContentActionButtons;
@@ -106,6 +107,19 @@ class LocalAdActionButtons extends StatelessWidget {
           ),
         );
       case ContentStatus.active:
+        // Add "Copy ID" option for active ads
+        overflowMenuItems.add(
+          PopupMenuItem<String>(
+            value: 'copyId',
+            child: Row(
+              children: [
+                const Icon(Icons.copy),
+                const SizedBox(width: AppSpacing.sm),
+                Text(l10n.copyId),
+              ],
+            ),
+          ),
+        );
         overflowMenuItems.add(
           PopupMenuItem<String>(
             value: 'archive',
@@ -163,6 +177,15 @@ class LocalAdActionButtons extends StatelessWidget {
                 context.read<LocalAdsManagementBloc>().add(
                   ArchiveLocalAdRequested(itemId),
                 );
+              case 'copyId':
+                // Copy the ad ID to the clipboard
+                Clipboard.setData(ClipboardData(text: itemId)).then((_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.idCopied),
+                    ),
+                  );
+                });
               case 'archive':
                 context.read<LocalAdsManagementBloc>().add(
                   ArchiveLocalAdRequested(itemId),
