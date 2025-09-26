@@ -30,7 +30,6 @@ class LocalAdsFilterDialogBloc
       transformer: debounce(const Duration(milliseconds: 300)),
     );
     on<LocalAdsFilterDialogStatusChanged>(_onLocalAdsFilterDialogStatusChanged);
-    on<LocalAdsFilterDialogAdTypeChanged>(_onLocalAdsFilterDialogAdTypeChanged);
     on<LocalAdsFilterDialogReset>(_onLocalAdsFilterDialogReset);
   }
 
@@ -44,7 +43,6 @@ class LocalAdsFilterDialogBloc
       state.copyWith(
         searchQuery: filterState.searchQuery,
         selectedStatus: filterState.selectedStatus,
-        selectedAdType: filterState.selectedAdType,
       ),
     );
   }
@@ -63,14 +61,6 @@ class LocalAdsFilterDialogBloc
     Emitter<LocalAdsFilterDialogState> emit,
   ) {
     emit(state.copyWith(selectedStatus: event.status));
-  }
-
-  /// Updates the temporary selected ad type.
-  void _onLocalAdsFilterDialogAdTypeChanged(
-    LocalAdsFilterDialogAdTypeChanged event,
-    Emitter<LocalAdsFilterDialogState> emit,
-  ) {
-    emit(state.copyWith(selectedAdType: event.adType));
   }
 
   /// Resets all temporary filter selections in the dialog to their initial state.
