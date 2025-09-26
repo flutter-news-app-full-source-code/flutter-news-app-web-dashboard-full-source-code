@@ -23,10 +23,7 @@ EventTransformer<T> debounce<T>(Duration duration) {
 class LocalAdsFilterDialogBloc
     extends Bloc<LocalAdsFilterDialogEvent, LocalAdsFilterDialogState> {
   /// {@macro local_ads_filter_dialog_bloc}
-  LocalAdsFilterDialogBloc({
-    required FilterLocalAdsBloc filterLocalAdsBloc,
-  }) : _filterLocalAdsBloc = filterLocalAdsBloc,
-       super(const LocalAdsFilterDialogState()) {
+  LocalAdsFilterDialogBloc() : super(const LocalAdsFilterDialogState()) {
     on<LocalAdsFilterDialogInitialized>(_onLocalAdsFilterDialogInitialized);
     on<LocalAdsFilterDialogSearchQueryChanged>(
       _onLocalAdsFilterDialogSearchQueryChanged,
@@ -36,8 +33,6 @@ class LocalAdsFilterDialogBloc
     on<LocalAdsFilterDialogAdTypeChanged>(_onLocalAdsFilterDialogAdTypeChanged);
     on<LocalAdsFilterDialogReset>(_onLocalAdsFilterDialogReset);
   }
-
-  final FilterLocalAdsBloc _filterLocalAdsBloc;
 
   /// Initializes the filter dialog's state from the current filter BLoC.
   void _onLocalAdsFilterDialogInitialized(
