@@ -17,7 +17,8 @@ class CreateLocalBannerAdBloc
        super(const CreateLocalBannerAdState()) {
     on<CreateLocalBannerAdImageUrlChanged>(_onImageUrlChanged);
     on<CreateLocalBannerAdTargetUrlChanged>(_onTargetUrlChanged);
-    on<CreateLocalBannerAdSubmitted>(_onSubmitted);
+    on<CreateLocalBannerAdSavedAsDraft>(_onSavedAsDraft);
+    on<CreateLocalBannerAdPublished>(_onPublished);
   }
 
   final DataRepository<LocalAd> _localAdsRepository;
@@ -37,8 +38,52 @@ class CreateLocalBannerAdBloc
     emit(state.copyWith(targetUrl: event.targetUrl));
   }
 
-  Future<void> _onSubmitted(
-    CreateLocalBannerAdSubmitted event,
+  /// Handles saving the local banner ad as a draft.
+  Future<void> _onSavedAsDraft(
+    CreateLocalBannerAdSavedAsDraft event,
+    Emitter<CreateLocalBannerAdState> emit,
+  ) async {
+    if (!state.isFormValid) return;
+
+    emit(state.copyWith(status: CreateLocalBannerAdStatus.submitting));
+    try {
+      final now = DateTime.now();
+      final newLocalBannerAd = LocalBannerAd(
+        id: _uuid.v4(),
+        imageUrl: state.imageUrl,
+        targetUrl: state.targetUrl,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      await _localAdsRepository.create(item: newLocalBannerAd);
+      emit(
+        state.copyWith(
+          status: CreateLocalBannerAdStatus.success,
+          createdLocalBannerAd: newLocalBannerAd,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalBannerAdStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateLocalBannerAdStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  /// Handles publishing the local banner ad.
+  Future<void> _onPublished(
+    CreateLocalBannerAdPublished event,
     Emitter<CreateLocalBannerAdState> emit,
   ) async {
     if (!state.isFormValid) return;
