@@ -31,6 +31,7 @@ final class LoadLocalAdsRequested extends LocalAdsManagementEvent {
     this.limit,
     this.forceRefresh = false,
     this.filter,
+    this.adType,
   });
 
   /// Optional ID to start pagination after.
@@ -45,8 +46,17 @@ final class LoadLocalAdsRequested extends LocalAdsManagementEvent {
   /// Optional filter to apply to the local ads query.
   final Map<String, dynamic>? filter;
 
+  /// Optional ad type to filter by.
+  final AdType? adType;
+
   @override
-  List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
+  List<Object?> get props => [
+    startAfterId,
+    limit,
+    forceRefresh,
+    filter,
+    adType,
+  ];
 }
 
 /// {@template archive_local_ad_requested}
