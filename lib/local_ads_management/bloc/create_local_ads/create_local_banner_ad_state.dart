@@ -27,6 +27,7 @@ class CreateLocalBannerAdState extends Equatable {
     this.targetUrl = '',
     this.exception,
     this.createdLocalBannerAd,
+    this.contentStatus = ContentStatus.draft,
   });
 
   /// The current status of the form submission.
@@ -44,6 +45,9 @@ class CreateLocalBannerAdState extends Equatable {
   /// The local banner ad created upon successful submission.
   final LocalBannerAd? createdLocalBannerAd;
 
+  /// The content status of the ad (draft or active).
+  final ContentStatus contentStatus;
+
   /// Returns true if the form is valid, false otherwise.
   bool get isFormValid => imageUrl.isNotEmpty && targetUrl.isNotEmpty;
 
@@ -54,6 +58,7 @@ class CreateLocalBannerAdState extends Equatable {
     String? targetUrl,
     HttpException? exception,
     LocalBannerAd? createdLocalBannerAd,
+    ContentStatus? contentStatus,
   }) {
     return CreateLocalBannerAdState(
       status: status ?? this.status,
@@ -61,6 +66,7 @@ class CreateLocalBannerAdState extends Equatable {
       targetUrl: targetUrl ?? this.targetUrl,
       exception: exception ?? this.exception,
       createdLocalBannerAd: createdLocalBannerAd ?? this.createdLocalBannerAd,
+      contentStatus: contentStatus ?? this.contentStatus,
     );
   }
 
@@ -71,5 +77,6 @@ class CreateLocalBannerAdState extends Equatable {
     targetUrl,
     exception,
     createdLocalBannerAd,
+    contentStatus,
   ];
 }
