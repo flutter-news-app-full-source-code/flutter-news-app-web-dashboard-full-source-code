@@ -1046,22 +1046,6 @@
   "@savedHeadlinesFilterLimitsTitle": {
     "description": "Title for the Saved Headlines Filter Limits section"
   },
-  "guestSavedFiltersLimitLabel": "Guest Saved Filters Limit",
-  "@guestSavedFiltersLimitLabel": {
-    "description": "Label for Guest Saved Filters Limit"
-  },
-  "standardUserSavedFiltersLimitLabel": "Standard User Saved Filters Limit",
-  "@standardUserSavedFiltersLimitLabel": {
-    "description": "Label for Standard User Saved Filters Limit"
-  },
-  "premiumUserSavedFiltersLimitLabel": "Premium User Saved Filters Limit",
-  "@premiumUserSavedFiltersLimitLabel": {
-    "description": "Label for Premium User Saved Filters Limit"
-  },
-  "savedFiltersLimitDescription": "Maximum number of saved headlines filters this user role can create.",
-  "@savedFiltersLimitDescription": {
-    "description": "Description for the limit on saved headlines filters"
-  },
   "adPlacementIntervalLabel": "Ad Placement Interval",
   "@adPlacementIntervalLabel": {
     "description": "Label for Ad Placement Interval"

@@ -841,25 +841,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get savedHeadlinesFilterLimitsDescription =>
-      'Set limits on the number of saved headlines filters for each user tier.';
+      'الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.';
 
   @override
-  String get savedHeadlinesFilterLimitsTitle => 'Saved Headlines Filter Limits';
-
-  @override
-  String get guestSavedFiltersLimitLabel => 'Guest Saved Filters Limit';
-
-  @override
-  String get standardUserSavedFiltersLimitLabel =>
-      'Standard User Saved Filters Limit';
-
-  @override
-  String get premiumUserSavedFiltersLimitLabel =>
-      'Premium User Saved Filters Limit';
-
-  @override
-  String get savedFiltersLimitDescription =>
-      'Maximum number of saved headlines filters this user role can create.';
+  String get savedHeadlinesFilterLimitsTitle => 'حدود تصفيات العناوين المحفوظة';
 
   @override
   String get adPlacementIntervalLabel => 'فترة وضع الإعلان';

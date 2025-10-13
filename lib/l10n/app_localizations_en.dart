@@ -845,21 +845,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get savedHeadlinesFilterLimitsTitle => 'Saved Headlines Filter Limits';
 
   @override
-  String get guestSavedFiltersLimitLabel => 'Guest Saved Filters Limit';
-
-  @override
-  String get standardUserSavedFiltersLimitLabel =>
-      'Standard User Saved Filters Limit';
-
-  @override
-  String get premiumUserSavedFiltersLimitLabel =>
-      'Premium User Saved Filters Limit';
-
-  @override
-  String get savedFiltersLimitDescription =>
-      'Maximum number of saved headlines filters this user role can create.';
-
-  @override
   String get adPlacementIntervalLabel => 'Ad Placement Interval';
 
   @override

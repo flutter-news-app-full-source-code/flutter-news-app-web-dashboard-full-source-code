@@ -1604,30 +1604,6 @@ abstract class AppLocalizations {
   /// **'Saved Headlines Filter Limits'**
   String get savedHeadlinesFilterLimitsTitle;
 
-  /// Label for Guest Saved Filters Limit
-  ///
-  /// In en, this message translates to:
-  /// **'Guest Saved Filters Limit'**
-  String get guestSavedFiltersLimitLabel;
-
-  /// Label for Standard User Saved Filters Limit
-  ///
-  /// In en, this message translates to:
-  /// **'Standard User Saved Filters Limit'**
-  String get standardUserSavedFiltersLimitLabel;
-
-  /// Label for Premium User Saved Filters Limit
-  ///
-  /// In en, this message translates to:
-  /// **'Premium User Saved Filters Limit'**
-  String get premiumUserSavedFiltersLimitLabel;
-
-  /// Description for the limit on saved headlines filters
-  ///
-  /// In en, this message translates to:
-  /// **'Maximum number of saved headlines filters this user role can create.'**
-  String get savedFiltersLimitDescription;
-
   /// Label for Ad Placement Interval
   ///
   /// In en, this message translates to:
