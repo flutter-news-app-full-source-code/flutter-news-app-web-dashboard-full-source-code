@@ -143,13 +143,13 @@
   "@generalTab": {
     "description": "Tab title for General settings"
   },
-  "userContentLimitsTitle": "User Content & Feed Limits",
+  "userContentLimitsTitle": "User Content Limits",
   "@userContentLimitsTitle": {
-    "description": "Title for the User Content & Feed Limits section"
+    "description": "Title for the User Content Limits section"
   },
   "userContentLimitsDescription": "Set limits on followed items and saved headlines for each user tier.",
   "@userContentLimitsDescription": {
-    "description": "Description for the User Content & Feed Limits section"
+    "description": "Description for the User Content Limits section"
   },
   "feedActionsTitle": "Feed Actions",
   "@feedActionsTitle": {

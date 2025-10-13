@@ -143,13 +143,13 @@
   "@generalTab": {
     "description": "عنوان تبويب الإعدادات العامة"
   },
-  "userContentLimitsTitle": "حدود المحتوى والموجز للمستخدم",
+  "userContentLimitsTitle": "حدود المحتوى للمستخدم",
   "@userContentLimitsTitle": {
-    "description": "عنوان قسم حدود المحتوى والموجز للمستخدم"
+    "description": "عنوان قسم حدود المحتوى للمستخدم"
   },
   "userContentLimitsDescription": "تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.",
   "@userContentLimitsDescription": {
-    "description": "وصف قسم حدود المحتوى والموجز للمستخدم"
+    "description": "وصف قسم حدود المحتوى للمستخدم"
   },
   "feedActionsTitle": "إجراءات الموجز",
   "@feedActionsTitle": {
