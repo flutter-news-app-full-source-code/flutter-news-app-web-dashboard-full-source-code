@@ -1038,6 +1038,14 @@
   "@adFrequencyDescription": {
     "description": "Description for Ad Frequency"
   },
+  "savedHeadlinesFilterLimitsDescription": "Set limits on the number of saved headlines filters for each user tier.",
+  "@savedHeadlinesFilterLimitsDescription": {
+    "description": "Description for the Saved Headlines Filter Limits section"
+  },
+  "savedHeadlinesFilterLimitsTitle": "Saved Headlines Filter Limits",
+  "@savedHeadlinesFilterLimitsTitle": {
+    "description": "Title for the Saved Headlines Filter Limits section"
+  },
   "adPlacementIntervalLabel": "Ad Placement Interval",
   "@adPlacementIntervalLabel": {
     "description": "Label for Ad Placement Interval"

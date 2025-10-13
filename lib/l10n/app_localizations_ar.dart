@@ -840,6 +840,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
 
   @override
+  String get savedHeadlinesFilterLimitsDescription =>
+      'الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.';
+
+  @override
+  String get savedHeadlinesFilterLimitsTitle => 'حدود مرشحات العناوين المحفوظة';
+
+  @override
   String get adPlacementIntervalLabel => 'فترة وضع الإعلان';
 
   @override
