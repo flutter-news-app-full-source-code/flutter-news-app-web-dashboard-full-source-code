@@ -147,10 +147,6 @@
   "@userContentLimitsTitle": {
     "description": "عنوان قسم حدود المحتوى والموجز للمستخدم"
   },
-  "headlinesFilterPresetLimitsTitle": "حدود الإعدادات المسبقة لمرشحات الأخبار",
-  "@headlinesFilterPresetLimitsTitle": {
-    "description": "عنوان قسم حدود الإعدادات المسبقة لمرشحات الأخبار"
-  },
   "userContentLimitsDescription": "تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.",
   "@userContentLimitsDescription": {
     "description": "وصف قسم حدود المحتوى والموجز للمستخدم"

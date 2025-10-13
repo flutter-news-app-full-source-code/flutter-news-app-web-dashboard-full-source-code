@@ -120,10 +120,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userContentLimitsTitle => 'User Content & Feed Limits';
 
   @override
-  String get headlinesFilterPresetLimitsTitle =>
-      'Headlines Filter Preset Limits';
-
-  @override
   String get userContentLimitsDescription =>
       'Set limits on followed items and saved headlines for each user tier.';
 
@@ -835,15 +831,29 @@ class AppLocalizationsEn extends AppLocalizations {
       'Maximum number of headlines this user role can save.';
 
   @override
-  String get savedHeadlinesFiltersLimitDescription =>
-      'Maximum number of saved headlines filters this user role can create.';
-
-  @override
   String get adFrequencyLabel => 'Ad Frequency';
 
   @override
   String get adFrequencyDescription =>
       'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).';
+
+  @override
+  String get savedHeadlinesFilterLimitsTitle => 'Saved Headlines Filter Limits';
+
+  @override
+  String get guestSavedFiltersLimitLabel => 'Guest Saved Filters Limit';
+
+  @override
+  String get standardUserSavedFiltersLimitLabel =>
+      'Standard User Saved Filters Limit';
+
+  @override
+  String get premiumUserSavedFiltersLimitLabel =>
+      'Premium User Saved Filters Limit';
+
+  @override
+  String get savedFiltersLimitDescription =>
+      'Maximum number of saved headlines filters this user role can create.';
 
   @override
   String get adPlacementIntervalLabel => 'Ad Placement Interval';

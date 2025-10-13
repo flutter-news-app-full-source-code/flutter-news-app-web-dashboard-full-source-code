@@ -296,12 +296,6 @@ abstract class AppLocalizations {
   /// **'User Content & Feed Limits'**
   String get userContentLimitsTitle;
 
-  /// Title for the Headlines Filter Preset Limits section
-  ///
-  /// In en, this message translates to:
-  /// **'Headlines Filter Preset Limits'**
-  String get headlinesFilterPresetLimitsTitle;
-
   /// Description for the User Content & Feed Limits section
   ///
   /// In en, this message translates to:
@@ -1586,12 +1580,6 @@ abstract class AppLocalizations {
   /// **'Maximum number of headlines this user role can save.'**
   String get savedHeadlinesLimitDescription;
 
-  /// Description for Saved Filters Limit
-  ///
-  /// In en, this message translates to:
-  /// **'Maximum number of saved headlines filters this user role can create.'**
-  String get savedHeadlinesFiltersLimitDescription;
-
   /// Label for Ad Frequency
   ///
   /// In en, this message translates to:
@@ -1603,6 +1591,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).'**
   String get adFrequencyDescription;
+
+  /// Title for the Saved Headlines Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Headlines Filter Limits'**
+  String get savedHeadlinesFilterLimitsTitle;
+
+  /// Label for Guest Saved Filters Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Saved Filters Limit'**
+  String get guestSavedFiltersLimitLabel;
+
+  /// Label for Standard User Saved Filters Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Standard User Saved Filters Limit'**
+  String get standardUserSavedFiltersLimitLabel;
+
+  /// Label for Premium User Saved Filters Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Premium User Saved Filters Limit'**
+  String get premiumUserSavedFiltersLimitLabel;
+
+  /// Description for the limit on saved headlines filters
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of saved headlines filters this user role can create.'**
+  String get savedFiltersLimitDescription;
 
   /// Label for Ad Placement Interval
   ///

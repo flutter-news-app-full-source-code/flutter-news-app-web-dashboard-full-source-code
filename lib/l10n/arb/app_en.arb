@@ -147,10 +147,6 @@
   "@userContentLimitsTitle": {
     "description": "Title for the User Content & Feed Limits section"
   },
-  "headlinesFilterPresetLimitsTitle": "Headlines Filter Preset Limits",
-  "@headlinesFilterPresetLimitsTitle": {
-    "description": "Title for the Headlines Filter Preset Limits section"
-  },
   "userContentLimitsDescription": "Set limits on followed items and saved headlines for each user tier.",
   "@userContentLimitsDescription": {
     "description": "Description for the User Content & Feed Limits section"
@@ -1034,10 +1030,6 @@
   "@savedHeadlinesLimitDescription": {
     "description": "Description for Saved Headlines Limit"
   },
-  "savedHeadlinesFiltersLimitDescription": "Maximum number of saved headlines filters this user role can create.",
-  "@savedHeadlinesFiltersLimitDescription": {
-    "description": "Description for Saved Filters Limit"
-  },
   "adFrequencyLabel": "Ad Frequency",
   "@adFrequencyLabel": {
     "description": "Label for Ad Frequency"
@@ -1045,6 +1037,26 @@
   "adFrequencyDescription": "How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).",
   "@adFrequencyDescription": {
     "description": "Description for Ad Frequency"
+  },
+  "savedHeadlinesFilterLimitsTitle": "Saved Headlines Filter Limits",
+  "@savedHeadlinesFilterLimitsTitle": {
+    "description": "Title for the Saved Headlines Filter Limits section"
+  },
+  "guestSavedFiltersLimitLabel": "Guest Saved Filters Limit",
+  "@guestSavedFiltersLimitLabel": {
+    "description": "Label for Guest Saved Filters Limit"
+  },
+  "standardUserSavedFiltersLimitLabel": "Standard User Saved Filters Limit",
+  "@standardUserSavedFiltersLimitLabel": {
+    "description": "Label for Standard User Saved Filters Limit"
+  },
+  "premiumUserSavedFiltersLimitLabel": "Premium User Saved Filters Limit",
+  "@premiumUserSavedFiltersLimitLabel": {
+    "description": "Label for Premium User Saved Filters Limit"
+  },
+  "savedFiltersLimitDescription": "Maximum number of saved headlines filters this user role can create.",
+  "@savedFiltersLimitDescription": {
+    "description": "Description for the limit on saved headlines filters"
   },
   "adPlacementIntervalLabel": "Ad Placement Interval",
   "@adPlacementIntervalLabel": {

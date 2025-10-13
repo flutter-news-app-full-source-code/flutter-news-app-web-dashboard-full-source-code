@@ -121,10 +121,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get userContentLimitsTitle => 'حدود المحتوى والموجز للمستخدم';
 
   @override
-  String get headlinesFilterPresetLimitsTitle =>
-      'حدود الإعدادات المسبقة لمرشحات الأخبار';
-
-  @override
   String get userContentLimitsDescription =>
       'تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.';
 
@@ -837,15 +833,29 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.';
 
   @override
-  String get savedHeadlinesFiltersLimitDescription =>
-      'الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.';
-
-  @override
   String get adFrequencyLabel => 'تكرار الإعلان';
 
   @override
   String get adFrequencyDescription =>
       'عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
+
+  @override
+  String get savedHeadlinesFilterLimitsTitle => 'Saved Headlines Filter Limits';
+
+  @override
+  String get guestSavedFiltersLimitLabel => 'Guest Saved Filters Limit';
+
+  @override
+  String get standardUserSavedFiltersLimitLabel =>
+      'Standard User Saved Filters Limit';
+
+  @override
+  String get premiumUserSavedFiltersLimitLabel =>
+      'Premium User Saved Filters Limit';
+
+  @override
+  String get savedFiltersLimitDescription =>
+      'Maximum number of saved headlines filters this user role can create.';
 
   @override
   String get adPlacementIntervalLabel => 'فترة وضع الإعلان';
