@@ -143,13 +143,13 @@
   "@generalTab": {
     "description": "عنوان تبويب الإعدادات العامة"
   },
-  "userContentLimitsTitle": "حدود المحتوى والموجز للمستخدم",
+  "userContentLimitsTitle": "حدود المحتوى",
   "@userContentLimitsTitle": {
-    "description": "عنوان قسم حدود المحتوى والموجز للمستخدم"
+    "description": "عنوان قسم حدود المحتوى للمستخدم"
   },
   "userContentLimitsDescription": "تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.",
   "@userContentLimitsDescription": {
-    "description": "وصف قسم حدود المحتوى والموجز للمستخدم"
+    "description": "وصف قسم حدود المحتوى للمستخدم"
   },
   "feedActionsTitle": "إجراءات الموجز",
   "@feedActionsTitle": {
@@ -1022,12 +1022,12 @@
   "@followedItemsLimitDescription": {
     "description": "وصف حد العناصر المتابعة"
   },
-  "savedHeadlinesLimitLabel": "حد العناوين المحفوظة",
-  "@savedHeadlinesLimitLabel": {
-    "description": "تسمية حد العناوين المحفوظة"
+  "savedFeedFiltersLimitLabel": "حدود المرشحات",
+  "@savedFeedFiltersLimitLabel": {
+    "description": "تسمية حد مرشحات موجز الأخبار المحفوظة"
   },
-  "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.",
-  "@savedHeadlinesLimitDescription": {
+  "savedFeedFiltersLimitDescription": "الحد الأقصى لعدد مرشحات موجز الأخبار التي يمكن لهذا الدور المستخدم حفظها.",
+  "@savedFeedFiltersLimitDescription": {
     "description": "وصف حد العناوين المحفوظة"
   },
   "adFrequencyLabel": "تكرار الإعلان",
@@ -1038,12 +1038,12 @@
   "@adFrequencyDescription": {
     "description": "وصف تكرار الإعلان"
   },
-  "savedHeadlinesFilterLimitsTitle": "حدود مرشحات العناوين المحفوظة",
-  "@savedHeadlinesFilterLimitsTitle": {
-    "description": "وصف لحد المرشحات المحفوظة"
+  "savedFeedFilterLimitsTitle": "حد المرشحات المحفوظة",
+  "@savedFeedFilterLimitsTitle": {
+    "description": "وصف لحد مرشحات موجز الأخبار المحفوظة"
   },
-  "savedHeadlinesFilterLimitsDescription": "الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.",
-  "@savedHeadlinesFilterLimitsDescription": {
+  "savedFeedFilterLimitsDescription": "الحد الأقصى لعدد  مرشحات موجز الأخبار المحفوظة التي يمكن لهذا الدور إنشاؤها.",
+  "@savedFeedFilterLimitsDescription": {
     "description": "وصف لحد المرشحات المحفوظة"
   },
   "adPlacementIntervalLabel": "فترة وضع الإعلان",

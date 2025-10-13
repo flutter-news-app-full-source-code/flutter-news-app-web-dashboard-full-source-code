@@ -290,13 +290,13 @@ abstract class AppLocalizations {
   /// **'General'**
   String get generalTab;
 
-  /// Title for the User Content & Feed Limits section
+  /// Title for the User Content Limits section
   ///
   /// In en, this message translates to:
-  /// **'User Content & Feed Limits'**
+  /// **'User Content Limits'**
   String get userContentLimitsTitle;
 
-  /// Description for the User Content & Feed Limits section
+  /// Description for the User Content Limits section
   ///
   /// In en, this message translates to:
   /// **'Set limits on followed items and saved headlines for each user tier.'**
@@ -1568,17 +1568,17 @@ abstract class AppLocalizations {
   /// **'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).'**
   String get followedItemsLimitDescription;
 
-  /// Label for Saved Headlines Limit
+  /// Label for Saved filters Limits
   ///
   /// In en, this message translates to:
-  /// **'Saved Headlines Limit'**
-  String get savedHeadlinesLimitLabel;
+  /// **'Saved Filters Limits'**
+  String get savedFeedFiltersLimitLabel;
 
   /// Description for Saved Headlines Limit
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of headlines this user role can save.'**
-  String get savedHeadlinesLimitDescription;
+  /// **'Maximum number of feed filters this user role can save.'**
+  String get savedFeedFiltersLimitDescription;
 
   /// Label for Ad Frequency
   ///
@@ -1592,17 +1592,17 @@ abstract class AppLocalizations {
   /// **'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).'**
   String get adFrequencyDescription;
 
+  /// Title for the Saved Feed Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Filter Limits'**
+  String get savedFeedFilterLimitsTitle;
+
   /// Description for the Saved Headlines Filter Limits section
   ///
   /// In en, this message translates to:
-  /// **'Set limits on the number of saved headlines filters for each user tier.'**
-  String get savedHeadlinesFilterLimitsDescription;
-
-  /// Title for the Saved Headlines Filter Limits section
-  ///
-  /// In en, this message translates to:
-  /// **'Saved Headlines Filter Limits'**
-  String get savedHeadlinesFilterLimitsTitle;
+  /// **'Set limits on the number of saved feed filters for each user tier.'**
+  String get savedFeedFilterLimitsDescription;
 
   /// Label for Ad Placement Interval
   ///

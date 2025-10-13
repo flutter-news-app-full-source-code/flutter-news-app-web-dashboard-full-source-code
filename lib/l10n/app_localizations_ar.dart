@@ -118,7 +118,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get generalTab => 'عام';
 
   @override
-  String get userContentLimitsTitle => 'حدود المحتوى والموجز للمستخدم';
+  String get userContentLimitsTitle => 'حدود المحتوى';
 
   @override
   String get userContentLimitsDescription =>
@@ -826,11 +826,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).';
 
   @override
-  String get savedHeadlinesLimitLabel => 'حد العناوين المحفوظة';
+  String get savedFeedFiltersLimitLabel => 'حدود المرشحات';
 
   @override
-  String get savedHeadlinesLimitDescription =>
-      'الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.';
+  String get savedFeedFiltersLimitDescription =>
+      'الحد الأقصى لعدد مرشحات موجز الأخبار التي يمكن لهذا الدور المستخدم حفظها.';
 
   @override
   String get adFrequencyLabel => 'تكرار الإعلان';
@@ -840,11 +840,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
 
   @override
-  String get savedHeadlinesFilterLimitsDescription =>
-      'الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.';
+  String get savedFeedFilterLimitsTitle => 'حد المرشحات المحفوظة';
 
   @override
-  String get savedHeadlinesFilterLimitsTitle => 'حدود مرشحات العناوين المحفوظة';
+  String get savedFeedFilterLimitsDescription =>
+      'الحد الأقصى لعدد  مرشحات موجز الأخبار المحفوظة التي يمكن لهذا الدور إنشاؤها.';
 
   @override
   String get adPlacementIntervalLabel => 'فترة وضع الإعلان';

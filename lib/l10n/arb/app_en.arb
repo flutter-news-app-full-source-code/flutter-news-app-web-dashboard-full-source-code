@@ -143,13 +143,13 @@
   "@generalTab": {
     "description": "Tab title for General settings"
   },
-  "userContentLimitsTitle": "User Content & Feed Limits",
+  "userContentLimitsTitle": "User Content Limits",
   "@userContentLimitsTitle": {
-    "description": "Title for the User Content & Feed Limits section"
+    "description": "Title for the User Content Limits section"
   },
   "userContentLimitsDescription": "Set limits on followed items and saved headlines for each user tier.",
   "@userContentLimitsDescription": {
-    "description": "Description for the User Content & Feed Limits section"
+    "description": "Description for the User Content Limits section"
   },
   "feedActionsTitle": "Feed Actions",
   "@feedActionsTitle": {
@@ -1022,12 +1022,12 @@
   "@followedItemsLimitDescription": {
     "description": "Description for Followed Items Limit"
   },
-  "savedHeadlinesLimitLabel": "Saved Headlines Limit",
-  "@savedHeadlinesLimitLabel": {
-    "description": "Label for Saved Headlines Limit"
+  "savedFeedFiltersLimitLabel": "Saved Filters Limits",
+  "@savedFeedFiltersLimitLabel": {
+    "description": "Label for Saved filters Limits"
   },
-  "savedHeadlinesLimitDescription": "Maximum number of headlines this user role can save.",
-  "@savedHeadlinesLimitDescription": {
+  "savedFeedFiltersLimitDescription": "Maximum number of feed filters this user role can save.",
+  "@savedFeedFiltersLimitDescription": {
     "description": "Description for Saved Headlines Limit"
   },
   "adFrequencyLabel": "Ad Frequency",
@@ -1038,13 +1038,13 @@
   "@adFrequencyDescription": {
     "description": "Description for Ad Frequency"
   },
-  "savedHeadlinesFilterLimitsDescription": "Set limits on the number of saved headlines filters for each user tier.",
-  "@savedHeadlinesFilterLimitsDescription": {
-    "description": "Description for the Saved Headlines Filter Limits section"
+  "savedFeedFilterLimitsTitle": "Saved Filter Limits",
+  "@savedFeedFilterLimitsTitle": {
+    "description": "Title for the Saved Feed Filter Limits section"
   },
-  "savedHeadlinesFilterLimitsTitle": "Saved Headlines Filter Limits",
-  "@savedHeadlinesFilterLimitsTitle": {
-    "description": "Title for the Saved Headlines Filter Limits section"
+  "savedFeedFilterLimitsDescription": "Set limits on the number of saved feed filters for each user tier.",
+  "@savedFeedFilterLimitsDescription": {
+    "description": "Description for the Saved Headlines Filter Limits section"
   },
   "adPlacementIntervalLabel": "Ad Placement Interval",
   "@adPlacementIntervalLabel": {

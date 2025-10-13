@@ -117,7 +117,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generalTab => 'General';
 
   @override
-  String get userContentLimitsTitle => 'User Content & Feed Limits';
+  String get userContentLimitsTitle => 'User Content Limits';
 
   @override
   String get userContentLimitsDescription =>
@@ -824,11 +824,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).';
 
   @override
-  String get savedHeadlinesLimitLabel => 'Saved Headlines Limit';
+  String get savedFeedFiltersLimitLabel => 'Saved Filters Limits';
 
   @override
-  String get savedHeadlinesLimitDescription =>
-      'Maximum number of headlines this user role can save.';
+  String get savedFeedFiltersLimitDescription =>
+      'Maximum number of feed filters this user role can save.';
 
   @override
   String get adFrequencyLabel => 'Ad Frequency';
@@ -838,11 +838,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).';
 
   @override
-  String get savedHeadlinesFilterLimitsDescription =>
-      'Set limits on the number of saved headlines filters for each user tier.';
+  String get savedFeedFilterLimitsTitle => 'Saved Filter Limits';
 
   @override
-  String get savedHeadlinesFilterLimitsTitle => 'Saved Headlines Filter Limits';
+  String get savedFeedFilterLimitsDescription =>
+      'Set limits on the number of saved feed filters for each user tier.';
 
   @override
   String get adPlacementIntervalLabel => 'Ad Placement Interval';
