@@ -117,8 +117,8 @@ class _SavedHeadlinesFiltersLimitFormState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppConfigIntField(
-          label: l10n.guestSavedFiltersLimitLabel,
-          description: l10n.savedFiltersLimitDescription,
+          label: l10n.savedHeadlinesFilterLimitsTitle,
+          description: l10n.savedHeadlinesFilterLimitsTitle,
           value: userPreferenceConfig.guestSavedFiltersLimit,
           onChanged: (newLimit) {
             widget.onConfigChanged(
@@ -132,8 +132,8 @@ class _SavedHeadlinesFiltersLimitFormState
           controller: _guestController,
         ),
         AppConfigIntField(
-          label: l10n.standardUserSavedFiltersLimitLabel,
-          description: l10n.savedFiltersLimitDescription,
+          label: l10n.savedHeadlinesFilterLimitsTitle,
+          description: l10n.savedHeadlinesFilterLimitsTitle,
           value: userPreferenceConfig.authenticatedSavedFiltersLimit,
           onChanged: (newLimit) {
             widget.onConfigChanged(
@@ -147,8 +147,8 @@ class _SavedHeadlinesFiltersLimitFormState
           controller: _standardController,
         ),
         AppConfigIntField(
-          label: l10n.premiumUserSavedFiltersLimitLabel,
-          description: l10n.savedFiltersLimitDescription,
+          label: l10n.savedHeadlinesFilterLimitsTitle,
+          description: l10n.savedHeadlinesFilterLimitsTitle,
           value: userPreferenceConfig.premiumSavedFiltersLimit,
           onChanged: (newLimit) {
             widget.onConfigChanged(
