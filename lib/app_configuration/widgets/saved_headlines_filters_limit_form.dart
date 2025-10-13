@@ -2,6 +2,8 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template saved_headlines_filters_limit_form}
 /// A form for configuring saved headlines filter limits within the
@@ -30,14 +32,18 @@ class SavedHeadlinesFiltersLimitForm extends StatefulWidget {
 }
 
 class _SavedHeadlinesFiltersLimitFormState
-    extends State<SavedHeadlinesFiltersLimitForm> {
-  late final TextEditingController _guestController;
-  late final TextEditingController _standardController;
-  late final TextEditingController _premiumController;
+    extends State<SavedHeadlinesFiltersLimitForm>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  late final Map<AppUserRole, TextEditingController> _controllers;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(
+      length: AppUserRole.values.length,
+      vsync: this,
+    );
     _initializeControllers();
   }
 
@@ -46,125 +52,131 @@ class _SavedHeadlinesFiltersLimitFormState
     super.didUpdateWidget(oldWidget);
     if (widget.remoteConfig.userPreferenceConfig !=
         oldWidget.remoteConfig.userPreferenceConfig) {
-      _updateControllers();
+      _updateControllerValues();
     }
   }
 
   void _initializeControllers() {
-    final config = widget.remoteConfig.userPreferenceConfig;
-    _guestController =
-        TextEditingController(
-            text: config.guestSavedFiltersLimit.toString(),
-          )
-          ..selection = TextSelection.collapsed(
-            offset: config.guestSavedFiltersLimit.toString().length,
-          );
-    _standardController =
-        TextEditingController(
-            text: config.authenticatedSavedFiltersLimit.toString(),
-          )
-          ..selection = TextSelection.collapsed(
-            offset: config.authenticatedSavedFiltersLimit.toString().length,
-          );
-    _premiumController =
-        TextEditingController(
-            text: config.premiumSavedFiltersLimit.toString(),
-          )
-          ..selection = TextSelection.collapsed(
-            offset: config.premiumSavedFiltersLimit.toString().length,
-          );
+    _controllers = {
+      for (final role in AppUserRole.values)
+        role: TextEditingController(
+          text: _getSavedFiltersLimit(
+            widget.remoteConfig.userPreferenceConfig,
+            role,
+          ).toString(),
+        )..selection = TextSelection.collapsed(
+            offset: _getSavedFiltersLimit(
+              widget.remoteConfig.userPreferenceConfig,
+              role,
+            ).toString().length,
+          ),
+    };
   }
 
-  void _updateControllers() {
-    final config = widget.remoteConfig.userPreferenceConfig;
-
-    final newGuestValue = config.guestSavedFiltersLimit.toString();
-    if (_guestController.text != newGuestValue) {
-      _guestController.text = newGuestValue;
-      _guestController.selection = TextSelection.collapsed(
-        offset: newGuestValue.length,
-      );
-    }
-
-    final newStandardValue = config.authenticatedSavedFiltersLimit.toString();
-    if (_standardController.text != newStandardValue) {
-      _standardController.text = newStandardValue;
-      _standardController.selection = TextSelection.collapsed(
-        offset: newStandardValue.length,
-      );
-    }
-
-    final newPremiumValue = config.premiumSavedFiltersLimit.toString();
-    if (_premiumController.text != newPremiumValue) {
-      _premiumController.text = newPremiumValue;
-      _premiumController.selection = TextSelection.collapsed(
-        offset: newPremiumValue.length,
-      );
+  void _updateControllerValues() {
+    for (final role in AppUserRole.values) {
+      final newLimit = _getSavedFiltersLimit(
+        widget.remoteConfig.userPreferenceConfig,
+        role,
+      ).toString();
+      if (_controllers[role]?.text != newLimit) {
+        _controllers[role]?.text = newLimit;
+        _controllers[role]?.selection = TextSelection.collapsed(
+          offset: newLimit.length,
+        );
+      }
     }
   }
 
   @override
   void dispose() {
-    _guestController.dispose();
-    _standardController.dispose();
-    _premiumController.dispose();
+    _tabController.dispose();
+    for (final controller in _controllers.values) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final userPreferenceConfig = widget.remoteConfig.userPreferenceConfig;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppConfigIntField(
-          label: l10n.savedHeadlinesFilterLimitsTitle,
-          description: l10n.savedHeadlinesFilterLimitsTitle,
-          value: userPreferenceConfig.guestSavedFiltersLimit,
-          onChanged: (newLimit) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                userPreferenceConfig: userPreferenceConfig.copyWith(
-                  guestSavedFiltersLimit: newLimit,
-                ),
-              ),
-            );
-          },
-          controller: _guestController,
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            height: kTextTabBarHeight,
+            child: TabBar(
+              controller: _tabController,
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              tabs: AppUserRole.values
+                  .map((role) => Tab(text: role.l10n(context)))
+                  .toList(),
+            ),
+          ),
         ),
-        AppConfigIntField(
-          label: l10n.savedHeadlinesFilterLimitsTitle,
-          description: l10n.savedHeadlinesFilterLimitsTitle,
-          value: userPreferenceConfig.authenticatedSavedFiltersLimit,
-          onChanged: (newLimit) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                userPreferenceConfig: userPreferenceConfig.copyWith(
-                  authenticatedSavedFiltersLimit: newLimit,
-                ),
-              ),
-            );
-          },
-          controller: _standardController,
-        ),
-        AppConfigIntField(
-          label: l10n.savedHeadlinesFilterLimitsTitle,
-          description: l10n.savedHeadlinesFilterLimitsTitle,
-          value: userPreferenceConfig.premiumSavedFiltersLimit,
-          onChanged: (newLimit) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                userPreferenceConfig: userPreferenceConfig.copyWith(
-                  premiumSavedFiltersLimit: newLimit,
-                ),
-              ),
-            );
-          },
-          controller: _premiumController,
+        const SizedBox(height: AppSpacing.lg),
+        SizedBox(
+          height: 120,
+          child: TabBarView(
+            controller: _tabController,
+            children: AppUserRole.values.map((role) {
+              final config = widget.remoteConfig.userPreferenceConfig;
+              return AppConfigIntField(
+                label: l10n.savedHeadlinesLimitLabel,
+                description: l10n.savedHeadlinesLimitDescription,
+                value: _getSavedFiltersLimit(config, role),
+                onChanged: (value) {
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      userPreferenceConfig:
+                          _updateSavedFiltersLimit(config, value, role),
+                    ),
+                  );
+                },
+                controller: _controllers[role],
+              );
+            }).toList(),
+          ),
         ),
       ],
     );
+  }
+
+  /// Retrieves the saved filters limit for a given [AppUserRole].
+  ///
+  /// This helper method abstracts the logic for accessing the correct limit
+  /// from the [UserPreferenceConfig] based on the provided [role].
+  int _getSavedFiltersLimit(UserPreferenceConfig config, AppUserRole role) {
+    switch (role) {
+      case AppUserRole.guestUser:
+        return config.guestSavedFiltersLimit;
+      case AppUserRole.standardUser:
+        return config.authenticatedSavedFiltersLimit;
+      case AppUserRole.premiumUser:
+        return config.premiumSavedFiltersLimit;
+    }
+  }
+
+  /// Updates the saved filters limit for a given [AppUserRole].
+  ///
+  /// This helper method abstracts the logic for updating the correct limit
+  /// within the [UserPreferenceConfig] based on the provided [role] and [value].
+  UserPreferenceConfig _updateSavedFiltersLimit(
+    UserPreferenceConfig config,
+    int value,
+    AppUserRole role,
+  ) {
+    switch (role) {
+      case AppUserRole.guestUser:
+        return config.copyWith(guestSavedFiltersLimit: value);
+      case AppUserRole.standardUser:
+        return config.copyWith(authenticatedSavedFiltersLimit: value);
+      case AppUserRole.premiumUser:
+        return config.copyWith(premiumSavedFiltersLimit: value);
+    }
   }
 }
