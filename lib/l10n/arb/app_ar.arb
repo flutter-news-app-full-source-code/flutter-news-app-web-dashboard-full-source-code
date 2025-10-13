@@ -1038,8 +1038,8 @@
   "@adFrequencyDescription": {
     "description": "وصف تكرار الإعلان"
   },
-  "savedHeadlinesFiltersLimitDescription": "الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.",
-  "@savedHeadlinesFiltersLimitDescription": {
+  "savedHeadlinesFilterLimitDescription": "الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.",
+  "@savedHeadlinesFilterLimitDescription": {
     "description": "وصف لحد المرشحات المحفوظة"
   },
   "adPlacementIntervalLabel": "فترة وضع الإعلان",

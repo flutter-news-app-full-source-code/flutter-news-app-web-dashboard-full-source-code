@@ -1592,6 +1592,12 @@ abstract class AppLocalizations {
   /// **'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).'**
   String get adFrequencyDescription;
 
+  /// Description for the Saved Headlines Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits on the number of saved headlines filters for each user tier.'**
+  String get savedHeadlinesFilterLimitsDescription;
+
   /// Title for the Saved Headlines Filter Limits section
   ///
   /// In en, this message translates to:

@@ -68,6 +68,16 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
+                Text(
+                  l10n.userContentLimitsDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.7),
+                      ),
+                ),
+                const SizedBox(height: AppSpacing.lg),
                 UserPreferenceLimitsForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
@@ -96,6 +106,16 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
+                Text(
+                  l10n.savedHeadlinesFilterLimitsDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.7),
+                      ),
+                ),
+                const SizedBox(height: AppSpacing.lg),
                 SavedHeadlinesFiltersLimitForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
