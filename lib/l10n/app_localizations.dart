@@ -1571,14 +1571,14 @@ abstract class AppLocalizations {
   /// Label for Saved Headlines Limit
   ///
   /// In en, this message translates to:
-  /// **'Saved Headlines Limit'**
-  String get savedHeadlinesLimitLabel;
+  /// **'Saved Feed Filters Limit'**
+  String get savedFeedFiltersLimitLabel;
 
   /// Description for Saved Headlines Limit
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of headlines this user role can save.'**
-  String get savedHeadlinesLimitDescription;
+  /// **'Maximum number of feed filters this user role can save.'**
+  String get savedFeedFiltersLimitDescription;
 
   /// Label for Ad Frequency
   ///

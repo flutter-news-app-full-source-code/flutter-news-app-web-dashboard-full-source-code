@@ -824,11 +824,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).';
 
   @override
-  String get savedHeadlinesLimitLabel => 'Saved Headlines Limit';
+  String get savedFeedFiltersLimitLabel => 'Saved Feed Filters Limit';
 
   @override
-  String get savedHeadlinesLimitDescription =>
-      'Maximum number of headlines this user role can save.';
+  String get savedFeedFiltersLimitDescription =>
+      'Maximum number of feed filters this user role can save.';
 
   @override
   String get adFrequencyLabel => 'Ad Frequency';

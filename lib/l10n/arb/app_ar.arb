@@ -1022,12 +1022,12 @@
   "@followedItemsLimitDescription": {
     "description": "وصف حد العناصر المتابعة"
   },
-  "savedHeadlinesLimitLabel": "حد العناوين المحفوظة",
-  "@savedHeadlinesLimitLabel": {
-    "description": "تسمية حد العناوين المحفوظة"
+  "savedFeedFiltersLimitLabel": "حد مرشحات موجز الأخبار المحفوظة",
+  "@savedFeedFiltersLimitLabel": {
+    "description": "تسمية حد مرشحات موجز الأخبار المحفوظة"
   },
-  "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.",
-  "@savedHeadlinesLimitDescription": {
+  "savedFeedFiltersLimitDescription": "الحد الأقصى لعدد مرشحات موجز الأخبار التي يمكن لهذا الدور المستخدم حفظها.",
+  "@savedFeedFiltersLimitDescription": {
     "description": "وصف حد العناوين المحفوظة"
   },
   "adFrequencyLabel": "تكرار الإعلان",

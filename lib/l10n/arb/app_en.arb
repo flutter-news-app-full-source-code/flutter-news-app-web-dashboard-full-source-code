@@ -1022,12 +1022,12 @@
   "@followedItemsLimitDescription": {
     "description": "Description for Followed Items Limit"
   },
-  "savedHeadlinesLimitLabel": "Saved Headlines Limit",
-  "@savedHeadlinesLimitLabel": {
+  "savedFeedFiltersLimitLabel": "Saved Feed Filters Limit",
+  "@savedFeedFiltersLimitLabel": {
     "description": "Label for Saved Headlines Limit"
   },
-  "savedHeadlinesLimitDescription": "Maximum number of headlines this user role can save.",
-  "@savedHeadlinesLimitDescription": {
+  "savedFeedFiltersLimitDescription": "Maximum number of feed filters this user role can save.",
+  "@savedFeedFiltersLimitDescription": {
     "description": "Description for Saved Headlines Limit"
   },
   "adFrequencyLabel": "Ad Frequency",

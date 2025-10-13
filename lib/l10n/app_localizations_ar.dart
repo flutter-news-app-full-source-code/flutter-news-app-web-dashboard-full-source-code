@@ -826,11 +826,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).';
 
   @override
-  String get savedHeadlinesLimitLabel => 'حد العناوين المحفوظة';
+  String get savedFeedFiltersLimitLabel => 'حد مرشحات موجز الأخبار المحفوظة';
 
   @override
-  String get savedHeadlinesLimitDescription =>
-      'الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.';
+  String get savedFeedFiltersLimitDescription =>
+      'الحد الأقصى لعدد مرشحات موجز الأخبار التي يمكن لهذا الدور المستخدم حفظها.';
 
   @override
   String get adFrequencyLabel => 'تكرار الإعلان';
