@@ -1038,7 +1038,7 @@
   "@adFrequencyDescription": {
     "description": "وصف تكرار الإعلان"
   },
-  "savedHeadlinesFilterLimitsTitle": "حدود تصفيات العناوين المحفوظة",
+  "savedHeadlinesFilterLimitsTitle": "حدود مرشحات العناوين المحفوظة",
   "@savedHeadlinesFilterLimitsTitle": {
     "description": "وصف لحد المرشحات المحفوظة"
   },

@@ -844,7 +844,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.';
 
   @override
-  String get savedHeadlinesFilterLimitsTitle => 'حدود تصفيات العناوين المحفوظة';
+  String get savedHeadlinesFilterLimitsTitle => 'حدود مرشحات العناوين المحفوظة';
 
   @override
   String get adPlacementIntervalLabel => 'فترة وضع الإعلان';
