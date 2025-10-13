@@ -290,13 +290,13 @@ abstract class AppLocalizations {
   /// **'General'**
   String get generalTab;
 
-  /// Title for the User Content & Feed Limits section
+  /// Title for the User Content Limits section
   ///
   /// In en, this message translates to:
-  /// **'User Content & Feed Limits'**
+  /// **'User Content Limits'**
   String get userContentLimitsTitle;
 
-  /// Description for the User Content & Feed Limits section
+  /// Description for the User Content Limits section
   ///
   /// In en, this message translates to:
   /// **'Set limits on followed items and saved headlines for each user tier.'**

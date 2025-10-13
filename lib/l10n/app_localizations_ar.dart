@@ -118,7 +118,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get generalTab => 'عام';
 
   @override
-  String get userContentLimitsTitle => 'حدود المحتوى والموجز للمستخدم';
+  String get userContentLimitsTitle => 'حدود المحتوى للمستخدم';
 
   @override
   String get userContentLimitsDescription =>
