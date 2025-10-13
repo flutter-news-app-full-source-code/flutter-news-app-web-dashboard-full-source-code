@@ -117,9 +117,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generalTab => 'General';
 
   @override
-  String get userPresetsTab => 'User Presets';
-
-  @override
   String get userContentLimitsTitle => 'User Content & Feed Limits';
 
   @override

@@ -290,12 +290,6 @@ abstract class AppLocalizations {
   /// **'General'**
   String get generalTab;
 
-  /// Tab title for User Presets settings
-  ///
-  /// In en, this message translates to:
-  /// **'User Presets'**
-  String get userPresetsTab;
-
   /// Title for the User Content & Feed Limits section
   ///
   /// In en, this message translates to:
