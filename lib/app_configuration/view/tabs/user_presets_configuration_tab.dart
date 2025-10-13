@@ -31,7 +31,7 @@ class UserPresetsConfigurationTab extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
         ExpansionTile(
-          title: Text(l10n.userPresetLimitsTitle),
+          title: Text(l10n.userPresetsTab),
           initiallyExpanded: true,
           childrenPadding: const EdgeInsets.all(AppSpacing.lg),
           children: [
