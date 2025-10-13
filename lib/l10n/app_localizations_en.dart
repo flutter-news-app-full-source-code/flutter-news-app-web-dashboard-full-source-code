@@ -117,7 +117,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generalTab => 'General';
 
   @override
+  String get userPresetsTab => 'User Presets';
+
+  @override
   String get userContentLimitsTitle => 'User Content & Feed Limits';
+
+  @override
+  String get headlinesFilterPresetLimitsTitle =>
+      'Headlines Filter Preset Limits';
 
   @override
   String get userContentLimitsDescription =>
@@ -829,6 +836,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get savedHeadlinesLimitDescription =>
       'Maximum number of headlines this user role can save.';
+
+  @override
+  String get savedFiltersLimitDescription =>
+      'Maximum number of saved filters this user role can create.';
 
   @override
   String get adFrequencyLabel => 'Ad Frequency';

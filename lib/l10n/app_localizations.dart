@@ -290,11 +290,23 @@ abstract class AppLocalizations {
   /// **'General'**
   String get generalTab;
 
+  /// Tab title for User Presets settings
+  ///
+  /// In en, this message translates to:
+  /// **'User Presets'**
+  String get userPresetsTab;
+
   /// Title for the User Content & Feed Limits section
   ///
   /// In en, this message translates to:
   /// **'User Content & Feed Limits'**
   String get userContentLimitsTitle;
+
+  /// Title for the Headlines Filter Preset Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Headlines Filter Preset Limits'**
+  String get headlinesFilterPresetLimitsTitle;
 
   /// Description for the User Content & Feed Limits section
   ///
@@ -1579,6 +1591,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maximum number of headlines this user role can save.'**
   String get savedHeadlinesLimitDescription;
+
+  /// Description for Saved Filters Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of saved filters this user role can create.'**
+  String get savedFiltersLimitDescription;
 
   /// Label for Ad Frequency
   ///

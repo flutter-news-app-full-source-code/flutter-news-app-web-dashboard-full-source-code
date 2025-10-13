@@ -143,9 +143,17 @@
   "@generalTab": {
     "description": "عنوان تبويب الإعدادات العامة"
   },
+  "userPresetsTab": "الإعدادات المسبقة",
+  "@userPresetsTab": {
+    "description": "عنوان تبويب إعدادات الإعدادات المسبقة للمستخدم"
+  },
   "userContentLimitsTitle": "حدود المحتوى والموجز للمستخدم",
   "@userContentLimitsTitle": {
     "description": "عنوان قسم حدود المحتوى والموجز للمستخدم"
+  },
+  "headlinesFilterPresetLimitsTitle": "حدود الإعدادات المسبقة لمرشحات الأخبار",
+  "@headlinesFilterPresetLimitsTitle": {
+    "description": "عنوان قسم حدود الإعدادات المسبقة لمرشحات الأخبار"
   },
   "userContentLimitsDescription": "تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.",
   "@userContentLimitsDescription": {
@@ -1029,6 +1037,10 @@
   "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.",
   "@savedHeadlinesLimitDescription": {
     "description": "وصف حد العناوين المحفوظة"
+  },
+  "savedFiltersLimitDescription": "الحد الأقصى لعدد المرشحات المحفوظة التي يمكن لهذا الدور إنشاؤها.",
+  "@savedFiltersLimitDescription": {
+    "description": "وصف لحد المرشحات المحفوظة"
   },
   "adFrequencyLabel": "تكرار الإعلان",
   "@adFrequencyLabel": {

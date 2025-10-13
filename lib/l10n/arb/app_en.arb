@@ -143,9 +143,17 @@
   "@generalTab": {
     "description": "Tab title for General settings"
   },
+  "userPresetsTab": "User Presets",
+  "@userPresetsTab": {
+    "description": "Tab title for User Presets settings"
+  },
   "userContentLimitsTitle": "User Content & Feed Limits",
   "@userContentLimitsTitle": {
     "description": "Title for the User Content & Feed Limits section"
+  },
+  "headlinesFilterPresetLimitsTitle": "Headlines Filter Preset Limits",
+  "@headlinesFilterPresetLimitsTitle": {
+    "description": "Title for the Headlines Filter Preset Limits section"
   },
   "userContentLimitsDescription": "Set limits on followed items and saved headlines for each user tier.",
   "@userContentLimitsDescription": {
@@ -1029,6 +1037,10 @@
   "savedHeadlinesLimitDescription": "Maximum number of headlines this user role can save.",
   "@savedHeadlinesLimitDescription": {
     "description": "Description for Saved Headlines Limit"
+  },
+  "savedFiltersLimitDescription": "Maximum number of saved filters this user role can create.",
+  "@savedFiltersLimitDescription": {
+    "description": "Description for Saved Filters Limit"
   },
   "adFrequencyLabel": "Ad Frequency",
   "@adFrequencyLabel": {

@@ -118,7 +118,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get generalTab => 'عام';
 
   @override
+  String get userPresetsTab => 'الإعدادات المسبقة';
+
+  @override
   String get userContentLimitsTitle => 'حدود المحتوى والموجز للمستخدم';
+
+  @override
+  String get headlinesFilterPresetLimitsTitle =>
+      'حدود الإعدادات المسبقة لمرشحات الأخبار';
 
   @override
   String get userContentLimitsDescription =>
@@ -831,6 +838,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get savedHeadlinesLimitDescription =>
       'الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.';
+
+  @override
+  String get savedFiltersLimitDescription =>
+      'الحد الأقصى لعدد المرشحات المحفوظة التي يمكن لهذا الدور إنشاؤها.';
 
   @override
   String get adFrequencyLabel => 'تكرار الإعلان';
