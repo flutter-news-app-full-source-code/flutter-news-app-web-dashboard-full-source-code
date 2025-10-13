@@ -1022,9 +1022,9 @@
   "@followedItemsLimitDescription": {
     "description": "Description for Followed Items Limit"
   },
-  "savedFeedFiltersLimitLabel": "Saved Filters Limit",
+  "savedFeedFiltersLimitLabel": "Saved Filters Limits",
   "@savedFeedFiltersLimitLabel": {
-    "description": "Label for Saved filters Limit"
+    "description": "Label for Saved filters Limits"
   },
   "savedFeedFiltersLimitDescription": "Maximum number of feed filters this user role can save.",
   "@savedFeedFiltersLimitDescription": {

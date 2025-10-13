@@ -824,7 +824,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).';
 
   @override
-  String get savedFeedFiltersLimitLabel => 'Saved Filters Limit';
+  String get savedFeedFiltersLimitLabel => 'Saved Filters Limits';
 
   @override
   String get savedFeedFiltersLimitDescription =>
