@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preset_limits_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_headlines_filters_limit_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
@@ -83,8 +83,8 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
-              key: ValueKey('headlinesFilterPresetLimitsTile_$expandedIndex'),
-              title: Text(l10n.headlinesFilterPresetLimitsTitle),
+              key: ValueKey('savedHeadlinesFilterLimitsTile_$expandedIndex'),
+              title: Text(l10n.savedHeadlinesFilterLimitsTitle),
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.lg,
                 top: AppSpacing.md,
@@ -96,7 +96,7 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
-                UserPresetLimitsForm(
+                SavedHeadlinesFiltersLimitForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
