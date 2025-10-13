@@ -826,7 +826,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).';
 
   @override
-  String get savedFeedFiltersLimitLabel => 'حد مرشحات موجز الأخبار المحفوظة';
+  String get savedFeedFiltersLimitLabel => 'حد المرشحات المحفوظة';
 
   @override
   String get savedFeedFiltersLimitDescription =>

@@ -1568,10 +1568,10 @@ abstract class AppLocalizations {
   /// **'Maximum number of countries, news sources, or categories this user role can follow (each type has its own limit).'**
   String get followedItemsLimitDescription;
 
-  /// Label for Saved Headlines Limit
+  /// Label for Saved filters Limit
   ///
   /// In en, this message translates to:
-  /// **'Saved Feed Filters Limit'**
+  /// **'Saved Filters Limit'**
   String get savedFeedFiltersLimitLabel;
 
   /// Description for Saved Headlines Limit
