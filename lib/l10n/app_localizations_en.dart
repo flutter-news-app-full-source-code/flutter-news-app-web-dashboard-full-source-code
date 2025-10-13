@@ -838,11 +838,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'How often an ad can appear for this user role (e.g., a value of 5 means an ad could be placed after every 5 news items).';
 
   @override
-  String get savedHeadlinesFilterLimitsDescription =>
-      'Set limits on the number of saved headlines filters for each user tier.';
+  String get savedFeedFilterLimitsDescription =>
+      'Set limits on the number of saved feed filters for each user tier.';
 
   @override
-  String get savedHeadlinesFilterLimitsTitle => 'Saved Headlines Filter Limits';
+  String get savedFeedFilterLimitsTitle => 'Saved Feed Filter Limits';
 
   @override
   String get adPlacementIntervalLabel => 'Ad Placement Interval';

@@ -1595,14 +1595,14 @@ abstract class AppLocalizations {
   /// Description for the Saved Headlines Filter Limits section
   ///
   /// In en, this message translates to:
-  /// **'Set limits on the number of saved headlines filters for each user tier.'**
-  String get savedHeadlinesFilterLimitsDescription;
+  /// **'Set limits on the number of saved feed filters for each user tier.'**
+  String get savedFeedFilterLimitsDescription;
 
-  /// Title for the Saved Headlines Filter Limits section
+  /// Title for the Saved Feed Filter Limits section
   ///
   /// In en, this message translates to:
-  /// **'Saved Headlines Filter Limits'**
-  String get savedHeadlinesFilterLimitsTitle;
+  /// **'Saved Feed Filter Limits'**
+  String get savedFeedFilterLimitsTitle;
 
   /// Label for Ad Placement Interval
   ///
