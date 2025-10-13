@@ -114,7 +114,7 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                SavedHeadlinesFiltersLimitForm(
+                SavedFeedFiltersLimitForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),

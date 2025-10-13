@@ -5,16 +5,16 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// {@template saved_headlines_filters_limit_form}
-/// A form for configuring saved headlines filter limits within the
+/// {@template saved_feed_filters_limit_form}
+/// A form for configuring saved feed filter limits within the
 /// [RemoteConfig].
 ///
 /// This form provides fields to set the maximum number of saved filters
 /// for guest, authenticated, and premium users.
 /// {@endtemplate}
-class SavedHeadlinesFiltersLimitForm extends StatefulWidget {
-  /// {@macro saved_headlines_filters_limit_form}
-  const SavedHeadlinesFiltersLimitForm({
+class SavedFeedFiltersLimitForm extends StatefulWidget {
+  /// {@macro saved_feed_filters_limit_form}
+  const SavedFeedFiltersLimitForm({
     required this.remoteConfig,
     required this.onConfigChanged,
     super.key,
@@ -27,12 +27,11 @@ class SavedHeadlinesFiltersLimitForm extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<SavedHeadlinesFiltersLimitForm> createState() =>
-      _SavedHeadlinesFiltersLimitFormState();
+  State<SavedFeedFiltersLimitForm> createState() =>
+      _SavedFeedFiltersLimitFormState();
 }
 
-class _SavedHeadlinesFiltersLimitFormState
-    extends State<SavedHeadlinesFiltersLimitForm>
+class _SavedFeedFiltersLimitFormState extends State<SavedFeedFiltersLimitForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late final Map<AppUserRole, TextEditingController> _controllers;
@@ -48,7 +47,7 @@ class _SavedHeadlinesFiltersLimitFormState
   }
 
   @override
-  void didUpdateWidget(covariant SavedHeadlinesFiltersLimitForm oldWidget) {
+  void didUpdateWidget(covariant SavedFeedFiltersLimitForm oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.remoteConfig.userPreferenceConfig !=
         oldWidget.remoteConfig.userPreferenceConfig) {
@@ -125,8 +124,8 @@ class _SavedHeadlinesFiltersLimitFormState
             children: AppUserRole.values.map((role) {
               final config = widget.remoteConfig.userPreferenceConfig;
               return AppConfigIntField(
-                label: l10n.savedHeadlinesLimitLabel,
-                description: l10n.savedHeadlinesLimitDescription,
+                label: l10n.savedFeedFiltersLimitLabel,
+                description: l10n.savedFeedFiltersLimitLabel,
                 value: _getSavedFiltersLimit(config, role),
                 onChanged: (value) {
                   widget.onConfigChanged(
