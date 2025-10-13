@@ -143,10 +143,6 @@
   "@generalTab": {
     "description": "Tab title for General settings"
   },
-  "userPresetsTab": "User Presets",
-  "@userPresetsTab": {
-    "description": "Tab title for User Presets settings"
-  },
   "userContentLimitsTitle": "User Content & Feed Limits",
   "@userContentLimitsTitle": {
     "description": "Title for the User Content & Feed Limits section"

@@ -143,10 +143,6 @@
   "@generalTab": {
     "description": "عنوان تبويب الإعدادات العامة"
   },
-  "userPresetsTab": "الإعدادات المسبقة",
-  "@userPresetsTab": {
-    "description": "عنوان تبويب إعدادات الإعدادات المسبقة للمستخدم"
-  },
   "userContentLimitsTitle": "حدود المحتوى والموجز للمستخدم",
   "@userContentLimitsTitle": {
     "description": "عنوان قسم حدود المحتوى والموجز للمستخدم"
@@ -1038,10 +1034,6 @@
   "@savedHeadlinesLimitDescription": {
     "description": "وصف حد العناوين المحفوظة"
   },
-  "savedHeadlinesFiltersLimitDescription": "الحد الأقصى لعدد مرشحات  العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.",
-  "@savedHeadlinesFiltersLimitDescription": {
-    "description": "وصف لحد المرشحات المحفوظة"
-  },
   "adFrequencyLabel": "تكرار الإعلان",
   "@adFrequencyLabel": {
     "description": "تسمية تكرار الإعلان"
@@ -1049,6 +1041,10 @@
   "adFrequencyDescription": "عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).",
   "@adFrequencyDescription": {
     "description": "وصف تكرار الإعلان"
+  },
+  "savedHeadlinesFiltersLimitDescription": "الحد الأقصى لعدد مرشحات العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.",
+  "@savedHeadlinesFiltersLimitDescription": {
+    "description": "وصف لحد المرشحات المحفوظة"
   },
   "adPlacementIntervalLabel": "فترة وضع الإعلان",
   "@adPlacementIntervalLabel": {
