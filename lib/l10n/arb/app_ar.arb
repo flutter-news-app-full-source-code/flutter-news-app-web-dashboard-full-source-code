@@ -1022,7 +1022,7 @@
   "@followedItemsLimitDescription": {
     "description": "وصف حد العناصر المتابعة"
   },
-  "savedFeedFiltersLimitLabel": "حد مرشحات موجز الأخبار المحفوظة",
+  "savedFeedFiltersLimitLabel": "حد المرشحات المحفوظة",
   "@savedFeedFiltersLimitLabel": {
     "description": "تسمية حد مرشحات موجز الأخبار المحفوظة"
   },
