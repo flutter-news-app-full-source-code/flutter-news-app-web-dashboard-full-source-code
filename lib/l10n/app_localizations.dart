@@ -1595,8 +1595,8 @@ abstract class AppLocalizations {
   /// Description for Saved Filters Limit
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of saved filters this user role can create.'**
-  String get savedFiltersLimitDescription;
+  /// **'Maximum number of saved headlines filters this user role can create.'**
+  String get savedHeadlinesFiltersLimitDescription;
 
   /// Label for Ad Frequency
   ///

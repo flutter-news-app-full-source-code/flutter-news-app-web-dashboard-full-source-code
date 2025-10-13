@@ -838,8 +838,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Maximum number of headlines this user role can save.';
 
   @override
-  String get savedFiltersLimitDescription =>
-      'Maximum number of saved filters this user role can create.';
+  String get savedHeadlinesFiltersLimitDescription =>
+      'Maximum number of saved headlines filters this user role can create.';
 
   @override
   String get adFrequencyLabel => 'Ad Frequency';

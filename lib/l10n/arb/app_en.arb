@@ -1038,8 +1038,8 @@
   "@savedHeadlinesLimitDescription": {
     "description": "Description for Saved Headlines Limit"
   },
-  "savedFiltersLimitDescription": "Maximum number of saved filters this user role can create.",
-  "@savedFiltersLimitDescription": {
+  "savedHeadlinesFiltersLimitDescription": "Maximum number of saved headlines filters this user role can create.",
+  "@savedHeadlinesFiltersLimitDescription": {
     "description": "Description for Saved Filters Limit"
   },
   "adFrequencyLabel": "Ad Frequency",

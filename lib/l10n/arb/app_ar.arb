@@ -1038,8 +1038,8 @@
   "@savedHeadlinesLimitDescription": {
     "description": "وصف حد العناوين المحفوظة"
   },
-  "savedFiltersLimitDescription": "الحد الأقصى لعدد المرشحات المحفوظة التي يمكن لهذا الدور إنشاؤها.",
-  "@savedFiltersLimitDescription": {
+  "savedHeadlinesFiltersLimitDescription": "الحد الأقصى لعدد مرشحات  العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.",
+  "@savedHeadlinesFiltersLimitDescription": {
     "description": "وصف لحد المرشحات المحفوظة"
   },
   "adFrequencyLabel": "تكرار الإعلان",

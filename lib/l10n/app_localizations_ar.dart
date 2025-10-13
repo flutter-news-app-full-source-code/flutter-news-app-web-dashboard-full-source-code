@@ -840,8 +840,8 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد العناوين الرئيسية التي يمكن لهذا الدور المستخدم حفظها.';
 
   @override
-  String get savedFiltersLimitDescription =>
-      'الحد الأقصى لعدد المرشحات المحفوظة التي يمكن لهذا الدور إنشاؤها.';
+  String get savedHeadlinesFiltersLimitDescription =>
+      'الحد الأقصى لعدد مرشحات  العناوين المحفوظة التي يمكن لهذا الدور إنشاؤها.';
 
   @override
   String get adFrequencyLabel => 'تكرار الإعلان';
