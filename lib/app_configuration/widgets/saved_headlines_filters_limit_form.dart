@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 
-/// {@template user_preset_limits_form}
-/// A form for configuring user preset limits within the [RemoteConfig].
+/// {@template saved_headlines_filters_limit_form}
+/// A form for configuring saved headlines filter limits within the
+/// [RemoteConfig].
 ///
 /// This form provides fields to set the maximum number of saved filters
 /// for guest, authenticated, and premium users.
 /// {@endtemplate}
-class UserPresetLimitsForm extends StatefulWidget {
-  /// {@macro user_preset_limits_form}
-  const UserPresetLimitsForm({
+class SavedHeadlinesFiltersLimitForm extends StatefulWidget {
+  /// {@macro saved_headlines_filters_limit_form}
+  const SavedHeadlinesFiltersLimitForm({
     required this.remoteConfig,
     required this.onConfigChanged,
     super.key,
@@ -24,10 +25,12 @@ class UserPresetLimitsForm extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<UserPresetLimitsForm> createState() => _UserPresetLimitsFormState();
+  State<SavedHeadlinesFiltersLimitForm> createState() =>
+      _SavedHeadlinesFiltersLimitFormState();
 }
 
-class _UserPresetLimitsFormState extends State<UserPresetLimitsForm> {
+class _SavedHeadlinesFiltersLimitFormState
+    extends State<SavedHeadlinesFiltersLimitForm> {
   late final TextEditingController _guestController;
   late final TextEditingController _standardController;
   late final TextEditingController _premiumController;
@@ -39,7 +42,7 @@ class _UserPresetLimitsFormState extends State<UserPresetLimitsForm> {
   }
 
   @override
-  void didUpdateWidget(covariant UserPresetLimitsForm oldWidget) {
+  void didUpdateWidget(covariant SavedHeadlinesFiltersLimitForm oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.remoteConfig.userPreferenceConfig !=
         oldWidget.remoteConfig.userPreferenceConfig) {
@@ -51,23 +54,20 @@ class _UserPresetLimitsFormState extends State<UserPresetLimitsForm> {
     final config = widget.remoteConfig.userPreferenceConfig;
     _guestController =
         TextEditingController(
-            text: config.guestSavedFiltersLimit.toString(),
-          )
-          ..selection = TextSelection.collapsed(
+      text: config.guestSavedFiltersLimit.toString(),
+    )..selection = TextSelection.collapsed(
             offset: config.guestSavedFiltersLimit.toString().length,
           );
     _standardController =
         TextEditingController(
-            text: config.authenticatedSavedFiltersLimit.toString(),
-          )
-          ..selection = TextSelection.collapsed(
+      text: config.authenticatedSavedFiltersLimit.toString(),
+    )..selection = TextSelection.collapsed(
             offset: config.authenticatedSavedFiltersLimit.toString().length,
           );
     _premiumController =
         TextEditingController(
-            text: config.premiumSavedFiltersLimit.toString(),
-          )
-          ..selection = TextSelection.collapsed(
+      text: config.premiumSavedFiltersLimit.toString(),
+    )..selection = TextSelection.collapsed(
             offset: config.premiumSavedFiltersLimit.toString().length,
           );
   }
@@ -117,8 +117,8 @@ class _UserPresetLimitsFormState extends State<UserPresetLimitsForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppConfigIntField(
-          label: l10n.guestUserRole,
-          description: l10n.savedHeadlinesFiltersLimitDescription,
+          label: l10n.guestSavedFiltersLimitLabel,
+          description: l10n.savedFiltersLimitDescription,
           value: userPreferenceConfig.guestSavedFiltersLimit,
           onChanged: (newLimit) {
             widget.onConfigChanged(
@@ -132,8 +132,8 @@ class _UserPresetLimitsFormState extends State<UserPresetLimitsForm> {
           controller: _guestController,
         ),
         AppConfigIntField(
-          label: l10n.standardUserRole,
-          description: l10n.savedHeadlinesFiltersLimitDescription,
+          label: l10n.standardUserSavedFiltersLimitLabel,
+          description: l10n.savedFiltersLimitDescription,
           value: userPreferenceConfig.authenticatedSavedFiltersLimit,
           onChanged: (newLimit) {
             widget.onConfigChanged(
@@ -147,8 +147,8 @@ class _UserPresetLimitsFormState extends State<UserPresetLimitsForm> {
           controller: _standardController,
         ),
         AppConfigIntField(
-          label: l10n.premiumUserRole,
-          description: l10n.savedHeadlinesFiltersLimitDescription,
+          label: l10n.premiumUserSavedFiltersLimitLabel,
+          description: l10n.savedFiltersLimitDescription,
           value: userPreferenceConfig.premiumSavedFiltersLimit,
           onChanged: (newLimit) {
             widget.onConfigChanged(
