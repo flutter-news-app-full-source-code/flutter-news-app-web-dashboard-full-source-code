@@ -118,7 +118,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get generalTab => 'عام';
 
   @override
-  String get userContentLimitsTitle => 'حدود المحتوى للمستخدم';
+  String get userContentLimitsTitle => 'حدود المحتوى';
 
   @override
   String get userContentLimitsDescription =>
@@ -826,7 +826,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).';
 
   @override
-  String get savedFeedFiltersLimitLabel => 'حد المرشحات المحفوظة';
+  String get savedFeedFiltersLimitLabel => 'حدود المرشحات';
 
   @override
   String get savedFeedFiltersLimitDescription =>
