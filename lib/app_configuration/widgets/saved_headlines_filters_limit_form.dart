@@ -59,17 +59,14 @@ class _SavedHeadlinesFiltersLimitFormState
   void _initializeControllers() {
     _controllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getSavedFiltersLimit(
+        role: () {
+          final limitText = _getSavedFiltersLimit(
             widget.remoteConfig.userPreferenceConfig,
             role,
-          ).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getSavedFiltersLimit(
-              widget.remoteConfig.userPreferenceConfig,
-              role,
-            ).toString().length,
-          ),
+          ).toString();
+          return TextEditingController(text: limitText)
+            ..selection = TextSelection.collapsed(offset: limitText.length);
+        }(),
     };
   }
 
@@ -79,11 +76,13 @@ class _SavedHeadlinesFiltersLimitFormState
         widget.remoteConfig.userPreferenceConfig,
         role,
       ).toString();
-      if (_controllers[role]?.text != newLimit) {
-        _controllers[role]?.text = newLimit;
-        _controllers[role]?.selection = TextSelection.collapsed(
-          offset: newLimit.length,
-        );
+      final controller = _controllers[role];
+      if (controller != null && controller.text != newLimit) {
+        controller
+          ..text = newLimit
+          ..selection = TextSelection.collapsed(
+            offset: newLimit.length,
+          );
       }
     }
   }
@@ -132,8 +131,11 @@ class _SavedHeadlinesFiltersLimitFormState
                 onChanged: (value) {
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
-                      userPreferenceConfig:
-                          _updateSavedFiltersLimit(config, value, role),
+                      userPreferenceConfig: _updateSavedFiltersLimit(
+                        config,
+                        value,
+                        role,
+                      ),
                     ),
                   );
                 },
