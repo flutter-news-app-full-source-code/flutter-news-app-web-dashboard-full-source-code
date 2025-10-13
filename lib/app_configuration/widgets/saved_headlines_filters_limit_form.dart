@@ -54,20 +54,23 @@ class _SavedHeadlinesFiltersLimitFormState
     final config = widget.remoteConfig.userPreferenceConfig;
     _guestController =
         TextEditingController(
-      text: config.guestSavedFiltersLimit.toString(),
-    )..selection = TextSelection.collapsed(
+            text: config.guestSavedFiltersLimit.toString(),
+          )
+          ..selection = TextSelection.collapsed(
             offset: config.guestSavedFiltersLimit.toString().length,
           );
     _standardController =
         TextEditingController(
-      text: config.authenticatedSavedFiltersLimit.toString(),
-    )..selection = TextSelection.collapsed(
+            text: config.authenticatedSavedFiltersLimit.toString(),
+          )
+          ..selection = TextSelection.collapsed(
             offset: config.authenticatedSavedFiltersLimit.toString().length,
           );
     _premiumController =
         TextEditingController(
-      text: config.premiumSavedFiltersLimit.toString(),
-    )..selection = TextSelection.collapsed(
+            text: config.premiumSavedFiltersLimit.toString(),
+          )
+          ..selection = TextSelection.collapsed(
             offset: config.premiumSavedFiltersLimit.toString().length,
           );
   }

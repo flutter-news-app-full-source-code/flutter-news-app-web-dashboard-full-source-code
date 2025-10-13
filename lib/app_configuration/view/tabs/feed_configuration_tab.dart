@@ -71,11 +71,10 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                 Text(
                   l10n.userContentLimitsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7),
-                      ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 UserPreferenceLimitsForm(
@@ -109,11 +108,10 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                 Text(
                   l10n.savedHeadlinesFilterLimitsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7),
-                      ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SavedHeadlinesFiltersLimitForm(

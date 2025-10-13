@@ -8,7 +8,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/native_ads_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/video_ads_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
