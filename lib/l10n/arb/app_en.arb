@@ -1038,13 +1038,13 @@
   "@adFrequencyDescription": {
     "description": "Description for Ad Frequency"
   },
+  "savedFeedFilterLimitsTitle": "Saved Filter Limits",
+  "@savedFeedFilterLimitsTitle": {
+    "description": "Title for the Saved Feed Filter Limits section"
+  },
   "savedFeedFilterLimitsDescription": "Set limits on the number of saved feed filters for each user tier.",
   "@savedFeedFilterLimitsDescription": {
     "description": "Description for the Saved Headlines Filter Limits section"
-  },
-  "savedFeedFilterLimitsTitle": "Saved Feed Filter Limits",
-  "@savedFeedFilterLimitsTitle": {
-    "description": "Title for the Saved Feed Filter Limits section"
   },
   "adPlacementIntervalLabel": "Ad Placement Interval",
   "@adPlacementIntervalLabel": {
