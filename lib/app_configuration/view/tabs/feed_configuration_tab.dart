@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preset_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
@@ -76,11 +77,39 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-        // New Top-level ExpansionTile for Feed Decorators
+        // New Top-level ExpansionTile for User Preset Limits
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
+            return ExpansionTile(
+              key: ValueKey('headlinesFilterPresetLimitsTile_$expandedIndex'),
+              title: Text(l10n.headlinesFilterPresetLimitsTitle),
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              onExpansionChanged: (isExpanded) {
+                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+              },
+              initiallyExpanded: expandedIndex == tileIndex,
+              children: [
+                UserPresetLimitsForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        // New Top-level ExpansionTile for Feed Decorators
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 2;
             return ExpansionTile(
               key: ValueKey('feedDecoratorsTile_$expandedIndex'),
               title: Text(l10n.feedDecoratorsTitle),
