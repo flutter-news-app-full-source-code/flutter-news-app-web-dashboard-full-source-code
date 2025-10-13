@@ -180,6 +180,7 @@ class LocalAdActionButtons extends StatelessWidget {
               case 'copyId':
                 // Copy the ad ID to the clipboard
                 Clipboard.setData(ClipboardData(text: itemId)).then((_) {
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(l10n.idCopied),
