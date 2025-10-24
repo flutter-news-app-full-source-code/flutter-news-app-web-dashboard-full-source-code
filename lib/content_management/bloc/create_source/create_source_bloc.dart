@@ -18,6 +18,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);
+    on<CreateSourceLogoUrlChanged>(_onLogoUrlChanged);
     on<CreateSourceTypeChanged>(_onSourceTypeChanged);
     on<CreateSourceLanguageChanged>(_onLanguageChanged);
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
@@ -47,6 +48,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     emit(state.copyWith(url: event.url));
+  }
+
+  void _onLogoUrlChanged(
+    CreateSourceLogoUrlChanged event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    // Update state when the logo URL input changes.
+    emit(state.copyWith(logoUrl: event.logoUrl));
   }
 
   void _onSourceTypeChanged(
@@ -81,6 +90,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       final newSource = Source(
         id: _uuid.v4(),
         name: state.name,
+        logoUrl: state.logoUrl,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
@@ -92,6 +102,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       );
 
       await _sourcesRepository.create(item: newSource);
+
       emit(
         state.copyWith(
           status: CreateSourceStatus.success,
@@ -121,6 +132,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       final newSource = Source(
         id: _uuid.v4(),
         name: state.name,
+        logoUrl: state.logoUrl,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
@@ -132,6 +144,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       );
 
       await _sourcesRepository.create(item: newSource);
+
       emit(
         state.copyWith(
           status: CreateSourceStatus.success,

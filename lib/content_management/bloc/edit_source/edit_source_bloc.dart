@@ -21,6 +21,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
     on<EditSourceUrlChanged>(_onUrlChanged);
+    on<EditSourceLogoUrlChanged>(_onLogoUrlChanged);
     on<EditSourceTypeChanged>(_onSourceTypeChanged);
     on<EditSourceLanguageChanged>(_onLanguageChanged);
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
@@ -44,6 +45,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           name: source.name,
           description: source.description,
           url: source.url,
+          logoUrl: source.logoUrl,
           sourceType: () => source.sourceType,
           language: () => source.language,
           headquarters: () => source.headquarters,
@@ -87,6 +89,16 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     Emitter<EditSourceState> emit,
   ) {
     emit(state.copyWith(url: event.url, status: EditSourceStatus.initial));
+  }
+
+  void _onLogoUrlChanged(
+    EditSourceLogoUrlChanged event,
+    Emitter<EditSourceState> emit,
+  ) {
+    // Update state when the logo URL input changes.
+    emit(
+      state.copyWith(logoUrl: event.logoUrl, status: EditSourceStatus.initial),
+    );
   }
 
   void _onSourceTypeChanged(
@@ -135,6 +147,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
       final updatedSource = originalSource.copyWith(
         name: state.name,
+        logoUrl: state.logoUrl,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
@@ -148,6 +161,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         id: state.sourceId,
         item: updatedSource,
       );
+
       emit(
         state.copyWith(
           status: EditSourceStatus.success,
@@ -176,6 +190,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
       final updatedSource = originalSource.copyWith(
         name: state.name,
+        logoUrl: state.logoUrl,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
@@ -189,6 +204,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         id: state.sourceId,
         item: updatedSource,
       );
+
       emit(
         state.copyWith(
           status: EditSourceStatus.success,

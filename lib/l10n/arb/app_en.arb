@@ -1915,5 +1915,9 @@
   "saveAdMessage": "Do you want to publish this ad or save it as a draft?",
   "@saveAdMessage": {
     "description": "Message for the dialog asking to save an ad"
+  },
+  "logoUrl": "Logo URL",
+  "@logoUrl": {
+    "description": "Label for the source logo URL input field"
   }
 }

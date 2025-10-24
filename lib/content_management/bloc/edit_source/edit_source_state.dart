@@ -26,6 +26,7 @@ final class EditSourceState extends Equatable {
     this.name = '',
     this.description = '',
     this.url = '',
+    this.logoUrl = '',
     this.sourceType,
     this.language,
     this.headquarters,
@@ -38,6 +39,7 @@ final class EditSourceState extends Equatable {
   final String name;
   final String description;
   final String url;
+  final String logoUrl;
   final SourceType? sourceType;
   final Language? language;
   final Country? headquarters;
@@ -50,6 +52,7 @@ final class EditSourceState extends Equatable {
       name.isNotEmpty &&
       description.isNotEmpty &&
       url.isNotEmpty &&
+      logoUrl.isNotEmpty &&
       sourceType != null &&
       language != null &&
       headquarters != null;
@@ -60,6 +63,7 @@ final class EditSourceState extends Equatable {
     String? name,
     String? description,
     String? url,
+    String? logoUrl,
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
@@ -72,6 +76,7 @@ final class EditSourceState extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       url: url ?? this.url,
+      logoUrl: logoUrl ?? this.logoUrl,
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
@@ -87,6 +92,7 @@ final class EditSourceState extends Equatable {
     name,
     description,
     url,
+    logoUrl,
     sourceType,
     language,
     headquarters,

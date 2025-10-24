@@ -43,6 +43,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
+  late final TextEditingController _logoUrlController;
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
     _nameController = TextEditingController();
     _descriptionController = TextEditingController();
     _urlController = TextEditingController();
+    _logoUrlController = TextEditingController();
   }
 
   @override
@@ -57,6 +59,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
     _nameController.dispose();
     _descriptionController.dispose();
     _urlController.dispose();
+    _logoUrlController.dispose();
     super.dispose();
   }
 
@@ -140,6 +143,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
             _urlController.text = state.url;
+            _logoUrlController.text = state.logoUrl;
           }
         },
         builder: (context, state) {
@@ -198,6 +202,17 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                       onChanged: (value) => context.read<EditSourceBloc>().add(
                         EditSourceUrlChanged(value),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    TextFormField(
+                      controller: _logoUrlController,
+                      decoration: InputDecoration(
+                        labelText: l10n.logoUrl,
+                        border: const OutlineInputBorder(),
+                      ),
+                      onChanged: (value) => context.read<EditSourceBloc>().add(
+                        EditSourceLogoUrlChanged(value),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),

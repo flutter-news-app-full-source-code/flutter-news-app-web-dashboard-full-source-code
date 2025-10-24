@@ -1512,4 +1512,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get saveAdMessage => 'هل تريد نشر هذا الإعلان أم حفظه كمسودة؟';
+
+  @override
+  String get logoUrl => 'رابط الشعار';
 }

@@ -32,6 +32,14 @@ final class CreateSourceUrlChanged extends CreateSourceEvent {
   List<Object?> get props => [url];
 }
 
+/// Event for when the source's logo URL is changed.
+final class CreateSourceLogoUrlChanged extends CreateSourceEvent {
+  const CreateSourceLogoUrlChanged(this.logoUrl);
+  final String logoUrl;
+  @override
+  List<Object?> get props => [logoUrl];
+}
+
 /// Event for when the source's type is changed.
 final class CreateSourceTypeChanged extends CreateSourceEvent {
   const CreateSourceTypeChanged(this.sourceType);

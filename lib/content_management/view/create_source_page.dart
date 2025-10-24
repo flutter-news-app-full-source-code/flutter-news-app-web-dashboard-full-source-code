@@ -39,6 +39,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
+  late final TextEditingController _logoUrlController;
 
   @override
   void initState() {
@@ -47,6 +48,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
     _nameController = TextEditingController(text: state.name);
     _descriptionController = TextEditingController(text: state.description);
     _urlController = TextEditingController(text: state.url);
+    _logoUrlController = TextEditingController(text: state.logoUrl);
   }
 
   @override
@@ -54,6 +56,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
     _nameController.dispose();
     _descriptionController.dispose();
     _urlController.dispose();
+    _logoUrlController.dispose();
     super.dispose();
   }
 
@@ -209,6 +212,17 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                       onChanged: (value) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceUrlChanged(value)),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    TextFormField(
+                      controller: _logoUrlController,
+                      decoration: InputDecoration(
+                        labelText: l10n.logoUrl,
+                        border: const OutlineInputBorder(),
+                      ),
+                      onChanged: (value) => context
+                          .read<CreateSourceBloc>()
+                          .add(CreateSourceLogoUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Language>(
