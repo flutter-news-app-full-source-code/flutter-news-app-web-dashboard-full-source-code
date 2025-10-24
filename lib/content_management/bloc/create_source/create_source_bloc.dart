@@ -84,7 +84,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceSavedAsDraft event,
     Emitter<CreateSourceState> emit,
   ) async {
-    // Log: Attempting to save source as draft with state: state
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
       final now = DateTime.now();
@@ -103,7 +102,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       );
 
       await _sourcesRepository.create(item: newSource);
-      // Log: Successfully saved source as draft with id: newSource.id
+
       emit(
         state.copyWith(
           status: CreateSourceStatus.success,
@@ -111,11 +110,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     } on HttpException catch (e) {
-      // Log: Failed to save source as draft. Error: e
       emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
-        // Log: An unexpected error occurred while saving source as draft. Error: e
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
@@ -129,7 +126,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourcePublished event,
     Emitter<CreateSourceState> emit,
   ) async {
-    // Log: Attempting to publish source with state: state
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
       final now = DateTime.now();
@@ -148,7 +144,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       );
 
       await _sourcesRepository.create(item: newSource);
-      // Log: Successfully published source with id: newSource.id
+
       emit(
         state.copyWith(
           status: CreateSourceStatus.success,
@@ -156,11 +152,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     } on HttpException catch (e) {
-      // Log: Failed to publish source. Error: e
       emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
-        // Log: An unexpected error occurred while publishing source. Error: e
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
