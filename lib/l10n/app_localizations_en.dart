@@ -1518,4 +1518,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get saveAdMessage =>
       'Do you want to publish this ad or save it as a draft?';
+
+  @override
+  String get logoUrl => 'Logo URL';
 }

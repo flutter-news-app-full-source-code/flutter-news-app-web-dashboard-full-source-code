@@ -2839,6 +2839,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to publish this ad or save it as a draft?'**
   String get saveAdMessage;
+
+  /// Label for the source logo URL input field
+  ///
+  /// In en, this message translates to:
+  /// **'Logo URL'**
+  String get logoUrl;
 }
 
 class _AppLocalizationsDelegate
