@@ -43,6 +43,16 @@ final class EditSourceUrlChanged extends EditSourceEvent {
   List<Object?> get props => [url];
 }
 
+/// Event triggered when the source logo URL input changes.
+final class EditSourceLogoUrlChanged extends EditSourceEvent {
+  const EditSourceLogoUrlChanged(this.logoUrl);
+
+  final String logoUrl;
+
+  @override
+  List<Object?> get props => [logoUrl];
+}
+
 /// Event triggered when the source type input changes.
 final class EditSourceTypeChanged extends EditSourceEvent {
   const EditSourceTypeChanged(this.sourceType);
