@@ -75,6 +75,11 @@ Empower your team with a dashboard experience they can tailor to their own prefe
 <details>
 <summary><strong>🏗️ Architecture & Technical Excellence</strong></summary>
 
+### 🖥️ Fully Responsive Design
+The dashboard interface is engineered to deliver a seamless and consistent administrative experience across any device, from a large desktop monitor to a tablet or mobile phone.
+> **Your Advantage:** Manage your news operation from anywhere, on any device, without compromising on functionality or user experience.
+
+---
 
 ### 🏗️ Clean & Modern Foundation
 Developed with industry best practices to ensure the codebase is scalable, maintainable, and a pleasure to work with.
