@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/bootstrap.dart';
 
-// Define the current application environment (production/development/demo).
-const AppEnvironment appEnvironment = AppEnvironment.demo;
+// Determine the current application environment from compile-time variables.
+// Defaults to 'demo' if no environment is specified.
+const AppEnvironment appEnvironment =
+    String.fromEnvironment('APP_ENVIRONMENT') == 'production'
+    ? AppEnvironment.production
+    : (String.fromEnvironment('APP_ENVIRONMENT') == 'development'
+          ? AppEnvironment.development
+          : AppEnvironment.demo);
 
 @JS('removeSplashFromWeb')
 external void removeSplashFromWeb();
