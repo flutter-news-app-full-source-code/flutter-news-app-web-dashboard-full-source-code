@@ -1,4 +1,3 @@
-
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/app_environment.dart';
 
 /// A class to hold all environment-specific configurations.
@@ -23,7 +22,7 @@ class AppConfig {
     const baseUrl = String.fromEnvironment('BASE_URL');
     if (baseUrl.isEmpty) {
       // This check is crucial for production builds.
-      throw const FormatException(
+      throw StateError(
         'FATAL: The BASE_URL compile-time variable was not provided for this '
         'production build. Ensure the build command includes '
         '--dart-define=BASE_URL=https://your.api.com',
