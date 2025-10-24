@@ -264,6 +264,7 @@ class _FilterDialogState extends State<FilterDialog> {
                         name: '',
                         description: '',
                         url: '',
+                        logoUrl: '',
                         sourceType: SourceType.other,
                         language: Language(
                           id: '',
