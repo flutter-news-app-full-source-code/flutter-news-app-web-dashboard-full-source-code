@@ -18,6 +18,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);
+    on<CreateSourceLogoUrlChanged>(_onLogoUrlChanged);
     on<CreateSourceTypeChanged>(_onSourceTypeChanged);
     on<CreateSourceLanguageChanged>(_onLanguageChanged);
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
@@ -49,6 +50,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(url: event.url));
   }
 
+  void _onLogoUrlChanged(
+    CreateSourceLogoUrlChanged event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    // Update state when the logo URL input changes.
+    emit(state.copyWith(logoUrl: event.logoUrl));
+  }
+
   void _onSourceTypeChanged(
     CreateSourceTypeChanged event,
     Emitter<CreateSourceState> emit,
@@ -75,12 +84,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceSavedAsDraft event,
     Emitter<CreateSourceState> emit,
   ) async {
+    // Log: Attempting to save source as draft with state: state
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
       final now = DateTime.now();
       final newSource = Source(
         id: _uuid.v4(),
         name: state.name,
+        logoUrl: state.logoUrl,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
@@ -92,6 +103,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       );
 
       await _sourcesRepository.create(item: newSource);
+      // Log: Successfully saved source as draft with id: newSource.id
       emit(
         state.copyWith(
           status: CreateSourceStatus.success,
@@ -99,9 +111,11 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     } on HttpException catch (e) {
+      // Log: Failed to save source as draft. Error: e
       emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
+        // Log: An unexpected error occurred while saving source as draft. Error: e
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
@@ -115,12 +129,14 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourcePublished event,
     Emitter<CreateSourceState> emit,
   ) async {
+    // Log: Attempting to publish source with state: state
     emit(state.copyWith(status: CreateSourceStatus.submitting));
     try {
       final now = DateTime.now();
       final newSource = Source(
         id: _uuid.v4(),
         name: state.name,
+        logoUrl: state.logoUrl,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
@@ -132,6 +148,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       );
 
       await _sourcesRepository.create(item: newSource);
+      // Log: Successfully published source with id: newSource.id
       emit(
         state.copyWith(
           status: CreateSourceStatus.success,
@@ -139,9 +156,11 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     } on HttpException catch (e) {
+      // Log: Failed to publish source. Error: e
       emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
     } catch (e) {
       emit(
+        // Log: An unexpected error occurred while publishing source. Error: e
         state.copyWith(
           status: CreateSourceStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
