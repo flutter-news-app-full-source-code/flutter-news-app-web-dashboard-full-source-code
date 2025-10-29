@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://repository-images.githubusercontent.com/946589707/33b56f2c-76c3-4af0-a67f-8c08ca494b1b" alt="Flutter News App Toolkit Mockup" width="440">
+  <img src="https://repository-images.githubusercontent.com/982329540/efac8fef-b417-42ce-ba41-9efdabec5eb3" alt="Flutter News App Toolkit Mockup" width="440">
   <h1>Flutter News App Web Dashboard</h1>
   <p><strong>Complete, production-ready source code for a comprehensive Flutter news app web dashboard.</strong></p>
 </div>
