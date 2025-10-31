@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:logging/logging.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -24,8 +25,10 @@ class UserManagementBloc
   UserManagementBloc({
     required DataRepository<User> usersRepository,
     required UserFilterBloc userFilterBloc,
+    Logger? logger,
   }) : _usersRepository = usersRepository,
        _userFilterBloc = userFilterBloc,
+       _logger = logger ?? Logger('UserManagementBloc'),
        super(const UserManagementState()) {
     on<LoadUsersRequested>(_onLoadUsersRequested);
     on<UserDashboardRoleChanged>(_onUserDashboardRoleChanged);
@@ -58,6 +61,7 @@ class UserManagementBloc
 
   final DataRepository<User> _usersRepository;
   final UserFilterBloc _userFilterBloc;
+  final Logger _logger;
 
   late final StreamSubscription<UserFilterState> _filterSubscription;
   late final StreamSubscription<Type> _userUpdateSubscription;
@@ -145,11 +149,31 @@ class UserManagementBloc
     UserDashboardRoleChanged event,
     Emitter<UserManagementState> emit,
   ) async {
-    final userToUpdate = state.users.firstWhere((u) => u.id == event.userId);
-    await _usersRepository.update(
-      id: event.userId,
-      item: userToUpdate.copyWith(dashboardRole: event.dashboardRole),
+    _logger.info(
+      'Attempting to change dashboard role for user: ${event.userId} '
+      'to ${event.dashboardRole.name}',
     );
+    try {
+      final userToUpdate = state.users.firstWhere((u) => u.id == event.userId);
+      _logger.info('Found user in state: $userToUpdate');
+
+      final updatedItem = userToUpdate.copyWith(
+        dashboardRole: event.dashboardRole,
+      );
+      _logger.info('Sending updated user object to repository: $updatedItem');
+
+      await _usersRepository.update(
+        id: event.userId,
+        item: updatedItem,
+      );
+    } catch (error, stackTrace) {
+      _logger.severe(
+        'Error changing user dashboard role for ${event.userId}.',
+        error,
+        stackTrace,
+      );
+      addError(error, stackTrace);
+    }
   }
 
   /// Handles the request to change a user's app role.
