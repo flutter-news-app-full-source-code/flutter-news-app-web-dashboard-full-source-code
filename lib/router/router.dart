@@ -193,12 +193,11 @@ GoRouter createRouter({
                         fullscreenDialog: true,
                         child: BlocProvider<UserFilterDialogBloc>(
                           create: (providerContext) =>
-                              UserFilterDialogBloc()
-                                ..add(
-                                  UserFilterDialogInitialized(
-                                    userFilterState: userFilterState,
-                                  ),
+                              UserFilterDialogBloc()..add(
+                                UserFilterDialogInitialized(
+                                  userFilterState: userFilterState,
                                 ),
+                              ),
                           child: const UserFilterDialog(),
                         ),
                       );

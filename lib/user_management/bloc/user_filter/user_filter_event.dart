@@ -58,8 +58,8 @@ final class UserFilterApplied extends UserFilterEvent {
 
   @override
   List<Object> get props => [
-        searchQuery,
-        selectedAppRoles,
-        selectedDashboardRoles,
-      ];
+    searchQuery,
+    selectedAppRoles,
+    selectedDashboardRoles,
+  ];
 }

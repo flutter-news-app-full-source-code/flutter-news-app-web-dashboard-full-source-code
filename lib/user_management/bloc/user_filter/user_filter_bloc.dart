@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart' show UserManagementBloc;
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart'
+    show UserManagementBloc;
 
 part 'user_filter_event.dart';
 part 'user_filter_state.dart';
@@ -60,10 +61,12 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
     UserFilterApplied event,
     Emitter<UserFilterState> emit,
   ) {
-    emit(state.copyWith(
-      searchQuery: event.searchQuery,
-      selectedAppRoles: event.selectedAppRoles,
-      selectedDashboardRoles: event.selectedDashboardRoles,
-    ),);
+    emit(
+      state.copyWith(
+        searchQuery: event.searchQuery,
+        selectedAppRoles: event.selectedAppRoles,
+        selectedDashboardRoles: event.selectedDashboardRoles,
+      ),
+    );
   }
 }
