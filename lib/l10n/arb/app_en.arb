@@ -1983,5 +1983,29 @@
   "selectDashboardRoles": "Select Dashboard Roles",
   "@selectDashboardRoles": {
     "description": "Hint text for selecting dashboard roles in a filter dialog."
+  },
+  "authentication": "Authentication",
+  "@authentication": {
+    "description": "Column header for authentication status"
+  },
+  "subscription": "Subscription",
+  "@subscription": {
+    "description": "Column header for subscription status"
+  },
+  "authenticationAnonymous": "Anonymous",
+  "@authenticationAnonymous": {
+    "description": "Authentication status for a guest user"
+  },
+  "authenticationAuthenticated": "Authenticated",
+  "@authenticationAuthenticated": {
+    "description": "Authentication status for a signed-in user"
+  },
+  "subscriptionFree": "Free",
+  "@subscriptionFree": {
+    "description": "Subscription status for a free user"
+  },
+  "subscriptionPremium": "Premium",
+  "@subscriptionPremium": {
+    "description": "Subscription status for a premium user"
   }
 }

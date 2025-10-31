@@ -1987,5 +1987,29 @@
   "selectDashboardRoles": "اختر أدوار لوحة التحكم",
   "@selectDashboardRoles": {
     "description": "نص تلميح لاختيار أدوار لوحة التحكم في مربع حوار التصفية."
+  },
+  "authentication": "المصادقة",
+  "@authentication": {
+    "description": "رأس العمود لحالة المصادقة"
+  },
+  "subscription": "الاشتراك",
+  "@subscription": {
+    "description": "رأس العمود لحالة الاشتراك"
+  },
+  "authenticationAnonymous": "مجهول",
+  "@authenticationAnonymous": {
+    "description": "حالة المصادقة لمستخدم ضيف"
+  },
+  "authenticationAuthenticated": "موثق",
+  "@authenticationAuthenticated": {
+    "description": "حالة المصادقة لمستخدم قام بتسجيل الدخول"
+  },
+  "subscriptionFree": "مجاني",
+  "@subscriptionFree": {
+    "description": "حالة الاشتراك لمستخدم مجاني"
+  },
+  "subscriptionPremium": "مميز",
+  "@subscriptionPremium": {
+    "description": "حالة الاشتراك لمستخدم مميز"
   }
 }
