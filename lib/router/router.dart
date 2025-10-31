@@ -176,40 +176,6 @@ GoRouter createRouter({
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.userManagement,
-                name: Routes.userManagementName,
-                builder: (context, state) => const UserManagementPage(),
-                routes: [
-                  // Route for the UserFilterDialog.
-                  GoRoute(
-                    path: Routes.userFilterDialog,
-                    name: Routes.userFilterDialogName,
-                    pageBuilder: (context, state) {
-                      final args = state.extra! as Map<String, dynamic>;
-                      final userFilterState =
-                          args['userFilterState'] as UserFilterState;
-
-                      return MaterialPage(
-                        fullscreenDialog: true,
-                        child: BlocProvider<UserFilterDialogBloc>(
-                          create: (providerContext) =>
-                              UserFilterDialogBloc()..add(
-                                UserFilterDialogInitialized(
-                                  userFilterState: userFilterState,
-                                ),
-                              ),
-                          child: const UserFilterDialog(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
                 path: Routes.contentManagement,
                 name: Routes.contentManagementName,
                 builder: (context, state) => const ContentManagementPage(),
@@ -323,6 +289,40 @@ GoRouter createRouter({
                             countriesRepository: countriesRepository,
                             languagesRepository: languagesRepository,
                           ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.userManagement,
+                name: Routes.userManagementName,
+                builder: (context, state) => const UserManagementPage(),
+                routes: [
+                  // Route for the UserFilterDialog.
+                  GoRoute(
+                    path: Routes.userFilterDialog,
+                    name: Routes.userFilterDialogName,
+                    pageBuilder: (context, state) {
+                      final args = state.extra! as Map<String, dynamic>;
+                      final userFilterState =
+                          args['userFilterState'] as UserFilterState;
+
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: BlocProvider<UserFilterDialogBloc>(
+                          create: (providerContext) =>
+                              UserFilterDialogBloc()..add(
+                                UserFilterDialogInitialized(
+                                  userFilterState: userFilterState,
+                                ),
+                              ),
+                          child: const UserFilterDialog(),
                         ),
                       );
                     },
