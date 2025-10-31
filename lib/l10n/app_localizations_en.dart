@@ -1521,4 +1521,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logoUrl => 'Logo URL';
+
+  @override
+  String get userManagement => 'User Management';
+
+  @override
+  String get userManagementPageDescription =>
+      'Manage system users, including their roles and permissions.';
+
+  @override
+  String get loadingUsers => 'Loading Users';
+
+  @override
+  String get noUsersFound => 'No users found.';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get appRole => 'App Role';
+
+  @override
+  String get dashboardRole => 'Dashboard Role';
+
+  @override
+  String get createdAt => 'Created At';
+
+  @override
+  String get promoteToPublisher => 'Promote to Publisher';
+
+  @override
+  String get demoteToUser => 'Demote to User';
+
+  @override
+  String get adminRole => 'Admin';
+
+  @override
+  String get publisherRole => 'Publisher';
+
+  @override
+  String get filterUsers => 'Filter Users';
+
+  @override
+  String get searchByUserEmail => 'Search by user email...';
+
+  @override
+  String get selectAppRoles => 'Select App Roles';
+
+  @override
+  String get selectDashboardRoles => 'Select Dashboard Roles';
 }

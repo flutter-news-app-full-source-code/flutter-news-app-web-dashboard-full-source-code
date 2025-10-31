@@ -1515,4 +1515,53 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get logoUrl => 'رابط الشعار';
+
+  @override
+  String get userManagement => 'إدارة المستخدمين';
+
+  @override
+  String get userManagementPageDescription =>
+      'إدارة مستخدمي النظام، بما في ذلك أدوارهم وأذوناتهم.';
+
+  @override
+  String get loadingUsers => 'جاري تحميل المستخدمين';
+
+  @override
+  String get noUsersFound => 'لم يتم العثور على مستخدمين.';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get appRole => 'دور التطبيق';
+
+  @override
+  String get dashboardRole => 'دور لوحة التحكم';
+
+  @override
+  String get createdAt => 'تاريخ الإنشاء';
+
+  @override
+  String get promoteToPublisher => 'ترقية إلى ناشر';
+
+  @override
+  String get demoteToUser => 'تخفيض إلى مستخدم';
+
+  @override
+  String get adminRole => 'مسؤول';
+
+  @override
+  String get publisherRole => 'ناشر';
+
+  @override
+  String get filterUsers => 'تصفية المستخدمين';
+
+  @override
+  String get searchByUserEmail => 'البحث بالبريد الإلكتروني للمستخدم...';
+
+  @override
+  String get selectAppRoles => 'اختر أدوار التطبيق';
+
+  @override
+  String get selectDashboardRoles => 'اختر أدوار لوحة التحكم';
 }
