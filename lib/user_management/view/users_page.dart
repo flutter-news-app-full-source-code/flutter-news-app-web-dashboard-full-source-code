@@ -3,6 +3,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/dashboard_user_role_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
@@ -41,9 +43,7 @@ class _UsersPageState extends State<UsersPage> {
 
   /// Checks if any filters are currently active in the UserFilterBloc.
   bool _areFiltersActive(UserFilterState state) {
-    return state.searchQuery.isNotEmpty ||
-        state.selectedAppRoles.isNotEmpty ||
-        state.selectedDashboardRoles.isNotEmpty;
+    return state.searchQuery.isNotEmpty || state.selectedAppRoles.isNotEmpty;
   }
 
   @override
@@ -129,16 +129,16 @@ class _UsersPageState extends State<UsersPage> {
                       size: ColumnSize.L,
                     ),
                     DataColumn2(
-                      label: Text(l10n.appRole),
+                      label: Text(l10n.authentication),
                       size: ColumnSize.S,
                     ),
                     DataColumn2(
-                      label: Text(l10n.dashboardRole),
+                      label: Text(l10n.subscription),
                       size: ColumnSize.S,
                     ),
                     DataColumn2(
                       label: Text(l10n.createdAt),
-                      size: ColumnSize.S,
+                      size: ColumnSize.M,
                     ),
                     DataColumn2(
                       label: Text(l10n.actions),
@@ -213,10 +213,23 @@ class _UsersDataSource extends DataTableSource {
     return DataRow2(
       // We don't implement onSelectChanged because user edits are handled
       // via the action buttons, not by navigating to a dedicated edit page.
+      // The email cell is wrapped in an Expanded widget to allow truncation.
       cells: [
-        DataCell(Text(user.email)),
-        DataCell(Text(user.appRole.name)),
-        DataCell(Text(user.dashboardRole.name)),
+        DataCell(
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  user.email,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+        ),
+        DataCell(Text(user.appRole.authenticationStatusL10n(context))),
+        DataCell(Text(user.appRole.subscriptionStatusL10n(context))),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(user.createdAt.toLocal()),
@@ -240,4 +253,36 @@ class _UsersDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+}
+
+/// An extension to get the localized string for the authentication status
+/// derived from [AppUserRole].
+extension AuthenticationStatusL10n on AppUserRole {
+  /// Returns the localized authentication status string.
+  String authenticationStatusL10n(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (this) {
+      case AppUserRole.guestUser:
+        return l10n.authenticationAnonymous;
+      case AppUserRole.standardUser:
+      case AppUserRole.premiumUser:
+        return l10n.authenticationAuthenticated;
+    }
+  }
+}
+
+/// An extension to get the localized string for the subscription status
+/// derived from [AppUserRole].
+extension SubscriptionStatusL10n on AppUserRole {
+  /// Returns the localized subscription status string.
+  String subscriptionStatusL10n(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (this) {
+      case AppUserRole.guestUser:
+      case AppUserRole.standardUser:
+        return l10n.subscriptionFree;
+      case AppUserRole.premiumUser:
+        return l10n.subscriptionPremium;
+    }
+  }
 }
