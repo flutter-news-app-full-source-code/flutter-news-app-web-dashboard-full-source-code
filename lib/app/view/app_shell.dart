@@ -51,6 +51,11 @@ class AppShell extends StatelessWidget {
             label: l10n.contentManagement,
           ),
           NavigationDestination(
+            icon: const Icon(Icons.people_outline),
+            selectedIcon: const Icon(Icons.people),
+            label: l10n.userManagement,
+          ),
+          NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
             selectedIcon: const Icon(Icons.settings_applications),
             label: l10n.appConfiguration,
