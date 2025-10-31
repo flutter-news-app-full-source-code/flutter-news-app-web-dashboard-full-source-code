@@ -65,6 +65,7 @@ Future<Widget> bootstrap(
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
   DataClient<LocalAd> localAdsClient;
+  DataClient<User> usersClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -124,6 +125,12 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: localAdsFixturesData,
       logger: Logger('DataInMemory<LocalAd>'),
+    );
+    usersClient = DataInMemory<User>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      // No initial data for users in demo mode.
+      logger: Logger('DataInMemory<User>'),
     );
   } else if (appConfig.environment == app_config.AppEnvironment.development) {
     headlinesClient = DataApi<Headline>(
@@ -196,6 +203,13 @@ Future<Widget> bootstrap(
       toJson: LocalAd.toJson,
       logger: Logger('DataApi<LocalAd>'),
     );
+    usersClient = DataApi<User>(
+      httpClient: httpClient,
+      modelName: 'user',
+      fromJson: User.fromJson,
+      toJson: (user) => user.toJson(),
+      logger: Logger('DataApi<User>'),
+    );
   } else {
     headlinesClient = DataApi<Headline>(
       httpClient: httpClient!,
@@ -267,6 +281,13 @@ Future<Widget> bootstrap(
       toJson: FeedItem.toJson,
       logger: Logger('DataApi<LocalAd>'),
     );
+    usersClient = DataApi<User>(
+      httpClient: httpClient,
+      modelName: 'user',
+      fromJson: User.fromJson,
+      toJson: (user) => user.toJson(),
+      logger: Logger('DataApi<User>'),
+    );
   }
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
@@ -300,6 +321,7 @@ Future<Widget> bootstrap(
   final localAdsRepository = DataRepository<LocalAd>(
     dataClient: localAdsClient,
   );
+  final usersRepository = DataRepository<User>(dataClient: usersClient);
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -313,6 +335,7 @@ Future<Widget> bootstrap(
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
     localAdsRepository: localAdsRepository,
+    usersRepository: usersRepository,
     storageService: kvStorage,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,
