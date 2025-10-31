@@ -2941,6 +2941,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Dashboard Roles'**
   String get selectDashboardRoles;
+
+  /// Column header for authentication status
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication'**
+  String get authentication;
+
+  /// Column header for subscription status
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get subscription;
+
+  /// Authentication status for a guest user
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous'**
+  String get authenticationAnonymous;
+
+  /// Authentication status for a signed-in user
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticated'**
+  String get authenticationAuthenticated;
+
+  /// Subscription status for a free user
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get subscriptionFree;
+
+  /// Subscription status for a premium user
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get subscriptionPremium;
 }
 
 class _AppLocalizationsDelegate

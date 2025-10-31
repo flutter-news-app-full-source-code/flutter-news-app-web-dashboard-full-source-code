@@ -1564,4 +1564,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectDashboardRoles => 'اختر أدوار لوحة التحكم';
+
+  @override
+  String get authentication => 'المصادقة';
+
+  @override
+  String get subscription => 'الاشتراك';
+
+  @override
+  String get authenticationAnonymous => 'مجهول';
+
+  @override
+  String get authenticationAuthenticated => 'موثق';
+
+  @override
+  String get subscriptionFree => 'مجاني';
+
+  @override
+  String get subscriptionPremium => 'مميز';
 }

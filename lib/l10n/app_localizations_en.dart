@@ -1570,4 +1570,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectDashboardRoles => 'Select Dashboard Roles';
+
+  @override
+  String get authentication => 'Authentication';
+
+  @override
+  String get subscription => 'Subscription';
+
+  @override
+  String get authenticationAnonymous => 'Anonymous';
+
+  @override
+  String get authenticationAuthenticated => 'Authenticated';
+
+  @override
+  String get subscriptionFree => 'Free';
+
+  @override
+  String get subscriptionPremium => 'Premium';
 }
