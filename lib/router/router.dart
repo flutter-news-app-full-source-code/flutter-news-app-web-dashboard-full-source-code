@@ -39,6 +39,10 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/local_ads_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/user_management_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/user_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/selection_page_arguments.dart';
@@ -164,6 +168,41 @@ GoRouter createRouter({
                     path: Routes.settings,
                     name: Routes.settingsName,
                     builder: (context, state) => const SettingsPage(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.userManagement,
+                name: Routes.userManagementName,
+                builder: (context, state) => const UserManagementPage(),
+                routes: [
+                  // Route for the UserFilterDialog.
+                  GoRoute(
+                    path: Routes.userFilterDialog,
+                    name: Routes.userFilterDialogName,
+                    pageBuilder: (context, state) {
+                      final args = state.extra! as Map<String, dynamic>;
+                      final userFilterState =
+                          args['userFilterState'] as UserFilterState;
+
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: BlocProvider<UserFilterDialogBloc>(
+                          create: (providerContext) =>
+                              UserFilterDialogBloc()
+                                ..add(
+                                  UserFilterDialogInitialized(
+                                    userFilterState: userFilterState,
+                                  ),
+                                ),
+                          child: const UserFilterDialog(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
