@@ -160,35 +160,3 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
     );
   }
 }
-
-/// Extension to provide localized names for AppUserRole.
-extension AppUserRoleL10n on AppUserRole {
-  /// Returns the localized name of the app user role.
-  String l10n(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
-    switch (this) {
-      case AppUserRole.guestUser:
-        return l10n.guestUserRole;
-      case AppUserRole.standardUser:
-        return l10n.standardUserRole;
-      case AppUserRole.premiumUser:
-        return l10n.premiumUserRole;
-    }
-  }
-}
-
-/// Extension to provide localized names for DashboardUserRole.
-extension DashboardUserRoleL10n on DashboardUserRole {
-  /// Returns the localized name of the dashboard user role.
-  String l10n(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
-    switch (this) {
-      case DashboardUserRole.admin:
-        return l10n.adminRole;
-      case DashboardUserRole.publisher:
-        return l10n.publisherRole;
-      case DashboardUserRole.none:
-        return l10n.none;
-    }
-  }
-}
