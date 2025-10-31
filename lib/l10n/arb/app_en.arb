@@ -1919,5 +1919,69 @@
   "logoUrl": "Logo URL",
   "@logoUrl": {
     "description": "Label for the source logo URL input field"
+  },
+  "userManagement": "User Management",
+  "@userManagement": {
+    "description": "Label for the user management navigation item"
+  },
+  "userManagementPageDescription": "Manage system users, including their roles and permissions.",
+  "@userManagementPageDescription": {
+    "description": "Description for the User Management page"
+  },
+  "loadingUsers": "Loading Users",
+  "@loadingUsers": {
+    "description": "Headline for loading state of users"
+  },
+  "noUsersFound": "No users found.",
+  "@noUsersFound": {
+    "description": "Message when no users are found"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Column header for user email"
+  },
+  "appRole": "App Role",
+  "@appRole": {
+    "description": "Column header for user app role"
+  },
+  "dashboardRole": "Dashboard Role",
+  "@dashboardRole": {
+    "description": "Column header for user dashboard role"
+  },
+  "createdAt": "Created At",
+  "@createdAt": {
+    "description": "Column header for creation date"
+  },
+  "promoteToPublisher": "Promote to Publisher",
+  "@promoteToPublisher": {
+    "description": "Action to promote a user to a publisher role."
+  },
+  "demoteToUser": "Demote to User",
+  "@demoteToUser": {
+    "description": "Action to demote a publisher back to a standard user role."
+  },
+  "adminRole": "Admin",
+  "@adminRole": {
+    "description": "Localized name for DashboardUserRole.admin"
+  },
+  "publisherRole": "Publisher",
+  "@publisherRole": {
+    "description": "Localized name for DashboardUserRole.publisher"
+  },
+  "filterUsers": "Filter Users",
+  "@filterUsers": {
+    "description": "Title for the filter dialog when filtering users."
+  },
+  "searchByUserEmail": "Search by user email...",
+  "@searchByUserEmail": {
+    "description": "Hint text for the user search field."
+  },
+  "selectAppRoles": "Select App Roles",
+  "@selectAppRoles": {
+    "description": "Hint text for selecting app roles in a filter dialog."
+  },
+  "selectDashboardRoles": "Select Dashboard Roles",
+  "@selectDashboardRoles": {
+    "description": "Hint text for selecting dashboard roles in a filter dialog."
   }
 }
