@@ -6,6 +6,7 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 part 'user_management_event.dart';
 part 'user_management_state.dart';
@@ -34,7 +35,7 @@ class UserManagementBloc
     _filterSubscription = _userFilterBloc.stream.listen((_) {
       add(
         LoadUsersRequested(
-          limit: kDefaultRowsPerPage,
+          limit: AppConstants.kDefaultRowsPerPage,
           forceRefresh: true,
           filter: buildUsersFilterMap(_userFilterBloc.state),
         ),
