@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/user_filter_dialog.dart' show UserFilterDialog;
 
 part 'user_filter_dialog_event.dart';
 part 'user_filter_dialog_state.dart';
