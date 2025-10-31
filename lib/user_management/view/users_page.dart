@@ -136,7 +136,7 @@ class _UsersPageState extends State<UsersPage> {
                     ),
                     DataColumn2(
                       label: Text(l10n.createdAt),
-                      size: ColumnSize.M,
+                      size: ColumnSize.S,
                     ),
                     DataColumn2(
                       label: Text(l10n.actions),
