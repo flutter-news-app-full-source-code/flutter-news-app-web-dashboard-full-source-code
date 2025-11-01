@@ -2007,9 +2007,5 @@
   "subscriptionPremium": "Premium",
   "@subscriptionPremium": {
     "description": "Subscription status for a premium user"
-  },
-  "unauthorizedAccessRedirect": "You do not have permission to access this page.",
-  "@unauthorizedAccessRedirect": {
-    "description": "Snackbar message shown when a user is redirected due to lack of permissions."
   }
 }
