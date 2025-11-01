@@ -25,6 +25,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_banner_ad_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_interstitial_ad_page.dart';
@@ -38,6 +39,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/bloc/local_ads_filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/local_ads_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/route_permissions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart';
@@ -64,6 +66,7 @@ GoRouter createRouter({
     // --- Redirect Logic ---
     redirect: (BuildContext context, GoRouterState state) {
       final appStatus = context.read<AppBloc>().state.status;
+      final l10n = AppLocalizationsX(context).l10n;
       final currentLocation = state.matchedLocation;
 
       print(
@@ -94,6 +97,32 @@ GoRouter createRouter({
       // --- Case 2: Authenticated User ---
       if (appStatus == AppStatus.authenticated) {
         print('  Redirect Decision: User is $appStatus.');
+
+        // --- Role-Based Access Control (RBAC) ---
+        final userRole = context.read<AppBloc>().state.user?.dashboardRole;
+        final destinationRouteName = state.topRoute?.name;
+
+        // Allow navigation if role is not yet determined or route is unknown.
+        if (userRole == null || destinationRouteName == null) {
+          return null;
+        }
+
+        final allowedRoutes = routePermissions[userRole];
+
+        // Check if the user is trying to access a route they are not
+        // permitted to view.
+        final isAuthorized = allowedRoutes?.contains(destinationRouteName) ??
+            false;
+
+        // Universally allowed routes like 'settings' are exempt from this check.
+        if (!isAuthorized && destinationRouteName != Routes.settingsName) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(l10n.unauthorizedAccessRedirect)),
+          );
+          // Redirect unauthorized users to the overview page.
+          return Routes.overview;
+        }
+        // --- End of RBAC ---
 
         // If an authenticated user is on any authentication-related path:
         if (isGoingToAuth) {
