@@ -107,12 +107,17 @@ GoRouter createRouter({
 
         // Convert the allowed route names into a list of their base paths.
         final authorizedPaths = allowedRouteNames
-            .map((name) => topLevelPaths[name])
-            .whereType<
-              String
-            >() // Filter out any nulls if a name is not in the map.
+            .map((name) {
+              final path = topLevelPaths[name];
+              assert(
+                path != null,
+                'Configuration error: Route name "$name" from routePermissions is not defined in topLevelPaths.',
+              );
+              return path;
+            })
+            .whereType<String>()
             .toList();
-
+            
         // Check if the destination path starts with any of the authorized base
         // paths, or if it's the universally accessible settings page.
         final isAuthorized =
