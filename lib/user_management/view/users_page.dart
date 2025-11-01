@@ -120,64 +120,71 @@ class _UsersPageState extends State<UsersPage> {
                   state.users.isNotEmpty)
                 const LinearProgressIndicator(),
               Expanded(
-                child: PaginatedDataTable2(
-                  columns: [
-                    DataColumn2(
-                      label: Text(l10n.email),
-                      size: ColumnSize.L,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.authentication),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.subscription),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.createdAt),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.actions),
-                      size: ColumnSize.S,
-                    ),
-                  ],
-                  source: _UsersDataSource(
-                    context: context,
-                    users: state.users,
-                    hasMore: state.hasMore,
-                    l10n: l10n,
-                  ),
-                  rowsPerPage: kDefaultRowsPerPage,
-                  availableRowsPerPage: const [kDefaultRowsPerPage],
-                  onPageChanged: (pageIndex) {
-                    // Handle pagination: fetch next page if needed.
-                    final newOffset = pageIndex * kDefaultRowsPerPage;
-                    if (newOffset >= state.users.length &&
-                        state.hasMore &&
-                        state.status != UserManagementStatus.loading) {
-                      context.read<UserManagementBloc>().add(
-                        LoadUsersRequested(
-                          startAfterId: state.cursor,
-                          limit: kDefaultRowsPerPage,
-                          filter: context
-                              .read<UserManagementBloc>()
-                              .buildUsersFilterMap(
-                                context.read<UserFilterBloc>().state,
-                              ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 600;
+                    return PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.email),
+                          size: ColumnSize.L,
                         ),
-                      );
-                    }
+                        DataColumn2(
+                          label: Text(l10n.authentication),
+                          size: ColumnSize.S,
+                        ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.subscription),
+                            size: ColumnSize.S,
+                          ),
+                        DataColumn2(
+                          label: Text(l10n.createdAt),
+                          size: ColumnSize.S,
+                        ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      source: _UsersDataSource(
+                        context: context,
+                        users: state.users,
+                        hasMore: state.hasMore,
+                        l10n: l10n,
+                        isMobile: isMobile,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        // Handle pagination: fetch next page if needed.
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.users.length &&
+                            state.hasMore &&
+                            state.status != UserManagementStatus.loading) {
+                          context.read<UserManagementBloc>().add(
+                            LoadUsersRequested(
+                              startAfterId: state.cursor,
+                              limit: kDefaultRowsPerPage,
+                              filter: context
+                                  .read<UserManagementBloc>()
+                                  .buildUsersFilterMap(
+                                    context.read<UserFilterBloc>().state,
+                                  ),
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noUsersFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.sm,
+                      horizontalMargin: AppSpacing.sm,
+                    );
                   },
-                  empty: Center(child: Text(l10n.noUsersFound)),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  fit: FlexFit.tight,
-                  headingRowHeight: 56,
-                  dataRowHeight: 56,
-                  columnSpacing: AppSpacing.sm,
-                  horizontalMargin: AppSpacing.sm,
                 ),
               ),
             ],
@@ -195,12 +202,14 @@ class _UsersDataSource extends DataTableSource {
     required this.users,
     required this.hasMore,
     required this.l10n,
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<User> users;
   final bool hasMore;
   final AppLocalizations l10n;
+  final bool isMobile;
 
   @override
   DataRow? getRow(int index) {
@@ -227,7 +236,8 @@ class _UsersDataSource extends DataTableSource {
           ),
         ),
         DataCell(Text(user.appRole.authenticationStatusL10n(context))),
-        DataCell(Text(user.appRole.subscriptionStatusL10n(context))),
+        if (!isMobile)
+          DataCell(Text(user.appRole.subscriptionStatusL10n(context))),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(user.createdAt.toLocal()),
