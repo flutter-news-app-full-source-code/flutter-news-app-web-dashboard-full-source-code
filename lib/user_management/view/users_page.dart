@@ -129,10 +129,11 @@ class _UsersPageState extends State<UsersPage> {
                           label: Text(l10n.email),
                           size: ColumnSize.L,
                         ),
-                        DataColumn2(
-                          label: Text(l10n.authentication),
-                          size: ColumnSize.S,
-                        ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.authentication),
+                            size: ColumnSize.S,
+                          ),
                         if (!isMobile)
                           DataColumn2(
                             label: Text(l10n.subscription),
@@ -235,7 +236,8 @@ class _UsersDataSource extends DataTableSource {
             ],
           ),
         ),
-        DataCell(Text(user.appRole.authenticationStatusL10n(context))),
+        if (!isMobile)
+          DataCell(Text(user.appRole.authenticationStatusL10n(context))),
         if (!isMobile)
           DataCell(Text(user.appRole.subscriptionStatusL10n(context))),
         DataCell(
