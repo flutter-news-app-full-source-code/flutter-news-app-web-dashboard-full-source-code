@@ -111,8 +111,8 @@ GoRouter createRouter({
 
         // Check if the user is trying to access a route they are not
         // permitted to view.
-        final isAuthorized = allowedRoutes?.contains(destinationRouteName) ??
-            false;
+        final isAuthorized =
+            allowedRoutes?.contains(destinationRouteName) ?? false;
 
         // Universally allowed routes like 'settings' are exempt from this check.
         if (!isAuthorized && destinationRouteName != Routes.settingsName) {
