@@ -1591,5 +1591,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unauthorizedAccessRedirect =>
-      'Redirecting: You do not have permission to access this page.';
+      'You do not have permission to access this page.';
 }

@@ -2981,7 +2981,7 @@ abstract class AppLocalizations {
   /// Snackbar message shown when a user is redirected due to lack of permissions.
   ///
   /// In en, this message translates to:
-  /// **'Redirecting: You do not have permission to access this page.'**
+  /// **'You do not have permission to access this page.'**
   String get unauthorizedAccessRedirect;
 }
 
