@@ -1582,4 +1582,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get subscriptionPremium => 'مميز';
+
+  @override
+  String get unauthorizedAccessRedirect =>
+      'إعادة التوجيه: ليس لديك إذن للوصول إلى هذه الصفحة.';
 }

@@ -2977,6 +2977,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Premium'**
   String get subscriptionPremium;
+
+  /// Snackbar message shown when a user is redirected due to lack of permissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Redirecting: You do not have permission to access this page.'**
+  String get unauthorizedAccessRedirect;
 }
 
 class _AppLocalizationsDelegate
