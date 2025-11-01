@@ -51,10 +51,9 @@ Effortlessly manage your entire user base with a dedicated user management syste
 
 ### 💸 Centralized Monetization Engine
 Take direct control of your mobile app's revenue strategy. This integrated system allows you to manage your ad inventory and fine-tune display rules without ever touching the mobile app's code.
-- **Flexible Ad Provider Strategy:** Instantly switch the mobile app's primary ad source between industry-standard networks like Google AdMob or your own self-hosted ad server for maximum control.
-- **Custom Ad Inventory Management:** When using the local provider, you have full creative control to upload and manage a wide variety of ad formats, from native and banner to full-screen interstitial ads.
+- **Flexible Ad Provider Strategy:** Instantly switch the mobile app's primary ad source between industry-standard networks like Google AdMob for maximum control.
 - **Granular, Role-Based Rules:** Define precisely how and when ads are shown based on user subscription tiers (e.g., guest, standard, premium), optimizing both revenue and user experience.
-> **Your Advantage:** Deploy a powerful, backend-driven monetization strategy. A/B test ad providers, launch direct-sold campaigns, and adjust revenue models on the fly to respond to market demands in real-time.
+> **Your Advantage:** Deploy a powerful, backend-driven monetization strategy. A/B test ad providers and adjust revenue models on the fly to respond to market demands in real-time.
 
 ---
 
