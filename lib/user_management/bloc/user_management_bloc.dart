@@ -181,10 +181,28 @@ class UserManagementBloc
     UserAppRoleChanged event,
     Emitter<UserManagementState> emit,
   ) async {
-    final userToUpdate = state.users.firstWhere((u) => u.id == event.userId);
-    await _usersRepository.update(
-      id: event.userId,
-      item: userToUpdate.copyWith(appRole: event.appRole),
+    _logger.info(
+      'Attempting to change app role for user: ${event.userId} '
+      'to ${event.appRole.name}',
     );
+    try {
+      final userToUpdate = state.users.firstWhere((u) => u.id == event.userId);
+      _logger.info('Found user in state: $userToUpdate');
+
+      final updatedItem = userToUpdate.copyWith(appRole: event.appRole);
+      _logger.info('Sending updated user object to repository: $updatedItem');
+
+      await _usersRepository.update(
+        id: event.userId,
+        item: updatedItem,
+      );
+    } catch (error, stackTrace) {
+      _logger.severe(
+        'Error changing user app role for ${event.userId}.',
+        error,
+        stackTrace,
+      );
+      addError(error, stackTrace);
+    }
   }
 }
