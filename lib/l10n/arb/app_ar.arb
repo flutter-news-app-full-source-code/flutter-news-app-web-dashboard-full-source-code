@@ -1923,5 +1923,93 @@
   "logoUrl": "رابط الشعار",
   "@logoUrl": {
     "description": "تسمية حقل إدخال رابط شعار المصدر"
+  },
+  "userManagement": "إدارة المستخدمين",
+  "@userManagement": {
+    "description": "تسمية عنصر التنقل لإدارة المستخدمين"
+  },
+  "userManagementPageDescription": "إدارة مستخدمي النظام، بما في ذلك أدوارهم وأذوناتهم.",
+  "@userManagementPageDescription": {
+    "description": "وصف صفحة إدارة المستخدمين"
+  },
+  "loadingUsers": "جاري تحميل المستخدمين",
+  "@loadingUsers": {
+    "description": "عنوان حالة تحميل المستخدمين"
+  },
+  "noUsersFound": "لم يتم العثور على مستخدمين.",
+  "@noUsersFound": {
+    "description": "رسالة عند عدم العثور على مستخدمين"
+  },
+  "email": "البريد الإلكتروني",
+  "@email": {
+    "description": "رأس العمود لبريد المستخدم الإلكتروني"
+  },
+  "appRole": "دور التطبيق",
+  "@appRole": {
+    "description": "رأس العمود لدور المستخدم في التطبيق"
+  },
+  "dashboardRole": "دور لوحة التحكم",
+  "@dashboardRole": {
+    "description": "رأس العمود لدور المستخدم في لوحة التحكم"
+  },
+  "createdAt": "تاريخ الإنشاء",
+  "@createdAt": {
+    "description": "رأس العمود لتاريخ الإنشاء"
+  },
+  "promoteToPublisher": "ترقية إلى ناشر",
+  "@promoteToPublisher": {
+    "description": "إجراء لترقية مستخدم إلى دور ناشر."
+  },
+  "demoteToUser": "تخفيض إلى مستخدم",
+  "@demoteToUser": {
+    "description": "إجراء لتخفيض ناشر إلى دور مستخدم عادي."
+  },
+  "adminRole": "مسؤول",
+  "@adminRole": {
+    "description": "الاسم المترجم لـ DashboardUserRole.admin"
+  },
+  "publisherRole": "ناشر",
+  "@publisherRole": {
+    "description": "الاسم المترجم لـ DashboardUserRole.publisher"
+  },
+  "filterUsers": "تصفية المستخدمين",
+  "@filterUsers": {
+    "description": "عنوان مربع حوار التصفية عند تصفية المستخدمين."
+  },
+  "searchByUserEmail": "البحث بالبريد الإلكتروني للمستخدم...",
+  "@searchByUserEmail": {
+    "description": "نص تلميح حقل البحث عن المستخدم."
+  },
+  "selectAppRoles": "اختر أدوار التطبيق",
+  "@selectAppRoles": {
+    "description": "نص تلميح لاختيار أدوار التطبيق في مربع حوار التصفية."
+  },
+  "selectDashboardRoles": "اختر أدوار لوحة التحكم",
+  "@selectDashboardRoles": {
+    "description": "نص تلميح لاختيار أدوار لوحة التحكم في مربع حوار التصفية."
+  },
+  "authentication": "المصادقة",
+  "@authentication": {
+    "description": "رأس العمود لحالة المصادقة"
+  },
+  "subscription": "الاشتراك",
+  "@subscription": {
+    "description": "رأس العمود لحالة الاشتراك"
+  },
+  "authenticationAnonymous": "مجهول",
+  "@authenticationAnonymous": {
+    "description": "حالة المصادقة لمستخدم ضيف"
+  },
+  "authenticationAuthenticated": "موثق",
+  "@authenticationAuthenticated": {
+    "description": "حالة المصادقة لمستخدم قام بتسجيل الدخول"
+  },
+  "subscriptionFree": "مجاني",
+  "@subscriptionFree": {
+    "description": "حالة الاشتراك لمستخدم مجاني"
+  },
+  "subscriptionPremium": "مميز",
+  "@subscriptionPremium": {
+    "description": "حالة الاشتراك لمستخدم مميز"
   }
 }

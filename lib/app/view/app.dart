@@ -22,6 +22,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/ov
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:logging/logging.dart';
@@ -41,6 +43,7 @@ class App extends StatelessWidget {
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required DataRepository<LocalAd> localAdsRepository,
+    required DataRepository<User> usersRepository,
     required KVStorageService storageService,
     required AppEnvironment environment,
     required PendingDeletionsService pendingDeletionsService,
@@ -57,6 +60,7 @@ class App extends StatelessWidget {
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
        _localAdsRepository = localAdsRepository,
+       _usersRepository = usersRepository,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
 
@@ -72,6 +76,7 @@ class App extends StatelessWidget {
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
   final DataRepository<LocalAd> _localAdsRepository;
+  final DataRepository<User> _usersRepository;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
 
@@ -93,6 +98,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _localAdsRepository),
+        RepositoryProvider.value(value: _usersRepository),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
           create: (context) => const ThrottledFetchingService(),
@@ -161,6 +167,15 @@ class App extends StatelessWidget {
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
+            ),
+          ),
+          // The UserFilterBloc is provided here to be available for both the
+          // UserManagementBloc and the UI components.
+          BlocProvider(create: (_) => UserFilterBloc()),
+          BlocProvider(
+            create: (context) => UserManagementBloc(
+              usersRepository: context.read<DataRepository<User>>(),
+              userFilterBloc: context.read<UserFilterBloc>(),
             ),
           ),
         ],

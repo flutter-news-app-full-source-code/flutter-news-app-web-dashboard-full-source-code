@@ -65,6 +65,7 @@ Future<Widget> bootstrap(
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
   DataClient<LocalAd> localAdsClient;
+  DataClient<User> usersClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -125,76 +126,11 @@ Future<Widget> bootstrap(
       initialData: localAdsFixturesData,
       logger: Logger('DataInMemory<LocalAd>'),
     );
-  } else if (appConfig.environment == app_config.AppEnvironment.development) {
-    headlinesClient = DataApi<Headline>(
-      httpClient: httpClient!,
-      modelName: 'headline',
-      fromJson: Headline.fromJson,
-      toJson: (headline) => headline.toJson(),
-      logger: Logger('DataApi<Headline>'),
-    );
-    topicsClient = DataApi<Topic>(
-      httpClient: httpClient,
-      modelName: 'topic',
-      fromJson: Topic.fromJson,
-      toJson: (topic) => topic.toJson(),
-      logger: Logger('DataApi<Topic>'),
-    );
-    sourcesClient = DataApi<Source>(
-      httpClient: httpClient,
-      modelName: 'source',
-      fromJson: Source.fromJson,
-      toJson: (source) => source.toJson(),
-      logger: Logger('DataApi<Source>'),
-    );
-    userContentPreferencesClient = DataApi<UserContentPreferences>(
-      httpClient: httpClient,
-      modelName: 'user_content_preferences',
-      fromJson: UserContentPreferences.fromJson,
-      toJson: (prefs) => prefs.toJson(),
-      logger: Logger('DataApi<UserContentPreferences>'),
-    );
-    userAppSettingsClient = DataApi<UserAppSettings>(
-      httpClient: httpClient,
-      modelName: 'user_app_settings',
-      fromJson: UserAppSettings.fromJson,
-      toJson: (settings) => settings.toJson(),
-      logger: Logger('DataApi<UserAppSettings>'),
-    );
-    remoteConfigClient = DataApi<RemoteConfig>(
-      httpClient: httpClient,
-      modelName: 'remote_config',
-      fromJson: RemoteConfig.fromJson,
-      toJson: (config) => config.toJson(),
-      logger: Logger('DataApi<RemoteConfig>'),
-    );
-    dashboardSummaryClient = DataApi<DashboardSummary>(
-      httpClient: httpClient,
-      modelName: 'dashboard_summary',
-      fromJson: DashboardSummary.fromJson,
-      toJson: (summary) => summary.toJson(),
-      logger: Logger('DataApi<DashboardSummary>'),
-    );
-    countriesClient = DataApi<Country>(
-      httpClient: httpClient,
-      modelName: 'country',
-      fromJson: Country.fromJson,
-      toJson: (country) => country.toJson(),
-      logger: Logger('DataApi<Country>'),
-    );
-    languagesClient = DataApi<Language>(
-      httpClient: httpClient,
-      modelName: 'language',
-      fromJson: Language.fromJson,
-      toJson: (language) => language.toJson(),
-      logger: Logger('DataApi<Language>'),
-    );
-    localAdsClient = DataApi<LocalAd>(
-      httpClient: httpClient,
-      modelName: 'local_ad',
-      fromJson: LocalAd.fromJson,
-      toJson: LocalAd.toJson,
-      logger: Logger('DataApi<LocalAd>'),
+    usersClient = DataInMemory<User>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      // No initial data for users in demo mode.
+      logger: Logger('DataInMemory<User>'),
     );
   } else {
     headlinesClient = DataApi<Headline>(
@@ -267,6 +203,13 @@ Future<Widget> bootstrap(
       toJson: FeedItem.toJson,
       logger: Logger('DataApi<LocalAd>'),
     );
+    usersClient = DataApi<User>(
+      httpClient: httpClient,
+      modelName: 'user',
+      fromJson: User.fromJson,
+      toJson: (user) => user.toJson(),
+      logger: Logger('DataApi<User>'),
+    );
   }
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
@@ -300,6 +243,7 @@ Future<Widget> bootstrap(
   final localAdsRepository = DataRepository<LocalAd>(
     dataClient: localAdsClient,
   );
+  final usersRepository = DataRepository<User>(dataClient: usersClient);
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -313,6 +257,7 @@ Future<Widget> bootstrap(
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
     localAdsRepository: localAdsRepository,
+    usersRepository: usersRepository,
     storageService: kvStorage,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,

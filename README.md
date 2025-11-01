@@ -34,6 +34,19 @@ Manage the entire lifecycle of your content from a single, intuitive interface. 
 </details>
 
 <details>
+<summary><strong>👥 User & Role Management</strong></summary>
+
+### 👥 Granular User & Role Management
+Effortlessly manage your entire user base with a dedicated user management system. View all registered users, filter them by email or role, and dynamically adjust their dashboard permissions.
+- **Full User Roster:** See a comprehensive list of all users, including their email, app subscription level, and current dashboard role.
+- **Dynamic Role Promotion:** Promote trusted users to a "Publisher" role, granting them content management capabilities without full administrative access.
+- **Powerful Filtering:** Quickly locate specific users or user segments with multi-faceted filtering by email, app role, and dashboard role.
+> **Your Advantage:** Delegate content creation responsibilities securely, build out your editorial team, and maintain a clear overview of all system users and their permissions, all from a single, centralized interface.
+
+</details>
+
+
+<details>
 <summary><strong>⚙️ App Monetization & Remote Control</strong></summary>
 
 ### 💸 Centralized Monetization Engine
@@ -60,7 +73,7 @@ Dynamically control the mobile app's behavior and operational state directly fro
 ### 🔐 Secure Administrative Access
 A complete and secure user authentication system is built-in for your editorial and administrative teams.
 - **Modern, Passwordless Sign-In:** Ensures that only authorized personnel can access the dashboard using a secure and easy-to-use email-based verification system.
-> **Your Advantage:** The security and user management for your administrative team is already handled, providing peace of mind from day one.
+> **Your Advantage:** The security and access control for your administrative team is already handled, providing peace of mind from day one.
 
 ---
 

@@ -166,4 +166,16 @@ abstract final class Routes {
 
   /// The name for the edit local video ad page route.
   static const String editLocalVideoAdName = 'editLocalVideoAd';
+
+  /// The path for the user management section.
+  static const String userManagement = '/user-management';
+
+  /// The name for the user management section route.
+  static const String userManagementName = 'userManagement';
+
+  /// The path for the user filter dialog.
+  static const String userFilterDialog = 'user-filter-dialog';
+
+  /// The name for the user filter dialog route.
+  static const String userFilterDialogName = 'userFilterDialog';
 }

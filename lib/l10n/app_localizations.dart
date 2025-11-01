@@ -2845,6 +2845,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logo URL'**
   String get logoUrl;
+
+  /// Label for the user management navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'User Management'**
+  String get userManagement;
+
+  /// Description for the User Management page
+  ///
+  /// In en, this message translates to:
+  /// **'Manage system users, including their roles and permissions.'**
+  String get userManagementPageDescription;
+
+  /// Headline for loading state of users
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Users'**
+  String get loadingUsers;
+
+  /// Message when no users are found
+  ///
+  /// In en, this message translates to:
+  /// **'No users found.'**
+  String get noUsersFound;
+
+  /// Column header for user email
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// Column header for user app role
+  ///
+  /// In en, this message translates to:
+  /// **'App Role'**
+  String get appRole;
+
+  /// Column header for user dashboard role
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard Role'**
+  String get dashboardRole;
+
+  /// Column header for creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get createdAt;
+
+  /// Action to promote a user to a publisher role.
+  ///
+  /// In en, this message translates to:
+  /// **'Promote to Publisher'**
+  String get promoteToPublisher;
+
+  /// Action to demote a publisher back to a standard user role.
+  ///
+  /// In en, this message translates to:
+  /// **'Demote to User'**
+  String get demoteToUser;
+
+  /// Localized name for DashboardUserRole.admin
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get adminRole;
+
+  /// Localized name for DashboardUserRole.publisher
+  ///
+  /// In en, this message translates to:
+  /// **'Publisher'**
+  String get publisherRole;
+
+  /// Title for the filter dialog when filtering users.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Users'**
+  String get filterUsers;
+
+  /// Hint text for the user search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by user email...'**
+  String get searchByUserEmail;
+
+  /// Hint text for selecting app roles in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select App Roles'**
+  String get selectAppRoles;
+
+  /// Hint text for selecting dashboard roles in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Dashboard Roles'**
+  String get selectDashboardRoles;
+
+  /// Column header for authentication status
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication'**
+  String get authentication;
+
+  /// Column header for subscription status
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get subscription;
+
+  /// Authentication status for a guest user
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous'**
+  String get authenticationAnonymous;
+
+  /// Authentication status for a signed-in user
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticated'**
+  String get authenticationAuthenticated;
+
+  /// Subscription status for a free user
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get subscriptionFree;
+
+  /// Subscription status for a premium user
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get subscriptionPremium;
 }
 
 class _AppLocalizationsDelegate
