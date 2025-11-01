@@ -1588,8 +1588,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscriptionPremium => 'Premium';
-
-  @override
-  String get unauthorizedAccessRedirect =>
-      'You do not have permission to access this page.';
 }
