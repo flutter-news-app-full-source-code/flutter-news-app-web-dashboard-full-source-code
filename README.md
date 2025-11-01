@@ -77,6 +77,14 @@ A complete and secure user authentication system is built-in for your editorial 
 
 ---
 
+### 🛡️ Role-Based Access Control (RBAC)
+The dashboard implements a robust RBAC system to ensure team members only access the sections relevant to their role.
+- **Protected Navigation:** The system prevents direct URL access to restricted areas, automatically redirecting unauthorized users.
+- **Conditional UI:** The navigation sidebar dynamically adapts, showing only the links and tools a user is permitted to see.
+> **Your Advantage:** Enforce a clear separation of duties within your team. Administrators maintain full control, while Publishers can focus solely on content management, creating a secure and efficient workflow.
+
+---
+
 ### 🎨 A Personalized Workspace
 Empower your team with a dashboard experience they can tailor to their own preferences, improving comfort and productivity.
 - **Full Appearance Control:** Each team member can configure their own workspace, including light/dark themes, accent colors, and text styles.
