@@ -38,6 +38,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/bloc/local_ads_filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/local_ads_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/route_permissions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart';
@@ -94,6 +95,34 @@ GoRouter createRouter({
       // --- Case 2: Authenticated User ---
       if (appStatus == AppStatus.authenticated) {
         print('  Redirect Decision: User is $appStatus.');
+
+        // --- Role-Based Access Control (RBAC) ---
+        final userRole = context.read<AppBloc>().state.user?.dashboardRole;
+        final destinationRouteName = state.topRoute?.name;
+
+        // Allow navigation if role is not yet determined or route is unknown.
+        if (userRole == null || destinationRouteName == null) {
+          return null;
+        }
+
+        final allowedRoutes = routePermissions[userRole];
+
+        // Check if the user is trying to access a route they are not
+        // permitted to view.
+        final isAuthorized =
+            allowedRoutes?.contains(destinationRouteName) ?? false;
+
+        // Universally allowed routes like 'settings' are exempt from this check.
+        if (!isAuthorized && destinationRouteName != Routes.settingsName) {
+          print(
+            '    Action: Unauthorized access to "$destinationRouteName". '
+            'Redirecting to $overviewPath.',
+          );
+          // Redirect unauthorized users to the overview page. This is a safe
+          // redirect without side effects.
+          return Routes.overview;
+        }
+        // --- End of RBAC ---
 
         // If an authenticated user is on any authentication-related path:
         if (isGoingToAuth) {
