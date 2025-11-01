@@ -4,6 +4,7 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/route_permissions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -58,30 +59,53 @@ class AppShell extends StatelessWidget {
           ),
         ];
 
-        // Filter the destinations based on the user's role.
-        final accessibleDestinations = allDestinations.where((destination) {
-          if (userRole == null) return false;
+        // A parallel list of route names for permission checking, matching the
+        // order of `allDestinations`.
+        const allRouteNames = [
+          Routes.overviewName,
+          Routes.contentManagementName,
+          Routes.userManagementName,
+          Routes.appConfigurationName,
+        ];
 
-          switch (userRole) {
-            case DashboardUserRole.admin:
-              // Admin can see all destinations.
-              return true;
-            case DashboardUserRole.publisher:
-              // Publisher can only see Overview and Content Management.
-              return destination.label == l10n.overview ||
-                  destination.label == l10n.contentManagement;
-            case DashboardUserRole.none:
-              return false;
-          }
-        }).toList();
+        // Create a list of records containing the destination, its original
+        // index, and its route name.
+        final indexedDestinations = [
+          for (var i = 0; i < allDestinations.length; i++)
+            (
+              destination: allDestinations[i],
+              originalIndex: i,
+              routeName: allRouteNames[i],
+            ),
+        ];
+
+        // Filter the destinations based on the user's role and allowed routes.
+        final allowedRoutes = routePermissions[userRole] ?? {};
+        final accessibleNavItems = indexedDestinations
+            .where((item) => allowedRoutes.contains(item.routeName))
+            .toList();
+
+        final accessibleDestinations = accessibleNavItems
+            .map((item) => item.destination)
+            .toList();
+
+        // Find the current index in the list of *accessible* destinations.
+        final selectedIndex = accessibleNavItems.indexWhere(
+          (item) => item.originalIndex == navigationShell.currentIndex,
+        );
 
         return Scaffold(
           body: AdaptiveScaffold(
-            selectedIndex: navigationShell.currentIndex,
+            selectedIndex: selectedIndex > -1 ? selectedIndex : 0,
             onSelectedIndexChange: (index) {
+              // Map the index from the accessible list back to the original
+              // branch index.
+              final originalBranchIndex =
+                  accessibleNavItems[index].originalIndex;
               navigationShell.goBranch(
-                index,
-                initialLocation: index == navigationShell.currentIndex,
+                originalBranchIndex,
+                initialLocation:
+                    originalBranchIndex == navigationShell.currentIndex,
               );
             },
             destinations: accessibleDestinations,
