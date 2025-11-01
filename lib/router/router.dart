@@ -86,24 +86,50 @@ GoRouter createRouter({
 
         // --- Role-Based Access Control (RBAC) ---
         final userRole = context.read<AppBloc>().state.user?.dashboardRole;
-        final destinationRouteName = state.topRoute?.name;
 
-        // Allow navigation if role is not yet determined or route is unknown.
-        if (userRole == null || destinationRouteName == null) {
+        // Allow navigation if the user role isn't determined yet.
+        if (userRole == null) {
           return null;
         }
 
-        final allowedRoutes = routePermissions[userRole];
+        // A local map to resolve top-level route names to their base paths.
+        // This is the single source for this mapping within the redirect logic.
+        const topLevelPaths = {
+          Routes.overviewName: Routes.overview,
+          Routes.contentManagementName: Routes.contentManagement,
+          Routes.userManagementName: Routes.userManagement,
+          Routes.appConfigurationName: Routes.appConfiguration,
+        };
 
-        // Check if the user is trying to access a route they are not
-        // permitted to view.
+        // Get the set of authorized route *names* for the user's role from
+        // the single source of truth: route_permissions.dart.
+        final allowedRouteNames = routePermissions[userRole] ?? {};
+
+        // Convert the allowed route names into a list of their base paths.
+        final authorizedPaths = allowedRouteNames
+            .map((name) {
+              final path = topLevelPaths[name];
+              assert(
+                path != null,
+                'Configuration error: Route name "$name" from routePermissions is not defined in topLevelPaths.',
+              );
+              return path;
+            })
+            .whereType<String>()
+            .toList();
+            
+        // Check if the destination path starts with any of the authorized base
+        // paths, or if it's the universally accessible settings page.
         final isAuthorized =
-            allowedRoutes?.contains(destinationRouteName) ?? false;
+            authorizedPaths.any(
+              currentLocation.startsWith,
+            ) ||
+            currentLocation.startsWith(Routes.settings);
 
-        // Universally allowed routes like 'settings' are exempt from this check.
-        if (!isAuthorized && destinationRouteName != Routes.settingsName) {
+        if (!isAuthorized) {
           print(
-            '    Action: Unauthorized access to "$destinationRouteName". '
+            '    Action: Unauthorized access to "$currentLocation" for role '
+            '$userRole. Authorized base paths: $authorizedPaths. '
             'Redirecting to $overviewPath.',
           );
           // Redirect unauthorized users to the overview page. This is a safe
