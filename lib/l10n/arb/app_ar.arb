@@ -2011,5 +2011,9 @@
   "subscriptionPremium": "مميز",
   "@subscriptionPremium": {
     "description": "حالة الاشتراك لمستخدم مميز"
+  },
+  "unauthorizedAccessRedirect": "إعادة التوجيه: ليس لديك إذن للوصول إلى هذه الصفحة.",
+  "@unauthorizedAccessRedirect": {
+    "description": "رسالة شريط التنبيه التي تظهر عند إعادة توجيه المستخدم بسبب نقص الأذونات."
   }
 }
