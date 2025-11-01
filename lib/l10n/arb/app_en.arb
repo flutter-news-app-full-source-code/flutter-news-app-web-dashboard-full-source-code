@@ -1298,18 +1298,6 @@
   "@adUnitIdentifiersDescription": {
     "description": "Description for the Ad Unit Identifiers section"
   },
-  "localAdManagementTitle": "Local Ad Management",
-  "@localAdManagementTitle": {
-    "description": "Title for the Local Ad Management section"
-  },
-  "localAdManagementDescription": "Manage custom local ads that can be served within the application.",
-  "@localAdManagementDescription": {
-    "description": "Description for the Local Ad Management section"
-  },
-  "manageLocalAdsButton": "Manage Local Ads",
-  "@manageLocalAdsButton": {
-    "description": "Button text to manage local ads"
-  },
   "feedAdSettingsTitle": "Feed Ad Settings",
   "@feedAdSettingsTitle": {
     "description": "Title for the Feed Ad Settings section"
@@ -1406,120 +1394,6 @@
   "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
     "description": "Localized name for InArticleAdSlotType.belowArticleContinueReadingButton"
   },
-  "localAdsManagement": "Local Ads Management",
-  "@localAdsManagement": {
-    "description": "Label for the local ads management navigation item"
-  },
-  "archivedLocalAdsTitle": "Archived Local Ads",
-  "@archivedLocalAdsTitle": {
-    "description": "Title for the Archived Local Ads page"
-  },
-  "loadingArchivedLocalAds": "Loading Archived Local Ads",
-  "@loadingArchivedLocalAds": {
-    "description": "Headline for loading state of archived local ads"
-  },
-  "noArchivedLocalAdsFound": "No archived local ads found.",
-  "@noArchivedLocalAdsFound": {
-    "description": "Message when no archived local ads are found"
-  },
-  "loadingLocalAds": "Loading Local Ads",
-  "@loadingLocalAds": {
-    "description": "Headline for loading state of local ads"
-  },
-  "noLocalAdsFound": "No local ads found.",
-  "@noLocalAdsFound": {
-    "description": "Message when no local ads are found"
-  },
-  "localAdDeleted": "Deleted '{title}'.",
-  "@localAdDeleted": {
-    "description": "Snackbar message when a local ad is deleted",
-    "placeholders": {
-      "title": {
-        "type": "String",
-        "example": "Ad Title"
-      }
-    }
-  },
-  "createLocalNativeAdTitle": "Create Native Ad",
-  "@createLocalNativeAdTitle": {
-    "description": "Title for the Create Local Native Ad page"
-  },
-  "localNativeAdCreatedSuccessfully": "Native ad created successfully.",
-  "@localNativeAdCreatedSuccessfully": {
-    "description": "Message displayed when a native ad is created successfully"
-  },
-  "editLocalNativeAdTitle": "Edit Native Ad",
-  "@editLocalNativeAdTitle": {
-    "description": "Title for the Edit Local Native Ad page"
-  },
-  "localNativeAdUpdatedSuccessfully": "Native ad updated successfully.",
-  "@localNativeAdUpdatedSuccessfully": {
-    "description": "Message displayed when a native ad is updated successfully"
-  },
-  "adSubtitle": "Subtitle",
-  "@adSubtitle": {
-    "description": "Label for the ad subtitle input field"
-  },
-  "createLocalBannerAdTitle": "Create Banner Ad",
-  "@createLocalBannerAdTitle": {
-    "description": "Title for the Create Local Banner Ad page"
-  },
-  "localBannerAdCreatedSuccessfully": "Banner ad created successfully.",
-  "@localBannerAdCreatedSuccessfully": {
-    "description": "Message displayed when a banner ad is created successfully"
-  },
-  "editLocalBannerAdTitle": "Edit Banner Ad",
-  "@editLocalBannerAdTitle": {
-    "description": "Title for the Edit Local Banner Ad page"
-  },
-  "localBannerAdUpdatedSuccessfully": "Banner ad updated successfully.",
-  "@localBannerAdUpdatedSuccessfully": {
-    "description": "Message displayed when a banner ad is updated successfully"
-  },
-  "createLocalInterstitialAdTitle": "Create Interstitial Ad",
-  "@createLocalInterstitialAdTitle": {
-    "description": "Title for the Create Local Interstitial Ad page"
-  },
-  "localInterstitialAdCreatedSuccessfully": "Interstitial ad created successfully.",
-  "@localInterstitialAdCreatedSuccessfully": {
-    "description": "Message displayed when an interstitial ad is created successfully"
-  },
-  "editLocalInterstitialAdTitle": "Edit Interstitial Ad",
-  "@editLocalInterstitialAdTitle": {
-    "description": "Title for the Edit Local Interstitial Ad page"
-  },
-  "localInterstitialAdUpdatedSuccessfully": "Interstitial ad updated successfully.",
-  "@localInterstitialAdUpdatedSuccessfully": {
-    "description": "Message displayed when an interstitial ad is updated successfully"
-  },
-  "createLocalVideoAdTitle": "Create Video Ad",
-  "@createLocalVideoAdTitle": {
-    "description": "Title for the Create Local Video Ad page"
-  },
-  "localVideoAdCreatedSuccessfully": "Video ad created successfully.",
-  "@localVideoAdCreatedSuccessfully": {
-    "description": "Message displayed when a video ad is created successfully"
-  },
-  "editLocalVideoAdTitle": "Edit Video Ad",
-  "@editLocalVideoAdTitle": {
-    "description": "Title for the Edit Local Video Ad page"
-  },
-  "localVideoAdUpdatedSuccessfully": "Video ad updated successfully.",
-  "@localVideoAdUpdatedSuccessfully": {
-    "description": "Message displayed when a video ad is updated successfully"
-  },
-  "videoUrl": "Video URL",
-  "@videoUrl": {
-    "description": "Label for the video URL input field"
-  },
-  "targetUrl": "Target URL",
-  "@targetUrl": {
-    "description": "Label for the target URL input field"
-  },
-  "loadingLocalAd": "Loading Local Ad",
-  "@loadingLocalAd": {
-    "description": "Headline for loading state of a single local ad"
-  },
   "idCopiedToClipboard": "ID '{id}' copied to clipboard.",
   "@idCopiedToClipboard": {
     "description": "Snackbar message when an ID is copied to clipboard",
@@ -1529,18 +1403,6 @@
         "example": "UUID"
       }
     }
-  },
-  "adTitle": "Ad Title",
-  "@adTitle": {
-    "description": "Label for the ad title input field."
-  },
-  "localAdsManagementTitle": "Local Ads Management",
-  "@localAdsManagementTitle": {
-    "description": "Title for the local ads management page."
-  },
-  "editLocalAds": "Edit Local Ads",
-  "@editLocalAds": {
-    "description": "Tooltip for the edit local ads button."
   },
   "copyId": "Copy ID",
   "@copyId": {
@@ -1847,74 +1709,6 @@
   "closeButtonText": "Close",
   "@closeButtonText": {
     "description": "Text for the close button in a dialog."
-  },
-  "filterLocalAds": "Filter Local Ads",
-  "@filterLocalAds": {
-    "description": "Title for the filter dialog when filtering local ads."
-  },
-  "searchByAdTitleOrUrl": "Search by ad title or URL...",
-  "@searchByAdTitleOrUrl": {
-    "description": "Hint text for the ad title or URL search field."
-  },
-  "adType": "Ad Type",
-  "@adType": {
-    "description": "Label for the ad type filter."
-  },
-  "loadingNativeAds": "Loading Native Ads",
-  "@loadingNativeAds": {
-    "description": "Headline for loading state of native ads."
-  },
-  "noNativeAdsFound": "No native ads found.",
-  "@noNativeAdsFound": {
-    "description": "Message when no native ads are found."
-  },
-  "loadingBannerAds": "Loading Banner Ads",
-  "@loadingBannerAds": {
-    "description": "Headline for loading state of banner ads."
-  },
-  "noBannerAdsFound": "No banner ads found.",
-  "@noBannerAdsFound": {
-    "description": "Message when no banner ads are found."
-  },
-  "adImageUrl": "Image URL",
-  "@adImageUrl": {
-    "description": "Column header for ad image URL."
-  },
-  "loadingInterstitialAds": "Loading Interstitial Ads",
-  "@loadingInterstitialAds": {
-    "description": "Headline for loading state of interstitial ads."
-  },
-  "noInterstitialAdsFound": "No interstitial ads found.",
-  "@noInterstitialAdsFound": {
-    "description": "Message when no interstitial ads are found."
-  },
-  "loadingVideoAds": "Loading Video Ads",
-  "@loadingVideoAds": {
-    "description": "Headline for loading state of video ads."
-  },
-  "noVideoAdsFound": "No video ads found.",
-  "@noVideoAdsFound": {
-    "description": "Message when no video ads are found."
-  },
-  "adVideoUrl": "Video URL",
-  "@adVideoUrl": {
-    "description": "Column header for ad video URL."
-  },
-  "idCopied": "ID copied to clipboard",
-  "@idCopied": {
-    "description": "Snackbar message displayed when an ad ID is successfully copied to the clipboard."
-  },
-  "copyIdTooltip": "Copy Ad ID",
-  "@copyIdTooltip": {
-    "description": "Tooltip for the copy ID action button."
-  },
-  "saveAdTitle": "Save Ad",
-  "@saveAdTitle": {
-    "description": "Title for the dialog asking to save an ad"
-  },
-  "saveAdMessage": "Do you want to publish this ad or save it as a draft?",
-  "@saveAdMessage": {
-    "description": "Message for the dialog asking to save an ad"
   },
   "logoUrl": "Logo URL",
   "@logoUrl": {

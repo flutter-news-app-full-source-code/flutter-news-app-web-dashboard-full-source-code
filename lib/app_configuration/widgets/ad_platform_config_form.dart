@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_platform_type_l10n.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template ad_platform_config_form}
@@ -301,38 +299,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             ),
           ],
         ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Local Ad Management
-        if (_selectedPlatform == AdPlatformType.local)
-          ExpansionTile(
-            title: Text(l10n.localAdManagementTitle),
-            childrenPadding: const EdgeInsetsDirectional.only(
-              start: AppSpacing.lg,
-              top: AppSpacing.md,
-              bottom: AppSpacing.md,
-            ),
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.localAdManagementDescription,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () =>
-                      context.goNamed(Routes.localAdsManagementName),
-                  child: Text(l10n.manageLocalAdsButton),
-                ),
-              ),
-            ],
-          ),
+        const SizedBox(height: AppSpacing.lg),        
       ],
     );
   }

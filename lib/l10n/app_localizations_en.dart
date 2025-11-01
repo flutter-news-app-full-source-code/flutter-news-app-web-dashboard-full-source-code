@@ -1035,16 +1035,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Configure the ad unit IDs for the selected ad platform.';
 
   @override
-  String get localAdManagementTitle => 'Local Ad Management';
-
-  @override
-  String get localAdManagementDescription =>
-      'Manage custom local ads that can be served within the application.';
-
-  @override
-  String get manageLocalAdsButton => 'Manage Local Ads';
-
-  @override
   String get feedAdSettingsTitle => 'Feed Ad Settings';
 
   @override
@@ -1129,109 +1119,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Below the \'Continue Reading\' button';
 
   @override
-  String get localAdsManagement => 'Local Ads Management';
-
-  @override
-  String get archivedLocalAdsTitle => 'Archived Local Ads';
-
-  @override
-  String get loadingArchivedLocalAds => 'Loading Archived Local Ads';
-
-  @override
-  String get noArchivedLocalAdsFound => 'No archived local ads found.';
-
-  @override
-  String get loadingLocalAds => 'Loading Local Ads';
-
-  @override
-  String get noLocalAdsFound => 'No local ads found.';
-
-  @override
-  String localAdDeleted(String title) {
-    return 'Deleted \'$title\'.';
-  }
-
-  @override
-  String get createLocalNativeAdTitle => 'Create Native Ad';
-
-  @override
-  String get localNativeAdCreatedSuccessfully =>
-      'Native ad created successfully.';
-
-  @override
-  String get editLocalNativeAdTitle => 'Edit Native Ad';
-
-  @override
-  String get localNativeAdUpdatedSuccessfully =>
-      'Native ad updated successfully.';
-
-  @override
-  String get adSubtitle => 'Subtitle';
-
-  @override
-  String get createLocalBannerAdTitle => 'Create Banner Ad';
-
-  @override
-  String get localBannerAdCreatedSuccessfully =>
-      'Banner ad created successfully.';
-
-  @override
-  String get editLocalBannerAdTitle => 'Edit Banner Ad';
-
-  @override
-  String get localBannerAdUpdatedSuccessfully =>
-      'Banner ad updated successfully.';
-
-  @override
-  String get createLocalInterstitialAdTitle => 'Create Interstitial Ad';
-
-  @override
-  String get localInterstitialAdCreatedSuccessfully =>
-      'Interstitial ad created successfully.';
-
-  @override
-  String get editLocalInterstitialAdTitle => 'Edit Interstitial Ad';
-
-  @override
-  String get localInterstitialAdUpdatedSuccessfully =>
-      'Interstitial ad updated successfully.';
-
-  @override
-  String get createLocalVideoAdTitle => 'Create Video Ad';
-
-  @override
-  String get localVideoAdCreatedSuccessfully =>
-      'Video ad created successfully.';
-
-  @override
-  String get editLocalVideoAdTitle => 'Edit Video Ad';
-
-  @override
-  String get localVideoAdUpdatedSuccessfully =>
-      'Video ad updated successfully.';
-
-  @override
-  String get videoUrl => 'Video URL';
-
-  @override
-  String get targetUrl => 'Target URL';
-
-  @override
-  String get loadingLocalAd => 'Loading Local Ad';
-
-  @override
   String idCopiedToClipboard(String id) {
     return 'ID \'$id\' copied to clipboard.';
   }
-
-  @override
-  String get adTitle => 'Ad Title';
-
-  @override
-  String get localAdsManagementTitle => 'Local Ads Management';
-
-  @override
-  String get editLocalAds => 'Edit Local Ads';
 
   @override
   String get copyId => 'Copy ID';
@@ -1466,58 +1356,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get closeButtonText => 'Close';
-
-  @override
-  String get filterLocalAds => 'Filter Local Ads';
-
-  @override
-  String get searchByAdTitleOrUrl => 'Search by ad title or URL...';
-
-  @override
-  String get adType => 'Ad Type';
-
-  @override
-  String get loadingNativeAds => 'Loading Native Ads';
-
-  @override
-  String get noNativeAdsFound => 'No native ads found.';
-
-  @override
-  String get loadingBannerAds => 'Loading Banner Ads';
-
-  @override
-  String get noBannerAdsFound => 'No banner ads found.';
-
-  @override
-  String get adImageUrl => 'Image URL';
-
-  @override
-  String get loadingInterstitialAds => 'Loading Interstitial Ads';
-
-  @override
-  String get noInterstitialAdsFound => 'No interstitial ads found.';
-
-  @override
-  String get loadingVideoAds => 'Loading Video Ads';
-
-  @override
-  String get noVideoAdsFound => 'No video ads found.';
-
-  @override
-  String get adVideoUrl => 'Video URL';
-
-  @override
-  String get idCopied => 'ID copied to clipboard';
-
-  @override
-  String get copyIdTooltip => 'Copy Ad ID';
-
-  @override
-  String get saveAdTitle => 'Save Ad';
-
-  @override
-  String get saveAdMessage =>
-      'Do you want to publish this ad or save it as a draft?';
 
   @override
   String get logoUrl => 'Logo URL';
