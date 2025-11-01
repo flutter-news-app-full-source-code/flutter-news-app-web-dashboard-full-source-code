@@ -16,8 +16,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/local_ads_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
@@ -42,7 +40,6 @@ class App extends StatelessWidget {
     required DataRepository<DashboardSummary> dashboardSummaryRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
-    required DataRepository<LocalAd> localAdsRepository,
     required DataRepository<User> usersRepository,
     required KVStorageService storageService,
     required AppEnvironment environment,
@@ -59,7 +56,6 @@ class App extends StatelessWidget {
        _dashboardSummaryRepository = dashboardSummaryRepository,
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
-       _localAdsRepository = localAdsRepository,
        _usersRepository = usersRepository,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
@@ -75,7 +71,6 @@ class App extends StatelessWidget {
   final DataRepository<DashboardSummary> _dashboardSummaryRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
-  final DataRepository<LocalAd> _localAdsRepository;
   final DataRepository<User> _usersRepository;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -97,7 +92,6 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _dashboardSummaryRepository),
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
-        RepositoryProvider.value(value: _localAdsRepository),
         RepositoryProvider.value(value: _usersRepository),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
@@ -139,9 +133,7 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => SourcesFilterBloc(),
           ),
-          BlocProvider(
-            create: (context) => FilterLocalAdsBloc(),
-          ),
+
           BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<DataRepository<Headline>>(),
@@ -150,13 +142,6 @@ class App extends StatelessWidget {
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
-              pendingDeletionsService: context.read<PendingDeletionsService>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => LocalAdsManagementBloc(
-              localAdsRepository: context.read<DataRepository<LocalAd>>(),
-              filterLocalAdsBloc: context.read<FilterLocalAdsBloc>(),
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),

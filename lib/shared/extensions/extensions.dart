@@ -7,6 +7,5 @@ export 'dashboard_user_role_l10n.dart';
 export 'feed_decorator_type_l10n.dart';
 export 'in_article_ad_slot_type_l10n.dart';
 export 'local_ad_to_ad_type.dart';
-export 'local_ads_management_tab_l10n.dart';
 export 'source_type_l10n.dart';
 export 'string_truncate.dart';

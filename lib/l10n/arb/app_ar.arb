@@ -1298,18 +1298,6 @@
   "@adUnitIdentifiersDescription": {
     "description": "وصف قسم معرفات الوحدات الإعلانية"
   },
-  "localAdManagementTitle": "إدارة الإعلانات المحلية",
-  "@localAdManagementTitle": {
-    "description": "عنوان قسم إدارة الإعلانات المحلية"
-  },
-  "localAdManagementDescription": "إدارة الإعلانات المحلية المخصصة التي يمكن عرضها داخل التطبيق.",
-  "@localAdManagementDescription": {
-    "description": "وصف قسم إدارة الإعلانات المحلية"
-  },
-  "manageLocalAdsButton": "إدارة الإعلانات المحلية",
-  "@manageLocalAdsButton": {
-    "description": "نص زر إدارة الإعلانات المحلية"
-  },
   "feedAdSettingsTitle": "إعدادات إعلانات الموجز",
   "@feedAdSettingsTitle": {
     "description": "عنوان قسم إعدادات إعلانات الموجز"
@@ -1406,120 +1394,6 @@
   "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
     "description": "الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton"
   },
-  "localAdsManagement": "إدارة الإعلانات المحلية",
-  "@localAdsManagement": {
-    "description": "تسمية عنصر التنقل لإدارة الإعلانات المحلية"
-  },
-  "archivedLocalAdsTitle": "الإعلانات المحلية المؤرشفة",
-  "@archivedLocalAdsTitle": {
-    "description": "عنوان صفحة الإعلانات المحلية المؤرشفة"
-  },
-  "loadingArchivedLocalAds": "جاري تحميل الإعلانات المحلية المؤرشفة",
-  "@loadingArchivedLocalAds": {
-    "description": "عنوان حالة تحميل الإعلانات المحلية المؤرشفة"
-  },
-  "noArchivedLocalAdsFound": "لم يتم العثور على إعلانات محلية مؤرشفة.",
-  "@noArchivedLocalAdsFound": {
-    "description": "رسالة عند عدم العثور على إعلانات محلية مؤرشفة"
-  },
-  "loadingLocalAds": "جاري تحميل الإعلانات المحلية",
-  "@loadingLocalAds": {
-    "description": "عنوان حالة تحميل الإعلانات المحلية"
-  },
-  "noLocalAdsFound": "لم يتم العثور على إعلانات محلية.",
-  "@noLocalAdsFound": {
-    "description": "رسالة عند عدم العثور على إعلانات محلية"
-  },
-  "localAdDeleted": "تم حذف '{title}'.",
-  "@localAdDeleted": {
-    "description": "رسالة Snackbar عند حذف إعلان محلي",
-    "placeholders": {
-      "title": {
-        "type": "String",
-        "example": "عنوان الإعلان"
-      }
-    }
-  },
-  "createLocalNativeAdTitle": "إنشاء إعلان أصلي",
-  "@createLocalNativeAdTitle": {
-    "description": "عنوان صفحة إنشاء إعلان أصلي محلي"
-  },
-  "localNativeAdCreatedSuccessfully": "تم إنشاء الإعلان الأصلي بنجاح.",
-  "@localNativeAdCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء إعلان أصلي بنجاح"
-  },
-  "editLocalNativeAdTitle": "تعديل إعلان أصلي",
-  "@editLocalNativeAdTitle": {
-    "description": "عنوان صفحة تعديل إعلان أصلي محلي"
-  },
-  "localNativeAdUpdatedSuccessfully": "تم تحديث الإعلان الأصلي بنجاح.",
-  "@localNativeAdUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث إعلان أصلي بنجاح"
-  },
-  "adSubtitle": "عنوان فرعي",
-  "@adSubtitle": {
-    "description": "تسمية حقل إدخال العنوان الفرعي للإعلان"
-  },
-  "createLocalBannerAdTitle": "إنشاء إعلان بانر",
-  "@createLocalBannerAdTitle": {
-    "description": "عنوان صفحة إنشاء إعلان بانر محلي"
-  },
-  "localBannerAdCreatedSuccessfully": "تم إنشاء إعلان البانر بنجاح.",
-  "@localBannerAdCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء إعلان بانر بنجاح"
-  },
-  "editLocalBannerAdTitle": "تعديل إعلان بانر",
-  "@editLocalBannerAdTitle": {
-    "description": "عنوان صفحة تعديل إعلان بانر محلي"
-  },
-  "localBannerAdUpdatedSuccessfully": "تم تحديث إعلان البانر بنجاح.",
-  "@localBannerAdUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث إعلان بانر بنجاح"
-  },
-  "createLocalInterstitialAdTitle": "إنشاء إعلان بيني",
-  "@createLocalInterstitialAdTitle": {
-    "description": "عنوان صفحة إنشاء إعلان بيني محلي"
-  },
-  "localInterstitialAdCreatedSuccessfully": "تم إنشاء الإعلان البيني بنجاح.",
-  "@localInterstitialAdCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء إعلان بيني بنجاح"
-  },
-  "editLocalInterstitialAdTitle": "تعديل إعلان بيني",
-  "@editLocalInterstitialAdTitle": {
-    "description": "عنوان صفحة تعديل إعلان بيني محلي"
-  },
-  "localInterstitialAdUpdatedSuccessfully": "تم تحديث الإعلان البيني بنجاح.",
-  "@localInterstitialAdUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث إعلان بيني بنجاح"
-  },
-  "createLocalVideoAdTitle": "إنشاء إعلان فيديو",
-  "@createLocalVideoAdTitle": {
-    "description": "عنوان صفحة إنشاء إعلان فيديو محلي"
-  },
-  "localVideoAdCreatedSuccessfully": "تم إنشاء إعلان الفيديو بنجاح.",
-  "@localVideoAdCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء إعلان فيديو بنجاح"
-  },
-  "editLocalVideoAdTitle": "تعديل إعلان فيديو",
-  "@editLocalVideoAdTitle": {
-    "description": "عنوان صفحة تعديل إعلان فيديو محلي"
-  },
-  "localVideoAdUpdatedSuccessfully": "تم تحديث إعلان الفيديو بنجاح.",
-  "@localVideoAdUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث إعلان فيديو بنجاح"
-  },
-  "videoUrl": "رابط الفيديو",
-  "@videoUrl": {
-    "description": "تسمية حقل إدخال رابط الفيديو"
-  },
-  "targetUrl": "رابط الهدف",
-  "@targetUrl": {
-    "description": "تسمية حقل إدخال رابط الهدف"
-  },
-  "loadingLocalAd": "جاري تحميل الإعلان المحلي",
-  "@loadingLocalAd": {
-    "description": "عنوان حالة تحميل إعلان محلي واحد"
-  },
   "idCopiedToClipboard": "تم نسخ المعرف '{id}' إلى الحافظة.",
   "@idCopiedToClipboard": {
     "description": "رسالة Snackbar عند نسخ معرف إلى الحافظة",
@@ -1529,18 +1403,6 @@
         "example": "UUID"
       }
     }
-  },
-  "adTitle": "عنوان الإعلان",
-  "@adTitle": {
-    "description": "Label for the ad title input field."
-  },
-  "localAdsManagementTitle": "إدارة الإعلانات المحلية",
-  "@localAdsManagementTitle": {
-    "description": "Title for the local ads management page."
-  },
-  "editLocalAds": "تعديل الإعلانات المحلية",
-  "@editLocalAds": {
-    "description": "Tooltip for the edit local ads button."
   },
   "copyId": "نسخ المعرف",
   "@copyId": {
@@ -1851,74 +1713,6 @@
   "closeButtonText": "إغلاق",
   "@closeButtonText": {
     "description": "Text for the close button in a dialog."
-  },
-  "filterLocalAds": "تصفية الإعلانات المحلية",
-  "@filterLocalAds": {
-    "description": "عنوان مربع حوار التصفية عند تصفية الإعلانات المحلية."
-  },
-  "searchByAdTitleOrUrl": "البحث بعنوان الإعلان أو الرابط...",
-  "@searchByAdTitleOrUrl": {
-    "description": "نص تلميح حقل البحث عن عنوان الإعلان أو الرابط."
-  },
-  "adType": "نوع الإعلان",
-  "@adType": {
-    "description": "تسمية لفلتر نوع الإعلان."
-  },
-  "loadingNativeAds": "جاري تحميل الإعلانات الأصلية",
-  "@loadingNativeAds": {
-    "description": "عنوان حالة تحميل الإعلانات الأصلية."
-  },
-  "noNativeAdsFound": "لم يتم العثور على إعلانات أصلية.",
-  "@noNativeAdsFound": {
-    "description": "رسالة عند عدم العثور على إعلانات أصلية."
-  },
-  "loadingBannerAds": "جاري تحميل إعلانات البانر",
-  "@loadingBannerAds": {
-    "description": "عنوان حالة تحميل إعلانات البانر."
-  },
-  "noBannerAdsFound": "لم يتم العثور على إعلانات بانر.",
-  "@noBannerAdsFound": {
-    "description": "رسالة عند عدم العثور على إعلانات بانر."
-  },
-  "adImageUrl": "رابط الصورة",
-  "@adImageUrl": {
-    "description": "رأس العمود لرابط صورة الإعلان."
-  },
-  "loadingInterstitialAds": "جاري تحميل الإعلانات البينية",
-  "@loadingInterstitialAds": {
-    "description": "عنوان حالة تحميل الإعلانات البينية."
-  },
-  "noInterstitialAdsFound": "لم يتم العثور على إعلانات بينية.",
-  "@noInterstitialAdsFound": {
-    "description": "رسالة عند عدم العثور على إعلانات بينية."
-  },
-  "loadingVideoAds": "جاري تحميل إعلانات الفيديو",
-  "@loadingVideoAds": {
-    "description": "عنوان حالة تحميل إعلانات الفيديو."
-  },
-  "noVideoAdsFound": "لم يتم العثور على إعلانات فيديو.",
-  "@noVideoAdsFound": {
-    "description": "رسالة عند عدم العثور على إعلانات فيديو."
-  },
-  "adVideoUrl": "رابط الفيديو",
-  "@adVideoUrl": {
-    "description": "رأس العمود لرابط فيديو الإعلان."
-  },
-  "idCopied": "تم نسخ المعرف إلى الحافظة",
-  "@idCopied": {
-    "description": "Snackbar message displayed when an ad ID is successfully copied to the clipboard."
-  },
-  "copyIdTooltip": "نسخ معرف الإعلان",
-  "@copyIdTooltip": {
-    "description": "Tooltip for the copy ID action button."
-  },
-  "saveAdTitle": "حفظ الإعلان",
-  "@saveAdTitle": {
-    "description": "عنوان مربع الحوار الذي يطلب حفظ إعلان"
-  },
-  "saveAdMessage": "هل تريد نشر هذا الإعلان أم حفظه كمسودة؟",
-  "@saveAdMessage": {
-    "description": "رسالة مربع الحوار الذي يطلب حفظ إعلان"
   },
   "logoUrl": "رابط الشعار",
   "@logoUrl": {

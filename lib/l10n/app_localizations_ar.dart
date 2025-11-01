@@ -1037,16 +1037,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'تكوين معرفات الوحدات الإعلانية لمنصة الإعلانات المختارة.';
 
   @override
-  String get localAdManagementTitle => 'إدارة الإعلانات المحلية';
-
-  @override
-  String get localAdManagementDescription =>
-      'إدارة الإعلانات المحلية المخصصة التي يمكن عرضها داخل التطبيق.';
-
-  @override
-  String get manageLocalAdsButton => 'إدارة الإعلانات المحلية';
-
-  @override
   String get feedAdSettingsTitle => 'إعدادات إعلانات الموجز';
 
   @override
@@ -1130,106 +1120,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'أسفل زر \'متابعة القراءة\'';
 
   @override
-  String get localAdsManagement => 'إدارة الإعلانات المحلية';
-
-  @override
-  String get archivedLocalAdsTitle => 'الإعلانات المحلية المؤرشفة';
-
-  @override
-  String get loadingArchivedLocalAds => 'جاري تحميل الإعلانات المحلية المؤرشفة';
-
-  @override
-  String get noArchivedLocalAdsFound =>
-      'لم يتم العثور على إعلانات محلية مؤرشفة.';
-
-  @override
-  String get loadingLocalAds => 'جاري تحميل الإعلانات المحلية';
-
-  @override
-  String get noLocalAdsFound => 'لم يتم العثور على إعلانات محلية.';
-
-  @override
-  String localAdDeleted(String title) {
-    return 'تم حذف \'$title\'.';
-  }
-
-  @override
-  String get createLocalNativeAdTitle => 'إنشاء إعلان أصلي';
-
-  @override
-  String get localNativeAdCreatedSuccessfully =>
-      'تم إنشاء الإعلان الأصلي بنجاح.';
-
-  @override
-  String get editLocalNativeAdTitle => 'تعديل إعلان أصلي';
-
-  @override
-  String get localNativeAdUpdatedSuccessfully =>
-      'تم تحديث الإعلان الأصلي بنجاح.';
-
-  @override
-  String get adSubtitle => 'عنوان فرعي';
-
-  @override
-  String get createLocalBannerAdTitle => 'إنشاء إعلان بانر';
-
-  @override
-  String get localBannerAdCreatedSuccessfully => 'تم إنشاء إعلان البانر بنجاح.';
-
-  @override
-  String get editLocalBannerAdTitle => 'تعديل إعلان بانر';
-
-  @override
-  String get localBannerAdUpdatedSuccessfully => 'تم تحديث إعلان البانر بنجاح.';
-
-  @override
-  String get createLocalInterstitialAdTitle => 'إنشاء إعلان بيني';
-
-  @override
-  String get localInterstitialAdCreatedSuccessfully =>
-      'تم إنشاء الإعلان البيني بنجاح.';
-
-  @override
-  String get editLocalInterstitialAdTitle => 'تعديل إعلان بيني';
-
-  @override
-  String get localInterstitialAdUpdatedSuccessfully =>
-      'تم تحديث الإعلان البيني بنجاح.';
-
-  @override
-  String get createLocalVideoAdTitle => 'إنشاء إعلان فيديو';
-
-  @override
-  String get localVideoAdCreatedSuccessfully => 'تم إنشاء إعلان الفيديو بنجاح.';
-
-  @override
-  String get editLocalVideoAdTitle => 'تعديل إعلان فيديو';
-
-  @override
-  String get localVideoAdUpdatedSuccessfully => 'تم تحديث إعلان الفيديو بنجاح.';
-
-  @override
-  String get videoUrl => 'رابط الفيديو';
-
-  @override
-  String get targetUrl => 'رابط الهدف';
-
-  @override
-  String get loadingLocalAd => 'جاري تحميل الإعلان المحلي';
-
-  @override
   String idCopiedToClipboard(String id) {
     return 'تم نسخ المعرف \'$id\' إلى الحافظة.';
   }
-
-  @override
-  String get adTitle => 'عنوان الإعلان';
-
-  @override
-  String get localAdsManagementTitle => 'إدارة الإعلانات المحلية';
-
-  @override
-  String get editLocalAds => 'تعديل الإعلانات المحلية';
 
   @override
   String get copyId => 'نسخ المعرف';
@@ -1461,57 +1354,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get closeButtonText => 'إغلاق';
-
-  @override
-  String get filterLocalAds => 'تصفية الإعلانات المحلية';
-
-  @override
-  String get searchByAdTitleOrUrl => 'البحث بعنوان الإعلان أو الرابط...';
-
-  @override
-  String get adType => 'نوع الإعلان';
-
-  @override
-  String get loadingNativeAds => 'جاري تحميل الإعلانات الأصلية';
-
-  @override
-  String get noNativeAdsFound => 'لم يتم العثور على إعلانات أصلية.';
-
-  @override
-  String get loadingBannerAds => 'جاري تحميل إعلانات البانر';
-
-  @override
-  String get noBannerAdsFound => 'لم يتم العثور على إعلانات بانر.';
-
-  @override
-  String get adImageUrl => 'رابط الصورة';
-
-  @override
-  String get loadingInterstitialAds => 'جاري تحميل الإعلانات البينية';
-
-  @override
-  String get noInterstitialAdsFound => 'لم يتم العثور على إعلانات بينية.';
-
-  @override
-  String get loadingVideoAds => 'جاري تحميل إعلانات الفيديو';
-
-  @override
-  String get noVideoAdsFound => 'لم يتم العثور على إعلانات فيديو.';
-
-  @override
-  String get adVideoUrl => 'رابط الفيديو';
-
-  @override
-  String get idCopied => 'تم نسخ المعرف إلى الحافظة';
-
-  @override
-  String get copyIdTooltip => 'نسخ معرف الإعلان';
-
-  @override
-  String get saveAdTitle => 'حفظ الإعلان';
-
-  @override
-  String get saveAdMessage => 'هل تريد نشر هذا الإعلان أم حفظه كمسودة؟';
 
   @override
   String get logoUrl => 'رابط الشعار';

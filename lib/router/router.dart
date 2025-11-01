@@ -25,18 +25,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/bloc/filter_local_ads/filter_local_ads_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_banner_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_interstitial_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_native_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/create_local_video_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/edit_local_banner_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/edit_local_interstitial_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/edit_local_native_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/edit_local_video_ad_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/view/local_ads_management_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/bloc/local_ads_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/local_ads_management/widgets/local_ads_filter_dialog/local_ads_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/route_permissions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
@@ -366,97 +354,6 @@ GoRouter createRouter({
                 path: Routes.appConfiguration,
                 name: Routes.appConfigurationName,
                 builder: (context, state) => const AppConfigurationPage(),
-                routes: [
-                  // Nested local ads management routes
-                  GoRoute(
-                    path: Routes.localAdsManagement,
-                    name: Routes.localAdsManagementName,
-                    builder: (context, state) => const LocalAdsManagementPage(),
-                    routes: [
-                      GoRoute(
-                        path: Routes.localAdsFilterDialog,
-                        name: Routes.localAdsFilterDialogName,
-                        pageBuilder: (context, state) {
-                          final args = state.extra! as Map<String, dynamic>;
-                          final filterLocalAdsBloc =
-                              args['filterLocalAdsBloc'] as FilterLocalAdsBloc;
-
-                          return MaterialPage(
-                            fullscreenDialog: true,
-                            child: BlocProvider<LocalAdsFilterDialogBloc>(
-                              create: (providerContext) =>
-                                  LocalAdsFilterDialogBloc()..add(
-                                    LocalAdsFilterDialogInitialized(
-                                      filterLocalAdsState:
-                                          filterLocalAdsBloc.state,
-                                    ),
-                                  ),
-                              child: LocalAdsFilterDialog(
-                                filterLocalAdsBloc: filterLocalAdsBloc,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      GoRoute(
-                        path: Routes.createLocalNativeAd,
-                        name: Routes.createLocalNativeAdName,
-                        builder: (context, state) =>
-                            const CreateLocalNativeAdPage(),
-                      ),
-                      GoRoute(
-                        path: Routes.editLocalNativeAd,
-                        name: Routes.editLocalNativeAdName,
-                        builder: (context, state) {
-                          final adId = state.pathParameters['id']!;
-                          return EditLocalNativeAdPage(adId: adId);
-                        },
-                      ),
-                      GoRoute(
-                        path: Routes.createLocalBannerAd,
-                        name: Routes.createLocalBannerAdName,
-                        builder: (context, state) =>
-                            const CreateLocalBannerAdPage(),
-                      ),
-                      GoRoute(
-                        path: Routes.editLocalBannerAd,
-                        name: Routes.editLocalBannerAdName,
-                        builder: (context, state) {
-                          final adId = state.pathParameters['id']!;
-                          return EditLocalBannerAdPage(adId: adId);
-                        },
-                      ),
-                      GoRoute(
-                        path: Routes.createLocalInterstitialAd,
-                        name: Routes.createLocalInterstitialAdName,
-                        builder: (context, state) =>
-                            const CreateLocalInterstitialAdPage(),
-                      ),
-                      GoRoute(
-                        path: Routes.editLocalInterstitialAd,
-                        name: Routes.editLocalInterstitialAdName,
-                        builder: (context, state) {
-                          final adId = state.pathParameters['id']!;
-                          return EditLocalInterstitialAdPage(adId: adId);
-                        },
-                      ),
-                      GoRoute(
-                        path: Routes.createLocalVideoAd,
-                        name: Routes.createLocalVideoAdName,
-                        builder: (context, state) =>
-                            const CreateLocalVideoAdPage(),
-                      ),
-                      GoRoute(
-                        path: Routes.editLocalVideoAd,
-                        name: Routes.editLocalVideoAdName,
-                        builder: (context, state) {
-                          final adId = state.pathParameters['id']!;
-                          return EditLocalVideoAdPage(adId: adId);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
               ),
             ],
           ),
