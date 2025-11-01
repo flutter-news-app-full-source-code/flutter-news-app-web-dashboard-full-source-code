@@ -10,16 +10,12 @@ final class UserFilterDialogState extends Equatable {
   /// {@macro user_filter_dialog_state}
   const UserFilterDialogState({
     this.searchQuery = '',
-    this.selectedStatus = ContentStatus.active,
     this.selectedAppRoles = const [],
     this.selectedDashboardRoles = const [],
   });
 
   /// The current text in the search query field.
   final String searchQuery;
-
-  /// The single content status to be included in the filter.
-  final ContentStatus selectedStatus;
 
   /// The list of app roles to be included in the filter.
   final List<AppUserRole> selectedAppRoles;
@@ -30,13 +26,11 @@ final class UserFilterDialogState extends Equatable {
   /// Creates a copy of this [UserFilterDialogState] with updated values.
   UserFilterDialogState copyWith({
     String? searchQuery,
-    ContentStatus? selectedStatus,
     List<AppUserRole>? selectedAppRoles,
     List<DashboardUserRole>? selectedDashboardRoles,
   }) {
     return UserFilterDialogState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedStatus: selectedStatus ?? this.selectedStatus,
       selectedAppRoles: selectedAppRoles ?? this.selectedAppRoles,
       selectedDashboardRoles:
           selectedDashboardRoles ?? this.selectedDashboardRoles,
@@ -46,7 +40,6 @@ final class UserFilterDialogState extends Equatable {
   @override
   List<Object?> get props => [
     searchQuery,
-    selectedStatus,
     selectedAppRoles,
     selectedDashboardRoles,
   ];
