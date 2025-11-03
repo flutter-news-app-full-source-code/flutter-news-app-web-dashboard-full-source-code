@@ -89,3 +89,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+dependency_overrides:
+  core:
+    git:
+      url: https://github.com/flutter-news-app-full-source-code/core.git
+      ref: e7c808c9d459233196e2eac3137a9c87d3976af3
