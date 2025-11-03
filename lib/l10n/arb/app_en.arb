@@ -1448,10 +1448,6 @@
   "@adPlatformTypeAdmob": {
     "description": "The name of the AdMob ad platform."
   },
-  "adPlatformTypeLocal": "Local",
-  "@adPlatformTypeLocal": {
-    "description": "The name of the Local ad platform for custom ads."
-  },
   "nativeAdsTab": "Native Ads",
   "@nativeAdsTab": {
     "description": "Tab title for Native Ads in local ads management."

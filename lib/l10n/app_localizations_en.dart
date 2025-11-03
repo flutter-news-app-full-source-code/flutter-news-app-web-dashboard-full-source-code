@@ -1163,9 +1163,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adPlatformTypeAdmob => 'AdMob';
 
   @override
-  String get adPlatformTypeLocal => 'Local';
-
-  @override
   String get nativeAdsTab => 'Native Ads';
 
   @override

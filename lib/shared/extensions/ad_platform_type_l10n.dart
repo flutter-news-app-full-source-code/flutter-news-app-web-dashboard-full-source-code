@@ -10,8 +10,6 @@ extension AdPlatformTypeL10n on AdPlatformType {
     switch (this) {
       case AdPlatformType.admob:
         return l10n.adPlatformTypeAdmob;
-      case AdPlatformType.local:
-        return l10n.adPlatformTypeLocal;
       case AdPlatformType.demo:
         throw UnimplementedError(
           'Demo ad platform type is not intended for dashboard usage, rather for mobile client, demo env specific usecase.',

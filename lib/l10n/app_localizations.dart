@@ -2174,12 +2174,6 @@ abstract class AppLocalizations {
   /// **'AdMob'**
   String get adPlatformTypeAdmob;
 
-  /// The name of the Local ad platform for custom ads.
-  ///
-  /// In en, this message translates to:
-  /// **'Local'**
-  String get adPlatformTypeLocal;
-
   /// Tab title for Native Ads in local ads management.
   ///
   /// In en, this message translates to:
