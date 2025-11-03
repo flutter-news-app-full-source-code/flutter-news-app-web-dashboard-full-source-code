@@ -123,7 +123,7 @@ Future<Widget> bootstrap(
     usersClient = DataInMemory<User>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      // No initial data for users in demo mode.
+      initialData: usersFixturesData,
       logger: Logger('DataInMemory<User>'),
     );
   } else {
