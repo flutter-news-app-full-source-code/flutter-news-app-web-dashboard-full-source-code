@@ -1164,9 +1164,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adPlatformTypeAdmob => 'أدموب';
 
   @override
-  String get adPlatformTypeLocal => 'محلي';
-
-  @override
   String get nativeAdsTab => 'إعلانات أصلية';
 
   @override
