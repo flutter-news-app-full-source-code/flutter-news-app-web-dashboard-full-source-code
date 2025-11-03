@@ -117,7 +117,7 @@ GoRouter createRouter({
             })
             .whereType<String>()
             .toList();
-            
+
         // Check if the destination path starts with any of the authorized base
         // paths, or if it's the universally accessible settings page.
         final isAuthorized =

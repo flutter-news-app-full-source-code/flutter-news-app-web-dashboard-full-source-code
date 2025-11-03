@@ -299,7 +299,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             ),
           ],
         ),
-        const SizedBox(height: AppSpacing.lg),        
+        const SizedBox(height: AppSpacing.lg),
       ],
     );
   }

@@ -145,7 +145,9 @@ class _RequestCodeView extends StatelessWidget {
                                 top: AppSpacing.lg,
                               ),
                               child: Text(
-                                l10n.demoEmailHint('admin@example.com | publisher@example.com'),
+                                l10n.demoEmailHint(
+                                  'admin@example.com | publisher@example.com',
+                                ),
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: colorScheme.secondary,
                                   fontWeight: FontWeight.bold,
