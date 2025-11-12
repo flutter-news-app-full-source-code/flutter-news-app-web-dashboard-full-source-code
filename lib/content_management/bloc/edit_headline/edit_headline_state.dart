@@ -31,6 +31,7 @@ final class EditHeadlineState extends Equatable {
     this.topic,
     this.eventCountry,
     this.exception,
+    this.isBreaking = false,
     this.updatedHeadline,
   });
 
@@ -44,6 +45,7 @@ final class EditHeadlineState extends Equatable {
   final Topic? topic;
   final Country? eventCountry;
   final HttpException? exception;
+  final bool isBreaking;
   final Headline? updatedHeadline;
 
   /// Returns true if the form is valid and can be submitted.
@@ -57,6 +59,9 @@ final class EditHeadlineState extends Equatable {
       topic != null &&
       eventCountry != null;
 
+  // isBreaking is not part of form validity for editing, as it doesn't
+  // trigger new notifications on update.
+
   EditHeadlineState copyWith({
     EditHeadlineStatus? status,
     String? headlineId,
@@ -67,6 +72,7 @@ final class EditHeadlineState extends Equatable {
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
+    bool? isBreaking,
     HttpException? exception,
     Headline? updatedHeadline,
   }) {
@@ -80,6 +86,7 @@ final class EditHeadlineState extends Equatable {
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
+      isBreaking: isBreaking ?? this.isBreaking,
       exception: exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
     );
@@ -96,6 +103,7 @@ final class EditHeadlineState extends Equatable {
     source,
     topic,
     eventCountry,
+    isBreaking,
     exception,
     updatedHeadline,
   ];
