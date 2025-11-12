@@ -30,6 +30,7 @@ final class CreateHeadlineState extends Equatable {
     this.topic,
     this.eventCountry,
     this.exception,
+    this.isBreaking = false,
     this.createdHeadline,
   });
 
@@ -42,6 +43,7 @@ final class CreateHeadlineState extends Equatable {
   final Topic? topic;
   final Country? eventCountry;
   final HttpException? exception;
+  final bool isBreaking;
   final Headline? createdHeadline;
 
   /// Returns true if the form is valid and can be submitted.
@@ -52,7 +54,8 @@ final class CreateHeadlineState extends Equatable {
       imageUrl.isNotEmpty &&
       source != null &&
       topic != null &&
-      eventCountry != null;
+      eventCountry != null &&
+      !isBreaking; // If breaking, it must be published, not drafted.
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
@@ -63,6 +66,7 @@ final class CreateHeadlineState extends Equatable {
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
+    bool? isBreaking,
     HttpException? exception,
     Headline? createdHeadline,
   }) {
@@ -75,6 +79,7 @@ final class CreateHeadlineState extends Equatable {
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
+      isBreaking: isBreaking ?? this.isBreaking,
       exception: exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
     );
@@ -90,6 +95,7 @@ final class CreateHeadlineState extends Equatable {
     source,
     topic,
     eventCountry,
+    isBreaking,
     exception,
     createdHeadline,
   ];
