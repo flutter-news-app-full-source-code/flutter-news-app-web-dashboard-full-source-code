@@ -23,6 +23,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
+    on<CreateHeadlineIsBreakingChanged>(_onIsBreakingChanged);
     on<CreateHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<CreateHeadlinePublished>(_onPublished);
   }
@@ -80,6 +81,13 @@ class CreateHeadlineBloc
     emit(state.copyWith(eventCountry: () => event.country));
   }
 
+  void _onIsBreakingChanged(
+    CreateHeadlineIsBreakingChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(state.copyWith(isBreaking: event.isBreaking));
+  }
+
   /// Handles saving the headline as a draft.
   Future<void> _onSavedAsDraft(
     CreateHeadlineSavedAsDraft event,
@@ -100,6 +108,7 @@ class CreateHeadlineBloc
         createdAt: now,
         updatedAt: now,
         status: ContentStatus.draft,
+        isBreaking: state.isBreaking,
       );
 
       await _headlinesRepository.create(item: newHeadline);
@@ -141,6 +150,7 @@ class CreateHeadlineBloc
         createdAt: now,
         updatedAt: now,
         status: ContentStatus.active,
+        isBreaking: state.isBreaking,
       );
 
       await _headlinesRepository.create(item: newHeadline);
