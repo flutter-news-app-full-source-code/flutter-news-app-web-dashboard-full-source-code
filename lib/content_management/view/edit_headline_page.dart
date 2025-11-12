@@ -147,6 +147,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             _excerptController.text = state.excerpt;
             _urlController.text = state.url;
             _imageUrlController.text = state.imageUrl;
+            // No need to update a controller for `isBreaking` as it's a Switch.
           }
         },
         builder: (context, state) {
@@ -221,6 +222,25 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineImageUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            l10n.isBreakingNewsLabel,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        Switch(
+                          value: state.isBreaking,
+                          onChanged: (value) => context
+                              .read<EditHeadlineBloc>()
+                              .add(EditHeadlineIsBreakingChanged(value)),
+                        ),
+                      ],
+                    ),
+                    Text(l10n.isBreakingNewsDescriptionEdit),
+                    const SizedBox(height: AppSpacing.lg),
+                    // Existing SearchableSelectionInput widgets
                     SearchableSelectionInput<Source>(
                       label: l10n.sourceName,
                       selectedItems: state.source != null
