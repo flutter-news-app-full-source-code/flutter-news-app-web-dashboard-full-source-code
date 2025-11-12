@@ -221,10 +221,25 @@ class _HeadlinesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(
-          Text(
-            headline.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              if (headline.isBreaking)
+                Padding(
+                  padding: const EdgeInsets.only(right: AppSpacing.sm),
+                  child: Icon(
+                    Icons.flash_on,
+                    size: 18,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              Expanded(
+                child: Text(
+                  headline.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ),
         if (!isMobile) // Conditionally show Source Name
