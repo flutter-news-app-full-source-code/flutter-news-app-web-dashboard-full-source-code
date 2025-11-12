@@ -1855,4 +1855,37 @@
   "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
     "description": "تسمية لنوع توصيل إشعارات 'حصاد الأسبوع'"
   }
+,
+  "isBreakingNewsLabel": "وضع علامة 'خبر عاجل'",
+  "@isBreakingNewsLabel": {
+    "description": "تسمية مفتاح وضع علامة 'خبر عاجل' على العنوان"
+  },
+  "isBreakingNewsDescription": "سيؤدي تمكين هذا إلى إرسال إشعار فوري لجميع المستخدمين المشتركين عند النشر.",
+  "@isBreakingNewsDescription": {
+    "description": "وصف مفتاح 'خبر عاجل' في صفحة الإنشاء"
+  },
+  "isBreakingNewsDescriptionEdit": "تغيير هذه الحالة أثناء التعديل لن يؤدي إلى إرسال إشعار فوري جديد، حيث يتم إرسال الإشعارات فقط عند الإنشاء الأولي.",
+  "@isBreakingNewsDescriptionEdit": {
+    "description": "وصف مفتاح 'خبر عاجل' في صفحة التعديل"
+  },
+  "confirmBreakingNewsTitle": "تأكيد نشر خبر عاجل",
+  "@confirmBreakingNewsTitle": {
+    "description": "عنوان مربع حوار التأكيد عند نشر خبر عاجل"
+  },
+  "confirmBreakingNewsMessage": "هل أنت متأكد أنك تريد نشر هذا كخبر عاجل؟ سيؤدي هذا الإجراء إلى إرسال إشعار فوري لجميع المستخدمين المشتركين.",
+  "@confirmBreakingNewsMessage": {
+    "description": "رسالة مربع حوار التأكيد عند نشر خبر عاجل"
+  },
+  "confirmPublishButton": "تأكيد ونشر",
+  "@confirmPublishButton": {
+    "description": "نص زر التأكيد والنشر لخبر عاجل"
+  },
+  "cannotDraftBreakingNews": "لا يمكن حفظ الأخبار العاجلة كمسودة. يرجى نشرها أو تعطيل مفتاح 'خبر عاجل'.",
+  "@cannotDraftBreakingNews": {
+    "description": "رسالة خطأ تظهر عندما يحاول المستخدم حفظ مقال إخباري عاجل كمسودة."
+  },
+  "ok": "موافق",
+  "@ok": {
+    "description": "نص زر 'موافق' الشائع."
+  }
 }

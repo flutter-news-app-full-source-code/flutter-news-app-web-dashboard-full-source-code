@@ -1850,4 +1850,37 @@
   "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
     "description": "Label for the 'weekly roundup' push notification delivery type"
   }
+,
+  "isBreakingNewsLabel": "Mark as Breaking News",
+  "@isBreakingNewsLabel": {
+    "description": "Label for the switch to mark a headline as breaking news"
+  },
+  "isBreakingNewsDescription": "Enabling this will send an immediate push notification to all subscribed users upon publication.",
+  "@isBreakingNewsDescription": {
+    "description": "Description for the breaking news switch on the create page"
+  },
+  "isBreakingNewsDescriptionEdit": "Changing this status during an edit will NOT trigger a new push notification, as notifications are only sent on initial creation.",
+  "@isBreakingNewsDescriptionEdit": {
+    "description": "Description for the breaking news switch on the edit page"
+  },
+  "confirmBreakingNewsTitle": "Confirm Breaking News Publication",
+  "@confirmBreakingNewsTitle": {
+    "description": "Title for the confirmation dialog when publishing breaking news"
+  },
+  "confirmBreakingNewsMessage": "Are you sure you want to publish this as breaking news? This action will send an immediate push notification to all subscribed users.",
+  "@confirmBreakingNewsMessage": {
+    "description": "Message for the confirmation dialog when publishing breaking news"
+  },
+  "confirmPublishButton": "Confirm & Publish",
+  "@confirmPublishButton": {
+    "description": "Text for the button to confirm publishing breaking news"
+  },
+  "cannotDraftBreakingNews": "Breaking news cannot be saved as a draft. Please publish it or disable the 'Breaking News' toggle.",
+  "@cannotDraftBreakingNews": {
+    "description": "Error message shown when a user tries to save a breaking news article as a draft."
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "A common 'OK' button text."
+  }
 }
