@@ -1423,4 +1423,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscriptionPremium => 'Premium';
+
+  @override
+  String get savedHeadlineFilterLimitsTitle => 'Saved Headline Filter Limits';
+
+  @override
+  String get savedHeadlineFilterLimitsDescription =>
+      'Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.';
+
+  @override
+  String get savedSourceFilterLimitsTitle => 'Saved Source Filter Limits';
+
+  @override
+  String get savedSourceFilterLimitsDescription =>
+      'Set limits on the number of saved source filters for each user tier, including total and pinned.';
+
+  @override
+  String get totalLimitLabel => 'Total Limit';
+
+  @override
+  String get totalLimitDescription =>
+      'The total number of filters of this type a user can create.';
+
+  @override
+  String get pinnedLimitLabel => 'Pinned Limit';
+
+  @override
+  String get pinnedLimitDescription =>
+      'The maximum number of filters of this type that can be pinned.';
+
+  @override
+  String get notificationSubscriptionLimitLabel =>
+      'Notification Subscription Limit';
+
+  @override
+  String get notificationSubscriptionLimitDescription =>
+      'The maximum number of filters a user can subscribe to for this notification type.';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeBreakingOnly =>
+      'Breaking News';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeDailyDigest =>
+      'Daily Digest';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
+      'Weekly Roundup';
 }

@@ -2671,6 +2671,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Premium'**
   String get subscriptionPremium;
+
+  /// Title for the Saved Headline Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Headline Filter Limits'**
+  String get savedHeadlineFilterLimitsTitle;
+
+  /// Description for the Saved Headline Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.'**
+  String get savedHeadlineFilterLimitsDescription;
+
+  /// Title for the Saved Source Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Source Filter Limits'**
+  String get savedSourceFilterLimitsTitle;
+
+  /// Description for the Saved Source Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits on the number of saved source filters for each user tier, including total and pinned.'**
+  String get savedSourceFilterLimitsDescription;
+
+  /// Label for the total limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'Total Limit'**
+  String get totalLimitLabel;
+
+  /// Description for the total limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of filters of this type a user can create.'**
+  String get totalLimitDescription;
+
+  /// Label for the pinned limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'Pinned Limit'**
+  String get pinnedLimitLabel;
+
+  /// Description for the pinned limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum number of filters of this type that can be pinned.'**
+  String get pinnedLimitDescription;
+
+  /// Label for the notification subscription limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Subscription Limit'**
+  String get notificationSubscriptionLimitLabel;
+
+  /// Description for the notification subscription limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum number of filters a user can subscribe to for this notification type.'**
+  String get notificationSubscriptionLimitDescription;
+
+  /// Label for the 'breaking only' push notification delivery type
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking News'**
+  String get pushNotificationSubscriptionDeliveryTypeBreakingOnly;
+
+  /// Label for the 'daily digest' push notification delivery type
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Digest'**
+  String get pushNotificationSubscriptionDeliveryTypeDailyDigest;
+
+  /// Label for the 'weekly roundup' push notification delivery type
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Roundup'**
+  String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup;
 }
 
 class _AppLocalizationsDelegate

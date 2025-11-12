@@ -1421,4 +1421,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get subscriptionPremium => 'مميز';
+
+  @override
+  String get savedHeadlineFilterLimitsTitle => 'حدود مرشحات العناوين المحفوظة';
+
+  @override
+  String get savedHeadlineFilterLimitsDescription =>
+      'تعيين حدود على عدد مرشحات العناوين المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة واشتراكات الإشعارات.';
+
+  @override
+  String get savedSourceFilterLimitsTitle => 'حدود مرشحات المصادر المحفوظة';
+
+  @override
+  String get savedSourceFilterLimitsDescription =>
+      'تعيين حدود على عدد مرشحات المصادر المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة.';
+
+  @override
+  String get totalLimitLabel => 'الحد الإجمالي';
+
+  @override
+  String get totalLimitDescription =>
+      'العدد الإجمالي للمرشحات من هذا النوع التي يمكن للمستخدم إنشاؤها.';
+
+  @override
+  String get pinnedLimitLabel => 'الحد المثبت';
+
+  @override
+  String get pinnedLimitDescription =>
+      'الحد الأقصى لعدد المرشحات من هذا النوع التي يمكن تثبيتها.';
+
+  @override
+  String get notificationSubscriptionLimitLabel => 'حد اشتراك الإشعارات';
+
+  @override
+  String get notificationSubscriptionLimitDescription =>
+      'الحد الأقصى لعدد المرشحات التي يمكن للمستخدم الاشتراك فيها لهذا النوع من الإشعارات.';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeBreakingOnly =>
+      'الأخبار العاجلة';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeDailyDigest =>
+      'الملخص اليومي';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
+      'حصاد الأسبوع';
 }
