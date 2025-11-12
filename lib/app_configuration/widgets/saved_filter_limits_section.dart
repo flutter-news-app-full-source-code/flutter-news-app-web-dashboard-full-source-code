@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_filter_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_filter_limits_form.dart';
 
-/// {@template saved_feed_filters_limit_form}
+/// {@template saved_filter_limits_section}
 /// A container widget for configuring both saved headline and source filter
 /// limits within the [RemoteConfig].
 ///
@@ -12,9 +12,9 @@ import 'package:ui_kit/ui_kit.dart';
 /// headline filters and one for source filters, providing a unified interface
 /// for managing these configurations.
 /// {@endtemplate}
-class SavedFeedFiltersLimitForm extends StatefulWidget {
-  /// {@macro saved_feed_filters_limit_form}
-  const SavedFeedFiltersLimitForm({
+class SavedFilterLimitsSection extends StatefulWidget {
+  /// {@macro saved_filter_limits_section}
+  const SavedFilterLimitsSection({
     required this.remoteConfig,
     required this.onConfigChanged,
     super.key,
@@ -27,11 +27,11 @@ class SavedFeedFiltersLimitForm extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<SavedFeedFiltersLimitForm> createState() => _SavedFeedFiltersLimitFormState();
+  State<SavedFilterLimitsSection> createState() => _SavedFilterLimitsSectionState();
 }
 
-class _SavedFeedFiltersLimitFormState extends State<SavedFeedFiltersLimitForm>
-    with TickerProviderStateMixin {
+class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
+    with SingleTickerProviderStateMixin {
   /// Notifier for the index of the currently expanded top-level ExpansionTile.
   ///
   /// A value of `null` means no tile is expanded.

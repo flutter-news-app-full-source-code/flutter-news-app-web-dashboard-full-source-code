@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_feed_filters_limit_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_filter_limits_section.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
@@ -114,7 +114,7 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                SavedFeedFiltersLimitForm(
+                SavedFilterLimitsSection(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
