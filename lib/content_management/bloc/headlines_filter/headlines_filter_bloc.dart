@@ -21,6 +21,9 @@ class HeadlinesFilterBloc
     on<HeadlinesSourceFilterChanged>(_onHeadlinesSourceFilterChanged);
     on<HeadlinesTopicFilterChanged>(_onHeadlinesTopicFilterChanged);
     on<HeadlinesCountryFilterChanged>(_onHeadlinesCountryFilterChanged);
+    on<HeadlinesBreakingNewsFilterChanged>(
+      _onHeadlinesBreakingNewsFilterChanged,
+    );
     on<HeadlinesFilterApplied>(_onHeadlinesFilterApplied);
     on<HeadlinesFilterReset>(_onHeadlinesFilterReset);
   }
@@ -73,6 +76,17 @@ class HeadlinesFilterBloc
     emit(state.copyWith(selectedCountryIds: event.countryIds));
   }
 
+  /// Handles changes to the breaking news filter.
+  ///
+  /// This updates the `isBreaking` status for the filter, which can be
+  /// `true` (breaking only), `false` (non-breaking only), or `null` (all).
+  void _onHeadlinesBreakingNewsFilterChanged(
+    HeadlinesBreakingNewsFilterChanged event,
+    Emitter<HeadlinesFilterState> emit,
+  ) {
+    emit(state.copyWith(isBreaking: event.isBreaking));
+  }
+
   /// Handles the application of all current filter settings.
   ///
   /// This event is dispatched when the user explicitly confirms the filters
@@ -89,6 +103,7 @@ class HeadlinesFilterBloc
         selectedSourceIds: event.selectedSourceIds,
         selectedTopicIds: event.selectedTopicIds,
         selectedCountryIds: event.selectedCountryIds,
+        isBreaking: event.isBreaking,
       ),
     );
   }
