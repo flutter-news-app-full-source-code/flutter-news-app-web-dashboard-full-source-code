@@ -30,6 +30,7 @@ final class FilterDialogState extends Equatable {
     this.selectedSourceIds = const [],
     this.selectedTopicIds = const [],
     this.selectedCountryIds = const [],
+    this.isBreaking,
     this.selectedSourceTypes = const [],
     this.selectedLanguageCodes = const [],
     this.selectedHeadquartersCountryIds = const [],
@@ -66,6 +67,10 @@ final class FilterDialogState extends Equatable {
   /// The list of country IDs to be included in the filter for headlines.
   final List<String> selectedCountryIds;
 
+  /// The breaking news status to filter by for headlines.
+  /// `null` = all, `true` = breaking only, `false` = non-breaking only.
+  final bool? isBreaking;
+
   /// The list of source types to be included in the filter for sources.
   final List<SourceType> selectedSourceTypes;
 
@@ -98,6 +103,7 @@ final class FilterDialogState extends Equatable {
     List<String>? selectedSourceIds,
     List<String>? selectedTopicIds,
     List<String>? selectedCountryIds,
+    bool? isBreaking,
     List<SourceType>? selectedSourceTypes,
     List<String>? selectedLanguageCodes,
     List<String>? selectedHeadquartersCountryIds,
@@ -116,6 +122,7 @@ final class FilterDialogState extends Equatable {
       selectedSourceIds: selectedSourceIds ?? this.selectedSourceIds,
       selectedTopicIds: selectedTopicIds ?? this.selectedTopicIds,
       selectedCountryIds: selectedCountryIds ?? this.selectedCountryIds,
+      isBreaking: isBreaking ?? this.isBreaking,
       selectedSourceTypes: selectedSourceTypes ?? this.selectedSourceTypes,
       selectedLanguageCodes:
           selectedLanguageCodes ?? this.selectedLanguageCodes,
@@ -139,6 +146,7 @@ final class FilterDialogState extends Equatable {
     selectedSourceIds,
     selectedTopicIds,
     selectedCountryIds,
+    isBreaking,
     selectedSourceTypes,
     selectedLanguageCodes,
     selectedHeadquartersCountryIds,
