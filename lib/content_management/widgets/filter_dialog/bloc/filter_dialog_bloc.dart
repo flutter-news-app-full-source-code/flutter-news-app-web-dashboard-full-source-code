@@ -58,6 +58,9 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
     on<FilterDialogHeadlinesTopicIdsChanged>(
       _onFilterDialogHeadlinesTopicIdsChanged,
     );
+    on<FilterDialogBreakingNewsChanged>(
+      _onFilterDialogBreakingNewsChanged,
+    );
     on<FilterDialogHeadlinesCountryIdsChanged>(
       _onFilterDialogHeadlinesCountryIdsChanged,
     );
@@ -94,6 +97,7 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
               selectedSourceIds: headlinesState.selectedSourceIds,
               selectedTopicIds: headlinesState.selectedTopicIds,
               selectedCountryIds: headlinesState.selectedCountryIds,
+              isBreaking: headlinesState.isBreaking,
             ),
           );
         }
@@ -217,6 +221,14 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
     Emitter<FilterDialogState> emit,
   ) {
     emit(state.copyWith(selectedCountryIds: event.countryIds));
+  }
+
+  /// Updates the temporary breaking news filter for headlines.
+  void _onFilterDialogBreakingNewsChanged(
+    FilterDialogBreakingNewsChanged event,
+    Emitter<FilterDialogState> emit,
+  ) {
+    emit(state.copyWith(isBreaking: event.isBreaking));
   }
 
   /// Updates the temporary selected source types for sources.
