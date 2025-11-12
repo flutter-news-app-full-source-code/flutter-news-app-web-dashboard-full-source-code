@@ -219,7 +219,6 @@ class _TopicsDataSource extends DataTableSource {
         ),
         DataCell(
           Text(
-            // TODO(fulleni): Make date format configurable by admin.
             DateFormat('dd-MM-yyyy').format(topic.updatedAt.toLocal()),
           ),
         ),

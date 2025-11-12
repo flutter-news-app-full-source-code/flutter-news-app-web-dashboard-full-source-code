@@ -3,6 +3,7 @@ import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:go_router/go_router.dart';
@@ -70,11 +71,17 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         content: Text(l10n.saveHeadlineMessage),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.draft);
+            },
             child: Text(l10n.saveAsDraft),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.active);
+            },
             child: Text(l10n.publish),
           ),
         ],
@@ -341,6 +348,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
 
     // If the user tries to save as draft but it's breaking news, show an error.
     if (selectedStatus == ContentStatus.draft && state.isBreaking) {
+      if (!context.mounted) return;
       await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
@@ -348,7 +356,10 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
           content: Text(l10n.cannotDraftBreakingNews),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
+              },
               child: Text(l10n.ok),
             ),
           ],
@@ -359,6 +370,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
 
     // If publishing as breaking news, show an extra confirmation.
     if (selectedStatus == ContentStatus.active && state.isBreaking) {
+      if (!context.mounted) return;
       final confirmBreaking = await _showBreakingNewsConfirmationDialog(
         context,
         l10n,
@@ -368,8 +380,10 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
 
     // Dispatch the appropriate event based on user's choice.
     if (selectedStatus == ContentStatus.active) {
+      if (!context.mounted) return;
       context.read<CreateHeadlineBloc>().add(const CreateHeadlinePublished());
     } else if (selectedStatus == ContentStatus.draft) {
+      if (!context.mounted) return;
       context.read<CreateHeadlineBloc>().add(
         const CreateHeadlineSavedAsDraft(),
       );
@@ -388,11 +402,17 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         content: Text(l10n.confirmBreakingNewsMessage),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(false);
+            },
             child: Text(l10n.cancelButton),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(true);
+            },
             child: Text(l10n.confirmPublishButton),
           ),
         ],
