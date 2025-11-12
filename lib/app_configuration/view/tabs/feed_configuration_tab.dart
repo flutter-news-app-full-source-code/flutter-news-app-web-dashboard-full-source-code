@@ -93,7 +93,7 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
             const tileIndex = 1;
             return ExpansionTile(
               key: ValueKey('savedFeedFilterLimitsTile_$expandedIndex'),
-              title: Text(l10n.savedFeedFiltersLimitLabel),
+              title: Text(l10n.savedFeedFilterLimitsTitle),
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.lg,
                 top: AppSpacing.md,
