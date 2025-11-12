@@ -1471,4 +1471,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
       'Weekly Roundup';
+
+  @override
+  String get isBreakingNewsLabel => 'Mark as Breaking News';
+
+  @override
+  String get isBreakingNewsDescription =>
+      'Enabling this will send an immediate push notification to all subscribed users upon publication.';
+
+  @override
+  String get isBreakingNewsDescriptionEdit =>
+      'Changing this status during an edit will NOT trigger a new push notification, as notifications are only sent on initial creation.';
+
+  @override
+  String get confirmBreakingNewsTitle => 'Confirm Breaking News Publication';
+
+  @override
+  String get confirmBreakingNewsMessage =>
+      'Are you sure you want to publish this as breaking news? This action will send an immediate push notification to all subscribed users.';
+
+  @override
+  String get confirmPublishButton => 'Confirm & Publish';
+
+  @override
+  String get cannotDraftBreakingNews =>
+      'Breaking news cannot be saved as a draft. Please publish it or disable the \'Breaking News\' toggle.';
+
+  @override
+  String get ok => 'OK';
 }

@@ -2749,6 +2749,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weekly Roundup'**
   String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup;
+
+  /// Label for the switch to mark a headline as breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Breaking News'**
+  String get isBreakingNewsLabel;
+
+  /// Description for the breaking news switch on the create page
+  ///
+  /// In en, this message translates to:
+  /// **'Enabling this will send an immediate push notification to all subscribed users upon publication.'**
+  String get isBreakingNewsDescription;
+
+  /// Description for the breaking news switch on the edit page
+  ///
+  /// In en, this message translates to:
+  /// **'Changing this status during an edit will NOT trigger a new push notification, as notifications are only sent on initial creation.'**
+  String get isBreakingNewsDescriptionEdit;
+
+  /// Title for the confirmation dialog when publishing breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Breaking News Publication'**
+  String get confirmBreakingNewsTitle;
+
+  /// Message for the confirmation dialog when publishing breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to publish this as breaking news? This action will send an immediate push notification to all subscribed users.'**
+  String get confirmBreakingNewsMessage;
+
+  /// Text for the button to confirm publishing breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm & Publish'**
+  String get confirmPublishButton;
+
+  /// Error message shown when a user tries to save a breaking news article as a draft.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking news cannot be saved as a draft. Please publish it or disable the \'Breaking News\' toggle.'**
+  String get cannotDraftBreakingNews;
+
+  /// A common 'OK' button text.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate

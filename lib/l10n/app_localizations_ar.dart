@@ -1468,4 +1468,32 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
       'حصاد الأسبوع';
+
+  @override
+  String get isBreakingNewsLabel => 'وضع علامة \'خبر عاجل\'';
+
+  @override
+  String get isBreakingNewsDescription =>
+      'سيؤدي تمكين هذا إلى إرسال إشعار فوري لجميع المستخدمين المشتركين عند النشر.';
+
+  @override
+  String get isBreakingNewsDescriptionEdit =>
+      'تغيير هذه الحالة أثناء التعديل لن يؤدي إلى إرسال إشعار فوري جديد، حيث يتم إرسال الإشعارات فقط عند الإنشاء الأولي.';
+
+  @override
+  String get confirmBreakingNewsTitle => 'تأكيد نشر خبر عاجل';
+
+  @override
+  String get confirmBreakingNewsMessage =>
+      'هل أنت متأكد أنك تريد نشر هذا كخبر عاجل؟ سيؤدي هذا الإجراء إلى إرسال إشعار فوري لجميع المستخدمين المشتركين.';
+
+  @override
+  String get confirmPublishButton => 'تأكيد ونشر';
+
+  @override
+  String get cannotDraftBreakingNews =>
+      'لا يمكن حفظ الأخبار العاجلة كمسودة. يرجى نشرها أو تعطيل مفتاح \'خبر عاجل\'.';
+
+  @override
+  String get ok => 'موافق';
 }
