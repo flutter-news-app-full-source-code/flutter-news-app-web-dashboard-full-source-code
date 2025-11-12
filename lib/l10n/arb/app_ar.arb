@@ -1887,5 +1887,21 @@
   "ok": "موافق",
   "@ok": {
     "description": "نص زر 'موافق' الشائع."
+  },
+  "breakingNewsFilterTitle": "تصفية الأخبار العاجلة",
+  "@breakingNewsFilterTitle": {
+    "description": "عنوان قسم تصفية الأخبار العاجلة في مربع حوار التصفية."
+  },
+  "breakingNewsFilterAll": "الكل",
+  "@breakingNewsFilterAll": {
+    "description": "تسمية شريحة الاختيار 'الكل' في مرشح الأخبار العاجلة."
+  },
+  "breakingNewsFilterBreakingOnly": "العاجلة فقط",
+  "@breakingNewsFilterBreakingOnly": {
+    "description": "تسمية شريحة الاختيار 'العاجلة فقط' في مرشح الأخبار العاجلة."
+  },
+  "breakingNewsFilterNonBreakingOnly": "غير العاجلة فقط",
+  "@breakingNewsFilterNonBreakingOnly": {
+    "description": "تسمية شريحة الاختيار 'غير العاجلة فقط' في مرشح الأخبار العاجلة."
   }
 }

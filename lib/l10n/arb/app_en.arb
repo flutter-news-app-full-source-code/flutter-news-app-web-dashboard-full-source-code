@@ -1882,5 +1882,21 @@
   "ok": "OK",
   "@ok": {
     "description": "A common 'OK' button text."
+  },
+  "breakingNewsFilterTitle": "Breaking News",
+  "@breakingNewsFilterTitle": {
+    "description": "Title for the breaking news filter section in the filter dialog."
+  },
+  "breakingNewsFilterAll": "All",
+  "@breakingNewsFilterAll": {
+    "description": "Label for the 'All' choice chip in the breaking news filter."
+  },
+  "breakingNewsFilterBreakingOnly": "Breaking Only",
+  "@breakingNewsFilterBreakingOnly": {
+    "description": "Label for the 'Breaking Only' choice chip in the breaking news filter."
+  },
+  "breakingNewsFilterNonBreakingOnly": "Non-Breaking Only",
+  "@breakingNewsFilterNonBreakingOnly": {
+    "description": "Label for the 'Non-Breaking Only' choice chip in the breaking news filter."
   }
 }
