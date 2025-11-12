@@ -153,6 +153,10 @@ class ContentManagementBloc
       filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
     }
 
+    if (state.isBreaking != null) {
+      filter['isBreaking'] = state.isBreaking;
+    }
+
     return filter;
   }
 
