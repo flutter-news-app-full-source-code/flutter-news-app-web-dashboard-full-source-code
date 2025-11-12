@@ -105,23 +105,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
-                onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<CreateHeadlineBloc>().add(
-                            const CreateHeadlinePublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<CreateHeadlineBloc>().add(
-                            const CreateHeadlineSavedAsDraft(),
-                          );
-                        }
-                      }
+                onPressed: _isSaveButtonEnabled(state)
+                    ? () => _handleSave(context, state, l10n)
                     : null,
               );
             },
@@ -206,6 +191,25 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           .add(CreateHeadlineImageUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            l10n.isBreakingNewsLabel,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        Switch(
+                          value: state.isBreaking,
+                          onChanged: (value) => context
+                              .read<CreateHeadlineBloc>()
+                              .add(CreateHeadlineIsBreakingChanged(value)),
+                        ),
+                      ],
+                    ),
+                    Text(l10n.isBreakingNewsDescription),
+                    const SizedBox(height: AppSpacing.lg),
+                    // Existing SearchableSelectionInput widgets
                     SearchableSelectionInput<Source>(
                       label: l10n.sourceName,
                       selectedItems: state.source != null
@@ -302,6 +306,96 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  /// Determines if the save button should be enabled.
+  ///
+  /// The button is enabled if the form is valid for drafting, or if all
+  /// fields are filled for publishing (regardless of breaking news status).
+  bool _isSaveButtonEnabled(CreateHeadlineState state) {
+    final allFieldsFilled =
+        state.title.isNotEmpty &&
+        state.excerpt.isNotEmpty &&
+        state.url.isNotEmpty &&
+        state.imageUrl.isNotEmpty &&
+        state.source != null &&
+        state.topic != null &&
+        state.eventCountry != null;
+
+    return allFieldsFilled;
+  }
+
+  /// Handles the save logic, including showing save options and the
+  /// confirmation dialog for breaking news.
+  Future<void> _handleSave(
+    BuildContext context,
+    CreateHeadlineState state,
+    AppLocalizations l10n,
+  ) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+
+    // If the user cancels the dialog, do nothing.
+    if (selectedStatus == null) return;
+
+    // If the user tries to save as draft but it's breaking news, show an error.
+    if (selectedStatus == ContentStatus.draft && state.isBreaking) {
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(l10n.invalidFormTitle),
+          content: Text(l10n.cannotDraftBreakingNews),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(l10n.ok),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // If publishing as breaking news, show an extra confirmation.
+    if (selectedStatus == ContentStatus.active && state.isBreaking) {
+      final confirmBreaking = await _showBreakingNewsConfirmationDialog(
+        context,
+        l10n,
+      );
+      if (confirmBreaking != true) return; // If not confirmed, do nothing.
+    }
+
+    // Dispatch the appropriate event based on user's choice.
+    if (selectedStatus == ContentStatus.active) {
+      context.read<CreateHeadlineBloc>().add(const CreateHeadlinePublished());
+    } else if (selectedStatus == ContentStatus.draft) {
+      context.read<CreateHeadlineBloc>().add(
+        const CreateHeadlineSavedAsDraft(),
+      );
+    }
+  }
+
+  /// Shows a confirmation dialog specifically for publishing breaking news.
+  Future<bool?> _showBreakingNewsConfirmationDialog(
+    BuildContext context,
+    AppLocalizations l10n,
+  ) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.confirmBreakingNewsTitle),
+        content: Text(l10n.confirmBreakingNewsMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancelButton),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.confirmPublishButton),
+          ),
+        ],
       ),
     );
   }
