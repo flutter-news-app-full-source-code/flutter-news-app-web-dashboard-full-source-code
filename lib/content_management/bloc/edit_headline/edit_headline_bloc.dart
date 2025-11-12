@@ -150,7 +150,9 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) {
     emit(
       state.copyWith(
-        isBreaking: event.isBreaking, status: EditHeadlineStatus.initial),
+        isBreaking: event.isBreaking,
+        status: EditHeadlineStatus.initial,
+      ),
     );
   }
 

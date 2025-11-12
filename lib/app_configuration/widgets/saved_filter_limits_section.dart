@@ -27,7 +27,8 @@ class SavedFilterLimitsSection extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<SavedFilterLimitsSection> createState() => _SavedFilterLimitsSectionState();
+  State<SavedFilterLimitsSection> createState() =>
+      _SavedFilterLimitsSectionState();
 }
 
 class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
@@ -64,11 +65,10 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
                 Text(
                   l10n.savedHeadlineFilterLimitsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7),
-                      ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SavedFilterLimitsForm(
@@ -102,11 +102,10 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
                 Text(
                   l10n.savedSourceFilterLimitsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7),
-                      ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SavedFilterLimitsForm(
@@ -122,4 +121,3 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
     );
   }
 }
-  
