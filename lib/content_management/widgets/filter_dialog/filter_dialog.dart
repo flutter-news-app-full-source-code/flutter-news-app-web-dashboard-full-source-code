@@ -118,22 +118,21 @@ class _FilterDialogState extends State<FilterDialog> {
                 onPressed: () {
                   // Dispatch reset event
                   context.read<FilterDialogBloc>().add(
-                    const FilterDialogReset(),
-                  );
-                  // After reset, get the new state and apply filters
-                  final resetState = context
-                      .read<FilterDialogBloc>()
-                      .state
-                      .copyWith(
-                        searchQuery: '',
-                        selectedStatus: ContentStatus.active,
-                        selectedSourceIds: [],
-                        selectedTopicIds: [],
-                        selectedCountryIds: [],
-                        selectedSourceTypes: [],
-                        selectedLanguageCodes: [],
-                        selectedHeadquartersCountryIds: [],
+                        const FilterDialogReset(),
                       );
+                  // After reset, get the new state and apply filters
+                  final resetState =
+                      context.read<FilterDialogBloc>().state.copyWith(
+                            searchQuery: '',
+                            selectedStatus: ContentStatus.active,
+                            selectedSourceIds: [],
+                            selectedTopicIds: [],
+                            selectedCountryIds: [],
+                            isBreaking: null,
+                            selectedSourceTypes: [],
+                            selectedLanguageCodes: [],
+                            selectedHeadquartersCountryIds: [],
+                          );
                   _dispatchFilterApplied(resetState);
                   Navigator.of(context).pop();
                 },
@@ -164,8 +163,8 @@ class _FilterDialogState extends State<FilterDialog> {
                     ),
                     onChanged: (query) {
                       context.read<FilterDialogBloc>().add(
-                        FilterDialogSearchQueryChanged(query),
-                      );
+                            FilterDialogSearchQueryChanged(query),
+                          );
                     },
                   ),
                   const SizedBox(height: AppSpacing.lg),
@@ -175,7 +174,6 @@ class _FilterDialogState extends State<FilterDialog> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   _buildStatusFilterChips(l10n, theme, filterDialogState),
-                  const SizedBox(height: AppSpacing.lg),
                   _buildAdditionalFilters(l10n, filterDialogState),
                 ],
               ),
@@ -225,8 +223,8 @@ class _FilterDialogState extends State<FilterDialog> {
           onSelected: (isSelected) {
             if (isSelected) {
               context.read<FilterDialogBloc>().add(
-                FilterDialogStatusChanged(status),
-              );
+                    FilterDialogStatusChanged(status),
+                  );
             }
           },
           selectedColor: theme.colorScheme.primaryContainer,
@@ -250,6 +248,50 @@ class _FilterDialogState extends State<FilterDialog> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: AppSpacing.lg),
+            Text(
+              l10n.breakingNewsFilterTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Wrap(
+              spacing: AppSpacing.sm,
+              children: [
+                ChoiceChip(
+                  label: Text(l10n.breakingNewsFilterAll),
+                  selected: filterDialogState.isBreaking == null,
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      context.read<FilterDialogBloc>().add(
+                            const FilterDialogBreakingNewsChanged(null),
+                          );
+                    }
+                  },
+                ),
+                ChoiceChip(
+                  label: Text(l10n.breakingNewsFilterBreakingOnly),
+                  selected: filterDialogState.isBreaking == true,
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      context.read<FilterDialogBloc>().add(
+                            const FilterDialogBreakingNewsChanged(true),
+                          );
+                    }
+                  },
+                ),
+                ChoiceChip(
+                  label: Text(l10n.breakingNewsFilterNonBreakingOnly),
+                  selected: filterDialogState.isBreaking == false,
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      context.read<FilterDialogBloc>().add(
+                            const FilterDialogBreakingNewsChanged(false),
+                          );
+                    }
+                  },
+                ),
+              ],
+            ),
             const SizedBox(height: AppSpacing.lg),
             SearchableSelectionInput<Source>(
               label: l10n.sources,
@@ -295,10 +337,10 @@ class _FilterDialogState extends State<FilterDialog> {
               itemToString: (item) => item.name,
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
-                  FilterDialogHeadlinesSourceIdsChanged(
-                    items?.map((e) => e.id).toList() ?? [],
-                  ),
-                );
+                      FilterDialogHeadlinesSourceIdsChanged(
+                        items?.map((e) => e.id).toList() ?? [],
+                      ),
+                    );
               },
               repository: widget.sourcesRepository,
               filterBuilder: (searchTerm) => {
@@ -334,10 +376,10 @@ class _FilterDialogState extends State<FilterDialog> {
               itemToString: (item) => item.name,
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
-                  FilterDialogHeadlinesTopicIdsChanged(
-                    items?.map((e) => e.id).toList() ?? [],
-                  ),
-                );
+                      FilterDialogHeadlinesTopicIdsChanged(
+                        items?.map((e) => e.id).toList() ?? [],
+                      ),
+                    );
               },
               repository: widget.topicsRepository,
               filterBuilder: (searchTerm) => {
@@ -373,10 +415,10 @@ class _FilterDialogState extends State<FilterDialog> {
               itemToString: (item) => item.name,
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
-                  FilterDialogHeadlinesCountryIdsChanged(
-                    items?.map((e) => e.id).toList() ?? [],
-                  ),
-                );
+                      FilterDialogHeadlinesCountryIdsChanged(
+                        items?.map((e) => e.id).toList() ?? [],
+                      ),
+                    );
               },
               repository: widget.countriesRepository,
               filterBuilder: (searchTerm) => {
@@ -405,8 +447,8 @@ class _FilterDialogState extends State<FilterDialog> {
               itemToString: (item) => item.localizedName(l10n),
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
-                  FilterDialogSourceTypesChanged(items ?? []),
-                );
+                      FilterDialogSourceTypesChanged(items ?? []),
+                    );
               },
               staticItems: SourceType.values,
             ),
@@ -435,10 +477,10 @@ class _FilterDialogState extends State<FilterDialog> {
               itemToString: (item) => item.name,
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
-                  FilterDialogLanguageCodesChanged(
-                    items?.map((e) => e.code).toList() ?? [],
-                  ),
-                );
+                      FilterDialogLanguageCodesChanged(
+                        items?.map((e) => e.code).toList() ?? [],
+                      ),
+                    );
               },
               repository: widget.languagesRepository,
               filterBuilder: (searchTerm) => {
@@ -474,10 +516,10 @@ class _FilterDialogState extends State<FilterDialog> {
               itemToString: (item) => item.name,
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
-                  FilterDialogHeadquartersCountryIdsChanged(
-                    items?.map((e) => e.id).toList() ?? [],
-                  ),
-                );
+                      FilterDialogHeadquartersCountryIdsChanged(
+                        items?.map((e) => e.id).toList() ?? [],
+                      ),
+                    );
               },
               repository: widget.countriesRepository,
               filterBuilder: (searchTerm) => {
@@ -498,32 +540,33 @@ class _FilterDialogState extends State<FilterDialog> {
     switch (widget.activeTab) {
       case ContentManagementTab.headlines:
         context.read<HeadlinesFilterBloc>().add(
-          HeadlinesFilterApplied(
-            searchQuery: filterDialogState.searchQuery,
-            selectedStatus: filterDialogState.selectedStatus,
-            selectedSourceIds: filterDialogState.selectedSourceIds,
-            selectedTopicIds: filterDialogState.selectedTopicIds,
-            selectedCountryIds: filterDialogState.selectedCountryIds,
-          ),
-        );
+              HeadlinesFilterApplied(
+                searchQuery: filterDialogState.searchQuery,
+                selectedStatus: filterDialogState.selectedStatus,
+                selectedSourceIds: filterDialogState.selectedSourceIds,
+                selectedTopicIds: filterDialogState.selectedTopicIds,
+                selectedCountryIds: filterDialogState.selectedCountryIds,
+                isBreaking: filterDialogState.isBreaking,
+              ),
+            );
       case ContentManagementTab.topics:
         context.read<TopicsFilterBloc>().add(
-          TopicsFilterApplied(
-            searchQuery: filterDialogState.searchQuery,
-            selectedStatus: filterDialogState.selectedStatus,
-          ),
-        );
+              TopicsFilterApplied(
+                searchQuery: filterDialogState.searchQuery,
+                selectedStatus: filterDialogState.selectedStatus,
+              ),
+            );
       case ContentManagementTab.sources:
         context.read<SourcesFilterBloc>().add(
-          SourcesFilterApplied(
-            searchQuery: filterDialogState.searchQuery,
-            selectedStatus: filterDialogState.selectedStatus,
-            selectedSourceTypes: filterDialogState.selectedSourceTypes,
-            selectedLanguageCodes: filterDialogState.selectedLanguageCodes,
-            selectedHeadquartersCountryIds:
-                filterDialogState.selectedHeadquartersCountryIds,
-          ),
-        );
+              SourcesFilterApplied(
+                searchQuery: filterDialogState.searchQuery,
+                selectedStatus: filterDialogState.selectedStatus,
+                selectedSourceTypes: filterDialogState.selectedSourceTypes,
+                selectedLanguageCodes: filterDialogState.selectedLanguageCodes,
+                selectedHeadquartersCountryIds:
+                    filterDialogState.selectedHeadquartersCountryIds,
+              ),
+            );
     }
   }
 }
