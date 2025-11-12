@@ -2797,6 +2797,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// Title for the breaking news filter section in the filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking News'**
+  String get breakingNewsFilterTitle;
+
+  /// Label for the 'All' choice chip in the breaking news filter.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get breakingNewsFilterAll;
+
+  /// Label for the 'Breaking Only' choice chip in the breaking news filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking Only'**
+  String get breakingNewsFilterBreakingOnly;
+
+  /// Label for the 'Non-Breaking Only' choice chip in the breaking news filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Non-Breaking Only'**
+  String get breakingNewsFilterNonBreakingOnly;
 }
 
 class _AppLocalizationsDelegate

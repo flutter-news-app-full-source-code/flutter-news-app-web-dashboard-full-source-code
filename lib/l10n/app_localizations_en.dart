@@ -1499,4 +1499,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get breakingNewsFilterTitle => 'Breaking News';
+
+  @override
+  String get breakingNewsFilterAll => 'All';
+
+  @override
+  String get breakingNewsFilterBreakingOnly => 'Breaking Only';
+
+  @override
+  String get breakingNewsFilterNonBreakingOnly => 'Non-Breaking Only';
 }

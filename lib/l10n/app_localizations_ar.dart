@@ -1496,4 +1496,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ok => 'موافق';
+
+  @override
+  String get breakingNewsFilterTitle => 'تصفية الأخبار العاجلة';
+
+  @override
+  String get breakingNewsFilterAll => 'الكل';
+
+  @override
+  String get breakingNewsFilterBreakingOnly => 'العاجلة فقط';
+
+  @override
+  String get breakingNewsFilterNonBreakingOnly => 'غير العاجلة فقط';
 }

@@ -270,7 +270,7 @@ class _FilterDialogState extends State<FilterDialog> {
                 ),
                 ChoiceChip(
                   label: Text(l10n.breakingNewsFilterBreakingOnly),
-                  selected: filterDialogState.isBreaking == true,
+                  selected: filterDialogState.isBreaking ?? false,
                   onSelected: (isSelected) {
                     if (isSelected) {
                       context.read<FilterDialogBloc>().add(
