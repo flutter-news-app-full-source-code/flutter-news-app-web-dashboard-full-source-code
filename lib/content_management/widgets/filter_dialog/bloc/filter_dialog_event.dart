@@ -86,6 +86,18 @@ final class FilterDialogHeadlinesCountryIdsChanged extends FilterDialogEvent {
   List<Object?> get props => [countryIds];
 }
 
+/// Event to update the temporary breaking news filter for headlines.
+final class FilterDialogBreakingNewsChanged extends FilterDialogEvent {
+  const FilterDialogBreakingNewsChanged(this.isBreaking);
+
+  /// The new breaking news status: `true` for breaking only, `false` for
+  /// non-breaking only, and `null` for all.
+  final bool? isBreaking;
+
+  @override
+  List<Object?> get props => [isBreaking];
+}
+
 /// Event to update the temporary selected source types for sources.
 final class FilterDialogSourceTypesChanged extends FilterDialogEvent {
   const FilterDialogSourceTypesChanged(this.sourceTypes);
