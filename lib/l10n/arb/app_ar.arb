@@ -1802,4 +1802,57 @@
   "@subscriptionPremium": {
     "description": "حالة الاشتراك لمستخدم مميز"
   }
+,
+  "savedHeadlineFilterLimitsTitle": "حدود مرشحات العناوين المحفوظة",
+  "@savedHeadlineFilterLimitsTitle": {
+    "description": "عنوان قسم حدود مرشحات العناوين المحفوظة"
+  },
+  "savedHeadlineFilterLimitsDescription": "تعيين حدود على عدد مرشحات العناوين المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة واشتراكات الإشعارات.",
+  "@savedHeadlineFilterLimitsDescription": {
+    "description": "وصف قسم حدود مرشحات العناوين المحفوظة"
+  },
+  "savedSourceFilterLimitsTitle": "حدود مرشحات المصادر المحفوظة",
+  "@savedSourceFilterLimitsTitle": {
+    "description": "عنوان قسم حدود مرشحات المصادر المحفوظة"
+  },
+  "savedSourceFilterLimitsDescription": "تعيين حدود على عدد مرشحات المصادر المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة.",
+  "@savedSourceFilterLimitsDescription": {
+    "description": "وصف قسم حدود مرشحات المصادر المحفوظة"
+  },
+  "totalLimitLabel": "الحد الإجمالي",
+  "@totalLimitLabel": {
+    "description": "تسمية للحد الإجمالي لنوع مرشح"
+  },
+  "totalLimitDescription": "العدد الإجمالي للمرشحات من هذا النوع التي يمكن للمستخدم إنشاؤها.",
+  "@totalLimitDescription": {
+    "description": "وصف للحد الإجمالي لنوع مرشح"
+  },
+  "pinnedLimitLabel": "الحد المثبت",
+  "@pinnedLimitLabel": {
+    "description": "تسمية للحد المثبت لنوع مرشح"
+  },
+  "pinnedLimitDescription": "الحد الأقصى لعدد المرشحات من هذا النوع التي يمكن تثبيتها.",
+  "@pinnedLimitDescription": {
+    "description": "وصف للحد المثبت لنوع مرشح"
+  },
+  "notificationSubscriptionLimitLabel": "حد اشتراك الإشعارات",
+  "@notificationSubscriptionLimitLabel": {
+    "description": "تسمية لحد اشتراك الإشعارات لنوع مرشح"
+  },
+  "notificationSubscriptionLimitDescription": "الحد الأقصى لعدد المرشحات التي يمكن للمستخدم الاشتراك فيها لهذا النوع من الإشعارات.",
+  "@notificationSubscriptionLimitDescription": {
+    "description": "وصف لحد اشتراك الإشعارات لنوع مرشح"
+  },
+  "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "الأخبار العاجلة",
+  "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
+    "description": "تسمية لنوع توصيل إشعارات 'الأخبار العاجلة فقط'"
+  },
+  "pushNotificationSubscriptionDeliveryTypeDailyDigest": "الملخص اليومي",
+  "@pushNotificationSubscriptionDeliveryTypeDailyDigest": {
+    "description": "تسمية لنوع توصيل إشعارات 'الملخص اليومي'"
+  },
+  "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "حصاد الأسبوع",
+  "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
+    "description": "تسمية لنوع توصيل إشعارات 'حصاد الأسبوع'"
+  }
 }
