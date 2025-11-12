@@ -1797,5 +1797,57 @@
   "subscriptionPremium": "Premium",
   "@subscriptionPremium": {
     "description": "Subscription status for a premium user"
+  },
+    "savedHeadlineFilterLimitsTitle": "Saved Headline Filter Limits",
+  "@savedHeadlineFilterLimitsTitle": {
+    "description": "Title for the Saved Headline Filter Limits section"
+  },
+  "savedHeadlineFilterLimitsDescription": "Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.",
+  "@savedHeadlineFilterLimitsDescription": {
+    "description": "Description for the Saved Headline Filter Limits section"
+  },
+  "savedSourceFilterLimitsTitle": "Saved Source Filter Limits",
+  "@savedSourceFilterLimitsTitle": {
+    "description": "Title for the Saved Source Filter Limits section"
+  },
+  "savedSourceFilterLimitsDescription": "Set limits on the number of saved source filters for each user tier, including total and pinned.",
+  "@savedSourceFilterLimitsDescription": {
+    "description": "Description for the Saved Source Filter Limits section"
+  },
+  "totalLimitLabel": "Total Limit",
+  "@totalLimitLabel": {
+    "description": "Label for the total limit of a filter type"
+  },
+  "totalLimitDescription": "The total number of filters of this type a user can create.",
+  "@totalLimitDescription": {
+    "description": "Description for the total limit of a filter type"
+  },
+  "pinnedLimitLabel": "Pinned Limit",
+  "@pinnedLimitLabel": {
+    "description": "Label for the pinned limit of a filter type"
+  },
+  "pinnedLimitDescription": "The maximum number of filters of this type that can be pinned.",
+  "@pinnedLimitDescription": {
+    "description": "Description for the pinned limit of a filter type"
+  },
+  "notificationSubscriptionLimitLabel": "Notification Subscription Limit",
+  "@notificationSubscriptionLimitLabel": {
+    "description": "Label for the notification subscription limit of a filter type"
+  },
+  "notificationSubscriptionLimitDescription": "The maximum number of filters a user can subscribe to for this notification type.",
+  "@notificationSubscriptionLimitDescription": {
+    "description": "Description for the notification subscription limit of a filter type"
+  },
+  "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "Breaking News",
+  "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
+    "description": "Label for the 'breaking only' push notification delivery type"
+  },
+  "pushNotificationSubscriptionDeliveryTypeDailyDigest": "Daily Digest",
+  "@pushNotificationSubscriptionDeliveryTypeDailyDigest": {
+    "description": "Label for the 'daily digest' push notification delivery type"
+  },
+  "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "Weekly Roundup",
+  "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
+    "description": "Label for the 'weekly roundup' push notification delivery type"
   }
 }
