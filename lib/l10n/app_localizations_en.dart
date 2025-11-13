@@ -1523,11 +1523,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Manage global settings for the push notification system, including the primary provider and which notification types are active.';
 
   @override
-  String get pushNotificationSystemStatusTitle => 'Push Notification System';
+  String get pushNotificationSystemStatusTitle => 'Enable Notifications';
 
   @override
   String get pushNotificationSystemStatusDescription =>
-      'A global switch to enable or disable the entire push notification system.';
+      'A global switch to enable or disable all push notifications.';
 
   @override
   String get pushNotificationPrimaryProviderTitle => 'Primary Provider';

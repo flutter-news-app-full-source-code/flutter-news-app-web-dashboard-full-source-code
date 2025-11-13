@@ -1520,11 +1520,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'إدارة الإعدادات العامة لنظام الإشعارات الفورية، بما في ذلك المزود الأساسي وأنواع الإشعارات النشطة.';
 
   @override
-  String get pushNotificationSystemStatusTitle => 'نظام الإشعارات الفورية';
+  String get pushNotificationSystemStatusTitle => 'تفعيل الإشعارات';
 
   @override
   String get pushNotificationSystemStatusDescription =>
-      'مفتاح عام لتمكين أو تعطيل نظام الإشعارات الفورية بأكمله.';
+      'مفتاح عام لتمكين أو تعطيل جميع الإشعارات الفورية.';
 
   @override
   String get pushNotificationPrimaryProviderTitle => 'المزود الأساسي';

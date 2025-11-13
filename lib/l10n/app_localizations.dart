@@ -2843,13 +2843,13 @@ abstract class AppLocalizations {
   /// Title for the Push Notification System status section
   ///
   /// In en, this message translates to:
-  /// **'Push Notification System'**
+  /// **'Enable Notifications'**
   String get pushNotificationSystemStatusTitle;
 
   /// Description for the Push Notification System status section
   ///
   /// In en, this message translates to:
-  /// **'A global switch to enable or disable the entire push notification system.'**
+  /// **'A global switch to enable or disable all push notifications.'**
   String get pushNotificationSystemStatusDescription;
 
   /// Title for the Push Notification Primary Provider section
