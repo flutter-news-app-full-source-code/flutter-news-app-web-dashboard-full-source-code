@@ -2821,6 +2821,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Non-Breaking Only'**
   String get breakingNewsFilterNonBreakingOnly;
+
+  /// Tab title for Notifications settings
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTab;
+
+  /// Title for the Push Notification Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notification Settings'**
+  String get pushNotificationSettingsTitle;
+
+  /// Description for the Push Notification Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Manage global settings for the push notification system, including the primary provider and which notification types are active.'**
+  String get pushNotificationSettingsDescription;
+
+  /// Title for the Push Notification System status section
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notification System'**
+  String get pushNotificationSystemStatusTitle;
+
+  /// Description for the Push Notification System status section
+  ///
+  /// In en, this message translates to:
+  /// **'A global switch to enable or disable the entire push notification system.'**
+  String get pushNotificationSystemStatusDescription;
+
+  /// Title for the Push Notification Primary Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Provider'**
+  String get pushNotificationPrimaryProviderTitle;
+
+  /// Description for the Push Notification Primary Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Select the primary service provider for sending push notifications.'**
+  String get pushNotificationPrimaryProviderDescription;
+
+  /// Title for the Push Notification Delivery Types section
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Types'**
+  String get pushNotificationDeliveryTypesTitle;
+
+  /// Description for the Push Notification Delivery Types section
+  ///
+  /// In en, this message translates to:
+  /// **'Globally enable or disable specific types of push notifications.'**
+  String get pushNotificationDeliveryTypesDescription;
+
+  /// Label for the Firebase push notification provider
+  ///
+  /// In en, this message translates to:
+  /// **'Firebase'**
+  String get pushNotificationProviderFirebase;
+
+  /// Label for the OneSignal push notification provider
+  ///
+  /// In en, this message translates to:
+  /// **'OneSignal'**
+  String get pushNotificationProviderOneSignal;
 }
 
 class _AppLocalizationsDelegate

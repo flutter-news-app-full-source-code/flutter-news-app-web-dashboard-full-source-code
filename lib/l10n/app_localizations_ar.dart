@@ -1508,4 +1508,41 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get breakingNewsFilterNonBreakingOnly => 'غير العاجلة فقط';
+
+  @override
+  String get notificationsTab => 'الإشعارات';
+
+  @override
+  String get pushNotificationSettingsTitle => 'إعدادات الإشعارات الفورية';
+
+  @override
+  String get pushNotificationSettingsDescription =>
+      'إدارة الإعدادات العامة لنظام الإشعارات الفورية، بما في ذلك المزود الأساسي وأنواع الإشعارات النشطة.';
+
+  @override
+  String get pushNotificationSystemStatusTitle => 'نظام الإشعارات الفورية';
+
+  @override
+  String get pushNotificationSystemStatusDescription =>
+      'مفتاح عام لتمكين أو تعطيل نظام الإشعارات الفورية بأكمله.';
+
+  @override
+  String get pushNotificationPrimaryProviderTitle => 'المزود الأساسي';
+
+  @override
+  String get pushNotificationPrimaryProviderDescription =>
+      'اختر مزود الخدمة الأساسي لإرسال الإشعارات الفورية.';
+
+  @override
+  String get pushNotificationDeliveryTypesTitle => 'أنواع التسليم';
+
+  @override
+  String get pushNotificationDeliveryTypesDescription =>
+      'تمكين أو تعطيل أنواع معينة من الإشعارات الفورية.';
+
+  @override
+  String get pushNotificationProviderFirebase => 'Firebase';
+
+  @override
+  String get pushNotificationProviderOneSignal => 'OneSignal';
 }

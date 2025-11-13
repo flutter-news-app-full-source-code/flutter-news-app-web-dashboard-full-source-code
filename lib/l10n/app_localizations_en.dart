@@ -1511,4 +1511,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get breakingNewsFilterNonBreakingOnly => 'Non-Breaking Only';
+
+  @override
+  String get notificationsTab => 'Notifications';
+
+  @override
+  String get pushNotificationSettingsTitle => 'Push Notification Settings';
+
+  @override
+  String get pushNotificationSettingsDescription =>
+      'Manage global settings for the push notification system, including the primary provider and which notification types are active.';
+
+  @override
+  String get pushNotificationSystemStatusTitle => 'Push Notification System';
+
+  @override
+  String get pushNotificationSystemStatusDescription =>
+      'A global switch to enable or disable the entire push notification system.';
+
+  @override
+  String get pushNotificationPrimaryProviderTitle => 'Primary Provider';
+
+  @override
+  String get pushNotificationPrimaryProviderDescription =>
+      'Select the primary service provider for sending push notifications.';
+
+  @override
+  String get pushNotificationDeliveryTypesTitle => 'Delivery Types';
+
+  @override
+  String get pushNotificationDeliveryTypesDescription =>
+      'Globally enable or disable specific types of push notifications.';
+
+  @override
+  String get pushNotificationProviderFirebase => 'Firebase';
+
+  @override
+  String get pushNotificationProviderOneSignal => 'OneSignal';
 }
