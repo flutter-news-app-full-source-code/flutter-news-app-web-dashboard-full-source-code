@@ -33,62 +33,24 @@ class PushNotificationSettingsForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExpansionTile(
-            initiallyExpanded: true,
-            title: Text(l10n.pushNotificationSettingsTitle),
-            childrenPadding: const EdgeInsetsDirectional.only(
-              start: AppSpacing.lg,
-              top: AppSpacing.md,
-              bottom: AppSpacing.md,
-            ),
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.pushNotificationSettingsDescription,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
+          SwitchListTile(
+            title: Text(l10n.pushNotificationSystemStatusTitle),
+            subtitle: Text(l10n.pushNotificationSystemStatusDescription),
+            value: pushConfig.enabled,
+            onChanged: (value) {
+              onConfigChanged(
+                remoteConfig.copyWith(
+                  pushNotificationConfig: pushConfig.copyWith(enabled: value),
                 ),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              _buildSystemStatusSection(context, l10n, pushConfig),
-              const SizedBox(height: AppSpacing.lg),
-              _buildPrimaryProviderSection(context, l10n, pushConfig),
-              const SizedBox(height: AppSpacing.lg),
-              _buildDeliveryTypesSection(context, l10n, pushConfig),
-            ],
+              );
+            },
           ),
+          const SizedBox(height: AppSpacing.lg),
+          _buildPrimaryProviderSection(context, l10n, pushConfig),
+          const SizedBox(height: AppSpacing.lg),
+          _buildDeliveryTypesSection(context, l10n, pushConfig),
         ],
       ),
-    );
-  }
-
-  Widget _buildSystemStatusSection(
-    BuildContext context,
-    AppLocalizations l10n,
-    PushNotificationConfig pushConfig,
-  ) {
-    return ExpansionTile(
-      title: Text(l10n.pushNotificationSystemStatusTitle),
-      childrenPadding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.md,
-      ),
-      children: [
-        SwitchListTile(
-          title: Text(l10n.enabledLabel),
-          subtitle: Text(l10n.pushNotificationSystemStatusDescription),
-          value: pushConfig.enabled,
-          onChanged: (value) {
-            onConfigChanged(
-              remoteConfig.copyWith(
-                pushNotificationConfig: pushConfig.copyWith(enabled: value),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 
@@ -99,9 +61,10 @@ class PushNotificationSettingsForm extends StatelessWidget {
   ) {
     return ExpansionTile(
       title: Text(l10n.pushNotificationPrimaryProviderTitle),
-      childrenPadding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.md,
+      childrenPadding: const EdgeInsetsDirectional.only(
+        start: AppSpacing.lg,
+        top: AppSpacing.md,
+        bottom: AppSpacing.md,
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -112,25 +75,28 @@ class PushNotificationSettingsForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        SegmentedButton<PushNotificationProvider>(
-          segments: PushNotificationProvider.values
-              .map(
-                (provider) => ButtonSegment<PushNotificationProvider>(
-                  value: provider,
-                  label: Text(provider.l10n(context)),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SegmentedButton<PushNotificationProvider>(
+            segments: PushNotificationProvider.values
+                .map(
+                  (provider) => ButtonSegment<PushNotificationProvider>(
+                    value: provider,
+                    label: Text(provider.l10n(context)),
+                  ),
+                )
+                .toList(),
+            selected: {pushConfig.primaryProvider},
+            onSelectionChanged: (newSelection) {
+              onConfigChanged(
+                remoteConfig.copyWith(
+                  pushNotificationConfig: pushConfig.copyWith(
+                    primaryProvider: newSelection.first,
+                  ),
                 ),
-              )
-              .toList(),
-          selected: {pushConfig.primaryProvider},
-          onSelectionChanged: (newSelection) {
-            onConfigChanged(
-              remoteConfig.copyWith(
-                pushNotificationConfig: pushConfig.copyWith(
-                  primaryProvider: newSelection.first,
-                ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ],
     );
@@ -143,9 +109,10 @@ class PushNotificationSettingsForm extends StatelessWidget {
   ) {
     return ExpansionTile(
       title: Text(l10n.pushNotificationDeliveryTypesTitle),
-      childrenPadding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.md,
+      childrenPadding: const EdgeInsetsDirectional.only(
+        start: AppSpacing.lg,
+        top: AppSpacing.md,
+        bottom: AppSpacing.md,
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
