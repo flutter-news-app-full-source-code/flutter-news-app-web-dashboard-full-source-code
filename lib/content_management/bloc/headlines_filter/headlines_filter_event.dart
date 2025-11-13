@@ -1,5 +1,6 @@
 part of 'headlines_filter_bloc.dart';
 
+/// Base class for all events related to the [HeadlinesFilterBloc].
 sealed class HeadlinesFilterEvent extends Equatable {
   const HeadlinesFilterEvent();
 
@@ -61,7 +62,7 @@ final class HeadlinesCountryFilterChanged extends HeadlinesFilterEvent {
 final class HeadlinesBreakingNewsFilterChanged extends HeadlinesFilterEvent {
   const HeadlinesBreakingNewsFilterChanged(this.isBreaking);
 
-  final bool? isBreaking;
+  final BreakingNewsFilterStatus isBreaking;
 
   @override
   List<Object?> get props => [isBreaking];
@@ -83,7 +84,7 @@ final class HeadlinesFilterApplied extends HeadlinesFilterEvent {
   final List<String> selectedSourceIds;
   final List<String> selectedTopicIds;
   final List<String> selectedCountryIds;
-  final bool? isBreaking;
+  final BreakingNewsFilterStatus isBreaking;
 
   @override
   List<Object?> get props => [
