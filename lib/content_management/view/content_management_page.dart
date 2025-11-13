@@ -78,7 +78,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               !const DeepCollectionEquality().equals(
                 previous.selectedCountryIds,
                 current.selectedCountryIds,
-              ),
+              ) ||
+              previous.isBreaking != current.isBreaking,
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadHeadlinesRequested(
