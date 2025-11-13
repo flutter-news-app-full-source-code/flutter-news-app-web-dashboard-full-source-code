@@ -6,6 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -130,7 +131,7 @@ class _FilterDialogState extends State<FilterDialog> {
                         selectedSourceIds: [],
                         selectedTopicIds: [],
                         selectedCountryIds: [],
-                        isBreaking: null,
+                        isBreaking: BreakingNewsFilterStatus.all,
                         selectedSourceTypes: [],
                         selectedLanguageCodes: [],
                         selectedHeadquartersCountryIds: [],
@@ -260,34 +261,47 @@ class _FilterDialogState extends State<FilterDialog> {
               spacing: AppSpacing.sm,
               children: [
                 ChoiceChip(
-                  label: Text(l10n.breakingNewsFilterAll),
-                  selected: filterDialogState.isBreaking == null,
+                  label: Text(l10n.breakingNewsFilterAll), // 'All' option
+                  selected: filterDialogState.isBreaking ==
+                      BreakingNewsFilterStatus.all,
                   onSelected: (isSelected) {
                     if (isSelected) {
                       context.read<FilterDialogBloc>().add(
-                        const FilterDialogBreakingNewsChanged(null),
+                        const FilterDialogBreakingNewsChanged(
+                          BreakingNewsFilterStatus.all,
+                        ),
                       );
                     }
                   },
                 ),
                 ChoiceChip(
-                  label: Text(l10n.breakingNewsFilterBreakingOnly),
-                  selected: filterDialogState.isBreaking ?? false,
+                  label: Text(
+                    l10n.breakingNewsFilterBreakingOnly,
+                  ), // 'Breaking Only'
+                  selected: filterDialogState.isBreaking ==
+                      BreakingNewsFilterStatus.breakingOnly,
                   onSelected: (isSelected) {
                     if (isSelected) {
                       context.read<FilterDialogBloc>().add(
-                        const FilterDialogBreakingNewsChanged(true),
+                        const FilterDialogBreakingNewsChanged(
+                          BreakingNewsFilterStatus.breakingOnly,
+                        ),
                       );
                     }
                   },
                 ),
                 ChoiceChip(
-                  label: Text(l10n.breakingNewsFilterNonBreakingOnly),
-                  selected: filterDialogState.isBreaking == false,
+                  label: Text(
+                    l10n.breakingNewsFilterNonBreakingOnly,
+                  ), // 'Non-Breaking'
+                  selected: filterDialogState.isBreaking ==
+                      BreakingNewsFilterStatus.nonBreakingOnly,
                   onSelected: (isSelected) {
                     if (isSelected) {
                       context.read<FilterDialogBloc>().add(
-                        const FilterDialogBreakingNewsChanged(false),
+                        const FilterDialogBreakingNewsChanged(
+                          BreakingNewsFilterStatus.nonBreakingOnly,
+                        ),
                       );
                     }
                   },
