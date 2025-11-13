@@ -1798,7 +1798,7 @@
   "@subscriptionPremium": {
     "description": "Subscription status for a premium user"
   },
-    "savedHeadlineFilterLimitsTitle": "Saved Headline Filter Limits",
+  "savedHeadlineFilterLimitsTitle": "Saved Headline Filter Limits",
   "@savedHeadlineFilterLimitsTitle": {
     "description": "Title for the Saved Headline Filter Limits section"
   },
@@ -1849,8 +1849,7 @@
   "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "Weekly Roundup",
   "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
     "description": "Label for the 'weekly roundup' push notification delivery type"
-  }
-,
+  },
   "isBreakingNewsLabel": "Mark as Breaking News",
   "@isBreakingNewsLabel": {
     "description": "Label for the switch to mark a headline as breaking news"
@@ -1898,8 +1897,7 @@
   "breakingNewsFilterNonBreakingOnly": "Non-Breaking Only",
   "@breakingNewsFilterNonBreakingOnly": {
     "description": "Label for the 'Non-Breaking Only' choice chip in the breaking news filter."
-  }
-,
+  },
   "notificationsTab": "Notifications",
   "@notificationsTab": {
     "description": "Tab title for Notifications settings"
@@ -1924,7 +1922,7 @@
   "@pushNotificationPrimaryProviderTitle": {
     "description": "Title for the Push Notification Primary Provider section"
   },
-  "pushNotificationPrimaryProviderDescription": "Select the primary service provider for sending push notifications.",
+  "pushNotificationPrimaryProviderDescription": "Select the primary service provider. Ensure the chosen provider is correctly configured in your backend's .env file as per the documentation.",
   "@pushNotificationPrimaryProviderDescription": {
     "description": "Description for the Push Notification Primary Provider section"
   },
@@ -1943,13 +1941,5 @@
   "pushNotificationProviderOneSignal": "OneSignal",
   "@pushNotificationProviderOneSignal": {
     "description": "Label for the OneSignal push notification provider"
-  },
-  "pushNotificationProviderConfigInfoTitle": "Backend Configuration Note",
-  "@pushNotificationProviderConfigInfoTitle": {
-    "description": "Title for the informational note about backend configuration for push notification providers."
-  },
-  "pushNotificationProviderConfigInfoBody": "Please ensure the selected provider is correctly configured in your backend's environment file. Refer to the server setup documentation for details on the required variables.",
-  "@pushNotificationProviderConfigInfoBody": {
-    "description": "Informational message about configuring the selected push notification provider in the backend."
   }
 }

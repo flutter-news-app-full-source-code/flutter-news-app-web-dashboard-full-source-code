@@ -1531,7 +1531,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pushNotificationPrimaryProviderDescription =>
-      'اختر مزود الخدمة الأساسي لإرسال الإشعارات الفورية.';
+      'اختر مزود الخدمة الأساسي. تأكد من أن المزود المختار قد تم إعداده بشكل صحيح في ملف .env الخاص بالواجهة الخلفية.';
 
   @override
   String get pushNotificationDeliveryTypesTitle => 'أنواع التسليم';
@@ -1545,12 +1545,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pushNotificationProviderOneSignal => 'OneSignal';
-
-  @override
-  String get pushNotificationProviderConfigInfoTitle =>
-      'ملاحظة حول تكوين الواجهة الخلفية';
-
-  @override
-  String get pushNotificationProviderConfigInfoBody =>
-      'يرجى التأكد من أن المزود المحدد قد تم إعداده بشكل صحيح في ملف البيئة الخاص بالواجهة الخلفية. للحصول على تفاصيل حول المتغيرات المطلوبة، يرجى الرجوع إلى وثائق إعداد الخادم.';
 }

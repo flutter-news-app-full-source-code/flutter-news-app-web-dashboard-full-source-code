@@ -1534,7 +1534,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pushNotificationPrimaryProviderDescription =>
-      'Select the primary service provider for sending push notifications.';
+      'Select the primary service provider. Ensure the chosen provider is correctly configured in your backend\'s .env file as per the documentation.';
 
   @override
   String get pushNotificationDeliveryTypesTitle => 'Delivery Types';
@@ -1548,12 +1548,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pushNotificationProviderOneSignal => 'OneSignal';
-
-  @override
-  String get pushNotificationProviderConfigInfoTitle =>
-      'Backend Configuration Note';
-
-  @override
-  String get pushNotificationProviderConfigInfoBody =>
-      'Please ensure the selected provider is correctly configured in your backend\'s environment file. Refer to the server setup documentation for details on the required variables.';
 }
