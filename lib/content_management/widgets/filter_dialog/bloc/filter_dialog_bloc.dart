@@ -9,6 +9,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart'
     show FilterDialog;
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/constants.dart';
@@ -228,7 +229,9 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
     FilterDialogBreakingNewsChanged event,
     Emitter<FilterDialogState> emit,
   ) {
-    emit(state.copyWith(isBreaking: event.isBreaking));
+    emit(
+      state.copyWith(isBreaking: event.isBreaking),
+    );
   }
 
   /// Updates the temporary selected source types for sources.
