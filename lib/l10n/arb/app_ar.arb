@@ -1903,5 +1903,49 @@
   "breakingNewsFilterNonBreakingOnly": "غير العاجلة فقط",
   "@breakingNewsFilterNonBreakingOnly": {
     "description": "تسمية شريحة الاختيار 'غير العاجلة فقط' في مرشح الأخبار العاجلة."
+  },
+  "notificationsTab": "الإشعارات",
+  "@notificationsTab": {
+    "description": "عنوان تبويب إعدادات الإشعارات"
+  },
+  "pushNotificationSettingsTitle": "إعدادات الإشعارات الفورية",
+  "@pushNotificationSettingsTitle": {
+    "description": "عنوان قسم إعدادات الإشعارات الفورية"
+  },
+  "pushNotificationSettingsDescription": "إدارة الإعدادات العامة لنظام الإشعارات الفورية، بما في ذلك المزود الأساسي وأنواع الإشعارات النشطة.",
+  "@pushNotificationSettingsDescription": {
+    "description": "وصف قسم إعدادات الإشعارات الفورية"
+  },
+  "pushNotificationSystemStatusTitle": "نظام الإشعارات الفورية",
+  "@pushNotificationSystemStatusTitle": {
+    "description": "عنوان قسم حالة نظام الإشعارات الفورية"
+  },
+  "pushNotificationSystemStatusDescription": "مفتاح عام لتمكين أو تعطيل نظام الإشعارات الفورية بأكمله.",
+  "@pushNotificationSystemStatusDescription": {
+    "description": "وصف قسم حالة نظام الإشعارات الفورية"
+  },
+  "pushNotificationPrimaryProviderTitle": "المزود الأساسي",
+  "@pushNotificationPrimaryProviderTitle": {
+    "description": "عنوان قسم المزود الأساسي للإشعارات الفورية"
+  },
+  "pushNotificationPrimaryProviderDescription": "اختر مزود الخدمة الأساسي لإرسال الإشعارات الفورية.",
+  "@pushNotificationPrimaryProviderDescription": {
+    "description": "وصف قسم المزود الأساسي للإشعارات الفورية"
+  },
+  "pushNotificationDeliveryTypesTitle": "أنواع التسليم",
+  "@pushNotificationDeliveryTypesTitle": {
+    "description": "عنوان قسم أنواع تسليم الإشعارات الفورية"
+  },
+  "pushNotificationDeliveryTypesDescription": "تمكين أو تعطيل أنواع معينة من الإشعارات الفورية.",
+  "@pushNotificationDeliveryTypesDescription": {
+    "description": "وصف قسم أنواع تسليم الإشعارات الفورية"
+  },
+  "pushNotificationProviderFirebase": "Firebase",
+  "@pushNotificationProviderFirebase": {
+    "description": "تسمية مزود الإشعارات الفورية Firebase"
+  },
+  "pushNotificationProviderOneSignal": "OneSignal",
+  "@pushNotificationProviderOneSignal": {
+    "description": "تسمية مزود الإشعارات الفورية OneSignal"
   }
 }

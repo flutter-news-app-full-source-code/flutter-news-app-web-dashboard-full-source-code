@@ -1899,4 +1899,49 @@
   "@breakingNewsFilterNonBreakingOnly": {
     "description": "Label for the 'Non-Breaking Only' choice chip in the breaking news filter."
   }
+,
+  "notificationsTab": "Notifications",
+  "@notificationsTab": {
+    "description": "Tab title for Notifications settings"
+  },
+  "pushNotificationSettingsTitle": "Push Notification Settings",
+  "@pushNotificationSettingsTitle": {
+    "description": "Title for the Push Notification Settings section"
+  },
+  "pushNotificationSettingsDescription": "Manage global settings for the push notification system, including the primary provider and which notification types are active.",
+  "@pushNotificationSettingsDescription": {
+    "description": "Description for the Push Notification Settings section"
+  },
+  "pushNotificationSystemStatusTitle": "Push Notification System",
+  "@pushNotificationSystemStatusTitle": {
+    "description": "Title for the Push Notification System status section"
+  },
+  "pushNotificationSystemStatusDescription": "A global switch to enable or disable the entire push notification system.",
+  "@pushNotificationSystemStatusDescription": {
+    "description": "Description for the Push Notification System status section"
+  },
+  "pushNotificationPrimaryProviderTitle": "Primary Provider",
+  "@pushNotificationPrimaryProviderTitle": {
+    "description": "Title for the Push Notification Primary Provider section"
+  },
+  "pushNotificationPrimaryProviderDescription": "Select the primary service provider for sending push notifications.",
+  "@pushNotificationPrimaryProviderDescription": {
+    "description": "Description for the Push Notification Primary Provider section"
+  },
+  "pushNotificationDeliveryTypesTitle": "Delivery Types",
+  "@pushNotificationDeliveryTypesTitle": {
+    "description": "Title for the Push Notification Delivery Types section"
+  },
+  "pushNotificationDeliveryTypesDescription": "Globally enable or disable specific types of push notifications.",
+  "@pushNotificationDeliveryTypesDescription": {
+    "description": "Description for the Push Notification Delivery Types section"
+  },
+  "pushNotificationProviderFirebase": "Firebase",
+  "@pushNotificationProviderFirebase": {
+    "description": "Label for the Firebase push notification provider"
+  },
+  "pushNotificationProviderOneSignal": "OneSignal",
+  "@pushNotificationProviderOneSignal": {
+    "description": "Label for the OneSignal push notification provider"
+  }
 }
