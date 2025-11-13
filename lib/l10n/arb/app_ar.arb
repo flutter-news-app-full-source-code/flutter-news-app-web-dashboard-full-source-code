@@ -1916,11 +1916,11 @@
   "@pushNotificationSettingsDescription": {
     "description": "وصف قسم إعدادات الإشعارات الفورية"
   },
-  "pushNotificationSystemStatusTitle": "نظام الإشعارات الفورية",
+  "pushNotificationSystemStatusTitle": "تفعيل الإشعارات",
   "@pushNotificationSystemStatusTitle": {
     "description": "عنوان قسم حالة نظام الإشعارات الفورية"
   },
-  "pushNotificationSystemStatusDescription": "مفتاح عام لتمكين أو تعطيل نظام الإشعارات الفورية بأكمله.",
+  "pushNotificationSystemStatusDescription": "مفتاح عام لتمكين أو تعطيل جميع الإشعارات الفورية.",
   "@pushNotificationSystemStatusDescription": {
     "description": "وصف قسم حالة نظام الإشعارات الفورية"
   },

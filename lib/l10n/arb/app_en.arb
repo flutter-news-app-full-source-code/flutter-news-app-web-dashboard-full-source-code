@@ -1912,11 +1912,11 @@
   "@pushNotificationSettingsDescription": {
     "description": "Description for the Push Notification Settings section"
   },
-  "pushNotificationSystemStatusTitle": "Push Notification System",
+  "pushNotificationSystemStatusTitle": "Enable Notifications",
   "@pushNotificationSystemStatusTitle": {
     "description": "Title for the Push Notification System status section"
   },
-  "pushNotificationSystemStatusDescription": "A global switch to enable or disable the entire push notification system.",
+  "pushNotificationSystemStatusDescription": "A global switch to enable or disable all push notifications.",
   "@pushNotificationSystemStatusDescription": {
     "description": "Description for the Push Notification System status section"
   },
