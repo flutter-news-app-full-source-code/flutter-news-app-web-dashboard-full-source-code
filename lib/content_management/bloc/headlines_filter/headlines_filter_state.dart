@@ -15,7 +15,7 @@ class HeadlinesFilterState extends Equatable {
     this.selectedSourceIds = const [],
     this.selectedTopicIds = const [],
     this.selectedCountryIds = const [],
-    this.isBreaking,
+    this.isBreaking = BreakingNewsFilterStatus.all,
   });
 
   /// The current text in the search query field.
@@ -35,7 +35,7 @@ class HeadlinesFilterState extends Equatable {
 
   /// The breaking news status to filter by.
   /// `null` = all, `true` = breaking only, `false` = non-breaking only.
-  final bool? isBreaking;
+  final BreakingNewsFilterStatus isBreaking;
 
   /// Creates a copy of this state with the given fields replaced with the
   /// new values.
@@ -45,7 +45,7 @@ class HeadlinesFilterState extends Equatable {
     List<String>? selectedSourceIds,
     List<String>? selectedTopicIds,
     List<String>? selectedCountryIds,
-    bool? isBreaking,
+    BreakingNewsFilterStatus? isBreaking,
   }) {
     return HeadlinesFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
