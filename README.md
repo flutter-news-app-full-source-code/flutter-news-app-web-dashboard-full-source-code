@@ -62,6 +62,7 @@ Dynamically control the mobile app's behavior and operational state directly fro
 - **Critical State Management:** Instantly activate a maintenance mode or enforce a mandatory app update for your users to handle operational issues or critical releases gracefully.
 - **Dynamic In-App Content:** Remotely manage the visibility and behavior of in-feed promotional prompts and user engagement elements.
 - **Tier-Based Feature Gating:** Define and enforce feature limits based on user roles, such as setting the maximum number of followed topics or saved headlines for different subscription levels.
+- **Global Notification Control:** Remotely enable or disable the entire push notification system, switch between providers (e.g., Firebase, OneSignal), and toggle specific delivery types like breaking news or daily digests.
 > **Your Advantage:** Gain unparalleled agility to manage your live application. Ensure service stability, drive user actions, and configure business rules instantly, all from a centralized control panel.
 
 </details>
