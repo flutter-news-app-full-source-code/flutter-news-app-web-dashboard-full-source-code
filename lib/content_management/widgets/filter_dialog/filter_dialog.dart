@@ -260,52 +260,27 @@ class _FilterDialogState extends State<FilterDialog> {
             Wrap(
               spacing: AppSpacing.sm,
               children: [
-                ChoiceChip(
-                  label: Text(l10n.breakingNewsFilterAll), // 'All' option
-                  selected: filterDialogState.isBreaking ==
-                      BreakingNewsFilterStatus.all,
-                  onSelected: (isSelected) {
-                    if (isSelected) {
-                      context.read<FilterDialogBloc>().add(
-                        const FilterDialogBreakingNewsChanged(
-                          BreakingNewsFilterStatus.all,
-                        ),
-                      );
-                    }
-                  },
-                ),
-                ChoiceChip(
-                  label: Text(
-                    l10n.breakingNewsFilterBreakingOnly,
-                  ), // 'Breaking Only'
-                  selected: filterDialogState.isBreaking ==
-                      BreakingNewsFilterStatus.breakingOnly,
-                  onSelected: (isSelected) {
-                    if (isSelected) {
-                      context.read<FilterDialogBloc>().add(
-                        const FilterDialogBreakingNewsChanged(
-                          BreakingNewsFilterStatus.breakingOnly,
-                        ),
-                      );
-                    }
-                  },
-                ),
-                ChoiceChip(
-                  label: Text(
-                    l10n.breakingNewsFilterNonBreakingOnly,
-                  ), // 'Non-Breaking'
-                  selected: filterDialogState.isBreaking ==
-                      BreakingNewsFilterStatus.nonBreakingOnly,
-                  onSelected: (isSelected) {
-                    if (isSelected) {
-                      context.read<FilterDialogBloc>().add(
-                        const FilterDialogBreakingNewsChanged(
-                          BreakingNewsFilterStatus.nonBreakingOnly,
-                        ),
-                      );
-                    }
-                  },
-                ),
+                ...BreakingNewsFilterStatus.values.map((status) {
+                  return ChoiceChip(
+                    label: Text(_getBreakingNewsStatusL10n(status, l10n)),
+                    selected: filterDialogState.isBreaking == status,
+                    onSelected: (isSelected) {
+                      if (isSelected) {
+                        context.read<FilterDialogBloc>().add(
+                          FilterDialogBreakingNewsChanged(status),
+                        );
+                      }
+                    },
+                    selectedColor: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
+                    labelStyle: TextStyle(
+                      color: filterDialogState.isBreaking == status
+                          ? Theme.of(context).colorScheme.onPrimaryContainer
+                          : Theme.of(context).colorScheme.onSurface,
+                    ),
+                  );
+                }),
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -548,6 +523,21 @@ class _FilterDialogState extends State<FilterDialog> {
             ),
           ],
         );
+    }
+  }
+
+  /// Returns the localized string for a given [BreakingNewsFilterStatus].
+  String _getBreakingNewsStatusL10n(
+    BreakingNewsFilterStatus status,
+    AppLocalizations l10n,
+  ) {
+    switch (status) {
+      case BreakingNewsFilterStatus.all:
+        return l10n.breakingNewsFilterAll;
+      case BreakingNewsFilterStatus.breakingOnly:
+        return l10n.breakingNewsFilterBreakingOnly;
+      case BreakingNewsFilterStatus.nonBreakingOnly:
+        return l10n.breakingNewsFilterNonBreakingOnly;
     }
   }
 
