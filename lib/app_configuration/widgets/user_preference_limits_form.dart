@@ -274,55 +274,53 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
     }
   }
 
+  /// Retrieves the followed items limit for a given [AppUserRole] from the map.
   int _getFollowedItemsLimit(UserPreferenceConfig config, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.guestFollowedItemsLimit;
-      case AppUserRole.standardUser:
-        return config.authenticatedFollowedItemsLimit;
-      case AppUserRole.premiumUser:
-        return config.premiumFollowedItemsLimit;
-    }
+    // The '!' is safe as the model guarantees a value for every role.
+    return config.followedItemsLimit[role]!;
   }
 
+  /// Retrieves the saved headlines limit for a given [AppUserRole] from the map.
   int _getSavedHeadlinesLimit(UserPreferenceConfig config, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.guestSavedHeadlinesLimit;
-      case AppUserRole.standardUser:
-        return config.authenticatedSavedHeadlinesLimit;
-      case AppUserRole.premiumUser:
-        return config.premiumSavedHeadlinesLimit;
-    }
+    // The '!' is safe as the model guarantees a value for every role.
+    return config.savedHeadlinesLimit[role]!;
   }
 
+  /// Creates an updated [UserPreferenceConfig] with a new followed items limit
+  /// for a specific [AppUserRole].
+  ///
+  /// This method creates a mutable copy of the existing map, updates the value
+  /// for the specified role, and then returns a new `UserPreferenceConfig`
+  /// with the updated map.
   UserPreferenceConfig _updateFollowedItemsLimit(
     UserPreferenceConfig config,
     int value,
     AppUserRole role,
   ) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.copyWith(guestFollowedItemsLimit: value);
-      case AppUserRole.standardUser:
-        return config.copyWith(authenticatedFollowedItemsLimit: value);
-      case AppUserRole.premiumUser:
-        return config.copyWith(premiumFollowedItemsLimit: value);
-    }
+    // Create a mutable copy of the map to avoid modifying the original state.
+    final newLimits = Map<AppUserRole, int>.from(config.followedItemsLimit);
+    // Update the value for the specified role.
+    newLimits[role] = value;
+    // Return a new config object with the updated map.
+    return config.copyWith(followedItemsLimit: newLimits);
   }
 
+  /// Creates an updated [UserPreferenceConfig] with a new saved headlines limit
+  /// for a specific [AppUserRole].
+  ///
+  /// This method creates a mutable copy of the existing map, updates the value
+  /// for the specified role, and then returns a new `UserPreferenceConfig`
+  /// with the updated map.
   UserPreferenceConfig _updateSavedHeadlinesLimit(
     UserPreferenceConfig config,
     int value,
     AppUserRole role,
   ) {
-    switch (role) {
-      case AppUserRole.guestUser:
-        return config.copyWith(guestSavedHeadlinesLimit: value);
-      case AppUserRole.standardUser:
-        return config.copyWith(authenticatedSavedHeadlinesLimit: value);
-      case AppUserRole.premiumUser:
-        return config.copyWith(premiumSavedHeadlinesLimit: value);
-    }
+    // Create a mutable copy of the map to avoid modifying the original state.
+    final newLimits = Map<AppUserRole, int>.from(config.savedHeadlinesLimit);
+    // Update the value for the specified role.
+    newLimits[role] = value;
+    // Return a new config object with the updated map.
+    return config.copyWith(savedHeadlinesLimit: newLimits);
   }
 }

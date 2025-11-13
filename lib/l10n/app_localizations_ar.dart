@@ -1421,4 +1421,128 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get subscriptionPremium => 'مميز';
+
+  @override
+  String get savedHeadlineFilterLimitsTitle => 'حدود مرشحات العناوين المحفوظة';
+
+  @override
+  String get savedHeadlineFilterLimitsDescription =>
+      'تعيين حدود على عدد مرشحات العناوين المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة واشتراكات الإشعارات.';
+
+  @override
+  String get savedSourceFilterLimitsTitle => 'حدود مرشحات المصادر المحفوظة';
+
+  @override
+  String get savedSourceFilterLimitsDescription =>
+      'تعيين حدود على عدد مرشحات المصادر المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة.';
+
+  @override
+  String get totalLimitLabel => 'الحد الإجمالي';
+
+  @override
+  String get totalLimitDescription =>
+      'العدد الإجمالي للمرشحات من هذا النوع التي يمكن للمستخدم إنشاؤها.';
+
+  @override
+  String get pinnedLimitLabel => 'الحد المثبت';
+
+  @override
+  String get pinnedLimitDescription =>
+      'الحد الأقصى لعدد المرشحات من هذا النوع التي يمكن تثبيتها.';
+
+  @override
+  String get notificationSubscriptionLimitLabel => 'حد اشتراك الإشعارات';
+
+  @override
+  String get notificationSubscriptionLimitDescription =>
+      'الحد الأقصى لعدد المرشحات التي يمكن للمستخدم الاشتراك فيها لهذا النوع من الإشعارات.';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeBreakingOnly =>
+      'الأخبار العاجلة';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeDailyDigest =>
+      'الملخص اليومي';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
+      'حصاد الأسبوع';
+
+  @override
+  String get isBreakingNewsLabel => 'وضع علامة \'خبر عاجل\'';
+
+  @override
+  String get isBreakingNewsDescription =>
+      'سيؤدي تمكين هذا إلى إرسال إشعار فوري لجميع المستخدمين المشتركين عند النشر.';
+
+  @override
+  String get isBreakingNewsDescriptionEdit =>
+      'تغيير هذه الحالة أثناء التعديل لن يؤدي إلى إرسال إشعار فوري جديد، حيث يتم إرسال الإشعارات فقط عند الإنشاء الأولي.';
+
+  @override
+  String get confirmBreakingNewsTitle => 'تأكيد نشر خبر عاجل';
+
+  @override
+  String get confirmBreakingNewsMessage =>
+      'هل أنت متأكد أنك تريد نشر هذا كخبر عاجل؟ سيؤدي هذا الإجراء إلى إرسال إشعار فوري لجميع المستخدمين المشتركين.';
+
+  @override
+  String get confirmPublishButton => 'تأكيد ونشر';
+
+  @override
+  String get cannotDraftBreakingNews =>
+      'لا يمكن حفظ الأخبار العاجلة كمسودة. يرجى نشرها أو تعطيل مفتاح \'خبر عاجل\'.';
+
+  @override
+  String get ok => 'موافق';
+
+  @override
+  String get breakingNewsFilterTitle => 'تصفية الأخبار العاجلة';
+
+  @override
+  String get breakingNewsFilterAll => 'الكل';
+
+  @override
+  String get breakingNewsFilterBreakingOnly => 'العاجلة فقط';
+
+  @override
+  String get breakingNewsFilterNonBreakingOnly => 'غير العاجلة فقط';
+
+  @override
+  String get notificationsTab => 'الإشعارات';
+
+  @override
+  String get pushNotificationSettingsTitle => 'إعدادات الإشعارات الفورية';
+
+  @override
+  String get pushNotificationSettingsDescription =>
+      'إدارة الإعدادات العامة لنظام الإشعارات الفورية، بما في ذلك المزود الأساسي وأنواع الإشعارات النشطة.';
+
+  @override
+  String get pushNotificationSystemStatusTitle => 'تفعيل الإشعارات';
+
+  @override
+  String get pushNotificationSystemStatusDescription =>
+      'مفتاح عام لتمكين أو تعطيل جميع الإشعارات الفورية.';
+
+  @override
+  String get pushNotificationPrimaryProviderTitle => 'المزود الأساسي';
+
+  @override
+  String get pushNotificationPrimaryProviderDescription =>
+      'اختر مزود الخدمة الأساسي. تأكد من أن المزود المختار قد تم إعداده بشكل صحيح في ملف .env الخاص بالواجهة الخلفية.';
+
+  @override
+  String get pushNotificationDeliveryTypesTitle => 'أنواع التسليم';
+
+  @override
+  String get pushNotificationDeliveryTypesDescription =>
+      'تمكين أو تعطيل أنواع معينة من الإشعارات الفورية.';
+
+  @override
+  String get pushNotificationProviderFirebase => 'Firebase';
+
+  @override
+  String get pushNotificationProviderOneSignal => 'OneSignal';
 }

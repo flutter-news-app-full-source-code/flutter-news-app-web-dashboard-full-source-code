@@ -2671,6 +2671,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Premium'**
   String get subscriptionPremium;
+
+  /// Title for the Saved Headline Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Headline Filter Limits'**
+  String get savedHeadlineFilterLimitsTitle;
+
+  /// Description for the Saved Headline Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.'**
+  String get savedHeadlineFilterLimitsDescription;
+
+  /// Title for the Saved Source Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Source Filter Limits'**
+  String get savedSourceFilterLimitsTitle;
+
+  /// Description for the Saved Source Filter Limits section
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits on the number of saved source filters for each user tier, including total and pinned.'**
+  String get savedSourceFilterLimitsDescription;
+
+  /// Label for the total limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'Total Limit'**
+  String get totalLimitLabel;
+
+  /// Description for the total limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of filters of this type a user can create.'**
+  String get totalLimitDescription;
+
+  /// Label for the pinned limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'Pinned Limit'**
+  String get pinnedLimitLabel;
+
+  /// Description for the pinned limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum number of filters of this type that can be pinned.'**
+  String get pinnedLimitDescription;
+
+  /// Label for the notification subscription limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Subscription Limit'**
+  String get notificationSubscriptionLimitLabel;
+
+  /// Description for the notification subscription limit of a filter type
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum number of filters a user can subscribe to for this notification type.'**
+  String get notificationSubscriptionLimitDescription;
+
+  /// Label for the 'breaking only' push notification delivery type
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking News'**
+  String get pushNotificationSubscriptionDeliveryTypeBreakingOnly;
+
+  /// Label for the 'daily digest' push notification delivery type
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Digest'**
+  String get pushNotificationSubscriptionDeliveryTypeDailyDigest;
+
+  /// Label for the 'weekly roundup' push notification delivery type
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Roundup'**
+  String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup;
+
+  /// Label for the switch to mark a headline as breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Breaking News'**
+  String get isBreakingNewsLabel;
+
+  /// Description for the breaking news switch on the create page
+  ///
+  /// In en, this message translates to:
+  /// **'Enabling this will send an immediate push notification to all subscribed users upon publication.'**
+  String get isBreakingNewsDescription;
+
+  /// Description for the breaking news switch on the edit page
+  ///
+  /// In en, this message translates to:
+  /// **'Changing this status during an edit will NOT trigger a new push notification, as notifications are only sent on initial creation.'**
+  String get isBreakingNewsDescriptionEdit;
+
+  /// Title for the confirmation dialog when publishing breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Breaking News Publication'**
+  String get confirmBreakingNewsTitle;
+
+  /// Message for the confirmation dialog when publishing breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to publish this as breaking news? This action will send an immediate push notification to all subscribed users.'**
+  String get confirmBreakingNewsMessage;
+
+  /// Text for the button to confirm publishing breaking news
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm & Publish'**
+  String get confirmPublishButton;
+
+  /// Error message shown when a user tries to save a breaking news article as a draft.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking news cannot be saved as a draft. Please publish it or disable the \'Breaking News\' toggle.'**
+  String get cannotDraftBreakingNews;
+
+  /// A common 'OK' button text.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// Title for the breaking news filter section in the filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking News'**
+  String get breakingNewsFilterTitle;
+
+  /// Label for the 'All' choice chip in the breaking news filter.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get breakingNewsFilterAll;
+
+  /// Label for the 'Breaking Only' choice chip in the breaking news filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking Only'**
+  String get breakingNewsFilterBreakingOnly;
+
+  /// Label for the 'Non-Breaking Only' choice chip in the breaking news filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Non-Breaking Only'**
+  String get breakingNewsFilterNonBreakingOnly;
+
+  /// Tab title for Notifications settings
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTab;
+
+  /// Title for the Push Notification Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notification Settings'**
+  String get pushNotificationSettingsTitle;
+
+  /// Description for the Push Notification Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Manage global settings for the push notification system, including the primary provider and which notification types are active.'**
+  String get pushNotificationSettingsDescription;
+
+  /// Title for the Push Notification System status section
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get pushNotificationSystemStatusTitle;
+
+  /// Description for the Push Notification System status section
+  ///
+  /// In en, this message translates to:
+  /// **'A global switch to enable or disable all push notifications.'**
+  String get pushNotificationSystemStatusDescription;
+
+  /// Title for the Push Notification Primary Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Provider'**
+  String get pushNotificationPrimaryProviderTitle;
+
+  /// Description for the Push Notification Primary Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Select the primary service provider. Ensure the chosen provider is correctly configured in your backend\'s .env file as per the documentation.'**
+  String get pushNotificationPrimaryProviderDescription;
+
+  /// Title for the Push Notification Delivery Types section
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Types'**
+  String get pushNotificationDeliveryTypesTitle;
+
+  /// Description for the Push Notification Delivery Types section
+  ///
+  /// In en, this message translates to:
+  /// **'Globally enable or disable specific types of push notifications.'**
+  String get pushNotificationDeliveryTypesDescription;
+
+  /// Label for the Firebase push notification provider
+  ///
+  /// In en, this message translates to:
+  /// **'Firebase'**
+  String get pushNotificationProviderFirebase;
+
+  /// Label for the OneSignal push notification provider
+  ///
+  /// In en, this message translates to:
+  /// **'OneSignal'**
+  String get pushNotificationProviderOneSignal;
 }
 
 class _AppLocalizationsDelegate

@@ -6,6 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -103,7 +104,11 @@ class _FilterDialogState extends State<FilterDialog> {
     // so we can directly use BlocBuilder here.
     return BlocBuilder<FilterDialogBloc, FilterDialogState>(
       builder: (context, filterDialogState) {
-        _searchController.text = filterDialogState.searchQuery;
+        // Synchronize the controller with the state, but only if they differ.
+        // This prevents the cursor from jumping and text from being re-selected.
+        if (_searchController.text != filterDialogState.searchQuery) {
+          _searchController.text = filterDialogState.searchQuery;
+        }
         return Scaffold(
           appBar: AppBar(
             title: Text(_getDialogTitle(l10n)),
@@ -130,6 +135,7 @@ class _FilterDialogState extends State<FilterDialog> {
                         selectedSourceIds: [],
                         selectedTopicIds: [],
                         selectedCountryIds: [],
+                        isBreaking: BreakingNewsFilterStatus.all,
                         selectedSourceTypes: [],
                         selectedLanguageCodes: [],
                         selectedHeadquartersCountryIds: [],
@@ -175,7 +181,6 @@ class _FilterDialogState extends State<FilterDialog> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   _buildStatusFilterChips(l10n, theme, filterDialogState),
-                  const SizedBox(height: AppSpacing.lg),
                   _buildAdditionalFilters(l10n, filterDialogState),
                 ],
               ),
@@ -250,6 +255,38 @@ class _FilterDialogState extends State<FilterDialog> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: AppSpacing.lg),
+            Text(
+              l10n.breakingNewsFilterTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Wrap(
+              spacing: AppSpacing.sm,
+              children: [
+                ...BreakingNewsFilterStatus.values.map((status) {
+                  return ChoiceChip(
+                    label: Text(_getBreakingNewsStatusL10n(status, l10n)),
+                    selected: filterDialogState.isBreaking == status,
+                    onSelected: (isSelected) {
+                      if (isSelected) {
+                        context.read<FilterDialogBloc>().add(
+                          FilterDialogBreakingNewsChanged(status),
+                        );
+                      }
+                    },
+                    selectedColor: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
+                    labelStyle: TextStyle(
+                      color: filterDialogState.isBreaking == status
+                          ? Theme.of(context).colorScheme.onPrimaryContainer
+                          : Theme.of(context).colorScheme.onSurface,
+                    ),
+                  );
+                }),
+              ],
+            ),
             const SizedBox(height: AppSpacing.lg),
             SearchableSelectionInput<Source>(
               label: l10n.sources,
@@ -493,6 +530,21 @@ class _FilterDialogState extends State<FilterDialog> {
     }
   }
 
+  /// Returns the localized string for a given [BreakingNewsFilterStatus].
+  String _getBreakingNewsStatusL10n(
+    BreakingNewsFilterStatus status,
+    AppLocalizations l10n,
+  ) {
+    switch (status) {
+      case BreakingNewsFilterStatus.all:
+        return l10n.breakingNewsFilterAll;
+      case BreakingNewsFilterStatus.breakingOnly:
+        return l10n.breakingNewsFilterBreakingOnly;
+      case BreakingNewsFilterStatus.nonBreakingOnly:
+        return l10n.breakingNewsFilterNonBreakingOnly;
+    }
+  }
+
   /// Dispatches the filter applied event to the appropriate BLoC.
   void _dispatchFilterApplied(FilterDialogState filterDialogState) {
     switch (widget.activeTab) {
@@ -504,6 +556,7 @@ class _FilterDialogState extends State<FilterDialog> {
             selectedSourceIds: filterDialogState.selectedSourceIds,
             selectedTopicIds: filterDialogState.selectedTopicIds,
             selectedCountryIds: filterDialogState.selectedCountryIds,
+            isBreaking: filterDialogState.isBreaking,
           ),
         );
       case ContentManagementTab.topics:

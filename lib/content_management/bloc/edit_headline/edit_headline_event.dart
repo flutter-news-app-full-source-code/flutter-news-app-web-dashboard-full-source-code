@@ -78,3 +78,12 @@ final class EditHeadlineSavedAsDraft extends EditHeadlineEvent {
 final class EditHeadlinePublished extends EditHeadlineEvent {
   const EditHeadlinePublished();
 }
+
+/// Event for when the headline's breaking news status is changed.
+final class EditHeadlineIsBreakingChanged extends EditHeadlineEvent {
+  const EditHeadlineIsBreakingChanged(this.isBreaking);
+
+  final bool isBreaking;
+  @override
+  List<Object?> get props => [isBreaking];
+}

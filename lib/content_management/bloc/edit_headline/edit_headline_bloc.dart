@@ -28,6 +28,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineSourceChanged>(_onSourceChanged);
     on<EditHeadlineTopicChanged>(_onTopicChanged);
     on<EditHeadlineCountryChanged>(_onCountryChanged);
+    on<EditHeadlineIsBreakingChanged>(_onIsBreakingChanged);
     on<EditHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<EditHeadlinePublished>(_onPublished);
 
@@ -52,6 +53,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           source: () => headline.source,
           topic: () => headline.topic,
           eventCountry: () => headline.eventCountry,
+          isBreaking: headline.isBreaking,
         ),
       );
     } on HttpException catch (e) {
@@ -142,6 +144,18 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     );
   }
 
+  void _onIsBreakingChanged(
+    EditHeadlineIsBreakingChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        isBreaking: event.isBreaking,
+        status: EditHeadlineStatus.initial,
+      ),
+    );
+  }
+
   /// Handles saving the headline as a draft.
   Future<void> _onSavedAsDraft(
     EditHeadlineSavedAsDraft event,
@@ -160,6 +174,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         source: state.source,
         topic: state.topic,
         eventCountry: state.eventCountry,
+        isBreaking: state.isBreaking,
         status: ContentStatus.draft,
         updatedAt: DateTime.now(),
       );
@@ -204,6 +219,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         source: state.source,
         topic: state.topic,
         eventCountry: state.eventCountry,
+        isBreaking: state.isBreaking,
         status: ContentStatus.active,
         updatedAt: DateTime.now(),
       );

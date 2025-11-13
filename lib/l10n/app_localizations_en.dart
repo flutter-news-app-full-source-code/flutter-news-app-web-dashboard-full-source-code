@@ -1423,4 +1423,129 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscriptionPremium => 'Premium';
+
+  @override
+  String get savedHeadlineFilterLimitsTitle => 'Saved Headline Filter Limits';
+
+  @override
+  String get savedHeadlineFilterLimitsDescription =>
+      'Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.';
+
+  @override
+  String get savedSourceFilterLimitsTitle => 'Saved Source Filter Limits';
+
+  @override
+  String get savedSourceFilterLimitsDescription =>
+      'Set limits on the number of saved source filters for each user tier, including total and pinned.';
+
+  @override
+  String get totalLimitLabel => 'Total Limit';
+
+  @override
+  String get totalLimitDescription =>
+      'The total number of filters of this type a user can create.';
+
+  @override
+  String get pinnedLimitLabel => 'Pinned Limit';
+
+  @override
+  String get pinnedLimitDescription =>
+      'The maximum number of filters of this type that can be pinned.';
+
+  @override
+  String get notificationSubscriptionLimitLabel =>
+      'Notification Subscription Limit';
+
+  @override
+  String get notificationSubscriptionLimitDescription =>
+      'The maximum number of filters a user can subscribe to for this notification type.';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeBreakingOnly =>
+      'Breaking News';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeDailyDigest =>
+      'Daily Digest';
+
+  @override
+  String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
+      'Weekly Roundup';
+
+  @override
+  String get isBreakingNewsLabel => 'Mark as Breaking News';
+
+  @override
+  String get isBreakingNewsDescription =>
+      'Enabling this will send an immediate push notification to all subscribed users upon publication.';
+
+  @override
+  String get isBreakingNewsDescriptionEdit =>
+      'Changing this status during an edit will NOT trigger a new push notification, as notifications are only sent on initial creation.';
+
+  @override
+  String get confirmBreakingNewsTitle => 'Confirm Breaking News Publication';
+
+  @override
+  String get confirmBreakingNewsMessage =>
+      'Are you sure you want to publish this as breaking news? This action will send an immediate push notification to all subscribed users.';
+
+  @override
+  String get confirmPublishButton => 'Confirm & Publish';
+
+  @override
+  String get cannotDraftBreakingNews =>
+      'Breaking news cannot be saved as a draft. Please publish it or disable the \'Breaking News\' toggle.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get breakingNewsFilterTitle => 'Breaking News';
+
+  @override
+  String get breakingNewsFilterAll => 'All';
+
+  @override
+  String get breakingNewsFilterBreakingOnly => 'Breaking Only';
+
+  @override
+  String get breakingNewsFilterNonBreakingOnly => 'Non-Breaking Only';
+
+  @override
+  String get notificationsTab => 'Notifications';
+
+  @override
+  String get pushNotificationSettingsTitle => 'Push Notification Settings';
+
+  @override
+  String get pushNotificationSettingsDescription =>
+      'Manage global settings for the push notification system, including the primary provider and which notification types are active.';
+
+  @override
+  String get pushNotificationSystemStatusTitle => 'Enable Notifications';
+
+  @override
+  String get pushNotificationSystemStatusDescription =>
+      'A global switch to enable or disable all push notifications.';
+
+  @override
+  String get pushNotificationPrimaryProviderTitle => 'Primary Provider';
+
+  @override
+  String get pushNotificationPrimaryProviderDescription =>
+      'Select the primary service provider. Ensure the chosen provider is correctly configured in your backend\'s .env file as per the documentation.';
+
+  @override
+  String get pushNotificationDeliveryTypesTitle => 'Delivery Types';
+
+  @override
+  String get pushNotificationDeliveryTypesDescription =>
+      'Globally enable or disable specific types of push notifications.';
+
+  @override
+  String get pushNotificationProviderFirebase => 'Firebase';
+
+  @override
+  String get pushNotificationProviderOneSignal => 'OneSignal';
 }

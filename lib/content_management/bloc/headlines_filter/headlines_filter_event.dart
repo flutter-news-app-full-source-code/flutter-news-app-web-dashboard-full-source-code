@@ -1,5 +1,6 @@
 part of 'headlines_filter_bloc.dart';
 
+/// Base class for all events related to the [HeadlinesFilterBloc].
 sealed class HeadlinesFilterEvent extends Equatable {
   const HeadlinesFilterEvent();
 
@@ -57,6 +58,16 @@ final class HeadlinesCountryFilterChanged extends HeadlinesFilterEvent {
   List<Object?> get props => [countryIds];
 }
 
+/// Event to notify the BLoC that the breaking news filter has changed.
+final class HeadlinesBreakingNewsFilterChanged extends HeadlinesFilterEvent {
+  const HeadlinesBreakingNewsFilterChanged(this.isBreaking);
+
+  final BreakingNewsFilterStatus isBreaking;
+
+  @override
+  List<Object?> get props => [isBreaking];
+}
+
 /// Event to request applying all current filters.
 final class HeadlinesFilterApplied extends HeadlinesFilterEvent {
   const HeadlinesFilterApplied({
@@ -65,6 +76,7 @@ final class HeadlinesFilterApplied extends HeadlinesFilterEvent {
     required this.selectedSourceIds,
     required this.selectedTopicIds,
     required this.selectedCountryIds,
+    required this.isBreaking,
   });
 
   final String searchQuery;
@@ -72,6 +84,7 @@ final class HeadlinesFilterApplied extends HeadlinesFilterEvent {
   final List<String> selectedSourceIds;
   final List<String> selectedTopicIds;
   final List<String> selectedCountryIds;
+  final BreakingNewsFilterStatus isBreaking;
 
   @override
   List<Object?> get props => [
@@ -80,6 +93,7 @@ final class HeadlinesFilterApplied extends HeadlinesFilterEvent {
     selectedSourceIds,
     selectedTopicIds,
     selectedCountryIds,
+    isBreaking,
   ];
 }
 

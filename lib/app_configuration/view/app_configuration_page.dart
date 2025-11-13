@@ -4,6 +4,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/advertisements_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/feed_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/general_configuration_tab.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -30,7 +31,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
@@ -68,6 +69,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             Tab(text: l10n.generalTab),
             Tab(text: l10n.feedTab),
             Tab(text: l10n.advertisementsTab),
+            Tab(text: l10n.notificationsTab),
           ],
         ),
       ),
@@ -149,6 +151,14 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   },
                 ),
                 AdvertisementsConfigurationTab(
+                  remoteConfig: remoteConfig,
+                  onConfigChanged: (newConfig) {
+                    context.read<AppConfigurationBloc>().add(
+                      AppConfigurationFieldChanged(remoteConfig: newConfig),
+                    );
+                  },
+                ),
+                PushNotificationSettingsForm(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(

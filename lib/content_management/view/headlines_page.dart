@@ -221,10 +221,32 @@ class _HeadlinesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(
-          Text(
-            headline.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          Stack(
+            alignment: AlignmentDirectional.centerStart,
+            children: <Widget>[
+              // Add padding to the text to make space for the icon only when
+              // the headline is breaking news. This ensures all titles align
+              // vertically regardless of the icon's presence.
+              Padding(
+                padding: EdgeInsetsDirectional.only(
+                  start: headline.isBreaking
+                      ? AppSpacing.xl + AppSpacing.xs
+                      : 0,
+                ),
+                child: Text(
+                  headline.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              // Conditionally display the icon at the start of the cell.
+              if (headline.isBreaking)
+                Icon(
+                  Icons.flash_on,
+                  size: 18,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+            ],
           ),
         ),
         if (!isMobile) // Conditionally show Source Name

@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -151,6 +152,17 @@ class ContentManagementBloc
     }
     if (state.selectedCountryIds.isNotEmpty) {
       filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
+    }
+
+    // Handle the breaking news filter based on the enum status.
+    switch (state.isBreaking) {
+      case BreakingNewsFilterStatus.breakingOnly:
+        filter['isBreaking'] = true;
+      case BreakingNewsFilterStatus.nonBreakingOnly:
+        filter['isBreaking'] = false;
+      case BreakingNewsFilterStatus.all:
+        // For 'all', we don't add the 'isBreaking' key to the filter.
+        break;
     }
 
     return filter;

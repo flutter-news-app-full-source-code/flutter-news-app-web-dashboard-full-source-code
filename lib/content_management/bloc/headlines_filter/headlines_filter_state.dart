@@ -15,6 +15,7 @@ class HeadlinesFilterState extends Equatable {
     this.selectedSourceIds = const [],
     this.selectedTopicIds = const [],
     this.selectedCountryIds = const [],
+    this.isBreaking = BreakingNewsFilterStatus.all,
   });
 
   /// The current text in the search query field.
@@ -32,6 +33,10 @@ class HeadlinesFilterState extends Equatable {
   /// The list of country IDs to be included in the filter.
   final List<String> selectedCountryIds;
 
+  /// The breaking news status to filter by.
+  /// `null` = all, `true` = breaking only, `false` = non-breaking only.
+  final BreakingNewsFilterStatus isBreaking;
+
   /// Creates a copy of this state with the given fields replaced with the
   /// new values.
   HeadlinesFilterState copyWith({
@@ -40,6 +45,7 @@ class HeadlinesFilterState extends Equatable {
     List<String>? selectedSourceIds,
     List<String>? selectedTopicIds,
     List<String>? selectedCountryIds,
+    BreakingNewsFilterStatus? isBreaking,
   }) {
     return HeadlinesFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
@@ -47,15 +53,17 @@ class HeadlinesFilterState extends Equatable {
       selectedSourceIds: selectedSourceIds ?? this.selectedSourceIds,
       selectedTopicIds: selectedTopicIds ?? this.selectedTopicIds,
       selectedCountryIds: selectedCountryIds ?? this.selectedCountryIds,
+      isBreaking: isBreaking ?? this.isBreaking,
     );
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     searchQuery,
     selectedStatus,
     selectedSourceIds,
     selectedTopicIds,
     selectedCountryIds,
+    isBreaking,
   ];
 }

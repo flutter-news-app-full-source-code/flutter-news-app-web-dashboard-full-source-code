@@ -1802,4 +1802,150 @@
   "@subscriptionPremium": {
     "description": "حالة الاشتراك لمستخدم مميز"
   }
+,
+  "savedHeadlineFilterLimitsTitle": "حدود مرشحات العناوين المحفوظة",
+  "@savedHeadlineFilterLimitsTitle": {
+    "description": "عنوان قسم حدود مرشحات العناوين المحفوظة"
+  },
+  "savedHeadlineFilterLimitsDescription": "تعيين حدود على عدد مرشحات العناوين المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة واشتراكات الإشعارات.",
+  "@savedHeadlineFilterLimitsDescription": {
+    "description": "وصف قسم حدود مرشحات العناوين المحفوظة"
+  },
+  "savedSourceFilterLimitsTitle": "حدود مرشحات المصادر المحفوظة",
+  "@savedSourceFilterLimitsTitle": {
+    "description": "عنوان قسم حدود مرشحات المصادر المحفوظة"
+  },
+  "savedSourceFilterLimitsDescription": "تعيين حدود على عدد مرشحات المصادر المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة.",
+  "@savedSourceFilterLimitsDescription": {
+    "description": "وصف قسم حدود مرشحات المصادر المحفوظة"
+  },
+  "totalLimitLabel": "الحد الإجمالي",
+  "@totalLimitLabel": {
+    "description": "تسمية للحد الإجمالي لنوع مرشح"
+  },
+  "totalLimitDescription": "العدد الإجمالي للمرشحات من هذا النوع التي يمكن للمستخدم إنشاؤها.",
+  "@totalLimitDescription": {
+    "description": "وصف للحد الإجمالي لنوع مرشح"
+  },
+  "pinnedLimitLabel": "الحد المثبت",
+  "@pinnedLimitLabel": {
+    "description": "تسمية للحد المثبت لنوع مرشح"
+  },
+  "pinnedLimitDescription": "الحد الأقصى لعدد المرشحات من هذا النوع التي يمكن تثبيتها.",
+  "@pinnedLimitDescription": {
+    "description": "وصف للحد المثبت لنوع مرشح"
+  },
+  "notificationSubscriptionLimitLabel": "حد اشتراك الإشعارات",
+  "@notificationSubscriptionLimitLabel": {
+    "description": "تسمية لحد اشتراك الإشعارات لنوع مرشح"
+  },
+  "notificationSubscriptionLimitDescription": "الحد الأقصى لعدد المرشحات التي يمكن للمستخدم الاشتراك فيها لهذا النوع من الإشعارات.",
+  "@notificationSubscriptionLimitDescription": {
+    "description": "وصف لحد اشتراك الإشعارات لنوع مرشح"
+  },
+  "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "الأخبار العاجلة",
+  "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
+    "description": "تسمية لنوع توصيل إشعارات 'الأخبار العاجلة فقط'"
+  },
+  "pushNotificationSubscriptionDeliveryTypeDailyDigest": "الملخص اليومي",
+  "@pushNotificationSubscriptionDeliveryTypeDailyDigest": {
+    "description": "تسمية لنوع توصيل إشعارات 'الملخص اليومي'"
+  },
+  "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "حصاد الأسبوع",
+  "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
+    "description": "تسمية لنوع توصيل إشعارات 'حصاد الأسبوع'"
+  }
+,
+  "isBreakingNewsLabel": "وضع علامة 'خبر عاجل'",
+  "@isBreakingNewsLabel": {
+    "description": "تسمية مفتاح وضع علامة 'خبر عاجل' على العنوان"
+  },
+  "isBreakingNewsDescription": "سيؤدي تمكين هذا إلى إرسال إشعار فوري لجميع المستخدمين المشتركين عند النشر.",
+  "@isBreakingNewsDescription": {
+    "description": "وصف مفتاح 'خبر عاجل' في صفحة الإنشاء"
+  },
+  "isBreakingNewsDescriptionEdit": "تغيير هذه الحالة أثناء التعديل لن يؤدي إلى إرسال إشعار فوري جديد، حيث يتم إرسال الإشعارات فقط عند الإنشاء الأولي.",
+  "@isBreakingNewsDescriptionEdit": {
+    "description": "وصف مفتاح 'خبر عاجل' في صفحة التعديل"
+  },
+  "confirmBreakingNewsTitle": "تأكيد نشر خبر عاجل",
+  "@confirmBreakingNewsTitle": {
+    "description": "عنوان مربع حوار التأكيد عند نشر خبر عاجل"
+  },
+  "confirmBreakingNewsMessage": "هل أنت متأكد أنك تريد نشر هذا كخبر عاجل؟ سيؤدي هذا الإجراء إلى إرسال إشعار فوري لجميع المستخدمين المشتركين.",
+  "@confirmBreakingNewsMessage": {
+    "description": "رسالة مربع حوار التأكيد عند نشر خبر عاجل"
+  },
+  "confirmPublishButton": "تأكيد ونشر",
+  "@confirmPublishButton": {
+    "description": "نص زر التأكيد والنشر لخبر عاجل"
+  },
+  "cannotDraftBreakingNews": "لا يمكن حفظ الأخبار العاجلة كمسودة. يرجى نشرها أو تعطيل مفتاح 'خبر عاجل'.",
+  "@cannotDraftBreakingNews": {
+    "description": "رسالة خطأ تظهر عندما يحاول المستخدم حفظ مقال إخباري عاجل كمسودة."
+  },
+  "ok": "موافق",
+  "@ok": {
+    "description": "نص زر 'موافق' الشائع."
+  },
+  "breakingNewsFilterTitle": "تصفية الأخبار العاجلة",
+  "@breakingNewsFilterTitle": {
+    "description": "عنوان قسم تصفية الأخبار العاجلة في مربع حوار التصفية."
+  },
+  "breakingNewsFilterAll": "الكل",
+  "@breakingNewsFilterAll": {
+    "description": "تسمية شريحة الاختيار 'الكل' في مرشح الأخبار العاجلة."
+  },
+  "breakingNewsFilterBreakingOnly": "العاجلة فقط",
+  "@breakingNewsFilterBreakingOnly": {
+    "description": "تسمية شريحة الاختيار 'العاجلة فقط' في مرشح الأخبار العاجلة."
+  },
+  "breakingNewsFilterNonBreakingOnly": "غير العاجلة فقط",
+  "@breakingNewsFilterNonBreakingOnly": {
+    "description": "تسمية شريحة الاختيار 'غير العاجلة فقط' في مرشح الأخبار العاجلة."
+  },
+  "notificationsTab": "الإشعارات",
+  "@notificationsTab": {
+    "description": "عنوان تبويب إعدادات الإشعارات"
+  },
+  "pushNotificationSettingsTitle": "إعدادات الإشعارات الفورية",
+  "@pushNotificationSettingsTitle": {
+    "description": "عنوان قسم إعدادات الإشعارات الفورية"
+  },
+  "pushNotificationSettingsDescription": "إدارة الإعدادات العامة لنظام الإشعارات الفورية، بما في ذلك المزود الأساسي وأنواع الإشعارات النشطة.",
+  "@pushNotificationSettingsDescription": {
+    "description": "وصف قسم إعدادات الإشعارات الفورية"
+  },
+  "pushNotificationSystemStatusTitle": "تفعيل الإشعارات",
+  "@pushNotificationSystemStatusTitle": {
+    "description": "عنوان قسم حالة نظام الإشعارات الفورية"
+  },
+  "pushNotificationSystemStatusDescription": "مفتاح عام لتمكين أو تعطيل جميع الإشعارات الفورية.",
+  "@pushNotificationSystemStatusDescription": {
+    "description": "وصف قسم حالة نظام الإشعارات الفورية"
+  },
+  "pushNotificationPrimaryProviderTitle": "المزود الأساسي",
+  "@pushNotificationPrimaryProviderTitle": {
+    "description": "عنوان قسم المزود الأساسي للإشعارات الفورية"
+  },
+  "pushNotificationPrimaryProviderDescription": "اختر مزود الخدمة الأساسي. تأكد من أن المزود المختار قد تم إعداده بشكل صحيح في ملف .env الخاص بالواجهة الخلفية.",
+  "@pushNotificationPrimaryProviderDescription": {
+    "description": "وصف قسم المزود الأساسي للإشعارات الفورية"
+  },
+  "pushNotificationDeliveryTypesTitle": "أنواع التسليم",
+  "@pushNotificationDeliveryTypesTitle": {
+    "description": "عنوان قسم أنواع تسليم الإشعارات الفورية"
+  },
+  "pushNotificationDeliveryTypesDescription": "تمكين أو تعطيل أنواع معينة من الإشعارات الفورية.",
+  "@pushNotificationDeliveryTypesDescription": {
+    "description": "وصف قسم أنواع تسليم الإشعارات الفورية"
+  },
+  "pushNotificationProviderFirebase": "Firebase",
+  "@pushNotificationProviderFirebase": {
+    "description": "تسمية مزود الإشعارات الفورية Firebase"
+  },
+  "pushNotificationProviderOneSignal": "OneSignal",
+  "@pushNotificationProviderOneSignal": {
+    "description": "تسمية مزود الإشعارات الفورية OneSignal"
+  }
 }

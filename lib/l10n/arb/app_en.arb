@@ -1797,5 +1797,149 @@
   "subscriptionPremium": "Premium",
   "@subscriptionPremium": {
     "description": "Subscription status for a premium user"
+  },
+  "savedHeadlineFilterLimitsTitle": "Saved Headline Filter Limits",
+  "@savedHeadlineFilterLimitsTitle": {
+    "description": "Title for the Saved Headline Filter Limits section"
+  },
+  "savedHeadlineFilterLimitsDescription": "Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.",
+  "@savedHeadlineFilterLimitsDescription": {
+    "description": "Description for the Saved Headline Filter Limits section"
+  },
+  "savedSourceFilterLimitsTitle": "Saved Source Filter Limits",
+  "@savedSourceFilterLimitsTitle": {
+    "description": "Title for the Saved Source Filter Limits section"
+  },
+  "savedSourceFilterLimitsDescription": "Set limits on the number of saved source filters for each user tier, including total and pinned.",
+  "@savedSourceFilterLimitsDescription": {
+    "description": "Description for the Saved Source Filter Limits section"
+  },
+  "totalLimitLabel": "Total Limit",
+  "@totalLimitLabel": {
+    "description": "Label for the total limit of a filter type"
+  },
+  "totalLimitDescription": "The total number of filters of this type a user can create.",
+  "@totalLimitDescription": {
+    "description": "Description for the total limit of a filter type"
+  },
+  "pinnedLimitLabel": "Pinned Limit",
+  "@pinnedLimitLabel": {
+    "description": "Label for the pinned limit of a filter type"
+  },
+  "pinnedLimitDescription": "The maximum number of filters of this type that can be pinned.",
+  "@pinnedLimitDescription": {
+    "description": "Description for the pinned limit of a filter type"
+  },
+  "notificationSubscriptionLimitLabel": "Notification Subscription Limit",
+  "@notificationSubscriptionLimitLabel": {
+    "description": "Label for the notification subscription limit of a filter type"
+  },
+  "notificationSubscriptionLimitDescription": "The maximum number of filters a user can subscribe to for this notification type.",
+  "@notificationSubscriptionLimitDescription": {
+    "description": "Description for the notification subscription limit of a filter type"
+  },
+  "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "Breaking News",
+  "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
+    "description": "Label for the 'breaking only' push notification delivery type"
+  },
+  "pushNotificationSubscriptionDeliveryTypeDailyDigest": "Daily Digest",
+  "@pushNotificationSubscriptionDeliveryTypeDailyDigest": {
+    "description": "Label for the 'daily digest' push notification delivery type"
+  },
+  "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "Weekly Roundup",
+  "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
+    "description": "Label for the 'weekly roundup' push notification delivery type"
+  },
+  "isBreakingNewsLabel": "Mark as Breaking News",
+  "@isBreakingNewsLabel": {
+    "description": "Label for the switch to mark a headline as breaking news"
+  },
+  "isBreakingNewsDescription": "Enabling this will send an immediate push notification to all subscribed users upon publication.",
+  "@isBreakingNewsDescription": {
+    "description": "Description for the breaking news switch on the create page"
+  },
+  "isBreakingNewsDescriptionEdit": "Changing this status during an edit will NOT trigger a new push notification, as notifications are only sent on initial creation.",
+  "@isBreakingNewsDescriptionEdit": {
+    "description": "Description for the breaking news switch on the edit page"
+  },
+  "confirmBreakingNewsTitle": "Confirm Breaking News Publication",
+  "@confirmBreakingNewsTitle": {
+    "description": "Title for the confirmation dialog when publishing breaking news"
+  },
+  "confirmBreakingNewsMessage": "Are you sure you want to publish this as breaking news? This action will send an immediate push notification to all subscribed users.",
+  "@confirmBreakingNewsMessage": {
+    "description": "Message for the confirmation dialog when publishing breaking news"
+  },
+  "confirmPublishButton": "Confirm & Publish",
+  "@confirmPublishButton": {
+    "description": "Text for the button to confirm publishing breaking news"
+  },
+  "cannotDraftBreakingNews": "Breaking news cannot be saved as a draft. Please publish it or disable the 'Breaking News' toggle.",
+  "@cannotDraftBreakingNews": {
+    "description": "Error message shown when a user tries to save a breaking news article as a draft."
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "A common 'OK' button text."
+  },
+  "breakingNewsFilterTitle": "Breaking News",
+  "@breakingNewsFilterTitle": {
+    "description": "Title for the breaking news filter section in the filter dialog."
+  },
+  "breakingNewsFilterAll": "All",
+  "@breakingNewsFilterAll": {
+    "description": "Label for the 'All' choice chip in the breaking news filter."
+  },
+  "breakingNewsFilterBreakingOnly": "Breaking Only",
+  "@breakingNewsFilterBreakingOnly": {
+    "description": "Label for the 'Breaking Only' choice chip in the breaking news filter."
+  },
+  "breakingNewsFilterNonBreakingOnly": "Non-Breaking Only",
+  "@breakingNewsFilterNonBreakingOnly": {
+    "description": "Label for the 'Non-Breaking Only' choice chip in the breaking news filter."
+  },
+  "notificationsTab": "Notifications",
+  "@notificationsTab": {
+    "description": "Tab title for Notifications settings"
+  },
+  "pushNotificationSettingsTitle": "Push Notification Settings",
+  "@pushNotificationSettingsTitle": {
+    "description": "Title for the Push Notification Settings section"
+  },
+  "pushNotificationSettingsDescription": "Manage global settings for the push notification system, including the primary provider and which notification types are active.",
+  "@pushNotificationSettingsDescription": {
+    "description": "Description for the Push Notification Settings section"
+  },
+  "pushNotificationSystemStatusTitle": "Enable Notifications",
+  "@pushNotificationSystemStatusTitle": {
+    "description": "Title for the Push Notification System status section"
+  },
+  "pushNotificationSystemStatusDescription": "A global switch to enable or disable all push notifications.",
+  "@pushNotificationSystemStatusDescription": {
+    "description": "Description for the Push Notification System status section"
+  },
+  "pushNotificationPrimaryProviderTitle": "Primary Provider",
+  "@pushNotificationPrimaryProviderTitle": {
+    "description": "Title for the Push Notification Primary Provider section"
+  },
+  "pushNotificationPrimaryProviderDescription": "Select the primary service provider. Ensure the chosen provider is correctly configured in your backend's .env file as per the documentation.",
+  "@pushNotificationPrimaryProviderDescription": {
+    "description": "Description for the Push Notification Primary Provider section"
+  },
+  "pushNotificationDeliveryTypesTitle": "Delivery Types",
+  "@pushNotificationDeliveryTypesTitle": {
+    "description": "Title for the Push Notification Delivery Types section"
+  },
+  "pushNotificationDeliveryTypesDescription": "Globally enable or disable specific types of push notifications.",
+  "@pushNotificationDeliveryTypesDescription": {
+    "description": "Description for the Push Notification Delivery Types section"
+  },
+  "pushNotificationProviderFirebase": "Firebase",
+  "@pushNotificationProviderFirebase": {
+    "description": "Label for the Firebase push notification provider"
+  },
+  "pushNotificationProviderOneSignal": "OneSignal",
+  "@pushNotificationProviderOneSignal": {
+    "description": "Label for the OneSignal push notification provider"
   }
 }
