@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 
 part 'headlines_filter_event.dart';
 part 'headlines_filter_state.dart';
@@ -78,8 +79,8 @@ class HeadlinesFilterBloc
 
   /// Handles changes to the breaking news filter.
   ///
-  /// This updates the `isBreaking` status for the filter, which can be
-  /// `true` (breaking only), `false` (non-breaking only), or `null` (all).
+  /// This updates the `isBreaking` status for the filter using the
+  /// [BreakingNewsFilterStatus] enum.
   void _onHeadlinesBreakingNewsFilterChanged(
     HeadlinesBreakingNewsFilterChanged event,
     Emitter<HeadlinesFilterState> emit,
