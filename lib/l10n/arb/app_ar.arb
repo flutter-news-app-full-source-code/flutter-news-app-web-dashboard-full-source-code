@@ -1947,5 +1947,13 @@
   "pushNotificationProviderOneSignal": "OneSignal",
   "@pushNotificationProviderOneSignal": {
     "description": "تسمية مزود الإشعارات الفورية OneSignal"
+  },
+  "pushNotificationProviderConfigInfoTitle": "ملاحظة حول تكوين الواجهة الخلفية",
+  "@pushNotificationProviderConfigInfoTitle": {
+    "description": "عنوان الملاحظة المعلوماتية حول إعداد الواجهة الخلفية لمزودي خدمة الإشعارات."
+  },
+  "pushNotificationProviderConfigInfoBody": "يرجى التأكد من أن المزود المحدد قد تم إعداده بشكل صحيح في ملف البيئة الخاص بالواجهة الخلفية. للحصول على تفاصيل حول المتغيرات المطلوبة، يرجى الرجوع إلى وثائق إعداد الخادم.",
+  "@pushNotificationProviderConfigInfoBody": {
+    "description": "رسالة معلوماتية حول تكوين مزود الإشعارات المختار في الواجهة الخلفية."
   }
 }

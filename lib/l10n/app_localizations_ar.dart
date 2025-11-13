@@ -1545,4 +1545,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pushNotificationProviderOneSignal => 'OneSignal';
+
+  @override
+  String get pushNotificationProviderConfigInfoTitle =>
+      'ملاحظة حول تكوين الواجهة الخلفية';
+
+  @override
+  String get pushNotificationProviderConfigInfoBody =>
+      'يرجى التأكد من أن المزود المحدد قد تم إعداده بشكل صحيح في ملف البيئة الخاص بالواجهة الخلفية. للحصول على تفاصيل حول المتغيرات المطلوبة، يرجى الرجوع إلى وثائق إعداد الخادم.';
 }

@@ -2887,6 +2887,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OneSignal'**
   String get pushNotificationProviderOneSignal;
+
+  /// Title for the informational note about backend configuration for push notification providers.
+  ///
+  /// In en, this message translates to:
+  /// **'Backend Configuration Note'**
+  String get pushNotificationProviderConfigInfoTitle;
+
+  /// Informational message about configuring the selected push notification provider in the backend.
+  ///
+  /// In en, this message translates to:
+  /// **'Please ensure the selected provider is correctly configured in your backend\'s environment file. Refer to the server setup documentation for details on the required variables.'**
+  String get pushNotificationProviderConfigInfoBody;
 }
 
 class _AppLocalizationsDelegate

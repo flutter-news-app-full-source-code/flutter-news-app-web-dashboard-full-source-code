@@ -1943,5 +1943,13 @@
   "pushNotificationProviderOneSignal": "OneSignal",
   "@pushNotificationProviderOneSignal": {
     "description": "Label for the OneSignal push notification provider"
+  },
+  "pushNotificationProviderConfigInfoTitle": "Backend Configuration Note",
+  "@pushNotificationProviderConfigInfoTitle": {
+    "description": "Title for the informational note about backend configuration for push notification providers."
+  },
+  "pushNotificationProviderConfigInfoBody": "Please ensure the selected provider is correctly configured in your backend's environment file. Refer to the server setup documentation for details on the required variables.",
+  "@pushNotificationProviderConfigInfoBody": {
+    "description": "Informational message about configuring the selected push notification provider in the backend."
   }
 }
