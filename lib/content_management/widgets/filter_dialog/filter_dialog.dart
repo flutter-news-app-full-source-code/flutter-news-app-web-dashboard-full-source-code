@@ -104,7 +104,11 @@ class _FilterDialogState extends State<FilterDialog> {
     // so we can directly use BlocBuilder here.
     return BlocBuilder<FilterDialogBloc, FilterDialogState>(
       builder: (context, filterDialogState) {
-        _searchController.text = filterDialogState.searchQuery;
+        // Synchronize the controller with the state, but only if they differ.
+        // This prevents the cursor from jumping and text from being re-selected.
+        if (_searchController.text != filterDialogState.searchQuery) {
+          _searchController.text = filterDialogState.searchQuery;
+        }
         return Scaffold(
           appBar: AppBar(
             title: Text(_getDialogTitle(l10n)),
