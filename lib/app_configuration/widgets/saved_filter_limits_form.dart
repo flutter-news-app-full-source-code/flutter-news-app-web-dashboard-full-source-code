@@ -78,7 +78,8 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
-          _controllers[role]![type.name] = _createController(value.toString());
+          _controllers[role]!['notification_${type.name}'] =
+              _createController(value.toString());
         }
       }
     }
@@ -100,7 +101,10 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
-          _updateControllerText(_controllers[role]!['notification_${type.name}']!, value);
+          _updateControllerText(
+            _controllers[role]!['notification_${type.name}']!,
+            value,
+          );
         }
       }
     }
