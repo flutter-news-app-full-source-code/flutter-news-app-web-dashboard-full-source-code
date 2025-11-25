@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/advertisements_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/feed_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/general_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/app_configuration_tab.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/features_configuration_tab.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/user_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -31,7 +30,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
@@ -66,10 +65,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: [
-            Tab(text: l10n.generalTab),
-            Tab(text: l10n.feedTab),
-            Tab(text: l10n.advertisementsTab),
-            Tab(text: l10n.notificationsTab),
+            Tab(text: l10n.appTab),
+            Tab(text: l10n.featuresTab),
+            Tab(text: l10n.userTab),
           ],
         ),
       ),
@@ -84,16 +82,16 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
               );
             // Clear the showSaveSuccess flag after showing the snackbar
             context.read<AppConfigurationBloc>().add(
-              const AppConfigurationFieldChanged(),
-            );
+                  const AppConfigurationFieldChanged(),
+                );
           } else if (state.status == AppConfigurationStatus.failure &&
               state.exception != null) {
             ScaffoldMessenger.of(context)
@@ -103,8 +101,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     state.exception!.toFriendlyMessage(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onError,
-                    ),
+                          color: Theme.of(context).colorScheme.onError,
+                        ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -124,8 +122,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               exception: state.exception!,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
-                  const AppConfigurationLoaded(),
-                );
+                      const AppConfigurationLoaded(),
+                    );
               },
             );
           } else if (state.status == AppConfigurationStatus.success &&
@@ -134,36 +132,28 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             return TabBarView(
               controller: _tabController,
               children: [
-                GeneralConfigurationTab(
+                AppConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(remoteConfig: newConfig),
-                    );
+                          AppConfigurationFieldChanged(remoteConfig: newConfig),
+                        );
                   },
                 ),
-                FeedConfigurationTab(
+                FeaturesConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(remoteConfig: newConfig),
-                    );
+                          AppConfigurationFieldChanged(remoteConfig: newConfig),
+                        );
                   },
                 ),
-                AdvertisementsConfigurationTab(
+                UserConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(remoteConfig: newConfig),
-                    );
-                  },
-                ),
-                PushNotificationSettingsForm(
-                  remoteConfig: remoteConfig,
-                  onConfigChanged: (newConfig) {
-                    context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(remoteConfig: newConfig),
-                    );
+                          AppConfigurationFieldChanged(remoteConfig: newConfig),
+                        );
                   },
                 ),
               ],
@@ -199,8 +189,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   ? () {
                       // Discard changes: revert to original config
                       context.read<AppConfigurationBloc>().add(
-                        const AppConfigurationDiscarded(),
-                      );
+                            const AppConfigurationDiscarded(),
+                          );
                     }
                   : null,
               child: Text(AppLocalizationsX(context).l10n.discardChangesButton),
@@ -214,8 +204,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                           confirmed &&
                           remoteConfig != null) {
                         context.read<AppConfigurationBloc>().add(
-                          AppConfigurationUpdated(remoteConfig),
-                        );
+                              AppConfigurationUpdated(remoteConfig),
+                            );
                       }
                     }
                   : null,
