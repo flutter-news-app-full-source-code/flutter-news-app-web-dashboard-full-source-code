@@ -50,7 +50,7 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    
+
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
