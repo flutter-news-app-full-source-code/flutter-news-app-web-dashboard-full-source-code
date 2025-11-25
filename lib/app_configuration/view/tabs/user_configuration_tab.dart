@@ -76,7 +76,7 @@ class _UserConfigurationTabState extends State<UserConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
-              key: const ValueKey('savedFilterLimitsTile_'),
+              key: ValueKey('savedFilterLimitsTile_$expandedIndex'),
               title: Text(l10n.savedFeedFilterLimitsTitle),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
