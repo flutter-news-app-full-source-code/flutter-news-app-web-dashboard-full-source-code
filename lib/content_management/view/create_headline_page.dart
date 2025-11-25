@@ -38,7 +38,6 @@ class _CreateHeadlineView extends StatefulWidget {
 class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
-  late final TextEditingController _excerptController;
   late final TextEditingController _urlController;
   late final TextEditingController _imageUrlController;
 
@@ -47,7 +46,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
     super.initState();
     final state = context.read<CreateHeadlineBloc>().state;
     _titleController = TextEditingController(text: state.title);
-    _excerptController = TextEditingController(text: state.excerpt);
     _urlController = TextEditingController(text: state.url);
     _imageUrlController = TextEditingController(text: state.imageUrl);
   }
@@ -55,7 +53,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
   @override
   void dispose() {
     _titleController.dispose();
-    _excerptController.dispose();
     _urlController.dispose();
     _imageUrlController.dispose();
     super.dispose();
@@ -162,18 +159,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                       onChanged: (value) => context
                           .read<CreateHeadlineBloc>()
                           .add(CreateHeadlineTitleChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _excerptController,
-                      decoration: InputDecoration(
-                        labelText: l10n.excerpt,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context
-                          .read<CreateHeadlineBloc>()
-                          .add(CreateHeadlineExcerptChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -324,7 +309,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
   bool _isSaveButtonEnabled(CreateHeadlineState state) {
     final allFieldsFilled =
         state.title.isNotEmpty &&
-        state.excerpt.isNotEmpty &&
         state.url.isNotEmpty &&
         state.imageUrl.isNotEmpty &&
         state.source != null &&
