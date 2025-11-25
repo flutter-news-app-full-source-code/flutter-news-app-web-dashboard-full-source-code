@@ -24,7 +24,6 @@ final class EditHeadlineState extends Equatable {
     required this.headlineId,
     this.status = EditHeadlineStatus.initial,
     this.title = '',
-    this.excerpt = '',
     this.url = '',
     this.imageUrl = '',
     this.source,
@@ -38,7 +37,6 @@ final class EditHeadlineState extends Equatable {
   final EditHeadlineStatus status;
   final String headlineId;
   final String title;
-  final String excerpt;
   final String url;
   final String imageUrl;
   final Source? source;
@@ -52,7 +50,6 @@ final class EditHeadlineState extends Equatable {
   bool get isFormValid =>
       headlineId.isNotEmpty &&
       title.isNotEmpty &&
-      excerpt.isNotEmpty &&
       url.isNotEmpty &&
       imageUrl.isNotEmpty &&
       source != null &&
@@ -66,7 +63,6 @@ final class EditHeadlineState extends Equatable {
     EditHeadlineStatus? status,
     String? headlineId,
     String? title,
-    String? excerpt,
     String? url,
     String? imageUrl,
     ValueGetter<Source?>? source,
@@ -80,7 +76,6 @@ final class EditHeadlineState extends Equatable {
       status: status ?? this.status,
       headlineId: headlineId ?? this.headlineId,
       title: title ?? this.title,
-      excerpt: excerpt ?? this.excerpt,
       url: url ?? this.url,
       imageUrl: imageUrl ?? this.imageUrl,
       source: source != null ? source() : this.source,
@@ -97,7 +92,6 @@ final class EditHeadlineState extends Equatable {
     status,
     headlineId,
     title,
-    excerpt,
     url,
     imageUrl,
     source,
