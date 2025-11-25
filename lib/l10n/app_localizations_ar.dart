@@ -1545,4 +1545,102 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pushNotificationProviderOneSignal => 'OneSignal';
+
+  @override
+  String get appTab => 'التطبيق';
+
+  @override
+  String get featuresTab => 'الميزات';
+
+  @override
+  String get userTab => 'المستخدم';
+
+  @override
+  String get maintenanceConfigTitle => 'وضع الصيانة';
+
+  @override
+  String get maintenanceConfigDescription =>
+      'تفعيل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.';
+
+  @override
+  String get updateConfigTitle => 'إعدادات التحديث';
+
+  @override
+  String get updateConfigDescription =>
+      'تكوين تحديثات التطبيق الإلزامية للمستخدمين.';
+
+  @override
+  String get generalAppConfigTitle => 'إعدادات التطبيق العامة';
+
+  @override
+  String get generalAppConfigDescription =>
+      'إدارة الإعدادات العامة للتطبيق مثل روابط شروط الخدمة وسياسة الخصوصية.';
+
+  @override
+  String get termsOfServiceUrlLabel => 'رابط شروط الخدمة';
+
+  @override
+  String get termsOfServiceUrlDescription =>
+      'الرابط لصفحة شروط الخدمة للتطبيق.';
+
+  @override
+  String get privacyPolicyUrlLabel => 'رابط سياسة الخصوصية';
+
+  @override
+  String get privacyPolicyUrlDescription =>
+      'الرابط لصفحة سياسة الخصوصية للتطبيق.';
+
+  @override
+  String get navigationAdConfigTitle => 'إعدادات إعلانات التنقل';
+
+  @override
+  String get enableNavigationAdsLabel => 'تفعيل إعلانات التنقل';
+
+  @override
+  String get navigationAdFrequencyTitle => 'تكرار إعلانات التنقل';
+
+  @override
+  String get navigationAdFrequencyDescription =>
+      'تكوين عدد الانتقالات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني، بناءً على دوره.';
+
+  @override
+  String get internalNavigationsBeforeAdLabel =>
+      'الانتقالات الداخلية قبل الإعلان';
+
+  @override
+  String get internalNavigationsBeforeAdDescription =>
+      'عدد الانتقالات الداخلية بين الصفحات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.';
+
+  @override
+  String get externalNavigationsBeforeAdLabel =>
+      'الانتقالات الخارجية قبل الإعلان';
+
+  @override
+  String get externalNavigationsBeforeAdDescription =>
+      'عدد الانتقالات الخارجية التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.';
+
+  @override
+  String get nativeAdIdLabel => 'معرف الإعلان الأصلي';
+
+  @override
+  String get nativeAdIdDescription => 'معرف الوحدة للإعلانات الأصلية.';
+
+  @override
+  String get bannerAdIdLabel => 'معرف إعلان البانر';
+
+  @override
+  String get bannerAdIdDescription => 'معرف الوحدة لإعلانات البانر.';
+
+  @override
+  String get interstitialAdIdLabel => 'معرف الإعلان البيني';
+
+  @override
+  String get interstitialAdIdDescription => 'معرف الوحدة للإعلانات البينية.';
+
+  @override
+  String get savedHeadlinesLimitLabel => 'حد العناوين المحفوظة';
+
+  @override
+  String get savedHeadlinesLimitDescription =>
+      'الحد الأقصى لعدد العناوين التي يمكن لهذا الدور المستخدم حفظها.';
 }

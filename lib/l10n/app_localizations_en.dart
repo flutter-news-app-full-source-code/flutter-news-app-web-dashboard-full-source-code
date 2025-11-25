@@ -1548,4 +1548,102 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pushNotificationProviderOneSignal => 'OneSignal';
+
+  @override
+  String get appTab => 'App';
+
+  @override
+  String get featuresTab => 'Features';
+
+  @override
+  String get userTab => 'User';
+
+  @override
+  String get maintenanceConfigTitle => 'Maintenance Mode';
+
+  @override
+  String get maintenanceConfigDescription =>
+      'Enable to put the app into maintenance mode, preventing user access.';
+
+  @override
+  String get updateConfigTitle => 'Update Settings';
+
+  @override
+  String get updateConfigDescription =>
+      'Configure mandatory app updates for users.';
+
+  @override
+  String get generalAppConfigTitle => 'General App Settings';
+
+  @override
+  String get generalAppConfigDescription =>
+      'Manage general application settings like Terms of Service and Privacy Policy URLs.';
+
+  @override
+  String get termsOfServiceUrlLabel => 'Terms of Service URL';
+
+  @override
+  String get termsOfServiceUrlDescription =>
+      'The URL for the application\'s Terms of Service page.';
+
+  @override
+  String get privacyPolicyUrlLabel => 'Privacy Policy URL';
+
+  @override
+  String get privacyPolicyUrlDescription =>
+      'The URL for the application\'s Privacy Policy page.';
+
+  @override
+  String get navigationAdConfigTitle => 'Navigation Ad Settings';
+
+  @override
+  String get enableNavigationAdsLabel => 'Enable Navigation Ads';
+
+  @override
+  String get navigationAdFrequencyTitle => 'Navigation Ad Frequency';
+
+  @override
+  String get navigationAdFrequencyDescription =>
+      'Configure how many transitions a user must make before an interstitial ad is shown, based on their role.';
+
+  @override
+  String get internalNavigationsBeforeAdLabel =>
+      'Internal Navigations Before Ad';
+
+  @override
+  String get internalNavigationsBeforeAdDescription =>
+      'The number of internal page-to-page navigations a user must make before an interstitial ad is displayed.';
+
+  @override
+  String get externalNavigationsBeforeAdLabel =>
+      'External Navigations Before Ad';
+
+  @override
+  String get externalNavigationsBeforeAdDescription =>
+      'The number of external navigations a user must make before an interstitial ad is displayed.';
+
+  @override
+  String get nativeAdIdLabel => 'Native Ad ID';
+
+  @override
+  String get nativeAdIdDescription => 'The unit ID for native ads.';
+
+  @override
+  String get bannerAdIdLabel => 'Banner Ad ID';
+
+  @override
+  String get bannerAdIdDescription => 'The unit ID for banner ads.';
+
+  @override
+  String get interstitialAdIdLabel => 'Interstitial Ad ID';
+
+  @override
+  String get interstitialAdIdDescription => 'The unit ID for interstitial ads.';
+
+  @override
+  String get savedHeadlinesLimitLabel => 'Saved Headlines Limit';
+
+  @override
+  String get savedHeadlinesLimitDescription =>
+      'Maximum number of headlines this user role can save.';
 }
