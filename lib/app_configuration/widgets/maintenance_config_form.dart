@@ -34,8 +34,8 @@ class MaintenanceConfigForm extends StatelessWidget {
           Text(
             l10n.maintenanceConfigDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           SwitchListTile(

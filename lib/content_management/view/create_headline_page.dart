@@ -375,7 +375,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         context,
         l10n,
       );
-      if (confirmBreaking != true) return; // If not confirmed, do nothing.
+      if (confirmBreaking != true) return;
     }
 
     // Dispatch the appropriate event based on user's choice.

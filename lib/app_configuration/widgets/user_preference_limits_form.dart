@@ -35,9 +35,9 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late final Map<AppUserRole, TextEditingController>
-      _followedItemsLimitControllers;
+  _followedItemsLimitControllers;
   late final Map<AppUserRole, TextEditingController>
-      _savedHeadlinesLimitControllers;
+  _savedHeadlinesLimitControllers;
 
   @override
   void initState() {
@@ -52,8 +52,7 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
   @override
   void didUpdateWidget(covariant UserPreferenceLimitsForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.remoteConfig.user.limits !=
-        oldWidget.remoteConfig.user.limits) {
+    if (widget.remoteConfig.user.limits != oldWidget.remoteConfig.user.limits) {
       _updateControllers();
     }
   }
@@ -62,45 +61,52 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
     final limitsConfig = widget.remoteConfig.user.limits;
     _followedItemsLimitControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: (limitsConfig.followedItems[role] ?? 0).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: (limitsConfig.followedItems[role] ?? 0).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: (limitsConfig.followedItems[role] ?? 0).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: (limitsConfig.followedItems[role] ?? 0)
+                    .toString()
+                    .length,
+              ),
     };
     _savedHeadlinesLimitControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: (limitsConfig.savedHeadlines[role] ?? 0).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: (limitsConfig.savedHeadlines[role] ?? 0).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: (limitsConfig.savedHeadlines[role] ?? 0).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: (limitsConfig.savedHeadlines[role] ?? 0)
+                    .toString()
+                    .length,
+              ),
     };
   }
 
   void _updateControllers() {
     final limitsConfig = widget.remoteConfig.user.limits;
     for (final role in AppUserRole.values) {
-      final newFollowedItemsLimit =
-          (limitsConfig.followedItems[role] ?? 0).toString();
-      if (_followedItemsLimitControllers[role]?.text !=
-          newFollowedItemsLimit) {
+      final newFollowedItemsLimit = (limitsConfig.followedItems[role] ?? 0)
+          .toString();
+      if (_followedItemsLimitControllers[role]?.text != newFollowedItemsLimit) {
         _followedItemsLimitControllers[role]?.text = newFollowedItemsLimit;
         _followedItemsLimitControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newFollowedItemsLimit.length,
-        );
+              offset: newFollowedItemsLimit.length,
+            );
       }
 
-      final newSavedHeadlinesLimit =
-          (limitsConfig.savedHeadlines[role] ?? 0).toString();
+      final newSavedHeadlinesLimit = (limitsConfig.savedHeadlines[role] ?? 0)
+          .toString();
       if (_savedHeadlinesLimitControllers[role]?.text !=
           newSavedHeadlinesLimit) {
         _savedHeadlinesLimitControllers[role]?.text = newSavedHeadlinesLimit;
         _savedHeadlinesLimitControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newSavedHeadlinesLimit.length,
-        );
+              offset: newSavedHeadlinesLimit.length,
+            );
       }
     }
   }
@@ -174,8 +180,7 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
           description: _getFollowedItemsLimitDescription(l10n, role),
           value: config.followedItems[role] ?? 0,
           onChanged: (value) {
-            final newLimits =
-                Map<AppUserRole, int>.from(config.followedItems);
+            final newLimits = Map<AppUserRole, int>.from(config.followedItems);
             newLimits[role] = value;
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
@@ -192,8 +197,7 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
           description: _getSavedHeadlinesLimitDescription(l10n, role),
           value: config.savedHeadlines[role] ?? 0,
           onChanged: (value) {
-            final newLimits =
-                Map<AppUserRole, int>.from(config.savedHeadlines);
+            final newLimits = Map<AppUserRole, int>.from(config.savedHeadlines);
             newLimits[role] = value;
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(

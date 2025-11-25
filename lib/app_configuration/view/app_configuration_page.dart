@@ -82,16 +82,16 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     l10n.appConfigSaveSuccessMessage,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
               );
             // Clear the showSaveSuccess flag after showing the snackbar
             context.read<AppConfigurationBloc>().add(
-                  const AppConfigurationFieldChanged(),
-                );
+              const AppConfigurationFieldChanged(),
+            );
           } else if (state.status == AppConfigurationStatus.failure &&
               state.exception != null) {
             ScaffoldMessenger.of(context)
@@ -101,8 +101,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   content: Text(
                     state.exception!.toFriendlyMessage(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onError,
-                        ),
+                      color: Theme.of(context).colorScheme.onError,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -122,8 +122,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               exception: state.exception!,
               onRetry: () {
                 context.read<AppConfigurationBloc>().add(
-                      const AppConfigurationLoaded(),
-                    );
+                  const AppConfigurationLoaded(),
+                );
               },
             );
           } else if (state.status == AppConfigurationStatus.success &&
@@ -136,24 +136,24 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
-                          AppConfigurationFieldChanged(remoteConfig: newConfig),
-                        );
+                      AppConfigurationFieldChanged(remoteConfig: newConfig),
+                    );
                   },
                 ),
                 FeaturesConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
-                          AppConfigurationFieldChanged(remoteConfig: newConfig),
-                        );
+                      AppConfigurationFieldChanged(remoteConfig: newConfig),
+                    );
                   },
                 ),
                 UserConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
-                          AppConfigurationFieldChanged(remoteConfig: newConfig),
-                        );
+                      AppConfigurationFieldChanged(remoteConfig: newConfig),
+                    );
                   },
                 ),
               ],
@@ -189,8 +189,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                   ? () {
                       // Discard changes: revert to original config
                       context.read<AppConfigurationBloc>().add(
-                            const AppConfigurationDiscarded(),
-                          );
+                        const AppConfigurationDiscarded(),
+                      );
                     }
                   : null,
               child: Text(AppLocalizationsX(context).l10n.discardChangesButton),
@@ -204,8 +204,8 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                           confirmed &&
                           remoteConfig != null) {
                         context.read<AppConfigurationBloc>().add(
-                              AppConfigurationUpdated(remoteConfig),
-                            );
+                          AppConfigurationUpdated(remoteConfig),
+                        );
                       }
                     }
                   : null,

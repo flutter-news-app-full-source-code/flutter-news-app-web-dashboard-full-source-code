@@ -72,14 +72,16 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       final limits = _getLimitsForRole(role);
 
       _controllers[role]!['total'] = _createController(limits.total.toString());
-      _controllers[role]!['pinned'] =
-          _createController(limits.pinned.toString());
+      _controllers[role]!['pinned'] = _createController(
+        limits.pinned.toString(),
+      );
 
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
-          _controllers[role]!['notification_${type.name}'] =
-              _createController(value.toString());
+          _controllers[role]!['notification_${type.name}'] = _createController(
+            value.toString(),
+          );
         }
       }
     }
@@ -150,8 +152,9 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
         ? limitsConfig.savedHeadlineFilters
         : limitsConfig.savedSourceFilters;
 
-    final newLimitsMap =
-        Map<AppUserRole, SavedFilterLimits>.from(currentLimitsMap);
+    final newLimitsMap = Map<AppUserRole, SavedFilterLimits>.from(
+      currentLimitsMap,
+    );
 
     final currentLimits = newLimitsMap[role]!;
     SavedFilterLimits newLimits;
@@ -161,12 +164,12 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     } else if (field == 'pinned') {
       newLimits = currentLimits.copyWith(pinned: value);
     } else {
-      final deliveryType =
-          PushNotificationSubscriptionDeliveryType.values.byName(field);
+      final deliveryType = PushNotificationSubscriptionDeliveryType.values
+          .byName(field);
       final newSubscriptions =
           Map<PushNotificationSubscriptionDeliveryType, int>.from(
-        currentLimits.notificationSubscriptions ?? {},
-      );
+            currentLimits.notificationSubscriptions ?? {},
+          );
       newSubscriptions[deliveryType] = value;
       newLimits = currentLimits.copyWith(
         notificationSubscriptions: newSubscriptions,

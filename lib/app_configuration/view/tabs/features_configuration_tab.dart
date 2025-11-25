@@ -138,11 +138,10 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                 Text(
                   l10n.feedDecoratorsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.7),
-                      ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 for (final decoratorType in FeedDecoratorType.values)

@@ -34,9 +34,9 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late final Map<AppUserRole, TextEditingController>
-      _followedItemsLimitControllers;
+  _followedItemsLimitControllers;
   late final Map<AppUserRole, TextEditingController>
-      _savedHeadlinesLimitControllers;
+  _savedHeadlinesLimitControllers;
 
   @override
   void initState() {
@@ -75,12 +75,14 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
   void _updateControllers() {
     final limits = widget.remoteConfig.user.limits;
     for (final role in AppUserRole.values) {
-      final newFollowedItemsLimit = (limits.followedItems[role] ?? 0).toString();
+      final newFollowedItemsLimit = (limits.followedItems[role] ?? 0)
+          .toString();
       if (_followedItemsLimitControllers[role]?.text != newFollowedItemsLimit) {
         _followedItemsLimitControllers[role]?.text = newFollowedItemsLimit;
       }
 
-      final newSavedHeadlinesLimit = (limits.savedHeadlines[role] ?? 0).toString();
+      final newSavedHeadlinesLimit = (limits.savedHeadlines[role] ?? 0)
+          .toString();
       if (_savedHeadlinesLimitControllers[role]?.text !=
           newSavedHeadlinesLimit) {
         _savedHeadlinesLimitControllers[role]?.text = newSavedHeadlinesLimit;
@@ -112,8 +114,8 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
           child: Text(
             l10n.userContentLimitsDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -183,8 +185,9 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
             description: l10n.savedHeadlinesLimitDescription,
             value: limits.savedHeadlines[role] ?? 0,
             onChanged: (value) {
-              final newLimits = Map<AppUserRole, int>.from(limits.savedHeadlines)
-                ..[role] = value;
+              final newLimits = Map<AppUserRole, int>.from(
+                limits.savedHeadlines,
+              )..[role] = value;
               widget.onConfigChanged(
                 widget.remoteConfig.copyWith(
                   user: widget.remoteConfig.user.copyWith(

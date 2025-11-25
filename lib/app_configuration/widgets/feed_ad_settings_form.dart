@@ -39,7 +39,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// Controllers for ad placement interval fields, mapped by user role.
   /// These are used to manage text input for each role's ad placement interval.
   late final Map<AppUserRole, TextEditingController>
-      _adPlacementIntervalControllers;
+  _adPlacementIntervalControllers;
 
   @override
   void initState() {
@@ -54,32 +54,36 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// Initializes text editing controllers for each user role based on current
   /// remote config values.
   void _initializeControllers() {
-    final feedAdConfig =
-        widget.remoteConfig.features.ads.feedAdConfiguration;
+    final feedAdConfig = widget.remoteConfig.features.ads.feedAdConfiguration;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdFrequency(feedAdConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset: _getAdFrequency(feedAdConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdFrequency(feedAdConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdFrequency(feedAdConfig, role).toString().length,
+              ),
     };
     _adPlacementIntervalControllers = {
       for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getAdPlacementInterval(feedAdConfig, role).toString(),
-        )..selection = TextSelection.collapsed(
-            offset:
-                _getAdPlacementInterval(feedAdConfig, role).toString().length,
-          ),
+        role:
+            TextEditingController(
+                text: _getAdPlacementInterval(feedAdConfig, role).toString(),
+              )
+              ..selection = TextSelection.collapsed(
+                offset: _getAdPlacementInterval(
+                  feedAdConfig,
+                  role,
+                ).toString().length,
+              ),
     };
   }
 
   /// Updates text editing controllers when the widget's remote config changes.
   /// This ensures the form fields reflect the latest configuration.
   void _updateControllers() {
-    final feedAdConfig =
-        widget.remoteConfig.features.ads.feedAdConfiguration;
+    final feedAdConfig = widget.remoteConfig.features.ads.feedAdConfiguration;
     for (final role in AppUserRole.values) {
       final newFrequencyValue = _getAdFrequency(feedAdConfig, role).toString();
       if (_adFrequencyControllers[role]?.text != newFrequencyValue) {
@@ -89,15 +93,17 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
         );
       }
 
-      final newPlacementIntervalValue =
-          _getAdPlacementInterval(feedAdConfig, role).toString();
+      final newPlacementIntervalValue = _getAdPlacementInterval(
+        feedAdConfig,
+        role,
+      ).toString();
       if (_adPlacementIntervalControllers[role]?.text !=
           newPlacementIntervalValue) {
         _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
         _adPlacementIntervalControllers[role]?.selection =
             TextSelection.collapsed(
-          offset: newPlacementIntervalValue.length,
-        );
+              offset: newPlacementIntervalValue.length,
+            );
       }
     }
   }
@@ -161,8 +167,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             Text(
               l10n.feedAdTypeSelectionDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -216,8 +222,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             Text(
               l10n.userRoleFrequencySettingsDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -319,8 +325,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                     );
                     final newVisibleTo =
                         Map<AppUserRole, FeedAdFrequencyConfig>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleConfig;
+                          config.visibleTo,
+                        )..[role] = newRoleConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
                         features: widget.remoteConfig.features.copyWith(
@@ -345,8 +351,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                     );
                     final newVisibleTo =
                         Map<AppUserRole, FeedAdFrequencyConfig>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleConfig;
+                          config.visibleTo,
+                        )..[role] = newRoleConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
                         features: widget.remoteConfig.features.copyWith(

@@ -34,11 +34,13 @@ class _UpdateConfigFormState extends State<UpdateConfigForm> {
   void initState() {
     super.initState();
     final updateConfig = widget.remoteConfig.app.update;
-    _latestVersionController =
-        TextEditingController(text: updateConfig.latestAppVersion);
+    _latestVersionController = TextEditingController(
+      text: updateConfig.latestAppVersion,
+    );
     _iosUrlController = TextEditingController(text: updateConfig.iosUpdateUrl);
-    _androidUrlController =
-        TextEditingController(text: updateConfig.androidUpdateUrl);
+    _androidUrlController = TextEditingController(
+      text: updateConfig.androidUpdateUrl,
+    );
   }
 
   @override
@@ -74,8 +76,8 @@ class _UpdateConfigFormState extends State<UpdateConfigForm> {
           Text(
             l10n.updateConfigDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           AppConfigTextField(

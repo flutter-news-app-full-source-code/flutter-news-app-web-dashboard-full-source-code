@@ -55,7 +55,7 @@ final class CreateHeadlineState extends Equatable {
       source != null &&
       topic != null &&
       eventCountry != null &&
-      !isBreaking; // If breaking, it must be published, not drafted.
+      !isBreaking;
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,

@@ -33,9 +33,9 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
   late TabController _tabController;
 
   late final Map<AppUserRole, TextEditingController>
-      _internalNavigationsControllers;
+  _internalNavigationsControllers;
   late final Map<AppUserRole, TextEditingController>
-      _externalNavigationsControllers;
+  _externalNavigationsControllers;
 
   @override
   void initState() {
@@ -68,11 +68,17 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
     final navAdConfig =
         widget.remoteConfig.features.ads.navigationAdConfiguration;
     for (final role in AppUserRole.values) {
-      final newInternalValue = _getInternalNavigations(navAdConfig, role).toString();
+      final newInternalValue = _getInternalNavigations(
+        navAdConfig,
+        role,
+      ).toString();
       if (_internalNavigationsControllers[role]?.text != newInternalValue) {
         _internalNavigationsControllers[role]?.text = newInternalValue;
       }
-      final newExternalValue = _getExternalNavigations(navAdConfig, role).toString();
+      final newExternalValue = _getExternalNavigations(
+        navAdConfig,
+        role,
+      ).toString();
       if (_externalNavigationsControllers[role]?.text != newExternalValue) {
         _externalNavigationsControllers[role]?.text = newExternalValue;
       }
@@ -118,8 +124,9 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
               widget.remoteConfig.copyWith(
                 features: features.copyWith(
                   ads: adConfig.copyWith(
-                    navigationAdConfiguration:
-                        navAdConfig.copyWith(enabled: value),
+                    navigationAdConfiguration: navAdConfig.copyWith(
+                      enabled: value,
+                    ),
                   ),
                 ),
               ),
@@ -138,8 +145,8 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
             Text(
               l10n.navigationAdFrequencyDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -197,8 +204,8 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
             onChanged: (value) {
               final newVisibleTo =
                   Map<AppUserRole, NavigationAdFrequencyConfig>.from(
-                config.visibleTo,
-              );
+                    config.visibleTo,
+                  );
               if (value) {
                 newVisibleTo[role] = const NavigationAdFrequencyConfig(
                   internalNavigationsBeforeShowingInterstitialAd: 5,
@@ -231,16 +238,16 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
                   AppConfigIntField(
                     label: l10n.internalNavigationsBeforeAdLabel,
                     description: l10n.internalNavigationsBeforeAdDescription,
-                    value:
-                        roleConfig.internalNavigationsBeforeShowingInterstitialAd,
+                    value: roleConfig
+                        .internalNavigationsBeforeShowingInterstitialAd,
                     onChanged: (value) {
                       final newRoleConfig = roleConfig.copyWith(
                         internalNavigationsBeforeShowingInterstitialAd: value,
                       );
                       final newVisibleTo =
                           Map<AppUserRole, NavigationAdFrequencyConfig>.from(
-                        config.visibleTo,
-                      )..[role] = newRoleConfig;
+                            config.visibleTo,
+                          )..[role] = newRoleConfig;
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
                           features: widget.remoteConfig.features.copyWith(
@@ -258,16 +265,16 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
                   AppConfigIntField(
                     label: l10n.externalNavigationsBeforeAdLabel,
                     description: l10n.externalNavigationsBeforeAdDescription,
-                    value:
-                        roleConfig.externalNavigationsBeforeShowingInterstitialAd,
+                    value: roleConfig
+                        .externalNavigationsBeforeShowingInterstitialAd,
                     onChanged: (value) {
                       final newRoleConfig = roleConfig.copyWith(
                         externalNavigationsBeforeShowingInterstitialAd: value,
                       );
                       final newVisibleTo =
                           Map<AppUserRole, NavigationAdFrequencyConfig>.from(
-                        config.visibleTo,
-                      )..[role] = newRoleConfig;
+                            config.visibleTo,
+                          )..[role] = newRoleConfig;
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
                           features: widget.remoteConfig.features.copyWith(
@@ -295,7 +302,8 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
     AppUserRole role,
   ) {
     return config
-            .visibleTo[role]?.internalNavigationsBeforeShowingInterstitialAd ??
+            .visibleTo[role]
+            ?.internalNavigationsBeforeShowingInterstitialAd ??
         0;
   }
 
@@ -304,7 +312,8 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
     AppUserRole role,
   ) {
     return config
-            .visibleTo[role]?.externalNavigationsBeforeShowingInterstitialAd ??
+            .visibleTo[role]
+            ?.externalNavigationsBeforeShowingInterstitialAd ??
         0;
   }
 }

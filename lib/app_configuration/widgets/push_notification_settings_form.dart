@@ -74,8 +74,8 @@ class PushNotificationSettingsForm extends StatelessWidget {
         Text(
           l10n.pushNotificationPrimaryProviderDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Align(
@@ -124,8 +124,8 @@ class PushNotificationSettingsForm extends StatelessWidget {
         Text(
           l10n.pushNotificationDeliveryTypesDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Column(
@@ -136,9 +136,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
                   value: pushConfig.deliveryConfigs[type] ?? false,
                   onChanged: (value) {
                     final newDeliveryConfigs =
-                        Map<PushNotificationSubscriptionDeliveryType, bool>.from(
-                      pushConfig.deliveryConfigs,
-                    );
+                        Map<
+                          PushNotificationSubscriptionDeliveryType,
+                          bool
+                        >.from(
+                          pushConfig.deliveryConfigs,
+                        );
                     newDeliveryConfigs[type] = value;
                     onConfigChanged(
                       remoteConfig.copyWith(

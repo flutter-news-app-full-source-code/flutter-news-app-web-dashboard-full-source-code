@@ -30,7 +30,7 @@ class AdPlatformConfigForm extends StatefulWidget {
 class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
   late AdPlatformType _selectedPlatform;
   late Map<AdPlatformType, Map<String, TextEditingController>>
-      _platformAdIdentifierControllers;
+  _platformAdIdentifierControllers;
 
   @override
   void initState() {
@@ -53,18 +53,33 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
       for (final platform in AdPlatformType.values)
         platform: {
           'nativeAdId': TextEditingController(
-            text: widget.remoteConfig.features.ads
-                    .platformAdIdentifiers[platform]?.nativeAdId ??
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.nativeAdId ??
                 '',
           ),
           'bannerAdId': TextEditingController(
-            text: widget.remoteConfig.features.ads
-                    .platformAdIdentifiers[platform]?.bannerAdId ??
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.bannerAdId ??
                 '',
           ),
           'interstitialAdId': TextEditingController(
-            text: widget.remoteConfig.features.ads
-                    .platformAdIdentifiers[platform]?.interstitialAdId ??
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.interstitialAdId ??
                 '',
           ),
         },
@@ -131,8 +146,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             Text(
               l10n.primaryAdPlatformDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -189,8 +204,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             Text(
               l10n.adUnitIdentifiersDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -219,8 +234,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
     void updatePlatformIdentifiers(String key, String? value) {
       final newIdentifiers = platformIdentifiers.copyWith(
-        nativeAdId: key == 'nativeAdId' ? value : platformIdentifiers.nativeAdId,
-        bannerAdId: key == 'bannerAdId' ? value : platformIdentifiers.bannerAdId,
+        nativeAdId: key == 'nativeAdId'
+            ? value
+            : platformIdentifiers.nativeAdId,
+        bannerAdId: key == 'bannerAdId'
+            ? value
+            : platformIdentifiers.bannerAdId,
         interstitialAdId: key == 'interstitialAdId'
             ? value
             : platformIdentifiers.interstitialAdId,
@@ -228,12 +247,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
       final newPlatformAdIdentifiers =
           Map<AdPlatformType, AdPlatformIdentifiers>.from(
-        config.platformAdIdentifiers,
-      )..update(
-          platform,
-          (_) => newIdentifiers,
-          ifAbsent: () => newIdentifiers,
-        );
+            config.platformAdIdentifiers,
+          )..update(
+            platform,
+            (_) => newIdentifiers,
+            ifAbsent: () => newIdentifiers,
+          );
 
       widget.onConfigChanged(
         widget.remoteConfig.copyWith(
