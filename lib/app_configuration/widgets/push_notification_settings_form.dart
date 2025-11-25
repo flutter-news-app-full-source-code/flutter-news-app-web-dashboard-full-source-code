@@ -26,7 +26,8 @@ class PushNotificationSettingsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final pushConfig = remoteConfig.pushNotificationConfig;
+    final features = remoteConfig.features;
+    final pushConfig = features.pushNotifications;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -40,7 +41,9 @@ class PushNotificationSettingsForm extends StatelessWidget {
             onChanged: (value) {
               onConfigChanged(
                 remoteConfig.copyWith(
-                  pushNotificationConfig: pushConfig.copyWith(enabled: value),
+                  features: features.copyWith(
+                    pushNotifications: pushConfig.copyWith(enabled: value),
+                  ),
                 ),
               );
             },
@@ -71,8 +74,8 @@ class PushNotificationSettingsForm extends StatelessWidget {
         Text(
           l10n.pushNotificationPrimaryProviderDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Align(
@@ -90,8 +93,10 @@ class PushNotificationSettingsForm extends StatelessWidget {
             onSelectionChanged: (newSelection) {
               onConfigChanged(
                 remoteConfig.copyWith(
-                  pushNotificationConfig: pushConfig.copyWith(
-                    primaryProvider: newSelection.first,
+                  features: remoteConfig.features.copyWith(
+                    pushNotifications: pushConfig.copyWith(
+                      primaryProvider: newSelection.first,
+                    ),
                   ),
                 ),
               );
@@ -119,8 +124,8 @@ class PushNotificationSettingsForm extends StatelessWidget {
         Text(
           l10n.pushNotificationDeliveryTypesDescription,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Column(
@@ -131,17 +136,16 @@ class PushNotificationSettingsForm extends StatelessWidget {
                   value: pushConfig.deliveryConfigs[type] ?? false,
                   onChanged: (value) {
                     final newDeliveryConfigs =
-                        Map<
-                          PushNotificationSubscriptionDeliveryType,
-                          bool
-                        >.from(
-                          pushConfig.deliveryConfigs,
-                        );
+                        Map<PushNotificationSubscriptionDeliveryType, bool>.from(
+                      pushConfig.deliveryConfigs,
+                    );
                     newDeliveryConfigs[type] = value;
                     onConfigChanged(
                       remoteConfig.copyWith(
-                        pushNotificationConfig: pushConfig.copyWith(
-                          deliveryConfigs: newDeliveryConfigs,
+                        features: remoteConfig.features.copyWith(
+                          pushNotifications: pushConfig.copyWith(
+                            deliveryConfigs: newDeliveryConfigs,
+                          ),
                         ),
                       ),
                     );
