@@ -1,13 +1,13 @@
 part of 'settings_bloc.dart';
 
 sealed class SettingsState extends Equatable {
-  const SettingsState({this.userAppSettings});
+  const SettingsState({this.appSettings});
 
   /// The current user application settings. Null if not loaded or unauthenticated.
-  final UserAppSettings? userAppSettings;
+  final AppSettings? appSettings;
 
   @override
-  List<Object?> get props => [userAppSettings];
+  List<Object?> get props => [appSettings];
 }
 
 /// {@template settings_initial}
@@ -15,7 +15,7 @@ sealed class SettingsState extends Equatable {
 /// {@endtemplate}
 final class SettingsInitial extends SettingsState {
   /// {@macro settings_initial}
-  const SettingsInitial({super.userAppSettings});
+  const SettingsInitial({super.appSettings});
 }
 
 /// {@template settings_load_in_progress}
@@ -23,7 +23,7 @@ final class SettingsInitial extends SettingsState {
 /// {@endtemplate}
 final class SettingsLoadInProgress extends SettingsState {
   /// {@macro settings_load_in_progress}
-  const SettingsLoadInProgress({super.userAppSettings});
+  const SettingsLoadInProgress({super.appSettings});
 }
 
 /// {@template settings_load_success}
@@ -31,7 +31,7 @@ final class SettingsLoadInProgress extends SettingsState {
 /// {@endtemplate}
 final class SettingsLoadSuccess extends SettingsState {
   /// {@macro settings_load_success}
-  const SettingsLoadSuccess({required super.userAppSettings});
+  const SettingsLoadSuccess({required super.appSettings});
 }
 
 /// {@template settings_load_failure}
@@ -39,13 +39,13 @@ final class SettingsLoadSuccess extends SettingsState {
 /// {@endtemplate}
 final class SettingsLoadFailure extends SettingsState {
   /// {@macro settings_load_failure}
-  const SettingsLoadFailure(this.exception, {super.userAppSettings});
+  const SettingsLoadFailure(this.exception, {super.appSettings});
 
   /// The error exception describing the failure.
   final HttpException exception;
 
   @override
-  List<Object?> get props => [exception, userAppSettings];
+  List<Object?> get props => [exception, appSettings];
 }
 
 /// {@template settings_update_in_progress}
@@ -53,7 +53,7 @@ final class SettingsLoadFailure extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateInProgress extends SettingsState {
   /// {@macro settings_update_in_progress}
-  const SettingsUpdateInProgress({required super.userAppSettings});
+  const SettingsUpdateInProgress({required super.appSettings});
 }
 
 /// {@template settings_update_success}
@@ -61,7 +61,7 @@ final class SettingsUpdateInProgress extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateSuccess extends SettingsState {
   /// {@macro settings_update_success}
-  const SettingsUpdateSuccess({required super.userAppSettings});
+  const SettingsUpdateSuccess({required super.appSettings});
 }
 
 /// {@template settings_update_failure}
@@ -69,11 +69,11 @@ final class SettingsUpdateSuccess extends SettingsState {
 /// {@endtemplate}
 final class SettingsUpdateFailure extends SettingsState {
   /// {@macro settings_update_failure}
-  const SettingsUpdateFailure(this.exception, {super.userAppSettings});
+  const SettingsUpdateFailure(this.exception, {super.appSettings});
 
   /// The error exception describing the failure.
   final HttpException exception;
 
   @override
-  List<Object?> get props => [exception, userAppSettings];
+  List<Object?> get props => [exception, appSettings];
 }
