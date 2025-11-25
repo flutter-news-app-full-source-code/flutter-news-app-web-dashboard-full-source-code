@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/general_app_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/maintenance_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/update_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -45,28 +44,26 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final appConfig = widget.remoteConfig.app;
+    final maintenanceConfig = appConfig.maintenance;
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
-        // Maintenance Config
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 0;
-            return ExpansionTile(
-              key: ValueKey('maintenanceConfigTile_$expandedIndex'),
-              title: Text(l10n.maintenanceConfigTitle),
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
-              children: [
-                MaintenanceConfigForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
+        // Maintenance Config as a direct SwitchListTile
+        SwitchListTile(
+          title: Text(l10n.isUnderMaintenanceLabel),
+          subtitle: Text(l10n.isUnderMaintenanceDescription),
+          value: maintenanceConfig.isUnderMaintenance,
+          onChanged: (value) {
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                app: appConfig.copyWith(
+                  maintenance: maintenanceConfig.copyWith(
+                    isUnderMaintenance: value,
+                  ),
                 ),
-              ],
+              ),
             );
           },
         ),
@@ -79,7 +76,7 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
             const tileIndex = 1;
             return ExpansionTile(
               key: ValueKey('updateConfigTile_$expandedIndex'),
-              title: Text(l10n.updateConfigTitle),
+              title: Text(l10n.appUpdateManagementTitle),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
@@ -102,7 +99,7 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
             const tileIndex = 2;
             return ExpansionTile(
               key: ValueKey('generalAppConfigTile_$expandedIndex'),
-              title: Text(l10n.generalAppConfigTitle),
+              title: Text(l10n.appLegalInformationTitle),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },

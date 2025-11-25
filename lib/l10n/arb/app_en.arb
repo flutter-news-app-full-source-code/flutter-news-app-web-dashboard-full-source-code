@@ -1942,7 +1942,7 @@
   "@pushNotificationProviderOneSignal": {
     "description": "Label for the OneSignal push notification provider"
   },
-  "appTab": "App",
+  "appTab": "General",
   "@appTab": {
     "description": "Tab title for global App settings."
   },
@@ -2057,5 +2057,13 @@
   "savedHeadlinesLimitDescription": "Maximum number of headlines this user role can save.",
   "@savedHeadlinesLimitDescription": {
     "description": "Description for Saved Headlines Limit"
+  },
+  "appUpdateManagementTitle": "Application Update Management",
+  "@appUpdateManagementTitle": {
+    "description": "Title for the Application Update Management expansion tile."
+  },
+  "appLegalInformationTitle": "Legal & General Information",
+  "@appLegalInformationTitle": {
+    "description": "Title for the Legal & General Information expansion tile."
   }
 }

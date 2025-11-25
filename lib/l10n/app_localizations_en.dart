@@ -1550,7 +1550,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pushNotificationProviderOneSignal => 'OneSignal';
 
   @override
-  String get appTab => 'App';
+  String get appTab => 'General';
 
   @override
   String get featuresTab => 'Features';
@@ -1646,4 +1646,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get savedHeadlinesLimitDescription =>
       'Maximum number of headlines this user role can save.';
+
+  @override
+  String get appUpdateManagementTitle => 'Application Update Management';
+
+  @override
+  String get appLegalInformationTitle => 'Legal & General Information';
 }

@@ -1946,7 +1946,7 @@
   "@pushNotificationProviderOneSignal": {
     "description": "تسمية مزود الإشعارات الفورية OneSignal"
   },
-  "appTab": "التطبيق",
+  "appTab": "الإعدادات العامة",
   "@appTab": {
     "description": "عنوان تبويب إعدادات التطبيق العامة."
   },
@@ -2061,5 +2061,13 @@
   "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين التي يمكن لهذا الدور المستخدم حفظها.",
   "@savedHeadlinesLimitDescription": {
     "description": "وصف حد العناوين المحفوظة"
+  },
+  "appUpdateManagementTitle": "إدارة تحديثات التطبيق",
+  "@appUpdateManagementTitle": {
+    "description": "عنوان قسم إدارة تحديثات التطبيق القابل للتوسيع."
+  },
+  "appLegalInformationTitle": "المعلومات القانونية والعامة",
+  "@appLegalInformationTitle": {
+    "description": "عنوان قسم المعلومات القانونية والعامة القابل للتوسيع."
   }
 }

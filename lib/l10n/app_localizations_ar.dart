@@ -1547,7 +1547,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pushNotificationProviderOneSignal => 'OneSignal';
 
   @override
-  String get appTab => 'التطبيق';
+  String get appTab => 'الإعدادات العامة';
 
   @override
   String get featuresTab => 'الميزات';
@@ -1643,4 +1643,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get savedHeadlinesLimitDescription =>
       'الحد الأقصى لعدد العناوين التي يمكن لهذا الدور المستخدم حفظها.';
+
+  @override
+  String get appUpdateManagementTitle => 'إدارة تحديثات التطبيق';
+
+  @override
+  String get appLegalInformationTitle => 'المعلومات القانونية والعامة';
 }

@@ -2891,7 +2891,7 @@ abstract class AppLocalizations {
   /// Tab title for global App settings.
   ///
   /// In en, this message translates to:
-  /// **'App'**
+  /// **'General'**
   String get appTab;
 
   /// Tab title for Features settings (Ads, Notifications, etc.).
@@ -3061,6 +3061,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maximum number of headlines this user role can save.'**
   String get savedHeadlinesLimitDescription;
+
+  /// Title for the Application Update Management expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Application Update Management'**
+  String get appUpdateManagementTitle;
+
+  /// Title for the Legal & General Information expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal & General Information'**
+  String get appLegalInformationTitle;
 }
 
 class _AppLocalizationsDelegate
