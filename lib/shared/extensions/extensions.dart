@@ -5,7 +5,6 @@ export 'banner_ad_shape_l10n.dart';
 export 'content_status_l10n.dart';
 export 'dashboard_user_role_l10n.dart';
 export 'feed_decorator_type_l10n.dart';
-export 'in_article_ad_slot_type_l10n.dart';
 export 'push_notification_provider_l10n.dart';
 export 'push_notification_subscription_delivery_type_l10n.dart';
 export 'source_type_l10n.dart';
