@@ -59,7 +59,7 @@ Future<Widget> bootstrap(
   DataClient<Topic> topicsClient;
   DataClient<Source> sourcesClient;
   DataClient<UserContentPreferences> userContentPreferencesClient;
-  DataClient<AppSettings> appSettingsClient; // Changed from UserAppSettings
+  DataClient<AppSettings> appSettingsClient;
   DataClient<RemoteConfig> remoteConfigClient;
   DataClient<DashboardSummary> dashboardSummaryClient;
   DataClient<Country> countriesClient;
@@ -90,10 +90,13 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       logger: Logger('DataInMemory<UserContentPreferences>'),
     );
-    appSettingsClient = DataInMemory<AppSettings>( // Changed from UserAppSettings
+    appSettingsClient = DataInMemory<AppSettings>(
+      // Changed from UserAppSettings
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      logger: Logger('DataInMemory<AppSettings>'), // Changed from UserAppSettings
+      logger: Logger(
+        'DataInMemory<AppSettings>',
+      ), // Changed from UserAppSettings
     );
     remoteConfigClient = DataInMemory<RemoteConfig>(
       toJson: (i) => i.toJson(),
@@ -155,7 +158,8 @@ Future<Widget> bootstrap(
       toJson: (prefs) => prefs.toJson(),
       logger: Logger('DataApi<UserContentPreferences>'),
     );
-    appSettingsClient = DataApi<AppSettings>( // Changed from UserAppSettings
+    appSettingsClient = DataApi<AppSettings>(
+      // Changed from UserAppSettings
       httpClient: httpClient,
       modelName: 'app_settings', // Changed from user_app_settings
       fromJson: AppSettings.fromJson, // Changed from UserAppSettings.fromJson
@@ -213,7 +217,8 @@ Future<Widget> bootstrap(
       DataRepository<UserContentPreferences>(
         dataClient: userContentPreferencesClient,
       );
-  final appSettingsRepository = DataRepository<AppSettings>( // Changed from UserAppSettings
+  final appSettingsRepository = DataRepository<AppSettings>(
+    // Changed from UserAppSettings
     dataClient: appSettingsClient, // Changed from UserAppSettings
   );
   final remoteConfigRepository = DataRepository<RemoteConfig>(
