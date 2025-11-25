@@ -31,12 +31,17 @@ class SavedFilterLimitsSection extends StatefulWidget {
       _SavedFilterLimitsSectionState();
 }
 
-class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
-    with SingleTickerProviderStateMixin {
-  /// Notifier for the index of the currently expanded top-level ExpansionTile.
+class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection> {
+  /// Notifier for the index of the currently expanded nested ExpansionTile.
   ///
   /// A value of `null` means no tile is expanded.
   final ValueNotifier<int?> _expandedTileIndex = ValueNotifier<int?>(null);
+
+  @override
+  void dispose() {
+    _expandedTileIndex.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +70,8 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
                 Text(
                   l10n.savedHeadlineFilterLimitsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SavedFilterLimitsForm(
@@ -102,10 +105,8 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection>
                 Text(
                   l10n.savedSourceFilterLimitsDescription,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SavedFilterLimitsForm(
