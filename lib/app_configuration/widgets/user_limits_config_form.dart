@@ -107,11 +107,14 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.userContentLimitsDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: Text(
+            l10n.userContentLimitsDescription,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                ),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Align(
@@ -155,43 +158,45 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
     AppUserRole role,
     UserLimitsConfig limits,
   ) {
-    return Column(
-      children: [
-        AppConfigIntField(
-          label: l10n.followedItemsLimitLabel,
-          description: l10n.followedItemsLimitDescription,
-          value: limits.followedItems[role] ?? 0,
-          onChanged: (value) {
-            final newLimits = Map<AppUserRole, int>.from(limits.followedItems)
-              ..[role] = value;
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                user: widget.remoteConfig.user.copyWith(
-                  limits: limits.copyWith(followedItems: newLimits),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          AppConfigIntField(
+            label: l10n.followedItemsLimitLabel,
+            description: l10n.followedItemsLimitDescription,
+            value: limits.followedItems[role] ?? 0,
+            onChanged: (value) {
+              final newLimits = Map<AppUserRole, int>.from(limits.followedItems)
+                ..[role] = value;
+              widget.onConfigChanged(
+                widget.remoteConfig.copyWith(
+                  user: widget.remoteConfig.user.copyWith(
+                    limits: limits.copyWith(followedItems: newLimits),
+                  ),
                 ),
-              ),
-            );
-          },
-          controller: _followedItemsLimitControllers[role],
-        ),
-        AppConfigIntField(
-          label: l10n.savedHeadlinesLimitLabel,
-          description: l10n.savedHeadlinesLimitDescription,
-          value: limits.savedHeadlines[role] ?? 0,
-          onChanged: (value) {
-            final newLimits = Map<AppUserRole, int>.from(limits.savedHeadlines)
-              ..[role] = value;
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                user: widget.remoteConfig.user.copyWith(
-                  limits: limits.copyWith(savedHeadlines: newLimits),
+              );
+            },
+            controller: _followedItemsLimitControllers[role],
+          ),
+          AppConfigIntField(
+            label: l10n.savedHeadlinesLimitLabel,
+            description: l10n.savedHeadlinesLimitDescription,
+            value: limits.savedHeadlines[role] ?? 0,
+            onChanged: (value) {
+              final newLimits = Map<AppUserRole, int>.from(limits.savedHeadlines)
+                ..[role] = value;
+              widget.onConfigChanged(
+                widget.remoteConfig.copyWith(
+                  user: widget.remoteConfig.user.copyWith(
+                    limits: limits.copyWith(savedHeadlines: newLimits),
+                  ),
                 ),
-              ),
-            );
-          },
-          controller: _savedHeadlinesLimitControllers[role],
-        ),
-      ],
+              );
+            },
+            controller: _savedHeadlinesLimitControllers[role],
+          ),
+        ],
+      ),
     );
   }
 }
