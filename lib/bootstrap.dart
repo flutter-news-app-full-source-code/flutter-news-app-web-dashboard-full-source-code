@@ -59,7 +59,7 @@ Future<Widget> bootstrap(
   DataClient<Topic> topicsClient;
   DataClient<Source> sourcesClient;
   DataClient<UserContentPreferences> userContentPreferencesClient;
-  DataClient<UserAppSettings> userAppSettingsClient;
+  DataClient<AppSettings> appSettingsClient; // Changed from UserAppSettings
   DataClient<RemoteConfig> remoteConfigClient;
   DataClient<DashboardSummary> dashboardSummaryClient;
   DataClient<Country> countriesClient;
@@ -90,10 +90,10 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       logger: Logger('DataInMemory<UserContentPreferences>'),
     );
-    userAppSettingsClient = DataInMemory<UserAppSettings>(
+    appSettingsClient = DataInMemory<AppSettings>( // Changed from UserAppSettings
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      logger: Logger('DataInMemory<UserAppSettings>'),
+      logger: Logger('DataInMemory<AppSettings>'), // Changed from UserAppSettings
     );
     remoteConfigClient = DataInMemory<RemoteConfig>(
       toJson: (i) => i.toJson(),
@@ -155,12 +155,12 @@ Future<Widget> bootstrap(
       toJson: (prefs) => prefs.toJson(),
       logger: Logger('DataApi<UserContentPreferences>'),
     );
-    userAppSettingsClient = DataApi<UserAppSettings>(
+    appSettingsClient = DataApi<AppSettings>( // Changed from UserAppSettings
       httpClient: httpClient,
-      modelName: 'user_app_settings',
-      fromJson: UserAppSettings.fromJson,
+      modelName: 'app_settings', // Changed from user_app_settings
+      fromJson: AppSettings.fromJson, // Changed from UserAppSettings.fromJson
       toJson: (settings) => settings.toJson(),
-      logger: Logger('DataApi<UserAppSettings>'),
+      logger: Logger('DataApi<AppSettings>'), // Changed from UserAppSettings
     );
     remoteConfigClient = DataApi<RemoteConfig>(
       httpClient: httpClient,
@@ -213,8 +213,8 @@ Future<Widget> bootstrap(
       DataRepository<UserContentPreferences>(
         dataClient: userContentPreferencesClient,
       );
-  final userAppSettingsRepository = DataRepository<UserAppSettings>(
-    dataClient: userAppSettingsClient,
+  final appSettingsRepository = DataRepository<AppSettings>( // Changed from UserAppSettings
+    dataClient: appSettingsClient, // Changed from UserAppSettings
   );
   final remoteConfigRepository = DataRepository<RemoteConfig>(
     dataClient: remoteConfigClient,
@@ -235,7 +235,7 @@ Future<Widget> bootstrap(
     headlinesRepository: headlinesRepository,
     topicsRepository: topicsRepository,
     sourcesRepository: sourcesRepository,
-    userAppSettingsRepository: userAppSettingsRepository,
+    appSettingsRepository: appSettingsRepository,
     userContentPreferencesRepository: userContentPreferencesRepository,
     remoteConfigRepository: remoteConfigRepository,
     dashboardSummaryRepository: dashboardSummaryRepository,
