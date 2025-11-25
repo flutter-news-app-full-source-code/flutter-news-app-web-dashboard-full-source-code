@@ -25,7 +25,7 @@ class AppState extends Equatable {
     this.status = AppStatus.initial,
     this.user,
     this.environment,
-    this.userAppSettings,
+    this.appSettings,
   });
 
   /// The current authentication status of the application.
@@ -38,24 +38,25 @@ class AppState extends Equatable {
   final local_config.AppEnvironment? environment;
 
   /// The current user application settings. Null if not loaded or unauthenticated.
-  final UserAppSettings? userAppSettings;
+  final AppSettings? appSettings;
 
   /// Creates a copy of the current state with updated values.
   AppState copyWith({
     AppStatus? status,
     User? user,
     local_config.AppEnvironment? environment,
-    UserAppSettings? userAppSettings,
+    AppSettings? appSettings,
     bool clearEnvironment = false,
-    bool clearUserAppSettings = false,
+    bool clearAppSettings = false,
   }) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,
       environment: clearEnvironment ? null : environment ?? this.environment,
-      userAppSettings: clearUserAppSettings
+      appSettings:
+          clearAppSettings // Corrected property name
           ? null
-          : userAppSettings ?? this.userAppSettings,
+          : appSettings ?? this.appSettings,
     );
   }
 
@@ -64,6 +65,6 @@ class AppState extends Equatable {
     status,
     user,
     environment,
-    userAppSettings,
+    appSettings,
   ];
 }

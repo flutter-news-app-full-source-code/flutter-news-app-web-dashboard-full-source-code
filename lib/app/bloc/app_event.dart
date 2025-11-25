@@ -29,11 +29,11 @@ class AppLogoutRequested extends AppEvent {
 /// {@endtemplate}
 final class AppUserAppSettingsChanged extends AppEvent {
   /// {@macro app_user_app_settings_changed}
-  const AppUserAppSettingsChanged(this.userAppSettings);
+  const AppUserAppSettingsChanged(this.appSettings);
 
   /// The updated user application settings.
-  final UserAppSettings userAppSettings;
+  final AppSettings appSettings;
 
   @override
-  List<Object?> get props => [userAppSettings];
+  List<Object?> get props => [appSettings];
 }
