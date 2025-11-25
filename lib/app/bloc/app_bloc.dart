@@ -17,18 +17,20 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required AuthRepository authenticationRepository,
-    required DataRepository<AppSettings> userAppSettingsRepository,
+    required DataRepository<AppSettings> appSettingsRepository,
     required DataRepository<RemoteConfig> appConfigRepository,
     required local_config.AppEnvironment environment,
     Logger? logger,
   }) : _authenticationRepository = authenticationRepository,
-       _userAppSettingsRepository = userAppSettingsRepository,
+       _appSettingsRepository = appSettingsRepository,
        _appConfigRepository = appConfigRepository,
        _logger = logger ?? Logger('AppBloc'),
        super(AppState(environment: environment)) {
     on<AppUserChanged>(_onAppUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);
-    on<AppUserAppSettingsChanged>(_onAppUserAppSettingsChanged);
+    on<AppUserAppSettingsChanged>(
+      _onAppUserAppSettingsChanged,
+    );
 
     _userSubscription = _authenticationRepository.authStateChanges.listen(
       (User? user) => add(AppUserChanged(user)),
@@ -36,7 +38,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   final AuthRepository _authenticationRepository;
-  final DataRepository<AppSettings> _userAppSettingsRepository;
+  final DataRepository<AppSettings> _appSettingsRepository;
   final DataRepository<RemoteConfig> _appConfigRepository;
   final Logger _logger;
   late final StreamSubscription<User?> _userSubscription;
@@ -68,7 +70,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     // If user is authenticated, load their app settings
     if (status == AppStatus.authenticated && user != null) {
       try {
-        final appSettings = await _userAppSettingsRepository.read(
+        final appSettings = await _appSettingsRepository.read(
           id: user.id,
         );
         emit(state.copyWith(appSettings: appSettings));
@@ -78,7 +80,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           'User app settings not found for user ${user.id}. Creating default.',
         );
         final defaultSettings = AppSettings(
-          // Corrected class name
           id: user.id,
           displaySettings: const DisplaySettings(
             baseTheme: AppBaseTheme.system,
@@ -94,13 +95,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             ),
           ),
           feedSettings: const FeedSettings(
-            // Corrected class name and properties
             feedItemDensity: FeedItemDensity.standard,
             feedItemImageStyle: FeedItemImageStyle.largeThumbnail,
-            feedItemClickBehavior: FeedItemClickBehavior.internalNavigation,
+            feedItemClickBehavior: FeedItemClickBehavior.defaultBehavior,
           ),
         );
-        await _userAppSettingsRepository.create(item: defaultSettings);
+        await _appSettingsRepository.create(item: defaultSettings);
         emit(state.copyWith(appSettings: defaultSettings));
       } on HttpException catch (e, s) {
         // Handle HTTP exceptions during settings load
