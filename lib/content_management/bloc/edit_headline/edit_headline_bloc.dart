@@ -22,7 +22,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
        ) {
     on<EditHeadlineLoaded>(_onEditHeadlineLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
-    on<EditHeadlineExcerptChanged>(_onExcerptChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
     on<EditHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
@@ -47,7 +46,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         state.copyWith(
           status: EditHeadlineStatus.initial,
           title: headline.title,
-          excerpt: headline.excerpt,
           url: headline.url,
           imageUrl: headline.imageUrl,
           source: () => headline.source,
@@ -74,18 +72,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) {
     emit(
       state.copyWith(title: event.title, status: EditHeadlineStatus.initial),
-    );
-  }
-
-  void _onExcerptChanged(
-    EditHeadlineExcerptChanged event,
-    Emitter<EditHeadlineState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        excerpt: event.excerpt,
-        status: EditHeadlineStatus.initial,
-      ),
     );
   }
 
@@ -168,7 +154,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       );
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
-        excerpt: state.excerpt,
         url: state.url,
         imageUrl: state.imageUrl,
         source: state.source,
@@ -213,7 +198,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       );
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
-        excerpt: state.excerpt,
         url: state.url,
         imageUrl: state.imageUrl,
         source: state.source,
