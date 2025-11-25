@@ -188,103 +188,105 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
   ) {
     final roleConfig = config.visibleTo[role];
 
-    return Column(
-      children: [
-        SwitchListTile(
-          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-          value: roleConfig != null,
-          onChanged: (value) {
-            final newVisibleTo =
-                Map<AppUserRole, NavigationAdFrequencyConfig>.from(
-              config.visibleTo,
-            );
-            if (value) {
-              newVisibleTo[role] = const NavigationAdFrequencyConfig(
-                internalNavigationsBeforeShowingInterstitialAd: 5,
-                externalNavigationsBeforeShowingInterstitialAd: 1,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SwitchListTile(
+            title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+            value: roleConfig != null,
+            onChanged: (value) {
+              final newVisibleTo =
+                  Map<AppUserRole, NavigationAdFrequencyConfig>.from(
+                config.visibleTo,
               );
-            } else {
-              newVisibleTo.remove(role);
-            }
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                features: widget.remoteConfig.features.copyWith(
-                  ads: widget.remoteConfig.features.ads.copyWith(
-                    navigationAdConfiguration: config.copyWith(
-                      visibleTo: newVisibleTo,
+              if (value) {
+                newVisibleTo[role] = const NavigationAdFrequencyConfig(
+                  internalNavigationsBeforeShowingInterstitialAd: 5,
+                  externalNavigationsBeforeShowingInterstitialAd: 1,
+                );
+              } else {
+                newVisibleTo.remove(role);
+              }
+              widget.onConfigChanged(
+                widget.remoteConfig.copyWith(
+                  features: widget.remoteConfig.features.copyWith(
+                    ads: widget.remoteConfig.features.ads.copyWith(
+                      navigationAdConfiguration: config.copyWith(
+                        visibleTo: newVisibleTo,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
-        if (roleConfig != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.lg,
-              vertical: AppSpacing.sm,
-            ),
-            child: Column(
-              children: [
-                AppConfigIntField(
-                  label: l10n.internalNavigationsBeforeAdLabel,
-                  description: l10n.internalNavigationsBeforeAdDescription,
-                  value:
-                      roleConfig.internalNavigationsBeforeShowingInterstitialAd,
-                  onChanged: (value) {
-                    final newRoleConfig = roleConfig.copyWith(
-                      internalNavigationsBeforeShowingInterstitialAd: value,
-                    );
-                    final newVisibleTo =
-                        Map<AppUserRole, NavigationAdFrequencyConfig>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleConfig;
-                    widget.onConfigChanged(
-                      widget.remoteConfig.copyWith(
-                        features: widget.remoteConfig.features.copyWith(
-                          ads: widget.remoteConfig.features.ads.copyWith(
-                            navigationAdConfiguration: config.copyWith(
-                              visibleTo: newVisibleTo,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  controller: _internalNavigationsControllers[role],
-                ),
-                AppConfigIntField(
-                  label: l10n.externalNavigationsBeforeAdLabel,
-                  description: l10n.externalNavigationsBeforeAdDescription,
-                  value:
-                      roleConfig.externalNavigationsBeforeShowingInterstitialAd,
-                  onChanged: (value) {
-                    final newRoleConfig = roleConfig.copyWith(
-                      externalNavigationsBeforeShowingInterstitialAd: value,
-                    );
-                    final newVisibleTo =
-                        Map<AppUserRole, NavigationAdFrequencyConfig>.from(
-                      config.visibleTo,
-                    )..[role] = newRoleConfig;
-                    widget.onConfigChanged(
-                      widget.remoteConfig.copyWith(
-                        features: widget.remoteConfig.features.copyWith(
-                          ads: widget.remoteConfig.features.ads.copyWith(
-                            navigationAdConfiguration: config.copyWith(
-                              visibleTo: newVisibleTo,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  controller: _externalNavigationsControllers[role],
-                ),
-              ],
-            ),
+              );
+            },
           ),
-      ],
+          if (roleConfig != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.lg,
+                vertical: AppSpacing.sm,
+              ),
+              child: Column(
+                children: [
+                  AppConfigIntField(
+                    label: l10n.internalNavigationsBeforeAdLabel,
+                    description: l10n.internalNavigationsBeforeAdDescription,
+                    value:
+                        roleConfig.internalNavigationsBeforeShowingInterstitialAd,
+                    onChanged: (value) {
+                      final newRoleConfig = roleConfig.copyWith(
+                        internalNavigationsBeforeShowingInterstitialAd: value,
+                      );
+                      final newVisibleTo =
+                          Map<AppUserRole, NavigationAdFrequencyConfig>.from(
+                        config.visibleTo,
+                      )..[role] = newRoleConfig;
+                      widget.onConfigChanged(
+                        widget.remoteConfig.copyWith(
+                          features: widget.remoteConfig.features.copyWith(
+                            ads: widget.remoteConfig.features.ads.copyWith(
+                              navigationAdConfiguration: config.copyWith(
+                                visibleTo: newVisibleTo,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    controller: _internalNavigationsControllers[role],
+                  ),
+                  AppConfigIntField(
+                    label: l10n.externalNavigationsBeforeAdLabel,
+                    description: l10n.externalNavigationsBeforeAdDescription,
+                    value:
+                        roleConfig.externalNavigationsBeforeShowingInterstitialAd,
+                    onChanged: (value) {
+                      final newRoleConfig = roleConfig.copyWith(
+                        externalNavigationsBeforeShowingInterstitialAd: value,
+                      );
+                      final newVisibleTo =
+                          Map<AppUserRole, NavigationAdFrequencyConfig>.from(
+                        config.visibleTo,
+                      )..[role] = newRoleConfig;
+                      widget.onConfigChanged(
+                        widget.remoteConfig.copyWith(
+                          features: widget.remoteConfig.features.copyWith(
+                            ads: widget.remoteConfig.features.ads.copyWith(
+                              navigationAdConfiguration: config.copyWith(
+                                visibleTo: newVisibleTo,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    controller: _externalNavigationsControllers[role],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 
