@@ -1801,8 +1801,7 @@
   "subscriptionPremium": "مميز",
   "@subscriptionPremium": {
     "description": "حالة الاشتراك لمستخدم مميز"
-  }
-,
+  },
   "savedHeadlineFilterLimitsTitle": "حدود مرشحات العناوين المحفوظة",
   "@savedHeadlineFilterLimitsTitle": {
     "description": "عنوان قسم حدود مرشحات العناوين المحفوظة"
@@ -1854,8 +1853,7 @@
   "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "حصاد الأسبوع",
   "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
     "description": "تسمية لنوع توصيل إشعارات 'حصاد الأسبوع'"
-  }
-,
+  },
   "isBreakingNewsLabel": "وضع علامة 'خبر عاجل'",
   "@isBreakingNewsLabel": {
     "description": "تسمية مفتاح وضع علامة 'خبر عاجل' على العنوان"
@@ -1947,5 +1945,121 @@
   "pushNotificationProviderOneSignal": "OneSignal",
   "@pushNotificationProviderOneSignal": {
     "description": "تسمية مزود الإشعارات الفورية OneSignal"
+  },
+  "appTab": "التطبيق",
+  "@appTab": {
+    "description": "عنوان تبويب إعدادات التطبيق العامة."
+  },
+  "featuresTab": "الميزات",
+  "@featuresTab": {
+    "description": "عنوان تبويب إعدادات الميزات (الإعلانات، الإشعارات، إلخ)."
+  },
+  "userTab": "المستخدم",
+  "@userTab": {
+    "description": "عنوان تبويب الإعدادات والحدود الخاصة بالمستخدم."
+  },
+  "maintenanceConfigTitle": "وضع الصيانة",
+  "@maintenanceConfigTitle": {
+    "description": "عنوان قسم إعدادات وضع الصيانة."
+  },
+  "maintenanceConfigDescription": "تفعيل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.",
+  "@maintenanceConfigDescription": {
+    "description": "وصف قسم إعدادات وضع الصيانة."
+  },
+  "updateConfigTitle": "إعدادات التحديث",
+  "@updateConfigTitle": {
+    "description": "عنوان قسم إعدادات تحديث التطبيق."
+  },
+  "updateConfigDescription": "تكوين تحديثات التطبيق الإلزامية للمستخدمين.",
+  "@updateConfigDescription": {
+    "description": "وصف قسم إعدادات تحديث التطبيق."
+  },
+  "generalAppConfigTitle": "إعدادات التطبيق العامة",
+  "@generalAppConfigTitle": {
+    "description": "عنوان قسم إعدادات التطبيق العامة."
+  },
+  "generalAppConfigDescription": "إدارة الإعدادات العامة للتطبيق مثل روابط شروط الخدمة وسياسة الخصوصية.",
+  "@generalAppConfigDescription": {
+    "description": "وصف قسم إعدادات التطبيق العامة."
+  },
+  "termsOfServiceUrlLabel": "رابط شروط الخدمة",
+  "@termsOfServiceUrlLabel": {
+    "description": "تسمية حقل إدخال رابط شروط الخدمة."
+  },
+  "termsOfServiceUrlDescription": "الرابط لصفحة شروط الخدمة للتطبيق.",
+  "@termsOfServiceUrlDescription": {
+    "description": "وصف حقل إدخال رابط شروط الخدمة."
+  },
+  "privacyPolicyUrlLabel": "رابط سياسة الخصوصية",
+  "@privacyPolicyUrlLabel": {
+    "description": "تسمية حقل إدخال رابط سياسة الخصوصية."
+  },
+  "privacyPolicyUrlDescription": "الرابط لصفحة سياسة الخصوصية للتطبيق.",
+  "@privacyPolicyUrlDescription": {
+    "description": "وصف حقل إدخال رابط سياسة الخصوصية."
+  },
+  "navigationAdConfigTitle": "إعدادات إعلانات التنقل",
+  "@navigationAdConfigTitle": {
+    "description": "عنوان قسم إعدادات إعلانات التنقل (البينية)."
+  },
+  "enableNavigationAdsLabel": "تفعيل إعلانات التنقل",
+  "@enableNavigationAdsLabel": {
+    "description": "تسمية مفتاح تفعيل إعلانات التنقل."
+  },
+  "navigationAdFrequencyTitle": "تكرار إعلانات التنقل",
+  "@navigationAdFrequencyTitle": {
+    "description": "عنوان قسم إعدادات تكرار إعلانات التنقل."
+  },
+  "navigationAdFrequencyDescription": "تكوين عدد الانتقالات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني، بناءً على دوره.",
+  "@navigationAdFrequencyDescription": {
+    "description": "وصف قسم إعدادات تكرار إعلانات التنقل."
+  },
+  "internalNavigationsBeforeAdLabel": "الانتقالات الداخلية قبل الإعلان",
+  "@internalNavigationsBeforeAdLabel": {
+    "description": "تسمية عدد الانتقالات الداخلية قبل عرض الإعلان."
+  },
+  "internalNavigationsBeforeAdDescription": "عدد الانتقالات الداخلية بين الصفحات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
+  "@internalNavigationsBeforeAdDescription": {
+    "description": "وصف إعداد الانتقالات الداخلية قبل الإعلان."
+  },
+  "externalNavigationsBeforeAdLabel": "الانتقالات الخارجية قبل الإعلان",
+  "@externalNavigationsBeforeAdLabel": {
+    "description": "تسمية عدد الانتقالات الخارجية قبل عرض الإعلان."
+  },
+  "externalNavigationsBeforeAdDescription": "عدد الانتقالات الخارجية التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
+  "@externalNavigationsBeforeAdDescription": {
+    "description": "وصف إعداد الانتقالات الخارجية قبل الإعلان."
+  },
+  "nativeAdIdLabel": "معرف الإعلان الأصلي",
+  "@nativeAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف الإعلان الأصلي."
+  },
+  "nativeAdIdDescription": "معرف الوحدة للإعلانات الأصلية.",
+  "@nativeAdIdDescription": {
+    "description": "وصف حقل إدخال معرف الإعلان الأصلي."
+  },
+  "bannerAdIdLabel": "معرف إعلان البانر",
+  "@bannerAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف إعلان البانر."
+  },
+  "bannerAdIdDescription": "معرف الوحدة لإعلانات البانر.",
+  "@bannerAdIdDescription": {
+    "description": "وصف حقل إدخال معرف إعلان البانر."
+  },
+  "interstitialAdIdLabel": "معرف الإعلان البيني",
+  "@interstitialAdIdLabel": {
+    "description": "تسمية حقل إدخال معرف الإعلان البيني."
+  },
+  "interstitialAdIdDescription": "معرف الوحدة للإعلانات البينية.",
+  "@interstitialAdIdDescription": {
+    "description": "وصف حقل إدخال معرف الإعلان البيني."
+  },
+  "savedHeadlinesLimitLabel": "حد العناوين المحفوظة",
+  "@savedHeadlinesLimitLabel": {
+    "description": "تسمية حد العناوين المحفوظة"
+  },
+  "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين التي يمكن لهذا الدور المستخدم حفظها.",
+  "@savedHeadlinesLimitDescription": {
+    "description": "وصف حد العناوين المحفوظة"
   }
 }

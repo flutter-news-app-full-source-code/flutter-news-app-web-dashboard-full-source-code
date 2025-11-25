@@ -1941,5 +1941,121 @@
   "pushNotificationProviderOneSignal": "OneSignal",
   "@pushNotificationProviderOneSignal": {
     "description": "Label for the OneSignal push notification provider"
+  },
+  "appTab": "App",
+  "@appTab": {
+    "description": "Tab title for global App settings."
+  },
+  "featuresTab": "Features",
+  "@featuresTab": {
+    "description": "Tab title for Features settings (Ads, Notifications, etc.)."
+  },
+  "userTab": "User",
+  "@userTab": {
+    "description": "Tab title for User-specific settings and limits."
+  },
+  "maintenanceConfigTitle": "Maintenance Mode",
+  "@maintenanceConfigTitle": {
+    "description": "Title for the Maintenance Mode configuration section."
+  },
+  "maintenanceConfigDescription": "Enable to put the app into maintenance mode, preventing user access.",
+  "@maintenanceConfigDescription": {
+    "description": "Description for the Maintenance Mode configuration section."
+  },
+  "updateConfigTitle": "Update Settings",
+  "@updateConfigTitle": {
+    "description": "Title for the App Update configuration section."
+  },
+  "updateConfigDescription": "Configure mandatory app updates for users.",
+  "@updateConfigDescription": {
+    "description": "Description for the App Update configuration section."
+  },
+  "generalAppConfigTitle": "General App Settings",
+  "@generalAppConfigTitle": {
+    "description": "Title for the General App Settings configuration section."
+  },
+  "generalAppConfigDescription": "Manage general application settings like Terms of Service and Privacy Policy URLs.",
+  "@generalAppConfigDescription": {
+    "description": "Description for the General App Settings configuration section."
+  },
+  "termsOfServiceUrlLabel": "Terms of Service URL",
+  "@termsOfServiceUrlLabel": {
+    "description": "Label for the Terms of Service URL input field."
+  },
+  "termsOfServiceUrlDescription": "The URL for the application's Terms of Service page.",
+  "@termsOfServiceUrlDescription": {
+    "description": "Description for the Terms of Service URL input field."
+  },
+  "privacyPolicyUrlLabel": "Privacy Policy URL",
+  "@privacyPolicyUrlLabel": {
+    "description": "Label for the Privacy Policy URL input field."
+  },
+  "privacyPolicyUrlDescription": "The URL for the application's Privacy Policy page.",
+  "@privacyPolicyUrlDescription": {
+    "description": "Description for the Privacy Policy URL input field."
+  },
+  "navigationAdConfigTitle": "Navigation Ad Settings",
+  "@navigationAdConfigTitle": {
+    "description": "Title for the Navigation (Interstitial) Ad Settings section."
+  },
+  "enableNavigationAdsLabel": "Enable Navigation Ads",
+  "@enableNavigationAdsLabel": {
+    "description": "Label for the switch to enable navigation ads."
+  },
+  "navigationAdFrequencyTitle": "Navigation Ad Frequency",
+  "@navigationAdFrequencyTitle": {
+    "description": "Title for the Navigation Ad Frequency settings section."
+  },
+  "navigationAdFrequencyDescription": "Configure how many transitions a user must make before an interstitial ad is shown, based on their role.",
+  "@navigationAdFrequencyDescription": {
+    "description": "Description for the Navigation Ad Frequency settings section."
+  },
+  "internalNavigationsBeforeAdLabel": "Internal Navigations Before Ad",
+  "@internalNavigationsBeforeAdLabel": {
+    "description": "Label for the number of internal navigations before showing an ad."
+  },
+  "internalNavigationsBeforeAdDescription": "The number of internal page-to-page navigations a user must make before an interstitial ad is displayed.",
+  "@internalNavigationsBeforeAdDescription": {
+    "description": "Description for the internal navigations before ad setting."
+  },
+  "externalNavigationsBeforeAdLabel": "External Navigations Before Ad",
+  "@externalNavigationsBeforeAdLabel": {
+    "description": "Label for the number of external navigations before showing an ad."
+  },
+  "externalNavigationsBeforeAdDescription": "The number of external navigations a user must make before an interstitial ad is displayed.",
+  "@externalNavigationsBeforeAdDescription": {
+    "description": "Description for the external navigations before ad setting."
+  },
+  "nativeAdIdLabel": "Native Ad ID",
+  "@nativeAdIdLabel": {
+    "description": "Label for the Native Ad ID input field."
+  },
+  "nativeAdIdDescription": "The unit ID for native ads.",
+  "@nativeAdIdDescription": {
+    "description": "Description for the Native Ad ID input field."
+  },
+  "bannerAdIdLabel": "Banner Ad ID",
+  "@bannerAdIdLabel": {
+    "description": "Label for the Banner Ad ID input field."
+  },
+  "bannerAdIdDescription": "The unit ID for banner ads.",
+  "@bannerAdIdDescription": {
+    "description": "Description for the Banner Ad ID input field."
+  },
+  "interstitialAdIdLabel": "Interstitial Ad ID",
+  "@interstitialAdIdLabel": {
+    "description": "Label for the Interstitial Ad ID input field."
+  },
+  "interstitialAdIdDescription": "The unit ID for interstitial ads.",
+  "@interstitialAdIdDescription": {
+    "description": "Description for the Interstitial Ad ID input field."
+  },
+  "savedHeadlinesLimitLabel": "Saved Headlines Limit",
+  "@savedHeadlinesLimitLabel": {
+    "description": "Label for Saved Headlines Limit"
+  },
+  "savedHeadlinesLimitDescription": "Maximum number of headlines this user role can save.",
+  "@savedHeadlinesLimitDescription": {
+    "description": "Description for Saved Headlines Limit"
   }
 }
