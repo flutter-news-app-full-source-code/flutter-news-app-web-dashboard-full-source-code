@@ -20,11 +20,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SettingsBloc(
-        appSettingsRepository:
-            context 
-                .read<
-                  DataRepository<AppSettings>
-                >(), 
+        appSettingsRepository: context.read<DataRepository<AppSettings>>(),
       )..add(SettingsLoaded(userId: context.read<AppBloc>().state.user?.id)),
       child: const _SettingsView(),
     );
@@ -90,11 +86,10 @@ class _SettingsViewState extends State<_SettingsView> {
               );
             // Trigger AppBloc to reload settings for immediate UI update
             if (state.appSettings != null) {
-              
               context.read<AppBloc>().add(
                 AppUserAppSettingsChanged(
                   state.appSettings!,
-                ), 
+                ),
               );
             }
           } else if (state is SettingsUpdateFailure) {
@@ -108,8 +103,7 @@ class _SettingsViewState extends State<_SettingsView> {
           }
         },
         builder: (context, state) {
-          if (state.appSettings == null && 
-              state is! SettingsLoadInProgress) {
+          if (state.appSettings == null && state is! SettingsLoadInProgress) {
             // If settings are null and not loading, try to load them
             context.read<SettingsBloc>().add(
               SettingsLoaded(userId: context.read<AppBloc>().state.user?.id),
@@ -134,7 +128,6 @@ class _SettingsViewState extends State<_SettingsView> {
               },
             );
           } else if (state.appSettings != null) {
-            
             final appSettings = state.appSettings!;
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),

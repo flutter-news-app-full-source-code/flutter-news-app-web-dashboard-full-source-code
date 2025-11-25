@@ -10,10 +10,8 @@ part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
-    required DataRepository<AppSettings>
-    appSettingsRepository, // Changed from UserAppSettings
-  }) : _appSettingsRepository =
-           appSettingsRepository, // Changed from UserAppSettings
+    required DataRepository<AppSettings> appSettingsRepository,
+  }) : _appSettingsRepository = appSettingsRepository,
        super(const SettingsInitial()) {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<SettingsBaseThemeChanged>(_onSettingsBaseThemeChanged);
@@ -33,7 +31,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(SettingsLoadInProgress(appSettings: state.appSettings));
     try {
       final appSettings = await _appSettingsRepository.read(
-        // Changed from userAppSettingsRepository
         id: event.userId!,
       );
       emit(SettingsLoadSuccess(appSettings: appSettings));
@@ -41,7 +38,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       // If settings are not found, create default settings for the user.
       // This ensures that a user always has a valid settings object.
       final defaultSettings = AppSettings(
-        // Changed from UserAppSettings
         id: event.userId!,
         displaySettings: const DisplaySettings(
           baseTheme: AppBaseTheme.system,
@@ -57,13 +53,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           ),
         ),
         feedSettings: const FeedSettings(
-          // Changed from FeedDisplayPreferences
-          feedItemDensity:
-              FeedItemDensity.standard, // Changed from headlineDensity
-          feedItemImageStyle: FeedItemImageStyle
-              .largeThumbnail, // Changed from headlineImageStyle
-          feedItemClickBehavior:
-              FeedItemClickBehavior.defaultBehavior, // Added new field
+          feedItemDensity: FeedItemDensity.standard,
+          feedItemImageStyle: FeedItemImageStyle.largeThumbnail,
+          feedItemClickBehavior: FeedItemClickBehavior.defaultBehavior,
         ),
       );
       await _appSettingsRepository.create(item: defaultSettings);
@@ -74,20 +66,19 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(
         SettingsLoadFailure(
           UnknownException('An unexpected error occurred: $e'),
-          appSettings: state.appSettings, // Changed from userAppSettings
+          appSettings: state.appSettings,
         ),
       );
     }
   }
 
   Future<void> _updateSettings(
-    AppSettings updatedSettings, // Changed from UserAppSettings
+    AppSettings updatedSettings,
     Emitter<SettingsState> emit,
   ) async {
     emit(SettingsUpdateInProgress(appSettings: updatedSettings));
     try {
       final result = await _appSettingsRepository.update(
-        // Changed from userAppSettingsRepository
         id: updatedSettings.id,
         item: updatedSettings,
       );
@@ -98,7 +89,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(
         SettingsUpdateFailure(
           UnknownException('An unexpected error occurred: $e'),
-          appSettings: state.appSettings, // Changed from userAppSettings
+          appSettings: state.appSettings,
         ),
       );
     }

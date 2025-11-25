@@ -91,12 +91,11 @@ Future<Widget> bootstrap(
       logger: Logger('DataInMemory<UserContentPreferences>'),
     );
     appSettingsClient = DataInMemory<AppSettings>(
-      // Changed from UserAppSettings
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
       logger: Logger(
         'DataInMemory<AppSettings>',
-      ), // Changed from UserAppSettings
+      ),
     );
     remoteConfigClient = DataInMemory<RemoteConfig>(
       toJson: (i) => i.toJson(),
@@ -159,12 +158,11 @@ Future<Widget> bootstrap(
       logger: Logger('DataApi<UserContentPreferences>'),
     );
     appSettingsClient = DataApi<AppSettings>(
-      // Changed from UserAppSettings
       httpClient: httpClient,
-      modelName: 'app_settings', // Changed from user_app_settings
-      fromJson: AppSettings.fromJson, // Changed from UserAppSettings.fromJson
+      modelName: 'app_settings',
+      fromJson: AppSettings.fromJson,
       toJson: (settings) => settings.toJson(),
-      logger: Logger('DataApi<AppSettings>'), // Changed from UserAppSettings
+      logger: Logger('DataApi<AppSettings>'),
     );
     remoteConfigClient = DataApi<RemoteConfig>(
       httpClient: httpClient,
@@ -218,8 +216,7 @@ Future<Widget> bootstrap(
         dataClient: userContentPreferencesClient,
       );
   final appSettingsRepository = DataRepository<AppSettings>(
-    // Changed from UserAppSettings
-    dataClient: appSettingsClient, // Changed from UserAppSettings
+    dataClient: appSettingsClient,
   );
   final remoteConfigRepository = DataRepository<RemoteConfig>(
     dataClient: remoteConfigClient,

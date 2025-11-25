@@ -17,7 +17,8 @@ enum AppStatus {
 
 final class AppState extends Equatable {
   const AppState({
-    required this.environment, this.status = AppStatus.initial,
+    required this.environment,
+    this.status = AppStatus.initial,
     this.user,
     this.appSettings,
   });
