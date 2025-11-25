@@ -17,7 +17,6 @@ class CreateHeadlineBloc
   }) : _headlinesRepository = headlinesRepository,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
-    on<CreateHeadlineExcerptChanged>(_onExcerptChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
     on<CreateHeadlineImageUrlChanged>(_onImageUrlChanged);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
@@ -37,13 +36,6 @@ class CreateHeadlineBloc
     Emitter<CreateHeadlineState> emit,
   ) {
     emit(state.copyWith(title: event.title));
-  }
-
-  void _onExcerptChanged(
-    CreateHeadlineExcerptChanged event,
-    Emitter<CreateHeadlineState> emit,
-  ) {
-    emit(state.copyWith(excerpt: event.excerpt));
   }
 
   void _onUrlChanged(
@@ -99,7 +91,6 @@ class CreateHeadlineBloc
       final newHeadline = Headline(
         id: _uuid.v4(),
         title: state.title,
-        excerpt: state.excerpt,
         url: state.url,
         imageUrl: state.imageUrl,
         source: state.source!,
@@ -141,7 +132,6 @@ class CreateHeadlineBloc
       final newHeadline = Headline(
         id: _uuid.v4(),
         title: state.title,
-        excerpt: state.excerpt,
         url: state.url,
         imageUrl: state.imageUrl,
         source: state.source!,

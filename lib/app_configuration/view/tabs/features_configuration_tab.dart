@@ -1,20 +1,24 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_platform_config_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_filter_limits_section.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_preference_limits_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// {@template feed_configuration_tab}
-/// A widget representing the "Feed" tab in the App Configuration page.
+/// {@template features_configuration_tab}
+/// A widget representing the "Features" tab in the App Configuration page.
 ///
-/// This tab allows configuration of user content limits and feed decorators.
+/// This tab allows configuration of user-facing features like ads,
+/// push notifications, and feed settings.
 /// {@endtemplate}
-class FeedConfigurationTab extends StatefulWidget {
-  /// {@macro feed_configuration_tab}
-  const FeedConfigurationTab({
+class FeaturesConfigurationTab extends StatefulWidget {
+  /// {@macro features_configuration_tab}
+  const FeaturesConfigurationTab({
     required this.remoteConfig,
     required this.onConfigChanged,
     super.key,
@@ -27,10 +31,11 @@ class FeedConfigurationTab extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<FeedConfigurationTab> createState() => _FeedConfigurationTabState();
+  State<FeaturesConfigurationTab> createState() =>
+      _FeaturesConfigurationTabState();
 }
 
-class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
+class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
   /// Notifier for the index of the currently expanded top-level ExpansionTile.
   ///
   /// A value of `null` means no tile is expanded.
@@ -49,35 +54,35 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
-        // Top-level ExpansionTile for User Content Limits
+        // Advertisements
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
-              key: ValueKey('userContentLimitsTile_$expandedIndex'),
-              title: Text(l10n.userContentLimitsTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              key: ValueKey('advertisementsTile_$expandedIndex'),
+              title: Text(l10n.advertisementsTab),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
-                Text(
-                  l10n.userContentLimitsDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
+                AdConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                UserPreferenceLimitsForm(
+                AdPlatformConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                FeedAdSettingsForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                NavigationAdSettingsForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
@@ -86,35 +91,21 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-        // New Top-level ExpansionTile for User Preset Limits
+
+        // Push Notifications
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
-              key: ValueKey('savedFeedFilterLimitsTile_$expandedIndex'),
-              title: Text(l10n.savedFeedFilterLimitsTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              key: ValueKey('pushNotificationsTile_$expandedIndex'),
+              title: Text(l10n.notificationsTab),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
-                Text(
-                  l10n.savedFeedFilterLimitsDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SavedFilterLimitsSection(
+                PushNotificationSettingsForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
@@ -123,7 +114,8 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-        // New Top-level ExpansionTile for Feed Decorators
+
+        // Feed Decorators
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
@@ -151,7 +143,6 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                // Individual ExpansionTiles for each Feed Decorator, nested
                 for (final decoratorType in FeedDecoratorType.values)
                   Padding(
                     padding: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -166,37 +157,7 @@ class _FeedConfigurationTabState extends State<FeedConfigurationTab> {
                       children: [
                         FeedDecoratorForm(
                           decoratorType: decoratorType,
-                          remoteConfig: widget.remoteConfig.copyWith(
-                            feedDecoratorConfig:
-                                Map.from(
-                                  widget.remoteConfig.feedDecoratorConfig,
-                                )..putIfAbsent(
-                                  decoratorType,
-                                  () => FeedDecoratorConfig(
-                                    category:
-                                        decoratorType ==
-                                                FeedDecoratorType
-                                                    .suggestedTopics ||
-                                            decoratorType ==
-                                                FeedDecoratorType
-                                                    .suggestedSources
-                                        ? FeedDecoratorCategory
-                                              .contentCollection
-                                        : FeedDecoratorCategory.callToAction,
-                                    enabled: false,
-                                    visibleTo: const {},
-                                    itemsToDisplay:
-                                        decoratorType ==
-                                                FeedDecoratorType
-                                                    .suggestedTopics ||
-                                            decoratorType ==
-                                                FeedDecoratorType
-                                                    .suggestedSources
-                                        ? 0
-                                        : null,
-                                  ),
-                                ),
-                          ),
+                          remoteConfig: widget.remoteConfig,
                           onConfigChanged: widget.onConfigChanged,
                         ),
                       ],

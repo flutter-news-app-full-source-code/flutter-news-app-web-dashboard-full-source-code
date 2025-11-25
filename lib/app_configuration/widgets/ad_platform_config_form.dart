@@ -35,14 +35,15 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
   @override
   void initState() {
     super.initState();
-    _selectedPlatform = widget.remoteConfig.adConfig.primaryAdPlatform;
+    _selectedPlatform = widget.remoteConfig.features.ads.primaryAdPlatform;
     _initializeControllers();
   }
 
   @override
   void didUpdateWidget(covariant AdPlatformConfigForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.remoteConfig.adConfig != oldWidget.remoteConfig.adConfig) {
+    if (widget.remoteConfig.features.ads !=
+        oldWidget.remoteConfig.features.ads) {
       _updateControllers();
     }
   }
@@ -51,49 +52,34 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
     _platformAdIdentifierControllers = {
       for (final platform in AdPlatformType.values)
         platform: {
-          'feedNativeAdId': TextEditingController(
+          'nativeAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
-                    .adConfig
+                    .features
+                    .ads
                     .platformAdIdentifiers[platform]
-                    ?.feedNativeAdId ??
+                    ?.nativeAdId ??
                 '',
           ),
-          'feedBannerAdId': TextEditingController(
+          'bannerAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
-                    .adConfig
+                    .features
+                    .ads
                     .platformAdIdentifiers[platform]
-                    ?.feedBannerAdId ??
+                    ?.bannerAdId ??
                 '',
           ),
-          'feedToArticleInterstitialAdId': TextEditingController(
+          'interstitialAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
-                    .adConfig
+                    .features
+                    .ads
                     .platformAdIdentifiers[platform]
-                    ?.feedToArticleInterstitialAdId ??
-                '',
-          ),
-          'inArticleNativeAdId': TextEditingController(
-            text:
-                widget
-                    .remoteConfig
-                    .adConfig
-                    .platformAdIdentifiers[platform]
-                    ?.inArticleNativeAdId ??
-                '',
-          ),
-          'inArticleBannerAdId': TextEditingController(
-            text:
-                widget
-                    .remoteConfig
-                    .adConfig
-                    .platformAdIdentifiers[platform]
-                    ?.inArticleBannerAdId ??
+                    ?.interstitialAdId ??
                 '',
           ),
         },
@@ -102,95 +88,29 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
   void _updateControllers() {
     for (final platform in AdPlatformType.values) {
-      final feedNativeAdId =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.feedNativeAdId ??
-          '';
-      if (_platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text !=
-          feedNativeAdId) {
-        _platformAdIdentifierControllers[platform]!['feedNativeAdId']?.text =
-            feedNativeAdId;
-        _platformAdIdentifierControllers[platform]!['feedNativeAdId']
-            ?.selection = TextSelection.collapsed(
-          offset: feedNativeAdId.length,
-        );
+      final identifiers =
+          widget.remoteConfig.features.ads.platformAdIdentifiers[platform];
+
+      final nativeAdId = identifiers?.nativeAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['nativeAdId']?.text !=
+          nativeAdId) {
+        _platformAdIdentifierControllers[platform]!['nativeAdId']?.text =
+            nativeAdId;
       }
 
-      final feedBannerAdId =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.feedBannerAdId ??
-          '';
-      if (_platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text !=
-          feedBannerAdId) {
-        _platformAdIdentifierControllers[platform]!['feedBannerAdId']?.text =
-            feedBannerAdId;
-        _platformAdIdentifierControllers[platform]!['feedBannerAdId']
-            ?.selection = TextSelection.collapsed(
-          offset: feedBannerAdId.length,
-        );
+      final bannerAdId = identifiers?.bannerAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['bannerAdId']?.text !=
+          bannerAdId) {
+        _platformAdIdentifierControllers[platform]!['bannerAdId']?.text =
+            bannerAdId;
       }
 
-      final feedToArticleInterstitialAdId =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.feedToArticleInterstitialAdId ??
-          '';
-      if (_platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
+      final interstitialAdId = identifiers?.interstitialAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['interstitialAdId']
               ?.text !=
-          feedToArticleInterstitialAdId) {
-        _platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
-                ?.text =
-            feedToArticleInterstitialAdId;
-        _platformAdIdentifierControllers[platform]!['feedToArticleInterstitialAdId']
-            ?.selection = TextSelection.collapsed(
-          offset: feedToArticleInterstitialAdId.length,
-        );
-      }
-
-      final inArticleNativeAdId =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.inArticleNativeAdId ??
-          '';
-      if (_platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
-              ?.text !=
-          inArticleNativeAdId) {
-        _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
-                ?.text =
-            inArticleNativeAdId;
-        _platformAdIdentifierControllers[platform]!['inArticleNativeAdId']
-            ?.selection = TextSelection.collapsed(
-          offset: inArticleNativeAdId.length,
-        );
-      }
-
-      final inArticleBannerAdId =
-          widget
-              .remoteConfig
-              .adConfig
-              .platformAdIdentifiers[platform]
-              ?.inArticleBannerAdId ??
-          '';
-      if (_platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
-              ?.text !=
-          inArticleBannerAdId) {
-        _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
-                ?.text =
-            inArticleBannerAdId;
-        _platformAdIdentifierControllers[platform]!['inArticleBannerAdId']
-            ?.selection = TextSelection.collapsed(
-          offset: inArticleBannerAdId.length,
-        );
+          interstitialAdId) {
+        _platformAdIdentifierControllers[platform]!['interstitialAdId']?.text =
+            interstitialAdId;
       }
     }
   }
@@ -208,7 +128,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final adConfig = widget.remoteConfig.adConfig;
+    final adConfig = widget.remoteConfig.features.ads;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,9 +146,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             Text(
               l10n.primaryAdPlatformDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start,
             ),
@@ -259,8 +177,10 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
                   });
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
-                      adConfig: adConfig.copyWith(
-                        primaryAdPlatform: newSelection.first,
+                      features: widget.remoteConfig.features.copyWith(
+                        ads: adConfig.copyWith(
+                          primaryAdPlatform: newSelection.first,
+                        ),
                       ),
                     ),
                   );
@@ -284,9 +204,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
             Text(
               l10n.adUnitIdentifiersDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.start,
             ),
@@ -315,38 +233,33 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
     final controllers = _platformAdIdentifierControllers[platform]!;
 
     void updatePlatformIdentifiers(String key, String? value) {
-      AdPlatformIdentifiers newIdentifiers;
-
-      switch (key) {
-        case 'feedNativeAdId':
-          newIdentifiers = platformIdentifiers.copyWith(feedNativeAdId: value);
-        case 'feedBannerAdId':
-          newIdentifiers = platformIdentifiers.copyWith(feedBannerAdId: value);
-        case 'feedToArticleInterstitialAdId':
-          newIdentifiers = platformIdentifiers.copyWith(
-            feedToArticleInterstitialAdId: value,
-          );
-        case 'inArticleNativeAdId':
-          newIdentifiers = platformIdentifiers.copyWith(
-            inArticleNativeAdId: value,
-          );
-        case 'inArticleBannerAdId':
-          newIdentifiers = platformIdentifiers.copyWith(
-            inArticleBannerAdId: value,
-          );
-        default:
-          return;
-      }
+      final newIdentifiers = platformIdentifiers.copyWith(
+        nativeAdId: key == 'nativeAdId'
+            ? value
+            : platformIdentifiers.nativeAdId,
+        bannerAdId: key == 'bannerAdId'
+            ? value
+            : platformIdentifiers.bannerAdId,
+        interstitialAdId: key == 'interstitialAdId'
+            ? value
+            : platformIdentifiers.interstitialAdId,
+      );
 
       final newPlatformAdIdentifiers =
           Map<AdPlatformType, AdPlatformIdentifiers>.from(
             config.platformAdIdentifiers,
-          )..[platform] = newIdentifiers;
+          )..update(
+            platform,
+            (_) => newIdentifiers,
+            ifAbsent: () => newIdentifiers,
+          );
 
       widget.onConfigChanged(
         widget.remoteConfig.copyWith(
-          adConfig: config.copyWith(
-            platformAdIdentifiers: newPlatformAdIdentifiers,
+          features: widget.remoteConfig.features.copyWith(
+            ads: config.copyWith(
+              platformAdIdentifiers: newPlatformAdIdentifiers,
+            ),
           ),
         ),
       );
@@ -355,44 +268,26 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
     return Column(
       children: [
         AppConfigTextField(
-          label: l10n.feedNativeAdIdLabel,
-          description: l10n.feedNativeAdIdDescription,
-          value: platformIdentifiers.feedNativeAdId,
-          onChanged: (value) =>
-              updatePlatformIdentifiers('feedNativeAdId', value),
-          controller: controllers['feedNativeAdId'],
+          label: l10n.nativeAdIdLabel,
+          description: l10n.nativeAdIdDescription,
+          value: platformIdentifiers.nativeAdId,
+          onChanged: (value) => updatePlatformIdentifiers('nativeAdId', value),
+          controller: controllers['nativeAdId'],
         ),
         AppConfigTextField(
-          label: l10n.feedBannerAdIdLabel,
-          description: l10n.feedBannerAdIdDescription,
-          value: platformIdentifiers.feedBannerAdId,
-          onChanged: (value) =>
-              updatePlatformIdentifiers('feedBannerAdId', value),
-          controller: controllers['feedBannerAdId'],
+          label: l10n.bannerAdIdLabel,
+          description: l10n.bannerAdIdDescription,
+          value: platformIdentifiers.bannerAdId,
+          onChanged: (value) => updatePlatformIdentifiers('bannerAdId', value),
+          controller: controllers['bannerAdId'],
         ),
         AppConfigTextField(
-          label: l10n.feedToArticleInterstitialAdIdLabel,
-          description: l10n.feedToArticleInterstitialAdIdDescription,
-          value: platformIdentifiers.feedToArticleInterstitialAdId,
+          label: l10n.interstitialAdIdLabel,
+          description: l10n.interstitialAdIdDescription,
+          value: platformIdentifiers.interstitialAdId,
           onChanged: (value) =>
-              updatePlatformIdentifiers('feedToArticleInterstitialAdId', value),
-          controller: controllers['feedToArticleInterstitialAdId'],
-        ),
-        AppConfigTextField(
-          label: l10n.inArticleNativeAdIdLabel,
-          description: l10n.inArticleNativeAdIdDescription,
-          value: platformIdentifiers.inArticleNativeAdId,
-          onChanged: (value) =>
-              updatePlatformIdentifiers('inArticleNativeAdId', value),
-          controller: controllers['inArticleNativeAdId'],
-        ),
-        AppConfigTextField(
-          label: l10n.inArticleBannerAdIdLabel,
-          description: l10n.inArticleBannerAdIdDescription,
-          value: platformIdentifiers.inArticleBannerAdId,
-          onChanged: (value) =>
-              updatePlatformIdentifiers('inArticleBannerAdId', value),
-          controller: controllers['inArticleBannerAdId'],
+              updatePlatformIdentifiers('interstitialAdId', value),
+          controller: controllers['interstitialAdId'],
         ),
       ],
     );

@@ -20,8 +20,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SettingsBloc(
-        userAppSettingsRepository: context
-            .read<DataRepository<UserAppSettings>>(),
+        appSettingsRepository: context.read<DataRepository<AppSettings>>(),
       )..add(SettingsLoaded(userId: context.read<AppBloc>().state.user?.id)),
       child: const _SettingsView(),
     );
@@ -86,9 +85,11 @@ class _SettingsViewState extends State<_SettingsView> {
                 SnackBar(content: Text(l10n.settingsSavedSuccessfully)),
               );
             // Trigger AppBloc to reload settings for immediate UI update
-            if (state.userAppSettings != null) {
+            if (state.appSettings != null) {
               context.read<AppBloc>().add(
-                AppUserAppSettingsChanged(state.userAppSettings!),
+                AppUserAppSettingsChanged(
+                  state.appSettings!,
+                ),
               );
             }
           } else if (state is SettingsUpdateFailure) {
@@ -102,8 +103,7 @@ class _SettingsViewState extends State<_SettingsView> {
           }
         },
         builder: (context, state) {
-          if (state.userAppSettings == null &&
-              state is! SettingsLoadInProgress) {
+          if (state.appSettings == null && state is! SettingsLoadInProgress) {
             // If settings are null and not loading, try to load them
             context.read<SettingsBloc>().add(
               SettingsLoaded(userId: context.read<AppBloc>().state.user?.id),
@@ -127,8 +127,8 @@ class _SettingsViewState extends State<_SettingsView> {
                 );
               },
             );
-          } else if (state.userAppSettings != null) {
-            final userAppSettings = state.userAppSettings!;
+          } else if (state.appSettings != null) {
+            final appSettings = state.appSettings!;
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
               children: [
@@ -159,7 +159,7 @@ class _SettingsViewState extends State<_SettingsView> {
                           title: l10n.baseThemeLabel,
                           description: l10n.baseThemeDescription,
                           child: DropdownButton<AppBaseTheme>(
-                            value: userAppSettings.displaySettings.baseTheme,
+                            value: appSettings.displaySettings.baseTheme,
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
@@ -185,7 +185,7 @@ class _SettingsViewState extends State<_SettingsView> {
                           title: l10n.accentThemeLabel,
                           description: l10n.accentThemeDescription,
                           child: DropdownButton<AppAccentTheme>(
-                            value: userAppSettings.displaySettings.accentTheme,
+                            value: appSettings.displaySettings.accentTheme,
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
@@ -218,7 +218,7 @@ class _SettingsViewState extends State<_SettingsView> {
                           title: l10n.fontFamilyLabel,
                           description: l10n.fontFamilyDescription,
                           child: DropdownButton<String>(
-                            value: userAppSettings.displaySettings.fontFamily,
+                            value: appSettings.displaySettings.fontFamily,
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
@@ -242,8 +242,7 @@ class _SettingsViewState extends State<_SettingsView> {
                           title: l10n.textScaleFactorLabel,
                           description: l10n.textScaleFactorDescription,
                           child: DropdownButton<AppTextScaleFactor>(
-                            value:
-                                userAppSettings.displaySettings.textScaleFactor,
+                            value: appSettings.displaySettings.textScaleFactor,
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
@@ -269,7 +268,7 @@ class _SettingsViewState extends State<_SettingsView> {
                           title: l10n.fontWeightLabel,
                           description: l10n.fontWeightDescription,
                           child: DropdownButton<AppFontWeight>(
-                            value: userAppSettings.displaySettings.fontWeight,
+                            value: appSettings.displaySettings.fontWeight,
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<SettingsBloc>().add(
@@ -316,7 +315,7 @@ class _SettingsViewState extends State<_SettingsView> {
                           horizontal: AppSpacing.xxl,
                         ),
                         child: _LanguageSelectionList(
-                          currentLanguage: userAppSettings.language,
+                          currentLanguage: appSettings.language,
                           l10n: l10n,
                         ),
                       ),

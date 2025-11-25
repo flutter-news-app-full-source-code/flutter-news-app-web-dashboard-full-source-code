@@ -99,7 +99,9 @@ class SearchableSelectionBloc
         final response = await (_arguments.repository!).readAll(
           filter: finalFilter,
           sort: _arguments.sortOptions,
-          pagination: PaginationOptions(limit: _arguments.limit),
+          pagination: const PaginationOptions(
+            limit: 20,
+          ), // Do not lower it below 20 for the initial fetch, if the list items did not reach the bottom of the screen, the infinity scrolling will not function.
         );
 
         fetchedItems = response.items;

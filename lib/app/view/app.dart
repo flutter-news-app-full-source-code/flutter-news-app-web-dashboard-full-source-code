@@ -2,7 +2,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:auth_repository/auth_repository.dart';
-import 'package:core/core.dart' hide AppStatus;
+import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class App extends StatelessWidget {
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
-    required DataRepository<UserAppSettings> userAppSettingsRepository,
+    required DataRepository<AppSettings> appSettingsRepository,
     required DataRepository<UserContentPreferences>
     userContentPreferencesRepository,
     required DataRepository<RemoteConfig> remoteConfigRepository,
@@ -49,7 +49,7 @@ class App extends StatelessWidget {
        _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
-       _userAppSettingsRepository = userAppSettingsRepository,
+       _appSettingsRepository = appSettingsRepository,
        _userContentPreferencesRepository = userContentPreferencesRepository,
        _remoteConfigRepository = remoteConfigRepository,
        _kvStorageService = storageService,
@@ -64,7 +64,7 @@ class App extends StatelessWidget {
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
-  final DataRepository<UserAppSettings> _userAppSettingsRepository;
+  final DataRepository<AppSettings> _appSettingsRepository;
   final DataRepository<UserContentPreferences>
   _userContentPreferencesRepository;
   final DataRepository<RemoteConfig> _remoteConfigRepository;
@@ -86,7 +86,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _headlinesRepository),
         RepositoryProvider.value(value: _topicsRepository),
         RepositoryProvider.value(value: _sourcesRepository),
-        RepositoryProvider.value(value: _userAppSettingsRepository),
+        RepositoryProvider.value(value: _appSettingsRepository),
         RepositoryProvider.value(value: _userContentPreferencesRepository),
         RepositoryProvider.value(value: _remoteConfigRepository),
         RepositoryProvider.value(value: _dashboardSummaryRepository),
@@ -106,8 +106,8 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => AppBloc(
               authenticationRepository: context.read<AuthRepository>(),
-              userAppSettingsRepository: context
-                  .read<DataRepository<UserAppSettings>>(),
+              appSettingsRepository: context
+                  .read<DataRepository<AppSettings>>(),
               appConfigRepository: context.read<DataRepository<RemoteConfig>>(),
               environment: _environment,
               logger: Logger('AppBloc'),
@@ -214,20 +214,19 @@ class _AppViewState extends State<_AppView> {
     return BlocListener<AppBloc, AppState>(
       listenWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userAppSettings != current.userAppSettings,
+          previous.appSettings != current.appSettings,
       listener: (context, state) {
         _statusNotifier.value = state.status;
       },
       child: BlocBuilder<AppBloc, AppState>(
         builder: (context, state) {
-          final userAppSettings = state.userAppSettings;
-          final baseTheme = userAppSettings?.displaySettings.baseTheme;
-          final accentTheme = userAppSettings?.displaySettings.accentTheme;
-          final fontFamily = userAppSettings?.displaySettings.fontFamily;
-          final textScaleFactor =
-              userAppSettings?.displaySettings.textScaleFactor;
-          final fontWeight = userAppSettings?.displaySettings.fontWeight;
-          final language = userAppSettings?.language;
+          final appSettings = state.appSettings;
+          final baseTheme = appSettings?.displaySettings.baseTheme;
+          final accentTheme = appSettings?.displaySettings.accentTheme;
+          final fontFamily = appSettings?.displaySettings.fontFamily;
+          final textScaleFactor = appSettings?.displaySettings.textScaleFactor;
+          final fontWeight = appSettings?.displaySettings.fontWeight;
+          final language = appSettings?.language;
 
           final lightThemeData = lightTheme(
             scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,

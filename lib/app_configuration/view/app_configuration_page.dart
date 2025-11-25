@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/advertisements_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/feed_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/general_configuration_tab.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/app_configuration_tab.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/features_configuration_tab.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/user_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -31,7 +30,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     context.read<AppConfigurationBloc>().add(const AppConfigurationLoaded());
   }
 
@@ -66,10 +65,9 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: [
-            Tab(text: l10n.generalTab),
-            Tab(text: l10n.feedTab),
-            Tab(text: l10n.advertisementsTab),
-            Tab(text: l10n.notificationsTab),
+            Tab(text: l10n.appTab),
+            Tab(text: l10n.featuresTab),
+            Tab(text: l10n.userTab),
           ],
         ),
       ),
@@ -134,7 +132,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             return TabBarView(
               controller: _tabController,
               children: [
-                GeneralConfigurationTab(
+                AppConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
@@ -142,7 +140,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                     );
                   },
                 ),
-                FeedConfigurationTab(
+                FeaturesConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(
@@ -150,15 +148,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                     );
                   },
                 ),
-                AdvertisementsConfigurationTab(
-                  remoteConfig: remoteConfig,
-                  onConfigChanged: (newConfig) {
-                    context.read<AppConfigurationBloc>().add(
-                      AppConfigurationFieldChanged(remoteConfig: newConfig),
-                    );
-                  },
-                ),
-                PushNotificationSettingsForm(
+                UserConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(

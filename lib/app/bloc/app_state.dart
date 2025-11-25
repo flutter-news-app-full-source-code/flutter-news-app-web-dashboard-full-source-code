@@ -1,69 +1,47 @@
 part of 'app_bloc.dart';
 
-/// Represents the application's authentication status.
 enum AppStatus {
-  /// The application is initializing and the status is unknown.
+  /// The app is in its initial state, typically before any authentication
+  /// checks have been performed.
   initial,
 
-  /// The user is authenticated.
+  /// The user is authenticated and has a valid session.
   authenticated,
 
-  /// The user is unauthenticated.
+  /// The user is unauthenticated, meaning they are not logged in.
   unauthenticated,
 
-  /// The user is anonymous (signed in using an anonymous provider).
+  /// The user is authenticated anonymously.
   anonymous,
 }
 
-/// {@template app_state}
-/// Represents the overall state of the application, including authentication
-/// status, current user, environment, and user-specific settings.
-/// {@endtemplate}
-class AppState extends Equatable {
-  /// {@macro app_state}
+final class AppState extends Equatable {
   const AppState({
+    required this.environment,
     this.status = AppStatus.initial,
     this.user,
-    this.environment,
-    this.userAppSettings,
+    this.appSettings,
   });
 
-  /// The current authentication status of the application.
   final AppStatus status;
-
-  /// The current user details. Null if unauthenticated.
   final User? user;
+  final AppSettings? appSettings;
+  final local_config.AppEnvironment environment;
 
-  /// The current application environment (e.g., production, development, demo).
-  final local_config.AppEnvironment? environment;
-
-  /// The current user application settings. Null if not loaded or unauthenticated.
-  final UserAppSettings? userAppSettings;
-
-  /// Creates a copy of the current state with updated values.
   AppState copyWith({
     AppStatus? status,
     User? user,
-    local_config.AppEnvironment? environment,
-    UserAppSettings? userAppSettings,
-    bool clearEnvironment = false,
-    bool clearUserAppSettings = false,
+    AppSettings? appSettings,
+    bool clearAppSettings = false,
   }) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,
-      environment: clearEnvironment ? null : environment ?? this.environment,
-      userAppSettings: clearUserAppSettings
-          ? null
-          : userAppSettings ?? this.userAppSettings,
+      appSettings: clearAppSettings ? null : appSettings ?? this.appSettings,
+      environment: environment,
     );
   }
 
   @override
-  List<Object?> get props => [
-    status,
-    user,
-    environment,
-    userAppSettings,
-  ];
+  List<Object?> get props => [status, user, appSettings, environment];
 }

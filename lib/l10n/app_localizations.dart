@@ -2887,6 +2887,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OneSignal'**
   String get pushNotificationProviderOneSignal;
+
+  /// Tab title for global App settings.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get appTab;
+
+  /// Tab title for Features settings (Ads, Notifications, etc.).
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get featuresTab;
+
+  /// Tab title for User-specific settings and limits.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get userTab;
+
+  /// Title for the Maintenance Mode configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Mode'**
+  String get maintenanceConfigTitle;
+
+  /// Description for the Maintenance Mode configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable to put the app into maintenance mode, preventing user access.'**
+  String get maintenanceConfigDescription;
+
+  /// Title for the App Update configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Settings'**
+  String get updateConfigTitle;
+
+  /// Description for the App Update configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure mandatory app updates for users.'**
+  String get updateConfigDescription;
+
+  /// Title for the General App Settings configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'General App Settings'**
+  String get generalAppConfigTitle;
+
+  /// Description for the General App Settings configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage general application settings like Terms of Service and Privacy Policy URLs.'**
+  String get generalAppConfigDescription;
+
+  /// Label for the Terms of Service URL input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service URL'**
+  String get termsOfServiceUrlLabel;
+
+  /// Description for the Terms of Service URL input field.
+  ///
+  /// In en, this message translates to:
+  /// **'The URL for the application\'s Terms of Service page.'**
+  String get termsOfServiceUrlDescription;
+
+  /// Label for the Privacy Policy URL input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy URL'**
+  String get privacyPolicyUrlLabel;
+
+  /// Description for the Privacy Policy URL input field.
+  ///
+  /// In en, this message translates to:
+  /// **'The URL for the application\'s Privacy Policy page.'**
+  String get privacyPolicyUrlDescription;
+
+  /// Title for the Navigation (Interstitial) Ad Settings section.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigation Ad Settings'**
+  String get navigationAdConfigTitle;
+
+  /// Label for the switch to enable navigation ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Navigation Ads'**
+  String get enableNavigationAdsLabel;
+
+  /// Title for the Navigation Ad Frequency settings section.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigation Ad Frequency'**
+  String get navigationAdFrequencyTitle;
+
+  /// Description for the Navigation Ad Frequency settings section.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure how many transitions a user must make before an interstitial ad is shown, based on their role.'**
+  String get navigationAdFrequencyDescription;
+
+  /// Label for the number of internal navigations before showing an ad.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal Navigations Before Ad'**
+  String get internalNavigationsBeforeAdLabel;
+
+  /// Description for the internal navigations before ad setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of internal page-to-page navigations a user must make before an interstitial ad is displayed.'**
+  String get internalNavigationsBeforeAdDescription;
+
+  /// Label for the number of external navigations before showing an ad.
+  ///
+  /// In en, this message translates to:
+  /// **'External Navigations Before Ad'**
+  String get externalNavigationsBeforeAdLabel;
+
+  /// Description for the external navigations before ad setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of external navigations a user must make before an interstitial ad is displayed.'**
+  String get externalNavigationsBeforeAdDescription;
+
+  /// Label for the Native Ad ID input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Native Ad ID'**
+  String get nativeAdIdLabel;
+
+  /// Description for the Native Ad ID input field.
+  ///
+  /// In en, this message translates to:
+  /// **'The unit ID for native ads.'**
+  String get nativeAdIdDescription;
+
+  /// Label for the Banner Ad ID input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Banner Ad ID'**
+  String get bannerAdIdLabel;
+
+  /// Description for the Banner Ad ID input field.
+  ///
+  /// In en, this message translates to:
+  /// **'The unit ID for banner ads.'**
+  String get bannerAdIdDescription;
+
+  /// Label for the Interstitial Ad ID input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Interstitial Ad ID'**
+  String get interstitialAdIdLabel;
+
+  /// Description for the Interstitial Ad ID input field.
+  ///
+  /// In en, this message translates to:
+  /// **'The unit ID for interstitial ads.'**
+  String get interstitialAdIdDescription;
+
+  /// Label for Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Headlines Limit'**
+  String get savedHeadlinesLimitLabel;
+
+  /// Description for Saved Headlines Limit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of headlines this user role can save.'**
+  String get savedHeadlinesLimitDescription;
+
+  /// Title for the Application Update Management expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Application Update Management'**
+  String get appUpdateManagementTitle;
+
+  /// Title for the Legal & General Information expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal & General Information'**
+  String get appLegalInformationTitle;
 }
 
 class _AppLocalizationsDelegate

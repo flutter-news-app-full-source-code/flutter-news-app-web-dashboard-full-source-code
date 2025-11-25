@@ -44,7 +44,6 @@ class _EditHeadlineView extends StatefulWidget {
 class _EditHeadlineViewState extends State<_EditHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
-  late final TextEditingController _excerptController;
   late final TextEditingController _urlController;
   late final TextEditingController _imageUrlController;
 
@@ -52,7 +51,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
   void initState() {
     super.initState();
     _titleController = TextEditingController();
-    _excerptController = TextEditingController();
     _urlController = TextEditingController();
     _imageUrlController = TextEditingController();
   }
@@ -60,7 +58,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
   @override
   void dispose() {
     _titleController.dispose();
-    _excerptController.dispose();
     _urlController.dispose();
     _imageUrlController.dispose();
     super.dispose();
@@ -144,7 +141,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
           // Update text controllers when data is loaded or changed
           if (state.status == EditHeadlineStatus.initial) {
             _titleController.text = state.title;
-            _excerptController.text = state.excerpt;
             _urlController.text = state.url;
             _imageUrlController.text = state.imageUrl;
             // No need to update a controller for `isBreaking` as it's a Switch.
@@ -186,18 +182,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                       onChanged: (value) => context
                           .read<EditHeadlineBloc>()
                           .add(EditHeadlineTitleChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _excerptController,
-                      decoration: InputDecoration(
-                        labelText: l10n.excerpt,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineExcerptChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(

@@ -34,7 +34,7 @@ class AppConfig {
   /// A factory constructor for the demo environment.
   factory AppConfig.demo() => AppConfig(
     environment: AppEnvironment.demo,
-    baseUrl: '', // No API access needed for in-memory demo
+    baseUrl: '',
   );
 
   /// A factory constructor for the development environment.

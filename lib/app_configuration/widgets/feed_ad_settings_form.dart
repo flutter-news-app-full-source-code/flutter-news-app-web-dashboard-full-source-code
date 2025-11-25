@@ -54,7 +54,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// Initializes text editing controllers for each user role based on current
   /// remote config values.
   void _initializeControllers() {
-    final feedAdConfig = widget.remoteConfig.adConfig.feedAdConfiguration;
+    final feedAdConfig = widget.remoteConfig.features.ads.feedAdConfiguration;
     _adFrequencyControllers = {
       for (final role in AppUserRole.values)
         role:
@@ -83,7 +83,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// Updates text editing controllers when the widget's remote config changes.
   /// This ensures the form fields reflect the latest configuration.
   void _updateControllers() {
-    final feedAdConfig = widget.remoteConfig.adConfig.feedAdConfiguration;
+    final feedAdConfig = widget.remoteConfig.features.ads.feedAdConfiguration;
     for (final role in AppUserRole.values) {
       final newFrequencyValue = _getAdFrequency(feedAdConfig, role).toString();
       if (_adFrequencyControllers[role]?.text != newFrequencyValue) {
@@ -111,8 +111,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   @override
   void didUpdateWidget(covariant FeedAdSettingsForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.remoteConfig.adConfig.feedAdConfiguration !=
-        oldWidget.remoteConfig.adConfig.feedAdConfiguration) {
+    if (widget.remoteConfig.features.ads.feedAdConfiguration !=
+        oldWidget.remoteConfig.features.ads.feedAdConfiguration) {
       _updateControllers();
     }
   }
@@ -132,11 +132,12 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final adConfig = widget.remoteConfig.adConfig;
+    final features = widget.remoteConfig.features;
+    final adConfig = features.ads;
     final feedAdConfig = adConfig.feedAdConfiguration;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ExpansionTile(
+      title: Text(l10n.feedAdSettingsTitle),
       children: [
         SwitchListTile(
           title: Text(l10n.enableFeedAdsLabel),
@@ -144,8 +145,10 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
           onChanged: (value) {
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
-                adConfig: adConfig.copyWith(
-                  feedAdConfiguration: feedAdConfig.copyWith(enabled: value),
+                features: features.copyWith(
+                  ads: adConfig.copyWith(
+                    feedAdConfiguration: feedAdConfig.copyWith(enabled: value),
+                  ),
                 ),
               ),
             );
@@ -192,9 +195,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                 onSelectionChanged: (newSelection) {
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
-                      adConfig: adConfig.copyWith(
-                        feedAdConfiguration: feedAdConfig.copyWith(
-                          adType: newSelection.first,
+                      features: features.copyWith(
+                        ads: adConfig.copyWith(
+                          feedAdConfiguration: feedAdConfig.copyWith(
+                            adType: newSelection.first,
+                          ),
                         ),
                       ),
                     ),
@@ -291,9 +296,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             }
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
-                adConfig: widget.remoteConfig.adConfig.copyWith(
-                  feedAdConfiguration: config.copyWith(
-                    visibleTo: newVisibleTo,
+                features: widget.remoteConfig.features.copyWith(
+                  ads: widget.remoteConfig.features.ads.copyWith(
+                    feedAdConfiguration: config.copyWith(
+                      visibleTo: newVisibleTo,
+                    ),
                   ),
                 ),
               ),
@@ -322,9 +329,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                         )..[role] = newRoleConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
-                        adConfig: widget.remoteConfig.adConfig.copyWith(
-                          feedAdConfiguration: config.copyWith(
-                            visibleTo: newVisibleTo,
+                        features: widget.remoteConfig.features.copyWith(
+                          ads: widget.remoteConfig.features.ads.copyWith(
+                            feedAdConfiguration: config.copyWith(
+                              visibleTo: newVisibleTo,
+                            ),
                           ),
                         ),
                       ),
@@ -346,9 +355,11 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                         )..[role] = newRoleConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
-                        adConfig: widget.remoteConfig.adConfig.copyWith(
-                          feedAdConfiguration: config.copyWith(
-                            visibleTo: newVisibleTo,
+                        features: widget.remoteConfig.features.copyWith(
+                          ads: widget.remoteConfig.features.ads.copyWith(
+                            feedAdConfiguration: config.copyWith(
+                              visibleTo: newVisibleTo,
+                            ),
                           ),
                         ),
                       ),

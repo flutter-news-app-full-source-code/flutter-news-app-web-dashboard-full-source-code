@@ -26,7 +26,8 @@ class PushNotificationSettingsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final pushConfig = remoteConfig.pushNotificationConfig;
+    final features = remoteConfig.features;
+    final pushConfig = features.pushNotifications;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -40,7 +41,9 @@ class PushNotificationSettingsForm extends StatelessWidget {
             onChanged: (value) {
               onConfigChanged(
                 remoteConfig.copyWith(
-                  pushNotificationConfig: pushConfig.copyWith(enabled: value),
+                  features: features.copyWith(
+                    pushNotifications: pushConfig.copyWith(enabled: value),
+                  ),
                 ),
               );
             },
@@ -90,8 +93,10 @@ class PushNotificationSettingsForm extends StatelessWidget {
             onSelectionChanged: (newSelection) {
               onConfigChanged(
                 remoteConfig.copyWith(
-                  pushNotificationConfig: pushConfig.copyWith(
-                    primaryProvider: newSelection.first,
+                  features: remoteConfig.features.copyWith(
+                    pushNotifications: pushConfig.copyWith(
+                      primaryProvider: newSelection.first,
+                    ),
                   ),
                 ),
               );
@@ -140,8 +145,10 @@ class PushNotificationSettingsForm extends StatelessWidget {
                     newDeliveryConfigs[type] = value;
                     onConfigChanged(
                       remoteConfig.copyWith(
-                        pushNotificationConfig: pushConfig.copyWith(
-                          deliveryConfigs: newDeliveryConfigs,
+                        features: remoteConfig.features.copyWith(
+                          pushNotifications: pushConfig.copyWith(
+                            deliveryConfigs: newDeliveryConfigs,
+                          ),
                         ),
                       ),
                     );

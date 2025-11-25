@@ -17,18 +17,20 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required AuthRepository authenticationRepository,
-    required DataRepository<UserAppSettings> userAppSettingsRepository,
+    required DataRepository<AppSettings> appSettingsRepository,
     required DataRepository<RemoteConfig> appConfigRepository,
     required local_config.AppEnvironment environment,
     Logger? logger,
   }) : _authenticationRepository = authenticationRepository,
-       _userAppSettingsRepository = userAppSettingsRepository,
+       _appSettingsRepository = appSettingsRepository,
        _appConfigRepository = appConfigRepository,
        _logger = logger ?? Logger('AppBloc'),
        super(AppState(environment: environment)) {
     on<AppUserChanged>(_onAppUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);
-    on<AppUserAppSettingsChanged>(_onAppUserAppSettingsChanged);
+    on<AppUserAppSettingsChanged>(
+      _onAppUserAppSettingsChanged,
+    );
 
     _userSubscription = _authenticationRepository.authStateChanges.listen(
       (User? user) => add(AppUserChanged(user)),
@@ -36,7 +38,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   final AuthRepository _authenticationRepository;
-  final DataRepository<UserAppSettings> _userAppSettingsRepository;
+  final DataRepository<AppSettings> _appSettingsRepository;
   final DataRepository<RemoteConfig> _appConfigRepository;
   final Logger _logger;
   late final StreamSubscription<User?> _userSubscription;
@@ -68,16 +70,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     // If user is authenticated, load their app settings
     if (status == AppStatus.authenticated && user != null) {
       try {
-        final userAppSettings = await _userAppSettingsRepository.read(
+        final appSettings = await _appSettingsRepository.read(
           id: user.id,
         );
-        emit(state.copyWith(userAppSettings: userAppSettings));
+        emit(state.copyWith(appSettings: appSettings));
       } on NotFoundException {
         // If settings not found, create default ones
         _logger.info(
           'User app settings not found for user ${user.id}. Creating default.',
         );
-        final defaultSettings = UserAppSettings(
+        final defaultSettings = AppSettings(
           id: user.id,
           displaySettings: const DisplaySettings(
             baseTheme: AppBaseTheme.system,
@@ -92,15 +94,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
               'Default language "en" not found in language fixtures.',
             ),
           ),
-          feedPreferences: const FeedDisplayPreferences(
-            headlineDensity: HeadlineDensity.standard,
-            headlineImageStyle: HeadlineImageStyle.largeThumbnail,
-            showSourceInHeadlineFeed: true,
-            showPublishDateInHeadlineFeed: true,
+          feedSettings: const FeedSettings(
+            feedItemDensity: FeedItemDensity.standard,
+            feedItemImageStyle: FeedItemImageStyle.largeThumbnail,
+            feedItemClickBehavior: FeedItemClickBehavior.defaultBehavior,
           ),
         );
-        await _userAppSettingsRepository.create(item: defaultSettings);
-        emit(state.copyWith(userAppSettings: defaultSettings));
+        await _appSettingsRepository.create(item: defaultSettings);
+        emit(state.copyWith(appSettings: defaultSettings));
       } on HttpException catch (e, s) {
         // Handle HTTP exceptions during settings load
         _logger.severe(
@@ -108,7 +109,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           e,
           s,
         );
-        emit(state.copyWith(clearUserAppSettings: true));
+        emit(state.copyWith(clearAppSettings: true));
       } catch (e, s) {
         // Handle any other unexpected errors
         _logger.severe(
@@ -116,11 +117,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           e,
           s,
         );
-        emit(state.copyWith(clearUserAppSettings: true));
+        emit(state.copyWith(clearAppSettings: true));
       }
     } else {
       // If user is unauthenticated or anonymous, clear app settings
-      emit(state.copyWith(clearUserAppSettings: true));
+      emit(state.copyWith(clearAppSettings: true));
     }
   }
 
@@ -128,13 +129,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppUserAppSettingsChanged event,
     Emitter<AppState> emit,
   ) {
-    emit(state.copyWith(userAppSettings: event.userAppSettings));
+    emit(state.copyWith(appSettings: event.appSettings));
   }
 
   void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
     unawaited(_authenticationRepository.signOut());
     emit(
-      state.copyWith(clearUserAppSettings: true),
+      state.copyWith(clearAppSettings: true),
     );
   }
 

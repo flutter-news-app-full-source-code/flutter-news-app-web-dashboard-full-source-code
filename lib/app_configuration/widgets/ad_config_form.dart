@@ -7,7 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 ///
 /// This widget primarily controls the global enable/disable switch for ads.
 /// {@endtemplate}
-class AdConfigForm extends StatefulWidget {
+class AdConfigForm extends StatelessWidget {
   /// {@macro ad_config_form}
   const AdConfigForm({
     required this.remoteConfig,
@@ -22,13 +22,9 @@ class AdConfigForm extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<AdConfigForm> createState() => _AdConfigFormState();
-}
-
-class _AdConfigFormState extends State<AdConfigForm> {
-  @override
   Widget build(BuildContext context) {
-    final adConfig = widget.remoteConfig.adConfig;
+    final features = remoteConfig.features;
+    final ads = features.ads;
     final l10n = AppLocalizationsX(context).l10n;
 
     return Column(
@@ -36,11 +32,13 @@ class _AdConfigFormState extends State<AdConfigForm> {
       children: [
         SwitchListTile(
           title: Text(l10n.enableGlobalAdsLabel),
-          value: adConfig.enabled,
+          value: ads.enabled,
           onChanged: (value) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                adConfig: adConfig.copyWith(enabled: value),
+            onConfigChanged(
+              remoteConfig.copyWith(
+                features: features.copyWith(
+                  ads: ads.copyWith(enabled: value),
+                ),
               ),
             );
           },

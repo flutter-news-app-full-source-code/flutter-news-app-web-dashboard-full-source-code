@@ -16,14 +16,6 @@ final class CreateHeadlineTitleChanged extends CreateHeadlineEvent {
   List<Object?> get props => [title];
 }
 
-/// Event for when the headline's excerpt is changed.
-final class CreateHeadlineExcerptChanged extends CreateHeadlineEvent {
-  const CreateHeadlineExcerptChanged(this.excerpt);
-  final String excerpt;
-  @override
-  List<Object?> get props => [excerpt];
-}
-
 /// Event for when the headline's URL is changed.
 final class CreateHeadlineUrlChanged extends CreateHeadlineEvent {
   const CreateHeadlineUrlChanged(this.url);

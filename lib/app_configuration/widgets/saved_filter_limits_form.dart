@@ -60,8 +60,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
   @override
   void didUpdateWidget(covariant SavedFilterLimitsForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.remoteConfig.userPreferenceConfig !=
-        oldWidget.remoteConfig.userPreferenceConfig) {
+    if (widget.remoteConfig.user.limits != oldWidget.remoteConfig.user.limits) {
       _updateControllerValues();
     }
   }
@@ -80,7 +79,9 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
-          _controllers[role]![type.name] = _createController(value.toString());
+          _controllers[role]!['notification_${type.name}'] = _createController(
+            value.toString(),
+          );
         }
       }
     }
@@ -102,7 +103,10 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
-          _updateControllerText(_controllers[role]![type.name]!, value);
+          _updateControllerText(
+            _controllers[role]!['notification_${type.name}']!,
+            value,
+          );
         }
       }
     }
@@ -131,35 +135,35 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
 
   /// Retrieves the correct [SavedFilterLimits] for a given role.
   SavedFilterLimits _getLimitsForRole(AppUserRole role) {
-    final config = widget.remoteConfig.userPreferenceConfig;
+    final limitsConfig = widget.remoteConfig.user.limits;
     final limitsMap = widget.filterType == SavedFilterType.headline
-        ? config.savedHeadlineFiltersLimit
-        : config.savedSourceFiltersLimit;
+        ? limitsConfig.savedHeadlineFilters
+        : limitsConfig.savedSourceFilters;
     return limitsMap[role]!;
   }
 
   /// Updates the remote config when a value changes.
   void _onValueChanged(AppUserRole role, String field, int value) {
-    final config = widget.remoteConfig.userPreferenceConfig;
+    final userConfig = widget.remoteConfig.user;
+    final limitsConfig = userConfig.limits;
     final isHeadline = widget.filterType == SavedFilterType.headline;
 
-    // Create a mutable copy of the role-to-limits map.
+    final currentLimitsMap = isHeadline
+        ? limitsConfig.savedHeadlineFilters
+        : limitsConfig.savedSourceFilters;
+
     final newLimitsMap = Map<AppUserRole, SavedFilterLimits>.from(
-      isHeadline
-          ? config.savedHeadlineFiltersLimit
-          : config.savedSourceFiltersLimit,
+      currentLimitsMap,
     );
 
-    // Get the current limits for the role and create a modified copy.
     final currentLimits = newLimitsMap[role]!;
-    final SavedFilterLimits newLimits;
+    SavedFilterLimits newLimits;
 
     if (field == 'total') {
       newLimits = currentLimits.copyWith(total: value);
     } else if (field == 'pinned') {
       newLimits = currentLimits.copyWith(pinned: value);
     } else {
-      // This must be a notification subscription change.
       final deliveryType = PushNotificationSubscriptionDeliveryType.values
           .byName(field);
       final newSubscriptions =
@@ -172,18 +176,17 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       );
     }
 
-    // Update the map with the new limits for the role.
     newLimitsMap[role] = newLimits;
 
-    // Create the updated UserPreferenceConfig.
-    final newUserPreferenceConfig = isHeadline
-        ? config.copyWith(savedHeadlineFiltersLimit: newLimitsMap)
-        : config.copyWith(savedSourceFiltersLimit: newLimitsMap);
+    final newUserLimitsConfig = isHeadline
+        ? limitsConfig.copyWith(savedHeadlineFilters: newLimitsMap)
+        : limitsConfig.copyWith(savedSourceFilters: newLimitsMap);
 
-    // Notify the parent widget.
     widget.onConfigChanged(
       widget.remoteConfig.copyWith(
-        userPreferenceConfig: newUserPreferenceConfig,
+        user: userConfig.copyWith(
+          limits: newUserLimitsConfig,
+        ),
       ),
     );
   }
@@ -211,9 +214,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        // TabBarView to display role-specific fields
         SizedBox(
-          // Adjust height based on whether notification fields are shown.
           height: isHeadlineFilter ? 400 : 250,
           child: TabBarView(
             controller: _tabController,
@@ -250,7 +251,6 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     );
   }
 
-  /// Builds the list of input fields for notification subscription limits.
   List<Widget> _buildNotificationFields(
     AppLocalizations l10n,
     AppUserRole role,
@@ -259,11 +259,11 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     return PushNotificationSubscriptionDeliveryType.values.map((type) {
       final value = limits.notificationSubscriptions?[type] ?? 0;
       return AppConfigIntField(
-        label: type.l10n(context),
-        description: l10n.notificationSubscriptionLimitDescription,
+        label: l10n.notificationSubscriptionLimitLabel,
+        description: type.l10n(context),
         value: value,
         onChanged: (newValue) => _onValueChanged(role, type.name, newValue),
-        controller: _controllers[role]![type.name],
+        controller: _controllers[role]!['notification_${type.name}'],
       );
     }).toList();
   }
