@@ -101,7 +101,7 @@ class SearchableSelectionBloc
           sort: _arguments.sortOptions,
           pagination: const PaginationOptions(
             limit: 20,
-          ), // Do nto lower it below 20 for the initial fetch, if the list items did not reach the bottom of the screen, the infinity scrolling will not function.
+          ), // Do not lower it below 20 for the initial fetch, if the list items did not reach the bottom of the screen, the infinity scrolling will not function.
         );
 
         fetchedItems = response.items;
