@@ -31,7 +31,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
     with SingleTickerProviderStateMixin {
   late AdPlatformType _selectedPlatform;
   late Map<AdPlatformType, Map<String, TextEditingController>>
-      _platformAdIdentifierControllers;
+  _platformAdIdentifierControllers;
   late final TabController _tabController;
 
   @override
@@ -68,18 +68,33 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
       for (final platform in AdPlatformType.values)
         platform: {
           'nativeAdId': TextEditingController(
-            text: widget.remoteConfig.features.ads
-                    .platformAdIdentifiers[platform]?.nativeAdId ??
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.nativeAdId ??
                 '',
           ),
           'bannerAdId': TextEditingController(
-            text: widget.remoteConfig.features.ads
-                    .platformAdIdentifiers[platform]?.bannerAdId ??
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.bannerAdId ??
                 '',
           ),
           'interstitialAdId': TextEditingController(
-            text: widget.remoteConfig.features.ads
-                    .platformAdIdentifiers[platform]?.interstitialAdId ??
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.interstitialAdId ??
                 '',
           ),
         },
@@ -134,56 +149,63 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.primaryAdPlatformTitle,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const SizedBox(height: AppSpacing.xs),
-        Text(
-          l10n.primaryAdPlatformDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+        ExpansionTile(
+          title: Text(l10n.primaryAdPlatformTitle),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.primaryAdPlatformDescription,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
-          textAlign: TextAlign.start,
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: SegmentedButton<AdPlatformType>(
-            style: SegmentedButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
-              ),
+              textAlign: TextAlign.start,
             ),
-            segments: AdPlatformType.values
-                .where(
-                  (type) => type != AdPlatformType.demo,
-                )
-                .map(
-                  (type) => ButtonSegment<AdPlatformType>(
-                    value: type,
-                    label: Text(type.l10n(context)),
-                  ),
-                )
-                .toList(),
-            selected: {_selectedPlatform},
-            onSelectionChanged: (newSelection) {
-              setState(() {
-                _selectedPlatform = newSelection.first;
-                _tabController.index =
-                    AdPlatformType.values.indexOf(_selectedPlatform);
-              });
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  features: widget.remoteConfig.features.copyWith(
-                    ads: adConfig.copyWith(
-                      primaryAdPlatform: newSelection.first,
-                    ),
+            const SizedBox(height: AppSpacing.lg),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: SegmentedButton<AdPlatformType>(
+                style: SegmentedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
                   ),
                 ),
-              );
-            },
-          ),
+                segments: AdPlatformType.values
+                    .where(
+                      (type) => type != AdPlatformType.demo,
+                    )
+                    .map(
+                      (type) => ButtonSegment<AdPlatformType>(
+                        value: type,
+                        label: Text(type.l10n(context)),
+                      ),
+                    )
+                    .toList(),
+                selected: {_selectedPlatform},
+                onSelectionChanged: (newSelection) {
+                  setState(() {
+                    _selectedPlatform = newSelection.first;
+                    _tabController.index = AdPlatformType.values.indexOf(
+                      _selectedPlatform,
+                    );
+                  });
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      features: widget.remoteConfig.features.copyWith(
+                        ads: adConfig.copyWith(
+                          primaryAdPlatform: newSelection.first,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
@@ -216,11 +238,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
             Text(
               l10n.adUnitIdentifiersDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.7),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -261,10 +280,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
 
     void updatePlatformIdentifiers(String key, String? value) {
       final newIdentifiers = platformIdentifiers.copyWith(
-        nativeAdId:
-            key == 'nativeAdId' ? value : platformIdentifiers.nativeAdId,
-        bannerAdId:
-            key == 'bannerAdId' ? value : platformIdentifiers.bannerAdId,
+        nativeAdId: key == 'nativeAdId'
+            ? value
+            : platformIdentifiers.nativeAdId,
+        bannerAdId: key == 'bannerAdId'
+            ? value
+            : platformIdentifiers.bannerAdId,
         interstitialAdId: key == 'interstitialAdId'
             ? value
             : platformIdentifiers.interstitialAdId,
@@ -272,12 +293,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
 
       final newPlatformAdIdentifiers =
           Map<AdPlatformType, AdPlatformIdentifiers>.from(
-        config.platformAdIdentifiers,
-      )..update(
-          platform,
-          (_) => newIdentifiers,
-          ifAbsent: () => newIdentifiers,
-        );
+            config.platformAdIdentifiers,
+          )..update(
+            platform,
+            (_) => newIdentifiers,
+            ifAbsent: () => newIdentifiers,
+          );
 
       widget.onConfigChanged(
         widget.remoteConfig.copyWith(
