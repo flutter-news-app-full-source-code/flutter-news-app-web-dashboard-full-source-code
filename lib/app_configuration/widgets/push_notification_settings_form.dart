@@ -29,31 +29,28 @@ class PushNotificationSettingsForm extends StatelessWidget {
     final features = remoteConfig.features;
     final pushConfig = features.pushNotifications;
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SwitchListTile(
-            title: Text(l10n.pushNotificationSystemStatusTitle),
-            subtitle: Text(l10n.pushNotificationSystemStatusDescription),
-            value: pushConfig.enabled,
-            onChanged: (value) {
-              onConfigChanged(
-                remoteConfig.copyWith(
-                  features: features.copyWith(
-                    pushNotifications: pushConfig.copyWith(enabled: value),
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          title: Text(l10n.pushNotificationSystemStatusTitle),
+          subtitle: Text(l10n.pushNotificationSystemStatusDescription),
+          value: pushConfig.enabled,
+          onChanged: (value) {
+            onConfigChanged(
+              remoteConfig.copyWith(
+                features: features.copyWith(
+                  pushNotifications: pushConfig.copyWith(enabled: value),
                 ),
-              );
-            },
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          _buildPrimaryProviderSection(context, l10n, pushConfig),
-          const SizedBox(height: AppSpacing.lg),
-          _buildDeliveryTypesSection(context, l10n, pushConfig),
-        ],
-      ),
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        _buildPrimaryProviderSection(context, l10n, pushConfig),
+        const SizedBox(height: AppSpacing.lg),
+        _buildDeliveryTypesSection(context, l10n, pushConfig),
+      ],
     );
   }
 
