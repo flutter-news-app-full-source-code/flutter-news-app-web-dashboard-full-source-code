@@ -3103,6 +3103,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'User Limits'**
   String get userLimitsTitle;
+
+  /// Description for the breaking news notification subscription limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit for subscriptions that send immediate alerts for matching headlines.'**
+  String get notificationSubscriptionBreakingOnlyDescription;
+
+  /// Description for the daily digest notification subscription limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit for subscriptions that send a daily summary of matching headlines.'**
+  String get notificationSubscriptionDailyDigestDescription;
+
+  /// Description for the weekly roundup notification subscription limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit for subscriptions that send a weekly summary of matching headlines.'**
+  String get notificationSubscriptionWeeklyRoundupDescription;
 }
 
 class _AppLocalizationsDelegate

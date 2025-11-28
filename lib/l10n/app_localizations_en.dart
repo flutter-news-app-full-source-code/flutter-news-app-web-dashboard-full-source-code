@@ -1668,4 +1668,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userLimitsTitle => 'User Limits';
+
+  @override
+  String get notificationSubscriptionBreakingOnlyDescription =>
+      'Limit for subscriptions that send immediate alerts for matching headlines.';
+
+  @override
+  String get notificationSubscriptionDailyDigestDescription =>
+      'Limit for subscriptions that send a daily summary of matching headlines.';
+
+  @override
+  String get notificationSubscriptionWeeklyRoundupDescription =>
+      'Limit for subscriptions that send a weekly summary of matching headlines.';
 }

@@ -1665,4 +1665,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get userLimitsTitle => 'حدود المستخدم';
+
+  @override
+  String get notificationSubscriptionBreakingOnlyDescription =>
+      'حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.';
+
+  @override
+  String get notificationSubscriptionDailyDigestDescription =>
+      'حد الاشتراكات التي ترسل ملخصًا يوميًا للعناوين المطابقة.';
+
+  @override
+  String get notificationSubscriptionWeeklyRoundupDescription =>
+      'حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.';
 }
