@@ -2085,5 +2085,9 @@
   "feedItemClickBehaviorExternalNavigation": "متصفح النظام",
   "@feedItemClickBehaviorExternalNavigation": {
     "description": "خيار لفتح الروابط في متصفح النظام الافتراضي للجهاز."
+  },
+  "userLimitsTitle": "حدود المستخدم",
+  "@userLimitsTitle": {
+    "description": "عنوان قسم حدود المستخدم القابل للتوسيع."
   }
 }

@@ -2081,5 +2081,9 @@
   "feedItemClickBehaviorExternalNavigation": "System Browser",
   "@feedItemClickBehaviorExternalNavigation": {
     "description": "Option for opening links in the device's default system browser."
+  },
+  "userLimitsTitle": "User Limits",
+  "@userLimitsTitle": {
+    "description": "Title for the User Limits expansion tile."
   }
 }
