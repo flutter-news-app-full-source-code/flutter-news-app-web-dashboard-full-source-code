@@ -1665,4 +1665,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedItemClickBehaviorExternalNavigation => 'System Browser';
+
+  @override
+  String get userLimitsTitle => 'User Limits';
 }

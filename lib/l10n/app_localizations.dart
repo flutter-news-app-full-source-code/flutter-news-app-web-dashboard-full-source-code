@@ -3097,6 +3097,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'System Browser'**
   String get feedItemClickBehaviorExternalNavigation;
+
+  /// Title for the User Limits expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'User Limits'**
+  String get userLimitsTitle;
 }
 
 class _AppLocalizationsDelegate

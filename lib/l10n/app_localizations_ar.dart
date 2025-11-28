@@ -1662,4 +1662,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get feedItemClickBehaviorExternalNavigation => 'متصفح النظام';
+
+  @override
+  String get userLimitsTitle => 'حدود المستخدم';
 }
