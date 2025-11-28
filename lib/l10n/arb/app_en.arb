@@ -1282,7 +1282,7 @@
   "@adPlatformConfigurationTitle": {
     "description": "Title for the Ad Platform Configuration section"
   },
-  "primaryAdPlatformTitle": "Primary Ad Platform Selection",
+  "primaryAdPlatformTitle": "Primary Ad Platform",
   "@primaryAdPlatformTitle": {
     "description": "Title for the Primary Ad Platform Selection section"
   },

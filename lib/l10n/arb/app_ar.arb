@@ -1282,7 +1282,7 @@
   "@adPlatformConfigurationTitle": {
     "description": "عنوان قسم إعدادات منصة الإعلانات"
   },
-  "primaryAdPlatformTitle": "اختيار منصة الإعلانات الأساسية",
+  "primaryAdPlatformTitle": "منصة الإعلانات الأساسية",
   "@primaryAdPlatformTitle": {
     "description": "عنوان قسم اختيار منصة الإعلانات الأساسية"
   },

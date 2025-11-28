@@ -1023,7 +1023,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adPlatformConfigurationTitle => 'إعدادات منصة الإعلان';
 
   @override
-  String get primaryAdPlatformTitle => 'اختيار منصة الإعلانات الأساسية';
+  String get primaryAdPlatformTitle => 'منصة الإعلانات الأساسية';
 
   @override
   String get primaryAdPlatformDescription =>

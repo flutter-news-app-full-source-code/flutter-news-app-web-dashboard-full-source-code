@@ -1021,7 +1021,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adPlatformConfigurationTitle => 'Ad Platform Configuration';
 
   @override
-  String get primaryAdPlatformTitle => 'Primary Ad Platform Selection';
+  String get primaryAdPlatformTitle => 'Primary Ad Platform';
 
   @override
   String get primaryAdPlatformDescription =>

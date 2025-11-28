@@ -1937,7 +1937,7 @@ abstract class AppLocalizations {
   /// Title for the Primary Ad Platform Selection section
   ///
   /// In en, this message translates to:
-  /// **'Primary Ad Platform Selection'**
+  /// **'Primary Ad Platform'**
   String get primaryAdPlatformTitle;
 
   /// Description for the Primary Ad Platform Selection section
