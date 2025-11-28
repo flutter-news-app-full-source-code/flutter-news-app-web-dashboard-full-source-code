@@ -27,15 +27,30 @@ class AdPlatformConfigForm extends StatefulWidget {
   State<AdPlatformConfigForm> createState() => _AdPlatformConfigFormState();
 }
 
-class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
+class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
+    with SingleTickerProviderStateMixin {
   late AdPlatformType _selectedPlatform;
   late Map<AdPlatformType, Map<String, TextEditingController>>
-  _platformAdIdentifierControllers;
+      _platformAdIdentifierControllers;
+  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _selectedPlatform = widget.remoteConfig.features.ads.primaryAdPlatform;
+    _tabController = TabController(
+      length: AdPlatformType.values.length,
+      vsync: this,
+    );
+    _tabController.index = AdPlatformType.values.indexOf(_selectedPlatform);
+
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        setState(
+          () => _selectedPlatform = AdPlatformType.values[_tabController.index],
+        );
+      }
+    });
     _initializeControllers();
   }
 
@@ -53,33 +68,18 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
       for (final platform in AdPlatformType.values)
         platform: {
           'nativeAdId': TextEditingController(
-            text:
-                widget
-                    .remoteConfig
-                    .features
-                    .ads
-                    .platformAdIdentifiers[platform]
-                    ?.nativeAdId ??
+            text: widget.remoteConfig.features.ads
+                    .platformAdIdentifiers[platform]?.nativeAdId ??
                 '',
           ),
           'bannerAdId': TextEditingController(
-            text:
-                widget
-                    .remoteConfig
-                    .features
-                    .ads
-                    .platformAdIdentifiers[platform]
-                    ?.bannerAdId ??
+            text: widget.remoteConfig.features.ads
+                    .platformAdIdentifiers[platform]?.bannerAdId ??
                 '',
           ),
           'interstitialAdId': TextEditingController(
-            text:
-                widget
-                    .remoteConfig
-                    .features
-                    .ads
-                    .platformAdIdentifiers[platform]
-                    ?.interstitialAdId ??
+            text: widget.remoteConfig.features.ads
+                    .platformAdIdentifiers[platform]?.interstitialAdId ??
                 '',
           ),
         },
@@ -117,6 +117,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
   @override
   void dispose() {
+    _tabController.dispose();
     for (final platformControllers in _platformAdIdentifierControllers.values) {
       for (final controller in platformControllers.values) {
         controller.dispose();
@@ -133,65 +134,55 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Primary Ad Platform Selection
-        ExpansionTile(
-          title: Text(l10n.primaryAdPlatformTitle),
-          childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg,
-            top: AppSpacing.md,
-            bottom: AppSpacing.md,
-          ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              l10n.primaryAdPlatformDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+        Text(
+          l10n.primaryAdPlatformTitle,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          l10n.primaryAdPlatformDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: SegmentedButton<AdPlatformType>(
-                style: SegmentedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                ),
-                segments: AdPlatformType.values
-                    .where(
-                      (type) => type != AdPlatformType.demo,
-                    )
-                    .map(
-                      (type) => ButtonSegment<AdPlatformType>(
-                        value: type,
-                        label: Text(type.l10n(context)),
-                      ),
-                    )
-                    .toList(),
-                selected: {_selectedPlatform},
-                onSelectionChanged: (newSelection) {
-                  setState(() {
-                    _selectedPlatform = newSelection.first;
-                  });
-                  widget.onConfigChanged(
-                    widget.remoteConfig.copyWith(
-                      features: widget.remoteConfig.features.copyWith(
-                        ads: adConfig.copyWith(
-                          primaryAdPlatform: newSelection.first,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+          textAlign: TextAlign.start,
         ),
         const SizedBox(height: AppSpacing.lg),
-
-        // Ad Unit Identifiers
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SegmentedButton<AdPlatformType>(
+            style: SegmentedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+            ),
+            segments: AdPlatformType.values
+                .map(
+                  (type) => ButtonSegment<AdPlatformType>(
+                    value: type,
+                    label: Text(type.l10n(context)),
+                  ),
+                )
+                .toList(),
+            selected: {_selectedPlatform},
+            onSelectionChanged: (newSelection) {
+              setState(() {
+                _selectedPlatform = newSelection.first;
+                _tabController.index =
+                    AdPlatformType.values.indexOf(_selectedPlatform);
+              });
+              widget.onConfigChanged(
+                widget.remoteConfig.copyWith(
+                  features: widget.remoteConfig.features.copyWith(
+                    ads: adConfig.copyWith(
+                      primaryAdPlatform: newSelection.first,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.adUnitIdentifiersTitle),
           childrenPadding: const EdgeInsetsDirectional.only(
@@ -201,23 +192,50 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: SizedBox(
+                height: kTextTabBarHeight,
+                child: TabBar(
+                  controller: _tabController,
+                  tabAlignment: TabAlignment.start,
+                  isScrollable: true,
+                  tabs: AdPlatformType.values
+                      .map((platform) => Tab(text: platform.l10n(context)))
+                      .toList(),
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
             Text(
               l10n.adUnitIdentifiersDescription,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.7),
+                  ),
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: AppSpacing.lg),
-            _buildAdUnitIdentifierFields(
-              context,
-              l10n,
-              _selectedPlatform,
-              adConfig,
+            SizedBox(
+              height: 300, // Adjust height as needed for the content
+              child: TabBarView(
+                controller: _tabController,
+                children: AdPlatformType.values
+                    .map(
+                      (platform) => _buildAdUnitIdentifierFields(
+                        context,
+                        l10n,
+                        platform,
+                        adConfig,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ],
         ),
-        const SizedBox(height: AppSpacing.lg),
       ],
     );
   }
@@ -234,12 +252,10 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
     void updatePlatformIdentifiers(String key, String? value) {
       final newIdentifiers = platformIdentifiers.copyWith(
-        nativeAdId: key == 'nativeAdId'
-            ? value
-            : platformIdentifiers.nativeAdId,
-        bannerAdId: key == 'bannerAdId'
-            ? value
-            : platformIdentifiers.bannerAdId,
+        nativeAdId:
+            key == 'nativeAdId' ? value : platformIdentifiers.nativeAdId,
+        bannerAdId:
+            key == 'bannerAdId' ? value : platformIdentifiers.bannerAdId,
         interstitialAdId: key == 'interstitialAdId'
             ? value
             : platformIdentifiers.interstitialAdId,
@@ -247,12 +263,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
 
       final newPlatformAdIdentifiers =
           Map<AdPlatformType, AdPlatformIdentifiers>.from(
-            config.platformAdIdentifiers,
-          )..update(
-            platform,
-            (_) => newIdentifiers,
-            ifAbsent: () => newIdentifiers,
-          );
+        config.platformAdIdentifiers,
+      )..update(
+          platform,
+          (_) => newIdentifiers,
+          ifAbsent: () => newIdentifiers,
+        );
 
       widget.onConfigChanged(
         widget.remoteConfig.copyWith(
@@ -265,31 +281,35 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
       );
     }
 
-    return Column(
-      children: [
-        AppConfigTextField(
-          label: l10n.nativeAdIdLabel,
-          description: l10n.nativeAdIdDescription,
-          value: platformIdentifiers.nativeAdId,
-          onChanged: (value) => updatePlatformIdentifiers('nativeAdId', value),
-          controller: controllers['nativeAdId'],
-        ),
-        AppConfigTextField(
-          label: l10n.bannerAdIdLabel,
-          description: l10n.bannerAdIdDescription,
-          value: platformIdentifiers.bannerAdId,
-          onChanged: (value) => updatePlatformIdentifiers('bannerAdId', value),
-          controller: controllers['bannerAdId'],
-        ),
-        AppConfigTextField(
-          label: l10n.interstitialAdIdLabel,
-          description: l10n.interstitialAdIdDescription,
-          value: platformIdentifiers.interstitialAdId,
-          onChanged: (value) =>
-              updatePlatformIdentifiers('interstitialAdId', value),
-          controller: controllers['interstitialAdId'],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          AppConfigTextField(
+            label: l10n.nativeAdIdLabel,
+            description: l10n.nativeAdIdDescription,
+            value: platformIdentifiers.nativeAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('nativeAdId', value),
+            controller: controllers['nativeAdId'],
+          ),
+          AppConfigTextField(
+            label: l10n.bannerAdIdLabel,
+            description: l10n.bannerAdIdDescription,
+            value: platformIdentifiers.bannerAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('bannerAdId', value),
+            controller: controllers['bannerAdId'],
+          ),
+          AppConfigTextField(
+            label: l10n.interstitialAdIdLabel,
+            description: l10n.interstitialAdIdDescription,
+            value: platformIdentifiers.interstitialAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('interstitialAdId', value),
+            controller: controllers['interstitialAdId'],
+          ),
+        ],
+      ),
     );
   }
 }
