@@ -67,6 +67,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AdConfigForm(
                   remoteConfig: widget.remoteConfig,
@@ -105,6 +111,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PushNotificationSettingsForm(
                   remoteConfig: widget.remoteConfig,
@@ -128,6 +140,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ExpansionTile(
                   title: Text(l10n.feedItemClickBehaviorTitle),
