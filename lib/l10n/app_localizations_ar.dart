@@ -840,7 +840,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
 
   @override
-  String get savedFeedFilterLimitsTitle => 'حد المرشحات المحفوظة';
+  String get savedFeedFilterLimitsTitle => 'حدود المرشحات المحفوظة';
 
   @override
   String get savedFeedFilterLimitsDescription =>
