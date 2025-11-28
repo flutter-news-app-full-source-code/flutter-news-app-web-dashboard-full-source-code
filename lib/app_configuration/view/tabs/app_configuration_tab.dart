@@ -81,6 +81,12 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UpdateConfigForm(
                   remoteConfig: widget.remoteConfig,
@@ -104,6 +110,12 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GeneralAppConfigForm(
                   remoteConfig: widget.remoteConfig,
