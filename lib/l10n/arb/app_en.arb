@@ -2065,5 +2065,21 @@
   "appLegalInformationTitle": "Legal & General Information",
   "@appLegalInformationTitle": {
     "description": "Title for the Legal & General Information expansion tile."
+  },
+  "feedItemClickBehaviorTitle": "Feed Item Click Behavior",
+  "@feedItemClickBehaviorTitle": {
+    "description": "Title for the feed item click behavior setting."
+  },
+  "feedItemClickBehaviorDescription": "Choose what happens when a user clicks on a headline in the feed.",
+  "@feedItemClickbehaviorDescription": {
+    "description": "Description for the feed item click behavior setting."
+  },
+  "feedItemClickBehaviorInternalNavigation": "In-App Browser",
+  "@feedItemClickBehaviorInternalNavigation": {
+    "description": "Option for opening links in the app's internal browser."
+  },
+  "feedItemClickBehaviorExternalNavigation": "System Browser",
+  "@feedItemClickBehaviorExternalNavigation": {
+    "description": "Option for opening links in the device's default system browser."
   }
 }

@@ -2069,5 +2069,21 @@
   "appLegalInformationTitle": "المعلومات القانونية والعامة",
   "@appLegalInformationTitle": {
     "description": "عنوان قسم المعلومات القانونية والعامة القابل للتوسيع."
+  },
+  "feedItemClickBehaviorTitle": "سلوك النقر على عنصر الموجز",
+  "@feedItemClickBehaviorTitle": {
+    "description": "عنوان إعداد سلوك النقر على عنصر الموجز."
+  },
+  "feedItemClickBehaviorDescription": "اختر ما يحدث عندما ينقر المستخدم على عنوان في الموجز.",
+  "@feedItemClickbehaviorDescription": {
+    "description": "وصف إعداد سلوك النقر على عنصر الموجز."
+  },
+  "feedItemClickBehaviorInternalNavigation": "متصفح داخل التطبيق",
+  "@feedItemClickBehaviorInternalNavigation": {
+    "description": "خيار لفتح الروابط في المتصفح الداخلي للتطبيق."
+  },
+  "feedItemClickBehaviorExternalNavigation": "متصفح النظام",
+  "@feedItemClickBehaviorExternalNavigation": {
+    "description": "خيار لفتح الروابط في متصفح النظام الافتراضي للجهاز."
   }
 }
