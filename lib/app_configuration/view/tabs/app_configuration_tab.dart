@@ -44,39 +44,17 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final appConfig = widget.remoteConfig.app;
-    final maintenanceConfig = appConfig.maintenance;
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
-        // Maintenance Config as a direct SwitchListTile
-        SwitchListTile(
-          title: Text(l10n.isUnderMaintenanceLabel),
-          subtitle: Text(l10n.isUnderMaintenanceDescription),
-          value: maintenanceConfig.isUnderMaintenance,
-          onChanged: (value) {
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                app: appConfig.copyWith(
-                  maintenance: maintenanceConfig.copyWith(
-                    isUnderMaintenance: value,
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Update Config
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
-            const tileIndex = 1;
+            const tileIndex = 0;
             return ExpansionTile(
-              key: ValueKey('updateConfigTile_$expandedIndex'),
-              title: Text(l10n.appUpdateManagementTitle),
+              key: ValueKey('appStatusAndUpdatesTile_$expandedIndex'),
+              title: Text(l10n.appStatusAndUpdatesTitle),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
@@ -88,24 +66,64 @@ class _AppConfigurationTabState extends State<AppConfigurationTab> {
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UpdateConfigForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
+                ExpansionTile(
+                  title: Text(l10n.maintenanceModeTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
+                  ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SwitchListTile(
+                      title: Text(l10n.isUnderMaintenanceLabel),
+                      subtitle: Text(l10n.isUnderMaintenanceDescription),
+                      value: widget
+                          .remoteConfig
+                          .app
+                          .maintenance
+                          .isUnderMaintenance,
+                      onChanged: (value) {
+                        widget.onConfigChanged(
+                          widget.remoteConfig.copyWith(
+                            app: widget.remoteConfig.app.copyWith(
+                              maintenance: widget.remoteConfig.app.maintenance
+                                  .copyWith(isUnderMaintenance: value),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                ExpansionTile(
+                  title: Text(l10n.appUpdateManagementTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
+                  ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UpdateConfigForm(
+                      remoteConfig: widget.remoteConfig,
+                      onConfigChanged: widget.onConfigChanged,
+                    ),
+                  ],
                 ),
               ],
             );
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-
-        // General App Config
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
-            const tileIndex = 2;
+            const tileIndex = 1;
             return ExpansionTile(
-              key: ValueKey('generalAppConfigTile_$expandedIndex'),
-              title: Text(l10n.appLegalInformationTitle),
+              key: ValueKey('appUrlsTile_$expandedIndex'),
+              title: Text(l10n.appUrlsTitle),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
