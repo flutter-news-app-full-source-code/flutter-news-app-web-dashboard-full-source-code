@@ -2062,10 +2062,6 @@
   "@appUpdateManagementTitle": {
     "description": "Title for the Application Update Management expansion tile."
   },
-  "appLegalInformationTitle": "Legal & General Information",
-  "@appLegalInformationTitle": {
-    "description": "Title for the Legal & General Information expansion tile."
-  },
   "feedItemClickBehaviorTitle": "Feed Item Click Behavior",
   "@feedItemClickBehaviorTitle": {
     "description": "Title for the feed item click behavior setting."
@@ -2097,5 +2093,25 @@
   "notificationSubscriptionWeeklyRoundupDescription": "Limit for subscriptions that send a weekly summary of matching headlines.",
   "@notificationSubscriptionWeeklyRoundupDescription": {
     "description": "Description for the weekly roundup notification subscription limit."
+  },
+  "appStatusAndUpdatesTitle": "App Status & Updates",
+  "@appStatusAndUpdatesTitle": {
+    "description": "Title for the App Status & Updates expansion tile."
+  },
+  "enableForcedUpdatesLabel": "Enable Forced Updates",
+  "@enableForcedUpdatesLabel": {
+    "description": "Label for the switch to enable forced updates."
+  },
+  "enableForcedUpdatesDescription": "When enabled, you can specify a minimum required version for the app.",
+  "@enableForcedUpdatesDescription": {
+    "description": "Description for the switch to enable forced updates."
+  },
+  "appUrlsTitle": "Application URLs",
+  "@appUrlsTitle": {
+    "description": "Title for the Application URLs expansion tile."
+  },
+  "appUrlsDescription": "Manage external and internal URLs used within the application.",
+  "@appUrlsDescription": {
+    "description": "Description for the Application URLs expansion tile."
   }
 }
