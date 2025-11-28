@@ -5,15 +5,15 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// {@template app_configuration_tab}
-/// A widget representing the "App" tab in the App Configuration page.
+/// {@template system_configuration_tab}
+/// A widget representing the "System" tab in the App Configuration page.
 ///
 /// This tab allows configuration of application-level settings like
 /// maintenance mode, force updates, and general app settings.
 /// {@endtemplate}
-class AppConfigurationTab extends StatefulWidget {
-  /// {@macro app_configuration_tab}
-  const AppConfigurationTab({
+class SystemConfigurationTab extends StatefulWidget {
+  /// {@macro system_configuration_tab}
+  const SystemConfigurationTab({
     required this.remoteConfig,
     required this.onConfigChanged,
     super.key,
@@ -26,10 +26,10 @@ class AppConfigurationTab extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<AppConfigurationTab> createState() => _AppConfigurationTabState();
+  State<SystemConfigurationTab> createState() => _SystemConfigurationTabState();
 }
 
-class _AppConfigurationTabState extends State<AppConfigurationTab> {
+class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
   /// Notifier for the index of the currently expanded top-level ExpansionTile.
   ///
   /// A value of `null` means no tile is expanded.
