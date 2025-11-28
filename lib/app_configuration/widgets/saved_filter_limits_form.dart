@@ -221,6 +221,10 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
             children: AppUserRole.values.map((role) {
               final limits = _getLimitsForRole(role);
               return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.sm,
+                ),
                 child: Column(
                   children: [
                     AppConfigIntField(
