@@ -66,54 +66,51 @@ class _GeneralAppConfigFormState extends State<GeneralAppConfigForm> {
     final appConfig = widget.remoteConfig.app;
     final generalConfig = appConfig.general;
 
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.generalAppConfigDescription,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.appUrlsDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
-          const SizedBox(height: AppSpacing.lg),
-          AppConfigTextField(
-            label: l10n.termsOfServiceUrlLabel,
-            description: l10n.termsOfServiceUrlDescription,
-            value: generalConfig.termsOfServiceUrl,
-            onChanged: (value) {
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  app: appConfig.copyWith(
-                    general: generalConfig.copyWith(
-                      termsOfServiceUrl: value,
-                    ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        AppConfigTextField(
+          label: l10n.termsOfServiceUrlLabel,
+          description: l10n.termsOfServiceUrlDescription,
+          value: generalConfig.termsOfServiceUrl,
+          onChanged: (value) {
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                app: appConfig.copyWith(
+                  general: generalConfig.copyWith(
+                    termsOfServiceUrl: value,
                   ),
                 ),
-              );
-            },
-            controller: _termsUrlController,
-          ),
-          AppConfigTextField(
-            label: l10n.privacyPolicyUrlLabel,
-            description: l10n.privacyPolicyUrlDescription,
-            value: generalConfig.privacyPolicyUrl,
-            onChanged: (value) {
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  app: appConfig.copyWith(
-                    general: generalConfig.copyWith(
-                      privacyPolicyUrl: value,
-                    ),
+              ),
+            );
+          },
+          controller: _termsUrlController,
+        ),
+        AppConfigTextField(
+          label: l10n.privacyPolicyUrlLabel,
+          description: l10n.privacyPolicyUrlDescription,
+          value: generalConfig.privacyPolicyUrl,
+          onChanged: (value) {
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                app: appConfig.copyWith(
+                  general: generalConfig.copyWith(
+                    privacyPolicyUrl: value,
                   ),
                 ),
-              );
-            },
-            controller: _privacyUrlController,
-          ),
-        ],
-      ),
+              ),
+            );
+          },
+          controller: _privacyUrlController,
+        ),
+      ],
     );
   }
 }
