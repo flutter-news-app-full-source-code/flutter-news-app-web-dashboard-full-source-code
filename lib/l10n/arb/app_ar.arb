@@ -986,7 +986,7 @@
   "@isUnderMaintenanceLabel": {
     "description": "تسمية مفتاح 'تحت الصيانة'"
   },
-  "isUnderMaintenanceDescription": "تبديل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.",
+  "isUnderMaintenanceDescription": "تبديل لوضع تطبيق الجوال في وضع الصيانة، مما يمنع وصول المستخدمين.",
   "@isUnderMaintenanceDescription": {
     "description": "وصف مفتاح 'تحت الصيانة'"
   },
@@ -2106,7 +2106,7 @@
   "@enableForcedUpdatesLabel": {
     "description": "تسمية مفتاح تفعيل التحديثات الإجبارية."
   },
-  "enableForcedUpdatesDescription": "عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب للتطبيق.",
+  "enableForcedUpdatesDescription": "عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب لتطبيق الجوال.",
   "@enableForcedUpdatesDescription": {
     "description": "وصف مفتاح تفعيل التحديثات الإجبارية."
   },

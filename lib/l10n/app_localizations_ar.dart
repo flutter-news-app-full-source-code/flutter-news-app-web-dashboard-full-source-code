@@ -800,7 +800,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get isUnderMaintenanceDescription =>
-      'تبديل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.';
+      'تبديل لوضع تطبيق الجوال في وضع الصيانة، مما يمنع وصول المستخدمين.';
 
   @override
   String get isLatestVersionOnlyLabel => 'فرض أحدث إصدار فقط';
@@ -1683,7 +1683,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get enableForcedUpdatesDescription =>
-      'عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب للتطبيق.';
+      'عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب لتطبيق الجوال.';
 
   @override
   String get appUrlsTitle => 'روابط التطبيق';

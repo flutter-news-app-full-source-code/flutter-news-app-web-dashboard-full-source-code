@@ -798,7 +798,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get isUnderMaintenanceDescription =>
-      'Toggle to put the app in maintenance mode, preventing user access.';
+      'Toggle to put the mobile app in maintenance mode, preventing user access.';
 
   @override
   String get isLatestVersionOnlyLabel => 'Force Latest Version Only';
@@ -1686,7 +1686,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enableForcedUpdatesDescription =>
-      'When enabled, you can specify a minimum required version for the app.';
+      'When enabled, you can specify a minimum required version for the mobile app.';
 
   @override
   String get appUrlsTitle => 'Application URLs';

@@ -990,7 +990,7 @@
   "@isUnderMaintenanceLabel": {
     "description": "Label for the 'is under maintenance' switch"
   },
-  "isUnderMaintenanceDescription": "Toggle to put the app in maintenance mode, preventing user access.",
+  "isUnderMaintenanceDescription": "Toggle to put the mobile app in maintenance mode, preventing user access.",
   "@isUnderMaintenanceDescription": {
     "description": "Description for the 'is under maintenance' switch"
   },
@@ -2102,7 +2102,7 @@
   "@enableForcedUpdatesLabel": {
     "description": "Label for the switch to enable forced updates."
   },
-  "enableForcedUpdatesDescription": "When enabled, you can specify a minimum required version for the app.",
+  "enableForcedUpdatesDescription": "When enabled, you can specify a minimum required version for the mobile app.",
   "@enableForcedUpdatesDescription": {
     "description": "Description for the switch to enable forced updates."
   },

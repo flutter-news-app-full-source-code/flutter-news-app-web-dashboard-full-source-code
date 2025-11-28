@@ -1523,7 +1523,7 @@ abstract class AppLocalizations {
   /// Description for the 'is under maintenance' switch
   ///
   /// In en, this message translates to:
-  /// **'Toggle to put the app in maintenance mode, preventing user access.'**
+  /// **'Toggle to put the mobile app in maintenance mode, preventing user access.'**
   String get isUnderMaintenanceDescription;
 
   /// Label for the 'is latest version only' switch
@@ -3131,7 +3131,7 @@ abstract class AppLocalizations {
   /// Description for the switch to enable forced updates.
   ///
   /// In en, this message translates to:
-  /// **'When enabled, you can specify a minimum required version for the app.'**
+  /// **'When enabled, you can specify a minimum required version for the mobile app.'**
   String get enableForcedUpdatesDescription;
 
   /// Title for the Application URLs expansion tile.
