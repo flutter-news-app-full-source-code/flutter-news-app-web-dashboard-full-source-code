@@ -2085,5 +2085,17 @@
   "userLimitsTitle": "User Limits",
   "@userLimitsTitle": {
     "description": "Title for the User Limits expansion tile."
+  },
+  "notificationSubscriptionBreakingOnlyDescription": "Limit for subscriptions that send immediate alerts for matching headlines.",
+  "@notificationSubscriptionBreakingOnlyDescription": {
+    "description": "Description for the breaking news notification subscription limit."
+  },
+  "notificationSubscriptionDailyDigestDescription": "Limit for subscriptions that send a daily summary of matching headlines.",
+  "@notificationSubscriptionDailyDigestDescription": {
+    "description": "Description for the daily digest notification subscription limit."
+  },
+  "notificationSubscriptionWeeklyRoundupDescription": "Limit for subscriptions that send a weekly summary of matching headlines.",
+  "@notificationSubscriptionWeeklyRoundupDescription": {
+    "description": "Description for the weekly roundup notification subscription limit."
   }
 }

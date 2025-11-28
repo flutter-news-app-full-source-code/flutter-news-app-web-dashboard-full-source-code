@@ -2089,5 +2089,17 @@
   "userLimitsTitle": "حدود المستخدم",
   "@userLimitsTitle": {
     "description": "عنوان قسم حدود المستخدم القابل للتوسيع."
+  },
+  "notificationSubscriptionBreakingOnlyDescription": "حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.",
+  "@notificationSubscriptionBreakingOnlyDescription": {
+    "description": "وصف لحد اشتراك إشعارات الأخبار العاجلة."
+  },
+  "notificationSubscriptionDailyDigestDescription": "حد الاشتراكات التي ترسل ملخصًا يوميًا للعناوين المطابقة.",
+  "@notificationSubscriptionDailyDigestDescription": {
+    "description": "وصف لحد اشتراك إشعارات الملخص اليومي."
+  },
+  "notificationSubscriptionWeeklyRoundupDescription": "حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.",
+  "@notificationSubscriptionWeeklyRoundupDescription": {
+    "description": "وصف لحد اشتراك إشعارات الحصاد الأسبوعي."
   }
 }
