@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get advertisementsTab => 'Advertisements';
 
   @override
-  String get generalTab => 'General';
+  String get systemTab => 'System';
 
   @override
   String get userContentLimitsTitle => 'User Content Limits';

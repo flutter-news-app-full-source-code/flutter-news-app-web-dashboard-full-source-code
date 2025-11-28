@@ -284,11 +284,11 @@ abstract class AppLocalizations {
   /// **'Advertisements'**
   String get advertisementsTab;
 
-  /// Tab title for General settings
+  /// Tab title for system settings
   ///
   /// In en, this message translates to:
-  /// **'General'**
-  String get generalTab;
+  /// **'System'**
+  String get systemTab;
 
   /// Title for the User Content Limits section
   ///
@@ -3074,7 +3074,7 @@ abstract class AppLocalizations {
   /// **'Feed Item Click Behavior'**
   String get feedItemClickBehaviorTitle;
 
-  /// No description provided for @feedItemClickBehaviorDescription.
+  /// Description for the feed item click behavior setting.
   ///
   /// In en, this message translates to:
   /// **'Select which browser opens when a user taps on a headline in the feed.'**
