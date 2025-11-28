@@ -129,29 +129,27 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.lg,
+                ExpansionTile(
+                  title: Text(l10n.feedItemClickBehaviorTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: AppSpacing.md),
-                      Text(
-                        l10n.feedItemClickBehaviorTitle,
-                        style: Theme.of(context).textTheme.titleMedium,
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.feedItemClickBehaviorDescription,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.7),
                       ),
-                      const SizedBox(height: AppSpacing.xs),
-                      Text(
-                        l10n.feedItemClickBehaviorDescription,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      SegmentedButton<FeedItemClickBehavior>(
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: SegmentedButton<FeedItemClickBehavior>(
                         segments: FeedItemClickBehavior.values
                             .where(
                               (b) => b != FeedItemClickBehavior.defaultBehavior,
@@ -180,8 +178,8 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                           );
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 ExpansionTile(
