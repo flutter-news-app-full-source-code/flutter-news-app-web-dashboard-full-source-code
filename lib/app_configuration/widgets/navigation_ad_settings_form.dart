@@ -115,6 +115,12 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
 
     return ExpansionTile(
       title: Text(l10n.navigationAdConfigTitle),
+      childrenPadding: const EdgeInsetsDirectional.only(
+        start: AppSpacing.lg,
+        top: AppSpacing.md,
+        bottom: AppSpacing.md,
+      ),
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SwitchListTile(
           title: Text(l10n.enableNavigationAdsLabel),
