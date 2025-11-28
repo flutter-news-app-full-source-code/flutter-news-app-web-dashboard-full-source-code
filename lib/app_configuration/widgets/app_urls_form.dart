@@ -34,22 +34,37 @@ class _AppUrlsFormState extends State<AppUrlsForm> {
   @override
   void initState() {
     super.initState();
-    _termsUrlController = TextEditingController(
-      text: widget.remoteConfig.app.general.termsOfServiceUrl,
-    );
-    _privacyUrlController = TextEditingController(
-      text: widget.remoteConfig.app.general.privacyPolicyUrl,
-    );
+    final generalConfig = widget.remoteConfig.app.general;
+    _termsUrlController = _createController(generalConfig.termsOfServiceUrl);
+    _privacyUrlController = _createController(generalConfig.privacyPolicyUrl);
+  }
+
+  TextEditingController _createController(String text) {
+    return TextEditingController(text: text)
+      ..selection = TextSelection.collapsed(offset: text.length);
+  }
+
+  void _updateControllerText(TextEditingController controller, String text) {
+    if (controller.text != text) {
+      controller
+        ..text = text
+        ..selection = TextSelection.collapsed(offset: text.length);
+    }
   }
 
   @override
   void didUpdateWidget(covariant AppUrlsForm oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.remoteConfig.app.general != oldWidget.remoteConfig.app.general) {
-      _termsUrlController.text =
-          widget.remoteConfig.app.general.termsOfServiceUrl;
-      _privacyUrlController.text =
-          widget.remoteConfig.app.general.privacyPolicyUrl;
+      final generalConfig = widget.remoteConfig.app.general;
+      _updateControllerText(
+        _termsUrlController,
+        generalConfig.termsOfServiceUrl,
+      );
+      _updateControllerText(
+        _privacyUrlController,
+        generalConfig.privacyPolicyUrl,
+      );
     }
   }
 

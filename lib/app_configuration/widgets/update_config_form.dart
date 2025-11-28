@@ -34,13 +34,22 @@ class _UpdateConfigFormState extends State<UpdateConfigForm> {
   void initState() {
     super.initState();
     final updateConfig = widget.remoteConfig.app.update;
-    _latestVersionController = TextEditingController(
-      text: updateConfig.latestAppVersion,
-    );
-    _iosUrlController = TextEditingController(text: updateConfig.iosUpdateUrl);
-    _androidUrlController = TextEditingController(
-      text: updateConfig.androidUpdateUrl,
-    );
+    _latestVersionController = _createController(updateConfig.latestAppVersion);
+    _iosUrlController = _createController(updateConfig.iosUpdateUrl);
+    _androidUrlController = _createController(updateConfig.androidUpdateUrl);
+  }
+
+  TextEditingController _createController(String text) {
+    return TextEditingController(text: text)
+      ..selection = TextSelection.collapsed(offset: text.length);
+  }
+
+  void _updateControllerText(TextEditingController controller, String text) {
+    if (controller.text != text) {
+      controller
+        ..text = text
+        ..selection = TextSelection.collapsed(offset: text.length);
+    }
   }
 
   @override
@@ -48,9 +57,15 @@ class _UpdateConfigFormState extends State<UpdateConfigForm> {
     super.didUpdateWidget(oldWidget);
     if (widget.remoteConfig.app.update != oldWidget.remoteConfig.app.update) {
       final updateConfig = widget.remoteConfig.app.update;
-      _latestVersionController.text = updateConfig.latestAppVersion;
-      _iosUrlController.text = updateConfig.iosUpdateUrl;
-      _androidUrlController.text = updateConfig.androidUpdateUrl;
+      _updateControllerText(
+        _latestVersionController,
+        updateConfig.latestAppVersion,
+      );
+      _updateControllerText(_iosUrlController, updateConfig.iosUpdateUrl);
+      _updateControllerText(
+        _androidUrlController,
+        updateConfig.androidUpdateUrl,
+      );
     }
   }
 
