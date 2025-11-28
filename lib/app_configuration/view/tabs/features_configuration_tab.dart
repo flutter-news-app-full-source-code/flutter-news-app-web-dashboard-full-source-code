@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_item_click_behavior_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template features_configuration_tab}
@@ -115,54 +116,114 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        // Feed Decorators
+        // Feed
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
             const tileIndex = 2;
             return ExpansionTile(
-              key: ValueKey('feedDecoratorsTile_$expandedIndex'),
-              title: Text(l10n.feedDecoratorsTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              key: ValueKey('feedTile_$expandedIndex'),
+              title: Text(l10n.feedTab),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               children: [
-                Text(
-                  l10n.feedDecoratorsDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.lg,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: AppSpacing.md),
+                      Text(
+                        l10n.feedItemClickBehaviorTitle,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: AppSpacing.xs),
+                      Text(
+                        l10n.feedItemClickBehaviorDescription,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withOpacity(0.7),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      SegmentedButton<FeedItemClickBehavior>(
+                        segments: FeedItemClickBehavior.values
+                            .where(
+                              (b) => b != FeedItemClickBehavior.defaultBehavior,
+                            )
+                            .map(
+                              (behavior) =>
+                                  ButtonSegment<FeedItemClickBehavior>(
+                                    value: behavior,
+                                    label: Text(behavior.l10n(context)),
+                                  ),
+                            )
+                            .toList(),
+                        selected: {
+                          widget.remoteConfig.features.feed.itemClickBehavior,
+                        },
+                        onSelectionChanged: (newSelection) {
+                          widget.onConfigChanged(
+                            widget.remoteConfig.copyWith(
+                              features: widget.remoteConfig.features.copyWith(
+                                feed: widget.remoteConfig.features.feed
+                                    .copyWith(
+                                      itemClickBehavior: newSelection.first,
+                                    ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                for (final decoratorType in FeedDecoratorType.values)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                    child: ExpansionTile(
-                      title: Text(decoratorType.l10n(context)),
-                      childrenPadding: const EdgeInsetsDirectional.only(
-                        start: AppSpacing.xl,
-                        top: AppSpacing.md,
-                        bottom: AppSpacing.md,
-                      ),
-                      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FeedDecoratorForm(
-                          decoratorType: decoratorType,
-                          remoteConfig: widget.remoteConfig,
-                          onConfigChanged: widget.onConfigChanged,
-                        ),
-                      ],
-                    ),
+                ExpansionTile(
+                  title: Text(l10n.feedDecoratorsTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
                   ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.feedDecoratorsDescription,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.7),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    for (final decoratorType in FeedDecoratorType.values)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                        child: ExpansionTile(
+                          title: Text(decoratorType.l10n(context)),
+                          childrenPadding: const EdgeInsetsDirectional.only(
+                            start: AppSpacing.xl,
+                            top: AppSpacing.md,
+                            bottom: AppSpacing.md,
+                          ),
+                          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FeedDecoratorForm(
+                              decoratorType: decoratorType,
+                              remoteConfig: widget.remoteConfig,
+                              onConfigChanged: widget.onConfigChanged,
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
               ],
             );
           },
