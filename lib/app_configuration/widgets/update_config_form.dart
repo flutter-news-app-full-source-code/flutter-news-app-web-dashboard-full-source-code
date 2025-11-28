@@ -68,79 +68,84 @@ class _UpdateConfigFormState extends State<UpdateConfigForm> {
     final appConfig = widget.remoteConfig.app;
     final updateConfig = appConfig.update;
 
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.updateConfigDescription,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          title: Text(l10n.enableForcedUpdatesLabel),
+          subtitle: Text(l10n.enableForcedUpdatesDescription),
+          value: updateConfig.isLatestVersionOnly,
+          onChanged: (value) {
+            widget.onConfigChanged(
+              widget.remoteConfig.copyWith(
+                app: appConfig.copyWith(
+                  update: updateConfig.copyWith(isLatestVersionOnly: value),
+                ),
+              ),
+            );
+          },
+        ),
+        if (updateConfig.isLatestVersionOnly)
+          Padding(
+            padding: const EdgeInsets.only(
+              left: AppSpacing.lg,
+              top: AppSpacing.md,
+            ),
+            child: Column(
+              children: [
+                AppConfigTextField(
+                  label: l10n.latestAppVersionLabel,
+                  description: l10n.latestAppVersionDescription,
+                  value: updateConfig.latestAppVersion,
+                  onChanged: (value) {
+                    widget.onConfigChanged(
+                      widget.remoteConfig.copyWith(
+                        app: appConfig.copyWith(
+                          update: updateConfig.copyWith(
+                            latestAppVersion: value,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  controller: _latestVersionController,
+                ),
+                AppConfigTextField(
+                  label: l10n.iosUpdateUrlLabel,
+                  description: l10n.iosUpdateUrlDescription,
+                  value: updateConfig.iosUpdateUrl,
+                  onChanged: (value) {
+                    widget.onConfigChanged(
+                      widget.remoteConfig.copyWith(
+                        app: appConfig.copyWith(
+                          update: updateConfig.copyWith(iosUpdateUrl: value),
+                        ),
+                      ),
+                    );
+                  },
+                  controller: _iosUrlController,
+                ),
+                AppConfigTextField(
+                  label: l10n.androidUpdateUrlLabel,
+                  description: l10n.androidUpdateUrlDescription,
+                  value: updateConfig.androidUpdateUrl,
+                  onChanged: (value) {
+                    widget.onConfigChanged(
+                      widget.remoteConfig.copyWith(
+                        app: appConfig.copyWith(
+                          update: updateConfig.copyWith(
+                            androidUpdateUrl: value,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  controller: _androidUrlController,
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: AppSpacing.lg),
-          AppConfigTextField(
-            label: l10n.latestAppVersionLabel,
-            description: l10n.latestAppVersionDescription,
-            value: updateConfig.latestAppVersion,
-            onChanged: (value) {
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  app: appConfig.copyWith(
-                    update: updateConfig.copyWith(latestAppVersion: value),
-                  ),
-                ),
-              );
-            },
-            controller: _latestVersionController,
-          ),
-          SwitchListTile(
-            title: Text(l10n.isLatestVersionOnlyLabel),
-            subtitle: Text(l10n.isLatestVersionOnlyDescription),
-            value: updateConfig.isLatestVersionOnly,
-            onChanged: (value) {
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  app: appConfig.copyWith(
-                    update: updateConfig.copyWith(isLatestVersionOnly: value),
-                  ),
-                ),
-              );
-            },
-          ),
-          AppConfigTextField(
-            label: l10n.iosUpdateUrlLabel,
-            description: l10n.iosUpdateUrlDescription,
-            value: updateConfig.iosUpdateUrl,
-            onChanged: (value) {
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  app: appConfig.copyWith(
-                    update: updateConfig.copyWith(iosUpdateUrl: value),
-                  ),
-                ),
-              );
-            },
-            controller: _iosUrlController,
-          ),
-          AppConfigTextField(
-            label: l10n.androidUpdateUrlLabel,
-            description: l10n.androidUpdateUrlDescription,
-            value: updateConfig.androidUpdateUrl,
-            onChanged: (value) {
-              widget.onConfigChanged(
-                widget.remoteConfig.copyWith(
-                  app: appConfig.copyWith(
-                    update: updateConfig.copyWith(androidUpdateUrl: value),
-                  ),
-                ),
-              );
-            },
-            controller: _androidUrlController,
-          ),
-        ],
-      ),
+      ],
     );
   }
 }
