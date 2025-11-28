@@ -2070,7 +2070,7 @@
   "@appLegalInformationTitle": {
     "description": "عنوان قسم المعلومات القانونية والعامة القابل للتوسيع."
   },
-  "feedItemClickBehaviorTitle": "سلوك النقر على العنوان",
+  "feedItemClickBehaviorTitle": "سلوك النقر على عنصر الموجز",
   "@feedItemClickBehaviorTitle": {
     "description": "عنوان إعداد سلوك النقر على عنصر الموجز."
   },

@@ -2066,7 +2066,7 @@
   "@appLegalInformationTitle": {
     "description": "Title for the Legal & General Information expansion tile."
   },
-  "feedItemClickBehaviorTitle": "Headline Click Behavior",
+  "feedItemClickBehaviorTitle": "Feed Item Click Behavior",
   "@feedItemClickBehaviorTitle": {
     "description": "Title for the feed item click behavior setting."
   },

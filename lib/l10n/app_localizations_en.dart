@@ -1654,7 +1654,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appLegalInformationTitle => 'Legal & General Information';
 
   @override
-  String get feedItemClickBehaviorTitle => 'Headline Click Behavior';
+  String get feedItemClickBehaviorTitle => 'Feed Item Click Behavior';
 
   @override
   String get feedItemClickBehaviorDescription =>

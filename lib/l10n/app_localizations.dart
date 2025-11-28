@@ -3077,7 +3077,7 @@ abstract class AppLocalizations {
   /// Title for the feed item click behavior setting.
   ///
   /// In en, this message translates to:
-  /// **'Headline Click Behavior'**
+  /// **'Feed Item Click Behavior'**
   String get feedItemClickBehaviorTitle;
 
   /// No description provided for @feedItemClickBehaviorDescription.

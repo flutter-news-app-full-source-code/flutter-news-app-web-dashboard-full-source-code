@@ -1651,7 +1651,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appLegalInformationTitle => 'المعلومات القانونية والعامة';
 
   @override
-  String get feedItemClickBehaviorTitle => 'سلوك النقر على العنوان';
+  String get feedItemClickBehaviorTitle => 'سلوك النقر على عنصر الموجز';
 
   @override
   String get feedItemClickBehaviorDescription =>
