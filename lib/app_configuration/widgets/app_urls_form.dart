@@ -4,14 +4,14 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// {@template general_app_config_form}
-/// A form widget for configuring general application settings.
+/// {@template app_urls_form}
+/// A form widget for configuring application URLs.
 ///
 /// This form manages settings like Terms of Service and Privacy Policy URLs.
 /// {@endtemplate}
-class GeneralAppConfigForm extends StatefulWidget {
-  /// {@macro general_app_config_form}
-  const GeneralAppConfigForm({
+class AppUrlsForm extends StatefulWidget {
+  /// {@macro app_urls_form}
+  const AppUrlsForm({
     required this.remoteConfig,
     required this.onConfigChanged,
     super.key,
@@ -24,10 +24,10 @@ class GeneralAppConfigForm extends StatefulWidget {
   final ValueChanged<RemoteConfig> onConfigChanged;
 
   @override
-  State<GeneralAppConfigForm> createState() => _GeneralAppConfigFormState();
+  State<AppUrlsForm> createState() => _AppUrlsFormState();
 }
 
-class _GeneralAppConfigFormState extends State<GeneralAppConfigForm> {
+class _AppUrlsFormState extends State<AppUrlsForm> {
   late final TextEditingController _termsUrlController;
   late final TextEditingController _privacyUrlController;
 
@@ -43,7 +43,7 @@ class _GeneralAppConfigFormState extends State<GeneralAppConfigForm> {
   }
 
   @override
-  void didUpdateWidget(covariant GeneralAppConfigForm oldWidget) {
+  void didUpdateWidget(covariant AppUrlsForm oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.remoteConfig.app.general != oldWidget.remoteConfig.app.general) {
       _termsUrlController.text =
