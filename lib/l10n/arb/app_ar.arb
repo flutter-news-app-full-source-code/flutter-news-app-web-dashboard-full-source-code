@@ -139,9 +139,9 @@
   "@advertisementsTab": {
     "description": "عنوان تبويب إعدادات الإعلانات"
   },
-  "generalTab": "عام",
-  "@generalTab": {
-    "description": "عنوان تبويب الإعدادات العامة"
+  "systemTab": "النظام",
+  "@systemTab": {
+    "description": "عنوان تبويب لإعدادات النظام"
   },
   "userContentLimitsTitle": "حدود المحتوى",
   "@userContentLimitsTitle": {
@@ -2071,7 +2071,7 @@
     "description": "عنوان إعداد سلوك النقر على عنصر الموجز."
   },
   "feedItemClickBehaviorDescription": "اختر المتصفح الذي يفتح عند نقر المستخدم على عنوان في الموجز.",
-  "@feedItemClickbehaviorDescription": {
+  "@feedItemClickBehaviorDescription": {
     "description": "وصف إعداد سلوك النقر على عنصر الموجز."
   },
   "feedItemClickBehaviorInternalNavigation": "متصفح داخل التطبيق",

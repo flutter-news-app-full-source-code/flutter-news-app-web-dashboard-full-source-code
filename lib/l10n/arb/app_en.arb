@@ -139,9 +139,9 @@
   "@advertisementsTab": {
     "description": "Tab title for Advertisements settings"
   },
-  "generalTab": "General",
-  "@generalTab": {
-    "description": "Tab title for General settings"
+  "systemTab": "System",
+  "@systemTab": {
+    "description": "Tab title for system settings"
   },
   "userContentLimitsTitle": "User Content Limits",
   "@userContentLimitsTitle": {
@@ -2067,7 +2067,7 @@
     "description": "Title for the feed item click behavior setting."
   },
   "feedItemClickBehaviorDescription": "Select which browser opens when a user taps on a headline in the feed.",
-  "@feedItemClickbehaviorDescription": {
+  "@feedItemClickBehaviorDescription": {
     "description": "Description for the feed item click behavior setting."
   },
   "feedItemClickBehaviorInternalNavigation": "In-App Browser",

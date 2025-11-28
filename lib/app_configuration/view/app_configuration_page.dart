@@ -65,7 +65,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: [
-            Tab(text: l10n.appTab),
+            Tab(text: l10n.systemTab),
             Tab(text: l10n.featuresTab),
             Tab(text: l10n.userTab),
           ],
