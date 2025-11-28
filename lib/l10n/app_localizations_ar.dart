@@ -1648,9 +1648,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appUpdateManagementTitle => 'إدارة تحديثات التطبيق';
 
   @override
-  String get appLegalInformationTitle => 'المعلومات القانونية والعامة';
-
-  @override
   String get feedItemClickBehaviorTitle => 'سلوك النقر على عنصر الموجز';
 
   @override
@@ -1677,4 +1674,21 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get notificationSubscriptionWeeklyRoundupDescription =>
       'حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.';
+
+  @override
+  String get appStatusAndUpdatesTitle => 'حالة التطبيق والتحديثات';
+
+  @override
+  String get enableForcedUpdatesLabel => 'تفعيل التحديثات الإجبارية';
+
+  @override
+  String get enableForcedUpdatesDescription =>
+      'عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب للتطبيق.';
+
+  @override
+  String get appUrlsTitle => 'روابط التطبيق';
+
+  @override
+  String get appUrlsDescription =>
+      'إدارة الروابط الخارجية والداخلية المستخدمة داخل التطبيق.';
 }

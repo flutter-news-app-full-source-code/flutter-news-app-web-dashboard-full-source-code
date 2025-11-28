@@ -3068,12 +3068,6 @@ abstract class AppLocalizations {
   /// **'Application Update Management'**
   String get appUpdateManagementTitle;
 
-  /// Title for the Legal & General Information expansion tile.
-  ///
-  /// In en, this message translates to:
-  /// **'Legal & General Information'**
-  String get appLegalInformationTitle;
-
   /// Title for the feed item click behavior setting.
   ///
   /// In en, this message translates to:
@@ -3121,6 +3115,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Limit for subscriptions that send a weekly summary of matching headlines.'**
   String get notificationSubscriptionWeeklyRoundupDescription;
+
+  /// Title for the App Status & Updates expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'App Status & Updates'**
+  String get appStatusAndUpdatesTitle;
+
+  /// Label for the switch to enable forced updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Forced Updates'**
+  String get enableForcedUpdatesLabel;
+
+  /// Description for the switch to enable forced updates.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled, you can specify a minimum required version for the app.'**
+  String get enableForcedUpdatesDescription;
+
+  /// Title for the Application URLs expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Application URLs'**
+  String get appUrlsTitle;
+
+  /// Description for the Application URLs expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage external and internal URLs used within the application.'**
+  String get appUrlsDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -1651,9 +1651,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appUpdateManagementTitle => 'Application Update Management';
 
   @override
-  String get appLegalInformationTitle => 'Legal & General Information';
-
-  @override
   String get feedItemClickBehaviorTitle => 'Feed Item Click Behavior';
 
   @override
@@ -1680,4 +1677,21 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationSubscriptionWeeklyRoundupDescription =>
       'Limit for subscriptions that send a weekly summary of matching headlines.';
+
+  @override
+  String get appStatusAndUpdatesTitle => 'App Status & Updates';
+
+  @override
+  String get enableForcedUpdatesLabel => 'Enable Forced Updates';
+
+  @override
+  String get enableForcedUpdatesDescription =>
+      'When enabled, you can specify a minimum required version for the app.';
+
+  @override
+  String get appUrlsTitle => 'Application URLs';
+
+  @override
+  String get appUrlsDescription =>
+      'Manage external and internal URLs used within the application.';
 }
