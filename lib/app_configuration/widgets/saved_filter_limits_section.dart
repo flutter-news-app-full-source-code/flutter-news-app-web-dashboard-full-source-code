@@ -47,13 +47,13 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
 
-    return Column(
-      children: [
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 0;
-            return ExpansionTile(
+    return ValueListenableBuilder<int?>(
+      valueListenable: _expandedTileIndex,
+      builder: (context, expandedIndex, child) {
+        const tileIndex = 0;
+        return Column(
+          children: [
+            ExpansionTile(
               key: ValueKey('savedHeadlineFilterLimitsTile_$expandedIndex'),
               title: Text(l10n.savedHeadlineFilterLimitsTitle),
               childrenPadding: const EdgeInsetsDirectional.only(
@@ -82,47 +82,47 @@ class _SavedFilterLimitsSectionState extends State<SavedFilterLimitsSection> {
                   filterType: SavedFilterType.headline,
                 ),
               ],
-            );
-          },
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 1;
-            return ExpansionTile(
-              key: ValueKey('savedSourceFilterLimitsTile_$expandedIndex'),
-              title: Text(l10n.savedSourceFilterLimitsTitle),
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
-              children: [
-                Text(
-                  l10n.savedSourceFilterLimitsDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            ValueListenableBuilder<int?>(
+              valueListenable: _expandedTileIndex,
+              builder: (context, expandedIndex, child) {
+                const tileIndex = 1;
+                return ExpansionTile(
+                  key: ValueKey('savedSourceFilterLimitsTile_$expandedIndex'),
+                  title: Text(l10n.savedSourceFilterLimitsTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
                   ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SavedFilterLimitsForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
-                  filterType: SavedFilterType.source,
-                ),
-              ],
-            );
-          },
-        ),
-      ],
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  onExpansionChanged: (isExpanded) {
+                    _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                  },
+                  initiallyExpanded: expandedIndex == tileIndex,
+                  children: [
+                    Text(
+                      l10n.savedSourceFilterLimitsDescription,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.7),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    SavedFilterLimitsForm(
+                      remoteConfig: widget.remoteConfig,
+                      onConfigChanged: widget.onConfigChanged,
+                      filterType: SavedFilterType.source,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
