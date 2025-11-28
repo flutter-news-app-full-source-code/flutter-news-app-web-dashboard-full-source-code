@@ -1651,11 +1651,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appLegalInformationTitle => 'المعلومات القانونية والعامة';
 
   @override
-  String get feedItemClickBehaviorTitle => 'سلوك النقر على عنصر الموجز';
+  String get feedItemClickBehaviorTitle => 'سلوك النقر على العنوان';
 
   @override
   String get feedItemClickBehaviorDescription =>
-      'اختر ما يحدث عندما ينقر المستخدم على عنوان في الموجز.';
+      'اختر المتصفح الذي يفتح عند نقر المستخدم على عنوان في الموجز.';
 
   @override
   String get feedItemClickBehaviorInternalNavigation => 'متصفح داخل التطبيق';
