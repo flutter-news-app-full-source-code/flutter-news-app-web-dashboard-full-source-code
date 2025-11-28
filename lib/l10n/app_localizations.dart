@@ -284,11 +284,11 @@ abstract class AppLocalizations {
   /// **'Advertisements'**
   String get advertisementsTab;
 
-  /// Tab title for General settings
+  /// Tab title for system settings
   ///
   /// In en, this message translates to:
-  /// **'General'**
-  String get generalTab;
+  /// **'System'**
+  String get systemTab;
 
   /// Title for the User Content Limits section
   ///
@@ -1523,7 +1523,7 @@ abstract class AppLocalizations {
   /// Description for the 'is under maintenance' switch
   ///
   /// In en, this message translates to:
-  /// **'Toggle to put the app in maintenance mode, preventing user access.'**
+  /// **'Toggle to put the mobile app in maintenance mode, preventing user access.'**
   String get isUnderMaintenanceDescription;
 
   /// Label for the 'is latest version only' switch
@@ -1937,7 +1937,7 @@ abstract class AppLocalizations {
   /// Title for the Primary Ad Platform Selection section
   ///
   /// In en, this message translates to:
-  /// **'Primary Ad Platform Selection'**
+  /// **'Primary Ad Platform'**
   String get primaryAdPlatformTitle;
 
   /// Description for the Primary Ad Platform Selection section
@@ -3068,11 +3068,83 @@ abstract class AppLocalizations {
   /// **'Application Update Management'**
   String get appUpdateManagementTitle;
 
-  /// Title for the Legal & General Information expansion tile.
+  /// Title for the feed item click behavior setting.
   ///
   /// In en, this message translates to:
-  /// **'Legal & General Information'**
-  String get appLegalInformationTitle;
+  /// **'Feed Item Click Behavior'**
+  String get feedItemClickBehaviorTitle;
+
+  /// Description for the feed item click behavior setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Select which browser opens when a user taps on a headline in the feed.'**
+  String get feedItemClickBehaviorDescription;
+
+  /// Option for opening links in the app's internal browser.
+  ///
+  /// In en, this message translates to:
+  /// **'In-App Browser'**
+  String get feedItemClickBehaviorInternalNavigation;
+
+  /// Option for opening links in the device's default system browser.
+  ///
+  /// In en, this message translates to:
+  /// **'System Browser'**
+  String get feedItemClickBehaviorExternalNavigation;
+
+  /// Title for the User Limits expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'User Limits'**
+  String get userLimitsTitle;
+
+  /// Description for the breaking news notification subscription limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit for subscriptions that send immediate alerts for matching headlines.'**
+  String get notificationSubscriptionBreakingOnlyDescription;
+
+  /// Description for the daily digest notification subscription limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit for subscriptions that send a daily summary of matching headlines.'**
+  String get notificationSubscriptionDailyDigestDescription;
+
+  /// Description for the weekly roundup notification subscription limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit for subscriptions that send a weekly summary of matching headlines.'**
+  String get notificationSubscriptionWeeklyRoundupDescription;
+
+  /// Title for the App Status & Updates expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'App Status & Updates'**
+  String get appStatusAndUpdatesTitle;
+
+  /// Label for the switch to enable forced updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Forced Updates'**
+  String get enableForcedUpdatesLabel;
+
+  /// Description for the switch to enable forced updates.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled, you can specify a minimum required version for the mobile app.'**
+  String get enableForcedUpdatesDescription;
+
+  /// Title for the Application URLs expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Application URLs'**
+  String get appUrlsTitle;
+
+  /// Description for the Application URLs expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage external and internal URLs used within the application.'**
+  String get appUrlsDescription;
 }
 
 class _AppLocalizationsDelegate

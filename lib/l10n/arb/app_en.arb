@@ -139,9 +139,9 @@
   "@advertisementsTab": {
     "description": "Tab title for Advertisements settings"
   },
-  "generalTab": "General",
-  "@generalTab": {
-    "description": "Tab title for General settings"
+  "systemTab": "System",
+  "@systemTab": {
+    "description": "Tab title for system settings"
   },
   "userContentLimitsTitle": "User Content Limits",
   "@userContentLimitsTitle": {
@@ -990,7 +990,7 @@
   "@isUnderMaintenanceLabel": {
     "description": "Label for the 'is under maintenance' switch"
   },
-  "isUnderMaintenanceDescription": "Toggle to put the app in maintenance mode, preventing user access.",
+  "isUnderMaintenanceDescription": "Toggle to put the mobile app in maintenance mode, preventing user access.",
   "@isUnderMaintenanceDescription": {
     "description": "Description for the 'is under maintenance' switch"
   },
@@ -1282,7 +1282,7 @@
   "@adPlatformConfigurationTitle": {
     "description": "Title for the Ad Platform Configuration section"
   },
-  "primaryAdPlatformTitle": "Primary Ad Platform Selection",
+  "primaryAdPlatformTitle": "Primary Ad Platform",
   "@primaryAdPlatformTitle": {
     "description": "Title for the Primary Ad Platform Selection section"
   },
@@ -2062,8 +2062,56 @@
   "@appUpdateManagementTitle": {
     "description": "Title for the Application Update Management expansion tile."
   },
-  "appLegalInformationTitle": "Legal & General Information",
-  "@appLegalInformationTitle": {
-    "description": "Title for the Legal & General Information expansion tile."
+  "feedItemClickBehaviorTitle": "Feed Item Click Behavior",
+  "@feedItemClickBehaviorTitle": {
+    "description": "Title for the feed item click behavior setting."
+  },
+  "feedItemClickBehaviorDescription": "Select which browser opens when a user taps on a headline in the feed.",
+  "@feedItemClickBehaviorDescription": {
+    "description": "Description for the feed item click behavior setting."
+  },
+  "feedItemClickBehaviorInternalNavigation": "In-App Browser",
+  "@feedItemClickBehaviorInternalNavigation": {
+    "description": "Option for opening links in the app's internal browser."
+  },
+  "feedItemClickBehaviorExternalNavigation": "System Browser",
+  "@feedItemClickBehaviorExternalNavigation": {
+    "description": "Option for opening links in the device's default system browser."
+  },
+  "userLimitsTitle": "User Limits",
+  "@userLimitsTitle": {
+    "description": "Title for the User Limits expansion tile."
+  },
+  "notificationSubscriptionBreakingOnlyDescription": "Limit for subscriptions that send immediate alerts for matching headlines.",
+  "@notificationSubscriptionBreakingOnlyDescription": {
+    "description": "Description for the breaking news notification subscription limit."
+  },
+  "notificationSubscriptionDailyDigestDescription": "Limit for subscriptions that send a daily summary of matching headlines.",
+  "@notificationSubscriptionDailyDigestDescription": {
+    "description": "Description for the daily digest notification subscription limit."
+  },
+  "notificationSubscriptionWeeklyRoundupDescription": "Limit for subscriptions that send a weekly summary of matching headlines.",
+  "@notificationSubscriptionWeeklyRoundupDescription": {
+    "description": "Description for the weekly roundup notification subscription limit."
+  },
+  "appStatusAndUpdatesTitle": "App Status & Updates",
+  "@appStatusAndUpdatesTitle": {
+    "description": "Title for the App Status & Updates expansion tile."
+  },
+  "enableForcedUpdatesLabel": "Enable Forced Updates",
+  "@enableForcedUpdatesLabel": {
+    "description": "Label for the switch to enable forced updates."
+  },
+  "enableForcedUpdatesDescription": "When enabled, you can specify a minimum required version for the mobile app.",
+  "@enableForcedUpdatesDescription": {
+    "description": "Description for the switch to enable forced updates."
+  },
+  "appUrlsTitle": "Application URLs",
+  "@appUrlsTitle": {
+    "description": "Title for the Application URLs expansion tile."
+  },
+  "appUrlsDescription": "Manage external and internal URLs used within the application.",
+  "@appUrlsDescription": {
+    "description": "Description for the Application URLs expansion tile."
   }
 }

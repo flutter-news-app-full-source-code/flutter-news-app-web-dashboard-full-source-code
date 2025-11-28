@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get advertisementsTab => 'Advertisements';
 
   @override
-  String get generalTab => 'General';
+  String get systemTab => 'System';
 
   @override
   String get userContentLimitsTitle => 'User Content Limits';
@@ -798,7 +798,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get isUnderMaintenanceDescription =>
-      'Toggle to put the app in maintenance mode, preventing user access.';
+      'Toggle to put the mobile app in maintenance mode, preventing user access.';
 
   @override
   String get isLatestVersionOnlyLabel => 'Force Latest Version Only';
@@ -1021,7 +1021,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adPlatformConfigurationTitle => 'Ad Platform Configuration';
 
   @override
-  String get primaryAdPlatformTitle => 'Primary Ad Platform Selection';
+  String get primaryAdPlatformTitle => 'Primary Ad Platform';
 
   @override
   String get primaryAdPlatformDescription =>
@@ -1651,5 +1651,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appUpdateManagementTitle => 'Application Update Management';
 
   @override
-  String get appLegalInformationTitle => 'Legal & General Information';
+  String get feedItemClickBehaviorTitle => 'Feed Item Click Behavior';
+
+  @override
+  String get feedItemClickBehaviorDescription =>
+      'Select which browser opens when a user taps on a headline in the feed.';
+
+  @override
+  String get feedItemClickBehaviorInternalNavigation => 'In-App Browser';
+
+  @override
+  String get feedItemClickBehaviorExternalNavigation => 'System Browser';
+
+  @override
+  String get userLimitsTitle => 'User Limits';
+
+  @override
+  String get notificationSubscriptionBreakingOnlyDescription =>
+      'Limit for subscriptions that send immediate alerts for matching headlines.';
+
+  @override
+  String get notificationSubscriptionDailyDigestDescription =>
+      'Limit for subscriptions that send a daily summary of matching headlines.';
+
+  @override
+  String get notificationSubscriptionWeeklyRoundupDescription =>
+      'Limit for subscriptions that send a weekly summary of matching headlines.';
+
+  @override
+  String get appStatusAndUpdatesTitle => 'App Status & Updates';
+
+  @override
+  String get enableForcedUpdatesLabel => 'Enable Forced Updates';
+
+  @override
+  String get enableForcedUpdatesDescription =>
+      'When enabled, you can specify a minimum required version for the mobile app.';
+
+  @override
+  String get appUrlsTitle => 'Application URLs';
+
+  @override
+  String get appUrlsDescription =>
+      'Manage external and internal URLs used within the application.';
 }

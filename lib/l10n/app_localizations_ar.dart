@@ -115,7 +115,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get advertisementsTab => 'الإعلانات';
 
   @override
-  String get generalTab => 'عام';
+  String get systemTab => 'النظام';
 
   @override
   String get userContentLimitsTitle => 'حدود المحتوى';
@@ -800,7 +800,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get isUnderMaintenanceDescription =>
-      'تبديل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.';
+      'تبديل لوضع تطبيق الجوال في وضع الصيانة، مما يمنع وصول المستخدمين.';
 
   @override
   String get isLatestVersionOnlyLabel => 'فرض أحدث إصدار فقط';
@@ -840,7 +840,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).';
 
   @override
-  String get savedFeedFilterLimitsTitle => 'حد المرشحات المحفوظة';
+  String get savedFeedFilterLimitsTitle => 'حدود المرشحات المحفوظة';
 
   @override
   String get savedFeedFilterLimitsDescription =>
@@ -1023,7 +1023,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adPlatformConfigurationTitle => 'إعدادات منصة الإعلان';
 
   @override
-  String get primaryAdPlatformTitle => 'اختيار منصة الإعلانات الأساسية';
+  String get primaryAdPlatformTitle => 'منصة الإعلانات الأساسية';
 
   @override
   String get primaryAdPlatformDescription =>
@@ -1648,5 +1648,47 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appUpdateManagementTitle => 'إدارة تحديثات التطبيق';
 
   @override
-  String get appLegalInformationTitle => 'المعلومات القانونية والعامة';
+  String get feedItemClickBehaviorTitle => 'سلوك النقر على عنصر الموجز';
+
+  @override
+  String get feedItemClickBehaviorDescription =>
+      'اختر المتصفح الذي يفتح عند نقر المستخدم على عنوان في الموجز.';
+
+  @override
+  String get feedItemClickBehaviorInternalNavigation => 'متصفح داخل التطبيق';
+
+  @override
+  String get feedItemClickBehaviorExternalNavigation => 'متصفح النظام';
+
+  @override
+  String get userLimitsTitle => 'حدود المستخدم';
+
+  @override
+  String get notificationSubscriptionBreakingOnlyDescription =>
+      'حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.';
+
+  @override
+  String get notificationSubscriptionDailyDigestDescription =>
+      'حد الاشتراكات التي ترسل ملخصًا يوميًا للعناوين المطابقة.';
+
+  @override
+  String get notificationSubscriptionWeeklyRoundupDescription =>
+      'حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.';
+
+  @override
+  String get appStatusAndUpdatesTitle => 'حالة التطبيق والتحديثات';
+
+  @override
+  String get enableForcedUpdatesLabel => 'تفعيل التحديثات الإجبارية';
+
+  @override
+  String get enableForcedUpdatesDescription =>
+      'عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب لتطبيق الجوال.';
+
+  @override
+  String get appUrlsTitle => 'روابط التطبيق';
+
+  @override
+  String get appUrlsDescription =>
+      'إدارة الروابط الخارجية والداخلية المستخدمة داخل التطبيق.';
 }

@@ -138,6 +138,12 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
 
     return ExpansionTile(
       title: Text(l10n.feedAdSettingsTitle),
+      childrenPadding: const EdgeInsetsDirectional.only(
+        start: AppSpacing.lg,
+        top: AppSpacing.md,
+        bottom: AppSpacing.md,
+      ),
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SwitchListTile(
           title: Text(l10n.enableFeedAdsLabel),

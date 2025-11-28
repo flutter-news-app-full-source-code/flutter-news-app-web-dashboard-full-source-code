@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/app_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/features_configuration_tab.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/system_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/view/tabs/user_configuration_tab.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
@@ -65,7 +65,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           tabs: [
-            Tab(text: l10n.appTab),
+            Tab(text: l10n.systemTab),
             Tab(text: l10n.featuresTab),
             Tab(text: l10n.userTab),
           ],
@@ -132,7 +132,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
             return TabBarView(
               controller: _tabController,
               children: [
-                AppConfigurationTab(
+                SystemConfigurationTab(
                   remoteConfig: remoteConfig,
                   onConfigChanged: (newConfig) {
                     context.read<AppConfigurationBloc>().add(

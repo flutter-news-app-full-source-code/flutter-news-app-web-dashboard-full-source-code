@@ -139,9 +139,9 @@
   "@advertisementsTab": {
     "description": "عنوان تبويب إعدادات الإعلانات"
   },
-  "generalTab": "عام",
-  "@generalTab": {
-    "description": "عنوان تبويب الإعدادات العامة"
+  "systemTab": "النظام",
+  "@systemTab": {
+    "description": "عنوان تبويب لإعدادات النظام"
   },
   "userContentLimitsTitle": "حدود المحتوى",
   "@userContentLimitsTitle": {
@@ -986,7 +986,7 @@
   "@isUnderMaintenanceLabel": {
     "description": "تسمية مفتاح 'تحت الصيانة'"
   },
-  "isUnderMaintenanceDescription": "تبديل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.",
+  "isUnderMaintenanceDescription": "تبديل لوضع تطبيق الجوال في وضع الصيانة، مما يمنع وصول المستخدمين.",
   "@isUnderMaintenanceDescription": {
     "description": "وصف مفتاح 'تحت الصيانة'"
   },
@@ -1038,7 +1038,7 @@
   "@adFrequencyDescription": {
     "description": "وصف تكرار الإعلان"
   },
-  "savedFeedFilterLimitsTitle": "حد المرشحات المحفوظة",
+  "savedFeedFilterLimitsTitle": "حدود المرشحات المحفوظة",
   "@savedFeedFilterLimitsTitle": {
     "description": "وصف لحد مرشحات موجز الأخبار المحفوظة"
   },
@@ -1282,7 +1282,7 @@
   "@adPlatformConfigurationTitle": {
     "description": "عنوان قسم إعدادات منصة الإعلانات"
   },
-  "primaryAdPlatformTitle": "اختيار منصة الإعلانات الأساسية",
+  "primaryAdPlatformTitle": "منصة الإعلانات الأساسية",
   "@primaryAdPlatformTitle": {
     "description": "عنوان قسم اختيار منصة الإعلانات الأساسية"
   },
@@ -2066,8 +2066,56 @@
   "@appUpdateManagementTitle": {
     "description": "عنوان قسم إدارة تحديثات التطبيق القابل للتوسيع."
   },
-  "appLegalInformationTitle": "المعلومات القانونية والعامة",
-  "@appLegalInformationTitle": {
-    "description": "عنوان قسم المعلومات القانونية والعامة القابل للتوسيع."
+  "feedItemClickBehaviorTitle": "سلوك النقر على عنصر الموجز",
+  "@feedItemClickBehaviorTitle": {
+    "description": "عنوان إعداد سلوك النقر على عنصر الموجز."
+  },
+  "feedItemClickBehaviorDescription": "اختر المتصفح الذي يفتح عند نقر المستخدم على عنوان في الموجز.",
+  "@feedItemClickBehaviorDescription": {
+    "description": "وصف إعداد سلوك النقر على عنصر الموجز."
+  },
+  "feedItemClickBehaviorInternalNavigation": "متصفح داخل التطبيق",
+  "@feedItemClickBehaviorInternalNavigation": {
+    "description": "خيار لفتح الروابط في المتصفح الداخلي للتطبيق."
+  },
+  "feedItemClickBehaviorExternalNavigation": "متصفح النظام",
+  "@feedItemClickBehaviorExternalNavigation": {
+    "description": "خيار لفتح الروابط في متصفح النظام الافتراضي للجهاز."
+  },
+  "userLimitsTitle": "حدود المستخدم",
+  "@userLimitsTitle": {
+    "description": "عنوان قسم حدود المستخدم القابل للتوسيع."
+  },
+  "notificationSubscriptionBreakingOnlyDescription": "حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.",
+  "@notificationSubscriptionBreakingOnlyDescription": {
+    "description": "وصف لحد اشتراك إشعارات الأخبار العاجلة."
+  },
+  "notificationSubscriptionDailyDigestDescription": "حد الاشتراكات التي ترسل ملخصًا يوميًا للعناوين المطابقة.",
+  "@notificationSubscriptionDailyDigestDescription": {
+    "description": "وصف لحد اشتراك إشعارات الملخص اليومي."
+  },
+  "notificationSubscriptionWeeklyRoundupDescription": "حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.",
+  "@notificationSubscriptionWeeklyRoundupDescription": {
+    "description": "وصف لحد اشتراك إشعارات الحصاد الأسبوعي."
+  },
+  "appStatusAndUpdatesTitle": "حالة التطبيق والتحديثات",
+  "@appStatusAndUpdatesTitle": {
+    "description": "عنوان قسم حالة التطبيق والتحديثات القابل للتوسيع."
+  },
+  "enableForcedUpdatesLabel": "تفعيل التحديثات الإجبارية",
+  "@enableForcedUpdatesLabel": {
+    "description": "تسمية مفتاح تفعيل التحديثات الإجبارية."
+  },
+  "enableForcedUpdatesDescription": "عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب لتطبيق الجوال.",
+  "@enableForcedUpdatesDescription": {
+    "description": "وصف مفتاح تفعيل التحديثات الإجبارية."
+  },
+  "appUrlsTitle": "روابط التطبيق",
+  "@appUrlsTitle": {
+    "description": "عنوان قسم روابط التطبيق القابل للتوسيع."
+  },
+  "appUrlsDescription": "إدارة الروابط الخارجية والداخلية المستخدمة داخل التطبيق.",
+  "@appUrlsDescription": {
+    "description": "وصف قسم روابط التطبيق القابل للتوسيع."
   }
 }

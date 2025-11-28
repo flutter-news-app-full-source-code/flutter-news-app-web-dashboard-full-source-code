@@ -47,45 +47,54 @@ class _UserConfigurationTabState extends State<UserConfigurationTab> {
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
-        // User Content Limits (Followed Items, Saved Headlines)
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
-              key: ValueKey('userContentLimitsTile_$expandedIndex'),
-              title: Text(l10n.userContentLimitsTitle),
+              key: ValueKey('userLimitsTile_$expandedIndex'),
+              title: Text(l10n.userLimitsTitle),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserLimitsConfigForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
+                ExpansionTile(
+                  title: Text(l10n.userContentLimitsTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
+                  ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UserLimitsConfigForm(
+                      remoteConfig: widget.remoteConfig,
+                      onConfigChanged: widget.onConfigChanged,
+                    ),
+                  ],
                 ),
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: AppSpacing.lg),
-
-        // Saved Filter Limits (Headline and Source)
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 1;
-            return ExpansionTile(
-              key: ValueKey('savedFilterLimitsTile_$expandedIndex'),
-              title: Text(l10n.savedFeedFilterLimitsTitle),
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
-              children: [
-                SavedFilterLimitsSection(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
+                const SizedBox(height: AppSpacing.lg),
+                ExpansionTile(
+                  title: Text(l10n.savedFeedFilterLimitsTitle),
+                  childrenPadding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                    top: AppSpacing.md,
+                    bottom: AppSpacing.md,
+                  ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SavedFilterLimitsSection(
+                      remoteConfig: widget.remoteConfig,
+                      onConfigChanged: widget.onConfigChanged,
+                    ),
+                  ],
                 ),
               ],
             );

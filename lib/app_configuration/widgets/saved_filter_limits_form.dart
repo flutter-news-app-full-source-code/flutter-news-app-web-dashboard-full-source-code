@@ -41,7 +41,7 @@ class SavedFilterLimitsForm extends StatefulWidget {
 }
 
 class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   // A nested map to hold controllers: Role -> Field -> Controller
@@ -52,6 +52,10 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     super.initState();
     _tabController = TabController(
       length: AppUserRole.values.length,
+      vsync: this,
+    );
+    _notificationTabController = TabController(
+      length: PushNotificationSubscriptionDeliveryType.values.length,
       vsync: this,
     );
     _initializeControllers();
@@ -125,6 +129,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
   @override
   void dispose() {
     _tabController.dispose();
+    _notificationTabController.dispose();
     for (final roleControllers in _controllers.values) {
       for (final controller in roleControllers.values) {
         controller.dispose();
@@ -215,12 +220,16 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
         ),
         const SizedBox(height: AppSpacing.lg),
         SizedBox(
-          height: isHeadlineFilter ? 400 : 250,
+          height: isHeadlineFilter ? 500 : 250,
           child: TabBarView(
             controller: _tabController,
             children: AppUserRole.values.map((role) {
               final limits = _getLimitsForRole(role);
               return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.sm,
+                ),
                 child: Column(
                   children: [
                     AppConfigIntField(
@@ -240,7 +249,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
                       controller: _controllers[role]!['pinned'],
                     ),
                     if (isHeadlineFilter)
-                      ..._buildNotificationFields(l10n, role, limits),
+                      _buildNotificationFields(l10n, role, limits),
                   ],
                 ),
               );
@@ -251,20 +260,79 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     );
   }
 
-  List<Widget> _buildNotificationFields(
+  String _getNotificationDescription(
+    BuildContext context,
+    PushNotificationSubscriptionDeliveryType type,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (type) {
+      case PushNotificationSubscriptionDeliveryType.breakingOnly:
+        return l10n.notificationSubscriptionBreakingOnlyDescription;
+      case PushNotificationSubscriptionDeliveryType.dailyDigest:
+        return l10n.notificationSubscriptionDailyDigestDescription;
+      case PushNotificationSubscriptionDeliveryType.weeklyRoundup:
+        return l10n.notificationSubscriptionWeeklyRoundupDescription;
+    }
+  }
+
+  late final TabController _notificationTabController;
+
+  Widget _buildNotificationFields(
     AppLocalizations l10n,
     AppUserRole role,
     SavedFilterLimits limits,
   ) {
-    return PushNotificationSubscriptionDeliveryType.values.map((type) {
-      final value = limits.notificationSubscriptions?[type] ?? 0;
-      return AppConfigIntField(
-        label: l10n.notificationSubscriptionLimitLabel,
-        description: type.l10n(context),
-        value: value,
-        onChanged: (newValue) => _onValueChanged(role, type.name, newValue),
-        controller: _controllers[role]!['notification_${type.name}'],
-      );
-    }).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: AppSpacing.lg),
+        Text(
+          l10n.notificationSubscriptionLimitLabel,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          l10n.notificationSubscriptionLimitDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            height: kTextTabBarHeight,
+            child: TabBar(
+              controller: _notificationTabController,
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              tabs: PushNotificationSubscriptionDeliveryType.values
+                  .map((type) => Tab(text: type.l10n(context)))
+                  .toList(),
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        SizedBox(
+          height: 150,
+          child: TabBarView(
+            controller: _notificationTabController,
+            children: PushNotificationSubscriptionDeliveryType.values.map(
+              (type) {
+                final value = limits.notificationSubscriptions?[type] ?? 0;
+                return AppConfigIntField(
+                  label: type.l10n(context),
+                  description: _getNotificationDescription(context, type),
+                  value: value,
+                  onChanged: (newValue) =>
+                      _onValueChanged(role, type.name, newValue),
+                  controller: _controllers[role]!['notification_${type.name}'],
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      ],
+    );
   }
 }

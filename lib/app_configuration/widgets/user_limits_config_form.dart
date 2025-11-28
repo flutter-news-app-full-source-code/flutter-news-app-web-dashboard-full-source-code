@@ -109,13 +109,10 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: Text(
-            l10n.userContentLimitsDescription,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-            ),
+        Text(
+          l10n.userContentLimitsDescription,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
