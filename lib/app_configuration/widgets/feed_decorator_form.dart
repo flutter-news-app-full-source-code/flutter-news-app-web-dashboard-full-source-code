@@ -283,41 +283,43 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
               : null,
         ),
         if (roleConfig != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.lg,
-              vertical: AppSpacing.sm,
-            ),
-            child: AppConfigIntField(
-              label: l10n.daysBetweenViewsLabel,
-              description: l10n.daysBetweenViewsDescription,
-              value: roleConfig.daysBetweenViews,
-              onChanged: (value) {
-                final newRoleConfig = roleConfig.copyWith(
-                  daysBetweenViews: value,
-                );
-                final newVisibleTo =
-                    Map<AppUserRole, FeedDecoratorRoleConfig>.from(
-                      decoratorConfig.visibleTo,
-                    )..[role] = newRoleConfig;
-                final newDecoratorConfig = decoratorConfig.copyWith(
-                  visibleTo: newVisibleTo,
-                );
-                final newDecorators =
-                    Map<FeedDecoratorType, FeedDecoratorConfig>.from(
-                      widget.remoteConfig.features.feed.decorators,
-                    )..[widget.decoratorType] = newDecoratorConfig;
-                widget.onConfigChanged(
-                  widget.remoteConfig.copyWith(
-                    features: widget.remoteConfig.features.copyWith(
-                      feed: widget.remoteConfig.features.feed.copyWith(
-                        decorators: newDecorators,
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.lg,
+                vertical: AppSpacing.sm,
+              ),
+              child: AppConfigIntField(
+                label: l10n.daysBetweenViewsLabel,
+                description: l10n.daysBetweenViewsDescription,
+                value: roleConfig.daysBetweenViews,
+                onChanged: (value) {
+                  final newRoleConfig = roleConfig.copyWith(
+                    daysBetweenViews: value,
+                  );
+                  final newVisibleTo =
+                      Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                        decoratorConfig.visibleTo,
+                      )..[role] = newRoleConfig;
+                  final newDecoratorConfig = decoratorConfig.copyWith(
+                    visibleTo: newVisibleTo,
+                  );
+                  final newDecorators =
+                      Map<FeedDecoratorType, FeedDecoratorConfig>.from(
+                        widget.remoteConfig.features.feed.decorators,
+                      )..[widget.decoratorType] = newDecoratorConfig;
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      features: widget.remoteConfig.features.copyWith(
+                        feed: widget.remoteConfig.features.feed.copyWith(
+                          decorators: newDecorators,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-              controller: _roleControllers[role],
+                  );
+                },
+                controller: _roleControllers[role],
+              ),
             ),
           ),
       ],
