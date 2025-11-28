@@ -1652,4 +1652,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appLegalInformationTitle => 'Legal & General Information';
+
+  @override
+  String get feedItemClickBehaviorTitle => 'Feed Item Click Behavior';
+
+  @override
+  String get feedItemClickBehaviorDescription =>
+      'Choose what happens when a user clicks on a headline in the feed.';
+
+  @override
+  String get feedItemClickBehaviorInternalNavigation => 'In-App Browser';
+
+  @override
+  String get feedItemClickBehaviorExternalNavigation => 'System Browser';
 }

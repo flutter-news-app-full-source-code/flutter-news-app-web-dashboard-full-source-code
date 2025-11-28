@@ -3073,6 +3073,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Legal & General Information'**
   String get appLegalInformationTitle;
+
+  /// Title for the feed item click behavior setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Item Click Behavior'**
+  String get feedItemClickBehaviorTitle;
+
+  /// No description provided for @feedItemClickBehaviorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what happens when a user clicks on a headline in the feed.'**
+  String get feedItemClickBehaviorDescription;
+
+  /// Option for opening links in the app's internal browser.
+  ///
+  /// In en, this message translates to:
+  /// **'In-App Browser'**
+  String get feedItemClickBehaviorInternalNavigation;
+
+  /// Option for opening links in the device's default system browser.
+  ///
+  /// In en, this message translates to:
+  /// **'System Browser'**
+  String get feedItemClickBehaviorExternalNavigation;
 }
 
 class _AppLocalizationsDelegate
