@@ -260,6 +260,21 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     );
   }
 
+  String _getNotificationDescription(
+    BuildContext context,
+    PushNotificationSubscriptionDeliveryType type,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (type) {
+      case PushNotificationSubscriptionDeliveryType.breakingOnly:
+        return l10n.notificationSubscriptionBreakingOnlyDescription;
+      case PushNotificationSubscriptionDeliveryType.dailyDigest:
+        return l10n.notificationSubscriptionDailyDigestDescription;
+      case PushNotificationSubscriptionDeliveryType.weeklyRoundup:
+        return l10n.notificationSubscriptionWeeklyRoundupDescription;
+    }
+  }
+
   late final TabController _notificationTabController;
 
   Widget _buildNotificationFields(
@@ -306,8 +321,8 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
               (type) {
                 final value = limits.notificationSubscriptions?[type] ?? 0;
                 return AppConfigIntField(
-                  label: '',
-                  description: '',
+                  label: type.l10n(context),
+                  description: _getNotificationDescription(context, type),
                   value: value,
                   onChanged: (newValue) =>
                       _onValueChanged(role, type.name, newValue),
