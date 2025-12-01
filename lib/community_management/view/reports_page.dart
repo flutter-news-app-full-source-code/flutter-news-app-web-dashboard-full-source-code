@@ -7,6 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -115,11 +116,6 @@ class _ReportsPageState extends State<ReportsPage> {
                           label: Text(l10n.reporter),
                           size: ColumnSize.L,
                         ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.reportedItem),
-                            size: ColumnSize.L,
-                          ),
                         DataColumn2(
                           label: Text(l10n.reason),
                           size: ColumnSize.M,
@@ -208,11 +204,25 @@ class _ReportsDataSource extends DataTableSource {
     final report = reports[index];
     return DataRow2(
       cells: [
-        DataCell(Text(report.reporterUserId, overflow: TextOverflow.ellipsis)),
+        DataCell(
+          Text(report.reporterUserId, overflow: TextOverflow.ellipsis),
+        ),
+        DataCell(Text(report.reason.l10n(context))),
         if (!isMobile)
-          DataCell(Text('${report.entityType.name}: ${report.entityId}')),
-        DataCell(Text(report.reason)),
-        if (!isMobile) DataCell(Text(report.status.name)),
+          DataCell(
+            Row(
+              children: [
+                Icon(
+                  report.status == ReportStatus.resolved
+                      ? Icons.check_circle_outline
+                      : Icons.info_outline,
+                  color: report.status == ReportStatus.resolved ? Colors.green : Colors.orange,
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Text(report.status.l10n(context)),
+              ],
+            ),
+          ),
         if (!isMobile)
           DataCell(
             Text(DateFormat('dd-MM-yyyy').format(report.createdAt.toLocal())),
