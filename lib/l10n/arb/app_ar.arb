@@ -2540,5 +2540,101 @@
   "no": "لا",
   "@no": {
     "description": "رد 'لا' عام."
+  },
+  "commentStatusFlaggedByAI": "تم الإبلاغ بواسطة الذكاء الاصطناعي",
+  "@commentStatusFlaggedByAI": {
+    "description": "حالة إدارية لتعليق تم الإبلاغ عنه تلقائيًا بواسطة الذكاء الاصطناعي."
+  },
+  "commentStatusHiddenByUser": "مخفي بواسطة المستخدم",
+  "@commentStatusHiddenByUser": {
+    "description": "حالة إدارية لتعليق أخفاه كاتبه."
+  },
+  "reportReasonMisinformationOrFakeNews": "معلومات مضللة / أخبار كاذبة",
+  "@reportReasonMisinformationOrFakeNews": {
+    "description": "سبب البلاغ: المحتوى معلومات مضللة أو أخبار كاذبة."
+  },
+  "reportReasonClickbaitTitle": "عنوان مضلل",
+  "@reportReasonClickbaitTitle": {
+    "description": "سبب البلاغ: العنوان الرئيسي مضلل."
+  },
+  "reportReasonOffensiveOrHateSpeech": "محتوى مسيء / خطاب كراهية",
+  "@reportReasonOffensiveOrHateSpeech": {
+    "description": "سبب البلاغ: المحتوى مسيء أو يتضمن خطاب كراهية."
+  },
+  "reportReasonSpamOrScam": "بريد مزعج / احتيال",
+  "@reportReasonSpamOrScam": {
+    "description": "سبب البلاغ: المحتوى بريد مزعج أو احتيال."
+  },
+  "reportReasonBrokenLink": "رابط معطل",
+  "@reportReasonBrokenLink": {
+    "description": "سبب البلاغ: الرابط في المحتوى معطل."
+  },
+  "reportReasonPaywalled": "يتطلب اشتراكًا مدفوعًا",
+  "@reportReasonPaywalled": {
+    "description": "سبب البلاغ: المحتوى يتطلب اشتراكًا مدفوعًا."
+  },
+  "reportReasonLowQualityJournalism": "صحافة منخفضة الجودة",
+  "@reportReasonLowQualityJournalism": {
+    "description": "سبب البلاغ: المصدر يقدم صحافة منخفضة الجودة."
+  },
+  "reportReasonHighAdDensity": "كثافة إعلانات عالية",
+  "@reportReasonHighAdDensity": {
+    "description": "سبب البلاغ: المصدر يحتوي على كثافة عالية من الإعلانات."
+  },
+  "reportReasonBlog": "مدونة",
+  "@reportReasonBlog": {
+    "description": "سبب البلاغ: المصدر مدونة."
+  },
+  "reportReasonGovernmentSource": "مصدر حكومي",
+  "@reportReasonGovernmentSource": {
+    "description": "سبب البلاغ: المصدر جهة حكومية."
+  },
+  "reportReasonAggregator": "مجمع أخبار",
+  "@reportReasonAggregator": {
+    "description": "سبب البلاغ: المصدر مجمع أخبار."
+  },
+  "reportReasonOther": "آخر",
+  "@reportReasonOther": {
+    "description": "سبب البلاغ: آخر، غير محدد."
+  },
+  "reportReasonFrequentPaywalls": "اشتراكات مدفوعة متكررة",
+  "@reportReasonFrequentPaywalls": {
+    "description": "سبب البلاغ: المصدر يستخدم اشتراكات مدفوعة بشكل متكرر."
+  },
+  "reportReasonImpersonation": "انتحال شخصية",
+  "@reportReasonImpersonation": {
+    "description": "سبب البلاغ: المصدر ينتحل شخصية جهة أخرى."
+  },
+  "copyHeadlineId": "نسخ معرّف العنوان",
+  "@copyHeadlineId": {
+    "description": "نص عنصر القائمة لنسخ معرّف العنوان الرئيسي."
+  },
+  "copyReportedItemId": "نسخ معرّف العنصر المُبلغ عنه",
+  "@copyReportedItemId": {
+    "description": "نص عنصر القائمة لنسخ معرّف العنصر المُبلغ عنه."
+  },
+  "rejectCommentConfirmation": "سيؤدي رفض هذا التعليق إلى تمييزه بشكل دائم على أنه 'مرفوض' وإخفائه عن العرض العام. هذا الإجراء لا يحذف التفاعل الأصلي. هل أنت متأكد من أنك تريد المتابعة؟",
+  "@rejectCommentConfirmation": {
+    "description": "رسالة تأكيد تظهر للمسؤول قبل رفض تعليق مستخدم."
+  },
+  "searchByUserId": "ابحث باستخدام معرّف المستخدم...",
+  "@searchByUserId": {
+    "description": "نص تلميحي لحقل البحث في مربعات حوار التصفية، يحدد البحث باستخدام معرّف المستخدم."
+  },
+  "noNegativeFeedbackHistory": "لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.",
+  "@noNegativeFeedbackHistory": {
+    "description": "رسالة تظهر في مربع حوار سجل التقييمات عند عدم وجود سجل."
+  },
+  "userIdCopied": "تم نسخ معرّف المستخدم إلى الحافظة.",
+  "@userIdCopied": {
+    "description": "رسالة Snackbar تؤكد أنه تم نسخ معرّف المستخدم."
+  },
+  "reject": "رفض",
+  "@reject": {
+    "description": "نص زر التأكيد لإجراء الرفض."
+  },
+  "commentStatusFlaggedByAi": "تم الإبلاغ بواسطة الذكاء الاصطناعي",
+  "@commentStatusFlaggedByAi": {
+    "description": "حالة إدارية لتعليق تم الإبلاغ عنه تلقائيًا بواسطة الذكاء الاصطناعي."
   }
 }

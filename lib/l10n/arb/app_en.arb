@@ -2536,5 +2536,101 @@
     "no": "No",
     "@no": {
       "description": "A generic 'No' response."
+  },
+  "commentStatusFlaggedByAI": "Flagged by AI",
+  "@commentStatusFlaggedByAI": {
+    "description": "Admin-centric status for a comment automatically flagged by AI."
+  },
+  "commentStatusHiddenByUser": "Hidden by User",
+  "@commentStatusHiddenByUser": {
+    "description": "Admin-centric status for a comment hidden by its author."
+  },
+  "reportReasonMisinformationOrFakeNews": "Misinformation / Fake News",
+  "@reportReasonMisinformationOrFakeNews": {
+    "description": "Report reason: The content is misinformation or fake news."
+  },
+  "reportReasonClickbaitTitle": "Clickbait Title",
+  "@reportReasonClickbaitTitle": {
+    "description": "Report reason: The headline is clickbait."
+  },
+  "reportReasonOffensiveOrHateSpeech": "Offensive / Hate Speech",
+  "@reportReasonOffensiveOrHateSpeech": {
+    "description": "Report reason: The content is offensive or hate speech."
+  },
+  "reportReasonSpamOrScam": "Spam / Scam",
+  "@reportReasonSpamOrScam": {
+    "description": "Report reason: The content is spam or a scam."
+  },
+  "reportReasonBrokenLink": "Broken Link",
+  "@reportReasonBrokenLink": {
+    "description": "Report reason: The link in the content is broken."
+  },
+  "reportReasonPaywalled": "Paywalled",
+  "@reportReasonPaywalled": {
+    "description": "Report reason: The content is behind a paywall."
+  },
+  "reportReasonLowQualityJournalism": "Low Quality Journalism",
+  "@reportReasonLowQualityJournalism": {
+    "description": "Report reason: The source exhibits low-quality journalism."
+  },
+  "reportReasonHighAdDensity": "High Ad Density",
+  "@reportReasonHighAdDensity": {
+    "description": "Report reason: The source has a high density of ads."
+  },
+  "reportReasonBlog": "Blog",
+  "@reportReasonBlog": {
+    "description": "Report reason: The source is a blog."
+  },
+  "reportReasonGovernmentSource": "Government Source",
+  "@reportReasonGovernmentSource": {
+    "description": "Report reason: The source is a government entity."
+  },
+  "reportReasonAggregator": "Aggregator",
+  "@reportReasonAggregator": {
+    "description": "Report reason: The source is a news aggregator."
+  },
+  "reportReasonOther": "Other",
+  "@reportReasonOther": {
+    "description": "Report reason: Other, not specified."
+  },
+  "reportReasonFrequentPaywalls": "Frequent Paywalls",
+  "@reportReasonFrequentPaywalls": {
+    "description": "Report reason: The source frequently uses paywalls."
+  },
+  "reportReasonImpersonation": "Impersonation",
+  "@reportReasonImpersonation": {
+    "description": "Report reason: The source is impersonating another entity."
+  },
+  "copyHeadlineId": "Copy Headline ID",
+  "@copyHeadlineId": {
+    "description": "Menu item text to copy the ID of a headline."
+  },
+  "copyReportedItemId": "Copy Reported Item ID",
+  "@copyReportedItemId": {
+    "description": "Menu item text to copy the ID of a reported item."
+  },
+  "rejectCommentConfirmation": "Rejecting this comment will permanently mark it as 'Rejected' and hide it from public view. This action does not delete the parent engagement. Are you sure you want to proceed?",
+  "@rejectCommentConfirmation": {
+    "description": "Confirmation message shown to an admin before they reject a user's comment."
+  },
+  "searchByUserId": "Search by User ID...",
+  "@searchByUserId": {
+    "description": "Hint text for the search input field in filter dialogs, specifying to search by User ID."
+  },
+  "noNegativeFeedbackHistory": "No negative feedback history found for this user.",
+  "@noNegativeFeedbackHistory": {
+    "description": "Message displayed in the feedback history dialog when there is no history."
+  },
+  "userIdCopied": "User ID copied to clipboard.",
+  "@userIdCopied": {
+    "description": "Snackbar message confirming that the user ID has been copied."
+  },
+  "reject": "Reject",
+  "@reject": {
+    "description": "Confirmation button text for a reject action."
+  },
+  "commentStatusFlaggedByAi": "Flagged by AI",
+  "@commentStatusFlaggedByAi": {
+    "description": "Admin-centric status for a comment automatically flagged by AI."
     }
 }
