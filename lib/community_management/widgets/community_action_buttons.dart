@@ -25,7 +25,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
 
     if (item is Engagement) {
       final engagement = item as Engagement;
-      _buildEngagementActions<Engagement>(
+      _buildEngagementActions(
         context,
         engagement,
         visibleActions,
@@ -33,7 +33,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
       );
     } else if (item is Report) {
       final report = item as Report;
-      _buildReportActions<Report>(
+      _buildReportActions(
         context,
         report,
         visibleActions,
@@ -41,7 +41,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
       );
     } else if (item is AppReview) {
       final appReview = item as AppReview;
-      _buildAppReviewActions<AppReview>(
+      _buildAppReviewActions(
         context,
         appReview,
         visibleActions,
@@ -67,7 +67,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
     return Row(mainAxisSize: MainAxisSize.min, children: visibleActions);
   }
 
-  void _buildEngagementActions<T>(
+  void _buildEngagementActions(
     BuildContext context,
     Engagement engagement,
     List<Widget> visibleActions,
@@ -127,9 +127,16 @@ class CommunityActionButtons<T> extends StatelessWidget {
         icon: const Icon(Icons.visibility_outlined),
         tooltip: l10n.viewReportedItem,
         onPressed: () {
-          // TODO(fulleni): Implement navigation to reported item based on entityType
-          // This will require a more complex routing logic based on ReportableEntity
-          // For now, it remains unimplemented.
+          final String routeName;
+          switch (report.entityType) {
+            case ReportableEntity.headline:
+              routeName = Routes.editHeadlineName;
+            case ReportableEntity.source:
+              routeName = Routes.editSourceName;
+            case ReportableEntity.engagement:
+              return;
+          }
+          context.goNamed(routeName, pathParameters: {'id': report.entityId});
         },
       ),
     );
@@ -151,10 +158,10 @@ class CommunityActionButtons<T> extends StatelessWidget {
         ),
       );
     }
-    overflowMenuItems.add(
+    overflowMenuItems..add(
       PopupMenuItem<String>(value: 'copyUserId', child: Text(l10n.copyUserId)),
-    );
-    overflowMenuItems.add(
+    )
+    ..add(
       PopupMenuItem<String>(
         value: 'copyReportedItemId',
         child: Text(l10n.copyReportedItemId),
@@ -191,7 +198,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
     );
   }
 
-  void _onActionSelected<T>(BuildContext context, String value, T item) {
+  void _onActionSelected(BuildContext context, String value, T item) {
     final engagementsRepository = context.read<DataRepository<Engagement>>();
     final reportsRepository = context.read<DataRepository<Report>>();
 
@@ -211,12 +218,13 @@ class CommunityActionButtons<T> extends StatelessWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(l10n.userIdCopied)));
     } else if (value == 'copyReportedItemId' && item is Report) {
-      String reportedItemId;
-      reportedItemId = item.entityId;
-      Clipboard.setData(ClipboardData(text: userId));
+      final reportedItemId = item.entityId;
+      Clipboard.setData(ClipboardData(text: reportedItemId));
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(SnackBar(content: Text(l10n.userIdCopied)));
+        ..showSnackBar(
+          SnackBar(content: Text(l10n.idCopiedToClipboard(reportedItemId))),
+        );
     } else if (value == 'approveComment' && item is Engagement) {
       final updatedEngagement = item.copyWith(
         comment: item.comment?.copyWith(status: CommentStatus.approved),
@@ -234,7 +242,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(l10n.cancel),
+              child: Text(l10n.cancelButton),
             ),
             ElevatedButton(
               onPressed: () {
@@ -316,7 +324,7 @@ class _FeedbackHistoryDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(l10n.close),
+          child: Text(l10n.closeButtonText),
         ),
       ],
     );
