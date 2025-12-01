@@ -1789,4 +1789,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get requestWrittenFeedbackDescription =>
       'إذا تم التمكين، سيُطلب من المستخدمين الذين يجيبون بـ \'لا\' تقديم ملاحظات مكتوبة مباشرة إلى فريق التطوير.';
+
+  @override
+  String get internalPromptLogicTitle => 'منطق الموجه الداخلي';
+
+  @override
+  String get followUpActionsTitle => 'إجراءات المتابعة';
 }

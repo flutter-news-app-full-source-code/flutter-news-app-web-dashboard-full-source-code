@@ -1794,4 +1794,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get requestWrittenFeedbackDescription =>
       'If enabled, users who respond \'No\' will be prompted to provide written feedback directly to the team.';
+
+  @override
+  String get internalPromptLogicTitle => 'Internal Prompt Logic';
+
+  @override
+  String get followUpActionsTitle => 'Follow-up Actions';
 }

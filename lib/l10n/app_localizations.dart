@@ -3319,6 +3319,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If enabled, users who respond \'No\' will be prompted to provide written feedback directly to the team.'**
   String get requestWrittenFeedbackDescription;
+
+  /// Title for the nested expansion tile for internal app review prompt settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal Prompt Logic'**
+  String get internalPromptLogicTitle;
+
+  /// Title for the nested expansion tile for app review follow-up actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow-up Actions'**
+  String get followUpActionsTitle;
 }
 
 class _AppLocalizationsDelegate
