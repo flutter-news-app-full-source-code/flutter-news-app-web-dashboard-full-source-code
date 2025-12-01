@@ -11,6 +11,7 @@ final Map<DashboardUserRole, Set<String>> routePermissions = {
     Routes.overviewName,
     Routes.contentManagementName,
     Routes.userManagementName,
+    Routes.communityManagementName,
     Routes.appConfigurationName,
   },
   // Publishers have a more restricted access, focused on content creation
