@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ui_kit/ui_kit.dart';
 
-class CommunityActionButtons extends StatelessWidget {
-  const CommunityActionButtons({
-    required this.item,
-    required this.l10n,
-    super.key,
-  });
+class CommunityActionButtons<T> extends StatelessWidget {
+  const CommunityActionButtons({required this.item, required this.l10n, super.key});
 
-  final Object item;
+  final T item;
   final AppLocalizations l10n;
 
   @override
@@ -22,7 +21,7 @@ class CommunityActionButtons extends StatelessWidget {
 
     if (item is Engagement) {
       final engagement = item as Engagement;
-      _buildEngagementActions(
+      _buildEngagementActions<Engagement>(
         context,
         engagement,
         visibleActions,
@@ -30,10 +29,10 @@ class CommunityActionButtons extends StatelessWidget {
       );
     } else if (item is Report) {
       final report = item as Report;
-      _buildReportActions(context, report, visibleActions, overflowMenuItems);
+      _buildReportActions<Report>(context, report, visibleActions, overflowMenuItems);
     } else if (item is AppReview) {
       final appReview = item as AppReview;
-      _buildAppReviewActions(
+      _buildAppReviewActions<AppReview>(
         context,
         appReview,
         visibleActions,
@@ -59,7 +58,7 @@ class CommunityActionButtons extends StatelessWidget {
     return Row(mainAxisSize: MainAxisSize.min, children: visibleActions);
   }
 
-  void _buildEngagementActions(
+  void _buildEngagementActions<T>(
     BuildContext context,
     Engagement engagement,
     List<Widget> visibleActions,
@@ -72,8 +71,11 @@ class CommunityActionButtons extends StatelessWidget {
         iconSize: 20,
         icon: const Icon(Icons.visibility_outlined),
         tooltip: l10n.viewEngagedContent,
-        onPressed: () {
-          // TODO(fulleni): Implement navigation to content
+        onPressed: () { 
+          context.goNamed(
+            Routes.editHeadlineName,
+            pathParameters: {'id': engagement.entityId},
+          );
         },
       ),
     );
@@ -96,10 +98,10 @@ class CommunityActionButtons extends StatelessWidget {
           ),
         );
       }
-    }
+    } 
     overflowMenuItems.add(
       PopupMenuItem<String>(value: 'copyUserId', child: Text(l10n.copyUserId)),
-    );
+    ); 
   }
 
   void _buildReportActions(
@@ -115,8 +117,10 @@ class CommunityActionButtons extends StatelessWidget {
         iconSize: 20,
         icon: const Icon(Icons.visibility_outlined),
         tooltip: l10n.viewReportedItem,
-        onPressed: () {
-          // TODO(fulleni): Implement navigation to reported item
+        onPressed: () { 
+          // TODO(fulleni): Implement navigation to reported item based on entityType
+          // This will require a more complex routing logic based on ReportableEntity
+          // For now, it remains unimplemented.
         },
       ),
     );
@@ -141,7 +145,13 @@ class CommunityActionButtons extends StatelessWidget {
     overflowMenuItems.add(
       PopupMenuItem<String>(value: 'copyUserId', child: Text(l10n.copyUserId)),
     );
-  }
+    overflowMenuItems.add(
+      PopupMenuItem<String>(
+        value: 'copyReportedItemId',
+        child: Text(l10n.copyReportedItemId),
+      ),
+    );
+  } 
 
   void _buildAppReviewActions(
     BuildContext context,
@@ -156,8 +166,11 @@ class CommunityActionButtons extends StatelessWidget {
         iconSize: 20,
         icon: const Icon(Icons.history),
         tooltip: l10n.viewFeedbackHistory,
-        onPressed: () {
-          // TODO(fulleni): Implement dialog to show feedback history
+        onPressed: () { 
+          showDialog<void>(
+            context: context,
+            builder: (dialogContext) => _FeedbackHistoryDialog(appReview: appReview, l10n: l10n),
+          );
         },
       ),
     );
@@ -168,7 +181,7 @@ class CommunityActionButtons extends StatelessWidget {
     );
   }
 
-  void _onActionSelected(BuildContext context, String value, Object item) {
+  void _onActionSelected<T>(BuildContext context, String value, T item) {
     final engagementsRepository = context.read<DataRepository<Engagement>>();
     final reportsRepository = context.read<DataRepository<Report>>();
 
@@ -187,21 +200,42 @@ class CommunityActionButtons extends StatelessWidget {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(l10n.userIdCopied)));
+    } else if (value == 'copyReportedItemId' && item is Report) {
+      String reportedItemId;
+      reportedItemId = item.entityId;
+          Clipboard.setData(ClipboardData(text: userId));
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.userIdCopied)));
     } else if (value == 'approveComment' && item is Engagement) {
       final updatedEngagement = item.copyWith(
         comment: item.comment?.copyWith(status: CommentStatus.approved),
       );
       engagementsRepository.update(
-        id: updatedEngagement.id,
-        item: updatedEngagement,
+        id: updatedEngagement.id, 
+        item: updatedEngagement, 
       );
     } else if (value == 'rejectComment' && item is Engagement) {
-      final updatedEngagement = item.copyWith(
-        comment: item.comment?.copyWith(status: CommentStatus.rejected),
-      );
-      engagementsRepository.update(
-        id: updatedEngagement.id,
-        item: updatedEngagement,
+      showDialog<void>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(l10n.rejectComment),
+          content: Text(l10n.rejectCommentConfirmation),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(l10n.cancel),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final updatedEngagement = item.copyWith(comment: item.comment?.copyWith(status: CommentStatus.rejected),);
+                engagementsRepository.update(id: updatedEngagement.id, item: updatedEngagement,);
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.reject),
+            ),
+          ],
+        ),
       );
     } else if (value == 'markAsInReview' && item is Report) {
       final updatedReport = item.copyWith(status: ReportStatus.inReview);
@@ -216,5 +250,48 @@ class CommunityActionButtons extends StatelessWidget {
         item: updatedReport,
       );
     }
+  }
+}
+
+class _FeedbackHistoryDialog extends StatelessWidget {
+  const _FeedbackHistoryDialog({
+    required this.appReview,
+    required this.l10n,
+  });
+
+  final AppReview appReview;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(l10n.viewFeedbackHistory),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: appReview.negativeFeedbackHistory.isEmpty
+            ? Text(l10n.noNegativeFeedbackHistory)
+            : ListView.builder(
+                shrinkWrap: true,
+                itemCount: appReview.negativeFeedbackHistory.length,
+                itemBuilder: (context, index) {
+                  final feedback = appReview.negativeFeedbackHistory[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSpacing.md),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(DateFormatter.formatRelativeTime(context, feedback.providedAt)),
+                          if (feedback.reason != null) Text(feedback.reason!),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+      ),
+      actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.close))],
+    );
   }
 }
