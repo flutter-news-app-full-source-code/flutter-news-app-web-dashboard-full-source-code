@@ -1800,4 +1800,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get followUpActionsTitle => 'Follow-up Actions';
+
+  @override
+  String get enableCommunityFeaturesLabel => 'Enable Community Features';
+
+  @override
+  String get enableCommunityFeaturesDescription =>
+      'Globally activates or deactivates all community-related functionality, including engagement and reporting.';
 }

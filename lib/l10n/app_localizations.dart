@@ -3331,6 +3331,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Follow-up Actions'**
   String get followUpActionsTitle;
+
+  /// Label for the master switch to enable all community features.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Community Features'**
+  String get enableCommunityFeaturesLabel;
+
+  /// Description for the master switch to enable all community features.
+  ///
+  /// In en, this message translates to:
+  /// **'Globally activates or deactivates all community-related functionality, including engagement and reporting.'**
+  String get enableCommunityFeaturesDescription;
 }
 
 class _AppLocalizationsDelegate

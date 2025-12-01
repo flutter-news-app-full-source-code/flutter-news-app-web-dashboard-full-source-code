@@ -1795,4 +1795,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get followUpActionsTitle => 'إجراءات المتابعة';
+
+  @override
+  String get enableCommunityFeaturesLabel => 'تفعيل ميزات المجتمع';
+
+  @override
+  String get enableCommunityFeaturesDescription =>
+      'ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.';
 }
