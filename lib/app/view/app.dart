@@ -186,7 +186,6 @@ class App extends StatelessWidget {
               reportsRepository: context.read<DataRepository<Report>>(),
               appReviewsRepository: context.read<DataRepository<AppReview>>(),
               communityFilterBloc: context.read<CommunityFilterBloc>(),
-              pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
         ],

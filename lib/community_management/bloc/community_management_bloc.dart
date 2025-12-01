@@ -5,7 +5,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:logging/logging.dart';
 
 part 'community_management_event.dart';
@@ -18,13 +17,11 @@ class CommunityManagementBloc
     required DataRepository<Report> reportsRepository,
     required DataRepository<AppReview> appReviewsRepository,
     required CommunityFilterBloc communityFilterBloc,
-    required PendingDeletionsService pendingDeletionsService,
     Logger? logger,
   }) : _engagementsRepository = engagementsRepository,
        _reportsRepository = reportsRepository,
        _appReviewsRepository = appReviewsRepository,
        _communityFilterBloc = communityFilterBloc,
-       _pendingDeletionsService = pendingDeletionsService,
        _logger = logger ?? Logger('CommunityManagementBloc'),
        super(const CommunityManagementState()) {
     on<CommunityManagementTabChanged>(_onTabChanged);
@@ -97,7 +94,6 @@ class CommunityManagementBloc
   final DataRepository<Report> _reportsRepository;
   final DataRepository<AppReview> _appReviewsRepository;
   final CommunityFilterBloc _communityFilterBloc;
-  final PendingDeletionsService _pendingDeletionsService;
   final Logger _logger;
 
   late final StreamSubscription<CommunityFilterState> _filterSubscription;
