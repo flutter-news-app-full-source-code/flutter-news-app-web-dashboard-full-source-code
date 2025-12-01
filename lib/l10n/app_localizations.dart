@@ -3145,6 +3145,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage external and internal URLs used within the application.'**
   String get appUrlsDescription;
+
+  /// Title for the Community & Engagement expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Community & Engagement'**
+  String get communityAndEngagementTitle;
+
+  /// Description for the Community & Engagement expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage user interactions, content reporting, and the internal app feedback system.'**
+  String get communityAndEngagementDescription;
+
+  /// Title for the User Engagement expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'User Engagement'**
+  String get userEngagementTitle;
+
+  /// Description for the User Engagement expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure reactions and comments.'**
+  String get userEngagementDescription;
+
+  /// Title for the Content Reporting expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Content Reporting'**
+  String get contentReportingTitle;
+
+  /// Description for the Content Reporting expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Set rules for what users can report.'**
+  String get contentReportingDescription;
+
+  /// Title for the App Feedback Funnel expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'App Feedback Funnel'**
+  String get appFeedbackFunnelTitle;
+
+  /// Description for the App Feedback Funnel expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage the process for capturing user satisfaction and optionally requesting reviews.'**
+  String get appFeedbackFunnelDescription;
+
+  /// Label for the master switch to enable all engagement features.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Engagement Features'**
+  String get enableEngagementFeaturesLabel;
+
+  /// Description for the master switch to enable all engagement features.
+  ///
+  /// In en, this message translates to:
+  /// **'Globally activates or deactivates all reaction and comment functionality.'**
+  String get enableEngagementFeaturesDescription;
+
+  /// Label for the engagement mode segmented button.
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement Mode'**
+  String get engagementModeLabel;
+
+  /// Description for the engagement mode segmented button.
+  ///
+  /// In en, this message translates to:
+  /// **'Determines if users can only react or also add comments to content.'**
+  String get engagementModeDescription;
+
+  /// Label for the 'Reactions Only' engagement mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactions Only'**
+  String get engagementModeReactionsOnly;
+
+  /// Label for the 'Reactions & Comments' engagement mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactions & Comments'**
+  String get engagementModeReactionsAndComments;
+
+  /// Label for the master switch to enable the reporting system.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Reporting System'**
+  String get enableReportingSystemLabel;
+
+  /// Description for the master switch to enable the reporting system.
+  ///
+  /// In en, this message translates to:
+  /// **'Globally activates or deactivates all user-facing reporting options.'**
+  String get enableReportingSystemDescription;
+
+  /// Label for the switch to enable headline reporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Headline Reporting'**
+  String get enableHeadlineReportingLabel;
+
+  /// Label for the switch to enable source reporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Source Reporting'**
+  String get enableSourceReportingLabel;
+
+  /// Label for the switch to enable comment reporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Comment Reporting'**
+  String get enableCommentReportingLabel;
+
+  /// Label for the master switch to enable the app feedback system.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable App Feedback System'**
+  String get enableAppFeedbackSystemLabel;
+
+  /// Description for the master switch to enable the app feedback system.
+  ///
+  /// In en, this message translates to:
+  /// **'Activates the internal system that periodically asks users if they are enjoying the app.'**
+  String get enableAppFeedbackSystemDescription;
+
+  /// Label for the positive interaction threshold input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Positive Interaction Threshold'**
+  String get positiveInteractionThresholdLabel;
+
+  /// Description for the positive interaction threshold input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user\'s total positive actions is a multiple of this number.'**
+  String get positiveInteractionThresholdDescription;
+
+  /// Label for the initial prompt cooldown input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Prompt Cooldown (Days)'**
+  String get initialPromptCooldownLabel;
+
+  /// Description for the initial prompt cooldown input field.
+  ///
+  /// In en, this message translates to:
+  /// **'If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The \'Rate App\' decorator in the Feed section controls its own separate display frequency.'**
+  String get initialPromptCooldownDescription;
+
+  /// Label for the switch to request a store review after positive feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Store Review After \'Yes\''**
+  String get requestStoreReviewLabel;
+
+  /// Description for the switch to request a store review after positive feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, users who respond \'Yes\' to the enjoyment prompt will be shown the official OS store review dialog.'**
+  String get requestStoreReviewDescription;
+
+  /// Label for the switch to request written feedback after a negative response.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Written Feedback After \'No\''**
+  String get requestWrittenFeedbackLabel;
+
+  /// Description for the switch to request written feedback after a negative response.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, users who respond \'No\' will be prompted to provide written feedback directly to the team.'**
+  String get requestWrittenFeedbackDescription;
 }
 
 class _AppLocalizationsDelegate
