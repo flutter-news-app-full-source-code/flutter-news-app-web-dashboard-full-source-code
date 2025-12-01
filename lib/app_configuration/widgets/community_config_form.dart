@@ -33,64 +33,82 @@ class CommunityConfigForm extends StatelessWidget {
     final subtitleStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
       color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
     );
+    final communityConfig = remoteConfig.features.community;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ExpansionTile(
-          title: Text(l10n.userEngagementTitle),
-          subtitle: Text(
-            l10n.userEngagementDescription,
-            style: subtitleStyle,
-          ),
-          childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg,
-            top: AppSpacing.md,
-            bottom: AppSpacing.md,
-          ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EngagementSettingsForm(
-              remoteConfig: remoteConfig,
-              onConfigChanged: onConfigChanged,
-            ),
-          ],
+        SwitchListTile(
+          title: Text(l10n.enableCommunityFeaturesLabel),
+          subtitle: Text(l10n.enableCommunityFeaturesDescription),
+          value: communityConfig.enabled,
+          onChanged: (value) {
+            onConfigChanged(
+              remoteConfig.copyWith(
+                features: remoteConfig.features.copyWith(
+                  community: communityConfig.copyWith(enabled: value),
+                ),
+              ),
+            );
+          },
         ),
-        const SizedBox(height: AppSpacing.lg),
-        ExpansionTile(
-          title: Text(l10n.contentReportingTitle),
-          subtitle: Text(
-            l10n.contentReportingDescription,
-            style: subtitleStyle,
-          ),
-          childrenPadding: const EdgeInsetsDirectional.only(
-            start: AppSpacing.lg,
-            top: AppSpacing.md,
-            bottom: AppSpacing.md,
-          ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ReportingSettingsForm(
-              remoteConfig: remoteConfig,
-              onConfigChanged: onConfigChanged,
+        if (communityConfig.enabled) ...[
+          const SizedBox(height: AppSpacing.lg),
+          ExpansionTile(
+            title: Text(l10n.userEngagementTitle),
+            subtitle: Text(
+              l10n.userEngagementDescription,
+              style: subtitleStyle,
             ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        ExpansionTile(
-          title: Text(l10n.appReviewFunnelTitle),
-          subtitle: Text(
-            l10n.appReviewFunnelDescription,
-            style: subtitleStyle,
-          ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppReviewSettingsForm(
-              remoteConfig: remoteConfig,
-              onConfigChanged: onConfigChanged,
+            childrenPadding: const EdgeInsetsDirectional.only(
+              start: AppSpacing.lg,
+              top: AppSpacing.md,
+              bottom: AppSpacing.md,
             ),
-          ],
-        ),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EngagementSettingsForm(
+                remoteConfig: remoteConfig,
+                onConfigChanged: onConfigChanged,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ExpansionTile(
+            title: Text(l10n.contentReportingTitle),
+            subtitle: Text(
+              l10n.contentReportingDescription,
+              style: subtitleStyle,
+            ),
+            childrenPadding: const EdgeInsetsDirectional.only(
+              start: AppSpacing.lg,
+              top: AppSpacing.md,
+              bottom: AppSpacing.md,
+            ),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ReportingSettingsForm(
+                remoteConfig: remoteConfig,
+                onConfigChanged: onConfigChanged,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ExpansionTile(
+            title: Text(l10n.appReviewFunnelTitle),
+            subtitle: Text(
+              l10n.appReviewFunnelDescription,
+              style: subtitleStyle,
+            ),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppReviewSettingsForm(
+                remoteConfig: remoteConfig,
+                onConfigChanged: onConfigChanged,
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }
