@@ -65,6 +65,9 @@ Future<Widget> bootstrap(
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
   DataClient<User> usersClient;
+  DataClient<Engagement> engagementsClient;
+  DataClient<Report> reportsClient;
+  DataClient<AppReview> appReviewsClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -127,6 +130,24 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: usersFixturesData,
       logger: Logger('DataInMemory<User>'),
+    );
+    engagementsClient = DataInMemory<Engagement>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: getEngagementsFixturesData(),
+      logger: Logger('DataInMemory<Engagement>'),
+    );
+    reportsClient = DataInMemory<Report>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: getReportsFixturesData(),
+      logger: Logger('DataInMemory<Report>'),
+    );
+    appReviewsClient = DataInMemory<AppReview>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: getAppReviewsFixturesData(),
+      logger: Logger('DataInMemory<AppReview>'),
     );
   } else {
     headlinesClient = DataApi<Headline>(
@@ -200,6 +221,27 @@ Future<Widget> bootstrap(
       toJson: (user) => user.toJson(),
       logger: Logger('DataApi<User>'),
     );
+    engagementsClient = DataApi<Engagement>(
+      httpClient: httpClient,
+      modelName: 'engagement',
+      fromJson: Engagement.fromJson,
+      toJson: (engagement) => engagement.toJson(),
+      logger: Logger('DataApi<Engagement>'),
+    );
+    reportsClient = DataApi<Report>(
+      httpClient: httpClient,
+      modelName: 'report',
+      fromJson: Report.fromJson,
+      toJson: (report) => report.toJson(),
+      logger: Logger('DataApi<Report>'),
+    );
+    appReviewsClient = DataApi<AppReview>(
+      httpClient: httpClient,
+      modelName: 'app_review',
+      fromJson: AppReview.fromJson,
+      toJson: (appReview) => appReview.toJson(),
+      logger: Logger('DataApi<AppReview>'),
+    );
   }
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
@@ -231,6 +273,15 @@ Future<Widget> bootstrap(
     dataClient: languagesClient,
   );
   final usersRepository = DataRepository<User>(dataClient: usersClient);
+  final engagementsRepository = DataRepository<Engagement>(
+    dataClient: engagementsClient,
+  );
+  final reportsRepository = DataRepository<Report>(
+    dataClient: reportsClient,
+  );
+  final appReviewsRepository = DataRepository<AppReview>(
+    dataClient: appReviewsClient,
+  );
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -244,6 +295,9 @@ Future<Widget> bootstrap(
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
     usersRepository: usersRepository,
+    engagementsRepository: engagementsRepository,
+    reportsRepository: reportsRepository,
+    appReviewsRepository: appReviewsRepository,
     storageService: kvStorage,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,
