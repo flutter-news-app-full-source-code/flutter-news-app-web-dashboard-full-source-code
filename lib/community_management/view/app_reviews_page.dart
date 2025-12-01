@@ -1,0 +1,236 @@
+import 'package:core/core.dart';
+import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_action_buttons.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:intl/intl.dart';
+import 'package:ui_kit/ui_kit.dart';
+
+class AppReviewsPage extends StatefulWidget {
+  const AppReviewsPage({super.key});
+
+  @override
+  State<AppReviewsPage> createState() => _AppReviewsPageState();
+}
+
+class _AppReviewsPageState extends State<AppReviewsPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CommunityManagementBloc>().add(
+      LoadAppReviewsRequested(
+        limit: kDefaultRowsPerPage,
+        filter: context
+            .read<CommunityManagementBloc>()
+            .buildAppReviewsFilterMap(
+              context.read<CommunityFilterBloc>().state,
+            ),
+      ),
+    );
+  }
+
+  bool _areFiltersActive(CommunityFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedInitialFeedback.isNotEmpty;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      child: BlocBuilder<CommunityManagementBloc, CommunityManagementState>(
+        builder: (context, state) {
+          final communityFilterState = context
+              .watch<CommunityFilterBloc>()
+              .state;
+          final filtersActive = _areFiltersActive(communityFilterState);
+
+          if (state.appReviewsStatus == CommunityManagementStatus.loading &&
+              state.appReviews.isEmpty) {
+            return LoadingStateWidget(
+              icon: Icons.reviews_outlined,
+              headline: l10n.loadingAppReviews,
+              subheadline: l10n.pleaseWait,
+            );
+          }
+
+          if (state.appReviewsStatus == CommunityManagementStatus.failure) {
+            return FailureStateWidget(
+              exception: state.exception!,
+              onRetry: () => context.read<CommunityManagementBloc>().add(
+                LoadAppReviewsRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: context
+                      .read<CommunityManagementBloc>()
+                      .buildAppReviewsFilterMap(
+                        context.read<CommunityFilterBloc>().state,
+                      ),
+                ),
+              ),
+            );
+          }
+
+          if (state.appReviews.isEmpty) {
+            if (filtersActive) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.noResultsWithCurrentFilters,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: () => context.read<CommunityFilterBloc>().add(
+                        const CommunityFilterReset(),
+                      ),
+                      child: Text(l10n.resetFiltersButtonText),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return Center(child: Text(l10n.noAppReviewsFound));
+          }
+
+          return Column(
+            children: [
+              if (state.appReviewsStatus == CommunityManagementStatus.loading &&
+                  state.appReviews.isNotEmpty)
+                const LinearProgressIndicator(),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 600;
+                    return PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(label: Text(l10n.user), size: ColumnSize.L),
+                        DataColumn2(
+                          label: Text(l10n.initialFeedback),
+                          size: ColumnSize.M,
+                        ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.osPromptRequested),
+                            size: ColumnSize.S,
+                          ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.feedbackHistory),
+                            size: ColumnSize.M,
+                          ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.lastInteraction),
+                            size: ColumnSize.S,
+                          ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      source: _AppReviewsDataSource(
+                        context: context,
+                        appReviews: state.appReviews,
+                        hasMore: state.hasMoreAppReviews,
+                        l10n: l10n,
+                        isMobile: isMobile,
+                      ),
+                      rowsPerPage: kDefaultRowsPerPage,
+                      availableRowsPerPage: const [kDefaultRowsPerPage],
+                      onPageChanged: (pageIndex) {
+                        final newOffset = pageIndex * kDefaultRowsPerPage;
+                        if (newOffset >= state.appReviews.length &&
+                            state.hasMoreAppReviews &&
+                            state.appReviewsStatus !=
+                                CommunityManagementStatus.loading) {
+                          context.read<CommunityManagementBloc>().add(
+                            LoadAppReviewsRequested(
+                              startAfterId: state.appReviewsCursor,
+                              limit: kDefaultRowsPerPage,
+                              filter: context
+                                  .read<CommunityManagementBloc>()
+                                  .buildAppReviewsFilterMap(
+                                    context.read<CommunityFilterBloc>().state,
+                                  ),
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noAppReviewsFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.sm,
+                      horizontalMargin: AppSpacing.sm,
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _AppReviewsDataSource extends DataTableSource {
+  _AppReviewsDataSource({
+    required this.context,
+    required this.appReviews,
+    required this.hasMore,
+    required this.l10n,
+    required this.isMobile,
+  });
+
+  final BuildContext context;
+  final List<AppReview> appReviews;
+  final bool hasMore;
+  final AppLocalizations l10n;
+  final bool isMobile;
+
+  @override
+  DataRow? getRow(int index) {
+    if (index >= appReviews.length) return null;
+    final appReview = appReviews[index];
+    return DataRow2(
+      cells: [
+        DataCell(Text(appReview.userId, overflow: TextOverflow.ellipsis)),
+        DataCell(Text(appReview.initialFeedback.name)),
+        if (!isMobile)
+          DataCell(
+            Text(appReview.wasStoreReviewRequested ? l10n.yes : l10n.no),
+          ),
+        if (!isMobile)
+          DataCell(Text('${appReview.negativeFeedbackHistory.length}')),
+        if (!isMobile)
+          DataCell(
+            Text(
+              DateFormat('dd-MM-yyyy').format(appReview.updatedAt.toLocal()),
+            ),
+          ),
+        DataCell(CommunityActionButtons(item: appReview, l10n: l10n)),
+      ],
+    );
+  }
+
+  @override
+  bool get isRowCountApproximate => hasMore;
+
+  @override
+  int get rowCount => appReviews.length;
+
+  @override
+  int get selectedRowCount => 0;
+}
