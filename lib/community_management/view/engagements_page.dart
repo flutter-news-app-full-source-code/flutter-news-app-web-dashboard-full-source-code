@@ -7,6 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/comment_status_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -114,11 +115,6 @@ class _EngagementsPageState extends State<EngagementsPage> {
                     return PaginatedDataTable2(
                       columns: [
                         DataColumn2(label: Text(l10n.user), size: ColumnSize.L),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.engagedContent),
-                            size: ColumnSize.M,
-                          ),
                         DataColumn2(
                           label: Text(l10n.reaction),
                           size: ColumnSize.S,
@@ -184,7 +180,7 @@ class _EngagementsPageState extends State<EngagementsPage> {
               ),
             ],
           );
-        },
+        }, 
       ),
     );
   }
@@ -212,11 +208,27 @@ class _EngagementsDataSource extends DataTableSource {
     return DataRow2(
       cells: [
         DataCell(Text(engagement.userId, overflow: TextOverflow.ellipsis)),
-        if (!isMobile) DataCell(Text(engagement.entityId)),
         DataCell(Text(engagement.reaction.reactionType.name)),
         if (!isMobile)
           DataCell(Text(engagement.comment?.content ?? l10n.notAvailable)),
-        DataCell(Text(engagement.comment?.status.name ?? l10n.notAvailable)),
+          DataCell(
+            Tooltip(
+              message: engagement.comment?.content ?? l10n.notAvailable,
+              child: Text(
+                engagement.comment?.content != null
+                    ? (engagement.comment!.content.length > 50
+                        ? '${engagement.comment!.content.substring(0, 47)}...'
+                        : engagement.comment!.content)
+                    : l10n.notAvailable,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        DataCell(
+          Text(
+            engagement.comment?.status.l10n(context) ?? l10n.notAvailable,
+          ),
+        ),
         if (!isMobile)
           DataCell(
             Text(
@@ -224,7 +236,7 @@ class _EngagementsDataSource extends DataTableSource {
             ),
           ),
         DataCell(CommunityActionButtons(item: engagement, l10n: l10n)),
-      ],
+      ], 
     );
   }
 
