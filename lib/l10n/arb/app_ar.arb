@@ -2233,5 +2233,13 @@
   "requestWrittenFeedbackDescription": "إذا تم التمكين، سيُطلب من المستخدمين الذين يجيبون بـ 'لا' تقديم ملاحظات مكتوبة مباشرة إلى فريق التطوير.",
   "@requestWrittenFeedbackDescription": {
     "description": "وصف مفتاح طلب ملاحظات مكتوبة بعد رد سلبي."
+  },
+  "internalPromptLogicTitle": "منطق الموجه الداخلي",
+  "@internalPromptLogicTitle": {
+    "description": "عنوان قسم منطق الموجه الداخلي لمراجعة التطبيق."
+  },
+  "followUpActionsTitle": "إجراءات المتابعة",
+  "@followUpActionsTitle": {
+    "description": "عنوان قسم إجراءات المتابعة لمراجعة التطبيق."
   }
 }

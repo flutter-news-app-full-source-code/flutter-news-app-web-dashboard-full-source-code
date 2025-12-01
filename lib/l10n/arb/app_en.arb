@@ -2229,5 +2229,13 @@
   "requestWrittenFeedbackDescription": "If enabled, users who respond 'No' will be prompted to provide written feedback directly to the team.",
   "@requestWrittenFeedbackDescription": {
     "description": "Description for the switch to request written feedback after a negative response."
+  },
+  "internalPromptLogicTitle": "Internal Prompt Logic",
+  "@internalPromptLogicTitle": {
+    "description": "Title for the nested expansion tile for internal app review prompt settings."
+  },
+  "followUpActionsTitle": "Follow-up Actions",
+  "@followUpActionsTitle": {
+    "description": "Title for the nested expansion tile for app review follow-up actions."
   }
 }
