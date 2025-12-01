@@ -6,6 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/bloc/community_filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -141,8 +142,8 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             hintText: l10n.selectCommentStatus,
             isMultiSelect: true,
             selectedItems: state.selectedCommentStatus,
-            itemBuilder: (context, item) => Text(item.name),
-            itemToString: (item) => item.name,
+            itemBuilder: (context, item) => Text(item.l10n(context)),
+            itemToString: (item) => item.l10n(context),
             onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
               CommunityFilterDialogCommentStatusChanged(items ?? []),
             ),
@@ -156,8 +157,8 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             hintText: l10n.selectReportStatus,
             isMultiSelect: true,
             selectedItems: state.selectedReportStatus,
-            itemBuilder: (context, item) => Text(item.name),
-            itemToString: (item) => item.name,
+            itemBuilder: (context, item) => Text(item.l10n(context)),
+            itemToString: (item) => item.l10n(context),
             onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
               CommunityFilterDialogReportStatusChanged(items ?? []),
             ),
@@ -169,8 +170,8 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             hintText: l10n.selectReportableEntity,
             isMultiSelect: true,
             selectedItems: state.selectedReportableEntity,
-            itemBuilder: (context, item) => Text(item.name),
-            itemToString: (item) => item.name,
+            itemBuilder: (context, item) => Text(item.l10n(context)),
+            itemToString: (item) => item.l10n(context),
             onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
               CommunityFilterDialogReportableEntityChanged(items ?? []),
             ),
@@ -184,8 +185,8 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             hintText: l10n.selectInitialFeedback,
             isMultiSelect: true,
             selectedItems: state.selectedInitialFeedback,
-            itemBuilder: (context, item) => Text(item.name),
-            itemToString: (item) => item.name,
+            itemBuilder: (context, item) => Text(item.l10n(context)),
+            itemToString: (item) => item.l10n(context),
             onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
               CommunityFilterDialogInitialFeedbackChanged(items ?? []),
             ),
