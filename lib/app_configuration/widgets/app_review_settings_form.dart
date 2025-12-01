@@ -98,45 +98,106 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-        AppConfigIntField(
-          label: l10n.positiveInteractionThresholdLabel,
-          description: l10n.positiveInteractionThresholdDescription,
-          value: appReviewConfig.positiveInteractionThreshold,
-          onChanged: (value) {
-            final newConfig = communityConfig.copyWith(
-              appReview: appReviewConfig.copyWith(
-                positiveInteractionThreshold: value,
-              ),
-            );
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                features: widget.remoteConfig.features.copyWith(
-                  community: newConfig,
-                ),
-              ),
-            );
-          },
-          controller: _positiveInteractionThresholdController,
+        ExpansionTile(
+          title: Text(l10n.internalPromptLogicTitle),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppConfigIntField(
+              label: l10n.positiveInteractionThresholdLabel,
+              description: l10n.positiveInteractionThresholdDescription,
+              value: appReviewConfig.positiveInteractionThreshold,
+              onChanged: (value) {
+                final newConfig = communityConfig.copyWith(
+                  appReview: appReviewConfig.copyWith(
+                    positiveInteractionThreshold: value,
+                  ),
+                );
+                widget.onConfigChanged(
+                  widget.remoteConfig.copyWith(
+                    features: widget.remoteConfig.features.copyWith(
+                      community: newConfig,
+                    ),
+                  ),
+                );
+              },
+              controller: _positiveInteractionThresholdController,
+            ),
+            AppConfigIntField(
+              label: l10n.initialPromptCooldownLabel,
+              description: l10n.initialPromptCooldownDescription,
+              value: appReviewConfig.initialPromptCooldownDays,
+              onChanged: (value) {
+                final newConfig = communityConfig.copyWith(
+                  appReview: appReviewConfig.copyWith(
+                    initialPromptCooldownDays: value,
+                  ),
+                );
+                widget.onConfigChanged(
+                  widget.remoteConfig.copyWith(
+                    features: widget.remoteConfig.features.copyWith(
+                      community: newConfig,
+                    ),
+                  ),
+                );
+              },
+              controller: _initialPromptCooldownController,
+            ),
+          ],
         ),
-        AppConfigIntField(
-          label: l10n.initialPromptCooldownLabel,
-          description: l10n.initialPromptCooldownDescription,
-          value: appReviewConfig.initialPromptCooldownDays,
-          onChanged: (value) {
-            final newConfig = communityConfig.copyWith(
-              appReview: appReviewConfig.copyWith(
-                initialPromptCooldownDays: value,
-              ),
-            );
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                features: widget.remoteConfig.features.copyWith(
-                  community: newConfig,
-                ),
-              ),
-            );
-          },
-          controller: _initialPromptCooldownController,
+        const SizedBox(height: AppSpacing.lg),
+        ExpansionTile(
+          title: Text(l10n.followUpActionsTitle),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SwitchListTile(
+              title: Text(l10n.requestStoreReviewLabel),
+              subtitle: Text(l10n.requestStoreReviewDescription),
+              value: appReviewConfig.isPositiveFeedbackFollowUpEnabled,
+              onChanged: (value) {
+                final newAppReviewConfig = appReviewConfig.copyWith(
+                  isPositiveFeedbackFollowUpEnabled: value,
+                );
+                widget.onConfigChanged(
+                  widget.remoteConfig.copyWith(
+                    features: widget.remoteConfig.features.copyWith(
+                      community: communityConfig.copyWith(
+                        appReview: newAppReviewConfig,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            SwitchListTile(
+              title: Text(l10n.requestWrittenFeedbackLabel),
+              subtitle: Text(l10n.requestWrittenFeedbackDescription),
+              value: appReviewConfig.isNegativeFeedbackFollowUpEnabled,
+              onChanged: (value) {
+                final newAppReviewConfig = appReviewConfig.copyWith(
+                  isNegativeFeedbackFollowUpEnabled: value,
+                );
+                widget.onConfigChanged(
+                  widget.remoteConfig.copyWith(
+                    features: widget.remoteConfig.features.copyWith(
+                      community: communityConfig.copyWith(
+                        appReview: newAppReviewConfig,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ],
     );
