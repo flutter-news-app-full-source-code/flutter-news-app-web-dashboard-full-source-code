@@ -2237,5 +2237,13 @@
   "followUpActionsTitle": "Follow-up Actions",
   "@followUpActionsTitle": {
     "description": "Title for the nested expansion tile for app review follow-up actions."
+  },
+  "enableCommunityFeaturesLabel": "Enable Community Features",
+  "@enableCommunityFeaturesLabel": {
+    "description": "Label for the master switch to enable all community features."
+  },
+  "enableCommunityFeaturesDescription": "Globally activates or deactivates all community-related functionality, including engagement and reporting.",
+  "@enableCommunityFeaturesDescription": {
+    "description": "Description for the master switch to enable all community features."
   }
 }

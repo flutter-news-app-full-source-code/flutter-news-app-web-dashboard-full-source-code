@@ -2241,5 +2241,13 @@
   "followUpActionsTitle": "إجراءات المتابعة",
   "@followUpActionsTitle": {
     "description": "عنوان قسم إجراءات المتابعة لمراجعة التطبيق."
+  },
+  "enableCommunityFeaturesLabel": "تفعيل ميزات المجتمع",
+  "@enableCommunityFeaturesLabel": {
+    "description": "تسمية المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
+  },
+  "enableCommunityFeaturesDescription": "ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.",
+  "@enableCommunityFeaturesDescription": {
+    "description": "وصف المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
   }
 }
