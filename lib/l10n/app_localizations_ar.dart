@@ -1802,4 +1802,212 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get enableCommunityFeaturesDescription =>
       'ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.';
+
+  @override
+  String get communityManagement => 'المجتمع';
+
+  @override
+  String get communityManagementPageDescription =>
+      'إدارة المحتوى الذي ينشئه المستخدمون بما في ذلك التفاعلات (ردود الفعل والتعليقات) وتبليغات المحتوى ومراجعات التطبيق.';
+
+  @override
+  String get engagements => 'التفاعلات';
+
+  @override
+  String get reports => 'التبليغات';
+
+  @override
+  String get appReviews => 'مراجعات التطبيق';
+
+  @override
+  String get user => 'المستخدم';
+
+  @override
+  String get engagedContent => 'المحتوى المتفاعل معه';
+
+  @override
+  String get reaction => 'رد الفعل';
+
+  @override
+  String get comment => 'التعليق';
+
+  @override
+  String get commentStatus => 'حالة التعليق';
+
+  @override
+  String get date => 'التاريخ';
+
+  @override
+  String get approveComment => 'الموافقة على التعليق';
+
+  @override
+  String get rejectComment => 'رفض التعليق';
+
+  @override
+  String get viewEngagedContent => 'عرض المحتوى';
+
+  @override
+  String get copyUserId => 'نسخ معرف المستخدم';
+
+  @override
+  String get reporter => 'المبلغ';
+
+  @override
+  String get reportedItem => 'العنصر المبلغ عنه';
+
+  @override
+  String get reason => 'السبب';
+
+  @override
+  String get reportStatus => 'حالة البلاغ';
+
+  @override
+  String get viewReportedItem => 'عرض العنصر';
+
+  @override
+  String get markAsInReview => 'وضع علامة \'قيد المراجعة\'';
+
+  @override
+  String get resolveReport => 'حل البلاغ';
+
+  @override
+  String get initialFeedback => 'التقييم الأولي';
+
+  @override
+  String get osPromptRequested => 'طُلب تقييم النظام؟';
+
+  @override
+  String get feedbackHistory => 'سجل التقييمات';
+
+  @override
+  String get lastInteraction => 'آخر تفاعل';
+
+  @override
+  String get viewFeedbackHistory => 'عرض السجل';
+
+  @override
+  String get reactionTypeLike => 'إعجاب';
+
+  @override
+  String get reactionTypeInsightful => 'ثاقب';
+
+  @override
+  String get reactionTypeAmusing => 'مسلي';
+
+  @override
+  String get reactionTypeSad => 'حزين';
+
+  @override
+  String get reactionTypeAngry => 'غاضب';
+
+  @override
+  String get reactionTypeSkeptical => 'متشكك';
+
+  @override
+  String get commentStatusPendingReview => 'قيد المراجعة';
+
+  @override
+  String get commentStatusApproved => 'موافق عليه';
+
+  @override
+  String get commentStatusRejected => 'مرفوض';
+
+  @override
+  String get reportStatusSubmitted => 'مقدم';
+
+  @override
+  String get reportStatusInReview => 'قيد المراجعة';
+
+  @override
+  String get reportStatusResolved => 'تم الحل';
+
+  @override
+  String get initialAppReviewFeedbackPositive => 'إيجابي';
+
+  @override
+  String get initialAppReviewFeedbackNegative => 'سلبي';
+
+  @override
+  String get filterCommunity => 'تصفية محتوى المجتمع';
+
+  @override
+  String get searchByEngagementUser => 'البحث بالبريد الإلكتروني للمستخدم...';
+
+  @override
+  String get searchByReportReporter => 'البحث بالبريد الإلكتروني للمبلغ...';
+
+  @override
+  String get searchByAppReviewUser => 'البحث بالبريد الإلكتروني للمستخدم...';
+
+  @override
+  String get selectCommentStatus => 'اختر حالة التعليق';
+
+  @override
+  String get selectReportStatus => 'اختر حالة البلاغ';
+
+  @override
+  String get selectInitialFeedback => 'اختر التقييم الأولي';
+
+  @override
+  String get selectReportableEntity => 'اختر نوع العنصر المبلغ عنه';
+
+  @override
+  String get reportableEntityHeadline => 'عنوان';
+
+  @override
+  String get reportableEntitySource => 'مصدر';
+
+  @override
+  String get reportableEntityComment => 'تعليق';
+
+  @override
+  String get noEngagementsFound => 'لم يتم العثور على تفاعلات.';
+
+  @override
+  String get noReportsFound => 'لم يتم العثور على بلاغات.';
+
+  @override
+  String get noAppReviewsFound => 'لم يتم العثور على مراجعات للتطبيق.';
+
+  @override
+  String get loadingEngagements => 'جاري تحميل التفاعلات';
+
+  @override
+  String get loadingReports => 'جاري تحميل البلاغات';
+
+  @override
+  String get loadingAppReviews => 'جاري تحميل مراجعات التطبيق';
+
+  @override
+  String get userIdCopied => 'تم نسخ معرف المستخدم إلى الحافظة.';
+
+  @override
+  String get commentApproved => 'تمت الموافقة على التعليق.';
+
+  @override
+  String get commentRejected => 'تم رفض التعليق.';
+
+  @override
+  String get reportStatusUpdated => 'تم تحديث حالة البلاغ.';
+
+  @override
+  String feedbackHistoryForUser(String email) {
+    return 'سجل التقييمات للمستخدم $email';
+  }
+
+  @override
+  String get noFeedbackHistory => 'لا يوجد سجل تقييمات متاح لهذا المستخدم.';
+
+  @override
+  String feedbackProvidedAt(String date) {
+    return 'تم تقديم التقييم في: $date';
+  }
+
+  @override
+  String feedbackReason(String reason) {
+    return 'السبب: $reason';
+  }
+
+  @override
+  String get noReasonProvided => 'لم يتم تقديم سبب.';
 }

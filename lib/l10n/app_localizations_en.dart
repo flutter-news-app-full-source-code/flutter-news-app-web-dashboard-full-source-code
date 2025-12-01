@@ -1807,4 +1807,213 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get enableCommunityFeaturesDescription =>
       'Globally activates or deactivates all community-related functionality, including engagement and reporting.';
+
+  @override
+  String get communityManagement => 'Community';
+
+  @override
+  String get communityManagementPageDescription =>
+      'Manage user-generated content including engagements (reactions and comments), content reports, and app reviews.';
+
+  @override
+  String get engagements => 'Engagements';
+
+  @override
+  String get reports => 'Reports';
+
+  @override
+  String get appReviews => 'App Reviews';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get engagedContent => 'Engaged Content';
+
+  @override
+  String get reaction => 'Reaction';
+
+  @override
+  String get comment => 'Comment';
+
+  @override
+  String get commentStatus => 'Comment Status';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get approveComment => 'Approve Comment';
+
+  @override
+  String get rejectComment => 'Reject Comment';
+
+  @override
+  String get viewEngagedContent => 'View Content';
+
+  @override
+  String get copyUserId => 'Copy User ID';
+
+  @override
+  String get reporter => 'Reporter';
+
+  @override
+  String get reportedItem => 'Reported Item';
+
+  @override
+  String get reason => 'Reason';
+
+  @override
+  String get reportStatus => 'Report Status';
+
+  @override
+  String get viewReportedItem => 'View Item';
+
+  @override
+  String get markAsInReview => 'Mark as In Review';
+
+  @override
+  String get resolveReport => 'Resolve Report';
+
+  @override
+  String get initialFeedback => 'Initial Feedback';
+
+  @override
+  String get osPromptRequested => 'OS Prompt?';
+
+  @override
+  String get feedbackHistory => 'Feedback History';
+
+  @override
+  String get lastInteraction => 'Last Interaction';
+
+  @override
+  String get viewFeedbackHistory => 'View History';
+
+  @override
+  String get reactionTypeLike => 'Like';
+
+  @override
+  String get reactionTypeInsightful => 'Insightful';
+
+  @override
+  String get reactionTypeAmusing => 'Amusing';
+
+  @override
+  String get reactionTypeSad => 'Sad';
+
+  @override
+  String get reactionTypeAngry => 'Angry';
+
+  @override
+  String get reactionTypeSkeptical => 'Skeptical';
+
+  @override
+  String get commentStatusPendingReview => 'Pending';
+
+  @override
+  String get commentStatusApproved => 'Approved';
+
+  @override
+  String get commentStatusRejected => 'Rejected';
+
+  @override
+  String get reportStatusSubmitted => 'Submitted';
+
+  @override
+  String get reportStatusInReview => 'In Review';
+
+  @override
+  String get reportStatusResolved => 'Resolved';
+
+  @override
+  String get initialAppReviewFeedbackPositive => 'Positive';
+
+  @override
+  String get initialAppReviewFeedbackNegative => 'Negative';
+
+  @override
+  String get filterCommunity => 'Filter Community Content';
+
+  @override
+  String get searchByEngagementUser => 'Search by user email...';
+
+  @override
+  String get searchByReportReporter => 'Search by reporter email...';
+
+  @override
+  String get searchByAppReviewUser => 'Search by user email...';
+
+  @override
+  String get selectCommentStatus => 'Select Comment Status';
+
+  @override
+  String get selectReportStatus => 'Select Report Status';
+
+  @override
+  String get selectInitialFeedback => 'Select Initial Feedback';
+
+  @override
+  String get selectReportableEntity => 'Select Reported Item Type';
+
+  @override
+  String get reportableEntityHeadline => 'Headline';
+
+  @override
+  String get reportableEntitySource => 'Source';
+
+  @override
+  String get reportableEntityComment => 'Comment';
+
+  @override
+  String get noEngagementsFound => 'No engagements found.';
+
+  @override
+  String get noReportsFound => 'No reports found.';
+
+  @override
+  String get noAppReviewsFound => 'No app reviews found.';
+
+  @override
+  String get loadingEngagements => 'Loading Engagements';
+
+  @override
+  String get loadingReports => 'Loading Reports';
+
+  @override
+  String get loadingAppReviews => 'Loading App Reviews';
+
+  @override
+  String get userIdCopied => 'User ID copied to clipboard.';
+
+  @override
+  String get commentApproved => 'Comment approved.';
+
+  @override
+  String get commentRejected => 'Comment rejected.';
+
+  @override
+  String get reportStatusUpdated => 'Report status updated.';
+
+  @override
+  String feedbackHistoryForUser(String email) {
+    return 'Feedback History for $email';
+  }
+
+  @override
+  String get noFeedbackHistory =>
+      'No feedback history available for this user.';
+
+  @override
+  String feedbackProvidedAt(String date) {
+    return 'Feedback provided at: $date';
+  }
+
+  @override
+  String feedbackReason(String reason) {
+    return 'Reason: $reason';
+  }
+
+  @override
+  String get noReasonProvided => 'No reason provided.';
 }

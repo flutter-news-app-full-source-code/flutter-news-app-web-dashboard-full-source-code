@@ -3343,6 +3343,408 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Globally activates or deactivates all community-related functionality, including engagement and reporting.'**
   String get enableCommunityFeaturesDescription;
+
+  /// Label for the community management navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get communityManagement;
+
+  /// Description for the Community Management page
+  ///
+  /// In en, this message translates to:
+  /// **'Manage user-generated content including engagements (reactions and comments), content reports, and app reviews.'**
+  String get communityManagementPageDescription;
+
+  /// Label for the engagements subpage
+  ///
+  /// In en, this message translates to:
+  /// **'Engagements'**
+  String get engagements;
+
+  /// Label for the reports subpage
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reports;
+
+  /// Label for the app reviews subpage
+  ///
+  /// In en, this message translates to:
+  /// **'App Reviews'**
+  String get appReviews;
+
+  /// Column header for user
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get user;
+
+  /// Column header for engaged content
+  ///
+  /// In en, this message translates to:
+  /// **'Engaged Content'**
+  String get engagedContent;
+
+  /// Column header for reaction
+  ///
+  /// In en, this message translates to:
+  /// **'Reaction'**
+  String get reaction;
+
+  /// Column header for comment
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get comment;
+
+  /// Column header for comment status
+  ///
+  /// In en, this message translates to:
+  /// **'Comment Status'**
+  String get commentStatus;
+
+  /// Column header for date
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// Action to approve a comment
+  ///
+  /// In en, this message translates to:
+  /// **'Approve Comment'**
+  String get approveComment;
+
+  /// Action to reject a comment
+  ///
+  /// In en, this message translates to:
+  /// **'Reject Comment'**
+  String get rejectComment;
+
+  /// Action to view the engaged content
+  ///
+  /// In en, this message translates to:
+  /// **'View Content'**
+  String get viewEngagedContent;
+
+  /// Action to copy the user ID
+  ///
+  /// In en, this message translates to:
+  /// **'Copy User ID'**
+  String get copyUserId;
+
+  /// Column header for reporter
+  ///
+  /// In en, this message translates to:
+  /// **'Reporter'**
+  String get reporter;
+
+  /// Column header for reported item
+  ///
+  /// In en, this message translates to:
+  /// **'Reported Item'**
+  String get reportedItem;
+
+  /// Column header for reason
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reason;
+
+  /// Column header for report status
+  ///
+  /// In en, this message translates to:
+  /// **'Report Status'**
+  String get reportStatus;
+
+  /// Action to view the reported item
+  ///
+  /// In en, this message translates to:
+  /// **'View Item'**
+  String get viewReportedItem;
+
+  /// Action to mark a report as in review
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as In Review'**
+  String get markAsInReview;
+
+  /// Action to resolve a report
+  ///
+  /// In en, this message translates to:
+  /// **'Resolve Report'**
+  String get resolveReport;
+
+  /// Column header for initial feedback
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Feedback'**
+  String get initialFeedback;
+
+  /// Column header for OS prompt requested
+  ///
+  /// In en, this message translates to:
+  /// **'OS Prompt?'**
+  String get osPromptRequested;
+
+  /// Column header for feedback history
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback History'**
+  String get feedbackHistory;
+
+  /// Column header for last interaction
+  ///
+  /// In en, this message translates to:
+  /// **'Last Interaction'**
+  String get lastInteraction;
+
+  /// Action to view feedback history
+  ///
+  /// In en, this message translates to:
+  /// **'View History'**
+  String get viewFeedbackHistory;
+
+  /// Reaction type: Like
+  ///
+  /// In en, this message translates to:
+  /// **'Like'**
+  String get reactionTypeLike;
+
+  /// Reaction type: Insightful
+  ///
+  /// In en, this message translates to:
+  /// **'Insightful'**
+  String get reactionTypeInsightful;
+
+  /// Reaction type: Amusing
+  ///
+  /// In en, this message translates to:
+  /// **'Amusing'**
+  String get reactionTypeAmusing;
+
+  /// Reaction type: Sad
+  ///
+  /// In en, this message translates to:
+  /// **'Sad'**
+  String get reactionTypeSad;
+
+  /// Reaction type: Angry
+  ///
+  /// In en, this message translates to:
+  /// **'Angry'**
+  String get reactionTypeAngry;
+
+  /// Reaction type: Skeptical
+  ///
+  /// In en, this message translates to:
+  /// **'Skeptical'**
+  String get reactionTypeSkeptical;
+
+  /// Comment status: Pending Review
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get commentStatusPendingReview;
+
+  /// Comment status: Approved
+  ///
+  /// In en, this message translates to:
+  /// **'Approved'**
+  String get commentStatusApproved;
+
+  /// Comment status: Rejected
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get commentStatusRejected;
+
+  /// Report status: Submitted
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted'**
+  String get reportStatusSubmitted;
+
+  /// Report status: In Review
+  ///
+  /// In en, this message translates to:
+  /// **'In Review'**
+  String get reportStatusInReview;
+
+  /// Report status: Resolved
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get reportStatusResolved;
+
+  /// Initial app review feedback: Positive
+  ///
+  /// In en, this message translates to:
+  /// **'Positive'**
+  String get initialAppReviewFeedbackPositive;
+
+  /// Initial app review feedback: Negative
+  ///
+  /// In en, this message translates to:
+  /// **'Negative'**
+  String get initialAppReviewFeedbackNegative;
+
+  /// Action to filter community content
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Community Content'**
+  String get filterCommunity;
+
+  /// Hint text for searching by engagement user
+  ///
+  /// In en, this message translates to:
+  /// **'Search by user email...'**
+  String get searchByEngagementUser;
+
+  /// Hint text for searching by report reporter
+  ///
+  /// In en, this message translates to:
+  /// **'Search by reporter email...'**
+  String get searchByReportReporter;
+
+  /// Hint text for searching by app review user
+  ///
+  /// In en, this message translates to:
+  /// **'Search by user email...'**
+  String get searchByAppReviewUser;
+
+  /// Action to select comment status
+  ///
+  /// In en, this message translates to:
+  /// **'Select Comment Status'**
+  String get selectCommentStatus;
+
+  /// Action to select report status
+  ///
+  /// In en, this message translates to:
+  /// **'Select Report Status'**
+  String get selectReportStatus;
+
+  /// Action to select initial feedback
+  ///
+  /// In en, this message translates to:
+  /// **'Select Initial Feedback'**
+  String get selectInitialFeedback;
+
+  /// Action to select reportable entity
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reported Item Type'**
+  String get selectReportableEntity;
+
+  /// Reportable entity: Headline
+  ///
+  /// In en, this message translates to:
+  /// **'Headline'**
+  String get reportableEntityHeadline;
+
+  /// Reportable entity: Source
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get reportableEntitySource;
+
+  /// Reportable entity: Comment
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get reportableEntityComment;
+
+  /// Message when no engagements are found
+  ///
+  /// In en, this message translates to:
+  /// **'No engagements found.'**
+  String get noEngagementsFound;
+
+  /// Message when no reports are found
+  ///
+  /// In en, this message translates to:
+  /// **'No reports found.'**
+  String get noReportsFound;
+
+  /// Message when no app reviews are found
+  ///
+  /// In en, this message translates to:
+  /// **'No app reviews found.'**
+  String get noAppReviewsFound;
+
+  /// Message when engagements are loading
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Engagements'**
+  String get loadingEngagements;
+
+  /// Message when reports are loading
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Reports'**
+  String get loadingReports;
+
+  /// Message when app reviews are loading
+  ///
+  /// In en, this message translates to:
+  /// **'Loading App Reviews'**
+  String get loadingAppReviews;
+
+  /// Message when user ID is copied
+  ///
+  /// In en, this message translates to:
+  /// **'User ID copied to clipboard.'**
+  String get userIdCopied;
+
+  /// Message when a comment is approved
+  ///
+  /// In en, this message translates to:
+  /// **'Comment approved.'**
+  String get commentApproved;
+
+  /// Message when a comment is rejected
+  ///
+  /// In en, this message translates to:
+  /// **'Comment rejected.'**
+  String get commentRejected;
+
+  /// Message when a report status is updated
+  ///
+  /// In en, this message translates to:
+  /// **'Report status updated.'**
+  String get reportStatusUpdated;
+
+  /// Message displaying feedback history for a user
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback History for {email}'**
+  String feedbackHistoryForUser(String email);
+
+  /// Message when no feedback history is available
+  ///
+  /// In en, this message translates to:
+  /// **'No feedback history available for this user.'**
+  String get noFeedbackHistory;
+
+  /// Message displaying the date feedback was provided
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback provided at: {date}'**
+  String feedbackProvidedAt(String date);
+
+  /// Message displaying the reason for feedback
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String feedbackReason(String reason);
+
+  /// Message when no reason for feedback is provided
+  ///
+  /// In en, this message translates to:
+  /// **'No reason provided.'**
+  String get noReasonProvided;
 }
 
 class _AppLocalizationsDelegate
