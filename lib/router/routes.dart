@@ -123,5 +123,8 @@ abstract final class Routes {
   static const String communityManagementName = 'communityManagement';
 
   /// The name for the community filter dialog route.
+  static const String communityFilterDialog = 'community-filter-dialog';
+
+  /// The name for the community filter dialog route.
   static const String communityFilterDialogName = 'communityFilterDialog';
 }
