@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:logging/logging.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 part 'community_management_event.dart';
 part 'community_management_state.dart';

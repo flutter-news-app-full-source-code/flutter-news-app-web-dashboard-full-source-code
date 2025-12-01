@@ -182,8 +182,7 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CommunityManagementBloc(
-              engagementsRepository:
-                  context.read<DataRepository<Engagement>>(),
+              engagementsRepository: context.read<DataRepository<Engagement>>(),
               reportsRepository: context.read<DataRepository<Report>>(),
               appReviewsRepository: context.read<DataRepository<AppReview>>(),
               communityFilterBloc: context.read<CommunityFilterBloc>(),
