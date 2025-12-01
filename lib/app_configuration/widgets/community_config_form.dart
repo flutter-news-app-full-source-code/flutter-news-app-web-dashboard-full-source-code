@@ -30,13 +30,19 @@ class CommunityConfigForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final subtitleStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
+      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ExpansionTile(
           title: Text(l10n.userEngagementTitle),
-          subtitle: Text(l10n.userEngagementDescription),
+          subtitle: Text(
+            l10n.userEngagementDescription,
+            style: subtitleStyle,
+          ),
           childrenPadding: const EdgeInsetsDirectional.only(
             start: AppSpacing.lg,
             top: AppSpacing.md,
@@ -53,7 +59,10 @@ class CommunityConfigForm extends StatelessWidget {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.contentReportingTitle),
-          subtitle: Text(l10n.contentReportingDescription),
+          subtitle: Text(
+            l10n.contentReportingDescription,
+            style: subtitleStyle,
+          ),
           childrenPadding: const EdgeInsetsDirectional.only(
             start: AppSpacing.lg,
             top: AppSpacing.md,
@@ -70,7 +79,10 @@ class CommunityConfigForm extends StatelessWidget {
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.appFeedbackFunnelTitle),
-          subtitle: Text(l10n.appFeedbackFunnelDescription),
+          subtitle: Text(
+            l10n.appFeedbackFunnelDescription,
+            style: subtitleStyle,
+          ),
           children: [
             AppReviewSettingsForm(
               remoteConfig: remoteConfig,

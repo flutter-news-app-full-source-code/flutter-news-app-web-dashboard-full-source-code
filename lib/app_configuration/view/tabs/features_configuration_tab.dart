@@ -255,7 +255,14 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
             return ExpansionTile(
               key: ValueKey('communityTile_$expandedIndex'),
               title: Text(l10n.communityAndEngagementTitle),
-              subtitle: Text(l10n.communityAndEngagementDescription),
+              subtitle: Text(
+                l10n.communityAndEngagementDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
