@@ -1700,7 +1700,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get communityAndEngagementDescription =>
-      'Manage user interactions, content reporting, and the internal app feedback system.';
+      'Manage user interactions, content reporting, and the internal app reporting system.';
 
   @override
   String get userEngagementTitle => 'User Engagement';
@@ -1716,10 +1716,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Set rules for what users can report.';
 
   @override
-  String get appFeedbackFunnelTitle => 'App Feedback Funnel';
+  String get appReviewFunnelTitle => 'App Reviews';
 
   @override
-  String get appFeedbackFunnelDescription =>
+  String get appReviewFunnelDescription =>
       'Manage the process for capturing user satisfaction and optionally requesting reviews.';
 
   @override

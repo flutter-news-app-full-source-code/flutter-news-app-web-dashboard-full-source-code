@@ -1697,7 +1697,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get communityAndEngagementDescription =>
-      'إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام ملاحظات التطبيق الداخلي.';
+      'إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام مراجعات التطبيق الداخلي.';
 
   @override
   String get userEngagementTitle => 'مشاركة المستخدم';
@@ -1713,10 +1713,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'ضع قواعد لما يمكن للمستخدمين الإبلاغ عنه.';
 
   @override
-  String get appFeedbackFunnelTitle => 'قمع ملاحظات التطبيق';
+  String get appReviewFunnelTitle => 'مراجعات التطبيق';
 
   @override
-  String get appFeedbackFunnelDescription =>
+  String get appReviewFunnelDescription =>
       'إدارة عملية جمع رضا المستخدم وطلب المراجعات اختياريًا.';
 
   @override

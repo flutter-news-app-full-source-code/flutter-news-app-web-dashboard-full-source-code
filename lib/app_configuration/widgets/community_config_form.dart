@@ -78,9 +78,9 @@ class CommunityConfigForm extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
-          title: Text(l10n.appFeedbackFunnelTitle),
+          title: Text(l10n.appReviewFunnelTitle),
           subtitle: Text(
-            l10n.appFeedbackFunnelDescription,
+            l10n.appReviewFunnelDescription,
             style: subtitleStyle,
           ),
           children: [

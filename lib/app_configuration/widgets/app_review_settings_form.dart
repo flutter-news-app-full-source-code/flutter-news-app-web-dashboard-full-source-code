@@ -78,135 +78,156 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
     final appReviewConfig = communityConfig.appReview;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SwitchListTile(
-          title: Text(l10n.enableAppFeedbackSystemLabel),
-          subtitle: Text(l10n.enableAppFeedbackSystemDescription),
-          value: appReviewConfig.enabled,
-          onChanged: (value) {
-            final newConfig = communityConfig.copyWith(
-              appReview: appReviewConfig.copyWith(enabled: value),
-            );
-            widget.onConfigChanged(
-              widget.remoteConfig.copyWith(
-                features: widget.remoteConfig.features.copyWith(
-                  community: newConfig,
-                ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SwitchListTile(
+                title: Text(l10n.enableAppFeedbackSystemLabel),
+                subtitle: Text(l10n.enableAppFeedbackSystemDescription),
+                value: appReviewConfig.enabled,
+                onChanged: (value) {
+                  final newConfig = communityConfig.copyWith(
+                    appReview: appReviewConfig.copyWith(enabled: value),
+                  );
+                  widget.onConfigChanged(
+                    widget.remoteConfig.copyWith(
+                      features: widget.remoteConfig.features.copyWith(
+                        community: newConfig,
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        if (appReviewConfig.enabled)
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: AppSpacing.lg),
-            child: Column(
-              children: [
-                ExpansionTile(
-                  title: Text(l10n.internalPromptLogicTitle),
-                  childrenPadding: const EdgeInsetsDirectional.only(
-                    start: AppSpacing.lg,
-                    top: AppSpacing.md,
-                    bottom: AppSpacing.md,
-                  ),
-                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppConfigIntField(
-                      label: l10n.positiveInteractionThresholdLabel,
-                      description: l10n.positiveInteractionThresholdDescription,
-                      value: appReviewConfig.positiveInteractionThreshold,
-                      onChanged: (value) {
-                        final newConfig = communityConfig.copyWith(
-                          appReview: appReviewConfig.copyWith(
-                            positiveInteractionThreshold: value,
-                          ),
-                        );
-                        widget.onConfigChanged(
-                          widget.remoteConfig.copyWith(
-                            features: widget.remoteConfig.features.copyWith(
-                              community: newConfig,
-                            ),
-                          ),
-                        );
-                      },
-                      controller: _positiveInteractionThresholdController,
-                    ),
-                    AppConfigIntField(
-                      label: l10n.initialPromptCooldownLabel,
-                      description: l10n.initialPromptCooldownDescription,
-                      value: appReviewConfig.initialPromptCooldownDays,
-                      onChanged: (value) {
-                        final newConfig = communityConfig.copyWith(
-                          appReview: appReviewConfig.copyWith(
-                            initialPromptCooldownDays: value,
-                          ),
-                        );
-                        widget.onConfigChanged(
-                          widget.remoteConfig.copyWith(
-                            features: widget.remoteConfig.features.copyWith(
-                              community: newConfig,
-                            ),
-                          ),
-                        );
-                      },
-                      controller: _initialPromptCooldownController,
-                    ),
-                  ],
-                ),
+              if (appReviewConfig.enabled) ...[
                 const SizedBox(height: AppSpacing.lg),
-                ExpansionTile(
-                  title: Text(l10n.followUpActionsTitle),
-                  childrenPadding: const EdgeInsetsDirectional.only(
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.lg,
-                    top: AppSpacing.md,
-                    bottom: AppSpacing.md,
                   ),
-                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SwitchListTile(
-                      title: Text(l10n.requestStoreReviewLabel),
-                      subtitle: Text(l10n.requestStoreReviewDescription),
-                      value: appReviewConfig.isPositiveFeedbackFollowUpEnabled,
-                      onChanged: (value) {
-                        final newAppReviewConfig = appReviewConfig.copyWith(
-                          isPositiveFeedbackFollowUpEnabled: value,
-                        );
-                        widget.onConfigChanged(
-                          widget.remoteConfig.copyWith(
-                            features: widget.remoteConfig.features.copyWith(
-                              community: communityConfig.copyWith(
-                                appReview: newAppReviewConfig,
-                              ),
-                            ),
+                  child: Column(
+                    children: [
+                      ExpansionTile(
+                        title: Text(l10n.internalPromptLogicTitle),
+                        childrenPadding: const EdgeInsetsDirectional.only(
+                          start: AppSpacing.lg,
+                          top: AppSpacing.md,
+                          bottom: AppSpacing.md,
+                        ),
+                        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppConfigIntField(
+                            label: l10n.positiveInteractionThresholdLabel,
+                            description:
+                                l10n.positiveInteractionThresholdDescription,
+                            value: appReviewConfig.positiveInteractionThreshold,
+                            onChanged: (value) {
+                              final newConfig = communityConfig.copyWith(
+                                appReview: appReviewConfig.copyWith(
+                                  positiveInteractionThreshold: value,
+                                ),
+                              );
+                              widget.onConfigChanged(
+                                widget.remoteConfig.copyWith(
+                                  features: widget.remoteConfig.features
+                                      .copyWith(
+                                        community: newConfig,
+                                      ),
+                                ),
+                              );
+                            },
+                            controller: _positiveInteractionThresholdController,
                           ),
-                        );
-                      },
-                    ),
-                    SwitchListTile(
-                      title: Text(l10n.requestWrittenFeedbackLabel),
-                      subtitle: Text(l10n.requestWrittenFeedbackDescription),
-                      value: appReviewConfig.isNegativeFeedbackFollowUpEnabled,
-                      onChanged: (value) {
-                        final newAppReviewConfig = appReviewConfig.copyWith(
-                          isNegativeFeedbackFollowUpEnabled: value,
-                        );
-                        widget.onConfigChanged(
-                          widget.remoteConfig.copyWith(
-                            features: widget.remoteConfig.features.copyWith(
-                              community: communityConfig.copyWith(
-                                appReview: newAppReviewConfig,
-                              ),
-                            ),
+                          AppConfigIntField(
+                            label: l10n.initialPromptCooldownLabel,
+                            description: l10n.initialPromptCooldownDescription,
+                            value: appReviewConfig.initialPromptCooldownDays,
+                            onChanged: (value) {
+                              final newConfig = communityConfig.copyWith(
+                                appReview: appReviewConfig.copyWith(
+                                  initialPromptCooldownDays: value,
+                                ),
+                              );
+                              widget.onConfigChanged(
+                                widget.remoteConfig.copyWith(
+                                  features: widget.remoteConfig.features
+                                      .copyWith(
+                                        community: newConfig,
+                                      ),
+                                ),
+                              );
+                            },
+                            controller: _initialPromptCooldownController,
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      ExpansionTile(
+                        title: Text(l10n.followUpActionsTitle),
+                        childrenPadding: const EdgeInsetsDirectional.only(
+                          start: AppSpacing.lg,
+                          top: AppSpacing.md,
+                          bottom: AppSpacing.md,
+                        ),
+                        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SwitchListTile(
+                            title: Text(l10n.requestStoreReviewLabel),
+                            subtitle: Text(l10n.requestStoreReviewDescription),
+                            value: appReviewConfig
+                                .isPositiveFeedbackFollowUpEnabled,
+                            onChanged: (value) {
+                              final newAppReviewConfig = appReviewConfig
+                                  .copyWith(
+                                    isPositiveFeedbackFollowUpEnabled: value,
+                                  );
+                              widget.onConfigChanged(
+                                widget.remoteConfig.copyWith(
+                                  features: widget.remoteConfig.features
+                                      .copyWith(
+                                        community: communityConfig.copyWith(
+                                          appReview: newAppReviewConfig,
+                                        ),
+                                      ),
+                                ),
+                              );
+                            },
+                          ),
+                          SwitchListTile(
+                            title: Text(l10n.requestWrittenFeedbackLabel),
+                            subtitle: Text(
+                              l10n.requestWrittenFeedbackDescription,
+                            ),
+                            value: appReviewConfig
+                                .isNegativeFeedbackFollowUpEnabled,
+                            onChanged: (value) {
+                              final newAppReviewConfig = appReviewConfig
+                                  .copyWith(
+                                    isNegativeFeedbackFollowUpEnabled: value,
+                                  );
+                              widget.onConfigChanged(
+                                widget.remoteConfig.copyWith(
+                                  features: widget.remoteConfig.features
+                                      .copyWith(
+                                        community: communityConfig.copyWith(
+                                          appReview: newAppReviewConfig,
+                                        ),
+                                      ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
+            ],
           ),
+        ),
       ],
     );
   }

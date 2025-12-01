@@ -3155,7 +3155,7 @@ abstract class AppLocalizations {
   /// Description for the Community & Engagement expansion tile.
   ///
   /// In en, this message translates to:
-  /// **'Manage user interactions, content reporting, and the internal app feedback system.'**
+  /// **'Manage user interactions, content reporting, and the internal app reporting system.'**
   String get communityAndEngagementDescription;
 
   /// Title for the User Engagement expansion tile.
@@ -3182,17 +3182,17 @@ abstract class AppLocalizations {
   /// **'Set rules for what users can report.'**
   String get contentReportingDescription;
 
-  /// Title for the App Feedback Funnel expansion tile.
+  /// Title for the App Review Funnel expansion tile.
   ///
   /// In en, this message translates to:
-  /// **'App Feedback Funnel'**
-  String get appFeedbackFunnelTitle;
+  /// **'App Reviews'**
+  String get appReviewFunnelTitle;
 
   /// Description for the App Feedback Funnel expansion tile.
   ///
   /// In en, this message translates to:
   /// **'Manage the process for capturing user satisfaction and optionally requesting reviews.'**
-  String get appFeedbackFunnelDescription;
+  String get appReviewFunnelDescription;
 
   /// Label for the master switch to enable all engagement features.
   ///

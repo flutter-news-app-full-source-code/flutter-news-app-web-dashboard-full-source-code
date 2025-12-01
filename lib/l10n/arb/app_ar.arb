@@ -2122,7 +2122,7 @@
   "@communityAndEngagementTitle": {
     "description": "عنوان قسم المجتمع والمشاركة القابل للتوسيع."
   },
-  "communityAndEngagementDescription": "إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام ملاحظات التطبيق الداخلي.",
+  "communityAndEngagementDescription": "إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام مراجعات التطبيق الداخلي.",
   "@communityAndEngagementDescription": {
     "description": "وصف قسم المجتمع والمشاركة القابل للتوسيع."
   },
@@ -2142,13 +2142,13 @@
   "@contentReportingDescription": {
     "description": "وصف قسم الإبلاغ عن المحتوى القابل للتوسيع."
   },
-  "appFeedbackFunnelTitle": "قمع ملاحظات التطبيق",
-  "@appFeedbackFunnelTitle": {
-    "description": "عنوان قسم قمع ملاحظات التطبيق القابل للتوسيع."
+  "appReviewFunnelTitle": "مراجعات التطبيق",
+  "@appReviewFunnelTitle": {
+    "description": "عنوان قسم مراجعات التطبيق القابل للتوسيع."
   },
-  "appFeedbackFunnelDescription": "إدارة عملية جمع رضا المستخدم وطلب المراجعات اختياريًا.",
-  "@appFeedbackFunnelDescription": {
-    "description": "وصف قسم قمع ملاحظات التطبيق القابل للتوسيع."
+  "appReviewFunnelDescription": "إدارة عملية جمع رضا المستخدم وطلب المراجعات اختياريًا.",
+  "@appReviewFunnelDescription": {
+    "description": "وصف قسممراجعات التطبيق القابل للتوسيع."
   },
   "enableEngagementFeaturesLabel": "تفعيل ميزات المشاركة",
   "@enableEngagementFeaturesLabel": {

@@ -2118,7 +2118,7 @@
   "@communityAndEngagementTitle": {
     "description": "Title for the Community & Engagement expansion tile."
   },
-  "communityAndEngagementDescription": "Manage user interactions, content reporting, and the internal app feedback system.",
+  "communityAndEngagementDescription": "Manage user interactions, content reporting, and the internal app reporting system.",
   "@communityAndEngagementDescription": {
     "description": "Description for the Community & Engagement expansion tile."
   },
@@ -2138,12 +2138,12 @@
   "@contentReportingDescription": {
     "description": "Description for the Content Reporting expansion tile."
   },
-  "appFeedbackFunnelTitle": "App Feedback Funnel",
-  "@appFeedbackFunnelTitle": {
-    "description": "Title for the App Feedback Funnel expansion tile."
+  "appReviewFunnelTitle": "App Reviews",
+  "@appReviewFunnelTitle": {
+    "description": "Title for the App Review Funnel expansion tile."
   },
-  "appFeedbackFunnelDescription": "Manage the process for capturing user satisfaction and optionally requesting reviews.",
-  "@appFeedbackFunnelDescription": {
+  "appReviewFunnelDescription": "Manage the process for capturing user satisfaction and optionally requesting reviews.",
+  "@appReviewFunnelDescription": {
     "description": "Description for the App Feedback Funnel expansion tile."
   },
   "enableEngagementFeaturesLabel": "Enable Engagement Features",
