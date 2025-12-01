@@ -2010,4 +2010,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noReasonProvided => 'لم يتم تقديم سبب.';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
 }

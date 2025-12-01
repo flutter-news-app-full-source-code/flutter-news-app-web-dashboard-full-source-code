@@ -3745,6 +3745,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No reason provided.'**
   String get noReasonProvided;
+
+  /// A generic 'Yes' response.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// A generic 'No' response.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
 }
 
 class _AppLocalizationsDelegate

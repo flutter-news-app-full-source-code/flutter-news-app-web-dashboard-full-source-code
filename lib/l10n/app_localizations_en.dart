@@ -2016,4 +2016,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noReasonProvided => 'No reason provided.';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
 }
