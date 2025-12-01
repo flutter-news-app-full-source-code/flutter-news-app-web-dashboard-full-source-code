@@ -2117,5 +2117,137 @@
   "appUrlsDescription": "إدارة الروابط الخارجية والداخلية المستخدمة داخل التطبيق.",
   "@appUrlsDescription": {
     "description": "وصف قسم روابط التطبيق القابل للتوسيع."
+  },
+  "communityAndEngagementTitle": "المجتمع والمشاركة",
+  "@communityAndEngagementTitle": {
+    "description": "عنوان قسم المجتمع والمشاركة القابل للتوسيع."
+  },
+  "communityAndEngagementDescription": "إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام مراجعات التطبيق الداخلي.",
+  "@communityAndEngagementDescription": {
+    "description": "وصف قسم المجتمع والمشاركة القابل للتوسيع."
+  },
+  "userEngagementTitle": "مشاركة المستخدم",
+  "@userEngagementTitle": {
+    "description": "عنوان قسم مشاركة المستخدم القابل للتوسيع."
+  },
+  "userEngagementDescription": "تكوين التفاعلات والتعليقات.",
+  "@userEngagementDescription": {
+    "description": "وصف قسم مشاركة المستخدم القابل للتوسيع."
+  },
+  "contentReportingTitle": "الإبلاغ عن المحتوى",
+  "@contentReportingTitle": {
+    "description": "عنوان قسم الإبلاغ عن المحتوى القابل للتوسيع."
+  },
+  "contentReportingDescription": "ضع قواعد لما يمكن للمستخدمين الإبلاغ عنه.",
+  "@contentReportingDescription": {
+    "description": "وصف قسم الإبلاغ عن المحتوى القابل للتوسيع."
+  },
+  "appReviewFunnelTitle": "مراجعات التطبيق",
+  "@appReviewFunnelTitle": {
+    "description": "عنوان قسم مراجعات التطبيق القابل للتوسيع."
+  },
+  "appReviewFunnelDescription": "إدارة عملية جمع رضا المستخدم وطلب المراجعات اختياريًا.",
+  "@appReviewFunnelDescription": {
+    "description": "وصف قسممراجعات التطبيق القابل للتوسيع."
+  },
+  "enableEngagementFeaturesLabel": "تفعيل ميزات المشاركة",
+  "@enableEngagementFeaturesLabel": {
+    "description": "تسمية المفتاح الرئيسي لتفعيل جميع ميزات المشاركة."
+  },
+  "enableEngagementFeaturesDescription": "ينشط أو يعطل عالميًا جميع وظائف التفاعل والتعليق.",
+  "@enableEngagementFeaturesDescription": {
+    "description": "وصف المفتاح الرئيسي لتفعيل جميع ميزات المشاركة."
+  },
+  "engagementModeLabel": "وضع المشاركة",
+  "@engagementModeLabel": {
+    "description": "تسمية زر وضع المشاركة المقسم."
+  },
+  "engagementModeDescription": "يحدد ما إذا كان يمكن للمستخدمين التفاعل فقط أو إضافة تعليقات أيضًا على المحتوى.",
+  "@engagementModeDescription": {
+    "description": "وصف زر وضع المشاركة المقسم."
+  },
+  "engagementModeReactionsOnly": "التفاعلات فقط",
+  "@engagementModeReactionsOnly": {
+    "description": "تسمية وضع المشاركة 'التفاعلات فقط'."
+  },
+  "engagementModeReactionsAndComments": "التفاعلات والتعليقات",
+  "@engagementModeReactionsAndComments": {
+    "description": "تسمية وضع المشاركة 'التفاعلات والتعليقات'."
+  },
+  "enableReportingSystemLabel": "تفعيل نظام الإبلاغ",
+  "@enableReportingSystemLabel": {
+    "description": "تسمية المفتاح الرئيسي لتفعيل نظام الإبلاغ."
+  },
+  "enableReportingSystemDescription": "ينشط أو يعطل عالميًا جميع خيارات الإبلاغ الموجهة للمستخدم.",
+  "@enableReportingSystemDescription": {
+    "description": "وصف المفتاح الرئيسي لتفعيل نظام الإبلاغ."
+  },
+  "enableHeadlineReportingLabel": "تفعيل الإبلاغ عن العناوين",
+  "@enableHeadlineReportingLabel": {
+    "description": "تسمية مفتاح تفعيل الإبلاغ عن العناوين."
+  },
+  "enableSourceReportingLabel": "تفعيل الإبلاغ عن المصادر",
+  "@enableSourceReportingLabel": {
+    "description": "تسمية مفتاح تفعيل الإبلاغ عن المصادر."
+  },
+  "enableCommentReportingLabel": "تفعيل الإبلاغ عن التعليقات",
+  "@enableCommentReportingLabel": {
+    "description": "تسمية مفتاح تفعيل الإبلاغ عن التعليقات."
+  },
+  "enableAppFeedbackSystemLabel": "تفعيل نظام ملاحظات التطبيق",
+  "@enableAppFeedbackSystemLabel": {
+    "description": "تسمية المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
+  },
+  "enableAppFeedbackSystemDescription": "ينشط النظام الداخلي الذي يسأل المستخدمين بشكل دوري عما إذا كانوا يستمتعون بالتطبيق.",
+  "@enableAppFeedbackSystemDescription": {
+    "description": "وصف المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
+  },
+  "positiveInteractionThresholdLabel": "عتبة التفاعل الإيجابي",
+  "@positiveInteractionThresholdLabel": {
+    "description": "تسمية حقل إدخال عتبة التفاعل الإيجابي."
+  },
+  "positiveInteractionThresholdDescription": "يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.",
+  "@positiveInteractionThresholdDescription": {
+    "description": "وصف حقل إدخال عتبة التفاعل الإيجابي."
+  },
+  "initialPromptCooldownLabel": "فترة تهدئة الموجه الأولي (أيام)",
+  "@initialPromptCooldownLabel": {
+    "description": "تسمية حقل إدخال فترة تهدئة الموجه الأولي."
+  },
+  "initialPromptCooldownDescription": "إذا رفض المستخدم الموجه، انتظر هذا العدد من الأيام قبل أن يكون مؤهلاً لرؤيته مرة أخرى. ملاحظة: تتحكم زينة 'تقييم التطبيق' في قسم الموجز في تردد عرضها المنفصل.",
+  "@initialPromptCooldownDescription": {
+    "description": "وصف حقل إدخال فترة تهدئة الموجه الأولي."
+  },
+  "requestStoreReviewLabel": "طلب مراجعة المتجر بعد 'نعم'",
+  "@requestStoreReviewLabel": {
+    "description": "تسمية مفتاح طلب مراجعة المتجر بعد رد إيجابي."
+  },
+  "requestStoreReviewDescription": "إذا تم التمكين، سيُعرض للمستخدمين الذين يجيبون بـ 'نعم' على موجه الاستمتاع مربع حوار مراجعة متجر نظام التشغيل الرسمي.",
+  "@requestStoreReviewDescription": {
+    "description": "وصف مفتاح طلب مراجعة المتجر بعد رد إيجابي."
+  },
+  "requestWrittenFeedbackLabel": "طلب ملاحظات مكتوبة بعد 'لا'",
+  "@requestWrittenFeedbackLabel": {
+    "description": "تسمية مفتاح طلب ملاحظات مكتوبة بعد رد سلبي."
+  },
+  "requestWrittenFeedbackDescription": "إذا تم التمكين، سيُطلب من المستخدمين الذين يجيبون بـ 'لا' تقديم ملاحظات مكتوبة مباشرة إلى فريق التطوير.",
+  "@requestWrittenFeedbackDescription": {
+    "description": "وصف مفتاح طلب ملاحظات مكتوبة بعد رد سلبي."
+  },
+  "internalPromptLogicTitle": "منطق الموجه الداخلي",
+  "@internalPromptLogicTitle": {
+    "description": "عنوان قسم منطق الموجه الداخلي لمراجعة التطبيق."
+  },
+  "followUpActionsTitle": "إجراءات المتابعة",
+  "@followUpActionsTitle": {
+    "description": "عنوان قسم إجراءات المتابعة لمراجعة التطبيق."
+  },
+  "enableCommunityFeaturesLabel": "تفعيل ميزات المجتمع",
+  "@enableCommunityFeaturesLabel": {
+    "description": "تسمية المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
+  },
+  "enableCommunityFeaturesDescription": "ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.",
+  "@enableCommunityFeaturesDescription": {
+    "description": "وصف المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
   }
 }

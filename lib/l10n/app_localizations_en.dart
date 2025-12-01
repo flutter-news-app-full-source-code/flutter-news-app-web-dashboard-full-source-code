@@ -1694,4 +1694,117 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appUrlsDescription =>
       'Manage external and internal URLs used within the application.';
+
+  @override
+  String get communityAndEngagementTitle => 'Community & Engagement';
+
+  @override
+  String get communityAndEngagementDescription =>
+      'Manage user interactions, content reporting, and the internal app reporting system.';
+
+  @override
+  String get userEngagementTitle => 'User Engagement';
+
+  @override
+  String get userEngagementDescription => 'Configure reactions and comments.';
+
+  @override
+  String get contentReportingTitle => 'Content Reporting';
+
+  @override
+  String get contentReportingDescription =>
+      'Set rules for what users can report.';
+
+  @override
+  String get appReviewFunnelTitle => 'App Reviews';
+
+  @override
+  String get appReviewFunnelDescription =>
+      'Manage the process for capturing user satisfaction and optionally requesting reviews.';
+
+  @override
+  String get enableEngagementFeaturesLabel => 'Enable Engagement Features';
+
+  @override
+  String get enableEngagementFeaturesDescription =>
+      'Globally activates or deactivates all reaction and comment functionality.';
+
+  @override
+  String get engagementModeLabel => 'Engagement Mode';
+
+  @override
+  String get engagementModeDescription =>
+      'Determines if users can only react or also add comments to content.';
+
+  @override
+  String get engagementModeReactionsOnly => 'Reactions Only';
+
+  @override
+  String get engagementModeReactionsAndComments => 'Reactions & Comments';
+
+  @override
+  String get enableReportingSystemLabel => 'Enable Reporting System';
+
+  @override
+  String get enableReportingSystemDescription =>
+      'Globally activates or deactivates all user-facing reporting options.';
+
+  @override
+  String get enableHeadlineReportingLabel => 'Enable Headline Reporting';
+
+  @override
+  String get enableSourceReportingLabel => 'Enable Source Reporting';
+
+  @override
+  String get enableCommentReportingLabel => 'Enable Comment Reporting';
+
+  @override
+  String get enableAppFeedbackSystemLabel => 'Enable App Feedback System';
+
+  @override
+  String get enableAppFeedbackSystemDescription =>
+      'Activates the internal system that periodically asks users if they are enjoying the app.';
+
+  @override
+  String get positiveInteractionThresholdLabel =>
+      'Positive Interaction Threshold';
+
+  @override
+  String get positiveInteractionThresholdDescription =>
+      'Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user\'s total positive actions is a multiple of this number.';
+
+  @override
+  String get initialPromptCooldownLabel => 'Initial Prompt Cooldown (Days)';
+
+  @override
+  String get initialPromptCooldownDescription =>
+      'If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The \'Rate App\' decorator in the Feed section controls its own separate display frequency.';
+
+  @override
+  String get requestStoreReviewLabel => 'Request Store Review After \'Yes\'';
+
+  @override
+  String get requestStoreReviewDescription =>
+      'If enabled, users who respond \'Yes\' to the enjoyment prompt will be shown the official OS store review dialog.';
+
+  @override
+  String get requestWrittenFeedbackLabel =>
+      'Request Written Feedback After \'No\'';
+
+  @override
+  String get requestWrittenFeedbackDescription =>
+      'If enabled, users who respond \'No\' will be prompted to provide written feedback directly to the team.';
+
+  @override
+  String get internalPromptLogicTitle => 'Internal Prompt Logic';
+
+  @override
+  String get followUpActionsTitle => 'Follow-up Actions';
+
+  @override
+  String get enableCommunityFeaturesLabel => 'Enable Community Features';
+
+  @override
+  String get enableCommunityFeaturesDescription =>
+      'Globally activates or deactivates all community-related functionality, including engagement and reporting.';
 }

@@ -70,19 +70,19 @@ Future<Widget> bootstrap(
     headlinesClient = DataInMemory<Headline>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: headlinesFixturesData,
+      initialData: getHeadlinesFixturesData(languageCode: 'en'),
       logger: Logger('DataInMemory<Headline>'),
     );
     topicsClient = DataInMemory<Topic>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: topicsFixturesData,
+      initialData: getTopicsFixturesData(languageCode: 'en'),
       logger: Logger('DataInMemory<Topic>'),
     );
     sourcesClient = DataInMemory<Source>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: sourcesFixturesData,
+      initialData: getSourcesFixturesData(languageCode: 'en'),
       logger: Logger('DataInMemory<Source>'),
     );
     userContentPreferencesClient = DataInMemory<UserContentPreferences>(

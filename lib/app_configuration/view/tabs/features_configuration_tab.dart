@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_platform_config_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/community_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
@@ -239,6 +240,43 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                         ),
                       ),
                   ],
+                ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
+        // Community & Engagement
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 3;
+            return ExpansionTile(
+              key: ValueKey('communityTile_$expandedIndex'),
+              title: Text(l10n.communityAndEngagementTitle),
+              subtitle: Text(
+                l10n.communityAndEngagementDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (isExpanded) {
+                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+              },
+              initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.lg,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommunityConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
                 ),
               ],
             );

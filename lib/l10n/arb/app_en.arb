@@ -2113,5 +2113,137 @@
   "appUrlsDescription": "Manage external and internal URLs used within the application.",
   "@appUrlsDescription": {
     "description": "Description for the Application URLs expansion tile."
+  },
+  "communityAndEngagementTitle": "Community & Engagement",
+  "@communityAndEngagementTitle": {
+    "description": "Title for the Community & Engagement expansion tile."
+  },
+  "communityAndEngagementDescription": "Manage user interactions, content reporting, and the internal app reporting system.",
+  "@communityAndEngagementDescription": {
+    "description": "Description for the Community & Engagement expansion tile."
+  },
+  "userEngagementTitle": "User Engagement",
+  "@userEngagementTitle": {
+    "description": "Title for the User Engagement expansion tile."
+  },
+  "userEngagementDescription": "Configure reactions and comments.",
+  "@userEngagementDescription": {
+    "description": "Description for the User Engagement expansion tile."
+  },
+  "contentReportingTitle": "Content Reporting",
+  "@contentReportingTitle": {
+    "description": "Title for the Content Reporting expansion tile."
+  },
+  "contentReportingDescription": "Set rules for what users can report.",
+  "@contentReportingDescription": {
+    "description": "Description for the Content Reporting expansion tile."
+  },
+  "appReviewFunnelTitle": "App Reviews",
+  "@appReviewFunnelTitle": {
+    "description": "Title for the App Review Funnel expansion tile."
+  },
+  "appReviewFunnelDescription": "Manage the process for capturing user satisfaction and optionally requesting reviews.",
+  "@appReviewFunnelDescription": {
+    "description": "Description for the App Feedback Funnel expansion tile."
+  },
+  "enableEngagementFeaturesLabel": "Enable Engagement Features",
+  "@enableEngagementFeaturesLabel": {
+    "description": "Label for the master switch to enable all engagement features."
+  },
+  "enableEngagementFeaturesDescription": "Globally activates or deactivates all reaction and comment functionality.",
+  "@enableEngagementFeaturesDescription": {
+    "description": "Description for the master switch to enable all engagement features."
+  },
+  "engagementModeLabel": "Engagement Mode",
+  "@engagementModeLabel": {
+    "description": "Label for the engagement mode segmented button."
+  },
+  "engagementModeDescription": "Determines if users can only react or also add comments to content.",
+  "@engagementModeDescription": {
+    "description": "Description for the engagement mode segmented button."
+  },
+  "engagementModeReactionsOnly": "Reactions Only",
+  "@engagementModeReactionsOnly": {
+    "description": "Label for the 'Reactions Only' engagement mode."
+  },
+  "engagementModeReactionsAndComments": "Reactions & Comments",
+  "@engagementModeReactionsAndComments": {
+    "description": "Label for the 'Reactions & Comments' engagement mode."
+  },
+  "enableReportingSystemLabel": "Enable Reporting System",
+  "@enableReportingSystemLabel": {
+    "description": "Label for the master switch to enable the reporting system."
+  },
+  "enableReportingSystemDescription": "Globally activates or deactivates all user-facing reporting options.",
+  "@enableReportingSystemDescription": {
+    "description": "Description for the master switch to enable the reporting system."
+  },
+  "enableHeadlineReportingLabel": "Enable Headline Reporting",
+  "@enableHeadlineReportingLabel": {
+    "description": "Label for the switch to enable headline reporting."
+  },
+  "enableSourceReportingLabel": "Enable Source Reporting",
+  "@enableSourceReportingLabel": {
+    "description": "Label for the switch to enable source reporting."
+  },
+  "enableCommentReportingLabel": "Enable Comment Reporting",
+  "@enableCommentReportingLabel": {
+    "description": "Label for the switch to enable comment reporting."
+  },
+  "enableAppFeedbackSystemLabel": "Enable App Feedback System",
+  "@enableAppFeedbackSystemLabel": {
+    "description": "Label for the master switch to enable the app feedback system."
+  },
+  "enableAppFeedbackSystemDescription": "Activates the internal system that periodically asks users if they are enjoying the app.",
+  "@enableAppFeedbackSystemDescription": {
+    "description": "Description for the master switch to enable the app feedback system."
+  },
+  "positiveInteractionThresholdLabel": "Positive Interaction Threshold",
+  "@positiveInteractionThresholdLabel": {
+    "description": "Label for the positive interaction threshold input field."
+  },
+  "positiveInteractionThresholdDescription": "Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user's total positive actions is a multiple of this number.",
+  "@positiveInteractionThresholdDescription": {
+    "description": "Description for the positive interaction threshold input field."
+  },
+  "initialPromptCooldownLabel": "Initial Prompt Cooldown (Days)",
+  "@initialPromptCooldownLabel": {
+    "description": "Label for the initial prompt cooldown input field."
+  },
+  "initialPromptCooldownDescription": "If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The 'Rate App' decorator in the Feed section controls its own separate display frequency.",
+  "@initialPromptCooldownDescription": {
+    "description": "Description for the initial prompt cooldown input field."
+  },
+  "requestStoreReviewLabel": "Request Store Review After 'Yes'",
+  "@requestStoreReviewLabel": {
+    "description": "Label for the switch to request a store review after positive feedback."
+  },
+  "requestStoreReviewDescription": "If enabled, users who respond 'Yes' to the enjoyment prompt will be shown the official OS store review dialog.",
+  "@requestStoreReviewDescription": {
+    "description": "Description for the switch to request a store review after positive feedback."
+  },
+  "requestWrittenFeedbackLabel": "Request Written Feedback After 'No'",
+  "@requestWrittenFeedbackLabel": {
+    "description": "Label for the switch to request written feedback after a negative response."
+  },
+  "requestWrittenFeedbackDescription": "If enabled, users who respond 'No' will be prompted to provide written feedback directly to the team.",
+  "@requestWrittenFeedbackDescription": {
+    "description": "Description for the switch to request written feedback after a negative response."
+  },
+  "internalPromptLogicTitle": "Internal Prompt Logic",
+  "@internalPromptLogicTitle": {
+    "description": "Title for the nested expansion tile for internal app review prompt settings."
+  },
+  "followUpActionsTitle": "Follow-up Actions",
+  "@followUpActionsTitle": {
+    "description": "Title for the nested expansion tile for app review follow-up actions."
+  },
+  "enableCommunityFeaturesLabel": "Enable Community Features",
+  "@enableCommunityFeaturesLabel": {
+    "description": "Label for the master switch to enable all community features."
+  },
+  "enableCommunityFeaturesDescription": "Globally activates or deactivates all community-related functionality, including engagement and reporting.",
+  "@enableCommunityFeaturesDescription": {
+    "description": "Description for the master switch to enable all community features."
   }
 }

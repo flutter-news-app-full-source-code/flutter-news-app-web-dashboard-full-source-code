@@ -1691,4 +1691,115 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get appUrlsDescription =>
       'إدارة الروابط الخارجية والداخلية المستخدمة داخل التطبيق.';
+
+  @override
+  String get communityAndEngagementTitle => 'المجتمع والمشاركة';
+
+  @override
+  String get communityAndEngagementDescription =>
+      'إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام مراجعات التطبيق الداخلي.';
+
+  @override
+  String get userEngagementTitle => 'مشاركة المستخدم';
+
+  @override
+  String get userEngagementDescription => 'تكوين التفاعلات والتعليقات.';
+
+  @override
+  String get contentReportingTitle => 'الإبلاغ عن المحتوى';
+
+  @override
+  String get contentReportingDescription =>
+      'ضع قواعد لما يمكن للمستخدمين الإبلاغ عنه.';
+
+  @override
+  String get appReviewFunnelTitle => 'مراجعات التطبيق';
+
+  @override
+  String get appReviewFunnelDescription =>
+      'إدارة عملية جمع رضا المستخدم وطلب المراجعات اختياريًا.';
+
+  @override
+  String get enableEngagementFeaturesLabel => 'تفعيل ميزات المشاركة';
+
+  @override
+  String get enableEngagementFeaturesDescription =>
+      'ينشط أو يعطل عالميًا جميع وظائف التفاعل والتعليق.';
+
+  @override
+  String get engagementModeLabel => 'وضع المشاركة';
+
+  @override
+  String get engagementModeDescription =>
+      'يحدد ما إذا كان يمكن للمستخدمين التفاعل فقط أو إضافة تعليقات أيضًا على المحتوى.';
+
+  @override
+  String get engagementModeReactionsOnly => 'التفاعلات فقط';
+
+  @override
+  String get engagementModeReactionsAndComments => 'التفاعلات والتعليقات';
+
+  @override
+  String get enableReportingSystemLabel => 'تفعيل نظام الإبلاغ';
+
+  @override
+  String get enableReportingSystemDescription =>
+      'ينشط أو يعطل عالميًا جميع خيارات الإبلاغ الموجهة للمستخدم.';
+
+  @override
+  String get enableHeadlineReportingLabel => 'تفعيل الإبلاغ عن العناوين';
+
+  @override
+  String get enableSourceReportingLabel => 'تفعيل الإبلاغ عن المصادر';
+
+  @override
+  String get enableCommentReportingLabel => 'تفعيل الإبلاغ عن التعليقات';
+
+  @override
+  String get enableAppFeedbackSystemLabel => 'تفعيل نظام ملاحظات التطبيق';
+
+  @override
+  String get enableAppFeedbackSystemDescription =>
+      'ينشط النظام الداخلي الذي يسأل المستخدمين بشكل دوري عما إذا كانوا يستمتعون بالتطبيق.';
+
+  @override
+  String get positiveInteractionThresholdLabel => 'عتبة التفاعل الإيجابي';
+
+  @override
+  String get positiveInteractionThresholdDescription =>
+      'يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.';
+
+  @override
+  String get initialPromptCooldownLabel => 'فترة تهدئة الموجه الأولي (أيام)';
+
+  @override
+  String get initialPromptCooldownDescription =>
+      'إذا رفض المستخدم الموجه، انتظر هذا العدد من الأيام قبل أن يكون مؤهلاً لرؤيته مرة أخرى. ملاحظة: تتحكم زينة \'تقييم التطبيق\' في قسم الموجز في تردد عرضها المنفصل.';
+
+  @override
+  String get requestStoreReviewLabel => 'طلب مراجعة المتجر بعد \'نعم\'';
+
+  @override
+  String get requestStoreReviewDescription =>
+      'إذا تم التمكين، سيُعرض للمستخدمين الذين يجيبون بـ \'نعم\' على موجه الاستمتاع مربع حوار مراجعة متجر نظام التشغيل الرسمي.';
+
+  @override
+  String get requestWrittenFeedbackLabel => 'طلب ملاحظات مكتوبة بعد \'لا\'';
+
+  @override
+  String get requestWrittenFeedbackDescription =>
+      'إذا تم التمكين، سيُطلب من المستخدمين الذين يجيبون بـ \'لا\' تقديم ملاحظات مكتوبة مباشرة إلى فريق التطوير.';
+
+  @override
+  String get internalPromptLogicTitle => 'منطق الموجه الداخلي';
+
+  @override
+  String get followUpActionsTitle => 'إجراءات المتابعة';
+
+  @override
+  String get enableCommunityFeaturesLabel => 'تفعيل ميزات المجتمع';
+
+  @override
+  String get enableCommunityFeaturesDescription =>
+      'ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.';
 }
