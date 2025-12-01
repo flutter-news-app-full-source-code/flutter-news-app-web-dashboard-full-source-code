@@ -52,6 +52,11 @@ class AppShell extends StatelessWidget {
             label: l10n.userManagement,
           ),
           NavigationDestination(
+            icon: const Icon(Icons.forum_outlined),
+            selectedIcon: const Icon(Icons.forum),
+            label: l10n.communityManagement,
+          ),
+          NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
             selectedIcon: const Icon(Icons.settings_applications),
             label: l10n.appConfiguration,
@@ -64,6 +69,7 @@ class AppShell extends StatelessWidget {
           Routes.overviewName,
           Routes.contentManagementName,
           Routes.userManagementName,
+          Routes.communityManagementName,
           Routes.appConfigurationName,
         ];
 
