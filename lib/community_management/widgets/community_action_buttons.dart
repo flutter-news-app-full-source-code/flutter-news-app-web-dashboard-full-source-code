@@ -158,15 +158,19 @@ class CommunityActionButtons<T> extends StatelessWidget {
         ),
       );
     }
-    overflowMenuItems..add(
-      PopupMenuItem<String>(value: 'copyUserId', child: Text(l10n.copyUserId)),
-    )
-    ..add(
-      PopupMenuItem<String>(
-        value: 'copyReportedItemId',
-        child: Text(l10n.copyReportedItemId),
-      ),
-    );
+    overflowMenuItems
+      ..add(
+        PopupMenuItem<String>(
+          value: 'copyUserId',
+          child: Text(l10n.copyUserId),
+        ),
+      )
+      ..add(
+        PopupMenuItem<String>(
+          value: 'copyReportedItemId',
+          child: Text(l10n.copyReportedItemId),
+        ),
+      );
   }
 
   void _buildAppReviewActions(
