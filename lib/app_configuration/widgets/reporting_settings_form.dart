@@ -68,6 +68,24 @@ class ReportingSettingsForm extends StatelessWidget {
                 },
               ),
               SwitchListTile(
+                title: Text(l10n.enableSourceReportingLabel),
+                value: reportingConfig.sourceReportingEnabled,
+                onChanged: (value) {
+                  final newConfig = reportingConfig.copyWith(
+                    sourceReportingEnabled: value,
+                  );
+                  onConfigChanged(
+                    remoteConfig.copyWith(
+                      features: remoteConfig.features.copyWith(
+                        community: communityConfig.copyWith(
+                          reporting: newConfig,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              SwitchListTile(
                 title: Text(l10n.enableCommentReportingLabel),
                 value: reportingConfig.commentReportingEnabled,
                 onChanged: (value) {
