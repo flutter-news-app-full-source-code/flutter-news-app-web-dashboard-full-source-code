@@ -59,12 +59,14 @@ class CommunityManagementBloc
     });
 
     _entityUpdateSubscription =
-        Stream.multi([
-          _engagementsRepository.entityUpdated,
-          _reportsRepository.entityUpdated,
-          _appReviewsRepository.entityUpdated,
-        ]).listen((updatedType) {
+        Stream<Type>.multi((controller) {
+          controller
+            ..addStream(_engagementsRepository.entityUpdated)
+            ..addStream(_reportsRepository.entityUpdated)
+            ..addStream(_appReviewsRepository.entityUpdated);
+        }).listen((updatedType) {
           if (updatedType == Engagement) {
+            _logger.info('Engagement updated, reloading engagements list.');
             add(
               LoadEngagementsRequested(
                 filter: buildEngagementsFilterMap(_communityFilterBloc.state),
@@ -72,6 +74,7 @@ class CommunityManagementBloc
               ),
             );
           } else if (updatedType == Report) {
+            _logger.info('Report updated, reloading reports list.');
             add(
               LoadReportsRequested(
                 filter: buildReportsFilterMap(_communityFilterBloc.state),
@@ -79,6 +82,7 @@ class CommunityManagementBloc
               ),
             );
           } else if (updatedType == AppReview) {
+            _logger.info('AppReview updated, reloading app reviews list.');
             add(
               LoadAppReviewsRequested(
                 filter: buildAppReviewsFilterMap(_communityFilterBloc.state),
@@ -164,6 +168,7 @@ class CommunityManagementBloc
     LoadEngagementsRequested event,
     Emitter<CommunityManagementState> emit,
   ) async {
+    _logger.info('Loading engagements with filter: ${event.filter}');
     emit(
       state.copyWith(
         engagementsStatus: CommunityManagementStatus.loading,
@@ -192,7 +197,8 @@ class CommunityManagementBloc
           forceEngagementsCursor: true,
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
+      _logger.severe('Failed to load engagements', e);
       emit(
         state.copyWith(
           engagementsStatus: CommunityManagementStatus.failure,
@@ -206,6 +212,7 @@ class CommunityManagementBloc
     LoadReportsRequested event,
     Emitter<CommunityManagementState> emit,
   ) async {
+    _logger.info('Loading reports with filter: ${event.filter}');
     emit(
       state.copyWith(
         reportsStatus: CommunityManagementStatus.loading,
@@ -234,7 +241,8 @@ class CommunityManagementBloc
           forceReportsCursor: true,
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
+      _logger.severe('Failed to load reports', e);
       emit(
         state.copyWith(
           reportsStatus: CommunityManagementStatus.failure,
@@ -248,6 +256,7 @@ class CommunityManagementBloc
     LoadAppReviewsRequested event,
     Emitter<CommunityManagementState> emit,
   ) async {
+    _logger.info('Loading app reviews with filter: ${event.filter}');
     emit(
       state.copyWith(
         appReviewsStatus: CommunityManagementStatus.loading,
@@ -276,7 +285,8 @@ class CommunityManagementBloc
           forceAppReviewsCursor: true,
         ),
       );
-    } on HtHttpException catch (e) {
+    } on HttpException catch (e) {
+      _logger.severe('Failed to load app reviews', e);
       emit(
         state.copyWith(
           appReviewsStatus: CommunityManagementStatus.failure,
