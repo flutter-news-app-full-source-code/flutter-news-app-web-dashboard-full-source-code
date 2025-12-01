@@ -394,22 +394,12 @@ GoRouter createRouter({
                       final args = state.extra! as Map<String, dynamic>;
                       final activeTab =
                           args['activeTab'] as CommunityManagementTab;
-                      final engagementsRepository =
-                          args['engagementsRepository']
-                              as DataRepository<Engagement>;
-                      final reportsRepository =
-                          args['reportsRepository'] as DataRepository<Report>;
-                      final appReviewsRepository =
-                          args['appReviewsRepository']
-                              as DataRepository<AppReview>;
 
                       return MaterialPage(
                         fullscreenDialog: true,
                         child: BlocProvider<CommunityFilterDialogBloc>(
                           create: (providerContext) =>
-                              CommunityFilterDialogBloc(
-                                activeTab: activeTab,
-                              )..add(
+                              CommunityFilterDialogBloc()..add(
                                 CommunityFilterDialogInitialized(
                                   activeTab: activeTab,
                                   communityFilterState: providerContext
