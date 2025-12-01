@@ -1979,7 +1979,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingAppReviews => 'جاري تحميل مراجعات التطبيق';
 
   @override
-  String get userIdCopied => 'تم نسخ معرف المستخدم إلى الحافظة.';
+  String get userIdCopied => 'تم نسخ معرّف المستخدم إلى الحافظة.';
 
   @override
   String get commentApproved => 'تمت الموافقة على التعليق.';
@@ -2016,4 +2016,76 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get no => 'لا';
+
+  @override
+  String get commentStatusFlaggedByAI => 'تم الإبلاغ بواسطة الذكاء الاصطناعي';
+
+  @override
+  String get commentStatusHiddenByUser => 'مخفي بواسطة المستخدم';
+
+  @override
+  String get reportReasonMisinformationOrFakeNews =>
+      'معلومات مضللة / أخبار كاذبة';
+
+  @override
+  String get reportReasonClickbaitTitle => 'عنوان مضلل';
+
+  @override
+  String get reportReasonOffensiveOrHateSpeech => 'محتوى مسيء / خطاب كراهية';
+
+  @override
+  String get reportReasonSpamOrScam => 'بريد مزعج / احتيال';
+
+  @override
+  String get reportReasonBrokenLink => 'رابط معطل';
+
+  @override
+  String get reportReasonPaywalled => 'يتطلب اشتراكًا مدفوعًا';
+
+  @override
+  String get reportReasonLowQualityJournalism => 'صحافة منخفضة الجودة';
+
+  @override
+  String get reportReasonHighAdDensity => 'كثافة إعلانات عالية';
+
+  @override
+  String get reportReasonBlog => 'مدونة';
+
+  @override
+  String get reportReasonGovernmentSource => 'مصدر حكومي';
+
+  @override
+  String get reportReasonAggregator => 'مجمع أخبار';
+
+  @override
+  String get reportReasonOther => 'آخر';
+
+  @override
+  String get reportReasonFrequentPaywalls => 'اشتراكات مدفوعة متكررة';
+
+  @override
+  String get reportReasonImpersonation => 'انتحال شخصية';
+
+  @override
+  String get copyHeadlineId => 'نسخ معرّف العنوان';
+
+  @override
+  String get copyReportedItemId => 'نسخ معرّف العنصر المُبلغ عنه';
+
+  @override
+  String get rejectCommentConfirmation =>
+      'سيؤدي رفض هذا التعليق إلى تمييزه بشكل دائم على أنه \'مرفوض\' وإخفائه عن العرض العام. هذا الإجراء لا يحذف التفاعل الأصلي. هل أنت متأكد من أنك تريد المتابعة؟';
+
+  @override
+  String get searchByUserId => 'ابحث باستخدام معرّف المستخدم...';
+
+  @override
+  String get noNegativeFeedbackHistory =>
+      'لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.';
+
+  @override
+  String get reject => 'رفض';
+
+  @override
+  String get commentStatusFlaggedByAi => 'تم الإبلاغ بواسطة الذكاء الاصطناعي';
 }

@@ -2022,4 +2022,76 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no => 'No';
+
+  @override
+  String get commentStatusFlaggedByAI => 'Flagged by AI';
+
+  @override
+  String get commentStatusHiddenByUser => 'Hidden by User';
+
+  @override
+  String get reportReasonMisinformationOrFakeNews =>
+      'Misinformation / Fake News';
+
+  @override
+  String get reportReasonClickbaitTitle => 'Clickbait Title';
+
+  @override
+  String get reportReasonOffensiveOrHateSpeech => 'Offensive / Hate Speech';
+
+  @override
+  String get reportReasonSpamOrScam => 'Spam / Scam';
+
+  @override
+  String get reportReasonBrokenLink => 'Broken Link';
+
+  @override
+  String get reportReasonPaywalled => 'Paywalled';
+
+  @override
+  String get reportReasonLowQualityJournalism => 'Low Quality Journalism';
+
+  @override
+  String get reportReasonHighAdDensity => 'High Ad Density';
+
+  @override
+  String get reportReasonBlog => 'Blog';
+
+  @override
+  String get reportReasonGovernmentSource => 'Government Source';
+
+  @override
+  String get reportReasonAggregator => 'Aggregator';
+
+  @override
+  String get reportReasonOther => 'Other';
+
+  @override
+  String get reportReasonFrequentPaywalls => 'Frequent Paywalls';
+
+  @override
+  String get reportReasonImpersonation => 'Impersonation';
+
+  @override
+  String get copyHeadlineId => 'Copy Headline ID';
+
+  @override
+  String get copyReportedItemId => 'Copy Reported Item ID';
+
+  @override
+  String get rejectCommentConfirmation =>
+      'Rejecting this comment will permanently mark it as \'Rejected\' and hide it from public view. This action does not delete the parent engagement. Are you sure you want to proceed?';
+
+  @override
+  String get searchByUserId => 'Search by User ID...';
+
+  @override
+  String get noNegativeFeedbackHistory =>
+      'No negative feedback history found for this user.';
+
+  @override
+  String get reject => 'Reject';
+
+  @override
+  String get commentStatusFlaggedByAi => 'Flagged by AI';
 }

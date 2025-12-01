@@ -3692,7 +3692,7 @@ abstract class AppLocalizations {
   /// **'Loading App Reviews'**
   String get loadingAppReviews;
 
-  /// Message when user ID is copied
+  /// Snackbar message confirming that the user ID has been copied.
   ///
   /// In en, this message translates to:
   /// **'User ID copied to clipboard.'**
@@ -3757,6 +3757,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No'**
   String get no;
+
+  /// Admin-centric status for a comment automatically flagged by AI.
+  ///
+  /// In en, this message translates to:
+  /// **'Flagged by AI'**
+  String get commentStatusFlaggedByAI;
+
+  /// Admin-centric status for a comment hidden by its author.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden by User'**
+  String get commentStatusHiddenByUser;
+
+  /// Report reason: The content is misinformation or fake news.
+  ///
+  /// In en, this message translates to:
+  /// **'Misinformation / Fake News'**
+  String get reportReasonMisinformationOrFakeNews;
+
+  /// Report reason: The headline is clickbait.
+  ///
+  /// In en, this message translates to:
+  /// **'Clickbait Title'**
+  String get reportReasonClickbaitTitle;
+
+  /// Report reason: The content is offensive or hate speech.
+  ///
+  /// In en, this message translates to:
+  /// **'Offensive / Hate Speech'**
+  String get reportReasonOffensiveOrHateSpeech;
+
+  /// Report reason: The content is spam or a scam.
+  ///
+  /// In en, this message translates to:
+  /// **'Spam / Scam'**
+  String get reportReasonSpamOrScam;
+
+  /// Report reason: The link in the content is broken.
+  ///
+  /// In en, this message translates to:
+  /// **'Broken Link'**
+  String get reportReasonBrokenLink;
+
+  /// Report reason: The content is behind a paywall.
+  ///
+  /// In en, this message translates to:
+  /// **'Paywalled'**
+  String get reportReasonPaywalled;
+
+  /// Report reason: The source exhibits low-quality journalism.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Quality Journalism'**
+  String get reportReasonLowQualityJournalism;
+
+  /// Report reason: The source has a high density of ads.
+  ///
+  /// In en, this message translates to:
+  /// **'High Ad Density'**
+  String get reportReasonHighAdDensity;
+
+  /// Report reason: The source is a blog.
+  ///
+  /// In en, this message translates to:
+  /// **'Blog'**
+  String get reportReasonBlog;
+
+  /// Report reason: The source is a government entity.
+  ///
+  /// In en, this message translates to:
+  /// **'Government Source'**
+  String get reportReasonGovernmentSource;
+
+  /// Report reason: The source is a news aggregator.
+  ///
+  /// In en, this message translates to:
+  /// **'Aggregator'**
+  String get reportReasonAggregator;
+
+  /// Report reason: Other, not specified.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get reportReasonOther;
+
+  /// Report reason: The source frequently uses paywalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequent Paywalls'**
+  String get reportReasonFrequentPaywalls;
+
+  /// Report reason: The source is impersonating another entity.
+  ///
+  /// In en, this message translates to:
+  /// **'Impersonation'**
+  String get reportReasonImpersonation;
+
+  /// Menu item text to copy the ID of a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Headline ID'**
+  String get copyHeadlineId;
+
+  /// Menu item text to copy the ID of a reported item.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Reported Item ID'**
+  String get copyReportedItemId;
+
+  /// Confirmation message shown to an admin before they reject a user's comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejecting this comment will permanently mark it as \'Rejected\' and hide it from public view. This action does not delete the parent engagement. Are you sure you want to proceed?'**
+  String get rejectCommentConfirmation;
+
+  /// Hint text for the search input field in filter dialogs, specifying to search by User ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by User ID...'**
+  String get searchByUserId;
+
+  /// Message displayed in the feedback history dialog when there is no history.
+  ///
+  /// In en, this message translates to:
+  /// **'No negative feedback history found for this user.'**
+  String get noNegativeFeedbackHistory;
+
+  /// Confirmation button text for a reject action.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get reject;
+
+  /// Admin-centric status for a comment automatically flagged by AI.
+  ///
+  /// In en, this message translates to:
+  /// **'Flagged by AI'**
+  String get commentStatusFlaggedByAi;
 }
 
 class _AppLocalizationsDelegate
