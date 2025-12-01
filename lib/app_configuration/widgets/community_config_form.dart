@@ -83,6 +83,7 @@ class CommunityConfigForm extends StatelessWidget {
             l10n.appReviewFunnelDescription,
             style: subtitleStyle,
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppReviewSettingsForm(
               remoteConfig: remoteConfig,
