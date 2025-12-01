@@ -180,7 +180,7 @@ class _EngagementsPageState extends State<EngagementsPage> {
               ),
             ],
           );
-        }, 
+        },
       ),
     );
   }
@@ -211,19 +211,19 @@ class _EngagementsDataSource extends DataTableSource {
         DataCell(Text(engagement.reaction.reactionType.name)),
         if (!isMobile)
           DataCell(Text(engagement.comment?.content ?? l10n.notAvailable)),
-          DataCell(
-            Tooltip(
-              message: engagement.comment?.content ?? l10n.notAvailable,
-              child: Text(
-                engagement.comment?.content != null
-                    ? (engagement.comment!.content.length > 50
+        DataCell(
+          Tooltip(
+            message: engagement.comment?.content ?? l10n.notAvailable,
+            child: Text(
+              engagement.comment?.content != null
+                  ? (engagement.comment!.content.length > 50
                         ? '${engagement.comment!.content.substring(0, 47)}...'
                         : engagement.comment!.content)
-                    : l10n.notAvailable,
-                overflow: TextOverflow.ellipsis,
-              ),
+                  : l10n.notAvailable,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
+        ),
         DataCell(
           Text(
             engagement.comment?.status.l10n(context) ?? l10n.notAvailable,
@@ -236,7 +236,7 @@ class _EngagementsDataSource extends DataTableSource {
             ),
           ),
         DataCell(CommunityActionButtons(item: engagement, l10n: l10n)),
-      ], 
+      ],
     );
   }
 

@@ -216,7 +216,9 @@ class _ReportsDataSource extends DataTableSource {
                   report.status == ReportStatus.resolved
                       ? Icons.check_circle_outline
                       : Icons.info_outline,
-                  color: report.status == ReportStatus.resolved ? Colors.green : Colors.orange,
+                  color: report.status == ReportStatus.resolved
+                      ? Colors.green
+                      : Colors.orange,
                 ),
                 const SizedBox(width: AppSpacing.xs),
                 Text(report.status.l10n(context)),
