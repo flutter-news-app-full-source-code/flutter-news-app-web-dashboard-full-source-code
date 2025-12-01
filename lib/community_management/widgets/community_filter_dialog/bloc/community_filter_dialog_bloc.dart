@@ -9,8 +9,12 @@ part 'community_filter_dialog_state.dart';
 
 class CommunityFilterDialogBloc
     extends Bloc<CommunityFilterDialogEvent, CommunityFilterDialogState> {
-  CommunityFilterDialogBloc({required CommunityManagementTab activeTab})
-    : super(CommunityFilterDialogState(activeTab: activeTab)) {
+  CommunityFilterDialogBloc()
+    : super(
+        const CommunityFilterDialogState(
+          activeTab: CommunityManagementTab.engagements,
+        ),
+      ) {
     on<CommunityFilterDialogInitialized>(_onFilterDialogInitialized);
     on<CommunityFilterDialogSearchQueryChanged>(_onSearchQueryChanged);
     on<CommunityFilterDialogCommentStatusChanged>(_onCommentStatusChanged);
