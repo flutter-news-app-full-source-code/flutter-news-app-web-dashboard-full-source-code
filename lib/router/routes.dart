@@ -115,4 +115,13 @@ abstract final class Routes {
 
   /// The name for the user filter dialog route.
   static const String userFilterDialogName = 'userFilterDialog';
+
+  /// The path for the community management section.
+  static const String communityManagement = '/community-management';
+
+  /// The name for the community management section route.
+  static const String communityManagementName = 'communityManagement';
+
+  /// The name for the community filter dialog route.
+  static const String communityFilterDialogName = 'communityFilterDialog';
 }
