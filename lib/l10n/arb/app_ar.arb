@@ -2625,10 +2625,6 @@
   "@noNegativeFeedbackHistory": {
     "description": "رسالة تظهر في مربع حوار سجل التقييمات عند عدم وجود سجل."
   },
-  "userIdCopied": "تم نسخ معرّف المستخدم إلى الحافظة.",
-  "@userIdCopied": {
-    "description": "رسالة Snackbar تؤكد أنه تم نسخ معرّف المستخدم."
-  },
   "reject": "رفض",
   "@reject": {
     "description": "نص زر التأكيد لإجراء الرفض."
@@ -2636,5 +2632,9 @@
   "commentStatusFlaggedByAi": "تم الإبلاغ بواسطة الذكاء الاصطناعي",
   "@commentStatusFlaggedByAi": {
     "description": "حالة إدارية لتعليق تم الإبلاغ عنه تلقائيًا بواسطة الذكاء الاصطناعي."
-  }
+  },
+    "cancel": "إلغاء",
+    "@cancel": {
+        "description": "A generic 'Cancel' button text."
+    }
 }

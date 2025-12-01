@@ -1979,7 +1979,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingAppReviews => 'جاري تحميل مراجعات التطبيق';
 
   @override
-  String get userIdCopied => 'تم نسخ معرّف المستخدم إلى الحافظة.';
+  String get userIdCopied => 'تم نسخ معرف المستخدم إلى الحافظة.';
 
   @override
   String get commentApproved => 'تمت الموافقة على التعليق.';
@@ -2088,4 +2088,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commentStatusFlaggedByAi => 'تم الإبلاغ بواسطة الذكاء الاصطناعي';
+
+  @override
+  String get cancel => 'إلغاء';
 }

@@ -2621,10 +2621,6 @@
   "@noNegativeFeedbackHistory": {
     "description": "Message displayed in the feedback history dialog when there is no history."
   },
-  "userIdCopied": "User ID copied to clipboard.",
-  "@userIdCopied": {
-    "description": "Snackbar message confirming that the user ID has been copied."
-  },
   "reject": "Reject",
   "@reject": {
     "description": "Confirmation button text for a reject action."
@@ -2632,5 +2628,9 @@
   "commentStatusFlaggedByAi": "Flagged by AI",
   "@commentStatusFlaggedByAi": {
     "description": "Admin-centric status for a comment automatically flagged by AI."
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "A generic 'Cancel' button text."
     }
 }

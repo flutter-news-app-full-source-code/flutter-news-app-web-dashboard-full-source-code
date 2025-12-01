@@ -3692,7 +3692,7 @@ abstract class AppLocalizations {
   /// **'Loading App Reviews'**
   String get loadingAppReviews;
 
-  /// Snackbar message confirming that the user ID has been copied.
+  /// Message when user ID is copied
   ///
   /// In en, this message translates to:
   /// **'User ID copied to clipboard.'**
@@ -3895,6 +3895,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Flagged by AI'**
   String get commentStatusFlaggedByAi;
+
+  /// A generic 'Cancel' button text.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate

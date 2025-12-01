@@ -2094,4 +2094,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commentStatusFlaggedByAi => 'Flagged by AI';
+
+  @override
+  String get cancel => 'Cancel';
 }
