@@ -119,16 +119,6 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                         ),
                         if (!isMobile)
                           DataColumn2(
-                            label: Text(l10n.osPromptRequested),
-                            size: ColumnSize.S,
-                          ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.feedbackHistory),
-                            size: ColumnSize.M,
-                          ),
-                        if (!isMobile)
-                          DataColumn2(
                             label: Text(l10n.lastInteraction),
                             size: ColumnSize.S,
                           ),
@@ -206,14 +196,8 @@ class _AppReviewsDataSource extends DataTableSource {
     final appReview = appReviews[index];
     return DataRow2(
       cells: [
-        DataCell(Text(appReview.userId, overflow: TextOverflow.ellipsis)),
         DataCell(Text(appReview.initialFeedback.name)),
-        if (!isMobile)
-          DataCell(
-            Text(appReview.wasStoreReviewRequested ? l10n.yes : l10n.no),
-          ),
-        if (!isMobile)
-          DataCell(Text('${appReview.negativeFeedbackHistory.length}')),
+        DataCell(Text(appReview.userId, overflow: TextOverflow.ellipsis)),
         if (!isMobile)
           DataCell(
             Text(
