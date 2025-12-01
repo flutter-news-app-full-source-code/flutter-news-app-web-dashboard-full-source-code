@@ -2528,5 +2528,13 @@
     "noReasonProvided": "No reason provided.",
     "@noReasonProvided": {
       "description": "Message when no reason for feedback is provided"
+    },
+    "yes": "Yes",
+    "@yes": {
+      "description": "A generic 'Yes' response."
+    },
+    "no": "No",
+    "@no": {
+      "description": "A generic 'No' response."
     }
 }

@@ -2532,5 +2532,13 @@
   "noReasonProvided": "لم يتم تقديم سبب.",
   "@noReasonProvided": {
     "description": "رسالة عند عدم تقديم سبب للتقييم"
+  },
+  "yes": "نعم",
+  "@yes": {
+    "description": "رد 'نعم' عام."
+  },
+  "no": "لا",
+  "@no": {
+    "description": "رد 'لا' عام."
   }
 }
