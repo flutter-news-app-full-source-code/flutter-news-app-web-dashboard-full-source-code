@@ -36,8 +36,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     context.read<CommunityFilterBloc>().add(
       CommunityFilterApplied(
         searchQuery: filterDialogState.searchQuery,
-        selectedCommentStatus: filterDialogState.selectedCommentStatus,
-        selectedReportStatus: filterDialogState.selectedReportStatus,
+        selectedModerationStatus: filterDialogState.selectedModerationStatus,
         selectedReportableEntity: filterDialogState.selectedReportableEntity,
         selectedAppReviewFeedback: filterDialogState.selectedAppReviewFeedback,
       ),
@@ -47,6 +46,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
 
     return BlocBuilder<CommunityFilterDialogBloc, CommunityFilterDialogState>(
       builder: (context, filterDialogState) {
@@ -116,40 +116,59 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     );
   }
 
+  Widget _buildModerationStatusFilter(
+    CommunityFilterDialogState state,
+    AppLocalizations l10n,
+    ThemeData theme,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.status,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          children: ModerationStatus.values.map((status) {
+            final isSelected = state.selectedModerationStatus.contains(status);
+            return ChoiceChip(
+              label: Text(status.l10n(context)),
+              selected: isSelected,
+              onSelected: (selected) {
+                final currentSelection = List<ModerationStatus>.from(
+                  state.selectedModerationStatus,
+                );
+                if (selected) {
+                  currentSelection.add(status);
+                } else {
+                  currentSelection.remove(status);
+                }
+                context.read<CommunityFilterDialogBloc>().add(
+                  CommunityFilterDialogModerationStatusChanged(
+                    currentSelection,
+                  ),
+                );
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
   List<Widget> _buildTabSpecificFilters(
     CommunityFilterDialogState state,
     AppLocalizations l10n,
+    ThemeData theme,
   ) {
     switch (state.activeTab) {
       case CommunityManagementTab.engagements:
-        return [
-          SearchableSelectionInput<CommentStatus>(
-            label: l10n.commentStatus,
-            hintText: l10n.selectCommentStatus,
-            isMultiSelect: true,
-            selectedItems: state.selectedCommentStatus,
-            itemBuilder: (context, item) => Text(item.l10n(context)),
-            itemToString: (item) => item.l10n(context),
-            onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
-              CommunityFilterDialogCommentStatusChanged(items ?? []),
-            ),
-            staticItems: CommentStatus.values,
-          ),
-        ];
+        return [_buildModerationStatusFilter(state, l10n, theme)];
       case CommunityManagementTab.reports:
         return [
-          SearchableSelectionInput<ReportStatus>(
-            label: l10n.reportStatus,
-            hintText: l10n.selectReportStatus,
-            isMultiSelect: true,
-            selectedItems: state.selectedReportStatus,
-            itemBuilder: (context, item) => Text(item.l10n(context)),
-            itemToString: (item) => item.l10n(context),
-            onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
-              CommunityFilterDialogReportStatusChanged(items ?? []),
-            ),
-            staticItems: ReportStatus.values,
-          ),
+          _buildModerationStatusFilter(state, l10n, theme),
           const SizedBox(height: AppSpacing.lg),
           SearchableSelectionInput<ReportableEntity>(
             label: l10n.reportedItem,
