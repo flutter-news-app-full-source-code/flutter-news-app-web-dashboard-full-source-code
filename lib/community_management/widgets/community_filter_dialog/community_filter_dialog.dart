@@ -36,9 +36,11 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     context.read<CommunityFilterBloc>().add(
       CommunityFilterApplied(
         searchQuery: filterDialogState.searchQuery,
-        selectedModerationStatus: filterDialogState.selectedModerationStatus,
+        selectedCommentStatus: filterDialogState.selectedCommentStatus,
+        selectedReportStatus: filterDialogState.selectedReportStatus,
         selectedReportableEntity: filterDialogState.selectedReportableEntity,
         selectedAppReviewFeedback: filterDialogState.selectedAppReviewFeedback,
+        hasComment: filterDialogState.hasComment,
       ),
     );
   }
@@ -116,11 +118,14 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     );
   }
 
-  Widget _buildModerationStatusFilter(
-    CommunityFilterDialogState state,
-    AppLocalizations l10n,
-    ThemeData theme,
-  ) {
+  Widget _buildStatusFilter({
+    required BuildContext context,
+    required CommunityFilterDialogState state,
+    required AppLocalizations l10n,
+    required ThemeData theme,
+    required List<ModerationStatus> selectedStatuses,
+    required void Function(List<ModerationStatus>) onChanged,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -132,24 +137,59 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
         Wrap(
           spacing: AppSpacing.sm,
           children: ModerationStatus.values.map((status) {
-            final isSelected = state.selectedModerationStatus.contains(status);
+            final isSelected = selectedStatuses.contains(status);
             return ChoiceChip(
               label: Text(status.l10n(context)),
               selected: isSelected,
               onSelected: (selected) {
                 final currentSelection = List<ModerationStatus>.from(
-                  state.selectedModerationStatus,
+                  selectedStatuses,
                 );
                 if (selected) {
                   currentSelection.add(status);
                 } else {
                   currentSelection.remove(status);
                 }
-                context.read<CommunityFilterDialogBloc>().add(
-                  CommunityFilterDialogModerationStatusChanged(
-                    currentSelection,
-                  ),
-                );
+                onChanged(currentSelection);
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHasCommentFilter(
+    CommunityFilterDialogState state,
+    AppLocalizations l10n,
+    ThemeData theme,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.hasComment,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          children: HasCommentFilter.values.map((filter) {
+            return ChoiceChip(
+              label: Text(
+                switch (filter) {
+                  HasCommentFilter.any => l10n.any,
+                  HasCommentFilter.withComment => l10n.withComment,
+                  HasCommentFilter.withoutComment => l10n.withoutComment,
+                },
+              ),
+              selected: state.hasComment == filter,
+              onSelected: (selected) {
+                if (selected) {
+                  context.read<CommunityFilterDialogBloc>().add(
+                    CommunityFilterDialogHasCommentChanged(filter),
+                  );
+                }
               },
             );
           }).toList(),
@@ -165,10 +205,34 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
   ) {
     switch (state.activeTab) {
       case CommunityManagementTab.engagements:
-        return [_buildModerationStatusFilter(state, l10n, theme)];
+        return [
+          _buildStatusFilter(
+            context: context,
+            state: state,
+            l10n: l10n,
+            theme: theme,
+            selectedStatuses: state.selectedCommentStatus,
+            onChanged: (statuses) =>
+                context.read<CommunityFilterDialogBloc>().add(
+                  CommunityFilterDialogCommentStatusChanged(statuses),
+                ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          _buildHasCommentFilter(state, l10n, theme),
+        ];
       case CommunityManagementTab.reports:
         return [
-          _buildModerationStatusFilter(state, l10n, theme),
+          _buildStatusFilter(
+            context: context,
+            state: state,
+            l10n: l10n,
+            theme: theme,
+            selectedStatuses: state.selectedReportStatus,
+            onChanged: (statuses) =>
+                context.read<CommunityFilterDialogBloc>().add(
+                  CommunityFilterDialogReportStatusChanged(statuses),
+                ),
+          ),
           const SizedBox(height: AppSpacing.lg),
           SearchableSelectionInput<ReportableEntity>(
             label: l10n.reportedItem,

@@ -30,14 +30,24 @@ class CommunityFilterDialogSearchQueryChanged
   List<Object> get props => [query];
 }
 
-class CommunityFilterDialogModerationStatusChanged
+class CommunityFilterDialogCommentStatusChanged
     extends CommunityFilterDialogEvent {
-  const CommunityFilterDialogModerationStatusChanged(this.moderationStatus);
+  const CommunityFilterDialogCommentStatusChanged(this.commentStatus);
 
-  final List<ModerationStatus> moderationStatus;
+  final List<ModerationStatus> commentStatus;
 
   @override
-  List<Object> get props => [moderationStatus];
+  List<Object> get props => [commentStatus];
+}
+
+class CommunityFilterDialogReportStatusChanged
+    extends CommunityFilterDialogEvent {
+  const CommunityFilterDialogReportStatusChanged(this.reportStatus);
+
+  final List<ModerationStatus> reportStatus;
+
+  @override
+  List<Object> get props => [reportStatus];
 }
 
 class CommunityFilterDialogReportableEntityChanged
@@ -58,6 +68,16 @@ class CommunityFilterDialogAppReviewFeedbackChanged
 
   @override
   List<Object> get props => [appReviewFeedback];
+}
+
+class CommunityFilterDialogHasCommentChanged
+    extends CommunityFilterDialogEvent {
+  const CommunityFilterDialogHasCommentChanged(this.hasComment);
+
+  final HasCommentFilter hasComment;
+
+  @override
+  List<Object> get props => [hasComment];
 }
 
 class CommunityFilterDialogReset extends CommunityFilterDialogEvent {

@@ -17,15 +17,15 @@ class CommunityFilterDialogBloc
       ) {
     on<CommunityFilterDialogInitialized>(_onFilterDialogInitialized);
     on<CommunityFilterDialogSearchQueryChanged>(_onSearchQueryChanged);
-    on<CommunityFilterDialogModerationStatusChanged>(
-      _onModerationStatusChanged,
-    );
+    on<CommunityFilterDialogCommentStatusChanged>(_onCommentStatusChanged);
+    on<CommunityFilterDialogReportStatusChanged>(_onReportStatusChanged);
     on<CommunityFilterDialogReportableEntityChanged>(
       _onReportableEntityChanged,
     );
     on<CommunityFilterDialogAppReviewFeedbackChanged>(
       _onAppReviewFeedbackChanged,
     );
+    on<CommunityFilterDialogHasCommentChanged>(_onHasCommentChanged);
     on<CommunityFilterDialogReset>(_onFilterDialogReset);
   }
 
@@ -36,12 +36,13 @@ class CommunityFilterDialogBloc
     emit(
       state.copyWith(
         searchQuery: event.communityFilterState.searchQuery,
-        selectedModerationStatus:
-            event.communityFilterState.selectedModerationStatus,
+        selectedCommentStatus: event.communityFilterState.selectedCommentStatus,
+        selectedReportStatus: event.communityFilterState.selectedReportStatus,
         selectedReportableEntity:
             event.communityFilterState.selectedReportableEntity,
         selectedAppReviewFeedback:
             event.communityFilterState.selectedAppReviewFeedback,
+        hasComment: event.communityFilterState.hasComment,
       ),
     );
   }
@@ -53,11 +54,18 @@ class CommunityFilterDialogBloc
     emit(state.copyWith(searchQuery: event.query));
   }
 
-  void _onModerationStatusChanged(
-    CommunityFilterDialogModerationStatusChanged event,
+  void _onCommentStatusChanged(
+    CommunityFilterDialogCommentStatusChanged event,
     Emitter<CommunityFilterDialogState> emit,
   ) {
-    emit(state.copyWith(selectedModerationStatus: event.moderationStatus));
+    emit(state.copyWith(selectedCommentStatus: event.commentStatus));
+  }
+
+  void _onReportStatusChanged(
+    CommunityFilterDialogReportStatusChanged event,
+    Emitter<CommunityFilterDialogState> emit,
+  ) {
+    emit(state.copyWith(selectedReportStatus: event.reportStatus));
   }
 
   void _onReportableEntityChanged(
@@ -72,6 +80,13 @@ class CommunityFilterDialogBloc
     Emitter<CommunityFilterDialogState> emit,
   ) {
     emit(state.copyWith(selectedAppReviewFeedback: event.appReviewFeedback));
+  }
+
+  void _onHasCommentChanged(
+    CommunityFilterDialogHasCommentChanged event,
+    Emitter<CommunityFilterDialogState> emit,
+  ) {
+    emit(state.copyWith(hasComment: event.hasComment));
   }
 
   void _onFilterDialogReset(
