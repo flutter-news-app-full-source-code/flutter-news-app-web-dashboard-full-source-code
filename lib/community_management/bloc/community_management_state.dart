@@ -20,6 +20,8 @@ class CommunityManagementState extends Equatable {
     this.hasMoreReports = true,
     this.hasMoreAppReviews = true,
     this.exception,
+    this.lastPendingUpdateId,
+    this.snackbarMessage,
   });
 
   final CommunityManagementTab activeTab;
@@ -36,6 +38,8 @@ class CommunityManagementState extends Equatable {
   final bool hasMoreReports;
   final bool hasMoreAppReviews;
   final HttpException? exception;
+  final String? lastPendingUpdateId;
+  final String? snackbarMessage;
 
   CommunityManagementState copyWith({
     CommunityManagementTab? activeTab,
@@ -52,6 +56,8 @@ class CommunityManagementState extends Equatable {
     bool? hasMoreReports,
     bool? hasMoreAppReviews,
     HttpException? exception,
+    String? lastPendingUpdateId,
+    String? snackbarMessage,
     bool forceEngagementsCursor = false,
     bool forceReportsCursor = false,
     bool forceAppReviewsCursor = false,
@@ -76,25 +82,29 @@ class CommunityManagementState extends Equatable {
       hasMoreEngagements: hasMoreEngagements ?? this.hasMoreEngagements,
       hasMoreReports: hasMoreReports ?? this.hasMoreReports,
       hasMoreAppReviews: hasMoreAppReviews ?? this.hasMoreAppReviews,
-      exception: exception ?? this.exception,
+      exception: exception,
+      lastPendingUpdateId: lastPendingUpdateId,
+      snackbarMessage: snackbarMessage,
     );
   }
 
   @override
   List<Object?> get props => [
-    activeTab,
-    engagementsStatus,
-    reportsStatus,
-    appReviewsStatus,
-    engagements,
-    reports,
-    appReviews,
-    engagementsCursor,
-    reportsCursor,
-    appReviewsCursor,
-    hasMoreEngagements,
-    hasMoreReports,
-    hasMoreAppReviews,
-    exception,
-  ];
+        activeTab,
+        engagementsStatus,
+        reportsStatus,
+        appReviewsStatus,
+        engagements,
+        reports,
+        appReviews,
+        engagementsCursor,
+        reportsCursor,
+        appReviewsCursor,
+        hasMoreEngagements,
+        hasMoreReports,
+        hasMoreAppReviews,
+        exception,
+        lastPendingUpdateId,
+        snackbarMessage,
+      ];
 }

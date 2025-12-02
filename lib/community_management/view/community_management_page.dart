@@ -50,40 +50,70 @@ class _CommunityManagementPageState extends State<CommunityManagementPage>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    return BlocListener<CommunityFilterBloc, CommunityFilterState>(
-      listenWhen: (previous, current) => previous.version != current.version,
-      listener: (context, filterState) {
-        final communityManagementBloc = context.read<CommunityManagementBloc>();
-        switch (communityManagementBloc.state.activeTab) {
-          case CommunityManagementTab.engagements:
-            communityManagementBloc.add(
-              LoadEngagementsRequested(
-                filter: communityManagementBloc.buildEngagementsFilterMap(
-                  filterState.engagementsFilter,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CommunityFilterBloc, CommunityFilterState>(
+          listenWhen: (previous, current) =>
+              previous.version != current.version,
+          listener: (context, filterState) {
+            final communityManagementBloc = context
+                .read<CommunityManagementBloc>();
+            switch (communityManagementBloc.state.activeTab) {
+              case CommunityManagementTab.engagements:
+                communityManagementBloc.add(
+                  LoadEngagementsRequested(
+                    filter: communityManagementBloc.buildEngagementsFilterMap(
+                      filterState.engagementsFilter,
+                    ),
+                    forceRefresh: true,
+                  ),
+                );
+              case CommunityManagementTab.reports:
+                communityManagementBloc.add(
+                  LoadReportsRequested(
+                    filter: communityManagementBloc.buildReportsFilterMap(
+                      filterState.reportsFilter,
+                    ),
+                    forceRefresh: true,
+                  ),
+                );
+              case CommunityManagementTab.appReviews:
+                communityManagementBloc.add(
+                  LoadAppReviewsRequested(
+                    filter: communityManagementBloc.buildAppReviewsFilterMap(
+                      filterState.appReviewsFilter,
+                    ),
+                    forceRefresh: true,
+                  ),
+                );
+            }
+          },
+        ),
+        BlocListener<CommunityManagementBloc, CommunityManagementState>(
+          listenWhen: (previous, current) =>
+              previous.snackbarMessage != current.snackbarMessage &&
+              current.snackbarMessage != null,
+          listener: (context, state) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.snackbarMessage!),
+                  action: SnackBarAction(
+                    label: l10n.undo,
+                    onPressed: () {
+                      if (state.lastPendingUpdateId != null) {
+                        context.read<CommunityManagementBloc>().add(
+                          UndoUpdateRequested(state.lastPendingUpdateId!),
+                        );
+                      }
+                    },
+                  ),
                 ),
-                forceRefresh: true,
-              ),
-            );
-          case CommunityManagementTab.reports:
-            communityManagementBloc.add(
-              LoadReportsRequested(
-                filter: communityManagementBloc.buildReportsFilterMap(
-                  filterState.reportsFilter,
-                ),
-                forceRefresh: true,
-              ),
-            );
-          case CommunityManagementTab.appReviews:
-            communityManagementBloc.add(
-              LoadAppReviewsRequested(
-                filter: communityManagementBloc.buildAppReviewsFilterMap(
-                  filterState.appReviewsFilter,
-                ),
-                forceRefresh: true,
-              ),
-            );
-        }
-      },
+              );
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: Row(

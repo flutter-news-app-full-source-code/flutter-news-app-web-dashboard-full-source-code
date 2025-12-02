@@ -66,3 +66,48 @@ class LoadAppReviewsRequested extends CommunityManagementEvent {
   @override
   List<Object?> get props => [startAfterId, limit, filter, forceRefresh];
 }
+
+final class ApproveCommentRequested extends CommunityManagementEvent {
+  const ApproveCommentRequested(this.engagementId);
+
+  final String engagementId;
+
+  @override
+  List<Object> get props => [engagementId];
+}
+
+final class RejectCommentRequested extends CommunityManagementEvent {
+  const RejectCommentRequested(this.engagementId);
+
+  final String engagementId;
+
+  @override
+  List<Object> get props => [engagementId];
+}
+
+final class ResolveReportRequested extends CommunityManagementEvent {
+  const ResolveReportRequested(this.reportId);
+
+  final String reportId;
+
+  @override
+  List<Object> get props => [reportId];
+}
+
+final class UndoUpdateRequested extends CommunityManagementEvent {
+  const UndoUpdateRequested(this.id);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+}
+
+final class UpdateEventReceived extends CommunityManagementEvent {
+  const UpdateEventReceived(this.event);
+
+  final UpdateEvent<dynamic> event;
+
+  @override
+  List<Object> get props => [event];
+}
