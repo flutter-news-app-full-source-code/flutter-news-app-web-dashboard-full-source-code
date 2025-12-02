@@ -45,6 +45,18 @@ Effortlessly manage your entire user base with a dedicated user management syste
 
 </details>
 
+<details>
+<summary><strong>💬 Community & Moderation Control</strong></summary>
+
+### 💬 Comprehensive Moderation Hub
+Directly manage all user-generated content from a centralized command center. Review, moderate, and act on user interactions to maintain a healthy and constructive community environment.
+- **Unified Content Review:** Seamlessly moderate all incoming user engagements (reactions and comments), content reports, and app review feedback from a single, intuitive interface.
+- **Streamlined Moderation Workflow:** Quickly approve or reject comments, resolve user-submitted reports, and analyze feedback with a consistent set of tools designed for rapid decision-making.
+- **Direct User Insight:** Gain a clear, unfiltered view of user sentiment, content issues, and overall satisfaction by directly engaging with their feedback and reports.
+> **Your Advantage:** Foster a positive community, protect your brand by quickly addressing problematic content, and gather valuable user insights to improve your content strategy, all from one integrated hub.
+
+</details>
+
 
 <details>
 <summary><strong>⚙️ App Monetization & Remote Control</strong></summary>
@@ -62,6 +74,7 @@ Dynamically control the mobile app's behavior and operational state directly fro
 - **Critical State Management:** Instantly activate a maintenance mode or enforce a mandatory app update for your users to handle operational issues or critical releases gracefully.
 - **Dynamic In-App Content:** Remotely manage the visibility and behavior of in-feed promotional prompts and user engagement elements.
 - **Tier-Based Feature Gating:** Define and enforce feature limits based on user roles, such as setting the maximum number of followed topics or saved headlines for different subscription levels.
+- **Full Community Feature Control:** Remotely enable or disable the entire user engagement system (reactions, comments), the content reporting feature, and the in-app review funnel. Fine-tune engagement modes and configure rules for when and how users are prompted for feedback.
 - **Global Notification Control:** Remotely enable or disable the entire push notification system, switch between providers (e.g., Firebase, OneSignal), and toggle specific delivery types like breaking news or daily digests.
 > **Your Advantage:** Gain unparalleled agility to manage your live application. Ensure service stability, drive user actions, and configure business rules instantly, all from a centralized control panel.
 
