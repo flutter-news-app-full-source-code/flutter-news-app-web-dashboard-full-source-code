@@ -106,7 +106,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                     },
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  ..._buildTabSpecificFilters(filterDialogState, l10n),
+                  ..._buildTabSpecificFilters(filterDialogState, l10n, theme),
                 ],
               ),
             ),
