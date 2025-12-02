@@ -23,6 +23,18 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
   void initState() {
     super.initState();
     _searchController = TextEditingController();
+    _loadInitialFilterState();
+  }
+
+  void _loadInitialFilterState() {
+    final communityManagementBloc = context.read<CommunityManagementBloc>();
+    final communityFilterBloc = context.read<CommunityFilterBloc>();
+    context.read<CommunityFilterDialogBloc>().add(
+      CommunityFilterDialogInitialized(
+        activeTab: communityManagementBloc.state.activeTab,
+        communityFilterState: communityFilterBloc.state,
+      ),
+    );
   }
 
   @override
@@ -67,7 +79,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(l10n.filterCommunity),
+            title: Text(_getDialogTitle(l10n, filterDialogState.activeTab)),
             leading: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () => Navigator.of(context).pop(),
@@ -77,8 +89,11 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                 icon: const Icon(Icons.refresh),
                 tooltip: l10n.resetFiltersButtonText,
                 onPressed: () {
-                  context.read<CommunityFilterBloc>().add(
-                    const CommunityFilterReset(),
+                  context.read<CommunityFilterDialogBloc>().add(
+                    const CommunityFilterDialogReset(),
+                  );
+                  _dispatchFilterApplied(
+                    context.read<CommunityFilterDialogBloc>().state,
                   );
                   Navigator.of(context).pop();
                 },
@@ -103,7 +118,10 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                     controller: _searchController,
                     decoration: InputDecoration(
                       labelText: l10n.search,
-                      hintText: l10n.searchByUserId,
+                      hintText: _getSearchHint(
+                        l10n,
+                        filterDialogState.activeTab,
+                      ),
                       prefixIcon: const Icon(Icons.search),
                       border: const OutlineInputBorder(),
                     ),
@@ -124,42 +142,80 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     );
   }
 
-  Widget _buildStatusFilter({
-    required BuildContext context,
-    required CommunityFilterDialogState state,
-    required AppLocalizations l10n,
-    required ThemeData theme,
-    required List<ModerationStatus> selectedStatuses,
-    required void Function(List<ModerationStatus>) onChanged,
+  String _getDialogTitle(
+    AppLocalizations l10n,
+    CommunityManagementTab activeTab,
+  ) {
+    switch (activeTab) {
+      case CommunityManagementTab.engagements:
+        return l10n.filterCommunity;
+      case CommunityManagementTab.reports:
+        return l10n.filterCommunity;
+      case CommunityManagementTab.appReviews:
+        return l10n.filterCommunity;
+    }
+  }
+
+  String _getSearchHint(
+    AppLocalizations l10n,
+    CommunityManagementTab activeTab,
+  ) {
+    switch (activeTab) {
+      case CommunityManagementTab.engagements:
+        return l10n.searchByEngagementUser;
+      case CommunityManagementTab.reports:
+        return l10n.searchByReportReporter;
+      case CommunityManagementTab.appReviews:
+        return l10n.searchByAppReviewUser;
+    }
+  }
+
+  Widget _buildCapsuleFilter<T extends Enum>({
+    required String title,
+    required List<T> allValues,
+    required List<T> selectedValues,
+    required String Function(T) labelBuilder,
+    required void Function(List<T>) onChanged,
   }) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizationsX(context).l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          l10n.status,
+          title,
           style: theme.textTheme.titleMedium,
         ),
         const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: AppSpacing.sm,
-          children: ModerationStatus.values.map((status) {
-            final isSelected = selectedStatuses.contains(status);
-            return ChoiceChip(
-              label: Text(status.l10n(context)),
-              selected: isSelected,
+          children: [
+            ChoiceChip(
+              label: Text(l10n.any),
+              selected: selectedValues.isEmpty,
               onSelected: (selected) {
-                final currentSelection = List<ModerationStatus>.from(
-                  selectedStatuses,
-                );
                 if (selected) {
-                  currentSelection.add(status);
-                } else {
-                  currentSelection.remove(status);
+                  onChanged([]);
                 }
-                onChanged(currentSelection);
               },
-            );
-          }).toList(),
+            ),
+            ...allValues.map((value) {
+              final isSelected = selectedValues.contains(value);
+              return ChoiceChip(
+                label: Text(labelBuilder(value)),
+                selected: isSelected,
+                onSelected: (selected) {
+                  final currentSelection = List<T>.from(selectedValues);
+                  if (selected) {
+                    currentSelection.add(value);
+                  } else {
+                    currentSelection.remove(value);
+                  }
+                  onChanged(currentSelection);
+                },
+              );
+            }),
+          ],
         ),
       ],
     );
@@ -204,58 +260,6 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     );
   }
 
-  Widget _buildCapsuleFilter<T extends Enum>({
-    required String title,
-    required List<T> allValues,
-    required List<T> selectedValues,
-    required String Function(T) labelBuilder,
-    required void Function(List<T>) onChanged,
-  }) {
-    final theme = Theme.of(context);
-    final l10n = AppLocalizationsX(context).l10n;
-    
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: theme.textTheme.titleMedium,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        Wrap(
-          spacing: AppSpacing.sm,
-          children: [
-            ChoiceChip(
-              label: Text(l10n.any),
-              selected: selectedValues.isEmpty,
-              onSelected: (selected) {
-                if (selected) {
-                  onChanged([]);
-                }
-              },
-            ),
-            ...allValues.map((value) {
-              final isSelected = selectedValues.contains(value);
-              return ChoiceChip(
-                label: Text(labelBuilder(value)),
-                selected: isSelected,
-                onSelected: (selected) {
-                  final currentSelection = List<T>.from(selectedValues);
-                  if (selected) {
-                    currentSelection.add(value);
-                  } else {
-                    currentSelection.remove(value);
-                  }
-                  onChanged(currentSelection);
-                },
-              );
-            }),
-          ],
-        ),
-      ],
-    );
-  }
-
   List<Widget> _buildTabSpecificFilters(
     CommunityFilterDialogState state,
     AppLocalizations l10n,
@@ -264,32 +268,28 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     switch (state.activeTab) {
       case CommunityManagementTab.engagements:
         return [
-          _buildStatusFilter(
-            context: context,
-            state: state,
-            l10n: l10n,
-            theme: theme,
-            selectedStatuses: state.engagementsFilter.selectedStatus,
-            onChanged: (statuses) =>
-                context.read<CommunityFilterDialogBloc>().add(
-                  CommunityFilterDialogEngagementsStatusChanged(statuses),
-                ),
+          _buildCapsuleFilter<ModerationStatus>(
+            title: l10n.status,
+            allValues: ModerationStatus.values,
+            selectedValues: state.engagementsFilter.selectedStatus,
+            labelBuilder: (item) => item.l10n(context),
+            onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
+              CommunityFilterDialogEngagementsStatusChanged(items),
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           _buildHasCommentFilter(state, l10n, theme),
         ];
       case CommunityManagementTab.reports:
         return [
-          _buildStatusFilter(
-            context: context,
-            state: state,
-            l10n: l10n,
-            theme: theme,
-            selectedStatuses: state.reportsFilter.selectedStatus,
-            onChanged: (statuses) =>
-                context.read<CommunityFilterDialogBloc>().add(
-                  CommunityFilterDialogReportsStatusChanged(statuses),
-                ),
+          _buildCapsuleFilter<ModerationStatus>(
+            title: l10n.status,
+            allValues: ModerationStatus.values,
+            selectedValues: state.reportsFilter.selectedStatus,
+            labelBuilder: (item) => item.l10n(context),
+            onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
+              CommunityFilterDialogReportsStatusChanged(items),
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           _buildCapsuleFilter<ReportableEntity>(
