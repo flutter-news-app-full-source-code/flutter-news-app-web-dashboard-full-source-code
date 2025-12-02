@@ -63,4 +63,20 @@ class TopicsFilterBloc extends Bloc<TopicsFilterEvent, TopicsFilterState> {
   ) {
     emit(const TopicsFilterState());
   }
+
+  /// Builds the filter map for the data repository query.
+  Map<String, dynamic> buildFilterMap() {
+    final filter = <String, dynamic>{'status': state.selectedStatus.name};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter[r'$or'] = [
+        {
+          'name': {r'$regex': state.searchQuery, r'$options': 'i'},
+        },
+        {'_id': state.searchQuery},
+      ];
+    }
+
+    return filter;
+  }
 }
