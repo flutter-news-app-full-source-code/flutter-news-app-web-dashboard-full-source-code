@@ -210,12 +210,16 @@ class _EngagementsDataSource extends DataTableSource {
           DataCell(
             Row(
               children: [
-                if (engagement.comment?.status ==
-                    CommentStatus.pendingReview) ...[
-                  Icon(
-                    Icons.pending_outlined,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.tertiary,
+                if (engagement.comment != null &&
+                    engagement.comment!.status ==
+                        ModerationStatus.pendingReview) ...[
+                  Tooltip(
+                    message: l10n.moderationStatusPendingReview,
+                    child: Icon(
+                      Icons.hourglass_empty_outlined,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
                 ],
@@ -248,5 +252,4 @@ class _EngagementsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-
 }
