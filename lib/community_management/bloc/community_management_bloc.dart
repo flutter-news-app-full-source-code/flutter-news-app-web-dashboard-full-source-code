@@ -21,13 +21,13 @@ class CommunityManagementBloc
     required CommunityFilterBloc communityFilterBloc,
     required PendingUpdatesService pendingUpdatesService,
     Logger? logger,
-  })  : _engagementsRepository = engagementsRepository,
-        _reportsRepository = reportsRepository,
-        _appReviewsRepository = appReviewsRepository,
-        _communityFilterBloc = communityFilterBloc,
-        _pendingUpdatesService = pendingUpdatesService,
-        _logger = logger ?? Logger('CommunityManagementBloc'),
-        super(const CommunityManagementState()) {
+  }) : _engagementsRepository = engagementsRepository,
+       _reportsRepository = reportsRepository,
+       _appReviewsRepository = appReviewsRepository,
+       _communityFilterBloc = communityFilterBloc,
+       _pendingUpdatesService = pendingUpdatesService,
+       _logger = logger ?? Logger('CommunityManagementBloc'),
+       super(const CommunityManagementState()) {
     on<CommunityManagementTabChanged>(_onTabChanged);
     on<LoadEngagementsRequested>(_onLoadEngagementsRequested);
     on<LoadReportsRequested>(_onLoadReportsRequested);
@@ -38,31 +38,34 @@ class CommunityManagementBloc
     on<UndoUpdateRequested>(_onUndoUpdateRequested);
     on<UpdateEventReceived>(_onUpdateEventReceived);
 
-    _engagementsUpdateSubscription =
-        _engagementsRepository.entityUpdated.listen((_) {
-      _logger.info('Engagement updated, reloading engagements list.');
+    _engagementsUpdateSubscription = _engagementsRepository.entityUpdated
+        .listen((_) {
+          _logger.info('Engagement updated, reloading engagements list.');
+          add(
+            LoadEngagementsRequested(
+              filter: buildEngagementsFilterMap(
+                _communityFilterBloc.state.engagementsFilter,
+              ),
+              forceRefresh: true,
+            ),
+          );
+        });
+
+    _reportsUpdateSubscription = _reportsRepository.entityUpdated.listen((_) {
+      _logger.info('Report updated, reloading reports list.');
       add(
-        LoadEngagementsRequested(
-          filter: buildEngagementsFilterMap(
-            _communityFilterBloc.state.engagementsFilter,
+        LoadReportsRequested(
+          filter: buildReportsFilterMap(
+            _communityFilterBloc.state.reportsFilter,
           ),
           forceRefresh: true,
         ),
       );
     });
 
-    _reportsUpdateSubscription = _reportsRepository.entityUpdated.listen((_) {
-      _logger.info('Report updated, reloading reports list.');
-      add(
-        LoadReportsRequested(
-          filter: buildReportsFilterMap(_communityFilterBloc.state.reportsFilter),
-          forceRefresh: true,
-        ),
-      );
-    });
-
-    _appReviewsUpdateSubscription =
-        _appReviewsRepository.entityUpdated.listen((_) {
+    _appReviewsUpdateSubscription = _appReviewsRepository.entityUpdated.listen((
+      _,
+    ) {
       _logger.info('AppReview updated, reloading app reviews list.');
       add(
         LoadAppReviewsRequested(
@@ -74,8 +77,7 @@ class CommunityManagementBloc
       );
     });
 
-    _updateEventsSubscription =
-        _pendingUpdatesService.updateEvents.listen(
+    _updateEventsSubscription = _pendingUpdatesService.updateEvents.listen(
       (event) => add(UpdateEventReceived(event)),
     );
   }
@@ -415,18 +417,17 @@ class CommunityManagementBloc
       case UpdateStatus.undone:
         final item = event.event.originalItem;
         if (item is Engagement) {
-          final index =
-              state.engagements.indexWhere((e) => e.id == item.id);
+          final index = state.engagements.indexWhere((e) => e.id == item.id);
           if (index != -1) {
-            final updatedEngagements =
-                List<Engagement>.from(state.engagements)..[index] = item;
+            final updatedEngagements = List<Engagement>.from(state.engagements)
+              ..[index] = item;
             emit(state.copyWith(engagements: updatedEngagements));
           }
         } else if (item is Report) {
           final index = state.reports.indexWhere((r) => r.id == item.id);
           if (index != -1) {
-            final updatedReports =
-                List<Report>.from(state.reports)..[index] = item;
+            final updatedReports = List<Report>.from(state.reports)
+              ..[index] = item;
             emit(state.copyWith(reports: updatedReports));
           }
         }

@@ -24,11 +24,11 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     super.initState();
     _searchController = TextEditingController();
     final filterState = context.read<CommunityFilterBloc>().state;
-    final activeTab =
-        context.read<CommunityManagementBloc>().state.activeTab;
+    final activeTab = context.read<CommunityManagementBloc>().state.activeTab;
     switch (activeTab) {
       case CommunityManagementTab.engagements:
-        _searchController.text = filterState.engagementsFilter.searchQuery ?? '';
+        _searchController.text =
+            filterState.engagementsFilter.searchQuery ?? '';
       case CommunityManagementTab.reports:
         _searchController.text = filterState.reportsFilter.searchQuery ?? '';
       case CommunityManagementTab.appReviews:
@@ -46,8 +46,10 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
-    final activeTab = context.select<CommunityManagementBloc,
-        CommunityManagementTab>((bloc) => bloc.state.activeTab);
+    final activeTab = context
+        .select<CommunityManagementBloc, CommunityManagementTab>(
+          (bloc) => bloc.state.activeTab,
+        );
 
     return BlocBuilder<CommunityFilterBloc, CommunityFilterState>(
       builder: (context, filterState) {
@@ -68,9 +70,12 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                 icon: const Icon(Icons.refresh),
                 tooltip: l10n.resetFiltersButtonText,
                 onPressed: () {
-                  final filterBloc = context.read<CommunityFilterBloc>();
-                  filterBloc.add(const CommunityFilterReset());
-                  _dispatchFilterChanges(filterBloc, const CommunityFilterState());
+                  final filterBloc = context.read<CommunityFilterBloc>()
+                    ..add(const CommunityFilterReset());
+                  _dispatchFilterChanges(
+                    filterBloc,
+                    const CommunityFilterState(),
+                  );
                   filterBloc.add(const CommunityFilterApplied());
                   Navigator.of(context).pop();
                 },
@@ -79,9 +84,9 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                 icon: const Icon(Icons.check),
                 tooltip: l10n.applyFilters,
                 onPressed: () {
-                  context
-                      .read<CommunityFilterBloc>()
-                      .add(const CommunityFilterApplied());
+                  context.read<CommunityFilterBloc>().add(
+                    const CommunityFilterApplied(),
+                  );
                   Navigator.of(context).pop();
                 },
               ),
@@ -159,11 +164,34 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     final state = bloc.state;
     switch (activeTab) {
       case CommunityManagementTab.engagements:
-        bloc.add(EngagementsFilterChanged(EngagementsFilter(searchQuery: query, selectedStatus: state.engagementsFilter.selectedStatus)));
+        bloc.add(
+          EngagementsFilterChanged(
+            EngagementsFilter(
+              searchQuery: query,
+              selectedStatus: state.engagementsFilter.selectedStatus,
+            ),
+          ),
+        );
       case CommunityManagementTab.reports:
-        bloc.add(ReportsFilterChanged(ReportsFilter(searchQuery: query, selectedStatus: state.reportsFilter.selectedStatus, selectedReportableEntity: state.reportsFilter.selectedReportableEntity)));
+        bloc.add(
+          ReportsFilterChanged(
+            ReportsFilter(
+              searchQuery: query,
+              selectedStatus: state.reportsFilter.selectedStatus,
+              selectedReportableEntity:
+                  state.reportsFilter.selectedReportableEntity,
+            ),
+          ),
+        );
       case CommunityManagementTab.appReviews:
-        bloc.add(AppReviewsFilterChanged(AppReviewsFilter(searchQuery: query, selectedFeedback: state.appReviewsFilter.selectedFeedback)));
+        bloc.add(
+          AppReviewsFilterChanged(
+            AppReviewsFilter(
+              searchQuery: query,
+              selectedFeedback: state.appReviewsFilter.selectedFeedback,
+            ),
+          ),
+        );
     }
   }
 
@@ -220,20 +248,21 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
       case CommunityManagementTab.engagements:
         return [
           _buildCapsuleFilter<ModerationStatus>(
-              title: l10n.status,
-              allValues: ModerationStatus.values,
-              selectedValue: state.engagementsFilter.selectedStatus,
-              labelBuilder: (item) => item.l10n(context),
-              onChanged: (item) {
-                context.read<CommunityFilterBloc>().add(
-                      EngagementsFilterChanged(
-                        EngagementsFilter(
-                          searchQuery: state.engagementsFilter.searchQuery,
-                          selectedStatus: item,
-                        ),
-                      ),
-                    );
-              }),
+            title: l10n.status,
+            allValues: ModerationStatus.values,
+            selectedValue: state.engagementsFilter.selectedStatus,
+            labelBuilder: (item) => item.l10n(context),
+            onChanged: (item) {
+              context.read<CommunityFilterBloc>().add(
+                EngagementsFilterChanged(
+                  EngagementsFilter(
+                    searchQuery: state.engagementsFilter.searchQuery,
+                    selectedStatus: item,
+                  ),
+                ),
+              );
+            },
+          ),
         ];
       case CommunityManagementTab.reports:
         return [
@@ -244,15 +273,15 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             labelBuilder: (item) => item.l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
-                    ReportsFilterChanged(
-                      ReportsFilter(
-                        searchQuery: state.reportsFilter.searchQuery,
-                        selectedStatus: item,
-                        selectedReportableEntity:
-                            state.reportsFilter.selectedReportableEntity,
-                      ),
-                    ),
-                  );
+                ReportsFilterChanged(
+                  ReportsFilter(
+                    searchQuery: state.reportsFilter.searchQuery,
+                    selectedStatus: item,
+                    selectedReportableEntity:
+                        state.reportsFilter.selectedReportableEntity,
+                  ),
+                ),
+              );
             },
           ),
           const SizedBox(height: AppSpacing.lg),
@@ -263,34 +292,35 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             labelBuilder: (item) => item.l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
-                    ReportsFilterChanged(
-                      ReportsFilter(
-                        searchQuery: state.reportsFilter.searchQuery,
-                        selectedStatus: state.reportsFilter.selectedStatus,
-                        selectedReportableEntity: item,
-                      ),
-                    ),
-                  );
+                ReportsFilterChanged(
+                  ReportsFilter(
+                    searchQuery: state.reportsFilter.searchQuery,
+                    selectedStatus: state.reportsFilter.selectedStatus,
+                    selectedReportableEntity: item,
+                  ),
+                ),
+              );
             },
           ),
         ];
       case CommunityManagementTab.appReviews:
         return [
           _buildCapsuleFilter<AppReviewFeedback>(
-              title: l10n.initialFeedback,
-              allValues: AppReviewFeedback.values,
-              selectedValue: state.appReviewsFilter.selectedFeedback,
-              labelBuilder: (item) => item.l10n(context),
-              onChanged: (item) {
-                context.read<CommunityFilterBloc>().add(
-                      AppReviewsFilterChanged(
-                        AppReviewsFilter(
-                          searchQuery: state.appReviewsFilter.searchQuery,
-                          selectedFeedback: item,
-                        ),
-                      ),
-                    );
-              }),
+            title: l10n.initialFeedback,
+            allValues: AppReviewFeedback.values,
+            selectedValue: state.appReviewsFilter.selectedFeedback,
+            labelBuilder: (item) => item.l10n(context),
+            onChanged: (item) {
+              context.read<CommunityFilterBloc>().add(
+                AppReviewsFilterChanged(
+                  AppReviewsFilter(
+                    searchQuery: state.appReviewsFilter.searchQuery,
+                    selectedFeedback: item,
+                  ),
+                ),
+              );
+            },
+          ),
         ];
     }
   }

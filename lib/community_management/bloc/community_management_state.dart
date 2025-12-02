@@ -90,21 +90,21 @@ class CommunityManagementState extends Equatable {
 
   @override
   List<Object?> get props => [
-        activeTab,
-        engagementsStatus,
-        reportsStatus,
-        appReviewsStatus,
-        engagements,
-        reports,
-        appReviews,
-        engagementsCursor,
-        reportsCursor,
-        appReviewsCursor,
-        hasMoreEngagements,
-        hasMoreReports,
-        hasMoreAppReviews,
-        exception,
-        lastPendingUpdateId,
-        snackbarMessage,
-      ];
+    activeTab,
+    engagementsStatus,
+    reportsStatus,
+    appReviewsStatus,
+    engagements,
+    reports,
+    appReviews,
+    engagementsCursor,
+    reportsCursor,
+    appReviewsCursor,
+    hasMoreEngagements,
+    hasMoreReports,
+    hasMoreAppReviews,
+    exception,
+    lastPendingUpdateId,
+    snackbarMessage,
+  ];
 }

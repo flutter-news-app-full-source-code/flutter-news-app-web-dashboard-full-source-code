@@ -34,8 +34,11 @@ class ReportsFilter extends Equatable {
       selectedReportableEntity != null;
 
   @override
-  List<Object?> get props =>
-      [searchQuery, selectedStatus, selectedReportableEntity];
+  List<Object?> get props => [
+    searchQuery,
+    selectedStatus,
+    selectedReportableEntity,
+  ];
 }
 
 class AppReviewsFilter extends Equatable {
@@ -84,9 +87,9 @@ class CommunityFilterState extends Equatable {
 
   @override
   List<Object> get props => [
-        engagementsFilter,
-        reportsFilter,
-        appReviewsFilter,
-        version,
-      ];
+    engagementsFilter,
+    reportsFilter,
+    appReviewsFilter,
+    version,
+  ];
 }
