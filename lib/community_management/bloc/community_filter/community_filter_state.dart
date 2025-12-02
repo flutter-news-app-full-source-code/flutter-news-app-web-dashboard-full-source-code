@@ -3,30 +3,26 @@ part of 'community_filter_bloc.dart';
 class CommunityFilterState extends Equatable {
   const CommunityFilterState({
     this.searchQuery = '',
-    this.selectedCommentStatus = const [],
-    this.selectedReportStatus = const [],
+    this.selectedModerationStatus = const [],
     this.selectedReportableEntity = const [],
     this.selectedAppReviewFeedback = const [],
   });
 
   final String searchQuery;
-  final List<CommentStatus> selectedCommentStatus;
-  final List<ReportStatus> selectedReportStatus;
+  final List<ModerationStatus> selectedModerationStatus;
   final List<ReportableEntity> selectedReportableEntity;
   final List<AppReviewFeedback> selectedAppReviewFeedback;
 
   CommunityFilterState copyWith({
     String? searchQuery,
-    List<CommentStatus>? selectedCommentStatus,
-    List<ReportStatus>? selectedReportStatus,
+    List<ModerationStatus>? selectedModerationStatus,
     List<ReportableEntity>? selectedReportableEntity,
     List<AppReviewFeedback>? selectedAppReviewFeedback,
   }) {
     return CommunityFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedCommentStatus:
-          selectedCommentStatus ?? this.selectedCommentStatus,
-      selectedReportStatus: selectedReportStatus ?? this.selectedReportStatus,
+      selectedModerationStatus:
+          selectedModerationStatus ?? this.selectedModerationStatus,
       selectedReportableEntity:
           selectedReportableEntity ?? this.selectedReportableEntity,
       selectedAppReviewFeedback:
@@ -37,8 +33,7 @@ class CommunityFilterState extends Equatable {
   @override
   List<Object> get props => [
     searchQuery,
-    selectedCommentStatus,
-    selectedReportStatus,
+    selectedModerationStatus,
     selectedReportableEntity,
     selectedAppReviewFeedback,
   ];
