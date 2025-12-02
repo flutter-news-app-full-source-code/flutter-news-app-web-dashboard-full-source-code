@@ -19,9 +19,11 @@ class CommunityFilterBloc
     emit(
       state.copyWith(
         searchQuery: event.searchQuery,
-        selectedModerationStatus: event.selectedModerationStatus,
+        selectedCommentStatus: event.selectedCommentStatus,
+        selectedReportStatus: event.selectedReportStatus,
         selectedReportableEntity: event.selectedReportableEntity,
         selectedAppReviewFeedback: event.selectedAppReviewFeedback,
+        hasComment: event.hasComment,
       ),
     );
   }
