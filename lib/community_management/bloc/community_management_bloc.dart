@@ -145,9 +145,9 @@ class CommunityManagementBloc
     if (state.searchQuery.isNotEmpty) {
       filter['userId'] = {r'$regex': state.searchQuery, r'$options': 'i'};
     }
-    if (state.selectedInitialFeedback.isNotEmpty) {
-      filter['initialFeedback'] = {
-        r'$in': state.selectedInitialFeedback.map((f) => f.name).toList(),
+    if (state.selectedAppReviewFeedback.isNotEmpty) {
+      filter['feedback'] = {
+        r'$in': state.selectedAppReviewFeedback.map((f) => f.name).toList(),
       };
     }
     return filter;
