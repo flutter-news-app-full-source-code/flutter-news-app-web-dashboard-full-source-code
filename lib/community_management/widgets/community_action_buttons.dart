@@ -1,12 +1,10 @@
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/app_review_details_dialog.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/engagement_details_dialog.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/report_details_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 class CommunityActionButtons<T> extends StatelessWidget {
   const CommunityActionButtons({
@@ -73,44 +71,54 @@ class CommunityActionButtons<T> extends StatelessWidget {
     List<Widget> visibleActions,
     List<PopupMenuEntry<String>> overflowMenuItems,
   ) {
-    // Primary Action
+    final isPendingReview =
+        engagement.comment != null &&
+        engagement.comment!.status == ModerationStatus.pendingReview;
+
     visibleActions.add(
-      IconButton(
-        visualDensity: VisualDensity.compact,
-        iconSize: 20,
-        icon: const Icon(Icons.visibility_outlined),
-        tooltip: l10n.viewEngagedContent,
-        onPressed: () {
-          context.goNamed(
-            Routes.editHeadlineName,
-            pathParameters: {'id': engagement.entityId},
-          );
-        },
+      Stack(
+        children: [
+          IconButton(
+            visualDensity: VisualDensity.compact,
+            iconSize: 20,
+            icon: const Icon(Icons.more_horiz),
+            tooltip: l10n.viewFeedbackDetails,
+            onPressed: () => showDialog<void>(
+              context: context,
+              builder: (_) => EngagementDetailsDialog(engagement: engagement),
+            ),
+          ),
+          if (isPendingReview)
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Tooltip(
+                message: l10n.moderationStatusPendingReview,
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.amber,
+                  size: 10,
+                ),
+              ),
+            ),
+        ],
       ),
     );
 
     // Secondary Actions
-    if (engagement.comment != null) {
-      if (engagement.comment!.status != ModerationStatus.resolved) {
-        overflowMenuItems.add(
-          PopupMenuItem<String>(
-            value: 'approveComment',
-            child: Text(l10n.approveComment),
-          ),
-        );
-      }
-      if (engagement.comment != null) {
-        overflowMenuItems.add(
-          PopupMenuItem<String>(
-            value: 'rejectComment',
-            child: Text(l10n.rejectComment),
-          ),
-        );
-      }
-    }
-    overflowMenuItems.add(
-      PopupMenuItem<String>(value: 'copyUserId', child: Text(l10n.copyUserId)),
-    );
+    overflowMenuItems
+      ..add(
+        PopupMenuItem<String>(
+          value: 'copyUserId',
+          child: Text(l10n.copyUserId),
+        ),
+      )
+      ..add(
+        PopupMenuItem<String>(
+          value: 'copyHeadlineId',
+          child: Text(l10n.copyHeadlineId),
+        ),
+      );
   }
 
   void _buildReportActions(
@@ -119,48 +127,39 @@ class CommunityActionButtons<T> extends StatelessWidget {
     List<Widget> visibleActions,
     List<PopupMenuEntry<String>> overflowMenuItems,
   ) {
+    final isPendingReview = report.status == ModerationStatus.pendingReview;
+
     visibleActions.add(
-      IconButton(
-        visualDensity: VisualDensity.compact,
-        iconSize: 20,
-        icon: const Icon(Icons.visibility_outlined),
-        tooltip: switch (report.entityType) {
-          ReportableEntity.headline => l10n.viewReportedHeadline,
-          ReportableEntity.source => l10n.viewReportedSource,
-          ReportableEntity.engagement => l10n.viewReportedComment,
-        },
-        onPressed: () {
-          final String routeName;
-          switch (report.entityType) {
-            case ReportableEntity.headline:
-              routeName = Routes.editHeadlineName;
-            case ReportableEntity.source:
-              routeName = Routes.editSourceName;
-            case ReportableEntity.engagement:
-              return;
-          }
-          context.goNamed(routeName, pathParameters: {'id': report.entityId});
-        },
+      Stack(
+        children: [
+          IconButton(
+            visualDensity: VisualDensity.compact,
+            iconSize: 20,
+            icon: const Icon(Icons.more_horiz),
+            tooltip: l10n.viewFeedbackDetails,
+            onPressed: () => showDialog<void>(
+              context: context,
+              builder: (_) => ReportDetailsDialog(report: report),
+            ),
+          ),
+          if (isPendingReview)
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Tooltip(
+                message: l10n.moderationStatusPendingReview,
+                child: const Icon(
+                  Icons.circle,
+                  color: Colors.amber,
+                  size: 10,
+                ),
+              ),
+            ),
+        ],
       ),
     );
 
     // Secondary Actions
-    if (report.status != ModerationStatus.pendingReview) {
-      overflowMenuItems.add(
-        PopupMenuItem<String>(
-          value: 'markAsInReview',
-          child: Text(l10n.moderationStatusPendingReview),
-        ),
-      );
-    }
-    if (report.status != ModerationStatus.resolved) {
-      overflowMenuItems.add(
-        PopupMenuItem<String>(
-          value: 'resolveReport',
-          child: Text(l10n.resolveReport),
-        ),
-      );
-    }
     overflowMenuItems
       ..add(
         PopupMenuItem<String>(
@@ -195,8 +194,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
         onPressed: hasDetails
             ? () => showDialog<void>(
                 context: context,
-                builder: (_) =>
-                    _FeedbackDetailsDialog(appReview: appReview, l10n: l10n),
+                builder: (_) => AppReviewDetailsDialog(appReview: appReview),
               )
             : null,
       ),
@@ -209,9 +207,6 @@ class CommunityActionButtons<T> extends StatelessWidget {
   }
 
   void _onActionSelected(BuildContext context, String value, T item) {
-    final engagementsRepository = context.read<DataRepository<Engagement>>();
-    final reportsRepository = context.read<DataRepository<Report>>();
-
     if (value == 'copyUserId') {
       String userId;
       if (item is Engagement) {
@@ -235,109 +230,14 @@ class CommunityActionButtons<T> extends StatelessWidget {
         ..showSnackBar(
           SnackBar(content: Text(l10n.idCopiedToClipboard(reportedItemId))),
         );
-    } else if (value == 'approveComment' && item is Engagement) {
-      final updatedEngagement = item.copyWith(
-        comment: item.comment?.copyWith(status: ModerationStatus.resolved),
-      );
-      engagementsRepository.update(
-        id: updatedEngagement.id,
-        item: updatedEngagement,
-      );
-    } else if (value == 'rejectComment' && item is Engagement) {
-      showDialog<void>(
-        context: context,
-        builder: (dialogContext) => AlertDialog(
-          title: Text(l10n.rejectComment),
-          content: Text(l10n.rejectCommentConfirmation),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(l10n.cancel),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                final updatedEngagement = Engagement(
-                  id: item.id,
-                  userId: item.userId,
-                  entityId: item.entityId,
-                  entityType: item.entityType,
-                  reaction: item.reaction,
-                  comment: null,
-                  createdAt: item.createdAt,
-                  updatedAt: DateTime.now(),
-                );
-                engagementsRepository.update(
-                  id: updatedEngagement.id,
-                  item: updatedEngagement,
-                );
-                Navigator.of(dialogContext).pop();
-              },
-              child: Text(l10n.reject),
-            ),
-          ],
-        ),
-      );
-    } else if (value == 'markAsInReview' && item is Report) {
-      final updatedReport = item.copyWith(
-        status: ModerationStatus.pendingReview,
-      );
-      reportsRepository.update(
-        id: updatedReport.id,
-        item: updatedReport,
-      );
-    } else if (value == 'resolveReport' && item is Report) {
-      final updatedReport = item.copyWith(status: ModerationStatus.resolved);
-      reportsRepository.update(
-        id: updatedReport.id,
-        item: updatedReport,
-      );
+    } else if (value == 'copyHeadlineId' && item is Engagement) {
+      final headlineId = item.entityId;
+      Clipboard.setData(ClipboardData(text: headlineId));
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(l10n.idCopiedToClipboard(headlineId))),
+        );
     }
-  }
-}
-
-class _FeedbackDetailsDialog extends StatelessWidget {
-  const _FeedbackDetailsDialog({
-    required this.appReview,
-    required this.l10n,
-  });
-
-  final AppReview appReview;
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    final details = appReview.feedbackDetails;
-
-    return AlertDialog(
-      title: Text(l10n.feedbackDetails),
-      content: SizedBox(
-        width: double.maxFinite,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                l10n.feedbackProvidedAt(
-                  DateFormatter.formatRelativeTime(
-                    context,
-                    appReview.updatedAt,
-                  ),
-                ),
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(details ?? l10n.noReasonProvided),
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(l10n.closeButtonText),
-        ),
-      ],
-    );
   }
 }
