@@ -1964,12 +1964,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get userIdCopied => 'تم نسخ معرف المستخدم إلى الحافظة.';
 
   @override
-  String get commentApproved => 'تمت الموافقة على التعليق.';
-
-  @override
-  String get commentRejected => 'تم رفض التعليق.';
-
-  @override
   String get reportStatusUpdated => 'تم تحديث حالة البلاغ.';
 
   @override
@@ -2043,12 +2037,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reportReasonImpersonation => 'انتحال شخصية';
 
   @override
-  String get copyHeadlineId => 'نسخ معرّف العنوان';
-
-  @override
-  String get copyReportedItemId => 'نسخ معرّف العنصر المُبلغ عنه';
-
-  @override
   String get noNegativeFeedbackHistory =>
       'لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.';
 
@@ -2087,9 +2075,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get feedbackDetails => 'تفاصيل التقييم';
 
   @override
-  String get viewFeedbackDetails => 'عرض تفاصيل التقييم';
-
-  @override
   String get moderationStatusPendingReview => 'قيد المراجعة';
 
   @override
@@ -2106,4 +2091,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get withoutComment => 'بدون تعليق';
+
+  @override
+  String get reportResolved => 'تم حل البلاغ.';
+
+  @override
+  String get commentApproved => 'تمت الموافقة على التعليق.';
+
+  @override
+  String get commentRejected => 'تم رفض التعليق.';
+
+  @override
+  String get copyHeadlineId => 'نسخ معرّف العنوان';
+
+  @override
+  String get copyReportedItemId => 'نسخ معرّف العنصر المُبلغ عنه';
+
+  @override
+  String get viewFeedbackDetails => 'عرض تفاصيل التقييم';
 }

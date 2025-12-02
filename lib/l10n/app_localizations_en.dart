@@ -1969,12 +1969,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userIdCopied => 'User ID copied to clipboard.';
 
   @override
-  String get commentApproved => 'Comment approved.';
-
-  @override
-  String get commentRejected => 'Comment rejected.';
-
-  @override
   String get reportStatusUpdated => 'Report status updated.';
 
   @override
@@ -2049,12 +2043,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportReasonImpersonation => 'Impersonation';
 
   @override
-  String get copyHeadlineId => 'Copy Headline ID';
-
-  @override
-  String get copyReportedItemId => 'Copy Reported Item ID';
-
-  @override
   String get noNegativeFeedbackHistory =>
       'No negative feedback history found for this user.';
 
@@ -2093,9 +2081,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedbackDetails => 'Feedback Details';
 
   @override
-  String get viewFeedbackDetails => 'View Feedback Details';
-
-  @override
   String get moderationStatusPendingReview => 'Pending Review';
 
   @override
@@ -2112,4 +2097,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get withoutComment => 'Without Comment';
+
+  @override
+  String get reportResolved => 'Report resolved.';
+
+  @override
+  String get commentApproved => 'Comment approved.';
+
+  @override
+  String get commentRejected => 'Comment rejected.';
+
+  @override
+  String get copyHeadlineId => 'Copy Headline ID';
+
+  @override
+  String get copyReportedItemId => 'Copy Reported Item ID';
+
+  @override
+  String get viewFeedbackDetails => 'View Feedback Details';
 }

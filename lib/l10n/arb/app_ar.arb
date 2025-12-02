@@ -2462,14 +2462,6 @@
   "@userIdCopied": {
     "description": "رسالة عند نسخ معرف المستخدم"
   },
-  "commentApproved": "تمت الموافقة على التعليق.",
-  "@commentApproved": {
-    "description": "رسالة عند الموافقة على تعليق"
-  },
-  "commentRejected": "تم رفض التعليق.",
-  "@commentRejected": {
-    "description": "رسالة عند رفض تعليق"
-  },
   "reportStatusUpdated": "تم تحديث حالة البلاغ.",
   "@reportStatusUpdated": {
     "description": "رسالة عند تحديث حالة البلاغ"
@@ -2573,14 +2565,6 @@
   "@reportReasonImpersonation": {
     "description": "سبب البلاغ: المصدر ينتحل شخصية جهة أخرى."
   },
-  "copyHeadlineId": "نسخ معرّف العنوان",
-  "@copyHeadlineId": {
-    "description": "نص عنصر القائمة لنسخ معرّف العنوان الرئيسي."
-  },
-  "copyReportedItemId": "نسخ معرّف العنصر المُبلغ عنه",
-  "@copyReportedItemId": {
-    "description": "نص عنصر القائمة لنسخ معرّف العنصر المُبلغ عنه."
-  },
   "noNegativeFeedbackHistory": "لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.",
   "@noNegativeFeedbackHistory": {
     "description": "رسالة تظهر في مربع حوار سجل التقييمات عند عدم وجود سجل."
@@ -2629,10 +2613,6 @@
   "@feedbackDetails": {
     "description": "Title for the dialog showing detailed user feedback."
   },
-  "viewFeedbackDetails": "عرض تفاصيل التقييم",
-  "@viewFeedbackDetails": {
-    "description": "Tooltip for the button to view feedback details."
-  },
   "moderationStatusPendingReview": "قيد المراجعة",
   "@moderationStatusPendingReview": {
     "description": "Moderation status: The item is awaiting review."
@@ -2656,5 +2636,28 @@
   "withoutComment": "بدون تعليق",
   "@withoutComment": {
     "description": "خيار تصفية لإظهار العناصر التي لا تحتوي على تعليق فقط."
+  },
+    "reportResolved": "تم حل البلاغ.",
+  "@reportResolved": {},
+  "commentApproved": "تمت الموافقة على التعليق.",
+  "@commentApproved": {
+    "description": "رسالة عند الموافقة على تعليق"
+  },
+  "commentRejected": "تم رفض التعليق.",
+  "@commentRejected": {
+    "description": "رسالة عند رفض تعليق"
+  },
+  "copyHeadlineId": "نسخ معرّف العنوان",
+  "@copyHeadlineId": {
+    "description": "نص عنصر القائمة لنسخ معرّف العنوان الرئيسي."
+  },
+  "copyReportedItemId": "نسخ معرّف العنصر المُبلغ عنه",
+  "@copyReportedItemId": {
+    "description": "نص عنصر القائمة لنسخ معرّف العنصر المُبلغ عنه."
+  },
+  "viewFeedbackDetails": "عرض تفاصيل التقييم",
+  "@viewFeedbackDetails": {
+    "description": "Tooltip for the button to view feedback details."
   }
+
 }

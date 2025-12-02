@@ -2458,14 +2458,6 @@
   "@userIdCopied": {
     "description": "Message when user ID is copied"
   },
-  "commentApproved": "Comment approved.",
-  "@commentApproved": {
-    "description": "Message when a comment is approved"
-  },
-  "commentRejected": "Comment rejected.",
-  "@commentRejected": {
-    "description": "Message when a comment is rejected"
-  },
   "reportStatusUpdated": "Report status updated.",
   "@reportStatusUpdated": {
     "description": "Message when a report status is updated"
@@ -2569,14 +2561,6 @@
   "@reportReasonImpersonation": {
     "description": "Report reason: The source is impersonating another entity."
   },
-  "copyHeadlineId": "Copy Headline ID",
-  "@copyHeadlineId": {
-    "description": "Menu item text to copy the ID of a headline."
-  },
-  "copyReportedItemId": "Copy Reported Item ID",
-  "@copyReportedItemId": {
-    "description": "Menu item text to copy the ID of a reported item."
-  },
   "noNegativeFeedbackHistory": "No negative feedback history found for this user.",
   "@noNegativeFeedbackHistory": {
     "description": "Message displayed in the feedback history dialog when there is no history."
@@ -2625,10 +2609,6 @@
   "@feedbackDetails": {
     "description": "Title for the dialog showing detailed user feedback."
   },
-  "viewFeedbackDetails": "View Feedback Details",
-  "@viewFeedbackDetails": {
-    "description": "Tooltip for the button to view feedback details."
-  },
   "moderationStatusPendingReview": "Pending Review",
   "@moderationStatusPendingReview": {
     "description": "Moderation status: The item is awaiting review."
@@ -2652,5 +2632,27 @@
   "withoutComment": "Without Comment",
   "@withoutComment": {
     "description": "Filter option to show only items that do not have a comment."
+  },
+  "reportResolved": "Report resolved.",
+  "@reportResolved": {},
+  "commentApproved": "Comment approved.",
+  "@commentApproved": {
+    "description": "Message when a comment is approved"
+  },
+  "commentRejected": "Comment rejected.",
+  "@commentRejected": {
+    "description": "Message when a comment is rejected"
+  },
+  "copyHeadlineId": "Copy Headline ID",
+  "@copyHeadlineId": {
+    "description": "Menu item text to copy the ID of a headline."
+  },
+  "copyReportedItemId": "Copy Reported Item ID",
+  "@copyReportedItemId": {
+    "description": "Menu item text to copy the ID of a reported item."
+  },
+  "viewFeedbackDetails": "View Feedback Details",
+  "@viewFeedbackDetails": {
+    "description": "Tooltip for the button to view feedback details."
   }
 }

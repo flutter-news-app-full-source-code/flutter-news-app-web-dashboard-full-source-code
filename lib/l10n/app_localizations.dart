@@ -3662,18 +3662,6 @@ abstract class AppLocalizations {
   /// **'User ID copied to clipboard.'**
   String get userIdCopied;
 
-  /// Message when a comment is approved
-  ///
-  /// In en, this message translates to:
-  /// **'Comment approved.'**
-  String get commentApproved;
-
-  /// Message when a comment is rejected
-  ///
-  /// In en, this message translates to:
-  /// **'Comment rejected.'**
-  String get commentRejected;
-
   /// Message when a report status is updated
   ///
   /// In en, this message translates to:
@@ -3806,18 +3794,6 @@ abstract class AppLocalizations {
   /// **'Impersonation'**
   String get reportReasonImpersonation;
 
-  /// Menu item text to copy the ID of a headline.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy Headline ID'**
-  String get copyHeadlineId;
-
-  /// Menu item text to copy the ID of a reported item.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy Reported Item ID'**
-  String get copyReportedItemId;
-
   /// Message displayed in the feedback history dialog when there is no history.
   ///
   /// In en, this message translates to:
@@ -3890,12 +3866,6 @@ abstract class AppLocalizations {
   /// **'Feedback Details'**
   String get feedbackDetails;
 
-  /// Tooltip for the button to view feedback details.
-  ///
-  /// In en, this message translates to:
-  /// **'View Feedback Details'**
-  String get viewFeedbackDetails;
-
   /// Moderation status: The item is awaiting review.
   ///
   /// In en, this message translates to:
@@ -3931,6 +3901,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Without Comment'**
   String get withoutComment;
+
+  /// No description provided for @reportResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Report resolved.'**
+  String get reportResolved;
+
+  /// Message when a comment is approved
+  ///
+  /// In en, this message translates to:
+  /// **'Comment approved.'**
+  String get commentApproved;
+
+  /// Message when a comment is rejected
+  ///
+  /// In en, this message translates to:
+  /// **'Comment rejected.'**
+  String get commentRejected;
+
+  /// Menu item text to copy the ID of a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Headline ID'**
+  String get copyHeadlineId;
+
+  /// Menu item text to copy the ID of a reported item.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Reported Item ID'**
+  String get copyReportedItemId;
+
+  /// Tooltip for the button to view feedback details.
+  ///
+  /// In en, this message translates to:
+  /// **'View Feedback Details'**
+  String get viewFeedbackDetails;
 }
 
 class _AppLocalizationsDelegate
