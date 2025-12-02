@@ -7,6 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_review_feedback_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -35,7 +36,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
 
   bool _areFiltersActive(CommunityFilterState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedInitialFeedback.isNotEmpty;
+        state.selectedAppReviewFeedback.isNotEmpty;
   }
 
   @override
@@ -196,8 +197,8 @@ class _AppReviewsDataSource extends DataTableSource {
     final appReview = appReviews[index];
     return DataRow2(
       cells: [
-        DataCell(Text(appReview.initialFeedback.name)),
         DataCell(Text(appReview.userId, overflow: TextOverflow.ellipsis)),
+        DataCell(Text(appReview.feedback.l10n(context))),
         if (!isMobile)
           DataCell(
             Text(

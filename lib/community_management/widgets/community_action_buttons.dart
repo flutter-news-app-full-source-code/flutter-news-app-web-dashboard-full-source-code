@@ -180,21 +180,24 @@ class CommunityActionButtons<T> extends StatelessWidget {
     List<PopupMenuEntry<String>> overflowMenuItems,
   ) {
     // Primary Action
-    visibleActions.add(
-      IconButton(
-        visualDensity: VisualDensity.compact,
-        iconSize: 20,
-        icon: const Icon(Icons.history),
-        tooltip: l10n.viewFeedbackHistory,
-        onPressed: () {
-          showDialog<void>(
-            context: context,
-            builder: (dialogContext) =>
-                _FeedbackHistoryDialog(appReview: appReview, l10n: l10n),
-          );
-        },
-      ),
-    );
+    if (appReview.feedbackDetails != null &&
+        appReview.feedbackDetails!.isNotEmpty) {
+      visibleActions.add(
+        IconButton(
+          visualDensity: VisualDensity.compact,
+          iconSize: 20,
+          icon: const Icon(Icons.comment_outlined),
+          tooltip: l10n.viewFeedbackHistory,
+          onPressed: () {
+            showDialog<void>(
+              context: context,
+              builder: (dialogContext) =>
+                  _FeedbackDetailsDialog(appReview: appReview, l10n: l10n),
+            );
+          },
+        ),
+      );
+    }
 
     // Secondary Actions
     overflowMenuItems.add(
@@ -282,8 +285,8 @@ class CommunityActionButtons<T> extends StatelessWidget {
   }
 }
 
-class _FeedbackHistoryDialog extends StatelessWidget {
-  const _FeedbackHistoryDialog({
+class _FeedbackDetailsDialog extends StatelessWidget {
+  const _FeedbackDetailsDialog({
     required this.appReview,
     required this.l10n,
   });
@@ -293,37 +296,31 @@ class _FeedbackHistoryDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final details = appReview.feedbackDetails;
+
     return AlertDialog(
-      title: Text(l10n.viewFeedbackHistory),
+      title: Text(l10n.feedbackHistory),
       content: SizedBox(
         width: double.maxFinite,
-        child: appReview.negativeFeedbackHistory.isEmpty
-            ? Text(l10n.noNegativeFeedbackHistory)
-            : ListView.builder(
-                shrinkWrap: true,
-                itemCount: appReview.negativeFeedbackHistory.length,
-                itemBuilder: (context, index) {
-                  final feedback = appReview.negativeFeedbackHistory[index];
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            DateFormatter.formatRelativeTime(
-                              context,
-                              feedback.providedAt,
-                            ),
-                          ),
-                          if (feedback.reason != null) Text(feedback.reason!),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                l10n.feedbackProvidedAt(
+                  DateFormatter.formatRelativeTime(
+                    context,
+                    appReview.updatedAt,
+                  ),
+                ),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
+              const SizedBox(height: AppSpacing.md),
+              Text(details ?? l10n.noReasonProvided),
+            ],
+          ),
+        ),
       ),
       actions: [
         TextButton(

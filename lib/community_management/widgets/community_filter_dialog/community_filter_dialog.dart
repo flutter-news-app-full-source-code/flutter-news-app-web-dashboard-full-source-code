@@ -39,7 +39,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
         selectedCommentStatus: filterDialogState.selectedCommentStatus,
         selectedReportStatus: filterDialogState.selectedReportStatus,
         selectedReportableEntity: filterDialogState.selectedReportableEntity,
-        selectedInitialFeedback: filterDialogState.selectedInitialFeedback,
+        selectedAppReviewFeedback: filterDialogState.selectedAppReviewFeedback,
       ),
     );
   }
@@ -180,17 +180,17 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
         ];
       case CommunityManagementTab.appReviews:
         return [
-          SearchableSelectionInput<InitialAppReviewFeedback>(
+          SearchableSelectionInput<AppReviewFeedback>(
             label: l10n.initialFeedback,
             hintText: l10n.selectInitialFeedback,
             isMultiSelect: true,
-            selectedItems: state.selectedInitialFeedback,
+            selectedItems: state.selectedAppReviewFeedback,
             itemBuilder: (context, item) => Text(item.l10n(context)),
             itemToString: (item) => item.l10n(context),
             onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
-              CommunityFilterDialogInitialFeedbackChanged(items ?? []),
+              CommunityFilterDialogAppReviewFeedbackChanged(items ?? []),
             ),
-            staticItems: InitialAppReviewFeedback.values,
+            staticItems: AppReviewFeedback.values,
           ),
         ];
     }
