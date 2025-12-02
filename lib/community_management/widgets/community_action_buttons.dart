@@ -120,6 +120,9 @@ class CommunityActionButtons<T> extends StatelessWidget {
     List<PopupMenuEntry<String>> overflowMenuItems,
   ) {
     // Primary Action
+    overflowMenuItems.add(
+      PopupMenuItem<String>(value: 'copyUserId', child: Text(l10n.copyUserId)),
+    );
     visibleActions.add(
       IconButton(
         visualDensity: VisualDensity.compact,
@@ -184,24 +187,24 @@ class CommunityActionButtons<T> extends StatelessWidget {
     List<PopupMenuEntry<String>> overflowMenuItems,
   ) {
     // Primary Action
-    if (appReview.feedbackDetails != null &&
-        appReview.feedbackDetails!.isNotEmpty) {
-      visibleActions.add(
-        IconButton(
-          visualDensity: VisualDensity.compact,
-          iconSize: 20,
-          icon: const Icon(Icons.comment_outlined),
-          tooltip: l10n.viewFeedbackHistory,
-          onPressed: () {
-            showDialog<void>(
-              context: context,
-              builder: (dialogContext) =>
-                  _FeedbackDetailsDialog(appReview: appReview, l10n: l10n),
-            );
-          },
-        ),
-      );
-    }
+    final hasDetails =
+        appReview.feedbackDetails != null &&
+        appReview.feedbackDetails!.isNotEmpty;
+    visibleActions.add(
+      IconButton(
+        visualDensity: VisualDensity.compact,
+        iconSize: 20,
+        icon: const Icon(Icons.comment_outlined),
+        tooltip: l10n.viewFeedbackDetails,
+        onPressed: hasDetails
+            ? () => showDialog<void>(
+                context: context,
+                builder: (_) =>
+                    _FeedbackDetailsDialog(appReview: appReview, l10n: l10n),
+              )
+            : null,
+      ),
+    );
 
     // Secondary Actions
     overflowMenuItems.add(
@@ -303,7 +306,7 @@ class _FeedbackDetailsDialog extends StatelessWidget {
     final details = appReview.feedbackDetails;
 
     return AlertDialog(
-      title: Text(l10n.feedbackHistory),
+      title: Text(l10n.feedbackDetails),
       content: SizedBox(
         width: double.maxFinite,
         child: SingleChildScrollView(
