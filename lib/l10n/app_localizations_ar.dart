@@ -2109,4 +2109,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewFeedbackDetails => 'عرض تفاصيل التقييم';
+
+  @override
+  String get reportDetails => 'تفاصيل البلاغ';
+
+  @override
+  String get commentDetails => 'تفاصيل التعليق';
 }

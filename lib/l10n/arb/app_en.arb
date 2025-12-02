@@ -2654,5 +2654,13 @@
   "viewFeedbackDetails": "View Feedback Details",
   "@viewFeedbackDetails": {
     "description": "Tooltip for the button to view feedback details."
+  },
+  "reportDetails": "Report Details",
+  "@reportDetails": {
+    "description": "Title for the dialog showing the details of a user-submitted report."
+  },
+  "commentDetails": "Comment Details",
+  "@commentDetails": {
+    "description": "Title for the dialog showing the details of a user-submitted comment."
   }
 }

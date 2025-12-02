@@ -3937,6 +3937,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Feedback Details'**
   String get viewFeedbackDetails;
+
+  /// Title for the dialog showing the details of a user-submitted report.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Details'**
+  String get reportDetails;
+
+  /// Title for the dialog showing the details of a user-submitted comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment Details'**
+  String get commentDetails;
 }
 
 class _AppLocalizationsDelegate

@@ -2637,7 +2637,7 @@
   "@withoutComment": {
     "description": "خيار تصفية لإظهار العناصر التي لا تحتوي على تعليق فقط."
   },
-    "reportResolved": "تم حل البلاغ.",
+  "reportResolved": "تم حل البلاغ.",
   "@reportResolved": {},
   "commentApproved": "تمت الموافقة على التعليق.",
   "@commentApproved": {
@@ -2658,6 +2658,13 @@
   "viewFeedbackDetails": "عرض تفاصيل التقييم",
   "@viewFeedbackDetails": {
     "description": "Tooltip for the button to view feedback details."
+  },
+  "reportDetails": "تفاصيل البلاغ",
+  "@reportDetails": {
+    "description": "عنوان مربع الحوار الذي يعرض تفاصيل بلاغ مقدم من المستخدم."
+  },
+  "commentDetails": "تفاصيل التعليق",
+  "@commentDetails": {
+    "description": "عنوان مربع الحوار الذي يعرض تفاصيل تعليق مقدم من المستخدم."
   }
-
 }

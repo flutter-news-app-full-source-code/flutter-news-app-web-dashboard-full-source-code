@@ -2115,4 +2115,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewFeedbackDetails => 'View Feedback Details';
+
+  @override
+  String get reportDetails => 'Report Details';
+
+  @override
+  String get commentDetails => 'Comment Details';
 }
