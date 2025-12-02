@@ -81,7 +81,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
           IconButton(
             visualDensity: VisualDensity.compact,
             iconSize: 20,
-            icon: const Icon(Icons.more_horiz),
+            icon: const Icon(Icons.comment_outlined),
             tooltip: l10n.viewFeedbackDetails,
             onPressed: () => showDialog<void>(
               context: context,
@@ -135,7 +135,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
           IconButton(
             visualDensity: VisualDensity.compact,
             iconSize: 20,
-            icon: const Icon(Icons.more_horiz),
+            icon: const Icon(Icons.comment_outlined),
             tooltip: l10n.viewFeedbackDetails,
             onPressed: () => showDialog<void>(
               context: context,
