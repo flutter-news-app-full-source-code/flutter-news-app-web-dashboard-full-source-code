@@ -114,7 +114,6 @@ class _EngagementsPageState extends State<EngagementsPage> {
                     final isMobile = constraints.maxWidth < 600;
                     return PaginatedDataTable2(
                       columns: [
-                        DataColumn2(label: Text(l10n.user), size: ColumnSize.L),
                         DataColumn2(
                           label: Text(l10n.reaction),
                           size: ColumnSize.S,
@@ -207,8 +206,12 @@ class _EngagementsDataSource extends DataTableSource {
     final engagement = engagements[index];
     return DataRow2(
       cells: [
-        DataCell(Text(engagement.userId, overflow: TextOverflow.ellipsis)),
-        DataCell(Text(engagement.reaction.reactionType.name)),
+        DataCell(
+          Chip(
+            label: Text(engagement.reaction.reactionType.name),
+            visualDensity: VisualDensity.compact,
+          ),
+        ),
         if (!isMobile) ...[
           DataCell(
             Tooltip(
@@ -221,8 +224,16 @@ class _EngagementsDataSource extends DataTableSource {
           ),
         ],
         DataCell(
-          Text(
-            engagement.comment?.status.l10n(context) ?? l10n.notAvailable,
+          Chip(
+            label: Text(
+              engagement.comment?.status.l10n(context) ?? l10n.notAvailable,
+            ),
+            backgroundColor: _getCommentStatusColor(
+              context,
+              engagement.comment?.status,
+            ),
+            side: BorderSide.none,
+            visualDensity: VisualDensity.compact,
           ),
         ),
         if (!isMobile)
@@ -244,4 +255,21 @@ class _EngagementsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+
+  Color? _getCommentStatusColor(
+    BuildContext context,
+    CommentStatus? status,
+  ) {
+    final colorScheme = Theme.of(context).colorScheme;
+    switch (status) {
+      case CommentStatus.approved:
+        return colorScheme.primaryContainer.withOpacity(0.5);
+      case CommentStatus.rejected:
+        return colorScheme.errorContainer.withOpacity(0.5);
+      case CommentStatus.pendingReview:
+        return colorScheme.tertiaryContainer.withOpacity(0.5);
+      default:
+        return colorScheme.surfaceVariant;
+    }
+  }
 }
