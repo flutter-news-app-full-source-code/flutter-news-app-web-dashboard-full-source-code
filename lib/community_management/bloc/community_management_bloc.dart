@@ -59,45 +59,44 @@ class CommunityManagementBloc
       }
     });
 
-    _entityUpdateSubscription =
-        Stream<Type>.multi((controller) {
-          controller
-            ..addStream(_engagementsRepository.entityUpdated)
-            ..addStream(_reportsRepository.entityUpdated)
-            ..addStream(_appReviewsRepository.entityUpdated);
-        }).listen((updatedType) {
-          if (updatedType == Engagement) {
-            _logger.info('Engagement updated, reloading engagements list.');
-            add(
-              LoadEngagementsRequested(
-                filter: buildEngagementsFilterMap(
-                  _communityFilterBloc.state.engagementsFilter,
-                ),
-                forceRefresh: true,
+    _engagementsUpdateSubscription = _engagementsRepository.entityUpdated
+        .listen((_) {
+          _logger.info('Engagement updated, reloading engagements list.');
+          add(
+            LoadEngagementsRequested(
+              filter: buildEngagementsFilterMap(
+                _communityFilterBloc.state.engagementsFilter,
               ),
-            );
-          } else if (updatedType == Report) {
-            _logger.info('Report updated, reloading reports list.');
-            add(
-              LoadReportsRequested(
-                filter: buildReportsFilterMap(
-                  _communityFilterBloc.state.reportsFilter,
-                ),
-                forceRefresh: true,
-              ),
-            );
-          } else if (updatedType == AppReview) {
-            _logger.info('AppReview updated, reloading app reviews list.');
-            add(
-              LoadAppReviewsRequested(
-                filter: buildAppReviewsFilterMap(
-                  _communityFilterBloc.state.appReviewsFilter,
-                ),
-                forceRefresh: true,
-              ),
-            );
-          }
+              forceRefresh: true,
+            ),
+          );
         });
+
+    _reportsUpdateSubscription = _reportsRepository.entityUpdated.listen((_) {
+      _logger.info('Report updated, reloading reports list.');
+      add(
+        LoadReportsRequested(
+          filter: buildReportsFilterMap(
+            _communityFilterBloc.state.reportsFilter,
+          ),
+          forceRefresh: true,
+        ),
+      );
+    });
+
+    _appReviewsUpdateSubscription = _appReviewsRepository.entityUpdated.listen((
+      _,
+    ) {
+      _logger.info('AppReview updated, reloading app reviews list.');
+      add(
+        LoadAppReviewsRequested(
+          filter: buildAppReviewsFilterMap(
+            _communityFilterBloc.state.appReviewsFilter,
+          ),
+          forceRefresh: true,
+        ),
+      );
+    });
   }
 
   final DataRepository<Engagement> _engagementsRepository;
@@ -107,12 +106,16 @@ class CommunityManagementBloc
   final Logger _logger;
 
   late final StreamSubscription<CommunityFilterState> _filterSubscription;
-  late final StreamSubscription<Type> _entityUpdateSubscription;
+  late final StreamSubscription<void> _engagementsUpdateSubscription;
+  late final StreamSubscription<void> _reportsUpdateSubscription;
+  late final StreamSubscription<void> _appReviewsUpdateSubscription;
 
   @override
   Future<void> close() {
     _filterSubscription.cancel();
-    _entityUpdateSubscription.cancel();
+    _engagementsUpdateSubscription.cancel();
+    _reportsUpdateSubscription.cancel();
+    _appReviewsUpdateSubscription.cancel();
     return super.close();
   }
 

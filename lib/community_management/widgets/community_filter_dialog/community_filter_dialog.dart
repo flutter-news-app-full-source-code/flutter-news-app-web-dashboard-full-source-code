@@ -21,9 +21,9 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
 
   @override
   void initState() {
-    super.initState();
     _searchController = TextEditingController();
     _loadInitialFilterState();
+    super.initState();
   }
 
   void _loadInitialFilterState() {
@@ -297,10 +297,10 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             allValues: ReportableEntity.values,
             selectedValues: state.reportsFilter.selectedReportableEntity,
             labelBuilder: (item) => item.l10n(context),
-            onChanged: (items) {
+            onChanged: (items) => {
               context.read<CommunityFilterDialogBloc>().add(
                 CommunityFilterDialogReportableEntityChanged(items),
-              );
+              ),
             },
           ),
         ];
@@ -311,10 +311,10 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             allValues: AppReviewFeedback.values,
             selectedValues: state.appReviewsFilter.selectedFeedback,
             labelBuilder: (item) => item.l10n(context),
-            onChanged: (items) {
+            onChanged: (items) => {
               context.read<CommunityFilterDialogBloc>().add(
                 CommunityFilterDialogAppReviewsFeedbackChanged(items),
-              );
+              ),
             },
           ),
         ];
