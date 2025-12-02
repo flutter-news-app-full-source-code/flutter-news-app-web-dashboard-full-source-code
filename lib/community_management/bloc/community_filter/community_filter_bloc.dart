@@ -19,8 +19,7 @@ class CommunityFilterBloc
     emit(
       state.copyWith(
         searchQuery: event.searchQuery,
-        selectedCommentStatus: event.selectedCommentStatus,
-        selectedReportStatus: event.selectedReportStatus,
+        selectedModerationStatus: event.selectedModerationStatus,
         selectedReportableEntity: event.selectedReportableEntity,
         selectedAppReviewFeedback: event.selectedAppReviewFeedback,
       ),
