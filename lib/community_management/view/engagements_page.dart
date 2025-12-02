@@ -7,7 +7,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/comment_status_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -123,10 +122,6 @@ class _EngagementsPageState extends State<EngagementsPage> {
                             label: Text(l10n.comment),
                             size: ColumnSize.L,
                           ),
-                        DataColumn2(
-                          label: Text(l10n.commentStatus),
-                          size: ColumnSize.S,
-                        ),
                         if (!isMobile)
                           DataColumn2(
                             label: Text(l10n.date),
@@ -214,28 +209,30 @@ class _EngagementsDataSource extends DataTableSource {
         ),
         if (!isMobile) ...[
           DataCell(
-            Tooltip(
-              message: engagement.comment?.content ?? l10n.notAvailable,
-              child: Text(
-                engagement.comment?.content ?? l10n.notAvailable,
-                overflow: TextOverflow.ellipsis,
-              ),
+            Row(
+              children: [
+                if (engagement.comment?.status ==
+                    CommentStatus.pendingReview) ...[
+                  Icon(
+                    Icons.pending_outlined,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                ],
+                Expanded(
+                  child: Tooltip(
+                    message: engagement.comment?.content ?? l10n.notAvailable,
+                    child: Text(
+                      engagement.comment?.content ?? l10n.notAvailable,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
-        DataCell(
-          Chip(
-            label: Text(
-              engagement.comment?.status.l10n(context) ?? l10n.notAvailable,
-            ),
-            backgroundColor: _getCommentStatusColor(
-              context,
-              engagement.comment?.status,
-            ),
-            side: BorderSide.none,
-            visualDensity: VisualDensity.compact,
-          ),
-        ),
         if (!isMobile)
           DataCell(
             Text(
@@ -256,20 +253,4 @@ class _EngagementsDataSource extends DataTableSource {
   @override
   int get selectedRowCount => 0;
 
-  Color? _getCommentStatusColor(
-    BuildContext context,
-    CommentStatus? status,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-    switch (status) {
-      case CommentStatus.approved:
-        return colorScheme.primaryContainer.withOpacity(0.5);
-      case CommentStatus.rejected:
-        return colorScheme.errorContainer.withOpacity(0.5);
-      case CommentStatus.pendingReview:
-        return colorScheme.tertiaryContainer.withOpacity(0.5);
-      default:
-        return colorScheme.surfaceVariant;
-    }
-  }
 }
