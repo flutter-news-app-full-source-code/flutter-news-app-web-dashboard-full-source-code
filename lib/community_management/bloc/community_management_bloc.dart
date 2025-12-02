@@ -18,81 +18,44 @@ class CommunityManagementBloc
     required DataRepository<AppReview> appReviewsRepository,
     required CommunityFilterBloc communityFilterBloc,
     Logger? logger,
-  }) : _engagementsRepository = engagementsRepository,
-       _reportsRepository = reportsRepository,
-       _appReviewsRepository = appReviewsRepository,
-       _communityFilterBloc = communityFilterBloc,
-       _logger = logger ?? Logger('CommunityManagementBloc'),
-       super(const CommunityManagementState()) {
+  })  : _engagementsRepository = engagementsRepository,
+        _reportsRepository = reportsRepository,
+        _appReviewsRepository = appReviewsRepository,
+        _communityFilterBloc = communityFilterBloc,
+        _logger = logger ?? Logger('CommunityManagementBloc'),
+        super(const CommunityManagementState()) {
     on<CommunityManagementTabChanged>(_onTabChanged);
     on<LoadEngagementsRequested>(_onLoadEngagementsRequested);
     on<LoadReportsRequested>(_onLoadReportsRequested);
     on<LoadAppReviewsRequested>(_onLoadAppReviewsRequested);
 
-    _filterSubscription = _communityFilterBloc.stream.listen((filterState) {
-      switch (state.activeTab) {
-        case CommunityManagementTab.engagements:
-          if (filterState.engagementsFilter !=
-              _communityFilterBloc.state.engagementsFilter) {
-            add(
-              LoadEngagementsRequested(
-                filter: buildEngagementsFilterMap(
-                  filterState.engagementsFilter,
-                ),
-                forceRefresh: true,
-              ),
-            );
-          }
-        case CommunityManagementTab.reports:
-          if (filterState.reportsFilter !=
-              _communityFilterBloc.state.reportsFilter) {
-            add(
-              LoadReportsRequested(
-                filter: buildReportsFilterMap(filterState.reportsFilter),
-                forceRefresh: true,
-              ),
-            );
-          }
-        case CommunityManagementTab.appReviews:
-          // No filter changes to listen to for app reviews yet.
-          break;
-      }
-    });
-
-    _engagementsUpdateSubscription = _engagementsRepository.entityUpdated
-        .listen((_) {
-          _logger.info('Engagement updated, reloading engagements list.');
-          add(
-            LoadEngagementsRequested(
-              filter: buildEngagementsFilterMap(
-                _communityFilterBloc.state.engagementsFilter,
-              ),
-              forceRefresh: true,
-            ),
-          );
-        });
-
-    _reportsUpdateSubscription = _reportsRepository.entityUpdated.listen((_) {
-      _logger.info('Report updated, reloading reports list.');
+    _engagementsUpdateSubscription =
+        _engagementsRepository.entityUpdated.listen((_) {
+      _logger.info('Engagement updated, reloading engagements list.');
       add(
-        LoadReportsRequested(
-          filter: buildReportsFilterMap(
-            _communityFilterBloc.state.reportsFilter,
-          ),
+        LoadEngagementsRequested(
+          filter: buildEngagementsFilterMap(_communityFilterBloc.state),
           forceRefresh: true,
         ),
       );
     });
 
-    _appReviewsUpdateSubscription = _appReviewsRepository.entityUpdated.listen((
-      _,
-    ) {
+    _reportsUpdateSubscription = _reportsRepository.entityUpdated.listen((_) {
+      _logger.info('Report updated, reloading reports list.');
+      add(
+        LoadReportsRequested(
+          filter: buildReportsFilterMap(_communityFilterBloc.state),
+          forceRefresh: true,
+        ),
+      );
+    });
+
+    _appReviewsUpdateSubscription =
+        _appReviewsRepository.entityUpdated.listen((_) {
       _logger.info('AppReview updated, reloading app reviews list.');
       add(
         LoadAppReviewsRequested(
-          filter: buildAppReviewsFilterMap(
-            _communityFilterBloc.state.appReviewsFilter,
-          ),
+          filter: buildAppReviewsFilterMap(_communityFilterBloc.state),
           forceRefresh: true,
         ),
       );
@@ -105,50 +68,39 @@ class CommunityManagementBloc
   final CommunityFilterBloc _communityFilterBloc;
   final Logger _logger;
 
-  late final StreamSubscription<CommunityFilterState> _filterSubscription;
   late final StreamSubscription<void> _engagementsUpdateSubscription;
   late final StreamSubscription<void> _reportsUpdateSubscription;
   late final StreamSubscription<void> _appReviewsUpdateSubscription;
 
   @override
   Future<void> close() {
-    _filterSubscription.cancel();
     _engagementsUpdateSubscription.cancel();
     _reportsUpdateSubscription.cancel();
     _appReviewsUpdateSubscription.cancel();
     return super.close();
   }
 
-  Map<String, dynamic> buildEngagementsFilterMap(EngagementsFilterState state) {
+  Map<String, dynamic> buildEngagementsFilterMap(CommunityFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
       filter['userId'] = state.searchQuery;
     }
-    if (state.selectedStatus.isNotEmpty) {
+    if (state.selectedModerationStatus.isNotEmpty) {
       filter['comment.status'] = {
-        r'$in': state.selectedStatus.map((s) => s.name).toList(),
-      };
-    }
-    if (state.hasComment == HasCommentFilter.withComment) {
-      filter['comment'] = {
-        r'$exists': true,
-      };
-    } else if (state.hasComment == HasCommentFilter.withoutComment) {
-      filter['comment'] = {
-        r'$exists': false,
+        r'$in': state.selectedModerationStatus.map((s) => s.name).toList(),
       };
     }
     return filter;
   }
 
-  Map<String, dynamic> buildReportsFilterMap(ReportsFilterState state) {
+  Map<String, dynamic> buildReportsFilterMap(CommunityFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
       filter['reporterUserId'] = state.searchQuery;
     }
-    if (state.selectedStatus.isNotEmpty) {
+    if (state.selectedModerationStatus.isNotEmpty) {
       filter['status'] = {
-        r'$in': state.selectedStatus.map((s) => s.name).toList(),
+        r'$in': state.selectedModerationStatus.map((s) => s.name).toList(),
       };
     }
     if (state.selectedReportableEntity.isNotEmpty) {
@@ -159,14 +111,14 @@ class CommunityManagementBloc
     return filter;
   }
 
-  Map<String, dynamic> buildAppReviewsFilterMap(AppReviewsFilterState state) {
+  Map<String, dynamic> buildAppReviewsFilterMap(CommunityFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
       filter['userId'] = state.searchQuery;
     }
-    if (state.selectedFeedback.isNotEmpty) {
+    if (state.selectedAppReviewFeedback.isNotEmpty) {
       filter['feedback'] = {
-        r'$in': state.selectedFeedback.map((f) => f.name).toList(),
+        r'$in': state.selectedAppReviewFeedback.map((f) => f.name).toList(),
       };
     }
     return filter;
