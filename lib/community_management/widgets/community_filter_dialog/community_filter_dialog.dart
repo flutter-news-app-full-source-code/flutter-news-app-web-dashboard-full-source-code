@@ -212,6 +212,8 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
     required void Function(List<T>) onChanged,
   }) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizationsX(context).l10n;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -222,22 +224,33 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
         const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: AppSpacing.sm,
-          children: allValues.map((value) {
-            final isSelected = selectedValues.contains(value);
-            return ChoiceChip(
-              label: Text(labelBuilder(value)),
-              selected: isSelected,
+          children: [
+            ChoiceChip(
+              label: Text(l10n.any),
+              selected: selectedValues.isEmpty,
               onSelected: (selected) {
-                final currentSelection = List<T>.from(selectedValues);
                 if (selected) {
-                  currentSelection.add(value);
-                } else {
-                  currentSelection.remove(value);
+                  onChanged([]);
                 }
-                onChanged(currentSelection);
               },
-            );
-          }).toList(),
+            ),
+            ...allValues.map((value) {
+              final isSelected = selectedValues.contains(value);
+              return ChoiceChip(
+                label: Text(labelBuilder(value)),
+                selected: isSelected,
+                onSelected: (selected) {
+                  final currentSelection = List<T>.from(selectedValues);
+                  if (selected) {
+                    currentSelection.add(value);
+                  } else {
+                    currentSelection.remove(value);
+                  }
+                  onChanged(currentSelection);
+                },
+              );
+            }),
+          ],
         ),
       ],
     );
