@@ -2652,5 +2652,17 @@
   "entityType": "نوع الكيان",
   "@entityType": {
     "description": "Column header for the type of entity being reported"
+  },
+  "feedback": "التقييم",
+  "@feedback": {
+    "description": "Column header for user feedback on app reviews."
+  },
+  "feedbackDetails": "تفاصيل التقييم",
+  "@feedbackDetails": {
+    "description": "Title for the dialog showing detailed user feedback."
+  },
+  "viewFeedbackDetails": "عرض تفاصيل التقييم",
+  "@viewFeedbackDetails": {
+    "description": "Tooltip for the button to view feedback details."
   }
 }

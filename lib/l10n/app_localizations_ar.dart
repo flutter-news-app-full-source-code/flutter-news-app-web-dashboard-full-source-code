@@ -2103,4 +2103,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get entityType => 'نوع الكيان';
+
+  @override
+  String get feedback => 'التقييم';
+
+  @override
+  String get feedbackDetails => 'تفاصيل التقييم';
+
+  @override
+  String get viewFeedbackDetails => 'عرض تفاصيل التقييم';
 }

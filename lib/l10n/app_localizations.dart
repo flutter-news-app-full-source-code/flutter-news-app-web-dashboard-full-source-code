@@ -3925,6 +3925,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Entity Type'**
   String get entityType;
+
+  /// Column header for user feedback on app reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// Title for the dialog showing detailed user feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback Details'**
+  String get feedbackDetails;
+
+  /// Tooltip for the button to view feedback details.
+  ///
+  /// In en, this message translates to:
+  /// **'View Feedback Details'**
+  String get viewFeedbackDetails;
 }
 
 class _AppLocalizationsDelegate

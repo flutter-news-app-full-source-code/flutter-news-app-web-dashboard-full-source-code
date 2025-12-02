@@ -2109,4 +2109,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get entityType => 'Entity Type';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get feedbackDetails => 'Feedback Details';
+
+  @override
+  String get viewFeedbackDetails => 'View Feedback Details';
 }

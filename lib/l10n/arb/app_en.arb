@@ -2648,5 +2648,17 @@
   "entityType": "Entity Type",
   "@entityType": {
     "description": "Column header for the type of entity being reported"
+  },
+  "feedback": "Feedback",
+  "@feedback": {
+    "description": "Column header for user feedback on app reviews."
+  },
+  "feedbackDetails": "Feedback Details",
+  "@feedbackDetails": {
+    "description": "Title for the dialog showing detailed user feedback."
+  },
+  "viewFeedbackDetails": "View Feedback Details",
+  "@viewFeedbackDetails": {
+    "description": "Tooltip for the button to view feedback details."
   }
 }
