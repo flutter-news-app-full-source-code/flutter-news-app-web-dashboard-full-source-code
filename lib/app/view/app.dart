@@ -21,6 +21,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
@@ -114,6 +115,9 @@ class App extends StatelessWidget {
         RepositoryProvider.value(
           value: _pendingDeletionsService,
         ),
+        RepositoryProvider<PendingUpdatesService>(
+          create: (context) => PendingUpdatesServiceImpl(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -186,6 +190,7 @@ class App extends StatelessWidget {
               reportsRepository: context.read<DataRepository<Report>>(),
               appReviewsRepository: context.read<DataRepository<AppReview>>(),
               communityFilterBloc: context.read<CommunityFilterBloc>(),
+              pendingUpdatesService: context.read<PendingUpdatesService>(),
             ),
           ),
         ],
