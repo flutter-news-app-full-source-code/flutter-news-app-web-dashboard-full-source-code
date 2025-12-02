@@ -99,4 +99,33 @@ class SourcesFilterBloc extends Bloc<SourcesFilterEvent, SourcesFilterState> {
   ) {
     emit(const SourcesFilterState());
   }
+
+  /// Builds the filter map for the data repository query.
+  Map<String, dynamic> buildFilterMap() {
+    final filter = <String, dynamic>{'status': state.selectedStatus.name};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter[r'$or'] = [
+        {
+          'name': {r'$regex': state.searchQuery, r'$options': 'i'},
+        },
+        {'_id': state.searchQuery},
+      ];
+    }
+
+    if (state.selectedSourceTypes.isNotEmpty) {
+      filter['sourceType'] = {
+        r'$in': state.selectedSourceTypes.map((t) => t.name).toList(),
+      };
+    }
+    if (state.selectedLanguageCodes.isNotEmpty) {
+      filter['language.code'] = {r'$in': state.selectedLanguageCodes};
+    }
+    if (state.selectedHeadquartersCountryIds.isNotEmpty) {
+      filter['headquarters.id'] = {
+        r'$in': state.selectedHeadquartersCountryIds,
+      };
+    }
+    return filter;
+  }
 }

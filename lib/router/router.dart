@@ -12,6 +12,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/view/community_management_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/community_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -98,6 +100,7 @@ GoRouter createRouter({
           Routes.overviewName: Routes.overview,
           Routes.contentManagementName: Routes.contentManagement,
           Routes.userManagementName: Routes.userManagement,
+          Routes.communityManagementName: Routes.communityManagement,
           Routes.appConfigurationName: Routes.appConfiguration,
         };
 
@@ -367,6 +370,27 @@ GoRouter createRouter({
                               ),
                           child: const UserFilterDialog(),
                         ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.communityManagement,
+                name: Routes.communityManagementName,
+                builder: (context, state) => const CommunityManagementPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.communityFilterDialog,
+                    name: Routes.communityFilterDialogName,
+                    pageBuilder: (context, state) {
+                      return const MaterialPage(
+                        fullscreenDialog: true,
+                        child: CommunityFilterDialog(),
                       );
                     },
                   ),

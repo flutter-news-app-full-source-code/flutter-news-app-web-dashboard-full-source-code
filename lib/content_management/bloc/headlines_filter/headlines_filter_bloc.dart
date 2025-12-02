@@ -116,4 +116,34 @@ class HeadlinesFilterBloc
   ) {
     emit(const HeadlinesFilterState());
   }
+
+  /// Builds the filter map for the data repository query.
+  Map<String, dynamic> buildFilterMap() {
+    final filter = <String, dynamic>{'status': state.selectedStatus.name};
+
+    if (state.searchQuery.isNotEmpty) {
+      filter[r'$or'] = [
+        {
+          'title': {r'$regex': state.searchQuery, r'$options': 'i'},
+        },
+        {'_id': state.searchQuery},
+      ];
+    }
+
+    if (state.selectedSourceIds.isNotEmpty) {
+      filter['source.id'] = {r'$in': state.selectedSourceIds};
+    }
+    if (state.selectedTopicIds.isNotEmpty) {
+      filter['topic.id'] = {r'$in': state.selectedTopicIds};
+    }
+    if (state.selectedCountryIds.isNotEmpty) {
+      filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
+    }
+    if (state.isBreaking != BreakingNewsFilterStatus.all) {
+      filter['isBreaking'] =
+          state.isBreaking == BreakingNewsFilterStatus.breakingOnly;
+    }
+
+    return filter;
+  }
 }

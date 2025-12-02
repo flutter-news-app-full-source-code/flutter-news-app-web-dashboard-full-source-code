@@ -11,6 +11,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/app_environment.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -19,6 +21,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
@@ -41,6 +44,9 @@ class App extends StatelessWidget {
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required DataRepository<User> usersRepository,
+    required DataRepository<Engagement> engagementsRepository,
+    required DataRepository<Report> reportsRepository,
+    required DataRepository<AppReview> appReviewsRepository,
     required KVStorageService storageService,
     required AppEnvironment environment,
     required PendingDeletionsService pendingDeletionsService,
@@ -57,6 +63,9 @@ class App extends StatelessWidget {
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
        _usersRepository = usersRepository,
+       _engagementsRepository = engagementsRepository,
+       _reportsRepository = reportsRepository,
+       _appReviewsRepository = appReviewsRepository,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
 
@@ -72,6 +81,9 @@ class App extends StatelessWidget {
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
   final DataRepository<User> _usersRepository;
+  final DataRepository<Engagement> _engagementsRepository;
+  final DataRepository<Report> _reportsRepository;
+  final DataRepository<AppReview> _appReviewsRepository;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
 
@@ -93,12 +105,18 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _usersRepository),
+        RepositoryProvider.value(value: _engagementsRepository),
+        RepositoryProvider.value(value: _reportsRepository),
+        RepositoryProvider.value(value: _appReviewsRepository),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
           create: (context) => const ThrottledFetchingService(),
         ),
         RepositoryProvider.value(
           value: _pendingDeletionsService,
+        ),
+        RepositoryProvider<PendingUpdatesService>(
+          create: (context) => PendingUpdatesServiceImpl(),
         ),
       ],
       child: MultiBlocProvider(
@@ -161,6 +179,18 @@ class App extends StatelessWidget {
             create: (context) => UserManagementBloc(
               usersRepository: context.read<DataRepository<User>>(),
               userFilterBloc: context.read<UserFilterBloc>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => CommunityFilterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => CommunityManagementBloc(
+              engagementsRepository: context.read<DataRepository<Engagement>>(),
+              reportsRepository: context.read<DataRepository<Report>>(),
+              appReviewsRepository: context.read<DataRepository<AppReview>>(),
+              communityFilterBloc: context.read<CommunityFilterBloc>(),
+              pendingUpdatesService: context.read<PendingUpdatesService>(),
             ),
           ),
         ],

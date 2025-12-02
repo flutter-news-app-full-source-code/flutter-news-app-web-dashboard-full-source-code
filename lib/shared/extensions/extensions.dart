@@ -1,11 +1,17 @@
 export 'ad_platform_type_l10n.dart';
 export 'ad_type_l10n.dart';
+export 'app_review_feedback_extension.dart';
 export 'app_user_role_l10n.dart';
 export 'banner_ad_shape_l10n.dart';
 export 'content_status_l10n.dart';
 export 'dashboard_user_role_l10n.dart';
+export 'engagement_mode_l10n.dart';
 export 'feed_decorator_type_l10n.dart';
+export 'feed_item_click_behavior_l10n.dart';
+export 'moderation_status_l10n.dart';
 export 'push_notification_provider_l10n.dart';
 export 'push_notification_subscription_delivery_type_l10n.dart';
+export 'report_reason_extension.dart';
+export 'reportable_entity_extension.dart';
 export 'source_type_l10n.dart';
 export 'string_truncate.dart';

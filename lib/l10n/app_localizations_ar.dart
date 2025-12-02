@@ -1313,10 +1313,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchByHeadlineTitle => 'البحث بعنوان الخبر...';
 
   @override
-  String get searchByTopicName => 'البحث باسم الموضوع...';
+  String get searchByTopicName => 'البحث بالاسم أو المعرف...';
 
   @override
-  String get searchBySourceName => 'البحث باسم المصدر...';
+  String get searchBySourceName => 'البحث بالاسم أو المعرف...';
 
   @override
   String get selectSources => 'اختر المصادر';
@@ -1396,7 +1396,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filterUsers => 'تصفية المستخدمين';
 
   @override
-  String get searchByUserEmail => 'البحث بالبريد الإلكتروني للمستخدم...';
+  String get searchByUserEmail => 'البحث بالبريد الإلكتروني أو المعرف...';
 
   @override
   String get selectAppRoles => 'اختر أدوار التطبيق';
@@ -1802,4 +1802,326 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get enableCommunityFeaturesDescription =>
       'ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.';
+
+  @override
+  String get communityManagementPageDescription =>
+      'إدارة المحتوى الذي ينشئه المستخدمون بما في ذلك التفاعلات (ردود الفعل والتعليقات) وتبليغات المحتوى ومراجعات التطبيق.';
+
+  @override
+  String get engagements => 'التفاعلات';
+
+  @override
+  String get reports => 'التبليغات';
+
+  @override
+  String get appReviews => 'مراجعات التطبيق';
+
+  @override
+  String get user => 'المستخدم';
+
+  @override
+  String get engagedContent => 'المحتوى المتفاعل معه';
+
+  @override
+  String get reaction => 'رد الفعل';
+
+  @override
+  String get comment => 'التعليق';
+
+  @override
+  String get commentStatus => 'حالة التعليق';
+
+  @override
+  String get date => 'التاريخ';
+
+  @override
+  String get approveComment => 'الموافقة على التعليق';
+
+  @override
+  String get rejectComment => 'رفض التعليق';
+
+  @override
+  String get viewEngagedContent => 'عرض المحتوى';
+
+  @override
+  String get copyUserId => 'نسخ معرف المستخدم';
+
+  @override
+  String get reporter => 'المبلغ';
+
+  @override
+  String get reportedItem => 'العنصر المبلغ عنه';
+
+  @override
+  String get reason => 'السبب';
+
+  @override
+  String get reportStatus => 'حالة البلاغ';
+
+  @override
+  String get viewReportedItem => 'عرض العنصر';
+
+  @override
+  String get markAsInReview => 'وضع علامة \'قيد المراجعة\'';
+
+  @override
+  String get resolveReport => 'حل البلاغ';
+
+  @override
+  String get initialFeedback => 'التقييم الأولي';
+
+  @override
+  String get osPromptRequested => 'طُلب تقييم النظام؟';
+
+  @override
+  String get feedbackHistory => 'سجل التقييمات';
+
+  @override
+  String get lastInteraction => 'آخر تفاعل';
+
+  @override
+  String get viewFeedbackHistory => 'عرض السجل';
+
+  @override
+  String get reactionTypeLike => 'إعجاب';
+
+  @override
+  String get reactionTypeInsightful => 'ثاقب';
+
+  @override
+  String get reactionTypeAmusing => 'مسلي';
+
+  @override
+  String get reactionTypeSad => 'حزين';
+
+  @override
+  String get reactionTypeAngry => 'غاضب';
+
+  @override
+  String get reactionTypeSkeptical => 'متشكك';
+
+  @override
+  String get initialAppReviewFeedbackPositive => 'إيجابي';
+
+  @override
+  String get initialAppReviewFeedbackNegative => 'سلبي';
+
+  @override
+  String get filterCommunity => 'تصفية محتوى المجتمع';
+
+  @override
+  String get searchByEngagementUser => 'البحث بالبريد الإلكتروني للمستخدم...';
+
+  @override
+  String get searchByReportReporter => 'البحث بالبريد الإلكتروني للمبلغ...';
+
+  @override
+  String get searchByAppReviewUser => 'البحث بالبريد الإلكتروني للمستخدم...';
+
+  @override
+  String get selectCommentStatus => 'اختر حالة التعليق';
+
+  @override
+  String get selectReportStatus => 'اختر حالة البلاغ';
+
+  @override
+  String get selectInitialFeedback => 'اختر التقييم الأولي';
+
+  @override
+  String get selectReportableEntity => 'اختر نوع العنصر المبلغ عنه';
+
+  @override
+  String get reportableEntityHeadline => 'عنوان';
+
+  @override
+  String get reportableEntitySource => 'مصدر';
+
+  @override
+  String get reportableEntityComment => 'تعليق';
+
+  @override
+  String get noEngagementsFound => 'لم يتم العثور على تفاعلات.';
+
+  @override
+  String get noReportsFound => 'لم يتم العثور على بلاغات.';
+
+  @override
+  String get noAppReviewsFound => 'لم يتم العثور على مراجعات للتطبيق.';
+
+  @override
+  String get loadingEngagements => 'جاري تحميل التفاعلات';
+
+  @override
+  String get loadingReports => 'جاري تحميل البلاغات';
+
+  @override
+  String get loadingAppReviews => 'جاري تحميل مراجعات التطبيق';
+
+  @override
+  String get userIdCopied => 'تم نسخ معرف المستخدم إلى الحافظة.';
+
+  @override
+  String get reportStatusUpdated => 'تم تحديث حالة البلاغ.';
+
+  @override
+  String feedbackHistoryForUser(String email) {
+    return 'سجل التقييمات للمستخدم $email';
+  }
+
+  @override
+  String get noFeedbackHistory => 'لا يوجد سجل تقييمات متاح لهذا المستخدم.';
+
+  @override
+  String feedbackProvidedAt(String date) {
+    return 'تم تقديم التقييم في: $date';
+  }
+
+  @override
+  String feedbackReason(String reason) {
+    return 'السبب: $reason';
+  }
+
+  @override
+  String get noReasonProvided => 'لم يتم تقديم سبب.';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
+
+  @override
+  String get reportReasonMisinformationOrFakeNews =>
+      'معلومات مضللة / أخبار كاذبة';
+
+  @override
+  String get reportReasonClickbaitTitle => 'عنوان مضلل';
+
+  @override
+  String get reportReasonOffensiveOrHateSpeech => 'محتوى مسيء / خطاب كراهية';
+
+  @override
+  String get reportReasonSpamOrScam => 'بريد مزعج / احتيال';
+
+  @override
+  String get reportReasonBrokenLink => 'رابط معطل';
+
+  @override
+  String get reportReasonPaywalled => 'يتطلب اشتراكًا مدفوعًا';
+
+  @override
+  String get reportReasonLowQualityJournalism => 'صحافة منخفضة الجودة';
+
+  @override
+  String get reportReasonHighAdDensity => 'كثافة إعلانات عالية';
+
+  @override
+  String get reportReasonBlog => 'مدونة';
+
+  @override
+  String get reportReasonGovernmentSource => 'مصدر حكومي';
+
+  @override
+  String get reportReasonAggregator => 'مجمع أخبار';
+
+  @override
+  String get reportReasonOther => 'آخر';
+
+  @override
+  String get reportReasonFrequentPaywalls => 'اشتراكات مدفوعة متكررة';
+
+  @override
+  String get reportReasonImpersonation => 'انتحال شخصية';
+
+  @override
+  String get noNegativeFeedbackHistory =>
+      'لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.';
+
+  @override
+  String get reject => 'رفض';
+
+  @override
+  String get commentStatusFlaggedByAi => 'تم الإبلاغ بواسطة الذكاء الاصطناعي';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get rejectCommentConfirmation =>
+      'هل أنت متأكد أنك تريد رفض وحذف هذا التعليق نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get searchByUserId => 'ابحث باستخدام معرّف المستخدم...';
+
+  @override
+  String get viewReportedHeadline => 'عرض العنوان';
+
+  @override
+  String get viewReportedSource => 'عرض المصدر';
+
+  @override
+  String get viewReportedComment => 'عرض التعليق';
+
+  @override
+  String get entityType => 'نوع الكيان';
+
+  @override
+  String get feedback => 'التقييم';
+
+  @override
+  String get feedbackDetails => 'تفاصيل التقييم';
+
+  @override
+  String get moderationStatusPendingReview => 'قيد المراجعة';
+
+  @override
+  String get moderationStatusResolved => 'تم الحل';
+
+  @override
+  String get hasComment => 'يحتوي على تعليق';
+
+  @override
+  String get any => 'الكل';
+
+  @override
+  String get withComment => 'مع تعليق';
+
+  @override
+  String get withoutComment => 'بدون تعليق';
+
+  @override
+  String get reportResolved => 'تم حل البلاغ.';
+
+  @override
+  String get commentApproved => 'تمت الموافقة على التعليق.';
+
+  @override
+  String get commentRejected => 'تم رفض التعليق.';
+
+  @override
+  String get copyHeadlineId => 'نسخ معرّف العنوان';
+
+  @override
+  String get copyReportedItemId => 'نسخ معرّف العنصر المُبلغ عنه';
+
+  @override
+  String get viewFeedbackDetails => 'عرض تفاصيل التقييم';
+
+  @override
+  String get reportDetails => 'تفاصيل البلاغ';
+
+  @override
+  String get commentDetails => 'تفاصيل التعليق';
+
+  @override
+  String get communityManagement => 'إدارة المجتمع';
+
+  @override
+  String get navContent => 'المحتوى';
+
+  @override
+  String get navUsers => 'المستخدمون';
+
+  @override
+  String get navCommunity => 'المجتمع';
 }
