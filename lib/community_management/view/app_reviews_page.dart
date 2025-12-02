@@ -229,18 +229,18 @@ class _AppReviewsDataSource extends DataTableSource {
     final colorScheme = Theme.of(context).colorScheme;
     switch (feedback) {
       case AppReviewFeedback.positive:
-        return colorScheme.primaryContainer.withOpacity(0.5);
+        return colorScheme.primaryContainer;
       case AppReviewFeedback.negative:
-        return colorScheme.errorContainer.withOpacity(0.5);
+        return colorScheme.errorContainer;
     }
   }
 
   IconData _getFeedbackIcon(AppReviewFeedback feedback) {
     switch (feedback) {
       case AppReviewFeedback.positive:
-        return Icons.thumb_up_outlined;
+        return Icons.thumb_up;
       case AppReviewFeedback.negative:
-        return Icons.thumb_down_outlined;
+        return Icons.thumb_down;
     }
   }
 }
