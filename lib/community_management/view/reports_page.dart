@@ -195,8 +195,7 @@ class _ReportsDataSource extends DataTableSource {
         DataCell(
           Chip(
             label: Text(report.entityType.l10n(context)),
-            backgroundColor:
-                Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.5),
+            backgroundColor: _getEntityTypeColor(context, report.entityType),
             side: BorderSide.none,
             visualDensity: VisualDensity.compact,
           ),
@@ -217,4 +216,19 @@ class _ReportsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+
+  Color? _getEntityTypeColor(
+    BuildContext context,
+    ReportableEntity entityType,
+  ) {
+    final colorScheme = Theme.of(context).colorScheme;
+    switch (entityType) {
+      case ReportableEntity.headline:
+        return colorScheme.primaryContainer.withOpacity(0.5);
+      case ReportableEntity.source:
+        return colorScheme.secondaryContainer.withOpacity(0.5);
+      case ReportableEntity.engagement:
+        return colorScheme.tertiaryContainer.withOpacity(0.5);
+    }
+  }
 }
