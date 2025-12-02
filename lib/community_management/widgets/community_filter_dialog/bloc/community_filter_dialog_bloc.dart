@@ -17,8 +17,9 @@ class CommunityFilterDialogBloc
       ) {
     on<CommunityFilterDialogInitialized>(_onFilterDialogInitialized);
     on<CommunityFilterDialogSearchQueryChanged>(_onSearchQueryChanged);
-    on<CommunityFilterDialogCommentStatusChanged>(_onCommentStatusChanged);
-    on<CommunityFilterDialogReportStatusChanged>(_onReportStatusChanged);
+    on<CommunityFilterDialogModerationStatusChanged>(
+      _onModerationStatusChanged,
+    );
     on<CommunityFilterDialogReportableEntityChanged>(
       _onReportableEntityChanged,
     );
@@ -35,8 +36,8 @@ class CommunityFilterDialogBloc
     emit(
       state.copyWith(
         searchQuery: event.communityFilterState.searchQuery,
-        selectedCommentStatus: event.communityFilterState.selectedCommentStatus,
-        selectedReportStatus: event.communityFilterState.selectedReportStatus,
+        selectedModerationStatus:
+            event.communityFilterState.selectedModerationStatus,
         selectedReportableEntity:
             event.communityFilterState.selectedReportableEntity,
         selectedAppReviewFeedback:
@@ -52,18 +53,11 @@ class CommunityFilterDialogBloc
     emit(state.copyWith(searchQuery: event.query));
   }
 
-  void _onCommentStatusChanged(
-    CommunityFilterDialogCommentStatusChanged event,
+  void _onModerationStatusChanged(
+    CommunityFilterDialogModerationStatusChanged event,
     Emitter<CommunityFilterDialogState> emit,
   ) {
-    emit(state.copyWith(selectedCommentStatus: event.commentStatus));
-  }
-
-  void _onReportStatusChanged(
-    CommunityFilterDialogReportStatusChanged event,
-    Emitter<CommunityFilterDialogState> emit,
-  ) {
-    emit(state.copyWith(selectedReportStatus: event.reportStatus));
+    emit(state.copyWith(selectedModerationStatus: event.moderationStatus));
   }
 
   void _onReportableEntityChanged(
