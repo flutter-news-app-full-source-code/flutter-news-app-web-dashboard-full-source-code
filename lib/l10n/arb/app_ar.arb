@@ -1654,11 +1654,11 @@
   "@searchByHeadlineTitle": {
     "description": "نص تلميح حقل البحث عن العناوين."
   },
-  "searchByTopicName": "البحث باسم الموضوع...",
+  "searchByTopicName": "البحث بالاسم أو المعرف...",
   "@searchByTopicName": {
     "description": "نص تلميح حقل البحث عن المواضيع."
   },
-  "searchBySourceName": "البحث باسم المصدر...",
+  "searchBySourceName": "البحث بالاسم أو المعرف...",
   "@searchBySourceName": {
     "description": "نص تلميح حقل البحث عن المصادر."
   },
@@ -1766,7 +1766,7 @@
   "@filterUsers": {
     "description": "عنوان مربع حوار التصفية عند تصفية المستخدمين."
   },
-  "searchByUserEmail": "البحث بالبريد الإلكتروني للمستخدم...",
+  "searchByUserEmail": "البحث بالبريد الإلكتروني أو المعرف...",
   "@searchByUserEmail": {
     "description": "نص تلميح حقل البحث عن المستخدم."
   },

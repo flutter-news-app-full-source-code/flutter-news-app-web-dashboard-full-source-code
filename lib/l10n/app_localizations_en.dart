@@ -1315,10 +1315,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchByHeadlineTitle => 'Search by headline title...';
 
   @override
-  String get searchByTopicName => 'Search by topic name...';
+  String get searchByTopicName => 'Search by Name or ID...';
 
   @override
-  String get searchBySourceName => 'Search by source name...';
+  String get searchBySourceName => 'Search by Name or ID...';
 
   @override
   String get selectSources => 'Select Sources';
@@ -1398,7 +1398,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterUsers => 'Filter Users';
 
   @override
-  String get searchByUserEmail => 'Search by user email...';
+  String get searchByUserEmail => 'Search by Email or ID...';
 
   @override
   String get selectAppRoles => 'Select App Roles';

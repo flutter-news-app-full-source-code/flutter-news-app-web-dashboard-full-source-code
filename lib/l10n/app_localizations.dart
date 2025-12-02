@@ -2459,13 +2459,13 @@ abstract class AppLocalizations {
   /// Hint text for the topic search field.
   ///
   /// In en, this message translates to:
-  /// **'Search by topic name...'**
+  /// **'Search by Name or ID...'**
   String get searchByTopicName;
 
   /// Hint text for the source search field.
   ///
   /// In en, this message translates to:
-  /// **'Search by source name...'**
+  /// **'Search by Name or ID...'**
   String get searchBySourceName;
 
   /// Hint text for selecting sources in a filter dialog.
@@ -2621,7 +2621,7 @@ abstract class AppLocalizations {
   /// Hint text for the user search field.
   ///
   /// In en, this message translates to:
-  /// **'Search by user email...'**
+  /// **'Search by Email or ID...'**
   String get searchByUserEmail;
 
   /// Hint text for selecting app roles in a filter dialog.

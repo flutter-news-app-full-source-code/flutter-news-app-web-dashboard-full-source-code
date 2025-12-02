@@ -1313,10 +1313,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchByHeadlineTitle => 'البحث بعنوان الخبر...';
 
   @override
-  String get searchByTopicName => 'البحث باسم الموضوع...';
+  String get searchByTopicName => 'البحث بالاسم أو المعرف...';
 
   @override
-  String get searchBySourceName => 'البحث باسم المصدر...';
+  String get searchBySourceName => 'البحث بالاسم أو المعرف...';
 
   @override
   String get selectSources => 'اختر المصادر';
@@ -1396,7 +1396,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filterUsers => 'تصفية المستخدمين';
 
   @override
-  String get searchByUserEmail => 'البحث بالبريد الإلكتروني للمستخدم...';
+  String get searchByUserEmail => 'البحث بالبريد الإلكتروني أو المعرف...';
 
   @override
   String get selectAppRoles => 'اختر أدوار التطبيق';
