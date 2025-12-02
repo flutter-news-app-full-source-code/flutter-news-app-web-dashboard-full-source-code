@@ -12,10 +12,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/view/community_management_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/bloc/community_filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/community_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
@@ -391,24 +388,9 @@ GoRouter createRouter({
                     path: Routes.communityFilterDialog,
                     name: Routes.communityFilterDialogName,
                     pageBuilder: (context, state) {
-                      final args = state.extra! as Map<String, dynamic>;
-                      final activeTab =
-                          args['activeTab'] as CommunityManagementTab;
-
-                      return MaterialPage(
+                      return const MaterialPage(
                         fullscreenDialog: true,
-                        child: BlocProvider<CommunityFilterDialogBloc>(
-                          create: (providerContext) =>
-                              CommunityFilterDialogBloc()..add(
-                                CommunityFilterDialogInitialized(
-                                  activeTab: activeTab,
-                                  communityFilterState: providerContext
-                                      .read<CommunityFilterBloc>()
-                                      .state,
-                                ),
-                              ),
-                          child: const CommunityFilterDialog(),
-                        ),
+                        child: CommunityFilterDialog(),
                       );
                     },
                   ),
