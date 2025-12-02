@@ -33,7 +33,7 @@ class _ReportsPageState extends State<ReportsPage> {
 
   bool _areFiltersActive(CommunityFilterState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedReportStatus.isNotEmpty ||
+        state.selectedModerationStatus.isNotEmpty ||
         state.selectedReportableEntity.isNotEmpty;
   }
 
@@ -237,25 +237,24 @@ class _ReportsDataSource extends DataTableSource {
   @override
   int get selectedRowCount => 0;
 
-  Color? _getReportStatusColor(BuildContext context, ReportStatus status) {
+  Color? _getReportStatusColor(
+    BuildContext context,
+    ModerationStatus status,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
     switch (status) {
-      case ReportStatus.resolved:
+      case ModerationStatus.resolved:
         return colorScheme.primaryContainer.withOpacity(0.5);
-      case ReportStatus.submitted:
-        return colorScheme.tertiaryContainer.withOpacity(0.5);
-      case ReportStatus.inReview:
+      case ModerationStatus.pendingReview:
         return colorScheme.secondaryContainer.withOpacity(0.5);
     }
   }
 
-  IconData _getReportStatusIcon(ReportStatus status) {
+  IconData _getReportStatusIcon(ModerationStatus status) {
     switch (status) {
-      case ReportStatus.resolved:
+      case ModerationStatus.resolved:
         return Icons.check_circle_outline;
-      case ReportStatus.submitted:
-        return Icons.info_outline;
-      case ReportStatus.inReview:
+      case ModerationStatus.pendingReview:
         return Icons.hourglass_empty_outlined;
     }
   }
