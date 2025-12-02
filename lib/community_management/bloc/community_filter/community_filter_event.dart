@@ -10,23 +10,20 @@ abstract class CommunityFilterEvent extends Equatable {
 class CommunityFilterApplied extends CommunityFilterEvent {
   const CommunityFilterApplied({
     this.searchQuery = '',
-    this.selectedCommentStatus = const [],
-    this.selectedReportStatus = const [],
+    this.selectedModerationStatus = const [],
     this.selectedReportableEntity = const [],
     this.selectedAppReviewFeedback = const [],
   });
 
   final String searchQuery;
-  final List<CommentStatus> selectedCommentStatus;
-  final List<ReportStatus> selectedReportStatus;
+  final List<ModerationStatus> selectedModerationStatus;
   final List<ReportableEntity> selectedReportableEntity;
   final List<AppReviewFeedback> selectedAppReviewFeedback;
 
   @override
   List<Object?> get props => [
     searchQuery,
-    selectedCommentStatus,
-    selectedReportStatus,
+    selectedModerationStatus,
     selectedReportableEntity,
     selectedAppReviewFeedback,
   ];
