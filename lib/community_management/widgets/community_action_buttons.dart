@@ -182,21 +182,16 @@ class CommunityActionButtons<T> extends StatelessWidget {
     List<PopupMenuEntry<String>> overflowMenuItems,
   ) {
     // Primary Action
-    final hasDetails =
-        appReview.feedbackDetails != null &&
-        appReview.feedbackDetails!.isNotEmpty;
     visibleActions.add(
       IconButton(
         visualDensity: VisualDensity.compact,
         iconSize: 20,
         icon: const Icon(Icons.comment_outlined),
         tooltip: l10n.viewFeedbackDetails,
-        onPressed: hasDetails
-            ? () => showDialog<void>(
-                context: context,
-                builder: (_) => AppReviewDetailsDialog(appReview: appReview),
-              )
-            : null,
+        onPressed: () => showDialog<void>(
+          context: context,
+          builder: (_) => AppReviewDetailsDialog(appReview: appReview),
+        ),
       ),
     );
 
