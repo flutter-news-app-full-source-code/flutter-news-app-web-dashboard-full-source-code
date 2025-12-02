@@ -113,10 +113,6 @@ class _ReportsPageState extends State<ReportsPage> {
                     return PaginatedDataTable2(
                       columns: [
                         DataColumn2(
-                          label: Text(l10n.reporter),
-                          size: ColumnSize.L,
-                        ),
-                        DataColumn2(
                           label: Text(l10n.entityType),
                           size: ColumnSize.S,
                         ),
@@ -209,25 +205,28 @@ class _ReportsDataSource extends DataTableSource {
     return DataRow2(
       cells: [
         DataCell(
-          Text(report.reporterUserId, overflow: TextOverflow.ellipsis),
+          Chip(
+            label: Text(report.entityType.l10n(context)),
+            visualDensity: VisualDensity.compact,
+          ),
         ),
-        DataCell(Text(report.entityType.l10n(context))),
-        DataCell(Text(report.reason.l10n(context))),
+        DataCell(
+          Chip(
+            label: Text(report.reason.l10n(context)),
+            visualDensity: VisualDensity.compact,
+          ),
+        ),
         if (!isMobile)
           DataCell(
-            Row(
-              children: [
-                Icon(
-                  report.status == ReportStatus.resolved
-                      ? Icons.check_circle_outline
-                      : Icons.info_outline,
-                  color: report.status == ReportStatus.resolved
-                      ? Colors.green
-                      : Colors.orange,
-                ),
-                const SizedBox(width: AppSpacing.xs),
-                Text(report.status.l10n(context)),
-              ],
+            Chip(
+              avatar: Icon(
+                _getReportStatusIcon(report.status),
+                size: 16,
+              ),
+              label: Text(report.status.l10n(context)),
+              backgroundColor: _getReportStatusColor(context, report.status),
+              side: BorderSide.none,
+              visualDensity: VisualDensity.compact,
             ),
           ),
         if (!isMobile)
@@ -247,4 +246,27 @@ class _ReportsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+
+  Color? _getReportStatusColor(BuildContext context, ReportStatus status) {
+    final colorScheme = Theme.of(context).colorScheme;
+    switch (status) {
+      case ReportStatus.resolved:
+        return colorScheme.primaryContainer.withOpacity(0.5);
+      case ReportStatus.submitted:
+        return colorScheme.tertiaryContainer.withOpacity(0.5);
+      case ReportStatus.inReview:
+        return colorScheme.secondaryContainer.withOpacity(0.5);
+    }
+  }
+
+  IconData _getReportStatusIcon(ReportStatus status) {
+    switch (status) {
+      case ReportStatus.resolved:
+        return Icons.check_circle_outline;
+      case ReportStatus.submitted:
+        return Icons.info_outline;
+      case ReportStatus.inReview:
+        return Icons.hourglass_empty_outlined;
+    }
+  }
 }
