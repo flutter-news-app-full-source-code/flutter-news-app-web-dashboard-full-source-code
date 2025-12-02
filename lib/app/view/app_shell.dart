@@ -44,17 +44,17 @@ class AppShell extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.folder_open_outlined),
             selectedIcon: const Icon(Icons.folder),
-            label: l10n.contentManagement,
+            label: l10n.navContent,
           ),
           NavigationDestination(
             icon: const Icon(Icons.people_outline),
             selectedIcon: const Icon(Icons.people),
-            label: l10n.userManagement,
+            label: l10n.navUsers,
           ),
           NavigationDestination(
             icon: const Icon(Icons.forum_outlined),
             selectedIcon: const Icon(Icons.forum),
-            label: l10n.communityManagement,
+            label: l10n.navCommunity,
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
