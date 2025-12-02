@@ -59,7 +59,7 @@ class _CommunityManagementPageState extends State<CommunityManagementPage>
             communityManagementBloc.add(
               LoadEngagementsRequested(
                 filter: communityManagementBloc.buildEngagementsFilterMap(
-                  filterState,
+                  filterState.engagementsFilter,
                 ),
                 forceRefresh: true,
               ),
@@ -68,7 +68,7 @@ class _CommunityManagementPageState extends State<CommunityManagementPage>
             communityManagementBloc.add(
               LoadReportsRequested(
                 filter: communityManagementBloc.buildReportsFilterMap(
-                  filterState,
+                  filterState.reportsFilter,
                 ),
                 forceRefresh: true,
               ),
@@ -77,7 +77,7 @@ class _CommunityManagementPageState extends State<CommunityManagementPage>
             communityManagementBloc.add(
               LoadAppReviewsRequested(
                 filter: communityManagementBloc.buildAppReviewsFilterMap(
-                  filterState,
+                  filterState.appReviewsFilter,
                 ),
                 forceRefresh: true,
               ),

@@ -34,7 +34,9 @@ class CommunityManagementBloc
       _logger.info('Engagement updated, reloading engagements list.');
       add(
         LoadEngagementsRequested(
-          filter: buildEngagementsFilterMap(_communityFilterBloc.state),
+          filter: buildEngagementsFilterMap(
+            _communityFilterBloc.state.engagementsFilter,
+          ),
           forceRefresh: true,
         ),
       );
@@ -44,7 +46,7 @@ class CommunityManagementBloc
       _logger.info('Report updated, reloading reports list.');
       add(
         LoadReportsRequested(
-          filter: buildReportsFilterMap(_communityFilterBloc.state),
+          filter: buildReportsFilterMap(_communityFilterBloc.state.reportsFilter),
           forceRefresh: true,
         ),
       );
@@ -55,7 +57,9 @@ class CommunityManagementBloc
       _logger.info('AppReview updated, reloading app reviews list.');
       add(
         LoadAppReviewsRequested(
-          filter: buildAppReviewsFilterMap(_communityFilterBloc.state),
+          filter: buildAppReviewsFilterMap(
+            _communityFilterBloc.state.appReviewsFilter,
+          ),
           forceRefresh: true,
         ),
       );
@@ -80,48 +84,48 @@ class CommunityManagementBloc
     return super.close();
   }
 
-  Map<String, dynamic> buildEngagementsFilterMap(CommunityFilterState state) {
-    final filter = <String, dynamic>{};
-    if (state.searchQuery.isNotEmpty) {
-      filter['userId'] = state.searchQuery;
+  Map<String, dynamic> buildEngagementsFilterMap(EngagementsFilter filter) {
+    final filterMap = <String, dynamic>{};
+    if (filter.searchQuery != null && filter.searchQuery!.isNotEmpty) {
+      filterMap['userId'] = filter.searchQuery;
     }
-    if (state.selectedModerationStatus.isNotEmpty) {
-      filter['comment.status'] = {
-        r'$in': state.selectedModerationStatus.map((s) => s.name).toList(),
+    if (filter.selectedStatus != null) {
+      filterMap['comment.status'] = {
+        r'$in': [filter.selectedStatus!.name],
       };
     }
-    return filter;
+    return filterMap;
   }
 
-  Map<String, dynamic> buildReportsFilterMap(CommunityFilterState state) {
-    final filter = <String, dynamic>{};
-    if (state.searchQuery.isNotEmpty) {
-      filter['reporterUserId'] = state.searchQuery;
+  Map<String, dynamic> buildReportsFilterMap(ReportsFilter filter) {
+    final filterMap = <String, dynamic>{};
+    if (filter.searchQuery != null && filter.searchQuery!.isNotEmpty) {
+      filterMap['reporterUserId'] = filter.searchQuery;
     }
-    if (state.selectedModerationStatus.isNotEmpty) {
-      filter['status'] = {
-        r'$in': state.selectedModerationStatus.map((s) => s.name).toList(),
+    if (filter.selectedStatus != null) {
+      filterMap['status'] = {
+        r'$in': [filter.selectedStatus!.name],
       };
     }
-    if (state.selectedReportableEntity.isNotEmpty) {
-      filter['entityType'] = {
-        r'$in': state.selectedReportableEntity.map((e) => e.name).toList(),
+    if (filter.selectedReportableEntity != null) {
+      filterMap['entityType'] = {
+        r'$in': [filter.selectedReportableEntity!.name],
       };
     }
-    return filter;
+    return filterMap;
   }
 
-  Map<String, dynamic> buildAppReviewsFilterMap(CommunityFilterState state) {
-    final filter = <String, dynamic>{};
-    if (state.searchQuery.isNotEmpty) {
-      filter['userId'] = state.searchQuery;
+  Map<String, dynamic> buildAppReviewsFilterMap(AppReviewsFilter filter) {
+    final filterMap = <String, dynamic>{};
+    if (filter.searchQuery != null && filter.searchQuery!.isNotEmpty) {
+      filterMap['userId'] = filter.searchQuery;
     }
-    if (state.selectedAppReviewFeedback.isNotEmpty) {
-      filter['feedback'] = {
-        r'$in': state.selectedAppReviewFeedback.map((f) => f.name).toList(),
+    if (filter.selectedFeedback != null) {
+      filterMap['feedback'] = {
+        r'$in': [filter.selectedFeedback!.name],
       };
     }
-    return filter;
+    return filterMap;
   }
 
   void _onTabChanged(

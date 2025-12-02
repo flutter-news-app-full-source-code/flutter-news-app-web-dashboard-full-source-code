@@ -25,17 +25,11 @@ class _EngagementsPageState extends State<EngagementsPage> {
       LoadEngagementsRequested(
         limit: kDefaultRowsPerPage,
         filter: context
-            .read<CommunityManagementBloc>()
-            .buildEngagementsFilterMap(
-              context.read<CommunityFilterBloc>().state,
+            .read<CommunityManagementBloc>().buildEngagementsFilterMap(
+              context.read<CommunityFilterBloc>().state.engagementsFilter,
             ),
       ),
     );
-  }
-
-  bool _areFiltersActive(CommunityFilterState state) {
-    return state.searchQuery.isNotEmpty ||
-        state.selectedModerationStatus.isNotEmpty;
   }
 
   @override
@@ -45,10 +39,11 @@ class _EngagementsPageState extends State<EngagementsPage> {
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<CommunityManagementBloc, CommunityManagementState>(
         builder: (context, state) {
-          final communityFilterState = context
+          final filtersActive = context
               .watch<CommunityFilterBloc>()
-              .state;
-          final filtersActive = _areFiltersActive(communityFilterState);
+              .state
+              .engagementsFilter
+              .isFilterActive;
 
           if (state.engagementsStatus == CommunityManagementStatus.loading &&
               state.engagements.isEmpty) {
@@ -68,9 +63,8 @@ class _EngagementsPageState extends State<EngagementsPage> {
                   forceRefresh: true,
                   filter: context
                       .read<CommunityManagementBloc>()
-                      .buildEngagementsFilterMap(
-                        context.read<CommunityFilterBloc>().state,
-                      ),
+                      .buildEngagementsFilterMap(context
+                          .read<CommunityFilterBloc>().state.engagementsFilter),
                 ),
               ),
             );
@@ -152,9 +146,8 @@ class _EngagementsPageState extends State<EngagementsPage> {
                               limit: kDefaultRowsPerPage,
                               filter: context
                                   .read<CommunityManagementBloc>()
-                                  .buildEngagementsFilterMap(
-                                    context.read<CommunityFilterBloc>().state,
-                                  ),
+                                  .buildEngagementsFilterMap(context
+                                      .read<CommunityFilterBloc>().state.engagementsFilter),
                             ),
                           );
                         }

@@ -22,19 +22,14 @@ class _ReportsPageState extends State<ReportsPage> {
   void initState() {
     super.initState();
     context.read<CommunityManagementBloc>().add(
-      LoadReportsRequested(
-        limit: kDefaultRowsPerPage,
-        filter: context.read<CommunityManagementBloc>().buildReportsFilterMap(
-          context.read<CommunityFilterBloc>().state,
-        ),
-      ),
-    );
-  }
-
-  bool _areFiltersActive(CommunityFilterState state) {
-    return state.searchQuery.isNotEmpty ||
-        state.selectedModerationStatus.isNotEmpty ||
-        state.selectedReportableEntity.isNotEmpty;
+          LoadReportsRequested(
+            limit: kDefaultRowsPerPage,
+            filter: context
+                .read<CommunityManagementBloc>()
+                .buildReportsFilterMap(
+                    context.read<CommunityFilterBloc>().state.reportsFilter),
+          ),
+        );
   }
 
   @override
@@ -44,10 +39,11 @@ class _ReportsPageState extends State<ReportsPage> {
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<CommunityManagementBloc, CommunityManagementState>(
         builder: (context, state) {
-          final communityFilterState = context
+          final filtersActive = context
               .watch<CommunityFilterBloc>()
-              .state;
-          final filtersActive = _areFiltersActive(communityFilterState);
+              .state
+              .reportsFilter
+              .isFilterActive;
 
           if (state.reportsStatus == CommunityManagementStatus.loading &&
               state.reports.isEmpty) {
@@ -62,15 +58,16 @@ class _ReportsPageState extends State<ReportsPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<CommunityManagementBloc>().add(
-                LoadReportsRequested(
-                  limit: kDefaultRowsPerPage,
-                  forceRefresh: true,
-                  filter: context
-                      .read<CommunityManagementBloc>().buildReportsFilterMap(
-                        context.read<CommunityFilterBloc>().state,
-                      ),
-                ),
-              ),
+                    LoadReportsRequested(
+                      limit: kDefaultRowsPerPage,
+                      forceRefresh: true,
+                      filter: context
+                          .read<CommunityManagementBloc>()
+                          .buildReportsFilterMap(
+                            context.read<CommunityFilterBloc>().state.reportsFilter,
+                          ),
+                    ),
+                  ),
             );
           }
 
@@ -88,8 +85,8 @@ class _ReportsPageState extends State<ReportsPage> {
                     const SizedBox(height: AppSpacing.lg),
                     ElevatedButton(
                       onPressed: () => context.read<CommunityFilterBloc>().add(
-                        const CommunityFilterReset(),
-                      ),
+                            const CommunityFilterReset(),
+                          ),
                       child: Text(l10n.resetFiltersButtonText),
                     ),
                   ],
@@ -144,15 +141,17 @@ class _ReportsPageState extends State<ReportsPage> {
                             state.reportsStatus !=
                                 CommunityManagementStatus.loading) {
                           context.read<CommunityManagementBloc>().add(
-                            LoadReportsRequested(
-                              startAfterId: state.reportsCursor,
-                              limit: kDefaultRowsPerPage,
-                              filter: context
-                                  .read<CommunityManagementBloc>()
-                                  .buildReportsFilterMap(context
-                                      .read<CommunityFilterBloc>().state),
-                            ),
-                          );
+                                LoadReportsRequested(
+                                  startAfterId: state.reportsCursor,
+                                  limit: kDefaultRowsPerPage,
+                                  filter: context
+                                      .read<CommunityManagementBloc>()
+                                      .buildReportsFilterMap(context
+                                          .read<CommunityFilterBloc>()
+                                          .state
+                                          .reportsFilter),
+                                ),
+                              );
                         }
                       },
                       empty: Center(child: Text(l10n.noReportsFound)),

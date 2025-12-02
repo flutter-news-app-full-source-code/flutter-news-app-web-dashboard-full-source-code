@@ -23,15 +23,13 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
   void initState() {
     super.initState();
     context.read<CommunityManagementBloc>().add(
-      LoadAppReviewsRequested(
-        limit: kDefaultRowsPerPage,
-        filter: context
-            .read<CommunityManagementBloc>()
-            .buildAppReviewsFilterMap(
-              context.read<CommunityFilterBloc>().state,
-            ),
-      ),
-    );
+          LoadAppReviewsRequested(
+            limit: kDefaultRowsPerPage,
+            filter: context.read<CommunityManagementBloc>().buildAppReviewsFilterMap(
+                  context.read<CommunityFilterBloc>().state.appReviewsFilter,
+                ),
+          ),
+        );
   }
 
   @override
@@ -44,7 +42,8 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
           final filtersActive = context
               .watch<CommunityFilterBloc>()
               .state
-              .isAppReviewsFilterActive;
+              .appReviewsFilter
+              .isFilterActive;
 
           if (state.appReviewsStatus == CommunityManagementStatus.loading &&
               state.appReviews.isEmpty) {
@@ -59,16 +58,15 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<CommunityManagementBloc>().add(
-                LoadAppReviewsRequested(
-                  limit: kDefaultRowsPerPage,
-                  forceRefresh: true,
-                  filter: context
-                      .read<CommunityManagementBloc>()
-                      .buildAppReviewsFilterMap(
-                        context.read<CommunityFilterBloc>().state,
-                      ),
-                ),
-              ),
+                    LoadAppReviewsRequested(
+                      limit: kDefaultRowsPerPage,
+                      forceRefresh: true,
+                      filter: context
+                          .read<CommunityManagementBloc>()
+                          .buildAppReviewsFilterMap(
+                              context.read<CommunityFilterBloc>().state.appReviewsFilter),
+                    ),
+                  ),
             );
           }
 
@@ -86,8 +84,8 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                     const SizedBox(height: AppSpacing.lg),
                     ElevatedButton(
                       onPressed: () => context.read<CommunityFilterBloc>().add(
-                        const CommunityFilterReset(),
-                      ),
+                            const CommunityFilterReset(),
+                          ),
                       child: Text(l10n.resetFiltersButtonText),
                     ),
                   ],
@@ -137,16 +135,16 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                             state.appReviewsStatus !=
                                 CommunityManagementStatus.loading) {
                           context.read<CommunityManagementBloc>().add(
-                            LoadAppReviewsRequested(
-                              startAfterId: state.appReviewsCursor,
-                              limit: kDefaultRowsPerPage,
-                              filter: context
-                                  .read<CommunityManagementBloc>()
-                                  .buildAppReviewsFilterMap(
-                                    context.read<CommunityFilterBloc>().state,
-                                  ),
-                            ),
-                          );
+                                LoadAppReviewsRequested(
+                                  startAfterId: state.appReviewsCursor,
+                                  limit: kDefaultRowsPerPage,
+                                  filter: context
+                                      .read<CommunityManagementBloc>()
+                                      .buildAppReviewsFilterMap(
+                                        context.read<CommunityFilterBloc>().state.appReviewsFilter,
+                                      ),
+                                ),
+                              );
                         }
                       },
                       empty: Center(child: Text(l10n.noAppReviewsFound)),
