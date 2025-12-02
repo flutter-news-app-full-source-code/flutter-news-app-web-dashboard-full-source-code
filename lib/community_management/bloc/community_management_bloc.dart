@@ -109,7 +109,7 @@ class CommunityManagementBloc
   Map<String, dynamic> buildEngagementsFilterMap(CommunityFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
-      filter['userId'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+      filter['userId'] = state.searchQuery;
     }
     if (state.selectedCommentStatus.isNotEmpty) {
       filter['comment.status'] = {
@@ -122,10 +122,7 @@ class CommunityManagementBloc
   Map<String, dynamic> buildReportsFilterMap(CommunityFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
-      filter['reporterUserId'] = {
-        r'$regex': state.searchQuery,
-        r'$options': 'i',
-      };
+      filter['reporterUserId'] = state.searchQuery;
     }
     if (state.selectedReportStatus.isNotEmpty) {
       filter['status'] = {
@@ -143,7 +140,7 @@ class CommunityManagementBloc
   Map<String, dynamic> buildAppReviewsFilterMap(CommunityFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
-      filter['userId'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+      filter['userId'] = state.searchQuery;
     }
     if (state.selectedAppReviewFeedback.isNotEmpty) {
       filter['feedback'] = {
