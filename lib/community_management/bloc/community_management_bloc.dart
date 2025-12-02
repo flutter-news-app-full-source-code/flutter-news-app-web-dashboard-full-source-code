@@ -32,26 +32,30 @@ class CommunityManagementBloc
     _filterSubscription = _communityFilterBloc.stream.listen((filterState) {
       switch (state.activeTab) {
         case CommunityManagementTab.engagements:
-          add(
-            LoadEngagementsRequested(
-              filter: buildEngagementsFilterMap(filterState),
-              forceRefresh: true,
-            ),
-          );
+          if (filterState.engagementsFilter !=
+              _communityFilterBloc.state.engagementsFilter) {
+            add(
+              LoadEngagementsRequested(
+                filter: buildEngagementsFilterMap(
+                  filterState.engagementsFilter,
+                ),
+                forceRefresh: true,
+              ),
+            );
+          }
         case CommunityManagementTab.reports:
-          add(
-            LoadReportsRequested(
-              filter: buildReportsFilterMap(filterState),
-              forceRefresh: true,
-            ),
-          );
+          if (filterState.reportsFilter !=
+              _communityFilterBloc.state.reportsFilter) {
+            add(
+              LoadReportsRequested(
+                filter: buildReportsFilterMap(filterState.reportsFilter),
+                forceRefresh: true,
+              ),
+            );
+          }
         case CommunityManagementTab.appReviews:
-          add(
-            LoadAppReviewsRequested(
-              filter: buildAppReviewsFilterMap(filterState),
-              forceRefresh: true,
-            ),
-          );
+          // No filter changes to listen to for app reviews yet.
+          break;
       }
     });
 
@@ -66,7 +70,9 @@ class CommunityManagementBloc
             _logger.info('Engagement updated, reloading engagements list.');
             add(
               LoadEngagementsRequested(
-                filter: buildEngagementsFilterMap(_communityFilterBloc.state),
+                filter: buildEngagementsFilterMap(
+                  _communityFilterBloc.state.engagementsFilter,
+                ),
                 forceRefresh: true,
               ),
             );
@@ -74,7 +80,9 @@ class CommunityManagementBloc
             _logger.info('Report updated, reloading reports list.');
             add(
               LoadReportsRequested(
-                filter: buildReportsFilterMap(_communityFilterBloc.state),
+                filter: buildReportsFilterMap(
+                  _communityFilterBloc.state.reportsFilter,
+                ),
                 forceRefresh: true,
               ),
             );
@@ -82,7 +90,9 @@ class CommunityManagementBloc
             _logger.info('AppReview updated, reloading app reviews list.');
             add(
               LoadAppReviewsRequested(
-                filter: buildAppReviewsFilterMap(_communityFilterBloc.state),
+                filter: buildAppReviewsFilterMap(
+                  _communityFilterBloc.state.appReviewsFilter,
+                ),
                 forceRefresh: true,
               ),
             );
@@ -106,14 +116,14 @@ class CommunityManagementBloc
     return super.close();
   }
 
-  Map<String, dynamic> buildEngagementsFilterMap(CommunityFilterState state) {
+  Map<String, dynamic> buildEngagementsFilterMap(EngagementsFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
       filter['userId'] = state.searchQuery;
     }
-    if (state.selectedCommentStatus.isNotEmpty) {
+    if (state.selectedStatus.isNotEmpty) {
       filter['comment.status'] = {
-        r'$in': state.selectedCommentStatus.map((s) => s.name).toList(),
+        r'$in': state.selectedStatus.map((s) => s.name).toList(),
       };
     }
     if (state.hasComment == HasCommentFilter.withComment) {
@@ -128,14 +138,14 @@ class CommunityManagementBloc
     return filter;
   }
 
-  Map<String, dynamic> buildReportsFilterMap(CommunityFilterState state) {
+  Map<String, dynamic> buildReportsFilterMap(ReportsFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
       filter['reporterUserId'] = state.searchQuery;
     }
-    if (state.selectedReportStatus.isNotEmpty) {
+    if (state.selectedStatus.isNotEmpty) {
       filter['status'] = {
-        r'$in': state.selectedReportStatus.map((s) => s.name).toList(),
+        r'$in': state.selectedStatus.map((s) => s.name).toList(),
       };
     }
     if (state.selectedReportableEntity.isNotEmpty) {
@@ -146,14 +156,14 @@ class CommunityManagementBloc
     return filter;
   }
 
-  Map<String, dynamic> buildAppReviewsFilterMap(CommunityFilterState state) {
+  Map<String, dynamic> buildAppReviewsFilterMap(AppReviewsFilterState state) {
     final filter = <String, dynamic>{};
     if (state.searchQuery.isNotEmpty) {
       filter['userId'] = state.searchQuery;
     }
-    if (state.selectedAppReviewFeedback.isNotEmpty) {
+    if (state.selectedFeedback.isNotEmpty) {
       filter['feedback'] = {
-        r'$in': state.selectedAppReviewFeedback.map((f) => f.name).toList(),
+        r'$in': state.selectedFeedback.map((f) => f.name).toList(),
       };
     }
     return filter;
