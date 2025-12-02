@@ -2100,4 +2100,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moderationStatusResolved => 'Resolved';
+
+  @override
+  String get hasComment => 'Has Comment';
+
+  @override
+  String get any => 'Any';
+
+  @override
+  String get withComment => 'With Comment';
+
+  @override
+  String get withoutComment => 'Without Comment';
 }

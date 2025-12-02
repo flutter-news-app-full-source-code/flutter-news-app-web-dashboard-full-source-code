@@ -2094,4 +2094,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get moderationStatusResolved => 'تم الحل';
+
+  @override
+  String get hasComment => 'يحتوي على تعليق';
+
+  @override
+  String get any => 'الكل';
+
+  @override
+  String get withComment => 'مع تعليق';
+
+  @override
+  String get withoutComment => 'بدون تعليق';
 }

@@ -2640,5 +2640,21 @@
   "moderationStatusResolved": "تم الحل",
   "@moderationStatusResolved": {
     "description": "Moderation status: A decision has been made on the item."
+  },
+  "hasComment": "يحتوي على تعليق",
+  "@hasComment": {
+    "description": "تسمية لخيار تصفية لإظهار العناصر التي تحتوي على تعليق."
+  },
+  "any": "الكل",
+  "@any": {
+    "description": "خيار تصفية لإظهار العناصر بغض النظر عن خاصية معينة (على سبيل المثال، إظهار العناصر مع أو بدون تعليقات)."
+  },
+  "withComment": "مع تعليق",
+  "@withComment": {
+    "description": "خيار تصفية لإظهار العناصر التي تحتوي على تعليق فقط."
+  },
+  "withoutComment": "بدون تعليق",
+  "@withoutComment": {
+    "description": "خيار تصفية لإظهار العناصر التي لا تحتوي على تعليق فقط."
   }
 }

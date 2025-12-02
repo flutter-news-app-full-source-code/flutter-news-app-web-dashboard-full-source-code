@@ -2636,5 +2636,21 @@
   "moderationStatusResolved": "Resolved",
   "@moderationStatusResolved": {
     "description": "Moderation status: A decision has been made on the item."
+  },
+  "hasComment": "Has Comment",
+  "@hasComment": {
+    "description": "Label for a filter option to show items that have a comment."
+  },
+  "any": "Any",
+  "@any": {
+    "description": "Filter option to show items regardless of a certain property (e.g., show items with or without comments)."
+  },
+  "withComment": "With Comment",
+  "@withComment": {
+    "description": "Filter option to show only items that have a comment."
+  },
+  "withoutComment": "Without Comment",
+  "@withoutComment": {
+    "description": "Filter option to show only items that do not have a comment."
   }
 }

@@ -3907,6 +3907,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resolved'**
   String get moderationStatusResolved;
+
+  /// Label for a filter option to show items that have a comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Has Comment'**
+  String get hasComment;
+
+  /// Filter option to show items regardless of a certain property (e.g., show items with or without comments).
+  ///
+  /// In en, this message translates to:
+  /// **'Any'**
+  String get any;
+
+  /// Filter option to show only items that have a comment.
+  ///
+  /// In en, this message translates to:
+  /// **'With Comment'**
+  String get withComment;
+
+  /// Filter option to show only items that do not have a comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Without Comment'**
+  String get withoutComment;
 }
 
 class _AppLocalizationsDelegate
