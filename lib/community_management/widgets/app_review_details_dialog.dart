@@ -13,14 +13,23 @@ class AppReviewDetailsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
     final details = appReview.feedbackDetails;
 
     return AlertDialog(
       title: Text(l10n.feedbackDetails),
-      content: SizedBox(
-        width: double.maxFinite,
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400, maxHeight: 300),
         child: SingleChildScrollView(
-          child: Text(details ?? l10n.noReasonProvided),
+          child: Text(
+            details ?? l10n.noReasonProvided,
+            style: (details == null)
+                ? theme.textTheme.bodyLarge?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  )
+                : theme.textTheme.bodyLarge,
+          ),
         ),
       ),
       actions: [

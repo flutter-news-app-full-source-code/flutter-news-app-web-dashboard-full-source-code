@@ -23,8 +23,8 @@ class ReportDetailsDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(l10n.reportDetails),
-      content: SizedBox(
-        width: double.maxFinite,
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400, maxHeight: 300),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,14 +32,16 @@ class ReportDetailsDialog extends StatelessWidget {
             children: [
               Text(
                 '${l10n.reason}: ${report.reason.l10n(context)}',
-                style: theme.textTheme.titleMedium,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               if (report.additionalComments != null &&
                   report.additionalComments!.isNotEmpty) ...[
                 const SizedBox(height: AppSpacing.md),
                 Text(
                   l10n.comment,
-                  style: theme.textTheme.titleSmall,
+                  style: theme.textTheme.labelMedium,
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(

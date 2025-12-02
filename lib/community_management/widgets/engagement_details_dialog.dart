@@ -24,8 +24,8 @@ class EngagementDetailsDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(l10n.commentDetails),
-      content: SizedBox(
-        width: double.maxFinite,
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400, maxHeight: 300),
         child: SingleChildScrollView(
           child: Text(
             engagement.comment?.content ?? l10n.noReasonProvided,
