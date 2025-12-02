@@ -113,9 +113,8 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                     final isMobile = constraints.maxWidth < 600;
                     return PaginatedDataTable2(
                       columns: [
-                        DataColumn2(label: Text(l10n.user), size: ColumnSize.L),
                         DataColumn2(
-                          label: Text(l10n.feedbackHistory),
+                          label: Text(l10n.feedback),
                           size: ColumnSize.M,
                         ),
                         if (!isMobile)
@@ -197,8 +196,17 @@ class _AppReviewsDataSource extends DataTableSource {
     final appReview = appReviews[index];
     return DataRow2(
       cells: [
-        DataCell(Text(appReview.userId, overflow: TextOverflow.ellipsis)),
-        DataCell(Text(appReview.feedback.l10n(context))),
+        DataCell(
+          Chip(
+            avatar: Icon(
+              _getFeedbackIcon(appReview.feedback),
+              size: 16,
+            ),
+            label: Text(appReview.feedback.l10n(context)),
+            backgroundColor: _getFeedbackColor(context, appReview.feedback),
+            side: BorderSide.none,
+          ),
+        ),
         if (!isMobile)
           DataCell(
             Text(
@@ -218,4 +226,23 @@ class _AppReviewsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+
+  Color? _getFeedbackColor(BuildContext context, AppReviewFeedback feedback) {
+    final colorScheme = Theme.of(context).colorScheme;
+    switch (feedback) {
+      case AppReviewFeedback.positive:
+        return colorScheme.primaryContainer.withOpacity(0.5);
+      case AppReviewFeedback.negative:
+        return colorScheme.errorContainer.withOpacity(0.5);
+    }
+  }
+
+  IconData _getFeedbackIcon(AppReviewFeedback feedback) {
+    switch (feedback) {
+      case AppReviewFeedback.positive:
+        return Icons.thumb_up_outlined;
+      case AppReviewFeedback.negative:
+        return Icons.thumb_down_outlined;
+    }
+  }
 }
