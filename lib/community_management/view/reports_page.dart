@@ -25,16 +25,10 @@ class _ReportsPageState extends State<ReportsPage> {
       LoadReportsRequested(
         limit: kDefaultRowsPerPage,
         filter: context.read<CommunityManagementBloc>().buildReportsFilterMap(
-          context.read<CommunityFilterBloc>().state,
+          context.read<CommunityFilterBloc>().state.reportsFilter,
         ),
       ),
     );
-  }
-
-  bool _areFiltersActive(CommunityFilterState state) {
-    return state.searchQuery.isNotEmpty ||
-        state.selectedReportStatus.isNotEmpty ||
-        state.selectedReportableEntity.isNotEmpty;
   }
 
   @override
@@ -47,7 +41,8 @@ class _ReportsPageState extends State<ReportsPage> {
           final communityFilterState = context
               .watch<CommunityFilterBloc>()
               .state;
-          final filtersActive = _areFiltersActive(communityFilterState);
+          final filtersActive =
+              communityFilterState.reportsFilter.isFilterActive;
 
           if (state.reportsStatus == CommunityManagementStatus.loading &&
               state.reports.isEmpty) {
@@ -68,7 +63,7 @@ class _ReportsPageState extends State<ReportsPage> {
                   filter: context
                       .read<CommunityManagementBloc>()
                       .buildReportsFilterMap(
-                        context.read<CommunityFilterBloc>().state,
+                        context.read<CommunityFilterBloc>().state.reportsFilter,
                       ),
                 ),
               ),
@@ -151,7 +146,10 @@ class _ReportsPageState extends State<ReportsPage> {
                               filter: context
                                   .read<CommunityManagementBloc>()
                                   .buildReportsFilterMap(
-                                    context.read<CommunityFilterBloc>().state,
+                                    context
+                                        .read<CommunityFilterBloc>()
+                                        .state
+                                        .reportsFilter,
                                   ),
                             ),
                           );

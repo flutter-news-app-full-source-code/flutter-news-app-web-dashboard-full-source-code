@@ -4,49 +4,127 @@ enum HasCommentFilter { any, withComment, withoutComment }
 
 class CommunityFilterState extends Equatable {
   const CommunityFilterState({
-    this.searchQuery = '',
-    this.selectedCommentStatus = const [],
-    this.selectedReportStatus = const [],
-    this.selectedReportableEntity = const [],
-    this.selectedAppReviewFeedback = const [],
-    this.hasComment = HasCommentFilter.any,
+    this.engagementsFilter = const EngagementsFilterState(),
+    this.reportsFilter = const ReportsFilterState(),
+    this.appReviewsFilter = const AppReviewsFilterState(),
   });
 
-  final String searchQuery;
-  final List<ModerationStatus> selectedCommentStatus;
-  final List<ModerationStatus> selectedReportStatus;
-  final List<ReportableEntity> selectedReportableEntity;
-  final List<AppReviewFeedback> selectedAppReviewFeedback;
-  final HasCommentFilter hasComment;
+  final EngagementsFilterState engagementsFilter;
+  final ReportsFilterState reportsFilter;
+  final AppReviewsFilterState appReviewsFilter;
 
   CommunityFilterState copyWith({
-    String? searchQuery,
-    List<ModerationStatus>? selectedCommentStatus,
-    List<ModerationStatus>? selectedReportStatus,
-    List<ReportableEntity>? selectedReportableEntity,
-    List<AppReviewFeedback>? selectedAppReviewFeedback,
-    HasCommentFilter? hasComment,
+    EngagementsFilterState? engagementsFilter,
+    ReportsFilterState? reportsFilter,
+    AppReviewsFilterState? appReviewsFilter,
   }) {
     return CommunityFilterState(
-      searchQuery: searchQuery ?? this.searchQuery,
-      selectedCommentStatus:
-          selectedCommentStatus ?? this.selectedCommentStatus,
-      selectedReportStatus: selectedReportStatus ?? this.selectedReportStatus,
-      selectedReportableEntity:
-          selectedReportableEntity ?? this.selectedReportableEntity,
-      selectedAppReviewFeedback:
-          selectedAppReviewFeedback ?? this.selectedAppReviewFeedback,
-      hasComment: hasComment ?? this.hasComment,
+      engagementsFilter: engagementsFilter ?? this.engagementsFilter,
+      reportsFilter: reportsFilter ?? this.reportsFilter,
+      appReviewsFilter: appReviewsFilter ?? this.appReviewsFilter,
     );
   }
 
   @override
   List<Object> get props => [
-    searchQuery,
-    selectedCommentStatus,
-    selectedReportStatus,
-    selectedReportableEntity,
-    selectedAppReviewFeedback,
-    hasComment,
+    engagementsFilter,
+    reportsFilter,
+    appReviewsFilter,
   ];
+}
+
+class EngagementsFilterState extends Equatable {
+  const EngagementsFilterState({
+    this.searchQuery = '',
+    this.selectedStatus = const [],
+    this.hasComment = HasCommentFilter.any,
+  });
+
+  final String searchQuery;
+  final List<ModerationStatus> selectedStatus;
+  final HasCommentFilter hasComment;
+
+  bool get isFilterActive =>
+      searchQuery.isNotEmpty ||
+          selectedStatus.isNotEmpty ||
+          hasComment != HasCommentFilter.any;
+
+  @override
+  List<Object> get props => [searchQuery, selectedStatus, hasComment];
+
+  EngagementsFilterState copyWith({
+    String? searchQuery,
+    List<ModerationStatus>? selectedStatus,
+    HasCommentFilter? hasComment,
+  }) {
+    return EngagementsFilterState(
+      searchQuery: searchQuery ?? this.searchQuery,
+      selectedStatus: selectedStatus ?? this.selectedStatus,
+      hasComment: hasComment ?? this.hasComment,
+    );
+  }
+}
+
+
+class ReportsFilterState extends Equatable {
+  const ReportsFilterState({
+    this.searchQuery = '',
+    this.selectedStatus = const [],
+    this.selectedReportableEntity = const [],
+  });
+
+  final String searchQuery;
+  final List<ModerationStatus> selectedStatus;
+  final List<ReportableEntity> selectedReportableEntity;
+
+  bool get isFilterActive =>
+      searchQuery.isNotEmpty ||
+          selectedStatus.isNotEmpty ||
+          selectedReportableEntity.isNotEmpty;
+
+  @override
+  List<Object> get props => [
+    searchQuery,
+    selectedStatus,
+    selectedReportableEntity,
+  ];
+
+  ReportsFilterState copyWith({
+    String? searchQuery,
+    List<ModerationStatus>? selectedStatus,
+    List<ReportableEntity>? selectedReportableEntity,
+  }) {
+    return ReportsFilterState(
+      searchQuery: searchQuery ?? this.searchQuery,
+      selectedStatus: selectedStatus ?? this.selectedStatus,
+      selectedReportableEntity:
+          selectedReportableEntity ?? this.selectedReportableEntity,
+    );
+  }
+}
+
+class AppReviewsFilterState extends Equatable {
+  const AppReviewsFilterState({
+    this.searchQuery = '',
+    this.selectedFeedback = const [],
+  });
+
+  final String searchQuery;
+  final List<AppReviewFeedback> selectedFeedback;
+
+  bool get isFilterActive =>
+      searchQuery.isNotEmpty || selectedFeedback.isNotEmpty;
+
+  @override
+  List<Object> get props => [searchQuery, selectedFeedback];
+
+  AppReviewsFilterState copyWith({
+    String? searchQuery,
+    List<AppReviewFeedback>? selectedFeedback,
+  }) {
+    return AppReviewsFilterState(
+      searchQuery: searchQuery ?? this.searchQuery,
+      selectedFeedback: selectedFeedback ?? this.selectedFeedback,
+    );
+  }
 }

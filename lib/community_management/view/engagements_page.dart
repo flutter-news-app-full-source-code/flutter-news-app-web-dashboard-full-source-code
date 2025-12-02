@@ -27,16 +27,10 @@ class _EngagementsPageState extends State<EngagementsPage> {
         filter: context
             .read<CommunityManagementBloc>()
             .buildEngagementsFilterMap(
-              context.read<CommunityFilterBloc>().state,
+              context.read<CommunityFilterBloc>().state.engagementsFilter,
             ),
       ),
     );
-  }
-
-  bool _areFiltersActive(CommunityFilterState state) {
-    return state.searchQuery.isNotEmpty ||
-        state.selectedCommentStatus.isNotEmpty ||
-        state.hasComment != HasCommentFilter.any;
   }
 
   @override
@@ -49,7 +43,8 @@ class _EngagementsPageState extends State<EngagementsPage> {
           final communityFilterState = context
               .watch<CommunityFilterBloc>()
               .state;
-          final filtersActive = _areFiltersActive(communityFilterState);
+          final filtersActive =
+              communityFilterState.engagementsFilter.isFilterActive;
 
           if (state.engagementsStatus == CommunityManagementStatus.loading &&
               state.engagements.isEmpty) {
@@ -70,7 +65,10 @@ class _EngagementsPageState extends State<EngagementsPage> {
                   filter: context
                       .read<CommunityManagementBloc>()
                       .buildEngagementsFilterMap(
-                        context.read<CommunityFilterBloc>().state,
+                        context
+                            .read<CommunityFilterBloc>()
+                            .state
+                            .engagementsFilter,
                       ),
                 ),
               ),
@@ -154,7 +152,10 @@ class _EngagementsPageState extends State<EngagementsPage> {
                               filter: context
                                   .read<CommunityManagementBloc>()
                                   .buildEngagementsFilterMap(
-                                    context.read<CommunityFilterBloc>().state,
+                                    context
+                                        .read<CommunityFilterBloc>()
+                                        .state
+                                        .engagementsFilter,
                                   ),
                             ),
                           );

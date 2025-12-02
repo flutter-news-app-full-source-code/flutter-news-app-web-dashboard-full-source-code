@@ -28,15 +28,10 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
         filter: context
             .read<CommunityManagementBloc>()
             .buildAppReviewsFilterMap(
-              context.read<CommunityFilterBloc>().state,
+              context.read<CommunityFilterBloc>().state.appReviewsFilter,
             ),
       ),
     );
-  }
-
-  bool _areFiltersActive(CommunityFilterState state) {
-    return state.searchQuery.isNotEmpty ||
-        state.selectedAppReviewFeedback.isNotEmpty;
   }
 
   @override
@@ -49,7 +44,8 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
           final communityFilterState = context
               .watch<CommunityFilterBloc>()
               .state;
-          final filtersActive = _areFiltersActive(communityFilterState);
+          final filtersActive =
+              communityFilterState.appReviewsFilter.isFilterActive;
 
           if (state.appReviewsStatus == CommunityManagementStatus.loading &&
               state.appReviews.isEmpty) {
@@ -70,7 +66,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                   filter: context
                       .read<CommunityManagementBloc>()
                       .buildAppReviewsFilterMap(
-                        context.read<CommunityFilterBloc>().state,
+                        context.read<CommunityFilterBloc>().state.appReviewsFilter,
                       ),
                 ),
               ),
@@ -148,7 +144,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                               filter: context
                                   .read<CommunityManagementBloc>()
                                   .buildAppReviewsFilterMap(
-                                    context.read<CommunityFilterBloc>().state,
+                                    context.read<CommunityFilterBloc>().state.appReviewsFilter,
                                   ),
                             ),
                           );
