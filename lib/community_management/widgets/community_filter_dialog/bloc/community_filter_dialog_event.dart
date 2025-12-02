@@ -30,24 +30,14 @@ class CommunityFilterDialogSearchQueryChanged
   List<Object> get props => [query];
 }
 
-class CommunityFilterDialogCommentStatusChanged
+class CommunityFilterDialogModerationStatusChanged
     extends CommunityFilterDialogEvent {
-  const CommunityFilterDialogCommentStatusChanged(this.commentStatus);
+  const CommunityFilterDialogModerationStatusChanged(this.moderationStatus);
 
-  final List<CommentStatus> commentStatus;
+  final List<ModerationStatus> moderationStatus;
 
   @override
-  List<Object> get props => [commentStatus];
-}
-
-class CommunityFilterDialogReportStatusChanged
-    extends CommunityFilterDialogEvent {
-  const CommunityFilterDialogReportStatusChanged(this.reportStatus);
-
-  final List<ReportStatus> reportStatus;
-
-  @override
-  List<Object> get props => [reportStatus];
+  List<Object> get props => [moderationStatus];
 }
 
 class CommunityFilterDialogReportableEntityChanged
