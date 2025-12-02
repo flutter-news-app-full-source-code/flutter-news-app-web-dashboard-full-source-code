@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class ReportsPage extends StatefulWidget {
@@ -22,14 +23,13 @@ class _ReportsPageState extends State<ReportsPage> {
   void initState() {
     super.initState();
     context.read<CommunityManagementBloc>().add(
-          LoadReportsRequested(
-            limit: kDefaultRowsPerPage,
-            filter: context
-                .read<CommunityManagementBloc>()
-                .buildReportsFilterMap(
-                    context.read<CommunityFilterBloc>().state.reportsFilter),
-          ),
-        );
+      LoadReportsRequested(
+        limit: kDefaultRowsPerPage,
+        filter: context.read<CommunityManagementBloc>().buildReportsFilterMap(
+          context.read<CommunityFilterBloc>().state.reportsFilter,
+        ),
+      ),
+    );
   }
 
   @override
@@ -58,16 +58,16 @@ class _ReportsPageState extends State<ReportsPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () => context.read<CommunityManagementBloc>().add(
-                    LoadReportsRequested(
-                      limit: kDefaultRowsPerPage,
-                      forceRefresh: true,
-                      filter: context
-                          .read<CommunityManagementBloc>()
-                          .buildReportsFilterMap(
-                            context.read<CommunityFilterBloc>().state.reportsFilter,
-                          ),
-                    ),
-                  ),
+                LoadReportsRequested(
+                  limit: kDefaultRowsPerPage,
+                  forceRefresh: true,
+                  filter: context
+                      .read<CommunityManagementBloc>()
+                      .buildReportsFilterMap(
+                        context.read<CommunityFilterBloc>().state.reportsFilter,
+                      ),
+                ),
+              ),
             );
           }
 
@@ -85,8 +85,8 @@ class _ReportsPageState extends State<ReportsPage> {
                     const SizedBox(height: AppSpacing.lg),
                     ElevatedButton(
                       onPressed: () => context.read<CommunityFilterBloc>().add(
-                            const CommunityFilterReset(),
-                          ),
+                        const CommunityFilterReset(),
+                      ),
                       child: Text(l10n.resetFiltersButtonText),
                     ),
                   ],
@@ -112,17 +112,12 @@ class _ReportsPageState extends State<ReportsPage> {
                           size: ColumnSize.S,
                         ),
                         DataColumn2(
-                          label: Text(l10n.reason),
+                          label: Text(l10n.date),
                           size: ColumnSize.M,
                         ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.status),
-                            size: ColumnSize.S,
-                          ),
                         DataColumn2(
                           label: Text(l10n.actions),
-                          size: ColumnSize.S,
+                          size: ColumnSize.L,
                         ),
                       ],
                       source: _ReportsDataSource(
@@ -141,17 +136,19 @@ class _ReportsPageState extends State<ReportsPage> {
                             state.reportsStatus !=
                                 CommunityManagementStatus.loading) {
                           context.read<CommunityManagementBloc>().add(
-                                LoadReportsRequested(
-                                  startAfterId: state.reportsCursor,
-                                  limit: kDefaultRowsPerPage,
-                                  filter: context
-                                      .read<CommunityManagementBloc>()
-                                      .buildReportsFilterMap(context
-                                          .read<CommunityFilterBloc>()
-                                          .state
-                                          .reportsFilter),
-                                ),
-                              );
+                            LoadReportsRequested(
+                              startAfterId: state.reportsCursor,
+                              limit: kDefaultRowsPerPage,
+                              filter: context
+                                  .read<CommunityManagementBloc>()
+                                  .buildReportsFilterMap(
+                                    context
+                                        .read<CommunityFilterBloc>()
+                                        .state
+                                        .reportsFilter,
+                                  ),
+                            ),
+                          );
                         }
                       },
                       empty: Center(child: Text(l10n.noReportsFound)),
@@ -202,24 +199,8 @@ class _ReportsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          Chip(
-            label: Text(report.reason.l10n(context)),
-            visualDensity: VisualDensity.compact,
-          ),
+          Text(DateFormat('dd-MM-yyyy').format(report.createdAt.toLocal())),
         ),
-        if (!isMobile)
-          DataCell(
-            Chip(
-              avatar: Icon(
-                _getReportStatusIcon(report.status),
-                size: 16,
-              ),
-              label: Text(report.status.l10n(context)),
-              backgroundColor: _getReportStatusColor(context, report.status),
-              side: BorderSide.none,
-              visualDensity: VisualDensity.compact,
-            ),
-          ),
         DataCell(CommunityActionButtons(item: report, l10n: l10n)),
       ],
     );
@@ -233,26 +214,4 @@ class _ReportsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-
-  Color? _getReportStatusColor(
-    BuildContext context,
-    ModerationStatus status,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-    switch (status) {
-      case ModerationStatus.resolved:
-        return colorScheme.primaryContainer.withOpacity(0.5);
-      case ModerationStatus.pendingReview:
-        return colorScheme.secondaryContainer.withOpacity(0.5);
-    }
-  }
-
-  IconData _getReportStatusIcon(ModerationStatus status) {
-    switch (status) {
-      case ModerationStatus.resolved:
-        return Icons.check_circle_outline;
-      case ModerationStatus.pendingReview:
-        return Icons.hourglass_empty_outlined;
-    }
-  }
 }

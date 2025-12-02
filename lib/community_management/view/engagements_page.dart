@@ -25,7 +25,8 @@ class _EngagementsPageState extends State<EngagementsPage> {
       LoadEngagementsRequested(
         limit: kDefaultRowsPerPage,
         filter: context
-            .read<CommunityManagementBloc>().buildEngagementsFilterMap(
+            .read<CommunityManagementBloc>()
+            .buildEngagementsFilterMap(
               context.read<CommunityFilterBloc>().state.engagementsFilter,
             ),
       ),
@@ -63,8 +64,12 @@ class _EngagementsPageState extends State<EngagementsPage> {
                   forceRefresh: true,
                   filter: context
                       .read<CommunityManagementBloc>()
-                      .buildEngagementsFilterMap(context
-                          .read<CommunityFilterBloc>().state.engagementsFilter),
+                      .buildEngagementsFilterMap(
+                        context
+                            .read<CommunityFilterBloc>()
+                            .state
+                            .engagementsFilter,
+                      ),
                 ),
               ),
             );
@@ -111,14 +116,9 @@ class _EngagementsPageState extends State<EngagementsPage> {
                           label: Text(l10n.reaction),
                           size: ColumnSize.S,
                         ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.comment),
-                            size: ColumnSize.L,
-                          ),
                         DataColumn2(
                           label: Text(l10n.date),
-                          size: ColumnSize.S,
+                          size: ColumnSize.M,
                         ),
                         DataColumn2(
                           label: Text(l10n.actions),
@@ -146,8 +146,12 @@ class _EngagementsPageState extends State<EngagementsPage> {
                               limit: kDefaultRowsPerPage,
                               filter: context
                                   .read<CommunityManagementBloc>()
-                                  .buildEngagementsFilterMap(context
-                                      .read<CommunityFilterBloc>().state.engagementsFilter),
+                                  .buildEngagementsFilterMap(
+                                    context
+                                        .read<CommunityFilterBloc>()
+                                        .state
+                                        .engagementsFilter,
+                                  ),
                             ),
                           );
                         }
@@ -199,36 +203,6 @@ class _EngagementsDataSource extends DataTableSource {
             visualDensity: VisualDensity.compact,
           ),
         ),
-        if (!isMobile) ...[
-          DataCell(
-            Row(
-              children: [
-                if (engagement.comment != null &&
-                    engagement.comment!.status ==
-                        ModerationStatus.pendingReview) ...[
-                  Tooltip(
-                    message: l10n.moderationStatusPendingReview,
-                    child: Icon(
-                      Icons.hourglass_empty_outlined,
-                      size: 16,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                ],
-                Expanded(
-                  child: Tooltip(
-                    message: engagement.comment?.content ?? l10n.notAvailable,
-                    child: Text(
-                      engagement.comment?.content ?? l10n.notAvailable,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
         DataCell(
           Text(DateFormat('dd-MM-yyyy').format(engagement.createdAt.toLocal())),
         ),
