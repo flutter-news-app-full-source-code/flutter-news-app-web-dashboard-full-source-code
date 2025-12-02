@@ -111,9 +111,18 @@ class CommunityManagementBloc
     if (state.searchQuery.isNotEmpty) {
       filter['userId'] = state.searchQuery;
     }
-    if (state.selectedModerationStatus.isNotEmpty) {
+    if (state.selectedCommentStatus.isNotEmpty) {
       filter['comment.status'] = {
-        r'$in': state.selectedModerationStatus.map((s) => s.name).toList(),
+        r'$in': state.selectedCommentStatus.map((s) => s.name).toList(),
+      };
+    }
+    if (state.hasComment == HasCommentFilter.withComment) {
+      filter['comment'] = {
+        r'$exists': true,
+      };
+    } else if (state.hasComment == HasCommentFilter.withoutComment) {
+      filter['comment'] = {
+        r'$exists': false,
       };
     }
     return filter;
@@ -124,9 +133,9 @@ class CommunityManagementBloc
     if (state.searchQuery.isNotEmpty) {
       filter['reporterUserId'] = state.searchQuery;
     }
-    if (state.selectedModerationStatus.isNotEmpty) {
+    if (state.selectedReportStatus.isNotEmpty) {
       filter['status'] = {
-        r'$in': state.selectedModerationStatus.map((s) => s.name).toList(),
+        r'$in': state.selectedReportStatus.map((s) => s.name).toList(),
       };
     }
     if (state.selectedReportableEntity.isNotEmpty) {
