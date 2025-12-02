@@ -95,10 +95,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                     controller: _searchController,
                     decoration: InputDecoration(
                       labelText: l10n.search,
-                      hintText: _getSearchHint(
-                        filterDialogState.activeTab,
-                        l10n,
-                      ),
+                      hintText: l10n.searchByUserId,
                       prefixIcon: const Icon(Icons.search),
                       border: const OutlineInputBorder(),
                     ),
@@ -117,17 +114,6 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
         );
       },
     );
-  }
-
-  String _getSearchHint(CommunityManagementTab tab, AppLocalizations l10n) {
-    switch (tab) {
-      case CommunityManagementTab.engagements:
-        return l10n.searchByEngagementUser;
-      case CommunityManagementTab.reports:
-        return l10n.searchByReportReporter;
-      case CommunityManagementTab.appReviews:
-        return l10n.searchByAppReviewUser;
-    }
   }
 
   List<Widget> _buildTabSpecificFilters(
