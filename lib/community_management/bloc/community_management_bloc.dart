@@ -334,7 +334,7 @@ class CommunityManagementBloc
         (e) => e.id == event.engagementId,
       );
 
-      // TODO(fulleni) Fic the following BUG: 
+      // TODO(fulleni): Fix the following BUG
       // The original Engagement.copyWith method has a bug where
       // `comment: comment ?? this.comment` prevents setting the comment to null.
       // To work around this without modifying the core model, we must create a
