@@ -7,40 +7,31 @@ abstract class CommunityFilterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CommunityFilterSearchQueryChanged extends CommunityFilterEvent {
-  const CommunityFilterSearchQueryChanged(this.query);
+class EngagementsFilterChanged extends CommunityFilterEvent {
+  const EngagementsFilterChanged(this.filter);
 
-  final String query;
+  final EngagementsFilter filter;
 
   @override
-  List<Object> get props => [query];
+  List<Object> get props => [filter];
 }
 
-class CommunityFilterModerationStatusChanged extends CommunityFilterEvent {
-  const CommunityFilterModerationStatusChanged(this.moderationStatus);
+class ReportsFilterChanged extends CommunityFilterEvent {
+  const ReportsFilterChanged(this.filter);
 
-  final List<ModerationStatus> moderationStatus;
+  final ReportsFilter filter;
 
   @override
-  List<Object> get props => [moderationStatus];
+  List<Object> get props => [filter];
 }
 
-class CommunityFilterReportableEntityChanged extends CommunityFilterEvent {
-  const CommunityFilterReportableEntityChanged(this.reportableEntity);
+class AppReviewsFilterChanged extends CommunityFilterEvent {
+  const AppReviewsFilterChanged(this.filter);
 
-  final List<ReportableEntity> reportableEntity;
-
-  @override
-  List<Object> get props => [reportableEntity];
-}
-
-class CommunityFilterAppReviewFeedbackChanged extends CommunityFilterEvent {
-  const CommunityFilterAppReviewFeedbackChanged(this.appReviewFeedback);
-
-  final List<AppReviewFeedback> appReviewFeedback;
+  final AppReviewsFilter filter;
 
   @override
-  List<Object> get props => [appReviewFeedback];
+  List<Object> get props => [filter];
 }
 
 class CommunityFilterApplied extends CommunityFilterEvent {

@@ -8,40 +8,32 @@ part 'community_filter_state.dart';
 class CommunityFilterBloc
     extends Bloc<CommunityFilterEvent, CommunityFilterState> {
   CommunityFilterBloc() : super(const CommunityFilterState()) {
-    on<CommunityFilterSearchQueryChanged>(_onSearchQueryChanged);
-    on<CommunityFilterModerationStatusChanged>(_onModerationStatusChanged);
-    on<CommunityFilterReportableEntityChanged>(_onReportableEntityChanged);
-    on<CommunityFilterAppReviewFeedbackChanged>(_onAppReviewFeedbackChanged);
+    on<EngagementsFilterChanged>(
+      (event, emit) => emit(
+        state.copyWith(
+          engagementsFilter: event.filter,
+          version: state.version,
+        ),
+      ),
+    );
+    on<ReportsFilterChanged>(
+      (event, emit) => emit(
+        state.copyWith(
+          reportsFilter: event.filter,
+          version: state.version,
+        ),
+      ),
+    );
+    on<AppReviewsFilterChanged>(
+      (event, emit) => emit(
+        state.copyWith(
+          appReviewsFilter: event.filter,
+          version: state.version,
+        ),
+      ),
+    );
     on<CommunityFilterReset>(_onFilterReset);
     on<CommunityFilterApplied>(_onFilterApplied);
-  }
-
-  void _onSearchQueryChanged(
-    CommunityFilterSearchQueryChanged event,
-    Emitter<CommunityFilterState> emit,
-  ) {
-    emit(state.copyWith(searchQuery: event.query));
-  }
-
-  void _onModerationStatusChanged(
-    CommunityFilterModerationStatusChanged event,
-    Emitter<CommunityFilterState> emit,
-  ) {
-    emit(state.copyWith(selectedModerationStatus: event.moderationStatus));
-  }
-
-  void _onReportableEntityChanged(
-    CommunityFilterReportableEntityChanged event,
-    Emitter<CommunityFilterState> emit,
-  ) {
-    emit(state.copyWith(selectedReportableEntity: event.reportableEntity));
-  }
-
-  void _onAppReviewFeedbackChanged(
-    CommunityFilterAppReviewFeedbackChanged event,
-    Emitter<CommunityFilterState> emit,
-  ) {
-    emit(state.copyWith(selectedAppReviewFeedback: event.appReviewFeedback));
   }
 
   void _onFilterReset(
