@@ -334,8 +334,21 @@ class CommunityManagementBloc
         (e) => e.id == event.engagementId,
       );
 
-      final updatedEngagement = originalEngagement.copyWith(
-        comment: null,
+      // TODO(fulleni) Fic the following BUG: 
+      // The original Engagement.copyWith method has a bug where
+      // `comment: comment ?? this.comment` prevents setting the comment to null.
+      // To work around this without modifying the core model, we must create a
+      // new instance of Engagement manually, copying all properties and
+      // explicitly setting the comment to null.
+      final updatedEngagement = Engagement(
+        id: originalEngagement.id,
+        userId: originalEngagement.userId,
+        entityId: originalEngagement.entityId,
+        entityType: originalEngagement.entityType,
+        reaction: originalEngagement.reaction,
+        createdAt: originalEngagement.createdAt,
+        updatedAt: DateTime.now(),
+        comment: null, // Explicitly set to null to reject/delete the comment.
       );
 
       final updatedEngagements = List<Engagement>.from(state.engagements)
