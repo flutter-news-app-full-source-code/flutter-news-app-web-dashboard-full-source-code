@@ -33,7 +33,7 @@ class _ReportsPageState extends State<ReportsPage> {
 
   bool _areFiltersActive(CommunityFilterState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedModerationStatus.isNotEmpty ||
+        state.selectedReportStatus.isNotEmpty ||
         state.selectedReportableEntity.isNotEmpty;
   }
 

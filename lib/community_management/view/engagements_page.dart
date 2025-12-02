@@ -35,7 +35,8 @@ class _EngagementsPageState extends State<EngagementsPage> {
 
   bool _areFiltersActive(CommunityFilterState state) {
     return state.searchQuery.isNotEmpty ||
-        state.selectedModerationStatus.isNotEmpty;
+        state.selectedCommentStatus.isNotEmpty ||
+        state.hasComment != HasCommentFilter.any;
   }
 
   @override
