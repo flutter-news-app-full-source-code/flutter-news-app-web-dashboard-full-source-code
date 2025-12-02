@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class ReportDetailsDialog extends StatelessWidget {
@@ -23,7 +22,7 @@ class ReportDetailsDialog extends StatelessWidget {
     final isPendingReview = report.status == ModerationStatus.pendingReview;
 
     return AlertDialog(
-      title: Text(l10n.reports),
+      title: Text(l10n.reportDetails),
       content: SizedBox(
         width: double.maxFinite,
         child: SingleChildScrollView(
@@ -31,20 +30,6 @@ class ReportDetailsDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                '${l10n.reportedItem}: ${report.entityType.l10n(context)}',
-                style: theme.textTheme.titleMedium,
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                '${l10n.reporter}: ${report.reporterUserId}',
-                style: theme.textTheme.bodySmall,
-              ),
-              Text(
-                '${l10n.date}: ${DateFormat('dd-MM-yyyy HH:mm').format(report.createdAt.toLocal())}',
-                style: theme.textTheme.bodySmall,
-              ),
-              const Divider(height: AppSpacing.lg),
               Text(
                 '${l10n.reason}: ${report.reason.l10n(context)}',
                 style: theme.textTheme.titleMedium,
@@ -75,8 +60,8 @@ class ReportDetailsDialog extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               context.read<CommunityManagementBloc>().add(
-                    ResolveReportRequested(report.id),
-                  );
+                ResolveReportRequested(report.id),
+              );
               Navigator.of(context).pop();
             },
             child: Text(l10n.resolveReport),

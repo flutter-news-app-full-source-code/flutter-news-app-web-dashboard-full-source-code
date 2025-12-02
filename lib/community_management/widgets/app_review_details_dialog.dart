@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 
 class AppReviewDetailsDialog extends StatelessWidget {
   const AppReviewDetailsDialog({
@@ -13,7 +12,7 @@ class AppReviewDetailsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
+    final l10n = AppLocalizations.of(context);
     final details = appReview.feedbackDetails;
 
     return AlertDialog(
@@ -21,23 +20,7 @@ class AppReviewDetailsDialog extends StatelessWidget {
       content: SizedBox(
         width: double.maxFinite,
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                l10n.feedbackProvidedAt(
-                  DateFormatter.formatRelativeTime(
-                    context,
-                    appReview.updatedAt,
-                  ),
-                ),
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(details ?? l10n.noReasonProvided),
-            ],
-          ),
+          child: Text(details ?? l10n.noReasonProvided),
         ),
       ),
       actions: [
