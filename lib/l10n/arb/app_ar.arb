@@ -2382,30 +2382,6 @@
   "@reactionTypeSkeptical": {
     "description": "نوع رد الفعل: متشكك"
   },
-  "commentStatusPendingReview": "قيد المراجعة",
-  "@commentStatusPendingReview": {
-    "description": "حالة التعليق: قيد المراجعة"
-  },
-  "commentStatusApproved": "موافق عليه",
-  "@commentStatusApproved": {
-    "description": "حالة التعليق: موافق عليه"
-  },
-  "commentStatusRejected": "مرفوض",
-  "@commentStatusRejected": {
-    "description": "حالة التعليق: مرفوض"
-  },
-  "reportStatusSubmitted": "مقدم",
-  "@reportStatusSubmitted": {
-    "description": "حالة البلاغ: مقدم"
-  },
-  "reportStatusInReview": "قيد المراجعة",
-  "@reportStatusInReview": {
-    "description": "حالة البلاغ: قيد المراجعة"
-  },
-  "reportStatusResolved": "تم الحل",
-  "@reportStatusResolved": {
-    "description": "حالة البلاغ: تم الحل"
-  },
   "initialAppReviewFeedbackPositive": "إيجابي",
   "@initialAppReviewFeedbackPositive": {
     "description": "التقييم الأولي للتطبيق: إيجابي"
@@ -2541,14 +2517,6 @@
   "@no": {
     "description": "رد 'لا' عام."
   },
-  "commentStatusFlaggedByAI": "تم الإبلاغ بواسطة الذكاء الاصطناعي",
-  "@commentStatusFlaggedByAI": {
-    "description": "حالة إدارية لتعليق تم الإبلاغ عنه تلقائيًا بواسطة الذكاء الاصطناعي."
-  },
-  "commentStatusHiddenByUser": "مخفي بواسطة المستخدم",
-  "@commentStatusHiddenByUser": {
-    "description": "حالة إدارية لتعليق أخفاه كاتبه."
-  },
   "reportReasonMisinformationOrFakeNews": "معلومات مضللة / أخبار كاذبة",
   "@reportReasonMisinformationOrFakeNews": {
     "description": "سبب البلاغ: المحتوى معلومات مضللة أو أخبار كاذبة."
@@ -2664,5 +2632,13 @@
   "viewFeedbackDetails": "عرض تفاصيل التقييم",
   "@viewFeedbackDetails": {
     "description": "Tooltip for the button to view feedback details."
+  },
+  "moderationStatusPendingReview": "قيد المراجعة",
+  "@moderationStatusPendingReview": {
+    "description": "Moderation status: The item is awaiting review."
+  },
+  "moderationStatusResolved": "تم الحل",
+  "@moderationStatusResolved": {
+    "description": "Moderation status: A decision has been made on the item."
   }
 }

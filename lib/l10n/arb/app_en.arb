@@ -1651,17 +1651,17 @@
     "description": "Title for the filter dialog when filtering sources."
   },
   "searchByHeadlineTitle": "Search by headline title...",
-    "@searchByHeadlineTitle": {
-        "description": "Hint text for the headline search field."
-    },
-    "searchByTopicName": "Search by Name or ID...",
-    "@searchByTopicName": {
-        "description": "Hint text for the topic search field."
-    },
-    "searchBySourceName": "Search by Name or ID...",
-    "@searchBySourceName": {
-        "description": "Hint text for the source search field."
-    },
+  "@searchByHeadlineTitle": {
+    "description": "Hint text for the headline search field."
+  },
+  "searchByTopicName": "Search by Name or ID...",
+  "@searchByTopicName": {
+    "description": "Hint text for the topic search field."
+  },
+  "searchBySourceName": "Search by Name or ID...",
+  "@searchBySourceName": {
+    "description": "Hint text for the source search field."
+  },
   "selectSources": "Select Sources",
   "@selectSources": {
     "description": "Hint text for selecting sources in a filter dialog."
@@ -1762,10 +1762,10 @@
   "@filterUsers": {
     "description": "Title for the filter dialog when filtering users."
   },
-    "searchByUserEmail": "Search by Email or ID...",
-    "@searchByUserEmail": {
-        "description": "Hint text for the user search field."
-    },
+  "searchByUserEmail": "Search by Email or ID...",
+  "@searchByUserEmail": {
+    "description": "Hint text for the user search field."
+  },
   "selectAppRoles": "Select App Roles",
   "@selectAppRoles": {
     "description": "Hint text for selecting app roles in a filter dialog."
@@ -2378,30 +2378,6 @@
   "@reactionTypeSkeptical": {
     "description": "Reaction type: Skeptical"
   },
-  "commentStatusPendingReview": "Pending",
-  "@commentStatusPendingReview": {
-    "description": "Comment status: Pending Review"
-  },
-  "commentStatusApproved": "Approved",
-  "@commentStatusApproved": {
-    "description": "Comment status: Approved"
-  },
-  "commentStatusRejected": "Rejected",
-  "@commentStatusRejected": {
-    "description": "Comment status: Rejected"
-  },
-  "reportStatusSubmitted": "Submitted",
-  "@reportStatusSubmitted": {
-    "description": "Report status: Submitted"
-  },
-  "reportStatusInReview": "In Review",
-  "@reportStatusInReview": {
-    "description": "Report status: In Review"
-  },
-  "reportStatusResolved": "Resolved",
-  "@reportStatusResolved": {
-    "description": "Report status: Resolved"
-  },
   "initialAppReviewFeedbackPositive": "Positive",
   "@initialAppReviewFeedbackPositive": {
     "description": "Initial app review feedback: Positive"
@@ -2537,14 +2513,6 @@
   "@no": {
     "description": "A generic 'No' response."
   },
-  "commentStatusFlaggedByAI": "Flagged by AI",
-  "@commentStatusFlaggedByAI": {
-    "description": "Admin-centric status for a comment automatically flagged by AI."
-  },
-  "commentStatusHiddenByUser": "Hidden by User",
-  "@commentStatusHiddenByUser": {
-    "description": "Admin-centric status for a comment hidden by its author."
-  },
   "reportReasonMisinformationOrFakeNews": "Misinformation / Fake News",
   "@reportReasonMisinformationOrFakeNews": {
     "description": "Report reason: The content is misinformation or fake news."
@@ -2660,5 +2628,13 @@
   "viewFeedbackDetails": "View Feedback Details",
   "@viewFeedbackDetails": {
     "description": "Tooltip for the button to view feedback details."
+  },
+  "moderationStatusPendingReview": "Pending Review",
+  "@moderationStatusPendingReview": {
+    "description": "Moderation status: The item is awaiting review."
+  },
+  "moderationStatusResolved": "Resolved",
+  "@moderationStatusResolved": {
+    "description": "Moderation status: A decision has been made on the item."
   }
 }
