@@ -7,7 +7,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class CommunityFilterDialog extends StatefulWidget {
@@ -33,16 +32,12 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
   }
 
   void _dispatchFilterApplied(CommunityFilterDialogState filterDialogState) {
-    context.read<CommunityFilterBloc>().add(
-      CommunityFilterApplied(
-        searchQuery: filterDialogState.searchQuery,
-        selectedCommentStatus: filterDialogState.selectedCommentStatus,
-        selectedReportStatus: filterDialogState.selectedReportStatus,
-        selectedReportableEntity: filterDialogState.selectedReportableEntity,
-        selectedAppReviewFeedback: filterDialogState.selectedAppReviewFeedback,
-        hasComment: filterDialogState.hasComment,
-      ),
-    );
+    context.read<CommunityFilterBloc>()
+      ..add(EngagementsFilterChanged(filterDialogState.engagementsFilter))
+      ..add(ReportsFilterChanged(filterDialogState.reportsFilter))
+      ..add(
+        AppReviewsFilterChanged(filterDialogState.appReviewsFilter),
+      );
   }
 
   @override
@@ -52,12 +47,23 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
 
     return BlocBuilder<CommunityFilterDialogBloc, CommunityFilterDialogState>(
       builder: (context, filterDialogState) {
-        if (_searchController.text != filterDialogState.searchQuery) {
-          _searchController.text = filterDialogState.searchQuery;
-          _searchController.selection = TextSelection.fromPosition(
-            TextPosition(offset: _searchController.text.length),
-          );
+        final String currentSearchQuery;
+        switch (filterDialogState.activeTab) {
+          case CommunityManagementTab.engagements:
+            currentSearchQuery =
+                filterDialogState.engagementsFilter.searchQuery;
+          case CommunityManagementTab.reports:
+            currentSearchQuery = filterDialogState.reportsFilter.searchQuery;
+          case CommunityManagementTab.appReviews:
+            currentSearchQuery = filterDialogState.appReviewsFilter.searchQuery;
         }
+
+        if (_searchController.text != currentSearchQuery) {
+          _searchController.text = currentSearchQuery;
+        }
+        _searchController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _searchController.text.length),
+        );
 
         return Scaffold(
           appBar: AppBar(
@@ -183,13 +189,52 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                   HasCommentFilter.withoutComment => l10n.withoutComment,
                 },
               ),
-              selected: state.hasComment == filter,
+              selected: state.engagementsFilter.hasComment == filter,
               onSelected: (selected) {
                 if (selected) {
                   context.read<CommunityFilterDialogBloc>().add(
                     CommunityFilterDialogHasCommentChanged(filter),
                   );
                 }
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCapsuleFilter<T extends Enum>({
+    required String title,
+    required List<T> allValues,
+    required List<T> selectedValues,
+    required String Function(T) labelBuilder,
+    required void Function(List<T>) onChanged,
+  }) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          children: allValues.map((value) {
+            final isSelected = selectedValues.contains(value);
+            return ChoiceChip(
+              label: Text(labelBuilder(value)),
+              selected: isSelected,
+              onSelected: (selected) {
+                final currentSelection = List<T>.from(selectedValues);
+                if (selected) {
+                  currentSelection.add(value);
+                } else {
+                  currentSelection.remove(value);
+                }
+                onChanged(currentSelection);
               },
             );
           }).toList(),
@@ -211,10 +256,10 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             state: state,
             l10n: l10n,
             theme: theme,
-            selectedStatuses: state.selectedCommentStatus,
+            selectedStatuses: state.engagementsFilter.selectedStatus,
             onChanged: (statuses) =>
                 context.read<CommunityFilterDialogBloc>().add(
-                  CommunityFilterDialogCommentStatusChanged(statuses),
+                  CommunityFilterDialogEngagementsStatusChanged(statuses),
                 ),
           ),
           const SizedBox(height: AppSpacing.lg),
@@ -227,39 +272,37 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             state: state,
             l10n: l10n,
             theme: theme,
-            selectedStatuses: state.selectedReportStatus,
+            selectedStatuses: state.reportsFilter.selectedStatus,
             onChanged: (statuses) =>
                 context.read<CommunityFilterDialogBloc>().add(
-                  CommunityFilterDialogReportStatusChanged(statuses),
+                  CommunityFilterDialogReportsStatusChanged(statuses),
                 ),
           ),
           const SizedBox(height: AppSpacing.lg),
-          SearchableSelectionInput<ReportableEntity>(
-            label: l10n.reportedItem,
-            hintText: l10n.selectReportableEntity,
-            isMultiSelect: true,
-            selectedItems: state.selectedReportableEntity,
-            itemBuilder: (context, item) => Text(item.l10n(context)),
-            itemToString: (item) => item.l10n(context),
-            onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
-              CommunityFilterDialogReportableEntityChanged(items ?? []),
-            ),
-            staticItems: ReportableEntity.values,
+          _buildCapsuleFilter<ReportableEntity>(
+            title: l10n.reportedItem,
+            allValues: ReportableEntity.values,
+            selectedValues: state.reportsFilter.selectedReportableEntity,
+            labelBuilder: (item) => item.l10n(context),
+            onChanged: (items) {
+              context.read<CommunityFilterDialogBloc>().add(
+                CommunityFilterDialogReportableEntityChanged(items),
+              );
+            },
           ),
         ];
       case CommunityManagementTab.appReviews:
         return [
-          SearchableSelectionInput<AppReviewFeedback>(
-            label: l10n.initialFeedback,
-            hintText: l10n.selectInitialFeedback,
-            isMultiSelect: true,
-            selectedItems: state.selectedAppReviewFeedback,
-            itemBuilder: (context, item) => Text(item.l10n(context)),
-            itemToString: (item) => item.l10n(context),
-            onChanged: (items) => context.read<CommunityFilterDialogBloc>().add(
-              CommunityFilterDialogAppReviewFeedbackChanged(items ?? []),
-            ),
-            staticItems: AppReviewFeedback.values,
+          _buildCapsuleFilter<AppReviewFeedback>(
+            title: l10n.initialFeedback,
+            allValues: AppReviewFeedback.values,
+            selectedValues: state.appReviewsFilter.selectedFeedback,
+            labelBuilder: (item) => item.l10n(context),
+            onChanged: (items) {
+              context.read<CommunityFilterDialogBloc>().add(
+                CommunityFilterDialogAppReviewsFeedbackChanged(items),
+              );
+            },
           ),
         ];
     }
