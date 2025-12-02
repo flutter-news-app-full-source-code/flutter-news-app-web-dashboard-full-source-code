@@ -195,6 +195,9 @@ class _ReportsDataSource extends DataTableSource {
         DataCell(
           Chip(
             label: Text(report.entityType.l10n(context)),
+            backgroundColor:
+                Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.5),
+            side: BorderSide.none,
             visualDensity: VisualDensity.compact,
           ),
         ),
