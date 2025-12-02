@@ -1909,24 +1909,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reactionTypeSkeptical => 'Skeptical';
 
   @override
-  String get commentStatusPendingReview => 'Pending';
-
-  @override
-  String get commentStatusApproved => 'Approved';
-
-  @override
-  String get commentStatusRejected => 'Rejected';
-
-  @override
-  String get reportStatusSubmitted => 'Submitted';
-
-  @override
-  String get reportStatusInReview => 'In Review';
-
-  @override
-  String get reportStatusResolved => 'Resolved';
-
-  @override
   String get initialAppReviewFeedbackPositive => 'Positive';
 
   @override
@@ -2024,12 +2006,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get no => 'No';
 
   @override
-  String get commentStatusFlaggedByAI => 'Flagged by AI';
-
-  @override
-  String get commentStatusHiddenByUser => 'Hidden by User';
-
-  @override
   String get reportReasonMisinformationOrFakeNews =>
       'Misinformation / Fake News';
 
@@ -2118,4 +2094,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewFeedbackDetails => 'View Feedback Details';
+
+  @override
+  String get moderationStatusPendingReview => 'Pending Review';
+
+  @override
+  String get moderationStatusResolved => 'Resolved';
 }

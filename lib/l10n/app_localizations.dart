@@ -3542,42 +3542,6 @@ abstract class AppLocalizations {
   /// **'Skeptical'**
   String get reactionTypeSkeptical;
 
-  /// Comment status: Pending Review
-  ///
-  /// In en, this message translates to:
-  /// **'Pending'**
-  String get commentStatusPendingReview;
-
-  /// Comment status: Approved
-  ///
-  /// In en, this message translates to:
-  /// **'Approved'**
-  String get commentStatusApproved;
-
-  /// Comment status: Rejected
-  ///
-  /// In en, this message translates to:
-  /// **'Rejected'**
-  String get commentStatusRejected;
-
-  /// Report status: Submitted
-  ///
-  /// In en, this message translates to:
-  /// **'Submitted'**
-  String get reportStatusSubmitted;
-
-  /// Report status: In Review
-  ///
-  /// In en, this message translates to:
-  /// **'In Review'**
-  String get reportStatusInReview;
-
-  /// Report status: Resolved
-  ///
-  /// In en, this message translates to:
-  /// **'Resolved'**
-  String get reportStatusResolved;
-
   /// Initial app review feedback: Positive
   ///
   /// In en, this message translates to:
@@ -3758,18 +3722,6 @@ abstract class AppLocalizations {
   /// **'No'**
   String get no;
 
-  /// Admin-centric status for a comment automatically flagged by AI.
-  ///
-  /// In en, this message translates to:
-  /// **'Flagged by AI'**
-  String get commentStatusFlaggedByAI;
-
-  /// Admin-centric status for a comment hidden by its author.
-  ///
-  /// In en, this message translates to:
-  /// **'Hidden by User'**
-  String get commentStatusHiddenByUser;
-
   /// Report reason: The content is misinformation or fake news.
   ///
   /// In en, this message translates to:
@@ -3943,6 +3895,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Feedback Details'**
   String get viewFeedbackDetails;
+
+  /// Moderation status: The item is awaiting review.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Review'**
+  String get moderationStatusPendingReview;
+
+  /// Moderation status: A decision has been made on the item.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get moderationStatusResolved;
 }
 
 class _AppLocalizationsDelegate

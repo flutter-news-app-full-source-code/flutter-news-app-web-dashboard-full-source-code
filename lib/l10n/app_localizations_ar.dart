@@ -1904,24 +1904,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reactionTypeSkeptical => 'متشكك';
 
   @override
-  String get commentStatusPendingReview => 'قيد المراجعة';
-
-  @override
-  String get commentStatusApproved => 'موافق عليه';
-
-  @override
-  String get commentStatusRejected => 'مرفوض';
-
-  @override
-  String get reportStatusSubmitted => 'مقدم';
-
-  @override
-  String get reportStatusInReview => 'قيد المراجعة';
-
-  @override
-  String get reportStatusResolved => 'تم الحل';
-
-  @override
   String get initialAppReviewFeedbackPositive => 'إيجابي';
 
   @override
@@ -2018,12 +2000,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get no => 'لا';
 
   @override
-  String get commentStatusFlaggedByAI => 'تم الإبلاغ بواسطة الذكاء الاصطناعي';
-
-  @override
-  String get commentStatusHiddenByUser => 'مخفي بواسطة المستخدم';
-
-  @override
   String get reportReasonMisinformationOrFakeNews =>
       'معلومات مضللة / أخبار كاذبة';
 
@@ -2112,4 +2088,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewFeedbackDetails => 'عرض تفاصيل التقييم';
+
+  @override
+  String get moderationStatusPendingReview => 'قيد المراجعة';
+
+  @override
+  String get moderationStatusResolved => 'تم الحل';
 }
