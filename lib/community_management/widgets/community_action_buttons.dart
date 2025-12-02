@@ -91,7 +91,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
 
     // Secondary Actions
     if (engagement.comment != null) {
-      if (engagement.comment!.status != CommentStatus.approved) {
+      if (engagement.comment!.status != ModerationStatus.resolved) {
         overflowMenuItems.add(
           PopupMenuItem<String>(
             value: 'approveComment',
@@ -99,7 +99,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
           ),
         );
       }
-      if (engagement.comment!.status != CommentStatus.rejected) {
+      if (engagement.comment != null) {
         overflowMenuItems.add(
           PopupMenuItem<String>(
             value: 'rejectComment',
@@ -145,15 +145,15 @@ class CommunityActionButtons<T> extends StatelessWidget {
     );
 
     // Secondary Actions
-    if (report.status != ReportStatus.inReview) {
+    if (report.status != ModerationStatus.pendingReview) {
       overflowMenuItems.add(
         PopupMenuItem<String>(
           value: 'markAsInReview',
-          child: Text(l10n.markAsInReview),
+          child: Text(l10n.moderationStatusPendingReview),
         ),
       );
     }
-    if (report.status != ReportStatus.resolved) {
+    if (report.status != ModerationStatus.resolved) {
       overflowMenuItems.add(
         PopupMenuItem<String>(
           value: 'resolveReport',
@@ -237,7 +237,7 @@ class CommunityActionButtons<T> extends StatelessWidget {
         );
     } else if (value == 'approveComment' && item is Engagement) {
       final updatedEngagement = item.copyWith(
-        comment: item.comment?.copyWith(status: CommentStatus.approved),
+        comment: item.comment?.copyWith(status: ModerationStatus.resolved),
       );
       engagementsRepository.update(
         id: updatedEngagement.id,
@@ -256,15 +256,10 @@ class CommunityActionButtons<T> extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                final updatedEngagement = Engagement(
-                  id: item.id,
-                  userId: item.userId,
-                  entityId: item.entityId,
-                  entityType: item.entityType,
-                  reaction: item.reaction,
-                  comment: null,
-                  createdAt: item.createdAt,
-                  updatedAt: DateTime.now(),
+                final updatedEngagement = item.copyWith(
+                  comment: item.comment?.copyWith(
+                    status: ModerationStatus.resolved,
+                  ),
                 );
                 engagementsRepository.update(
                   id: updatedEngagement.id,
@@ -278,13 +273,15 @@ class CommunityActionButtons<T> extends StatelessWidget {
         ),
       );
     } else if (value == 'markAsInReview' && item is Report) {
-      final updatedReport = item.copyWith(status: ReportStatus.inReview);
+      final updatedReport = item.copyWith(
+        status: ModerationStatus.pendingReview,
+      );
       reportsRepository.update(
         id: updatedReport.id,
         item: updatedReport,
       );
     } else if (value == 'resolveReport' && item is Report) {
-      final updatedReport = item.copyWith(status: ReportStatus.resolved);
+      final updatedReport = item.copyWith(status: ModerationStatus.resolved);
       reportsRepository.update(
         id: updatedReport.id,
         item: updatedReport,
