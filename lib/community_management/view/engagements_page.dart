@@ -209,21 +209,17 @@ class _EngagementsDataSource extends DataTableSource {
       cells: [
         DataCell(Text(engagement.userId, overflow: TextOverflow.ellipsis)),
         DataCell(Text(engagement.reaction.reactionType.name)),
-        if (!isMobile)
-          DataCell(Text(engagement.comment?.content ?? l10n.notAvailable)),
-        DataCell(
-          Tooltip(
-            message: engagement.comment?.content ?? l10n.notAvailable,
-            child: Text(
-              engagement.comment?.content != null
-                  ? (engagement.comment!.content.length > 50
-                        ? '${engagement.comment!.content.substring(0, 47)}...'
-                        : engagement.comment!.content)
-                  : l10n.notAvailable,
-              overflow: TextOverflow.ellipsis,
+        if (!isMobile) ...[
+          DataCell(
+            Tooltip(
+              message: engagement.comment?.content ?? l10n.notAvailable,
+              child: Text(
+                engagement.comment?.content ?? l10n.notAvailable,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
-        ),
+        ],
         DataCell(
           Text(
             engagement.comment?.status.l10n(context) ?? l10n.notAvailable,

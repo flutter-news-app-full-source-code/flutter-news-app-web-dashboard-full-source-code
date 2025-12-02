@@ -115,7 +115,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                       columns: [
                         DataColumn2(label: Text(l10n.user), size: ColumnSize.L),
                         DataColumn2(
-                          label: Text(l10n.initialFeedback),
+                          label: Text(l10n.feedbackHistory),
                           size: ColumnSize.M,
                         ),
                         if (!isMobile)

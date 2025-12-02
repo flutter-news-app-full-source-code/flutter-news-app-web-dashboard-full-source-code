@@ -117,12 +117,16 @@ class _ReportsPageState extends State<ReportsPage> {
                           size: ColumnSize.L,
                         ),
                         DataColumn2(
+                          label: Text(l10n.entityType),
+                          size: ColumnSize.S,
+                        ),
+                        DataColumn2(
                           label: Text(l10n.reason),
                           size: ColumnSize.M,
                         ),
                         if (!isMobile)
                           DataColumn2(
-                            label: Text(l10n.reportStatus),
+                            label: Text(l10n.status),
                             size: ColumnSize.S,
                           ),
                         if (!isMobile)
@@ -207,6 +211,7 @@ class _ReportsDataSource extends DataTableSource {
         DataCell(
           Text(report.reporterUserId, overflow: TextOverflow.ellipsis),
         ),
+        DataCell(Text(report.entityType.l10n(context))),
         DataCell(Text(report.reason.l10n(context))),
         if (!isMobile)
           DataCell(

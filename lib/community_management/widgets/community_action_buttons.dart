@@ -125,7 +125,11 @@ class CommunityActionButtons<T> extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         iconSize: 20,
         icon: const Icon(Icons.visibility_outlined),
-        tooltip: l10n.viewReportedItem,
+        tooltip: switch (report.entityType) {
+          ReportableEntity.headline => l10n.viewReportedHeadline,
+          ReportableEntity.source => l10n.viewReportedSource,
+          ReportableEntity.engagement => l10n.viewReportedComment,
+        },
         onPressed: () {
           final String routeName;
           switch (report.entityType) {
