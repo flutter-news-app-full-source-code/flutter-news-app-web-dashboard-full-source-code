@@ -2073,13 +2073,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get copyReportedItemId => 'نسخ معرّف العنصر المُبلغ عنه';
 
   @override
-  String get rejectCommentConfirmation =>
-      'سيؤدي رفض هذا التعليق إلى تمييزه بشكل دائم على أنه \'مرفوض\' وإخفائه عن العرض العام. هذا الإجراء لا يحذف التفاعل الأصلي. هل أنت متأكد من أنك تريد المتابعة؟';
-
-  @override
-  String get searchByUserId => 'ابحث باستخدام معرّف المستخدم...';
-
-  @override
   String get noNegativeFeedbackHistory =>
       'لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.';
 
@@ -2091,6 +2084,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cancel => 'إلغاء';
+
+  @override
+  String get rejectCommentConfirmation =>
+      'هل أنت متأكد أنك تريد رفض وحذف هذا التعليق نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get searchByUserId => 'ابحث باستخدام معرّف المستخدم...';
 
   @override
   String get viewReportedHeadline => 'عرض العنوان';

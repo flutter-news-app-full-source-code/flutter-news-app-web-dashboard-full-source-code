@@ -2613,14 +2613,6 @@
   "@copyReportedItemId": {
     "description": "نص عنصر القائمة لنسخ معرّف العنصر المُبلغ عنه."
   },
-  "rejectCommentConfirmation": "سيؤدي رفض هذا التعليق إلى تمييزه بشكل دائم على أنه 'مرفوض' وإخفائه عن العرض العام. هذا الإجراء لا يحذف التفاعل الأصلي. هل أنت متأكد من أنك تريد المتابعة؟",
-  "@rejectCommentConfirmation": {
-    "description": "رسالة تأكيد تظهر للمسؤول قبل رفض تعليق مستخدم."
-  },
-  "searchByUserId": "ابحث باستخدام معرّف المستخدم...",
-  "@searchByUserId": {
-    "description": "نص تلميحي لحقل البحث في مربعات حوار التصفية، يحدد البحث باستخدام معرّف المستخدم."
-  },
   "noNegativeFeedbackHistory": "لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.",
   "@noNegativeFeedbackHistory": {
     "description": "رسالة تظهر في مربع حوار سجل التقييمات عند عدم وجود سجل."
@@ -2636,6 +2628,14 @@
   "cancel": "إلغاء",
   "@cancel": {
     "description": "A generic 'Cancel' button text."
+  },
+  "rejectCommentConfirmation": "هل أنت متأكد أنك تريد رفض وحذف هذا التعليق نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
+  "@rejectCommentConfirmation": {
+    "description": "A simplified confirmation message shown to an admin before they reject and delete a user's comment."
+  },
+  "searchByUserId": "ابحث باستخدام معرّف المستخدم...",
+  "@searchByUserId": {
+    "description": "Hint text for the search input field in filter dialogs, specifying to search by User ID."
   },
   "viewReportedHeadline": "عرض العنوان",
   "@viewReportedHeadline": {

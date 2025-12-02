@@ -2609,14 +2609,6 @@
   "@copyReportedItemId": {
     "description": "Menu item text to copy the ID of a reported item."
   },
-  "rejectCommentConfirmation": "Rejecting this comment will permanently mark it as 'Rejected' and hide it from public view. This action does not delete the parent engagement. Are you sure you want to proceed?",
-  "@rejectCommentConfirmation": {
-    "description": "Confirmation message shown to an admin before they reject a user's comment."
-  },
-  "searchByUserId": "Search by User ID...",
-  "@searchByUserId": {
-    "description": "Hint text for the search input field in filter dialogs, specifying to search by User ID."
-  },
   "noNegativeFeedbackHistory": "No negative feedback history found for this user.",
   "@noNegativeFeedbackHistory": {
     "description": "Message displayed in the feedback history dialog when there is no history."
@@ -2632,6 +2624,14 @@
   "cancel": "Cancel",
   "@cancel": {
     "description": "A generic 'Cancel' button text."
+  },
+  "rejectCommentConfirmation": "Are you sure you want to reject and permanently delete this comment? This action cannot be undone.",
+  "@rejectCommentConfirmation": {
+    "description": "A simplified confirmation message shown to an admin before they reject and delete a user's comment."
+  },
+  "searchByUserId": "Search by User ID...",
+  "@searchByUserId": {
+    "description": "Hint text for the search input field in filter dialogs, specifying to search by User ID."
   },
   "viewReportedHeadline": "View Headline",
   "@viewReportedHeadline": {

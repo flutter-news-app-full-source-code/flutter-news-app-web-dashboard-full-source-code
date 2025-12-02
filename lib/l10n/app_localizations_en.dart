@@ -2079,13 +2079,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get copyReportedItemId => 'Copy Reported Item ID';
 
   @override
-  String get rejectCommentConfirmation =>
-      'Rejecting this comment will permanently mark it as \'Rejected\' and hide it from public view. This action does not delete the parent engagement. Are you sure you want to proceed?';
-
-  @override
-  String get searchByUserId => 'Search by User ID...';
-
-  @override
   String get noNegativeFeedbackHistory =>
       'No negative feedback history found for this user.';
 
@@ -2097,6 +2090,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get rejectCommentConfirmation =>
+      'Are you sure you want to reject and permanently delete this comment? This action cannot be undone.';
+
+  @override
+  String get searchByUserId => 'Search by User ID...';
 
   @override
   String get viewReportedHeadline => 'View Headline';

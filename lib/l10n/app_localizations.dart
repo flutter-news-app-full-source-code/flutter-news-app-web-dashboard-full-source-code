@@ -3866,18 +3866,6 @@ abstract class AppLocalizations {
   /// **'Copy Reported Item ID'**
   String get copyReportedItemId;
 
-  /// Confirmation message shown to an admin before they reject a user's comment.
-  ///
-  /// In en, this message translates to:
-  /// **'Rejecting this comment will permanently mark it as \'Rejected\' and hide it from public view. This action does not delete the parent engagement. Are you sure you want to proceed?'**
-  String get rejectCommentConfirmation;
-
-  /// Hint text for the search input field in filter dialogs, specifying to search by User ID.
-  ///
-  /// In en, this message translates to:
-  /// **'Search by User ID...'**
-  String get searchByUserId;
-
   /// Message displayed in the feedback history dialog when there is no history.
   ///
   /// In en, this message translates to:
@@ -3901,6 +3889,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// A simplified confirmation message shown to an admin before they reject and delete a user's comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to reject and permanently delete this comment? This action cannot be undone.'**
+  String get rejectCommentConfirmation;
+
+  /// Hint text for the search input field in filter dialogs, specifying to search by User ID.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by User ID...'**
+  String get searchByUserId;
 
   /// Action to view the reported headline
   ///
