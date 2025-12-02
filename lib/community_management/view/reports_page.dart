@@ -8,7 +8,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
-import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class ReportsPage extends StatefulWidget {
@@ -125,11 +124,6 @@ class _ReportsPageState extends State<ReportsPage> {
                             label: Text(l10n.status),
                             size: ColumnSize.S,
                           ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.date),
-                            size: ColumnSize.S,
-                          ),
                         DataColumn2(
                           label: Text(l10n.actions),
                           size: ColumnSize.S,
@@ -228,10 +222,6 @@ class _ReportsDataSource extends DataTableSource {
               side: BorderSide.none,
               visualDensity: VisualDensity.compact,
             ),
-          ),
-        if (!isMobile)
-          DataCell(
-            Text(DateFormat('dd-MM-yyyy').format(report.createdAt.toLocal())),
           ),
         DataCell(CommunityActionButtons(item: report, l10n: l10n)),
       ],

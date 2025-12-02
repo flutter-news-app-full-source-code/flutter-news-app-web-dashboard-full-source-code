@@ -117,11 +117,10 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                           label: Text(l10n.feedback),
                           size: ColumnSize.M,
                         ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.lastInteraction),
-                            size: ColumnSize.S,
-                          ),
+                        DataColumn2(
+                          label: Text(l10n.lastInteraction),
+                          size: ColumnSize.S,
+                        ),
                         DataColumn2(
                           label: Text(l10n.actions),
                           size: ColumnSize.S,
@@ -207,12 +206,11 @@ class _AppReviewsDataSource extends DataTableSource {
             side: BorderSide.none,
           ),
         ),
-        if (!isMobile)
-          DataCell(
-            Text(
-              DateFormat('dd-MM-yyyy').format(appReview.updatedAt.toLocal()),
-            ),
+        DataCell(
+          Text(
+            DateFormat('dd-MM-yyyy').format(appReview.updatedAt.toLocal()),
           ),
+        ),
         DataCell(CommunityActionButtons(item: appReview, l10n: l10n)),
       ],
     );

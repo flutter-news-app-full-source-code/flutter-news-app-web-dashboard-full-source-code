@@ -107,10 +107,12 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                   padding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.lg,
                   ),
-                  child: Column(
-                    children: [
-                      ExpansionTile(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isMobile = constraints.maxWidth < 600;
+                      return ExpansionTile(
                         title: Text(l10n.internalPromptLogicTitle),
+                        initiallyExpanded: !isMobile,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
                           top: AppSpacing.md,
@@ -162,10 +164,20 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                             controller: _initialPromptCooldownController,
                           ),
                         ],
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      ExpansionTile(
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                  ),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isMobile = constraints.maxWidth < 600;
+                      return ExpansionTile(
                         title: Text(l10n.followUpActionsTitle),
+                        initiallyExpanded: !isMobile,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
                           top: AppSpacing.md,
@@ -220,8 +232,8 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                             },
                           ),
                         ],
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ],

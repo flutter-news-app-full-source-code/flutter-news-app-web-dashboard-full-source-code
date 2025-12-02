@@ -122,11 +122,10 @@ class _EngagementsPageState extends State<EngagementsPage> {
                             label: Text(l10n.comment),
                             size: ColumnSize.L,
                           ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.date),
-                            size: ColumnSize.S,
-                          ),
+                        DataColumn2(
+                          label: Text(l10n.date),
+                          size: ColumnSize.S,
+                        ),
                         DataColumn2(
                           label: Text(l10n.actions),
                           size: ColumnSize.S,
@@ -233,12 +232,9 @@ class _EngagementsDataSource extends DataTableSource {
             ),
           ),
         ],
-        if (!isMobile)
-          DataCell(
-            Text(
-              DateFormat('dd-MM-yyyy').format(engagement.createdAt.toLocal()),
-            ),
-          ),
+        DataCell(
+          Text(DateFormat('dd-MM-yyyy').format(engagement.createdAt.toLocal())),
+        ),
         DataCell(CommunityActionButtons(item: engagement, l10n: l10n)),
       ],
     );
