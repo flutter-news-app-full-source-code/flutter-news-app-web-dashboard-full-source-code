@@ -421,22 +421,40 @@ class CommunityManagementBloc
           if (index != -1) {
             final updatedEngagements = List<Engagement>.from(state.engagements)
               ..[index] = item;
-            emit(state.copyWith(engagements: updatedEngagements));
+            emit(
+              state.copyWith(
+                engagements: updatedEngagements,
+                lastPendingUpdateId: null,
+                snackbarMessage: null,
+              ),
+            );
+          } else {
+            emit(
+              state.copyWith(lastPendingUpdateId: null, snackbarMessage: null),
+            );
           }
         } else if (item is Report) {
           final index = state.reports.indexWhere((r) => r.id == item.id);
           if (index != -1) {
             final updatedReports = List<Report>.from(state.reports)
               ..[index] = item;
-            emit(state.copyWith(reports: updatedReports));
+            emit(
+              state.copyWith(
+                reports: updatedReports,
+                lastPendingUpdateId: null,
+                snackbarMessage: null,
+              ),
+            );
+          } else {
+            emit(
+              state.copyWith(lastPendingUpdateId: null, snackbarMessage: null),
+            );
           }
+        } else {
+          emit(
+            state.copyWith(lastPendingUpdateId: null, snackbarMessage: null),
+          );
         }
-        emit(
-          state.copyWith(
-            lastPendingUpdateId: null,
-            snackbarMessage: null,
-          ),
-        );
     }
   }
 }
