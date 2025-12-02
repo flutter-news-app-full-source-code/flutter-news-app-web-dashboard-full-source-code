@@ -76,16 +76,22 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
 
     if (state.searchQuery.isNotEmpty) {
       filter[r'$or'] = [
-        {'email': {r'$regex': state.searchQuery, r'$options': 'i'}},
+        {
+          'email': {r'$regex': state.searchQuery, r'$options': 'i'},
+        },
         {'_id': state.searchQuery},
       ];
     }
 
     if (state.selectedAppRoles.isNotEmpty) {
-      filter['appRole'] = {r'$in': state.selectedAppRoles.map((r) => r.name).toList()};
+      filter['appRole'] = {
+        r'$in': state.selectedAppRoles.map((r) => r.name).toList(),
+      };
     }
     if (state.selectedDashboardRoles.isNotEmpty) {
-      filter['dashboardRole'] = {r'$in': state.selectedDashboardRoles.map((r) => r.name).toList()};
+      filter['dashboardRole'] = {
+        r'$in': state.selectedDashboardRoles.map((r) => r.name).toList(),
+      };
     }
     return filter;
   }
