@@ -200,6 +200,11 @@ class _EngagementsDataSource extends DataTableSource {
         DataCell(
           Chip(
             label: Text(engagement.reaction.reactionType.name),
+            backgroundColor: _getReactionColor(
+              context,
+              engagement.reaction.reactionType,
+            ),
+            side: BorderSide.none,
             visualDensity: VisualDensity.compact,
           ),
         ),
@@ -219,4 +224,22 @@ class _EngagementsDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+
+  Color? _getReactionColor(BuildContext context, ReactionType reactionType) {
+    final colorScheme = Theme.of(context).colorScheme;
+    switch (reactionType) {
+      case ReactionType.like:
+        return colorScheme.primaryContainer.withOpacity(0.5);
+      case ReactionType.insightful:
+        return colorScheme.tertiaryContainer.withOpacity(0.5);
+      case ReactionType.amusing:
+        return colorScheme.secondaryContainer.withOpacity(0.5);
+      case ReactionType.sad:
+        return Colors.blueGrey.withOpacity(0.2);
+      case ReactionType.angry:
+        return colorScheme.errorContainer.withOpacity(0.4);
+      case ReactionType.skeptical:
+        return colorScheme.onSurface.withOpacity(0.1);
+    }
+  }
 }
