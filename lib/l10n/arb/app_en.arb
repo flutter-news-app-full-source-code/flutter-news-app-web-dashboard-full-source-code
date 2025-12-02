@@ -2246,10 +2246,6 @@
   "@enableCommunityFeaturesDescription": {
     "description": "Description for the master switch to enable all community features."
   },
-  "communityManagement": "Community",
-  "@communityManagement": {
-    "description": "Label for the community management navigation item"
-  },
   "communityManagementPageDescription": "Manage user-generated content including engagements (reactions and comments), content reports, and app reviews.",
   "@communityManagementPageDescription": {
     "description": "Description for the Community Management page"
@@ -2662,5 +2658,21 @@
   "commentDetails": "Comment Details",
   "@commentDetails": {
     "description": "Title for the dialog showing the details of a user-submitted comment."
+  },
+  "communityManagement": "Community Management",
+  "@communityManagement": {
+    "description": "Label for the Community Management page title and navigation."
+  },
+  "navContent": "Content",
+  "@navContent": {
+    "description": "Short navigation label for Content Management."
+  },
+  "navUsers": "Users",
+  "@navUsers": {
+    "description": "Short navigation label for User Management."
+  },
+  "navCommunity": "Community",
+  "@navCommunity": {
+    "description": "Short navigation label for Community Management."
   }
 }

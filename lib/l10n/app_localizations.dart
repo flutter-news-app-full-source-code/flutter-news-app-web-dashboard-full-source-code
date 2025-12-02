@@ -3344,12 +3344,6 @@ abstract class AppLocalizations {
   /// **'Globally activates or deactivates all community-related functionality, including engagement and reporting.'**
   String get enableCommunityFeaturesDescription;
 
-  /// Label for the community management navigation item
-  ///
-  /// In en, this message translates to:
-  /// **'Community'**
-  String get communityManagement;
-
   /// Description for the Community Management page
   ///
   /// In en, this message translates to:
@@ -3949,6 +3943,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Comment Details'**
   String get commentDetails;
+
+  /// Label for the Community Management page title and navigation.
+  ///
+  /// In en, this message translates to:
+  /// **'Community Management'**
+  String get communityManagement;
+
+  /// Short navigation label for Content Management.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get navContent;
+
+  /// Short navigation label for User Management.
+  ///
+  /// In en, this message translates to:
+  /// **'Users'**
+  String get navUsers;
+
+  /// Short navigation label for Community Management.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get navCommunity;
 }
 
 class _AppLocalizationsDelegate

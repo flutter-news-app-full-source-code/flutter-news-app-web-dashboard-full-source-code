@@ -2250,10 +2250,6 @@
   "@enableCommunityFeaturesDescription": {
     "description": "وصف المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
   },
-  "communityManagement": "المجتمع",
-  "@communityManagement": {
-    "description": "تسمية عنصر التنقل لإدارة المجتمع"
-  },
   "communityManagementPageDescription": "إدارة المحتوى الذي ينشئه المستخدمون بما في ذلك التفاعلات (ردود الفعل والتعليقات) وتبليغات المحتوى ومراجعات التطبيق.",
   "@communityManagementPageDescription": {
     "description": "وصف صفحة إدارة المجتمع"
@@ -2666,5 +2662,21 @@
   "commentDetails": "تفاصيل التعليق",
   "@commentDetails": {
     "description": "عنوان مربع الحوار الذي يعرض تفاصيل تعليق مقدم من المستخدم."
+  },
+  "communityManagement": "إدارة المجتمع",
+  "@communityManagement": {
+    "description": "تسمية لعنوان صفحة إدارة المجتمع والتنقل."
+  },
+  "navContent": "المحتوى",
+  "@navContent": {
+    "description": "تسمية تنقل قصيرة لإدارة المحتوى."
+  },
+  "navUsers": "المستخدمون",
+  "@navUsers": {
+    "description": "تسمية تنقل قصيرة لإدارة المستخدمين."
+  },
+  "navCommunity": "المجتمع",
+  "@navCommunity": {
+    "description": "تسمية تنقل قصيرة لإدارة المجتمع."
   }
 }

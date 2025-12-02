@@ -1809,9 +1809,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Globally activates or deactivates all community-related functionality, including engagement and reporting.';
 
   @override
-  String get communityManagement => 'Community';
-
-  @override
   String get communityManagementPageDescription =>
       'Manage user-generated content including engagements (reactions and comments), content reports, and app reviews.';
 
@@ -2121,4 +2118,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commentDetails => 'Comment Details';
+
+  @override
+  String get communityManagement => 'Community Management';
+
+  @override
+  String get navContent => 'Content';
+
+  @override
+  String get navUsers => 'Users';
+
+  @override
+  String get navCommunity => 'Community';
 }

@@ -1804,9 +1804,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.';
 
   @override
-  String get communityManagement => 'المجتمع';
-
-  @override
   String get communityManagementPageDescription =>
       'إدارة المحتوى الذي ينشئه المستخدمون بما في ذلك التفاعلات (ردود الفعل والتعليقات) وتبليغات المحتوى ومراجعات التطبيق.';
 
@@ -2115,4 +2112,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commentDetails => 'تفاصيل التعليق';
+
+  @override
+  String get communityManagement => 'إدارة المجتمع';
+
+  @override
+  String get navContent => 'المحتوى';
+
+  @override
+  String get navUsers => 'المستخدمون';
+
+  @override
+  String get navCommunity => 'المجتمع';
 }
