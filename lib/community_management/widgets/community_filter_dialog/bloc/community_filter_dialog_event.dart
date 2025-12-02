@@ -60,14 +60,14 @@ class CommunityFilterDialogReportableEntityChanged
   List<Object> get props => [reportableEntity];
 }
 
-class CommunityFilterDialogInitialFeedbackChanged
+class CommunityFilterDialogAppReviewFeedbackChanged
     extends CommunityFilterDialogEvent {
-  const CommunityFilterDialogInitialFeedbackChanged(this.initialFeedback);
+  const CommunityFilterDialogAppReviewFeedbackChanged(this.appReviewFeedback);
 
-  final List<InitialAppReviewFeedback> initialFeedback;
+  final List<AppReviewFeedback> appReviewFeedback;
 
   @override
-  List<Object> get props => [initialFeedback];
+  List<Object> get props => [appReviewFeedback];
 }
 
 class CommunityFilterDialogReset extends CommunityFilterDialogEvent {

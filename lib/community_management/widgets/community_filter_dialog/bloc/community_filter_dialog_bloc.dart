@@ -22,7 +22,9 @@ class CommunityFilterDialogBloc
     on<CommunityFilterDialogReportableEntityChanged>(
       _onReportableEntityChanged,
     );
-    on<CommunityFilterDialogInitialFeedbackChanged>(_onInitialFeedbackChanged);
+    on<CommunityFilterDialogAppReviewFeedbackChanged>(
+      _onAppReviewFeedbackChanged,
+    );
     on<CommunityFilterDialogReset>(_onFilterDialogReset);
   }
 
@@ -37,8 +39,8 @@ class CommunityFilterDialogBloc
         selectedReportStatus: event.communityFilterState.selectedReportStatus,
         selectedReportableEntity:
             event.communityFilterState.selectedReportableEntity,
-        selectedInitialFeedback:
-            event.communityFilterState.selectedInitialFeedback,
+        selectedAppReviewFeedback:
+            event.communityFilterState.selectedAppReviewFeedback,
       ),
     );
   }
@@ -71,11 +73,11 @@ class CommunityFilterDialogBloc
     emit(state.copyWith(selectedReportableEntity: event.reportableEntity));
   }
 
-  void _onInitialFeedbackChanged(
-    CommunityFilterDialogInitialFeedbackChanged event,
+  void _onAppReviewFeedbackChanged(
+    CommunityFilterDialogAppReviewFeedbackChanged event,
     Emitter<CommunityFilterDialogState> emit,
   ) {
-    emit(state.copyWith(selectedInitialFeedback: event.initialFeedback));
+    emit(state.copyWith(selectedAppReviewFeedback: event.appReviewFeedback));
   }
 
   void _onFilterDialogReset(
