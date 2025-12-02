@@ -256,10 +256,15 @@ class CommunityActionButtons<T> extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                final updatedEngagement = item.copyWith(
-                  comment: item.comment?.copyWith(
-                    status: ModerationStatus.resolved,
-                  ),
+                final updatedEngagement = Engagement(
+                  id: item.id,
+                  userId: item.userId,
+                  entityId: item.entityId,
+                  entityType: item.entityType,
+                  reaction: item.reaction,
+                  comment: null,
+                  createdAt: item.createdAt,
+                  updatedAt: DateTime.now(),
                 );
                 engagementsRepository.update(
                   id: updatedEngagement.id,
