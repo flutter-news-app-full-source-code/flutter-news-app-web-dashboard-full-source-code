@@ -4,32 +4,28 @@ class CommunityFilterDialogState extends Equatable {
   const CommunityFilterDialogState({
     required this.activeTab,
     this.searchQuery = '',
-    this.selectedCommentStatus = const [],
-    this.selectedReportStatus = const [],
+    this.selectedModerationStatus = const [],
     this.selectedReportableEntity = const [],
     this.selectedAppReviewFeedback = const [],
   });
 
   final CommunityManagementTab activeTab;
   final String searchQuery;
-  final List<CommentStatus> selectedCommentStatus;
-  final List<ReportStatus> selectedReportStatus;
+  final List<ModerationStatus> selectedModerationStatus;
   final List<ReportableEntity> selectedReportableEntity;
   final List<AppReviewFeedback> selectedAppReviewFeedback;
 
   CommunityFilterDialogState copyWith({
     String? searchQuery,
-    List<CommentStatus>? selectedCommentStatus,
-    List<ReportStatus>? selectedReportStatus,
+    List<ModerationStatus>? selectedModerationStatus,
     List<ReportableEntity>? selectedReportableEntity,
     List<AppReviewFeedback>? selectedAppReviewFeedback,
   }) {
     return CommunityFilterDialogState(
       activeTab: activeTab,
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedCommentStatus:
-          selectedCommentStatus ?? this.selectedCommentStatus,
-      selectedReportStatus: selectedReportStatus ?? this.selectedReportStatus,
+      selectedModerationStatus:
+          selectedModerationStatus ?? this.selectedModerationStatus,
       selectedReportableEntity:
           selectedReportableEntity ?? this.selectedReportableEntity,
       selectedAppReviewFeedback:
@@ -41,8 +37,7 @@ class CommunityFilterDialogState extends Equatable {
   List<Object> get props => [
     activeTab,
     searchQuery,
-    selectedCommentStatus,
-    selectedReportStatus,
+    selectedModerationStatus,
     selectedReportableEntity,
     selectedAppReviewFeedback,
   ];
