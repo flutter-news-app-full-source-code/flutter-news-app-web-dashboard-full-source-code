@@ -8,39 +8,53 @@ part 'community_filter_state.dart';
 class CommunityFilterBloc
     extends Bloc<CommunityFilterEvent, CommunityFilterState> {
   CommunityFilterBloc() : super(const CommunityFilterState()) {
-    on<EngagementsFilterChanged>(_onEngagementsFilterChanged);
-    on<ReportsFilterChanged>(_onReportsFilterChanged);
-    on<AppReviewsFilterChanged>(_onAppReviewsFilterChanged);
+    on<CommunityFilterSearchQueryChanged>(_onSearchQueryChanged);
+    on<CommunityFilterModerationStatusChanged>(_onModerationStatusChanged);
+    on<CommunityFilterReportableEntityChanged>(_onReportableEntityChanged);
+    on<CommunityFilterAppReviewFeedbackChanged>(_onAppReviewFeedbackChanged);
     on<CommunityFilterReset>(_onFilterReset);
+    on<CommunityFilterApplied>(_onFilterApplied);
   }
 
-  void _onEngagementsFilterChanged(
-    EngagementsFilterChanged event,
+  void _onSearchQueryChanged(
+    CommunityFilterSearchQueryChanged event,
     Emitter<CommunityFilterState> emit,
   ) {
-    emit(state.copyWith(engagementsFilter: event.filterState));
+    emit(state.copyWith(searchQuery: event.query));
   }
 
-  void _onReportsFilterChanged(
-    ReportsFilterChanged event,
+  void _onModerationStatusChanged(
+    CommunityFilterModerationStatusChanged event,
     Emitter<CommunityFilterState> emit,
   ) {
-    emit(state.copyWith(reportsFilter: event.filterState));
+    emit(state.copyWith(selectedModerationStatus: event.moderationStatus));
   }
 
-  void _onAppReviewsFilterChanged(
-    AppReviewsFilterChanged event,
+  void _onReportableEntityChanged(
+    CommunityFilterReportableEntityChanged event,
     Emitter<CommunityFilterState> emit,
   ) {
-    emit(state.copyWith(appReviewsFilter: event.filterState));
+    emit(state.copyWith(selectedReportableEntity: event.reportableEntity));
+  }
+
+  void _onAppReviewFeedbackChanged(
+    CommunityFilterAppReviewFeedbackChanged event,
+    Emitter<CommunityFilterState> emit,
+  ) {
+    emit(state.copyWith(selectedAppReviewFeedback: event.appReviewFeedback));
   }
 
   void _onFilterReset(
     CommunityFilterReset event,
     Emitter<CommunityFilterState> emit,
   ) {
-    emit(
-      const CommunityFilterState(),
-    );
+    emit(const CommunityFilterState());
+  }
+
+  void _onFilterApplied(
+    CommunityFilterApplied event,
+    Emitter<CommunityFilterState> emit,
+  ) {
+    emit(state.copyWith(version: state.version + 1));
   }
 }
