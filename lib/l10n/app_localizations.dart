@@ -3901,6 +3901,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// Action to view the reported headline
+  ///
+  /// In en, this message translates to:
+  /// **'View Headline'**
+  String get viewReportedHeadline;
+
+  /// Action to view the reported source
+  ///
+  /// In en, this message translates to:
+  /// **'View Source'**
+  String get viewReportedSource;
+
+  /// Action to view the reported comment
+  ///
+  /// In en, this message translates to:
+  /// **'View Comment'**
+  String get viewReportedComment;
+
+  /// Column header for the type of entity being reported
+  ///
+  /// In en, this message translates to:
+  /// **'Entity Type'**
+  String get entityType;
 }
 
 class _AppLocalizationsDelegate

@@ -2097,4 +2097,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get viewReportedHeadline => 'View Headline';
+
+  @override
+  String get viewReportedSource => 'View Source';
+
+  @override
+  String get viewReportedComment => 'View Comment';
+
+  @override
+  String get entityType => 'Entity Type';
 }

@@ -2633,8 +2633,24 @@
   "@commentStatusFlaggedByAi": {
     "description": "حالة إدارية لتعليق تم الإبلاغ عنه تلقائيًا بواسطة الذكاء الاصطناعي."
   },
-    "cancel": "إلغاء",
-    "@cancel": {
-        "description": "A generic 'Cancel' button text."
-    }
+  "cancel": "إلغاء",
+  "@cancel": {
+    "description": "A generic 'Cancel' button text."
+  },
+  "viewReportedHeadline": "عرض العنوان",
+  "@viewReportedHeadline": {
+    "description": "Action to view the reported headline"
+  },
+  "viewReportedSource": "عرض المصدر",
+  "@viewReportedSource": {
+    "description": "Action to view the reported source"
+  },
+  "viewReportedComment": "عرض التعليق",
+  "@viewReportedComment": {
+    "description": "Action to view the reported comment"
+  },
+  "entityType": "نوع الكيان",
+  "@entityType": {
+    "description": "Column header for the type of entity being reported"
+  }
 }

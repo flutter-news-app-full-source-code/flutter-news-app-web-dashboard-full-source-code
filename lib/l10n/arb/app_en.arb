@@ -2246,296 +2246,296 @@
   "@enableCommunityFeaturesDescription": {
     "description": "Description for the master switch to enable all community features."
   },
-    "communityManagement": "Community",
-    "@communityManagement": {
-      "description": "Label for the community management navigation item"
-    },
-    "communityManagementPageDescription": "Manage user-generated content including engagements (reactions and comments), content reports, and app reviews.",
-    "@communityManagementPageDescription": {
-      "description": "Description for the Community Management page"
-    },
-    "engagements": "Engagements",
-    "@engagements": {
-      "description": "Label for the engagements subpage"
-    },
-    "reports": "Reports",
-    "@reports": {
-      "description": "Label for the reports subpage"
-    },
-    "appReviews": "App Reviews",
-    "@appReviews": {
-      "description": "Label for the app reviews subpage"
-    },
-    "user": "User",
-    "@user": {
-      "description": "Column header for user"
-    },
-    "engagedContent": "Engaged Content",
-    "@engagedContent": {
-      "description": "Column header for engaged content"
-    },
-    "reaction": "Reaction",
-    "@reaction": {
-      "description": "Column header for reaction"
-    },
-    "comment": "Comment",
-    "@comment": {
-      "description": "Column header for comment"
-    },
-    "commentStatus": "Comment Status",
-    "@commentStatus": {
-      "description": "Column header for comment status"
-    },
-    "date": "Date",
-    "@date": {
-      "description": "Column header for date"
-    },
-    "approveComment": "Approve Comment",
-    "@approveComment": {
-      "description": "Action to approve a comment"
-    },
-    "rejectComment": "Reject Comment",
-    "@rejectComment": {
-      "description": "Action to reject a comment"
-    },
-    "viewEngagedContent": "View Content",
-    "@viewEngagedContent": {
-      "description": "Action to view the engaged content"
-    },
-    "copyUserId": "Copy User ID",
-    "@copyUserId": {
-      "description": "Action to copy the user ID"
-    },
-    "reporter": "Reporter",
-    "@reporter": {
-      "description": "Column header for reporter"
-    },
-    "reportedItem": "Reported Item",
-    "@reportedItem": {
-      "description": "Column header for reported item"
-    },
-    "reason": "Reason",
-    "@reason": {
-      "description": "Column header for reason"
-    },
-    "reportStatus": "Report Status",
-    "@reportStatus": {
-      "description": "Column header for report status"
-    },
-    "viewReportedItem": "View Item",
-    "@viewReportedItem": {
-      "description": "Action to view the reported item"
-    },
-    "markAsInReview": "Mark as In Review",
-    "@markAsInReview": {
-      "description": "Action to mark a report as in review"
-    },
-    "resolveReport": "Resolve Report",
-    "@resolveReport": {
-      "description": "Action to resolve a report"
-    },
-    "initialFeedback": "Initial Feedback",
-    "@initialFeedback": {
-      "description": "Column header for initial feedback"
-    },
-    "osPromptRequested": "OS Prompt?",
-    "@osPromptRequested": {
-      "description": "Column header for OS prompt requested"
-    },
-    "feedbackHistory": "Feedback History",
-    "@feedbackHistory": {
-      "description": "Column header for feedback history"
-    },
-    "lastInteraction": "Last Interaction",
-    "@lastInteraction": {
-      "description": "Column header for last interaction"
-    },
-    "viewFeedbackHistory": "View History",
-    "@viewFeedbackHistory": {
-      "description": "Action to view feedback history"
-    },
-    "reactionTypeLike": "Like",
-    "@reactionTypeLike": {
-      "description": "Reaction type: Like"
-    },
-    "reactionTypeInsightful": "Insightful",
-    "@reactionTypeInsightful": {
-      "description": "Reaction type: Insightful"
-    },
-    "reactionTypeAmusing": "Amusing",
-    "@reactionTypeAmusing": {
-      "description": "Reaction type: Amusing"
-    },
-    "reactionTypeSad": "Sad",
-    "@reactionTypeSad": {
-      "description": "Reaction type: Sad"
-    },
-    "reactionTypeAngry": "Angry",
-    "@reactionTypeAngry": {
-      "description": "Reaction type: Angry"
-    },
-    "reactionTypeSkeptical": "Skeptical",
-    "@reactionTypeSkeptical": {
-      "description": "Reaction type: Skeptical"
-    },
-    "commentStatusPendingReview": "Pending",
-    "@commentStatusPendingReview": {
-      "description": "Comment status: Pending Review"
-    },
-    "commentStatusApproved": "Approved",
-    "@commentStatusApproved": {
-      "description": "Comment status: Approved"
-    },
-    "commentStatusRejected": "Rejected",
-    "@commentStatusRejected": {
-      "description": "Comment status: Rejected"
-    },
-    "reportStatusSubmitted": "Submitted",
-    "@reportStatusSubmitted": {
-      "description": "Report status: Submitted"
-    },
-    "reportStatusInReview": "In Review",
-    "@reportStatusInReview": {
-      "description": "Report status: In Review"
-    },
-    "reportStatusResolved": "Resolved",
-    "@reportStatusResolved": {
-      "description": "Report status: Resolved"
-    },
-    "initialAppReviewFeedbackPositive": "Positive",
-    "@initialAppReviewFeedbackPositive": {
-      "description": "Initial app review feedback: Positive"
-    },
-    "initialAppReviewFeedbackNegative": "Negative",
-    "@initialAppReviewFeedbackNegative": {
-      "description": "Initial app review feedback: Negative"
-    },
-    "filterCommunity": "Filter Community Content",
-    "@filterCommunity": {
-      "description": "Action to filter community content"
-    },
-    "searchByEngagementUser": "Search by user email...",
-    "@searchByEngagementUser": {
-      "description": "Hint text for searching by engagement user"
-    },
-    "searchByReportReporter": "Search by reporter email...",
-    "@searchByReportReporter": {
-      "description": "Hint text for searching by report reporter"
-    },
-    "searchByAppReviewUser": "Search by user email...",
-    "@searchByAppReviewUser": {
-      "description": "Hint text for searching by app review user"
-    },
-    "selectCommentStatus": "Select Comment Status",
-    "@selectCommentStatus": {
-      "description": "Action to select comment status"
-    },
-    "selectReportStatus": "Select Report Status",
-    "@selectReportStatus": {
-      "description": "Action to select report status"
-    },
-    "selectInitialFeedback": "Select Initial Feedback",
-    "@selectInitialFeedback": {
-      "description": "Action to select initial feedback"
-    },
-    "selectReportableEntity": "Select Reported Item Type",
-    "@selectReportableEntity": {
-      "description": "Action to select reportable entity"
-    },
-    "reportableEntityHeadline": "Headline",
-    "@reportableEntityHeadline": {
-      "description": "Reportable entity: Headline"
-    },
-    "reportableEntitySource": "Source",
-    "@reportableEntitySource": {
-      "description": "Reportable entity: Source"
-    },
-    "reportableEntityComment": "Comment",
-    "@reportableEntityComment": {
-      "description": "Reportable entity: Comment"
-    },
-    "noEngagementsFound": "No engagements found.",
-    "@noEngagementsFound": {
-      "description": "Message when no engagements are found"
-    },
-    "noReportsFound": "No reports found.",
-    "@noReportsFound": {
-      "description": "Message when no reports are found"
-    },
-    "noAppReviewsFound": "No app reviews found.",
-    "@noAppReviewsFound": {
-      "description": "Message when no app reviews are found"
-    },
-    "loadingEngagements": "Loading Engagements",
-    "@loadingEngagements": {
-      "description": "Message when engagements are loading"
-    },
-    "loadingReports": "Loading Reports",
-    "@loadingReports": {
-      "description": "Message when reports are loading"
-    },
-    "loadingAppReviews": "Loading App Reviews",
-    "@loadingAppReviews": {
-      "description": "Message when app reviews are loading"
-    },
-    "userIdCopied": "User ID copied to clipboard.",
-    "@userIdCopied": {
-      "description": "Message when user ID is copied"
-    },
-    "commentApproved": "Comment approved.",
-    "@commentApproved": {
-      "description": "Message when a comment is approved"
-    },
-    "commentRejected": "Comment rejected.",
-    "@commentRejected": {
-      "description": "Message when a comment is rejected"
-    },
-    "reportStatusUpdated": "Report status updated.",
-    "@reportStatusUpdated": {
-      "description": "Message when a report status is updated"
-    },
-    "feedbackHistoryForUser": "Feedback History for {email}",
-    "@feedbackHistoryForUser": {
-      "description": "Message displaying feedback history for a user",
-      "placeholders": {
-        "email": {
-          "type": "String"
-        }
+  "communityManagement": "Community",
+  "@communityManagement": {
+    "description": "Label for the community management navigation item"
+  },
+  "communityManagementPageDescription": "Manage user-generated content including engagements (reactions and comments), content reports, and app reviews.",
+  "@communityManagementPageDescription": {
+    "description": "Description for the Community Management page"
+  },
+  "engagements": "Engagements",
+  "@engagements": {
+    "description": "Label for the engagements subpage"
+  },
+  "reports": "Reports",
+  "@reports": {
+    "description": "Label for the reports subpage"
+  },
+  "appReviews": "App Reviews",
+  "@appReviews": {
+    "description": "Label for the app reviews subpage"
+  },
+  "user": "User",
+  "@user": {
+    "description": "Column header for user"
+  },
+  "engagedContent": "Engaged Content",
+  "@engagedContent": {
+    "description": "Column header for engaged content"
+  },
+  "reaction": "Reaction",
+  "@reaction": {
+    "description": "Column header for reaction"
+  },
+  "comment": "Comment",
+  "@comment": {
+    "description": "Column header for comment"
+  },
+  "commentStatus": "Comment Status",
+  "@commentStatus": {
+    "description": "Column header for comment status"
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Column header for date"
+  },
+  "approveComment": "Approve Comment",
+  "@approveComment": {
+    "description": "Action to approve a comment"
+  },
+  "rejectComment": "Reject Comment",
+  "@rejectComment": {
+    "description": "Action to reject a comment"
+  },
+  "viewEngagedContent": "View Content",
+  "@viewEngagedContent": {
+    "description": "Action to view the engaged content"
+  },
+  "copyUserId": "Copy User ID",
+  "@copyUserId": {
+    "description": "Action to copy the user ID"
+  },
+  "reporter": "Reporter",
+  "@reporter": {
+    "description": "Column header for reporter"
+  },
+  "reportedItem": "Reported Item",
+  "@reportedItem": {
+    "description": "Column header for reported item"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Column header for reason"
+  },
+  "reportStatus": "Report Status",
+  "@reportStatus": {
+    "description": "Column header for report status"
+  },
+  "viewReportedItem": "View Item",
+  "@viewReportedItem": {
+    "description": "Action to view the reported item"
+  },
+  "markAsInReview": "Mark as In Review",
+  "@markAsInReview": {
+    "description": "Action to mark a report as in review"
+  },
+  "resolveReport": "Resolve Report",
+  "@resolveReport": {
+    "description": "Action to resolve a report"
+  },
+  "initialFeedback": "Initial Feedback",
+  "@initialFeedback": {
+    "description": "Column header for initial feedback"
+  },
+  "osPromptRequested": "OS Prompt?",
+  "@osPromptRequested": {
+    "description": "Column header for OS prompt requested"
+  },
+  "feedbackHistory": "Feedback History",
+  "@feedbackHistory": {
+    "description": "Column header for feedback history"
+  },
+  "lastInteraction": "Last Interaction",
+  "@lastInteraction": {
+    "description": "Column header for last interaction"
+  },
+  "viewFeedbackHistory": "View History",
+  "@viewFeedbackHistory": {
+    "description": "Action to view feedback history"
+  },
+  "reactionTypeLike": "Like",
+  "@reactionTypeLike": {
+    "description": "Reaction type: Like"
+  },
+  "reactionTypeInsightful": "Insightful",
+  "@reactionTypeInsightful": {
+    "description": "Reaction type: Insightful"
+  },
+  "reactionTypeAmusing": "Amusing",
+  "@reactionTypeAmusing": {
+    "description": "Reaction type: Amusing"
+  },
+  "reactionTypeSad": "Sad",
+  "@reactionTypeSad": {
+    "description": "Reaction type: Sad"
+  },
+  "reactionTypeAngry": "Angry",
+  "@reactionTypeAngry": {
+    "description": "Reaction type: Angry"
+  },
+  "reactionTypeSkeptical": "Skeptical",
+  "@reactionTypeSkeptical": {
+    "description": "Reaction type: Skeptical"
+  },
+  "commentStatusPendingReview": "Pending",
+  "@commentStatusPendingReview": {
+    "description": "Comment status: Pending Review"
+  },
+  "commentStatusApproved": "Approved",
+  "@commentStatusApproved": {
+    "description": "Comment status: Approved"
+  },
+  "commentStatusRejected": "Rejected",
+  "@commentStatusRejected": {
+    "description": "Comment status: Rejected"
+  },
+  "reportStatusSubmitted": "Submitted",
+  "@reportStatusSubmitted": {
+    "description": "Report status: Submitted"
+  },
+  "reportStatusInReview": "In Review",
+  "@reportStatusInReview": {
+    "description": "Report status: In Review"
+  },
+  "reportStatusResolved": "Resolved",
+  "@reportStatusResolved": {
+    "description": "Report status: Resolved"
+  },
+  "initialAppReviewFeedbackPositive": "Positive",
+  "@initialAppReviewFeedbackPositive": {
+    "description": "Initial app review feedback: Positive"
+  },
+  "initialAppReviewFeedbackNegative": "Negative",
+  "@initialAppReviewFeedbackNegative": {
+    "description": "Initial app review feedback: Negative"
+  },
+  "filterCommunity": "Filter Community Content",
+  "@filterCommunity": {
+    "description": "Action to filter community content"
+  },
+  "searchByEngagementUser": "Search by user email...",
+  "@searchByEngagementUser": {
+    "description": "Hint text for searching by engagement user"
+  },
+  "searchByReportReporter": "Search by reporter email...",
+  "@searchByReportReporter": {
+    "description": "Hint text for searching by report reporter"
+  },
+  "searchByAppReviewUser": "Search by user email...",
+  "@searchByAppReviewUser": {
+    "description": "Hint text for searching by app review user"
+  },
+  "selectCommentStatus": "Select Comment Status",
+  "@selectCommentStatus": {
+    "description": "Action to select comment status"
+  },
+  "selectReportStatus": "Select Report Status",
+  "@selectReportStatus": {
+    "description": "Action to select report status"
+  },
+  "selectInitialFeedback": "Select Initial Feedback",
+  "@selectInitialFeedback": {
+    "description": "Action to select initial feedback"
+  },
+  "selectReportableEntity": "Select Reported Item Type",
+  "@selectReportableEntity": {
+    "description": "Action to select reportable entity"
+  },
+  "reportableEntityHeadline": "Headline",
+  "@reportableEntityHeadline": {
+    "description": "Reportable entity: Headline"
+  },
+  "reportableEntitySource": "Source",
+  "@reportableEntitySource": {
+    "description": "Reportable entity: Source"
+  },
+  "reportableEntityComment": "Comment",
+  "@reportableEntityComment": {
+    "description": "Reportable entity: Comment"
+  },
+  "noEngagementsFound": "No engagements found.",
+  "@noEngagementsFound": {
+    "description": "Message when no engagements are found"
+  },
+  "noReportsFound": "No reports found.",
+  "@noReportsFound": {
+    "description": "Message when no reports are found"
+  },
+  "noAppReviewsFound": "No app reviews found.",
+  "@noAppReviewsFound": {
+    "description": "Message when no app reviews are found"
+  },
+  "loadingEngagements": "Loading Engagements",
+  "@loadingEngagements": {
+    "description": "Message when engagements are loading"
+  },
+  "loadingReports": "Loading Reports",
+  "@loadingReports": {
+    "description": "Message when reports are loading"
+  },
+  "loadingAppReviews": "Loading App Reviews",
+  "@loadingAppReviews": {
+    "description": "Message when app reviews are loading"
+  },
+  "userIdCopied": "User ID copied to clipboard.",
+  "@userIdCopied": {
+    "description": "Message when user ID is copied"
+  },
+  "commentApproved": "Comment approved.",
+  "@commentApproved": {
+    "description": "Message when a comment is approved"
+  },
+  "commentRejected": "Comment rejected.",
+  "@commentRejected": {
+    "description": "Message when a comment is rejected"
+  },
+  "reportStatusUpdated": "Report status updated.",
+  "@reportStatusUpdated": {
+    "description": "Message when a report status is updated"
+  },
+  "feedbackHistoryForUser": "Feedback History for {email}",
+  "@feedbackHistoryForUser": {
+    "description": "Message displaying feedback history for a user",
+    "placeholders": {
+      "email": {
+        "type": "String"
       }
-    },
-    "noFeedbackHistory": "No feedback history available for this user.",
-    "@noFeedbackHistory": {
-      "description": "Message when no feedback history is available"
-    },
-    "feedbackProvidedAt": "Feedback provided at: {date}",
-    "@feedbackProvidedAt": {
-      "description": "Message displaying the date feedback was provided",
-      "placeholders": {
-        "date": {
-          "type": "String"
-        }
+    }
+  },
+  "noFeedbackHistory": "No feedback history available for this user.",
+  "@noFeedbackHistory": {
+    "description": "Message when no feedback history is available"
+  },
+  "feedbackProvidedAt": "Feedback provided at: {date}",
+  "@feedbackProvidedAt": {
+    "description": "Message displaying the date feedback was provided",
+    "placeholders": {
+      "date": {
+        "type": "String"
       }
-    },
-    "feedbackReason": "Reason: {reason}",
-    "@feedbackReason": {
-      "description": "Message displaying the reason for feedback",
-      "placeholders": {
-        "reason": {
-          "type": "String"
-        }
+    }
+  },
+  "feedbackReason": "Reason: {reason}",
+  "@feedbackReason": {
+    "description": "Message displaying the reason for feedback",
+    "placeholders": {
+      "reason": {
+        "type": "String"
       }
-    },
-    "noReasonProvided": "No reason provided.",
-    "@noReasonProvided": {
-      "description": "Message when no reason for feedback is provided"
-    },
-    "yes": "Yes",
-    "@yes": {
-      "description": "A generic 'Yes' response."
-    },
-    "no": "No",
-    "@no": {
-      "description": "A generic 'No' response."
+    }
+  },
+  "noReasonProvided": "No reason provided.",
+  "@noReasonProvided": {
+    "description": "Message when no reason for feedback is provided"
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "A generic 'Yes' response."
+  },
+  "no": "No",
+  "@no": {
+    "description": "A generic 'No' response."
   },
   "commentStatusFlaggedByAI": "Flagged by AI",
   "@commentStatusFlaggedByAI": {
@@ -2628,9 +2628,25 @@
   "commentStatusFlaggedByAi": "Flagged by AI",
   "@commentStatusFlaggedByAi": {
     "description": "Admin-centric status for a comment automatically flagged by AI."
-    },
-    "cancel": "Cancel",
-    "@cancel": {
-        "description": "A generic 'Cancel' button text."
-    }
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "A generic 'Cancel' button text."
+  },
+  "viewReportedHeadline": "View Headline",
+  "@viewReportedHeadline": {
+    "description": "Action to view the reported headline"
+  },
+  "viewReportedSource": "View Source",
+  "@viewReportedSource": {
+    "description": "Action to view the reported source"
+  },
+  "viewReportedComment": "View Comment",
+  "@viewReportedComment": {
+    "description": "Action to view the reported comment"
+  },
+  "entityType": "Entity Type",
+  "@entityType": {
+    "description": "Column header for the type of entity being reported"
+  }
 }

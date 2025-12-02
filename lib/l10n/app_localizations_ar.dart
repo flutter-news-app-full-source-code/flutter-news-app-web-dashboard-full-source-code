@@ -2091,4 +2091,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cancel => 'إلغاء';
+
+  @override
+  String get viewReportedHeadline => 'عرض العنوان';
+
+  @override
+  String get viewReportedSource => 'عرض المصدر';
+
+  @override
+  String get viewReportedComment => 'عرض التعليق';
+
+  @override
+  String get entityType => 'نوع الكيان';
 }
