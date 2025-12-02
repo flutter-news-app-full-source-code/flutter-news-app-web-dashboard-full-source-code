@@ -22,7 +22,7 @@ class CommunityFilterBloc
         selectedCommentStatus: event.selectedCommentStatus,
         selectedReportStatus: event.selectedReportStatus,
         selectedReportableEntity: event.selectedReportableEntity,
-        selectedInitialFeedback: event.selectedInitialFeedback,
+        selectedAppReviewFeedback: event.selectedAppReviewFeedback,
       ),
     );
   }

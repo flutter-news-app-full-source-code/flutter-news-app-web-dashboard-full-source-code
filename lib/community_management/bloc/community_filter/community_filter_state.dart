@@ -6,21 +6,21 @@ class CommunityFilterState extends Equatable {
     this.selectedCommentStatus = const [],
     this.selectedReportStatus = const [],
     this.selectedReportableEntity = const [],
-    this.selectedInitialFeedback = const [],
+    this.selectedAppReviewFeedback = const [],
   });
 
   final String searchQuery;
   final List<CommentStatus> selectedCommentStatus;
   final List<ReportStatus> selectedReportStatus;
   final List<ReportableEntity> selectedReportableEntity;
-  final List<InitialAppReviewFeedback> selectedInitialFeedback;
+  final List<AppReviewFeedback> selectedAppReviewFeedback;
 
   CommunityFilterState copyWith({
     String? searchQuery,
     List<CommentStatus>? selectedCommentStatus,
     List<ReportStatus>? selectedReportStatus,
     List<ReportableEntity>? selectedReportableEntity,
-    List<InitialAppReviewFeedback>? selectedInitialFeedback,
+    List<AppReviewFeedback>? selectedAppReviewFeedback,
   }) {
     return CommunityFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
@@ -29,8 +29,8 @@ class CommunityFilterState extends Equatable {
       selectedReportStatus: selectedReportStatus ?? this.selectedReportStatus,
       selectedReportableEntity:
           selectedReportableEntity ?? this.selectedReportableEntity,
-      selectedInitialFeedback:
-          selectedInitialFeedback ?? this.selectedInitialFeedback,
+      selectedAppReviewFeedback:
+          selectedAppReviewFeedback ?? this.selectedAppReviewFeedback,
     );
   }
 
@@ -40,6 +40,6 @@ class CommunityFilterState extends Equatable {
     selectedCommentStatus,
     selectedReportStatus,
     selectedReportableEntity,
-    selectedInitialFeedback,
+    selectedAppReviewFeedback,
   ];
 }

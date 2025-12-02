@@ -13,14 +13,14 @@ class CommunityFilterApplied extends CommunityFilterEvent {
     this.selectedCommentStatus = const [],
     this.selectedReportStatus = const [],
     this.selectedReportableEntity = const [],
-    this.selectedInitialFeedback = const [],
+    this.selectedAppReviewFeedback = const [],
   });
 
   final String searchQuery;
   final List<CommentStatus> selectedCommentStatus;
   final List<ReportStatus> selectedReportStatus;
   final List<ReportableEntity> selectedReportableEntity;
-  final List<InitialAppReviewFeedback> selectedInitialFeedback;
+  final List<AppReviewFeedback> selectedAppReviewFeedback;
 
   @override
   List<Object?> get props => [
@@ -28,7 +28,7 @@ class CommunityFilterApplied extends CommunityFilterEvent {
     selectedCommentStatus,
     selectedReportStatus,
     selectedReportableEntity,
-    selectedInitialFeedback,
+    selectedAppReviewFeedback,
   ];
 }
 
