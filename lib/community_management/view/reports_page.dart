@@ -25,10 +25,16 @@ class _ReportsPageState extends State<ReportsPage> {
       LoadReportsRequested(
         limit: kDefaultRowsPerPage,
         filter: context.read<CommunityManagementBloc>().buildReportsFilterMap(
-          context.read<CommunityFilterBloc>().state.reportsFilter,
+          context.read<CommunityFilterBloc>().state,
         ),
       ),
     );
+  }
+
+  bool _areFiltersActive(CommunityFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedModerationStatus.isNotEmpty ||
+        state.selectedReportableEntity.isNotEmpty;
   }
 
   @override
@@ -41,8 +47,7 @@ class _ReportsPageState extends State<ReportsPage> {
           final communityFilterState = context
               .watch<CommunityFilterBloc>()
               .state;
-          final filtersActive =
-              communityFilterState.reportsFilter.isFilterActive;
+          final filtersActive = _areFiltersActive(communityFilterState);
 
           if (state.reportsStatus == CommunityManagementStatus.loading &&
               state.reports.isEmpty) {
@@ -61,9 +66,8 @@ class _ReportsPageState extends State<ReportsPage> {
                   limit: kDefaultRowsPerPage,
                   forceRefresh: true,
                   filter: context
-                      .read<CommunityManagementBloc>()
-                      .buildReportsFilterMap(
-                        context.read<CommunityFilterBloc>().state.reportsFilter,
+                      .read<CommunityManagementBloc>().buildReportsFilterMap(
+                        context.read<CommunityFilterBloc>().state,
                       ),
                 ),
               ),
@@ -145,12 +149,8 @@ class _ReportsPageState extends State<ReportsPage> {
                               limit: kDefaultRowsPerPage,
                               filter: context
                                   .read<CommunityManagementBloc>()
-                                  .buildReportsFilterMap(
-                                    context
-                                        .read<CommunityFilterBloc>()
-                                        .state
-                                        .reportsFilter,
-                                  ),
+                                  .buildReportsFilterMap(context
+                                      .read<CommunityFilterBloc>().state),
                             ),
                           );
                         }

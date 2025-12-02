@@ -28,7 +28,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
         filter: context
             .read<CommunityManagementBloc>()
             .buildAppReviewsFilterMap(
-              context.read<CommunityFilterBloc>().state.appReviewsFilter,
+              context.read<CommunityFilterBloc>().state,
             ),
       ),
     );
@@ -41,11 +41,10 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: BlocBuilder<CommunityManagementBloc, CommunityManagementState>(
         builder: (context, state) {
-          final communityFilterState = context
+          final filtersActive = context
               .watch<CommunityFilterBloc>()
-              .state;
-          final filtersActive =
-              communityFilterState.appReviewsFilter.isFilterActive;
+              .state
+              .isAppReviewsFilterActive;
 
           if (state.appReviewsStatus == CommunityManagementStatus.loading &&
               state.appReviews.isEmpty) {
@@ -66,7 +65,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                   filter: context
                       .read<CommunityManagementBloc>()
                       .buildAppReviewsFilterMap(
-                        context.read<CommunityFilterBloc>().state.appReviewsFilter,
+                        context.read<CommunityFilterBloc>().state,
                       ),
                 ),
               ),
@@ -144,7 +143,7 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
                               filter: context
                                   .read<CommunityManagementBloc>()
                                   .buildAppReviewsFilterMap(
-                                    context.read<CommunityFilterBloc>().state.appReviewsFilter,
+                                    context.read<CommunityFilterBloc>().state,
                                   ),
                             ),
                           );

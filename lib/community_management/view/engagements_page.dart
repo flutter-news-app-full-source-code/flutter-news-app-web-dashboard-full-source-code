@@ -27,10 +27,15 @@ class _EngagementsPageState extends State<EngagementsPage> {
         filter: context
             .read<CommunityManagementBloc>()
             .buildEngagementsFilterMap(
-              context.read<CommunityFilterBloc>().state.engagementsFilter,
+              context.read<CommunityFilterBloc>().state,
             ),
       ),
     );
+  }
+
+  bool _areFiltersActive(CommunityFilterState state) {
+    return state.searchQuery.isNotEmpty ||
+        state.selectedModerationStatus.isNotEmpty;
   }
 
   @override
@@ -43,8 +48,7 @@ class _EngagementsPageState extends State<EngagementsPage> {
           final communityFilterState = context
               .watch<CommunityFilterBloc>()
               .state;
-          final filtersActive =
-              communityFilterState.engagementsFilter.isFilterActive;
+          final filtersActive = _areFiltersActive(communityFilterState);
 
           if (state.engagementsStatus == CommunityManagementStatus.loading &&
               state.engagements.isEmpty) {
@@ -65,10 +69,7 @@ class _EngagementsPageState extends State<EngagementsPage> {
                   filter: context
                       .read<CommunityManagementBloc>()
                       .buildEngagementsFilterMap(
-                        context
-                            .read<CommunityFilterBloc>()
-                            .state
-                            .engagementsFilter,
+                        context.read<CommunityFilterBloc>().state,
                       ),
                 ),
               ),
@@ -152,10 +153,7 @@ class _EngagementsPageState extends State<EngagementsPage> {
                               filter: context
                                   .read<CommunityManagementBloc>()
                                   .buildEngagementsFilterMap(
-                                    context
-                                        .read<CommunityFilterBloc>()
-                                        .state
-                                        .engagementsFilter,
+                                    context.read<CommunityFilterBloc>().state,
                                   ),
                             ),
                           );
