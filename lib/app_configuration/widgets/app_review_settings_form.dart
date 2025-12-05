@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -26,7 +27,7 @@ class AppReviewSettingsForm extends StatefulWidget {
 }
 
 class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
-  late final TextEditingController _positiveInteractionThresholdController;
+  late final TextEditingController _interactionCycleThresholdController;
   late final TextEditingController _initialPromptCooldownController;
 
   @override
@@ -46,8 +47,8 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
 
   void _initializeControllers() {
     final appReviewConfig = widget.remoteConfig.features.community.appReview;
-    _positiveInteractionThresholdController = TextEditingController(
-      text: appReviewConfig.positiveInteractionThreshold.toString(),
+    _interactionCycleThresholdController = TextEditingController(
+      text: appReviewConfig.interactionCycleThreshold.toString(),
     );
     _initialPromptCooldownController = TextEditingController(
       text: appReviewConfig.initialPromptCooldownDays.toString(),
@@ -56,9 +57,8 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
 
   void _updateControllers() {
     final appReviewConfig = widget.remoteConfig.features.community.appReview;
-    _positiveInteractionThresholdController.text = appReviewConfig
-        .positiveInteractionThreshold
-        .toString();
+    _interactionCycleThresholdController.text =
+        appReviewConfig.interactionCycleThreshold.toString();
     _initialPromptCooldownController.text = appReviewConfig
         .initialPromptCooldownDays
         .toString();
@@ -66,7 +66,7 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
 
   @override
   void dispose() {
-    _positiveInteractionThresholdController.dispose();
+    _interactionCycleThresholdController.dispose();
     _initialPromptCooldownController.dispose();
     super.dispose();
   }
@@ -121,14 +121,14 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                         expandedCrossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppConfigIntField(
-                            label: l10n.positiveInteractionThresholdLabel,
+                            label: l10n.interactionCycleThresholdLabel,
                             description:
-                                l10n.positiveInteractionThresholdDescription,
-                            value: appReviewConfig.positiveInteractionThreshold,
+                                l10n.interactionCycleThresholdDescription,
+                            value: appReviewConfig.interactionCycleThreshold,
                             onChanged: (value) {
                               final newConfig = communityConfig.copyWith(
                                 appReview: appReviewConfig.copyWith(
-                                  positiveInteractionThreshold: value,
+                                  interactionCycleThreshold: value,
                                 ),
                               );
                               widget.onConfigChanged(
@@ -140,7 +140,7 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                                 ),
                               );
                             },
-                            controller: _positiveInteractionThresholdController,
+                            controller: _interactionCycleThresholdController,
                           ),
                           AppConfigIntField(
                             label: l10n.initialPromptCooldownLabel,
@@ -162,6 +162,61 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                               );
                             },
                             controller: _initialPromptCooldownController,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: AppSpacing.lg,
+                  ),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isMobile = constraints.maxWidth < 600;
+                      return ExpansionTile(
+                        title: Text(l10n.eligiblePositiveInteractionsTitle),
+                        initiallyExpanded: !isMobile,
+                        childrenPadding: const EdgeInsetsDirectional.only(
+                          start: AppSpacing.lg,
+                          top: AppSpacing.md,
+                          bottom: AppSpacing.md,
+                        ),
+                        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ...PositiveInteractionType.values.map(
+                            (interactionType) => SwitchListTile(
+                              title: Text(interactionType.l10n(context)),
+                              value: appReviewConfig
+                                  .eligiblePositiveInteractions
+                                  .contains(interactionType),
+                              onChanged: (value) {
+                                final currentInteractions = List<
+                                    PositiveInteractionType>.from(
+                                  appReviewConfig.eligiblePositiveInteractions,
+                                );
+                                if (value) {
+                                  currentInteractions.add(interactionType);
+                                } else {
+                                  currentInteractions.remove(interactionType);
+                                }
+                                final newAppReviewConfig =
+                                    appReviewConfig.copyWith(
+                                  eligiblePositiveInteractions:
+                                      currentInteractions,
+                                );
+                                widget.onConfigChanged(
+                                  widget.remoteConfig.copyWith(
+                                    features: widget.remoteConfig.features
+                                        .copyWith(
+                                          community: communityConfig.copyWith(
+                                              appReview: newAppReviewConfig),
+                                        ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ],
                       );
@@ -242,5 +297,21 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
         ),
       ],
     );
+  }
+}
+
+extension on PositiveInteractionType {
+  String l10n(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (this) {
+      case PositiveInteractionType.saveItem:
+        return l10n.positiveInteractionTypeSaveItem;
+      case PositiveInteractionType.followItem:
+        return l10n.positiveInteractionTypeFollowItem;
+      case PositiveInteractionType.shareContent:
+        return l10n.positiveInteractionTypeShareContent;
+      case PositiveInteractionType.saveFilter:
+        return l10n.positiveInteractionTypeSaveFilter;
+    }
   }
 }
