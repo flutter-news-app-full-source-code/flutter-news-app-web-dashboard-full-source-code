@@ -227,7 +227,7 @@ class _ReportsDataSource extends DataTableSource {
         return colorScheme.primaryContainer.withOpacity(0.5);
       case ReportableEntity.source:
         return colorScheme.secondaryContainer.withOpacity(0.5);
-      case ReportableEntity.engagement:
+      case ReportableEntity.comment:
         return colorScheme.tertiaryContainer.withOpacity(0.5);
     }
   }
