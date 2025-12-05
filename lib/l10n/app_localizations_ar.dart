@@ -1763,10 +1763,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'ينشط النظام الداخلي الذي يسأل المستخدمين بشكل دوري عما إذا كانوا يستمتعون بالتطبيق.';
 
   @override
-  String get positiveInteractionThresholdLabel => 'عتبة التفاعل الإيجابي';
+  String get interactionCycleThresholdLabel => 'عتبة دورة التفاعل';
 
   @override
-  String get positiveInteractionThresholdDescription =>
+  String get interactionCycleThresholdDescription =>
       'يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.';
 
   @override
@@ -1774,7 +1774,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get initialPromptCooldownDescription =>
-      'إذا رفض المستخدم الموجه، انتظر هذا العدد من الأيام قبل أن يكون مؤهلاً لرؤيته مرة أخرى. ملاحظة: تتحكم زينة \'تقييم التطبيق\' في قسم الموجز في تردد عرضها المنفصل.';
+      'عدد الأيام التي يجب الانتظار فيها قبل إظهار مطالبة الاستمتاع للمرة الأولى. تضمن فترة التهدئة هذه عدم سؤال المستخدمين حتى يستخدموا التطبيق بما فيه الكفاية.';
 
   @override
   String get requestStoreReviewLabel => 'طلب مراجعة المتجر بعد \'نعم\'';
@@ -1792,6 +1792,24 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get internalPromptLogicTitle => 'منطق الموجه الداخلي';
+
+  @override
+  String get eligiblePositiveInteractionsTitle => 'التفاعلات الإيجابية المؤهلة';
+
+  @override
+  String get positiveInteractionTypeSaveItem =>
+      'حفظ عنصر محتوى (مثل عنوان رئيسي)';
+
+  @override
+  String get positiveInteractionTypeFollowItem =>
+      'متابعة كيان (مثل موضوع أو مصدر أو بلد)';
+
+  @override
+  String get positiveInteractionTypeShareContent =>
+      'مشاركة عنصر محتوى (مثل عنوان رئيسي)';
+
+  @override
+  String get positiveInteractionTypeSaveFilter => 'إنشاء مرشح محفوظ';
 
   @override
   String get followUpActionsTitle => 'إجراءات المتابعة';

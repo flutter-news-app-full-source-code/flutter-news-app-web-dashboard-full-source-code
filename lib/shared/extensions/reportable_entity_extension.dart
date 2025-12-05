@@ -11,7 +11,7 @@ extension ReportableEntityX on ReportableEntity {
         return l10n.reportableEntityHeadline;
       case ReportableEntity.source:
         return l10n.reportableEntitySource;
-      case ReportableEntity.engagement:
+      case ReportableEntity.comment:
         return l10n.reportableEntityComment;
     }
   }

@@ -1766,11 +1766,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Activates the internal system that periodically asks users if they are enjoying the app.';
 
   @override
-  String get positiveInteractionThresholdLabel =>
-      'Positive Interaction Threshold';
+  String get interactionCycleThresholdLabel => 'Interaction Cycle Threshold';
 
   @override
-  String get positiveInteractionThresholdDescription =>
+  String get interactionCycleThresholdDescription =>
       'Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user\'s total positive actions is a multiple of this number.';
 
   @override
@@ -1778,7 +1777,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get initialPromptCooldownDescription =>
-      'If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The \'Rate App\' decorator in the Feed section controls its own separate display frequency.';
+      'The number of days to wait before showing the enjoyment prompt for the first time, This cooldown ensures users are not asked until they used the app enough.';
 
   @override
   String get requestStoreReviewLabel => 'Request Store Review After \'Yes\'';
@@ -1797,6 +1796,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get internalPromptLogicTitle => 'Internal Prompt Logic';
+
+  @override
+  String get eligiblePositiveInteractionsTitle =>
+      'Eligible Positive Interactions';
+
+  @override
+  String get positiveInteractionTypeSaveItem =>
+      'Save a content item (e.g., a headline)';
+
+  @override
+  String get positiveInteractionTypeFollowItem =>
+      'Follow an entity (e.g., a topic, source, or country)';
+
+  @override
+  String get positiveInteractionTypeShareContent =>
+      'Share a content item (e.g., a headline)';
+
+  @override
+  String get positiveInteractionTypeSaveFilter => 'Create a saved filter';
 
   @override
   String get followUpActionsTitle => 'Follow-up Actions';

@@ -2198,19 +2198,19 @@
   "@enableAppFeedbackSystemDescription": {
     "description": "Description for the master switch to enable the app feedback system."
   },
-  "positiveInteractionThresholdLabel": "Positive Interaction Threshold",
-  "@positiveInteractionThresholdLabel": {
-    "description": "Label for the positive interaction threshold input field."
+  "interactionCycleThresholdLabel": "Interaction Cycle Threshold",
+  "@interactionCycleThresholdLabel": {
+    "description": "Label for the interaction cycle threshold input field."
   },
-  "positiveInteractionThresholdDescription": "Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user's total positive actions is a multiple of this number.",
-  "@positiveInteractionThresholdDescription": {
-    "description": "Description for the positive interaction threshold input field."
+  "interactionCycleThresholdDescription": "Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user's total positive actions is a multiple of this number.",
+  "@interactionCycleThresholdDescription": {
+    "description": "Description for the interaction cycle threshold input field."
   },
   "initialPromptCooldownLabel": "Initial Prompt Cooldown (Days)",
   "@initialPromptCooldownLabel": {
     "description": "Label for the initial prompt cooldown input field."
   },
-  "initialPromptCooldownDescription": "If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The 'Rate App' decorator in the Feed section controls its own separate display frequency.",
+  "initialPromptCooldownDescription": "The number of days to wait before showing the enjoyment prompt for the first time, This cooldown ensures users are not asked until they used the app enough.",
   "@initialPromptCooldownDescription": {
     "description": "Description for the initial prompt cooldown input field."
   },
@@ -2233,6 +2233,26 @@
   "internalPromptLogicTitle": "Internal Prompt Logic",
   "@internalPromptLogicTitle": {
     "description": "Title for the nested expansion tile for internal app review prompt settings."
+  },
+  "eligiblePositiveInteractionsTitle": "Eligible Positive Interactions",
+  "@eligiblePositiveInteractionsTitle": {
+    "description": "Title for the expansion tile for eligible positive interactions."
+  },
+  "positiveInteractionTypeSaveItem": "Save a content item (e.g., a headline)",
+  "@positiveInteractionTypeSaveItem": {
+    "description": "Label for the 'save item' positive interaction type."
+  },
+  "positiveInteractionTypeFollowItem": "Follow an entity (e.g., a topic, source, or country)",
+  "@positiveInteractionTypeFollowItem": {
+    "description": "Label for the 'follow item' positive interaction type."
+  },
+  "positiveInteractionTypeShareContent": "Share a content item (e.g., a headline)",
+  "@positiveInteractionTypeShareContent": {
+    "description": "Label for the 'share content' positive interaction type."
+  },
+  "positiveInteractionTypeSaveFilter": "Create a saved filter",
+  "@positiveInteractionTypeSaveFilter": {
+    "description": "Label for the 'save filter' positive interaction type."
   },
   "followUpActionsTitle": "Follow-up Actions",
   "@followUpActionsTitle": {

@@ -2202,19 +2202,19 @@
   "@enableAppFeedbackSystemDescription": {
     "description": "وصف المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
   },
-  "positiveInteractionThresholdLabel": "عتبة التفاعل الإيجابي",
-  "@positiveInteractionThresholdLabel": {
-    "description": "تسمية حقل إدخال عتبة التفاعل الإيجابي."
+  "interactionCycleThresholdLabel": "عتبة دورة التفاعل",
+  "@interactionCycleThresholdLabel": {
+    "description": "تسمية حقل إدخال عتبة دورة التفاعل."
   },
-  "positiveInteractionThresholdDescription": "يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.",
-  "@positiveInteractionThresholdDescription": {
-    "description": "وصف حقل إدخال عتبة التفاعل الإيجابي."
+  "interactionCycleThresholdDescription": "يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.",
+  "@interactionCycleThresholdDescription": {
+    "description": "وصف حقل إدخال عتبة دورة التفاعل."
   },
   "initialPromptCooldownLabel": "فترة تهدئة الموجه الأولي (أيام)",
   "@initialPromptCooldownLabel": {
     "description": "تسمية حقل إدخال فترة تهدئة الموجه الأولي."
   },
-  "initialPromptCooldownDescription": "إذا رفض المستخدم الموجه، انتظر هذا العدد من الأيام قبل أن يكون مؤهلاً لرؤيته مرة أخرى. ملاحظة: تتحكم زينة 'تقييم التطبيق' في قسم الموجز في تردد عرضها المنفصل.",
+  "initialPromptCooldownDescription": "عدد الأيام التي يجب الانتظار فيها قبل إظهار مطالبة الاستمتاع للمرة الأولى. تضمن فترة التهدئة هذه عدم سؤال المستخدمين حتى يستخدموا التطبيق بما فيه الكفاية.",
   "@initialPromptCooldownDescription": {
     "description": "وصف حقل إدخال فترة تهدئة الموجه الأولي."
   },
@@ -2237,6 +2237,26 @@
   "internalPromptLogicTitle": "منطق الموجه الداخلي",
   "@internalPromptLogicTitle": {
     "description": "عنوان قسم منطق الموجه الداخلي لمراجعة التطبيق."
+  },
+  "eligiblePositiveInteractionsTitle": "التفاعلات الإيجابية المؤهلة",
+  "@eligiblePositiveInteractionsTitle": {
+    "description": "عنوان قسم التفاعلات الإيجابية المؤهلة."
+  },
+  "positiveInteractionTypeSaveItem": "حفظ عنصر محتوى (مثل عنوان رئيسي)",
+  "@positiveInteractionTypeSaveItem": {
+    "description": "تسمية نوع التفاعل الإيجابي 'حفظ عنصر'."
+  },
+  "positiveInteractionTypeFollowItem": "متابعة كيان (مثل موضوع أو مصدر أو بلد)",
+  "@positiveInteractionTypeFollowItem": {
+    "description": "تسمية نوع التفاعل الإيجابي 'متابعة عنصر'."
+  },
+  "positiveInteractionTypeShareContent": "مشاركة عنصر محتوى (مثل عنوان رئيسي)",
+  "@positiveInteractionTypeShareContent": {
+    "description": "تسمية نوع التفاعل الإيجابي 'مشاركة محتوى'."
+  },
+  "positiveInteractionTypeSaveFilter": "إنشاء مرشح محفوظ",
+  "@positiveInteractionTypeSaveFilter": {
+    "description": "تسمية نوع التفاعل الإيجابي 'حفظ مرشح'."
   },
   "followUpActionsTitle": "إجراءات المتابعة",
   "@followUpActionsTitle": {
