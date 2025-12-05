@@ -3293,7 +3293,7 @@ abstract class AppLocalizations {
   /// Description for the initial prompt cooldown input field.
   ///
   /// In en, this message translates to:
-  /// **'If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The \'Rate App\' decorator in the Feed section controls its own separate display frequency.'**
+  /// **'The number of days to wait before showing the enjoyment prompt for the first time, This cooldown ensures users are not asked until they used the app enough.'**
   String get initialPromptCooldownDescription;
 
   /// Label for the switch to request a store review after positive feedback.

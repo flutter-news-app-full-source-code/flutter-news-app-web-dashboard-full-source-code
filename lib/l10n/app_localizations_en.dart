@@ -1777,7 +1777,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get initialPromptCooldownDescription =>
-      'If a user dismisses the prompt, wait this many days before they are eligible to see it again. Note: The \'Rate App\' decorator in the Feed section controls its own separate display frequency.';
+      'The number of days to wait before showing the enjoyment prompt for the first time, This cooldown ensures users are not asked until they used the app enough.';
 
   @override
   String get requestStoreReviewLabel => 'Request Store Review After \'Yes\'';
