@@ -2197,14 +2197,14 @@
   "enableAppFeedbackSystemDescription": "Activates the internal system that periodically asks users if they are enjoying the app.",
   "@enableAppFeedbackSystemDescription": {
     "description": "Description for the master switch to enable the app feedback system."
+  },  
+  "interactionCycleThresholdLabel": "Interaction Cycle Threshold",
+  "@interactionCycleThresholdLabel": {
+    "description": "Label for the interaction cycle threshold input field."
   },
-  "positiveInteractionThresholdLabel": "Positive Interaction Threshold",
-  "@positiveInteractionThresholdLabel": {
-    "description": "Label for the positive interaction threshold input field."
-  },
-  "positiveInteractionThresholdDescription": "Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user's total positive actions is a multiple of this number.",
-  "@positiveInteractionThresholdDescription": {
-    "description": "Description for the positive interaction threshold input field."
+  "interactionCycleThresholdDescription": "Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user's total positive actions is a multiple of this number.",
+  "@interactionCycleThresholdDescription": {
+    "description": "Description for the interaction cycle threshold input field."
   },
   "initialPromptCooldownLabel": "Initial Prompt Cooldown (Days)",
   "@initialPromptCooldownLabel": {
@@ -2233,6 +2233,26 @@
   "internalPromptLogicTitle": "Internal Prompt Logic",
   "@internalPromptLogicTitle": {
     "description": "Title for the nested expansion tile for internal app review prompt settings."
+  },
+  "eligiblePositiveInteractionsTitle": "Eligible Positive Interactions",
+  "@eligiblePositiveInteractionsTitle": {
+    "description": "Title for the expansion tile for eligible positive interactions."
+  },
+  "positiveInteractionTypeSaveItem": "Save a content item (e.g., a headline)",
+  "@positiveInteractionTypeSaveItem": {
+    "description": "Label for the 'save item' positive interaction type."
+  },
+  "positiveInteractionTypeFollowItem": "Follow an entity (e.g., a topic, source, or country)",
+  "@positiveInteractionTypeFollowItem": {
+    "description": "Label for the 'follow item' positive interaction type."
+  },
+  "positiveInteractionTypeShareContent": "Share a content item (e.g., a headline)",
+  "@positiveInteractionTypeShareContent": {
+    "description": "Label for the 'share content' positive interaction type."
+  },
+  "positiveInteractionTypeSaveFilter": "Create a saved filter",
+  "@positiveInteractionTypeSaveFilter": {
+    "description": "Label for the 'save filter' positive interaction type."
   },
   "followUpActionsTitle": "Follow-up Actions",
   "@followUpActionsTitle": {

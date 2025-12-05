@@ -2201,14 +2201,14 @@
   "enableAppFeedbackSystemDescription": "ينشط النظام الداخلي الذي يسأل المستخدمين بشكل دوري عما إذا كانوا يستمتعون بالتطبيق.",
   "@enableAppFeedbackSystemDescription": {
     "description": "وصف المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
+  },  
+  "interactionCycleThresholdLabel": "عتبة دورة التفاعل",
+  "@interactionCycleThresholdLabel": {
+    "description": "تسمية حقل إدخال عتبة دورة التفاعل."
   },
-  "positiveInteractionThresholdLabel": "عتبة التفاعل الإيجابي",
-  "@positiveInteractionThresholdLabel": {
-    "description": "تسمية حقل إدخال عتبة التفاعل الإيجابي."
-  },
-  "positiveInteractionThresholdDescription": "يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.",
-  "@positiveInteractionThresholdDescription": {
-    "description": "وصف حقل إدخال عتبة التفاعل الإيجابي."
+  "interactionCycleThresholdDescription": "يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.",
+  "@interactionCycleThresholdDescription": {
+    "description": "وصف حقل إدخال عتبة دورة التفاعل."
   },
   "initialPromptCooldownLabel": "فترة تهدئة الموجه الأولي (أيام)",
   "@initialPromptCooldownLabel": {
@@ -2237,6 +2237,26 @@
   "internalPromptLogicTitle": "منطق الموجه الداخلي",
   "@internalPromptLogicTitle": {
     "description": "عنوان قسم منطق الموجه الداخلي لمراجعة التطبيق."
+  },
+  "eligiblePositiveInteractionsTitle": "التفاعلات الإيجابية المؤهلة",
+  "@eligiblePositiveInteractionsTitle": {
+    "description": "عنوان قسم التفاعلات الإيجابية المؤهلة."
+  },
+  "positiveInteractionTypeSaveItem": "حفظ عنصر محتوى (مثل عنوان رئيسي)",
+  "@positiveInteractionTypeSaveItem": {
+    "description": "تسمية نوع التفاعل الإيجابي 'حفظ عنصر'."
+  },
+  "positiveInteractionTypeFollowItem": "متابعة كيان (مثل موضوع أو مصدر أو بلد)",
+  "@positiveInteractionTypeFollowItem": {
+    "description": "تسمية نوع التفاعل الإيجابي 'متابعة عنصر'."
+  },
+  "positiveInteractionTypeShareContent": "مشاركة عنصر محتوى (مثل عنوان رئيسي)",
+  "@positiveInteractionTypeShareContent": {
+    "description": "تسمية نوع التفاعل الإيجابي 'مشاركة محتوى'."
+  },
+  "positiveInteractionTypeSaveFilter": "إنشاء مرشح محفوظ",
+  "@positiveInteractionTypeSaveFilter": {
+    "description": "تسمية نوع التفاعل الإيجابي 'حفظ مرشح'."
   },
   "followUpActionsTitle": "إجراءات المتابعة",
   "@followUpActionsTitle": {
