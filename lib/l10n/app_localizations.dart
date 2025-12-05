@@ -3272,17 +3272,17 @@ abstract class AppLocalizations {
   /// **'Activates the internal system that periodically asks users if they are enjoying the app.'**
   String get enableAppFeedbackSystemDescription;
 
-  /// Label for the positive interaction threshold input field.
+  /// Label for the interaction cycle threshold input field.
   ///
   /// In en, this message translates to:
-  /// **'Positive Interaction Threshold'**
-  String get positiveInteractionThresholdLabel;
+  /// **'Interaction Cycle Threshold'**
+  String get interactionCycleThresholdLabel;
 
-  /// Description for the positive interaction threshold input field.
+  /// Description for the interaction cycle threshold input field.
   ///
   /// In en, this message translates to:
   /// **'Defines the number of positive actions (e.g., save, like) required to trigger the enjoyment prompt. The prompt is shown each time the user\'s total positive actions is a multiple of this number.'**
-  String get positiveInteractionThresholdDescription;
+  String get interactionCycleThresholdDescription;
 
   /// Label for the initial prompt cooldown input field.
   ///
@@ -3325,6 +3325,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Internal Prompt Logic'**
   String get internalPromptLogicTitle;
+
+  /// Title for the expansion tile for eligible positive interactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Eligible Positive Interactions'**
+  String get eligiblePositiveInteractionsTitle;
+
+  /// Label for the 'save item' positive interaction type.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a content item (e.g., a headline)'**
+  String get positiveInteractionTypeSaveItem;
+
+  /// Label for the 'follow item' positive interaction type.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow an entity (e.g., a topic, source, or country)'**
+  String get positiveInteractionTypeFollowItem;
+
+  /// Label for the 'share content' positive interaction type.
+  ///
+  /// In en, this message translates to:
+  /// **'Share a content item (e.g., a headline)'**
+  String get positiveInteractionTypeShareContent;
+
+  /// Label for the 'save filter' positive interaction type.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a saved filter'**
+  String get positiveInteractionTypeSaveFilter;
 
   /// Title for the nested expansion tile for app review follow-up actions.
   ///
