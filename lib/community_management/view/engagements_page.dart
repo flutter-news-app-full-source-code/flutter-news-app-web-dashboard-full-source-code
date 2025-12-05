@@ -198,15 +198,22 @@ class _EngagementsDataSource extends DataTableSource {
     return DataRow2(
       cells: [
         DataCell(
-          Chip(
-            label: Text(engagement.reaction.reactionType.name),
-            backgroundColor: _getReactionColor(
-              context,
-              engagement.reaction.reactionType,
-            ),
-            side: BorderSide.none,
-            visualDensity: VisualDensity.compact,
-          ),
+          engagement.reaction != null
+              ? Chip(
+                  label: Text(
+                    engagement.reaction!.reactionType.l10n(context),
+                  ),
+                  backgroundColor: _getReactionColor(
+                    context,
+                    engagement.reaction!.reactionType,
+                  ),
+                  side: BorderSide.none,
+                  visualDensity: VisualDensity.compact,
+                )
+              : Text(
+                  l10n.notAvailable,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
         ),
         DataCell(
           Text(DateFormat('dd-MM-yyyy').format(engagement.createdAt.toLocal())),
@@ -240,6 +247,26 @@ class _EngagementsDataSource extends DataTableSource {
         return colorScheme.errorContainer.withOpacity(0.4);
       case ReactionType.skeptical:
         return colorScheme.onSurface.withOpacity(0.1);
+    }
+  }
+}
+
+extension on ReactionType {
+  String l10n(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (this) {
+      case ReactionType.like:
+        return l10n.reactionTypeLike;
+      case ReactionType.insightful:
+        return l10n.reactionTypeInsightful;
+      case ReactionType.amusing:
+        return l10n.reactionTypeAmusing;
+      case ReactionType.sad:
+        return l10n.reactionTypeSad;
+      case ReactionType.angry:
+        return l10n.reactionTypeAngry;
+      case ReactionType.skeptical:
+        return l10n.reactionTypeSkeptical;
     }
   }
 }
