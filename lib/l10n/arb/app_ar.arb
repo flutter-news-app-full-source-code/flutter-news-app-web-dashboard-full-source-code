@@ -2201,7 +2201,7 @@
   "enableAppFeedbackSystemDescription": "ينشط النظام الداخلي الذي يسأل المستخدمين بشكل دوري عما إذا كانوا يستمتعون بالتطبيق.",
   "@enableAppFeedbackSystemDescription": {
     "description": "وصف المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
-  },  
+  },
   "interactionCycleThresholdLabel": "عتبة دورة التفاعل",
   "@interactionCycleThresholdLabel": {
     "description": "تسمية حقل إدخال عتبة دورة التفاعل."
@@ -2214,7 +2214,7 @@
   "@initialPromptCooldownLabel": {
     "description": "تسمية حقل إدخال فترة تهدئة الموجه الأولي."
   },
-  "initialPromptCooldownDescription": "إذا رفض المستخدم الموجه، انتظر هذا العدد من الأيام قبل أن يكون مؤهلاً لرؤيته مرة أخرى. ملاحظة: تتحكم زينة 'تقييم التطبيق' في قسم الموجز في تردد عرضها المنفصل.",
+  "initialPromptCooldownDescription": "عدد الأيام التي يجب الانتظار فيها قبل إظهار مطالبة الاستمتاع للمرة الأولى. تضمن فترة التهدئة هذه عدم سؤال المستخدمين حتى يستخدموا التطبيق بما فيه الكفاية.",
   "@initialPromptCooldownDescription": {
     "description": "وصف حقل إدخال فترة تهدئة الموجه الأولي."
   },
