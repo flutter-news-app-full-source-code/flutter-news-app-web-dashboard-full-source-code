@@ -387,7 +387,7 @@ class ContentManagementBloc
       state.copyWith(
         headlines: updatedHeadlines,
         lastPendingDeletionId: event.id,
-        snackbarMessage: 'Headline "${headlineToDelete.title}" deleted.',
+        itemPendingDeletion: headlineToDelete,
       ),
     );
 
@@ -395,6 +395,7 @@ class ContentManagementBloc
       item: headlineToDelete,
       repository: _headlinesRepository,
       undoDuration: AppConstants.kSnackbarDuration,
+      // messageBuilder is omitted, UI will build the message
     );
   }
 
@@ -578,7 +579,7 @@ class ContentManagementBloc
       state.copyWith(
         topics: updatedTopics,
         lastPendingDeletionId: event.id,
-        snackbarMessage: 'Topic "${topicToDelete.name}" deleted.',
+        itemPendingDeletion: topicToDelete,
       ),
     );
 
@@ -586,6 +587,7 @@ class ContentManagementBloc
       item: topicToDelete,
       repository: _topicsRepository,
       undoDuration: AppConstants.kSnackbarDuration,
+      // messageBuilder is omitted, UI will build the message
     );
   }
 
@@ -769,7 +771,7 @@ class ContentManagementBloc
       state.copyWith(
         sources: updatedSources,
         lastPendingDeletionId: event.id,
-        snackbarMessage: 'Source "${sourceToDelete.name}" deleted.',
+        itemPendingDeletion: sourceToDelete,
       ),
     );
 
@@ -777,6 +779,7 @@ class ContentManagementBloc
       item: sourceToDelete,
       repository: _sourcesRepository,
       undoDuration: AppConstants.kSnackbarDuration,
+      // messageBuilder is omitted, UI will build the message
     );
   }
 
@@ -802,8 +805,9 @@ class ContentManagementBloc
         // The item was already optimistically removed from the list.
         emit(
           state.copyWith(
-            lastPendingDeletionId: null,
-            snackbarMessage: null,
+            lastPendingDeletionId: null, // Clear the pending ID
+            // Clear the item so the snackbar doesn't reappear on rebuilds
+            itemPendingDeletion: null,
           ),
         );
       case DeletionStatus.undone:
@@ -816,8 +820,8 @@ class ContentManagementBloc
           emit(
             state.copyWith(
               headlines: updatedHeadlines,
-              lastPendingDeletionId: null,
-              snackbarMessage: null,
+              lastPendingDeletionId: null, // Clear the pending ID
+              itemPendingDeletion: null,
             ),
           );
         } else if (item is Topic) {
@@ -827,8 +831,8 @@ class ContentManagementBloc
           emit(
             state.copyWith(
               topics: updatedTopics,
-              lastPendingDeletionId: null,
-              snackbarMessage: null,
+              lastPendingDeletionId: null, // Clear the pending ID
+              itemPendingDeletion: null,
             ),
           );
         } else if (item is Source) {
@@ -838,8 +842,8 @@ class ContentManagementBloc
           emit(
             state.copyWith(
               sources: updatedSources,
-              lastPendingDeletionId: null,
-              snackbarMessage: null,
+              lastPendingDeletionId: null, // Clear the pending ID
+              itemPendingDeletion: null,
             ),
           );
         }
