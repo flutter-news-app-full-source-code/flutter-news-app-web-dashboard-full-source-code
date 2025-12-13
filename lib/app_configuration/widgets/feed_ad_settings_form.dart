@@ -138,6 +138,12 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
 
     return ExpansionTile(
       title: Text(l10n.feedAdSettingsTitle),
+      subtitle: Text(
+        l10n.feedAdSettingsDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       childrenPadding: const EdgeInsetsDirectional.only(
         start: AppSpacing.lg,
         top: AppSpacing.md,
