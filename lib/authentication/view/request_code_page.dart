@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/widgets/auth_layout.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
@@ -101,69 +102,61 @@ class _RequestCodeView extends StatelessWidget {
             final isLoading =
                 state.status == AuthenticationStatus.requestCodeLoading;
 
-            return Padding(
-              padding: const EdgeInsets.all(AppSpacing.paddingLarge),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // --- Icon ---
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-                        child: Icon(
-                          Icons.email_outlined,
-                          size: AppSpacing.xxl * 2,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-                      // const SizedBox(height: AppSpacing.lg),
-                      // --- Explanation Text ---
-                      Text(
-                        l10n.requestCodePageHeadline,
-                        style: textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      Text(
-                        l10n.requestCodePageSubheadline,
-                        style: textTheme.bodyLarge?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      // Display demo email if in demo environment
-                      BlocSelector<AppBloc, AppState, AppEnvironment?>(
-                        selector: (state) => state.environment,
-                        builder: (context, environment) {
-                          if (environment == AppEnvironment.demo) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                top: AppSpacing.lg,
-                              ),
-                              child: Text(
-                                l10n.demoEmailHint(
-                                  'admin@example.com | publisher@example.com',
-                                ),
-                                style: textTheme.bodyMedium?.copyWith(
-                                  color: colorScheme.secondary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.xxl),
-                      _EmailLinkForm(isLoading: isLoading),
-                    ],
+            return AuthLayout(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // --- Icon ---
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+                    child: Icon(
+                      Icons.email_outlined,
+                      size: AppSpacing.xxl * 2,
+                      color: colorScheme.primary,
+                    ),
                   ),
-                ),
+                  // --- Explanation Text ---
+                  Text(
+                    l10n.requestCodePageHeadline,
+                    style: textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  Text(
+                    l10n.requestCodePageSubheadline,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  // Display demo email if in demo environment
+                  BlocSelector<AppBloc, AppState, AppEnvironment?>(
+                    selector: (state) => state.environment,
+                    builder: (context, environment) {
+                      if (environment == AppEnvironment.demo) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: AppSpacing.lg),
+                          child: Text(
+                            l10n.demoEmailHint(
+                              'admin@example.com | publisher@example.com',
+                            ),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.secondary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  const SizedBox(height: AppSpacing.xxl),
+                  _EmailLinkForm(isLoading: isLoading),
+                ],
               ),
             );
           },
