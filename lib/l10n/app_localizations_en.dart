@@ -2148,4 +2148,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navCommunity => 'Community';
+
+  @override
+  String get confirmPromotionTitle => 'Confirm Promotion';
+
+  @override
+  String confirmPromotionMessage(String email) {
+    return 'Are you sure you want to promote $email to a Publisher?';
+  }
+
+  @override
+  String get confirmDemotionTitle => 'Confirm Demotion';
+
+  @override
+  String confirmDemotionMessage(String email) {
+    return 'Are you sure you want to demote $email to a standard user?';
+  }
+
+  @override
+  String get premiumUserTooltip => 'Premium';
+
+  @override
+  String get adminUserTooltip => 'Admin';
+
+  @override
+  String get publisherUserTooltip => 'Publisher';
 }

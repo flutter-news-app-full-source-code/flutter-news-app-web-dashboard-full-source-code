@@ -10,37 +10,43 @@ class UserFilterState extends Equatable {
   /// {@macro user_filter_state}
   const UserFilterState({
     this.searchQuery = '',
-    this.selectedAppRoles = const [],
-    this.selectedDashboardRoles = const [],
+    this.authenticationFilter = AuthenticationFilter.all,
+    this.subscriptionFilter = SubscriptionFilter.all,
+    this.dashboardRole,
   });
 
   /// The current search query for filtering users by email.
   final String searchQuery;
 
-  /// The list of selected app roles to filter users by.
-  final List<AppUserRole> selectedAppRoles;
+  /// The selected authentication status filter.
+  final AuthenticationFilter authenticationFilter;
 
-  /// The list of selected dashboard roles to filter users by.
-  final List<DashboardUserRole> selectedDashboardRoles;
+  /// The selected subscription status filter.
+  final SubscriptionFilter subscriptionFilter;
+
+  /// The selected dashboard role filter.
+  final DashboardUserRole? dashboardRole;
 
   /// Creates a copy of this [UserFilterState] with updated values.
   UserFilterState copyWith({
     String? searchQuery,
-    List<AppUserRole>? selectedAppRoles,
-    List<DashboardUserRole>? selectedDashboardRoles,
+    AuthenticationFilter? authenticationFilter,
+    SubscriptionFilter? subscriptionFilter,
+    DashboardUserRole? dashboardRole,
   }) {
     return UserFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedAppRoles: selectedAppRoles ?? this.selectedAppRoles,
-      selectedDashboardRoles:
-          selectedDashboardRoles ?? this.selectedDashboardRoles,
+      authenticationFilter: authenticationFilter ?? this.authenticationFilter,
+      subscriptionFilter: subscriptionFilter ?? this.subscriptionFilter,
+      dashboardRole: dashboardRole ?? this.dashboardRole,
     );
   }
 
   @override
   List<Object> get props => [
     searchQuery,
-    selectedAppRoles,
-    selectedDashboardRoles,
+    authenticationFilter,
+    subscriptionFilter,
+    dashboardRole ?? '',
   ];
 }

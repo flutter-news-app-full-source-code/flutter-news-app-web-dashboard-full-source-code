@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/user_filter_dialog.dart'
     show UserFilterDialog;
 
@@ -22,9 +24,10 @@ class UserFilterDialogBloc
   UserFilterDialogBloc() : super(const UserFilterDialogState()) {
     on<UserFilterDialogInitialized>(_onFilterDialogInitialized);
     on<UserFilterDialogSearchQueryChanged>(_onSearchQueryChanged);
-    on<UserFilterDialogAppRolesChanged>(_onAppRolesChanged);
-    on<UserFilterDialogDashboardRolesChanged>(_onDashboardRolesChanged);
     on<UserFilterDialogReset>(_onFilterDialogReset);
+    on<UserFilterDialogAuthenticationChanged>(_onAuthenticationChanged);
+    on<UserFilterDialogSubscriptionChanged>(_onSubscriptionChanged);
+    on<UserFilterDialogDashboardRoleChanged>(_onDashboardRoleChanged);
   }
 
   /// Initializes the dialog's state from the main [UserFilterBloc]'s state.
@@ -35,8 +38,9 @@ class UserFilterDialogBloc
     emit(
       state.copyWith(
         searchQuery: event.userFilterState.searchQuery,
-        selectedAppRoles: event.userFilterState.selectedAppRoles,
-        selectedDashboardRoles: event.userFilterState.selectedDashboardRoles,
+        authenticationFilter: event.userFilterState.authenticationFilter,
+        subscriptionFilter: event.userFilterState.subscriptionFilter,
+        dashboardRole: event.userFilterState.dashboardRole,
       ),
     );
   }
@@ -49,20 +53,27 @@ class UserFilterDialogBloc
     emit(state.copyWith(searchQuery: event.query));
   }
 
-  /// Updates the temporary selected app roles.
-  void _onAppRolesChanged(
-    UserFilterDialogAppRolesChanged event,
+  void _onAuthenticationChanged(
+    UserFilterDialogAuthenticationChanged event,
     Emitter<UserFilterDialogState> emit,
   ) {
-    emit(state.copyWith(selectedAppRoles: event.appRoles));
+    emit(state.copyWith(authenticationFilter: event.authenticationFilter));
   }
 
-  /// Updates the temporary selected dashboard roles.
-  void _onDashboardRolesChanged(
-    UserFilterDialogDashboardRolesChanged event,
+  void _onSubscriptionChanged(
+    UserFilterDialogSubscriptionChanged event,
     Emitter<UserFilterDialogState> emit,
   ) {
-    emit(state.copyWith(selectedDashboardRoles: event.dashboardRoles));
+    emit(state.copyWith(subscriptionFilter: event.subscriptionFilter));
+  }
+
+  void _onDashboardRoleChanged(
+    UserFilterDialogDashboardRoleChanged event,
+    Emitter<UserFilterDialogState> emit,
+  ) {
+    // Directly set the state to the selected role. The UI's `onSelected`
+    // will pass `null` when 'Any' is tapped.
+    emit(state.copyWith(dashboardRole: event.dashboardRole));
   }
 
   /// Resets all temporary filter selections in the dialog.

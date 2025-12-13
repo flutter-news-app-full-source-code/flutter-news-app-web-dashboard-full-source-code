@@ -2694,5 +2694,43 @@
   "navCommunity": "Community",
   "@navCommunity": {
     "description": "Short navigation label for Community Management."
+  },
+  "confirmPromotionTitle": "Confirm Promotion",
+  "@confirmPromotionTitle": {
+    "description": "Title for the dialog confirming user promotion."
+  },
+  "confirmPromotionMessage": "Are you sure you want to promote {email} to a Publisher?",
+  "@confirmPromotionMessage": {
+    "description": "Message for the dialog confirming user promotion.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDemotionTitle": "Confirm Demotion",
+  "@confirmDemotionTitle": {
+    "description": "Title for the dialog confirming user demotion."
+  },
+  "confirmDemotionMessage": "Are you sure you want to demote {email} to a standard user?",
+  "@confirmDemotionMessage": {
+    "description": "Message for the dialog confirming user demotion.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "premiumUserTooltip": "Premium",
+  "@premiumUserTooltip": {
+    "description": "Tooltip for the icon indicating a premium user."
+  },
+  "adminUserTooltip": "Admin",
+  "@adminUserTooltip": {
+    "description": "Tooltip for the icon indicating an admin user."
+  },
+  "publisherUserTooltip": "Publisher",
+  "@publisherUserTooltip": {
+    "description": "Tooltip for the icon indicating a publisher user."
   }
 }

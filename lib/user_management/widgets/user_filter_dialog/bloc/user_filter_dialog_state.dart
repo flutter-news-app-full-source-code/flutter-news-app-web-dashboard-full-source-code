@@ -10,37 +10,43 @@ final class UserFilterDialogState extends Equatable {
   /// {@macro user_filter_dialog_state}
   const UserFilterDialogState({
     this.searchQuery = '',
-    this.selectedAppRoles = const [],
-    this.selectedDashboardRoles = const [],
+    this.authenticationFilter = AuthenticationFilter.all,
+    this.subscriptionFilter = SubscriptionFilter.all,
+    this.dashboardRole,
   });
 
   /// The current text in the search query field.
   final String searchQuery;
 
-  /// The list of app roles to be included in the filter.
-  final List<AppUserRole> selectedAppRoles;
+  /// The selected authentication status filter.
+  final AuthenticationFilter authenticationFilter;
 
-  /// The list of dashboard roles to be included in the filter.
-  final List<DashboardUserRole> selectedDashboardRoles;
+  /// The selected subscription status filter.
+  final SubscriptionFilter subscriptionFilter;
+
+  /// The selected dashboard role filter.
+  final DashboardUserRole? dashboardRole;
 
   /// Creates a copy of this [UserFilterDialogState] with updated values.
   UserFilterDialogState copyWith({
     String? searchQuery,
-    List<AppUserRole>? selectedAppRoles,
-    List<DashboardUserRole>? selectedDashboardRoles,
+    AuthenticationFilter? authenticationFilter,
+    SubscriptionFilter? subscriptionFilter,
+    DashboardUserRole? dashboardRole,
   }) {
     return UserFilterDialogState(
       searchQuery: searchQuery ?? this.searchQuery,
-      selectedAppRoles: selectedAppRoles ?? this.selectedAppRoles,
-      selectedDashboardRoles:
-          selectedDashboardRoles ?? this.selectedDashboardRoles,
+      authenticationFilter: authenticationFilter ?? this.authenticationFilter,
+      subscriptionFilter: subscriptionFilter ?? this.subscriptionFilter,
+      dashboardRole: dashboardRole ?? this.dashboardRole,
     );
   }
 
   @override
   List<Object?> get props => [
     searchQuery,
-    selectedAppRoles,
-    selectedDashboardRoles,
+    authenticationFilter,
+    subscriptionFilter,
+    dashboardRole,
   ];
 }

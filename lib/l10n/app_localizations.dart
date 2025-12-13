@@ -3997,6 +3997,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Community'**
   String get navCommunity;
+
+  /// Title for the dialog confirming user promotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Promotion'**
+  String get confirmPromotionTitle;
+
+  /// Message for the dialog confirming user promotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to promote {email} to a Publisher?'**
+  String confirmPromotionMessage(String email);
+
+  /// Title for the dialog confirming user demotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Demotion'**
+  String get confirmDemotionTitle;
+
+  /// Message for the dialog confirming user demotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to demote {email} to a standard user?'**
+  String confirmDemotionMessage(String email);
+
+  /// Tooltip for the icon indicating a premium user.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premiumUserTooltip;
+
+  /// Tooltip for the icon indicating an admin user.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get adminUserTooltip;
+
+  /// Tooltip for the icon indicating a publisher user.
+  ///
+  /// In en, this message translates to:
+  /// **'Publisher'**
+  String get publisherUserTooltip;
 }
 
 class _AppLocalizationsDelegate
