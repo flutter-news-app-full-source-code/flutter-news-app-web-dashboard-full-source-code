@@ -2698,5 +2698,31 @@
   "navCommunity": "المجتمع",
   "@navCommunity": {
     "description": "تسمية تنقل قصيرة لإدارة المجتمع."
+  },
+  "confirmPromotionTitle": "تأكيد الترقية",
+  "@confirmPromotionTitle": {
+    "description": "عنوان مربع حوار تأكيد ترقية المستخدم."
+  },
+  "confirmPromotionMessage": "هل أنت متأكد أنك تريد ترقية {email} إلى ناشر؟",
+  "@confirmPromotionMessage": {
+    "description": "رسالة مربع حوار تأكيد ترقية المستخدم.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDemotionTitle": "تأكيد التخفيض",
+  "@confirmDemotionTitle": {
+    "description": "عنوان مربع حوار تأكيد تخفيض رتبة المستخدم."
+  },
+  "confirmDemotionMessage": "هل أنت متأكد أنك تريد تخفيض رتبة {email} إلى مستخدم عادي؟",
+  "@confirmDemotionMessage": {
+    "description": "رسالة مربع حوار تأكيد تخفيض رتبة المستخدم.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
   }
 }
