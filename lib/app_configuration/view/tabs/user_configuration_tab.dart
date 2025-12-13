@@ -52,6 +52,12 @@ class _UserConfigurationTabState extends State<UserConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
+              leading: Icon(
+                Icons.manage_accounts_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('userLimitsTile_$expandedIndex'),
               title: Text(l10n.userLimitsTitle),
               subtitle: Text(
