@@ -48,6 +48,7 @@ class ReportingSettingsForm extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           SwitchListTile(
             title: Text(l10n.enableHeadlineReportingLabel),
+            subtitle: Text(l10n.enableHeadlineReportingDescription),
             value: reportingConfig.headlineReportingEnabled,
             onChanged: (value) {
               final newConfig = reportingConfig.copyWith(
@@ -66,6 +67,7 @@ class ReportingSettingsForm extends StatelessWidget {
           ),
           SwitchListTile(
             title: Text(l10n.enableSourceReportingLabel),
+            subtitle: Text(l10n.enableSourceReportingDescription),
             value: reportingConfig.sourceReportingEnabled,
             onChanged: (value) {
               final newConfig = reportingConfig.copyWith(
@@ -84,6 +86,7 @@ class ReportingSettingsForm extends StatelessWidget {
           ),
           SwitchListTile(
             title: Text(l10n.enableCommentReportingLabel),
+            subtitle: Text(l10n.enableCommentReportingDescription),
             value: reportingConfig.commentReportingEnabled,
             onChanged: (value) {
               final newConfig = reportingConfig.copyWith(
