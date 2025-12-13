@@ -142,13 +142,13 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             String itemType;
             String itemName;
             if (item is Headline) {
-              itemType = l10n.headlines;
+              itemType = l10n.headline;
               itemName = item.title;
             } else if (item is Topic) {
-              itemType = l10n.topics;
+              itemType = l10n.topic;
               itemName = item.name;
             } else {
-              itemType = l10n.sources;
+              itemType = l10n.source;
               itemName = (item as Source).name;
             }
             ScaffoldMessenger.of(context)
