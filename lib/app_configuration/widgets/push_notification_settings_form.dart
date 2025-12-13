@@ -61,6 +61,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
   ) {
     return ExpansionTile(
       title: Text(l10n.pushNotificationPrimaryProviderTitle),
+      subtitle: Text(
+        l10n.pushNotificationPrimaryProviderDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       childrenPadding: const EdgeInsetsDirectional.only(
         start: AppSpacing.lg,
         top: AppSpacing.md,
@@ -68,13 +74,6 @@ class PushNotificationSettingsForm extends StatelessWidget {
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.pushNotificationPrimaryProviderDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
         Align(
           alignment: AlignmentDirectional.centerStart,
           child: SegmentedButton<PushNotificationProvider>(
@@ -111,6 +110,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
   ) {
     return ExpansionTile(
       title: Text(l10n.pushNotificationDeliveryTypesTitle),
+      subtitle: Text(
+        l10n.pushNotificationDeliveryTypesDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       childrenPadding: const EdgeInsetsDirectional.only(
         start: AppSpacing.lg,
         top: AppSpacing.md,
@@ -118,13 +123,6 @@ class PushNotificationSettingsForm extends StatelessWidget {
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.pushNotificationDeliveryTypesDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
         Column(
           children: PushNotificationSubscriptionDeliveryType.values
               .map(
