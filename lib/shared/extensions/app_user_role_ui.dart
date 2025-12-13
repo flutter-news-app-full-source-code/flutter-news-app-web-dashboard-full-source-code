@@ -15,7 +15,7 @@ extension AppUserRoleUI on AppUserRole {
     if (isPremium) {
       return Tooltip(
         message: l10n.premiumUserTooltip,
-        child: Icon(Icons.star, color: Colors.amber, size: 16),
+        child: const Icon(Icons.star, color: Colors.amber, size: 16),
       );
     }
     return null;
