@@ -226,48 +226,44 @@ class _UsersDataSource extends DataTableSource {
       // The email cell is wrapped in an Expanded widget to allow truncation.
       cells: [
         DataCell(
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              // The email text is padded to prevent the indicator dots from
-              // overlapping the text content.
-              Padding(
-                padding: const EdgeInsets.only(right: 24),
-                child: Text(user.email, overflow: TextOverflow.ellipsis),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                bottom: 0,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Premium subscription indicator dot (gold)
-                    if (user.appRole.isPremium)
-                      Tooltip(
-                        message: l10n.premiumUserTooltip,
-                        child: const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 16,
-                        ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Text(user.email),
+                const SizedBox(width: AppSpacing.sm),
+                if (user.appRole.isPremium)
+                  Tooltip(
+                    message: l10n.premiumUserTooltip,
+                    child: const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: 16,
+                    ),
+                  ),
+                if (user.dashboardRole.isPrivileged) ...[
+                  const SizedBox(width: AppSpacing.xs),
+                  if (user.dashboardRole == DashboardUserRole.admin)
+                    Tooltip(
+                      message: l10n.adminUserTooltip,
+                      child: const Icon(
+                        Icons.admin_panel_settings,
+                        color: Colors.blueAccent,
+                        size: 16,
                       ),
-                    // Privileged dashboard role indicator dot (blue)
-                    if (user.dashboardRole.isPrivileged) ...[
-                      const SizedBox(width: AppSpacing.xs),
-                      Tooltip(
-                        message: l10n.privilegedUserTooltip,
-                        child: const Icon(
-                          Icons.shield,
-                          color: Colors.blueAccent,
-                          size: 16,
-                        ),
+                    )
+                  else if (user.dashboardRole == DashboardUserRole.publisher)
+                    Tooltip(
+                      message: l10n.publisherUserTooltip,
+                      child: const Icon(
+                        Icons.publish,
+                        color: Colors.green,
+                        size: 16,
                       ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
+                    ),
+                ],
+              ],
+            ),
           ),
         ),
         if (!isMobile)
