@@ -2167,4 +2167,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get publisherUserTooltip => 'ناشر';
+
+  @override
+  String get breakingNewsHint => 'هذا عنوان خبر عاجل';
 }

@@ -2173,4 +2173,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get publisherUserTooltip => 'Publisher';
+
+  @override
+  String get breakingNewsHint => 'This is a breaking news headline';
 }

@@ -4039,6 +4039,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Publisher'**
   String get publisherUserTooltip;
+
+  /// Tooltip text for the breaking news icon on a headline
+  ///
+  /// In en, this message translates to:
+  /// **'This is a breaking news headline'**
+  String get breakingNewsHint;
 }
 
 class _AppLocalizationsDelegate
