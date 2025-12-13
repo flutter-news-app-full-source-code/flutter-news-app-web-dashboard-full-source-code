@@ -4021,6 +4021,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to demote {email} to a standard user?'**
   String confirmDemotionMessage(String email);
+
+  /// Tooltip for the icon indicating a premium user.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium User'**
+  String get premiumUserTooltip;
+
+  /// Tooltip for the icon indicating a user with privileged dashboard access.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard Publisher or Admin'**
+  String get privilegedUserTooltip;
 }
 
 class _AppLocalizationsDelegate

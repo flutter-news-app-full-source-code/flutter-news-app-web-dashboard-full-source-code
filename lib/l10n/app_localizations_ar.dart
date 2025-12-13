@@ -2158,4 +2158,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String confirmDemotionMessage(String email) {
     return 'هل أنت متأكد أنك تريد تخفيض رتبة $email إلى مستخدم عادي؟';
   }
+
+  @override
+  String get premiumUserTooltip => 'مستخدم مميز';
+
+  @override
+  String get privilegedUserTooltip => 'ناشر أو مسؤول في لوحة التحكم';
 }

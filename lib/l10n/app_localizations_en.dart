@@ -2164,4 +2164,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String confirmDemotionMessage(String email) {
     return 'Are you sure you want to demote $email to a standard user?';
   }
+
+  @override
+  String get premiumUserTooltip => 'Premium User';
+
+  @override
+  String get privilegedUserTooltip => 'Dashboard Publisher or Admin';
 }
