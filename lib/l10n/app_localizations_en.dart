@@ -2273,4 +2273,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get navigationAdConfigDescription =>
       'Configure interstitial ads that appear during user navigation.';
+
+  @override
+  String get feedDecoratorLinkAccountDescription =>
+      'Prompts guest users to create a full account.';
+
+  @override
+  String get feedDecoratorUpgradeDescription =>
+      'Prompts standard users to upgrade to a premium subscription.';
+
+  @override
+  String get feedDecoratorRateAppDescription =>
+      'Prompts users to rate the application in the app store.';
+
+  @override
+  String get feedDecoratorEnableNotificationsDescription =>
+      'Prompts users to enable push notifications.';
+
+  @override
+  String get feedDecoratorSuggestedTopicsDescription =>
+      'Shows a collection of topics the user might be interested in following.';
+
+  @override
+  String get feedDecoratorSuggestedSourcesDescription =>
+      'Shows a collection of sources the user might be interested in following.';
 }

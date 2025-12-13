@@ -4183,6 +4183,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Configure interstitial ads that appear during user navigation.'**
   String get navigationAdConfigDescription;
+
+  /// Description for the 'Link Account' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts guest users to create a full account.'**
+  String get feedDecoratorLinkAccountDescription;
+
+  /// Description for the 'Upgrade' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts standard users to upgrade to a premium subscription.'**
+  String get feedDecoratorUpgradeDescription;
+
+  /// Description for the 'Rate App' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts users to rate the application in the app store.'**
+  String get feedDecoratorRateAppDescription;
+
+  /// Description for the 'Enable Notifications' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts users to enable push notifications.'**
+  String get feedDecoratorEnableNotificationsDescription;
+
+  /// Description for the 'Suggested Topics' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows a collection of topics the user might be interested in following.'**
+  String get feedDecoratorSuggestedTopicsDescription;
+
+  /// Description for the 'Suggested Sources' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows a collection of sources the user might be interested in following.'**
+  String get feedDecoratorSuggestedSourcesDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -2266,4 +2266,28 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get navigationAdConfigDescription =>
       'تكوين الإعلانات البينية التي تظهر أثناء تنقل المستخدم.';
+
+  @override
+  String get feedDecoratorLinkAccountDescription =>
+      'يطالب المستخدمين الضيوف بإنشاء حساب كامل.';
+
+  @override
+  String get feedDecoratorUpgradeDescription =>
+      'يطالب المستخدمين العاديين بالترقية إلى اشتراك مميز.';
+
+  @override
+  String get feedDecoratorRateAppDescription =>
+      'يطالب المستخدمين بتقييم التطبيق في متجر التطبيقات.';
+
+  @override
+  String get feedDecoratorEnableNotificationsDescription =>
+      'يطالب المستخدمين بتمكين الإشعارات الفورية.';
+
+  @override
+  String get feedDecoratorSuggestedTopicsDescription =>
+      'يعرض مجموعة من المواضيع التي قد يهتم المستخدم بمتابعتها.';
+
+  @override
+  String get feedDecoratorSuggestedSourcesDescription =>
+      'يعرض مجموعة من المصادر التي قد يهتم المستخدم بمتابعتها.';
 }
