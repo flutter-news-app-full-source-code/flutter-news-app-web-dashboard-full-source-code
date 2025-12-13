@@ -2776,5 +2776,19 @@
   "deleteItemContent": "هل أنت متأكد أنك تريد حذف هذا العنصر؟.",
   "@deleteItemContent": {
     "description": "Confirmation dialog content for deleting an item."
+  },
+  "itemDeletedSnackbar": "تم حذف {itemType} \"{itemName}\".",
+  "@itemDeletedSnackbar": {
+    "description": "Snackbar message shown after an item is deleted, with an undo option.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "Headline"
+      },
+      "itemName": {
+        "type": "String",
+        "example": "Breaking News Story"
+      }
+    }
   }
 }
