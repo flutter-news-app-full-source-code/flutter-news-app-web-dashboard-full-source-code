@@ -2098,6 +2098,26 @@
   "@userLimitsTitle": {
     "description": "عنوان قسم حدود المستخدم القابل للتوسيع."
   },
+  "userLimitsDescription": "تحديد حدود للميزات والمحتوى الخاص بالمستخدم.",
+  "@userLimitsDescription": {
+    "description": "وصف قسم حدود المستخدم القابل للتوسيع."
+  },
+  "appStatusAndUpdatesDescription": "التحكم في الحالة التشغيلية للتطبيق وإدارة متطلبات التحديث.",
+  "@appStatusAndUpdatesDescription": {
+    "description": "وصف قسم حالة التطبيق والتحديثات القابل للتوسيع."
+  },
+  "advertisementsDescription": "إدارة جميع إعدادات الإعلانات، بما في ذلك الضوابط العالمية والمنصات والمواضع.",
+  "@advertisementsDescription": {
+    "description": "وصف قسم الإعلانات القابل للتوسيع."
+  },
+  "notificationsDescription": "تكوين نظام الإشعارات الفورية، بما في ذلك المزودين وأنواع التسليم.",
+  "@notificationsDescription": {
+    "description": "وصف قسم الإشعارات القابل للتوسيع."
+  },
+  "feedDescription": "التحكم في سلوك ومظهر موجز محتوى المستخدم.",
+  "@feedDescription": {
+    "description": "وصف قسم الموجز القابل للتوسيع."
+  },
   "notificationSubscriptionBreakingOnlyDescription": "حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.",
   "@notificationSubscriptionBreakingOnlyDescription": {
     "description": "وصف لحد اشتراك إشعارات الأخبار العاجلة."
@@ -2318,7 +2338,7 @@
   "@commentStatus": {
     "description": "تسمية لحالة الإشراف على تعليق ضمن تفاعل."
   },
-"hasCommentFilterLabel": "تحتوي على تعليقات",
+  "hasCommentFilterLabel": "تحتوي على تعليقات",
   "@hasCommentFilterLabel": {
     "description": "تسمية لمفتاح تصفية التفاعلات بناءً على وجود تعليق."
   },
@@ -2858,5 +2878,17 @@
         "example": "Breaking News Story"
       }
     }
+  },
+  "adPlatformConfigurationDescription": "اختر مزود الإعلانات الأساسي وقم بتكوين معرفات الوحدات الإعلانية الخاصة به.",
+  "@adPlatformConfigurationDescription": {
+    "description": "وصف قسم تكوين منصة الإعلانات القابل للتوسيع."
+  },
+  "feedAdSettingsDescription": "تحكم في رؤية الإعلانات ونوعها وتكرارها داخل موجز محتوى المستخدم.",
+  "@feedAdSettingsDescription": {
+    "description": "وصف قسم إعدادات إعلانات الموجز القابل للتوسيع."
+  },
+  "navigationAdConfigDescription": "تكوين الإعلانات البينية التي تظهر أثناء تنقل المستخدم.",
+  "@navigationAdConfigDescription": {
+    "description": "وصف قسم إعدادات إعلانات التنقل القابل للتوسيع."
   }
 }

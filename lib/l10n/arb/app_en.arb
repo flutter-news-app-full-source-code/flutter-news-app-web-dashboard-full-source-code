@@ -2094,6 +2094,26 @@
   "@userLimitsTitle": {
     "description": "Title for the User Limits expansion tile."
   },
+  "userLimitsDescription": "Define limits for user-specific features and content.",
+  "@userLimitsDescription": {
+    "description": "Description for the User Limits expansion tile."
+  },
+  "appStatusAndUpdatesDescription": "Control the application's operational status and manage update requirements.",
+  "@appStatusAndUpdatesDescription": {
+    "description": "Description for the App Status & Updates expansion tile."
+  },
+  "advertisementsDescription": "Manage all advertisement settings, including global controls, platforms, and placements.",
+  "@advertisementsDescription": {
+    "description": "Description for the Advertisements expansion tile."
+  },
+  "notificationsDescription": "Configure the push notification system, including providers and delivery types.",
+  "@notificationsDescription": {
+    "description": "Description for the Notifications expansion tile."
+  },
+  "feedDescription": "Control the behavior and appearance of the user's content feed.",
+  "@feedDescription": {
+    "description": "Description for the Feed expansion tile."
+  },
   "notificationSubscriptionBreakingOnlyDescription": "Limit for subscriptions that send immediate alerts for matching headlines.",
   "@notificationSubscriptionBreakingOnlyDescription": {
     "description": "Description for the breaking news notification subscription limit."
@@ -2854,5 +2874,17 @@
         "example": "Breaking News Story"
       }
     }
+  },
+  "adPlatformConfigurationDescription": "Select the primary ad provider and configure their respective ad unit IDs.",
+  "@adPlatformConfigurationDescription": {
+    "description": "Description for the Ad Platform Configuration expansion tile."
+  },
+  "feedAdSettingsDescription": "Control ad visibility, type, and frequency within the user's content feed.",
+  "@feedAdSettingsDescription": {
+    "description": "Description for the Feed Ad Settings expansion tile."
+  },
+  "navigationAdConfigDescription": "Configure interstitial ads that appear during user navigation.",
+  "@navigationAdConfigDescription": {
+    "description": "Description for the Navigation Ad Settings expansion tile."
   }
 }
