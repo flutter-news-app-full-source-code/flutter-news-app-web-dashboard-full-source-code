@@ -2170,4 +2170,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get breakingNewsHint => 'هذا عنوان خبر عاجل';
+
+  @override
+  String get breakingNewsFilterDescription =>
+      'إظهار عناوين الأخبار العاجلة فقط';
 }

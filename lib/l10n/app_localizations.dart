@@ -4045,6 +4045,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This is a breaking news headline'**
   String get breakingNewsHint;
+
+  /// Subtitle for the breaking news filter switch
+  ///
+  /// In en, this message translates to:
+  /// **'Show only breaking news headlines'**
+  String get breakingNewsFilterDescription;
 }
 
 class _AppLocalizationsDelegate

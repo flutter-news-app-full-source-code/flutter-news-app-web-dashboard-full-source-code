@@ -2176,4 +2176,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get breakingNewsHint => 'This is a breaking news headline';
+
+  @override
+  String get breakingNewsFilterDescription =>
+      'Show only breaking news headlines';
 }
