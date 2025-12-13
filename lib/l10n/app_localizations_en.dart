@@ -89,10 +89,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get headlines => 'Headlines';
 
   @override
+  String get headline => 'Headline';
+
+  @override
   String get topics => 'Topics';
 
   @override
+  String get topic => 'Topic';
+
+  @override
   String get sources => 'Sources';
+
+  @override
+  String get source => 'Source';
 
   @override
   String get appConfiguration => 'App Configuration';

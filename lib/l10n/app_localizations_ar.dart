@@ -90,10 +90,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get headlines => 'العناوين الرئيسية';
 
   @override
+  String get headline => 'العنوان الرئيسي';
+
+  @override
   String get topics => 'المواضيع';
 
   @override
+  String get topic => 'الموضوع';
+
+  @override
   String get sources => 'المصادر';
+
+  @override
+  String get source => 'المصدر';
 
   @override
   String get appConfiguration => 'إعدادات التطبيق';

@@ -236,17 +236,35 @@ abstract class AppLocalizations {
   /// **'Headlines'**
   String get headlines;
 
+  /// Label for the a singular headline
+  ///
+  /// In en, this message translates to:
+  /// **'Headline'**
+  String get headline;
+
   /// Label for the topics subpage
   ///
   /// In en, this message translates to:
   /// **'Topics'**
   String get topics;
 
+  /// Label for the a singular topic
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get topic;
+
   /// Label for the sources subpage
   ///
   /// In en, this message translates to:
   /// **'Sources'**
   String get sources;
+
+  /// Label for the a singular source
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get source;
 
   /// Label for the app configuration navigation item
   ///
