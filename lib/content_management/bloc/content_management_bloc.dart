@@ -800,6 +800,12 @@ class ContentManagementBloc
     Emitter<ContentManagementState> emit,
   ) async {
     switch (event.event.status) {
+      case DeletionStatus.requested:
+        // This case is now handled by the optimistic UI update in the
+        // specific delete handlers (e.g., _onDeleteHeadlineForeverRequested).
+        // The itemPendingDeletion is set there, which the UI uses to build
+        // the snackbar message.
+        break;
       case DeletionStatus.confirmed:
         // If deletion is confirmed, clear pending status.
         // The item was already optimistically removed from the list.
