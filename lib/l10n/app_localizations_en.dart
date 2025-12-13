@@ -172,7 +172,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appConfigSaveSuccessMessage =>
-      'App configuration saved successfully!';
+      'Remote configuration saved successfully. Mobile clients will update on their next launch.';
 
   @override
   String appConfigSaveErrorMessage(String errorMessage) {

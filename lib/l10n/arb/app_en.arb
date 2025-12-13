@@ -207,7 +207,7 @@
   "@forceUpdateTab": {
     "description": "Tab title for Force Update"
   },
-  "appConfigSaveSuccessMessage": "App configuration saved successfully!",
+  "appConfigSaveSuccessMessage": "Remote configuration saved successfully. Mobile clients will update on their next launch.",
   "@appConfigSaveSuccessMessage": {
     "description": "Snackbar message for successful app configuration save"
   },

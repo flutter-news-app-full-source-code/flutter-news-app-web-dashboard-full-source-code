@@ -172,7 +172,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get forceUpdateTab => 'تحديث إجباري';
 
   @override
-  String get appConfigSaveSuccessMessage => 'تم حفظ إعدادات التطبيق بنجاح!';
+  String get appConfigSaveSuccessMessage =>
+      'تم حفظ الإعدادات عن بعد بنجاح. ستعكس تطبيقات الجوال هذه التغييرات عند تشغيلها التالي.';
 
   @override
   String appConfigSaveErrorMessage(String errorMessage) {

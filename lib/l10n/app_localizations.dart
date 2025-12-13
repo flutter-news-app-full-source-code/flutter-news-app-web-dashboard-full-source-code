@@ -389,7 +389,7 @@ abstract class AppLocalizations {
   /// Snackbar message for successful app configuration save
   ///
   /// In en, this message translates to:
-  /// **'App configuration saved successfully!'**
+  /// **'Remote configuration saved successfully. Mobile clients will update on their next launch.'**
   String get appConfigSaveSuccessMessage;
 
   /// Snackbar message for app configuration save error

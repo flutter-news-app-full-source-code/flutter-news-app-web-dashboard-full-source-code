@@ -207,7 +207,7 @@
   "@forceUpdateTab": {
     "description": "عنوان تبويب تحديث إجباري"
   },
-  "appConfigSaveSuccessMessage": "تم حفظ إعدادات التطبيق بنجاح!",
+  "appConfigSaveSuccessMessage": "تم حفظ الإعدادات عن بعد بنجاح. ستعكس تطبيقات الجوال هذه التغييرات عند تشغيلها التالي.",
   "@appConfigSaveSuccessMessage": {
     "description": "رسالة شريط التنبيه لحفظ إعدادات التطبيق بنجاح"
   },
