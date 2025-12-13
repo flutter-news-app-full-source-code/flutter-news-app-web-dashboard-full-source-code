@@ -1864,6 +1864,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commentStatus => 'Comment Status';
 
   @override
+  String get hasCommentFilterLabel => 'Contains Comment';
+
+  @override
+  String get hasCommentFilterDescription =>
+      'Show only engagements that include a text comment.';
+
+  @override
   String get date => 'Date';
 
   @override

@@ -3440,11 +3440,23 @@ abstract class AppLocalizations {
   /// **'Comment'**
   String get comment;
 
-  /// Column header for comment status
+  /// Label for the moderation status of a comment within an engagement.
   ///
   /// In en, this message translates to:
   /// **'Comment Status'**
   String get commentStatus;
+
+  /// Label for the switch to filter engagements based on whether they have a comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Contains Comment'**
+  String get hasCommentFilterLabel;
+
+  /// Description for the switch to filter engagements based on whether they have a comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Show only engagements that include a text comment.'**
+  String get hasCommentFilterDescription;
 
   /// Column header for date
   ///

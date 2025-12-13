@@ -1859,6 +1859,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get commentStatus => 'حالة التعليق';
 
   @override
+  String get hasCommentFilterLabel => 'تحتوي على تعليقات';
+
+  @override
+  String get hasCommentFilterDescription =>
+      'إظهار التفاعلات التي تتضمن تعليقًا نصيًا فقط.';
+
+  @override
   String get date => 'التاريخ';
 
   @override
