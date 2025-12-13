@@ -2166,8 +2166,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get premiumUserTooltip => 'Premium User';
+  String get premiumUserTooltip => 'Premium';
 
   @override
-  String get privilegedUserTooltip => 'Dashboard Publisher or Admin';
+  String get adminUserTooltip => 'Admin';
+
+  @override
+  String get publisherUserTooltip => 'Publisher';
 }

@@ -2163,5 +2163,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get premiumUserTooltip => 'مستخدم مميز';
 
   @override
-  String get privilegedUserTooltip => 'ناشر أو مسؤول في لوحة التحكم';
+  String get adminUserTooltip => 'مسؤول';
+
+  @override
+  String get publisherUserTooltip => 'ناشر';
 }

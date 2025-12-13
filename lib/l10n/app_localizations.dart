@@ -4025,14 +4025,20 @@ abstract class AppLocalizations {
   /// Tooltip for the icon indicating a premium user.
   ///
   /// In en, this message translates to:
-  /// **'Premium User'**
+  /// **'Premium'**
   String get premiumUserTooltip;
 
-  /// Tooltip for the icon indicating a user with privileged dashboard access.
+  /// Tooltip for the icon indicating an admin user.
   ///
   /// In en, this message translates to:
-  /// **'Dashboard Publisher or Admin'**
-  String get privilegedUserTooltip;
+  /// **'Admin'**
+  String get adminUserTooltip;
+
+  /// Tooltip for the icon indicating a publisher user.
+  ///
+  /// In en, this message translates to:
+  /// **'Publisher'**
+  String get publisherUserTooltip;
 }
 
 class _AppLocalizationsDelegate
