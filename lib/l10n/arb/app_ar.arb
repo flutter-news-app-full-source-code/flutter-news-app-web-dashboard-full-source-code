@@ -2740,5 +2740,9 @@
   "breakingNewsHint": "هذا عنوان خبر عاجل",
   "@breakingNewsHint": {
     "description": "Tooltip text for the breaking news icon on a headline"
+  },
+  "breakingNewsFilterDescription": "إظهار عناوين الأخبار العاجلة فقط",
+  "@breakingNewsFilterDescription": {
+    "description": "Subtitle for the breaking news filter switch"
   }
 }

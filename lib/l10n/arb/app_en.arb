@@ -2736,5 +2736,9 @@
   "breakingNewsHint": "This is a breaking news headline",
   "@breakingNewsHint": {
     "description": "Tooltip text for the breaking news icon on a headline"
+  },
+  "breakingNewsFilterDescription": "Show only breaking news headlines",
+  "@breakingNewsFilterDescription": {
+    "description": "Subtitle for the breaking news filter switch"
   }
 }
