@@ -3095,7 +3095,7 @@ abstract class AppLocalizations {
   /// Description for the feed item click behavior setting.
   ///
   /// In en, this message translates to:
-  /// **'Select which browser opens when a user taps on a headline in the feed.'**
+  /// **'Set the default browser for opening headlines. This can be overridden by users in their app\'s feed settings.'**
   String get feedItemClickBehaviorDescription;
 
   /// Option for opening links in the app's internal browser.
@@ -3203,7 +3203,7 @@ abstract class AppLocalizations {
   /// Description for the Community & Engagement expansion tile.
   ///
   /// In en, this message translates to:
-  /// **'Manage user interactions, content reporting, and the internal app reporting system.'**
+  /// **'Configure user engagement and reporting tools. To ensure accountability, these features are unavailable for guest users within the mobile app, irrespective of the settings configured here.'**
   String get communityAndEngagementDescription;
 
   /// Title for the User Engagement expansion tile.
@@ -3383,19 +3383,19 @@ abstract class AppLocalizations {
   /// Label for the 'save item' positive interaction type.
   ///
   /// In en, this message translates to:
-  /// **'Save a content item (e.g., a headline)'**
+  /// **'Save a content item'**
   String get positiveInteractionTypeSaveItem;
 
   /// Label for the 'follow item' positive interaction type.
   ///
   /// In en, this message translates to:
-  /// **'Follow an entity (e.g., a topic, source, or country)'**
+  /// **'Follow an entity'**
   String get positiveInteractionTypeFollowItem;
 
   /// Label for the 'share content' positive interaction type.
   ///
   /// In en, this message translates to:
-  /// **'Share a content item (e.g., a headline)'**
+  /// **'Share a content item'**
   String get positiveInteractionTypeShareContent;
 
   /// Label for the 'save filter' positive interaction type.
@@ -4219,6 +4219,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shows a collection of sources the user might be interested in following.'**
   String get feedDecoratorSuggestedSourcesDescription;
+
+  /// Description for the global ad enablement switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Globally activates or deactivates all advertisements within the application.'**
+  String get enableGlobalAdsDescription;
+
+  /// Description for the feed ad enablement switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Controls the visibility of all ads within content feeds.'**
+  String get enableFeedAdsDescription;
+
+  /// Generic description for a role-specific visibility switch.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled, this feature will be active for users with the \'{roleName}\' role.'**
+  String visibleToRoleDescription(String roleName);
+
+  /// Description for the decorator enablement switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Globally activates or deactivates this decorator for all eligible users.'**
+  String get enableDecoratorDescription;
+
+  /// Description for the navigation ad enablement switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Controls the visibility of interstitial ads that appear during user navigation.'**
+  String get enableNavigationAdsDescription;
+
+  /// Description for the headline reporting switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows users to report individual headlines for issues like misinformation or clickbait.'**
+  String get enableHeadlineReportingDescription;
+
+  /// Description for the source reporting switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows users to report entire news sources for issues like low quality or bias.'**
+  String get enableSourceReportingDescription;
+
+  /// Description for the comment reporting switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows users to report individual comments for moderation.'**
+  String get enableCommentReportingDescription;
+
+  /// Description for the 'Breaking News' delivery type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable to allow users to subscribe to immediate alerts for breaking news.'**
+  String get pushNotificationDeliveryTypeBreakingOnlyDescription;
+
+  /// Description for the 'Daily Digest' delivery type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable to allow users to subscribe to a daily summary of relevant news.'**
+  String get pushNotificationDeliveryTypeDailyDigestDescription;
+
+  /// Description for the 'Weekly Roundup' delivery type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable to allow users to subscribe to a weekly roundup of relevant news.'**
+  String get pushNotificationDeliveryTypeWeeklyRoundupDescription;
+
+  /// Description for the 'save item' positive interaction type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts when a user bookmark a headline.'**
+  String get positiveInteractionTypeSaveItemDescription;
+
+  /// Description for the 'follow item' positive interaction type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts when a user follows a headline topic, source, or country.'**
+  String get positiveInteractionTypeFollowItemDescription;
+
+  /// Description for the 'share content' positive interaction type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts when a user shares a headline.'**
+  String get positiveInteractionTypeShareContentDescription;
+
+  /// Description for the 'save filter' positive interaction type switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts when a user creates a saved filter.'**
+  String get positiveInteractionTypeSaveFilterDescription;
+
+  /// Description for the internal prompt logic settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Define the conditions that trigger the enjoyment prompt, such as the number of user actions and cooldown periods.'**
+  String get internalPromptLogicDescription;
+
+  /// Description for the eligible positive interactions settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Select which user actions are counted as \'positive interactions\' to trigger the enjoyment prompt.'**
+  String get eligiblePositiveInteractionsDescription;
+
+  /// Description for the follow-up actions settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.'**
+  String get followUpActionsDescription;
 }
 
 class _AppLocalizationsDelegate

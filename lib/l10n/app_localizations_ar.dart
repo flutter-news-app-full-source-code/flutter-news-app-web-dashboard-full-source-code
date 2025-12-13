@@ -1661,7 +1661,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get feedItemClickBehaviorDescription =>
-      'اختر المتصفح الذي يفتح عند نقر المستخدم على عنوان في الموجز.';
+      'قم بتعيين المتصفح الافتراضي لفتح العناوين. يمكن للمستخدمين تجاوز هذا الإعداد في إعدادات الموجز الخاصة بهم في التطبيق.';
 
   @override
   String get feedItemClickBehaviorInternalNavigation => 'متصفح داخل التطبيق';
@@ -1725,7 +1725,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get communityAndEngagementDescription =>
-      'إدارة تفاعلات المستخدمين، والإبلاغ عن المحتوى، ونظام مراجعات التطبيق الداخلي.';
+      'تكوين أدوات تفاعل المستخدمين والإبلاغ. لضمان المساءلة، هذه الميزات غير متاحة للمستخدمين الضيوف داخل تطبيق الجوال، بغض النظر عن الإعدادات المكونة هنا.';
 
   @override
   String get userEngagementTitle => 'مشاركة المستخدم';
@@ -1825,16 +1825,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get eligiblePositiveInteractionsTitle => 'التفاعلات الإيجابية المؤهلة';
 
   @override
-  String get positiveInteractionTypeSaveItem =>
-      'حفظ عنصر محتوى (مثل عنوان رئيسي)';
+  String get positiveInteractionTypeSaveItem => 'حفظ عنصر محتوى';
 
   @override
-  String get positiveInteractionTypeFollowItem =>
-      'متابعة كيان (مثل موضوع أو مصدر أو بلد)';
+  String get positiveInteractionTypeFollowItem => 'متابعة كيان ';
 
   @override
-  String get positiveInteractionTypeShareContent =>
-      'مشاركة عنصر محتوى (مثل عنوان رئيسي)';
+  String get positiveInteractionTypeShareContent => 'مشاركة عنصر محتوى';
 
   @override
   String get positiveInteractionTypeSaveFilter => 'إنشاء مرشح محفوظ';
@@ -2290,4 +2287,77 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get feedDecoratorSuggestedSourcesDescription =>
       'يعرض مجموعة من المصادر التي قد يهتم المستخدم بمتابعتها.';
+
+  @override
+  String get enableGlobalAdsDescription =>
+      'ينشط أو يعطل عالميًا جميع الإعلانات داخل التطبيق.';
+
+  @override
+  String get enableFeedAdsDescription =>
+      'يتحكم في رؤية جميع الإعلانات داخل موجزات المحتوى.';
+
+  @override
+  String visibleToRoleDescription(String roleName) {
+    return 'عند التمكين، ستكون هذه الميزة نشطة للمستخدمين الذين لديهم دور \'$roleName\'.';
+  }
+
+  @override
+  String get enableDecoratorDescription =>
+      'ينشط أو يعطل عالميًا هذه الزينة لجميع المستخدمين المؤهلين.';
+
+  @override
+  String get enableNavigationAdsDescription =>
+      'يتحكم في رؤية الإعلانات البينية التي تظهر أثناء تنقل المستخدم.';
+
+  @override
+  String get enableHeadlineReportingDescription =>
+      'يسمح للمستخدمين بالإبلاغ عن العناوين الفردية لمشاكل مثل المعلومات المضللة أو العناوين المضللة.';
+
+  @override
+  String get enableSourceReportingDescription =>
+      'يسمح للمستخدمين بالإبلاغ عن مصادر الأخبار بأكملها لمشاكل مثل الجودة المنخفضة أو التحيز.';
+
+  @override
+  String get enableCommentReportingDescription =>
+      'يسمح للمستخدمين بالإبلاغ عن التعليقات الفردية للإشراف عليها.';
+
+  @override
+  String get pushNotificationDeliveryTypeBreakingOnlyDescription =>
+      'تفعيل للسماح للمستخدمين بالاشتراك في التنبيهات الفورية للأخبار العاجلة.';
+
+  @override
+  String get pushNotificationDeliveryTypeDailyDigestDescription =>
+      'تفعيل للسماح للمستخدمين بالاشتراك في ملخص يومي للأخبار ذات الصلة.';
+
+  @override
+  String get pushNotificationDeliveryTypeWeeklyRoundupDescription =>
+      'تفعيل للسماح للمستخدمين بالاشتراك في ملخص أسبوعي للأخبار ذات الصلة.';
+
+  @override
+  String get positiveInteractionTypeSaveItemDescription =>
+      'يحتسب عندما يحفظ المستخدم عنوان رئيسي.';
+
+  @override
+  String get positiveInteractionTypeFollowItemDescription =>
+      'يحتسب عندما يتابع المستخدم موضوعًا أو مصدرًا أو بلدًا مثل لعنوان رئيسي.';
+
+  @override
+  String get positiveInteractionTypeShareContentDescription =>
+      'يحتسب عندما يشارك المستخدم عنوان رئيسي.';
+
+  @override
+  String get positiveInteractionTypeSaveFilterDescription =>
+      'يحتسب عندما ينشئ المستخدم مرشحًا محفوظًا.';
+
+  @override
+  String get internalPromptLogicDescription =>
+      'تحديد الشروط التي تؤدي إلى ظهور موجه الاستمتاع، مثل عدد إجراءات المستخدم وفترات التهدئة.';
+
+  @override
+  String get eligiblePositiveInteractionsDescription =>
+      'اختر إجراءات المستخدم التي تُحتسب \'كتفاعلات إيجابية\' لتشغيل موجه الاستمتاع.';
+
+  @override
+  String get followUpActionsDescription =>
+      'تكوين ما يحدث بعد استجابة المستخدم لموجه الاستمتاع، مثل طلب مراجعة المتجر.';
 }
