@@ -83,6 +83,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
+              leading: Icon(
+                Icons.paid_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('advertisementsTile_$expandedIndex'),
               title: Text(l10n.advertisementsTab),
               subtitle: Text(
@@ -135,6 +141,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
+              leading: Icon(
+                Icons.notifications_active_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('pushNotificationsTile_$expandedIndex'),
               title: Text(l10n.notificationsTab),
               subtitle: Text(
@@ -172,6 +184,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 2;
             return ExpansionTile(
+              leading: Icon(
+                Icons.dynamic_feed_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('feedTile_$expandedIndex'),
               title: Text(l10n.feedTab),
               subtitle: Text(
@@ -305,6 +323,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 3;
             return ExpansionTile(
+              leading: Icon(
+                Icons.groups_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('communityTile_$expandedIndex'),
               title: Text(l10n.communityAndEngagementTitle),
               subtitle: Text(
