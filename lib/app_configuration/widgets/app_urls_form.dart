@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template app_urls_form}
 /// A form widget for configuring application URLs.
@@ -84,13 +83,6 @@ class _AppUrlsFormState extends State<AppUrlsForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.appUrlsDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
         AppConfigTextField(
           label: l10n.termsOfServiceUrlLabel,
           description: l10n.termsOfServiceUrlDescription,
