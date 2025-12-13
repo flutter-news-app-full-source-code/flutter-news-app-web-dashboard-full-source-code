@@ -151,6 +151,10 @@ class _UserLimitsConfigFormState extends State<UserLimitsConfigForm>
     UserLimitsConfig limits,
   ) {
     return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
       child: Column(
         children: [
           AppConfigIntField(
