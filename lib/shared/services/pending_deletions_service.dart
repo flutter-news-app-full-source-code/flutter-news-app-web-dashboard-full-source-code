@@ -7,6 +7,9 @@ import 'package:logging/logging.dart';
 
 /// Represents the status of a pending deletion.
 enum DeletionStatus {
+  /// The deletion has been requested and is pending confirmation.
+  requested,
+
   /// The deletion has been confirmed and executed.
   confirmed,
 
@@ -149,6 +152,15 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
       timer: timer,
       item: item,
       message: message,
+    );
+
+    // Immediately notify listeners that a deletion has been requested.
+    _deletionEventController.add(
+      DeletionEvent<T>(
+        id,
+        DeletionStatus.requested,
+        message: message,
+      ),
     );
   }
 
