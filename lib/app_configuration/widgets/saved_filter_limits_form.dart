@@ -201,11 +201,23 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     final l10n = AppLocalizationsX(context).l10n;
     final isHeadlineFilter = widget.filterType == SavedFilterType.headline;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ExpansionTile(
+      title: Text(
+        isHeadlineFilter
+            ? l10n.savedHeadlineFilterLimitsTitle
+            : l10n.savedSourceFilterLimitsTitle,
+      ),
+      subtitle: Text(
+        isHeadlineFilter
+            ? l10n.savedHeadlineFilterLimitsDescription
+            : l10n.savedSourceFilterLimitsDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       children: [
-        Align(
-          alignment: AlignmentDirectional.centerStart,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: SizedBox(
             height: kTextTabBarHeight,
             child: TabBar(
@@ -218,7 +230,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
             ),
           ),
         ),
-        const SizedBox(height: AppSpacing.lg),
+        const SizedBox(height: AppSpacing.md),
         SizedBox(
           height: isHeadlineFilter ? 500 : 250,
           child: TabBarView(
