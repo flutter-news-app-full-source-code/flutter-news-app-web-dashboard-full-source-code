@@ -201,12 +201,21 @@ class ContentActionButtons extends StatelessWidget {
     String itemId,
     AppLocalizations l10n,
   ) {
+    String itemType;
+    if (item is Headline) {
+      itemType = l10n.headline.toLowerCase();
+    } else if (item is Topic) {
+      itemType = l10n.topic.toLowerCase();
+    } else {
+      itemType = l10n.source.toLowerCase();
+    }
+
     switch (action) {
       case 'publish':
         _showConfirmationDialog(
           context: context,
-          title: l10n.publishItemTitle,
-          content: l10n.publishItemContent,
+          title: l10n.publishItemTitle(itemType),
+          content: l10n.publishItemContent(itemType),
           confirmText: l10n.publish,
           onConfirm: () {
             if (item is Headline) {
@@ -227,8 +236,8 @@ class ContentActionButtons extends StatelessWidget {
       case 'archive':
         _showConfirmationDialog(
           context: context,
-          title: l10n.archiveItemTitle,
-          content: l10n.archiveItemContent,
+          title: l10n.archiveItemTitle(itemType),
+          content: l10n.archiveItemContent(itemType),
           confirmText: l10n.archive,
           onConfirm: () {
             if (item is Headline) {
@@ -249,8 +258,8 @@ class ContentActionButtons extends StatelessWidget {
       case 'restore':
         _showConfirmationDialog(
           context: context,
-          title: l10n.restoreItemTitle,
-          content: l10n.restoreItemContent,
+          title: l10n.restoreItemTitle(itemType),
+          content: l10n.restoreItemContent(itemType),
           confirmText: l10n.restore,
           onConfirm: () {
             if (item is Headline) {
@@ -271,8 +280,8 @@ class ContentActionButtons extends StatelessWidget {
       case 'delete':
         _showConfirmationDialog(
           context: context,
-          title: l10n.deleteItemTitle,
-          content: l10n.deleteItemContent,
+          title: l10n.deleteItemTitle(itemType),
+          content: l10n.deleteItemContent(itemType),
           confirmText: l10n.deleteForever,
           onConfirm: () {
             if (item is Headline) {
