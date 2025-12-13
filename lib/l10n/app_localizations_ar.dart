@@ -115,7 +115,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings => 'الإعدادات';
 
   @override
-  String get appConfigurationPageTitle => 'التحكم المركزي';
+  String get appConfigurationPageTitle => 'التحكم المركزي عن بعد';
 
   @override
   String get feedTab => 'الموجز';

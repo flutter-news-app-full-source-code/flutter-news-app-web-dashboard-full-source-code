@@ -139,7 +139,7 @@
   "@settings": {
     "description": "تسمية عنصر التنقل للإعدادات"
   },
-  "appConfigurationPageTitle": "التحكم المركزي",
+  "appConfigurationPageTitle": "التحكم المركزي عن بعد",
   "@appConfigurationPageTitle": {
     "description": "عنوان صفحة إعدادات التطبيق"
   },
