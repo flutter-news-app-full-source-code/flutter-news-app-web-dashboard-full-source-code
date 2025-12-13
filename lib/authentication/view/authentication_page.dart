@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/widgets/auth_layout.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:go_router/go_router.dart';
@@ -52,68 +53,56 @@ class AuthenticationPage extends StatelessWidget {
                 state.status == AuthenticationStatus.loading ||
                 state.status == AuthenticationStatus.requestCodeLoading;
 
-            return Padding(
-              padding: const EdgeInsets.all(AppSpacing.paddingLarge),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // --- Icon ---
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-                        child: Icon(
-                          Icons.newspaper,
-                          size: AppSpacing.xxl * 2,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-                      // --- Headline and Subheadline ---
-                      Text(
-                        l10n.authenticationPageHeadline,
-                        style: textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      Text(
-                        l10n.authenticationPageSubheadline,
-                        style: textTheme.bodyLarge?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: AppSpacing.xxl),
-
-                      // --- Email Sign-In Button ---
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.email_outlined),
-                        onPressed: isLoading
-                            ? null
-                            : () {
-                                context.goNamed(Routes.requestCodeName);
-                              },
-                        label: Text(l10n.authenticationEmailSignInButton),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppSpacing.md,
-                          ),
-                          textStyle: textTheme.labelLarge,
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-
-                      // --- Loading Indicator ---
-                      if (isLoading)
-                        const Padding(
-                          padding: EdgeInsets.only(top: AppSpacing.xl),
-                          child: Center(child: CircularProgressIndicator()),
-                        ),
-                    ],
+            return AuthLayout(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // --- Icon ---
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+                    child: Icon(
+                      Icons.newspaper,
+                      size: AppSpacing.xxl * 2,
+                      color: colorScheme.primary,
+                    ),
                   ),
-                ),
+                  // --- Headline and Subheadline ---
+                  Text(
+                    l10n.authenticationPageHeadline,
+                    style: textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  Text(
+                    l10n.authenticationPageSubheadline,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.xxl),
+
+                  // --- Email Sign-In Button ---
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.email_outlined),
+                    onPressed: isLoading
+                        ? null
+                        : () => context.goNamed(Routes.requestCodeName),
+                    label: Text(l10n.authenticationEmailSignInButton),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.md,
+                      ),
+                      textStyle: textTheme.labelLarge,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  if (isLoading)
+                    const Center(child: CircularProgressIndicator()),
+                ],
               ),
             );
           },
