@@ -156,6 +156,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
       children: [
         SwitchListTile(
           title: Text(l10n.enabledLabel),
+          subtitle: Text(l10n.enableDecoratorDescription),
           value: decoratorConfig.enabled,
           onChanged: (value) {
             final newDecoratorConfig = decoratorConfig.copyWith(enabled: value);
