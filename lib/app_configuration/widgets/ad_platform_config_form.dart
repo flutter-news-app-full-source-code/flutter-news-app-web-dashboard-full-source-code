@@ -146,8 +146,14 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
     final l10n = AppLocalizationsX(context).l10n;
     final adConfig = widget.remoteConfig.features.ads;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ExpansionTile(
+      title: Text(l10n.adPlatformConfigurationTitle),
+      subtitle: Text(
+        l10n.adPlatformConfigurationDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       children: [
         ExpansionTile(
           title: Text(l10n.primaryAdPlatformTitle),
@@ -158,52 +164,59 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              l10n.primaryAdPlatformDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: SegmentedButton<AdPlatformType>(
-                style: SegmentedButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.primaryAdPlatformDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
                   ),
+                  textAlign: TextAlign.start,
                 ),
-                segments: AdPlatformType.values
-                    .where(
-                      (type) => type != AdPlatformType.demo,
-                    )
-                    .map(
-                      (type) => ButtonSegment<AdPlatformType>(
-                        value: type,
-                        label: Text(type.l10n(context)),
-                      ),
-                    )
-                    .toList(),
-                selected: {_selectedPlatform},
-                onSelectionChanged: (newSelection) {
-                  setState(() {
-                    _selectedPlatform = newSelection.first;
-                    _tabController.index = AdPlatformType.values.indexOf(
-                      _selectedPlatform,
-                    );
-                  });
-                  widget.onConfigChanged(
-                    widget.remoteConfig.copyWith(
-                      features: widget.remoteConfig.features.copyWith(
-                        ads: adConfig.copyWith(
-                          primaryAdPlatform: newSelection.first,
-                        ),
+                const SizedBox(height: AppSpacing.lg),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: SegmentedButton<AdPlatformType>(
+                    style: SegmentedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
                     ),
-                  );
-                },
-              ),
+                    segments: AdPlatformType.values
+                        .where(
+                          (type) => type != AdPlatformType.demo,
+                        )
+                        .map(
+                          (type) => ButtonSegment<AdPlatformType>(
+                            value: type,
+                            label: Text(type.l10n(context)),
+                          ),
+                        )
+                        .toList(),
+                    selected: {_selectedPlatform},
+                    onSelectionChanged: (newSelection) {
+                      setState(() {
+                        _selectedPlatform = newSelection.first;
+                        _tabController.index = AdPlatformType.values.indexOf(
+                          _selectedPlatform,
+                        );
+                      });
+                      widget.onConfigChanged(
+                        widget.remoteConfig.copyWith(
+                          features: widget.remoteConfig.features.copyWith(
+                            ads: adConfig.copyWith(
+                              primaryAdPlatform: newSelection.first,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -217,50 +230,57 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: SizedBox(
-                height: kTextTabBarHeight,
-                child: TabBar(
-                  controller: _tabController,
-                  tabAlignment: TabAlignment.start,
-                  isScrollable: true,
-                  tabs: AdPlatformType.values
-                      .where(
-                        (type) => type != AdPlatformType.demo,
-                      )
-                      .map((platform) => Tab(text: platform.l10n(context)))
-                      .toList(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: SizedBox(
+                    height: kTextTabBarHeight,
+                    child: TabBar(
+                      controller: _tabController,
+                      tabAlignment: TabAlignment.start,
+                      isScrollable: true,
+                      tabs: AdPlatformType.values
+                          .where(
+                            (type) => type != AdPlatformType.demo,
+                          )
+                          .map((platform) => Tab(text: platform.l10n(context)))
+                          .toList(),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Text(
-              l10n.adUnitIdentifiersDescription,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-              ),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            SizedBox(
-              height: 300, // Adjust height as needed for the content
-              child: TabBarView(
-                controller: _tabController,
-                children: AdPlatformType.values
-                    .where(
-                      (type) => type != AdPlatformType.demo,
-                    )
-                    .map(
-                      (platform) => _buildAdUnitIdentifierFields(
-                        context,
-                        l10n,
-                        platform,
-                        adConfig,
-                      ),
-                    )
-                    .toList(),
-              ),
+                const SizedBox(height: AppSpacing.lg),
+                Text(
+                  l10n.adUnitIdentifiersDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                SizedBox(
+                  height: 300, // Adjust height as needed for the content
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: AdPlatformType.values
+                        .where(
+                          (type) => type != AdPlatformType.demo,
+                        )
+                        .map(
+                          (platform) => _buildAdUnitIdentifierFields(
+                            context,
+                            l10n,
+                            platform,
+                            adConfig,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
