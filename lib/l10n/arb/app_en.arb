@@ -2078,7 +2078,7 @@
   "@feedItemClickBehaviorTitle": {
     "description": "Title for the feed item click behavior setting."
   },
-  "feedItemClickBehaviorDescription": "Select which browser opens when a user taps on a headline in the feed.",
+  "feedItemClickBehaviorDescription": "Set the default browser for opening headlines. This can be overridden by users in their app's feed settings.",
   "@feedItemClickBehaviorDescription": {
     "description": "Description for the feed item click behavior setting."
   },
@@ -2150,7 +2150,7 @@
   "@communityAndEngagementTitle": {
     "description": "Title for the Community & Engagement expansion tile."
   },
-  "communityAndEngagementDescription": "Manage user interactions, content reporting, and the internal app reporting system.",
+  "communityAndEngagementDescription": "Configure user engagement and reporting tools. To ensure accountability, these features are unavailable for guest users within the mobile app, irrespective of the settings configured here.",
   "@communityAndEngagementDescription": {
     "description": "Description for the Community & Engagement expansion tile."
   },
@@ -2270,15 +2270,15 @@
   "@eligiblePositiveInteractionsTitle": {
     "description": "Title for the expansion tile for eligible positive interactions."
   },
-  "positiveInteractionTypeSaveItem": "Save a content item (e.g., a headline)",
+  "positiveInteractionTypeSaveItem": "Save a content item",
   "@positiveInteractionTypeSaveItem": {
     "description": "Label for the 'save item' positive interaction type."
   },
-  "positiveInteractionTypeFollowItem": "Follow an entity (e.g., a topic, source, or country)",
+  "positiveInteractionTypeFollowItem": "Follow an entity",
   "@positiveInteractionTypeFollowItem": {
     "description": "Label for the 'follow item' positive interaction type."
   },
-  "positiveInteractionTypeShareContent": "Share a content item (e.g., a headline)",
+  "positiveInteractionTypeShareContent": "Share a content item",
   "@positiveInteractionTypeShareContent": {
     "description": "Label for the 'share content' positive interaction type."
   },
@@ -2910,5 +2910,82 @@
   "feedDecoratorSuggestedSourcesDescription": "Shows a collection of sources the user might be interested in following.",
   "@feedDecoratorSuggestedSourcesDescription": {
     "description": "Description for the 'Suggested Sources' feed decorator."
+  },
+  "enableGlobalAdsDescription": "Globally activates or deactivates all advertisements within the application.",
+  "@enableGlobalAdsDescription": {
+    "description": "Description for the global ad enablement switch."
+  },
+  "enableFeedAdsDescription": "Controls the visibility of all ads within content feeds.",
+  "@enableFeedAdsDescription": {
+    "description": "Description for the feed ad enablement switch."
+  },
+  "visibleToRoleDescription": "When enabled, this feature will be active for users with the '{roleName}' role.",
+  "@visibleToRoleDescription": {
+    "description": "Generic description for a role-specific visibility switch.",
+    "placeholders": {
+      "roleName": {
+        "type": "String"
+      }
+    }
+  },
+  "enableDecoratorDescription": "Globally activates or deactivates this decorator for all eligible users.",
+  "@enableDecoratorDescription": {
+    "description": "Description for the decorator enablement switch."
+  },
+  "enableNavigationAdsDescription": "Controls the visibility of interstitial ads that appear during user navigation.",
+  "@enableNavigationAdsDescription": {
+    "description": "Description for the navigation ad enablement switch."
+  },
+  "enableHeadlineReportingDescription": "Allows users to report individual headlines for issues like misinformation or clickbait.",
+  "@enableHeadlineReportingDescription": {
+    "description": "Description for the headline reporting switch."
+  },
+  "enableSourceReportingDescription": "Allows users to report entire news sources for issues like low quality or bias.",
+  "@enableSourceReportingDescription": {
+    "description": "Description for the source reporting switch."
+  },
+  "enableCommentReportingDescription": "Allows users to report individual comments for moderation.",
+  "@enableCommentReportingDescription": {
+    "description": "Description for the comment reporting switch."
+  },
+  "pushNotificationDeliveryTypeBreakingOnlyDescription": "Enable to allow users to subscribe to immediate alerts for breaking news.",
+  "@pushNotificationDeliveryTypeBreakingOnlyDescription": {
+    "description": "Description for the 'Breaking News' delivery type switch."
+  },
+  "pushNotificationDeliveryTypeDailyDigestDescription": "Enable to allow users to subscribe to a daily summary of relevant news.",
+  "@pushNotificationDeliveryTypeDailyDigestDescription": {
+    "description": "Description for the 'Daily Digest' delivery type switch."
+  },
+  "pushNotificationDeliveryTypeWeeklyRoundupDescription": "Enable to allow users to subscribe to a weekly roundup of relevant news.",
+  "@pushNotificationDeliveryTypeWeeklyRoundupDescription": {
+    "description": "Description for the 'Weekly Roundup' delivery type switch."
+  },
+  "positiveInteractionTypeSaveItemDescription": "Counts when a user bookmark a headline.",
+  "@positiveInteractionTypeSaveItemDescription": {
+    "description": "Description for the 'save item' positive interaction type switch."
+  },
+  "positiveInteractionTypeFollowItemDescription": "Counts when a user follows a headline topic, source, or country.",
+  "@positiveInteractionTypeFollowItemDescription": {
+    "description": "Description for the 'follow item' positive interaction type switch."
+  },
+  "positiveInteractionTypeShareContentDescription": "Counts when a user shares a headline.",
+  "@positiveInteractionTypeShareContentDescription": {
+    "description": "Description for the 'share content' positive interaction type switch."
+  },
+  "positiveInteractionTypeSaveFilterDescription": "Counts when a user creates a saved filter.",
+  "@positiveInteractionTypeSaveFilterDescription": {
+    "description": "Description for the 'save filter' positive interaction type switch."
+  },
+  "internalPromptLogicDescription": "Define the conditions that trigger the enjoyment prompt, such as the number of user actions and cooldown periods.",
+  "@internalPromptLogicDescription": {
+    "description": "Description for the internal prompt logic settings."
+  },
+  "eligiblePositiveInteractionsDescription": "Select which user actions are counted as 'positive interactions' to trigger the enjoyment prompt.",
+  "@eligiblePositiveInteractionsDescription": {
+    "description": "Description for the eligible positive interactions settings."
+  },
+  "followUpActionsDescription": "Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.",
+  "@followUpActionsDescription": {
+    "description": "Description for the follow-up actions settings."
   }
 }
