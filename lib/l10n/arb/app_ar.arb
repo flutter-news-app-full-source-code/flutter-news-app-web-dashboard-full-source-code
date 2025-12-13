@@ -2736,5 +2736,9 @@
   "publisherUserTooltip": "ناشر",
   "@publisherUserTooltip": {
     "description": "تلميح للأيقونة التي تشير إلى مستخدم ناشر."
+  },
+  "breakingNewsHint": "هذا عنوان خبر عاجل",
+  "@breakingNewsHint": {
+    "description": "Tooltip text for the breaking news icon on a headline"
   }
 }

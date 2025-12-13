@@ -2732,5 +2732,9 @@
   "publisherUserTooltip": "Publisher",
   "@publisherUserTooltip": {
     "description": "Tooltip for the icon indicating a publisher user."
+  },
+  "breakingNewsHint": "This is a breaking news headline",
+  "@breakingNewsHint": {
+    "description": "Tooltip text for the breaking news icon on a headline"
   }
 }
