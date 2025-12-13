@@ -6,6 +6,8 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -77,20 +79,54 @@ class UserManagementBloc
   Map<String, dynamic> buildUsersFilterMap(UserFilterState state) {
     final filter = <String, dynamic>{};
 
+    final orConditions = <Map<String, dynamic>>[];
+
     if (state.searchQuery.isNotEmpty) {
-      filter['email'] = {r'$regex': state.searchQuery, r'$options': 'i'};
+      orConditions
+        ..add({
+          'email': {r'$regex': state.searchQuery, r'$options': 'i'},
+        })
+        ..add({'_id': state.searchQuery});
     }
 
-    if (state.selectedAppRoles.isNotEmpty) {
-      filter['appRole'] = {
-        r'$in': state.selectedAppRoles.map((r) => r.name).toList(),
-      };
+    if (orConditions.isNotEmpty) {
+      filter[r'$or'] = orConditions;
     }
 
-    if (state.selectedDashboardRoles.isNotEmpty) {
-      filter['dashboardRole'] = {
-        r'$in': state.selectedDashboardRoles.map((r) => r.name).toList(),
-      };
+    final authRoles = <String>{};
+
+    switch (state.authenticationFilter) {
+      case AuthenticationFilter.authenticated:
+        authRoles.addAll([
+          AppUserRole.standardUser.name,
+          AppUserRole.premiumUser.name,
+        ]);
+      case AuthenticationFilter.anonymous:
+        authRoles.add(AppUserRole.guestUser.name);
+      case AuthenticationFilter.all:
+        break;
+    }
+
+    final subscriptionRoles = <String>{};
+    switch (state.subscriptionFilter) {
+      case SubscriptionFilter.premium:
+        subscriptionRoles.add(AppUserRole.premiumUser.name);
+      case SubscriptionFilter.free:
+        subscriptionRoles.addAll([
+          AppUserRole.guestUser.name,
+          AppUserRole.standardUser.name,
+        ]);
+      case SubscriptionFilter.all:
+        break;
+    }
+
+    final intersectingRoles =
+        authRoles.isNotEmpty && subscriptionRoles.isNotEmpty
+        ? authRoles.intersection(subscriptionRoles)
+        : (authRoles.isNotEmpty ? authRoles : subscriptionRoles);
+
+    if (intersectingRoles.isNotEmpty) {
+      filter['appRole'] = {r'$in': intersectingRoles.toList()};
     }
 
     return filter;
