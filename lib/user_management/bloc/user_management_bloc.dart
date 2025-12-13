@@ -129,6 +129,14 @@ class UserManagementBloc
       filter['appRole'] = {r'$in': intersectingRoles.toList()};
     }
 
+    if (state.dashboardRole != null) {
+      // When 'Any' is selected, dashboardRole is null, so we don't add the filter.
+      // Otherwise, we filter by the specific role name.
+      if (state.dashboardRole != DashboardUserRole.none) {
+        filter['dashboardRole'] = state.dashboardRole!.name;
+      }
+    }
+
     return filter;
   }
 
