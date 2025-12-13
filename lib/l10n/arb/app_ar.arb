@@ -2757,37 +2757,85 @@
   "@breakingNewsFilterDescription": {
     "description": "Subtitle for the breaking news filter switch"
   },
-  "publishItemTitle": "نشر العنصر؟",
+  "publishItemTitle": "نشر {itemType}؟",
   "@publishItemTitle": {
-    "description": "Confirmation dialog title for publishing an item."
+    "description": "Confirmation dialog title for publishing an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "Headline"
+      }
+    }
   },
-  "publishItemContent": "هل أنت متأكد أنك تريد نشر هذا العنصر؟ سيصبح مرئيًا للعامة.",
+  "publishItemContent": "هل أنت متأكد أنك تريد نشر هذا الـ {itemType}؟ سيصبح مرئيًا للعامة.",
   "@publishItemContent": {
-    "description": "Confirmation dialog content for publishing an item."
+    "description": "Confirmation dialog content for publishing an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "headline"
+      }
+    }
   },
-  "archiveItemTitle": "أرشفة العنصر؟",
+  "archiveItemTitle": "أرشفة {itemType}؟",
   "@archiveItemTitle": {
-    "description": "Confirmation dialog title for archiving an item."
+    "description": "Confirmation dialog title for archiving an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "Headline"
+      }
+    }
   },
-  "archiveItemContent": "هل أنت متأكد أنك تريد أرشفة هذا العنصر؟ سيتم إخفاؤه عن العرض العام.",
+  "archiveItemContent": "هل أنت متأكد أنك تريد أرشفة هذا الـ {itemType}؟ سيتم إخفاؤه عن العرض العام.",
   "@archiveItemContent": {
-    "description": "Confirmation dialog content for archiving an item."
+    "description": "Confirmation dialog content for archiving an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "headline"
+      }
+    }
   },
-  "restoreItemTitle": "استعادة العنصر؟",
+  "restoreItemTitle": "استعادة {itemType}؟",
   "@restoreItemTitle": {
-    "description": "Confirmation dialog title for restoring an item."
+    "description": "Confirmation dialog title for restoring an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "Headline"
+      }
+    }
   },
-  "restoreItemContent": "هل أنت متأكد أنك تريد استعادة هذا العنصر؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.",
+  "restoreItemContent": "هل أنت متأكد أنك تريد استعادة هذا الـ {itemType}؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.",
   "@restoreItemContent": {
-    "description": "Confirmation dialog content for restoring an item."
+    "description": "Confirmation dialog content for restoring an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "headline"
+      }
+    }
   },
-  "deleteItemTitle": "حذف العنصر؟",
+  "deleteItemTitle": "حذف {itemType}؟",
   "@deleteItemTitle": {
-    "description": "Confirmation dialog title for deleting an item."
+    "description": "Confirmation dialog title for deleting an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "Headline"
+      }
+    }
   },
-  "deleteItemContent": "هل أنت متأكد أنك تريد حذف هذا العنصر؟.",
+  "deleteItemContent": "هل أنت متأكد أنك تريد حذف هذا الـ {itemType}؟ يمكن التراجع عن هذا الإجراء لفترة قصيرة.",
   "@deleteItemContent": {
-    "description": "Confirmation dialog content for deleting an item."
+    "description": "Confirmation dialog content for deleting an item.",
+    "placeholders": {
+      "itemType": {
+        "type": "String",
+        "example": "headline"
+      }
+    }
   },
   "itemDeletedSnackbar": "تم حذف {itemType} \"{itemName}\".",
   "@itemDeletedSnackbar": {
