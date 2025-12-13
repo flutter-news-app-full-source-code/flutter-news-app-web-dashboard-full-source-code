@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/widgets/auth_layout.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -45,65 +46,58 @@ class EmailCodeVerificationPage extends StatelessWidget {
           builder: (context, state) {
             final isLoading = state.status == AuthenticationStatus.loading;
 
-            return Padding(
-              padding: const EdgeInsets.all(AppSpacing.paddingLarge),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Icon(
-                        Icons.mark_email_read_outlined,
-                        size: AppSpacing.xxl * 2,
-                        color: colorScheme.primary,
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
-                      Text(
-                        l10n.emailCodeSentConfirmation(email),
-                        style: textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      Text(
-                        l10n.emailCodeSentInstructions,
-                        style: textTheme.bodyLarge?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      // Display demo code if in demo environment
-                      BlocSelector<AppBloc, AppState, AppEnvironment?>(
-                        selector: (state) => state.environment,
-                        builder: (context, environment) {
-                          if (environment == AppEnvironment.demo) {
-                            return Column(
-                              children: [
-                                const SizedBox(height: AppSpacing.md),
-                                Text(
-                                  l10n.demoCodeHint('123456'),
-                                  style: textTheme.bodyMedium?.copyWith(
-                                    color: colorScheme.secondary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
-                      _EmailCodeVerificationForm(
-                        email: email,
-                        isLoading: isLoading,
-                      ),
-                    ],
+            return AuthLayout(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Icon(
+                    Icons.mark_email_read_outlined,
+                    size: AppSpacing.xxl * 2,
+                    color: colorScheme.primary,
                   ),
-                ),
+                  const SizedBox(height: AppSpacing.xl),
+                  Text(
+                    l10n.emailCodeSentConfirmation(email),
+                    style: textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    l10n.emailCodeSentInstructions,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  // Display demo code if in demo environment
+                  BlocSelector<AppBloc, AppState, AppEnvironment?>(
+                    selector: (state) => state.environment,
+                    builder: (context, environment) {
+                      if (environment == AppEnvironment.demo) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: AppSpacing.md),
+                          child: Text(
+                            l10n.demoCodeHint('123456'),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.secondary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  const SizedBox(height: AppSpacing.xl),
+                  _EmailCodeVerificationForm(
+                    email: email,
+                    isLoading: isLoading,
+                  ),
+                ],
               ),
             );
           },
