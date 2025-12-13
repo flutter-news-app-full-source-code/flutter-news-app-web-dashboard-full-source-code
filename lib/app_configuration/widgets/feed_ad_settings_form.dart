@@ -153,6 +153,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
       children: [
         SwitchListTile(
           title: Text(l10n.enableFeedAdsLabel),
+          subtitle: Text(l10n.enableFeedAdsDescription),
           value: feedAdConfig.enabled,
           onChanged: (value) {
             widget.onConfigChanged(
@@ -292,6 +293,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
       children: [
         SwitchListTile(
           title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+          subtitle: Text(l10n.visibleToRoleDescription(role.l10n(context))),
           value: roleConfig != null,
           onChanged: (value) {
             final newVisibleTo = Map<AppUserRole, FeedAdFrequencyConfig>.from(
