@@ -2886,5 +2886,29 @@
   "navigationAdConfigDescription": "Configure interstitial ads that appear during user navigation.",
   "@navigationAdConfigDescription": {
     "description": "Description for the Navigation Ad Settings expansion tile."
+  },
+  "feedDecoratorLinkAccountDescription": "Prompts guest users to create a full account.",
+  "@feedDecoratorLinkAccountDescription": {
+    "description": "Description for the 'Link Account' feed decorator."
+  },
+  "feedDecoratorUpgradeDescription": "Prompts standard users to upgrade to a premium subscription.",
+  "@feedDecoratorUpgradeDescription": {
+    "description": "Description for the 'Upgrade' feed decorator."
+  },
+  "feedDecoratorRateAppDescription": "Prompts users to rate the application in the app store.",
+  "@feedDecoratorRateAppDescription": {
+    "description": "Description for the 'Rate App' feed decorator."
+  },
+  "feedDecoratorEnableNotificationsDescription": "Prompts users to enable push notifications.",
+  "@feedDecoratorEnableNotificationsDescription": {
+    "description": "Description for the 'Enable Notifications' feed decorator."
+  },
+  "feedDecoratorSuggestedTopicsDescription": "Shows a collection of topics the user might be interested in following.",
+  "@feedDecoratorSuggestedTopicsDescription": {
+    "description": "Description for the 'Suggested Topics' feed decorator."
+  },
+  "feedDecoratorSuggestedSourcesDescription": "Shows a collection of sources the user might be interested in following.",
+  "@feedDecoratorSuggestedSourcesDescription": {
+    "description": "Description for the 'Suggested Sources' feed decorator."
   }
 }

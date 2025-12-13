@@ -2890,5 +2890,29 @@
   "navigationAdConfigDescription": "تكوين الإعلانات البينية التي تظهر أثناء تنقل المستخدم.",
   "@navigationAdConfigDescription": {
     "description": "وصف قسم إعدادات إعلانات التنقل القابل للتوسيع."
+  },
+  "feedDecoratorLinkAccountDescription": "يطالب المستخدمين الضيوف بإنشاء حساب كامل.",
+  "@feedDecoratorLinkAccountDescription": {
+    "description": "وصف لزينة 'ربط الحساب' في الموجز."
+  },
+  "feedDecoratorUpgradeDescription": "يطالب المستخدمين العاديين بالترقية إلى اشتراك مميز.",
+  "@feedDecoratorUpgradeDescription": {
+    "description": "وصف لزينة 'الترقية' في الموجز."
+  },
+  "feedDecoratorRateAppDescription": "يطالب المستخدمين بتقييم التطبيق في متجر التطبيقات.",
+  "@feedDecoratorRateAppDescription": {
+    "description": "وصف لزينة 'تقييم التطبيق' في الموجز."
+  },
+  "feedDecoratorEnableNotificationsDescription": "يطالب المستخدمين بتمكين الإشعارات الفورية.",
+  "@feedDecoratorEnableNotificationsDescription": {
+    "description": "وصف لزينة 'تفعيل الإشعارات' في الموجز."
+  },
+  "feedDecoratorSuggestedTopicsDescription": "يعرض مجموعة من المواضيع التي قد يهتم المستخدم بمتابعتها.",
+  "@feedDecoratorSuggestedTopicsDescription": {
+    "description": "وصف لزينة 'المواضيع المقترحة' في الموجز."
+  },
+  "feedDecoratorSuggestedSourcesDescription": "يعرض مجموعة من المصادر التي قد يهتم المستخدم بمتابعتها.",
+  "@feedDecoratorSuggestedSourcesDescription": {
+    "description": "وصف لزينة 'المصادر المقترحة' في الموجز."
   }
 }
