@@ -254,13 +254,13 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             labelBuilder: (item) => item.l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
-                    EngagementsFilterChanged(
-                      EngagementsFilter(
-                        searchQuery: state.engagementsFilter.searchQuery,
-                        selectedStatus: item,
-                      ),
-                    ),
-                  );
+                EngagementsFilterChanged(
+                  EngagementsFilter(
+                    searchQuery: state.engagementsFilter.searchQuery,
+                    selectedStatus: item,
+                  ),
+                ),
+              );
             },
           ),
         ];
