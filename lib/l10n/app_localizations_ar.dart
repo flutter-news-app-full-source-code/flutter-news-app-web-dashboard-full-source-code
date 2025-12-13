@@ -2174,4 +2174,31 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get breakingNewsFilterDescription =>
       'إظهار عناوين الأخبار العاجلة فقط';
+
+  @override
+  String get publishItemTitle => 'نشر العنصر؟';
+
+  @override
+  String get publishItemContent =>
+      'هل أنت متأكد أنك تريد نشر هذا العنصر؟ سيصبح مرئيًا للعامة.';
+
+  @override
+  String get archiveItemTitle => 'أرشفة العنصر؟';
+
+  @override
+  String get archiveItemContent =>
+      'هل أنت متأكد أنك تريد أرشفة هذا العنصر؟ سيتم إخفاؤه عن العرض العام.';
+
+  @override
+  String get restoreItemTitle => 'استعادة العنصر؟';
+
+  @override
+  String get restoreItemContent =>
+      'هل أنت متأكد أنك تريد استعادة هذا العنصر؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.';
+
+  @override
+  String get deleteItemTitle => 'حذف العنصر؟';
+
+  @override
+  String get deleteItemContent => 'هل أنت متأكد أنك تريد حذف هذا العنصر؟.';
 }

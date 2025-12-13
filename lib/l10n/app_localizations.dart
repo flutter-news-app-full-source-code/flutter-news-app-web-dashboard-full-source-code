@@ -4051,6 +4051,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show only breaking news headlines'**
   String get breakingNewsFilterDescription;
+
+  /// Confirmation dialog title for publishing an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Republish Item?'**
+  String get publishItemTitle;
+
+  /// Confirmation dialog content for publishing an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to republish this item? It will become publicly visible.'**
+  String get publishItemContent;
+
+  /// Confirmation dialog title for archiving an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive Item?'**
+  String get archiveItemTitle;
+
+  /// Confirmation dialog content for archiving an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to archive this item? It will be hidden from public view.'**
+  String get archiveItemContent;
+
+  /// Confirmation dialog title for restoring an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Item?'**
+  String get restoreItemTitle;
+
+  /// Confirmation dialog content for restoring an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to restore this item? It will become active and publicly visible again.'**
+  String get restoreItemContent;
+
+  /// Confirmation dialog title for deleting an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Item?'**
+  String get deleteItemTitle;
+
+  /// Confirmation dialog content for deleting an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this item?.'**
+  String get deleteItemContent;
 }
 
 class _AppLocalizationsDelegate

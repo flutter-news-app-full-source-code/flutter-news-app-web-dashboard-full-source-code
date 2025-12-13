@@ -2180,4 +2180,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get breakingNewsFilterDescription =>
       'Show only breaking news headlines';
+
+  @override
+  String get publishItemTitle => 'Republish Item?';
+
+  @override
+  String get publishItemContent =>
+      'Are you sure you want to republish this item? It will become publicly visible.';
+
+  @override
+  String get archiveItemTitle => 'Archive Item?';
+
+  @override
+  String get archiveItemContent =>
+      'Are you sure you want to archive this item? It will be hidden from public view.';
+
+  @override
+  String get restoreItemTitle => 'Restore Item?';
+
+  @override
+  String get restoreItemContent =>
+      'Are you sure you want to restore this item? It will become active and publicly visible again.';
+
+  @override
+  String get deleteItemTitle => 'Delete Item?';
+
+  @override
+  String get deleteItemContent => 'Are you sure you want to delete this item?.';
 }
