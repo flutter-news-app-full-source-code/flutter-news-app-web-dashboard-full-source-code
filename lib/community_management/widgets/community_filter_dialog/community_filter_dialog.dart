@@ -248,19 +248,19 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
       case CommunityManagementTab.engagements:
         return [
           _buildCapsuleFilter<ModerationStatus>(
-            title: l10n.status,
+            title: l10n.commentStatus,
             allValues: ModerationStatus.values,
             selectedValue: state.engagementsFilter.selectedStatus,
             labelBuilder: (item) => item.l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
-                EngagementsFilterChanged(
-                  EngagementsFilter(
-                    searchQuery: state.engagementsFilter.searchQuery,
-                    selectedStatus: item,
-                  ),
-                ),
-              );
+                    EngagementsFilterChanged(
+                      EngagementsFilter(
+                        searchQuery: state.engagementsFilter.searchQuery,
+                        selectedStatus: item,
+                      ),
+                    ),
+                  );
             },
           ),
         ];

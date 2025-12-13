@@ -210,13 +210,13 @@ class _EngagementsDataSource extends DataTableSource {
                   side: BorderSide.none,
                   visualDensity: VisualDensity.compact,
                 )
-              : Text(
-                  l10n.notAvailable,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
-                  ),
+              : Chip(
+                  label: Text(l10n.notAvailable),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.1),
+                  side: BorderSide.none,
+                  visualDensity: VisualDensity.compact,
                 ),
         ),
         DataCell(
