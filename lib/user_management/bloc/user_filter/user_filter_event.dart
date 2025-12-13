@@ -18,26 +18,6 @@ final class UserFilterSearchQueryChanged extends UserFilterEvent {
   List<Object> get props => [query];
 }
 
-/// Event to update the selected app roles for filtering users.
-final class UserFilterAppRolesChanged extends UserFilterEvent {
-  const UserFilterAppRolesChanged(this.appRoles);
-
-  final List<AppUserRole> appRoles;
-
-  @override
-  List<Object> get props => [appRoles];
-}
-
-/// Event to update the selected dashboard roles for filtering users.
-final class UserFilterDashboardRolesChanged extends UserFilterEvent {
-  const UserFilterDashboardRolesChanged(this.dashboardRoles);
-
-  final List<DashboardUserRole> dashboardRoles;
-
-  @override
-  List<Object> get props => [dashboardRoles];
-}
-
 /// Event to reset all filters to their default state.
 final class UserFilterReset extends UserFilterEvent {
   const UserFilterReset();
@@ -48,18 +28,21 @@ final class UserFilterReset extends UserFilterEvent {
 final class UserFilterApplied extends UserFilterEvent {
   const UserFilterApplied({
     required this.searchQuery,
-    required this.selectedAppRoles,
-    required this.selectedDashboardRoles,
+    required this.authenticationFilter,
+    required this.subscriptionFilter,
+    this.dashboardRole,
   });
 
   final String searchQuery;
-  final List<AppUserRole> selectedAppRoles;
-  final List<DashboardUserRole> selectedDashboardRoles;
+  final AuthenticationFilter authenticationFilter;
+  final SubscriptionFilter subscriptionFilter;
+  final DashboardUserRole? dashboardRole;
 
   @override
   List<Object> get props => [
     searchQuery,
-    selectedAppRoles,
-    selectedDashboardRoles,
+    authenticationFilter,
+    subscriptionFilter,
+    dashboardRole ?? '',
   ];
 }
