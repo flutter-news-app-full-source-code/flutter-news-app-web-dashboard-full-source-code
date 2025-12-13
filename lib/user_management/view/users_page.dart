@@ -226,44 +226,20 @@ class _UsersDataSource extends DataTableSource {
       // The email cell is wrapped in an Expanded widget to allow truncation.
       cells: [
         DataCell(
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Text(user.email),
+          Row(
+            children: [
+              Flexible(
+                child: Text(user.email, overflow: TextOverflow.ellipsis),
+              ),
+              if (user.appRole.getPremiumIcon(l10n) case final icon?) ...[
                 const SizedBox(width: AppSpacing.sm),
-                if (user.appRole.isPremium)
-                  Tooltip(
-                    message: l10n.premiumUserTooltip,
-                    child: const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                      size: 16,
-                    ),
-                  ),
-                if (user.dashboardRole.isPrivileged) ...[
-                  const SizedBox(width: AppSpacing.xs),
-                  if (user.dashboardRole == DashboardUserRole.admin)
-                    Tooltip(
-                      message: l10n.adminUserTooltip,
-                      child: const Icon(
-                        Icons.admin_panel_settings,
-                        color: Colors.blueAccent,
-                        size: 16,
-                      ),
-                    )
-                  else if (user.dashboardRole == DashboardUserRole.publisher)
-                    Tooltip(
-                      message: l10n.publisherUserTooltip,
-                      child: const Icon(
-                        Icons.publish,
-                        color: Colors.green,
-                        size: 16,
-                      ),
-                    ),
-                ],
+                icon,
               ],
-            ),
+              if (user.dashboardRole.getRoleIcon(l10n) case final icon?) ...[
+                const SizedBox(width: AppSpacing.xs),
+                icon,
+              ],
+            ],
           ),
         ),
         if (!isMobile)
