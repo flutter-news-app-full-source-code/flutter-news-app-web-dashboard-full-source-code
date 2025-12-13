@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 
 part 'headlines_filter_event.dart';
 part 'headlines_filter_state.dart';
@@ -79,8 +78,7 @@ class HeadlinesFilterBloc
 
   /// Handles changes to the breaking news filter.
   ///
-  /// This updates the `isBreaking` status for the filter using the
-  /// [BreakingNewsFilterStatus] enum.
+  /// This updates the `isBreaking` status for the filter.
   void _onHeadlinesBreakingNewsFilterChanged(
     HeadlinesBreakingNewsFilterChanged event,
     Emitter<HeadlinesFilterState> emit,
@@ -139,9 +137,8 @@ class HeadlinesFilterBloc
     if (state.selectedCountryIds.isNotEmpty) {
       filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
     }
-    if (state.isBreaking != BreakingNewsFilterStatus.all) {
-      filter['isBreaking'] =
-          state.isBreaking == BreakingNewsFilterStatus.breakingOnly;
+    if (state.isBreaking) {
+      filter['isBreaking'] = true;
     }
 
     return filter;
