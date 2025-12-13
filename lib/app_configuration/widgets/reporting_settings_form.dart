@@ -44,68 +44,66 @@ class ReportingSettingsForm extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(height: AppSpacing.lg),
-        Padding(
-          padding: const EdgeInsetsDirectional.only(start: AppSpacing.lg),
-          child: Column(
-            children: [
-              SwitchListTile(
-                title: Text(l10n.enableHeadlineReportingLabel),
-                value: reportingConfig.headlineReportingEnabled,
-                onChanged: (value) {
-                  final newConfig = reportingConfig.copyWith(
-                    headlineReportingEnabled: value,
-                  );
-                  onConfigChanged(
-                    remoteConfig.copyWith(
-                      features: remoteConfig.features.copyWith(
-                        community: communityConfig.copyWith(
-                          reporting: newConfig,
-                        ),
-                      ),
+        if (reportingConfig.enabled) ...[
+          const SizedBox(height: AppSpacing.lg),
+          SwitchListTile(
+            title: Text(l10n.enableHeadlineReportingLabel),
+            subtitle: Text(l10n.enableHeadlineReportingDescription),
+            value: reportingConfig.headlineReportingEnabled,
+            onChanged: (value) {
+              final newConfig = reportingConfig.copyWith(
+                headlineReportingEnabled: value,
+              );
+              onConfigChanged(
+                remoteConfig.copyWith(
+                  features: remoteConfig.features.copyWith(
+                    community: communityConfig.copyWith(
+                      reporting: newConfig,
                     ),
-                  );
-                },
-              ),
-              SwitchListTile(
-                title: Text(l10n.enableSourceReportingLabel),
-                value: reportingConfig.sourceReportingEnabled,
-                onChanged: (value) {
-                  final newConfig = reportingConfig.copyWith(
-                    sourceReportingEnabled: value,
-                  );
-                  onConfigChanged(
-                    remoteConfig.copyWith(
-                      features: remoteConfig.features.copyWith(
-                        community: communityConfig.copyWith(
-                          reporting: newConfig,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SwitchListTile(
-                title: Text(l10n.enableCommentReportingLabel),
-                value: reportingConfig.commentReportingEnabled,
-                onChanged: (value) {
-                  final newConfig = reportingConfig.copyWith(
-                    commentReportingEnabled: value,
-                  );
-                  onConfigChanged(
-                    remoteConfig.copyWith(
-                      features: remoteConfig.features.copyWith(
-                        community: communityConfig.copyWith(
-                          reporting: newConfig,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                ),
+              );
+            },
           ),
-        ),
+          SwitchListTile(
+            title: Text(l10n.enableSourceReportingLabel),
+            subtitle: Text(l10n.enableSourceReportingDescription),
+            value: reportingConfig.sourceReportingEnabled,
+            onChanged: (value) {
+              final newConfig = reportingConfig.copyWith(
+                sourceReportingEnabled: value,
+              );
+              onConfigChanged(
+                remoteConfig.copyWith(
+                  features: remoteConfig.features.copyWith(
+                    community: communityConfig.copyWith(
+                      reporting: newConfig,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          SwitchListTile(
+            title: Text(l10n.enableCommentReportingLabel),
+            subtitle: Text(l10n.enableCommentReportingDescription),
+            value: reportingConfig.commentReportingEnabled,
+            onChanged: (value) {
+              final newConfig = reportingConfig.copyWith(
+                commentReportingEnabled: value,
+              );
+              onConfigChanged(
+                remoteConfig.copyWith(
+                  features: remoteConfig.features.copyWith(
+                    community: communityConfig.copyWith(
+                      reporting: newConfig,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ],
     );
   }

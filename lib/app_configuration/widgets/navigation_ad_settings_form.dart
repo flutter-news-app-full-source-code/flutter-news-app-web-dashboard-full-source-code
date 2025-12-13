@@ -115,6 +115,12 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
 
     return ExpansionTile(
       title: Text(l10n.navigationAdConfigTitle),
+      subtitle: Text(
+        l10n.navigationAdConfigDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       childrenPadding: const EdgeInsetsDirectional.only(
         start: AppSpacing.lg,
         top: AppSpacing.md,
@@ -124,6 +130,7 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
       children: [
         SwitchListTile(
           title: Text(l10n.enableNavigationAdsLabel),
+          subtitle: Text(l10n.enableNavigationAdsDescription),
           value: navAdConfig.enabled,
           onChanged: (value) {
             widget.onConfigChanged(
@@ -206,6 +213,7 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
         children: [
           SwitchListTile(
             title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
+            subtitle: Text(l10n.visibleToRoleDescription(role.l10n(context))),
             value: roleConfig != null,
             onChanged: (value) {
               final newVisibleTo =

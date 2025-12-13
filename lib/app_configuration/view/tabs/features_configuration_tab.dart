@@ -49,6 +49,27 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
     super.dispose();
   }
 
+  String _getDecoratorDescription(
+    BuildContext context,
+    FeedDecoratorType type,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (type) {
+      case FeedDecoratorType.linkAccount:
+        return l10n.feedDecoratorLinkAccountDescription;
+      case FeedDecoratorType.upgrade:
+        return l10n.feedDecoratorUpgradeDescription;
+      case FeedDecoratorType.rateApp:
+        return l10n.feedDecoratorRateAppDescription;
+      case FeedDecoratorType.enableNotifications:
+        return l10n.feedDecoratorEnableNotificationsDescription;
+      case FeedDecoratorType.suggestedTopics:
+        return l10n.feedDecoratorSuggestedTopicsDescription;
+      case FeedDecoratorType.suggestedSources:
+        return l10n.feedDecoratorSuggestedSourcesDescription;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -62,14 +83,28 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
+              leading: Icon(
+                Icons.paid_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('advertisementsTile_$expandedIndex'),
               title: Text(l10n.advertisementsTab),
-              onExpansionChanged: (isExpanded) {
+              subtitle: Text(
+                l10n.advertisementsDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
+                start: AppSpacing.xxl,
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),
@@ -106,14 +141,28 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
+              leading: Icon(
+                Icons.notifications_active_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('pushNotificationsTile_$expandedIndex'),
               title: Text(l10n.notificationsTab),
-              onExpansionChanged: (isExpanded) {
+              subtitle: Text(
+                l10n.notificationsDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
+                start: AppSpacing.xxl,
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),
@@ -135,14 +184,28 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 2;
             return ExpansionTile(
+              leading: Icon(
+                Icons.dynamic_feed_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('feedTile_$expandedIndex'),
               title: Text(l10n.feedTab),
-              onExpansionChanged: (isExpanded) {
+              subtitle: Text(
+                l10n.feedDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
+                start: AppSpacing.xxl,
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),
@@ -150,6 +213,14 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               children: [
                 ExpansionTile(
                   title: Text(l10n.feedItemClickBehaviorTitle),
+                  subtitle: Text(
+                    l10n.feedItemClickBehaviorDescription,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                  ),
                   childrenPadding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.lg,
                     top: AppSpacing.md,
@@ -157,15 +228,6 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                   ),
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      l10n.feedItemClickBehaviorDescription,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(0.7),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
                     Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: SegmentedButton<FeedItemClickBehavior>(
@@ -203,6 +265,14 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                 const SizedBox(height: AppSpacing.lg),
                 ExpansionTile(
                   title: Text(l10n.feedDecoratorsTitle),
+                  subtitle: Text(
+                    l10n.feedDecoratorsDescription,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                  ),
                   childrenPadding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.lg,
                     top: AppSpacing.md,
@@ -210,20 +280,20 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                   ),
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      l10n.feedDecoratorsDescription,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(0.7),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
                     for (final decoratorType in FeedDecoratorType.values)
                       Padding(
                         padding: const EdgeInsets.only(bottom: AppSpacing.md),
                         child: ExpansionTile(
                           title: Text(decoratorType.l10n(context)),
+                          subtitle: Text(
+                            _getDecoratorDescription(context, decoratorType),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.7),
+                                ),
+                          ),
                           childrenPadding: const EdgeInsetsDirectional.only(
                             start: AppSpacing.xl,
                             top: AppSpacing.md,
@@ -253,6 +323,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 3;
             return ExpansionTile(
+              leading: Icon(
+                Icons.groups_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('communityTile_$expandedIndex'),
               title: Text(l10n.communityAndEngagementTitle),
               subtitle: Text(
@@ -263,12 +339,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                   ).colorScheme.onSurface.withOpacity(0.7),
                 ),
               ),
-              onExpansionChanged: (isExpanded) {
+              onExpansionChanged: (bool isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
+                start: AppSpacing.xxl,
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),

@@ -32,6 +32,7 @@ class AdConfigForm extends StatelessWidget {
       children: [
         SwitchListTile(
           title: Text(l10n.enableGlobalAdsLabel),
+          subtitle: Text(l10n.enableGlobalAdsDescription),
           value: ads.enabled,
           onChanged: (value) {
             onConfigChanged(

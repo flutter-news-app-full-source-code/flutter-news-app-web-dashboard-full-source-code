@@ -104,7 +104,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get source => 'Source';
 
   @override
-  String get appConfiguration => 'App Configuration';
+  String get appConfiguration => 'Remote Config';
 
   @override
   String get appConfigurationPageDescription =>
@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get appConfigurationPageTitle => 'App Configuration';
+  String get appConfigurationPageTitle => 'Remote Configuration';
 
   @override
   String get feedTab => 'Feed';
@@ -172,7 +172,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appConfigSaveSuccessMessage =>
-      'App configuration saved successfully!';
+      'Remote configuration saved successfully. Mobile clients will update on their next launch.';
 
   @override
   String appConfigSaveErrorMessage(String errorMessage) {
@@ -1664,7 +1664,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedItemClickBehaviorDescription =>
-      'Select which browser opens when a user taps on a headline in the feed.';
+      'Set the default browser for opening headlines. This can be overridden by users in their app\'s feed settings.';
 
   @override
   String get feedItemClickBehaviorInternalNavigation => 'In-App Browser';
@@ -1674,6 +1674,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userLimitsTitle => 'User Limits';
+
+  @override
+  String get userLimitsDescription =>
+      'Define limits for user-specific features and content.';
+
+  @override
+  String get appStatusAndUpdatesDescription =>
+      'Control the application\'s operational status and manage update requirements.';
+
+  @override
+  String get advertisementsDescription =>
+      'Manage all advertisement settings, including global controls, platforms, and placements.';
+
+  @override
+  String get notificationsDescription =>
+      'Configure the push notification system, including providers and delivery types.';
+
+  @override
+  String get feedDescription =>
+      'Control the behavior and appearance of the user\'s content feed.';
 
   @override
   String get notificationSubscriptionBreakingOnlyDescription =>
@@ -1709,7 +1729,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get communityAndEngagementDescription =>
-      'Manage user interactions, content reporting, and the internal app reporting system.';
+      'Configure user engagement and reporting tools. To ensure accountability, these features are unavailable for guest users within the mobile app, irrespective of the settings configured here.';
 
   @override
   String get userEngagementTitle => 'User Engagement';
@@ -1811,16 +1831,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Eligible Positive Interactions';
 
   @override
-  String get positiveInteractionTypeSaveItem =>
-      'Save a content item (e.g., a headline)';
+  String get positiveInteractionTypeSaveItem => 'Save a content item';
 
   @override
-  String get positiveInteractionTypeFollowItem =>
-      'Follow an entity (e.g., a topic, source, or country)';
+  String get positiveInteractionTypeFollowItem => 'Follow an entity';
 
   @override
-  String get positiveInteractionTypeShareContent =>
-      'Share a content item (e.g., a headline)';
+  String get positiveInteractionTypeShareContent => 'Share a content item';
 
   @override
   String get positiveInteractionTypeSaveFilter => 'Create a saved filter';
@@ -2241,4 +2258,113 @@ class AppLocalizationsEn extends AppLocalizations {
   String itemDeletedSnackbar(String itemType, String itemName) {
     return '$itemType \"$itemName\" deleted.';
   }
+
+  @override
+  String get adPlatformConfigurationDescription =>
+      'Select the primary ad provider and configure their respective ad unit IDs.';
+
+  @override
+  String get feedAdSettingsDescription =>
+      'Control ad visibility, type, and frequency within the user\'s content feed.';
+
+  @override
+  String get navigationAdConfigDescription =>
+      'Configure interstitial ads that appear during user navigation.';
+
+  @override
+  String get feedDecoratorLinkAccountDescription =>
+      'Prompts guest users to create a full account.';
+
+  @override
+  String get feedDecoratorUpgradeDescription =>
+      'Prompts standard users to upgrade to a premium subscription.';
+
+  @override
+  String get feedDecoratorRateAppDescription =>
+      'Prompts users to rate the application in the app store.';
+
+  @override
+  String get feedDecoratorEnableNotificationsDescription =>
+      'Prompts users to enable push notifications.';
+
+  @override
+  String get feedDecoratorSuggestedTopicsDescription =>
+      'Shows a collection of topics the user might be interested in following.';
+
+  @override
+  String get feedDecoratorSuggestedSourcesDescription =>
+      'Shows a collection of sources the user might be interested in following.';
+
+  @override
+  String get enableGlobalAdsDescription =>
+      'Globally activates or deactivates all advertisements within the application.';
+
+  @override
+  String get enableFeedAdsDescription =>
+      'Controls the visibility of all ads within content feeds.';
+
+  @override
+  String visibleToRoleDescription(String roleName) {
+    return 'When enabled, this feature will be active for users with the \'$roleName\' role.';
+  }
+
+  @override
+  String get enableDecoratorDescription =>
+      'Globally activates or deactivates this decorator for all eligible users.';
+
+  @override
+  String get enableNavigationAdsDescription =>
+      'Controls the visibility of interstitial ads that appear during user navigation.';
+
+  @override
+  String get enableHeadlineReportingDescription =>
+      'Allows users to report individual headlines for issues like misinformation or clickbait.';
+
+  @override
+  String get enableSourceReportingDescription =>
+      'Allows users to report entire news sources for issues like low quality or bias.';
+
+  @override
+  String get enableCommentReportingDescription =>
+      'Allows users to report individual comments for moderation.';
+
+  @override
+  String get pushNotificationDeliveryTypeBreakingOnlyDescription =>
+      'Enable to allow users to subscribe to immediate alerts for breaking news.';
+
+  @override
+  String get pushNotificationDeliveryTypeDailyDigestDescription =>
+      'Enable to allow users to subscribe to a daily summary of relevant news.';
+
+  @override
+  String get pushNotificationDeliveryTypeWeeklyRoundupDescription =>
+      'Enable to allow users to subscribe to a weekly roundup of relevant news.';
+
+  @override
+  String get positiveInteractionTypeSaveItemDescription =>
+      'Counts when a user bookmark a headline.';
+
+  @override
+  String get positiveInteractionTypeFollowItemDescription =>
+      'Counts when a user follows a headline topic, source, or country.';
+
+  @override
+  String get positiveInteractionTypeShareContentDescription =>
+      'Counts when a user shares a headline.';
+
+  @override
+  String get positiveInteractionTypeSaveFilterDescription =>
+      'Counts when a user creates a saved filter.';
+
+  @override
+  String get internalPromptLogicDescription =>
+      'Define the conditions that trigger the enjoyment prompt, such as the number of user actions and cooldown periods.';
+
+  @override
+  String get eligiblePositiveInteractionsDescription =>
+      'Select which user actions are counted as \'positive interactions\' to trigger the enjoyment prompt.';
+
+  @override
+  String get followUpActionsDescription =>
+      'Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.';
 }

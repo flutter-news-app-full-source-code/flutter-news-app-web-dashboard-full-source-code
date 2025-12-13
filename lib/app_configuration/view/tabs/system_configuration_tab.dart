@@ -53,14 +53,28 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
+              leading: Icon(
+                Icons.system_update_alt_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('appStatusAndUpdatesTile_$expandedIndex'),
               title: Text(l10n.appStatusAndUpdatesTitle),
+              subtitle: Text(
+                l10n.appStatusAndUpdatesDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
+                start: AppSpacing.xxl,
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),
@@ -68,6 +82,14 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
               children: [
                 ExpansionTile(
                   title: Text(l10n.maintenanceModeTitle),
+                  subtitle: Text(
+                    l10n.maintenanceModeDescription,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                  ),
                   childrenPadding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.lg,
                     top: AppSpacing.md,
@@ -99,6 +121,14 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
                 const SizedBox(height: AppSpacing.lg),
                 ExpansionTile(
                   title: Text(l10n.appUpdateManagementTitle),
+                  subtitle: Text(
+                    l10n.updateConfigDescription,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                  ),
                   childrenPadding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.lg,
                     top: AppSpacing.md,
@@ -122,14 +152,28 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
+              leading: Icon(
+                Icons.link_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('appUrlsTile_$expandedIndex'),
               title: Text(l10n.appUrlsTitle),
+              subtitle: Text(
+                l10n.appUrlsDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
               onExpansionChanged: (isExpanded) {
                 _expandedTileIndex.value = isExpanded ? tileIndex : null;
               },
               initiallyExpanded: expandedIndex == tileIndex,
               childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.lg,
+                start: AppSpacing.xxl,
                 top: AppSpacing.md,
                 bottom: AppSpacing.md,
               ),

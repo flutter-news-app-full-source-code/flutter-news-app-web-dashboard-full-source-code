@@ -61,6 +61,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
   ) {
     return ExpansionTile(
       title: Text(l10n.pushNotificationPrimaryProviderTitle),
+      subtitle: Text(
+        l10n.pushNotificationPrimaryProviderDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       childrenPadding: const EdgeInsetsDirectional.only(
         start: AppSpacing.lg,
         top: AppSpacing.md,
@@ -68,13 +74,6 @@ class PushNotificationSettingsForm extends StatelessWidget {
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.pushNotificationPrimaryProviderDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
         Align(
           alignment: AlignmentDirectional.centerStart,
           child: SegmentedButton<PushNotificationProvider>(
@@ -104,6 +103,21 @@ class PushNotificationSettingsForm extends StatelessWidget {
     );
   }
 
+  String _getDeliveryTypeDescription(
+    BuildContext context,
+    PushNotificationSubscriptionDeliveryType type,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (type) {
+      case PushNotificationSubscriptionDeliveryType.breakingOnly:
+        return l10n.pushNotificationDeliveryTypeBreakingOnlyDescription;
+      case PushNotificationSubscriptionDeliveryType.dailyDigest:
+        return l10n.pushNotificationDeliveryTypeDailyDigestDescription;
+      case PushNotificationSubscriptionDeliveryType.weeklyRoundup:
+        return l10n.pushNotificationDeliveryTypeWeeklyRoundupDescription;
+    }
+  }
+
   Widget _buildDeliveryTypesSection(
     BuildContext context,
     AppLocalizations l10n,
@@ -111,6 +125,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
   ) {
     return ExpansionTile(
       title: Text(l10n.pushNotificationDeliveryTypesTitle),
+      subtitle: Text(
+        l10n.pushNotificationDeliveryTypesDescription,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
       childrenPadding: const EdgeInsetsDirectional.only(
         start: AppSpacing.lg,
         top: AppSpacing.md,
@@ -118,18 +138,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.pushNotificationDeliveryTypesDescription,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.lg),
         Column(
           children: PushNotificationSubscriptionDeliveryType.values
               .map(
                 (type) => SwitchListTile(
                   title: Text(type.l10n(context)),
+                  subtitle: Text(_getDeliveryTypeDescription(context, type)),
                   value: pushConfig.deliveryConfigs[type] ?? false,
                   onChanged: (value) {
                     final newDeliveryConfigs =
