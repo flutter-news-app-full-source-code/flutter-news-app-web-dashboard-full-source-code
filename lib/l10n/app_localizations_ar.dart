@@ -2201,4 +2201,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deleteItemContent => 'هل أنت متأكد أنك تريد حذف هذا العنصر؟.';
+
+  @override
+  String itemDeletedSnackbar(String itemType, String itemName) {
+    return 'تم حذف $itemType \"$itemName\".';
+  }
 }

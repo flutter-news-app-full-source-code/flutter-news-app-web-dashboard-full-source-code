@@ -2207,4 +2207,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteItemContent => 'Are you sure you want to delete this item?.';
+
+  @override
+  String itemDeletedSnackbar(String itemType, String itemName) {
+    return '$itemType \"$itemName\" deleted.';
+  }
 }
