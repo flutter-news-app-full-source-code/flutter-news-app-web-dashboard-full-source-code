@@ -125,7 +125,7 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                     onSelected: (value) =>
                         context.read<UserFilterDialogBloc>().add(
                           UserFilterDialogAuthenticationChanged(
-                            value,
+                            value!,
                           ),
                         ),
                     chipLabelBuilder: (value) => value.l10n(context),
@@ -140,7 +140,7 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                     onSelected: (value) =>
                         context.read<UserFilterDialogBloc>().add(
                           UserFilterDialogSubscriptionChanged(
-                            value,
+                            value!,
                           ),
                         ),
                     chipLabelBuilder: (value) => value.l10n(context),
@@ -151,13 +151,15 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                   _FilterSection<DashboardUserRole>(
                     title: l10n.dashboardRole,
                     selectedValue: filterDialogState.dashboardRole,
-                    values: DashboardUserRole.values
-                        .where((role) => role != DashboardUserRole.admin)
-                        .toList(),
+                    values: const [
+                      DashboardUserRole.admin,
+                      DashboardUserRole.publisher,
+                      DashboardUserRole.none,
+                    ],
                     onSelected: (value) =>
                         context.read<UserFilterDialogBloc>().add(
                           UserFilterDialogDashboardRoleChanged(
-                            value as DashboardUserRole?,
+                            value,
                           ),
                         ),
                     chipLabelBuilder: (value) => value.l10n(context),
@@ -186,7 +188,7 @@ class _FilterSection<T> extends StatelessWidget {
   final String title;
   final T? selectedValue;
   final List<T> values;
-  final ValueChanged<T> onSelected;
+  final ValueChanged<T?> onSelected;
   final String Function(T) chipLabelBuilder;
   final bool includeAllOption;
 
@@ -216,7 +218,7 @@ class _FilterSection<T> extends StatelessWidget {
               label: Text(label),
               selected: isSelected,
               onSelected: (_) {
-                onSelected(value as T);
+                onSelected(value);
               },
             );
           }).toList(),
