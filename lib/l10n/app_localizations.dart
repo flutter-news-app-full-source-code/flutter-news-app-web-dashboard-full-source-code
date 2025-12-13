@@ -4073,50 +4073,50 @@ abstract class AppLocalizations {
   /// Confirmation dialog title for publishing an item.
   ///
   /// In en, this message translates to:
-  /// **'Republish Item?'**
-  String get publishItemTitle;
+  /// **'Publish {itemType}?'**
+  String publishItemTitle(String itemType);
 
   /// Confirmation dialog content for publishing an item.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to republish this item? It will become publicly visible.'**
-  String get publishItemContent;
+  /// **'Are you sure you want to publish this {itemType}? It will become publicly visible.'**
+  String publishItemContent(String itemType);
 
   /// Confirmation dialog title for archiving an item.
   ///
   /// In en, this message translates to:
-  /// **'Archive Item?'**
-  String get archiveItemTitle;
+  /// **'Archive {itemType}?'**
+  String archiveItemTitle(String itemType);
 
   /// Confirmation dialog content for archiving an item.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to archive this item? It will be hidden from public view.'**
-  String get archiveItemContent;
+  /// **'Are you sure you want to archive this {itemType}? It will be hidden from public view.'**
+  String archiveItemContent(String itemType);
 
   /// Confirmation dialog title for restoring an item.
   ///
   /// In en, this message translates to:
-  /// **'Restore Item?'**
-  String get restoreItemTitle;
+  /// **'Restore {itemType}?'**
+  String restoreItemTitle(String itemType);
 
   /// Confirmation dialog content for restoring an item.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to restore this item? It will become active and publicly visible again.'**
-  String get restoreItemContent;
+  /// **'Are you sure you want to restore this {itemType}? It will become active and publicly visible again.'**
+  String restoreItemContent(String itemType);
 
   /// Confirmation dialog title for deleting an item.
   ///
   /// In en, this message translates to:
-  /// **'Delete Item?'**
-  String get deleteItemTitle;
+  /// **'Delete {itemType}?'**
+  String deleteItemTitle(String itemType);
 
   /// Confirmation dialog content for deleting an item.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to delete this item?.'**
-  String get deleteItemContent;
+  /// **'Are you sure you want to delete this {itemType}? '**
+  String deleteItemContent(String itemType);
 
   /// Snackbar message shown after an item is deleted, with an undo option.
   ///

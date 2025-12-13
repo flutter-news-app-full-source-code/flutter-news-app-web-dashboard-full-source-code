@@ -2185,31 +2185,44 @@ class AppLocalizationsAr extends AppLocalizations {
       'إظهار عناوين الأخبار العاجلة فقط';
 
   @override
-  String get publishItemTitle => 'نشر العنصر؟';
+  String publishItemTitle(String itemType) {
+    return 'نشر $itemType؟';
+  }
 
   @override
-  String get publishItemContent =>
-      'هل أنت متأكد أنك تريد نشر هذا العنصر؟ سيصبح مرئيًا للعامة.';
+  String publishItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد نشر هذا الـ $itemType؟ سيصبح مرئيًا للعامة.';
+  }
 
   @override
-  String get archiveItemTitle => 'أرشفة العنصر؟';
+  String archiveItemTitle(String itemType) {
+    return 'أرشفة $itemType؟';
+  }
 
   @override
-  String get archiveItemContent =>
-      'هل أنت متأكد أنك تريد أرشفة هذا العنصر؟ سيتم إخفاؤه عن العرض العام.';
+  String archiveItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد أرشفة هذا الـ $itemType؟ سيتم إخفاؤه عن العرض العام.';
+  }
 
   @override
-  String get restoreItemTitle => 'استعادة العنصر؟';
+  String restoreItemTitle(String itemType) {
+    return 'استعادة $itemType؟';
+  }
 
   @override
-  String get restoreItemContent =>
-      'هل أنت متأكد أنك تريد استعادة هذا العنصر؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.';
+  String restoreItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد استعادة هذا الـ $itemType؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.';
+  }
 
   @override
-  String get deleteItemTitle => 'حذف العنصر؟';
+  String deleteItemTitle(String itemType) {
+    return 'حذف $itemType؟';
+  }
 
   @override
-  String get deleteItemContent => 'هل أنت متأكد أنك تريد حذف هذا العنصر؟.';
+  String deleteItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد حذف هذا الـ $itemType؟ يمكن التراجع عن هذا الإجراء لفترة قصيرة.';
+  }
 
   @override
   String itemDeletedSnackbar(String itemType, String itemName) {
