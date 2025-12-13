@@ -3116,6 +3116,36 @@ abstract class AppLocalizations {
   /// **'User Limits'**
   String get userLimitsTitle;
 
+  /// Description for the User Limits expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Define limits for user-specific features and content.'**
+  String get userLimitsDescription;
+
+  /// Description for the App Status & Updates expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Control the application\'s operational status and manage update requirements.'**
+  String get appStatusAndUpdatesDescription;
+
+  /// Description for the Advertisements expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage all advertisement settings, including global controls, platforms, and placements.'**
+  String get advertisementsDescription;
+
+  /// Description for the Notifications expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the push notification system, including providers and delivery types.'**
+  String get notificationsDescription;
+
+  /// Description for the Feed expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Control the behavior and appearance of the user\'s content feed.'**
+  String get feedDescription;
+
   /// Description for the breaking news notification subscription limit.
   ///
   /// In en, this message translates to:
@@ -4135,6 +4165,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{itemType} \"{itemName}\" deleted.'**
   String itemDeletedSnackbar(String itemType, String itemName);
+
+  /// Description for the Ad Platform Configuration expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the primary ad provider and configure their respective ad unit IDs.'**
+  String get adPlatformConfigurationDescription;
+
+  /// Description for the Feed Ad Settings expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Control ad visibility, type, and frequency within the user\'s content feed.'**
+  String get feedAdSettingsDescription;
+
+  /// Description for the Navigation Ad Settings expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure interstitial ads that appear during user navigation.'**
+  String get navigationAdConfigDescription;
 }
 
 class _AppLocalizationsDelegate

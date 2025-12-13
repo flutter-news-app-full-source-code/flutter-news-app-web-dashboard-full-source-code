@@ -1673,6 +1673,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get userLimitsTitle => 'حدود المستخدم';
 
   @override
+  String get userLimitsDescription =>
+      'تحديد حدود للميزات والمحتوى الخاص بالمستخدم.';
+
+  @override
+  String get appStatusAndUpdatesDescription =>
+      'التحكم في الحالة التشغيلية للتطبيق وإدارة متطلبات التحديث.';
+
+  @override
+  String get advertisementsDescription =>
+      'إدارة جميع إعدادات الإعلانات، بما في ذلك الضوابط العالمية والمنصات والمواضع.';
+
+  @override
+  String get notificationsDescription =>
+      'تكوين نظام الإشعارات الفورية، بما في ذلك المزودين وأنواع التسليم.';
+
+  @override
+  String get feedDescription => 'التحكم في سلوك ومظهر موجز محتوى المستخدم.';
+
+  @override
   String get notificationSubscriptionBreakingOnlyDescription =>
       'حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.';
 
@@ -2235,4 +2254,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String itemDeletedSnackbar(String itemType, String itemName) {
     return 'تم حذف $itemType \"$itemName\".';
   }
+
+  @override
+  String get adPlatformConfigurationDescription =>
+      'اختر مزود الإعلانات الأساسي وقم بتكوين معرفات الوحدات الإعلانية الخاصة به.';
+
+  @override
+  String get feedAdSettingsDescription =>
+      'تحكم في رؤية الإعلانات ونوعها وتكرارها داخل موجز محتوى المستخدم.';
+
+  @override
+  String get navigationAdConfigDescription =>
+      'تكوين الإعلانات البينية التي تظهر أثناء تنقل المستخدم.';
 }

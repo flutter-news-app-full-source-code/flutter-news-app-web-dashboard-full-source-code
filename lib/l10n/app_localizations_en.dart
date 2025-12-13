@@ -1676,6 +1676,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userLimitsTitle => 'User Limits';
 
   @override
+  String get userLimitsDescription =>
+      'Define limits for user-specific features and content.';
+
+  @override
+  String get appStatusAndUpdatesDescription =>
+      'Control the application\'s operational status and manage update requirements.';
+
+  @override
+  String get advertisementsDescription =>
+      'Manage all advertisement settings, including global controls, platforms, and placements.';
+
+  @override
+  String get notificationsDescription =>
+      'Configure the push notification system, including providers and delivery types.';
+
+  @override
+  String get feedDescription =>
+      'Control the behavior and appearance of the user\'s content feed.';
+
+  @override
   String get notificationSubscriptionBreakingOnlyDescription =>
       'Limit for subscriptions that send immediate alerts for matching headlines.';
 
@@ -2241,4 +2261,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String itemDeletedSnackbar(String itemType, String itemName) {
     return '$itemType \"$itemName\" deleted.';
   }
+
+  @override
+  String get adPlatformConfigurationDescription =>
+      'Select the primary ad provider and configure their respective ad unit IDs.';
+
+  @override
+  String get feedAdSettingsDescription =>
+      'Control ad visibility, type, and frequency within the user\'s content feed.';
+
+  @override
+  String get navigationAdConfigDescription =>
+      'Configure interstitial ads that appear during user navigation.';
 }
