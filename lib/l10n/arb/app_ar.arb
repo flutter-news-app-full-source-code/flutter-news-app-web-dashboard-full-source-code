@@ -2316,7 +2316,15 @@
   },
   "commentStatus": "حالة التعليق",
   "@commentStatus": {
-    "description": "رأس العمود لحالة التعليق"
+    "description": "تسمية لحالة الإشراف على تعليق ضمن تفاعل."
+  },
+"hasCommentFilterLabel": "تحتوي على تعليقات",
+  "@hasCommentFilterLabel": {
+    "description": "تسمية لمفتاح تصفية التفاعلات بناءً على وجود تعليق."
+  },
+  "hasCommentFilterDescription": "إظهار التفاعلات التي تتضمن تعليقًا نصيًا فقط.",
+  "@hasCommentFilterDescription": {
+    "description": "وصف لمفتاح تصفية التفاعلات بناءً على وجود تعليق."
   },
   "date": "التاريخ",
   "@date": {

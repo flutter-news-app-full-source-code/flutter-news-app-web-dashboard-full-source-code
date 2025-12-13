@@ -2312,7 +2312,15 @@
   },
   "commentStatus": "Comment Status",
   "@commentStatus": {
-    "description": "Column header for comment status"
+    "description": "Label for the moderation status of a comment within an engagement."
+  },
+  "hasCommentFilterLabel": "Contains Comment",
+  "@hasCommentFilterLabel": {
+    "description": "Label for the switch to filter engagements based on whether they have a comment."
+  },
+  "hasCommentFilterDescription": "Show only engagements that include a text comment.",
+  "@hasCommentFilterDescription": {
+    "description": "Description for the switch to filter engagements based on whether they have a comment."
   },
   "date": "Date",
   "@date": {
