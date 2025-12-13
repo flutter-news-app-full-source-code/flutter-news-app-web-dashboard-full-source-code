@@ -2724,5 +2724,13 @@
         "type": "String"
       }
     }
+  },
+  "premiumUserTooltip": "مستخدم مميز",
+  "@premiumUserTooltip": {
+    "description": "تلميح للأيقونة التي تشير إلى مستخدم مميز."
+  },
+  "privilegedUserTooltip": "ناشر أو مسؤول في لوحة التحكم",
+  "@privilegedUserTooltip": {
+    "description": "تلميح للأيقونة التي تشير إلى مستخدم لديه وصول مميز إلى لوحة التحكم."
   }
 }

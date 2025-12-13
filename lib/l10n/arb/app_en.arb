@@ -2720,5 +2720,13 @@
         "type": "String"
       }
     }
+  },
+  "premiumUserTooltip": "Premium User",
+  "@premiumUserTooltip": {
+    "description": "Tooltip for the icon indicating a premium user."
+  },
+  "privilegedUserTooltip": "Dashboard Publisher or Admin",
+  "@privilegedUserTooltip": {
+    "description": "Tooltip for the icon indicating a user with privileged dashboard access."
   }
 }
