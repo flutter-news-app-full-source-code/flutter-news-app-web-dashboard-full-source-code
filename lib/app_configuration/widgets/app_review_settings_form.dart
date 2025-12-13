@@ -109,10 +109,9 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                   ),
                   child: LayoutBuilder(
                     builder: (context, constraints) {
-                      final isMobile = constraints.maxWidth < 600;
                       return ExpansionTile(
                         title: Text(l10n.internalPromptLogicTitle),
-                        initiallyExpanded: !isMobile,
+                        initiallyExpanded: false,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
                           top: AppSpacing.md,
@@ -174,10 +173,9 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                   ),
                   child: LayoutBuilder(
                     builder: (context, constraints) {
-                      final isMobile = constraints.maxWidth < 600;
                       return ExpansionTile(
                         title: Text(l10n.eligiblePositiveInteractionsTitle),
-                        initiallyExpanded: !isMobile,
+                        initiallyExpanded: false,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
                           top: AppSpacing.md,
@@ -231,10 +229,9 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                   ),
                   child: LayoutBuilder(
                     builder: (context, constraints) {
-                      final isMobile = constraints.maxWidth < 600;
                       return ExpansionTile(
                         title: Text(l10n.followUpActionsTitle),
-                        initiallyExpanded: !isMobile,
+                        initiallyExpanded: false,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
                           top: AppSpacing.md,
