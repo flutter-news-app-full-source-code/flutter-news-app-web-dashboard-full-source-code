@@ -104,7 +104,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get source => 'Source';
 
   @override
-  String get appConfiguration => 'App Configuration';
+  String get appConfiguration => 'Remote Config';
 
   @override
   String get appConfigurationPageDescription =>
@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get appConfigurationPageTitle => 'App Configuration';
+  String get appConfigurationPageTitle => 'Remote Configuration';
 
   @override
   String get feedTab => 'Feed';

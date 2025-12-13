@@ -105,7 +105,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get source => 'المصدر';
 
   @override
-  String get appConfiguration => 'إعدادات التطبيق';
+  String get appConfiguration => 'التحكم المركزي';
 
   @override
   String get appConfigurationPageDescription =>
@@ -115,7 +115,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings => 'الإعدادات';
 
   @override
-  String get appConfigurationPageTitle => 'إعدادات التطبيق';
+  String get appConfigurationPageTitle => 'التحكم المركزي';
 
   @override
   String get feedTab => 'الموجز';

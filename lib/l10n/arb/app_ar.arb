@@ -127,7 +127,7 @@
   "@source": {
     "description": "تسمية المصدر"
   },
-  "appConfiguration": "إعدادات التطبيق",
+  "appConfiguration": "التحكم المركزي",
   "@appConfiguration": {
     "description": "تسمية عنصر التنقل لإعدادات التطبيق"
   },
@@ -139,7 +139,7 @@
   "@settings": {
     "description": "تسمية عنصر التنقل للإعدادات"
   },
-  "appConfigurationPageTitle": "إعدادات التطبيق",
+  "appConfigurationPageTitle": "التحكم المركزي",
   "@appConfigurationPageTitle": {
     "description": "عنوان صفحة إعدادات التطبيق"
   },

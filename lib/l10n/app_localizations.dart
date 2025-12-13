@@ -269,7 +269,7 @@ abstract class AppLocalizations {
   /// Label for the app configuration navigation item
   ///
   /// In en, this message translates to:
-  /// **'App Configuration'**
+  /// **'Remote Config'**
   String get appConfiguration;
 
   /// Description for the App Configuration page
@@ -287,7 +287,7 @@ abstract class AppLocalizations {
   /// Title for the App Configuration page
   ///
   /// In en, this message translates to:
-  /// **'App Configuration'**
+  /// **'Remote Configuration'**
   String get appConfigurationPageTitle;
 
   /// Tab title for Feed settings

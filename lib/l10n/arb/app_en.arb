@@ -127,7 +127,7 @@
   "@source": {
     "description": "Label for the a singular source"
   },
-  "appConfiguration": "App Configuration",
+  "appConfiguration": "Remote Config",
   "@appConfiguration": {
     "description": "Label for the app configuration navigation item"
   },
@@ -139,7 +139,7 @@
   "@settings": {
     "description": "Label for the settings navigation item"
   },
-  "appConfigurationPageTitle": "App Configuration",
+  "appConfigurationPageTitle": "Remote Configuration",
   "@appConfigurationPageTitle": {
     "description": "Title for the App Configuration page"
   },
