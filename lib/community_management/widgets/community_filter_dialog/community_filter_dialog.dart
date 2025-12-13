@@ -169,7 +169,6 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             EngagementsFilter(
               searchQuery: query,
               selectedStatus: state.engagementsFilter.selectedStatus,
-              hasComment: state.engagementsFilter.hasComment,
             ),
           ),
         );
@@ -259,24 +258,6 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
                       EngagementsFilter(
                         searchQuery: state.engagementsFilter.searchQuery,
                         selectedStatus: item,
-                        hasComment: state.engagementsFilter.hasComment,
-                      ),
-                    ),
-                  );
-            },
-          ),
-          const Divider(height: AppSpacing.lg * 2),
-          SwitchListTile(
-            title: Text(l10n.hasCommentFilterLabel),
-            subtitle: Text(l10n.hasCommentFilterDescription),
-            value: state.engagementsFilter.hasComment,
-            onChanged: (value) {
-              context.read<CommunityFilterBloc>().add(
-                    EngagementsFilterChanged(
-                      EngagementsFilter(
-                        searchQuery: state.engagementsFilter.searchQuery,
-                        selectedStatus: state.engagementsFilter.selectedStatus,
-                        hasComment: value,
                       ),
                     ),
                   );

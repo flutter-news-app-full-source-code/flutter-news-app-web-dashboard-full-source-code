@@ -4,20 +4,17 @@ class EngagementsFilter extends Equatable {
   const EngagementsFilter({
     this.searchQuery,
     this.selectedStatus,
-    this.hasComment = false,
   });
 
   final String? searchQuery;
   final ModerationStatus? selectedStatus;
-  final bool hasComment;
 
   bool get isFilterActive =>
       (searchQuery != null && searchQuery!.isNotEmpty) ||
-      selectedStatus != null ||
-      hasComment;
+      selectedStatus != null;
 
   @override
-  List<Object?> get props => [searchQuery, selectedStatus, hasComment];
+  List<Object?> get props => [searchQuery, selectedStatus];
 }
 
 class ReportsFilter extends Equatable {

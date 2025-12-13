@@ -104,21 +104,27 @@ class CommunityManagementBloc
   }
 
   Map<String, dynamic> buildEngagementsFilterMap(EngagementsFilter filter) {
-    final filterMap = <String, dynamic>{};
+    final conditions = <Map<String, dynamic>>[];
+
     if (filter.searchQuery != null && filter.searchQuery!.isNotEmpty) {
-      filterMap['userId'] = filter.searchQuery;
+      conditions.add({'userId': filter.searchQuery});
     }
+
     if (filter.selectedStatus != null) {
-      filterMap['comment.status'] = {
-        r'$in': [filter.selectedStatus!.name],
-      };
+      if (filter.selectedStatus == ModerationStatus.resolved) {
+        conditions.add({'comment.status': ModerationStatus.resolved.name});
+      } else {
+        conditions.add({'comment.status': filter.selectedStatus!.name});
+      }
     }
-    if (filter.hasComment) {
-      filterMap['comment'] = {
-        r'$ne': null,
-      };
+
+    if (conditions.isEmpty) {
+      return {};
+    } else if (conditions.length == 1) {
+      return conditions.first;
+    } else {
+      return {r'$and': conditions};
     }
-    return filterMap;
   }
 
   Map<String, dynamic> buildReportsFilterMap(ReportsFilter filter) {
