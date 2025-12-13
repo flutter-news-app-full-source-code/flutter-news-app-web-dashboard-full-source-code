@@ -1,2 +1,4 @@
-export 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
-export 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
+export 'about_icon.dart';
+export 'confirmation_dialog.dart';
+export 'searchable_selection_input.dart';
+export 'selection_page/selection_page.dart';
