@@ -111,11 +111,7 @@ class CommunityManagementBloc
     }
 
     if (filter.selectedStatus != null) {
-      if (filter.selectedStatus == ModerationStatus.resolved) {
-        conditions.add({'comment.status': ModerationStatus.resolved.name});
-      } else {
-        conditions.add({'comment.status': filter.selectedStatus!.name});
-      }
+      conditions.add({'comment.status': filter.selectedStatus!.name});
     }
 
     if (conditions.isEmpty) {
