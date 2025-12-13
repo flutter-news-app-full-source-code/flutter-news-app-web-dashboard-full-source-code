@@ -157,6 +157,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
       children: [
         ExpansionTile(
           title: Text(l10n.primaryAdPlatformTitle),
+          subtitle: Text(
+            l10n.primaryAdPlatformDescription,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
+          ),
           childrenPadding: const EdgeInsetsDirectional.only(
             start: AppSpacing.lg,
             top: AppSpacing.md,
@@ -167,16 +173,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l10n.primaryAdPlatformDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                const SizedBox(height: AppSpacing.lg),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: SegmentedButton<AdPlatformType>(
@@ -223,6 +219,12 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
         const SizedBox(height: AppSpacing.lg),
         ExpansionTile(
           title: Text(l10n.adUnitIdentifiersTitle),
+          subtitle: Text(
+            l10n.adUnitIdentifiersDescription,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
+          ),
           childrenPadding: const EdgeInsetsDirectional.only(
             start: AppSpacing.lg,
             top: AppSpacing.md,
@@ -249,16 +251,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                           .toList(),
                     ),
                   ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                Text(
-                  l10n.adUnitIdentifiersDescription,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
-                  ),
-                  textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SizedBox(
