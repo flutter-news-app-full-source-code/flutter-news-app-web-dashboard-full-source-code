@@ -2,10 +2,10 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/dashboard_user_role_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -45,8 +45,9 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
     context.read<UserFilterBloc>().add(
       UserFilterApplied(
         searchQuery: filterDialogState.searchQuery,
-        selectedAppRoles: filterDialogState.selectedAppRoles,
-        selectedDashboardRoles: filterDialogState.selectedDashboardRoles,
+        authenticationFilter: filterDialogState.authenticationFilter,
+        subscriptionFilter: filterDialogState.subscriptionFilter,
+        dashboardRole: filterDialogState.dashboardRole,
       ),
     );
   }
@@ -116,40 +117,51 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                   ),
                   const SizedBox(height: AppSpacing.lg),
 
-                  // Filter for AppUserRole.
-                  SearchableSelectionInput<AppUserRole>(
-                    label: l10n.appRole,
-                    hintText: l10n.selectAppRoles,
-                    isMultiSelect: true,
-                    selectedItems: filterDialogState.selectedAppRoles,
-                    itemBuilder: (context, item) => Text(item.l10n(context)),
-                    itemToString: (item) => item.l10n(context),
-                    onChanged: (items) {
-                      context.read<UserFilterDialogBloc>().add(
-                        UserFilterDialogAppRolesChanged(items ?? []),
-                      );
-                    },
-                    staticItems: AppUserRole.values,
+                  // Authentication Filter
+                  _FilterSection<AuthenticationFilter>(
+                    title: l10n.authentication,
+                    selectedValue: filterDialogState.authenticationFilter,
+                    values: AuthenticationFilter.values,
+                    onSelected: (value) =>
+                        context.read<UserFilterDialogBloc>().add(
+                          UserFilterDialogAuthenticationChanged(
+                            value,
+                          ),
+                        ),
+                    chipLabelBuilder: (value) => value.l10n(context),
                   ),
                   const SizedBox(height: AppSpacing.lg),
 
-                  // Filter for DashboardUserRole.
-                  SearchableSelectionInput<DashboardUserRole>(
-                    label: l10n.dashboardRole,
-                    hintText: l10n.selectDashboardRoles,
-                    isMultiSelect: true,
-                    selectedItems: filterDialogState.selectedDashboardRoles,
-                    itemBuilder: (context, item) => Text(item.l10n(context)),
-                    itemToString: (item) => item.l10n(context),
-                    onChanged: (items) {
-                      context.read<UserFilterDialogBloc>().add(
-                        UserFilterDialogDashboardRolesChanged(items ?? []),
-                      );
-                    },
-                    // Exclude 'admin' from the selectable roles in the filter.
-                    staticItems: DashboardUserRole.values
+                  // Subscription Filter
+                  _FilterSection<SubscriptionFilter>(
+                    title: l10n.subscription,
+                    selectedValue: filterDialogState.subscriptionFilter,
+                    values: SubscriptionFilter.values,
+                    onSelected: (value) =>
+                        context.read<UserFilterDialogBloc>().add(
+                          UserFilterDialogSubscriptionChanged(
+                            value,
+                          ),
+                        ),
+                    chipLabelBuilder: (value) => value.l10n(context),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+
+                  // Dashboard Role Filter
+                  _FilterSection<DashboardUserRole>(
+                    title: l10n.dashboardRole,
+                    selectedValue: filterDialogState.dashboardRole,
+                    values: DashboardUserRole.values
                         .where((role) => role != DashboardUserRole.admin)
                         .toList(),
+                    onSelected: (value) =>
+                        context.read<UserFilterDialogBloc>().add(
+                          UserFilterDialogDashboardRoleChanged(
+                            value as DashboardUserRole?,
+                          ),
+                        ),
+                    chipLabelBuilder: (value) => value.l10n(context),
+                    includeAllOption: true,
                   ),
                 ],
               ),
@@ -157,6 +169,59 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
           ),
         );
       },
+    );
+  }
+}
+
+class _FilterSection<T> extends StatelessWidget {
+  const _FilterSection({
+    required this.title,
+    required this.selectedValue,
+    required this.values,
+    required this.onSelected,
+    required this.chipLabelBuilder,
+    this.includeAllOption = false,
+  });
+
+  final String title;
+  final T? selectedValue;
+  final List<T> values;
+  final ValueChanged<T> onSelected;
+  final String Function(T) chipLabelBuilder;
+  final bool includeAllOption;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    final textTheme = Theme.of(context).textTheme;
+
+    final allValues = includeAllOption
+        ? [null, ...values.where((v) => v != null)]
+        : values;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: textTheme.titleMedium),
+        const SizedBox(height: AppSpacing.md),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: allValues.map((value) {
+            final isSelected = selectedValue == value;
+            final label = value == null
+                ? l10n.any
+                : chipLabelBuilder(value as T);
+            return ChoiceChip(
+              label: Text(label),
+              selected: isSelected,
+              onSelected: (_) {
+                onSelected(value as T);
+              },
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }
