@@ -33,14 +33,6 @@ class AppConfigurationUpdated extends AppConfigurationEvent {
   List<Object?> get props => [remoteConfig];
 }
 
-/// {@template app_configuration_discarded}
-/// Event to discard any unsaved changes to the application configuration.
-/// {@endtemplate}
-class AppConfigurationDiscarded extends AppConfigurationEvent {
-  /// {@macro app_configuration_discarded}
-  const AppConfigurationDiscarded();
-}
-
 /// {@template app_configuration_field_changed}
 /// Event to notify that a field in the application configuration has changed.
 ///

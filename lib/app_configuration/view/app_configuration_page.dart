@@ -166,54 +166,32 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           );
         },
       ),
-      bottomNavigationBar: _buildBottomAppBar(context),
-    );
-  }
-
-  Widget _buildBottomAppBar(BuildContext context) {
-    final isDirty = context.select(
-      (AppConfigurationBloc bloc) => bloc.state.isDirty,
-    );
-    final remoteConfig = context.select(
-      (AppConfigurationBloc bloc) => bloc.state.remoteConfig,
-    );
-
-    return BottomAppBar(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            OutlinedButton(
-              onPressed: isDirty
-                  ? () {
-                      // Discard changes: revert to original config
-                      context.read<AppConfigurationBloc>().add(
-                        const AppConfigurationDiscarded(),
-                      );
-                    }
-                  : null,
-              child: Text(AppLocalizationsX(context).l10n.discardChangesButton),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            ElevatedButton(
-              onPressed: isDirty
-                  ? () async {
-                      final confirmed = await _showConfirmationDialog(context);
-                      if (context.mounted &&
-                          confirmed &&
-                          remoteConfig != null) {
-                        context.read<AppConfigurationBloc>().add(
-                          AppConfigurationUpdated(remoteConfig),
+      floatingActionButton:
+          BlocBuilder<AppConfigurationBloc, AppConfigurationState>(
+            builder: (context, state) {
+              return FloatingActionButton(
+                onPressed: state.isDirty
+                    ? () async {
+                        final remoteConfig = context
+                            .read<AppConfigurationBloc>()
+                            .state
+                            .remoteConfig;
+                        final confirmed = await _showConfirmationDialog(
+                          context,
                         );
+                        if (context.mounted &&
+                            confirmed &&
+                            remoteConfig != null) {
+                          context.read<AppConfigurationBloc>().add(
+                            AppConfigurationUpdated(remoteConfig),
+                          );
+                        }
                       }
-                    }
-                  : null,
-              child: Text(AppLocalizationsX(context).l10n.saveChangesButton),
-            ),
-          ],
-        ),
-      ),
+                    : null,
+                child: const Icon(Icons.save),
+              );
+            },
+          ),
     );
   }
 
@@ -223,19 +201,23 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
           builder: (BuildContext dialogContext) {
             return AlertDialog(
               title: Text(
-                AppLocalizationsX(context).l10n.confirmConfigUpdateDialogTitle,
+                AppLocalizationsX(
+                  dialogContext,
+                ).l10n.confirmConfigUpdateDialogTitle,
                 style: Theme.of(dialogContext).textTheme.titleLarge,
               ),
               content: Text(
                 AppLocalizationsX(
-                  context,
+                  dialogContext,
                 ).l10n.confirmConfigUpdateDialogContent,
                 style: Theme.of(dialogContext).textTheme.bodyMedium,
               ),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(dialogContext).pop(false),
-                  child: Text(AppLocalizationsX(context).l10n.cancelButton),
+                  child: Text(
+                    AppLocalizationsX(dialogContext).l10n.cancelButton,
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -246,7 +228,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                     ).colorScheme.onError,
                   ),
                   child: Text(
-                    AppLocalizationsX(context).l10n.confirmSaveButton,
+                    AppLocalizationsX(dialogContext).l10n.confirmSaveButton,
                   ),
                 ),
               ],

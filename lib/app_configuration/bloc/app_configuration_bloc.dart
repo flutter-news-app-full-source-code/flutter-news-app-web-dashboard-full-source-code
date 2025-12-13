@@ -15,7 +15,6 @@ class AppConfigurationBloc
     on<AppConfigurationLoaded>(_onAppConfigurationLoaded);
     on<AppConfigurationUpdated>(_onAppConfigurationUpdated);
     on<AppConfigurationFieldChanged>(_onAppConfigurationFieldChanged);
-    on<AppConfigurationDiscarded>(_onAppConfigurationDiscarded);
   }
 
   final DataRepository<RemoteConfig> _remoteConfigRepository;
@@ -104,24 +103,13 @@ class AppConfigurationBloc
     AppConfigurationFieldChanged event,
     Emitter<AppConfigurationState> emit,
   ) {
+    final isDirty = event.remoteConfig != state.originalRemoteConfig;
+
     emit(
       state.copyWith(
         remoteConfig: event.remoteConfig,
-        isDirty: true,
-        clearException: true,
-        clearShowSaveSuccess: true,
-      ),
-    );
-  }
-
-  void _onAppConfigurationDiscarded(
-    AppConfigurationDiscarded event,
-    Emitter<AppConfigurationState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        remoteConfig: state.originalRemoteConfig,
-        isDirty: false,
+        // isDirty should be true only if the new config is different from the original.
+        isDirty: isDirty,
         clearException: true,
         clearShowSaveSuccess: true,
       ),
