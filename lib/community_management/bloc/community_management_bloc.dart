@@ -113,6 +113,11 @@ class CommunityManagementBloc
         r'$in': [filter.selectedStatus!.name],
       };
     }
+    if (filter.hasComment) {
+      filterMap['comment'] = {
+        r'$ne': null,
+      };
+    }
     return filterMap;
   }
 
