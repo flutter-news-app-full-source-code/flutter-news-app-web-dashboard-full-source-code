@@ -243,12 +243,13 @@ class _UsersDataSource extends DataTableSource {
           ),
         ),
         if (!isMobile)
-          DataCell(Text(user.appRole.authenticationStatusL10n(context))),
-        DataCell(
-          Text(
-            DateFormat('dd-MM-yyyy').format(user.createdAt.toLocal()),
+          DataCell(
+            Text(user.appRole.authenticationStatusL10n(context)),
           ),
-        ),
+        if (!isMobile)
+          DataCell(
+            Text(DateFormat('dd-MM-yyyy').format(user.createdAt.toLocal())),
+          ),
         DataCell(
           UserActionButtons(
             user: user,
