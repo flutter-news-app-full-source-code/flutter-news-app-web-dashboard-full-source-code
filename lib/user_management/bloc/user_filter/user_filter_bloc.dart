@@ -54,48 +54,4 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
       ),
     );
   }
-
-  /// Builds the filter map for the data repository query.
-  Map<String, dynamic> buildFilterMap() {
-    final filter = <String, dynamic>{};
-
-    if (state.searchQuery.isNotEmpty) {
-      filter[r'$or'] = [
-        {
-          'email': {r'$regex': state.searchQuery, r'$options': 'i'},
-        },
-        {'_id': state.searchQuery},
-      ];
-    }
-
-    final appRoleFilter = <String>[];
-    switch (state.authenticationFilter) {
-      case AuthenticationFilter.authenticated:
-        appRoleFilter.addAll(
-          [AppUserRole.standardUser.name, AppUserRole.premiumUser.name],
-        );
-      case AuthenticationFilter.anonymous:
-        appRoleFilter.add(AppUserRole.guestUser.name);
-      case AuthenticationFilter.all:
-        break;
-    }
-
-    final subscriptionRoles = <String>{};
-    switch (state.subscriptionFilter) {
-      case SubscriptionFilter.premium:
-        subscriptionRoles.add(AppUserRole.premiumUser.name);
-      case SubscriptionFilter.free:
-        subscriptionRoles.addAll(
-          [AppUserRole.guestUser.name, AppUserRole.standardUser.name],
-        );
-      case SubscriptionFilter.all:
-        break;
-    }
-
-    if (appRoleFilter.isNotEmpty) {
-      filter['appRole'] = {r'$in': appRoleFilter.toList()};
-    }
-
-    return filter;
-  }
 }
