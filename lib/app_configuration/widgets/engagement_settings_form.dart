@@ -46,36 +46,45 @@ class EngagementSettingsForm extends StatelessWidget {
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-        Text(
-          l10n.engagementModeDescription,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        const SizedBox(height: AppSpacing.md),
-        SegmentedButton<EngagementMode>(
-          segments: EngagementMode.values
-              .map(
-                (mode) => ButtonSegment<EngagementMode>(
-                  value: mode,
-                  label: Text(mode.l10n(context)),
+        if (engagementConfig.enabled)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.engagementModeDescription,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
-              )
-              .toList(),
-          selected: {engagementConfig.engagementMode},
-          onSelectionChanged: (newSelection) {
-            final newConfig = communityConfig.copyWith(
-              engagement: engagementConfig.copyWith(
-                engagementMode: newSelection.first,
-              ),
-            );
-            onConfigChanged(
-              remoteConfig.copyWith(
-                features: remoteConfig.features.copyWith(
-                  community: newConfig,
+                const SizedBox(height: AppSpacing.md),
+                SegmentedButton<EngagementMode>(
+                  segments: EngagementMode.values
+                      .map(
+                        (mode) => ButtonSegment<EngagementMode>(
+                          value: mode,
+                          label: Text(mode.l10n(context)),
+                        ),
+                      )
+                      .toList(),
+                  selected: {engagementConfig.engagementMode},
+                  onSelectionChanged: (newSelection) {
+                    final newConfig = communityConfig.copyWith(
+                      engagement: engagementConfig.copyWith(
+                        engagementMode: newSelection.first,
+                      ),
+                    );
+                    onConfigChanged(
+                      remoteConfig.copyWith(
+                        features: remoteConfig.features.copyWith(
+                          community: newConfig,
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ),
-            );
-          },
-        ),
+              ],
+            ),
+          ),
       ],
     );
   }
