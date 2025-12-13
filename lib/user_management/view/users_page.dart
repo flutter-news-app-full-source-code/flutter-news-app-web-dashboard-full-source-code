@@ -244,11 +244,25 @@ class _UsersDataSource extends DataTableSource {
                   children: [
                     // Premium subscription indicator dot (gold)
                     if (user.appRole.isPremium)
-                      const _IndicatorDot(color: Colors.amber),
+                      Tooltip(
+                        message: l10n.premiumUserTooltip,
+                        child: const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 16,
+                        ),
+                      ),
                     // Privileged dashboard role indicator dot (blue)
                     if (user.dashboardRole.isPrivileged) ...[
                       const SizedBox(width: AppSpacing.xs),
-                      const _IndicatorDot(color: Colors.blueAccent),
+                      Tooltip(
+                        message: l10n.privilegedUserTooltip,
+                        child: const Icon(
+                          Icons.shield,
+                          color: Colors.blueAccent,
+                          size: 16,
+                        ),
+                      ),
                     ],
                   ],
                 ),
@@ -281,26 +295,6 @@ class _UsersDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-}
-
-/// A small, colored dot used as a visual indicator.
-class _IndicatorDot extends StatelessWidget {
-  const _IndicatorDot({required this.color});
-
-  /// The color of the dot.
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 8,
-      height: 8,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
 }
 
 /// An extension to get the localized string for the authentication status
