@@ -2721,12 +2721,16 @@
       }
     }
   },
-  "premiumUserTooltip": "Premium User",
+  "premiumUserTooltip": "Premium",
   "@premiumUserTooltip": {
     "description": "Tooltip for the icon indicating a premium user."
   },
-  "privilegedUserTooltip": "Dashboard Publisher or Admin",
-  "@privilegedUserTooltip": {
-    "description": "Tooltip for the icon indicating a user with privileged dashboard access."
+  "adminUserTooltip": "Admin",
+  "@adminUserTooltip": {
+    "description": "Tooltip for the icon indicating an admin user."
+  },
+  "publisherUserTooltip": "Publisher",
+  "@publisherUserTooltip": {
+    "description": "Tooltip for the icon indicating a publisher user."
   }
 }

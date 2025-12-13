@@ -2729,8 +2729,12 @@
   "@premiumUserTooltip": {
     "description": "تلميح للأيقونة التي تشير إلى مستخدم مميز."
   },
-  "privilegedUserTooltip": "ناشر أو مسؤول في لوحة التحكم",
-  "@privilegedUserTooltip": {
-    "description": "تلميح للأيقونة التي تشير إلى مستخدم لديه وصول مميز إلى لوحة التحكم."
+  "adminUserTooltip": "مسؤول",
+  "@adminUserTooltip": {
+    "description": "تلميح للأيقونة التي تشير إلى مستخدم مسؤول."
+  },
+  "publisherUserTooltip": "ناشر",
+  "@publisherUserTooltip": {
+    "description": "تلميح للأيقونة التي تشير إلى مستخدم ناشر."
   }
 }
