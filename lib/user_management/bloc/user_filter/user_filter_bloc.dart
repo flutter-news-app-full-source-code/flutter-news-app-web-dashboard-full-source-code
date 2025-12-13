@@ -3,6 +3,8 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart'
     show UserManagementBloc;
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 
 part 'user_filter_event.dart';
 part 'user_filter_state.dart';
@@ -18,8 +20,6 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
   /// {@macro user_filter_bloc}
   UserFilterBloc() : super(const UserFilterState()) {
     on<UserFilterSearchQueryChanged>(_onSearchQueryChanged);
-    on<UserFilterAppRolesChanged>(_onAppRolesChanged);
-    on<UserFilterDashboardRolesChanged>(_onDashboardRolesChanged);
     on<UserFilterReset>(_onFilterReset);
     on<UserFilterApplied>(_onFilterApplied);
   }
@@ -30,22 +30,6 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
     Emitter<UserFilterState> emit,
   ) {
     emit(state.copyWith(searchQuery: event.query));
-  }
-
-  /// Handles changes to the selected app roles filter.
-  void _onAppRolesChanged(
-    UserFilterAppRolesChanged event,
-    Emitter<UserFilterState> emit,
-  ) {
-    emit(state.copyWith(selectedAppRoles: event.appRoles));
-  }
-
-  /// Handles changes to the selected dashboard roles filter.
-  void _onDashboardRolesChanged(
-    UserFilterDashboardRolesChanged event,
-    Emitter<UserFilterState> emit,
-  ) {
-    emit(state.copyWith(selectedDashboardRoles: event.dashboardRoles));
   }
 
   /// Resets all filters to their default values.
@@ -64,8 +48,9 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
     emit(
       state.copyWith(
         searchQuery: event.searchQuery,
-        selectedAppRoles: event.selectedAppRoles,
-        selectedDashboardRoles: event.selectedDashboardRoles,
+        authenticationFilter: event.authenticationFilter,
+        subscriptionFilter: event.subscriptionFilter,
+        dashboardRole: event.dashboardRole,
       ),
     );
   }
@@ -83,16 +68,34 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
       ];
     }
 
-    if (state.selectedAppRoles.isNotEmpty) {
-      filter['appRole'] = {
-        r'$in': state.selectedAppRoles.map((r) => r.name).toList(),
-      };
+    final appRoleFilter = <String>[];
+    switch (state.authenticationFilter) {
+      case AuthenticationFilter.authenticated:
+        appRoleFilter.addAll(
+          [AppUserRole.standardUser.name, AppUserRole.premiumUser.name],
+        );
+      case AuthenticationFilter.anonymous:
+        appRoleFilter.add(AppUserRole.guestUser.name);
+      case AuthenticationFilter.all:
+        break;
     }
-    if (state.selectedDashboardRoles.isNotEmpty) {
-      filter['dashboardRole'] = {
-        r'$in': state.selectedDashboardRoles.map((r) => r.name).toList(),
-      };
+
+    final subscriptionRoles = <String>{};
+    switch (state.subscriptionFilter) {
+      case SubscriptionFilter.premium:
+        subscriptionRoles.add(AppUserRole.premiumUser.name);
+      case SubscriptionFilter.free:
+        subscriptionRoles.addAll(
+          [AppUserRole.guestUser.name, AppUserRole.standardUser.name],
+        );
+      case SubscriptionFilter.all:
+        break;
     }
+
+    if (appRoleFilter.isNotEmpty) {
+      filter['appRole'] = {r'$in': appRoleFilter.toList()};
+    }
+
     return filter;
   }
 }
