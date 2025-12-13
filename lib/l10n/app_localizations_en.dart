@@ -89,10 +89,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get headlines => 'Headlines';
 
   @override
+  String get headline => 'Headline';
+
+  @override
   String get topics => 'Topics';
 
   @override
+  String get topic => 'Topic';
+
+  @override
   String get sources => 'Sources';
+
+  @override
+  String get source => 'Source';
 
   @override
   String get appConfiguration => 'App Configuration';
@@ -2173,4 +2182,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get publisherUserTooltip => 'Publisher';
+
+  @override
+  String get breakingNewsHint => 'This is a breaking news headline';
+
+  @override
+  String get breakingNewsFilterDescription =>
+      'Show only breaking news headlines';
+
+  @override
+  String publishItemTitle(String itemType) {
+    return 'Publish $itemType?';
+  }
+
+  @override
+  String publishItemContent(String itemType) {
+    return 'Are you sure you want to publish this $itemType? It will become publicly visible.';
+  }
+
+  @override
+  String archiveItemTitle(String itemType) {
+    return 'Archive $itemType?';
+  }
+
+  @override
+  String archiveItemContent(String itemType) {
+    return 'Are you sure you want to archive this $itemType? It will be hidden from public view.';
+  }
+
+  @override
+  String restoreItemTitle(String itemType) {
+    return 'Restore $itemType?';
+  }
+
+  @override
+  String restoreItemContent(String itemType) {
+    return 'Are you sure you want to restore this $itemType? It will become active and publicly visible again.';
+  }
+
+  @override
+  String deleteItemTitle(String itemType) {
+    return 'Delete $itemType?';
+  }
+
+  @override
+  String deleteItemContent(String itemType) {
+    return 'Are you sure you want to delete this $itemType? ';
+  }
+
+  @override
+  String itemDeletedSnackbar(String itemType, String itemName) {
+    return '$itemType \"$itemName\" deleted.';
+  }
 }

@@ -90,10 +90,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get headlines => 'العناوين الرئيسية';
 
   @override
+  String get headline => 'العنوان الرئيسي';
+
+  @override
   String get topics => 'المواضيع';
 
   @override
+  String get topic => 'الموضوع';
+
+  @override
   String get sources => 'المصادر';
+
+  @override
+  String get source => 'المصدر';
 
   @override
   String get appConfiguration => 'إعدادات التطبيق';
@@ -2167,4 +2176,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get publisherUserTooltip => 'ناشر';
+
+  @override
+  String get breakingNewsHint => 'هذا عنوان خبر عاجل';
+
+  @override
+  String get breakingNewsFilterDescription =>
+      'إظهار عناوين الأخبار العاجلة فقط';
+
+  @override
+  String publishItemTitle(String itemType) {
+    return 'نشر $itemType؟';
+  }
+
+  @override
+  String publishItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد نشر هذا الـ $itemType؟ سيصبح مرئيًا للعامة.';
+  }
+
+  @override
+  String archiveItemTitle(String itemType) {
+    return 'أرشفة $itemType؟';
+  }
+
+  @override
+  String archiveItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد أرشفة هذا الـ $itemType؟ سيتم إخفاؤه عن العرض العام.';
+  }
+
+  @override
+  String restoreItemTitle(String itemType) {
+    return 'استعادة $itemType؟';
+  }
+
+  @override
+  String restoreItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد استعادة هذا الـ $itemType؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.';
+  }
+
+  @override
+  String deleteItemTitle(String itemType) {
+    return 'حذف $itemType؟';
+  }
+
+  @override
+  String deleteItemContent(String itemType) {
+    return 'هل أنت متأكد أنك تريد حذف هذا الـ $itemType؟ يمكن التراجع عن هذا الإجراء لفترة قصيرة.';
+  }
+
+  @override
+  String itemDeletedSnackbar(String itemType, String itemName) {
+    return 'تم حذف $itemType \"$itemName\".';
+  }
 }

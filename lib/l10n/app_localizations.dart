@@ -236,17 +236,35 @@ abstract class AppLocalizations {
   /// **'Headlines'**
   String get headlines;
 
+  /// Label for the a singular headline
+  ///
+  /// In en, this message translates to:
+  /// **'Headline'**
+  String get headline;
+
   /// Label for the topics subpage
   ///
   /// In en, this message translates to:
   /// **'Topics'**
   String get topics;
 
+  /// Label for the a singular topic
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get topic;
+
   /// Label for the sources subpage
   ///
   /// In en, this message translates to:
   /// **'Sources'**
   String get sources;
+
+  /// Label for the a singular source
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get source;
 
   /// Label for the app configuration navigation item
   ///
@@ -4039,6 +4057,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Publisher'**
   String get publisherUserTooltip;
+
+  /// Tooltip text for the breaking news icon on a headline
+  ///
+  /// In en, this message translates to:
+  /// **'This is a breaking news headline'**
+  String get breakingNewsHint;
+
+  /// Subtitle for the breaking news filter switch
+  ///
+  /// In en, this message translates to:
+  /// **'Show only breaking news headlines'**
+  String get breakingNewsFilterDescription;
+
+  /// Confirmation dialog title for publishing an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish {itemType}?'**
+  String publishItemTitle(String itemType);
+
+  /// Confirmation dialog content for publishing an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to publish this {itemType}? It will become publicly visible.'**
+  String publishItemContent(String itemType);
+
+  /// Confirmation dialog title for archiving an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive {itemType}?'**
+  String archiveItemTitle(String itemType);
+
+  /// Confirmation dialog content for archiving an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to archive this {itemType}? It will be hidden from public view.'**
+  String archiveItemContent(String itemType);
+
+  /// Confirmation dialog title for restoring an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore {itemType}?'**
+  String restoreItemTitle(String itemType);
+
+  /// Confirmation dialog content for restoring an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to restore this {itemType}? It will become active and publicly visible again.'**
+  String restoreItemContent(String itemType);
+
+  /// Confirmation dialog title for deleting an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {itemType}?'**
+  String deleteItemTitle(String itemType);
+
+  /// Confirmation dialog content for deleting an item.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this {itemType}? '**
+  String deleteItemContent(String itemType);
+
+  /// Snackbar message shown after an item is deleted, with an undo option.
+  ///
+  /// In en, this message translates to:
+  /// **'{itemType} \"{itemName}\" deleted.'**
+  String itemDeletedSnackbar(String itemType, String itemName);
 }
 
 class _AppLocalizationsDelegate

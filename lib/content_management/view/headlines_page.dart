@@ -221,32 +221,30 @@ class _HeadlinesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(
-          Stack(
-            alignment: AlignmentDirectional.centerStart,
-            children: <Widget>[
-              // Add padding to the text to make space for the icon only when
-              // the headline is breaking news. This ensures all titles align
-              // vertically regardless of the icon's presence.
-              Padding(
-                padding: EdgeInsetsDirectional.only(
-                  start: headline.isBreaking
-                      ? AppSpacing.xl + AppSpacing.xs
-                      : 0,
-                ),
-                child: Text(
-                  headline.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              // Conditionally display the icon at the start of the cell.
-              if (headline.isBreaking)
-                Icon(
-                  Icons.flash_on,
-                  size: 18,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-            ],
+          RichText(
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            text: TextSpan(
+              style: Theme.of(context).textTheme.bodyMedium,
+              children: [
+                TextSpan(text: headline.title),
+                if (headline.isBreaking)
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppSpacing.xs),
+                      child: Tooltip(
+                        message: l10n.breakingNewsHint,
+                        child: Icon(
+                          Icons.flash_on,
+                          size: 14,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
         if (!isMobile) // Conditionally show Source Name

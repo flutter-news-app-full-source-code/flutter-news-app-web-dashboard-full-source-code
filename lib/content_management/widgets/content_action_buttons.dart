@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/confirmation_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -161,64 +162,7 @@ class ContentActionButtons extends StatelessWidget {
           icon: const Icon(Icons.more_vert),
           tooltip: l10n.moreActions,
           onSelected: (value) {
-            switch (value) {
-              case 'publish':
-                if (item is Headline) {
-                  context.read<ContentManagementBloc>().add(
-                    PublishHeadlineRequested(itemId),
-                  );
-                } else if (item is Topic) {
-                  context.read<ContentManagementBloc>().add(
-                    PublishTopicRequested(itemId),
-                  );
-                } else if (item is Source) {
-                  context.read<ContentManagementBloc>().add(
-                    PublishSourceRequested(itemId),
-                  );
-                }
-              case 'archive':
-                if (item is Headline) {
-                  context.read<ContentManagementBloc>().add(
-                    ArchiveHeadlineRequested(itemId),
-                  );
-                } else if (item is Topic) {
-                  context.read<ContentManagementBloc>().add(
-                    ArchiveTopicRequested(itemId),
-                  );
-                } else if (item is Source) {
-                  context.read<ContentManagementBloc>().add(
-                    ArchiveSourceRequested(itemId),
-                  );
-                }
-              case 'restore':
-                if (item is Headline) {
-                  context.read<ContentManagementBloc>().add(
-                    RestoreHeadlineRequested(itemId),
-                  );
-                } else if (item is Topic) {
-                  context.read<ContentManagementBloc>().add(
-                    RestoreTopicRequested(itemId),
-                  );
-                } else if (item is Source) {
-                  context.read<ContentManagementBloc>().add(
-                    RestoreSourceRequested(itemId),
-                  );
-                }
-              case 'delete':
-                if (item is Headline) {
-                  context.read<ContentManagementBloc>().add(
-                    DeleteHeadlineForeverRequested(itemId),
-                  );
-                } else if (item is Topic) {
-                  context.read<ContentManagementBloc>().add(
-                    DeleteTopicForeverRequested(itemId),
-                  );
-                } else if (item is Source) {
-                  context.read<ContentManagementBloc>().add(
-                    DeleteSourceForeverRequested(itemId),
-                  );
-                }
-            }
+            _handleAction(context, value, itemId, l10n);
           },
           itemBuilder: (BuildContext context) => overflowMenuItems,
         ),
@@ -229,5 +173,124 @@ class ContentActionButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: visibleActions,
     );
+  }
+
+  void _showConfirmationDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+    required String confirmText,
+    required VoidCallback onConfirm,
+  }) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return ConfirmationDialog(
+          title: title,
+          content: content,
+          confirmText: confirmText,
+          onConfirm: onConfirm,
+        );
+      },
+    );
+  }
+
+  void _handleAction(
+    BuildContext context,
+    String action,
+    String itemId,
+    AppLocalizations l10n,
+  ) {
+    String itemType;
+    if (item is Headline) {
+      itemType = l10n.headline.toLowerCase();
+    } else if (item is Topic) {
+      itemType = l10n.topic.toLowerCase();
+    } else {
+      itemType = l10n.source.toLowerCase();
+    }
+
+    switch (action) {
+      case 'publish':
+        _showConfirmationDialog(
+          context: context,
+          title: l10n.publishItemTitle(itemType),
+          content: l10n.publishItemContent(itemType),
+          confirmText: l10n.publish,
+          onConfirm: () {
+            if (item is Headline) {
+              context.read<ContentManagementBloc>().add(
+                PublishHeadlineRequested(itemId),
+              );
+            } else if (item is Topic) {
+              context.read<ContentManagementBloc>().add(
+                PublishTopicRequested(itemId),
+              );
+            } else if (item is Source) {
+              context.read<ContentManagementBloc>().add(
+                PublishSourceRequested(itemId),
+              );
+            }
+          },
+        );
+      case 'archive':
+        _showConfirmationDialog(
+          context: context,
+          title: l10n.archiveItemTitle(itemType),
+          content: l10n.archiveItemContent(itemType),
+          confirmText: l10n.archive,
+          onConfirm: () {
+            if (item is Headline) {
+              context.read<ContentManagementBloc>().add(
+                ArchiveHeadlineRequested(itemId),
+              );
+            } else if (item is Topic) {
+              context.read<ContentManagementBloc>().add(
+                ArchiveTopicRequested(itemId),
+              );
+            } else if (item is Source) {
+              context.read<ContentManagementBloc>().add(
+                ArchiveSourceRequested(itemId),
+              );
+            }
+          },
+        );
+      case 'restore':
+        _showConfirmationDialog(
+          context: context,
+          title: l10n.restoreItemTitle(itemType),
+          content: l10n.restoreItemContent(itemType),
+          confirmText: l10n.restore,
+          onConfirm: () {
+            if (item is Headline) {
+              context.read<ContentManagementBloc>().add(
+                RestoreHeadlineRequested(itemId),
+              );
+            } else if (item is Topic) {
+              context.read<ContentManagementBloc>().add(
+                RestoreTopicRequested(itemId),
+              );
+            } else if (item is Source) {
+              context.read<ContentManagementBloc>().add(
+                RestoreSourceRequested(itemId),
+              );
+            }
+          },
+        );
+      case 'delete':
+        _showConfirmationDialog(
+          context: context,
+          title: l10n.deleteItemTitle(itemType),
+          content: l10n.deleteItemContent(itemType),
+          confirmText: l10n.deleteForever,
+          onConfirm: () {
+            if (item is Headline) {
+              context.read<ContentManagementBloc>().add(
+                DeleteHeadlineForeverRequested(itemId),
+              );
+            }
+          },
+        );
+    }
   }
 }

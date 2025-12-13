@@ -36,7 +36,7 @@ class ContentManagementState extends Equatable {
     this.sourcesHasMore = false,
     this.exception,
     this.lastPendingDeletionId,
-    this.snackbarMessage,
+    this.itemPendingDeletion,
   });
 
   /// The currently active tab in the content management section.
@@ -85,9 +85,9 @@ class ContentManagementState extends Equatable {
   /// Used to trigger the snackbar display.
   final String? lastPendingDeletionId;
 
-  /// The message to display in the snackbar for pending deletions or other
-  /// transient messages.
-  final String? snackbarMessage;
+  /// The item that was just requested for deletion, used by the UI to show
+  /// a confirmation snackbar.
+  final FeedItem? itemPendingDeletion;
 
   /// Creates a copy of this [ContentManagementState] with updated values.
   ContentManagementState copyWith({
@@ -106,7 +106,7 @@ class ContentManagementState extends Equatable {
     bool? sourcesHasMore,
     HttpException? exception,
     String? lastPendingDeletionId,
-    String? snackbarMessage,
+    FeedItem? itemPendingDeletion,
   }) {
     return ContentManagementState(
       activeTab: activeTab ?? this.activeTab,
@@ -124,7 +124,7 @@ class ContentManagementState extends Equatable {
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
       exception: exception,
       lastPendingDeletionId: lastPendingDeletionId,
-      snackbarMessage: snackbarMessage,
+      itemPendingDeletion: itemPendingDeletion,
     );
   }
 
@@ -145,6 +145,6 @@ class ContentManagementState extends Equatable {
     sourcesHasMore,
     exception,
     lastPendingDeletionId,
-    snackbarMessage,
+    itemPendingDeletion,
   ];
 }

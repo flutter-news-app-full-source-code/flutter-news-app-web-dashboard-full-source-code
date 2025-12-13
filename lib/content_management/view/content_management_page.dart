@@ -135,14 +135,27 @@ class _ContentManagementPageState extends State<ContentManagementPage>
         ),
         BlocListener<ContentManagementBloc, ContentManagementState>(
           listenWhen: (previous, current) =>
-              previous.snackbarMessage != current.snackbarMessage &&
-              current.snackbarMessage != null,
+              previous.itemPendingDeletion != current.itemPendingDeletion &&
+              current.itemPendingDeletion != null,
           listener: (context, state) {
+            final item = state.itemPendingDeletion!;
+            String itemType;
+            String itemName;
+            if (item is Headline) {
+              itemType = l10n.headline;
+              itemName = item.title;
+            } else if (item is Topic) {
+              itemType = l10n.topic;
+              itemName = item.name;
+            } else {
+              itemType = l10n.source;
+              itemName = (item as Source).name;
+            }
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.snackbarMessage!),
+                  content: Text(l10n.itemDeletedSnackbar(itemType, itemName)),
                   action: SnackBarAction(
                     label: l10n.undo,
                     onPressed: () {

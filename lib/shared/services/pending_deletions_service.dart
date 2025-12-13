@@ -7,6 +7,9 @@ import 'package:logging/logging.dart';
 
 /// Represents the status of a pending deletion.
 enum DeletionStatus {
+  /// The deletion has been requested and is pending confirmation.
+  requested,
+
   /// The deletion has been confirmed and executed.
   confirmed,
 
@@ -22,7 +25,12 @@ enum DeletionStatus {
 @immutable
 class DeletionEvent<T> extends Equatable {
   /// {@macro deletion_event}
-  const DeletionEvent(this.id, this.status, {this.item});
+  const DeletionEvent(
+    this.id,
+    this.status, {
+    this.item,
+    this.message,
+  });
 
   /// The unique identifier of the item.
   final String id;
@@ -34,8 +42,11 @@ class DeletionEvent<T> extends Equatable {
   /// This is typically provided when a deletion is undone.
   final T? item;
 
+  /// An optional message associated with the event, e.g., for snackbars.
+  final String? message;
+
   @override
-  List<Object?> get props => [id, status, item];
+  List<Object?> get props => [id, status, item, message];
 }
 
 /// {@template pending_deletions_service}
@@ -60,10 +71,12 @@ abstract class PendingDeletionsService {
   /// - [item]: The item to be deleted. Must have an `id` property.
   /// - [repository]: The `DataRepository<T>` responsible for deleting the item.
   /// - [undoDuration]: The duration to wait before confirming the deletion.
+  /// - [messageBuilder]: An optional function to build a localized message for the UI.
   void requestDeletion<T>({
     required T item,
     required DataRepository<T> repository,
     required Duration undoDuration,
+    String Function()? messageBuilder,
   });
 
   /// Cancels a pending deletion for the item with the given [id].
@@ -106,6 +119,7 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
     required T item,
     required DataRepository<T> repository,
     required Duration undoDuration,
+    String Function()? messageBuilder,
   }) {
     // The item must have an 'id' property.
     final id = (item as dynamic).id as String;
@@ -133,7 +147,21 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
       }
     });
 
-    _pendingDeletionTimers[id] = _PendingDeletion<T>(timer: timer, item: item);
+    final message = messageBuilder?.call();
+    _pendingDeletionTimers[id] = _PendingDeletion<T>(
+      timer: timer,
+      item: item,
+      message: message,
+    );
+
+    // Immediately notify listeners that a deletion has been requested.
+    _deletionEventController.add(
+      DeletionEvent<T>(
+        id,
+        DeletionStatus.requested,
+        message: message,
+      ),
+    );
   }
 
   @override
@@ -174,11 +202,16 @@ class PendingDeletionsServiceImpl implements PendingDeletionsService {
 /// A private class to hold the timer and the item for a pending deletion.
 @immutable
 class _PendingDeletion<T> extends Equatable {
-  const _PendingDeletion({required this.timer, required this.item});
+  const _PendingDeletion({
+    required this.timer,
+    required this.item,
+    this.message,
+  });
 
   final Timer timer;
   final T item;
+  final String? message;
 
   @override
-  List<Object?> get props => [timer, item];
+  List<Object?> get props => [timer, item, message];
 }

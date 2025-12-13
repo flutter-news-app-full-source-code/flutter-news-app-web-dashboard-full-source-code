@@ -6,7 +6,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/models/breaking_news_filter_status.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -135,7 +134,7 @@ class _FilterDialogState extends State<FilterDialog> {
                         selectedSourceIds: [],
                         selectedTopicIds: [],
                         selectedCountryIds: [],
-                        isBreaking: BreakingNewsFilterStatus.all,
+                        isBreaking: false,
                         selectedSourceTypes: [],
                         selectedLanguageCodes: [],
                         selectedHeadquartersCountryIds: [],
@@ -255,39 +254,23 @@ class _FilterDialogState extends State<FilterDialog> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: AppSpacing.lg),
-            Text(
-              l10n.breakingNewsFilterTitle,
-              style: Theme.of(context).textTheme.titleMedium,
+            const Divider(height: AppSpacing.lg * 2),
+            SwitchListTile(
+              title: Text(l10n.breakingNewsFilterBreakingOnly),
+              subtitle: Text(l10n.breakingNewsFilterDescription),
+              value: filterDialogState.isBreaking,
+              onChanged: (value) {
+                context.read<FilterDialogBloc>().add(
+                  FilterDialogBreakingNewsChanged(value),
+                );
+              },
+              secondary: Icon(
+                Icons.flash_on,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              contentPadding: EdgeInsets.zero,
             ),
-            const SizedBox(height: AppSpacing.sm),
-            Wrap(
-              spacing: AppSpacing.sm,
-              children: [
-                ...BreakingNewsFilterStatus.values.map((status) {
-                  return ChoiceChip(
-                    label: Text(_getBreakingNewsStatusL10n(status, l10n)),
-                    selected: filterDialogState.isBreaking == status,
-                    onSelected: (isSelected) {
-                      if (isSelected) {
-                        context.read<FilterDialogBloc>().add(
-                          FilterDialogBreakingNewsChanged(status),
-                        );
-                      }
-                    },
-                    selectedColor: Theme.of(
-                      context,
-                    ).colorScheme.primaryContainer,
-                    labelStyle: TextStyle(
-                      color: filterDialogState.isBreaking == status
-                          ? Theme.of(context).colorScheme.onPrimaryContainer
-                          : Theme.of(context).colorScheme.onSurface,
-                    ),
-                  );
-                }),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.lg),
+            const Divider(height: AppSpacing.lg * 2),
             SearchableSelectionInput<Source>(
               label: l10n.sources,
               hintText: l10n.selectSources,
@@ -527,21 +510,6 @@ class _FilterDialogState extends State<FilterDialog> {
             ),
           ],
         );
-    }
-  }
-
-  /// Returns the localized string for a given [BreakingNewsFilterStatus].
-  String _getBreakingNewsStatusL10n(
-    BreakingNewsFilterStatus status,
-    AppLocalizations l10n,
-  ) {
-    switch (status) {
-      case BreakingNewsFilterStatus.all:
-        return l10n.breakingNewsFilterAll;
-      case BreakingNewsFilterStatus.breakingOnly:
-        return l10n.breakingNewsFilterBreakingOnly;
-      case BreakingNewsFilterStatus.nonBreakingOnly:
-        return l10n.breakingNewsFilterNonBreakingOnly;
     }
   }
 

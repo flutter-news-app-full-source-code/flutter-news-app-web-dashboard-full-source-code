@@ -62,10 +62,10 @@ final class HeadlinesCountryFilterChanged extends HeadlinesFilterEvent {
 final class HeadlinesBreakingNewsFilterChanged extends HeadlinesFilterEvent {
   const HeadlinesBreakingNewsFilterChanged(this.isBreaking);
 
-  final BreakingNewsFilterStatus isBreaking;
+  final bool isBreaking;
 
   @override
-  List<Object?> get props => [isBreaking];
+  List<Object> get props => [isBreaking];
 }
 
 /// Event to request applying all current filters.
@@ -84,7 +84,7 @@ final class HeadlinesFilterApplied extends HeadlinesFilterEvent {
   final List<String> selectedSourceIds;
   final List<String> selectedTopicIds;
   final List<String> selectedCountryIds;
-  final BreakingNewsFilterStatus isBreaking;
+  final bool isBreaking;
 
   @override
   List<Object?> get props => [
