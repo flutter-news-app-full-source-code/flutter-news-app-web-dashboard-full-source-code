@@ -103,6 +103,21 @@ class PushNotificationSettingsForm extends StatelessWidget {
     );
   }
 
+  String _getDeliveryTypeDescription(
+    BuildContext context,
+    PushNotificationSubscriptionDeliveryType type,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (type) {
+      case PushNotificationSubscriptionDeliveryType.breakingOnly:
+        return l10n.pushNotificationDeliveryTypeBreakingOnlyDescription;
+      case PushNotificationSubscriptionDeliveryType.dailyDigest:
+        return l10n.pushNotificationDeliveryTypeDailyDigestDescription;
+      case PushNotificationSubscriptionDeliveryType.weeklyRoundup:
+        return l10n.pushNotificationDeliveryTypeWeeklyRoundupDescription;
+    }
+  }
+
   Widget _buildDeliveryTypesSection(
     BuildContext context,
     AppLocalizations l10n,
@@ -128,6 +143,7 @@ class PushNotificationSettingsForm extends StatelessWidget {
               .map(
                 (type) => SwitchListTile(
                   title: Text(type.l10n(context)),
+                  subtitle: Text(_getDeliveryTypeDescription(context, type)),
                   value: pushConfig.deliveryConfigs[type] ?? false,
                   onChanged: (value) {
                     final newDeliveryConfigs =
