@@ -154,7 +154,6 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                     values: const [
                       DashboardUserRole.admin,
                       DashboardUserRole.publisher,
-                      DashboardUserRole.none,
                     ],
                     onSelected: (value) =>
                         context.read<UserFilterDialogBloc>().add(
