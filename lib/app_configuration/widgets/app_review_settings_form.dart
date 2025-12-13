@@ -111,6 +111,15 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                     builder: (context, constraints) {
                       return ExpansionTile(
                         title: Text(l10n.internalPromptLogicTitle),
+                        subtitle: Text(
+                          l10n.internalPromptLogicDescription,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
+                              ),
+                        ),
                         initiallyExpanded: false,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
@@ -175,6 +184,15 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                     builder: (context, constraints) {
                       return ExpansionTile(
                         title: Text(l10n.eligiblePositiveInteractionsTitle),
+                        subtitle: Text(
+                          l10n.eligiblePositiveInteractionsDescription,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
+                              ),
+                        ),
                         initiallyExpanded: false,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
@@ -185,6 +203,9 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                         children: [
                           ...PositiveInteractionType.values.map(
                             (interactionType) => SwitchListTile(
+                              subtitle: Text(
+                                interactionType.l10nDescription(context),
+                              ),
                               title: Text(interactionType.l10n(context)),
                               value: appReviewConfig
                                   .eligiblePositiveInteractions
@@ -231,6 +252,15 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                     builder: (context, constraints) {
                       return ExpansionTile(
                         title: Text(l10n.followUpActionsTitle),
+                        subtitle: Text(
+                          l10n.followUpActionsDescription,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
+                              ),
+                        ),
                         initiallyExpanded: false,
                         childrenPadding: const EdgeInsetsDirectional.only(
                           start: AppSpacing.lg,
@@ -311,6 +341,22 @@ extension on PositiveInteractionType {
         return l10n.positiveInteractionTypeShareContent;
       case PositiveInteractionType.saveFilter:
         return l10n.positiveInteractionTypeSaveFilter;
+    }
+  }
+}
+
+extension on PositiveInteractionType {
+  String l10nDescription(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (this) {
+      case PositiveInteractionType.saveItem:
+        return l10n.positiveInteractionTypeSaveItemDescription;
+      case PositiveInteractionType.followItem:
+        return l10n.positiveInteractionTypeFollowItemDescription;
+      case PositiveInteractionType.shareContent:
+        return l10n.positiveInteractionTypeShareContentDescription;
+      case PositiveInteractionType.saveFilter:
+        return l10n.positiveInteractionTypeSaveFilterDescription;
     }
   }
 }
