@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 
 /// {@template user_action_buttons}
@@ -97,21 +98,43 @@ class UserActionButtons extends StatelessWidget {
     );
   }
 
-  void _onPromote(BuildContext context) =>
-      context.read<UserManagementBloc>().add(
-        UserDashboardRoleChanged(
-          userId: user.id,
-          dashboardRole: DashboardUserRole.publisher,
-        ),
-      );
+  void _onPromote(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => ConfirmationDialog(
+        title: l10n.confirmPromotionTitle,
+        content: l10n.confirmPromotionMessage(user.email),
+        confirmText: l10n.promoteToPublisher,
+        onConfirm: () {
+          context.read<UserManagementBloc>().add(
+            UserDashboardRoleChanged(
+              userId: user.id,
+              dashboardRole: DashboardUserRole.publisher,
+            ),
+          );
+        },
+      ),
+    );
+  }
 
-  void _onDemote(BuildContext context) =>
-      context.read<UserManagementBloc>().add(
-        UserDashboardRoleChanged(
-          userId: user.id,
-          dashboardRole: DashboardUserRole.none,
-        ),
-      );
+  void _onDemote(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => ConfirmationDialog(
+        title: l10n.confirmDemotionTitle,
+        content: l10n.confirmDemotionMessage(user.email),
+        confirmText: l10n.demoteToUser,
+        onConfirm: () {
+          context.read<UserManagementBloc>().add(
+            UserDashboardRoleChanged(
+              userId: user.id,
+              dashboardRole: DashboardUserRole.none,
+            ),
+          );
+        },
+      ),
+    );
+  }
 
   void _onCopyId(BuildContext context) {
     Clipboard.setData(ClipboardData(text: user.id));
