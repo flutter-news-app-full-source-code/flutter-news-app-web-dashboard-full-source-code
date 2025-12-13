@@ -90,7 +90,7 @@ final class FilterDialogHeadlinesCountryIdsChanged extends FilterDialogEvent {
 final class FilterDialogBreakingNewsChanged extends FilterDialogEvent {
   const FilterDialogBreakingNewsChanged(this.isBreaking);
 
-  final BreakingNewsFilterStatus isBreaking;
+  final bool isBreaking;
 
   @override
   List<Object> get props => [isBreaking];
