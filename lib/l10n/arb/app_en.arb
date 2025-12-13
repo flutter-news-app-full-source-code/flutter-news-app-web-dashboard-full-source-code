@@ -107,13 +107,25 @@
   "@headlines": {
     "description": "Label for the headlines subpage"
   },
+  "headline": "Headline",
+  "@headline": {
+    "description": "Label for the a singular headline"
+  },
   "topics": "Topics",
   "@topics": {
     "description": "Label for the topics subpage"
   },
+  "topic": "Topic",
+  "@topic": {
+    "description": "Label for the a singular topic"
+  },
   "sources": "Sources",
   "@sources": {
     "description": "Label for the sources subpage"
+  },
+  "source": "Source",
+  "@source": {
+    "description": "Label for the a singular source"
   },
   "appConfiguration": "App Configuration",
   "@appConfiguration": {

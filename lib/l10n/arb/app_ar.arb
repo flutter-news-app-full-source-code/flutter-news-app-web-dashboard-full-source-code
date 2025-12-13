@@ -107,13 +107,25 @@
   "@headlines": {
     "description": "تسمية الصفحة الفرعية للعناوين الرئيسية"
   },
+  "headline": "العنوان الرئيسي",
+  "@headline": {
+    "description": "تسمية العنوان الرئيسي"
+  },
   "topics": "المواضيع",
   "@topics": {
     "description": "تسمية الصفحة الفرعية للمواضيع"
   },
+  "topic": "الموضوع",
+  "@topic": {
+    "description": "تسمية الموضوع"
+  },
   "sources": "المصادر",
   "@sources": {
     "description": "تسمية الصفحة الفرعية للمصادر"
+  },
+  "source": "المصدر",
+  "@source": {
+    "description": "تسمية المصدر"
   },
   "appConfiguration": "إعدادات التطبيق",
   "@appConfiguration": {
