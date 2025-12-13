@@ -2142,4 +2142,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navCommunity => 'المجتمع';
+
+  @override
+  String get confirmPromotionTitle => 'تأكيد الترقية';
+
+  @override
+  String confirmPromotionMessage(String email) {
+    return 'هل أنت متأكد أنك تريد ترقية $email إلى ناشر؟';
+  }
+
+  @override
+  String get confirmDemotionTitle => 'تأكيد التخفيض';
+
+  @override
+  String confirmDemotionMessage(String email) {
+    return 'هل أنت متأكد أنك تريد تخفيض رتبة $email إلى مستخدم عادي؟';
+  }
 }
