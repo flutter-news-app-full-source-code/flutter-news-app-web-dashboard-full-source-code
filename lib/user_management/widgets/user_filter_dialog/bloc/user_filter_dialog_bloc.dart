@@ -71,11 +71,13 @@ class UserFilterDialogBloc
     UserFilterDialogDashboardRoleChanged event,
     Emitter<UserFilterDialogState> emit,
   ) {
-    if (state.dashboardRole == event.dashboardRole) {
-      emit(state.copyWith(dashboardRole: null));
-    } else {
-      emit(state.copyWith(dashboardRole: event.dashboardRole));
-    }
+    // This logic allows toggling the selection. If the user clicks the
+    // currently selected role, it deselects it (sets to null), which
+    // corresponds to the 'Any' state.
+    final newRole = state.dashboardRole == event.dashboardRole
+        ? null
+        : event.dashboardRole;
+    emit(state.copyWith(dashboardRole: newRole));
   }
 
   /// Resets all temporary filter selections in the dialog.
