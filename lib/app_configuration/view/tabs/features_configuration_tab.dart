@@ -49,6 +49,27 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
     super.dispose();
   }
 
+  String _getDecoratorDescription(
+    BuildContext context,
+    FeedDecoratorType type,
+  ) {
+    final l10n = AppLocalizationsX(context).l10n;
+    switch (type) {
+      case FeedDecoratorType.linkAccount:
+        return l10n.feedDecoratorLinkAccountDescription;
+      case FeedDecoratorType.upgrade:
+        return l10n.feedDecoratorUpgradeDescription;
+      case FeedDecoratorType.rateApp:
+        return l10n.feedDecoratorRateAppDescription;
+      case FeedDecoratorType.enableNotifications:
+        return l10n.feedDecoratorEnableNotificationsDescription;
+      case FeedDecoratorType.suggestedTopics:
+        return l10n.feedDecoratorSuggestedTopicsDescription;
+      case FeedDecoratorType.suggestedSources:
+        return l10n.feedDecoratorSuggestedSourcesDescription;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -246,6 +267,15 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                         padding: const EdgeInsets.only(bottom: AppSpacing.md),
                         child: ExpansionTile(
                           title: Text(decoratorType.l10n(context)),
+                          subtitle: Text(
+                            _getDecoratorDescription(context, decoratorType),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.7),
+                                ),
+                          ),
                           childrenPadding: const EdgeInsetsDirectional.only(
                             start: AppSpacing.xl,
                             top: AppSpacing.md,
