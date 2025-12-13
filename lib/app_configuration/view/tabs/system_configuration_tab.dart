@@ -53,6 +53,12 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 0;
             return ExpansionTile(
+              leading: Icon(
+                Icons.system_update_alt_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('appStatusAndUpdatesTile_$expandedIndex'),
               title: Text(l10n.appStatusAndUpdatesTitle),
               subtitle: Text(
@@ -146,6 +152,12 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
           builder: (context, expandedIndex, child) {
             const tileIndex = 1;
             return ExpansionTile(
+              leading: Icon(
+                Icons.link_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
               key: ValueKey('appUrlsTile_$expandedIndex'),
               title: Text(l10n.appUrlsTitle),
               subtitle: Text(
