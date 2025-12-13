@@ -2744,5 +2744,37 @@
   "breakingNewsFilterDescription": "إظهار عناوين الأخبار العاجلة فقط",
   "@breakingNewsFilterDescription": {
     "description": "Subtitle for the breaking news filter switch"
+  },
+  "publishItemTitle": "نشر العنصر؟",
+  "@publishItemTitle": {
+    "description": "Confirmation dialog title for publishing an item."
+  },
+  "publishItemContent": "هل أنت متأكد أنك تريد نشر هذا العنصر؟ سيصبح مرئيًا للعامة.",
+  "@publishItemContent": {
+    "description": "Confirmation dialog content for publishing an item."
+  },
+  "archiveItemTitle": "أرشفة العنصر؟",
+  "@archiveItemTitle": {
+    "description": "Confirmation dialog title for archiving an item."
+  },
+  "archiveItemContent": "هل أنت متأكد أنك تريد أرشفة هذا العنصر؟ سيتم إخفاؤه عن العرض العام.",
+  "@archiveItemContent": {
+    "description": "Confirmation dialog content for archiving an item."
+  },
+  "restoreItemTitle": "استعادة العنصر؟",
+  "@restoreItemTitle": {
+    "description": "Confirmation dialog title for restoring an item."
+  },
+  "restoreItemContent": "هل أنت متأكد أنك تريد استعادة هذا العنصر؟ سيصبح نشطًا ومرئيًا للعامة مرة أخرى.",
+  "@restoreItemContent": {
+    "description": "Confirmation dialog content for restoring an item."
+  },
+  "deleteItemTitle": "حذف العنصر؟",
+  "@deleteItemTitle": {
+    "description": "Confirmation dialog title for deleting an item."
+  },
+  "deleteItemContent": "هل أنت متأكد أنك تريد حذف هذا العنصر؟.",
+  "@deleteItemContent": {
+    "description": "Confirmation dialog content for deleting an item."
   }
 }
