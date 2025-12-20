@@ -2991,5 +2991,54 @@
   "followUpActionsDescription": "تكوين ما يحدث بعد استجابة المستخدم لموجه الاستمتاع، مثل طلب مراجعة المتجر.",
   "@followUpActionsDescription": {
     "description": "وصف لإعدادات إجراءات المتابعة."
+  },
+  "analyticsTab": "التحليلات",
+  "@analyticsTab": {
+    "description": "عنوان تبويب إعدادات التحليلات"
+  },
+  "analyticsDescription": "تكوين مزود التحليلات، وتسجيل الأحداث، ومعدلات أخذ العينات.",
+  "@analyticsDescription": {
+    "description": "وصف لقسم التحليلات القابل للتوسيع"
+  },
+  "analyticsSystemStatusTitle": "تفعيل نظام التحليلات",
+  "@analyticsSystemStatusTitle": {
+    "description": "عنوان قسم حالة نظام التحليلات"
+  },
+  "analyticsSystemStatusDescription": "مفتاح رئيسي لتفعيل أو تعطيل جميع عمليات تتبع التحليلات.",
+  "@analyticsSystemStatusDescription": {
+    "description": "وصف قسم حالة نظام التحليلات"
+  },
+  "analyticsProviderTitle": "المزود النشط",
+  "@analyticsProviderTitle": {
+    "description": "عنوان قسم مزود التحليلات"
+  },
+  "analyticsProviderDescription": "اختر مزود خدمة التحليلات الأساسي.",
+  "@analyticsProviderDescription": {
+    "description": "وصف قسم مزود التحليلات"
+  },
+  "analyticsEventsTitle": "تكوين الأحداث",
+  "@analyticsEventsTitle": {
+    "description": "عنوان قسم تكوين الأحداث"
+  },
+  "analyticsEventsDescription": "ضبط دقيق لتسجيل أحداث محددة. قم بتعطيل الأحداث المزعجة أو تعديل معدلات أخذ العينات.",
+  "@analyticsEventsDescription": {
+    "description": "وصف قسم تكوين الأحداث"
+  },
+  "samplingRateLabel": "معدل أخذ العينات: {rate}%",
+  "@samplingRateLabel": {
+    "description": "تسمية لشريط تمرير معدل أخذ العينات",
+    "placeholders": {
+      "rate": {
+        "type": "int"
+      }
+    }
+  },
+  "analyticsProviderFirebase": "Firebase",
+  "@analyticsProviderFirebase": {
+    "description": "تسمية مزود التحليلات Firebase"
+  },
+  "analyticsProviderMixpanel": "Mixpanel",
+  "@analyticsProviderMixpanel": {
+    "description": "تسمية مزود التحليلات Mixpanel"
   }
 }

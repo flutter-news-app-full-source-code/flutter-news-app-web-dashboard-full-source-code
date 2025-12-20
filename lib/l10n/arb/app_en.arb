@@ -2987,5 +2987,54 @@
   "followUpActionsDescription": "Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.",
   "@followUpActionsDescription": {
     "description": "Description for the follow-up actions settings."
+  },
+  "analyticsTab": "Analytics",
+  "@analyticsTab": {
+    "description": "Tab title for Analytics settings"
+  },
+  "analyticsDescription": "Configure analytics provider, event logging, and sampling rates.",
+  "@analyticsDescription": {
+    "description": "Description for the Analytics expansion tile"
+  },
+  "analyticsSystemStatusTitle": "Enable Analytics System",
+  "@analyticsSystemStatusTitle": {
+    "description": "Title for the Analytics System status section"
+  },
+  "analyticsSystemStatusDescription": "Master switch to enable or disable all analytics tracking.",
+  "@analyticsSystemStatusDescription": {
+    "description": "Description for the Analytics System status section"
+  },
+  "analyticsProviderTitle": "Active Provider",
+  "@analyticsProviderTitle": {
+    "description": "Title for the Analytics Provider section"
+  },
+  "analyticsProviderDescription": "Select the primary analytics service provider.",
+  "@analyticsProviderDescription": {
+    "description": "Description for the Analytics Provider section"
+  },
+  "analyticsEventsTitle": "Event Configuration",
+  "@analyticsEventsTitle": {
+    "description": "Title for the Event Configuration section"
+  },
+  "analyticsEventsDescription": "Fine-tune logging for specific events. Disable noisy events or adjust sampling rates.",
+  "@analyticsEventsDescription": {
+    "description": "Description for the Event Configuration section"
+  },
+  "samplingRateLabel": "Sampling Rate: {rate}%",
+  "@samplingRateLabel": {
+    "description": "Label for the sampling rate slider",
+    "placeholders": {
+      "rate": {
+        "type": "int"
+      }
+    }
+  },
+  "analyticsProviderFirebase": "Firebase",
+  "@analyticsProviderFirebase": {
+    "description": "Label for Firebase analytics provider"
+  },
+  "analyticsProviderMixpanel": "Mixpanel",
+  "@analyticsProviderMixpanel": {
+    "description": "Label for Mixpanel analytics provider"
   }
 }
