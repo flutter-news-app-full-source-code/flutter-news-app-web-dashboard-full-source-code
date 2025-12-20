@@ -222,6 +222,49 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         ),
         const SizedBox(height: AppSpacing.lg),
 
+        // Analytics
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 2;
+            return ExpansionTile(
+              leading: Icon(
+                Icons.analytics_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
+              key: ValueKey('analyticsTile_$expandedIndex'),
+              title: Text(l10n.analyticsTab),
+              subtitle: Text(
+                l10n.analyticsDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
+                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+              },
+              initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.xxl,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnalyticsConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
         // Feed
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
