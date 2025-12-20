@@ -11,7 +11,13 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-enum _FeatureTile { advertisements, pushNotifications, analytics, feed, community }
+enum _FeatureTile {
+  advertisements,
+  pushNotifications,
+  analytics,
+  feed,
+  community,
+}
 
 /// {@template features_configuration_tab}
 /// A widget representing the "Features" tab in the App Configuration page.
@@ -67,18 +73,18 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               leading: Icon(
                 Icons.paid_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                      0.7,
-                    ),
+                  0.7,
+                ),
               ),
               key: ValueKey('advertisementsTile_$expandedTile'),
               title: Text(l10n.advertisementsTab),
               subtitle: Text(
                 l10n.advertisementsDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
               ),
               onExpansionChanged: (bool isExpanded) {
                 _expandedTile.value = isExpanded ? tile : null;
@@ -127,18 +133,18 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               leading: Icon(
                 Icons.notifications_active_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                      0.7,
-                    ),
+                  0.7,
+                ),
               ),
               key: ValueKey('pushNotificationsTile_$expandedTile'),
               title: Text(l10n.notificationsTab),
               subtitle: Text(
                 l10n.notificationsDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
               ),
               onExpansionChanged: (bool isExpanded) {
                 _expandedTile.value = isExpanded ? tile : null;
@@ -170,18 +176,18 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               leading: Icon(
                 Icons.analytics_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                      0.7,
-                    ),
+                  0.7,
+                ),
               ),
               key: ValueKey('analyticsTile_$expandedTile'),
               title: Text(l10n.analyticsTab),
               subtitle: Text(
                 l10n.analyticsDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
               ),
               onExpansionChanged: (bool isExpanded) {
                 _expandedTile.value = isExpanded ? tile : null;
@@ -213,18 +219,18 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               leading: Icon(
                 Icons.dynamic_feed_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                      0.7,
-                    ),
+                  0.7,
+                ),
               ),
               key: ValueKey('feedTile_$expandedTile'),
               title: Text(l10n.feedTab),
               subtitle: Text(
                 l10n.feedDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
               ),
               onExpansionChanged: (bool isExpanded) {
                 _expandedTile.value = isExpanded ? tile : null;
@@ -256,18 +262,18 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               leading: Icon(
                 Icons.groups_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                      0.7,
-                    ),
+                  0.7,
+                ),
               ),
               key: ValueKey('communityTile_$expandedTile'),
               title: Text(l10n.communityAndEngagementTitle),
               subtitle: Text(
                 l10n.communityAndEngagementDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
               ),
               onExpansionChanged: (bool isExpanded) {
                 _expandedTile.value = isExpanded ? tile : null;
