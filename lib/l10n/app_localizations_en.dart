@@ -2406,4 +2406,276 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get analyticsProviderMixpanel => 'Mixpanel';
+
+  @override
+  String get analyticsEventUserRegisteredLabel => 'User Registration';
+
+  @override
+  String get analyticsEventUserRegisteredDescription =>
+      'Track when a new user successfully creates an account.';
+
+  @override
+  String get analyticsEventUserLoginLabel => 'User Login';
+
+  @override
+  String get analyticsEventUserLoginDescription =>
+      'Track when a user logs in to the application.';
+
+  @override
+  String get analyticsEventAccountLinkedLabel => 'Account Linking';
+
+  @override
+  String get analyticsEventAccountLinkedDescription =>
+      'Track when a guest user links their account to a permanent credential.';
+
+  @override
+  String get analyticsEventUserRoleChangedLabel => 'User Role Change';
+
+  @override
+  String get analyticsEventUserRoleChangedDescription =>
+      'Track when a user\'s role is updated (e.g., upgraded to Premium).';
+
+  @override
+  String get analyticsEventContentViewedLabel => 'Content View';
+
+  @override
+  String get analyticsEventContentViewedDescription =>
+      'Track when a user views a headline or article.';
+
+  @override
+  String get analyticsEventContentSharedLabel => 'Content Share';
+
+  @override
+  String get analyticsEventContentSharedDescription =>
+      'Track when a user shares content via external platforms.';
+
+  @override
+  String get analyticsEventContentSavedLabel => 'Content Save';
+
+  @override
+  String get analyticsEventContentSavedDescription =>
+      'Track when a user bookmarks a headline.';
+
+  @override
+  String get analyticsEventContentUnsavedLabel => 'Content Unsave';
+
+  @override
+  String get analyticsEventContentUnsavedDescription =>
+      'Track when a user removes a bookmark.';
+
+  @override
+  String get analyticsEventContentReadingTimeLabel => 'Content Reading Time';
+
+  @override
+  String get analyticsEventContentReadingTimeDescription =>
+      'Track the duration a user spends reading an article.';
+
+  @override
+  String get analyticsEventReactionCreatedLabel => 'Reaction Added';
+
+  @override
+  String get analyticsEventReactionCreatedDescription =>
+      'Track when a user reacts to content.';
+
+  @override
+  String get analyticsEventReactionDeletedLabel => 'Reaction Removed';
+
+  @override
+  String get analyticsEventReactionDeletedDescription =>
+      'Track when a user removes their reaction.';
+
+  @override
+  String get analyticsEventCommentCreatedLabel => 'Comment Posted';
+
+  @override
+  String get analyticsEventCommentCreatedDescription =>
+      'Track when a user submits a new comment.';
+
+  @override
+  String get analyticsEventCommentDeletedLabel => 'Comment Deleted';
+
+  @override
+  String get analyticsEventCommentDeletedDescription =>
+      'Track when a user deletes their own comment.';
+
+  @override
+  String get analyticsEventReportSubmittedLabel => 'Report Submitted';
+
+  @override
+  String get analyticsEventReportSubmittedDescription =>
+      'Track when a user reports content or other users.';
+
+  @override
+  String get analyticsEventHeadlineFilterCreatedLabel =>
+      'Headline Filter Creation';
+
+  @override
+  String get analyticsEventHeadlineFilterCreatedDescription =>
+      'Track when a user creates a new custom headline filter.';
+
+  @override
+  String get analyticsEventHeadlineFilterUpdatedLabel =>
+      'Headline Filter Update';
+
+  @override
+  String get analyticsEventHeadlineFilterUpdatedDescription =>
+      'Track when a user modifies an existing headline filter.';
+
+  @override
+  String get analyticsEventHeadlineFilterUsedLabel => 'Headline Filter Usage';
+
+  @override
+  String get analyticsEventHeadlineFilterUsedDescription =>
+      'Track when a user applies a saved headline filter.';
+
+  @override
+  String get analyticsEventSourceFilterCreatedLabel => 'Source Filter Creation';
+
+  @override
+  String get analyticsEventSourceFilterCreatedDescription =>
+      'Track when a user creates a new source filter.';
+
+  @override
+  String get analyticsEventSourceFilterUpdatedLabel => 'Source Filter Update';
+
+  @override
+  String get analyticsEventSourceFilterUpdatedDescription =>
+      'Track when a user modifies an existing source filter.';
+
+  @override
+  String get analyticsEventSearchPerformedLabel => 'Search Performed';
+
+  @override
+  String get analyticsEventSearchPerformedDescription =>
+      'Track when a user performs a search query.';
+
+  @override
+  String get analyticsEventAppReviewPromptRespondedLabel =>
+      'Review Prompt Response';
+
+  @override
+  String get analyticsEventAppReviewPromptRespondedDescription =>
+      'Track user responses to the internal \'Enjoying the app?\' prompt.';
+
+  @override
+  String get analyticsEventAppReviewStoreRequestedLabel =>
+      'Store Review Request';
+
+  @override
+  String get analyticsEventAppReviewStoreRequestedDescription =>
+      'Track when the native OS store review dialog is requested.';
+
+  @override
+  String get analyticsEventLimitExceededLabel => 'Limit Exceeded';
+
+  @override
+  String get analyticsEventLimitExceededDescription =>
+      'Track when a user hits a usage limit (e.g., saved items limit).';
+
+  @override
+  String get analyticsEventLimitExceededCtaClickedLabel => 'Limit CTA Click';
+
+  @override
+  String get analyticsEventLimitExceededCtaClickedDescription =>
+      'Track clicks on \'Upgrade\' or \'Link Account\' buttons in limit dialogs.';
+
+  @override
+  String get analyticsEventPaywallPresentedLabel => 'Paywall Impression';
+
+  @override
+  String get analyticsEventPaywallPresentedDescription =>
+      'Track when the paywall screen is shown to a user.';
+
+  @override
+  String get analyticsEventSubscriptionStartedLabel => 'Subscription Start';
+
+  @override
+  String get analyticsEventSubscriptionStartedDescription =>
+      'Track when a user successfully starts a new subscription.';
+
+  @override
+  String get analyticsEventSubscriptionRenewedLabel => 'Subscription Renewal';
+
+  @override
+  String get analyticsEventSubscriptionRenewedDescription =>
+      'Track when a subscription is automatically or manually renewed.';
+
+  @override
+  String get analyticsEventSubscriptionCancelledLabel =>
+      'Subscription Cancellation';
+
+  @override
+  String get analyticsEventSubscriptionCancelledDescription =>
+      'Track when a user cancels their subscription.';
+
+  @override
+  String get analyticsEventSubscriptionEndedLabel => 'Subscription End';
+
+  @override
+  String get analyticsEventSubscriptionEndedDescription =>
+      'Track when a subscription expires or is terminated.';
+
+  @override
+  String get analyticsEventAdImpressionLabel => 'Ad Impression';
+
+  @override
+  String get analyticsEventAdImpressionDescription =>
+      'Track when an advertisement is displayed to the user.';
+
+  @override
+  String get analyticsEventAdClickedLabel => 'Ad Click';
+
+  @override
+  String get analyticsEventAdClickedDescription =>
+      'Track when a user clicks on an advertisement.';
+
+  @override
+  String get analyticsEventAdLoadFailedLabel => 'Ad Load Failure';
+
+  @override
+  String get analyticsEventAdLoadFailedDescription =>
+      'Track errors when attempting to load advertisements.';
+
+  @override
+  String get analyticsEventAdRewardEarnedLabel => 'Ad Reward Earned';
+
+  @override
+  String get analyticsEventAdRewardEarnedDescription =>
+      'Track when a user completes a rewarded ad action.';
+
+  @override
+  String get analyticsEventThemeChangedLabel => 'Theme Change';
+
+  @override
+  String get analyticsEventThemeChangedDescription =>
+      'Track when a user changes the application theme.';
+
+  @override
+  String get analyticsEventLanguageChangedLabel => 'Language Change';
+
+  @override
+  String get analyticsEventLanguageChangedDescription =>
+      'Track when a user changes the application language.';
+
+  @override
+  String get analyticsEventFeedDensityChangedLabel => 'Feed Density Change';
+
+  @override
+  String get analyticsEventFeedDensityChangedDescription =>
+      'Track when a user adjusts the information density of the feed.';
+
+  @override
+  String get analyticsEventBrowserChoiceChangedLabel =>
+      'Browser Preference Change';
+
+  @override
+  String get analyticsEventBrowserChoiceChangedDescription =>
+      'Track when a user changes their preferred browser for opening links.';
+
+  @override
+  String get analyticsEventSourceFilterUsedLabel => 'Source Filter Usage';
+
+  @override
+  String get analyticsEventSourceFilterUsedDescription =>
+      'Track when a user applies a saved source filter.';
 }
