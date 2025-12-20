@@ -46,10 +46,12 @@ class PushNotificationSettingsForm extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(height: AppSpacing.lg),
-        _buildPrimaryProviderSection(context, l10n, pushConfig),
-        const SizedBox(height: AppSpacing.lg),
-        _buildDeliveryTypesSection(context, l10n, pushConfig),
+        if (pushConfig.enabled) ...[
+          const SizedBox(height: AppSpacing.lg),
+          _buildPrimaryProviderSection(context, l10n, pushConfig),
+          const SizedBox(height: AppSpacing.lg),
+          _buildDeliveryTypesSection(context, l10n, pushConfig),
+        ],
       ],
     );
   }
