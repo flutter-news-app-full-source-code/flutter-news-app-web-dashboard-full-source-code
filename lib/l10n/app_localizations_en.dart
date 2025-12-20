@@ -2367,4 +2367,43 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get followUpActionsDescription =>
       'Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.';
+
+  @override
+  String get analyticsTab => 'Analytics';
+
+  @override
+  String get analyticsDescription =>
+      'Configure analytics provider, event logging, and sampling rates.';
+
+  @override
+  String get analyticsSystemStatusTitle => 'Enable Analytics System';
+
+  @override
+  String get analyticsSystemStatusDescription =>
+      'Master switch to enable or disable all analytics tracking.';
+
+  @override
+  String get analyticsProviderTitle => 'Active Provider';
+
+  @override
+  String get analyticsProviderDescription =>
+      'Select the primary analytics service provider.';
+
+  @override
+  String get analyticsEventsTitle => 'Event Configuration';
+
+  @override
+  String get analyticsEventsDescription =>
+      'Fine-tune logging for specific events. Disable noisy events or adjust sampling rates.';
+
+  @override
+  String samplingRateLabel(int rate) {
+    return 'Sampling Rate: $rate%';
+  }
+
+  @override
+  String get analyticsProviderFirebase => 'Firebase';
+
+  @override
+  String get analyticsProviderMixpanel => 'Mixpanel';
 }

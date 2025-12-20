@@ -4327,6 +4327,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.'**
   String get followUpActionsDescription;
+
+  /// Tab title for Analytics settings
+  ///
+  /// In en, this message translates to:
+  /// **'Analytics'**
+  String get analyticsTab;
+
+  /// Description for the Analytics expansion tile
+  ///
+  /// In en, this message translates to:
+  /// **'Configure analytics provider, event logging, and sampling rates.'**
+  String get analyticsDescription;
+
+  /// Title for the Analytics System status section
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Analytics System'**
+  String get analyticsSystemStatusTitle;
+
+  /// Description for the Analytics System status section
+  ///
+  /// In en, this message translates to:
+  /// **'Master switch to enable or disable all analytics tracking.'**
+  String get analyticsSystemStatusDescription;
+
+  /// Title for the Analytics Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Active Provider'**
+  String get analyticsProviderTitle;
+
+  /// Description for the Analytics Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Select the primary analytics service provider.'**
+  String get analyticsProviderDescription;
+
+  /// Title for the Event Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Event Configuration'**
+  String get analyticsEventsTitle;
+
+  /// Description for the Event Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Fine-tune logging for specific events. Disable noisy events or adjust sampling rates.'**
+  String get analyticsEventsDescription;
+
+  /// Label for the sampling rate slider
+  ///
+  /// In en, this message translates to:
+  /// **'Sampling Rate: {rate}%'**
+  String samplingRateLabel(int rate);
+
+  /// Label for Firebase analytics provider
+  ///
+  /// In en, this message translates to:
+  /// **'Firebase'**
+  String get analyticsProviderFirebase;
+
+  /// Label for Mixpanel analytics provider
+  ///
+  /// In en, this message translates to:
+  /// **'Mixpanel'**
+  String get analyticsProviderMixpanel;
 }
 
 class _AppLocalizationsDelegate

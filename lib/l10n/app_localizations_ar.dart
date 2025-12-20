@@ -2361,4 +2361,43 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get followUpActionsDescription =>
       'تكوين ما يحدث بعد استجابة المستخدم لموجه الاستمتاع، مثل طلب مراجعة المتجر.';
+
+  @override
+  String get analyticsTab => 'التحليلات';
+
+  @override
+  String get analyticsDescription =>
+      'تكوين مزود التحليلات، وتسجيل الأحداث، ومعدلات أخذ العينات.';
+
+  @override
+  String get analyticsSystemStatusTitle => 'تفعيل نظام التحليلات';
+
+  @override
+  String get analyticsSystemStatusDescription =>
+      'مفتاح رئيسي لتفعيل أو تعطيل جميع عمليات تتبع التحليلات.';
+
+  @override
+  String get analyticsProviderTitle => 'المزود النشط';
+
+  @override
+  String get analyticsProviderDescription =>
+      'اختر مزود خدمة التحليلات الأساسي.';
+
+  @override
+  String get analyticsEventsTitle => 'تكوين الأحداث';
+
+  @override
+  String get analyticsEventsDescription =>
+      'ضبط دقيق لتسجيل أحداث محددة. قم بتعطيل الأحداث المزعجة أو تعديل معدلات أخذ العينات.';
+
+  @override
+  String samplingRateLabel(int rate) {
+    return 'معدل أخذ العينات: $rate%';
+  }
+
+  @override
+  String get analyticsProviderFirebase => 'Firebase';
+
+  @override
+  String get analyticsProviderMixpanel => 'Mixpanel';
 }
