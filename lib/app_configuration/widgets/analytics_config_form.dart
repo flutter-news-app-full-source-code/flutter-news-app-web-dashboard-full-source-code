@@ -129,13 +129,14 @@ class AnalyticsConfigForm extends StatelessWidget {
           children: AnalyticsEvent.values.map((event) {
             final isEnabled = !config.disabledEvents.contains(event);
             final samplingRate = config.eventSamplingRates[event] ?? 1.0;
+            final (label, description) = _getEventInfo(l10n, event);
 
             return Column(
               children: [
                 CheckboxListTile(
-                  title: Text(_getEventLabel(context, event)),
+                  title: Text(label),
                   subtitle: Text(
-                    _getEventDescription(context, event),
+                    description,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   value: isEnabled,
@@ -228,167 +229,198 @@ class AnalyticsConfigForm extends StatelessWidget {
     }
   }
 
-  String _getEventLabel(BuildContext context, AnalyticsEvent event) {
-    final l10n = AppLocalizationsX(context).l10n;
+  (String, String) _getEventInfo(AppLocalizations l10n, AnalyticsEvent event) {
     switch (event) {
       case AnalyticsEvent.userRegistered:
-        return l10n.analyticsEventUserRegisteredLabel;
+        return (
+          l10n.analyticsEventUserRegisteredLabel,
+          l10n.analyticsEventUserRegisteredDescription
+        );
       case AnalyticsEvent.userLogin:
-        return l10n.analyticsEventUserLoginLabel;
+        return (
+          l10n.analyticsEventUserLoginLabel,
+          l10n.analyticsEventUserLoginDescription
+        );
       case AnalyticsEvent.accountLinked:
-        return l10n.analyticsEventAccountLinkedLabel;
+        return (
+          l10n.analyticsEventAccountLinkedLabel,
+          l10n.analyticsEventAccountLinkedDescription
+        );
       case AnalyticsEvent.userRoleChanged:
-        return l10n.analyticsEventUserRoleChangedLabel;
+        return (
+          l10n.analyticsEventUserRoleChangedLabel,
+          l10n.analyticsEventUserRoleChangedDescription
+        );
       case AnalyticsEvent.contentViewed:
-        return l10n.analyticsEventContentViewedLabel;
+        return (
+          l10n.analyticsEventContentViewedLabel,
+          l10n.analyticsEventContentViewedDescription
+        );
       case AnalyticsEvent.contentShared:
-        return l10n.analyticsEventContentSharedLabel;
+        return (
+          l10n.analyticsEventContentSharedLabel,
+          l10n.analyticsEventContentSharedDescription
+        );
       case AnalyticsEvent.contentSaved:
-        return l10n.analyticsEventContentSavedLabel;
+        return (
+          l10n.analyticsEventContentSavedLabel,
+          l10n.analyticsEventContentSavedDescription
+        );
       case AnalyticsEvent.contentUnsaved:
-        return l10n.analyticsEventContentUnsavedLabel;
+        return (
+          l10n.analyticsEventContentUnsavedLabel,
+          l10n.analyticsEventContentUnsavedDescription
+        );
       case AnalyticsEvent.contentReadingTime:
-        return l10n.analyticsEventContentReadingTimeLabel;
+        return (
+          l10n.analyticsEventContentReadingTimeLabel,
+          l10n.analyticsEventContentReadingTimeDescription
+        );
       case AnalyticsEvent.reactionCreated:
-        return l10n.analyticsEventReactionCreatedLabel;
+        return (
+          l10n.analyticsEventReactionCreatedLabel,
+          l10n.analyticsEventReactionCreatedDescription
+        );
       case AnalyticsEvent.reactionDeleted:
-        return l10n.analyticsEventReactionDeletedLabel;
+        return (
+          l10n.analyticsEventReactionDeletedLabel,
+          l10n.analyticsEventReactionDeletedDescription
+        );
       case AnalyticsEvent.commentCreated:
-        return l10n.analyticsEventCommentCreatedLabel;
+        return (
+          l10n.analyticsEventCommentCreatedLabel,
+          l10n.analyticsEventCommentCreatedDescription
+        );
       case AnalyticsEvent.commentDeleted:
-        return l10n.analyticsEventCommentDeletedLabel;
+        return (
+          l10n.analyticsEventCommentDeletedLabel,
+          l10n.analyticsEventCommentDeletedDescription
+        );
       case AnalyticsEvent.reportSubmitted:
-        return l10n.analyticsEventReportSubmittedLabel;
+        return (
+          l10n.analyticsEventReportSubmittedLabel,
+          l10n.analyticsEventReportSubmittedDescription
+        );
       case AnalyticsEvent.headlineFilterCreated:
-        return l10n.analyticsEventHeadlineFilterCreatedLabel;
+        return (
+          l10n.analyticsEventHeadlineFilterCreatedLabel,
+          l10n.analyticsEventHeadlineFilterCreatedDescription
+        );
       case AnalyticsEvent.headlineFilterUpdated:
-        return l10n.analyticsEventHeadlineFilterUpdatedLabel;
+        return (
+          l10n.analyticsEventHeadlineFilterUpdatedLabel,
+          l10n.analyticsEventHeadlineFilterUpdatedDescription
+        );
       case AnalyticsEvent.headlineFilterUsed:
-        return l10n.analyticsEventHeadlineFilterUsedLabel;
+        return (
+          l10n.analyticsEventHeadlineFilterUsedLabel,
+          l10n.analyticsEventHeadlineFilterUsedDescription
+        );
       case AnalyticsEvent.sourceFilterCreated:
-        return l10n.analyticsEventSourceFilterCreatedLabel;
+        return (
+          l10n.analyticsEventSourceFilterCreatedLabel,
+          l10n.analyticsEventSourceFilterCreatedDescription
+        );
       case AnalyticsEvent.sourceFilterUpdated:
-        return l10n.analyticsEventSourceFilterUpdatedLabel;
+        return (
+          l10n.analyticsEventSourceFilterUpdatedLabel,
+          l10n.analyticsEventSourceFilterUpdatedDescription
+        );
       case AnalyticsEvent.searchPerformed:
-        return l10n.analyticsEventSearchPerformedLabel;
+        return (
+          l10n.analyticsEventSearchPerformedLabel,
+          l10n.analyticsEventSearchPerformedDescription
+        );
       case AnalyticsEvent.appReviewPromptResponded:
-        return l10n.analyticsEventAppReviewPromptRespondedLabel;
+        return (
+          l10n.analyticsEventAppReviewPromptRespondedLabel,
+          l10n.analyticsEventAppReviewPromptRespondedDescription
+        );
       case AnalyticsEvent.appReviewStoreRequested:
-        return l10n.analyticsEventAppReviewStoreRequestedLabel;
+        return (
+          l10n.analyticsEventAppReviewStoreRequestedLabel,
+          l10n.analyticsEventAppReviewStoreRequestedDescription
+        );
       case AnalyticsEvent.limitExceeded:
-        return l10n.analyticsEventLimitExceededLabel;
+        return (
+          l10n.analyticsEventLimitExceededLabel,
+          l10n.analyticsEventLimitExceededDescription
+        );
       case AnalyticsEvent.limitExceededCtaClicked:
-        return l10n.analyticsEventLimitExceededCtaClickedLabel;
+        return (
+          l10n.analyticsEventLimitExceededCtaClickedLabel,
+          l10n.analyticsEventLimitExceededCtaClickedDescription
+        );
       case AnalyticsEvent.paywallPresented:
-        return l10n.analyticsEventPaywallPresentedLabel;
+        return (
+          l10n.analyticsEventPaywallPresentedLabel,
+          l10n.analyticsEventPaywallPresentedDescription
+        );
       case AnalyticsEvent.subscriptionStarted:
-        return l10n.analyticsEventSubscriptionStartedLabel;
+        return (
+          l10n.analyticsEventSubscriptionStartedLabel,
+          l10n.analyticsEventSubscriptionStartedDescription
+        );
       case AnalyticsEvent.subscriptionRenewed:
-        return l10n.analyticsEventSubscriptionRenewedLabel;
+        return (
+          l10n.analyticsEventSubscriptionRenewedLabel,
+          l10n.analyticsEventSubscriptionRenewedDescription
+        );
       case AnalyticsEvent.subscriptionCancelled:
-        return l10n.analyticsEventSubscriptionCancelledLabel;
+        return (
+          l10n.analyticsEventSubscriptionCancelledLabel,
+          l10n.analyticsEventSubscriptionCancelledDescription
+        );
       case AnalyticsEvent.subscriptionEnded:
-        return l10n.analyticsEventSubscriptionEndedLabel;
+        return (
+          l10n.analyticsEventSubscriptionEndedLabel,
+          l10n.analyticsEventSubscriptionEndedDescription
+        );
       case AnalyticsEvent.adImpression:
-        return l10n.analyticsEventAdImpressionLabel;
+        return (
+          l10n.analyticsEventAdImpressionLabel,
+          l10n.analyticsEventAdImpressionDescription
+        );
       case AnalyticsEvent.adClicked:
-        return l10n.analyticsEventAdClickedLabel;
+        return (
+          l10n.analyticsEventAdClickedLabel,
+          l10n.analyticsEventAdClickedDescription
+        );
       case AnalyticsEvent.adLoadFailed:
-        return l10n.analyticsEventAdLoadFailedLabel;
+        return (
+          l10n.analyticsEventAdLoadFailedLabel,
+          l10n.analyticsEventAdLoadFailedDescription
+        );
       case AnalyticsEvent.adRewardEarned:
-        return l10n.analyticsEventAdRewardEarnedLabel;
+        return (
+          l10n.analyticsEventAdRewardEarnedLabel,
+          l10n.analyticsEventAdRewardEarnedDescription
+        );
       case AnalyticsEvent.themeChanged:
-        return l10n.analyticsEventThemeChangedLabel;
+        return (
+          l10n.analyticsEventThemeChangedLabel,
+          l10n.analyticsEventThemeChangedDescription
+        );
       case AnalyticsEvent.languageChanged:
-        return l10n.analyticsEventLanguageChangedLabel;
+        return (
+          l10n.analyticsEventLanguageChangedLabel,
+          l10n.analyticsEventLanguageChangedDescription
+        );
       case AnalyticsEvent.feedDensityChanged:
-        return l10n.analyticsEventFeedDensityChangedLabel;
+        return (
+          l10n.analyticsEventFeedDensityChangedLabel,
+          l10n.analyticsEventFeedDensityChangedDescription
+        );
       case AnalyticsEvent.browserChoiceChanged:
-        return l10n.analyticsEventBrowserChoiceChangedLabel;
+        return (
+          l10n.analyticsEventBrowserChoiceChangedLabel,
+          l10n.analyticsEventBrowserChoiceChangedDescription
+        );
       case AnalyticsEvent.sourceFilterUsed:
-        return l10n.analyticsEventSourceFilterUsedLabel;
-    }
-  }
-
-  String _getEventDescription(BuildContext context, AnalyticsEvent event) {
-    final l10n = AppLocalizationsX(context).l10n;
-    switch (event) {
-      case AnalyticsEvent.userRegistered:
-        return l10n.analyticsEventUserRegisteredDescription;
-      case AnalyticsEvent.userLogin:
-        return l10n.analyticsEventUserLoginDescription;
-      case AnalyticsEvent.accountLinked:
-        return l10n.analyticsEventAccountLinkedDescription;
-      case AnalyticsEvent.userRoleChanged:
-        return l10n.analyticsEventUserRoleChangedDescription;
-      case AnalyticsEvent.contentViewed:
-        return l10n.analyticsEventContentViewedDescription;
-      case AnalyticsEvent.contentShared:
-        return l10n.analyticsEventContentSharedDescription;
-      case AnalyticsEvent.contentSaved:
-        return l10n.analyticsEventContentSavedDescription;
-      case AnalyticsEvent.contentUnsaved:
-        return l10n.analyticsEventContentUnsavedDescription;
-      case AnalyticsEvent.contentReadingTime:
-        return l10n.analyticsEventContentReadingTimeDescription;
-      case AnalyticsEvent.reactionCreated:
-        return l10n.analyticsEventReactionCreatedDescription;
-      case AnalyticsEvent.reactionDeleted:
-        return l10n.analyticsEventReactionDeletedDescription;
-      case AnalyticsEvent.commentCreated:
-        return l10n.analyticsEventCommentCreatedDescription;
-      case AnalyticsEvent.commentDeleted:
-        return l10n.analyticsEventCommentDeletedDescription;
-      case AnalyticsEvent.reportSubmitted:
-        return l10n.analyticsEventReportSubmittedDescription;
-      case AnalyticsEvent.headlineFilterCreated:
-        return l10n.analyticsEventHeadlineFilterCreatedDescription;
-      case AnalyticsEvent.headlineFilterUpdated:
-        return l10n.analyticsEventHeadlineFilterUpdatedDescription;
-      case AnalyticsEvent.headlineFilterUsed:
-        return l10n.analyticsEventHeadlineFilterUsedDescription;
-      case AnalyticsEvent.sourceFilterCreated:
-        return l10n.analyticsEventSourceFilterCreatedDescription;
-      case AnalyticsEvent.sourceFilterUpdated:
-        return l10n.analyticsEventSourceFilterUpdatedDescription;
-      case AnalyticsEvent.searchPerformed:
-        return l10n.analyticsEventSearchPerformedDescription;
-      case AnalyticsEvent.appReviewPromptResponded:
-        return l10n.analyticsEventAppReviewPromptRespondedDescription;
-      case AnalyticsEvent.appReviewStoreRequested:
-        return l10n.analyticsEventAppReviewStoreRequestedDescription;
-      case AnalyticsEvent.limitExceeded:
-        return l10n.analyticsEventLimitExceededDescription;
-      case AnalyticsEvent.limitExceededCtaClicked:
-        return l10n.analyticsEventLimitExceededCtaClickedDescription;
-      case AnalyticsEvent.paywallPresented:
-        return l10n.analyticsEventPaywallPresentedDescription;
-      case AnalyticsEvent.subscriptionStarted:
-        return l10n.analyticsEventSubscriptionStartedDescription;
-      case AnalyticsEvent.subscriptionRenewed:
-        return l10n.analyticsEventSubscriptionRenewedDescription;
-      case AnalyticsEvent.subscriptionCancelled:
-        return l10n.analyticsEventSubscriptionCancelledDescription;
-      case AnalyticsEvent.subscriptionEnded:
-        return l10n.analyticsEventSubscriptionEndedDescription;
-      case AnalyticsEvent.adImpression:
-        return l10n.analyticsEventAdImpressionDescription;
-      case AnalyticsEvent.adClicked:
-        return l10n.analyticsEventAdClickedDescription;
-      case AnalyticsEvent.adLoadFailed:
-        return l10n.analyticsEventAdLoadFailedDescription;
-      case AnalyticsEvent.adRewardEarned:
-        return l10n.analyticsEventAdRewardEarnedDescription;
-      case AnalyticsEvent.themeChanged:
-        return l10n.analyticsEventThemeChangedDescription;
-      case AnalyticsEvent.languageChanged:
-        return l10n.analyticsEventLanguageChangedDescription;
-      case AnalyticsEvent.feedDensityChanged:
-        return l10n.analyticsEventFeedDensityChangedDescription;
-      case AnalyticsEvent.browserChoiceChanged:
-        return l10n.analyticsEventBrowserChoiceChangedDescription;
-      case AnalyticsEvent.sourceFilterUsed:
-        return l10n.analyticsEventSourceFilterUsedDescription;
+        return (
+          l10n.analyticsEventSourceFilterUsedLabel,
+          l10n.analyticsEventSourceFilterUsedDescription
+        );
     }
   }
 }
