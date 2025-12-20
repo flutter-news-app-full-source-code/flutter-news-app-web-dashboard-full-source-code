@@ -3040,5 +3040,309 @@
   "analyticsProviderMixpanel": "Mixpanel",
   "@analyticsProviderMixpanel": {
     "description": "تسمية مزود التحليلات Mixpanel"
+  },
+  "analyticsEventUserRegisteredLabel": "تسجيل مستخدم جديد",
+  "@analyticsEventUserRegisteredLabel": {
+    "description": "تسمية لحدث تسجيل مستخدم جديد"
+  },
+  "analyticsEventUserRegisteredDescription": "تتبع عندما يقوم مستخدم جديد بإنشاء حساب بنجاح.",
+  "@analyticsEventUserRegisteredDescription": {
+    "description": "وصف لحدث تسجيل مستخدم جديد"
+  },
+  "analyticsEventUserLoginLabel": "تسجيل دخول المستخدم",
+  "@analyticsEventUserLoginLabel": {
+    "description": "تسمية لحدث تسجيل دخول المستخدم"
+  },
+  "analyticsEventUserLoginDescription": "تتبع عندما يقوم المستخدم بتسجيل الدخول إلى التطبيق.",
+  "@analyticsEventUserLoginDescription": {
+    "description": "وصف لحدث تسجيل دخول المستخدم"
+  },
+  "analyticsEventAccountLinkedLabel": "ربط الحساب",
+  "@analyticsEventAccountLinkedLabel": {
+    "description": "تسمية لحدث ربط الحساب"
+  },
+  "analyticsEventAccountLinkedDescription": "تتبع عندما يقوم مستخدم ضيف بربط حسابه ببيانات اعتماد دائمة.",
+  "@analyticsEventAccountLinkedDescription": {
+    "description": "وصف لحدث ربط الحساب"
+  },
+  "analyticsEventUserRoleChangedLabel": "تغيير دور المستخدم",
+  "@analyticsEventUserRoleChangedLabel": {
+    "description": "تسمية لحدث تغيير دور المستخدم"
+  },
+  "analyticsEventUserRoleChangedDescription": "تتبع عندما يتم تحديث دور المستخدم (مثل الترقية إلى مميز).",
+  "@analyticsEventUserRoleChangedDescription": {
+    "description": "وصف لحدث تغيير دور المستخدم"
+  },
+  "analyticsEventContentViewedLabel": "مشاهدة المحتوى",
+  "@analyticsEventContentViewedLabel": {
+    "description": "تسمية لحدث مشاهدة المحتوى"
+  },
+  "analyticsEventContentViewedDescription": "تتبع عندما يشاهد المستخدم عنوانًا أو مقالًا.",
+  "@analyticsEventContentViewedDescription": {
+    "description": "وصف لحدث مشاهدة المحتوى"
+  },
+  "analyticsEventContentSharedLabel": "مشاركة المحتوى",
+  "@analyticsEventContentSharedLabel": {
+    "description": "تسمية لحدث مشاركة المحتوى"
+  },
+  "analyticsEventContentSharedDescription": "تتبع عندما يشارك المستخدم المحتوى عبر منصات خارجية.",
+  "@analyticsEventContentSharedDescription": {
+    "description": "وصف لحدث مشاركة المحتوى"
+  },
+  "analyticsEventContentSavedLabel": "حفظ المحتوى",
+  "@analyticsEventContentSavedLabel": {
+    "description": "تسمية لحدث حفظ المحتوى"
+  },
+  "analyticsEventContentSavedDescription": "تتبع عندما يقوم المستخدم بحفظ عنوان في المفضلة.",
+  "@analyticsEventContentSavedDescription": {
+    "description": "وصف لحدث حفظ المحتوى"
+  },
+  "analyticsEventContentUnsavedLabel": "إلغاء حفظ المحتوى",
+  "@analyticsEventContentUnsavedLabel": {
+    "description": "تسمية لحدث إلغاء حفظ المحتوى"
+  },
+  "analyticsEventContentUnsavedDescription": "تتبع عندما يزيل المستخدم عنوانًا من المفضلة.",
+  "@analyticsEventContentUnsavedDescription": {
+    "description": "وصف لحدث إلغاء حفظ المحتوى"
+  },
+  "analyticsEventContentReadingTimeLabel": "وقت قراءة المحتوى",
+  "@analyticsEventContentReadingTimeLabel": {
+    "description": "تسمية لحدث وقت قراءة المحتوى"
+  },
+  "analyticsEventContentReadingTimeDescription": "تتبع المدة التي يقضيها المستخدم في قراءة مقال.",
+  "@analyticsEventContentReadingTimeDescription": {
+    "description": "وصف لحدث وقت قراءة المحتوى"
+  },
+  "analyticsEventReactionCreatedLabel": "إضافة رد فعل",
+  "@analyticsEventReactionCreatedLabel": {
+    "description": "تسمية لحدث إضافة رد فعل"
+  },
+  "analyticsEventReactionCreatedDescription": "تتبع عندما يتفاعل المستخدم مع المحتوى.",
+  "@analyticsEventReactionCreatedDescription": {
+    "description": "وصف لحدث إضافة رد فعل"
+  },
+  "analyticsEventReactionDeletedLabel": "إزالة رد فعل",
+  "@analyticsEventReactionDeletedLabel": {
+    "description": "تسمية لحدث إزالة رد فعل"
+  },
+  "analyticsEventReactionDeletedDescription": "تتبع عندما يزيل المستخدم رد فعله.",
+  "@analyticsEventReactionDeletedDescription": {
+    "description": "وصف لحدث إزالة رد فعل"
+  },
+  "analyticsEventCommentCreatedLabel": "نشر تعليق",
+  "@analyticsEventCommentCreatedLabel": {
+    "description": "تسمية لحدث نشر تعليق"
+  },
+  "analyticsEventCommentCreatedDescription": "تتبع عندما يرسل المستخدم تعليقًا جديدًا.",
+  "@analyticsEventCommentCreatedDescription": {
+    "description": "وصف لحدث نشر تعليق"
+  },
+  "analyticsEventCommentDeletedLabel": "حذف تعليق",
+  "@analyticsEventCommentDeletedLabel": {
+    "description": "تسمية لحدث حذف تعليق"
+  },
+  "analyticsEventCommentDeletedDescription": "تتبع عندما يحذف المستخدم تعليقه الخاص.",
+  "@analyticsEventCommentDeletedDescription": {
+    "description": "وصف لحدث حذف تعليق"
+  },
+  "analyticsEventReportSubmittedLabel": "تقديم بلاغ",
+  "@analyticsEventReportSubmittedLabel": {
+    "description": "تسمية لحدث تقديم بلاغ"
+  },
+  "analyticsEventReportSubmittedDescription": "تتبع عندما يبلغ المستخدم عن محتوى أو مستخدمين آخرين.",
+  "@analyticsEventReportSubmittedDescription": {
+    "description": "وصف لحدث تقديم بلاغ"
+  },
+  "analyticsEventHeadlineFilterCreatedLabel": "إنشاء مرشح عناوين",
+  "@analyticsEventHeadlineFilterCreatedLabel": {
+    "description": "تسمية لحدث إنشاء مرشح عناوين"
+  },
+  "analyticsEventHeadlineFilterCreatedDescription": "تتبع عندما ينشئ المستخدم مرشح عناوين مخصص جديد.",
+  "@analyticsEventHeadlineFilterCreatedDescription": {
+    "description": "وصف لحدث إنشاء مرشح عناوين"
+  },
+  "analyticsEventHeadlineFilterUpdatedLabel": "تحديث مرشح عناوين",
+  "@analyticsEventHeadlineFilterUpdatedLabel": {
+    "description": "تسمية لحدث تحديث مرشح عناوين"
+  },
+  "analyticsEventHeadlineFilterUpdatedDescription": "تتبع عندما يعدل المستخدم مرشح عناوين موجود.",
+  "@analyticsEventHeadlineFilterUpdatedDescription": {
+    "description": "وصف لحدث تحديث مرشح عناوين"
+  },
+  "analyticsEventHeadlineFilterUsedLabel": "استخدام مرشح عناوين",
+  "@analyticsEventHeadlineFilterUsedLabel": {
+    "description": "تسمية لحدث استخدام مرشح عناوين"
+  },
+  "analyticsEventHeadlineFilterUsedDescription": "تتبع عندما يطبق المستخدم مرشح عناوين محفوظ.",
+  "@analyticsEventHeadlineFilterUsedDescription": {
+    "description": "وصف لحدث استخدام مرشح عناوين"
+  },
+  "analyticsEventSourceFilterCreatedLabel": "إنشاء مرشح مصادر",
+  "@analyticsEventSourceFilterCreatedLabel": {
+    "description": "تسمية لحدث إنشاء مرشح مصادر"
+  },
+  "analyticsEventSourceFilterCreatedDescription": "تتبع عندما ينشئ المستخدم مرشح مصادر جديد.",
+  "@analyticsEventSourceFilterCreatedDescription": {
+    "description": "وصف لحدث إنشاء مرشح مصادر"
+  },
+  "analyticsEventSourceFilterUpdatedLabel": "تحديث مرشح مصادر",
+  "@analyticsEventSourceFilterUpdatedLabel": {
+    "description": "تسمية لحدث تحديث مرشح مصادر"
+  },
+  "analyticsEventSourceFilterUpdatedDescription": "تتبع عندما يعدل المستخدم مرشح مصادر موجود.",
+  "@analyticsEventSourceFilterUpdatedDescription": {
+    "description": "وصف لحدث تحديث مرشح مصادر"
+  },
+  "analyticsEventSearchPerformedLabel": "إجراء بحث",
+  "@analyticsEventSearchPerformedLabel": {
+    "description": "تسمية لحدث إجراء بحث"
+  },
+  "analyticsEventSearchPerformedDescription": "تتبع عندما يقوم المستخدم بإجراء استعلام بحث.",
+  "@analyticsEventSearchPerformedDescription": {
+    "description": "وصف لحدث إجراء بحث"
+  },
+  "analyticsEventAppReviewPromptRespondedLabel": "استجابة لطلب التقييم",
+  "@analyticsEventAppReviewPromptRespondedLabel": {
+    "description": "تسمية لحدث استجابة لطلب التقييم"
+  },
+  "analyticsEventAppReviewPromptRespondedDescription": "تتبع استجابات المستخدم للموجه الداخلي 'هل تستمتع بالتطبيق؟'.",
+  "@analyticsEventAppReviewPromptRespondedDescription": {
+    "description": "وصف لحدث استجابة لطلب التقييم"
+  },
+  "analyticsEventAppReviewStoreRequestedLabel": "طلب تقييم المتجر",
+  "@analyticsEventAppReviewStoreRequestedLabel": {
+    "description": "تسمية لحدث طلب تقييم المتجر"
+  },
+  "analyticsEventAppReviewStoreRequestedDescription": "تتبع عندما يتم طلب مربع حوار مراجعة المتجر الأصلي لنظام التشغيل.",
+  "@analyticsEventAppReviewStoreRequestedDescription": {
+    "description": "وصف لحدث طلب تقييم المتجر"
+  },
+  "analyticsEventLimitExceededLabel": "تجاوز الحد",
+  "@analyticsEventLimitExceededLabel": {
+    "description": "تسمية لحدث تجاوز الحد"
+  },
+  "analyticsEventLimitExceededDescription": "تتبع عندما يصل المستخدم إلى حد الاستخدام (مثل حد العناصر المحفوظة).",
+  "@analyticsEventLimitExceededDescription": {
+    "description": "وصف لحدث تجاوز الحد"
+  },
+  "analyticsEventLimitExceededCtaClickedLabel": "النقر على إجراء الحد",
+  "@analyticsEventLimitExceededCtaClickedLabel": {
+    "description": "تسمية لحدث النقر على إجراء الحد"
+  },
+  "analyticsEventLimitExceededCtaClickedDescription": "تتبع النقرات على أزرار 'ترقية' أو 'ربط الحساب' في مربعات حوار الحدود.",
+  "@analyticsEventLimitExceededCtaClickedDescription": {
+    "description": "وصف لحدث النقر على إجراء الحد"
+  },
+  "analyticsEventPaywallPresentedLabel": "ظهور جدار الدفع",
+  "@analyticsEventPaywallPresentedLabel": {
+    "description": "تسمية لحدث ظهور جدار الدفع"
+  },
+  "analyticsEventPaywallPresentedDescription": "تتبع عندما يتم عرض شاشة جدار الدفع للمستخدم.",
+  "@analyticsEventPaywallPresentedDescription": {
+    "description": "وصف لحدث ظهور جدار الدفع"
+  },
+  "analyticsEventSubscriptionStartedLabel": "بدء الاشتراك",
+  "@analyticsEventSubscriptionStartedLabel": {
+    "description": "تسمية لحدث بدء الاشتراك"
+  },
+  "analyticsEventSubscriptionStartedDescription": "تتبع عندما يبدأ المستخدم اشتراكًا جديدًا بنجاح.",
+  "@analyticsEventSubscriptionStartedDescription": {
+    "description": "وصف لحدث بدء الاشتراك"
+  },
+  "analyticsEventSubscriptionRenewedLabel": "تجديد الاشتراك",
+  "@analyticsEventSubscriptionRenewedLabel": {
+    "description": "تسمية لحدث تجديد الاشتراك"
+  },
+  "analyticsEventSubscriptionRenewedDescription": "تتبع عندما يتم تجديد الاشتراك تلقائيًا أو يدويًا.",
+  "@analyticsEventSubscriptionRenewedDescription": {
+    "description": "وصف لحدث تجديد الاشتراك"
+  },
+  "analyticsEventSubscriptionCancelledLabel": "إلغاء الاشتراك",
+  "@analyticsEventSubscriptionCancelledLabel": {
+    "description": "تسمية لحدث إلغاء الاشتراك"
+  },
+  "analyticsEventSubscriptionCancelledDescription": "تتبع عندما يقوم المستخدم بإلغاء اشتراكه.",
+  "@analyticsEventSubscriptionCancelledDescription": {
+    "description": "وصف لحدث إلغاء الاشتراك"
+  },
+  "analyticsEventSubscriptionEndedLabel": "انتهاء الاشتراك",
+  "@analyticsEventSubscriptionEndedLabel": {
+    "description": "تسمية لحدث انتهاء الاشتراك"
+  },
+  "analyticsEventSubscriptionEndedDescription": "تتبع عندما تنتهي صلاحية الاشتراك أو يتم إنهاؤه.",
+  "@analyticsEventSubscriptionEndedDescription": {
+    "description": "وصف لحدث انتهاء الاشتراك"
+  },
+  "analyticsEventAdImpressionLabel": "ظهور إعلان",
+  "@analyticsEventAdImpressionLabel": {
+    "description": "تسمية لحدث ظهور إعلان"
+  },
+  "analyticsEventAdImpressionDescription": "تتبع عندما يتم عرض إعلان للمستخدم.",
+  "@analyticsEventAdImpressionDescription": {
+    "description": "وصف لحدث ظهور إعلان"
+  },
+  "analyticsEventAdClickedLabel": "النقر على إعلان",
+  "@analyticsEventAdClickedLabel": {
+    "description": "تسمية لحدث النقر على إعلان"
+  },
+  "analyticsEventAdClickedDescription": "تتبع عندما ينقر المستخدم على إعلان.",
+  "@analyticsEventAdClickedDescription": {
+    "description": "وصف لحدث النقر على إعلان"
+  },
+  "analyticsEventAdLoadFailedLabel": "فشل تحميل الإعلان",
+  "@analyticsEventAdLoadFailedLabel": {
+    "description": "تسمية لحدث فشل تحميل الإعلان"
+  },
+  "analyticsEventAdLoadFailedDescription": "تتبع الأخطاء عند محاولة تحميل الإعلانات.",
+  "@analyticsEventAdLoadFailedDescription": {
+    "description": "وصف لحدث فشل تحميل الإعلان"
+  },
+  "analyticsEventAdRewardEarnedLabel": "كسب مكافأة الإعلان",
+  "@analyticsEventAdRewardEarnedLabel": {
+    "description": "تسمية لحدث كسب مكافأة الإعلان"
+  },
+  "analyticsEventAdRewardEarnedDescription": "تتبع عندما يكمل المستخدم إجراء إعلان بمكافأة.",
+  "@analyticsEventAdRewardEarnedDescription": {
+    "description": "وصف لحدث كسب مكافأة الإعلان"
+  },
+  "analyticsEventThemeChangedLabel": "تغيير السمة",
+  "@analyticsEventThemeChangedLabel": {
+    "description": "تسمية لحدث تغيير السمة"
+  },
+  "analyticsEventThemeChangedDescription": "تتبع عندما يغير المستخدم سمة التطبيق.",
+  "@analyticsEventThemeChangedDescription": {
+    "description": "وصف لحدث تغيير السمة"
+  },
+  "analyticsEventLanguageChangedLabel": "تغيير اللغة",
+  "@analyticsEventLanguageChangedLabel": {
+    "description": "تسمية لحدث تغيير اللغة"
+  },
+  "analyticsEventLanguageChangedDescription": "تتبع عندما يغير المستخدم لغة التطبيق.",
+  "@analyticsEventLanguageChangedDescription": {
+    "description": "وصف لحدث تغيير اللغة"
+  },
+  "analyticsEventFeedDensityChangedLabel": "تغيير كثافة الموجز",
+  "@analyticsEventFeedDensityChangedLabel": {
+    "description": "تسمية لحدث تغيير كثافة الموجز"
+  },
+  "analyticsEventFeedDensityChangedDescription": "تتبع عندما يعدل المستخدم كثافة المعلومات في الموجز.",
+  "@analyticsEventFeedDensityChangedDescription": {
+    "description": "وصف لحدث تغيير كثافة الموجز"
+  },
+  "analyticsEventBrowserChoiceChangedLabel": "تغيير تفضيل المتصفح",
+  "@analyticsEventBrowserChoiceChangedLabel": {
+    "description": "تسمية لحدث تغيير تفضيل المتصفح"
+  },
+  "analyticsEventBrowserChoiceChangedDescription": "تتبع عندما يغير المستخدم متصفحه المفضل لفتح الروابط.",
+  "@analyticsEventBrowserChoiceChangedDescription": {
+    "description": "وصف لحدث تغيير تفضيل المتصفح"
+  },
+  "analyticsEventSourceFilterUsedLabel": "استخدام مرشح مصادر",
+  "@analyticsEventSourceFilterUsedLabel": {
+    "description": "تسمية لحدث استخدام مرشح مصادر"
+  },
+  "analyticsEventSourceFilterUsedDescription": "تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.",
+  "@analyticsEventSourceFilterUsedDescription": {
+    "description": "وصف لحدث استخدام مرشح مصادر"
   }
 }
