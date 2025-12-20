@@ -44,10 +44,12 @@ class AnalyticsConfigForm extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(height: AppSpacing.lg),
-        _buildProviderSection(context, l10n, analyticsConfig),
-        const SizedBox(height: AppSpacing.lg),
-        _buildEventsSection(context, l10n, analyticsConfig),
+        if (analyticsConfig.enabled) ...[
+          const SizedBox(height: AppSpacing.lg),
+          _buildProviderSection(context, l10n, analyticsConfig),
+          const SizedBox(height: AppSpacing.lg),
+          _buildEventsSection(context, l10n, analyticsConfig),
+        ],
       ],
     );
   }
