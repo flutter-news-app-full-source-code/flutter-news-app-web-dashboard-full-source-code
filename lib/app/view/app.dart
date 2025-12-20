@@ -18,7 +18,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
+// import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
@@ -159,13 +159,13 @@ class App extends StatelessWidget {
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
-          BlocProvider(
-            create: (context) => OverviewBloc(
-              headlinesRepository: context.read<DataRepository<Headline>>(),
-              topicsRepository: context.read<DataRepository<Topic>>(),
-              sourcesRepository: context.read<DataRepository<Source>>(),
-            ),
-          ),
+          // BlocProvider(
+          //   create: (context) => OverviewBloc(
+          //     headlinesRepository: context.read<DataRepository<Headline>>(),
+          //     topicsRepository: context.read<DataRepository<Topic>>(),
+          //     sourcesRepository: context.read<DataRepository<Source>>(),
+          //   ),
+          // ),
           // The UserFilterBloc is provided here to be available for both the
           // UserManagementBloc and the UI components.
           BlocProvider(create: (_) => UserFilterBloc()),

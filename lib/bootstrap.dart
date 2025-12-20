@@ -61,7 +61,6 @@ Future<Widget> bootstrap(
   DataClient<UserContentPreferences> userContentPreferencesClient;
   DataClient<AppSettings> appSettingsClient;
   DataClient<RemoteConfig> remoteConfigClient;
-  DataClient<DashboardSummary> dashboardSummaryClient;
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
   DataClient<User> usersClient;
@@ -105,12 +104,6 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: remoteConfigsFixturesData,
       logger: Logger('DataInMemory<RemoteConfig>'),
-    );
-    dashboardSummaryClient = DataInMemory<DashboardSummary>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: dashboardSummaryFixturesData,
-      logger: Logger('DataInMemory<DashboardSummary>'),
     );
     countriesClient = DataInMemory<Country>(
       toJson: (i) => i.toJson(),
@@ -192,13 +185,6 @@ Future<Widget> bootstrap(
       toJson: (config) => config.toJson(),
       logger: Logger('DataApi<RemoteConfig>'),
     );
-    dashboardSummaryClient = DataApi<DashboardSummary>(
-      httpClient: httpClient,
-      modelName: 'dashboard_summary',
-      fromJson: DashboardSummary.fromJson,
-      toJson: (summary) => summary.toJson(),
-      logger: Logger('DataApi<DashboardSummary>'),
-    );
     countriesClient = DataApi<Country>(
       httpClient: httpClient,
       modelName: 'country',
@@ -263,9 +249,6 @@ Future<Widget> bootstrap(
   final remoteConfigRepository = DataRepository<RemoteConfig>(
     dataClient: remoteConfigClient,
   );
-  final dashboardSummaryRepository = DataRepository<DashboardSummary>(
-    dataClient: dashboardSummaryClient,
-  );
   final countriesRepository = DataRepository<Country>(
     dataClient: countriesClient,
   );
@@ -291,7 +274,6 @@ Future<Widget> bootstrap(
     appSettingsRepository: appSettingsRepository,
     userContentPreferencesRepository: userContentPreferencesRepository,
     remoteConfigRepository: remoteConfigRepository,
-    dashboardSummaryRepository: dashboardSummaryRepository,
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
     usersRepository: usersRepository,
