@@ -77,16 +77,15 @@ class AnalyticsConfigForm extends StatelessWidget {
         Align(
           alignment: AlignmentDirectional.centerStart,
           child: SegmentedButton<AnalyticsProvider>(
-            segments:
-                AnalyticsProvider.values
-                    .where((provider) => provider != AnalyticsProvider.demo)
-                    .map((provider) {
-                      return ButtonSegment<AnalyticsProvider>(
-                        value: provider,
-                        label: Text(_getProviderLabel(l10n, provider)),
-                      );
-                    })
-                    .toList(),
+            segments: AnalyticsProvider.values
+                .where((provider) => provider != AnalyticsProvider.demo)
+                .map((provider) {
+                  return ButtonSegment<AnalyticsProvider>(
+                    value: provider,
+                    label: Text(_getProviderLabel(l10n, provider)),
+                  );
+                })
+                .toList(),
             selected: {config.activeProvider},
             onSelectionChanged: (newSelection) {
               onConfigChanged(
@@ -127,92 +126,91 @@ class AnalyticsConfigForm extends StatelessWidget {
       children: [
         // We use a Column here instead of ListView because it's inside a scrollable parent
         Column(
-          children:
-              AnalyticsEvent.values.map((event) {
-                final isEnabled = !config.disabledEvents.contains(event);
-                final samplingRate = config.eventSamplingRates[event] ?? 1.0;
+          children: AnalyticsEvent.values.map((event) {
+            final isEnabled = !config.disabledEvents.contains(event);
+            final samplingRate = config.eventSamplingRates[event] ?? 1.0;
 
-                return Column(
-                  children: [
-                    CheckboxListTile(
-                      title: Text(_getEventLabel(context, event)),
-                      subtitle: Text(
-                        _getEventDescription(context, event),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      value: isEnabled,
-                      onChanged: (value) {
-                        final newDisabledEvents = Set<AnalyticsEvent>.from(
-                          config.disabledEvents,
-                        );
-                        if (value ?? false) {
-                          newDisabledEvents.remove(event);
-                        } else {
-                          newDisabledEvents.add(event);
-                        }
-                        onConfigChanged(
-                          remoteConfig.copyWith(
-                            features: remoteConfig.features.copyWith(
-                              analytics: config.copyWith(
-                                disabledEvents: newDisabledEvents,
-                              ),
-                            ),
+            return Column(
+              children: [
+                CheckboxListTile(
+                  title: Text(_getEventLabel(context, event)),
+                  subtitle: Text(
+                    _getEventDescription(context, event),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  value: isEnabled,
+                  onChanged: (value) {
+                    final newDisabledEvents = Set<AnalyticsEvent>.from(
+                      config.disabledEvents,
+                    );
+                    if (value ?? false) {
+                      newDisabledEvents.remove(event);
+                    } else {
+                      newDisabledEvents.add(event);
+                    }
+                    onConfigChanged(
+                      remoteConfig.copyWith(
+                        features: remoteConfig.features.copyWith(
+                          analytics: config.copyWith(
+                            disabledEvents: newDisabledEvents,
                           ),
-                        );
-                      },
-                    ),
-                    if (isEnabled)
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(
-                          start: AppSpacing.xxl,
-                          end: AppSpacing.md,
-                          bottom: AppSpacing.sm,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              l10n.samplingRateLabel(
-                                (samplingRate * 100).toInt(),
-                              ),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            Expanded(
-                              child: Slider(
-                                value: samplingRate,
-                                min: 0,
-                                max: 1,
-                                divisions: 20,
-                                label: '${(samplingRate * 100).toInt()}%',
-                                onChanged: (value) {
-                                  final newSamplingRates =
-                                      Map<AnalyticsEvent, double>.from(
-                                        config.eventSamplingRates,
-                                      );
-                                  // If value is 1.0, we can remove it from the map to save space/default
-                                  if (value == 1.0) {
-                                    newSamplingRates.remove(event);
-                                  } else {
-                                    newSamplingRates[event] = value;
-                                  }
-                                  onConfigChanged(
-                                    remoteConfig.copyWith(
-                                      features: remoteConfig.features.copyWith(
-                                        analytics: config.copyWith(
-                                          eventSamplingRates: newSamplingRates,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
                         ),
                       ),
-                    const Divider(height: 1),
-                  ],
-                );
-              }).toList(),
+                    );
+                  },
+                ),
+                if (isEnabled)
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      start: AppSpacing.xxl,
+                      end: AppSpacing.md,
+                      bottom: AppSpacing.sm,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          l10n.samplingRateLabel(
+                            (samplingRate * 100).toInt(),
+                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        Expanded(
+                          child: Slider(
+                            value: samplingRate,
+                            min: 0,
+                            max: 1,
+                            divisions: 20,
+                            label: '${(samplingRate * 100).toInt()}%',
+                            onChanged: (value) {
+                              final newSamplingRates =
+                                  Map<AnalyticsEvent, double>.from(
+                                    config.eventSamplingRates,
+                                  );
+                              // If value is 1.0, we can remove it from the map to save space/default
+                              if (value == 1.0) {
+                                newSamplingRates.remove(event);
+                              } else {
+                                newSamplingRates[event] = value;
+                              }
+                              onConfigChanged(
+                                remoteConfig.copyWith(
+                                  features: remoteConfig.features.copyWith(
+                                    analytics: config.copyWith(
+                                      eventSamplingRates: newSamplingRates,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                const Divider(height: 1),
+              ],
+            );
+          }).toList(),
         ),
       ],
     );
@@ -308,7 +306,7 @@ class AnalyticsConfigForm extends StatelessWidget {
       case AnalyticsEvent.browserChoiceChanged:
         return l10n.analyticsEventBrowserChoiceChangedLabel;
       case AnalyticsEvent.sourceFilterUsed:
-       return l10n.analyticsEventSourceFilterUsedLabel;
+        return l10n.analyticsEventSourceFilterUsedLabel;
     }
   }
 

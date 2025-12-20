@@ -55,10 +55,10 @@ class FeedConfigForm extends StatelessWidget {
           subtitle: Text(
             l10n.feedItemClickBehaviorDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           childrenPadding: const EdgeInsetsDirectional.only(
             start: AppSpacing.lg,
@@ -105,10 +105,10 @@ class FeedConfigForm extends StatelessWidget {
           subtitle: Text(
             l10n.feedDecoratorsDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           childrenPadding: const EdgeInsetsDirectional.only(
             start: AppSpacing.lg,
@@ -125,10 +125,10 @@ class FeedConfigForm extends StatelessWidget {
                   subtitle: Text(
                     _getDecoratorDescription(context, decoratorType),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
                   ),
                   childrenPadding: const EdgeInsetsDirectional.only(
                     start: AppSpacing.xl,

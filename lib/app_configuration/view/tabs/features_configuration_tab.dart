@@ -203,7 +203,7 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
           },
         ),
         const SizedBox(height: AppSpacing.lg),
-        
+
         // Feed
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
