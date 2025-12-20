@@ -2361,4 +2361,311 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get followUpActionsDescription =>
       'تكوين ما يحدث بعد استجابة المستخدم لموجه الاستمتاع، مثل طلب مراجعة المتجر.';
+
+  @override
+  String get analyticsTab => 'التحليلات';
+
+  @override
+  String get analyticsDescription =>
+      'تكوين مزود التحليلات، وتسجيل الأحداث، ومعدلات أخذ العينات.';
+
+  @override
+  String get analyticsSystemStatusTitle => 'تفعيل نظام التحليلات';
+
+  @override
+  String get analyticsSystemStatusDescription =>
+      'مفتاح رئيسي لتفعيل أو تعطيل جميع عمليات تتبع التحليلات.';
+
+  @override
+  String get analyticsProviderTitle => 'المزود النشط';
+
+  @override
+  String get analyticsProviderDescription =>
+      'اختر مزود خدمة التحليلات الأساسي.';
+
+  @override
+  String get analyticsEventsTitle => 'تكوين الأحداث';
+
+  @override
+  String get analyticsEventsDescription =>
+      'ضبط دقيق لتسجيل أحداث محددة. قم بتعطيل الأحداث المزعجة أو تعديل معدلات أخذ العينات.';
+
+  @override
+  String samplingRateLabel(int rate) {
+    return 'معدل أخذ العينات: $rate%';
+  }
+
+  @override
+  String get analyticsProviderFirebase => 'Firebase';
+
+  @override
+  String get analyticsProviderMixpanel => 'Mixpanel';
+
+  @override
+  String get analyticsEventUserRegisteredLabel => 'تسجيل مستخدم جديد';
+
+  @override
+  String get analyticsEventUserRegisteredDescription =>
+      'تتبع عندما يقوم مستخدم جديد بإنشاء حساب بنجاح.';
+
+  @override
+  String get analyticsEventUserLoginLabel => 'تسجيل دخول المستخدم';
+
+  @override
+  String get analyticsEventUserLoginDescription =>
+      'تتبع عندما يقوم المستخدم بتسجيل الدخول إلى التطبيق.';
+
+  @override
+  String get analyticsEventAccountLinkedLabel => 'ربط الحساب';
+
+  @override
+  String get analyticsEventAccountLinkedDescription =>
+      'تتبع عندما يقوم مستخدم ضيف بربط حسابه ببيانات اعتماد دائمة.';
+
+  @override
+  String get analyticsEventUserRoleChangedLabel => 'تغيير دور المستخدم';
+
+  @override
+  String get analyticsEventUserRoleChangedDescription =>
+      'تتبع عندما يتم تحديث دور المستخدم (مثل الترقية إلى مميز).';
+
+  @override
+  String get analyticsEventContentViewedLabel => 'مشاهدة المحتوى';
+
+  @override
+  String get analyticsEventContentViewedDescription =>
+      'تتبع عندما يشاهد المستخدم عنوانًا أو مقالًا.';
+
+  @override
+  String get analyticsEventContentSharedLabel => 'مشاركة المحتوى';
+
+  @override
+  String get analyticsEventContentSharedDescription =>
+      'تتبع عندما يشارك المستخدم المحتوى عبر منصات خارجية.';
+
+  @override
+  String get analyticsEventContentSavedLabel => 'حفظ المحتوى';
+
+  @override
+  String get analyticsEventContentSavedDescription =>
+      'تتبع عندما يقوم المستخدم بحفظ عنوان في المفضلة.';
+
+  @override
+  String get analyticsEventContentUnsavedLabel => 'إلغاء حفظ المحتوى';
+
+  @override
+  String get analyticsEventContentUnsavedDescription =>
+      'تتبع عندما يزيل المستخدم عنوانًا من المفضلة.';
+
+  @override
+  String get analyticsEventContentReadingTimeLabel => 'وقت قراءة المحتوى';
+
+  @override
+  String get analyticsEventContentReadingTimeDescription =>
+      'تتبع المدة التي يقضيها المستخدم في قراءة مقال.';
+
+  @override
+  String get analyticsEventReactionCreatedLabel => 'إضافة رد فعل';
+
+  @override
+  String get analyticsEventReactionCreatedDescription =>
+      'تتبع عندما يتفاعل المستخدم مع المحتوى.';
+
+  @override
+  String get analyticsEventReactionDeletedLabel => 'إزالة رد فعل';
+
+  @override
+  String get analyticsEventReactionDeletedDescription =>
+      'تتبع عندما يزيل المستخدم رد فعله.';
+
+  @override
+  String get analyticsEventCommentCreatedLabel => 'نشر تعليق';
+
+  @override
+  String get analyticsEventCommentCreatedDescription =>
+      'تتبع عندما يرسل المستخدم تعليقًا جديدًا.';
+
+  @override
+  String get analyticsEventCommentDeletedLabel => 'حذف تعليق';
+
+  @override
+  String get analyticsEventCommentDeletedDescription =>
+      'تتبع عندما يحذف المستخدم تعليقه الخاص.';
+
+  @override
+  String get analyticsEventReportSubmittedLabel => 'تقديم بلاغ';
+
+  @override
+  String get analyticsEventReportSubmittedDescription =>
+      'تتبع عندما يبلغ المستخدم عن محتوى أو مستخدمين آخرين.';
+
+  @override
+  String get analyticsEventHeadlineFilterCreatedLabel => 'إنشاء مرشح عناوين';
+
+  @override
+  String get analyticsEventHeadlineFilterCreatedDescription =>
+      'تتبع عندما ينشئ المستخدم مرشح عناوين مخصص جديد.';
+
+  @override
+  String get analyticsEventHeadlineFilterUpdatedLabel => 'تحديث مرشح عناوين';
+
+  @override
+  String get analyticsEventHeadlineFilterUpdatedDescription =>
+      'تتبع عندما يعدل المستخدم مرشح عناوين موجود.';
+
+  @override
+  String get analyticsEventHeadlineFilterUsedLabel => 'استخدام مرشح عناوين';
+
+  @override
+  String get analyticsEventHeadlineFilterUsedDescription =>
+      'تتبع عندما يطبق المستخدم مرشح عناوين محفوظ.';
+
+  @override
+  String get analyticsEventSourceFilterCreatedLabel => 'إنشاء مرشح مصادر';
+
+  @override
+  String get analyticsEventSourceFilterCreatedDescription =>
+      'تتبع عندما ينشئ المستخدم مرشح مصادر جديد.';
+
+  @override
+  String get analyticsEventSourceFilterUpdatedLabel => 'تحديث مرشح مصادر';
+
+  @override
+  String get analyticsEventSourceFilterUpdatedDescription =>
+      'تتبع عندما يعدل المستخدم مرشح مصادر موجود.';
+
+  @override
+  String get analyticsEventSearchPerformedLabel => 'إجراء بحث';
+
+  @override
+  String get analyticsEventSearchPerformedDescription =>
+      'تتبع عندما يقوم المستخدم بإجراء استعلام بحث.';
+
+  @override
+  String get analyticsEventAppReviewPromptRespondedLabel =>
+      'استجابة لطلب التقييم';
+
+  @override
+  String get analyticsEventAppReviewPromptRespondedDescription =>
+      'تتبع استجابات المستخدم للموجه الداخلي \'هل تستمتع بالتطبيق؟\'.';
+
+  @override
+  String get analyticsEventAppReviewStoreRequestedLabel => 'طلب تقييم المتجر';
+
+  @override
+  String get analyticsEventAppReviewStoreRequestedDescription =>
+      'تتبع عندما يتم طلب مربع حوار مراجعة المتجر الأصلي لنظام التشغيل.';
+
+  @override
+  String get analyticsEventLimitExceededLabel => 'تجاوز الحد';
+
+  @override
+  String get analyticsEventLimitExceededDescription =>
+      'تتبع عندما يصل المستخدم إلى حد الاستخدام (مثل حد العناصر المحفوظة).';
+
+  @override
+  String get analyticsEventLimitExceededCtaClickedLabel =>
+      'النقر على إجراء الحد';
+
+  @override
+  String get analyticsEventLimitExceededCtaClickedDescription =>
+      'تتبع النقرات على أزرار \'ترقية\' أو \'ربط الحساب\' في مربعات حوار الحدود.';
+
+  @override
+  String get analyticsEventPaywallPresentedLabel => 'ظهور جدار الدفع';
+
+  @override
+  String get analyticsEventPaywallPresentedDescription =>
+      'تتبع عندما يتم عرض شاشة جدار الدفع للمستخدم.';
+
+  @override
+  String get analyticsEventSubscriptionStartedLabel => 'بدء الاشتراك';
+
+  @override
+  String get analyticsEventSubscriptionStartedDescription =>
+      'تتبع عندما يبدأ المستخدم اشتراكًا جديدًا بنجاح.';
+
+  @override
+  String get analyticsEventSubscriptionRenewedLabel => 'تجديد الاشتراك';
+
+  @override
+  String get analyticsEventSubscriptionRenewedDescription =>
+      'تتبع عندما يتم تجديد الاشتراك تلقائيًا أو يدويًا.';
+
+  @override
+  String get analyticsEventSubscriptionCancelledLabel => 'إلغاء الاشتراك';
+
+  @override
+  String get analyticsEventSubscriptionCancelledDescription =>
+      'تتبع عندما يقوم المستخدم بإلغاء اشتراكه.';
+
+  @override
+  String get analyticsEventSubscriptionEndedLabel => 'انتهاء الاشتراك';
+
+  @override
+  String get analyticsEventSubscriptionEndedDescription =>
+      'تتبع عندما تنتهي صلاحية الاشتراك أو يتم إنهاؤه.';
+
+  @override
+  String get analyticsEventAdImpressionLabel => 'ظهور إعلان';
+
+  @override
+  String get analyticsEventAdImpressionDescription =>
+      'تتبع عندما يتم عرض إعلان للمستخدم.';
+
+  @override
+  String get analyticsEventAdClickedLabel => 'النقر على إعلان';
+
+  @override
+  String get analyticsEventAdClickedDescription =>
+      'تتبع عندما ينقر المستخدم على إعلان.';
+
+  @override
+  String get analyticsEventAdLoadFailedLabel => 'فشل تحميل الإعلان';
+
+  @override
+  String get analyticsEventAdLoadFailedDescription =>
+      'تتبع الأخطاء عند محاولة تحميل الإعلانات.';
+
+  @override
+  String get analyticsEventAdRewardEarnedLabel => 'كسب مكافأة الإعلان';
+
+  @override
+  String get analyticsEventAdRewardEarnedDescription =>
+      'تتبع عندما يكمل المستخدم إجراء إعلان بمكافأة.';
+
+  @override
+  String get analyticsEventThemeChangedLabel => 'تغيير السمة';
+
+  @override
+  String get analyticsEventThemeChangedDescription =>
+      'تتبع عندما يغير المستخدم سمة التطبيق.';
+
+  @override
+  String get analyticsEventLanguageChangedLabel => 'تغيير اللغة';
+
+  @override
+  String get analyticsEventLanguageChangedDescription =>
+      'تتبع عندما يغير المستخدم لغة التطبيق.';
+
+  @override
+  String get analyticsEventFeedDensityChangedLabel => 'تغيير كثافة الموجز';
+
+  @override
+  String get analyticsEventFeedDensityChangedDescription =>
+      'تتبع عندما يعدل المستخدم كثافة المعلومات في الموجز.';
+
+  @override
+  String get analyticsEventBrowserChoiceChangedLabel => 'تغيير تفضيل المتصفح';
+
+  @override
+  String get analyticsEventBrowserChoiceChangedDescription =>
+      'تتبع عندما يغير المستخدم متصفحه المفضل لفتح الروابط.';
+
+  @override
+  String get analyticsEventSourceFilterUsedLabel => 'استخدام مرشح مصادر';
+
+  @override
+  String get analyticsEventSourceFilterUsedDescription =>
+      'تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.';
 }

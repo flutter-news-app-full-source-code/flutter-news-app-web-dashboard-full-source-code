@@ -18,7 +18,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
+// import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
@@ -40,7 +40,6 @@ class App extends StatelessWidget {
     required DataRepository<UserContentPreferences>
     userContentPreferencesRepository,
     required DataRepository<RemoteConfig> remoteConfigRepository,
-    required DataRepository<DashboardSummary> dashboardSummaryRepository,
     required DataRepository<Country> countriesRepository,
     required DataRepository<Language> languagesRepository,
     required DataRepository<User> usersRepository,
@@ -59,7 +58,6 @@ class App extends StatelessWidget {
        _userContentPreferencesRepository = userContentPreferencesRepository,
        _remoteConfigRepository = remoteConfigRepository,
        _kvStorageService = storageService,
-       _dashboardSummaryRepository = dashboardSummaryRepository,
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
        _usersRepository = usersRepository,
@@ -77,7 +75,6 @@ class App extends StatelessWidget {
   final DataRepository<UserContentPreferences>
   _userContentPreferencesRepository;
   final DataRepository<RemoteConfig> _remoteConfigRepository;
-  final DataRepository<DashboardSummary> _dashboardSummaryRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
   final DataRepository<User> _usersRepository;
@@ -101,7 +98,6 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _appSettingsRepository),
         RepositoryProvider.value(value: _userContentPreferencesRepository),
         RepositoryProvider.value(value: _remoteConfigRepository),
-        RepositoryProvider.value(value: _dashboardSummaryRepository),
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _usersRepository),
@@ -163,15 +159,13 @@ class App extends StatelessWidget {
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
-          BlocProvider(
-            create: (context) => OverviewBloc(
-              dashboardSummaryRepository: context
-                  .read<DataRepository<DashboardSummary>>(),
-              headlinesRepository: context.read<DataRepository<Headline>>(),
-              topicsRepository: context.read<DataRepository<Topic>>(),
-              sourcesRepository: context.read<DataRepository<Source>>(),
-            ),
-          ),
+          // BlocProvider(
+          //   create: (context) => OverviewBloc(
+          //     headlinesRepository: context.read<DataRepository<Headline>>(),
+          //     topicsRepository: context.read<DataRepository<Topic>>(),
+          //     sourcesRepository: context.read<DataRepository<Source>>(),
+          //   ),
+          // ),
           // The UserFilterBloc is provided here to be available for both the
           // UserManagementBloc and the UI components.
           BlocProvider(create: (_) => UserFilterBloc()),

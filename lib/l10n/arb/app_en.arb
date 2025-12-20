@@ -2987,5 +2987,358 @@
   "followUpActionsDescription": "Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.",
   "@followUpActionsDescription": {
     "description": "Description for the follow-up actions settings."
+  },
+  "analyticsTab": "Analytics",
+  "@analyticsTab": {
+    "description": "Tab title for Analytics settings"
+  },
+  "analyticsDescription": "Configure analytics provider, event logging, and sampling rates.",
+  "@analyticsDescription": {
+    "description": "Description for the Analytics expansion tile"
+  },
+  "analyticsSystemStatusTitle": "Enable Analytics System",
+  "@analyticsSystemStatusTitle": {
+    "description": "Title for the Analytics System status section"
+  },
+  "analyticsSystemStatusDescription": "Master switch to enable or disable all analytics tracking.",
+  "@analyticsSystemStatusDescription": {
+    "description": "Description for the Analytics System status section"
+  },
+  "analyticsProviderTitle": "Active Provider",
+  "@analyticsProviderTitle": {
+    "description": "Title for the Analytics Provider section"
+  },
+  "analyticsProviderDescription": "Select the primary analytics service provider.",
+  "@analyticsProviderDescription": {
+    "description": "Description for the Analytics Provider section"
+  },
+  "analyticsEventsTitle": "Event Configuration",
+  "@analyticsEventsTitle": {
+    "description": "Title for the Event Configuration section"
+  },
+  "analyticsEventsDescription": "Fine-tune logging for specific events. Disable noisy events or adjust sampling rates.",
+  "@analyticsEventsDescription": {
+    "description": "Description for the Event Configuration section"
+  },
+  "samplingRateLabel": "Sampling Rate: {rate}%",
+  "@samplingRateLabel": {
+    "description": "Label for the sampling rate slider",
+    "placeholders": {
+      "rate": {
+        "type": "int"
+      }
+    }
+  },
+  "analyticsProviderFirebase": "Firebase",
+  "@analyticsProviderFirebase": {
+    "description": "Label for Firebase analytics provider"
+  },
+  "analyticsProviderMixpanel": "Mixpanel",
+  "@analyticsProviderMixpanel": {
+    "description": "Label for Mixpanel analytics provider"
+  },
+  "analyticsEventUserRegisteredLabel": "User Registration",
+  "@analyticsEventUserRegisteredLabel": {
+    "description": "Label for the User Registration analytics event"
+  },
+  "analyticsEventUserRegisteredDescription": "Track when a new user successfully creates an account.",
+  "@analyticsEventUserRegisteredDescription": {
+    "description": "Description for the User Registration analytics event"
+  },
+  "analyticsEventUserLoginLabel": "User Login",
+  "@analyticsEventUserLoginLabel": {
+    "description": "Label for the User Login analytics event"
+  },
+  "analyticsEventUserLoginDescription": "Track when a user logs in to the application.",
+  "@analyticsEventUserLoginDescription": {
+    "description": "Description for the User Login analytics event"
+  },
+  "analyticsEventAccountLinkedLabel": "Account Linking",
+  "@analyticsEventAccountLinkedLabel": {
+    "description": "Label for the Account Linking analytics event"
+  },
+  "analyticsEventAccountLinkedDescription": "Track when a guest user links their account to a permanent credential.",
+  "@analyticsEventAccountLinkedDescription": {
+    "description": "Description for the Account Linking analytics event"
+  },
+  "analyticsEventUserRoleChangedLabel": "User Role Change",
+  "@analyticsEventUserRoleChangedLabel": {
+    "description": "Label for the User Role Change analytics event"
+  },
+  "analyticsEventUserRoleChangedDescription": "Track when a user's role is updated (e.g., upgraded to Premium).",
+  "@analyticsEventUserRoleChangedDescription": {
+    "description": "Description for the User Role Change analytics event"
+  },
+  "analyticsEventContentViewedLabel": "Content View",
+  "@analyticsEventContentViewedLabel": {
+    "description": "Label for the Content View analytics event"
+  },
+  "analyticsEventContentViewedDescription": "Track when a user views a headline or article.",
+  "@analyticsEventContentViewedDescription": {
+    "description": "Description for the Content View analytics event"
+  },
+  "analyticsEventContentSharedLabel": "Content Share",
+  "@analyticsEventContentSharedLabel": {
+    "description": "Label for the Content Share analytics event"
+  },
+  "analyticsEventContentSharedDescription": "Track when a user shares content via external platforms.",
+  "@analyticsEventContentSharedDescription": {
+    "description": "Description for the Content Share analytics event"
+  },
+  "analyticsEventContentSavedLabel": "Content Save",
+  "@analyticsEventContentSavedLabel": {
+    "description": "Label for the Content Save analytics event"
+  },
+  "analyticsEventContentSavedDescription": "Track when a user bookmarks a headline.",
+  "@analyticsEventContentSavedDescription": {
+    "description": "Description for the Content Save analytics event"
+  },
+  "analyticsEventContentUnsavedLabel": "Content Unsave",
+  "@analyticsEventContentUnsavedLabel": {
+    "description": "Label for the Content Unsave analytics event"
+  },
+  "analyticsEventContentUnsavedDescription": "Track when a user removes a bookmark.",
+  "@analyticsEventContentUnsavedDescription": {
+    "description": "Description for the Content Unsave analytics event"
+  },
+  "analyticsEventContentReadingTimeLabel": "Content Reading Time",
+  "@analyticsEventContentReadingTimeLabel": {
+    "description": "Label for the Content Reading Time analytics event"
+  },
+  "analyticsEventContentReadingTimeDescription": "Track the duration a user spends reading an article.",
+  "@analyticsEventContentReadingTimeDescription": {
+    "description": "Description for the Content Reading Time analytics event"
+  },
+  "analyticsEventReactionCreatedLabel": "Reaction Added",
+  "@analyticsEventReactionCreatedLabel": {
+    "description": "Label for the Reaction Added analytics event"
+  },
+  "analyticsEventReactionCreatedDescription": "Track when a user reacts to content.",
+  "@analyticsEventReactionCreatedDescription": {
+    "description": "Description for the Reaction Added analytics event"
+  },
+  "analyticsEventReactionDeletedLabel": "Reaction Removed",
+  "@analyticsEventReactionDeletedLabel": {
+    "description": "Label for the Reaction Removed analytics event"
+  },
+  "analyticsEventReactionDeletedDescription": "Track when a user removes their reaction.",
+  "@analyticsEventReactionDeletedDescription": {
+    "description": "Description for the Reaction Removed analytics event"
+  },
+  "analyticsEventCommentCreatedLabel": "Comment Posted",
+  "@analyticsEventCommentCreatedLabel": {
+    "description": "Label for the Comment Posted analytics event"
+  },
+  "analyticsEventCommentCreatedDescription": "Track when a user submits a new comment.",
+  "@analyticsEventCommentCreatedDescription": {
+    "description": "Description for the Comment Posted analytics event"
+  },
+  "analyticsEventCommentDeletedLabel": "Comment Deleted",
+  "@analyticsEventCommentDeletedLabel": {
+    "description": "Label for the Comment Deleted analytics event"
+  },
+  "analyticsEventCommentDeletedDescription": "Track when a user deletes their own comment.",
+  "@analyticsEventCommentDeletedDescription": {
+    "description": "Description for the Comment Deleted analytics event"
+  },
+  "analyticsEventReportSubmittedLabel": "Report Submitted",
+  "@analyticsEventReportSubmittedLabel": {
+    "description": "Label for the Report Submitted analytics event"
+  },
+  "analyticsEventReportSubmittedDescription": "Track when a user reports content or other users.",
+  "@analyticsEventReportSubmittedDescription": {
+    "description": "Description for the Report Submitted analytics event"
+  },
+  "analyticsEventHeadlineFilterCreatedLabel": "Headline Filter Creation",
+  "@analyticsEventHeadlineFilterCreatedLabel": {
+    "description": "Label for the Headline Filter Creation analytics event"
+  },
+  "analyticsEventHeadlineFilterCreatedDescription": "Track when a user creates a new custom headline filter.",
+  "@analyticsEventHeadlineFilterCreatedDescription": {
+    "description": "Description for the Headline Filter Creation analytics event"
+  },
+  "analyticsEventHeadlineFilterUpdatedLabel": "Headline Filter Update",
+  "@analyticsEventHeadlineFilterUpdatedLabel": {
+    "description": "Label for the Headline Filter Update analytics event"
+  },
+  "analyticsEventHeadlineFilterUpdatedDescription": "Track when a user modifies an existing headline filter.",
+  "@analyticsEventHeadlineFilterUpdatedDescription": {
+    "description": "Description for the Headline Filter Update analytics event"
+  },
+  "analyticsEventHeadlineFilterUsedLabel": "Headline Filter Usage",
+  "@analyticsEventHeadlineFilterUsedLabel": {
+    "description": "Label for the Headline Filter Usage analytics event"
+  },
+  "analyticsEventHeadlineFilterUsedDescription": "Track when a user applies a saved headline filter.",
+  "@analyticsEventHeadlineFilterUsedDescription": {
+    "description": "Description for the Headline Filter Usage analytics event"
+  },
+  "analyticsEventSourceFilterCreatedLabel": "Source Filter Creation",
+  "@analyticsEventSourceFilterCreatedLabel": {
+    "description": "Label for the Source Filter Creation analytics event"
+  },
+  "analyticsEventSourceFilterCreatedDescription": "Track when a user creates a new source filter.",
+  "@analyticsEventSourceFilterCreatedDescription": {
+    "description": "Description for the Source Filter Creation analytics event"
+  },
+  "analyticsEventSourceFilterUpdatedLabel": "Source Filter Update",
+  "@analyticsEventSourceFilterUpdatedLabel": {
+    "description": "Label for the Source Filter Update analytics event"
+  },
+  "analyticsEventSourceFilterUpdatedDescription": "Track when a user modifies an existing source filter.",
+  "@analyticsEventSourceFilterUpdatedDescription": {
+    "description": "Description for the Source Filter Update analytics event"
+  },
+  "analyticsEventSearchPerformedLabel": "Search Performed",
+  "@analyticsEventSearchPerformedLabel": {
+    "description": "Label for the Search Performed analytics event"
+  },
+  "analyticsEventSearchPerformedDescription": "Track when a user performs a search query.",
+  "@analyticsEventSearchPerformedDescription": {
+    "description": "Description for the Search Performed analytics event"
+  },
+  "analyticsEventAppReviewPromptRespondedLabel": "Review Prompt Response",
+  "@analyticsEventAppReviewPromptRespondedLabel": {
+    "description": "Label for the Review Prompt Response analytics event"
+  },
+  "analyticsEventAppReviewPromptRespondedDescription": "Track user responses to the internal 'Enjoying the app?' prompt.",
+  "@analyticsEventAppReviewPromptRespondedDescription": {
+    "description": "Description for the Review Prompt Response analytics event"
+  },
+  "analyticsEventAppReviewStoreRequestedLabel": "Store Review Request",
+  "@analyticsEventAppReviewStoreRequestedLabel": {
+    "description": "Label for the Store Review Request analytics event"
+  },
+  "analyticsEventAppReviewStoreRequestedDescription": "Track when the native OS store review dialog is requested.",
+  "@analyticsEventAppReviewStoreRequestedDescription": {
+    "description": "Description for the Store Review Request analytics event"
+  },
+  "analyticsEventLimitExceededLabel": "Limit Exceeded",
+  "@analyticsEventLimitExceededLabel": {
+    "description": "Label for the Limit Exceeded analytics event"
+  },
+  "analyticsEventLimitExceededDescription": "Track when a user hits a usage limit (e.g., saved items limit).",
+  "@analyticsEventLimitExceededDescription": {
+    "description": "Description for the Limit Exceeded analytics event"
+  },
+  "analyticsEventLimitExceededCtaClickedLabel": "Limit CTA Click",
+  "@analyticsEventLimitExceededCtaClickedLabel": {
+    "description": "Label for the Limit CTA Click analytics event"
+  },
+  "analyticsEventLimitExceededCtaClickedDescription": "Track clicks on 'Upgrade' or 'Link Account' buttons in limit dialogs.",
+  "@analyticsEventLimitExceededCtaClickedDescription": {
+    "description": "Description for the Limit CTA Click analytics event"
+  },
+  "analyticsEventPaywallPresentedLabel": "Paywall Impression",
+  "@analyticsEventPaywallPresentedLabel": {
+    "description": "Label for the Paywall Impression analytics event"
+  },
+  "analyticsEventPaywallPresentedDescription": "Track when the paywall screen is shown to a user.",
+  "@analyticsEventPaywallPresentedDescription": {
+    "description": "Description for the Paywall Impression analytics event"
+  },
+  "analyticsEventSubscriptionStartedLabel": "Subscription Start",
+  "@analyticsEventSubscriptionStartedLabel": {
+    "description": "Label for the Subscription Start analytics event"
+  },
+  "analyticsEventSubscriptionStartedDescription": "Track when a user successfully starts a new subscription.",
+  "@analyticsEventSubscriptionStartedDescription": {
+    "description": "Description for the Subscription Start analytics event"
+  },
+  "analyticsEventSubscriptionRenewedLabel": "Subscription Renewal",
+  "@analyticsEventSubscriptionRenewedLabel": {
+    "description": "Label for the Subscription Renewal analytics event"
+  },
+  "analyticsEventSubscriptionRenewedDescription": "Track when a subscription is automatically or manually renewed.",
+  "@analyticsEventSubscriptionRenewedDescription": {
+    "description": "Description for the Subscription Renewal analytics event"
+  },
+  "analyticsEventSubscriptionCancelledLabel": "Subscription Cancellation",
+  "@analyticsEventSubscriptionCancelledLabel": {
+    "description": "Label for the Subscription Cancellation analytics event"
+  },
+  "analyticsEventSubscriptionCancelledDescription": "Track when a user cancels their subscription.",
+  "@analyticsEventSubscriptionCancelledDescription": {
+    "description": "Description for the Subscription Cancellation analytics event"
+  },
+  "analyticsEventSubscriptionEndedLabel": "Subscription End",
+  "@analyticsEventSubscriptionEndedLabel": {
+    "description": "Label for the Subscription End analytics event"
+  },
+  "analyticsEventSubscriptionEndedDescription": "Track when a subscription expires or is terminated.",
+  "@analyticsEventSubscriptionEndedDescription": {
+    "description": "Description for the Subscription End analytics event"
+  },
+  "analyticsEventAdImpressionLabel": "Ad Impression",
+  "@analyticsEventAdImpressionLabel": {
+    "description": "Label for the Ad Impression analytics event"
+  },
+  "analyticsEventAdImpressionDescription": "Track when an advertisement is displayed to the user.",
+  "@analyticsEventAdImpressionDescription": {
+    "description": "Description for the Ad Impression analytics event"
+  },
+  "analyticsEventAdClickedLabel": "Ad Click",
+  "@analyticsEventAdClickedLabel": {
+    "description": "Label for the Ad Click analytics event"
+  },
+  "analyticsEventAdClickedDescription": "Track when a user clicks on an advertisement.",
+  "@analyticsEventAdClickedDescription": {
+    "description": "Description for the Ad Click analytics event"
+  },
+  "analyticsEventAdLoadFailedLabel": "Ad Load Failure",
+  "@analyticsEventAdLoadFailedLabel": {
+    "description": "Label for the Ad Load Failure analytics event"
+  },
+  "analyticsEventAdLoadFailedDescription": "Track errors when attempting to load advertisements.",
+  "@analyticsEventAdLoadFailedDescription": {
+    "description": "Description for the Ad Load Failure analytics event"
+  },
+  "analyticsEventAdRewardEarnedLabel": "Ad Reward Earned",
+  "@analyticsEventAdRewardEarnedLabel": {
+    "description": "Label for the Ad Reward Earned analytics event"
+  },
+  "analyticsEventAdRewardEarnedDescription": "Track when a user completes a rewarded ad action.",
+  "@analyticsEventAdRewardEarnedDescription": {
+    "description": "Description for the Ad Reward Earned analytics event"
+  },
+  "analyticsEventThemeChangedLabel": "Theme Change",
+  "@analyticsEventThemeChangedLabel": {
+    "description": "Label for the Theme Change analytics event"
+  },
+  "analyticsEventThemeChangedDescription": "Track when a user changes the application theme.",
+  "@analyticsEventThemeChangedDescription": {
+    "description": "Description for the Theme Change analytics event"
+  },
+  "analyticsEventLanguageChangedLabel": "Language Change",
+  "@analyticsEventLanguageChangedLabel": {
+    "description": "Label for the Language Change analytics event"
+  },
+  "analyticsEventLanguageChangedDescription": "Track when a user changes the application language.",
+  "@analyticsEventLanguageChangedDescription": {
+    "description": "Description for the Language Change analytics event"
+  },
+  "analyticsEventFeedDensityChangedLabel": "Feed Density Change",
+  "@analyticsEventFeedDensityChangedLabel": {
+    "description": "Label for the Feed Density Change analytics event"
+  },
+  "analyticsEventFeedDensityChangedDescription": "Track when a user adjusts the information density of the feed.",
+  "@analyticsEventFeedDensityChangedDescription": {
+    "description": "Description for the Feed Density Change analytics event"
+  },
+  "analyticsEventBrowserChoiceChangedLabel": "Browser Preference Change",
+  "@analyticsEventBrowserChoiceChangedLabel": {
+    "description": "Label for the Browser Preference Change analytics event"
+  },
+  "analyticsEventBrowserChoiceChangedDescription": "Track when a user changes their preferred browser for opening links.",
+  "@analyticsEventBrowserChoiceChangedDescription": {
+    "description": "Description for the Browser Preference Change analytics event"
+  },
+  "analyticsEventSourceFilterUsedLabel": "Source Filter Usage",
+  "@analyticsEventSourceFilterUsedLabel": {
+    "description": "Label for the Source Filter Usage analytics event"
+  },
+  "analyticsEventSourceFilterUsedDescription": "Track when a user applies a saved source filter.",
+  "@analyticsEventSourceFilterUsedDescription": {
+    "description": "Description for the Source Filter Usage analytics event"
   }
 }

@@ -59,24 +59,16 @@ Directly manage all user-generated content from a centralized command center. Re
 
 
 <details>
-<summary><strong>⚙️ App Monetization & Remote Control</strong></summary>
+<summary><strong>⚙️ Real-Time App Configuration & Remote Control</strong></summary>
 
-### 💸 Centralized Monetization Engine
-Take direct control of your mobile app's revenue strategy. This integrated system allows you to manage your ad inventory and fine-tune display rules without ever touching the mobile app's code.
-- **Flexible Ad Provider Strategy:** Instantly switch the mobile app's primary ad source between industry-standard networks like Google AdMob for maximum control.
-- **Granular, Role-Based Rules:** Define precisely how and when ads are shown based on user subscription tiers (e.g., guest, standard, premium), optimizing both revenue and user experience.
-> **Your Advantage:** Deploy a powerful, backend-driven monetization strategy. A/B test ad providers and adjust revenue models on the fly to respond to market demands in real-time.
-
----
-
-### 🚀 Real-Time Application Management
-Dynamically control the mobile app's behavior and operational state directly from the dashboard, eliminating the need for constant app store updates.
-- **Critical State Management:** Instantly activate a maintenance mode or enforce a mandatory app update for your users to handle operational issues or critical releases gracefully.
-- **Dynamic In-App Content:** Remotely manage the visibility and behavior of in-feed promotional prompts and user engagement elements.
-- **Tier-Based Feature Gating:** Define and enforce feature limits based on user roles, such as setting the maximum number of followed topics or saved headlines for different subscription levels.
-- **Full Community Feature Control:** Remotely enable or disable the entire user engagement system (reactions, comments), the content reporting feature, and the in-app review funnel. Fine-tune engagement modes and configure rules for when and how users are prompted for feedback.
-- **Global Notification Control:** Remotely enable or disable the entire push notification system, switch between providers (e.g., Firebase, OneSignal), and toggle specific delivery types like breaking news or daily digests.
-> **Your Advantage:** Gain unparalleled agility to manage your live application. Ensure service stability, drive user actions, and configure business rules instantly, all from a centralized control panel.
+### 🚀 Dynamic Application Control
+Dynamically control the mobile app's behavior, features, and operational state directly from the dashboard, eliminating the need for constant app store updates.
+- **App Monetization:** Take direct control of your mobile app's revenue. Remotely manage ad providers like Google AdMob and define granular, role-based display rules to optimize revenue and user experience.
+- **Feature Toggling:** Instantly enable or disable major features. Globally toggle the entire push notification system, the community engagement suite (reactions, comments), the content reporting feature, and the in-app review funnel.
+- **Operational Control:** Ensure stability and manage releases gracefully. Activate a maintenance mode or enforce a mandatory app update for all users directly from the dashboard.
+- **Content & Access Control:** Define and enforce feature limits based on user subscription tiers, such as setting the maximum number of saved articles. Remotely manage the visibility and behavior of in-feed promotional prompts.
+- **Analytics & Data Insights:** Gain critical insights by remotely configuring the analytics system. Enable or disable the entire system, switch between providers like Firebase or Mixpanel, and fine-tune event tracking and sampling rates to understand user behavior without deploying new app versions.
+> **Your Advantage:** Gain unparalleled agility to manage your live application. Ensure service stability, drive user actions, configure business rules, and adjust your data strategy instantly, all from a single, centralized control panel.
 
 </details>
 

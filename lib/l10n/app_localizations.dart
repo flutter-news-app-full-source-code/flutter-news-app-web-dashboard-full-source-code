@@ -4327,6 +4327,528 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Configure what happens after a user responds to the enjoyment prompt, such as requesting a store review.'**
   String get followUpActionsDescription;
+
+  /// Tab title for Analytics settings
+  ///
+  /// In en, this message translates to:
+  /// **'Analytics'**
+  String get analyticsTab;
+
+  /// Description for the Analytics expansion tile
+  ///
+  /// In en, this message translates to:
+  /// **'Configure analytics provider, event logging, and sampling rates.'**
+  String get analyticsDescription;
+
+  /// Title for the Analytics System status section
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Analytics System'**
+  String get analyticsSystemStatusTitle;
+
+  /// Description for the Analytics System status section
+  ///
+  /// In en, this message translates to:
+  /// **'Master switch to enable or disable all analytics tracking.'**
+  String get analyticsSystemStatusDescription;
+
+  /// Title for the Analytics Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Active Provider'**
+  String get analyticsProviderTitle;
+
+  /// Description for the Analytics Provider section
+  ///
+  /// In en, this message translates to:
+  /// **'Select the primary analytics service provider.'**
+  String get analyticsProviderDescription;
+
+  /// Title for the Event Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Event Configuration'**
+  String get analyticsEventsTitle;
+
+  /// Description for the Event Configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Fine-tune logging for specific events. Disable noisy events or adjust sampling rates.'**
+  String get analyticsEventsDescription;
+
+  /// Label for the sampling rate slider
+  ///
+  /// In en, this message translates to:
+  /// **'Sampling Rate: {rate}%'**
+  String samplingRateLabel(int rate);
+
+  /// Label for Firebase analytics provider
+  ///
+  /// In en, this message translates to:
+  /// **'Firebase'**
+  String get analyticsProviderFirebase;
+
+  /// Label for Mixpanel analytics provider
+  ///
+  /// In en, this message translates to:
+  /// **'Mixpanel'**
+  String get analyticsProviderMixpanel;
+
+  /// Label for the User Registration analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'User Registration'**
+  String get analyticsEventUserRegisteredLabel;
+
+  /// Description for the User Registration analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a new user successfully creates an account.'**
+  String get analyticsEventUserRegisteredDescription;
+
+  /// Label for the User Login analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'User Login'**
+  String get analyticsEventUserLoginLabel;
+
+  /// Description for the User Login analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user logs in to the application.'**
+  String get analyticsEventUserLoginDescription;
+
+  /// Label for the Account Linking analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Account Linking'**
+  String get analyticsEventAccountLinkedLabel;
+
+  /// Description for the Account Linking analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a guest user links their account to a permanent credential.'**
+  String get analyticsEventAccountLinkedDescription;
+
+  /// Label for the User Role Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'User Role Change'**
+  String get analyticsEventUserRoleChangedLabel;
+
+  /// Description for the User Role Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user\'s role is updated (e.g., upgraded to Premium).'**
+  String get analyticsEventUserRoleChangedDescription;
+
+  /// Label for the Content View analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Content View'**
+  String get analyticsEventContentViewedLabel;
+
+  /// Description for the Content View analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user views a headline or article.'**
+  String get analyticsEventContentViewedDescription;
+
+  /// Label for the Content Share analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Content Share'**
+  String get analyticsEventContentSharedLabel;
+
+  /// Description for the Content Share analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user shares content via external platforms.'**
+  String get analyticsEventContentSharedDescription;
+
+  /// Label for the Content Save analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Content Save'**
+  String get analyticsEventContentSavedLabel;
+
+  /// Description for the Content Save analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user bookmarks a headline.'**
+  String get analyticsEventContentSavedDescription;
+
+  /// Label for the Content Unsave analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Content Unsave'**
+  String get analyticsEventContentUnsavedLabel;
+
+  /// Description for the Content Unsave analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user removes a bookmark.'**
+  String get analyticsEventContentUnsavedDescription;
+
+  /// Label for the Content Reading Time analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Content Reading Time'**
+  String get analyticsEventContentReadingTimeLabel;
+
+  /// Description for the Content Reading Time analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track the duration a user spends reading an article.'**
+  String get analyticsEventContentReadingTimeDescription;
+
+  /// Label for the Reaction Added analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Reaction Added'**
+  String get analyticsEventReactionCreatedLabel;
+
+  /// Description for the Reaction Added analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user reacts to content.'**
+  String get analyticsEventReactionCreatedDescription;
+
+  /// Label for the Reaction Removed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Reaction Removed'**
+  String get analyticsEventReactionDeletedLabel;
+
+  /// Description for the Reaction Removed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user removes their reaction.'**
+  String get analyticsEventReactionDeletedDescription;
+
+  /// Label for the Comment Posted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Comment Posted'**
+  String get analyticsEventCommentCreatedLabel;
+
+  /// Description for the Comment Posted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user submits a new comment.'**
+  String get analyticsEventCommentCreatedDescription;
+
+  /// Label for the Comment Deleted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Comment Deleted'**
+  String get analyticsEventCommentDeletedLabel;
+
+  /// Description for the Comment Deleted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user deletes their own comment.'**
+  String get analyticsEventCommentDeletedDescription;
+
+  /// Label for the Report Submitted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Report Submitted'**
+  String get analyticsEventReportSubmittedLabel;
+
+  /// Description for the Report Submitted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user reports content or other users.'**
+  String get analyticsEventReportSubmittedDescription;
+
+  /// Label for the Headline Filter Creation analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Headline Filter Creation'**
+  String get analyticsEventHeadlineFilterCreatedLabel;
+
+  /// Description for the Headline Filter Creation analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user creates a new custom headline filter.'**
+  String get analyticsEventHeadlineFilterCreatedDescription;
+
+  /// Label for the Headline Filter Update analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Headline Filter Update'**
+  String get analyticsEventHeadlineFilterUpdatedLabel;
+
+  /// Description for the Headline Filter Update analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user modifies an existing headline filter.'**
+  String get analyticsEventHeadlineFilterUpdatedDescription;
+
+  /// Label for the Headline Filter Usage analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Headline Filter Usage'**
+  String get analyticsEventHeadlineFilterUsedLabel;
+
+  /// Description for the Headline Filter Usage analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user applies a saved headline filter.'**
+  String get analyticsEventHeadlineFilterUsedDescription;
+
+  /// Label for the Source Filter Creation analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Source Filter Creation'**
+  String get analyticsEventSourceFilterCreatedLabel;
+
+  /// Description for the Source Filter Creation analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user creates a new source filter.'**
+  String get analyticsEventSourceFilterCreatedDescription;
+
+  /// Label for the Source Filter Update analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Source Filter Update'**
+  String get analyticsEventSourceFilterUpdatedLabel;
+
+  /// Description for the Source Filter Update analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user modifies an existing source filter.'**
+  String get analyticsEventSourceFilterUpdatedDescription;
+
+  /// Label for the Search Performed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Search Performed'**
+  String get analyticsEventSearchPerformedLabel;
+
+  /// Description for the Search Performed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user performs a search query.'**
+  String get analyticsEventSearchPerformedDescription;
+
+  /// Label for the Review Prompt Response analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Review Prompt Response'**
+  String get analyticsEventAppReviewPromptRespondedLabel;
+
+  /// Description for the Review Prompt Response analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track user responses to the internal \'Enjoying the app?\' prompt.'**
+  String get analyticsEventAppReviewPromptRespondedDescription;
+
+  /// Label for the Store Review Request analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Store Review Request'**
+  String get analyticsEventAppReviewStoreRequestedLabel;
+
+  /// Description for the Store Review Request analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when the native OS store review dialog is requested.'**
+  String get analyticsEventAppReviewStoreRequestedDescription;
+
+  /// Label for the Limit Exceeded analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Limit Exceeded'**
+  String get analyticsEventLimitExceededLabel;
+
+  /// Description for the Limit Exceeded analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user hits a usage limit (e.g., saved items limit).'**
+  String get analyticsEventLimitExceededDescription;
+
+  /// Label for the Limit CTA Click analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Limit CTA Click'**
+  String get analyticsEventLimitExceededCtaClickedLabel;
+
+  /// Description for the Limit CTA Click analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track clicks on \'Upgrade\' or \'Link Account\' buttons in limit dialogs.'**
+  String get analyticsEventLimitExceededCtaClickedDescription;
+
+  /// Label for the Paywall Impression analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Paywall Impression'**
+  String get analyticsEventPaywallPresentedLabel;
+
+  /// Description for the Paywall Impression analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when the paywall screen is shown to a user.'**
+  String get analyticsEventPaywallPresentedDescription;
+
+  /// Label for the Subscription Start analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Start'**
+  String get analyticsEventSubscriptionStartedLabel;
+
+  /// Description for the Subscription Start analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user successfully starts a new subscription.'**
+  String get analyticsEventSubscriptionStartedDescription;
+
+  /// Label for the Subscription Renewal analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Renewal'**
+  String get analyticsEventSubscriptionRenewedLabel;
+
+  /// Description for the Subscription Renewal analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a subscription is automatically or manually renewed.'**
+  String get analyticsEventSubscriptionRenewedDescription;
+
+  /// Label for the Subscription Cancellation analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Cancellation'**
+  String get analyticsEventSubscriptionCancelledLabel;
+
+  /// Description for the Subscription Cancellation analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user cancels their subscription.'**
+  String get analyticsEventSubscriptionCancelledDescription;
+
+  /// Label for the Subscription End analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription End'**
+  String get analyticsEventSubscriptionEndedLabel;
+
+  /// Description for the Subscription End analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a subscription expires or is terminated.'**
+  String get analyticsEventSubscriptionEndedDescription;
+
+  /// Label for the Ad Impression analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Impression'**
+  String get analyticsEventAdImpressionLabel;
+
+  /// Description for the Ad Impression analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when an advertisement is displayed to the user.'**
+  String get analyticsEventAdImpressionDescription;
+
+  /// Label for the Ad Click analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Click'**
+  String get analyticsEventAdClickedLabel;
+
+  /// Description for the Ad Click analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user clicks on an advertisement.'**
+  String get analyticsEventAdClickedDescription;
+
+  /// Label for the Ad Load Failure analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Load Failure'**
+  String get analyticsEventAdLoadFailedLabel;
+
+  /// Description for the Ad Load Failure analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track errors when attempting to load advertisements.'**
+  String get analyticsEventAdLoadFailedDescription;
+
+  /// Label for the Ad Reward Earned analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Reward Earned'**
+  String get analyticsEventAdRewardEarnedLabel;
+
+  /// Description for the Ad Reward Earned analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user completes a rewarded ad action.'**
+  String get analyticsEventAdRewardEarnedDescription;
+
+  /// Label for the Theme Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Change'**
+  String get analyticsEventThemeChangedLabel;
+
+  /// Description for the Theme Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user changes the application theme.'**
+  String get analyticsEventThemeChangedDescription;
+
+  /// Label for the Language Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Language Change'**
+  String get analyticsEventLanguageChangedLabel;
+
+  /// Description for the Language Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user changes the application language.'**
+  String get analyticsEventLanguageChangedDescription;
+
+  /// Label for the Feed Density Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Feed Density Change'**
+  String get analyticsEventFeedDensityChangedLabel;
+
+  /// Description for the Feed Density Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user adjusts the information density of the feed.'**
+  String get analyticsEventFeedDensityChangedDescription;
+
+  /// Label for the Browser Preference Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Browser Preference Change'**
+  String get analyticsEventBrowserChoiceChangedLabel;
+
+  /// Description for the Browser Preference Change analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user changes their preferred browser for opening links.'**
+  String get analyticsEventBrowserChoiceChangedDescription;
+
+  /// Label for the Source Filter Usage analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Source Filter Usage'**
+  String get analyticsEventSourceFilterUsedLabel;
+
+  /// Description for the Source Filter Usage analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user applies a saved source filter.'**
+  String get analyticsEventSourceFilterUsedDescription;
 }
 
 class _AppLocalizationsDelegate
