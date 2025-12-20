@@ -5,6 +5,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/analytics_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/community_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
@@ -48,27 +49,6 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
   void dispose() {
     _expandedTileIndex.dispose();
     super.dispose();
-  }
-
-  String _getDecoratorDescription(
-    BuildContext context,
-    FeedDecoratorType type,
-  ) {
-    final l10n = AppLocalizationsX(context).l10n;
-    switch (type) {
-      case FeedDecoratorType.linkAccount:
-        return l10n.feedDecoratorLinkAccountDescription;
-      case FeedDecoratorType.upgrade:
-        return l10n.feedDecoratorUpgradeDescription;
-      case FeedDecoratorType.rateApp:
-        return l10n.feedDecoratorRateAppDescription;
-      case FeedDecoratorType.enableNotifications:
-        return l10n.feedDecoratorEnableNotificationsDescription;
-      case FeedDecoratorType.suggestedTopics:
-        return l10n.feedDecoratorSuggestedTopicsDescription;
-      case FeedDecoratorType.suggestedSources:
-        return l10n.feedDecoratorSuggestedSourcesDescription;
-    }
   }
 
   @override
@@ -115,21 +95,23 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                AdPlatformConfigForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                FeedAdSettingsForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                NavigationAdSettingsForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
-                ),
+                if (widget.remoteConfig.features.ads.enabled) ...[
+                  const SizedBox(height: AppSpacing.lg),
+                  AdPlatformConfigForm(
+                    remoteConfig: widget.remoteConfig,
+                    onConfigChanged: widget.onConfigChanged,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  FeedAdSettingsForm(
+                    remoteConfig: widget.remoteConfig,
+                    onConfigChanged: widget.onConfigChanged,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  NavigationAdSettingsForm(
+                    remoteConfig: widget.remoteConfig,
+                    onConfigChanged: widget.onConfigChanged,
+                  ),
+                ],
               ],
             );
           },
@@ -255,105 +237,9 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ExpansionTile(
-                  title: Text(l10n.feedItemClickBehaviorTitle),
-                  subtitle: Text(
-                    l10n.feedItemClickBehaviorDescription,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
-                  ),
-                  childrenPadding: const EdgeInsetsDirectional.only(
-                    start: AppSpacing.lg,
-                    top: AppSpacing.md,
-                    bottom: AppSpacing.md,
-                  ),
-                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: SegmentedButton<FeedItemClickBehavior>(
-                        segments: FeedItemClickBehavior.values
-                            .where(
-                              (b) => b != FeedItemClickBehavior.defaultBehavior,
-                            )
-                            .map(
-                              (behavior) =>
-                                  ButtonSegment<FeedItemClickBehavior>(
-                                    value: behavior,
-                                    label: Text(behavior.l10n(context)),
-                                  ),
-                            )
-                            .toList(),
-                        selected: {
-                          widget.remoteConfig.features.feed.itemClickBehavior,
-                        },
-                        onSelectionChanged: (newSelection) {
-                          widget.onConfigChanged(
-                            widget.remoteConfig.copyWith(
-                              features: widget.remoteConfig.features.copyWith(
-                                feed: widget.remoteConfig.features.feed
-                                    .copyWith(
-                                      itemClickBehavior: newSelection.first,
-                                    ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                ExpansionTile(
-                  title: Text(l10n.feedDecoratorsTitle),
-                  subtitle: Text(
-                    l10n.feedDecoratorsDescription,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
-                    ),
-                  ),
-                  childrenPadding: const EdgeInsetsDirectional.only(
-                    start: AppSpacing.lg,
-                    top: AppSpacing.md,
-                    bottom: AppSpacing.md,
-                  ),
-                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (final decoratorType in FeedDecoratorType.values)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                        child: ExpansionTile(
-                          title: Text(decoratorType.l10n(context)),
-                          subtitle: Text(
-                            _getDecoratorDescription(context, decoratorType),
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface.withOpacity(0.7),
-                                ),
-                          ),
-                          childrenPadding: const EdgeInsetsDirectional.only(
-                            start: AppSpacing.xl,
-                            top: AppSpacing.md,
-                            bottom: AppSpacing.md,
-                          ),
-                          expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FeedDecoratorForm(
-                              decoratorType: decoratorType,
-                              remoteConfig: widget.remoteConfig,
-                              onConfigChanged: widget.onConfigChanged,
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
+                FeedConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
                 ),
               ],
             );
