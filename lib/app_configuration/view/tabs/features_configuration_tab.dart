@@ -6,13 +6,12 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/community_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_item_click_behavior_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
+
+enum _FeatureTile { advertisements, pushNotifications, analytics, feed, community }
 
 /// {@template features_configuration_tab}
 /// A widget representing the "Features" tab in the App Configuration page.
@@ -43,11 +42,12 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
   /// Notifier for the index of the currently expanded top-level ExpansionTile.
   ///
   /// A value of `null` means no tile is expanded.
-  final ValueNotifier<int?> _expandedTileIndex = ValueNotifier<int?>(null);
+  final ValueNotifier<_FeatureTile?> _expandedTile =
+      ValueNotifier<_FeatureTile?>(null);
 
   @override
   void dispose() {
-    _expandedTileIndex.dispose();
+    _expandedTile.dispose();
     super.dispose();
   }
 
@@ -59,31 +59,31 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
         // Advertisements
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 0;
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.advertisements;
             return ExpansionTile(
               leading: Icon(
                 Icons.paid_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                  0.7,
-                ),
+                      0.7,
+                    ),
               ),
-              key: ValueKey('advertisementsTile_$expandedIndex'),
+              key: ValueKey('advertisementsTile_$expandedTile'),
               title: Text(l10n.advertisementsTab),
               subtitle: Text(
                 l10n.advertisementsDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
               ),
               onExpansionChanged: (bool isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                _expandedTile.value = isExpanded ? tile : null;
               },
-              initiallyExpanded: expandedIndex == tileIndex,
+              initiallyExpanded: expandedTile == tile,
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.xxl,
                 top: AppSpacing.md,
@@ -119,31 +119,31 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         const SizedBox(height: AppSpacing.lg),
 
         // Push Notifications
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 1;
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.pushNotifications;
             return ExpansionTile(
               leading: Icon(
                 Icons.notifications_active_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                  0.7,
-                ),
+                      0.7,
+                    ),
               ),
-              key: ValueKey('pushNotificationsTile_$expandedIndex'),
+              key: ValueKey('pushNotificationsTile_$expandedTile'),
               title: Text(l10n.notificationsTab),
               subtitle: Text(
                 l10n.notificationsDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
               ),
               onExpansionChanged: (bool isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                _expandedTile.value = isExpanded ? tile : null;
               },
-              initiallyExpanded: expandedIndex == tileIndex,
+              initiallyExpanded: expandedTile == tile,
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.xxl,
                 top: AppSpacing.md,
@@ -162,31 +162,31 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         const SizedBox(height: AppSpacing.lg),
 
         // Analytics
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 2;
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.analytics;
             return ExpansionTile(
               leading: Icon(
                 Icons.analytics_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                  0.7,
-                ),
+                      0.7,
+                    ),
               ),
-              key: ValueKey('analyticsTile_$expandedIndex'),
+              key: ValueKey('analyticsTile_$expandedTile'),
               title: Text(l10n.analyticsTab),
               subtitle: Text(
                 l10n.analyticsDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
               ),
               onExpansionChanged: (bool isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                _expandedTile.value = isExpanded ? tile : null;
               },
-              initiallyExpanded: expandedIndex == tileIndex,
+              initiallyExpanded: expandedTile == tile,
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.xxl,
                 top: AppSpacing.md,
@@ -205,31 +205,31 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         const SizedBox(height: AppSpacing.lg),
 
         // Feed
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 3;
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.feed;
             return ExpansionTile(
               leading: Icon(
                 Icons.dynamic_feed_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                  0.7,
-                ),
+                      0.7,
+                    ),
               ),
-              key: ValueKey('feedTile_$expandedIndex'),
+              key: ValueKey('feedTile_$expandedTile'),
               title: Text(l10n.feedTab),
               subtitle: Text(
                 l10n.feedDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
               ),
               onExpansionChanged: (bool isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                _expandedTile.value = isExpanded ? tile : null;
               },
-              initiallyExpanded: expandedIndex == tileIndex,
+              initiallyExpanded: expandedTile == tile,
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.xxl,
                 top: AppSpacing.md,
@@ -248,31 +248,31 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         const SizedBox(height: AppSpacing.lg),
 
         // Community & Engagement
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 4;
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.community;
             return ExpansionTile(
               leading: Icon(
                 Icons.groups_outlined,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                  0.7,
-                ),
+                      0.7,
+                    ),
               ),
-              key: ValueKey('communityTile_$expandedIndex'),
+              key: ValueKey('communityTile_$expandedTile'),
               title: Text(l10n.communityAndEngagementTitle),
               subtitle: Text(
                 l10n.communityAndEngagementDescription,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.7),
+                    ),
               ),
               onExpansionChanged: (bool isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+                _expandedTile.value = isExpanded ? tile : null;
               },
-              initiallyExpanded: expandedIndex == tileIndex,
+              initiallyExpanded: expandedTile == tile,
               childrenPadding: const EdgeInsetsDirectional.only(
                 start: AppSpacing.xxl,
                 top: AppSpacing.md,
