@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_platform_config_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/analytics_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/community_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
@@ -178,11 +179,54 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        // Feed
+        // Analytics
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
             const tileIndex = 2;
+            return ExpansionTile(
+              leading: Icon(
+                Icons.analytics_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
+              key: ValueKey('analyticsTile_$expandedIndex'),
+              title: Text(l10n.analyticsTab),
+              subtitle: Text(
+                l10n.analyticsDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
+                _expandedTileIndex.value = isExpanded ? tileIndex : null;
+              },
+              initiallyExpanded: expandedIndex == tileIndex,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.xxl,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnalyticsConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
+        // Feed
+        ValueListenableBuilder<int?>(
+          valueListenable: _expandedTileIndex,
+          builder: (context, expandedIndex, child) {
+            const tileIndex = 3;
             return ExpansionTile(
               leading: Icon(
                 Icons.dynamic_feed_outlined,
@@ -321,7 +365,7 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
         ValueListenableBuilder<int?>(
           valueListenable: _expandedTileIndex,
           builder: (context, expandedIndex, child) {
-            const tileIndex = 3;
+            const tileIndex = 4;
             return ExpansionTile(
               leading: Icon(
                 Icons.groups_outlined,
