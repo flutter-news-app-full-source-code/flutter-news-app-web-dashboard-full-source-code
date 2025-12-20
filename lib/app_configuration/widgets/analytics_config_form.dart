@@ -143,7 +143,7 @@ class AnalyticsConfigForm extends StatelessWidget {
                         final newDisabledEvents = Set<AnalyticsEvent>.from(
                           config.disabledEvents,
                         );
-                        if (value == true) {
+                        if (value ?? false) {
                           newDisabledEvents.remove(event);
                         } else {
                           newDisabledEvents.add(event);
@@ -177,8 +177,8 @@ class AnalyticsConfigForm extends StatelessWidget {
                             Expanded(
                               child: Slider(
                                 value: samplingRate,
-                                min: 0.0,
-                                max: 1.0,
+                                min: 0,
+                                max: 1,
                                 divisions: 20,
                                 label: '${(samplingRate * 100).toInt()}%',
                                 onChanged: (value) {
@@ -306,8 +306,7 @@ class AnalyticsConfigForm extends StatelessWidget {
       case AnalyticsEvent.browserChoiceChanged:
         return l10n.analyticsEventBrowserChoiceChangedLabel;
       case AnalyticsEvent.sourceFilterUsed:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+       return l10n.analyticsEventSourceFilterUsedLabel;
     }
   }
 
@@ -389,8 +388,7 @@ class AnalyticsConfigForm extends StatelessWidget {
       case AnalyticsEvent.browserChoiceChanged:
         return l10n.analyticsEventBrowserChoiceChangedDescription;
       case AnalyticsEvent.sourceFilterUsed:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return l10n.analyticsEventSourceFilterUsedDescription;
     }
   }
 }
