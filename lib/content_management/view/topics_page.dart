@@ -111,17 +111,20 @@ class _TopicPageState extends State<TopicPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const AnalyticsDashboardStrip(
-                kpiCards: [
-                  KpiCardId.contentTopicsTotalTopics,
-                  KpiCardId.contentTopicsNewTopics,
-                  KpiCardId.contentTopicsTotalFollowers,
-                ],
-                chartCards: [
-                  ChartCardId.contentHeadlinesBreakingNewsDistribution,
-                  ChartCardId.contentTopicsHeadlinesPublishedOverTime,
-                  ChartCardId.contentTopicsEngagementByTopic,
-                ],
+              const SizedBox(
+                height: 160,
+                child: AnalyticsDashboardStrip(
+                  kpiCards: [
+                    KpiCardId.contentTopicsTotalTopics,
+                    KpiCardId.contentTopicsNewTopics,
+                    KpiCardId.contentTopicsTotalFollowers,
+                  ],
+                  chartCards: [
+                    ChartCardId.contentHeadlinesBreakingNewsDistribution,
+                    ChartCardId.contentTopicsHeadlinesPublishedOverTime,
+                    ChartCardId.contentTopicsEngagementByTopic,
+                  ],
+                ),
               ),
               if (state.topicsStatus == ContentManagementStatus.loading &&
                   state.topics.isNotEmpty)
