@@ -2668,4 +2668,22 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get analyticsEventSourceFilterUsedDescription =>
       'تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.';
+
+  @override
+  String get timeFrameDay => '24س';
+
+  @override
+  String get timeFrameWeek => '7ي';
+
+  @override
+  String get timeFrameMonth => '30ي';
+
+  @override
+  String get timeFrameYear => 'سنة';
+
+  @override
+  String get noDataAvailable => 'لا توجد بيانات';
+
+  @override
+  String get vsPreviousPeriod => 'مقارنة بالفترة السابقة';
 }

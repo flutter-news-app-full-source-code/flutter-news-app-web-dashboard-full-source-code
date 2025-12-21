@@ -4849,6 +4849,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track when a user applies a saved source filter.'**
   String get analyticsEventSourceFilterUsedDescription;
+
+  /// Label for 24 hour time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'24H'**
+  String get timeFrameDay;
+
+  /// Label for 7 day time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'7D'**
+  String get timeFrameWeek;
+
+  /// Label for 30 day time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'30D'**
+  String get timeFrameMonth;
+
+  /// Label for 1 year time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'1Y'**
+  String get timeFrameYear;
+
+  /// Message displayed when analytics data is missing
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noDataAvailable;
+
+  /// Label indicating the trend comparison context
+  ///
+  /// In en, this message translates to:
+  /// **'vs previous period'**
+  String get vsPreviousPeriod;
 }
 
 class _AppLocalizationsDelegate

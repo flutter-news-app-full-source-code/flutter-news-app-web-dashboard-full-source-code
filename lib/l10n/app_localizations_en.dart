@@ -2678,4 +2678,22 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get analyticsEventSourceFilterUsedDescription =>
       'Track when a user applies a saved source filter.';
+
+  @override
+  String get timeFrameDay => '24H';
+
+  @override
+  String get timeFrameWeek => '7D';
+
+  @override
+  String get timeFrameMonth => '30D';
+
+  @override
+  String get timeFrameYear => '1Y';
+
+  @override
+  String get noDataAvailable => 'No data available';
+
+  @override
+  String get vsPreviousPeriod => 'vs previous period';
 }
