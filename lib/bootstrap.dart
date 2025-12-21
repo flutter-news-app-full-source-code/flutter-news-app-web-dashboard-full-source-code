@@ -159,55 +159,7 @@ Future<Widget> bootstrap(
     chartCardsClient = DataInMemory<ChartCardData>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id.name,
-      initialData: [
-        const ChartCardData(
-          id: ChartCardId.usersRegistrationsOverTime,
-          label: 'New Registrations',
-          type: ChartType.bar,
-          timeFrames: {
-            ChartTimeFrame.week: [
-              DataPoint(label: 'Mon', value: 120),
-              DataPoint(label: 'Tue', value: 150),
-              DataPoint(label: 'Wed', value: 180),
-              DataPoint(label: 'Thu', value: 140),
-              DataPoint(label: 'Fri', value: 200),
-              DataPoint(label: 'Sat', value: 250),
-              DataPoint(label: 'Sun', value: 220),
-            ],
-          },
-        ),
-        const ChartCardData(
-          id: ChartCardId.contentHeadlinesViewsOverTime,
-          label: 'Views Over Time',
-          type: ChartType.line,
-          timeFrames: {
-            ChartTimeFrame.week: [
-              DataPoint(label: 'Mon', value: 5000),
-              DataPoint(label: 'Tue', value: 6200),
-              DataPoint(label: 'Wed', value: 5800),
-              DataPoint(label: 'Thu', value: 7000),
-              DataPoint(label: 'Fri', value: 8500),
-              DataPoint(label: 'Sat', value: 9000),
-              DataPoint(label: 'Sun', value: 8800),
-            ],
-          },
-        ),
-        // Add a minimal placeholder for other charts to prevent lookup errors
-        ...ChartCardId.values
-            .where(
-              (id) =>
-                  id != ChartCardId.usersRegistrationsOverTime &&
-                  id != ChartCardId.contentHeadlinesViewsOverTime,
-            )
-            .map(
-              (id) => ChartCardData(
-                id: id,
-                label: 'Data',
-                type: ChartType.line,
-                timeFrames: const {},
-              ),
-            ),
-      ],
+      initialData: getChartCardsFixturesData(),
       logger: Logger('DataInMemory<ChartCardData>'),
     );
     rankedListCardsClient = DataInMemory<RankedListCardData>(
