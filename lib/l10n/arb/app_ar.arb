@@ -3368,5 +3368,213 @@
   "vsPreviousPeriod": "مقارنة بالفترة السابقة",
   "@vsPreviousPeriod": {
     "description": "Label indicating the trend comparison context"
+  },
+  "vsPreviousDay": "مقارنة بـ ٢٤ ساعة الماضية",
+  "@vsPreviousDay": {
+    "description": "Label indicating the trend comparison context for the last 24 hours"
+  },
+  "vsPreviousWeek": "مقارنة بـ ٧ أيام الماضية",
+  "@vsPreviousWeek": {
+    "description": "Label indicating the trend comparison context for the last 7 days"
+  },
+  "vsPreviousMonth": "مقارنة بـ ٣٠ يوم الماضية",
+  "@vsPreviousMonth": {
+    "description": "Label indicating the trend comparison context for the last 30 days"
+  },
+  "vsPreviousYear": "مقارنة بالسنة الماضية",
+  "@vsPreviousYear": {
+    "description": "Label indicating the trend comparison context for the last year"
+  },
+  "kpiUsersTotalRegistered": "إجمالي المستخدمين المسجلين",
+  "@kpiUsersTotalRegistered": {
+    "description": "Title for the Total Registered Users KPI card"
+  },
+  "kpiUsersNewRegistrations": "تسجيلات جديدة",
+  "@kpiUsersNewRegistrations": {
+    "description": "Title for the New Registrations KPI card"
+  },
+  "kpiUsersActiveUsers": "المستخدمون النشطون",
+  "@kpiUsersActiveUsers": {
+    "description": "Title for the Active Users KPI card"
+  },
+  "kpiContentHeadlinesTotalPublished": "إجمالي العناوين المنشورة",
+  "@kpiContentHeadlinesTotalPublished": {
+    "description": "Title for the Total Headlines Published KPI card"
+  },
+  "kpiContentHeadlinesTotalViews": "إجمالي مشاهدات العناوين",
+  "@kpiContentHeadlinesTotalViews": {
+    "description": "Title for the Total Headline Views KPI card"
+  },
+  "kpiContentHeadlinesTotalLikes": "إجمالي الإعجابات",
+  "@kpiContentHeadlinesTotalLikes": {
+    "description": "Title for the Total Headline Likes KPI card"
+  },
+  "kpiContentSourcesTotalSources": "إجمالي المصادر",
+  "@kpiContentSourcesTotalSources": {
+    "description": "Title for the Total Sources KPI card"
+  },
+  "kpiContentSourcesNewSources": "مصادر جديدة",
+  "@kpiContentSourcesNewSources": {
+    "description": "Title for the New Sources KPI card"
+  },
+  "kpiContentSourcesTotalFollowers": "إجمالي متابعي المصادر",
+  "@kpiContentSourcesTotalFollowers": {
+    "description": "Title for the Total Source Followers KPI card"
+  },
+  "kpiContentTopicsTotalTopics": "إجمالي المواضيع",
+  "@kpiContentTopicsTotalTopics": {
+    "description": "Title for the Total Topics KPI card"
+  },
+  "kpiContentTopicsNewTopics": "مواضيع جديدة",
+  "@kpiContentTopicsNewTopics": {
+    "description": "Title for the New Topics KPI card"
+  },
+  "kpiContentTopicsTotalFollowers": "إجمالي متابعي المواضيع",
+  "@kpiContentTopicsTotalFollowers": {
+    "description": "Title for the Total Topic Followers KPI card"
+  },
+  "kpiEngagementsTotalReactions": "إجمالي التفاعلات",
+  "@kpiEngagementsTotalReactions": {
+    "description": "Title for the Total Reactions KPI card"
+  },
+  "kpiEngagementsTotalComments": "إجمالي التعليقات",
+  "@kpiEngagementsTotalComments": {
+    "description": "Title for the Total Comments KPI card"
+  },
+  "kpiEngagementsAverageEngagementRate": "معدل التفاعل",
+  "@kpiEngagementsAverageEngagementRate": {
+    "description": "Title for the Average Engagement Rate KPI card"
+  },
+  "kpiEngagementsReportsPending": "بلاغات قيد الانتظار",
+  "@kpiEngagementsReportsPending": {
+    "description": "Title for the Pending Reports KPI card"
+  },
+  "kpiEngagementsReportsResolved": "بلاغات تم حلها",
+  "@kpiEngagementsReportsResolved": {
+    "description": "Title for the Resolved Reports KPI card"
+  },
+  "kpiEngagementsReportsAverageResolutionTime": "متوسط وقت الحل",
+  "@kpiEngagementsReportsAverageResolutionTime": {
+    "description": "Title for the Average Resolution Time KPI card"
+  },
+  "kpiEngagementsAppReviewsTotalFeedback": "إجمالي الملاحظات",
+  "@kpiEngagementsAppReviewsTotalFeedback": {
+    "description": "Title for the Total Feedback KPI card"
+  },
+  "kpiEngagementsAppReviewsPositiveFeedback": "ملاحظات إيجابية",
+  "@kpiEngagementsAppReviewsPositiveFeedback": {
+    "description": "Title for the Positive Feedback KPI card"
+  },
+  "kpiEngagementsAppReviewsStoreRequests": "طلبات تقييم المتجر",
+  "@kpiEngagementsAppReviewsStoreRequests": {
+    "description": "Title for the Store Review Requests KPI card"
+  },
+  "chartUsersRegistrationsOverTime": "التسجيلات عبر الزمن",
+  "@chartUsersRegistrationsOverTime": {
+    "description": "Title for the Registrations Over Time chart card"
+  },
+  "chartUsersActiveUsersOverTime": "اتجاه المستخدمين النشطين",
+  "@chartUsersActiveUsersOverTime": {
+    "description": "Title for the Active Users Trend chart card"
+  },
+  "chartUsersRoleDistribution": "توزيع أدوار المستخدمين",
+  "@chartUsersRoleDistribution": {
+    "description": "Title for the User Role Distribution chart card"
+  },
+  "chartContentHeadlinesViewsOverTime": "اتجاه المشاهدات",
+  "@chartContentHeadlinesViewsOverTime": {
+    "description": "Title for the Headline Views Trend chart card"
+  },
+  "chartContentHeadlinesLikesOverTime": "اتجاه الإعجابات",
+  "@chartContentHeadlinesLikesOverTime": {
+    "description": "Title for the Headline Likes Trend chart card"
+  },
+  "chartContentHeadlinesViewsByTopic": "المشاهدات حسب الموضوع",
+  "@chartContentHeadlinesViewsByTopic": {
+    "description": "Title for the Views by Topic chart card"
+  },
+  "chartContentSourcesHeadlinesPublishedOverTime": "نشاط المصادر",
+  "@chartContentSourcesHeadlinesPublishedOverTime": {
+    "description": "Title for the Source Activity chart card"
+  },
+  "chartContentSourcesFollowersOverTime": "نمو متابعي المصادر",
+  "@chartContentSourcesFollowersOverTime": {
+    "description": "Title for the Source Follower Growth chart card"
+  },
+  "chartContentSourcesEngagementByType": "التفاعل حسب نوع المصدر",
+  "@chartContentSourcesEngagementByType": {
+    "description": "Title for the Engagement by Source Type chart card"
+  },
+  "chartContentTopicsFollowersOverTime": "نمو متابعي المواضيع",
+  "@chartContentTopicsFollowersOverTime": {
+    "description": "Title for the Topic Follower Growth chart card"
+  },
+  "chartContentTopicsHeadlinesPublishedOverTime": "نشاط المواضيع",
+  "@chartContentTopicsHeadlinesPublishedOverTime": {
+    "description": "Title for the Topic Activity chart card"
+  },
+  "chartContentTopicsEngagementByTopic": "التفاعل حسب الموضوع",
+  "@chartContentTopicsEngagementByTopic": {
+    "description": "Title for the Engagement by Topic chart card"
+  },
+  "chartEngagementsReactionsOverTime": "اتجاه التفاعلات",
+  "@chartEngagementsReactionsOverTime": {
+    "description": "Title for the Reactions Trend chart card"
+  },
+  "chartEngagementsCommentsOverTime": "اتجاه التعليقات",
+  "@chartEngagementsCommentsOverTime": {
+    "description": "Title for the Comments Trend chart card"
+  },
+  "chartEngagementsReactionsByType": "توزيع التفاعلات",
+  "@chartEngagementsReactionsByType": {
+    "description": "Title for the Reactions Distribution chart card"
+  },
+  "chartEngagementsReportsSubmittedOverTime": "البلاغات المقدمة",
+  "@chartEngagementsReportsSubmittedOverTime": {
+    "description": "Title for the Reports Submitted chart card"
+  },
+  "chartEngagementsReportsResolutionTimeOverTime": "اتجاه وقت الحل",
+  "@chartEngagementsReportsResolutionTimeOverTime": {
+    "description": "Title for the Resolution Time Trend chart card"
+  },
+  "chartEngagementsReportsByReason": "البلاغات حسب السبب",
+  "@chartEngagementsReportsByReason": {
+    "description": "Title for the Reports by Reason chart card"
+  },
+  "chartEngagementsAppReviewsFeedbackOverTime": "اتجاه الملاحظات",
+  "@chartEngagementsAppReviewsFeedbackOverTime": {
+    "description": "Title for the Feedback Trend chart card"
+  },
+  "chartEngagementsAppReviewsPositiveVsNegative": "تحليل المشاعر",
+  "@chartEngagementsAppReviewsPositiveVsNegative": {
+    "description": "Title for the Sentiment Analysis chart card"
+  },
+  "chartEngagementsAppReviewsStoreRequestsOverTime": "اتجاه طلبات المتجر",
+  "@chartEngagementsAppReviewsStoreRequestsOverTime": {
+    "description": "Title for the Store Requests Trend chart card"
+  },
+  "chartContentSourcesStatusDistribution": "توزيع حالة المصادر",
+  "@chartContentSourcesStatusDistribution": {
+    "description": "Title for the Source Status Distribution chart card"
+  },
+  "chartContentHeadlinesBreakingNewsDistribution": "توزيع الأخبار العاجلة",
+  "@chartContentHeadlinesBreakingNewsDistribution": {
+    "description": "Title for the Breaking News Distribution chart card"
+  },
+  "rankedListOverviewHeadlinesMostViewed": "العناوين الأكثر مشاهدة",
+  "@rankedListOverviewHeadlinesMostViewed": {
+    "description": "Title for the Top Viewed Headlines ranked list card"
+  },
+  "rankedListOverviewHeadlinesMostLiked": "العناوين الأكثر إعجاباً",
+  "@rankedListOverviewHeadlinesMostLiked": {
+    "description": "Title for the Top Liked Headlines ranked list card"
+  },
+  "rankedListOverviewSourcesMostFollowed": "المصادر الأكثر متابعة",
+  "@rankedListOverviewSourcesMostFollowed": {
+    "description": "Title for the Top Followed Sources ranked list card"
+  },
+  "rankedListOverviewTopicsMostFollowed": "المواضيع الأكثر متابعة",
+  "@rankedListOverviewTopicsMostFollowed": {
+    "description": "Title for the Top Followed Topics ranked list card"
   }
 }
