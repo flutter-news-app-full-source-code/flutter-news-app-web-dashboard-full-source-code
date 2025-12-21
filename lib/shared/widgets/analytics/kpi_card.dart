@@ -13,18 +13,29 @@ class KpiCard extends StatefulWidget {
   /// {@macro kpi_card}
   const KpiCard({
     required this.data,
+    required this.slotIndex,
+    required this.totalSlots,
+    required this.onSlotChanged,
     super.key,
   });
 
   /// The data object containing values for all time frames.
   final KpiCardData data;
 
+  /// The index of this card in the parent slot.
+  final int slotIndex;
+
+  /// The total number of cards in the parent slot.
+  final int totalSlots;
+
+  /// Callback to change the active card in the slot.
+  final ValueChanged<int> onSlotChanged;
+
   @override
   State<KpiCard> createState() => _KpiCardState();
 }
 
 class _KpiCardState extends State<KpiCard> {
-  // Default to 'week' as a reasonable starting point.
   KpiTimeFrame _selectedTimeFrame = KpiTimeFrame.week;
 
   @override
@@ -33,108 +44,92 @@ class _KpiCardState extends State<KpiCard> {
     final l10n = AppLocalizationsX(context).l10n;
     final currentData = widget.data.timeFrames[_selectedTimeFrame];
 
-    // Fallback if data for the selected time frame is missing.
-    if (currentData == null) {
-      return AnalyticsCardShell(
-        title: widget.data.label,
-        child: Center(child: Text(l10n.noDataAvailable)),
-      );
-    }
-
-    final isPositiveTrend = !currentData.trend.startsWith('-');
-    final trendColor =
-        isPositiveTrend ? theme.colorScheme.primary : theme.colorScheme.error;
-    final trendIcon =
-        isPositiveTrend ? Icons.arrow_upward : Icons.arrow_downward;
-
-    return AnalyticsCardShell(
+    return AnalyticsCardShell<KpiTimeFrame>(
       title: widget.data.label,
-      action: _TimeFrameToggle(
-        selected: _selectedTimeFrame,
-        onChanged: (value) => setState(() => _selectedTimeFrame = value),
-        l10n: l10n,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            // Format numbers nicely (e.g., 1,234).
-            // For simplicity, using toString here, but NumberFormat is better.
-            currentData.value.toString(),
-            style: theme.textTheme.displayMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
+      currentSlot: widget.slotIndex,
+      totalSlots: widget.totalSlots,
+      onSlotChanged: widget.onSlotChanged,
+      timeFrames: KpiTimeFrame.values,
+      selectedTimeFrame: _selectedTimeFrame,
+      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
+      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
+      child: currentData == null
+          ? Center(child: Text(l10n.noDataAvailable))
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  currentData.value.toString(),
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                _TrendIndicator(
+                  trend: currentData.trend,
+                  l10n: l10n,
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Row(
-            children: [
-              Icon(trendIcon, size: 16, color: trendColor),
-              const SizedBox(width: 4),
-              Text(
-                currentData.trend,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: trendColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.xs),
-              Text(
-                l10n.vsPreviousPeriod,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
+  }
+
+  String _timeFrameToLabel(KpiTimeFrame frame, AppLocalizations l10n) {
+    switch (frame) {
+      case KpiTimeFrame.day:
+        return l10n.timeFrameDay;
+      case KpiTimeFrame.week:
+        return l10n.timeFrameWeek;
+      case KpiTimeFrame.month:
+        return l10n.timeFrameMonth;
+      case KpiTimeFrame.year:
+        return l10n.timeFrameYear;
+    }
   }
 }
 
-class _TimeFrameToggle extends StatelessWidget {
-  const _TimeFrameToggle({
-    required this.selected,
-    required this.onChanged,
+class _TrendIndicator extends StatelessWidget {
+  const _TrendIndicator({
+    required this.trend,
     required this.l10n,
   });
 
-  final KpiTimeFrame selected;
-  final ValueChanged<KpiTimeFrame> onChanged;
+  final String trend;
   final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton<KpiTimeFrame>(
-      segments: [
-        ButtonSegment(
-          value: KpiTimeFrame.day,
-          label: Text(l10n.timeFrameDay),
+    final theme = Theme.of(context);
+    final isPositive = !trend.startsWith('-');
+    final color = isPositive
+        ? theme.colorScheme.primary
+        : theme.colorScheme.error;
+    final icon = isPositive ? Icons.arrow_upward : Icons.arrow_downward;
+
+    return Tooltip(
+      message: l10n.vsPreviousPeriod,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
         ),
-        ButtonSegment(
-          value: KpiTimeFrame.week,
-          label: Text(l10n.timeFrameWeek),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 12, color: color),
+            const SizedBox(width: 2),
+            Text(
+              trend,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: color,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
-        ButtonSegment(
-          value: KpiTimeFrame.month,
-          label: Text(l10n.timeFrameMonth),
-        ),
-        ButtonSegment(
-          value: KpiTimeFrame.year,
-          label: Text(l10n.timeFrameYear),
-        ),
-      ],
-      selected: {selected},
-      onSelectionChanged: (Set<KpiTimeFrame> newSelection) {
-        onChanged(newSelection.first);
-      },
-      showSelectedIcon: false,
-      style: ButtonStyle(
-        visualDensity: VisualDensity.compact,
-        padding: WidgetStateProperty.all(EdgeInsets.zero),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
   }
