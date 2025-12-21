@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_review_feedback_extension.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -103,6 +104,19 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
 
           return Column(
             children: [
+              // Analytics Dashboard Strip
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.engagementsAppReviewsTotalFeedback,
+                  KpiCardId.engagementsAppReviewsPositiveFeedback,
+                  KpiCardId.engagementsAppReviewsStoreRequests,
+                ],
+                chartCards: [
+                  ChartCardId.engagementsAppReviewsFeedbackOverTime,
+                  ChartCardId.engagementsAppReviewsPositiveVsNegative,
+                  ChartCardId.engagementsAppReviewsStoreRequestsOverTime,
+                ],
+              ),
               if (state.appReviewsStatus == CommunityManagementStatus.loading &&
                   state.appReviews.isNotEmpty)
                 const LinearProgressIndicator(),
