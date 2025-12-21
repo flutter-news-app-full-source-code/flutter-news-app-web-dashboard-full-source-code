@@ -63,7 +63,7 @@ class AnalyticsService {
     try {
       return await future;
     } finally {
-      _kpiInFlight.remove(id);
+      await _kpiInFlight.remove(id);
     }
   }
 
@@ -92,7 +92,7 @@ class AnalyticsService {
     try {
       return await future;
     } finally {
-      _chartInFlight.remove(id);
+      await _chartInFlight.remove(id);
     }
   }
 
@@ -121,7 +121,7 @@ class AnalyticsService {
     try {
       return await future;
     } finally {
-      _rankedListInFlight.remove(id);
+      await _rankedListInFlight.remove(id);
     }
   }
 
