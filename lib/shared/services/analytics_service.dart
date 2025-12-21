@@ -19,9 +19,9 @@ class AnalyticsService {
     required DataRepository<KpiCardData> kpiRepository,
     required DataRepository<ChartCardData> chartRepository,
     required DataRepository<RankedListCardData> rankedListRepository,
-  })  : _kpiRepository = kpiRepository,
-        _chartRepository = chartRepository,
-        _rankedListRepository = rankedListRepository;
+  }) : _kpiRepository = kpiRepository,
+       _chartRepository = chartRepository,
+       _rankedListRepository = rankedListRepository;
 
   final DataRepository<KpiCardData> _kpiRepository;
   final DataRepository<ChartCardData> _chartRepository;
@@ -35,8 +35,7 @@ class AnalyticsService {
   // --- In-Flight Requests (Deduplication) ---
   final _kpiInFlight = <KpiCardId, Future<KpiCardData>>{};
   final _chartInFlight = <ChartCardId, Future<ChartCardData>>{};
-  final _rankedListInFlight =
-      <RankedListCardId, Future<RankedListCardData>>{};
+  final _rankedListInFlight = <RankedListCardId, Future<RankedListCardData>>{};
 
   /// Fetches a KPI card by its [id].
   ///

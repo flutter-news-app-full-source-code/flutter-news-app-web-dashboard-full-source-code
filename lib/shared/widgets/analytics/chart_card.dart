@@ -209,23 +209,25 @@ class _BarChart extends StatelessWidget {
     final primaryColor = theme.colorScheme.primary;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
-    final barGroups = points.asMap().entries.map((entry) {
-      final x = isRtl ? points.length - 1 - entry.key : entry.key;
-      return BarChartGroupData(
-        x: x,
-        barRods: [
-          BarChartRodData(
-            toY: entry.value.value.toDouble(),
-            color: primaryColor,
-            width: 12,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
-          ),
-        ],
-      );
-    }).toList()
-
-    // Ensure groups are sorted by X to render correctly in RTL
-    ..sort((a, b) => a.x.compareTo(b.x));
+    final barGroups =
+        points.asMap().entries.map((entry) {
+            final x = isRtl ? points.length - 1 - entry.key : entry.key;
+            return BarChartGroupData(
+              x: x,
+              barRods: [
+                BarChartRodData(
+                  toY: entry.value.value.toDouble(),
+                  color: primaryColor,
+                  width: 12,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4),
+                  ),
+                ),
+              ],
+            );
+          }).toList()
+          // Ensure groups are sorted by X to render correctly in RTL
+          ..sort((a, b) => a.x.compareTo(b.x));
 
     final maxY = points.map((e) => e.value).reduce((a, b) => a > b ? a : b);
 
