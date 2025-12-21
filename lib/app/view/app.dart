@@ -18,7 +18,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
@@ -160,9 +159,6 @@ class App extends StatelessWidget {
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
-          ),
-          BlocProvider(
-            create: (context) => OverviewBloc(),
           ),
           // The UserFilterBloc is provided here to be available for both the
           // UserManagementBloc and the UI components.
