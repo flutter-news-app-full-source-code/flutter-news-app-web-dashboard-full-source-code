@@ -7,8 +7,8 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@template overview_page}
 /// The main dashboard overview page, displaying key statistics and quick actions.
 ///
-/// This page uses a fixed grid layout to display high-level KPIs, trends, and
-/// ranked lists, providing a "Mission Control" view of the application.
+/// This page uses a responsive grid layout to display high-level KPIs, trends,
+/// and ranked lists, adapting to different screen sizes.
 /// {@endtemplate}
 class OverviewPage extends StatelessWidget {
   /// {@macro overview_page}
@@ -24,73 +24,229 @@ class OverviewPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Row 1: High-Level KPIs
-            SizedBox(
-              height: 160,
-              child: Row(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final width = constraints.maxWidth;
+            // Breakpoints
+            final isDesktop = width > 1200;
+            final isTablet = width > 800 && width <= 1200;
+
+            // Define card heights
+            const kpiHeight = 160.0;
+            const chartHeight = 350.0;
+
+            if (isDesktop) {
+              // Desktop: 3 columns for KPIs, 2 columns for Charts/Lists
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: AnalyticsCardSlot<KpiCardId>(
-                      cardIds: const [KpiCardId.usersTotalRegistered],
+                  SizedBox(
+                    height: kpiHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AnalyticsCardSlot<KpiCardId>(
+                            cardIds: const [KpiCardId.usersTotalRegistered],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<KpiCardId>(
+                            cardIds: const [
+                              KpiCardId.contentHeadlinesTotalViews,
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<KpiCardId>(
+                            cardIds: const [
+                              KpiCardId.engagementsReportsPending,
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: AnalyticsCardSlot<KpiCardId>(
-                      cardIds: const [KpiCardId.contentHeadlinesTotalViews],
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    height: chartHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AnalyticsCardSlot<ChartCardId>(
+                            cardIds: const [
+                              ChartCardId.usersRegistrationsOverTime,
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<ChartCardId>(
+                            cardIds: const [
+                              ChartCardId.contentHeadlinesViewsOverTime,
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    height: chartHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AnalyticsCardSlot<RankedListCardId>(
+                            cardIds: const [
+                              RankedListCardId.overviewHeadlinesMostViewed,
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<RankedListCardId>(
+                            cardIds: const [
+                              RankedListCardId.overviewSourcesMostFollowed,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else if (isTablet) {
+              // Tablet: 2 columns for everything
+              return Column(
+                children: [
+                  SizedBox(
+                    height: kpiHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AnalyticsCardSlot<KpiCardId>(
+                            cardIds: const [KpiCardId.usersTotalRegistered],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<KpiCardId>(
+                            cardIds: const [
+                              KpiCardId.contentHeadlinesTotalViews,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  SizedBox(
+                    height: kpiHeight,
                     child: AnalyticsCardSlot<KpiCardId>(
                       cardIds: const [KpiCardId.engagementsReportsPending],
                     ),
                   ),
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    height: chartHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AnalyticsCardSlot<ChartCardId>(
+                            cardIds: const [
+                              ChartCardId.usersRegistrationsOverTime,
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<ChartCardId>(
+                            cardIds: const [
+                              ChartCardId.contentHeadlinesViewsOverTime,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    height: chartHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AnalyticsCardSlot<RankedListCardId>(
+                            cardIds: const [
+                              RankedListCardId.overviewHeadlinesMostViewed,
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: AnalyticsCardSlot<RankedListCardId>(
+                            cardIds: const [
+                              RankedListCardId.overviewSourcesMostFollowed,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-
-            // Row 2: Primary Trends (Charts)
-            SizedBox(
-              height: 350,
-              child: Row(
+              );
+            } else {
+              // Mobile: 1 column
+              return Column(
                 children: [
-                  Expanded(
+                  SizedBox(
+                    height: kpiHeight,
+                    child: AnalyticsCardSlot<KpiCardId>(
+                      cardIds: const [KpiCardId.usersTotalRegistered],
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  SizedBox(
+                    height: kpiHeight,
+                    child: AnalyticsCardSlot<KpiCardId>(
+                      cardIds: const [KpiCardId.contentHeadlinesTotalViews],
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  SizedBox(
+                    height: kpiHeight,
+                    child: AnalyticsCardSlot<KpiCardId>(
+                      cardIds: const [KpiCardId.engagementsReportsPending],
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    height: chartHeight,
                     child: AnalyticsCardSlot<ChartCardId>(
                       cardIds: const [ChartCardId.usersRegistrationsOverTime],
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
+                  const SizedBox(height: AppSpacing.md),
+                  SizedBox(
+                    height: chartHeight,
                     child: AnalyticsCardSlot<ChartCardId>(
                       cardIds: const [
                         ChartCardId.contentHeadlinesViewsOverTime,
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-
-            // Row 3: Top Performers (Ranked Lists)
-            SizedBox(
-              height: 350,
-              child: Row(
-                children: [
-                  Expanded(
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    height: chartHeight,
                     child: AnalyticsCardSlot<RankedListCardId>(
                       cardIds: const [
                         RankedListCardId.overviewHeadlinesMostViewed,
                       ],
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
+                  const SizedBox(height: AppSpacing.md),
+                  SizedBox(
+                    height: chartHeight,
                     child: AnalyticsCardSlot<RankedListCardId>(
                       cardIds: const [
                         RankedListCardId.overviewSourcesMostFollowed,
@@ -98,9 +254,9 @@ class OverviewPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ],
+              );
+            }
+          },
         ),
       ),
     );
