@@ -115,17 +115,20 @@ class _SourcesPageState extends State<SourcesPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const AnalyticsDashboardStrip(
-                kpiCards: [
-                  KpiCardId.contentSourcesTotalSources,
-                  KpiCardId.contentSourcesNewSources,
-                  KpiCardId.contentSourcesTotalFollowers,
-                ],
-                chartCards: [
-                  ChartCardId.contentSourcesHeadlinesPublishedOverTime,
-                  ChartCardId.contentSourcesStatusDistribution,
-                  ChartCardId.contentSourcesEngagementByType,
-                ],
+              const SizedBox(
+                height: 160,
+                child: AnalyticsDashboardStrip(
+                  kpiCards: [
+                    KpiCardId.contentSourcesTotalSources,
+                    KpiCardId.contentSourcesNewSources,
+                    KpiCardId.contentSourcesTotalFollowers,
+                  ],
+                  chartCards: [
+                    ChartCardId.contentSourcesHeadlinesPublishedOverTime,
+                    ChartCardId.contentSourcesStatusDistribution,
+                    ChartCardId.contentSourcesEngagementByType,
+                  ],
+                ),
               ),
               if (state.sourcesStatus == ContentManagementStatus.loading &&
                   state.sources.isNotEmpty)
