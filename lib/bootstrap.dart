@@ -13,6 +13,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/app.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
     as app_config;
 import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:http_client/http_client.dart';
@@ -27,6 +28,9 @@ Future<Widget> bootstrap(
 ) async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = const AppBlocObserver();
+
+  // Validate application constants to ensure layout integrity.
+  AppConstants.validate();
 
   timeago.setLocaleMessages('en', EnTimeagoMessages());
   timeago.setLocaleMessages('ar', ArTimeagoMessages());
