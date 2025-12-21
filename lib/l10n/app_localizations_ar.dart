@@ -2686,4 +2686,162 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vsPreviousPeriod => 'مقارنة بالفترة السابقة';
+
+  @override
+  String get vsPreviousDay => 'مقارنة بـ ٢٤ ساعة الماضية';
+
+  @override
+  String get vsPreviousWeek => 'مقارنة بـ ٧ أيام الماضية';
+
+  @override
+  String get vsPreviousMonth => 'مقارنة بـ ٣٠ يوم الماضية';
+
+  @override
+  String get vsPreviousYear => 'مقارنة بالسنة الماضية';
+
+  @override
+  String get kpiUsersTotalRegistered => 'إجمالي المستخدمين المسجلين';
+
+  @override
+  String get kpiUsersNewRegistrations => 'تسجيلات جديدة';
+
+  @override
+  String get kpiUsersActiveUsers => 'المستخدمون النشطون';
+
+  @override
+  String get kpiContentHeadlinesTotalPublished => 'إجمالي العناوين المنشورة';
+
+  @override
+  String get kpiContentHeadlinesTotalViews => 'إجمالي مشاهدات العناوين';
+
+  @override
+  String get kpiContentHeadlinesTotalLikes => 'إجمالي الإعجابات';
+
+  @override
+  String get kpiContentSourcesTotalSources => 'إجمالي المصادر';
+
+  @override
+  String get kpiContentSourcesNewSources => 'مصادر جديدة';
+
+  @override
+  String get kpiContentSourcesTotalFollowers => 'إجمالي متابعي المصادر';
+
+  @override
+  String get kpiContentTopicsTotalTopics => 'إجمالي المواضيع';
+
+  @override
+  String get kpiContentTopicsNewTopics => 'مواضيع جديدة';
+
+  @override
+  String get kpiContentTopicsTotalFollowers => 'إجمالي متابعي المواضيع';
+
+  @override
+  String get kpiEngagementsTotalReactions => 'إجمالي التفاعلات';
+
+  @override
+  String get kpiEngagementsTotalComments => 'إجمالي التعليقات';
+
+  @override
+  String get kpiEngagementsAverageEngagementRate => 'معدل التفاعل';
+
+  @override
+  String get kpiEngagementsReportsPending => 'بلاغات قيد الانتظار';
+
+  @override
+  String get kpiEngagementsReportsResolved => 'بلاغات تم حلها';
+
+  @override
+  String get kpiEngagementsReportsAverageResolutionTime => 'متوسط وقت الحل';
+
+  @override
+  String get kpiEngagementsAppReviewsTotalFeedback => 'إجمالي الملاحظات';
+
+  @override
+  String get kpiEngagementsAppReviewsPositiveFeedback => 'ملاحظات إيجابية';
+
+  @override
+  String get kpiEngagementsAppReviewsStoreRequests => 'طلبات تقييم المتجر';
+
+  @override
+  String get chartUsersRegistrationsOverTime => 'التسجيلات عبر الزمن';
+
+  @override
+  String get chartUsersActiveUsersOverTime => 'اتجاه المستخدمين النشطين';
+
+  @override
+  String get chartUsersRoleDistribution => 'توزيع أدوار المستخدمين';
+
+  @override
+  String get chartContentHeadlinesViewsOverTime => 'اتجاه المشاهدات';
+
+  @override
+  String get chartContentHeadlinesLikesOverTime => 'اتجاه الإعجابات';
+
+  @override
+  String get chartContentHeadlinesViewsByTopic => 'المشاهدات حسب الموضوع';
+
+  @override
+  String get chartContentSourcesHeadlinesPublishedOverTime => 'نشاط المصادر';
+
+  @override
+  String get chartContentSourcesFollowersOverTime => 'نمو متابعي المصادر';
+
+  @override
+  String get chartContentSourcesEngagementByType => 'التفاعل حسب نوع المصدر';
+
+  @override
+  String get chartContentTopicsFollowersOverTime => 'نمو متابعي المواضيع';
+
+  @override
+  String get chartContentTopicsHeadlinesPublishedOverTime => 'نشاط المواضيع';
+
+  @override
+  String get chartContentTopicsEngagementByTopic => 'التفاعل حسب الموضوع';
+
+  @override
+  String get chartEngagementsReactionsOverTime => 'اتجاه التفاعلات';
+
+  @override
+  String get chartEngagementsCommentsOverTime => 'اتجاه التعليقات';
+
+  @override
+  String get chartEngagementsReactionsByType => 'توزيع التفاعلات';
+
+  @override
+  String get chartEngagementsReportsSubmittedOverTime => 'البلاغات المقدمة';
+
+  @override
+  String get chartEngagementsReportsResolutionTimeOverTime => 'اتجاه وقت الحل';
+
+  @override
+  String get chartEngagementsReportsByReason => 'البلاغات حسب السبب';
+
+  @override
+  String get chartEngagementsAppReviewsFeedbackOverTime => 'اتجاه الملاحظات';
+
+  @override
+  String get chartEngagementsAppReviewsPositiveVsNegative => 'تحليل المشاعر';
+
+  @override
+  String get chartEngagementsAppReviewsStoreRequestsOverTime =>
+      'اتجاه طلبات المتجر';
+
+  @override
+  String get chartContentSourcesStatusDistribution => 'توزيع حالة المصادر';
+
+  @override
+  String get chartContentHeadlinesBreakingNewsDistribution =>
+      'توزيع الأخبار العاجلة';
+
+  @override
+  String get rankedListOverviewHeadlinesMostViewed => 'العناوين الأكثر مشاهدة';
+
+  @override
+  String get rankedListOverviewHeadlinesMostLiked => 'العناوين الأكثر إعجاباً';
+
+  @override
+  String get rankedListOverviewSourcesMostFollowed => 'المصادر الأكثر متابعة';
+
+  @override
+  String get rankedListOverviewTopicsMostFollowed => 'المواضيع الأكثر متابعة';
 }
