@@ -4,15 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/chart_card.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/ranked_list_card.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template analytics_card_slot}
 /// A widget that manages a slot containing multiple analytics cards, allowing
 /// users to switch between them.
 ///
-/// This widget is generic and can handle either [KpiCardId] or [ChartCardId].
-/// It fetches data using the [AnalyticsService] and displays the appropriate
-/// card widget.
+/// This widget is generic and can handle [KpiCardId], [ChartCardId], or
+/// [RankedListCardId]. It fetches data using the [AnalyticsService] and
+/// displays the appropriate card widget.
 /// {@endtemplate}
 class AnalyticsCardSlot<T extends Enum> extends StatefulWidget {
   /// {@macro analytics_card_slot}
@@ -22,7 +23,7 @@ class AnalyticsCardSlot<T extends Enum> extends StatefulWidget {
   }) : assert(cardIds.length > 0, 'Must provide at least one card ID');
 
   /// The list of card IDs available in this slot.
-  /// Must be a list of [KpiCardId] or [ChartCardId].
+  /// Must be a list of [KpiCardId], [ChartCardId], or [RankedListCardId].
   final List<T> cardIds;
 
   @override
@@ -45,9 +46,9 @@ class _AnalyticsCardSlotState<T extends Enum>
         Expanded(
           child: _buildCardContent(currentId),
         ),
-        const SizedBox(height: AppSpacing.sm),
         // Navigation Dots (only if multiple cards)
-        if (widget.cardIds.length > 1)
+        if (widget.cardIds.length > 1) ...[
+          const SizedBox(height: AppSpacing.sm),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(widget.cardIds.length, (index) {
@@ -68,6 +69,7 @@ class _AnalyticsCardSlotState<T extends Enum>
               );
             }),
           ),
+        ],
       ],
     );
   }
@@ -103,6 +105,22 @@ class _AnalyticsCardSlotState<T extends Enum>
           }
           if (snapshot.hasData) {
             return ChartCard(data: snapshot.data!);
+          }
+          return const SizedBox.shrink();
+        },
+      );
+    } else if (id is RankedListCardId) {
+      return FutureBuilder<RankedListCardData>(
+        future: analyticsService.getRankedList(id),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.hasData) {
+            return RankedListCard(data: snapshot.data!);
           }
           return const SizedBox.shrink();
         },
