@@ -1,14 +1,16 @@
 import 'package:core/core.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_shell.dart';
+import 'package:intl/intl.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 /// {@template chart_card}
 /// A widget that displays a chart (Bar or Line) with time frame toggles.
 ///
-/// Note: Since no external chart library is available, this uses a custom
-/// visual representation using standard Flutter widgets.
+/// Uses the `fl_chart` package for rendering.
 /// {@endtemplate}
 class ChartCard extends StatefulWidget {
   /// {@macro chart_card}
@@ -46,55 +48,208 @@ class _ChartCardState extends State<ChartCard> {
         onChanged: (value) => setState(() => _selectedTimeFrame = value),
         l10n: l10n,
       ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          // Find max value to normalize heights
-          final maxValue = currentPoints
-              .map((e) => e.value)
-              .reduce((a, b) => a > b ? a : b)
-              .toDouble();
-
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: currentPoints.map((point) {
-              final heightFactor =
-                  maxValue > 0 ? (point.value / maxValue) : 0.0;
-              // Ensure a minimum height so the bar is visible
-              final barHeight = (constraints.maxHeight - 20) * heightFactor;
-
-              return Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // Tooltip behavior could be added here
-                      Tooltip(
-                        message: '${point.label}: ${point.value}',
-                        child: Container(
-                          height: barHeight < 4 ? 4 : barHeight,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        point.label ?? '',
-                        style: Theme.of(context).textTheme.labelSmall,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          );
-        },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: AppSpacing.md,
+          top: AppSpacing.md,
+          bottom: AppSpacing.xs,
+        ),
+        child: widget.data.type == ChartType.line
+            ? _LineChart(points: currentPoints, timeFrame: _selectedTimeFrame)
+            : _BarChart(points: currentPoints, timeFrame: _selectedTimeFrame),
       ),
+    );
+  }
+}
+
+class _LineChart extends StatelessWidget {
+  const _LineChart({required this.points, required this.timeFrame});
+
+  final List<DataPoint> points;
+  final ChartTimeFrame timeFrame;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.colorScheme.primary;
+
+    // Map points to FlSpots
+    final spots = points.asMap().entries.map((entry) {
+      return FlSpot(entry.key.toDouble(), entry.value.value.toDouble());
+    }).toList();
+
+    final maxY = points.map((e) => e.value).reduce((a, b) => a > b ? a : b);
+
+    return LineChart(
+      LineChartData(
+        gridData: const FlGridData(show: false),
+        titlesData: FlTitlesData(
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: (value, meta) => _BottomTitle(
+                value: value,
+                meta: meta,
+                points: points,
+                timeFrame: timeFrame,
+              ),
+              reservedSize: 24,
+            ),
+          ),
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 40,
+              getTitlesWidget: (value, meta) {
+                if (value == 0 || value == maxY) return const SizedBox.shrink();
+                return Text(
+                  NumberFormat.compact().format(value),
+                  style: theme.textTheme.labelSmall,
+                );
+              },
+            ),
+          ),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+        ),
+        borderData: FlBorderData(show: false),
+        lineBarsData: [
+          LineChartBarData(
+            spots: spots,
+            isCurved: true,
+            color: primaryColor,
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(
+              show: true,
+              color: primaryColor.withOpacity(0.1),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BarChart extends StatelessWidget {
+  const _BarChart({required this.points, required this.timeFrame});
+
+  final List<DataPoint> points;
+  final ChartTimeFrame timeFrame;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.colorScheme.primary;
+
+    final barGroups = points.asMap().entries.map((entry) {
+      return BarChartGroupData(
+        x: entry.key,
+        barRods: [
+          BarChartRodData(
+            toY: entry.value.value.toDouble(),
+            color: primaryColor,
+            width: 16,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+          ),
+        ],
+      );
+    }).toList();
+
+    final maxY = points.map((e) => e.value).reduce((a, b) => a > b ? a : b);
+
+    return BarChart(
+      BarChartData(
+        gridData: const FlGridData(show: false),
+        titlesData: FlTitlesData(
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: (value, meta) => _BottomTitle(
+                value: value,
+                meta: meta,
+                points: points,
+                timeFrame: timeFrame,
+              ),
+              reservedSize: 24,
+            ),
+          ),
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 40,
+              getTitlesWidget: (value, meta) {
+                if (value == 0 || value == maxY) return const SizedBox.shrink();
+                return Text(
+                  NumberFormat.compact().format(value),
+                  style: theme.textTheme.labelSmall,
+                );
+              },
+            ),
+          ),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+        ),
+        borderData: FlBorderData(show: false),
+        barGroups: barGroups,
+      ),
+    );
+  }
+}
+
+class _BottomTitle extends StatelessWidget {
+  const _BottomTitle({
+    required this.value,
+    required this.points,
+    required this.timeFrame,
+    required this.meta,
+  });
+
+  final double value;
+  final List<DataPoint> points;
+  final ChartTimeFrame timeFrame;
+  final TitleMeta meta;
+
+  @override
+  Widget build(BuildContext context) {
+    final index = value.toInt();
+    if (index < 0 || index >= points.length) return const SizedBox.shrink();
+
+    final point = points[index];
+    final theme = Theme.of(context);
+    String text;
+
+    if (point.label != null) {
+      text = point.label!;
+    } else if (point.timestamp != null) {
+      switch (timeFrame) {
+        case ChartTimeFrame.week:
+          text = DateFormat.E().format(point.timestamp!); // Mon, Tue
+        case ChartTimeFrame.month:
+          text = DateFormat.d().format(point.timestamp!); // 1, 2, 3
+        case ChartTimeFrame.year:
+          text = DateFormat.MMM().format(point.timestamp!); // Jan, Feb
+      }
+    } else {
+      text = '';
+    }
+
+    // Simple logic to skip labels if too crowded (e.g., show every 2nd or 5th)
+    if (points.length > 10 && index % 2 != 0) return const SizedBox.shrink();
+    if (points.length > 20 && index % 5 != 0) return const SizedBox.shrink();
+
+    return SideTitleWidget(
+      meta: meta,
+      child: Text(text, style: theme.textTheme.labelSmall),
     );
   }
 }
