@@ -13,6 +13,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/app.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
     as app_config;
 import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:http_client/http_client.dart';
 import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
@@ -67,6 +68,9 @@ Future<Widget> bootstrap(
   DataClient<Engagement> engagementsClient;
   DataClient<Report> reportsClient;
   DataClient<AppReview> appReviewsClient;
+  DataClient<KpiCardData> kpiCardsClient;
+  DataClient<ChartCardData> chartCardsClient;
+  DataClient<RankedListCardData> rankedListCardsClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -141,6 +145,24 @@ Future<Widget> bootstrap(
       getId: (i) => i.id,
       initialData: getAppReviewsFixturesData(),
       logger: Logger('DataInMemory<AppReview>'),
+    );
+    kpiCardsClient = DataInMemory<KpiCardData>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id.name,
+      initialData: getKpiCardsFixturesData(),
+      logger: Logger('DataInMemory<KpiCardData>'),
+    );
+    chartCardsClient = DataInMemory<ChartCardData>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id.name,
+      initialData: getChartCardsFixturesData(),
+      logger: Logger('DataInMemory<ChartCardData>'),
+    );
+    rankedListCardsClient = DataInMemory<RankedListCardData>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id.name,
+      initialData: getRankedListCardsFixturesData(),
+      logger: Logger('DataInMemory<RankedListCardData>'),
     );
   } else {
     headlinesClient = DataApi<Headline>(
@@ -228,6 +250,27 @@ Future<Widget> bootstrap(
       toJson: (appReview) => appReview.toJson(),
       logger: Logger('DataApi<AppReview>'),
     );
+    kpiCardsClient = DataApi<KpiCardData>(
+      httpClient: httpClient,
+      modelName: 'kpi_card',
+      fromJson: KpiCardData.fromJson,
+      toJson: (item) => item.toJson(),
+      logger: Logger('DataApi<KpiCardData>'),
+    );
+    chartCardsClient = DataApi<ChartCardData>(
+      httpClient: httpClient,
+      modelName: 'chart_card',
+      fromJson: ChartCardData.fromJson,
+      toJson: (item) => item.toJson(),
+      logger: Logger('DataApi<ChartCardData>'),
+    );
+    rankedListCardsClient = DataApi<RankedListCardData>(
+      httpClient: httpClient,
+      modelName: 'ranked_list_card',
+      fromJson: RankedListCardData.fromJson,
+      toJson: (item) => item.toJson(),
+      logger: Logger('DataApi<RankedListCardData>'),
+    );
   }
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
@@ -265,6 +308,21 @@ Future<Widget> bootstrap(
   final appReviewsRepository = DataRepository<AppReview>(
     dataClient: appReviewsClient,
   );
+  final kpiCardsRepository = DataRepository<KpiCardData>(
+    dataClient: kpiCardsClient,
+  );
+  final chartCardsRepository = DataRepository<ChartCardData>(
+    dataClient: chartCardsClient,
+  );
+  final rankedListCardsRepository = DataRepository<RankedListCardData>(
+    dataClient: rankedListCardsClient,
+  );
+
+  final analyticsService = AnalyticsService(
+    kpiRepository: kpiCardsRepository,
+    chartRepository: chartCardsRepository,
+    rankedListRepository: rankedListCardsRepository,
+  );
 
   return App(
     authenticationRepository: authenticationRepository,
@@ -280,6 +338,7 @@ Future<Widget> bootstrap(
     engagementsRepository: engagementsRepository,
     reportsRepository: reportsRepository,
     appReviewsRepository: appReviewsRepository,
+    analyticsService: analyticsService,
     storageService: kvStorage,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,
