@@ -4849,6 +4849,354 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track when a user applies a saved source filter.'**
   String get analyticsEventSourceFilterUsedDescription;
+
+  /// Label for 24 hour time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'24H'**
+  String get timeFrameDay;
+
+  /// Label for 7 day time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'7D'**
+  String get timeFrameWeek;
+
+  /// Label for 30 day time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'30D'**
+  String get timeFrameMonth;
+
+  /// Label for 1 year time frame toggle
+  ///
+  /// In en, this message translates to:
+  /// **'1Y'**
+  String get timeFrameYear;
+
+  /// Message displayed when analytics data is missing
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noDataAvailable;
+
+  /// Label indicating the trend comparison context
+  ///
+  /// In en, this message translates to:
+  /// **'vs previous period'**
+  String get vsPreviousPeriod;
+
+  /// Label indicating the trend comparison context for the last 24 hours
+  ///
+  /// In en, this message translates to:
+  /// **'vs previous 24h'**
+  String get vsPreviousDay;
+
+  /// Label indicating the trend comparison context for the last 7 days
+  ///
+  /// In en, this message translates to:
+  /// **'vs previous 7 days'**
+  String get vsPreviousWeek;
+
+  /// Label indicating the trend comparison context for the last 30 days
+  ///
+  /// In en, this message translates to:
+  /// **'vs previous 30 days'**
+  String get vsPreviousMonth;
+
+  /// Label indicating the trend comparison context for the last year
+  ///
+  /// In en, this message translates to:
+  /// **'vs previous year'**
+  String get vsPreviousYear;
+
+  /// Title for the Total Registered Users KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Registered Users'**
+  String get kpiUsersTotalRegistered;
+
+  /// Title for the New Registrations KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'New Registrations'**
+  String get kpiUsersNewRegistrations;
+
+  /// Title for the Active Users KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Active Users'**
+  String get kpiUsersActiveUsers;
+
+  /// Title for the Total Headlines Published KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Headlines Published'**
+  String get kpiContentHeadlinesTotalPublished;
+
+  /// Title for the Total Headline Views KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Headline Views'**
+  String get kpiContentHeadlinesTotalViews;
+
+  /// Title for the Total Headline Likes KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Headline Likes'**
+  String get kpiContentHeadlinesTotalLikes;
+
+  /// Title for the Total Sources KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sources'**
+  String get kpiContentSourcesTotalSources;
+
+  /// Title for the New Sources KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'New Sources'**
+  String get kpiContentSourcesNewSources;
+
+  /// Title for the Total Source Followers KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Source Followers'**
+  String get kpiContentSourcesTotalFollowers;
+
+  /// Title for the Total Topics KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Topics'**
+  String get kpiContentTopicsTotalTopics;
+
+  /// Title for the New Topics KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'New Topics'**
+  String get kpiContentTopicsNewTopics;
+
+  /// Title for the Total Topic Followers KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Topic Followers'**
+  String get kpiContentTopicsTotalFollowers;
+
+  /// Title for the Total Reactions KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Reactions'**
+  String get kpiEngagementsTotalReactions;
+
+  /// Title for the Total Comments KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Comments'**
+  String get kpiEngagementsTotalComments;
+
+  /// Title for the Average Engagement Rate KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. Engagement Rate'**
+  String get kpiEngagementsAverageEngagementRate;
+
+  /// Title for the Pending Reports KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Reports'**
+  String get kpiEngagementsReportsPending;
+
+  /// Title for the Resolved Reports KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved Reports'**
+  String get kpiEngagementsReportsResolved;
+
+  /// Title for the Average Resolution Time KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. Resolution Time'**
+  String get kpiEngagementsReportsAverageResolutionTime;
+
+  /// Title for the Total Feedback KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Feedback'**
+  String get kpiEngagementsAppReviewsTotalFeedback;
+
+  /// Title for the Positive Feedback KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Positive Feedback'**
+  String get kpiEngagementsAppReviewsPositiveFeedback;
+
+  /// Title for the Store Review Requests KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Store Review Requests'**
+  String get kpiEngagementsAppReviewsStoreRequests;
+
+  /// Title for the Registrations Over Time chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Registrations Over Time'**
+  String get chartUsersRegistrationsOverTime;
+
+  /// Title for the Active Users Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Active Users Trend'**
+  String get chartUsersActiveUsersOverTime;
+
+  /// Title for the User Role Distribution chart card
+  ///
+  /// In en, this message translates to:
+  /// **'User Role Distribution'**
+  String get chartUsersRoleDistribution;
+
+  /// Title for the Headline Views Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Headline Views Trend'**
+  String get chartContentHeadlinesViewsOverTime;
+
+  /// Title for the Headline Likes Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Headline Likes Trend'**
+  String get chartContentHeadlinesLikesOverTime;
+
+  /// Title for the Views by Topic chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Views by Topic'**
+  String get chartContentHeadlinesViewsByTopic;
+
+  /// Title for the Source Activity chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Source Activity'**
+  String get chartContentSourcesHeadlinesPublishedOverTime;
+
+  /// Title for the Source Follower Growth chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Source Follower Growth'**
+  String get chartContentSourcesFollowersOverTime;
+
+  /// Title for the Engagement by Source Type chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement by Source Type'**
+  String get chartContentSourcesEngagementByType;
+
+  /// Title for the Topic Follower Growth chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Topic Follower Growth'**
+  String get chartContentTopicsFollowersOverTime;
+
+  /// Title for the Topic Activity chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Topic Activity'**
+  String get chartContentTopicsHeadlinesPublishedOverTime;
+
+  /// Title for the Engagement by Topic chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement by Topic'**
+  String get chartContentTopicsEngagementByTopic;
+
+  /// Title for the Reactions Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Reactions Trend'**
+  String get chartEngagementsReactionsOverTime;
+
+  /// Title for the Comments Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Comments Trend'**
+  String get chartEngagementsCommentsOverTime;
+
+  /// Title for the Reactions Distribution chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Reactions Distribution'**
+  String get chartEngagementsReactionsByType;
+
+  /// Title for the Reports Submitted chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Reports Submitted'**
+  String get chartEngagementsReportsSubmittedOverTime;
+
+  /// Title for the Resolution Time Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution Time Trend'**
+  String get chartEngagementsReportsResolutionTimeOverTime;
+
+  /// Title for the Reports by Reason chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Reports by Reason'**
+  String get chartEngagementsReportsByReason;
+
+  /// Title for the Feedback Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback Trend'**
+  String get chartEngagementsAppReviewsFeedbackOverTime;
+
+  /// Title for the Sentiment Analysis chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Sentiment Analysis'**
+  String get chartEngagementsAppReviewsPositiveVsNegative;
+
+  /// Title for the Store Requests Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Store Requests Trend'**
+  String get chartEngagementsAppReviewsStoreRequestsOverTime;
+
+  /// Title for the Source Status Distribution chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Source Status Distribution'**
+  String get chartContentSourcesStatusDistribution;
+
+  /// Title for the Breaking News Distribution chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Breaking News Distribution'**
+  String get chartContentHeadlinesBreakingNewsDistribution;
+
+  /// Title for the Top Viewed Headlines ranked list card
+  ///
+  /// In en, this message translates to:
+  /// **'Top Viewed Headlines'**
+  String get rankedListOverviewHeadlinesMostViewed;
+
+  /// Title for the Top Liked Headlines ranked list card
+  ///
+  /// In en, this message translates to:
+  /// **'Top Liked Headlines'**
+  String get rankedListOverviewHeadlinesMostLiked;
+
+  /// Title for the Top Followed Sources ranked list card
+  ///
+  /// In en, this message translates to:
+  /// **'Top Followed Sources'**
+  String get rankedListOverviewSourcesMostFollowed;
+
+  /// Title for the Top Followed Topics ranked list card
+  ///
+  /// In en, this message translates to:
+  /// **'Top Followed Topics'**
+  String get rankedListOverviewTopicsMostFollowed;
 }
 
 class _AppLocalizationsDelegate

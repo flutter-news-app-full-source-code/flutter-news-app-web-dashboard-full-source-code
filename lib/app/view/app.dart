@@ -18,10 +18,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-// import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
@@ -46,6 +43,7 @@ class App extends StatelessWidget {
     required DataRepository<Engagement> engagementsRepository,
     required DataRepository<Report> reportsRepository,
     required DataRepository<AppReview> appReviewsRepository,
+    required AnalyticsService analyticsService,
     required KVStorageService storageService,
     required AppEnvironment environment,
     required PendingDeletionsService pendingDeletionsService,
@@ -64,6 +62,7 @@ class App extends StatelessWidget {
        _engagementsRepository = engagementsRepository,
        _reportsRepository = reportsRepository,
        _appReviewsRepository = appReviewsRepository,
+       _analyticsService = analyticsService,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
 
@@ -81,6 +80,7 @@ class App extends StatelessWidget {
   final DataRepository<Engagement> _engagementsRepository;
   final DataRepository<Report> _reportsRepository;
   final DataRepository<AppReview> _appReviewsRepository;
+  final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
 
@@ -104,6 +104,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _engagementsRepository),
         RepositoryProvider.value(value: _reportsRepository),
         RepositoryProvider.value(value: _appReviewsRepository),
+        RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
           create: (context) => const ThrottledFetchingService(),
@@ -159,13 +160,6 @@ class App extends StatelessWidget {
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
-          // BlocProvider(
-          //   create: (context) => OverviewBloc(
-          //     headlinesRepository: context.read<DataRepository<Headline>>(),
-          //     topicsRepository: context.read<DataRepository<Topic>>(),
-          //     sourcesRepository: context.read<DataRepository<Source>>(),
-          //   ),
-          // ),
           // The UserFilterBloc is provided here to be available for both the
           // UserManagementBloc and the UI components.
           BlocProvider(create: (_) => UserFilterBloc()),

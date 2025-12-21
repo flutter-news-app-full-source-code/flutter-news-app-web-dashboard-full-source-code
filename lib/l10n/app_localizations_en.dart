@@ -2678,4 +2678,184 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get analyticsEventSourceFilterUsedDescription =>
       'Track when a user applies a saved source filter.';
+
+  @override
+  String get timeFrameDay => '24H';
+
+  @override
+  String get timeFrameWeek => '7D';
+
+  @override
+  String get timeFrameMonth => '30D';
+
+  @override
+  String get timeFrameYear => '1Y';
+
+  @override
+  String get noDataAvailable => 'No data available';
+
+  @override
+  String get vsPreviousPeriod => 'vs previous period';
+
+  @override
+  String get vsPreviousDay => 'vs previous 24h';
+
+  @override
+  String get vsPreviousWeek => 'vs previous 7 days';
+
+  @override
+  String get vsPreviousMonth => 'vs previous 30 days';
+
+  @override
+  String get vsPreviousYear => 'vs previous year';
+
+  @override
+  String get kpiUsersTotalRegistered => 'Total Registered Users';
+
+  @override
+  String get kpiUsersNewRegistrations => 'New Registrations';
+
+  @override
+  String get kpiUsersActiveUsers => 'Active Users';
+
+  @override
+  String get kpiContentHeadlinesTotalPublished => 'Total Headlines Published';
+
+  @override
+  String get kpiContentHeadlinesTotalViews => 'Total Headline Views';
+
+  @override
+  String get kpiContentHeadlinesTotalLikes => 'Total Headline Likes';
+
+  @override
+  String get kpiContentSourcesTotalSources => 'Total Sources';
+
+  @override
+  String get kpiContentSourcesNewSources => 'New Sources';
+
+  @override
+  String get kpiContentSourcesTotalFollowers => 'Total Source Followers';
+
+  @override
+  String get kpiContentTopicsTotalTopics => 'Total Topics';
+
+  @override
+  String get kpiContentTopicsNewTopics => 'New Topics';
+
+  @override
+  String get kpiContentTopicsTotalFollowers => 'Total Topic Followers';
+
+  @override
+  String get kpiEngagementsTotalReactions => 'Total Reactions';
+
+  @override
+  String get kpiEngagementsTotalComments => 'Total Comments';
+
+  @override
+  String get kpiEngagementsAverageEngagementRate => 'Avg. Engagement Rate';
+
+  @override
+  String get kpiEngagementsReportsPending => 'Pending Reports';
+
+  @override
+  String get kpiEngagementsReportsResolved => 'Resolved Reports';
+
+  @override
+  String get kpiEngagementsReportsAverageResolutionTime =>
+      'Avg. Resolution Time';
+
+  @override
+  String get kpiEngagementsAppReviewsTotalFeedback => 'Total Feedback';
+
+  @override
+  String get kpiEngagementsAppReviewsPositiveFeedback => 'Positive Feedback';
+
+  @override
+  String get kpiEngagementsAppReviewsStoreRequests => 'Store Review Requests';
+
+  @override
+  String get chartUsersRegistrationsOverTime => 'Registrations Over Time';
+
+  @override
+  String get chartUsersActiveUsersOverTime => 'Active Users Trend';
+
+  @override
+  String get chartUsersRoleDistribution => 'User Role Distribution';
+
+  @override
+  String get chartContentHeadlinesViewsOverTime => 'Headline Views Trend';
+
+  @override
+  String get chartContentHeadlinesLikesOverTime => 'Headline Likes Trend';
+
+  @override
+  String get chartContentHeadlinesViewsByTopic => 'Views by Topic';
+
+  @override
+  String get chartContentSourcesHeadlinesPublishedOverTime => 'Source Activity';
+
+  @override
+  String get chartContentSourcesFollowersOverTime => 'Source Follower Growth';
+
+  @override
+  String get chartContentSourcesEngagementByType => 'Engagement by Source Type';
+
+  @override
+  String get chartContentTopicsFollowersOverTime => 'Topic Follower Growth';
+
+  @override
+  String get chartContentTopicsHeadlinesPublishedOverTime => 'Topic Activity';
+
+  @override
+  String get chartContentTopicsEngagementByTopic => 'Engagement by Topic';
+
+  @override
+  String get chartEngagementsReactionsOverTime => 'Reactions Trend';
+
+  @override
+  String get chartEngagementsCommentsOverTime => 'Comments Trend';
+
+  @override
+  String get chartEngagementsReactionsByType => 'Reactions Distribution';
+
+  @override
+  String get chartEngagementsReportsSubmittedOverTime => 'Reports Submitted';
+
+  @override
+  String get chartEngagementsReportsResolutionTimeOverTime =>
+      'Resolution Time Trend';
+
+  @override
+  String get chartEngagementsReportsByReason => 'Reports by Reason';
+
+  @override
+  String get chartEngagementsAppReviewsFeedbackOverTime => 'Feedback Trend';
+
+  @override
+  String get chartEngagementsAppReviewsPositiveVsNegative =>
+      'Sentiment Analysis';
+
+  @override
+  String get chartEngagementsAppReviewsStoreRequestsOverTime =>
+      'Store Requests Trend';
+
+  @override
+  String get chartContentSourcesStatusDistribution =>
+      'Source Status Distribution';
+
+  @override
+  String get chartContentHeadlinesBreakingNewsDistribution =>
+      'Breaking News Distribution';
+
+  @override
+  String get rankedListOverviewHeadlinesMostViewed => 'Top Viewed Headlines';
+
+  @override
+  String get rankedListOverviewHeadlinesMostLiked => 'Top Liked Headlines';
+
+  @override
+  String get rankedListOverviewSourcesMostFollowed => 'Top Followed Sources';
+
+  @override
+  String get rankedListOverviewTopicsMostFollowed => 'Top Followed Topics';
 }

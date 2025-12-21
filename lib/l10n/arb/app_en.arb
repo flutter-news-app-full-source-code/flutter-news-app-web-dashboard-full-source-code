@@ -3340,5 +3340,237 @@
   "analyticsEventSourceFilterUsedDescription": "Track when a user applies a saved source filter.",
   "@analyticsEventSourceFilterUsedDescription": {
     "description": "Description for the Source Filter Usage analytics event"
+  },
+  "timeFrameDay": "24H",
+  "@timeFrameDay": {
+    "description": "Label for 24 hour time frame toggle"
+  },
+  "timeFrameWeek": "7D",
+  "@timeFrameWeek": {
+    "description": "Label for 7 day time frame toggle"
+  },
+  "timeFrameMonth": "30D",
+  "@timeFrameMonth": {
+    "description": "Label for 30 day time frame toggle"
+  },
+  "timeFrameYear": "1Y",
+  "@timeFrameYear": {
+    "description": "Label for 1 year time frame toggle"
+  },
+  "noDataAvailable": "No data available",
+  "@noDataAvailable": {
+    "description": "Message displayed when analytics data is missing"
+  },
+  "vsPreviousPeriod": "vs previous period",
+  "@vsPreviousPeriod": {
+    "description": "Label indicating the trend comparison context"
+  },
+  "vsPreviousDay": "vs previous 24h",
+  "@vsPreviousDay": {
+    "description": "Label indicating the trend comparison context for the last 24 hours"
+  },
+  "vsPreviousWeek": "vs previous 7 days",
+  "@vsPreviousWeek": {
+    "description": "Label indicating the trend comparison context for the last 7 days"
+  },
+  "vsPreviousMonth": "vs previous 30 days",
+  "@vsPreviousMonth": {
+    "description": "Label indicating the trend comparison context for the last 30 days"
+  },
+  "vsPreviousYear": "vs previous year",
+  "@vsPreviousYear": {
+    "description": "Label indicating the trend comparison context for the last year"
+  },
+  "kpiUsersTotalRegistered": "Total Registered Users",
+  "@kpiUsersTotalRegistered": {
+    "description": "Title for the Total Registered Users KPI card"
+  },
+  "kpiUsersNewRegistrations": "New Registrations",
+  "@kpiUsersNewRegistrations": {
+    "description": "Title for the New Registrations KPI card"
+  },
+  "kpiUsersActiveUsers": "Active Users",
+  "@kpiUsersActiveUsers": {
+    "description": "Title for the Active Users KPI card"
+  },
+  "kpiContentHeadlinesTotalPublished": "Total Headlines Published",
+  "@kpiContentHeadlinesTotalPublished": {
+    "description": "Title for the Total Headlines Published KPI card"
+  },
+  "kpiContentHeadlinesTotalViews": "Total Headline Views",
+  "@kpiContentHeadlinesTotalViews": {
+    "description": "Title for the Total Headline Views KPI card"
+  },
+  "kpiContentHeadlinesTotalLikes": "Total Headline Likes",
+  "@kpiContentHeadlinesTotalLikes": {
+    "description": "Title for the Total Headline Likes KPI card"
+  },
+  "kpiContentSourcesTotalSources": "Total Sources",
+  "@kpiContentSourcesTotalSources": {
+    "description": "Title for the Total Sources KPI card"
+  },
+  "kpiContentSourcesNewSources": "New Sources",
+  "@kpiContentSourcesNewSources": {
+    "description": "Title for the New Sources KPI card"
+  },
+  "kpiContentSourcesTotalFollowers": "Total Source Followers",
+  "@kpiContentSourcesTotalFollowers": {
+    "description": "Title for the Total Source Followers KPI card"
+  },
+  "kpiContentTopicsTotalTopics": "Total Topics",
+  "@kpiContentTopicsTotalTopics": {
+    "description": "Title for the Total Topics KPI card"
+  },
+  "kpiContentTopicsNewTopics": "New Topics",
+  "@kpiContentTopicsNewTopics": {
+    "description": "Title for the New Topics KPI card"
+  },
+  "kpiContentTopicsTotalFollowers": "Total Topic Followers",
+  "@kpiContentTopicsTotalFollowers": {
+    "description": "Title for the Total Topic Followers KPI card"
+  },
+  "kpiEngagementsTotalReactions": "Total Reactions",
+  "@kpiEngagementsTotalReactions": {
+    "description": "Title for the Total Reactions KPI card"
+  },
+  "kpiEngagementsTotalComments": "Total Comments",
+  "@kpiEngagementsTotalComments": {
+    "description": "Title for the Total Comments KPI card"
+  },
+  "kpiEngagementsAverageEngagementRate": "Avg. Engagement Rate",
+  "@kpiEngagementsAverageEngagementRate": {
+    "description": "Title for the Average Engagement Rate KPI card"
+  },
+  "kpiEngagementsReportsPending": "Pending Reports",
+  "@kpiEngagementsReportsPending": {
+    "description": "Title for the Pending Reports KPI card"
+  },
+  "kpiEngagementsReportsResolved": "Resolved Reports",
+  "@kpiEngagementsReportsResolved": {
+    "description": "Title for the Resolved Reports KPI card"
+  },
+  "kpiEngagementsReportsAverageResolutionTime": "Avg. Resolution Time",
+  "@kpiEngagementsReportsAverageResolutionTime": {
+    "description": "Title for the Average Resolution Time KPI card"
+  },
+  "kpiEngagementsAppReviewsTotalFeedback": "Total Feedback",
+  "@kpiEngagementsAppReviewsTotalFeedback": {
+    "description": "Title for the Total Feedback KPI card"
+  },
+  "kpiEngagementsAppReviewsPositiveFeedback": "Positive Feedback",
+  "@kpiEngagementsAppReviewsPositiveFeedback": {
+    "description": "Title for the Positive Feedback KPI card"
+  },
+  "kpiEngagementsAppReviewsStoreRequests": "Store Review Requests",
+  "@kpiEngagementsAppReviewsStoreRequests": {
+    "description": "Title for the Store Review Requests KPI card"
+  },
+  "chartUsersRegistrationsOverTime": "Registrations Over Time",
+  "@chartUsersRegistrationsOverTime": {
+    "description": "Title for the Registrations Over Time chart card"
+  },
+  "chartUsersActiveUsersOverTime": "Active Users Trend",
+  "@chartUsersActiveUsersOverTime": {
+    "description": "Title for the Active Users Trend chart card"
+  },
+  "chartUsersRoleDistribution": "User Role Distribution",
+  "@chartUsersRoleDistribution": {
+    "description": "Title for the User Role Distribution chart card"
+  },
+  "chartContentHeadlinesViewsOverTime": "Headline Views Trend",
+  "@chartContentHeadlinesViewsOverTime": {
+    "description": "Title for the Headline Views Trend chart card"
+  },
+  "chartContentHeadlinesLikesOverTime": "Headline Likes Trend",
+  "@chartContentHeadlinesLikesOverTime": {
+    "description": "Title for the Headline Likes Trend chart card"
+  },
+  "chartContentHeadlinesViewsByTopic": "Views by Topic",
+  "@chartContentHeadlinesViewsByTopic": {
+    "description": "Title for the Views by Topic chart card"
+  },
+  "chartContentSourcesHeadlinesPublishedOverTime": "Source Activity",
+  "@chartContentSourcesHeadlinesPublishedOverTime": {
+    "description": "Title for the Source Activity chart card"
+  },
+  "chartContentSourcesFollowersOverTime": "Source Follower Growth",
+  "@chartContentSourcesFollowersOverTime": {
+    "description": "Title for the Source Follower Growth chart card"
+  },
+  "chartContentSourcesEngagementByType": "Engagement by Source Type",
+  "@chartContentSourcesEngagementByType": {
+    "description": "Title for the Engagement by Source Type chart card"
+  },
+  "chartContentTopicsFollowersOverTime": "Topic Follower Growth",
+  "@chartContentTopicsFollowersOverTime": {
+    "description": "Title for the Topic Follower Growth chart card"
+  },
+  "chartContentTopicsHeadlinesPublishedOverTime": "Topic Activity",
+  "@chartContentTopicsHeadlinesPublishedOverTime": {
+    "description": "Title for the Topic Activity chart card"
+  },
+  "chartContentTopicsEngagementByTopic": "Engagement by Topic",
+  "@chartContentTopicsEngagementByTopic": {
+    "description": "Title for the Engagement by Topic chart card"
+  },
+  "chartEngagementsReactionsOverTime": "Reactions Trend",
+  "@chartEngagementsReactionsOverTime": {
+    "description": "Title for the Reactions Trend chart card"
+  },
+  "chartEngagementsCommentsOverTime": "Comments Trend",
+  "@chartEngagementsCommentsOverTime": {
+    "description": "Title for the Comments Trend chart card"
+  },
+  "chartEngagementsReactionsByType": "Reactions Distribution",
+  "@chartEngagementsReactionsByType": {
+    "description": "Title for the Reactions Distribution chart card"
+  },
+  "chartEngagementsReportsSubmittedOverTime": "Reports Submitted",
+  "@chartEngagementsReportsSubmittedOverTime": {
+    "description": "Title for the Reports Submitted chart card"
+  },
+  "chartEngagementsReportsResolutionTimeOverTime": "Resolution Time Trend",
+  "@chartEngagementsReportsResolutionTimeOverTime": {
+    "description": "Title for the Resolution Time Trend chart card"
+  },
+  "chartEngagementsReportsByReason": "Reports by Reason",
+  "@chartEngagementsReportsByReason": {
+    "description": "Title for the Reports by Reason chart card"
+  },
+  "chartEngagementsAppReviewsFeedbackOverTime": "Feedback Trend",
+  "@chartEngagementsAppReviewsFeedbackOverTime": {
+    "description": "Title for the Feedback Trend chart card"
+  },
+  "chartEngagementsAppReviewsPositiveVsNegative": "Sentiment Analysis",
+  "@chartEngagementsAppReviewsPositiveVsNegative": {
+    "description": "Title for the Sentiment Analysis chart card"
+  },
+  "chartEngagementsAppReviewsStoreRequestsOverTime": "Store Requests Trend",
+  "@chartEngagementsAppReviewsStoreRequestsOverTime": {
+    "description": "Title for the Store Requests Trend chart card"
+  },
+  "chartContentSourcesStatusDistribution": "Source Status Distribution",
+  "@chartContentSourcesStatusDistribution": {
+    "description": "Title for the Source Status Distribution chart card"
+  },
+  "chartContentHeadlinesBreakingNewsDistribution": "Breaking News Distribution",
+  "@chartContentHeadlinesBreakingNewsDistribution": {
+    "description": "Title for the Breaking News Distribution chart card"
+  },
+  "rankedListOverviewHeadlinesMostViewed": "Top Viewed Headlines",
+  "@rankedListOverviewHeadlinesMostViewed": {
+    "description": "Title for the Top Viewed Headlines ranked list card"
+  },
+  "rankedListOverviewHeadlinesMostLiked": "Top Liked Headlines",
+  "@rankedListOverviewHeadlinesMostLiked": {
+    "description": "Title for the Top Liked Headlines ranked list card"
+  },
+  "rankedListOverviewSourcesMostFollowed": "Top Followed Sources",
+  "@rankedListOverviewSourcesMostFollowed": {
+    "description": "Title for the Top Followed Sources ranked list card"
+  },
+  "rankedListOverviewTopicsMostFollowed": "Top Followed Topics",
+  "@rankedListOverviewTopicsMostFollowed": {
+    "description": "Title for the Top Followed Topics ranked list card"
   }
 }

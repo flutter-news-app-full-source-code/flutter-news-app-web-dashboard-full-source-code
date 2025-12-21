@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_ui.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
@@ -121,6 +122,19 @@ class _UsersPageState extends State<UsersPage> {
           // Display the data table with users.
           return Column(
             children: [
+              // Analytics Dashboard Strip
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.usersTotalRegistered,
+                  KpiCardId.usersNewRegistrations,
+                  KpiCardId.usersActiveUsers,
+                ],
+                chartCards: [
+                  ChartCardId.usersRegistrationsOverTime,
+                  ChartCardId.usersActiveUsersOverTime,
+                  ChartCardId.usersRoleDistribution,
+                ],
+              ),
               // Show a linear progress indicator during subsequent loads/pagination.
               if (state.status == UserManagementStatus.loading &&
                   state.users.isNotEmpty)

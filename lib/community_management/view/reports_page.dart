@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -98,6 +99,19 @@ class _ReportsPageState extends State<ReportsPage> {
 
           return Column(
             children: [
+              // Analytics Dashboard Strip
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.engagementsReportsPending,
+                  KpiCardId.engagementsReportsResolved,
+                  KpiCardId.engagementsReportsAverageResolutionTime,
+                ],
+                chartCards: [
+                  ChartCardId.engagementsReportsSubmittedOverTime,
+                  ChartCardId.engagementsReportsResolutionTimeOverTime,
+                  ChartCardId.engagementsReportsByReason,
+                ],
+              ),
               if (state.reportsStatus == CommunityManagementStatus.loading &&
                   state.reports.isNotEmpty)
                 const LinearProgressIndicator(),

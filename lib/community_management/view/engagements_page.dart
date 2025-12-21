@@ -7,6 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/community_manage
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -102,6 +103,19 @@ class _EngagementsPageState extends State<EngagementsPage> {
 
           return Column(
             children: [
+              // Analytics Dashboard Strip
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.engagementsTotalReactions,
+                  KpiCardId.engagementsTotalComments,
+                  KpiCardId.engagementsAverageEngagementRate,
+                ],
+                chartCards: [
+                  ChartCardId.engagementsReactionsOverTime,
+                  ChartCardId.engagementsCommentsOverTime,
+                  ChartCardId.engagementsReactionsByType,
+                ],
+              ),
               if (state.engagementsStatus ==
                       CommunityManagementStatus.loading &&
                   state.engagements.isNotEmpty)
