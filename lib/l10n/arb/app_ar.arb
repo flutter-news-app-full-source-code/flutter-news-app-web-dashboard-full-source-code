@@ -3344,5 +3344,29 @@
   "analyticsEventSourceFilterUsedDescription": "تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.",
   "@analyticsEventSourceFilterUsedDescription": {
     "description": "وصف لحدث استخدام مرشح مصادر"
+  },
+  "timeFrameDay": "24س",
+  "@timeFrameDay": {
+    "description": "Label for 24 hour time frame toggle"
+  },
+  "timeFrameWeek": "7ي",
+  "@timeFrameWeek": {
+    "description": "Label for 7 day time frame toggle"
+  },
+  "timeFrameMonth": "30ي",
+  "@timeFrameMonth": {
+    "description": "Label for 30 day time frame toggle"
+  },
+  "timeFrameYear": "سنة",
+  "@timeFrameYear": {
+    "description": "Label for 1 year time frame toggle"
+  },
+  "noDataAvailable": "لا توجد بيانات",
+  "@noDataAvailable": {
+    "description": "Message displayed when analytics data is missing"
+  },
+  "vsPreviousPeriod": "مقارنة بالفترة السابقة",
+  "@vsPreviousPeriod": {
+    "description": "Label indicating the trend comparison context"
   }
 }
