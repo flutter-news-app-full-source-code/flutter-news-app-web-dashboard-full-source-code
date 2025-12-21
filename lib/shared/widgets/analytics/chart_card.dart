@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_shell.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template chart_card}
@@ -137,9 +137,13 @@ class _LineChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     final spots = points.asMap().entries.map((entry) {
-      return FlSpot(entry.key.toDouble(), entry.value.value.toDouble());
+      final x = isRtl
+          ? (points.length - 1 - entry.key).toDouble()
+          : entry.key.toDouble();
+      return FlSpot(x, entry.value.value.toDouble());
     }).toList();
 
     final maxY = points.map((e) => e.value).reduce((a, b) => a > b ? a : b);
@@ -156,6 +160,7 @@ class _LineChart extends StatelessWidget {
                 meta: meta,
                 points: points,
                 timeFrame: timeFrame,
+                isRtl: isRtl,
               ),
               reservedSize: 20,
             ),
@@ -202,10 +207,12 @@ class _BarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     final barGroups = points.asMap().entries.map((entry) {
+      final x = isRtl ? points.length - 1 - entry.key : entry.key;
       return BarChartGroupData(
-        x: entry.key,
+        x: x,
         barRods: [
           BarChartRodData(
             toY: entry.value.value.toDouble(),
@@ -215,7 +222,10 @@ class _BarChart extends StatelessWidget {
           ),
         ],
       );
-    }).toList();
+    }).toList()
+
+    // Ensure groups are sorted by X to render correctly in RTL
+    ..sort((a, b) => a.x.compareTo(b.x));
 
     final maxY = points.map((e) => e.value).reduce((a, b) => a > b ? a : b);
 
@@ -231,6 +241,7 @@ class _BarChart extends StatelessWidget {
                 meta: meta,
                 points: points,
                 timeFrame: timeFrame,
+                isRtl: isRtl,
               ),
               reservedSize: 20,
             ),
@@ -260,16 +271,19 @@ class _BottomTitle extends StatelessWidget {
     required this.points,
     required this.timeFrame,
     required this.meta,
+    required this.isRtl,
   });
 
   final double value;
   final List<DataPoint> points;
   final ChartTimeFrame timeFrame;
   final TitleMeta meta;
+  final bool isRtl;
 
   @override
   Widget build(BuildContext context) {
-    final index = value.toInt();
+    final index = isRtl ? (points.length - 1) - value.toInt() : value.toInt();
+
     if (index < 0 || index >= points.length) return const SizedBox.shrink();
 
     final point = points[index];
