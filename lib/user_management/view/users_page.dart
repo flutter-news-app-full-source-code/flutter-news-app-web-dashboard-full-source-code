@@ -123,17 +123,20 @@ class _UsersPageState extends State<UsersPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const AnalyticsDashboardStrip(
-                kpiCards: [
-                  KpiCardId.usersTotalRegistered,
-                  KpiCardId.usersNewRegistrations,
-                  KpiCardId.usersActiveUsers,
-                ],
-                chartCards: [
-                  ChartCardId.usersRegistrationsOverTime,
-                  ChartCardId.usersActiveUsersOverTime,
-                  ChartCardId.usersRoleDistribution,
-                ],
+              const SizedBox(
+                height: 160,
+                child: AnalyticsDashboardStrip(
+                  kpiCards: [
+                    KpiCardId.usersTotalRegistered,
+                    KpiCardId.usersNewRegistrations,
+                    KpiCardId.usersActiveUsers,
+                  ],
+                  chartCards: [
+                    ChartCardId.usersRegistrationsOverTime,
+                    ChartCardId.usersActiveUsersOverTime,
+                    ChartCardId.usersRoleDistribution,
+                  ],
+                ),
               ),
               // Show a linear progress indicator during subsequent loads/pagination.
               if (state.status == UserManagementStatus.loading &&
