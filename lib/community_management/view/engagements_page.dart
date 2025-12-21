@@ -104,17 +104,20 @@ class _EngagementsPageState extends State<EngagementsPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const AnalyticsDashboardStrip(
-                kpiCards: [
-                  KpiCardId.engagementsTotalReactions,
-                  KpiCardId.engagementsTotalComments,
-                  KpiCardId.engagementsAverageEngagementRate,
-                ],
-                chartCards: [
-                  ChartCardId.engagementsReactionsOverTime,
-                  ChartCardId.engagementsCommentsOverTime,
-                  ChartCardId.engagementsReactionsByType,
-                ],
+              const SizedBox(
+                height: 160,
+                child: AnalyticsDashboardStrip(
+                  kpiCards: [
+                    KpiCardId.engagementsTotalReactions,
+                    KpiCardId.engagementsTotalComments,
+                    KpiCardId.engagementsAverageEngagementRate,
+                  ],
+                  chartCards: [
+                    ChartCardId.engagementsReactionsOverTime,
+                    ChartCardId.engagementsCommentsOverTime,
+                    ChartCardId.engagementsReactionsByType,
+                  ],
+                ),
               ),
               if (state.engagementsStatus ==
                       CommunityManagementStatus.loading &&
