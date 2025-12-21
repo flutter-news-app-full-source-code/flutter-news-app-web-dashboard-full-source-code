@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit/ui_kit.dart';
 
+/// Defines the position of the time frame selector in the card.
+enum TimeFramePosition {
+  /// Vertical list on the right edge.
+  right,
+
+  /// Horizontal list at the bottom.
+  bottom,
+}
+
 /// {@template analytics_card_shell}
 /// A consistent container for all analytics cards (KPI, Chart, Ranked List).
 ///
 /// Implements the "Balanced Vertical Edges" design pattern:
 /// - **Left Edge:** Vertical slot navigation (dots) to switch between cards.
 /// - **Center:** The main content (Header + Body).
-/// - **Right Edge:** Vertical time frame selector (textual).
+/// - **Right/Bottom Edge:** Time frame selector (textual), positioned based on
+///   [timeFramePosition].
 ///
 /// This layout ensures controls are always accessible (even in "No Data" states)
 /// and maximizes vertical space for the content.
@@ -24,6 +34,7 @@ class AnalyticsCardShell<T> extends StatelessWidget {
     required this.selectedTimeFrame,
     required this.onTimeFrameChanged,
     required this.timeFrameToString,
+    this.timeFramePosition = TimeFramePosition.right,
     super.key,
   });
 
@@ -54,6 +65,9 @@ class AnalyticsCardShell<T> extends StatelessWidget {
   /// Function to convert the time frame enum to a display string (e.g., "7D").
   final String Function(T) timeFrameToString;
 
+  /// Determines where the time frame selector is placed.
+  final TimeFramePosition timeFramePosition;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -70,49 +84,69 @@ class AnalyticsCardShell<T> extends StatelessWidget {
           vertical: AppSpacing.md,
           horizontal: AppSpacing.sm,
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Column(
           children: [
-            // --- Left Edge: Slot Navigation ---
-            if (totalSlots > 1)
-              _VerticalSlotIndicator(
-                currentSlot: currentSlot,
-                totalSlots: totalSlots,
-                onSlotChanged: onSlotChanged,
-              ),
-            if (totalSlots > 1) const SizedBox(width: AppSpacing.sm),
-
-            // --- Center: Content ---
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Header
-                  Text(
-                    title,
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.onSurfaceVariant,
+                  // --- Left Edge: Slot Navigation ---
+                  if (totalSlots > 1)
+                    _VerticalSlotIndicator(
+                      currentSlot: currentSlot,
+                      totalSlots: totalSlots,
+                      onSlotChanged: onSlotChanged,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  if (totalSlots > 1) const SizedBox(width: AppSpacing.sm),
+
+                  // --- Center: Content ---
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Header
+                        Text(
+                          title,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        // Body
+                        Expanded(child: child),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: AppSpacing.sm),
-                  // Body
-                  Expanded(child: child),
+
+                  // --- Right Edge: Time Frame Selector (Conditional) ---
+                  if (timeFramePosition == TimeFramePosition.right) ...[
+                    const SizedBox(width: AppSpacing.sm),
+                    Center(
+                      child: _VerticalTimeFrameSelector<T>(
+                        timeFrames: timeFrames,
+                        selectedTimeFrame: selectedTimeFrame,
+                        onChanged: onTimeFrameChanged,
+                        labelBuilder: timeFrameToString,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
 
-            const SizedBox(width: AppSpacing.sm),
-
-            // --- Right Edge: Time Frame Selector ---
-            _VerticalTimeFrameSelector<T>(
-              timeFrames: timeFrames,
-              selectedTimeFrame: selectedTimeFrame,
-              onChanged: onTimeFrameChanged,
-              labelBuilder: timeFrameToString,
-            ),
+            // --- Bottom Edge: Time Frame Selector (Conditional) ---
+            if (timeFramePosition == TimeFramePosition.bottom) ...[
+              const SizedBox(height: AppSpacing.sm),
+              _HorizontalTimeFrameSelector<T>(
+                timeFrames: timeFrames,
+                selectedTimeFrame: selectedTimeFrame,
+                onChanged: onTimeFrameChanged,
+                labelBuilder: timeFrameToString,
+              ),
+            ],
           ],
         ),
       ),
@@ -175,7 +209,7 @@ class _VerticalTimeFrameSelector<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: timeFrames.map((frame) {
         final isSelected = frame == selectedTimeFrame;
         return InkWell(
@@ -185,6 +219,50 @@ class _VerticalTimeFrameSelector<T> extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               vertical: 6,
               horizontal: 4,
+            ),
+            child: Text(
+              labelBuilder(frame),
+              style: theme.textTheme.labelSmall?.copyWith(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: isSelected
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+class _HorizontalTimeFrameSelector<T> extends StatelessWidget {
+  const _HorizontalTimeFrameSelector({
+    required this.timeFrames,
+    required this.selectedTimeFrame,
+    required this.onChanged,
+    required this.labelBuilder,
+  });
+
+  final List<T> timeFrames;
+  final T selectedTimeFrame;
+  final ValueChanged<T> onChanged;
+  final String Function(T) labelBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: timeFrames.map((frame) {
+        final isSelected = frame == selectedTimeFrame;
+        return InkWell(
+          onTap: () => onChanged(frame),
+          borderRadius: BorderRadius.circular(4),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4,
             ),
             child: Text(
               labelBuilder(frame),
