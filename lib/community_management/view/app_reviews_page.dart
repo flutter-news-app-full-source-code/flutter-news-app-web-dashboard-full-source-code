@@ -105,20 +105,17 @@ class _AppReviewsPageState extends State<AppReviewsPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const SizedBox(
-                height: 160,
-                child: AnalyticsDashboardStrip(
-                  kpiCards: [
-                    KpiCardId.engagementsAppReviewsTotalFeedback,
-                    KpiCardId.engagementsAppReviewsPositiveFeedback,
-                    KpiCardId.engagementsAppReviewsStoreRequests,
-                  ],
-                  chartCards: [
-                    ChartCardId.engagementsAppReviewsFeedbackOverTime,
-                    ChartCardId.engagementsAppReviewsPositiveVsNegative,
-                    ChartCardId.engagementsAppReviewsStoreRequestsOverTime,
-                  ],
-                ),
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.engagementsAppReviewsTotalFeedback,
+                  KpiCardId.engagementsAppReviewsPositiveFeedback,
+                  KpiCardId.engagementsAppReviewsStoreRequests,
+                ],
+                chartCards: [
+                  ChartCardId.engagementsAppReviewsFeedbackOverTime,
+                  ChartCardId.engagementsAppReviewsPositiveVsNegative,
+                  ChartCardId.engagementsAppReviewsStoreRequestsOverTime,
+                ],
               ),
               if (state.appReviewsStatus == CommunityManagementStatus.loading &&
                   state.appReviews.isNotEmpty)

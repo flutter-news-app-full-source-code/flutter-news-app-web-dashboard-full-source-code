@@ -100,20 +100,17 @@ class _ReportsPageState extends State<ReportsPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const SizedBox(
-                height: 160,
-                child: AnalyticsDashboardStrip(
-                  kpiCards: [
-                    KpiCardId.engagementsReportsPending,
-                    KpiCardId.engagementsReportsResolved,
-                    KpiCardId.engagementsReportsAverageResolutionTime,
-                  ],
-                  chartCards: [
-                    ChartCardId.engagementsReportsSubmittedOverTime,
-                    ChartCardId.engagementsReportsResolutionTimeOverTime,
-                    ChartCardId.engagementsReportsByReason,
-                  ],
-                ),
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.engagementsReportsPending,
+                  KpiCardId.engagementsReportsResolved,
+                  KpiCardId.engagementsReportsAverageResolutionTime,
+                ],
+                chartCards: [
+                  ChartCardId.engagementsReportsSubmittedOverTime,
+                  ChartCardId.engagementsReportsResolutionTimeOverTime,
+                  ChartCardId.engagementsReportsByReason,
+                ],
               ),
               if (state.reportsStatus == CommunityManagementStatus.loading &&
                   state.reports.isNotEmpty)

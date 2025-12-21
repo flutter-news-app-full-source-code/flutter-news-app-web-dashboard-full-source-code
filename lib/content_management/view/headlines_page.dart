@@ -116,20 +116,17 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
           return Column(
             children: [
               // Analytics Dashboard Strip
-              const SizedBox(
-                height: 160,
-                child: AnalyticsDashboardStrip(
-                  kpiCards: [
-                    KpiCardId.contentHeadlinesTotalPublished,
-                    KpiCardId.contentHeadlinesTotalViews,
-                    KpiCardId.contentHeadlinesTotalLikes,
-                  ],
-                  chartCards: [
-                    ChartCardId.contentHeadlinesViewsOverTime,
-                    ChartCardId.contentHeadlinesLikesOverTime,
-                    ChartCardId.contentHeadlinesViewsByTopic,
-                  ],
-                ),
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.contentHeadlinesTotalPublished,
+                  KpiCardId.contentHeadlinesTotalViews,
+                  KpiCardId.contentHeadlinesTotalLikes,
+                ],
+                chartCards: [
+                  ChartCardId.contentHeadlinesViewsOverTime,
+                  ChartCardId.contentHeadlinesLikesOverTime,
+                  ChartCardId.contentHeadlinesViewsByTopic,
+                ],
               ),
               if (state.headlinesStatus == ContentManagementStatus.loading &&
                   state.headlines.isNotEmpty)

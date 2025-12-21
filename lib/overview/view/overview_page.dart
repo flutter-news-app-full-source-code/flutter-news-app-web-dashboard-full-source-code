@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -27,16 +28,15 @@ class OverviewPage extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             final width = constraints.maxWidth;
-            // Breakpoints
-            final isDesktop = width > 1200;
-            final isTablet = width > 800 && width <= 1200;
+            // Use the configurable breakpoint from AppConstants.
+            final isWide = width >= AppConstants.kDesktopBreakpoint;
 
             // Define card heights
             const kpiHeight = 160.0;
             const chartHeight = 350.0;
 
-            if (isDesktop) {
-              // Desktop: 3 columns for KPIs, 2 columns for Charts/Lists
+            if (isWide) {
+              // Wide Layout (Desktop/Tablet): 3 columns for KPIs, 2 columns for Charts/Lists
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -71,102 +71,18 @@ class OverviewPage extends StatelessWidget {
                   const SizedBox(height: AppSpacing.lg),
                   SizedBox(
                     height: chartHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: AnalyticsCardSlot<ChartCardId>(
-                            cardIds: const [
-                              ChartCardId.usersRegistrationsOverTime,
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: AppSpacing.md),
-                        Expanded(
-                          child: AnalyticsCardSlot<ChartCardId>(
-                            cardIds: const [
-                              ChartCardId.contentHeadlinesViewsOverTime,
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  SizedBox(
-                    height: chartHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: AnalyticsCardSlot<RankedListCardId>(
-                            cardIds: const [
-                              RankedListCardId.overviewHeadlinesMostViewed,
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: AppSpacing.md),
-                        Expanded(
-                          child: AnalyticsCardSlot<RankedListCardId>(
-                            cardIds: const [
-                              RankedListCardId.overviewSourcesMostFollowed,
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            } else if (isTablet) {
-              // Tablet: 2 columns for everything
-              return Column(
-                children: [
-                  SizedBox(
-                    height: kpiHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: AnalyticsCardSlot<KpiCardId>(
-                            cardIds: const [KpiCardId.usersTotalRegistered],
-                          ),
-                        ),
-                        const SizedBox(width: AppSpacing.md),
-                        Expanded(
-                          child: AnalyticsCardSlot<KpiCardId>(
-                            cardIds: const [
-                              KpiCardId.contentHeadlinesTotalViews,
-                            ],
-                          ),
-                        ),
+                    child: AnalyticsCardSlot<ChartCardId>(
+                      cardIds: const [
+                        ChartCardId.usersRegistrationsOverTime,
                       ],
                     ),
                   ),
                   const SizedBox(height: AppSpacing.md),
                   SizedBox(
-                    height: kpiHeight,
-                    child: AnalyticsCardSlot<KpiCardId>(
-                      cardIds: const [KpiCardId.engagementsReportsPending],
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  SizedBox(
                     height: chartHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: AnalyticsCardSlot<ChartCardId>(
-                            cardIds: const [
-                              ChartCardId.usersRegistrationsOverTime,
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: AppSpacing.md),
-                        Expanded(
-                          child: AnalyticsCardSlot<ChartCardId>(
-                            cardIds: const [
-                              ChartCardId.contentHeadlinesViewsOverTime,
-                            ],
-                          ),
-                        ),
+                    child: AnalyticsCardSlot<ChartCardId>(
+                      cardIds: const [
+                        ChartCardId.contentHeadlinesViewsOverTime,
                       ],
                     ),
                   ),
@@ -196,7 +112,7 @@ class OverviewPage extends StatelessWidget {
                 ],
               );
             } else {
-              // Mobile: 1 column
+              // Narrow Layout (Mobile): 1 column for everything
               return Column(
                 children: [
                   SizedBox(
