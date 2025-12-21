@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://flutter-news-app-full-source-code.github.io/flutter-news-app-web-dashboard-full-source-code/"><img src="https://img.shields.io/badge/LIVE_DEMO-VIEW-orange?style=for-the-badge" alt="Live Demo: View"></a>
   <a href="https://flutter-news-app-full-source-code.github.io/docs/web-dashboard/local-setup/"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
-  <img src="https://img.shields.io/badge/coverage-_%25-red?style=for-the-badge" alt="">
+  <!-- <img src="https://img.shields.io/badge/coverage-_%25-red?style=for-the-badge" alt=""> -->
 </p>
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>
@@ -23,12 +23,24 @@ This dashboard provides a complete, production-ready command center for your ent
 Explore the high-level domains below to see how.
 
 <details>
+<summary><strong>📊 Operational Intelligence</strong></summary>
+
+### 📈 Dashboard Overview
+A centralized command center providing a real-time pulse on your entire news operation.
+- **Unified Business Intelligence:** View pre-aggregated metrics that combine user behavior data with operational stats for a holistic performance picture.
+- **High-Performance Visualization:** Visualize growth and trends with interactive charts that load instantly, powered by an optimized ETL backend engine.
+- **Top Content Ranking:** Instantly identify your highest-performing headlines, sources, and topics to double down on what works.
+> **Your Advantage:** Move from reactive management to proactive strategy. The dashboard delivers fast, actionable insights without the latency of direct provider queries, helping you spot trends early and optimize your content strategy.
+
+</details>
+
+<details>
 <summary><strong>✍️ Content & Editorial Management</strong></summary>
 
 ### 📰 Complete Editorial Control
 Manage the entire lifecycle of your content from a single, intuitive interface. This is more than just a database editor; it's a complete content operations hub.
 - **Full Content Lifecycle:** Seamlessly draft, publish, edit, archive, and restore all content assets, including headlines, topics, and news sources.
-- **At-a-Glance Operational Overview:** A centralized dashboard provides a real-time snapshot of your content ecosystem, including key statistics and shortcuts for common editorial tasks.
+- **Contextual Performance Metrics:** Make informed editorial decisions with real-time views, likes, and engagement data integrated directly into your content lists.
 > **Your Advantage:** Gain granular control over your entire content pipeline. This centralized system streamlines your editorial workflow, ensures content consistency, and simplifies asset management.
 
 </details>
@@ -39,6 +51,7 @@ Manage the entire lifecycle of your content from a single, intuitive interface. 
 ### 👥 Granular User & Role Management
 Effortlessly manage your entire user base with a dedicated user management system. View all registered users, filter them by email or role, and dynamically adjust their dashboard permissions.
 - **Full User Roster:** See a comprehensive list of all users, including their email, app subscription level, and current dashboard role.
+- **User Growth Insights:** Track registration trends and active user metrics alongside your user roster to understand audience growth.
 - **Dynamic Role Promotion:** Promote trusted users to a "Publisher" role, granting them content management capabilities without full administrative access.
 - **Powerful Filtering:** Quickly locate specific users or user segments with multi-faceted filtering by email, app role, and dashboard role.
 > **Your Advantage:** Delegate content creation responsibilities securely, build out your editorial team, and maintain a clear overview of all system users and their permissions, all from a single, centralized interface.
@@ -51,6 +64,7 @@ Effortlessly manage your entire user base with a dedicated user management syste
 ### 💬 Comprehensive Moderation Hub
 Directly manage all user-generated content from a centralized command center. Review, moderate, and act on user interactions to maintain a healthy and constructive community environment.
 - **Unified Content Review:** Seamlessly moderate all incoming user engagements (reactions and comments), content reports, and app review feedback from a single, intuitive interface.
+- **Community Health Monitoring:** Visualize engagement rates and report resolution times to maintain a healthy community ecosystem.
 - **Streamlined Moderation Workflow:** Quickly approve or reject comments, resolve user-submitted reports, and analyze feedback with a consistent set of tools designed for rapid decision-making.
 - **Direct User Insight:** Gain a clear, unfiltered view of user sentiment, content issues, and overall satisfaction by directly engaging with their feedback and reports.
 > **Your Advantage:** Foster a positive community, protect your brand by quickly addressing problematic content, and gather valuable user insights to improve your content strategy, all from one integrated hub.
