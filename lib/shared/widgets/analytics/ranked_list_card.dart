@@ -2,7 +2,9 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_shell.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template ranked_list_card}
 /// A widget that displays a ranked list of items (e.g., Top 5 Headlines)
@@ -55,6 +57,7 @@ class _RankedListCardState extends State<RankedListCard> {
               itemBuilder: (context, index) {
                 final item = currentList[index];
                 return ListTile(
+                  onTap: () => _onItemTapped(context, widget.data.id, item),
                   contentPadding: EdgeInsets.zero,
                   dense: true,
                   leading: CircleAvatar(
@@ -86,6 +89,29 @@ class _RankedListCardState extends State<RankedListCard> {
               },
             ),
     );
+  }
+
+  void _onItemTapped(
+    BuildContext context,
+    RankedListCardId cardId,
+    RankedListItem item,
+  ) {
+    final entityId = item.entityId;
+    switch (cardId) {
+      case RankedListCardId.overviewHeadlinesMostViewed:
+      case RankedListCardId.overviewHeadlinesMostLiked:
+        context.goNamed(
+          Routes.editHeadlineName,
+          pathParameters: {'id': entityId},
+        );
+      case RankedListCardId.overviewSourcesMostFollowed:
+        context.goNamed(
+          Routes.editSourceName,
+          pathParameters: {'id': entityId},
+        );
+      case RankedListCardId.overviewTopicsMostFollowed:
+        context.goNamed(Routes.editTopicName, pathParameters: {'id': entityId});
+    }
   }
 
   String _getLocalizedTitle(RankedListCardId id, AppLocalizations l10n) {
