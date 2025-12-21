@@ -37,7 +37,7 @@ class _RankedListCardState extends State<RankedListCard> {
     final currentList = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<RankedListTimeFrame>(
-      title: widget.data.label,
+      title: _getLocalizedTitle(widget.data.id, l10n),
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,
@@ -45,6 +45,7 @@ class _RankedListCardState extends State<RankedListCard> {
       selectedTimeFrame: _selectedTimeFrame,
       onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
       timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
+      timeFramePosition: TimeFramePosition.bottom,
       child: (currentList == null || currentList.isEmpty)
           ? Center(child: Text(l10n.noDataAvailable))
           : ListView.separated(
@@ -85,6 +86,19 @@ class _RankedListCardState extends State<RankedListCard> {
               },
             ),
     );
+  }
+
+  String _getLocalizedTitle(RankedListCardId id, AppLocalizations l10n) {
+    switch (id) {
+      case RankedListCardId.overviewHeadlinesMostViewed:
+        return l10n.rankedListOverviewHeadlinesMostViewed;
+      case RankedListCardId.overviewHeadlinesMostLiked:
+        return l10n.rankedListOverviewHeadlinesMostLiked;
+      case RankedListCardId.overviewSourcesMostFollowed:
+        return l10n.rankedListOverviewSourcesMostFollowed;
+      case RankedListCardId.overviewTopicsMostFollowed:
+        return l10n.rankedListOverviewTopicsMostFollowed;
+    }
   }
 
   String _timeFrameToLabel(RankedListTimeFrame frame, AppLocalizations l10n) {
