@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -109,6 +110,19 @@ class _TopicPageState extends State<TopicPage> {
 
           return Column(
             children: [
+              // Analytics Dashboard Strip
+              const AnalyticsDashboardStrip(
+                kpiCards: [
+                  KpiCardId.contentTopicsTotalTopics,
+                  KpiCardId.contentTopicsNewTopics,
+                  KpiCardId.contentTopicsTotalFollowers,
+                ],
+                chartCards: [
+                  ChartCardId.contentHeadlinesBreakingNewsDistribution,
+                  ChartCardId.contentTopicsHeadlinesPublishedOverTime,
+                  ChartCardId.contentTopicsEngagementByTopic,
+                ],
+              ),
               if (state.topicsStatus == ContentManagementStatus.loading &&
                   state.topics.isNotEmpty)
                 const LinearProgressIndicator(),
