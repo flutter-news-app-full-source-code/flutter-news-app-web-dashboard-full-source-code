@@ -52,6 +52,8 @@ class _ChartCardState extends State<ChartCard> {
               padding: const EdgeInsets.only(
                 top: AppSpacing.sm,
                 bottom: AppSpacing.xs,
+                left: AppSpacing.sm,
+                right: AppSpacing.sm,
               ),
               child: widget.data.type == ChartType.line
                   ? _LineChart(
