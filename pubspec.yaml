@@ -59,7 +59,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   go_router: ^16.0.0
-  google_fonts: ^6.2.1
+  google_fonts: ^6.3.3
   http_client:
     git:
       url: https://github.com/flutter-news-app-full-source-code/http-client.git
