@@ -37,22 +37,14 @@ final class BillingFilterDialogStatusChanged extends BillingFilterDialogEvent {
   List<Object?> get props => [status];
 }
 
-final class BillingFilterDialogProviderChanged extends BillingFilterDialogEvent {
+final class BillingFilterDialogProviderChanged
+    extends BillingFilterDialogEvent {
   const BillingFilterDialogProviderChanged(this.provider);
 
   final StoreProvider? provider;
 
   @override
   List<Object?> get props => [provider];
-}
-
-final class BillingFilterDialogTierChanged extends BillingFilterDialogEvent {
-  const BillingFilterDialogTierChanged(this.tier);
-
-  final AccessTier? tier;
-
-  @override
-  List<Object?> get props => [tier];
 }
 
 final class BillingFilterDialogReset extends BillingFilterDialogEvent {
