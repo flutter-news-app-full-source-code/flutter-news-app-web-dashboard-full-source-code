@@ -5275,6 +5275,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Plan disabled because no Product IDs are provided.'**
   String get subscriptionPlanDisabledNotification;
+
+  /// Snackbar notification shown when the subscription feature is automatically disabled because all plans were disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription feature disabled because no plans are active.'**
+  String get subscriptionFeatureDisabledNotification;
 }
 
 class _AppLocalizationsDelegate

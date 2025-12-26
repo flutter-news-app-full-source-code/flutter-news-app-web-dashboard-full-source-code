@@ -2902,4 +2902,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get subscriptionPlanDisabledNotification =>
       'Plan disabled because no Product IDs are provided.';
+
+  @override
+  String get subscriptionFeatureDisabledNotification =>
+      'Subscription feature disabled because no plans are active.';
 }

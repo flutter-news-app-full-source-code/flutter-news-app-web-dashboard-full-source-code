@@ -2887,4 +2887,8 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get subscriptionPlanDisabledNotification =>
       'تم تعطيل الخطة لعدم توفر معرّفات منتجات.';
+
+  @override
+  String get subscriptionFeatureDisabledNotification =>
+      'تم تعطيل ميزة الاشتراك لعدم وجود خطط نشطة.';
 }
