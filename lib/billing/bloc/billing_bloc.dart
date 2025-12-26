@@ -15,10 +15,10 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     required DataRepository<UserSubscription> subscriptionsRepository,
     required BillingFilterBloc billingFilterBloc,
     Logger? logger,
-  })  : _subscriptionsRepository = subscriptionsRepository,
-        _billingFilterBloc = billingFilterBloc,
-        _logger = logger ?? Logger('BillingBloc'),
-        super(const BillingState()) {
+  }) : _subscriptionsRepository = subscriptionsRepository,
+       _billingFilterBloc = billingFilterBloc,
+       _logger = logger ?? Logger('BillingBloc'),
+       super(const BillingState()) {
     on<LoadSubscriptionsRequested>(_onLoadSubscriptionsRequested);
 
     _filterSubscription = _billingFilterBloc.stream.listen((_) {
@@ -62,10 +62,6 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
       filter['provider'] = state.provider!.name;
     }
 
-    if (state.tier != null) {
-      filter['tier'] = state.tier!.name;
-    }
-
     return filter;
   }
 
@@ -85,7 +81,9 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
 
     try {
       final isPaginating = event.startAfterId != null;
-      final previousItems = isPaginating ? state.subscriptions : <UserSubscription>[];
+      final previousItems = isPaginating
+          ? state.subscriptions
+          : <UserSubscription>[];
 
       final paginatedResponse = await _subscriptionsRepository.readAll(
         filter: event.filter ?? buildFilterMap(_billingFilterBloc.state),
