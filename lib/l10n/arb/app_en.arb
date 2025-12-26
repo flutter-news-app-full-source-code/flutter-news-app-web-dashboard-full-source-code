@@ -3628,5 +3628,21 @@
   "subscriptionFeatureDisabledNotification": "Subscription feature disabled because no plans are active.",
   "@subscriptionFeatureDisabledNotification": {
     "description": "Snackbar notification shown when the subscription feature is automatically disabled because all plans were disabled."
+  },
+  "pushNotificationFeatureDisabledNotification": "Push notification system disabled because no delivery types are active.",
+  "@pushNotificationFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the push notification system is automatically disabled."
+  },
+  "analyticsFeatureDisabledNotification": "Analytics system disabled because all events are disabled.",
+  "@analyticsFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the analytics system is automatically disabled."
+  },
+  "reportingFeatureDisabledNotification": "Reporting system disabled because no reporting options are active.",
+  "@reportingFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the reporting system is automatically disabled."
+  },
+  "appReviewFeatureDisabledNotification": "App review system disabled because no positive interactions are selected.",
+  "@appReviewFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the app review system is automatically disabled."
   }
 }

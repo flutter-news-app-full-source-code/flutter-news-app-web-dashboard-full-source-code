@@ -3632,5 +3632,21 @@
   "subscriptionFeatureDisabledNotification": "تم تعطيل ميزة الاشتراك لعدم وجود خطط نشطة.",
   "@subscriptionFeatureDisabledNotification": {
     "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل ميزة الاشتراك تلقائيًا بسبب تعطيل جميع الخطط."
+  },
+  "pushNotificationFeatureDisabledNotification": "تم تعطيل نظام الإشعارات لعدم وجود أنواع تسليم نشطة.",
+  "@pushNotificationFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام الإشعارات تلقائيًا."
+  },
+  "analyticsFeatureDisabledNotification": "تم تعطيل نظام التحليلات لأن جميع الأحداث معطلة.",
+  "@analyticsFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام التحليلات تلقائيًا."
+  },
+  "reportingFeatureDisabledNotification": "تم تعطيل نظام الإبلاغ لعدم وجود خيارات إبلاغ نشطة.",
+  "@reportingFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام الإبلاغ تلقائيًا."
+  },
+  "appReviewFeatureDisabledNotification": "تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.",
+  "@appReviewFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام مراجعة التطبيق تلقائيًا."
   }
 }
