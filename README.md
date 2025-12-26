@@ -59,6 +59,18 @@ Effortlessly manage your entire user base with a dedicated user management syste
 </details>
 
 <details>
+<summary><strong>💰 Subscription & Revenue Monitoring</strong></summary>
+
+### 📈 Centralized Subscription Oversight
+Gain a clear, real-time view of your subscription business health from a dedicated management hub.
+- **Complete Subscription Roster:** Monitor all user subscriptions in a unified list, with at-a-glance details like status (Active, Canceled, Expired), store provider, and expiry date.
+- **Revenue & Growth Analytics:** Instantly track key business metrics with integrated KPIs for active subscribers and churn, alongside charts visualizing growth trends and provider distribution.
+- **Secure, Read-Only Interface:** Safely monitor subscription data without handling transactions. All purchases, renewals, and cancellations are processed securely by the backend via webhooks from Apple and Google.
+> **Your Advantage:** Effortlessly track subscriber growth, understand churn, and monitor the overall health of your monetization strategy from a secure, centralized dashboard.
+
+</details>
+
+<details>
 <summary><strong>💬 Community & Moderation Control</strong></summary>
 
 ### 💬 Comprehensive Moderation Hub
@@ -77,11 +89,10 @@ Directly manage all user-generated content from a centralized command center. Re
 
 ### 🚀 Dynamic Application Control
 Dynamically control the mobile app's behavior, features, and operational state directly from the dashboard, eliminating the need for constant app store updates.
-- **App Monetization:** Take direct control of your mobile app's revenue. Remotely manage ad providers like Google AdMob and define granular, role-based display rules to optimize revenue and user experience.
-- **Feature Toggling:** Instantly enable or disable major features. Globally toggle the entire push notification system, the community engagement suite (reactions, comments), the content reporting feature, and the in-app review funnel.
-- **Operational Control:** Ensure stability and manage releases gracefully. Activate a maintenance mode or enforce a mandatory app update for all users directly from the dashboard.
-- **Content & Access Control:** Define and enforce feature limits based on user subscription tiers, such as setting the maximum number of saved articles. Remotely manage the visibility and behavior of in-feed promotional prompts.
-- **Analytics & Data Insights:** Gain critical insights by remotely configuring the analytics system. Enable or disable the entire system, switch between providers like Firebase or Mixpanel, and fine-tune event tracking and sampling rates to understand user behavior without deploying new app versions.
+- **Instant Feature Management:** Instantly enable or disable major app modules like notifications, community tools, and reporting features globally, allowing you to adapt to user needs or technical constraints in real-time.
+- **Operational Stability:** Maintain control over your app's lifecycle. Gracefully handle maintenance windows or enforce critical updates to ensure all users are on a stable, supported version.
+- **Granular Experience Control:** Fine-tune the user experience remotely by defining tier-based access limits and managing the visibility of in-app prompts, optimizing engagement without code changes.
+- **Adaptive Data Strategy:** Take control of your data insights. Remotely configure analytics providers and adjust event tracking precision to gather the exact metrics you need, when you need them.
 > **Your Advantage:** Gain unparalleled agility to manage your live application. Ensure service stability, drive user actions, configure business rules, and adjust your data strategy instantly, all from a single, centralized control panel.
 
 </details>
