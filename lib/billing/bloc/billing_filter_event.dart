@@ -13,16 +13,14 @@ final class BillingFilterApplied extends BillingFilterEvent {
     this.searchQuery = '',
     this.status,
     this.provider,
-    this.tier,
   });
 
   final String searchQuery;
   final SubscriptionStatus? status;
   final StoreProvider? provider;
-  final AccessTier? tier;
 
   @override
-  List<Object?> get props => [searchQuery, status, provider, tier];
+  List<Object?> get props => [searchQuery, status, provider];
 }
 
 final class BillingFilterReset extends BillingFilterEvent {
