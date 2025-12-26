@@ -7,7 +7,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/bil
 import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_state.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_event.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class BillingFilterDialog extends StatefulWidget {
@@ -43,7 +42,6 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
         searchQuery: state.searchQuery,
         status: state.status,
         provider: state.provider,
-        tier: state.tier,
       ),
     );
     Navigator.of(context).pop();
@@ -74,9 +72,10 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                 icon: const Icon(Icons.refresh),
                 tooltip: l10n.resetFiltersButtonText,
                 onPressed: () {
-                  context.read<BillingFilterDialogBloc>().add(
-                    const BillingFilterDialogReset(),
+                  context.read<BillingFilterBloc>().add(
+                    const BillingFilterReset(),
                   );
+                  Navigator.of(context).pop();
                 },
               ),
               IconButton(
@@ -116,7 +115,18 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                         BillingFilterDialogStatusChanged(value),
                       );
                     },
-                    labelBuilder: (v) => v.name.toUpperCase(),
+                    labelBuilder: (v) => switch (v) {
+                      SubscriptionStatus.active =>
+                        l10n.subscriptionStatusActive,
+                      SubscriptionStatus.gracePeriod =>
+                        l10n.subscriptionStatusGracePeriod,
+                      SubscriptionStatus.billingIssue =>
+                        l10n.subscriptionStatusBillingIssue,
+                      SubscriptionStatus.canceled =>
+                        l10n.subscriptionStatusCanceled,
+                      SubscriptionStatus.expired =>
+                        l10n.subscriptionStatusExpired,
+                    },
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   _FilterSection<StoreProvider>(
@@ -128,19 +138,10 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                         BillingFilterDialogProviderChanged(value),
                       );
                     },
-                    labelBuilder: (v) => v.name.toUpperCase(),
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  _FilterSection<AccessTier>(
-                    title: l10n.selectTier,
-                    selectedValue: state.tier,
-                    values: AccessTier.values,
-                    onSelected: (value) {
-                      context.read<BillingFilterDialogBloc>().add(
-                        BillingFilterDialogTierChanged(value),
-                      );
+                    labelBuilder: (v) => switch (v) {
+                      StoreProvider.apple => l10n.storeProviderApple,
+                      StoreProvider.google => l10n.storeProviderGoogle,
                     },
-                    labelBuilder: (v) => v.l10n(context),
                   ),
                 ],
               ),
