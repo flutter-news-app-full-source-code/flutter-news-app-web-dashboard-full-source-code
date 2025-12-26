@@ -29,7 +29,7 @@ class AppShell extends StatelessWidget {
       builder: (context, state) {
         final l10n = AppLocalizationsX(context).l10n;
         final theme = Theme.of(context);
-        final userRole = state.user?.dashboardRole;
+        final userRole = state.user?.role;
 
         // Use the same text style as the NavigationRail labels for consistency.
         final navRailLabelStyle = theme.textTheme.labelMedium;
