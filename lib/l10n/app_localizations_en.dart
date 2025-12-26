@@ -2968,4 +2968,29 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get searchByUserIdOrSubscriptionId =>
       'Search by User ID or Subscription ID...';
+
+  @override
+  String get billingPageDescription =>
+      'Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.';
+
+  @override
+  String get subscriptionStatusActive => 'Active';
+
+  @override
+  String get subscriptionStatusGracePeriod => 'Grace Period';
+
+  @override
+  String get subscriptionStatusBillingIssue => 'Billing Issue';
+
+  @override
+  String get subscriptionStatusCanceled => 'Canceled';
+
+  @override
+  String get subscriptionStatusExpired => 'Expired';
+
+  @override
+  String get storeProviderApple => 'Apple';
+
+  @override
+  String get storeProviderGoogle => 'Google';
 }

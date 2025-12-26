@@ -2953,4 +2953,29 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get searchByUserIdOrSubscriptionId =>
       'البحث بمعرف المستخدم أو معرف الاشتراك...';
+
+  @override
+  String get billingPageDescription =>
+      'توفر هذه الوحدة واجهة للقراءة فقط لمراقبة حالات اشتراك المستخدم. تتم معالجة جميع أحداث دورة حياة الاشتراك، مثل عمليات الشراء والتجديد والإلغاء، تلقائيًا بواسطة الواجهة الخلفية من خلال المزامنة عبر إشعارات الويب هوك مع متجر تطبيقات Apple و Google Play. لا تقوم لوحة التحكم هذه ببدء أو إدارة المعاملات المالية.';
+
+  @override
+  String get subscriptionStatusActive => 'نشط';
+
+  @override
+  String get subscriptionStatusGracePeriod => 'فترة سماح';
+
+  @override
+  String get subscriptionStatusBillingIssue => 'مشكلة في الفوترة';
+
+  @override
+  String get subscriptionStatusCanceled => 'ملغى';
+
+  @override
+  String get subscriptionStatusExpired => 'منتهي';
+
+  @override
+  String get storeProviderApple => 'أبل';
+
+  @override
+  String get storeProviderGoogle => 'جوجل';
 }

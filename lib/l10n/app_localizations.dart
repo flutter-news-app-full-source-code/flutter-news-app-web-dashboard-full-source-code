@@ -5395,6 +5395,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search by User ID or Subscription ID...'**
   String get searchByUserIdOrSubscriptionId;
+
+  /// Description for the Billing page
+  ///
+  /// In en, this message translates to:
+  /// **'Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.'**
+  String get billingPageDescription;
+
+  /// Subscription status: Active
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get subscriptionStatusActive;
+
+  /// Subscription status: Grace Period
+  ///
+  /// In en, this message translates to:
+  /// **'Grace Period'**
+  String get subscriptionStatusGracePeriod;
+
+  /// Subscription status: Billing Issue
+  ///
+  /// In en, this message translates to:
+  /// **'Billing Issue'**
+  String get subscriptionStatusBillingIssue;
+
+  /// Subscription status: Canceled
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get subscriptionStatusCanceled;
+
+  /// Subscription status: Expired
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get subscriptionStatusExpired;
+
+  /// Store provider: Apple
+  ///
+  /// In en, this message translates to:
+  /// **'Apple'**
+  String get storeProviderApple;
+
+  /// Store provider: Google
+  ///
+  /// In en, this message translates to:
+  /// **'Google'**
+  String get storeProviderGoogle;
 }
 
 class _AppLocalizationsDelegate
