@@ -3744,5 +3744,29 @@
   "storeProviderGoogle": "جوجل",
   "@storeProviderGoogle": {
     "description": "مزود المتجر: جوجل"
+  },
+  "chartSubscriptionsActiveOverTime": "الاشتراكات النشطة عبر الزمن",
+  "@chartSubscriptionsActiveOverTime": {
+    "description": "Title for the Active Subscriptions Over Time chart card"
+  },
+  "chartSubscriptionsStatusDistribution": "توزيع حالة الاشتراكات",
+  "@chartSubscriptionsStatusDistribution": {
+    "description": "Title for the Subscription Status Distribution chart card"
+  },
+  "chartSubscriptionsByStoreProvider": "الاشتراكات حسب المتجر",
+  "@chartSubscriptionsByStoreProvider": {
+    "description": "Title for the Subscriptions by Store chart card"
+  },
+  "kpiSubscriptionsActiveCount": "الاشتراكات النشطة",
+  "@kpiSubscriptionsActiveCount": {
+    "description": "Title for the Active Subscriptions KPI card"
+  },
+  "kpiSubscriptionsCanceledCount": "الاشتراكات الملغاة",
+  "@kpiSubscriptionsCanceledCount": {
+    "description": "Title for the Canceled Subscriptions KPI card"
+  },
+  "kpiSubscriptionsExpiredCount": "الاشتراكات المنتهية",
+  "@kpiSubscriptionsExpiredCount": {
+    "description": "Title for the Expired Subscriptions KPI card"
   }
 }

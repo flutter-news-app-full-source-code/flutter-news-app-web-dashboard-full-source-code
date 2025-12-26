@@ -3736,5 +3736,29 @@
   "storeProviderGoogle": "Google",
   "@storeProviderGoogle": {
     "description": "Store provider: Google"
+  },
+  "chartSubscriptionsActiveOverTime": "Active Subscriptions Over Time",
+  "@chartSubscriptionsActiveOverTime": {
+    "description": "Title for the Active Subscriptions Over Time chart card"
+  },
+  "chartSubscriptionsStatusDistribution": "Subscription Status Distribution",
+  "@chartSubscriptionsStatusDistribution": {
+    "description": "Title for the Subscription Status Distribution chart card"
+  },
+  "chartSubscriptionsByStoreProvider": "Subscriptions by Store",
+  "@chartSubscriptionsByStoreProvider": {
+    "description": "Title for the Subscriptions by Store chart card"
+  },
+  "kpiSubscriptionsActiveCount": "Active Subscriptions",
+  "@kpiSubscriptionsActiveCount": {
+    "description": "Title for the Active Subscriptions KPI card"
+  },
+  "kpiSubscriptionsCanceledCount": "Canceled Subscriptions",
+  "@kpiSubscriptionsCanceledCount": {
+    "description": "Title for the Canceled Subscriptions KPI card"
+  },
+  "kpiSubscriptionsExpiredCount": "Expired Subscriptions",
+  "@kpiSubscriptionsExpiredCount": {
+    "description": "Title for the Expired Subscriptions KPI card"
   }
 }
