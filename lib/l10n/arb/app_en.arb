@@ -3624,5 +3624,9 @@
   "subscriptionPlanDisabledNotification": "Plan disabled because no Product IDs are provided.",
   "@subscriptionPlanDisabledNotification": {
     "description": "Snackbar notification shown when a plan is automatically disabled because its product IDs were removed."
+  },
+  "subscriptionFeatureDisabledNotification": "Subscription feature disabled because no plans are active.",
+  "@subscriptionFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the subscription feature is automatically disabled because all plans were disabled."
   }
 }
