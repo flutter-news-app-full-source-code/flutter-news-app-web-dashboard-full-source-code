@@ -4,7 +4,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_type_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template feed_ad_settings_form}
@@ -32,49 +32,49 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  /// Controllers for ad frequency fields, mapped by user role.
-  /// These are used to manage text input for each role's ad frequency.
-  late final Map<AppUserRole, TextEditingController> _adFrequencyControllers;
+  /// Controllers for ad frequency fields, mapped by access tier.
+  /// These are used to manage text input for each tier's ad frequency.
+  late final Map<AccessTier, TextEditingController> _adFrequencyControllers;
 
-  /// Controllers for ad placement interval fields, mapped by user role.
-  /// These are used to manage text input for each role's ad placement interval.
-  late final Map<AppUserRole, TextEditingController>
+  /// Controllers for ad placement interval fields, mapped by access tier.
+  /// These are used to manage text input for each tier's ad placement interval.
+  late final Map<AccessTier, TextEditingController>
   _adPlacementIntervalControllers;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: AppUserRole.values.length,
+      length: AccessTier.values.length,
       vsync: this,
     );
     _initializeControllers();
   }
 
-  /// Initializes text editing controllers for each user role based on current
+  /// Initializes text editing controllers for each access tier based on current
   /// remote config values.
   void _initializeControllers() {
     final feedAdConfig = widget.remoteConfig.features.ads.feedAdConfiguration;
     _adFrequencyControllers = {
-      for (final role in AppUserRole.values)
-        role:
+      for (final tier in AccessTier.values)
+        tier:
             TextEditingController(
-                text: _getAdFrequency(feedAdConfig, role).toString(),
+                text: _getAdFrequency(feedAdConfig, tier).toString(),
               )
               ..selection = TextSelection.collapsed(
-                offset: _getAdFrequency(feedAdConfig, role).toString().length,
+                offset: _getAdFrequency(feedAdConfig, tier).toString().length,
               ),
     };
     _adPlacementIntervalControllers = {
-      for (final role in AppUserRole.values)
-        role:
+      for (final tier in AccessTier.values)
+        tier:
             TextEditingController(
-                text: _getAdPlacementInterval(feedAdConfig, role).toString(),
+                text: _getAdPlacementInterval(feedAdConfig, tier).toString(),
               )
               ..selection = TextSelection.collapsed(
                 offset: _getAdPlacementInterval(
                   feedAdConfig,
-                  role,
+                  tier,
                 ).toString().length,
               ),
     };
@@ -84,23 +84,23 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
   /// This ensures the form fields reflect the latest configuration.
   void _updateControllers() {
     final feedAdConfig = widget.remoteConfig.features.ads.feedAdConfiguration;
-    for (final role in AppUserRole.values) {
-      final newFrequencyValue = _getAdFrequency(feedAdConfig, role).toString();
-      if (_adFrequencyControllers[role]?.text != newFrequencyValue) {
-        _adFrequencyControllers[role]?.text = newFrequencyValue;
-        _adFrequencyControllers[role]?.selection = TextSelection.collapsed(
+    for (final tier in AccessTier.values) {
+      final newFrequencyValue = _getAdFrequency(feedAdConfig, tier).toString();
+      if (_adFrequencyControllers[tier]?.text != newFrequencyValue) {
+        _adFrequencyControllers[tier]?.text = newFrequencyValue;
+        _adFrequencyControllers[tier]?.selection = TextSelection.collapsed(
           offset: newFrequencyValue.length,
         );
       }
 
       final newPlacementIntervalValue = _getAdPlacementInterval(
         feedAdConfig,
-        role,
+        tier,
       ).toString();
-      if (_adPlacementIntervalControllers[role]?.text !=
+      if (_adPlacementIntervalControllers[tier]?.text !=
           newPlacementIntervalValue) {
-        _adPlacementIntervalControllers[role]?.text = newPlacementIntervalValue;
-        _adPlacementIntervalControllers[role]?.selection =
+        _adPlacementIntervalControllers[tier]?.text = newPlacementIntervalValue;
+        _adPlacementIntervalControllers[tier]?.selection =
             TextSelection.collapsed(
               offset: newPlacementIntervalValue.length,
             );
@@ -248,8 +248,8 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                   controller: _tabController,
                   tabAlignment: TabAlignment.start,
                   isScrollable: true,
-                  tabs: AppUserRole.values
-                      .map((role) => Tab(text: role.l10n(context)))
+                  tabs: AccessTier.values
+                      .map((tier) => Tab(text: tier.l10n(context)))
                       .toList(),
                 ),
               ),
@@ -259,12 +259,12 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
               height: 350,
               child: TabBarView(
                 controller: _tabController,
-                children: AppUserRole.values
+                children: AccessTier.values
                     .map(
-                      (role) => _buildRoleSpecificFields(
+                      (tier) => _buildTierSpecificFields(
                         context,
                         l10n,
-                        role,
+                        tier,
                         feedAdConfig,
                       ),
                     )
@@ -277,36 +277,36 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     );
   }
 
-  /// Builds role-specific configuration fields for feed ad frequency.
+  /// Builds tier-specific configuration fields for feed ad frequency.
   ///
   /// This widget displays input fields for ad frequency and placement interval
-  /// for a given [AppUserRole].
-  Widget _buildRoleSpecificFields(
+  /// for a given [AccessTier].
+  Widget _buildTierSpecificFields(
     BuildContext context,
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
     FeedAdConfiguration config,
   ) {
-    final roleConfig = config.visibleTo[role];
+    final tierConfig = config.visibleTo[tier];
 
     return Column(
       children: [
         SwitchListTile(
-          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-          subtitle: Text(l10n.visibleToRoleDescription(role.l10n(context))),
-          value: roleConfig != null,
+          title: Text(l10n.visibleToRoleLabel(tier.l10n(context))),
+          subtitle: Text(l10n.visibleToRoleDescription(tier.l10n(context))),
+          value: tierConfig != null,
           onChanged: (value) {
-            final newVisibleTo = Map<AppUserRole, FeedAdFrequencyConfig>.from(
+            final newVisibleTo = Map<AccessTier, FeedAdFrequencyConfig>.from(
               config.visibleTo,
             );
             if (value) {
-              // Default values when enabling for a role
-              newVisibleTo[role] = const FeedAdFrequencyConfig(
+              // Default values when enabling for a tier
+              newVisibleTo[tier] = const FeedAdFrequencyConfig(
                 adFrequency: 5,
                 adPlacementInterval: 3,
               );
             } else {
-              newVisibleTo.remove(role);
+              newVisibleTo.remove(tier);
             }
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
@@ -321,7 +321,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
             );
           },
         ),
-        if (roleConfig != null)
+        if (tierConfig != null)
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.lg,
@@ -332,15 +332,15 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                 AppConfigIntField(
                   label: l10n.adFrequencyLabel,
                   description: l10n.adFrequencyDescription,
-                  value: roleConfig.adFrequency,
+                  value: tierConfig.adFrequency,
                   onChanged: (value) {
-                    final newRoleConfig = roleConfig.copyWith(
+                    final newTierConfig = tierConfig.copyWith(
                       adFrequency: value,
                     );
                     final newVisibleTo =
-                        Map<AppUserRole, FeedAdFrequencyConfig>.from(
+                        Map<AccessTier, FeedAdFrequencyConfig>.from(
                           config.visibleTo,
-                        )..[role] = newRoleConfig;
+                        )..[tier] = newTierConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
                         features: widget.remoteConfig.features.copyWith(
@@ -353,20 +353,20 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                       ),
                     );
                   },
-                  controller: _adFrequencyControllers[role],
+                  controller: _adFrequencyControllers[tier],
                 ),
                 AppConfigIntField(
                   label: l10n.adPlacementIntervalLabel,
                   description: l10n.adPlacementIntervalDescription,
-                  value: roleConfig.adPlacementInterval,
+                  value: tierConfig.adPlacementInterval,
                   onChanged: (value) {
-                    final newRoleConfig = roleConfig.copyWith(
+                    final newTierConfig = tierConfig.copyWith(
                       adPlacementInterval: value,
                     );
                     final newVisibleTo =
-                        Map<AppUserRole, FeedAdFrequencyConfig>.from(
+                        Map<AccessTier, FeedAdFrequencyConfig>.from(
                           config.visibleTo,
-                        )..[role] = newRoleConfig;
+                        )..[tier] = newTierConfig;
                     widget.onConfigChanged(
                       widget.remoteConfig.copyWith(
                         features: widget.remoteConfig.features.copyWith(
@@ -379,7 +379,7 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
                       ),
                     );
                   },
-                  controller: _adPlacementIntervalControllers[role],
+                  controller: _adPlacementIntervalControllers[tier],
                 ),
               ],
             ),
@@ -388,13 +388,13 @@ class _FeedAdSettingsFormState extends State<FeedAdSettingsForm>
     );
   }
 
-  /// Retrieves the ad frequency for a specific role from the configuration.
-  int _getAdFrequency(FeedAdConfiguration config, AppUserRole role) {
-    return config.visibleTo[role]?.adFrequency ?? 0;
+  /// Retrieves the ad frequency for a specific tier from the configuration.
+  int _getAdFrequency(FeedAdConfiguration config, AccessTier tier) {
+    return config.visibleTo[tier]?.adFrequency ?? 0;
   }
 
-  /// Retrieves the ad placement interval for a specific role from the configuration.
-  int _getAdPlacementInterval(FeedAdConfiguration config, AppUserRole role) {
-    return config.visibleTo[role]?.adPlacementInterval ?? 0;
+  /// Retrieves the ad placement interval for a specific tier from the configuration.
+  int _getAdPlacementInterval(FeedAdConfiguration config, AccessTier tier) {
+    return config.visibleTo[tier]?.adPlacementInterval ?? 0;
   }
 }
