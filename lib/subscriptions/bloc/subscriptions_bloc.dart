@@ -3,39 +3,40 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_event.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_state.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_state.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_event.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_state.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_state.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:logging/logging.dart';
 
-class BillingBloc extends Bloc<BillingEvent, BillingState> {
-  BillingBloc({
+class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
+  SubscriptionsBloc({
     required DataRepository<UserSubscription> subscriptionsRepository,
-    required BillingFilterBloc billingFilterBloc,
+    required SubscriptionsFilterBloc subscriptionsFilterBloc,
     Logger? logger,
   }) : _subscriptionsRepository = subscriptionsRepository,
-       _billingFilterBloc = billingFilterBloc,
-       _logger = logger ?? Logger('BillingBloc'),
-       super(const BillingState()) {
+       _subscriptionsFilterBloc = subscriptionsFilterBloc,
+       _logger = logger ?? Logger('SubscriptionsBloc'),
+       super(const SubscriptionsState()) {
     on<LoadSubscriptionsRequested>(_onLoadSubscriptionsRequested);
 
-    _filterSubscription = _billingFilterBloc.stream.listen((_) {
+    _filterSubscription = _subscriptionsFilterBloc.stream.listen((_) {
       add(
         LoadSubscriptionsRequested(
           limit: AppConstants.kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildFilterMap(_billingFilterBloc.state),
+          filter: buildFilterMap(_subscriptionsFilterBloc.state),
         ),
       );
     });
   }
 
   final DataRepository<UserSubscription> _subscriptionsRepository;
-  final BillingFilterBloc _billingFilterBloc;
+  final SubscriptionsFilterBloc _subscriptionsFilterBloc;
   final Logger _logger;
-  late final StreamSubscription<BillingFilterState> _filterSubscription;
+  late final StreamSubscription<SubscriptionsFilterState> _filterSubscription;
 
   @override
   Future<void> close() {
@@ -43,7 +44,7 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     return super.close();
   }
 
-  Map<String, dynamic> buildFilterMap(BillingFilterState state) {
+  Map<String, dynamic> buildFilterMap(SubscriptionsFilterState state) {
     final filter = <String, dynamic>{};
 
     if (state.searchQuery.isNotEmpty) {
@@ -67,9 +68,9 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
 
   Future<void> _onLoadSubscriptionsRequested(
     LoadSubscriptionsRequested event,
-    Emitter<BillingState> emit,
+    Emitter<SubscriptionsState> emit,
   ) async {
-    if (state.status == BillingStatus.success &&
+    if (state.status == SubscriptionsStatus.success &&
         state.subscriptions.isNotEmpty &&
         event.startAfterId == null &&
         !event.forceRefresh &&
@@ -77,7 +78,7 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
       return;
     }
 
-    emit(state.copyWith(status: BillingStatus.loading));
+    emit(state.copyWith(status: SubscriptionsStatus.loading));
 
     try {
       final isPaginating = event.startAfterId != null;
@@ -86,7 +87,7 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
           : <UserSubscription>[];
 
       final paginatedResponse = await _subscriptionsRepository.readAll(
-        filter: event.filter ?? buildFilterMap(_billingFilterBloc.state),
+        filter: event.filter ?? buildFilterMap(_subscriptionsFilterBloc.state),
         sort: [const SortOption('validUntil', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -96,19 +97,19 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
 
       emit(
         state.copyWith(
-          status: BillingStatus.success,
+          status: SubscriptionsStatus.success,
           subscriptions: [...previousItems, ...paginatedResponse.items],
           cursor: paginatedResponse.cursor,
           hasMore: paginatedResponse.hasMore,
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: BillingStatus.failure, exception: e));
+      emit(state.copyWith(status: SubscriptionsStatus.failure, exception: e));
     } catch (e) {
       _logger.severe('Unexpected error loading subscriptions', e);
       emit(
         state.copyWith(
-          status: BillingStatus.failure,
+          status: SubscriptionsStatus.failure,
           exception: UnknownException('An unexpected error occurred: $e'),
         ),
       );

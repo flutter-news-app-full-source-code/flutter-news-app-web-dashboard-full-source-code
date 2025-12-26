@@ -59,7 +59,7 @@ class AppShell extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.receipt_long_outlined),
             selectedIcon: const Icon(Icons.receipt_long),
-            label: l10n.billingName,
+            label: l10n.subscriptionsName,
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
@@ -75,7 +75,7 @@ class AppShell extends StatelessWidget {
           Routes.contentManagementName,
           Routes.userManagementName,
           Routes.communityManagementName,
-          Routes.billingName,
+          Routes.subscriptionsName,
           Routes.appConfigurationName,
         ];
 

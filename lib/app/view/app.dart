@@ -11,8 +11,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/app_environment.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
@@ -188,13 +188,13 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => BillingFilterBloc(),
+            create: (context) => SubscriptionsFilterBloc(),
           ),
           BlocProvider(
-            create: (context) => BillingBloc(
+            create: (context) => SubscriptionsBloc(
               subscriptionsRepository: context
                   .read<DataRepository<UserSubscription>>(),
-              billingFilterBloc: context.read<BillingFilterBloc>(),
+              subscriptionsFilterBloc: context.read<SubscriptionsFilterBloc>(),
             ),
           ),
         ],

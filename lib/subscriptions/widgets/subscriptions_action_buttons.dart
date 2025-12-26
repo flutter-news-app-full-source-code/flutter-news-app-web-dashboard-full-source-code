@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 
-class SubscriptionActionButtons extends StatelessWidget {
-  const SubscriptionActionButtons({
+class SubscriptionsActionButtons extends StatelessWidget {
+  const SubscriptionsActionButtons({
     required this.subscription,
     required this.l10n,
     super.key,

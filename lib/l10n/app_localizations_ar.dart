@@ -2909,7 +2909,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.';
 
   @override
-  String get billingName => 'الفواتير';
+  String get subscriptionsName => 'الاشتراكات';
 
   @override
   String get subscriptionProvider => 'مزود المتجر';
@@ -2933,7 +2933,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get subscriptionActionCopySubscriptionId => 'نسخ معرف الاشتراك';
 
   @override
-  String get filterBilling => 'تصفية الاشتراكات';
+  String get filterSubscriptions => 'تصفية الاشتراكات';
 
   @override
   String get selectStatus => 'اختر الحالة';
@@ -2955,7 +2955,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'البحث بمعرف المستخدم أو معرف الاشتراك...';
 
   @override
-  String get billingPageDescription =>
+  String get subscriptionsPageDescription =>
       'توفر هذه الوحدة واجهة للقراءة فقط لمراقبة حالات اشتراك المستخدم. تتم معالجة جميع أحداث دورة حياة الاشتراك، مثل عمليات الشراء والتجديد والإلغاء، تلقائيًا بواسطة الواجهة الخلفية من خلال المزامنة عبر إشعارات الويب هوك مع متجر تطبيقات Apple و Google Play. لا تقوم لوحة التحكم هذه ببدء أو إدارة المعاملات المالية.';
 
   @override

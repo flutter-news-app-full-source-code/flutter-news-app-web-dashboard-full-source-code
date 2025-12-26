@@ -2924,7 +2924,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'App review system disabled because no positive interactions are selected.';
 
   @override
-  String get billingName => 'Billing';
+  String get subscriptionsName => 'Subscriptions';
 
   @override
   String get subscriptionProvider => 'Store Provider';
@@ -2948,7 +2948,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionActionCopySubscriptionId => 'Copy Subscription ID';
 
   @override
-  String get filterBilling => 'Filter Subscriptions';
+  String get filterSubscriptions => 'Filter Subscriptions';
 
   @override
   String get selectStatus => 'Select Status';
@@ -2970,7 +2970,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Search by User ID or Subscription ID...';
 
   @override
-  String get billingPageDescription =>
+  String get subscriptionsPageDescription =>
       'Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.';
 
   @override

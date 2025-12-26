@@ -12,9 +12,10 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/view/billing_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/widgets/billing_filter_dialog.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/view/subscriptions_list_view.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/view/subscriptions_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/widgets/subscriptions_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/view/community_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/community_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
@@ -104,7 +105,7 @@ GoRouter createRouter({
           Routes.contentManagementName: Routes.contentManagement,
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
-          Routes.billingName: Routes.billing,
+          Routes.subscriptionsName: Routes.subscriptions,
           Routes.appConfigurationName: Routes.appConfiguration,
         };
 
@@ -405,19 +406,19 @@ GoRouter createRouter({
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.billing,
-                name: Routes.billingName,
-                builder: (context, state) => const BillingPage(),
+                path: Routes.subscriptions,
+                name: Routes.subscriptionsName,
+                builder: (context, state) => const SubscriptionsPage(),
                 routes: [
                   GoRoute(
-                    path: Routes.billingFilterDialog,
-                    name: Routes.billingFilterDialogName,
+                    path: Routes.subscriptionsFilterDialog,
+                    name: Routes.subscriptionsFilterDialogName,
                     pageBuilder: (context, state) {
                       return MaterialPage(
                         fullscreenDialog: true,
-                        child: BlocProvider(
-                          create: (context) => BillingFilterDialogBloc(),
-                          child: const BillingFilterDialog(),
+                        child: BlocProvider<SubscriptionsFilterDialogBloc>(
+                          create: (context) => SubscriptionsFilterDialogBloc(),
+                          child: const SubscriptionsFilterDialog(),
                         ),
                       );
                     },

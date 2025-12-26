@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-sealed class BillingEvent extends Equatable {
-  const BillingEvent();
+sealed class SubscriptionsEvent extends Equatable {
+  const SubscriptionsEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-final class LoadSubscriptionsRequested extends BillingEvent {
+final class LoadSubscriptionsRequested extends SubscriptionsEvent {
   const LoadSubscriptionsRequested({
     this.startAfterId,
     this.limit,

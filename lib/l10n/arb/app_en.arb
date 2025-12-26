@@ -3645,8 +3645,8 @@
   "@appReviewFeatureDisabledNotification": {
     "description": "Snackbar notification shown when the app review system is automatically disabled."
   },
-  "billingName": "Billing",
-  "@billingName": {
+  "subscriptionsName": "Subscriptions",
+  "@subscriptionsName": {
     "description": "Menu option for billing"
   },
   "subscriptionProvider": "Store Provider",
@@ -3677,8 +3677,8 @@
   "@subscriptionActionCopySubscriptionId": {
     "description": "Action to copy the subscription ID"
   },
-  "filterBilling": "Filter Subscriptions",
-  "@filterBilling": {
+  "filterSubscriptions": "Filter Subscriptions",
+  "@filterSubscriptions": {
     "description": "Title for the billing filter dialog"
   },
   "selectStatus": "Select Status",
@@ -3705,8 +3705,8 @@
   "@searchByUserIdOrSubscriptionId": {
     "description": "Hint text for the billing search field"
   },
-  "billingPageDescription": "Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.",
-  "@billingPageDescription": {
+  "subscriptionsPageDescription": "Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.",
+  "@subscriptionsPageDescription": {
     "description": "Description for the Billing page"
   },
   "subscriptionStatusActive": "Active",

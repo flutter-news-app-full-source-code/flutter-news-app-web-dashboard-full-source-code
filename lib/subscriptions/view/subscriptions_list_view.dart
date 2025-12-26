@@ -2,34 +2,34 @@ import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_event.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_event.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_state.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/widgets/subscription_action_buttons.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_event.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_event.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_state.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/widgets/subscriptions_action_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class SubscriptionsPage extends StatefulWidget {
-  const SubscriptionsPage({super.key});
+class SubscriptionsListView extends StatefulWidget {
+  const SubscriptionsListView({super.key});
 
   @override
-  State<SubscriptionsPage> createState() => _SubscriptionsPageState();
+  State<SubscriptionsListView> createState() => _SubscriptionsListViewState();
 }
 
-class _SubscriptionsPageState extends State<SubscriptionsPage> {
+class _SubscriptionsListViewState extends State<SubscriptionsListView> {
   @override
   void initState() {
     super.initState();
-    context.read<BillingBloc>().add(
+    context.read<SubscriptionsBloc>().add(
       LoadSubscriptionsRequested(
         limit: AppConstants.kDefaultRowsPerPage,
-        filter: context.read<BillingBloc>().buildFilterMap(
-          context.read<BillingFilterBloc>().state,
+        filter: context.read<SubscriptionsBloc>().buildFilterMap(
+          context.read<SubscriptionsFilterBloc>().state,
         ),
       ),
     );
@@ -37,13 +37,13 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
+        final l10n = AppLocalizationsX(context).l10n;
 
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.sm),
-      child: BlocBuilder<BillingBloc, BillingState>(
+      child: BlocBuilder<SubscriptionsBloc, SubscriptionsState>(
         builder: (context, state) {
-          if (state.status == BillingStatus.loading &&
+          if (state.status == SubscriptionsStatus.loading &&
               state.subscriptions.isEmpty) {
             return LoadingStateWidget(
               icon: Icons.receipt_long_outlined,
@@ -52,15 +52,15 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
             );
           }
 
-          if (state.status == BillingStatus.failure) {
+          if (state.status == SubscriptionsStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context.read<BillingBloc>().add(
+              onRetry: () => context.read<SubscriptionsBloc>().add(
                 LoadSubscriptionsRequested(
                   limit: AppConstants.kDefaultRowsPerPage,
                   forceRefresh: true,
-                  filter: context.read<BillingBloc>().buildFilterMap(
-                    context.read<BillingFilterBloc>().state,
+                  filter: context.read<SubscriptionsBloc>().buildFilterMap(
+                    context.read<SubscriptionsFilterBloc>().state,
                   ),
                 ),
               ),
@@ -79,8 +79,8 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
                   const SizedBox(height: AppSpacing.lg),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<BillingFilterBloc>().add(
-                        const BillingFilterReset(),
+                      context.read<SubscriptionsFilterBloc>().add(
+                        const SubscriptionsFilterReset(),
                       );
                     },
                     child: Text(l10n.resetFiltersButtonText),
@@ -92,7 +92,7 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
 
           return Column(
             children: [
-              if (state.status == BillingStatus.loading &&
+              if (state.status == SubscriptionsStatus.loading &&
                   state.subscriptions.isNotEmpty)
                 const LinearProgressIndicator(),
               Expanded(
@@ -140,15 +140,17 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
                             pageIndex * AppConstants.kDefaultRowsPerPage;
                         if (newOffset >= state.subscriptions.length &&
                             state.hasMore &&
-                            state.status != BillingStatus.loading) {
-                          context.read<BillingBloc>().add(
+                            state.status != SubscriptionsStatus.loading) {
+                          context.read<SubscriptionsBloc>().add(
                             LoadSubscriptionsRequested(
                               startAfterId: state.cursor,
                               limit: AppConstants.kDefaultRowsPerPage,
                               filter: context
-                                  .read<BillingBloc>()
+                                  .read<SubscriptionsBloc>()
                                   .buildFilterMap(
-                                    context.read<BillingFilterBloc>().state,
+                                    context
+                                        .read<SubscriptionsFilterBloc>()
+                                        .state,
                                   ),
                             ),
                           );
@@ -266,7 +268,7 @@ class _SubscriptionsDataSource extends DataTableSource {
             ),
           ),
         DataCell(
-          SubscriptionActionButtons(
+          SubscriptionsActionButtons(
             subscription: subscription,
             l10n: l10n,
           ),

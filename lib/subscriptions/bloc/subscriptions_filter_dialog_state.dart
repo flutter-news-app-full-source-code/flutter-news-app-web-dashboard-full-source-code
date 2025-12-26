@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 
-final class BillingFilterState extends Equatable {
-  const BillingFilterState({
+final class SubscriptionsFilterDialogState extends Equatable {
+  const SubscriptionsFilterDialogState({
     this.searchQuery = '',
     this.status,
     this.provider,
@@ -12,12 +12,12 @@ final class BillingFilterState extends Equatable {
   final SubscriptionStatus? status;
   final StoreProvider? provider;
 
-  BillingFilterState copyWith({
+  SubscriptionsFilterDialogState copyWith({
     String? searchQuery,
     SubscriptionStatus? status,
     StoreProvider? provider,
   }) {
-    return BillingFilterState(
+    return SubscriptionsFilterDialogState(
       searchQuery: searchQuery ?? this.searchQuery,
       status: status ?? this.status,
       provider: provider ?? this.provider,

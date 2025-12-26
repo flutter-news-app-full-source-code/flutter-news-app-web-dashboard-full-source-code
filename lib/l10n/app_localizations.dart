@@ -5309,8 +5309,8 @@ abstract class AppLocalizations {
   /// Menu option for billing
   ///
   /// In en, this message translates to:
-  /// **'Billing'**
-  String get billingName;
+  /// **'Subscriptions'**
+  String get subscriptionsName;
 
   /// Table column for the store provider
   ///
@@ -5358,7 +5358,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Filter Subscriptions'**
-  String get filterBilling;
+  String get filterSubscriptions;
 
   /// Hint for selecting subscription status
   ///
@@ -5400,7 +5400,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.'**
-  String get billingPageDescription;
+  String get subscriptionsPageDescription;
 
   /// Subscription status: Active
   ///

@@ -128,15 +128,16 @@ abstract final class Routes {
   /// The name for the community filter dialog route.
   static const String communityFilterDialogName = 'communityFilterDialog';
 
-  /// The path for the billing section.
-  static const String billing = '/billing';
+  /// The path for the subscriptions section.
+  static const String subscriptions = '/subscriptions';
 
-  /// The name for the billing section route.
-  static const String billingName = 'billing';
+  /// The name for the subscriptions section route.
+  static const String subscriptionsName = 'subscriptions';
 
-  /// The path for the billing filter dialog.
-  static const String billingFilterDialog = 'billing-filter-dialog';
+  /// The path for the subscriptions filter dialog.
+  static const String subscriptionsFilterDialog = 'subscriptions-filter-dialog';
 
-  /// The name for the billing filter dialog route.
-  static const String billingFilterDialogName = 'billingFilterDialog';
+  /// The name for the subscriptions filter dialog route.
+  static const String subscriptionsFilterDialogName =
+      'subscriptionsFilterDialog';
 }

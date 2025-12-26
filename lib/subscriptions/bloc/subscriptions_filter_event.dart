@@ -1,15 +1,15 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 
-sealed class BillingFilterEvent extends Equatable {
-  const BillingFilterEvent();
+sealed class SubscriptionsFilterEvent extends Equatable {
+  const SubscriptionsFilterEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-final class BillingFilterApplied extends BillingFilterEvent {
-  const BillingFilterApplied({
+final class SubscriptionsFilterApplied extends SubscriptionsFilterEvent {
+  const SubscriptionsFilterApplied({
     this.searchQuery = '',
     this.status,
     this.provider,
@@ -23,6 +23,6 @@ final class BillingFilterApplied extends BillingFilterEvent {
   List<Object?> get props => [searchQuery, status, provider];
 }
 
-final class BillingFilterReset extends BillingFilterEvent {
-  const BillingFilterReset();
+final class SubscriptionsFilterReset extends SubscriptionsFilterEvent {
+  const SubscriptionsFilterReset();
 }

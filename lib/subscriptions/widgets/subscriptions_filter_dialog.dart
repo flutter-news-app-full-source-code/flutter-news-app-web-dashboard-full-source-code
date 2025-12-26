@@ -1,22 +1,23 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_event.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_state.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_event.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_event.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_state.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_event.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class BillingFilterDialog extends StatefulWidget {
-  const BillingFilterDialog({super.key});
+class SubscriptionsFilterDialog extends StatefulWidget {
+  const SubscriptionsFilterDialog({super.key});
 
   @override
-  State<BillingFilterDialog> createState() => _BillingFilterDialogState();
+  State<SubscriptionsFilterDialog> createState() =>
+      _SubscriptionsFilterDialogState();
 }
 
-class _BillingFilterDialogState extends State<BillingFilterDialog> {
+class _SubscriptionsFilterDialogState extends State<SubscriptionsFilterDialog> {
   late TextEditingController _searchController;
 
   @override
@@ -24,9 +25,9 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
     super.initState();
     _searchController = TextEditingController();
     // Initialize dialog state from the main filter bloc
-    final mainFilterState = context.read<BillingFilterBloc>().state;
-    context.read<BillingFilterDialogBloc>().add(
-      BillingFilterDialogInitialized(mainFilterState),
+    final mainFilterState = context.read<SubscriptionsFilterBloc>().state;
+    context.read<SubscriptionsFilterDialogBloc>().add(
+      SubscriptionsFilterDialogInitialized(mainFilterState),
     );
   }
 
@@ -36,9 +37,9 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
     super.dispose();
   }
 
-  void _applyFilters(BillingFilterDialogState state) {
-    context.read<BillingFilterBloc>().add(
-      BillingFilterApplied(
+  void _applyFilters(SubscriptionsFilterDialogState state) {
+    context.read<SubscriptionsFilterBloc>().add(
+      SubscriptionsFilterApplied(
         searchQuery: state.searchQuery,
         status: state.status,
         provider: state.provider,
@@ -49,9 +50,10 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
+        final l10n = AppLocalizationsX(context).l10n;
 
-    return BlocBuilder<BillingFilterDialogBloc, BillingFilterDialogState>(
+    return BlocBuilder<SubscriptionsFilterDialogBloc,
+        SubscriptionsFilterDialogState>(
       builder: (context, state) {
         if (_searchController.text != state.searchQuery) {
           _searchController.text = state.searchQuery;
@@ -62,7 +64,7 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(l10n.filterBilling),
+            title: Text(l10n.filterSubscriptions),
             leading: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () => Navigator.of(context).pop(),
@@ -72,8 +74,8 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                 icon: const Icon(Icons.refresh),
                 tooltip: l10n.resetFiltersButtonText,
                 onPressed: () {
-                  context.read<BillingFilterBloc>().add(
-                    const BillingFilterReset(),
+                  context.read<SubscriptionsFilterBloc>().add(
+                    const SubscriptionsFilterReset(),
                   );
                   Navigator.of(context).pop();
                 },
@@ -100,8 +102,8 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                       border: const OutlineInputBorder(),
                     ),
                     onChanged: (value) {
-                      context.read<BillingFilterDialogBloc>().add(
-                        BillingFilterDialogSearchQueryChanged(value),
+                      context.read<SubscriptionsFilterDialogBloc>().add(
+                        SubscriptionsFilterDialogSearchQueryChanged(value),
                       );
                     },
                   ),
@@ -111,8 +113,8 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                     selectedValue: state.status,
                     values: SubscriptionStatus.values,
                     onSelected: (value) {
-                      context.read<BillingFilterDialogBloc>().add(
-                        BillingFilterDialogStatusChanged(value),
+                      context.read<SubscriptionsFilterDialogBloc>().add(
+                        SubscriptionsFilterDialogStatusChanged(value),
                       );
                     },
                     labelBuilder: (v) => switch (v) {
@@ -134,8 +136,8 @@ class _BillingFilterDialogState extends State<BillingFilterDialog> {
                     selectedValue: state.provider,
                     values: StoreProvider.values,
                     onSelected: (value) {
-                      context.read<BillingFilterDialogBloc>().add(
-                        BillingFilterDialogProviderChanged(value),
+                      context.read<SubscriptionsFilterDialogBloc>().add(
+                        SubscriptionsFilterDialogProviderChanged(value),
                       );
                     },
                     labelBuilder: (v) => switch (v) {
@@ -170,7 +172,7 @@ class _FilterSection<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
+        final l10n = AppLocalizationsX(context).l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
