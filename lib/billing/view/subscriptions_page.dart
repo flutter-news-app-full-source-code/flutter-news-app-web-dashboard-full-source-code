@@ -96,64 +96,74 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
                   state.subscriptions.isNotEmpty)
                 const LinearProgressIndicator(),
               Expanded(
-                child: PaginatedDataTable2(
-                  columns: [
-                    DataColumn2(
-                      label: Text(l10n.status),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.subscriptionProvider),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.expiryDate),
-                      size: ColumnSize.M,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.willAutoRenew),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
-                      label: Text(l10n.actions),
-                      size: ColumnSize.S,
-                    ),
-                  ],
-                  source: _SubscriptionsDataSource(
-                    context: context,
-                    subscriptions: state.subscriptions,
-                    hasMore: state.hasMore,
-                    l10n: l10n,
-                  ),
-                  rowsPerPage: AppConstants.kDefaultRowsPerPage,
-                  availableRowsPerPage: const [
-                    AppConstants.kDefaultRowsPerPage,
-                  ],
-                  onPageChanged: (pageIndex) {
-                    final newOffset =
-                        pageIndex * AppConstants.kDefaultRowsPerPage;
-                    if (newOffset >= state.subscriptions.length &&
-                        state.hasMore &&
-                        state.status != BillingStatus.loading) {
-                      context.read<BillingBloc>().add(
-                        LoadSubscriptionsRequested(
-                          startAfterId: state.cursor,
-                          limit: AppConstants.kDefaultRowsPerPage,
-                          filter: context.read<BillingBloc>().buildFilterMap(
-                            context.read<BillingFilterBloc>().state,
-                          ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 600;
+                    return PaginatedDataTable2(
+                      columns: [
+                        DataColumn2(
+                          label: Text(l10n.status),
+                          size: ColumnSize.S,
                         ),
-                      );
-                    }
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.subscriptionProvider),
+                            size: ColumnSize.S,
+                          ),
+                        DataColumn2(
+                          label: Text(l10n.expiryDate),
+                          size: ColumnSize.M,
+                        ),
+                        if (!isMobile)
+                          DataColumn2(
+                            label: Text(l10n.willAutoRenew),
+                            size: ColumnSize.S,
+                          ),
+                        DataColumn2(
+                          label: Text(l10n.actions),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      source: _SubscriptionsDataSource(
+                        context: context,
+                        subscriptions: state.subscriptions,
+                        hasMore: state.hasMore,
+                        l10n: l10n,
+                        isMobile: isMobile,
+                      ),
+                      rowsPerPage: AppConstants.kDefaultRowsPerPage,
+                      availableRowsPerPage: const [
+                        AppConstants.kDefaultRowsPerPage,
+                      ],
+                      onPageChanged: (pageIndex) {
+                        final newOffset =
+                            pageIndex * AppConstants.kDefaultRowsPerPage;
+                        if (newOffset >= state.subscriptions.length &&
+                            state.hasMore &&
+                            state.status != BillingStatus.loading) {
+                          context.read<BillingBloc>().add(
+                            LoadSubscriptionsRequested(
+                              startAfterId: state.cursor,
+                              limit: AppConstants.kDefaultRowsPerPage,
+                              filter: context
+                                  .read<BillingBloc>()
+                                  .buildFilterMap(
+                                    context.read<BillingFilterBloc>().state,
+                                  ),
+                            ),
+                          );
+                        }
+                      },
+                      empty: Center(child: Text(l10n.noSubscriptionsFound)),
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      fit: FlexFit.tight,
+                      headingRowHeight: 56,
+                      dataRowHeight: 56,
+                      columnSpacing: AppSpacing.sm,
+                      horizontalMargin: AppSpacing.sm,
+                    );
                   },
-                  empty: Center(child: Text(l10n.noSubscriptionsFound)),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  fit: FlexFit.tight,
-                  headingRowHeight: 56,
-                  dataRowHeight: 56,
-                  columnSpacing: AppSpacing.sm,
-                  horizontalMargin: AppSpacing.sm,
                 ),
               ),
             ],
@@ -170,12 +180,14 @@ class _SubscriptionsDataSource extends DataTableSource {
     required this.subscriptions,
     required this.hasMore,
     required this.l10n,
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<UserSubscription> subscriptions;
   final bool hasMore;
   final AppLocalizations l10n;
+  final bool isMobile;
 
   Color? _getStatusColor(BuildContext context, SubscriptionStatus status) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -192,7 +204,7 @@ class _SubscriptionsDataSource extends DataTableSource {
     final colorScheme = Theme.of(context).colorScheme;
     return switch (provider) {
       StoreProvider.apple => colorScheme.secondaryContainer,
-      StoreProvider.google => colorScheme.onErrorContainer,
+      StoreProvider.google => colorScheme.errorContainer,
     };
   }
 
@@ -221,33 +233,38 @@ class _SubscriptionsDataSource extends DataTableSource {
             visualDensity: VisualDensity.compact,
           ),
         ),
-        DataCell(
-          Chip(
-            label: Text(
-              switch (subscription.provider) {
-                StoreProvider.apple => l10n.storeProviderApple,
-                StoreProvider.google => l10n.storeProviderGoogle,
-              },
+        if (!isMobile)
+          DataCell(
+            Chip(
+              label: Text(
+                switch (subscription.provider) {
+                  StoreProvider.apple => l10n.storeProviderApple,
+                  StoreProvider.google => l10n.storeProviderGoogle,
+                },
+              ),
+              backgroundColor: _getProviderColor(
+                context,
+                subscription.provider,
+              ),
+              side: BorderSide.none,
+              visualDensity: VisualDensity.compact,
             ),
-            backgroundColor: _getProviderColor(context, subscription.provider),
-            side: BorderSide.none,
-            visualDensity: VisualDensity.compact,
           ),
-        ),
         DataCell(
           Text(
             DateFormat('yyyy-MM-dd').format(subscription.validUntil.toLocal()),
           ),
         ),
-        DataCell(
-          Icon(
-            subscription.willAutoRenew ? Icons.check_circle : Icons.cancel,
-            color: subscription.willAutoRenew
-                ? Colors.green
-                : Theme.of(context).colorScheme.error,
-            size: 20,
+        if (!isMobile)
+          DataCell(
+            Icon(
+              subscription.willAutoRenew ? Icons.check_circle : Icons.cancel,
+              color: subscription.willAutoRenew
+                  ? Colors.green
+                  : Theme.of(context).colorScheme.error,
+              size: 20,
+            ),
           ),
-        ),
         DataCell(
           SubscriptionActionButtons(
             subscription: subscription,
