@@ -11,8 +11,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/billing/widgets/
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_ui_l10n.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -101,10 +99,6 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
                 child: PaginatedDataTable2(
                   columns: [
                     DataColumn2(
-                      label: Text(l10n.accessTier),
-                      size: ColumnSize.S,
-                    ),
-                    DataColumn2(
                       label: Text(l10n.status),
                       size: ColumnSize.S,
                     ),
@@ -183,6 +177,25 @@ class _SubscriptionsDataSource extends DataTableSource {
   final bool hasMore;
   final AppLocalizations l10n;
 
+  Color? _getStatusColor(BuildContext context, SubscriptionStatus status) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return switch (status) {
+      SubscriptionStatus.active => colorScheme.primaryContainer,
+      SubscriptionStatus.gracePeriod => colorScheme.tertiaryContainer,
+      SubscriptionStatus.billingIssue => colorScheme.errorContainer,
+      SubscriptionStatus.canceled => colorScheme.surfaceContainerHighest,
+      SubscriptionStatus.expired => colorScheme.surfaceContainerHighest,
+    };
+  }
+
+  Color? _getProviderColor(BuildContext context, StoreProvider provider) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return switch (provider) {
+      StoreProvider.apple => colorScheme.secondaryContainer,
+      StoreProvider.google => colorScheme.onErrorContainer,
+    };
+  }
+
   @override
   DataRow? getRow(int index) {
     if (index >= subscriptions.length) return null;
@@ -191,18 +204,36 @@ class _SubscriptionsDataSource extends DataTableSource {
     return DataRow2(
       cells: [
         DataCell(
-          Row(
-            children: [
-              if (subscription.tier.getPremiumIcon(l10n) case final icon?) ...[
-                icon,
-                const SizedBox(width: AppSpacing.sm),
-              ],
-              Text(subscription.tier.l10n(context)),
-            ],
+          Chip(
+            label: Text(
+              switch (subscription.status) {
+                SubscriptionStatus.active => l10n.subscriptionStatusActive,
+                SubscriptionStatus.gracePeriod =>
+                  l10n.subscriptionStatusGracePeriod,
+                SubscriptionStatus.billingIssue =>
+                  l10n.subscriptionStatusBillingIssue,
+                SubscriptionStatus.canceled => l10n.subscriptionStatusCanceled,
+                SubscriptionStatus.expired => l10n.subscriptionStatusExpired,
+              },
+            ),
+            backgroundColor: _getStatusColor(context, subscription.status),
+            side: BorderSide.none,
+            visualDensity: VisualDensity.compact,
           ),
         ),
-        DataCell(Text(subscription.status.name.toUpperCase())),
-        DataCell(Text(subscription.provider.name.toUpperCase())),
+        DataCell(
+          Chip(
+            label: Text(
+              switch (subscription.provider) {
+                StoreProvider.apple => l10n.storeProviderApple,
+                StoreProvider.google => l10n.storeProviderGoogle,
+              },
+            ),
+            backgroundColor: _getProviderColor(context, subscription.provider),
+            side: BorderSide.none,
+            visualDensity: VisualDensity.compact,
+          ),
+        ),
         DataCell(
           Text(
             DateFormat('yyyy-MM-dd').format(subscription.validUntil.toLocal()),
