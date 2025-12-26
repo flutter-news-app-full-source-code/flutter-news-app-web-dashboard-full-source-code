@@ -1,0 +1,203 @@
+import 'package:core/core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_event.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_state.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_event.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
+import 'package:ui_kit/ui_kit.dart';
+
+class BillingFilterDialog extends StatefulWidget {
+  const BillingFilterDialog({super.key});
+
+  @override
+  State<BillingFilterDialog> createState() => _BillingFilterDialogState();
+}
+
+class _BillingFilterDialogState extends State<BillingFilterDialog> {
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+    // Initialize dialog state from the main filter bloc
+    final mainFilterState = context.read<BillingFilterBloc>().state;
+    context.read<BillingFilterDialogBloc>().add(
+      BillingFilterDialogInitialized(mainFilterState),
+    );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _applyFilters(BillingFilterDialogState state) {
+    context.read<BillingFilterBloc>().add(
+      BillingFilterApplied(
+        searchQuery: state.searchQuery,
+        status: state.status,
+        provider: state.provider,
+        tier: state.tier,
+      ),
+    );
+    Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+
+    return BlocBuilder<BillingFilterDialogBloc, BillingFilterDialogState>(
+      builder: (context, state) {
+        if (_searchController.text != state.searchQuery) {
+          _searchController.text = state.searchQuery;
+          _searchController.selection = TextSelection.fromPosition(
+            TextPosition(offset: _searchController.text.length),
+          );
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(l10n.filterBilling),
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                tooltip: l10n.resetFiltersButtonText,
+                onPressed: () {
+                  context.read<BillingFilterDialogBloc>().add(
+                    const BillingFilterDialogReset(),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.check),
+                tooltip: l10n.applyFilters,
+                onPressed: () => _applyFilters(state),
+              ),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      labelText: l10n.search,
+                      hintText: l10n.searchByUserIdOrSubscriptionId,
+                      prefixIcon: const Icon(Icons.search),
+                      border: const OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      context.read<BillingFilterDialogBloc>().add(
+                        BillingFilterDialogSearchQueryChanged(value),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  _FilterSection<SubscriptionStatus>(
+                    title: l10n.selectStatus,
+                    selectedValue: state.status,
+                    values: SubscriptionStatus.values,
+                    onSelected: (value) {
+                      context.read<BillingFilterDialogBloc>().add(
+                        BillingFilterDialogStatusChanged(value),
+                      );
+                    },
+                    labelBuilder: (v) => v.name.toUpperCase(),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  _FilterSection<StoreProvider>(
+                    title: l10n.selectProvider,
+                    selectedValue: state.provider,
+                    values: StoreProvider.values,
+                    onSelected: (value) {
+                      context.read<BillingFilterDialogBloc>().add(
+                        BillingFilterDialogProviderChanged(value),
+                      );
+                    },
+                    labelBuilder: (v) => v.name.toUpperCase(),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  _FilterSection<AccessTier>(
+                    title: l10n.selectTier,
+                    selectedValue: state.tier,
+                    values: AccessTier.values,
+                    onSelected: (value) {
+                      context.read<BillingFilterDialogBloc>().add(
+                        BillingFilterDialogTierChanged(value),
+                      );
+                    },
+                    labelBuilder: (v) => v.l10n(context),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _FilterSection<T> extends StatelessWidget {
+  const _FilterSection({
+    required this.title,
+    required this.selectedValue,
+    required this.values,
+    required this.onSelected,
+    required this.labelBuilder,
+  });
+
+  final String title;
+  final T? selectedValue;
+  final List<T> values;
+  final ValueChanged<T?> onSelected;
+  final String Function(T) labelBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            ChoiceChip(
+              label: Text(l10n.any),
+              selected: selectedValue == null,
+              onSelected: (selected) {
+                if (selected) onSelected(null);
+              },
+            ),
+            ...values.map((value) {
+              return ChoiceChip(
+                label: Text(labelBuilder(value)),
+                selected: selectedValue == value,
+                onSelected: (selected) {
+                  onSelected(selected ? value : null);
+                },
+              );
+            }),
+          ],
+        ),
+      ],
+    );
+  }
+}
