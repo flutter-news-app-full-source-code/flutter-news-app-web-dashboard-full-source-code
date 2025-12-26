@@ -37,7 +37,7 @@ class _SubscriptionsListViewState extends State<SubscriptionsListView> {
 
   @override
   Widget build(BuildContext context) {
-        final l10n = AppLocalizationsX(context).l10n;
+    final l10n = AppLocalizationsX(context).l10n;
 
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.sm),

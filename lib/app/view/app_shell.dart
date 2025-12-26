@@ -57,8 +57,8 @@ class AppShell extends StatelessWidget {
             label: l10n.navCommunity,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.receipt_long_outlined),
-            selectedIcon: const Icon(Icons.receipt_long),
+            icon: const Icon(Icons.card_membership_outlined),
+            selectedIcon: const Icon(Icons.card_membership),
             label: l10n.subscriptionsName,
           ),
           NavigationDestination(

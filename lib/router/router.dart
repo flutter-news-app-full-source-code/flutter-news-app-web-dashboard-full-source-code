@@ -12,10 +12,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/view/subscriptions_list_view.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/view/subscriptions_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/widgets/subscriptions_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/view/community_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/community_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
@@ -37,6 +33,9 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.da
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/selection_page_arguments.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/view/subscriptions_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/widgets/subscriptions_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/user_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';

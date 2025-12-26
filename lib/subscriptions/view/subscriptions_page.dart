@@ -11,7 +11,7 @@ class SubscriptionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final l10n = AppLocalizationsX(context).l10n;
+    final l10n = AppLocalizationsX(context).l10n;
 
     return Scaffold(
       appBar: AppBar(

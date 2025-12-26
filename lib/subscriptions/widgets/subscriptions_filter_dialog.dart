@@ -50,10 +50,12 @@ class _SubscriptionsFilterDialogState extends State<SubscriptionsFilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-        final l10n = AppLocalizationsX(context).l10n;
+    final l10n = AppLocalizationsX(context).l10n;
 
-    return BlocBuilder<SubscriptionsFilterDialogBloc,
-        SubscriptionsFilterDialogState>(
+    return BlocBuilder<
+      SubscriptionsFilterDialogBloc,
+      SubscriptionsFilterDialogState
+    >(
       builder: (context, state) {
         if (_searchController.text != state.searchQuery) {
           _searchController.text = state.searchQuery;
@@ -172,7 +174,7 @@ class _FilterSection<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final l10n = AppLocalizationsX(context).l10n;
+    final l10n = AppLocalizationsX(context).l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
