@@ -123,6 +123,12 @@ class _KpiCardState extends State<KpiCard> {
         return l10n.kpiEngagementsAppReviewsPositiveFeedback;
       case KpiCardId.engagementsAppReviewsStoreRequests:
         return l10n.kpiEngagementsAppReviewsStoreRequests;
+      case KpiCardId.subscriptionsActiveCount:
+        return l10n.kpiSubscriptionsActiveCount;
+      case KpiCardId.subscriptionsCanceledCount:
+        return l10n.kpiSubscriptionsCanceledCount;
+      case KpiCardId.subscriptionsExpiredCount:
+        return l10n.kpiSubscriptionsExpiredCount;
     }
   }
 
