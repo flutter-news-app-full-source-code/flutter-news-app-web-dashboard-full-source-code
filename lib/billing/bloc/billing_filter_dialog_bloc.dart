@@ -9,7 +9,6 @@ class BillingFilterDialogBloc
     on<BillingFilterDialogSearchQueryChanged>(_onSearchQueryChanged);
     on<BillingFilterDialogStatusChanged>(_onStatusChanged);
     on<BillingFilterDialogProviderChanged>(_onProviderChanged);
-    on<BillingFilterDialogTierChanged>(_onTierChanged);
     on<BillingFilterDialogReset>(_onReset);
   }
 
@@ -22,7 +21,6 @@ class BillingFilterDialogBloc
         searchQuery: event.filterState.searchQuery,
         status: event.filterState.status,
         provider: event.filterState.provider,
-        tier: event.filterState.tier,
       ),
     );
   }
@@ -46,13 +44,6 @@ class BillingFilterDialogBloc
     Emitter<BillingFilterDialogState> emit,
   ) {
     emit(state.copyWith(provider: event.provider));
-  }
-
-  void _onTierChanged(
-    BillingFilterDialogTierChanged event,
-    Emitter<BillingFilterDialogState> emit,
-  ) {
-    emit(state.copyWith(tier: event.tier));
   }
 
   void _onReset(
