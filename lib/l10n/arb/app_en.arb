@@ -3585,7 +3585,7 @@
   "@enableSubscriptionLabel": {
     "description": "Label for the master monetization switch"
   },
-  "enableSubscriptionDescription": "Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium). When disabled, the option to upgrade is removed.",
+  "enableSubscriptionDescription": "Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium).",
   "@enableSubscriptionDescription": {
     "description": "Description for the master monetization switch"
   },
