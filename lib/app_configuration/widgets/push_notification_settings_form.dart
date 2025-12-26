@@ -37,10 +37,20 @@ class PushNotificationSettingsForm extends StatelessWidget {
           subtitle: Text(l10n.pushNotificationSystemStatusDescription),
           value: pushConfig.enabled,
           onChanged: (value) {
+            final newDeliveryConfigs = value
+                ? {
+                    for (final type
+                        in PushNotificationSubscriptionDeliveryType.values)
+                      type: true,
+                  }
+                : pushConfig.deliveryConfigs;
             onConfigChanged(
               remoteConfig.copyWith(
                 features: features.copyWith(
-                  pushNotifications: pushConfig.copyWith(enabled: value),
+                  pushNotifications: pushConfig.copyWith(
+                    enabled: value,
+                    deliveryConfigs: newDeliveryConfigs,
+                  ),
                 ),
               ),
             );
