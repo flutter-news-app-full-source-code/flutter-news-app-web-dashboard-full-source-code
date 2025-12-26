@@ -15,34 +15,61 @@ class SubscriptionActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final visibleActions = <Widget>[];
+    final overflowMenuItems = <PopupMenuEntry<String>>[];
+
+    // Primary Action: Copy User ID
+    visibleActions.add(
+      IconButton(
+        visualDensity: VisualDensity.compact,
+        iconSize: 20,
+        icon: const Icon(Icons.copy),
+        tooltip: l10n.subscriptionActionCopyUserId,
+        onPressed: () => _copyToClipboard(context, subscription.userId),
+      ),
+    );
+
+    // Secondary Action: Copy Subscription ID (in menu)
+    overflowMenuItems.add(
+      PopupMenuItem<String>(
+        value: 'copySubscriptionId',
+        child: Text(l10n.subscriptionActionCopySubscriptionId),
+      ),
+    );
+
+    if (overflowMenuItems.isNotEmpty) {
+      visibleActions.add(
+        SizedBox(
+          width: 32,
+          child: PopupMenuButton<String>(
+            iconSize: 20,
+            icon: const Icon(Icons.more_vert),
+            tooltip: l10n.moreActions,
+            onSelected: (value) {
+              if (value == 'copySubscriptionId') {
+                _copyToClipboard(context, subscription.id);
+              }
+            },
+            itemBuilder: (context) => overflowMenuItems,
+          ),
+        ),
+      );
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        IconButton(
-          icon: const Icon(Icons.person_search_outlined),
-          tooltip: l10n.subscriptionActionCopyUserId,
-          onPressed: () {
-            Clipboard.setData(ClipboardData(text: subscription.userId));
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(l10n.idCopiedToClipboard(subscription.userId)),
-              ),
-            );
-          },
-        ),
-        IconButton(
-          icon: const Icon(Icons.copy),
-          tooltip: l10n.subscriptionActionCopySubscriptionId,
-          onPressed: () {
-            Clipboard.setData(ClipboardData(text: subscription.id));
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(l10n.idCopiedToClipboard(subscription.id)),
-              ),
-            );
-          },
-        ),
-      ],
+      children: visibleActions,
     );
+  }
+
+  void _copyToClipboard(BuildContext context, String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(l10n.idCopiedToClipboard(text)),
+        ),
+      );
   }
 }
