@@ -3704,5 +3704,37 @@
   "searchByUserIdOrSubscriptionId": "Search by User ID or Subscription ID...",
   "@searchByUserIdOrSubscriptionId": {
     "description": "Hint text for the billing search field"
+  },
+  "billingPageDescription": "Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.",
+  "@billingPageDescription": {
+    "description": "Description for the Billing page"
+  },
+  "subscriptionStatusActive": "Active",
+  "@subscriptionStatusActive": {
+    "description": "Subscription status: Active"
+  },
+  "subscriptionStatusGracePeriod": "Grace Period",
+  "@subscriptionStatusGracePeriod": {
+    "description": "Subscription status: Grace Period"
+  },
+  "subscriptionStatusBillingIssue": "Billing Issue",
+  "@subscriptionStatusBillingIssue": {
+    "description": "Subscription status: Billing Issue"
+  },
+  "subscriptionStatusCanceled": "Canceled",
+  "@subscriptionStatusCanceled": {
+    "description": "Subscription status: Canceled"
+  },
+  "subscriptionStatusExpired": "Expired",
+  "@subscriptionStatusExpired": {
+    "description": "Subscription status: Expired"
+  },
+  "storeProviderApple": "Apple",
+  "@storeProviderApple": {
+    "description": "Store provider: Apple"
+  },
+  "storeProviderGoogle": "Google",
+  "@storeProviderGoogle": {
+    "description": "Store provider: Google"
   }
 }
