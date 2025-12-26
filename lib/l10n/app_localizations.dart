@@ -5443,6 +5443,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google'**
   String get storeProviderGoogle;
+
+  /// Title for the Active Subscriptions Over Time chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Active Subscriptions Over Time'**
+  String get chartSubscriptionsActiveOverTime;
+
+  /// Title for the Subscription Status Distribution chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Status Distribution'**
+  String get chartSubscriptionsStatusDistribution;
+
+  /// Title for the Subscriptions by Store chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions by Store'**
+  String get chartSubscriptionsByStoreProvider;
+
+  /// Title for the Active Subscriptions KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Active Subscriptions'**
+  String get kpiSubscriptionsActiveCount;
+
+  /// Title for the Canceled Subscriptions KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled Subscriptions'**
+  String get kpiSubscriptionsCanceledCount;
+
+  /// Title for the Expired Subscriptions KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Expired Subscriptions'**
+  String get kpiSubscriptionsExpiredCount;
 }
 
 class _AppLocalizationsDelegate

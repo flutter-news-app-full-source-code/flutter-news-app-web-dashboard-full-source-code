@@ -2993,4 +2993,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storeProviderGoogle => 'Google';
+
+  @override
+  String get chartSubscriptionsActiveOverTime =>
+      'Active Subscriptions Over Time';
+
+  @override
+  String get chartSubscriptionsStatusDistribution =>
+      'Subscription Status Distribution';
+
+  @override
+  String get chartSubscriptionsByStoreProvider => 'Subscriptions by Store';
+
+  @override
+  String get kpiSubscriptionsActiveCount => 'Active Subscriptions';
+
+  @override
+  String get kpiSubscriptionsCanceledCount => 'Canceled Subscriptions';
+
+  @override
+  String get kpiSubscriptionsExpiredCount => 'Expired Subscriptions';
 }

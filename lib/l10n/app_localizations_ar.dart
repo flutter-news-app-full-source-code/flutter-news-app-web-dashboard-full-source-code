@@ -2978,4 +2978,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storeProviderGoogle => 'جوجل';
+
+  @override
+  String get chartSubscriptionsActiveOverTime => 'الاشتراكات النشطة عبر الزمن';
+
+  @override
+  String get chartSubscriptionsStatusDistribution => 'توزيع حالة الاشتراكات';
+
+  @override
+  String get chartSubscriptionsByStoreProvider => 'الاشتراكات حسب المتجر';
+
+  @override
+  String get kpiSubscriptionsActiveCount => 'الاشتراكات النشطة';
+
+  @override
+  String get kpiSubscriptionsCanceledCount => 'الاشتراكات الملغاة';
+
+  @override
+  String get kpiSubscriptionsExpiredCount => 'الاشتراكات المنتهية';
 }
