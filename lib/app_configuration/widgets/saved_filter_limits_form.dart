@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/push_notification_subscription_delivery_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -44,14 +44,14 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
-  // A nested map to hold controllers: Role -> Field -> Controller
-  final Map<AppUserRole, Map<String, TextEditingController>> _controllers = {};
+  // A nested map to hold controllers: Tier -> Field -> Controller
+  final Map<AccessTier, Map<String, TextEditingController>> _controllers = {};
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: AppUserRole.values.length,
+      length: AccessTier.values.length,
       vsync: this,
     );
     _notificationTabController = TabController(
@@ -71,19 +71,19 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
 
   /// Initializes all TextEditingControllers based on the initial config.
   void _initializeControllers() {
-    for (final role in AppUserRole.values) {
-      _controllers[role] = {};
-      final limits = _getLimitsForRole(role);
+    for (final tier in AccessTier.values) {
+      _controllers[tier] = {};
+      final limits = _getLimitsForTier(tier);
 
-      _controllers[role]!['total'] = _createController(limits.total.toString());
-      _controllers[role]!['pinned'] = _createController(
+      _controllers[tier]!['total'] = _createController(limits.total.toString());
+      _controllers[tier]!['pinned'] = _createController(
         limits.pinned.toString(),
       );
 
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
-          _controllers[role]!['notification_${type.name}'] = _createController(
+          _controllers[tier]!['notification_${type.name}'] = _createController(
             value.toString(),
           );
         }
@@ -99,16 +99,16 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
 
   /// Updates controller values if the remote config has changed.
   void _updateControllerValues() {
-    for (final role in AppUserRole.values) {
-      final limits = _getLimitsForRole(role);
-      _updateControllerText(_controllers[role]!['total']!, limits.total);
-      _updateControllerText(_controllers[role]!['pinned']!, limits.pinned);
+    for (final tier in AccessTier.values) {
+      final limits = _getLimitsForTier(tier);
+      _updateControllerText(_controllers[tier]!['total']!, limits.total);
+      _updateControllerText(_controllers[tier]!['pinned']!, limits.pinned);
 
       if (widget.filterType == SavedFilterType.headline) {
         for (final type in PushNotificationSubscriptionDeliveryType.values) {
           final value = limits.notificationSubscriptions?[type] ?? 0;
           _updateControllerText(
-            _controllers[role]!['notification_${type.name}']!,
+            _controllers[tier]!['notification_${type.name}']!,
             value,
           );
         }
@@ -138,17 +138,17 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     super.dispose();
   }
 
-  /// Retrieves the correct [SavedFilterLimits] for a given role.
-  SavedFilterLimits _getLimitsForRole(AppUserRole role) {
+  /// Retrieves the correct [SavedFilterLimits] for a given tier.
+  SavedFilterLimits _getLimitsForTier(AccessTier tier) {
     final limitsConfig = widget.remoteConfig.user.limits;
     final limitsMap = widget.filterType == SavedFilterType.headline
         ? limitsConfig.savedHeadlineFilters
         : limitsConfig.savedSourceFilters;
-    return limitsMap[role]!;
+    return limitsMap[tier]!;
   }
 
   /// Updates the remote config when a value changes.
-  void _onValueChanged(AppUserRole role, String field, int value) {
+  void _onValueChanged(AccessTier tier, String field, int value) {
     final userConfig = widget.remoteConfig.user;
     final limitsConfig = userConfig.limits;
     final isHeadline = widget.filterType == SavedFilterType.headline;
@@ -157,11 +157,11 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
         ? limitsConfig.savedHeadlineFilters
         : limitsConfig.savedSourceFilters;
 
-    final newLimitsMap = Map<AppUserRole, SavedFilterLimits>.from(
+    final newLimitsMap = Map<AccessTier, SavedFilterLimits>.from(
       currentLimitsMap,
     );
 
-    final currentLimits = newLimitsMap[role]!;
+    final currentLimits = newLimitsMap[tier]!;
     SavedFilterLimits newLimits;
 
     if (field == 'total') {
@@ -181,7 +181,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       );
     }
 
-    newLimitsMap[role] = newLimits;
+    newLimitsMap[tier] = newLimits;
 
     final newUserLimitsConfig = isHeadline
         ? limitsConfig.copyWith(savedHeadlineFilters: newLimitsMap)
@@ -224,8 +224,8 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
               controller: _tabController,
               tabAlignment: TabAlignment.start,
               isScrollable: true,
-              tabs: AppUserRole.values
-                  .map((role) => Tab(text: role.l10n(context)))
+              tabs: AccessTier.values
+                  .map((tier) => Tab(text: tier.l10n(context)))
                   .toList(),
             ),
           ),
@@ -235,8 +235,8 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
           height: isHeadlineFilter ? 500 : 250,
           child: TabBarView(
             controller: _tabController,
-            children: AppUserRole.values.map((role) {
-              final limits = _getLimitsForRole(role);
+            children: AccessTier.values.map((tier) {
+              final limits = _getLimitsForTier(tier);
               return SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.lg,
@@ -249,19 +249,19 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
                       description: l10n.totalLimitDescription,
                       value: limits.total,
                       onChanged: (value) =>
-                          _onValueChanged(role, 'total', value),
-                      controller: _controllers[role]!['total'],
+                          _onValueChanged(tier, 'total', value),
+                      controller: _controllers[tier]!['total'],
                     ),
                     AppConfigIntField(
                       label: l10n.pinnedLimitLabel,
                       description: l10n.pinnedLimitDescription,
                       value: limits.pinned,
                       onChanged: (value) =>
-                          _onValueChanged(role, 'pinned', value),
-                      controller: _controllers[role]!['pinned'],
+                          _onValueChanged(tier, 'pinned', value),
+                      controller: _controllers[tier]!['pinned'],
                     ),
                     if (isHeadlineFilter)
-                      _buildNotificationFields(l10n, role, limits),
+                      _buildNotificationFields(l10n, tier, limits),
                   ],
                 ),
               );
@@ -291,7 +291,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
 
   Widget _buildNotificationFields(
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
     SavedFilterLimits limits,
   ) {
     return Column(
@@ -337,8 +337,8 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
                   description: _getNotificationDescription(context, type),
                   value: value,
                   onChanged: (newValue) =>
-                      _onValueChanged(role, type.name, newValue),
-                  controller: _controllers[role]!['notification_${type.name}'],
+                      _onValueChanged(tier, type.name, newValue),
+                  controller: _controllers[tier]!['notification_${type.name}'],
                 );
               },
             ).toList(),
