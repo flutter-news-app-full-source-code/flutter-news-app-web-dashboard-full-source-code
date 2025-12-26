@@ -74,7 +74,7 @@ class _ChartCardState extends State<ChartCard> {
         return l10n.chartUsersRegistrationsOverTime;
       case ChartCardId.usersActiveUsersOverTime:
         return l10n.chartUsersActiveUsersOverTime;
-      case ChartCardId.usersRoleDistribution:
+      case ChartCardId.usersTierDistribution:
         return l10n.chartUsersRoleDistribution;
       case ChartCardId.contentHeadlinesViewsOverTime:
         return l10n.chartContentHeadlinesViewsOverTime;
@@ -112,6 +112,12 @@ class _ChartCardState extends State<ChartCard> {
         return l10n.chartEngagementsAppReviewsPositiveVsNegative;
       case ChartCardId.engagementsAppReviewsStoreRequestsOverTime:
         return l10n.chartEngagementsAppReviewsStoreRequestsOverTime;
+      case ChartCardId.subscriptionsActiveOverTime:
+        return l10n.chartSubscriptionsActiveOverTime;
+      case ChartCardId.subscriptionsStatusDistribution:
+        return l10n.chartSubscriptionsStatusDistribution;
+      case ChartCardId.subscriptionsByStoreProvider:
+        return l10n.chartSubscriptionsByStoreProvider;
     }
   }
 
