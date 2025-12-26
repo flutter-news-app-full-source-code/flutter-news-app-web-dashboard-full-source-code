@@ -9,7 +9,7 @@ import 'package:ui_kit/ui_kit.dart';
 /// {@template user_preference_limits_form}
 /// A form widget for configuring user content preference limits based on role.
 ///
-/// This widget uses a [TabBar] to allow selection of an [AppUserRole]
+/// This widget uses a [TabBar] to allow selection of an [AccessTier]
 /// and then conditionally renders the relevant input fields for that role.
 /// {@endtemplate}
 class UserPreferenceLimitsForm extends StatefulWidget {

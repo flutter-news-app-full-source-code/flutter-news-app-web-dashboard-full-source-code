@@ -10,7 +10,6 @@ enum AppStatus {
 
   /// The user is unauthenticated, meaning they are not logged in.
   unauthenticated,
-
 }
 
 final class AppState extends Equatable {
