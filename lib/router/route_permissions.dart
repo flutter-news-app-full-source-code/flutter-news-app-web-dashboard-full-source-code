@@ -5,18 +5,19 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.da
 ///
 /// This map is used by the router's redirect logic to enforce navigation
 /// restrictions based on the authenticated user's role.
-final Map<DashboardUserRole, Set<String>> routePermissions = {
+final Map<UserRole, Set<String>> routePermissions = {
   // Admins have access to all major sections of the dashboard.
-  DashboardUserRole.admin: {
+  UserRole.admin: {
     Routes.overviewName,
     Routes.contentManagementName,
     Routes.userManagementName,
     Routes.communityManagementName,
     Routes.appConfigurationName,
+    Routes.subscriptionsName,
   },
   // Publishers have a more restricted access, focused on content creation
   // and management.
-  DashboardUserRole.publisher: {
+  UserRole.publisher: {
     Routes.overviewName,
     Routes.contentManagementName,
   },

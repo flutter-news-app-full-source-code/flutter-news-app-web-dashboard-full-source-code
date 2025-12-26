@@ -35,10 +35,16 @@ class AnalyticsConfigForm extends StatelessWidget {
           subtitle: Text(l10n.analyticsSystemStatusDescription),
           value: analyticsConfig.enabled,
           onChanged: (value) {
+            final newDisabledEvents = value
+                ? <AnalyticsEvent>{}
+                : analyticsConfig.disabledEvents;
             onConfigChanged(
               remoteConfig.copyWith(
                 features: features.copyWith(
-                  analytics: analyticsConfig.copyWith(enabled: value),
+                  analytics: analyticsConfig.copyWith(
+                    enabled: value,
+                    disabledEvents: newDisabledEvents,
+                  ),
                 ),
               ),
             );
@@ -149,10 +155,25 @@ class AnalyticsConfigForm extends StatelessWidget {
                     } else {
                       newDisabledEvents.add(event);
                     }
+
+                    var newEnabled = config.enabled;
+                    if (newDisabledEvents.length ==
+                        AnalyticsEvent.values.length) {
+                      newEnabled = false;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            l10n.analyticsFeatureDisabledNotification,
+                          ),
+                        ),
+                      );
+                    }
+
                     onConfigChanged(
                       remoteConfig.copyWith(
                         features: remoteConfig.features.copyWith(
                           analytics: config.copyWith(
+                            enabled: newEnabled,
                             disabledEvents: newDisabledEvents,
                           ),
                         ),

@@ -3572,5 +3572,193 @@
   "rankedListOverviewTopicsMostFollowed": "Top Followed Topics",
   "@rankedListOverviewTopicsMostFollowed": {
     "description": "Title for the Top Followed Topics ranked list card"
+  },
+  "subscriptionTab": "Subscriptions",
+  "@subscriptionTab": {
+    "description": "Tab title for Subscription settings"
+  },
+  "subscriptionDescription": "Configure the subscription plans (e.g., monthly, annual) offered to users. When enabled, users who reach their feature limits will be prompted to upgrade to a premium tier.",
+  "@subscriptionDescription": {
+    "description": "Description for the Subscription settings section"
+  },
+  "enableSubscriptionLabel": "Enable Subscription Feature",
+  "@enableSubscriptionLabel": {
+    "description": "Label for the master monetization switch"
+  },
+  "enableSubscriptionDescription": "Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium).",
+  "@enableSubscriptionDescription": {
+    "description": "Description for the master monetization switch"
+  },
+  "monthlyPlanTitle": "Monthly Plan",
+  "@monthlyPlanTitle": {
+    "description": "Title for the monthly subscription plan section"
+  },
+  "annualPlanTitle": "Annual Plan",
+  "@annualPlanTitle": {
+    "description": "Title for the annual subscription plan section"
+  },
+  "planEnabledLabel": "Enable Plan",
+  "@planEnabledLabel": {
+    "description": "Label to enable a specific plan"
+  },
+  "planRecommendedLabel": "Recommended Plan",
+  "@planRecommendedLabel": {
+    "description": "Label to mark a plan as recommended"
+  },
+  "planRecommendedDescription": "Highlights this plan as the best value option.",
+  "@planRecommendedDescription": {
+    "description": "Description for the recommended plan switch"
+  },
+  "appleProductIdLabel": "Apple App Store Product ID",
+  "@appleProductIdLabel": {
+    "description": "Label for Apple App Store Product ID"
+  },
+  "googleProductIdLabel": "Google Play Store Product ID",
+  "@googleProductIdLabel": {
+    "description": "Label for Google Play Store Product ID"
+  },
+  "subscriptionPlanEnablementError": "Please enter at least one Product ID to enable this plan.",
+  "@subscriptionPlanEnablementError": {
+    "description": "Error message shown when trying to enable a subscription plan without any product IDs."
+  },
+  "subscriptionPlanDisabledNotification": "Plan disabled because no Product IDs are provided.",
+  "@subscriptionPlanDisabledNotification": {
+    "description": "Snackbar notification shown when a plan is automatically disabled because its product IDs were removed."
+  },
+  "subscriptionFeatureDisabledNotification": "Subscription feature disabled because no plans are active.",
+  "@subscriptionFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the subscription feature is automatically disabled because all plans were disabled."
+  },
+  "pushNotificationFeatureDisabledNotification": "Push notification system disabled because no delivery types are active.",
+  "@pushNotificationFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the push notification system is automatically disabled."
+  },
+  "analyticsFeatureDisabledNotification": "Analytics system disabled because all events are disabled.",
+  "@analyticsFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the analytics system is automatically disabled."
+  },
+  "reportingFeatureDisabledNotification": "Reporting system disabled because no reporting options are active.",
+  "@reportingFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the reporting system is automatically disabled."
+  },
+  "appReviewFeatureDisabledNotification": "App review system disabled because no positive interactions are selected.",
+  "@appReviewFeatureDisabledNotification": {
+    "description": "Snackbar notification shown when the app review system is automatically disabled."
+  },
+  "subscriptionsName": "Subscriptions",
+  "@subscriptionsName": {
+    "description": "Menu option for billing"
+  },
+  "subscriptionProvider": "Store Provider",
+  "@subscriptionProvider": {
+    "description": "Table column for the store provider"
+  },
+  "accessTier": "Access Tier",
+  "@accessTier": {
+    "description": "Table column for the access tier"
+  },
+  "expiryDate": "Expiry Date",
+  "@expiryDate": {
+    "description": "Table column for the expiry date"
+  },
+  "willAutoRenew": "Auto Renew",
+  "@willAutoRenew": {
+    "description": "Table column for auto-renew status"
+  },
+  "allAccessTiers": "All Tiers",
+  "@allAccessTiers": {
+    "description": "Filter option for all access tiers"
+  },
+  "subscriptionActionCopyUserId": "Copy User ID",
+  "@subscriptionActionCopyUserId": {
+    "description": "Action to copy the user ID from subscription"
+  },
+  "subscriptionActionCopySubscriptionId": "Copy Subscription ID",
+  "@subscriptionActionCopySubscriptionId": {
+    "description": "Action to copy the subscription ID"
+  },
+  "filterSubscriptions": "Filter Subscriptions",
+  "@filterSubscriptions": {
+    "description": "Title for the billing filter dialog"
+  },
+  "selectStatus": "Select Status",
+  "@selectStatus": {
+    "description": "Hint for selecting subscription status"
+  },
+  "selectProvider": "Select Provider",
+  "@selectProvider": {
+    "description": "Hint for selecting store provider"
+  },
+  "selectTier": "Select Tier",
+  "@selectTier": {
+    "description": "Hint for selecting access tier"
+  },
+  "noSubscriptionsFound": "No subscriptions found.",
+  "@noSubscriptionsFound": {
+    "description": "Message when no subscriptions are found"
+  },
+  "loadingSubscriptions": "Loading Subscriptions",
+  "@loadingSubscriptions": {
+    "description": "Headline for loading state of subscriptions"
+  },
+  "searchByUserIdOrSubscriptionId": "Search by User ID or Subscription ID...",
+  "@searchByUserIdOrSubscriptionId": {
+    "description": "Hint text for the billing search field"
+  },
+  "subscriptionsPageDescription": "Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.",
+  "@subscriptionsPageDescription": {
+    "description": "Description for the Billing page"
+  },
+  "subscriptionStatusActive": "Active",
+  "@subscriptionStatusActive": {
+    "description": "Subscription status: Active"
+  },
+  "subscriptionStatusGracePeriod": "Grace Period",
+  "@subscriptionStatusGracePeriod": {
+    "description": "Subscription status: Grace Period"
+  },
+  "subscriptionStatusBillingIssue": "Billing Issue",
+  "@subscriptionStatusBillingIssue": {
+    "description": "Subscription status: Billing Issue"
+  },
+  "subscriptionStatusCanceled": "Canceled",
+  "@subscriptionStatusCanceled": {
+    "description": "Subscription status: Canceled"
+  },
+  "subscriptionStatusExpired": "Expired",
+  "@subscriptionStatusExpired": {
+    "description": "Subscription status: Expired"
+  },
+  "storeProviderApple": "Apple",
+  "@storeProviderApple": {
+    "description": "Store provider: Apple"
+  },
+  "storeProviderGoogle": "Google",
+  "@storeProviderGoogle": {
+    "description": "Store provider: Google"
+  },
+  "chartSubscriptionsActiveOverTime": "Active Subscriptions Over Time",
+  "@chartSubscriptionsActiveOverTime": {
+    "description": "Title for the Active Subscriptions Over Time chart card"
+  },
+  "chartSubscriptionsStatusDistribution": "Subscription Status Distribution",
+  "@chartSubscriptionsStatusDistribution": {
+    "description": "Title for the Subscription Status Distribution chart card"
+  },
+  "chartSubscriptionsByStoreProvider": "Subscriptions by Store",
+  "@chartSubscriptionsByStoreProvider": {
+    "description": "Title for the Subscriptions by Store chart card"
+  },
+  "kpiSubscriptionsActiveCount": "Active Subscriptions",
+  "@kpiSubscriptionsActiveCount": {
+    "description": "Title for the Active Subscriptions KPI card"
+  },
+  "kpiSubscriptionsCanceledCount": "Canceled Subscriptions",
+  "@kpiSubscriptionsCanceledCount": {
+    "description": "Title for the Canceled Subscriptions KPI card"
+  },
+  "kpiSubscriptionsExpiredCount": "Expired Subscriptions",
+  "@kpiSubscriptionsExpiredCount": {
+    "description": "Title for the Expired Subscriptions KPI card"
   }
 }

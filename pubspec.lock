@@ -31,8 +31,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.1.0"
-      resolved-ref: a37ed3cc6e305b1285a77619b1d7272b42517ea9
+      ref: "7fc38f09b941f2bbae3d7c9f21ff6848d3d9d258"
+      resolved-ref: "7fc38f09b941f2bbae3d7c9f21ff6848d3d9d258"
       url: "https://github.com/flutter-news-app-full-source-code/auth-inmemory"
     source: git
     version: "1.1.0"
@@ -89,8 +89,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.5.0"
-      resolved-ref: b40e262bf60ec146b6c907ef5ae1881176e85d5e
+      ref: "80fbc87e850b5ace5da8fe4dde490a45b66db18e"
+      resolved-ref: "80fbc87e850b5ace5da8fe4dde490a45b66db18e"
       url: "https://github.com/flutter-news-app-full-source-code/core.git"
     source: git
     version: "1.5.0"

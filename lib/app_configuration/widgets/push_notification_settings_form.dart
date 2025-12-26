@@ -37,10 +37,20 @@ class PushNotificationSettingsForm extends StatelessWidget {
           subtitle: Text(l10n.pushNotificationSystemStatusDescription),
           value: pushConfig.enabled,
           onChanged: (value) {
+            final newDeliveryConfigs = value
+                ? {
+                    for (final type
+                        in PushNotificationSubscriptionDeliveryType.values)
+                      type: true,
+                  }
+                : pushConfig.deliveryConfigs;
             onConfigChanged(
               remoteConfig.copyWith(
                 features: features.copyWith(
-                  pushNotifications: pushConfig.copyWith(enabled: value),
+                  pushNotifications: pushConfig.copyWith(
+                    enabled: value,
+                    deliveryConfigs: newDeliveryConfigs,
+                  ),
                 ),
               ),
             );
@@ -156,10 +166,24 @@ class PushNotificationSettingsForm extends StatelessWidget {
                           pushConfig.deliveryConfigs,
                         );
                     newDeliveryConfigs[type] = value;
+
+                    var newEnabled = pushConfig.enabled;
+                    if (!newDeliveryConfigs.values.contains(true)) {
+                      newEnabled = false;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            l10n.pushNotificationFeatureDisabledNotification,
+                          ),
+                        ),
+                      );
+                    }
+
                     onConfigChanged(
                       remoteConfig.copyWith(
                         features: remoteConfig.features.copyWith(
                           pushNotifications: pushConfig.copyWith(
+                            enabled: newEnabled,
                             deliveryConfigs: newDeliveryConfigs,
                           ),
                         ),

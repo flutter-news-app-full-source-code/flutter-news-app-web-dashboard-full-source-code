@@ -20,6 +20,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -43,6 +45,7 @@ class App extends StatelessWidget {
     required DataRepository<Engagement> engagementsRepository,
     required DataRepository<Report> reportsRepository,
     required DataRepository<AppReview> appReviewsRepository,
+    required DataRepository<UserSubscription> userSubscriptionsRepository,
     required AnalyticsService analyticsService,
     required KVStorageService storageService,
     required AppEnvironment environment,
@@ -62,6 +65,7 @@ class App extends StatelessWidget {
        _engagementsRepository = engagementsRepository,
        _reportsRepository = reportsRepository,
        _appReviewsRepository = appReviewsRepository,
+       _userSubscriptionsRepository = userSubscriptionsRepository,
        _analyticsService = analyticsService,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
@@ -80,6 +84,7 @@ class App extends StatelessWidget {
   final DataRepository<Engagement> _engagementsRepository;
   final DataRepository<Report> _reportsRepository;
   final DataRepository<AppReview> _appReviewsRepository;
+  final DataRepository<UserSubscription> _userSubscriptionsRepository;
   final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -104,6 +109,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _engagementsRepository),
         RepositoryProvider.value(value: _reportsRepository),
         RepositoryProvider.value(value: _appReviewsRepository),
+        RepositoryProvider.value(value: _userSubscriptionsRepository),
         RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
@@ -179,6 +185,16 @@ class App extends StatelessWidget {
               appReviewsRepository: context.read<DataRepository<AppReview>>(),
               communityFilterBloc: context.read<CommunityFilterBloc>(),
               pendingUpdatesService: context.read<PendingUpdatesService>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => SubscriptionsFilterBloc(),
+          ),
+          BlocProvider(
+            create: (context) => SubscriptionsBloc(
+              subscriptionsRepository: context
+                  .read<DataRepository<UserSubscription>>(),
+              subscriptionsFilterBloc: context.read<SubscriptionsFilterBloc>(),
             ),
           ),
         ],

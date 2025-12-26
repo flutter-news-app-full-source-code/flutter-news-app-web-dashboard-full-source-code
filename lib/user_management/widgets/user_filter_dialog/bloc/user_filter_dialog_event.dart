@@ -51,14 +51,14 @@ final class UserFilterDialogSubscriptionChanged extends UserFilterDialogEvent {
   List<Object?> get props => [subscriptionFilter];
 }
 
-/// Event to update the temporary dashboard role filter in the dialog.
-final class UserFilterDialogDashboardRoleChanged extends UserFilterDialogEvent {
-  const UserFilterDialogDashboardRoleChanged(this.dashboardRole);
+/// Event to update the temporary user role filter in the dialog.
+final class UserFilterDialogUserRoleChanged extends UserFilterDialogEvent {
+  const UserFilterDialogUserRoleChanged(this.userRole);
 
-  final DashboardUserRole? dashboardRole;
+  final UserRole? userRole;
 
   @override
-  List<Object?> get props => [dashboardRole];
+  List<Object?> get props => [userRole];
 }
 
 /// Event to reset all temporary filter selections in the dialog.

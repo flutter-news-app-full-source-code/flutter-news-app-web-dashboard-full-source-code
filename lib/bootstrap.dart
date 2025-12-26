@@ -75,6 +75,7 @@ Future<Widget> bootstrap(
   DataClient<KpiCardData> kpiCardsClient;
   DataClient<ChartCardData> chartCardsClient;
   DataClient<RankedListCardData> rankedListCardsClient;
+  DataClient<UserSubscription> userSubscriptionsClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -167,6 +168,12 @@ Future<Widget> bootstrap(
       getId: (i) => i.id.name,
       initialData: getRankedListCardsFixturesData(),
       logger: Logger('DataInMemory<RankedListCardData>'),
+    );
+    userSubscriptionsClient = DataInMemory<UserSubscription>(
+      toJson: (i) => i.toJson(),
+      getId: (i) => i.id,
+      initialData: userSubscriptionsFixturesData,
+      logger: Logger('DataInMemory<UserSubscription>'),
     );
   } else {
     headlinesClient = DataApi<Headline>(
@@ -275,6 +282,13 @@ Future<Widget> bootstrap(
       toJson: (item) => item.toJson(),
       logger: Logger('DataApi<RankedListCardData>'),
     );
+    userSubscriptionsClient = DataApi<UserSubscription>(
+      httpClient: httpClient,
+      modelName: 'user_subscription',
+      fromJson: UserSubscription.fromJson,
+      toJson: (item) => item.toJson(),
+      logger: Logger('DataApi<UserSubscription>'),
+    );
   }
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
@@ -321,6 +335,9 @@ Future<Widget> bootstrap(
   final rankedListCardsRepository = DataRepository<RankedListCardData>(
     dataClient: rankedListCardsClient,
   );
+  final userSubscriptionsRepository = DataRepository<UserSubscription>(
+    dataClient: userSubscriptionsClient,
+  );
 
   final analyticsService = AnalyticsService(
     kpiRepository: kpiCardsRepository,
@@ -343,6 +360,7 @@ Future<Widget> bootstrap(
     reportsRepository: reportsRepository,
     appReviewsRepository: appReviewsRepository,
     analyticsService: analyticsService,
+    userSubscriptionsRepository: userSubscriptionsRepository,
     storageService: kvStorage,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,

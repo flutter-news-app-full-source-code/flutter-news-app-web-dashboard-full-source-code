@@ -33,33 +33,33 @@ final class LoadUsersRequested extends UserManagementEvent {
   List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
 }
 
-/// Event to change a user's dashboard role.
-final class UserDashboardRoleChanged extends UserManagementEvent {
-  const UserDashboardRoleChanged({
+/// Event to change a user's role.
+final class UserRoleChanged extends UserManagementEvent {
+  const UserRoleChanged({
     required this.userId,
-    required this.dashboardRole,
+    required this.role,
   });
 
   /// The ID of the user to update.
   final String userId;
 
-  /// The new dashboard role to assign to the user.
-  final DashboardUserRole dashboardRole;
+  /// The new role to assign to the user.
+  final UserRole role;
 
   @override
-  List<Object?> get props => [userId, dashboardRole];
+  List<Object?> get props => [userId, role];
 }
 
-/// Event to change a user's app role.
-final class UserAppRoleChanged extends UserManagementEvent {
-  const UserAppRoleChanged({required this.userId, required this.appRole});
+/// Event to change a user's access tier.
+final class UserAccessTierChanged extends UserManagementEvent {
+  const UserAccessTierChanged({required this.userId, required this.tier});
 
   /// The ID of the user to update.
   final String userId;
 
-  /// The new app role to assign to the user.
-  final AppUserRole appRole;
+  /// The new access tier to assign to the user.
+  final AccessTier tier;
 
   @override
-  List<Object?> get props => [userId, appRole];
+  List<Object?> get props => [userId, tier];
 }

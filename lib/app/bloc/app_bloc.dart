@@ -52,11 +52,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     final AppStatus status;
 
     if (user != null) {
-      if (user.dashboardRole == DashboardUserRole.admin ||
-          user.dashboardRole == DashboardUserRole.publisher) {
+      if (user.role == UserRole.admin || user.role == UserRole.publisher) {
         status = AppStatus.authenticated;
-      } else if (user.appRole == AppUserRole.guestUser) {
-        status = AppStatus.anonymous;
       } else {
         status = AppStatus.unauthenticated;
       }

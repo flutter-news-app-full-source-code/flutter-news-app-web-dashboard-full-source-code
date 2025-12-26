@@ -251,7 +251,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             title: l10n.commentStatus,
             allValues: ModerationStatus.values,
             selectedValue: state.engagementsFilter.selectedStatus,
-            labelBuilder: (item) => item.l10n(context),
+            labelBuilder: (item) => ModerationStatusL10n(item).l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
                 EngagementsFilterChanged(
@@ -270,7 +270,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             title: l10n.status,
             allValues: ModerationStatus.values,
             selectedValue: state.reportsFilter.selectedStatus,
-            labelBuilder: (item) => item.l10n(context),
+            labelBuilder: (item) => ModerationStatusL10n(item).l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
                 ReportsFilterChanged(
@@ -289,7 +289,7 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             title: l10n.reportedItem,
             allValues: ReportableEntity.values,
             selectedValue: state.reportsFilter.selectedReportableEntity,
-            labelBuilder: (item) => item.l10n(context),
+            labelBuilder: (item) => ReportableEntityX(item).l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
                 ReportsFilterChanged(
@@ -309,7 +309,8 @@ class _CommunityFilterDialogState extends State<CommunityFilterDialog> {
             title: l10n.initialFeedback,
             allValues: AppReviewFeedback.values,
             selectedValue: state.appReviewsFilter.selectedFeedback,
-            labelBuilder: (item) => item.l10n(context),
+            labelBuilder: (item) =>
+                InitialAppReviewFeedbackX(item).l10n(context),
             onChanged: (item) {
               context.read<CommunityFilterBloc>().add(
                 AppReviewsFilterChanged(

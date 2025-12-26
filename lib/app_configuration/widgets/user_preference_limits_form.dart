@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template user_preference_limits_form}
 /// A form widget for configuring user content preference limits based on role.
 ///
-/// This widget uses a [TabBar] to allow selection of an [AppUserRole]
+/// This widget uses a [TabBar] to allow selection of an [AccessTier]
 /// and then conditionally renders the relevant input fields for that role.
 /// {@endtemplate}
 class UserPreferenceLimitsForm extends StatefulWidget {
@@ -34,16 +34,16 @@ class UserPreferenceLimitsForm extends StatefulWidget {
 class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  late final Map<AppUserRole, TextEditingController>
+  late final Map<AccessTier, TextEditingController>
   _followedItemsLimitControllers;
-  late final Map<AppUserRole, TextEditingController>
+  late final Map<AccessTier, TextEditingController>
   _savedHeadlinesLimitControllers;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: AppUserRole.values.length,
+      length: AccessTier.values.length,
       vsync: this,
     );
     _initializeControllers();
@@ -60,25 +60,25 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
   void _initializeControllers() {
     final limitsConfig = widget.remoteConfig.user.limits;
     _followedItemsLimitControllers = {
-      for (final role in AppUserRole.values)
-        role:
+      for (final tier in AccessTier.values)
+        tier:
             TextEditingController(
-                text: (limitsConfig.followedItems[role] ?? 0).toString(),
+                text: (limitsConfig.followedItems[tier] ?? 0).toString(),
               )
               ..selection = TextSelection.collapsed(
-                offset: (limitsConfig.followedItems[role] ?? 0)
+                offset: (limitsConfig.followedItems[tier] ?? 0)
                     .toString()
                     .length,
               ),
     };
     _savedHeadlinesLimitControllers = {
-      for (final role in AppUserRole.values)
-        role:
+      for (final tier in AccessTier.values)
+        tier:
             TextEditingController(
-                text: (limitsConfig.savedHeadlines[role] ?? 0).toString(),
+                text: (limitsConfig.savedHeadlines[tier] ?? 0).toString(),
               )
               ..selection = TextSelection.collapsed(
-                offset: (limitsConfig.savedHeadlines[role] ?? 0)
+                offset: (limitsConfig.savedHeadlines[tier] ?? 0)
                     .toString()
                     .length,
               ),
@@ -87,23 +87,23 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
 
   void _updateControllers() {
     final limitsConfig = widget.remoteConfig.user.limits;
-    for (final role in AppUserRole.values) {
-      final newFollowedItemsLimit = (limitsConfig.followedItems[role] ?? 0)
+    for (final tier in AccessTier.values) {
+      final newFollowedItemsLimit = (limitsConfig.followedItems[tier] ?? 0)
           .toString();
-      if (_followedItemsLimitControllers[role]?.text != newFollowedItemsLimit) {
-        _followedItemsLimitControllers[role]?.text = newFollowedItemsLimit;
-        _followedItemsLimitControllers[role]?.selection =
+      if (_followedItemsLimitControllers[tier]?.text != newFollowedItemsLimit) {
+        _followedItemsLimitControllers[tier]?.text = newFollowedItemsLimit;
+        _followedItemsLimitControllers[tier]?.selection =
             TextSelection.collapsed(
               offset: newFollowedItemsLimit.length,
             );
       }
 
-      final newSavedHeadlinesLimit = (limitsConfig.savedHeadlines[role] ?? 0)
+      final newSavedHeadlinesLimit = (limitsConfig.savedHeadlines[tier] ?? 0)
           .toString();
-      if (_savedHeadlinesLimitControllers[role]?.text !=
+      if (_savedHeadlinesLimitControllers[tier]?.text !=
           newSavedHeadlinesLimit) {
-        _savedHeadlinesLimitControllers[role]?.text = newSavedHeadlinesLimit;
-        _savedHeadlinesLimitControllers[role]?.selection =
+        _savedHeadlinesLimitControllers[tier]?.text = newSavedHeadlinesLimit;
+        _savedHeadlinesLimitControllers[tier]?.selection =
             TextSelection.collapsed(
               offset: newSavedHeadlinesLimit.length,
             );
@@ -139,8 +139,8 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
               controller: _tabController,
               tabAlignment: TabAlignment.start,
               isScrollable: true,
-              tabs: AppUserRole.values
-                  .map((role) => Tab(text: role.l10n(context)))
+              tabs: AccessTier.values
+                  .map((tier) => Tab(text: tier.l10n(context)))
                   .toList(),
             ),
           ),
@@ -151,12 +151,12 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
           height: 250,
           child: TabBarView(
             controller: _tabController,
-            children: AppUserRole.values
+            children: AccessTier.values
                 .map(
-                  (role) => _buildRoleSpecificFields(
+                  (tier) => _buildTierSpecificFields(
                     context,
                     l10n,
-                    role,
+                    tier,
                     limitsConfig,
                   ),
                 )
@@ -167,21 +167,21 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
     );
   }
 
-  Widget _buildRoleSpecificFields(
+  Widget _buildTierSpecificFields(
     BuildContext context,
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
     UserLimitsConfig config,
   ) {
     return Column(
       children: [
         AppConfigIntField(
-          label: _getFollowedItemsLimitLabel(l10n, role),
-          description: _getFollowedItemsLimitDescription(l10n, role),
-          value: config.followedItems[role] ?? 0,
+          label: _getFollowedItemsLimitLabel(l10n, tier),
+          description: _getFollowedItemsLimitDescription(l10n, tier),
+          value: config.followedItems[tier] ?? 0,
           onChanged: (value) {
-            final newLimits = Map<AppUserRole, int>.from(config.followedItems);
-            newLimits[role] = value;
+            final newLimits = Map<AccessTier, int>.from(config.followedItems);
+            newLimits[tier] = value;
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 user: widget.remoteConfig.user.copyWith(
@@ -190,15 +190,15 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
               ),
             );
           },
-          controller: _followedItemsLimitControllers[role],
+          controller: _followedItemsLimitControllers[tier],
         ),
         AppConfigIntField(
-          label: _getSavedHeadlinesLimitLabel(l10n, role),
-          description: _getSavedHeadlinesLimitDescription(l10n, role),
-          value: config.savedHeadlines[role] ?? 0,
+          label: _getSavedHeadlinesLimitLabel(l10n, tier),
+          description: _getSavedHeadlinesLimitDescription(l10n, tier),
+          value: config.savedHeadlines[tier] ?? 0,
           onChanged: (value) {
-            final newLimits = Map<AppUserRole, int>.from(config.savedHeadlines);
-            newLimits[role] = value;
+            final newLimits = Map<AccessTier, int>.from(config.savedHeadlines);
+            newLimits[tier] = value;
             widget.onConfigChanged(
               widget.remoteConfig.copyWith(
                 user: widget.remoteConfig.user.copyWith(
@@ -207,58 +207,58 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
               ),
             );
           },
-          controller: _savedHeadlinesLimitControllers[role],
+          controller: _savedHeadlinesLimitControllers[tier],
         ),
       ],
     );
   }
 
-  String _getFollowedItemsLimitLabel(AppLocalizations l10n, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
+  String _getFollowedItemsLimitLabel(AppLocalizations l10n, AccessTier tier) {
+    switch (tier) {
+      case AccessTier.guest:
         return l10n.guestFollowedItemsLimitLabel;
-      case AppUserRole.standardUser:
+      case AccessTier.standard:
         return l10n.standardUserFollowedItemsLimitLabel;
-      case AppUserRole.premiumUser:
+      case AccessTier.premium:
         return l10n.premiumFollowedItemsLimitLabel;
     }
   }
 
   String _getFollowedItemsLimitDescription(
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
   ) {
-    switch (role) {
-      case AppUserRole.guestUser:
+    switch (tier) {
+      case AccessTier.guest:
         return l10n.guestFollowedItemsLimitDescription;
-      case AppUserRole.standardUser:
+      case AccessTier.standard:
         return l10n.standardUserFollowedItemsLimitDescription;
-      case AppUserRole.premiumUser:
+      case AccessTier.premium:
         return l10n.premiumFollowedItemsLimitDescription;
     }
   }
 
-  String _getSavedHeadlinesLimitLabel(AppLocalizations l10n, AppUserRole role) {
-    switch (role) {
-      case AppUserRole.guestUser:
+  String _getSavedHeadlinesLimitLabel(AppLocalizations l10n, AccessTier tier) {
+    switch (tier) {
+      case AccessTier.guest:
         return l10n.guestSavedHeadlinesLimitLabel;
-      case AppUserRole.standardUser:
+      case AccessTier.standard:
         return l10n.standardUserSavedHeadlinesLimitLabel;
-      case AppUserRole.premiumUser:
+      case AccessTier.premium:
         return l10n.premiumSavedHeadlinesLimitLabel;
     }
   }
 
   String _getSavedHeadlinesLimitDescription(
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
   ) {
-    switch (role) {
-      case AppUserRole.guestUser:
+    switch (tier) {
+      case AccessTier.guest:
         return l10n.guestSavedHeadlinesLimitDescription;
-      case AppUserRole.standardUser:
+      case AccessTier.standard:
         return l10n.standardUserSavedHeadlinesLimitDescription;
-      case AppUserRole.premiumUser:
+      case AccessTier.premium:
         return l10n.premiumSavedHeadlinesLimitDescription;
     }
   }

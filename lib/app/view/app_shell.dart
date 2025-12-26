@@ -29,7 +29,7 @@ class AppShell extends StatelessWidget {
       builder: (context, state) {
         final l10n = AppLocalizationsX(context).l10n;
         final theme = Theme.of(context);
-        final userRole = state.user?.dashboardRole;
+        final userRole = state.user?.role;
 
         // Use the same text style as the NavigationRail labels for consistency.
         final navRailLabelStyle = theme.textTheme.labelMedium;
@@ -57,6 +57,11 @@ class AppShell extends StatelessWidget {
             label: l10n.navCommunity,
           ),
           NavigationDestination(
+            icon: const Icon(Icons.card_membership_outlined),
+            selectedIcon: const Icon(Icons.card_membership),
+            label: l10n.subscriptionsName,
+          ),
+          NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
             selectedIcon: const Icon(Icons.settings_applications),
             label: l10n.appConfiguration,
@@ -70,6 +75,7 @@ class AppShell extends StatelessWidget {
           Routes.contentManagementName,
           Routes.userManagementName,
           Routes.communityManagementName,
+          Routes.subscriptionsName,
           Routes.appConfigurationName,
         ];
 

@@ -89,8 +89,14 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                 subtitle: Text(l10n.enableAppFeedbackSystemDescription),
                 value: appReviewConfig.enabled,
                 onChanged: (value) {
+                  final newInteractions = value
+                      ? PositiveInteractionType.values.toList()
+                      : appReviewConfig.eligiblePositiveInteractions;
                   final newConfig = communityConfig.copyWith(
-                    appReview: appReviewConfig.copyWith(enabled: value),
+                    appReview: appReviewConfig.copyWith(
+                      enabled: value,
+                      eligiblePositiveInteractions: newInteractions,
+                    ),
                   );
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
@@ -221,8 +227,22 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                                 } else {
                                   currentInteractions.remove(interactionType);
                                 }
+
+                                var newEnabled = appReviewConfig.enabled;
+                                if (currentInteractions.isEmpty) {
+                                  newEnabled = false;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        l10n.appReviewFeatureDisabledNotification,
+                                      ),
+                                    ),
+                                  );
+                                }
+
                                 final newAppReviewConfig = appReviewConfig
                                     .copyWith(
+                                      enabled: newEnabled,
                                       eligiblePositiveInteractions:
                                           currentInteractions,
                                     );

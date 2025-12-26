@@ -2844,4 +2844,156 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rankedListOverviewTopicsMostFollowed => 'المواضيع الأكثر متابعة';
+
+  @override
+  String get subscriptionTab => 'الاشتراكات';
+
+  @override
+  String get subscriptionDescription =>
+      'تكوين خطط الاشتراك (مثل الشهرية والسنوية) المقدمة للمستخدمين. عند التمكين، سيتم مطالبة المستخدمين الذين يصلون إلى حدود استخدام الميزات بالترقية إلى فئة مميزة.';
+
+  @override
+  String get enableSubscriptionLabel => 'تفعيل ميزة الاشتراك';
+
+  @override
+  String get enableSubscriptionDescription =>
+      'المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز).';
+
+  @override
+  String get monthlyPlanTitle => 'الخطة الشهرية';
+
+  @override
+  String get annualPlanTitle => 'الخطة السنوية';
+
+  @override
+  String get planEnabledLabel => 'تفعيل الخطة';
+
+  @override
+  String get planRecommendedLabel => 'خطة موصى بها';
+
+  @override
+  String get planRecommendedDescription => 'يبرز هذه الخطة كأفضل خيار للقيمة.';
+
+  @override
+  String get appleProductIdLabel => 'معرف منتج متجر تطبيقات أبل';
+
+  @override
+  String get googleProductIdLabel => 'معرف منتج متجر جوجل بلاي';
+
+  @override
+  String get subscriptionPlanEnablementError =>
+      'الرجاء إدخال معرّف منتج واحد على الأقل لتفعيل هذه الخطة.';
+
+  @override
+  String get subscriptionPlanDisabledNotification =>
+      'تم تعطيل الخطة لعدم توفر معرّفات منتجات.';
+
+  @override
+  String get subscriptionFeatureDisabledNotification =>
+      'تم تعطيل ميزة الاشتراك لعدم وجود خطط نشطة.';
+
+  @override
+  String get pushNotificationFeatureDisabledNotification =>
+      'تم تعطيل نظام الإشعارات لعدم وجود أنواع تسليم نشطة.';
+
+  @override
+  String get analyticsFeatureDisabledNotification =>
+      'تم تعطيل نظام التحليلات لأن جميع الأحداث معطلة.';
+
+  @override
+  String get reportingFeatureDisabledNotification =>
+      'تم تعطيل نظام الإبلاغ لعدم وجود خيارات إبلاغ نشطة.';
+
+  @override
+  String get appReviewFeatureDisabledNotification =>
+      'تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.';
+
+  @override
+  String get subscriptionsName => 'الاشتراكات';
+
+  @override
+  String get subscriptionProvider => 'مزود المتجر';
+
+  @override
+  String get accessTier => 'مستوى الوصول';
+
+  @override
+  String get expiryDate => 'تاريخ الانتهاء';
+
+  @override
+  String get willAutoRenew => 'تجديد تلقائي';
+
+  @override
+  String get allAccessTiers => 'جميع المستويات';
+
+  @override
+  String get subscriptionActionCopyUserId => 'نسخ معرف المستخدم';
+
+  @override
+  String get subscriptionActionCopySubscriptionId => 'نسخ معرف الاشتراك';
+
+  @override
+  String get filterSubscriptions => 'تصفية الاشتراكات';
+
+  @override
+  String get selectStatus => 'اختر الحالة';
+
+  @override
+  String get selectProvider => 'اختر المزود';
+
+  @override
+  String get selectTier => 'اختر المستوى';
+
+  @override
+  String get noSubscriptionsFound => 'لم يتم العثور على اشتراكات.';
+
+  @override
+  String get loadingSubscriptions => 'جاري تحميل الاشتراكات';
+
+  @override
+  String get searchByUserIdOrSubscriptionId =>
+      'البحث بمعرف المستخدم أو معرف الاشتراك...';
+
+  @override
+  String get subscriptionsPageDescription =>
+      'واجهة للقراءة فقط لمراقبة حالات اشتراك المستخدم. تتم معالجة جميع أحداث دورة حياة الاشتراك، مثل عمليات الشراء والتجديد والإلغاء، تلقائيًا بواسطة الواجهة الخلفية من خلال المزامنة عبر إشعارات الويب هوك مع متجر تطبيقات Apple و Google Play. لا تقوم لوحة التحكم هذه ببدء أو إدارة المعاملات المالية.';
+
+  @override
+  String get subscriptionStatusActive => 'نشط';
+
+  @override
+  String get subscriptionStatusGracePeriod => 'فترة سماح';
+
+  @override
+  String get subscriptionStatusBillingIssue => 'مشكلة في الفوترة';
+
+  @override
+  String get subscriptionStatusCanceled => 'ملغى';
+
+  @override
+  String get subscriptionStatusExpired => 'منتهي';
+
+  @override
+  String get storeProviderApple => 'أبل';
+
+  @override
+  String get storeProviderGoogle => 'جوجل';
+
+  @override
+  String get chartSubscriptionsActiveOverTime => 'الاشتراكات النشطة عبر الزمن';
+
+  @override
+  String get chartSubscriptionsStatusDistribution => 'توزيع حالة الاشتراكات';
+
+  @override
+  String get chartSubscriptionsByStoreProvider => 'الاشتراكات حسب المتجر';
+
+  @override
+  String get kpiSubscriptionsActiveCount => 'الاشتراكات النشطة';
+
+  @override
+  String get kpiSubscriptionsCanceledCount => 'الاشتراكات الملغاة';
+
+  @override
+  String get kpiSubscriptionsExpiredCount => 'الاشتراكات المنتهية';
 }

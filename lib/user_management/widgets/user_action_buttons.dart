@@ -37,7 +37,7 @@ class UserActionButtons extends StatelessWidget {
     final overflowMenuItems = <PopupMenuEntry<String>>[];
 
     // Rule: Do not show any actions for admin users.
-    if (user.dashboardRole == DashboardUserRole.admin) {
+    if (user.role == UserRole.admin) {
       return const SizedBox.shrink();
     }
     // Primary action: Copy User ID. This is always available for non-admins.
@@ -51,22 +51,22 @@ class UserActionButtons extends StatelessWidget {
       ),
     );
     // Add contextual actions to the overflow menu based on the user's role.
-    switch (user.dashboardRole) {
-      case DashboardUserRole.none:
+    switch (user.role) {
+      case UserRole.user:
         overflowMenuItems.add(
           PopupMenuItem<String>(
             value: 'promote',
             child: Text(l10n.promoteToPublisher),
           ),
         );
-      case DashboardUserRole.publisher:
+      case UserRole.publisher:
         overflowMenuItems.add(
           PopupMenuItem<String>(
             value: 'demote',
             child: Text(l10n.demoteToUser),
           ),
         );
-      case DashboardUserRole.admin:
+      case UserRole.admin:
         // No actions for admins, handled by the initial check.
         break;
     }
@@ -107,9 +107,9 @@ class UserActionButtons extends StatelessWidget {
         confirmText: l10n.promoteToPublisher,
         onConfirm: () {
           context.read<UserManagementBloc>().add(
-            UserDashboardRoleChanged(
+            UserRoleChanged(
               userId: user.id,
-              dashboardRole: DashboardUserRole.publisher,
+              role: UserRole.publisher,
             ),
           );
         },
@@ -126,9 +126,9 @@ class UserActionButtons extends StatelessWidget {
         confirmText: l10n.demoteToUser,
         onConfirm: () {
           context.read<UserManagementBloc>().add(
-            UserDashboardRoleChanged(
+            UserRoleChanged(
               userId: user.id,
-              dashboardRole: DashboardUserRole.none,
+              role: UserRole.user,
             ),
           );
         },

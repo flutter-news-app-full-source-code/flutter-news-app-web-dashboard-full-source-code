@@ -3576,5 +3576,197 @@
   "rankedListOverviewTopicsMostFollowed": "المواضيع الأكثر متابعة",
   "@rankedListOverviewTopicsMostFollowed": {
     "description": "Title for the Top Followed Topics ranked list card"
+  },
+  "subscriptionTab": "الاشتراكات",
+  "@subscriptionTab": {
+    "description": "عنوان تبويب إعدادات الاشتراكات"
+  },
+  "subscriptionDescription": "تكوين خطط الاشتراك (مثل الشهرية والسنوية) المقدمة للمستخدمين. عند التمكين، سيتم مطالبة المستخدمين الذين يصلون إلى حدود استخدام الميزات بالترقية إلى فئة مميزة.",
+  "@subscriptionDescription": {
+    "description": "وصف قسم إعدادات الاشتراك"
+  },
+  "enableSubscriptionLabel": "تفعيل ميزة الاشتراك",
+  "@enableSubscriptionLabel": {
+    "description": "تسمية مفتاح تفعيل الاشتراك"
+  },
+  "enableSubscriptionDescription": "المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز).",
+  "@enableSubscriptionDescription": {
+    "description": "وصف مفتاح تفعيل الاشتراك"
+  },
+  "monthlyPlanTitle": "الخطة الشهرية",
+  "@monthlyPlanTitle": {
+    "description": "عنوان قسم خطة الاشتراك الشهرية"
+  },
+  "annualPlanTitle": "الخطة السنوية",
+  "@annualPlanTitle": {
+    "description": "عنوان قسم خطة الاشتراك السنوية"
+  },
+  "planEnabledLabel": "تفعيل الخطة",
+  "@planEnabledLabel": {
+    "description": "تسمية لتفعيل خطة محددة"
+  },
+  "planRecommendedLabel": "خطة موصى بها",
+  "@planRecommendedLabel": {
+    "description": "تسمية لتمييز الخطة كموصى بها"
+  },
+  "planRecommendedDescription": "يبرز هذه الخطة كأفضل خيار للقيمة.",
+  "@planRecommendedDescription": {
+    "description": "وصف لمفتاح الخطة الموصى بها"
+  },
+  "appleProductIdLabel": "معرف منتج متجر تطبيقات أبل",
+  "@appleProductIdLabel": {
+    "description": "تسمية معرف منتج متجر تطبيقات Apple"
+  },
+  "googleProductIdLabel": "معرف منتج متجر جوجل بلاي",
+  "@googleProductIdLabel": {
+    "description": "تسمية معرف منتج متجر Google Play"
+  },
+  "subscriptionPlanEnablementError": "الرجاء إدخال معرّف منتج واحد على الأقل لتفعيل هذه الخطة.",
+  "@subscriptionPlanEnablementError": {
+    "description": "Error message shown when trying to enable a subscription plan without any product IDs."
+  },
+  "subscriptionPlanDisabledNotification": "تم تعطيل الخطة لعدم توفر معرّفات منتجات.",
+  "@subscriptionPlanDisabledNotification": {
+    "description": "Snackbar notification shown when a plan is automatically disabled because its product IDs were removed."
+  },
+  "subscriptionFeatureDisabledNotification": "تم تعطيل ميزة الاشتراك لعدم وجود خطط نشطة.",
+  "@subscriptionFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل ميزة الاشتراك تلقائيًا بسبب تعطيل جميع الخطط."
+  },
+  "pushNotificationFeatureDisabledNotification": "تم تعطيل نظام الإشعارات لعدم وجود أنواع تسليم نشطة.",
+  "@pushNotificationFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام الإشعارات تلقائيًا."
+  },
+  "analyticsFeatureDisabledNotification": "تم تعطيل نظام التحليلات لأن جميع الأحداث معطلة.",
+  "@analyticsFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام التحليلات تلقائيًا."
+  },
+  "reportingFeatureDisabledNotification": "تم تعطيل نظام الإبلاغ لعدم وجود خيارات إبلاغ نشطة.",
+  "@reportingFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام الإبلاغ تلقائيًا."
+  },
+  "appReviewFeatureDisabledNotification": "تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.",
+  "@appReviewFeatureDisabledNotification": {
+    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام مراجعة التطبيق تلقائيًا."
+  },
+  "subscriptionsName": "الاشتراكات",
+  "@subscriptionsName": {
+    "description": "خيار القائمة للفواتير"
+  },
+  "subscriptionProvider": "مزود المتجر",
+  "@subscriptionProvider": {
+    "description": "عمود الجدول لمزود المتجر"
+  },
+  "userEmail": "بريد المستخدم",
+  "@userEmail": {
+    "description": "عمود الجدول لبريد المستخدم"
+  },
+  "accessTier": "مستوى الوصول",
+  "@accessTier": {
+    "description": "عمود الجدول لمستوى الوصول"
+  },
+  "expiryDate": "تاريخ الانتهاء",
+  "@expiryDate": {
+    "description": "عمود الجدول لتاريخ الانتهاء"
+  },
+  "willAutoRenew": "تجديد تلقائي",
+  "@willAutoRenew": {
+    "description": "عمود الجدول لحالة التجديد التلقائي"
+  },
+  "allAccessTiers": "جميع المستويات",
+  "@allAccessTiers": {
+    "description": "خيار تصفية لجميع مستويات الوصول"
+  },
+  "subscriptionActionCopyUserId": "نسخ معرف المستخدم",
+  "@subscriptionActionCopyUserId": {
+    "description": "إجراء لنسخ معرف المستخدم من الاشتراك"
+  },
+  "subscriptionActionCopySubscriptionId": "نسخ معرف الاشتراك",
+  "@subscriptionActionCopySubscriptionId": {
+    "description": "إجراء لنسخ معرف الاشتراك"
+  },
+  "filterSubscriptions": "تصفية الاشتراكات",
+  "@filterSubscriptions": {
+    "description": "عنوان مربع حوار تصفية الفواتير"
+  },
+  "selectStatus": "اختر الحالة",
+  "@selectStatus": {
+    "description": "تلميح لاختيار حالة الاشتراك"
+  },
+  "selectProvider": "اختر المزود",
+  "@selectProvider": {
+    "description": "تلميح لاختيار مزود المتجر"
+  },
+  "selectTier": "اختر المستوى",
+  "@selectTier": {
+    "description": "تلميح لاختيار مستوى الوصول"
+  },
+  "noSubscriptionsFound": "لم يتم العثور على اشتراكات.",
+  "@noSubscriptionsFound": {
+    "description": "رسالة عند عدم العثور على اشتراكات"
+  },
+  "loadingSubscriptions": "جاري تحميل الاشتراكات",
+  "@loadingSubscriptions": {
+    "description": "عنوان حالة تحميل الاشتراكات"
+  },
+  "searchByUserIdOrSubscriptionId": "البحث بمعرف المستخدم أو معرف الاشتراك...",
+  "@searchByUserIdOrSubscriptionId": {
+    "description": "نص تلميح لحقل البحث في الفواتير"
+  },
+  "subscriptionsPageDescription": "واجهة للقراءة فقط لمراقبة حالات اشتراك المستخدم. تتم معالجة جميع أحداث دورة حياة الاشتراك، مثل عمليات الشراء والتجديد والإلغاء، تلقائيًا بواسطة الواجهة الخلفية من خلال المزامنة عبر إشعارات الويب هوك مع متجر تطبيقات Apple و Google Play. لا تقوم لوحة التحكم هذه ببدء أو إدارة المعاملات المالية.",
+  "@subscriptionsPageDescription": {
+    "description": "وصف صفحة الفواتير"
+  },
+  "subscriptionStatusActive": "نشط",
+  "@subscriptionStatusActive": {
+    "description": "حالة الاشتراك: نشط"
+  },
+  "subscriptionStatusGracePeriod": "فترة سماح",
+  "@subscriptionStatusGracePeriod": {
+    "description": "حالة الاشتراك: فترة سماح"
+  },
+  "subscriptionStatusBillingIssue": "مشكلة في الفوترة",
+  "@subscriptionStatusBillingIssue": {
+    "description": "حالة الاشتراك: مشكلة في الفوترة"
+  },
+  "subscriptionStatusCanceled": "ملغى",
+  "@subscriptionStatusCanceled": {
+    "description": "حالة الاشتراك: ملغى"
+  },
+  "subscriptionStatusExpired": "منتهي",
+  "@subscriptionStatusExpired": {
+    "description": "حالة الاشتراك: منتهي"
+  },
+  "storeProviderApple": "أبل",
+  "@storeProviderApple": {
+    "description": "مزود المتجر: أبل"
+  },
+  "storeProviderGoogle": "جوجل",
+  "@storeProviderGoogle": {
+    "description": "مزود المتجر: جوجل"
+  },
+  "chartSubscriptionsActiveOverTime": "الاشتراكات النشطة عبر الزمن",
+  "@chartSubscriptionsActiveOverTime": {
+    "description": "Title for the Active Subscriptions Over Time chart card"
+  },
+  "chartSubscriptionsStatusDistribution": "توزيع حالة الاشتراكات",
+  "@chartSubscriptionsStatusDistribution": {
+    "description": "Title for the Subscription Status Distribution chart card"
+  },
+  "chartSubscriptionsByStoreProvider": "الاشتراكات حسب المتجر",
+  "@chartSubscriptionsByStoreProvider": {
+    "description": "Title for the Subscriptions by Store chart card"
+  },
+  "kpiSubscriptionsActiveCount": "الاشتراكات النشطة",
+  "@kpiSubscriptionsActiveCount": {
+    "description": "Title for the Active Subscriptions KPI card"
+  },
+  "kpiSubscriptionsCanceledCount": "الاشتراكات الملغاة",
+  "@kpiSubscriptionsCanceledCount": {
+    "description": "Title for the Canceled Subscriptions KPI card"
+  },
+  "kpiSubscriptionsExpiredCount": "الاشتراكات المنتهية",
+  "@kpiSubscriptionsExpiredCount": {
+    "description": "Title for the Expired Subscriptions KPI card"
   }
 }

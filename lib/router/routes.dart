@@ -127,4 +127,17 @@ abstract final class Routes {
 
   /// The name for the community filter dialog route.
   static const String communityFilterDialogName = 'communityFilterDialog';
+
+  /// The path for the subscriptions section.
+  static const String subscriptions = '/subscriptions';
+
+  /// The name for the subscriptions section route.
+  static const String subscriptionsName = 'subscriptions';
+
+  /// The path for the subscriptions filter dialog.
+  static const String subscriptionsFilterDialog = 'subscriptions-filter-dialog';
+
+  /// The name for the subscriptions filter dialog route.
+  static const String subscriptionsFilterDialogName =
+      'subscriptionsFilterDialog';
 }

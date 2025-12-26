@@ -33,6 +33,9 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.da
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/searchable_selection_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/selection_page/selection_page_arguments.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/view/subscriptions_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/widgets/subscriptions_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/user_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
@@ -87,7 +90,7 @@ GoRouter createRouter({
         print('  Redirect Decision: User is $appStatus.');
 
         // --- Role-Based Access Control (RBAC) ---
-        final userRole = context.read<AppBloc>().state.user?.dashboardRole;
+        final userRole = context.read<AppBloc>().state.user?.role;
 
         // Allow navigation if the user role isn't determined yet.
         if (userRole == null) {
@@ -101,6 +104,7 @@ GoRouter createRouter({
           Routes.contentManagementName: Routes.contentManagement,
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
+          Routes.subscriptionsName: Routes.subscriptions,
           Routes.appConfigurationName: Routes.appConfiguration,
         };
 
@@ -391,6 +395,30 @@ GoRouter createRouter({
                       return const MaterialPage(
                         fullscreenDialog: true,
                         child: CommunityFilterDialog(),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.subscriptions,
+                name: Routes.subscriptionsName,
+                builder: (context, state) => const SubscriptionsPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.subscriptionsFilterDialog,
+                    name: Routes.subscriptionsFilterDialogName,
+                    pageBuilder: (context, state) {
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: BlocProvider<SubscriptionsFilterDialogBloc>(
+                          create: (context) => SubscriptionsFilterDialogBloc(),
+                          child: const SubscriptionsFilterDialog(),
+                        ),
                       );
                     },
                   ),

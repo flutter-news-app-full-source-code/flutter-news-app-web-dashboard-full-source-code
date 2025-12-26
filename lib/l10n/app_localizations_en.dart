@@ -2858,4 +2858,159 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rankedListOverviewTopicsMostFollowed => 'Top Followed Topics';
+
+  @override
+  String get subscriptionTab => 'Subscriptions';
+
+  @override
+  String get subscriptionDescription =>
+      'Configure the subscription plans (e.g., monthly, annual) offered to users. When enabled, users who reach their feature limits will be prompted to upgrade to a premium tier.';
+
+  @override
+  String get enableSubscriptionLabel => 'Enable Subscription Feature';
+
+  @override
+  String get enableSubscriptionDescription =>
+      'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium).';
+
+  @override
+  String get monthlyPlanTitle => 'Monthly Plan';
+
+  @override
+  String get annualPlanTitle => 'Annual Plan';
+
+  @override
+  String get planEnabledLabel => 'Enable Plan';
+
+  @override
+  String get planRecommendedLabel => 'Recommended Plan';
+
+  @override
+  String get planRecommendedDescription =>
+      'Highlights this plan as the best value option.';
+
+  @override
+  String get appleProductIdLabel => 'Apple App Store Product ID';
+
+  @override
+  String get googleProductIdLabel => 'Google Play Store Product ID';
+
+  @override
+  String get subscriptionPlanEnablementError =>
+      'Please enter at least one Product ID to enable this plan.';
+
+  @override
+  String get subscriptionPlanDisabledNotification =>
+      'Plan disabled because no Product IDs are provided.';
+
+  @override
+  String get subscriptionFeatureDisabledNotification =>
+      'Subscription feature disabled because no plans are active.';
+
+  @override
+  String get pushNotificationFeatureDisabledNotification =>
+      'Push notification system disabled because no delivery types are active.';
+
+  @override
+  String get analyticsFeatureDisabledNotification =>
+      'Analytics system disabled because all events are disabled.';
+
+  @override
+  String get reportingFeatureDisabledNotification =>
+      'Reporting system disabled because no reporting options are active.';
+
+  @override
+  String get appReviewFeatureDisabledNotification =>
+      'App review system disabled because no positive interactions are selected.';
+
+  @override
+  String get subscriptionsName => 'Subscriptions';
+
+  @override
+  String get subscriptionProvider => 'Store Provider';
+
+  @override
+  String get accessTier => 'Access Tier';
+
+  @override
+  String get expiryDate => 'Expiry Date';
+
+  @override
+  String get willAutoRenew => 'Auto Renew';
+
+  @override
+  String get allAccessTiers => 'All Tiers';
+
+  @override
+  String get subscriptionActionCopyUserId => 'Copy User ID';
+
+  @override
+  String get subscriptionActionCopySubscriptionId => 'Copy Subscription ID';
+
+  @override
+  String get filterSubscriptions => 'Filter Subscriptions';
+
+  @override
+  String get selectStatus => 'Select Status';
+
+  @override
+  String get selectProvider => 'Select Provider';
+
+  @override
+  String get selectTier => 'Select Tier';
+
+  @override
+  String get noSubscriptionsFound => 'No subscriptions found.';
+
+  @override
+  String get loadingSubscriptions => 'Loading Subscriptions';
+
+  @override
+  String get searchByUserIdOrSubscriptionId =>
+      'Search by User ID or Subscription ID...';
+
+  @override
+  String get subscriptionsPageDescription =>
+      'Provides a read-only interface for monitoring user subscription statuses. All lifecycle events, such as purchases, renewals, and cancellations, are processed automatically by the backend through webhook synchronization with the Apple App Store and Google Play. This dashboard does not initiate or manage financial transactions.';
+
+  @override
+  String get subscriptionStatusActive => 'Active';
+
+  @override
+  String get subscriptionStatusGracePeriod => 'Grace Period';
+
+  @override
+  String get subscriptionStatusBillingIssue => 'Billing Issue';
+
+  @override
+  String get subscriptionStatusCanceled => 'Canceled';
+
+  @override
+  String get subscriptionStatusExpired => 'Expired';
+
+  @override
+  String get storeProviderApple => 'Apple';
+
+  @override
+  String get storeProviderGoogle => 'Google';
+
+  @override
+  String get chartSubscriptionsActiveOverTime =>
+      'Active Subscriptions Over Time';
+
+  @override
+  String get chartSubscriptionsStatusDistribution =>
+      'Subscription Status Distribution';
+
+  @override
+  String get chartSubscriptionsByStoreProvider => 'Subscriptions by Store';
+
+  @override
+  String get kpiSubscriptionsActiveCount => 'Active Subscriptions';
+
+  @override
+  String get kpiSubscriptionsCanceledCount => 'Canceled Subscriptions';
+
+  @override
+  String get kpiSubscriptionsExpiredCount => 'Expired Subscriptions';
 }

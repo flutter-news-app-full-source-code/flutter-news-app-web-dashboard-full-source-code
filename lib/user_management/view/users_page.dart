@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_ui.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_ui_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/dashboard_user_role_ui.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/user_role_ui.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_action_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -132,7 +132,7 @@ class _UsersPageState extends State<UsersPage> {
                 chartCards: [
                   ChartCardId.usersRegistrationsOverTime,
                   ChartCardId.usersActiveUsersOverTime,
-                  ChartCardId.usersRoleDistribution,
+                  ChartCardId.usersTierDistribution,
                 ],
               ),
               // Show a linear progress indicator during subsequent loads/pagination.
@@ -245,11 +245,11 @@ class _UsersDataSource extends DataTableSource {
               Flexible(
                 child: Text(user.email, overflow: TextOverflow.ellipsis),
               ),
-              if (user.appRole.getPremiumIcon(l10n) case final icon?) ...[
+              if (user.tier.getPremiumIcon(l10n) case final icon?) ...[
                 const SizedBox(width: AppSpacing.sm),
                 icon,
               ],
-              if (user.dashboardRole.getRoleIcon(l10n) case final icon?) ...[
+              if (user.role.getRoleIcon(l10n) case final icon?) ...[
                 const SizedBox(width: AppSpacing.xs),
                 icon,
               ],
@@ -258,7 +258,7 @@ class _UsersDataSource extends DataTableSource {
         ),
         if (!isMobile)
           DataCell(
-            Text(user.appRole.authenticationStatusL10n(context)),
+            Text(_getAuthenticationStatusL10n(context, user)),
           ),
         if (!isMobile)
           DataCell(
@@ -284,18 +284,10 @@ class _UsersDataSource extends DataTableSource {
   int get selectedRowCount => 0;
 }
 
-/// An extension to get the localized string for the authentication status
-/// derived from [AppUserRole].
-extension AuthenticationStatusL10n on AppUserRole {
-  /// Returns the localized authentication status string.
-  String authenticationStatusL10n(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
-    switch (this) {
-      case AppUserRole.guestUser:
-        return l10n.authenticationAnonymous;
-      case AppUserRole.standardUser:
-      case AppUserRole.premiumUser:
-        return l10n.authenticationAuthenticated;
-    }
+String _getAuthenticationStatusL10n(BuildContext context, User user) {
+  final l10n = AppLocalizationsX(context).l10n;
+  if (user.isAnonymous) {
+    return l10n.authenticationAnonymous;
   }
+  return l10n.authenticationAuthenticated;
 }

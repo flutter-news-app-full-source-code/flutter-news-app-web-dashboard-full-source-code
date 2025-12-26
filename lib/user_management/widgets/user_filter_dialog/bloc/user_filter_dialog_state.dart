@@ -12,7 +12,7 @@ final class UserFilterDialogState extends Equatable {
     this.searchQuery = '',
     this.authenticationFilter = AuthenticationFilter.all,
     this.subscriptionFilter = SubscriptionFilter.all,
-    this.dashboardRole,
+    this.userRole,
   });
 
   /// The current text in the search query field.
@@ -24,21 +24,21 @@ final class UserFilterDialogState extends Equatable {
   /// The selected subscription status filter.
   final SubscriptionFilter subscriptionFilter;
 
-  /// The selected dashboard role filter.
-  final DashboardUserRole? dashboardRole;
+  /// The selected user role filter.
+  final UserRole? userRole;
 
   /// Creates a copy of this [UserFilterDialogState] with updated values.
   UserFilterDialogState copyWith({
     String? searchQuery,
     AuthenticationFilter? authenticationFilter,
     SubscriptionFilter? subscriptionFilter,
-    DashboardUserRole? dashboardRole,
+    UserRole? userRole,
   }) {
     return UserFilterDialogState(
       searchQuery: searchQuery ?? this.searchQuery,
       authenticationFilter: authenticationFilter ?? this.authenticationFilter,
       subscriptionFilter: subscriptionFilter ?? this.subscriptionFilter,
-      dashboardRole: dashboardRole ?? this.dashboardRole,
+      userRole: userRole ?? this.userRole,
     );
   }
 
@@ -47,6 +47,6 @@ final class UserFilterDialogState extends Equatable {
     searchQuery,
     authenticationFilter,
     subscriptionFilter,
-    dashboardRole,
+    userRole,
   ];
 }

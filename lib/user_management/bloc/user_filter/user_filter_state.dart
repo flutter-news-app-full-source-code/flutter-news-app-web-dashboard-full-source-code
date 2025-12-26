@@ -12,7 +12,7 @@ class UserFilterState extends Equatable {
     this.searchQuery = '',
     this.authenticationFilter = AuthenticationFilter.all,
     this.subscriptionFilter = SubscriptionFilter.all,
-    this.dashboardRole,
+    this.userRole,
   });
 
   /// The current search query for filtering users by email.
@@ -24,21 +24,21 @@ class UserFilterState extends Equatable {
   /// The selected subscription status filter.
   final SubscriptionFilter subscriptionFilter;
 
-  /// The selected dashboard role filter.
-  final DashboardUserRole? dashboardRole;
+  /// The selected user role filter.
+  final UserRole? userRole;
 
   /// Creates a copy of this [UserFilterState] with updated values.
   UserFilterState copyWith({
     String? searchQuery,
     AuthenticationFilter? authenticationFilter,
     SubscriptionFilter? subscriptionFilter,
-    DashboardUserRole? dashboardRole,
+    UserRole? userRole,
   }) {
     return UserFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
       authenticationFilter: authenticationFilter ?? this.authenticationFilter,
       subscriptionFilter: subscriptionFilter ?? this.subscriptionFilter,
-      dashboardRole: dashboardRole ?? this.dashboardRole,
+      userRole: userRole ?? this.userRole,
     );
   }
 
@@ -47,6 +47,6 @@ class UserFilterState extends Equatable {
     searchQuery,
     authenticationFilter,
     subscriptionFilter,
-    dashboardRole ?? '',
+    userRole ?? '',
   ];
 }

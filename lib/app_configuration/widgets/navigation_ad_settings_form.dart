@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template navigation_ad_settings_form}
@@ -32,16 +32,16 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  late final Map<AppUserRole, TextEditingController>
+  late final Map<AccessTier, TextEditingController>
   _internalNavigationsControllers;
-  late final Map<AppUserRole, TextEditingController>
+  late final Map<AccessTier, TextEditingController>
   _externalNavigationsControllers;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: AppUserRole.values.length,
+      length: AccessTier.values.length,
       vsync: this,
     );
     _initializeControllers();
@@ -51,15 +51,15 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
     final navAdConfig =
         widget.remoteConfig.features.ads.navigationAdConfiguration;
     _internalNavigationsControllers = {
-      for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getInternalNavigations(navAdConfig, role).toString(),
+      for (final tier in AccessTier.values)
+        tier: TextEditingController(
+          text: _getInternalNavigations(navAdConfig, tier).toString(),
         ),
     };
     _externalNavigationsControllers = {
-      for (final role in AppUserRole.values)
-        role: TextEditingController(
-          text: _getExternalNavigations(navAdConfig, role).toString(),
+      for (final tier in AccessTier.values)
+        tier: TextEditingController(
+          text: _getExternalNavigations(navAdConfig, tier).toString(),
         ),
     };
   }
@@ -67,20 +67,20 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
   void _updateControllers() {
     final navAdConfig =
         widget.remoteConfig.features.ads.navigationAdConfiguration;
-    for (final role in AppUserRole.values) {
+    for (final tier in AccessTier.values) {
       final newInternalValue = _getInternalNavigations(
         navAdConfig,
-        role,
+        tier,
       ).toString();
-      if (_internalNavigationsControllers[role]?.text != newInternalValue) {
-        _internalNavigationsControllers[role]?.text = newInternalValue;
+      if (_internalNavigationsControllers[tier]?.text != newInternalValue) {
+        _internalNavigationsControllers[tier]?.text = newInternalValue;
       }
       final newExternalValue = _getExternalNavigations(
         navAdConfig,
-        role,
+        tier,
       ).toString();
-      if (_externalNavigationsControllers[role]?.text != newExternalValue) {
-        _externalNavigationsControllers[role]?.text = newExternalValue;
+      if (_externalNavigationsControllers[tier]?.text != newExternalValue) {
+        _externalNavigationsControllers[tier]?.text = newExternalValue;
       }
     }
   }
@@ -171,8 +171,8 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
                   controller: _tabController,
                   tabAlignment: TabAlignment.start,
                   isScrollable: true,
-                  tabs: AppUserRole.values
-                      .map((role) => Tab(text: role.l10n(context)))
+                  tabs: AccessTier.values
+                      .map((tier) => Tab(text: tier.l10n(context)))
                       .toList(),
                 ),
               ),
@@ -182,12 +182,12 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
               height: 350,
               child: TabBarView(
                 controller: _tabController,
-                children: AppUserRole.values
+                children: AccessTier.values
                     .map(
-                      (role) => _buildRoleSpecificFields(
+                      (tier) => _buildTierSpecificFields(
                         context,
                         l10n,
-                        role,
+                        tier,
                         navAdConfig,
                       ),
                     )
@@ -200,33 +200,33 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
     );
   }
 
-  Widget _buildRoleSpecificFields(
+  Widget _buildTierSpecificFields(
     BuildContext context,
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
     NavigationAdConfiguration config,
   ) {
-    final roleConfig = config.visibleTo[role];
+    final tierConfig = config.visibleTo[tier];
 
     return SingleChildScrollView(
       child: Column(
         children: [
           SwitchListTile(
-            title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-            subtitle: Text(l10n.visibleToRoleDescription(role.l10n(context))),
-            value: roleConfig != null,
+            title: Text(l10n.visibleToRoleLabel(tier.l10n(context))),
+            subtitle: Text(l10n.visibleToRoleDescription(tier.l10n(context))),
+            value: tierConfig != null,
             onChanged: (value) {
               final newVisibleTo =
-                  Map<AppUserRole, NavigationAdFrequencyConfig>.from(
+                  Map<AccessTier, NavigationAdFrequencyConfig>.from(
                     config.visibleTo,
                   );
               if (value) {
-                newVisibleTo[role] = const NavigationAdFrequencyConfig(
+                newVisibleTo[tier] = const NavigationAdFrequencyConfig(
                   internalNavigationsBeforeShowingInterstitialAd: 5,
                   externalNavigationsBeforeShowingInterstitialAd: 1,
                 );
               } else {
-                newVisibleTo.remove(role);
+                newVisibleTo.remove(tier);
               }
               widget.onConfigChanged(
                 widget.remoteConfig.copyWith(
@@ -241,7 +241,7 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
               );
             },
           ),
-          if (roleConfig != null)
+          if (tierConfig != null)
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.lg,
@@ -252,16 +252,16 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
                   AppConfigIntField(
                     label: l10n.internalNavigationsBeforeAdLabel,
                     description: l10n.internalNavigationsBeforeAdDescription,
-                    value: roleConfig
+                    value: tierConfig
                         .internalNavigationsBeforeShowingInterstitialAd,
                     onChanged: (value) {
-                      final newRoleConfig = roleConfig.copyWith(
+                      final newTierConfig = tierConfig.copyWith(
                         internalNavigationsBeforeShowingInterstitialAd: value,
                       );
                       final newVisibleTo =
-                          Map<AppUserRole, NavigationAdFrequencyConfig>.from(
+                          Map<AccessTier, NavigationAdFrequencyConfig>.from(
                             config.visibleTo,
-                          )..[role] = newRoleConfig;
+                          )..[tier] = newTierConfig;
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
                           features: widget.remoteConfig.features.copyWith(
@@ -274,21 +274,21 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
                         ),
                       );
                     },
-                    controller: _internalNavigationsControllers[role],
+                    controller: _internalNavigationsControllers[tier],
                   ),
                   AppConfigIntField(
                     label: l10n.externalNavigationsBeforeAdLabel,
                     description: l10n.externalNavigationsBeforeAdDescription,
-                    value: roleConfig
+                    value: tierConfig
                         .externalNavigationsBeforeShowingInterstitialAd,
                     onChanged: (value) {
-                      final newRoleConfig = roleConfig.copyWith(
+                      final newTierConfig = tierConfig.copyWith(
                         externalNavigationsBeforeShowingInterstitialAd: value,
                       );
                       final newVisibleTo =
-                          Map<AppUserRole, NavigationAdFrequencyConfig>.from(
+                          Map<AccessTier, NavigationAdFrequencyConfig>.from(
                             config.visibleTo,
-                          )..[role] = newRoleConfig;
+                          )..[tier] = newTierConfig;
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
                           features: widget.remoteConfig.features.copyWith(
@@ -301,7 +301,7 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
                         ),
                       );
                     },
-                    controller: _externalNavigationsControllers[role],
+                    controller: _externalNavigationsControllers[tier],
                   ),
                 ],
               ),
@@ -313,20 +313,20 @@ class _NavigationAdSettingsFormState extends State<NavigationAdSettingsForm>
 
   int _getInternalNavigations(
     NavigationAdConfiguration config,
-    AppUserRole role,
+    AccessTier tier,
   ) {
     return config
-            .visibleTo[role]
+            .visibleTo[tier]
             ?.internalNavigationsBeforeShowingInterstitialAd ??
         0;
   }
 
   int _getExternalNavigations(
     NavigationAdConfiguration config,
-    AppUserRole role,
+    AccessTier tier,
   ) {
     return config
-            .visibleTo[role]
+            .visibleTo[tier]
             ?.externalNavigationsBeforeShowingInterstitialAd ??
         0;
   }

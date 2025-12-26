@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -26,16 +27,25 @@ class ReportingSettingsForm extends StatelessWidget {
     final communityConfig = remoteConfig.features.community;
     final reportingConfig = communityConfig.reporting;
 
+    final isSystemEnabled =
+        reportingConfig.headlineReportingEnabled ||
+        reportingConfig.sourceReportingEnabled ||
+        reportingConfig.commentReportingEnabled;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SwitchListTile(
           title: Text(l10n.enableReportingSystemLabel),
           subtitle: Text(l10n.enableReportingSystemDescription),
-          value: reportingConfig.enabled,
+          value: isSystemEnabled,
           onChanged: (value) {
             final newConfig = communityConfig.copyWith(
-              reporting: reportingConfig.copyWith(enabled: value),
+              reporting: reportingConfig.copyWith(
+                headlineReportingEnabled: value,
+                sourceReportingEnabled: value,
+                commentReportingEnabled: value,
+              ),
             );
             onConfigChanged(
               remoteConfig.copyWith(
@@ -44,7 +54,7 @@ class ReportingSettingsForm extends StatelessWidget {
             );
           },
         ),
-        if (reportingConfig.enabled) ...[
+        if (isSystemEnabled) ...[
           const SizedBox(height: AppSpacing.lg),
           SwitchListTile(
             title: Text(l10n.enableHeadlineReportingLabel),
@@ -54,6 +64,7 @@ class ReportingSettingsForm extends StatelessWidget {
               final newConfig = reportingConfig.copyWith(
                 headlineReportingEnabled: value,
               );
+              _checkReportingConstraints(context, l10n, newConfig);
               onConfigChanged(
                 remoteConfig.copyWith(
                   features: remoteConfig.features.copyWith(
@@ -73,6 +84,7 @@ class ReportingSettingsForm extends StatelessWidget {
               final newConfig = reportingConfig.copyWith(
                 sourceReportingEnabled: value,
               );
+              _checkReportingConstraints(context, l10n, newConfig);
               onConfigChanged(
                 remoteConfig.copyWith(
                   features: remoteConfig.features.copyWith(
@@ -92,6 +104,7 @@ class ReportingSettingsForm extends StatelessWidget {
               final newConfig = reportingConfig.copyWith(
                 commentReportingEnabled: value,
               );
+              _checkReportingConstraints(context, l10n, newConfig);
               onConfigChanged(
                 remoteConfig.copyWith(
                   features: remoteConfig.features.copyWith(
@@ -106,5 +119,22 @@ class ReportingSettingsForm extends StatelessWidget {
         ],
       ],
     );
+  }
+
+  void _checkReportingConstraints(
+    BuildContext context,
+    AppLocalizations l10n,
+    ReportingConfig config,
+  ) {
+    final isAnyEnabled =
+        config.headlineReportingEnabled ||
+        config.sourceReportingEnabled ||
+        config.commentReportingEnabled;
+
+    if (!isAnyEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.reportingFeatureDisabledNotification)),
+      );
+    }
   }
 }

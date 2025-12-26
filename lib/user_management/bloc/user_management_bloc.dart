@@ -33,8 +33,8 @@ class UserManagementBloc
        _logger = logger ?? Logger('UserManagementBloc'),
        super(const UserManagementState()) {
     on<LoadUsersRequested>(_onLoadUsersRequested);
-    on<UserDashboardRoleChanged>(_onUserDashboardRoleChanged);
-    on<UserAppRoleChanged>(_onUserAppRoleChanged);
+    on<UserRoleChanged>(_onUserRoleChanged);
+    on<UserAccessTierChanged>(_onUserAccessTierChanged);
 
     // Listen for changes in the filter BLoC to trigger a data reload.
     _filterSubscription = _userFilterBloc.stream.listen((_) {
@@ -93,44 +93,23 @@ class UserManagementBloc
       filter[r'$or'] = orConditions;
     }
 
-    final authRoles = <String>{};
-
-    switch (state.authenticationFilter) {
-      case AuthenticationFilter.authenticated:
-        authRoles.addAll([
-          AppUserRole.standardUser.name,
-          AppUserRole.premiumUser.name,
-        ]);
-      case AuthenticationFilter.anonymous:
-        authRoles.add(AppUserRole.guestUser.name);
-      case AuthenticationFilter.all:
-        break;
+    if (state.authenticationFilter != AuthenticationFilter.all) {
+      filter['isAnonymous'] =
+          state.authenticationFilter == AuthenticationFilter.anonymous;
     }
 
-    final subscriptionRoles = <String>{};
-    switch (state.subscriptionFilter) {
-      case SubscriptionFilter.premium:
-        subscriptionRoles.add(AppUserRole.premiumUser.name);
-      case SubscriptionFilter.free:
-        subscriptionRoles.addAll([
-          AppUserRole.guestUser.name,
-          AppUserRole.standardUser.name,
-        ]);
-      case SubscriptionFilter.all:
-        break;
+    if (state.subscriptionFilter != SubscriptionFilter.all) {
+      if (state.subscriptionFilter == SubscriptionFilter.premium) {
+        filter['tier'] = AccessTier.premium.name;
+      } else {
+        filter['tier'] = {
+          r'$in': [AccessTier.guest.name, AccessTier.standard.name],
+        };
+      }
     }
 
-    final intersectingRoles =
-        authRoles.isNotEmpty && subscriptionRoles.isNotEmpty
-        ? authRoles.intersection(subscriptionRoles)
-        : (authRoles.isNotEmpty ? authRoles : subscriptionRoles);
-
-    if (intersectingRoles.isNotEmpty) {
-      filter['appRole'] = {r'$in': intersectingRoles.toList()};
-    }
-
-    if (state.dashboardRole != null) {
-      filter['dashboardRole'] = state.dashboardRole!.name;
+    if (state.userRole != null) {
+      filter['role'] = state.userRole!.name;
     }
 
     return filter;
@@ -184,21 +163,21 @@ class UserManagementBloc
     }
   }
 
-  /// Handles the request to change a user's dashboard role.
-  Future<void> _onUserDashboardRoleChanged(
-    UserDashboardRoleChanged event,
+  /// Handles the request to change a user's role.
+  Future<void> _onUserRoleChanged(
+    UserRoleChanged event,
     Emitter<UserManagementState> emit,
   ) async {
     _logger.info(
-      'Attempting to change dashboard role for user: ${event.userId} '
-      'to ${event.dashboardRole.name}',
+      'Attempting to change role for user: ${event.userId} '
+      'to ${event.role.name}',
     );
     try {
       final userToUpdate = state.users.firstWhere((u) => u.id == event.userId);
       _logger.info('Found user in state: $userToUpdate');
 
       final updatedItem = userToUpdate.copyWith(
-        dashboardRole: event.dashboardRole,
+        role: event.role,
       );
       _logger.info('Sending updated user object to repository: $updatedItem');
 
@@ -208,7 +187,7 @@ class UserManagementBloc
       );
     } catch (error, stackTrace) {
       _logger.severe(
-        'Error changing user dashboard role for ${event.userId}.',
+        'Error changing user role for ${event.userId}.',
         error,
         stackTrace,
       );
@@ -216,20 +195,20 @@ class UserManagementBloc
     }
   }
 
-  /// Handles the request to change a user's app role.
-  Future<void> _onUserAppRoleChanged(
-    UserAppRoleChanged event,
+  /// Handles the request to change a user's access tier.
+  Future<void> _onUserAccessTierChanged(
+    UserAccessTierChanged event,
     Emitter<UserManagementState> emit,
   ) async {
     _logger.info(
-      'Attempting to change app role for user: ${event.userId} '
-      'to ${event.appRole.name}',
+      'Attempting to change access tier for user: ${event.userId} '
+      'to ${event.tier.name}',
     );
     try {
       final userToUpdate = state.users.firstWhere((u) => u.id == event.userId);
       _logger.info('Found user in state: $userToUpdate');
 
-      final updatedItem = userToUpdate.copyWith(appRole: event.appRole);
+      final updatedItem = userToUpdate.copyWith(tier: event.tier);
       _logger.info('Sending updated user object to repository: $updatedItem');
 
       await _usersRepository.update(
@@ -238,7 +217,7 @@ class UserManagementBloc
       );
     } catch (error, stackTrace) {
       _logger.severe(
-        'Error changing user app role for ${event.userId}.',
+        'Error changing user access tier for ${event.userId}.',
         error,
         stackTrace,
       );
