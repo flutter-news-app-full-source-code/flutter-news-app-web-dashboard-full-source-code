@@ -26,6 +26,27 @@ class SubscriptionConfigForm extends StatelessWidget {
     final features = remoteConfig.features;
     final subscriptionConfig = features.subscription;
 
+    void handlePlanChange(SubscriptionConfig updatedSubscriptionConfig) {
+      var finalConfig = updatedSubscriptionConfig;
+
+      if (finalConfig.enabled &&
+          !finalConfig.monthlyPlan.enabled &&
+          !finalConfig.annualPlan.enabled) {
+        finalConfig = finalConfig.copyWith(enabled: false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.subscriptionFeatureDisabledNotification),
+          ),
+        );
+      }
+
+      onConfigChanged(
+        remoteConfig.copyWith(
+          features: features.copyWith(subscription: finalConfig),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,13 +70,9 @@ class SubscriptionConfigForm extends StatelessWidget {
             title: l10n.monthlyPlanTitle,
             planDetails: subscriptionConfig.monthlyPlan,
             onChanged: (updatedPlan) {
-              onConfigChanged(
-                remoteConfig.copyWith(
-                  features: features.copyWith(
-                    subscription: subscriptionConfig.copyWith(
-                      monthlyPlan: updatedPlan,
-                    ),
-                  ),
+              handlePlanChange(
+                subscriptionConfig.copyWith(
+                  monthlyPlan: updatedPlan,
                 ),
               );
             },
@@ -65,13 +82,9 @@ class SubscriptionConfigForm extends StatelessWidget {
             title: l10n.annualPlanTitle,
             planDetails: subscriptionConfig.annualPlan,
             onChanged: (updatedPlan) {
-              onConfigChanged(
-                remoteConfig.copyWith(
-                  features: features.copyWith(
-                    subscription: subscriptionConfig.copyWith(
-                      annualPlan: updatedPlan,
-                    ),
-                  ),
+              handlePlanChange(
+                subscriptionConfig.copyWith(
+                  annualPlan: updatedPlan,
                 ),
               );
             },
