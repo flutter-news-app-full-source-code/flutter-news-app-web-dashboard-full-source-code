@@ -5281,6 +5281,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscription feature disabled because no plans are active.'**
   String get subscriptionFeatureDisabledNotification;
+
+  /// Snackbar notification shown when the push notification system is automatically disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Push notification system disabled because no delivery types are active.'**
+  String get pushNotificationFeatureDisabledNotification;
+
+  /// Snackbar notification shown when the analytics system is automatically disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Analytics system disabled because all events are disabled.'**
+  String get analyticsFeatureDisabledNotification;
+
+  /// Snackbar notification shown when the reporting system is automatically disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Reporting system disabled because no reporting options are active.'**
+  String get reportingFeatureDisabledNotification;
+
+  /// Snackbar notification shown when the app review system is automatically disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'App review system disabled because no positive interactions are selected.'**
+  String get appReviewFeatureDisabledNotification;
 }
 
 class _AppLocalizationsDelegate

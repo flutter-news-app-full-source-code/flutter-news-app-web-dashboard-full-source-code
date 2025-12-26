@@ -2906,4 +2906,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get subscriptionFeatureDisabledNotification =>
       'Subscription feature disabled because no plans are active.';
+
+  @override
+  String get pushNotificationFeatureDisabledNotification =>
+      'Push notification system disabled because no delivery types are active.';
+
+  @override
+  String get analyticsFeatureDisabledNotification =>
+      'Analytics system disabled because all events are disabled.';
+
+  @override
+  String get reportingFeatureDisabledNotification =>
+      'Reporting system disabled because no reporting options are active.';
+
+  @override
+  String get appReviewFeatureDisabledNotification =>
+      'App review system disabled because no positive interactions are selected.';
 }

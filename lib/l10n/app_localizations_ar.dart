@@ -2891,4 +2891,20 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get subscriptionFeatureDisabledNotification =>
       'تم تعطيل ميزة الاشتراك لعدم وجود خطط نشطة.';
+
+  @override
+  String get pushNotificationFeatureDisabledNotification =>
+      'تم تعطيل نظام الإشعارات لعدم وجود أنواع تسليم نشطة.';
+
+  @override
+  String get analyticsFeatureDisabledNotification =>
+      'تم تعطيل نظام التحليلات لأن جميع الأحداث معطلة.';
+
+  @override
+  String get reportingFeatureDisabledNotification =>
+      'تم تعطيل نظام الإبلاغ لعدم وجود خيارات إبلاغ نشطة.';
+
+  @override
+  String get appReviewFeatureDisabledNotification =>
+      'تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.';
 }
