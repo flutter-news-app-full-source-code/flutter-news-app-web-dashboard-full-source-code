@@ -61,7 +61,7 @@ class OverviewPage extends StatelessWidget {
                         Expanded(
                           child: AnalyticsCardSlot<KpiCardId>(
                             cardIds: const [
-                              KpiCardId.engagementsReportsPending,
+                              KpiCardId.subscriptionsActiveCount,
                             ],
                           ),
                         ),
