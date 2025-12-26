@@ -50,7 +50,7 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
         searchQuery: event.searchQuery,
         authenticationFilter: event.authenticationFilter,
         subscriptionFilter: event.subscriptionFilter,
-        dashboardRole: event.dashboardRole,
+        userRole: event.userRole,
       ),
     );
   }
