@@ -31,7 +31,7 @@ class ReportDetailsDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${l10n.reason}: ${report.reason.l10n(context)}',
+                '${l10n.reason}: ${ReportReasonX(report.reason).l10n(context)}',
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
