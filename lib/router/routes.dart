@@ -127,4 +127,16 @@ abstract final class Routes {
 
   /// The name for the community filter dialog route.
   static const String communityFilterDialogName = 'communityFilterDialog';
+
+  /// The path for the billing section.
+  static const String billing = '/billing';
+
+  /// The name for the billing section route.
+  static const String billingName = 'billing';
+
+  /// The path for the billing filter dialog.
+  static const String billingFilterDialog = 'billing-filter-dialog';
+
+  /// The name for the billing filter dialog route.
+  static const String billingFilterDialogName = 'billingFilterDialog';
 }
