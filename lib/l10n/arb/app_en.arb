@@ -3572,5 +3572,57 @@
   "rankedListOverviewTopicsMostFollowed": "Top Followed Topics",
   "@rankedListOverviewTopicsMostFollowed": {
     "description": "Title for the Top Followed Topics ranked list card"
+  },
+  "subscriptionTab": "Subscriptions",
+  "@subscriptionTab": {
+    "description": "Tab title for Subscription settings"
+  },
+  "subscriptionDescription": "Configure the subscription plans (e.g., monthly, annual) offered to users. When enabled, users who reach their feature limits will be prompted to upgrade to a premium tier.",
+  "@subscriptionDescription": {
+    "description": "Description for the Subscription settings section"
+  },
+  "enableSubscriptionLabel": "Enable Subscription Feature",
+  "@enableSubscriptionLabel": {
+    "description": "Label for the master monetization switch"
+  },
+  "enableSubscriptionDescription": "Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium). When disabled, the option to upgrade is removed.",
+  "@enableSubscriptionDescription": {
+    "description": "Description for the master monetization switch"
+  },
+  "monthlyPlanTitle": "Monthly Plan",
+  "@monthlyPlanTitle": {
+    "description": "Title for the monthly subscription plan section"
+  },
+  "annualPlanTitle": "Annual Plan",
+  "@annualPlanTitle": {
+    "description": "Title for the annual subscription plan section"
+  },
+  "planEnabledLabel": "Enable Plan",
+  "@planEnabledLabel": {
+    "description": "Label to enable a specific plan"
+  },
+  "planRecommendedLabel": "Recommended Plan",
+  "@planRecommendedLabel": {
+    "description": "Label to mark a plan as recommended"
+  },
+  "planRecommendedDescription": "Highlights this plan as the best value option.",
+  "@planRecommendedDescription": {
+    "description": "Description for the recommended plan switch"
+  },
+  "appleProductIdLabel": "Apple App Store Product ID",
+  "@appleProductIdLabel": {
+    "description": "Label for Apple App Store Product ID"
+  },
+  "googleProductIdLabel": "Google Play Store Product ID",
+  "@googleProductIdLabel": {
+    "description": "Label for Google Play Store Product ID"
+  },
+  "subscriptionPlanEnablementError": "Please enter at least one Product ID to enable this plan.",
+  "@subscriptionPlanEnablementError": {
+    "description": "Error message shown when trying to enable a subscription plan without any product IDs."
+  },
+  "subscriptionPlanDisabledNotification": "Plan disabled because no Product IDs are provided.",
+  "@subscriptionPlanDisabledNotification": {
+    "description": "Snackbar notification shown when a plan is automatically disabled because its product IDs were removed."
   }
 }

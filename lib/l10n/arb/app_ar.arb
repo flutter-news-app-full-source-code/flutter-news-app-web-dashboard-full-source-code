@@ -3576,5 +3576,57 @@
   "rankedListOverviewTopicsMostFollowed": "المواضيع الأكثر متابعة",
   "@rankedListOverviewTopicsMostFollowed": {
     "description": "Title for the Top Followed Topics ranked list card"
+  },
+  "subscriptionTab": "الاشتراكات",
+  "@subscriptionTab": {
+    "description": "عنوان تبويب إعدادات الاشتراكات"
+  },
+  "subscriptionDescription": "تكوين خطط الاشتراك (مثل الشهرية والسنوية) المقدمة للمستخدمين. عند التمكين، سيتم مطالبة المستخدمين الذين يصلون إلى حدود استخدام الميزات بالترقية إلى فئة مميزة.",
+  "@subscriptionDescription": {
+    "description": "وصف قسم إعدادات الاشتراك"
+  },
+  "enableSubscriptionLabel": "تفعيل ميزة الاشتراك",
+  "@enableSubscriptionLabel": {
+    "description": "تسمية مفتاح تفعيل الاشتراك"
+  },
+  "enableSubscriptionDescription": "المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز). عند التعطيل، يتم إزالة خيار الترقية.",
+  "@enableSubscriptionDescription": {
+    "description": "وصف مفتاح تفعيل الاشتراك"
+  },
+  "monthlyPlanTitle": "الخطة الشهرية",
+  "@monthlyPlanTitle": {
+    "description": "عنوان قسم خطة الاشتراك الشهرية"
+  },
+  "annualPlanTitle": "الخطة السنوية",
+  "@annualPlanTitle": {
+    "description": "عنوان قسم خطة الاشتراك السنوية"
+  },
+  "planEnabledLabel": "تفعيل الخطة",
+  "@planEnabledLabel": {
+    "description": "تسمية لتفعيل خطة محددة"
+  },
+  "planRecommendedLabel": "خطة موصى بها",
+  "@planRecommendedLabel": {
+    "description": "تسمية لتمييز الخطة كموصى بها"
+  },
+  "planRecommendedDescription": "يبرز هذه الخطة كأفضل خيار للقيمة.",
+  "@planRecommendedDescription": {
+    "description": "وصف لمفتاح الخطة الموصى بها"
+  },
+  "appleProductIdLabel": "معرف منتج متجر تطبيقات أبل",
+  "@appleProductIdLabel": {
+    "description": "تسمية معرف منتج متجر تطبيقات Apple"
+  },
+  "googleProductIdLabel": "معرف منتج متجر جوجل بلاي",
+  "@googleProductIdLabel": {
+    "description": "تسمية معرف منتج متجر Google Play"
+  },
+  "subscriptionPlanEnablementError": "الرجاء إدخال معرّف منتج واحد على الأقل لتفعيل هذه الخطة.",
+  "@subscriptionPlanEnablementError": {
+    "description": "Error message shown when trying to enable a subscription plan without any product IDs."
+  },
+  "subscriptionPlanDisabledNotification": "تم تعطيل الخطة لعدم توفر معرّفات منتجات.",
+  "@subscriptionPlanDisabledNotification": {
+    "description": "Snackbar notification shown when a plan is automatically disabled because its product IDs were removed."
   }
 }
