@@ -12,6 +12,9 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/authentication_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/email_code_verification_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/view/request_code_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/bloc/billing_filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/view/billing_page.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/billing/widgets/billing_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/view/community_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/widgets/community_filter_dialog/community_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
@@ -101,6 +104,7 @@ GoRouter createRouter({
           Routes.contentManagementName: Routes.contentManagement,
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
+          Routes.billingName: Routes.billing,
           Routes.appConfigurationName: Routes.appConfiguration,
         };
 
@@ -391,6 +395,30 @@ GoRouter createRouter({
                       return const MaterialPage(
                         fullscreenDialog: true,
                         child: CommunityFilterDialog(),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.billing,
+                name: Routes.billingName,
+                builder: (context, state) => const BillingPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.billingFilterDialog,
+                    name: Routes.billingFilterDialogName,
+                    pageBuilder: (context, state) {
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: BlocProvider(
+                          create: (context) => BillingFilterDialogBloc(),
+                          child: const BillingFilterDialog(),
+                        ),
                       );
                     },
                   ),
