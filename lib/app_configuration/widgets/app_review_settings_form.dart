@@ -89,8 +89,14 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                 subtitle: Text(l10n.enableAppFeedbackSystemDescription),
                 value: appReviewConfig.enabled,
                 onChanged: (value) {
+                  final newInteractions = value
+                      ? PositiveInteractionType.values.toList()
+                      : appReviewConfig.eligiblePositiveInteractions;
                   final newConfig = communityConfig.copyWith(
-                    appReview: appReviewConfig.copyWith(enabled: value),
+                    appReview: appReviewConfig.copyWith(
+                      enabled: value,
+                      eligiblePositiveInteractions: newInteractions,
+                    ),
                   );
                   widget.onConfigChanged(
                     widget.remoteConfig.copyWith(
