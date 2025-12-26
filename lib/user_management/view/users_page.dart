@@ -132,7 +132,7 @@ class _UsersPageState extends State<UsersPage> {
                 chartCards: [
                   ChartCardId.usersRegistrationsOverTime,
                   ChartCardId.usersActiveUsersOverTime,
-                  ChartCardId.usersRoleDistribution,
+                  ChartCardId.usersTierDistribution,
                 ],
               ),
               // Show a linear progress indicator during subsequent loads/pagination.
