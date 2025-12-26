@@ -27,7 +27,7 @@ class UserFilterDialogBloc
     on<UserFilterDialogReset>(_onFilterDialogReset);
     on<UserFilterDialogAuthenticationChanged>(_onAuthenticationChanged);
     on<UserFilterDialogSubscriptionChanged>(_onSubscriptionChanged);
-    on<UserFilterDialogDashboardRoleChanged>(_onDashboardRoleChanged);
+    on<UserFilterDialogUserRoleChanged>(_onUserRoleChanged);
   }
 
   /// Initializes the dialog's state from the main [UserFilterBloc]'s state.
@@ -40,7 +40,7 @@ class UserFilterDialogBloc
         searchQuery: event.userFilterState.searchQuery,
         authenticationFilter: event.userFilterState.authenticationFilter,
         subscriptionFilter: event.userFilterState.subscriptionFilter,
-        dashboardRole: event.userFilterState.dashboardRole,
+        userRole: event.userFilterState.userRole,
       ),
     );
   }
@@ -67,13 +67,13 @@ class UserFilterDialogBloc
     emit(state.copyWith(subscriptionFilter: event.subscriptionFilter));
   }
 
-  void _onDashboardRoleChanged(
-    UserFilterDialogDashboardRoleChanged event,
+  void _onUserRoleChanged(
+    UserFilterDialogUserRoleChanged event,
     Emitter<UserFilterDialogState> emit,
   ) {
     // Directly set the state to the selected role. The UI's `onSelected`
     // will pass `null` when 'Any' is tapped.
-    emit(state.copyWith(dashboardRole: event.dashboardRole));
+    emit(state.copyWith(userRole: event.userRole));
   }
 
   /// Resets all temporary filter selections in the dialog.
