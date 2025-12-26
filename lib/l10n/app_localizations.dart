@@ -5305,6 +5305,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'App review system disabled because no positive interactions are selected.'**
   String get appReviewFeatureDisabledNotification;
+
+  /// Menu option for billing
+  ///
+  /// In en, this message translates to:
+  /// **'Billing'**
+  String get billingName;
+
+  /// Table column for the store provider
+  ///
+  /// In en, this message translates to:
+  /// **'Store Provider'**
+  String get subscriptionProvider;
+
+  /// Table column for the access tier
+  ///
+  /// In en, this message translates to:
+  /// **'Access Tier'**
+  String get accessTier;
+
+  /// Table column for the expiry date
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Date'**
+  String get expiryDate;
+
+  /// Table column for auto-renew status
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Renew'**
+  String get willAutoRenew;
+
+  /// Filter option for all access tiers
+  ///
+  /// In en, this message translates to:
+  /// **'All Tiers'**
+  String get allAccessTiers;
+
+  /// Action to copy the user ID from subscription
+  ///
+  /// In en, this message translates to:
+  /// **'Copy User ID'**
+  String get subscriptionActionCopyUserId;
+
+  /// Action to copy the subscription ID
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Subscription ID'**
+  String get subscriptionActionCopySubscriptionId;
+
+  /// Title for the billing filter dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Subscriptions'**
+  String get filterBilling;
+
+  /// Hint for selecting subscription status
+  ///
+  /// In en, this message translates to:
+  /// **'Select Status'**
+  String get selectStatus;
+
+  /// Hint for selecting store provider
+  ///
+  /// In en, this message translates to:
+  /// **'Select Provider'**
+  String get selectProvider;
+
+  /// Hint for selecting access tier
+  ///
+  /// In en, this message translates to:
+  /// **'Select Tier'**
+  String get selectTier;
+
+  /// Message when no subscriptions are found
+  ///
+  /// In en, this message translates to:
+  /// **'No subscriptions found.'**
+  String get noSubscriptionsFound;
+
+  /// Headline for loading state of subscriptions
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Subscriptions'**
+  String get loadingSubscriptions;
+
+  /// Hint text for the billing search field
+  ///
+  /// In en, this message translates to:
+  /// **'Search by User ID or Subscription ID...'**
+  String get searchByUserIdOrSubscriptionId;
 }
 
 class _AppLocalizationsDelegate

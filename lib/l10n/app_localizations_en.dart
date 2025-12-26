@@ -2922,4 +2922,50 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appReviewFeatureDisabledNotification =>
       'App review system disabled because no positive interactions are selected.';
+
+  @override
+  String get billingName => 'Billing';
+
+  @override
+  String get subscriptionProvider => 'Store Provider';
+
+  @override
+  String get accessTier => 'Access Tier';
+
+  @override
+  String get expiryDate => 'Expiry Date';
+
+  @override
+  String get willAutoRenew => 'Auto Renew';
+
+  @override
+  String get allAccessTiers => 'All Tiers';
+
+  @override
+  String get subscriptionActionCopyUserId => 'Copy User ID';
+
+  @override
+  String get subscriptionActionCopySubscriptionId => 'Copy Subscription ID';
+
+  @override
+  String get filterBilling => 'Filter Subscriptions';
+
+  @override
+  String get selectStatus => 'Select Status';
+
+  @override
+  String get selectProvider => 'Select Provider';
+
+  @override
+  String get selectTier => 'Select Tier';
+
+  @override
+  String get noSubscriptionsFound => 'No subscriptions found.';
+
+  @override
+  String get loadingSubscriptions => 'Loading Subscriptions';
+
+  @override
+  String get searchByUserIdOrSubscriptionId =>
+      'Search by User ID or Subscription ID...';
 }

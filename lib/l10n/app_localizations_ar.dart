@@ -2907,4 +2907,50 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get appReviewFeatureDisabledNotification =>
       'تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.';
+
+  @override
+  String get billingName => 'الفواتير';
+
+  @override
+  String get subscriptionProvider => 'مزود المتجر';
+
+  @override
+  String get accessTier => 'مستوى الوصول';
+
+  @override
+  String get expiryDate => 'تاريخ الانتهاء';
+
+  @override
+  String get willAutoRenew => 'تجديد تلقائي';
+
+  @override
+  String get allAccessTiers => 'جميع المستويات';
+
+  @override
+  String get subscriptionActionCopyUserId => 'نسخ معرف المستخدم';
+
+  @override
+  String get subscriptionActionCopySubscriptionId => 'نسخ معرف الاشتراك';
+
+  @override
+  String get filterBilling => 'تصفية الاشتراكات';
+
+  @override
+  String get selectStatus => 'اختر الحالة';
+
+  @override
+  String get selectProvider => 'اختر المزود';
+
+  @override
+  String get selectTier => 'اختر المستوى';
+
+  @override
+  String get noSubscriptionsFound => 'لم يتم العثور على اشتراكات.';
+
+  @override
+  String get loadingSubscriptions => 'جاري تحميل الاشتراكات';
+
+  @override
+  String get searchByUserIdOrSubscriptionId =>
+      'البحث بمعرف المستخدم أو معرف الاشتراك...';
 }
