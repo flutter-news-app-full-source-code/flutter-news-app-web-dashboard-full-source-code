@@ -17,7 +17,6 @@ class BillingFilterBloc extends Bloc<BillingFilterEvent, BillingFilterState> {
         searchQuery: event.searchQuery,
         status: event.status,
         provider: event.provider,
-        tier: event.tier,
       ),
     );
   }
