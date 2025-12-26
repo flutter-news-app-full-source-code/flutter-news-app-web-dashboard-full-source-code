@@ -3648,5 +3648,69 @@
   "appReviewFeatureDisabledNotification": "تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.",
   "@appReviewFeatureDisabledNotification": {
     "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام مراجعة التطبيق تلقائيًا."
+  },
+  "billingName": "الفواتير",
+  "@billingName": {
+    "description": "خيار القائمة للفواتير"
+  },
+  "subscriptionProvider": "مزود المتجر",
+  "@subscriptionProvider": {
+    "description": "عمود الجدول لمزود المتجر"
+  },
+  "userEmail": "بريد المستخدم",
+  "@userEmail": {
+    "description": "عمود الجدول لبريد المستخدم"
+  },
+  "accessTier": "مستوى الوصول",
+  "@accessTier": {
+    "description": "عمود الجدول لمستوى الوصول"
+  },
+  "expiryDate": "تاريخ الانتهاء",
+  "@expiryDate": {
+    "description": "عمود الجدول لتاريخ الانتهاء"
+  },
+  "willAutoRenew": "تجديد تلقائي",
+  "@willAutoRenew": {
+    "description": "عمود الجدول لحالة التجديد التلقائي"
+  },
+  "allAccessTiers": "جميع المستويات",
+  "@allAccessTiers": {
+    "description": "خيار تصفية لجميع مستويات الوصول"
+  },
+  "subscriptionActionCopyUserId": "نسخ معرف المستخدم",
+  "@subscriptionActionCopyUserId": {
+    "description": "إجراء لنسخ معرف المستخدم من الاشتراك"
+  },
+  "subscriptionActionCopySubscriptionId": "نسخ معرف الاشتراك",
+  "@subscriptionActionCopySubscriptionId": {
+    "description": "إجراء لنسخ معرف الاشتراك"
+  },
+  "filterBilling": "تصفية الاشتراكات",
+  "@filterBilling": {
+    "description": "عنوان مربع حوار تصفية الفواتير"
+  },
+  "selectStatus": "اختر الحالة",
+  "@selectStatus": {
+    "description": "تلميح لاختيار حالة الاشتراك"
+  },
+  "selectProvider": "اختر المزود",
+  "@selectProvider": {
+    "description": "تلميح لاختيار مزود المتجر"
+  },
+  "selectTier": "اختر المستوى",
+  "@selectTier": {
+    "description": "تلميح لاختيار مستوى الوصول"
+  },
+  "noSubscriptionsFound": "لم يتم العثور على اشتراكات.",
+  "@noSubscriptionsFound": {
+    "description": "رسالة عند عدم العثور على اشتراكات"
+  },
+  "loadingSubscriptions": "جاري تحميل الاشتراكات",
+  "@loadingSubscriptions": {
+    "description": "عنوان حالة تحميل الاشتراكات"
+  },
+  "searchByUserIdOrSubscriptionId": "البحث بمعرف المستخدم أو معرف الاشتراك...",
+  "@searchByUserIdOrSubscriptionId": {
+    "description": "نص تلميح لحقل البحث في الفواتير"
   }
 }

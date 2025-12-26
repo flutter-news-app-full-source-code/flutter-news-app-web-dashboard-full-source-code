@@ -3644,5 +3644,65 @@
   "appReviewFeatureDisabledNotification": "App review system disabled because no positive interactions are selected.",
   "@appReviewFeatureDisabledNotification": {
     "description": "Snackbar notification shown when the app review system is automatically disabled."
+  },
+  "billingName": "Billing",
+  "@billingName": {
+    "description": "Menu option for billing"
+  },
+  "subscriptionProvider": "Store Provider",
+  "@subscriptionProvider": {
+    "description": "Table column for the store provider"
+  },
+  "accessTier": "Access Tier",
+  "@accessTier": {
+    "description": "Table column for the access tier"
+  },
+  "expiryDate": "Expiry Date",
+  "@expiryDate": {
+    "description": "Table column for the expiry date"
+  },
+  "willAutoRenew": "Auto Renew",
+  "@willAutoRenew": {
+    "description": "Table column for auto-renew status"
+  },
+  "allAccessTiers": "All Tiers",
+  "@allAccessTiers": {
+    "description": "Filter option for all access tiers"
+  },
+  "subscriptionActionCopyUserId": "Copy User ID",
+  "@subscriptionActionCopyUserId": {
+    "description": "Action to copy the user ID from subscription"
+  },
+  "subscriptionActionCopySubscriptionId": "Copy Subscription ID",
+  "@subscriptionActionCopySubscriptionId": {
+    "description": "Action to copy the subscription ID"
+  },
+  "filterBilling": "Filter Subscriptions",
+  "@filterBilling": {
+    "description": "Title for the billing filter dialog"
+  },
+  "selectStatus": "Select Status",
+  "@selectStatus": {
+    "description": "Hint for selecting subscription status"
+  },
+  "selectProvider": "Select Provider",
+  "@selectProvider": {
+    "description": "Hint for selecting store provider"
+  },
+  "selectTier": "Select Tier",
+  "@selectTier": {
+    "description": "Hint for selecting access tier"
+  },
+  "noSubscriptionsFound": "No subscriptions found.",
+  "@noSubscriptionsFound": {
+    "description": "Message when no subscriptions are found"
+  },
+  "loadingSubscriptions": "Loading Subscriptions",
+  "@loadingSubscriptions": {
+    "description": "Headline for loading state of subscriptions"
+  },
+  "searchByUserIdOrSubscriptionId": "Search by User ID or Subscription ID...",
+  "@searchByUserIdOrSubscriptionId": {
+    "description": "Hint text for the billing search field"
   }
 }
