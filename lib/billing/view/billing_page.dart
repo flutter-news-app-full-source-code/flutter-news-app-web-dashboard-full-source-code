@@ -22,7 +22,7 @@ class BillingPage extends StatelessWidget {
             const SizedBox(width: AppSpacing.xs),
             AboutIcon(
               dialogTitle: l10n.billingName,
-              dialogDescription: l10n.subscriptionDescription,
+              dialogDescription: l10n.billingPageDescription,
             ),
           ],
         ),
