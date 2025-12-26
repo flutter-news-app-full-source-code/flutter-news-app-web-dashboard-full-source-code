@@ -8,11 +8,13 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/subscription_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 enum _FeatureTile {
   advertisements,
+  subscription,
   pushNotifications,
   analytics,
   feed,
@@ -118,6 +120,49 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
                     onConfigChanged: widget.onConfigChanged,
                   ),
                 ],
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
+        // Subscription
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.subscription;
+            return ExpansionTile(
+              leading: Icon(
+                Icons.card_membership_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
+              key: ValueKey('subscriptionTile_$expandedTile'),
+              title: Text(l10n.subscriptionTab),
+              subtitle: Text(
+                l10n.subscriptionDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
+                _expandedTile.value = isExpanded ? tile : null;
+              },
+              initiallyExpanded: expandedTile == tile,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.xxl,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SubscriptionConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
               ],
             );
           },
