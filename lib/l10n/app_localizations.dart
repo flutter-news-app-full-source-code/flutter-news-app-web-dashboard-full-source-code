@@ -5219,7 +5219,7 @@ abstract class AppLocalizations {
   /// Description for the master monetization switch
   ///
   /// In en, this message translates to:
-  /// **'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium). When disabled, the option to upgrade is removed.'**
+  /// **'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium).'**
   String get enableSubscriptionDescription;
 
   /// Title for the monthly subscription plan section

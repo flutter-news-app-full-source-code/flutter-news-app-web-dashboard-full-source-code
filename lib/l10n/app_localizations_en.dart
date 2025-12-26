@@ -2871,7 +2871,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enableSubscriptionDescription =>
-      'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium). When disabled, the option to upgrade is removed.';
+      'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium).';
 
   @override
   String get monthlyPlanTitle => 'Monthly Plan';

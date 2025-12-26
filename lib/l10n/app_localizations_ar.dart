@@ -2857,7 +2857,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get enableSubscriptionDescription =>
-      'المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز). عند التعطيل، يتم إزالة خيار الترقية.';
+      'المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز).';
 
   @override
   String get monthlyPlanTitle => 'الخطة الشهرية';
