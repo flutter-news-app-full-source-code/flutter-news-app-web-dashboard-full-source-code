@@ -2844,4 +2844,47 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rankedListOverviewTopicsMostFollowed => 'المواضيع الأكثر متابعة';
+
+  @override
+  String get subscriptionTab => 'الاشتراكات';
+
+  @override
+  String get subscriptionDescription =>
+      'تكوين خطط الاشتراك (مثل الشهرية والسنوية) المقدمة للمستخدمين. عند التمكين، سيتم مطالبة المستخدمين الذين يصلون إلى حدود استخدام الميزات بالترقية إلى فئة مميزة.';
+
+  @override
+  String get enableSubscriptionLabel => 'تفعيل ميزة الاشتراك';
+
+  @override
+  String get enableSubscriptionDescription =>
+      'المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز). عند التعطيل، يتم إزالة خيار الترقية.';
+
+  @override
+  String get monthlyPlanTitle => 'الخطة الشهرية';
+
+  @override
+  String get annualPlanTitle => 'الخطة السنوية';
+
+  @override
+  String get planEnabledLabel => 'تفعيل الخطة';
+
+  @override
+  String get planRecommendedLabel => 'خطة موصى بها';
+
+  @override
+  String get planRecommendedDescription => 'يبرز هذه الخطة كأفضل خيار للقيمة.';
+
+  @override
+  String get appleProductIdLabel => 'معرف منتج متجر تطبيقات أبل';
+
+  @override
+  String get googleProductIdLabel => 'معرف منتج متجر جوجل بلاي';
+
+  @override
+  String get subscriptionPlanEnablementError =>
+      'الرجاء إدخال معرّف منتج واحد على الأقل لتفعيل هذه الخطة.';
+
+  @override
+  String get subscriptionPlanDisabledNotification =>
+      'تم تعطيل الخطة لعدم توفر معرّفات منتجات.';
 }

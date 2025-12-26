@@ -2858,4 +2858,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rankedListOverviewTopicsMostFollowed => 'Top Followed Topics';
+
+  @override
+  String get subscriptionTab => 'Subscriptions';
+
+  @override
+  String get subscriptionDescription =>
+      'Configure the subscription plans (e.g., monthly, annual) offered to users. When enabled, users who reach their feature limits will be prompted to upgrade to a premium tier.';
+
+  @override
+  String get enableSubscriptionLabel => 'Enable Subscription Feature';
+
+  @override
+  String get enableSubscriptionDescription =>
+      'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium). When disabled, the option to upgrade is removed.';
+
+  @override
+  String get monthlyPlanTitle => 'Monthly Plan';
+
+  @override
+  String get annualPlanTitle => 'Annual Plan';
+
+  @override
+  String get planEnabledLabel => 'Enable Plan';
+
+  @override
+  String get planRecommendedLabel => 'Recommended Plan';
+
+  @override
+  String get planRecommendedDescription =>
+      'Highlights this plan as the best value option.';
+
+  @override
+  String get appleProductIdLabel => 'Apple App Store Product ID';
+
+  @override
+  String get googleProductIdLabel => 'Google Play Store Product ID';
+
+  @override
+  String get subscriptionPlanEnablementError =>
+      'Please enter at least one Product ID to enable this plan.';
+
+  @override
+  String get subscriptionPlanDisabledNotification =>
+      'Plan disabled because no Product IDs are provided.';
 }

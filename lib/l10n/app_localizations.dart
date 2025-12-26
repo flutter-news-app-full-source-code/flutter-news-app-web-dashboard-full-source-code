@@ -5197,6 +5197,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Top Followed Topics'**
   String get rankedListOverviewTopicsMostFollowed;
+
+  /// Tab title for Subscription settings
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get subscriptionTab;
+
+  /// Description for the Subscription settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the subscription plans (e.g., monthly, annual) offered to users. When enabled, users who reach their feature limits will be prompted to upgrade to a premium tier.'**
+  String get subscriptionDescription;
+
+  /// Label for the master monetization switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Subscription Feature'**
+  String get enableSubscriptionLabel;
+
+  /// Description for the master monetization switch
+  ///
+  /// In en, this message translates to:
+  /// **'Master switch for the subscription system. When enabled, users can purchase plans to upgrade their access tier (e.g., from Standard to Premium). When disabled, the option to upgrade is removed.'**
+  String get enableSubscriptionDescription;
+
+  /// Title for the monthly subscription plan section
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Plan'**
+  String get monthlyPlanTitle;
+
+  /// Title for the annual subscription plan section
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Plan'**
+  String get annualPlanTitle;
+
+  /// Label to enable a specific plan
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Plan'**
+  String get planEnabledLabel;
+
+  /// Label to mark a plan as recommended
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Plan'**
+  String get planRecommendedLabel;
+
+  /// Description for the recommended plan switch
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights this plan as the best value option.'**
+  String get planRecommendedDescription;
+
+  /// Label for Apple App Store Product ID
+  ///
+  /// In en, this message translates to:
+  /// **'Apple App Store Product ID'**
+  String get appleProductIdLabel;
+
+  /// Label for Google Play Store Product ID
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play Store Product ID'**
+  String get googleProductIdLabel;
+
+  /// Error message shown when trying to enable a subscription plan without any product IDs.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter at least one Product ID to enable this plan.'**
+  String get subscriptionPlanEnablementError;
+
+  /// Snackbar notification shown when a plan is automatically disabled because its product IDs were removed.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan disabled because no Product IDs are provided.'**
+  String get subscriptionPlanDisabledNotification;
 }
 
 class _AppLocalizationsDelegate
