@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/app_user_role_l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template feed_decorator_form}
@@ -35,13 +35,13 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late final TextEditingController _itemsToDisplayController;
-  late final Map<AppUserRole, TextEditingController> _roleControllers;
+  late final Map<AccessTier, TextEditingController> _tierControllers;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: AppUserRole.values.length,
+      length: AccessTier.values.length,
       vsync: this,
     );
     _initializeControllers();
@@ -67,18 +67,18 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
             offset: decoratorConfig.itemsToDisplay?.toString().length ?? 0,
           );
 
-    _roleControllers = {
-      for (final role in AppUserRole.values)
-        role:
+    _tierControllers = {
+      for (final tier in AccessTier.values)
+        tier:
             TextEditingController(
                 text:
-                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                    decoratorConfig.visibleTo[tier]?.daysBetweenViews
                         .toString() ??
                     '',
               )
               ..selection = TextSelection.collapsed(
                 offset:
-                    decoratorConfig.visibleTo[role]?.daysBetweenViews
+                    decoratorConfig.visibleTo[tier]?.daysBetweenViews
                         .toString()
                         .length ??
                     0,
@@ -97,12 +97,12 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
       );
     }
 
-    for (final role in AppUserRole.values) {
+    for (final tier in AccessTier.values) {
       final newDaysBetweenViews =
-          decoratorConfig.visibleTo[role]?.daysBetweenViews.toString() ?? '';
-      if (_roleControllers[role]?.text != newDaysBetweenViews) {
-        _roleControllers[role]?.text = newDaysBetweenViews;
-        _roleControllers[role]?.selection = TextSelection.collapsed(
+          decoratorConfig.visibleTo[tier]?.daysBetweenViews.toString() ?? '';
+      if (_tierControllers[tier]?.text != newDaysBetweenViews) {
+        _tierControllers[tier]?.text = newDaysBetweenViews;
+        _tierControllers[tier]?.selection = TextSelection.collapsed(
           offset: newDaysBetweenViews.length,
         );
       }
@@ -113,27 +113,27 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
   void dispose() {
     _tabController.dispose();
     _itemsToDisplayController.dispose();
-    for (final controller in _roleControllers.values) {
+    for (final controller in _tierControllers.values) {
       controller.dispose();
     }
     super.dispose();
   }
 
-  /// Determines if a given decorator type is logically applicable to a user role.
+  /// Determines if a given decorator type is logically applicable to a user tier.
   ///
   /// This method centralizes the business logic for decorator visibility
   /// to prevent illogical configurations in the dashboard.
-  bool _isDecoratorApplicableToRole(
+  bool _isDecoratorApplicableToTier(
     FeedDecoratorType decoratorType,
-    AppUserRole role,
+    AccessTier tier,
   ) {
     switch (decoratorType) {
       // The 'linkAccount' decorator is only for guest users.
       case FeedDecoratorType.linkAccount:
-        return role == AppUserRole.guestUser;
+        return tier == AccessTier.guest;
       // The 'upgrade' decorator is only for standard users.
       case FeedDecoratorType.upgrade:
-        return role == AppUserRole.standardUser;
+        return tier == AccessTier.standard;
       // All other decorators are applicable to any user role.
       case FeedDecoratorType.rateApp:
       case FeedDecoratorType.enableNotifications:
@@ -205,8 +205,8 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
               controller: _tabController,
               tabAlignment: TabAlignment.start,
               isScrollable: true,
-              tabs: AppUserRole.values
-                  .map((role) => Tab(text: role.l10n(context)))
+              tabs: AccessTier.values
+                  .map((tier) => Tab(text: tier.l10n(context)))
                   .toList(),
             ),
           ),
@@ -217,12 +217,12 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
           height: 250,
           child: TabBarView(
             controller: _tabController,
-            children: AppUserRole.values
+            children: AccessTier.values
                 .map(
-                  (role) => _buildRoleSpecificFields(
+                  (tier) => _buildTierSpecificFields(
                     context,
                     l10n,
-                    role,
+                    tier,
                     decoratorConfig,
                   ),
                 )
@@ -233,36 +233,36 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
     );
   }
 
-  Widget _buildRoleSpecificFields(
+  Widget _buildTierSpecificFields(
     BuildContext context,
     AppLocalizations l10n,
-    AppUserRole role,
+    AccessTier tier,
     FeedDecoratorConfig decoratorConfig,
   ) {
-    final roleConfig = decoratorConfig.visibleTo[role];
-    final isApplicable = _isDecoratorApplicableToRole(
+    final tierConfig = decoratorConfig.visibleTo[tier];
+    final isApplicable = _isDecoratorApplicableToTier(
       widget.decoratorType,
-      role,
+      tier,
     );
 
     return Column(
       children: [
         CheckboxListTile(
-          title: Text(l10n.visibleToRoleLabel(role.l10n(context))),
-          value: roleConfig != null && isApplicable,
+          title: Text(l10n.visibleToRoleLabel(tier.l10n(context))),
+          value: tierConfig != null && isApplicable,
           // Disable the checkbox if the decorator is not applicable to the role.
           onChanged: isApplicable
               ? (value) {
                   final newVisibleTo =
-                      Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                      Map<AccessTier, FeedDecoratorRoleConfig>.from(
                         decoratorConfig.visibleTo,
                       );
                   if (value ?? false) {
-                    newVisibleTo[role] = const FeedDecoratorRoleConfig(
+                    newVisibleTo[tier] = const FeedDecoratorRoleConfig(
                       daysBetweenViews: 7,
                     );
                   } else {
-                    newVisibleTo.remove(role);
+                    newVisibleTo.remove(tier);
                   }
                   final newDecoratorConfig = decoratorConfig.copyWith(
                     visibleTo: newVisibleTo,
@@ -283,7 +283,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
                 }
               : null,
         ),
-        if (roleConfig != null)
+        if (tierConfig != null)
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(
@@ -293,15 +293,15 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
               child: AppConfigIntField(
                 label: l10n.daysBetweenViewsLabel,
                 description: l10n.daysBetweenViewsDescription,
-                value: roleConfig.daysBetweenViews,
+                value: tierConfig.daysBetweenViews,
                 onChanged: (value) {
-                  final newRoleConfig = roleConfig.copyWith(
+                  final newTierConfig = tierConfig.copyWith(
                     daysBetweenViews: value,
                   );
                   final newVisibleTo =
-                      Map<AppUserRole, FeedDecoratorRoleConfig>.from(
+                      Map<AccessTier, FeedDecoratorRoleConfig>.from(
                         decoratorConfig.visibleTo,
-                      )..[role] = newRoleConfig;
+                      )..[tier] = newTierConfig;
                   final newDecoratorConfig = decoratorConfig.copyWith(
                     visibleTo: newVisibleTo,
                   );
@@ -319,7 +319,7 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
                     ),
                   );
                 },
-                controller: _roleControllers[role],
+                controller: _tierControllers[tier],
               ),
             ),
           ),
