@@ -47,7 +47,7 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
         searchQuery: filterDialogState.searchQuery,
         authenticationFilter: filterDialogState.authenticationFilter,
         subscriptionFilter: filterDialogState.subscriptionFilter,
-        dashboardRole: filterDialogState.dashboardRole,
+        userRole: filterDialogState.userRole,
       ),
     );
   }
@@ -148,16 +148,16 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                   const SizedBox(height: AppSpacing.lg),
 
                   // Dashboard Role Filter
-                  _FilterSection<DashboardUserRole>(
+                  _FilterSection<UserRole>(
                     title: l10n.dashboardRole,
-                    selectedValue: filterDialogState.dashboardRole,
+                    selectedValue: filterDialogState.userRole,
                     values: const [
-                      DashboardUserRole.admin,
-                      DashboardUserRole.publisher,
+                      UserRole.admin,
+                      UserRole.publisher,
                     ],
                     onSelected: (value) =>
                         context.read<UserFilterDialogBloc>().add(
-                          UserFilterDialogDashboardRoleChanged(
+                          UserFilterDialogUserRoleChanged(
                             value,
                           ),
                         ),
