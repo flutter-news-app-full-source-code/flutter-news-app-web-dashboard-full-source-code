@@ -87,7 +87,7 @@ GoRouter createRouter({
         print('  Redirect Decision: User is $appStatus.');
 
         // --- Role-Based Access Control (RBAC) ---
-        final userRole = context.read<AppBloc>().state.user?.dashboardRole;
+        final userRole = context.read<AppBloc>().state.user?.role;
 
         // Allow navigation if the user role isn't determined yet.
         if (userRole == null) {
