@@ -35,10 +35,16 @@ class AnalyticsConfigForm extends StatelessWidget {
           subtitle: Text(l10n.analyticsSystemStatusDescription),
           value: analyticsConfig.enabled,
           onChanged: (value) {
+            final newDisabledEvents = value
+                ? <AnalyticsEvent>{}
+                : analyticsConfig.disabledEvents;
             onConfigChanged(
               remoteConfig.copyWith(
                 features: features.copyWith(
-                  analytics: analyticsConfig.copyWith(enabled: value),
+                  analytics: analyticsConfig.copyWith(
+                    enabled: value,
+                    disabledEvents: newDisabledEvents,
+                  ),
                 ),
               ),
             );
