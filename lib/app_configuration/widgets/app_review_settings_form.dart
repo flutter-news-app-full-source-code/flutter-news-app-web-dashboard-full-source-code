@@ -221,8 +221,22 @@ class _AppReviewSettingsFormState extends State<AppReviewSettingsForm> {
                                 } else {
                                   currentInteractions.remove(interactionType);
                                 }
+
+                                var newEnabled = appReviewConfig.enabled;
+                                if (currentInteractions.isEmpty) {
+                                  newEnabled = false;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        l10n.appReviewFeatureDisabledNotification,
+                                      ),
+                                    ),
+                                  );
+                                }
+
                                 final newAppReviewConfig = appReviewConfig
                                     .copyWith(
+                                      enabled: newEnabled,
                                       eligiblePositiveInteractions:
                                           currentInteractions,
                                     );
