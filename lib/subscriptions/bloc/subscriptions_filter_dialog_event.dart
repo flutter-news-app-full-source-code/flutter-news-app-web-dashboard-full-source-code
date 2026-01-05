@@ -43,7 +43,7 @@ final class SubscriptionsFilterDialogProviderChanged
     extends SubscriptionsFilterDialogEvent {
   const SubscriptionsFilterDialogProviderChanged(this.provider);
 
-  final StoreProvider? provider;
+  final StoreProviders? provider;
 
   @override
   List<Object?> get props => [provider];

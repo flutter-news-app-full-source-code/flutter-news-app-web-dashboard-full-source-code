@@ -133,18 +133,18 @@ class _SubscriptionsFilterDialogState extends State<SubscriptionsFilterDialog> {
                     },
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  _FilterSection<StoreProvider>(
+                  _FilterSection<StoreProviders>(
                     title: l10n.selectProvider,
                     selectedValue: state.provider,
-                    values: StoreProvider.values,
+                    values: StoreProviders.values,
                     onSelected: (value) {
                       context.read<SubscriptionsFilterDialogBloc>().add(
                         SubscriptionsFilterDialogProviderChanged(value),
                       );
                     },
                     labelBuilder: (v) => switch (v) {
-                      StoreProvider.apple => l10n.storeProviderApple,
-                      StoreProvider.google => l10n.storeProviderGoogle,
+                      StoreProviders.apple => l10n.storeProviderApple,
+                      StoreProviders.google => l10n.storeProviderGoogle,
                     },
                   ),
                 ],

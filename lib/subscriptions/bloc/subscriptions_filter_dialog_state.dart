@@ -10,12 +10,12 @@ final class SubscriptionsFilterDialogState extends Equatable {
 
   final String searchQuery;
   final SubscriptionStatus? status;
-  final StoreProvider? provider;
+  final StoreProviders? provider;
 
   SubscriptionsFilterDialogState copyWith({
     String? searchQuery,
     SubscriptionStatus? status,
-    StoreProvider? provider,
+    StoreProviders? provider,
   }) {
     return SubscriptionsFilterDialogState(
       searchQuery: searchQuery ?? this.searchQuery,

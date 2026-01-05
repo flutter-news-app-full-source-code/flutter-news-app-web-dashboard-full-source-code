@@ -182,9 +182,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                       ),
                     ),
                     segments: AdPlatformType.values
-                        .where(
-                          (type) => type != AdPlatformType.demo,
-                        )
                         .map(
                           (type) => ButtonSegment<AdPlatformType>(
                             value: type,
@@ -244,9 +241,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                       tabAlignment: TabAlignment.start,
                       isScrollable: true,
                       tabs: AdPlatformType.values
-                          .where(
-                            (type) => type != AdPlatformType.demo,
-                          )
                           .map((platform) => Tab(text: platform.l10n(context)))
                           .toList(),
                     ),
@@ -258,9 +252,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                   child: TabBarView(
                     controller: _tabController,
                     children: AdPlatformType.values
-                        .where(
-                          (type) => type != AdPlatformType.demo,
-                        )
                         .map(
                           (platform) => _buildAdUnitIdentifierFields(
                             context,
