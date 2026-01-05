@@ -17,7 +17,7 @@ final class SubscriptionsFilterApplied extends SubscriptionsFilterEvent {
 
   final String searchQuery;
   final SubscriptionStatus? status;
-  final StoreProvider? provider;
+  final StoreProviders? provider;
 
   @override
   List<Object?> get props => [searchQuery, status, provider];

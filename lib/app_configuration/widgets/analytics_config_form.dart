@@ -82,16 +82,13 @@ class AnalyticsConfigForm extends StatelessWidget {
       children: [
         Align(
           alignment: AlignmentDirectional.centerStart,
-          child: SegmentedButton<AnalyticsProvider>(
-            segments: AnalyticsProvider.values
-                .where((provider) => provider != AnalyticsProvider.demo)
-                .map((provider) {
-                  return ButtonSegment<AnalyticsProvider>(
-                    value: provider,
-                    label: Text(_getProviderLabel(l10n, provider)),
-                  );
-                })
-                .toList(),
+          child: SegmentedButton<AnalyticsProviders>(
+            segments: AnalyticsProviders.values.map((provider) {
+              return ButtonSegment<AnalyticsProviders>(
+                value: provider,
+                label: Text(_getProviderLabel(l10n, provider)),
+              );
+            }).toList(),
             selected: {config.activeProvider},
             onSelectionChanged: (newSelection) {
               onConfigChanged(
@@ -238,15 +235,12 @@ class AnalyticsConfigForm extends StatelessWidget {
     );
   }
 
-  String _getProviderLabel(AppLocalizations l10n, AnalyticsProvider provider) {
+  String _getProviderLabel(AppLocalizations l10n, AnalyticsProviders provider) {
     switch (provider) {
-      case AnalyticsProvider.firebase:
+      case AnalyticsProviders.firebase:
         return l10n.analyticsProviderFirebase;
-      case AnalyticsProvider.mixpanel:
+      case AnalyticsProviders.mixpanel:
         return l10n.analyticsProviderMixpanel;
-      case AnalyticsProvider.demo:
-        // Fallback, though filtered out in UI
-        return 'Demo';
     }
   }
 

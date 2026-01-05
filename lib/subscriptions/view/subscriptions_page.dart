@@ -242,11 +242,11 @@ class _SubscriptionsDataSource extends DataTableSource {
     };
   }
 
-  Color? _getProviderColor(BuildContext context, StoreProvider provider) {
+  Color? _getProviderColor(BuildContext context, StoreProviders provider) {
     final colorScheme = Theme.of(context).colorScheme;
     return switch (provider) {
-      StoreProvider.apple => colorScheme.secondaryContainer,
-      StoreProvider.google => colorScheme.errorContainer,
+      StoreProviders.apple => colorScheme.secondaryContainer,
+      StoreProviders.google => colorScheme.errorContainer,
     };
   }
 
@@ -280,8 +280,8 @@ class _SubscriptionsDataSource extends DataTableSource {
             Chip(
               label: Text(
                 switch (subscription.provider) {
-                  StoreProvider.apple => l10n.storeProviderApple,
-                  StoreProvider.google => l10n.storeProviderGoogle,
+                  StoreProviders.apple => l10n.storeProviderApple,
+                  StoreProviders.google => l10n.storeProviderGoogle,
                 },
               ),
               backgroundColor: _getProviderColor(

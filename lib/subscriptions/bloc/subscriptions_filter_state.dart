@@ -10,12 +10,12 @@ final class SubscriptionsFilterState extends Equatable {
 
   final String searchQuery;
   final SubscriptionStatus? status;
-  final StoreProvider? provider;
+  final StoreProviders? provider;
 
   SubscriptionsFilterState copyWith({
     String? searchQuery,
     SubscriptionStatus? status,
-    StoreProvider? provider,
+    StoreProviders? provider,
   }) {
     return SubscriptionsFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
