@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_ui_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/user_role_ui.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_action_buttons.dart';
 import 'package:intl/intl.dart';
@@ -47,8 +45,7 @@ class _UsersPageState extends State<UsersPage> {
   /// Checks if any filters are currently active in the UserFilterBloc.
   bool _areFiltersActive(UserFilterState state) {
     return state.searchQuery.isNotEmpty ||
-        state.authenticationFilter != AuthenticationFilter.all ||
-        state.subscriptionFilter != SubscriptionFilter.all;
+        state.authenticationFilter != AuthenticationFilter.all;
   }
 
   @override
@@ -245,10 +242,6 @@ class _UsersDataSource extends DataTableSource {
               Flexible(
                 child: Text(user.email, overflow: TextOverflow.ellipsis),
               ),
-              if (user.tier.getPremiumIcon(l10n) case final icon?) ...[
-                const SizedBox(width: AppSpacing.sm),
-                icon,
-              ],
               if (user.role.getRoleIcon(l10n) case final icon?) ...[
                 const SizedBox(width: AppSpacing.xs),
                 icon,
