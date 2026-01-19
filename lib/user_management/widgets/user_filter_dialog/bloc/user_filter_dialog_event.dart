@@ -41,16 +41,6 @@ final class UserFilterDialogAuthenticationChanged
   List<Object?> get props => [authenticationFilter];
 }
 
-/// Event to update the temporary subscription filter in the dialog.
-final class UserFilterDialogSubscriptionChanged extends UserFilterDialogEvent {
-  const UserFilterDialogSubscriptionChanged(this.subscriptionFilter);
-
-  final SubscriptionFilter subscriptionFilter;
-
-  @override
-  List<Object?> get props => [subscriptionFilter];
-}
-
 /// Event to update the temporary user role filter in the dialog.
 final class UserFilterDialogUserRoleChanged extends UserFilterDialogEvent {
   const UserFilterDialogUserRoleChanged(this.userRole);
