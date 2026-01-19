@@ -75,7 +75,7 @@ Future<Widget> bootstrap(
   DataClient<KpiCardData> kpiCardsClient;
   DataClient<ChartCardData> chartCardsClient;
   DataClient<RankedListCardData> rankedListCardsClient;
-  DataClient<UserSubscription> userSubscriptionsClient;
+  DataClient<UserRewards> userRewardsClient;
 
   if (appConfig.environment == app_config.AppEnvironment.demo) {
     headlinesClient = DataInMemory<Headline>(
@@ -169,11 +169,11 @@ Future<Widget> bootstrap(
       initialData: getRankedListCardsFixturesData(),
       logger: Logger('DataInMemory<RankedListCardData>'),
     );
-    userSubscriptionsClient = DataInMemory<UserSubscription>(
+    userRewardsClient = DataInMemory<UserRewards>(
       toJson: (i) => i.toJson(),
       getId: (i) => i.id,
-      initialData: userSubscriptionsFixturesData,
-      logger: Logger('DataInMemory<UserSubscription>'),
+      initialData: userRewardsFixturesData,
+      logger: Logger('DataInMemory<UserRewards>'),
     );
   } else {
     headlinesClient = DataApi<Headline>(
@@ -282,12 +282,12 @@ Future<Widget> bootstrap(
       toJson: (item) => item.toJson(),
       logger: Logger('DataApi<RankedListCardData>'),
     );
-    userSubscriptionsClient = DataApi<UserSubscription>(
+    userRewardsClient = DataApi<UserRewards>(
       httpClient: httpClient,
-      modelName: 'user_subscription',
-      fromJson: UserSubscription.fromJson,
+      modelName: 'user_rewards',
+      fromJson: UserRewards.fromJson,
       toJson: (item) => item.toJson(),
-      logger: Logger('DataApi<UserSubscription>'),
+      logger: Logger('DataApi<UserRewards>'),
     );
   }
 
@@ -335,9 +335,9 @@ Future<Widget> bootstrap(
   final rankedListCardsRepository = DataRepository<RankedListCardData>(
     dataClient: rankedListCardsClient,
   );
-  final userSubscriptionsRepository = DataRepository<UserSubscription>(
-    dataClient: userSubscriptionsClient,
-  );
+  final userRewardsRepository = DataRepository<UserRewards>(
+    dataClient: userRewardsClient,
+   );
 
   final analyticsService = AnalyticsService(
     kpiRepository: kpiCardsRepository,
@@ -360,7 +360,7 @@ Future<Widget> bootstrap(
     reportsRepository: reportsRepository,
     appReviewsRepository: appReviewsRepository,
     analyticsService: analyticsService,
-    userSubscriptionsRepository: userSubscriptionsRepository,
+    userRewardsRepository: userRewardsRepository,
     storageService: kvStorage,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,
