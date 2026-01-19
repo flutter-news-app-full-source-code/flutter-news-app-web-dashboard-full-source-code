@@ -3013,4 +3013,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get kpiSubscriptionsExpiredCount => 'Expired Subscriptions';
+
+  @override
+  String get rewardsTab => 'Rewards';
+
+  @override
+  String get rewardsDescription =>
+      'Configure time-based rewards for user engagement.';
+
+  @override
+  String get enableRewardsLabel => 'Enable Rewards System';
+
+  @override
+  String get enableRewardsDescription =>
+      'Allow users to earn rewards by watching ads.';
+
+  @override
+  String get rewardTypeAdFree => 'Ad-Free Experience';
+
+  @override
+  String get rewardTypeDailyDigest => 'Daily Digest';
+
+  @override
+  String get rewardDurationDaysLabel => 'Duration (Days)';
+
+  @override
+  String get rewardEnabledLabel => 'Enabled';
 }

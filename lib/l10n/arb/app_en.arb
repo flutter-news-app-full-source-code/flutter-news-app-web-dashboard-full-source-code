@@ -3760,5 +3760,37 @@
   "kpiSubscriptionsExpiredCount": "Expired Subscriptions",
   "@kpiSubscriptionsExpiredCount": {
     "description": "Title for the Expired Subscriptions KPI card"
+  },
+  "rewardsTab": "Rewards",
+  "@rewardsTab": {
+    "description": "Tab title for Rewards settings"
+  },
+  "rewardsDescription": "Configure time-based rewards for user engagement.",
+  "@rewardsDescription": {
+    "description": "Description for the Rewards expansion tile"
+  },
+  "enableRewardsLabel": "Enable Rewards System",
+  "@enableRewardsLabel": {
+    "description": "Label for the master switch to enable the rewards system"
+  },
+  "enableRewardsDescription": "Allow users to earn rewards by watching ads.",
+  "@enableRewardsDescription": {
+    "description": "Description for the master switch to enable the rewards system"
+  },
+  "rewardTypeAdFree": "Ad-Free Experience",
+  "@rewardTypeAdFree": {
+    "description": "Label for the Ad-Free reward type"
+  },
+  "rewardTypeDailyDigest": "Daily Digest",
+  "@rewardTypeDailyDigest": {
+    "description": "Label for the Daily Digest reward type"
+  },
+  "rewardDurationDaysLabel": "Duration (Days)",
+  "@rewardDurationDaysLabel": {
+    "description": "Label for the reward duration input field"
+  },
+  "rewardEnabledLabel": "Enabled",
+  "@rewardEnabledLabel": {
+    "description": "Label for the reward enabled switch"
   }
 }

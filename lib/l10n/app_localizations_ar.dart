@@ -2996,4 +2996,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get kpiSubscriptionsExpiredCount => 'الاشتراكات المنتهية';
+
+  @override
+  String get rewardsTab => 'المكافآت';
+
+  @override
+  String get rewardsDescription =>
+      'تكوين المكافآت المستندة إلى الوقت لتفاعل المستخدم.';
+
+  @override
+  String get enableRewardsLabel => 'تفعيل نظام المكافآت';
+
+  @override
+  String get enableRewardsDescription =>
+      'السماح للمستخدمين بكسب المكافآت من خلال مشاهدة الإعلانات.';
+
+  @override
+  String get rewardTypeAdFree => 'تجربة خالية من الإعلانات';
+
+  @override
+  String get rewardTypeDailyDigest => 'الملخص اليومي';
+
+  @override
+  String get rewardDurationDaysLabel => 'المدة (أيام)';
+
+  @override
+  String get rewardEnabledLabel => 'مفعل';
 }

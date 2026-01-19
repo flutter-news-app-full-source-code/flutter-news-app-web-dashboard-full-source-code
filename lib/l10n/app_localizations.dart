@@ -5479,6 +5479,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expired Subscriptions'**
   String get kpiSubscriptionsExpiredCount;
+
+  /// Tab title for Rewards settings
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards'**
+  String get rewardsTab;
+
+  /// Description for the Rewards expansion tile
+  ///
+  /// In en, this message translates to:
+  /// **'Configure time-based rewards for user engagement.'**
+  String get rewardsDescription;
+
+  /// Label for the master switch to enable the rewards system
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Rewards System'**
+  String get enableRewardsLabel;
+
+  /// Description for the master switch to enable the rewards system
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to earn rewards by watching ads.'**
+  String get enableRewardsDescription;
+
+  /// Label for the Ad-Free reward type
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-Free Experience'**
+  String get rewardTypeAdFree;
+
+  /// Label for the Daily Digest reward type
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Digest'**
+  String get rewardTypeDailyDigest;
+
+  /// Label for the reward duration input field
+  ///
+  /// In en, this message translates to:
+  /// **'Duration (Days)'**
+  String get rewardDurationDaysLabel;
+
+  /// Label for the reward enabled switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get rewardEnabledLabel;
 }
 
 class _AppLocalizationsDelegate

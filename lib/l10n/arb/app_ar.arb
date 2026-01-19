@@ -3768,5 +3768,37 @@
   "kpiSubscriptionsExpiredCount": "الاشتراكات المنتهية",
   "@kpiSubscriptionsExpiredCount": {
     "description": "Title for the Expired Subscriptions KPI card"
+  },
+  "rewardsTab": "المكافآت",
+  "@rewardsTab": {
+    "description": "Tab title for Rewards settings"
+  },
+  "rewardsDescription": "تكوين المكافآت المستندة إلى الوقت لتفاعل المستخدم.",
+  "@rewardsDescription": {
+    "description": "Description for the Rewards expansion tile"
+  },
+  "enableRewardsLabel": "تفعيل نظام المكافآت",
+  "@enableRewardsLabel": {
+    "description": "Label for the master switch to enable the rewards system"
+  },
+  "enableRewardsDescription": "السماح للمستخدمين بكسب المكافآت من خلال مشاهدة الإعلانات.",
+  "@enableRewardsDescription": {
+    "description": "Description for the master switch to enable the rewards system"
+  },
+  "rewardTypeAdFree": "تجربة خالية من الإعلانات",
+  "@rewardTypeAdFree": {
+    "description": "Label for the Ad-Free reward type"
+  },
+  "rewardTypeDailyDigest": "الملخص اليومي",
+  "@rewardTypeDailyDigest": {
+    "description": "Label for the Daily Digest reward type"
+  },
+  "rewardDurationDaysLabel": "المدة (أيام)",
+  "@rewardDurationDaysLabel": {
+    "description": "Label for the reward duration input field"
+  },
+  "rewardEnabledLabel": "مفعل",
+  "@rewardEnabledLabel": {
+    "description": "Label for the reward enabled switch"
   }
 }
