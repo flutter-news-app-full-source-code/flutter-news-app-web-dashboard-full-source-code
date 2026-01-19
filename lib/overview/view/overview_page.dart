@@ -61,7 +61,7 @@ class OverviewPage extends StatelessWidget {
                         Expanded(
                           child: AnalyticsCardSlot<KpiCardId>(
                             cardIds: const [
-                              KpiCardId.subscriptionsActiveCount,
+                              KpiCardId.rewardsActiveUsersCount,
                             ],
                           ),
                         ),
@@ -132,7 +132,7 @@ class OverviewPage extends StatelessWidget {
                   SizedBox(
                     height: kpiHeight,
                     child: AnalyticsCardSlot<KpiCardId>(
-                      cardIds: const [KpiCardId.subscriptionsActiveCount],
+                      cardIds: const [KpiCardId.rewardsActiveUsersCount],
                     ),
                   ),
                   const SizedBox(height: AppSpacing.lg),

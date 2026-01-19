@@ -337,7 +337,7 @@ Future<Widget> bootstrap(
   );
   final userRewardsRepository = DataRepository<UserRewards>(
     dataClient: userRewardsClient,
-   );
+  );
 
   final analyticsService = AnalyticsService(
     kpiRepository: kpiCardsRepository,

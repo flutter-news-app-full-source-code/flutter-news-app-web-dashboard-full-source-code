@@ -127,23 +127,22 @@ class _KpiCardState extends State<KpiCard> {
         return l10n.kpiRewardsAdsWatchedTotal;
       case KpiCardId.rewardsActiveUsersCount:
         return l10n.kpiRewardsActiveUsersCount;
-     }
     }
   }
+}
 
-  String _timeFrameToLabel(KpiTimeFrame frame, AppLocalizations l10n) {
-    switch (frame) {
-      case KpiTimeFrame.day:
-        return l10n.timeFrameDay;
-      case KpiTimeFrame.week:
-        return l10n.timeFrameWeek;
-      case KpiTimeFrame.month:
-        return l10n.timeFrameMonth;
-      case KpiTimeFrame.year:
-        return l10n.timeFrameYear;
-    }
+String _timeFrameToLabel(KpiTimeFrame frame, AppLocalizations l10n) {
+  switch (frame) {
+    case KpiTimeFrame.day:
+      return l10n.timeFrameDay;
+    case KpiTimeFrame.week:
+      return l10n.timeFrameWeek;
+    case KpiTimeFrame.month:
+      return l10n.timeFrameMonth;
+    case KpiTimeFrame.year:
+      return l10n.timeFrameYear;
   }
-
+}
 
 class _TrendIndicator extends StatelessWidget {
   const _TrendIndicator({

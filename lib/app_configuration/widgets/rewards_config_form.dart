@@ -127,7 +127,8 @@ class _RewardsConfigFormState extends State<RewardsConfigForm> {
         if (rewardsConfig.enabled) ...[
           const SizedBox(height: AppSpacing.lg),
           ...RewardType.values.map((type) {
-            final details = rewardsConfig.rewards[type] ??
+            final details =
+                rewardsConfig.rewards[type] ??
                 const RewardDetails(enabled: false, durationDays: 0);
             return Card(
               margin: const EdgeInsets.only(bottom: AppSpacing.md),
