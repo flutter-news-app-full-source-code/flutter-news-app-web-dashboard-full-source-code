@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "development",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--web-port",
+                "8080",
+                "--dart-define",
+                "APP_ENVIRONMENT=development",
+                "--dart-define",
+                "BASE_URL=http://localhost:8080"
+            ]
+        },
+        {
+            "name": "production",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--web-port",
+                "8080",
+                "--dart-define",
+                "APP_ENVIRONMENT=production",
+                "--dart-define",
+                "BASE_URL=https://your.api.com"
+            ]
+        }
+    ]
+}
