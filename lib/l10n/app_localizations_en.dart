@@ -3050,4 +3050,35 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get rewardDurationDaysDescription =>
       'The number of days the reward remains active.';
+
+  @override
+  String get rewardsManagement => 'Rewards Management';
+
+  @override
+  String get rewardsManagementPageDescription =>
+      'Manage user rewards and entitlements.';
+
+  @override
+  String get loadingRewards => 'Loading Rewards';
+
+  @override
+  String get noRewardsFound => 'No rewards found.';
+
+  @override
+  String get userId => 'User ID';
+
+  @override
+  String get activeRewards => 'Active Rewards';
+
+  @override
+  String get expiry => 'Expiry';
+
+  @override
+  String get filterRewards => 'Filter Rewards';
+
+  @override
+  String get rewardType => 'Reward Type';
+
+  @override
+  String get selectRewardTypes => 'Select Reward Types';
 }

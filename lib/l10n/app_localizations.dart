@@ -5545,6 +5545,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The number of days the reward remains active.'**
   String get rewardDurationDaysDescription;
+
+  /// Label for the rewards management navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards Management'**
+  String get rewardsManagement;
+
+  /// Description for the Rewards Management page
+  ///
+  /// In en, this message translates to:
+  /// **'Manage user rewards and entitlements.'**
+  String get rewardsManagementPageDescription;
+
+  /// Headline for loading state of rewards
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Rewards'**
+  String get loadingRewards;
+
+  /// Message when no rewards are found
+  ///
+  /// In en, this message translates to:
+  /// **'No rewards found.'**
+  String get noRewardsFound;
+
+  /// Column header for user ID
+  ///
+  /// In en, this message translates to:
+  /// **'User ID'**
+  String get userId;
+
+  /// Column header for active rewards
+  ///
+  /// In en, this message translates to:
+  /// **'Active Rewards'**
+  String get activeRewards;
+
+  /// Column header for expiry date
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get expiry;
+
+  /// Title for the filter dialog when filtering rewards.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Rewards'**
+  String get filterRewards;
+
+  /// Label for reward type filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reward Type'**
+  String get rewardType;
+
+  /// Hint text for selecting reward types in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reward Types'**
+  String get selectRewardTypes;
 }
 
 class _AppLocalizationsDelegate

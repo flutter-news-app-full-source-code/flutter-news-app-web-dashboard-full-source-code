@@ -3812,5 +3812,45 @@
   "rewardDurationDaysDescription": "عدد الأيام التي تظل فيها المكافأة نشطة.",
   "@rewardDurationDaysDescription": {
     "description": "Description for the reward duration input field"
+  },
+  "rewardsManagement": "إدارة المكافآت",
+  "@rewardsManagement": {
+    "description": "Label for the rewards management navigation item"
+  },
+  "rewardsManagementPageDescription": "إدارة مكافآت واستحقاقات المستخدمين.",
+  "@rewardsManagementPageDescription": {
+    "description": "Description for the Rewards Management page"
+  },
+  "loadingRewards": "جاري تحميل المكافآت",
+  "@loadingRewards": {
+    "description": "Headline for loading state of rewards"
+  },
+  "noRewardsFound": "لم يتم العثور على مكافآت.",
+  "@noRewardsFound": {
+    "description": "Message when no rewards are found"
+  },
+  "userId": "معرف المستخدم",
+  "@userId": {
+    "description": "Column header for user ID"
+  },
+  "activeRewards": "المكافآت النشطة",
+  "@activeRewards": {
+    "description": "Column header for active rewards"
+  },
+  "expiry": "تاريخ الانتهاء",
+  "@expiry": {
+    "description": "Column header for expiry date"
+  },
+  "filterRewards": "تصفية المكافآت",
+  "@filterRewards": {
+    "description": "Title for the filter dialog when filtering rewards."
+  },
+  "rewardType": "نوع المكافأة",
+  "@rewardType": {
+    "description": "Label for reward type filter."
+  },
+  "selectRewardTypes": "اختر أنواع المكافآت",
+  "@selectRewardTypes": {
+    "description": "Hint text for selecting reward types in a filter dialog."
   }
 }

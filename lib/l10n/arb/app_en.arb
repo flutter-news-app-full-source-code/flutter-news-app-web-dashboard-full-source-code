@@ -3804,5 +3804,45 @@
   "rewardDurationDaysDescription": "The number of days the reward remains active.",
   "@rewardDurationDaysDescription": {
     "description": "Description for the reward duration input field"
+  },
+  "rewardsManagement": "Rewards Management",
+  "@rewardsManagement": {
+    "description": "Label for the rewards management navigation item"
+  },
+  "rewardsManagementPageDescription": "Manage user rewards and entitlements.",
+  "@rewardsManagementPageDescription": {
+    "description": "Description for the Rewards Management page"
+  },
+  "loadingRewards": "Loading Rewards",
+  "@loadingRewards": {
+    "description": "Headline for loading state of rewards"
+  },
+  "noRewardsFound": "No rewards found.",
+  "@noRewardsFound": {
+    "description": "Message when no rewards are found"
+  },
+  "userId": "User ID",
+  "@userId": {
+    "description": "Column header for user ID"
+  },
+  "activeRewards": "Active Rewards",
+  "@activeRewards": {
+    "description": "Column header for active rewards"
+  },
+  "expiry": "Expiry",
+  "@expiry": {
+    "description": "Column header for expiry date"
+  },
+  "filterRewards": "Filter Rewards",
+  "@filterRewards": {
+    "description": "Title for the filter dialog when filtering rewards."
+  },
+  "rewardType": "Reward Type",
+  "@rewardType": {
+    "description": "Label for reward type filter."
+  },
+  "selectRewardTypes": "Select Reward Types",
+  "@selectRewardTypes": {
+    "description": "Hint text for selecting reward types in a filter dialog."
   }
 }

@@ -3033,4 +3033,35 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get rewardDurationDaysDescription =>
       'عدد الأيام التي تظل فيها المكافأة نشطة.';
+
+  @override
+  String get rewardsManagement => 'إدارة المكافآت';
+
+  @override
+  String get rewardsManagementPageDescription =>
+      'إدارة مكافآت واستحقاقات المستخدمين.';
+
+  @override
+  String get loadingRewards => 'جاري تحميل المكافآت';
+
+  @override
+  String get noRewardsFound => 'لم يتم العثور على مكافآت.';
+
+  @override
+  String get userId => 'معرف المستخدم';
+
+  @override
+  String get activeRewards => 'المكافآت النشطة';
+
+  @override
+  String get expiry => 'تاريخ الانتهاء';
+
+  @override
+  String get filterRewards => 'تصفية المكافآت';
+
+  @override
+  String get rewardType => 'نوع المكافأة';
+
+  @override
+  String get selectRewardTypes => 'اختر أنواع المكافآت';
 }
