@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/bloc/authentication_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/widgets/auth_layout.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';

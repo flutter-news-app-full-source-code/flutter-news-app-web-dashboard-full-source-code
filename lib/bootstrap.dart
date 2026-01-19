@@ -1,5 +1,4 @@
 import 'package:auth_api/auth_api.dart';
-import 'package:auth_client/auth_client.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:data_api/data_api.dart';
@@ -66,7 +65,7 @@ Future<Widget> bootstrap(
   DataClient<UserRewards> userRewardsClient;
 
   headlinesClient = DataApi<Headline>(
-    httpClient: httpClient!,
+    httpClient: httpClient,
     modelName: 'headline',
     fromJson: Headline.fromJson,
     toJson: (headline) => headline.toJson(),
