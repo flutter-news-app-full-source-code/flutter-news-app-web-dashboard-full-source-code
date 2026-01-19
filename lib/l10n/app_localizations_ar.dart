@@ -3026,4 +3026,8 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get feedDecoratorUnlockRewardsDescription =>
       'يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.';
+
+  @override
+  String get rewardDurationDaysDescription =>
+      'عدد الأيام التي تظل فيها المكافأة نشطة.';
 }

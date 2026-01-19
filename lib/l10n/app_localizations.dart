@@ -5533,6 +5533,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Prompts users to watch an ad to unlock premium features temporarily.'**
   String get feedDecoratorUnlockRewardsDescription;
+
+  /// Description for the reward duration input field
+  ///
+  /// In en, this message translates to:
+  /// **'The number of days the reward remains active.'**
+  String get rewardDurationDaysDescription;
 }
 
 class _AppLocalizationsDelegate

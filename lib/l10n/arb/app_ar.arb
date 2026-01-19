@@ -3801,8 +3801,12 @@
   "@rewardEnabledLabel": {
     "description": "Label for the reward enabled switch"
   },
-    "feedDecoratorUnlockRewardsDescription": "يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.",
-    "@feedDecoratorUnlockRewardsDescription": {
-        "description": "Description for the 'Unlock Rewards' feed decorator."
-    }
+  "feedDecoratorUnlockRewardsDescription": "يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.",
+  "@feedDecoratorUnlockRewardsDescription": {
+    "description": "Description for the 'Unlock Rewards' feed decorator."
+  },
+  "rewardDurationDaysDescription": "عدد الأيام التي تظل فيها المكافأة نشطة.",
+  "@rewardDurationDaysDescription": {
+    "description": "Description for the reward duration input field"
+  }
 }

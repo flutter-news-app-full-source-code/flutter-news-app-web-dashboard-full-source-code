@@ -3796,5 +3796,9 @@
   "feedDecoratorUnlockRewardsDescription": "Prompts users to watch an ad to unlock premium features temporarily.",
     "@feedDecoratorUnlockRewardsDescription": {
         "description": "Description for the 'Unlock Rewards' feed decorator."
+    },
+    "rewardDurationDaysDescription": "The number of days the reward remains active.",
+    "@rewardDurationDaysDescription": {
+        "description": "Description for the reward duration input field"
     }
 }
