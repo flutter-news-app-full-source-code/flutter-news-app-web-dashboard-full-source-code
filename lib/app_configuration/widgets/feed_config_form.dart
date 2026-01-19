@@ -31,12 +31,10 @@ class FeedConfigForm extends StatelessWidget {
     switch (type) {
       case FeedDecoratorType.linkAccount:
         return l10n.feedDecoratorLinkAccountDescription;
-      case FeedDecoratorType.upgrade:
-        return l10n.feedDecoratorUpgradeDescription;
+      case FeedDecoratorType.unlockRewards:
+        return l10n.feedDecoratorUnlockRewardsDescription;
       case FeedDecoratorType.rateApp:
         return l10n.feedDecoratorRateAppDescription;
-      case FeedDecoratorType.enableNotifications:
-        return l10n.feedDecoratorEnableNotificationsDescription;
       case FeedDecoratorType.suggestedTopics:
         return l10n.feedDecoratorSuggestedTopicsDescription;
       case FeedDecoratorType.suggestedSources:
