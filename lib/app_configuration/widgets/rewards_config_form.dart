@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -158,18 +157,15 @@ class _RewardsConfigFormState extends State<RewardsConfigForm> {
                     ),
                     if (details.enabled) ...[
                       const SizedBox(height: AppSpacing.sm),
-                      AppConfigTextField(
+                      AppConfigIntField(
                         label: l10n.rewardDurationDaysLabel,
+                        description: l10n.rewardDurationDaysDescription,
+                        value: details.durationDays,
                         controller: _durationControllers[type],
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
                         onChanged: (value) {
-                          final days = int.tryParse(value) ?? 0;
                           _updateRewardDetails(
                             type,
-                            details.copyWith(durationDays: days),
+                            details.copyWith(durationDays: value),
                           );
                         },
                       ),
