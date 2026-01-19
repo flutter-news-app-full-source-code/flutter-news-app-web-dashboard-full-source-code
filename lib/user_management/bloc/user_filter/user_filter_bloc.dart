@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart'
     show UserManagementBloc;
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 
 part 'user_filter_event.dart';
 part 'user_filter_state.dart';
@@ -49,7 +48,6 @@ class UserFilterBloc extends Bloc<UserFilterEvent, UserFilterState> {
       state.copyWith(
         searchQuery: event.searchQuery,
         authenticationFilter: event.authenticationFilter,
-        subscriptionFilter: event.subscriptionFilter,
         userRole: event.userRole,
       ),
     );

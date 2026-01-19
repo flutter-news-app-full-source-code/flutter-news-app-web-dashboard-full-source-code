@@ -11,7 +11,6 @@ class UserFilterState extends Equatable {
   const UserFilterState({
     this.searchQuery = '',
     this.authenticationFilter = AuthenticationFilter.all,
-    this.subscriptionFilter = SubscriptionFilter.all,
     this.userRole,
   });
 
@@ -21,9 +20,6 @@ class UserFilterState extends Equatable {
   /// The selected authentication status filter.
   final AuthenticationFilter authenticationFilter;
 
-  /// The selected subscription status filter.
-  final SubscriptionFilter subscriptionFilter;
-
   /// The selected user role filter.
   final UserRole? userRole;
 
@@ -31,13 +27,11 @@ class UserFilterState extends Equatable {
   UserFilterState copyWith({
     String? searchQuery,
     AuthenticationFilter? authenticationFilter,
-    SubscriptionFilter? subscriptionFilter,
     UserRole? userRole,
   }) {
     return UserFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
       authenticationFilter: authenticationFilter ?? this.authenticationFilter,
-      subscriptionFilter: subscriptionFilter ?? this.subscriptionFilter,
       userRole: userRole ?? this.userRole,
     );
   }
@@ -46,7 +40,6 @@ class UserFilterState extends Equatable {
   List<Object> get props => [
     searchQuery,
     authenticationFilter,
-    subscriptionFilter,
     userRole ?? '',
   ];
 }
