@@ -143,7 +143,7 @@ class _KpiCardState extends State<KpiCard> {
         return l10n.timeFrameYear;
     }
   }
-}
+
 
 class _TrendIndicator extends StatelessWidget {
   const _TrendIndicator({

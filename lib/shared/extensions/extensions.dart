@@ -1,3 +1,4 @@
+export 'access_tier_l10n.dart';
 export 'ad_platform_type_l10n.dart';
 export 'ad_type_l10n.dart';
 export 'app_review_feedback_extension.dart';
