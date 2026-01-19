@@ -1,11 +1,9 @@
 import 'package:auth_api/auth_api.dart';
 import 'package:auth_client/auth_client.dart';
-import 'package:auth_inmemory/auth_inmemory.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:data_api/data_api.dart';
 import 'package:data_client/data_client.dart';
-import 'package:data_inmemory/data_inmemory.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,28 +35,17 @@ Future<Widget> bootstrap(
 
   final kvStorage = await KVStorageSharedPreferences.getInstance();
 
-  late final AuthClient authClient;
   late final AuthRepository authenticationRepository;
-  HttpClient? httpClient;
-  late final PendingDeletionsService pendingDeletionsService;
 
-  if (appConfig.environment == app_config.AppEnvironment.demo) {
-    authClient = AuthInmemory(logger: Logger('AuthInmemory'));
-    authenticationRepository = AuthRepository(
-      authClient: authClient,
-      storageService: kvStorage,
-    );
-  } else {
-    httpClient = HttpClient(
-      baseUrl: appConfig.baseUrl,
-      tokenProvider: () => authenticationRepository.getAuthToken(),
-    );
-    authClient = AuthApi(httpClient: httpClient, logger: Logger('AuthApi'));
-    authenticationRepository = AuthRepository(
-      authClient: authClient,
-      storageService: kvStorage,
-    );
-  }
+  final httpClient = HttpClient(
+    baseUrl: appConfig.baseUrl,
+    tokenProvider: () => authenticationRepository.getAuthToken(),
+  );
+  final authClient = AuthApi(httpClient: httpClient, logger: Logger('AuthApi'));
+  authenticationRepository = AuthRepository(
+    authClient: authClient,
+    storageService: kvStorage,
+  );
 
   DataClient<Headline> headlinesClient;
   DataClient<Topic> topicsClient;
@@ -77,219 +64,119 @@ Future<Widget> bootstrap(
   DataClient<RankedListCardData> rankedListCardsClient;
   DataClient<UserRewards> userRewardsClient;
 
-  if (appConfig.environment == app_config.AppEnvironment.demo) {
-    headlinesClient = DataInMemory<Headline>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: getHeadlinesFixturesData(languageCode: 'en'),
-      logger: Logger('DataInMemory<Headline>'),
-    );
-    topicsClient = DataInMemory<Topic>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: getTopicsFixturesData(languageCode: 'en'),
-      logger: Logger('DataInMemory<Topic>'),
-    );
-    sourcesClient = DataInMemory<Source>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: getSourcesFixturesData(languageCode: 'en'),
-      logger: Logger('DataInMemory<Source>'),
-    );
-    userContentPreferencesClient = DataInMemory<UserContentPreferences>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      logger: Logger('DataInMemory<UserContentPreferences>'),
-    );
-    appSettingsClient = DataInMemory<AppSettings>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      logger: Logger(
-        'DataInMemory<AppSettings>',
-      ),
-    );
-    remoteConfigClient = DataInMemory<RemoteConfig>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: remoteConfigsFixturesData,
-      logger: Logger('DataInMemory<RemoteConfig>'),
-    );
-    countriesClient = DataInMemory<Country>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: countriesFixturesData,
-      logger: Logger('DataInMemory<Country>'),
-    );
-    languagesClient = DataInMemory<Language>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: languagesFixturesData,
-      logger: Logger('DataInMemory<Language>'),
-    );
+  headlinesClient = DataApi<Headline>(
+    httpClient: httpClient!,
+    modelName: 'headline',
+    fromJson: Headline.fromJson,
+    toJson: (headline) => headline.toJson(),
+    logger: Logger('DataApi<Headline>'),
+  );
+  topicsClient = DataApi<Topic>(
+    httpClient: httpClient,
+    modelName: 'topic',
+    fromJson: Topic.fromJson,
+    toJson: (topic) => topic.toJson(),
+    logger: Logger('DataApi<Topic>'),
+  );
+  sourcesClient = DataApi<Source>(
+    httpClient: httpClient,
+    modelName: 'source',
+    fromJson: Source.fromJson,
+    toJson: (source) => source.toJson(),
+    logger: Logger('DataApi<Source>'),
+  );
+  userContentPreferencesClient = DataApi<UserContentPreferences>(
+    httpClient: httpClient,
+    modelName: 'user_content_preferences',
+    fromJson: UserContentPreferences.fromJson,
+    toJson: (prefs) => prefs.toJson(),
+    logger: Logger('DataApi<UserContentPreferences>'),
+  );
+  appSettingsClient = DataApi<AppSettings>(
+    httpClient: httpClient,
+    modelName: 'app_settings',
+    fromJson: AppSettings.fromJson,
+    toJson: (settings) => settings.toJson(),
+    logger: Logger('DataApi<AppSettings>'),
+  );
+  remoteConfigClient = DataApi<RemoteConfig>(
+    httpClient: httpClient,
+    modelName: 'remote_config',
+    fromJson: RemoteConfig.fromJson,
+    toJson: (config) => config.toJson(),
+    logger: Logger('DataApi<RemoteConfig>'),
+  );
+  countriesClient = DataApi<Country>(
+    httpClient: httpClient,
+    modelName: 'country',
+    fromJson: Country.fromJson,
+    toJson: (country) => country.toJson(),
+    logger: Logger('DataApi<Country>'),
+  );
+  languagesClient = DataApi<Language>(
+    httpClient: httpClient,
+    modelName: 'language',
+    fromJson: Language.fromJson,
+    toJson: (language) => language.toJson(),
+    logger: Logger('DataApi<Language>'),
+  );
 
-    usersClient = DataInMemory<User>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: usersFixturesData,
-      logger: Logger('DataInMemory<User>'),
-    );
-    engagementsClient = DataInMemory<Engagement>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: getEngagementsFixturesData(),
-      logger: Logger('DataInMemory<Engagement>'),
-    );
-    reportsClient = DataInMemory<Report>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: getReportsFixturesData(),
-      logger: Logger('DataInMemory<Report>'),
-    );
-    appReviewsClient = DataInMemory<AppReview>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: getAppReviewsFixturesData(),
-      logger: Logger('DataInMemory<AppReview>'),
-    );
-    kpiCardsClient = DataInMemory<KpiCardData>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id.name,
-      initialData: getKpiCardsFixturesData(),
-      logger: Logger('DataInMemory<KpiCardData>'),
-    );
-    chartCardsClient = DataInMemory<ChartCardData>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id.name,
-      initialData: getChartCardsFixturesData(),
-      logger: Logger('DataInMemory<ChartCardData>'),
-    );
-    rankedListCardsClient = DataInMemory<RankedListCardData>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id.name,
-      initialData: getRankedListCardsFixturesData(),
-      logger: Logger('DataInMemory<RankedListCardData>'),
-    );
-    userRewardsClient = DataInMemory<UserRewards>(
-      toJson: (i) => i.toJson(),
-      getId: (i) => i.id,
-      initialData: userRewardsFixturesData,
-      logger: Logger('DataInMemory<UserRewards>'),
-    );
-  } else {
-    headlinesClient = DataApi<Headline>(
-      httpClient: httpClient!,
-      modelName: 'headline',
-      fromJson: Headline.fromJson,
-      toJson: (headline) => headline.toJson(),
-      logger: Logger('DataApi<Headline>'),
-    );
-    topicsClient = DataApi<Topic>(
-      httpClient: httpClient,
-      modelName: 'topic',
-      fromJson: Topic.fromJson,
-      toJson: (topic) => topic.toJson(),
-      logger: Logger('DataApi<Topic>'),
-    );
-    sourcesClient = DataApi<Source>(
-      httpClient: httpClient,
-      modelName: 'source',
-      fromJson: Source.fromJson,
-      toJson: (source) => source.toJson(),
-      logger: Logger('DataApi<Source>'),
-    );
-    userContentPreferencesClient = DataApi<UserContentPreferences>(
-      httpClient: httpClient,
-      modelName: 'user_content_preferences',
-      fromJson: UserContentPreferences.fromJson,
-      toJson: (prefs) => prefs.toJson(),
-      logger: Logger('DataApi<UserContentPreferences>'),
-    );
-    appSettingsClient = DataApi<AppSettings>(
-      httpClient: httpClient,
-      modelName: 'app_settings',
-      fromJson: AppSettings.fromJson,
-      toJson: (settings) => settings.toJson(),
-      logger: Logger('DataApi<AppSettings>'),
-    );
-    remoteConfigClient = DataApi<RemoteConfig>(
-      httpClient: httpClient,
-      modelName: 'remote_config',
-      fromJson: RemoteConfig.fromJson,
-      toJson: (config) => config.toJson(),
-      logger: Logger('DataApi<RemoteConfig>'),
-    );
-    countriesClient = DataApi<Country>(
-      httpClient: httpClient,
-      modelName: 'country',
-      fromJson: Country.fromJson,
-      toJson: (country) => country.toJson(),
-      logger: Logger('DataApi<Country>'),
-    );
-    languagesClient = DataApi<Language>(
-      httpClient: httpClient,
-      modelName: 'language',
-      fromJson: Language.fromJson,
-      toJson: (language) => language.toJson(),
-      logger: Logger('DataApi<Language>'),
-    );
-
-    usersClient = DataApi<User>(
-      httpClient: httpClient,
-      modelName: 'user',
-      fromJson: User.fromJson,
-      toJson: (user) => user.toJson(),
-      logger: Logger('DataApi<User>'),
-    );
-    engagementsClient = DataApi<Engagement>(
-      httpClient: httpClient,
-      modelName: 'engagement',
-      fromJson: Engagement.fromJson,
-      toJson: (engagement) => engagement.toJson(),
-      logger: Logger('DataApi<Engagement>'),
-    );
-    reportsClient = DataApi<Report>(
-      httpClient: httpClient,
-      modelName: 'report',
-      fromJson: Report.fromJson,
-      toJson: (report) => report.toJson(),
-      logger: Logger('DataApi<Report>'),
-    );
-    appReviewsClient = DataApi<AppReview>(
-      httpClient: httpClient,
-      modelName: 'app_review',
-      fromJson: AppReview.fromJson,
-      toJson: (appReview) => appReview.toJson(),
-      logger: Logger('DataApi<AppReview>'),
-    );
-    kpiCardsClient = DataApi<KpiCardData>(
-      httpClient: httpClient,
-      modelName: 'kpi_card',
-      fromJson: KpiCardData.fromJson,
-      toJson: (item) => item.toJson(),
-      logger: Logger('DataApi<KpiCardData>'),
-    );
-    chartCardsClient = DataApi<ChartCardData>(
-      httpClient: httpClient,
-      modelName: 'chart_card',
-      fromJson: ChartCardData.fromJson,
-      toJson: (item) => item.toJson(),
-      logger: Logger('DataApi<ChartCardData>'),
-    );
-    rankedListCardsClient = DataApi<RankedListCardData>(
-      httpClient: httpClient,
-      modelName: 'ranked_list_card',
-      fromJson: RankedListCardData.fromJson,
-      toJson: (item) => item.toJson(),
-      logger: Logger('DataApi<RankedListCardData>'),
-    );
-    userRewardsClient = DataApi<UserRewards>(
-      httpClient: httpClient,
-      modelName: 'user_rewards',
-      fromJson: UserRewards.fromJson,
-      toJson: (item) => item.toJson(),
-      logger: Logger('DataApi<UserRewards>'),
-    );
-  }
+  usersClient = DataApi<User>(
+    httpClient: httpClient,
+    modelName: 'user',
+    fromJson: User.fromJson,
+    toJson: (user) => user.toJson(),
+    logger: Logger('DataApi<User>'),
+  );
+  engagementsClient = DataApi<Engagement>(
+    httpClient: httpClient,
+    modelName: 'engagement',
+    fromJson: Engagement.fromJson,
+    toJson: (engagement) => engagement.toJson(),
+    logger: Logger('DataApi<Engagement>'),
+  );
+  reportsClient = DataApi<Report>(
+    httpClient: httpClient,
+    modelName: 'report',
+    fromJson: Report.fromJson,
+    toJson: (report) => report.toJson(),
+    logger: Logger('DataApi<Report>'),
+  );
+  appReviewsClient = DataApi<AppReview>(
+    httpClient: httpClient,
+    modelName: 'app_review',
+    fromJson: AppReview.fromJson,
+    toJson: (appReview) => appReview.toJson(),
+    logger: Logger('DataApi<AppReview>'),
+  );
+  kpiCardsClient = DataApi<KpiCardData>(
+    httpClient: httpClient,
+    modelName: 'kpi_card',
+    fromJson: KpiCardData.fromJson,
+    toJson: (item) => item.toJson(),
+    logger: Logger('DataApi<KpiCardData>'),
+  );
+  chartCardsClient = DataApi<ChartCardData>(
+    httpClient: httpClient,
+    modelName: 'chart_card',
+    fromJson: ChartCardData.fromJson,
+    toJson: (item) => item.toJson(),
+    logger: Logger('DataApi<ChartCardData>'),
+  );
+  rankedListCardsClient = DataApi<RankedListCardData>(
+    httpClient: httpClient,
+    modelName: 'ranked_list_card',
+    fromJson: RankedListCardData.fromJson,
+    toJson: (item) => item.toJson(),
+    logger: Logger('DataApi<RankedListCardData>'),
+  );
+  userRewardsClient = DataApi<UserRewards>(
+    httpClient: httpClient,
+    modelName: 'user_rewards',
+    fromJson: UserRewards.fromJson,
+    toJson: (item) => item.toJson(),
+    logger: Logger('DataApi<UserRewards>'),
+  );
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
     logger: Logger('PendingDeletionsService'),
