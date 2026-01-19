@@ -35,6 +35,7 @@ Future<Widget> bootstrap(
 
   final kvStorage = await KVStorageSharedPreferences.getInstance();
 
+  late final PendingDeletionsService pendingDeletionsService;
   late final AuthRepository authenticationRepository;
 
   final httpClient = HttpClient(
