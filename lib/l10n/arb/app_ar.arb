@@ -3800,5 +3800,9 @@
   "rewardEnabledLabel": "مفعل",
   "@rewardEnabledLabel": {
     "description": "Label for the reward enabled switch"
-  }
+  },
+    "feedDecoratorUnlockRewardsDescription": "يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.",
+    "@feedDecoratorUnlockRewardsDescription": {
+        "description": "Description for the 'Unlock Rewards' feed decorator."
+    }
 }

@@ -3022,4 +3022,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rewardEnabledLabel => 'مفعل';
+
+  @override
+  String get feedDecoratorUnlockRewardsDescription =>
+      'يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.';
 }

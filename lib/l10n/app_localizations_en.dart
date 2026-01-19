@@ -3039,4 +3039,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rewardEnabledLabel => 'Enabled';
+
+  @override
+  String get feedDecoratorUnlockRewardsDescription =>
+      'Prompts users to watch an ad to unlock premium features temporarily.';
 }

@@ -5527,6 +5527,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enabled'**
   String get rewardEnabledLabel;
+
+  /// Description for the 'Unlock Rewards' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts users to watch an ad to unlock premium features temporarily.'**
+  String get feedDecoratorUnlockRewardsDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -3792,5 +3792,9 @@
   "rewardEnabledLabel": "Enabled",
   "@rewardEnabledLabel": {
     "description": "Label for the reward enabled switch"
-  }
+  },
+  "feedDecoratorUnlockRewardsDescription": "Prompts users to watch an ad to unlock premium features temporarily.",
+    "@feedDecoratorUnlockRewardsDescription": {
+        "description": "Description for the 'Unlock Rewards' feed decorator."
+    }
 }
