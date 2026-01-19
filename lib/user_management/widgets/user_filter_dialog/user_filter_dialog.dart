@@ -5,7 +5,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -46,7 +45,6 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
       UserFilterApplied(
         searchQuery: filterDialogState.searchQuery,
         authenticationFilter: filterDialogState.authenticationFilter,
-        subscriptionFilter: filterDialogState.subscriptionFilter,
         userRole: filterDialogState.userRole,
       ),
     );
@@ -125,21 +123,6 @@ class _UserFilterDialogState extends State<UserFilterDialog> {
                     onSelected: (value) =>
                         context.read<UserFilterDialogBloc>().add(
                           UserFilterDialogAuthenticationChanged(
-                            value!,
-                          ),
-                        ),
-                    chipLabelBuilder: (value) => value.l10n(context),
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-
-                  // Subscription Filter
-                  _FilterSection<SubscriptionFilter>(
-                    title: l10n.subscription,
-                    selectedValue: filterDialogState.subscriptionFilter,
-                    values: SubscriptionFilter.values,
-                    onSelected: (value) =>
-                        context.read<UserFilterDialogBloc>().add(
-                          UserFilterDialogSubscriptionChanged(
                             value!,
                           ),
                         ),
