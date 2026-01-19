@@ -3757,17 +3757,13 @@
   "@chartSubscriptionsByStoreProvider": {
     "description": "Title for the Subscriptions by Store chart card"
   },
-  "kpiSubscriptionsActiveCount": "الاشتراكات النشطة",
-  "@kpiSubscriptionsActiveCount": {
-    "description": "Title for the Active Subscriptions KPI card"
+  "kpiRewardsAdsWatchedTotal": "إجمالي الإعلانات المشاهدة",
+  "@kpiRewardsAdsWatchedTotal": {
+    "description": "Title for the Total Ads Watched KPI card"
   },
-  "kpiSubscriptionsCanceledCount": "الاشتراكات الملغاة",
-  "@kpiSubscriptionsCanceledCount": {
-    "description": "Title for the Canceled Subscriptions KPI card"
-  },
-  "kpiSubscriptionsExpiredCount": "الاشتراكات المنتهية",
-  "@kpiSubscriptionsExpiredCount": {
-    "description": "Title for the Expired Subscriptions KPI card"
+  "kpiRewardsActiveUsersCount": "مستخدمو المكافآت النشطون",
+  "@kpiRewardsActiveUsersCount": {
+    "description": "Title for the Active Reward Users KPI card"
   },
   "rewardsTab": "المكافآت",
   "@rewardsTab": {
@@ -3800,6 +3796,14 @@
   "rewardEnabledLabel": "مفعل",
   "@rewardEnabledLabel": {
     "description": "Label for the reward enabled switch"
+  },
+  "chartRewardsAdsWatchedOverTime": "اتجاه مشاهدة الإعلانات",
+  "@chartRewardsAdsWatchedOverTime": {
+    "description": "Title for the Ads Watched Trend chart card"
+  },
+  "chartRewardsActiveByType": "المكافآت النشطة حسب النوع",
+  "@chartRewardsActiveByType": {
+    "description": "Title for the Active Rewards by Type chart card"
   },
   "feedDecoratorUnlockRewardsDescription": "يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.",
   "@feedDecoratorUnlockRewardsDescription": {

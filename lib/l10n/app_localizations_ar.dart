@@ -2989,13 +2989,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chartSubscriptionsByStoreProvider => 'الاشتراكات حسب المتجر';
 
   @override
-  String get kpiSubscriptionsActiveCount => 'الاشتراكات النشطة';
+  String get kpiRewardsAdsWatchedTotal => 'إجمالي الإعلانات المشاهدة';
 
   @override
-  String get kpiSubscriptionsCanceledCount => 'الاشتراكات الملغاة';
-
-  @override
-  String get kpiSubscriptionsExpiredCount => 'الاشتراكات المنتهية';
+  String get kpiRewardsActiveUsersCount => 'مستخدمو المكافآت النشطون';
 
   @override
   String get rewardsTab => 'المكافآت';
@@ -3022,6 +3019,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rewardEnabledLabel => 'مفعل';
+
+  @override
+  String get chartRewardsAdsWatchedOverTime => 'اتجاه مشاهدة الإعلانات';
+
+  @override
+  String get chartRewardsActiveByType => 'المكافآت النشطة حسب النوع';
 
   @override
   String get feedDecoratorUnlockRewardsDescription =>

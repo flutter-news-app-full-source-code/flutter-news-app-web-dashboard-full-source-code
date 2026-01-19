@@ -3749,17 +3749,13 @@
   "@chartSubscriptionsByStoreProvider": {
     "description": "Title for the Subscriptions by Store chart card"
   },
-  "kpiSubscriptionsActiveCount": "Active Subscriptions",
-  "@kpiSubscriptionsActiveCount": {
-    "description": "Title for the Active Subscriptions KPI card"
+  "kpiRewardsAdsWatchedTotal": "Total Ads Watched",
+  "@kpiRewardsAdsWatchedTotal": {
+    "description": "Title for the Total Ads Watched KPI card"
   },
-  "kpiSubscriptionsCanceledCount": "Canceled Subscriptions",
-  "@kpiSubscriptionsCanceledCount": {
-    "description": "Title for the Canceled Subscriptions KPI card"
-  },
-  "kpiSubscriptionsExpiredCount": "Expired Subscriptions",
-  "@kpiSubscriptionsExpiredCount": {
-    "description": "Title for the Expired Subscriptions KPI card"
+  "kpiRewardsActiveUsersCount": "Active Reward Users",
+  "@kpiRewardsActiveUsersCount": {
+    "description": "Title for the Active Reward Users KPI card"
   },
   "rewardsTab": "Rewards",
   "@rewardsTab": {
@@ -3793,12 +3789,20 @@
   "@rewardEnabledLabel": {
     "description": "Label for the reward enabled switch"
   },
+  "chartRewardsAdsWatchedOverTime": "Ads Watched Trend",
+  "@chartRewardsAdsWatchedOverTime": {
+    "description": "Title for the Ads Watched Trend chart card"
+  },
+  "chartRewardsActiveByType": "Active Rewards by Type",
+  "@chartRewardsActiveByType": {
+    "description": "Title for the Active Rewards by Type chart card"
+  },
   "feedDecoratorUnlockRewardsDescription": "Prompts users to watch an ad to unlock premium features temporarily.",
-    "@feedDecoratorUnlockRewardsDescription": {
-        "description": "Description for the 'Unlock Rewards' feed decorator."
-    },
-    "rewardDurationDaysDescription": "The number of days the reward remains active.",
-    "@rewardDurationDaysDescription": {
-        "description": "Description for the reward duration input field"
-    }
+  "@feedDecoratorUnlockRewardsDescription": {
+    "description": "Description for the 'Unlock Rewards' feed decorator."
+  },
+  "rewardDurationDaysDescription": "The number of days the reward remains active.",
+  "@rewardDurationDaysDescription": {
+    "description": "Description for the reward duration input field"
+  }
 }

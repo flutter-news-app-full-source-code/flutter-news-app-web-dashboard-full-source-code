@@ -3006,13 +3006,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chartSubscriptionsByStoreProvider => 'Subscriptions by Store';
 
   @override
-  String get kpiSubscriptionsActiveCount => 'Active Subscriptions';
+  String get kpiRewardsAdsWatchedTotal => 'Total Ads Watched';
 
   @override
-  String get kpiSubscriptionsCanceledCount => 'Canceled Subscriptions';
-
-  @override
-  String get kpiSubscriptionsExpiredCount => 'Expired Subscriptions';
+  String get kpiRewardsActiveUsersCount => 'Active Reward Users';
 
   @override
   String get rewardsTab => 'Rewards';
@@ -3039,6 +3036,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rewardEnabledLabel => 'Enabled';
+
+  @override
+  String get chartRewardsAdsWatchedOverTime => 'Ads Watched Trend';
+
+  @override
+  String get chartRewardsActiveByType => 'Active Rewards by Type';
 
   @override
   String get feedDecoratorUnlockRewardsDescription =>

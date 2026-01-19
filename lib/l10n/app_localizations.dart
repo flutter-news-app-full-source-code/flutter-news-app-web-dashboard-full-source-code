@@ -5462,23 +5462,17 @@ abstract class AppLocalizations {
   /// **'Subscriptions by Store'**
   String get chartSubscriptionsByStoreProvider;
 
-  /// Title for the Active Subscriptions KPI card
+  /// Title for the Total Ads Watched KPI card
   ///
   /// In en, this message translates to:
-  /// **'Active Subscriptions'**
-  String get kpiSubscriptionsActiveCount;
+  /// **'Total Ads Watched'**
+  String get kpiRewardsAdsWatchedTotal;
 
-  /// Title for the Canceled Subscriptions KPI card
+  /// Title for the Active Reward Users KPI card
   ///
   /// In en, this message translates to:
-  /// **'Canceled Subscriptions'**
-  String get kpiSubscriptionsCanceledCount;
-
-  /// Title for the Expired Subscriptions KPI card
-  ///
-  /// In en, this message translates to:
-  /// **'Expired Subscriptions'**
-  String get kpiSubscriptionsExpiredCount;
+  /// **'Active Reward Users'**
+  String get kpiRewardsActiveUsersCount;
 
   /// Tab title for Rewards settings
   ///
@@ -5527,6 +5521,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enabled'**
   String get rewardEnabledLabel;
+
+  /// Title for the Ads Watched Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Ads Watched Trend'**
+  String get chartRewardsAdsWatchedOverTime;
+
+  /// Title for the Active Rewards by Type chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Active Rewards by Type'**
+  String get chartRewardsActiveByType;
 
   /// Description for the 'Unlock Rewards' feed decorator.
   ///
