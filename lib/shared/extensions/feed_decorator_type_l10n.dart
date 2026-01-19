@@ -12,12 +12,10 @@ extension FeedDecoratorTypeL10n on FeedDecoratorType {
     switch (this) {
       case FeedDecoratorType.linkAccount:
         return l10n.feedDecoratorTypeLinkAccount;
-      case FeedDecoratorType.upgrade:
-        return l10n.feedDecoratorTypeUpgrade;
+      case FeedDecoratorType.unlockRewards:
+        return l10n.feedDecoratorUnlockRewardsDescription;
       case FeedDecoratorType.rateApp:
         return l10n.feedDecoratorTypeRateApp;
-      case FeedDecoratorType.enableNotifications:
-        return l10n.feedDecoratorTypeEnableNotifications;
       case FeedDecoratorType.suggestedTopics:
         return l10n.feedDecoratorTypeSuggestedTopics;
       case FeedDecoratorType.suggestedSources:

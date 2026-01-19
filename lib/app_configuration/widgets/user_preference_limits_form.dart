@@ -219,8 +219,6 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
         return l10n.guestFollowedItemsLimitLabel;
       case AccessTier.standard:
         return l10n.standardUserFollowedItemsLimitLabel;
-      case AccessTier.premium:
-        return l10n.premiumFollowedItemsLimitLabel;
     }
   }
 
@@ -233,8 +231,6 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
         return l10n.guestFollowedItemsLimitDescription;
       case AccessTier.standard:
         return l10n.standardUserFollowedItemsLimitDescription;
-      case AccessTier.premium:
-        return l10n.premiumFollowedItemsLimitDescription;
     }
   }
 
@@ -244,8 +240,6 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
         return l10n.guestSavedHeadlinesLimitLabel;
       case AccessTier.standard:
         return l10n.standardUserSavedHeadlinesLimitLabel;
-      case AccessTier.premium:
-        return l10n.premiumSavedHeadlinesLimitLabel;
     }
   }
 
@@ -258,8 +252,6 @@ class _UserPreferenceLimitsFormState extends State<UserPreferenceLimitsForm>
         return l10n.guestSavedHeadlinesLimitDescription;
       case AccessTier.standard:
         return l10n.standardUserSavedHeadlinesLimitDescription;
-      case AccessTier.premium:
-        return l10n.premiumSavedHeadlinesLimitDescription;
     }
   }
 }
