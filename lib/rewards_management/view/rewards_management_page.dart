@@ -1,5 +1,3 @@
-import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -20,28 +18,6 @@ import 'package:ui_kit/ui_kit.dart';
 class RewardsManagementPage extends StatelessWidget {
   /// {@macro rewards_management_page}
   const RewardsManagementPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => RewardsFilterBloc(),
-        ),
-        BlocProvider(
-          create: (context) => RewardsManagementBloc(
-            rewardsRepository: context.read<DataRepository<UserRewards>>(),
-            rewardsFilterBloc: context.read<RewardsFilterBloc>(),
-          ),
-        ),
-      ],
-      child: const _RewardsManagementView(),
-    );
-  }
-}
-
-class _RewardsManagementView extends StatelessWidget {
-  const _RewardsManagementView();
 
   @override
   Widget build(BuildContext context) {
