@@ -72,26 +72,6 @@ class EmailCodeVerificationPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  // Display demo code if in demo environment
-                  BlocSelector<AppBloc, AppState, AppEnvironment?>(
-                    selector: (state) => state.environment,
-                    builder: (context, environment) {
-                      if (environment == AppEnvironment.demo) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: AppSpacing.md),
-                          child: Text(
-                            l10n.demoCodeHint('123456'),
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.secondary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
                   const SizedBox(height: AppSpacing.xl),
                   _EmailCodeVerificationForm(
                     email: email,
