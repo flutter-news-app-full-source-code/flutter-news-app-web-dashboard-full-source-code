@@ -59,16 +59,16 @@ Effortlessly manage your entire user base with a dedicated user management syste
 </details>
 
 <details>
-<summary><strong>💰 Subscription & Revenue Monitoring</strong></summary>
+<summary><strong>🎁 Rewards & Monetization Monitoring</strong></summary>
 
-### 📈 Centralized Subscription Oversight
-Gain a clear, real-time view of your subscription business health from a dedicated management hub.
-- **Complete Subscription Roster:** Monitor all user subscriptions in a unified list, with at-a-glance details like status (Active, Canceled, Expired), store provider, and expiry date.
-- **Revenue & Growth Analytics:** Instantly track key business metrics with integrated KPIs for active subscribers and churn, alongside charts visualizing growth trends and provider distribution.
-- **Secure, Read-Only Interface:** Safely monitor subscription data without handling transactions. All purchases, renewals, and cancellations are processed securely by the backend via webhooks from Apple and Google.
-> **Your Advantage:** Effortlessly track subscriber growth, understand churn, and monitor the overall health of your monetization strategy from a secure, centralized dashboard.
-
-</details>
+### 🎁 Engagement-Based Rewards Oversight
+Gain a clear, real-time view of your ad-based reward system health from a dedicated management hub.
+- **Active Rewards Tracking:** Monitor user engagement with rewarded ads, tracking active entitlements like "Ad-Free" or "Daily Digest" access.
+- **Engagement Analytics:** Instantly track key metrics with integrated KPIs for total ads watched and active reward users, alongside charts visualizing engagement trends over time.
+- **Configuration Control:** Dynamically adjust reward durations and availability directly from the dashboard to optimize user engagement and ad revenue.
+> **Your Advantage:** Effortlessly track user engagement with rewarded ads, understand reward popularity, and monitor the overall health of your time-based monetization strategy.
+ 
+ </details>
 
 <details>
 <summary><strong>💬 Community & Moderation Control</strong></summary>
