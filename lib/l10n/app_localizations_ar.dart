@@ -3064,4 +3064,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectRewardTypes => 'اختر أنواع المكافآت';
+
+  @override
+  String get loadingAnalytics => 'جاري تحميل التحليلات';
 }

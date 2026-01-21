@@ -3852,5 +3852,9 @@
   "selectRewardTypes": "اختر أنواع المكافآت",
   "@selectRewardTypes": {
     "description": "Hint text for selecting reward types in a filter dialog."
+  },
+  "loadingAnalytics": "جاري تحميل التحليلات",
+  "@loadingAnalytics": {
+    "description": "Headline shown when the analytics dashboard is fetching data."
   }
 }

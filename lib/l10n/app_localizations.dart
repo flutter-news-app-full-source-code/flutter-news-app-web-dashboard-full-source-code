@@ -5605,6 +5605,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Reward Types'**
   String get selectRewardTypes;
+
+  /// Headline shown when the analytics dashboard is fetching data.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Analytics'**
+  String get loadingAnalytics;
 }
 
 class _AppLocalizationsDelegate

@@ -3844,5 +3844,9 @@
   "selectRewardTypes": "Select Reward Types",
   "@selectRewardTypes": {
     "description": "Hint text for selecting reward types in a filter dialog."
+  },
+  "loadingAnalytics": "Loading Analytics",
+  "@loadingAnalytics": {
+    "description": "Headline shown when the analytics dashboard is fetching data."
   }
 }
