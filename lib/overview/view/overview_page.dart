@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/utils/future_utils.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -54,13 +55,25 @@ class _OverviewPageState extends State<OverviewPage> {
   void _fetchData() {
     setState(() {
       final analyticsService = context.read<AnalyticsService>();
-      // Fetch all data in parallel. The order here MUST match the order
-      // used when unpacking the data in the build method.
-      _dataFuture = Future.wait([
-        ..._kpiCards.map(analyticsService.getKpi),
-        ..._chartCards.map(analyticsService.getChart),
-        ..._rankedListCards.map(analyticsService.getRankedList),
-      ]);
+      // Create a list of future providers to be executed in batches.
+      // The order here MUST match the order used when unpacking the data.
+      final futureProviders = <Future<dynamic> Function()>[
+        ..._kpiCards.map(
+          (id) =>
+              () => analyticsService.getKpi(id),
+        ),
+        ..._chartCards.map(
+          (id) =>
+              () => analyticsService.getChart(id),
+        ),
+        ..._rankedListCards.map(
+          (id) =>
+              () => analyticsService.getRankedList(id),
+        ),
+      ];
+
+      // Use the utility to fetch data in controlled batches.
+      _dataFuture = FutureUtils.fetchInBatches(futureProviders);
     });
   }
 
