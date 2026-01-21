@@ -131,12 +131,11 @@ class _FeedDecoratorFormState extends State<FeedDecoratorForm>
       // The 'linkAccount' decorator is only for guest users.
       case FeedDecoratorType.linkAccount:
         return tier == AccessTier.guest;
-      // The 'upgrade' decorator is only for standard users.
-      case FeedDecoratorType.upgrade:
+      // The 'unlockRewards' decorator is only for standard users.
+      case FeedDecoratorType.unlockRewards:
         return tier == AccessTier.standard;
       // All other decorators are applicable to any user role.
       case FeedDecoratorType.rateApp:
-      case FeedDecoratorType.enableNotifications:
       case FeedDecoratorType.suggestedTopics:
       case FeedDecoratorType.suggestedSources:
         return true;

@@ -123,26 +123,24 @@ class _KpiCardState extends State<KpiCard> {
         return l10n.kpiEngagementsAppReviewsPositiveFeedback;
       case KpiCardId.engagementsAppReviewsStoreRequests:
         return l10n.kpiEngagementsAppReviewsStoreRequests;
-      case KpiCardId.subscriptionsActiveCount:
-        return l10n.kpiSubscriptionsActiveCount;
-      case KpiCardId.subscriptionsCanceledCount:
-        return l10n.kpiSubscriptionsCanceledCount;
-      case KpiCardId.subscriptionsExpiredCount:
-        return l10n.kpiSubscriptionsExpiredCount;
+      case KpiCardId.rewardsAdsWatchedTotal:
+        return l10n.kpiRewardsAdsWatchedTotal;
+      case KpiCardId.rewardsActiveUsersCount:
+        return l10n.kpiRewardsActiveUsersCount;
     }
   }
+}
 
-  String _timeFrameToLabel(KpiTimeFrame frame, AppLocalizations l10n) {
-    switch (frame) {
-      case KpiTimeFrame.day:
-        return l10n.timeFrameDay;
-      case KpiTimeFrame.week:
-        return l10n.timeFrameWeek;
-      case KpiTimeFrame.month:
-        return l10n.timeFrameMonth;
-      case KpiTimeFrame.year:
-        return l10n.timeFrameYear;
-    }
+String _timeFrameToLabel(KpiTimeFrame frame, AppLocalizations l10n) {
+  switch (frame) {
+    case KpiTimeFrame.day:
+      return l10n.timeFrameDay;
+    case KpiTimeFrame.week:
+      return l10n.timeFrameWeek;
+    case KpiTimeFrame.month:
+      return l10n.timeFrameMonth;
+    case KpiTimeFrame.year:
+      return l10n.timeFrameYear;
   }
 }
 

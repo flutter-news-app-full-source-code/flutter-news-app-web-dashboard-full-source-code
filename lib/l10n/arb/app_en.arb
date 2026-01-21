@@ -3749,16 +3749,112 @@
   "@chartSubscriptionsByStoreProvider": {
     "description": "Title for the Subscriptions by Store chart card"
   },
-  "kpiSubscriptionsActiveCount": "Active Subscriptions",
-  "@kpiSubscriptionsActiveCount": {
-    "description": "Title for the Active Subscriptions KPI card"
+  "kpiRewardsAdsWatchedTotal": "Total Ads Watched",
+  "@kpiRewardsAdsWatchedTotal": {
+    "description": "Title for the Total Ads Watched KPI card"
   },
-  "kpiSubscriptionsCanceledCount": "Canceled Subscriptions",
-  "@kpiSubscriptionsCanceledCount": {
-    "description": "Title for the Canceled Subscriptions KPI card"
+  "kpiRewardsActiveUsersCount": "Active Reward Users",
+  "@kpiRewardsActiveUsersCount": {
+    "description": "Title for the Active Reward Users KPI card"
   },
-  "kpiSubscriptionsExpiredCount": "Expired Subscriptions",
-  "@kpiSubscriptionsExpiredCount": {
-    "description": "Title for the Expired Subscriptions KPI card"
+  "rewardsTab": "Rewards",
+  "@rewardsTab": {
+    "description": "Tab title for Rewards settings"
+  },
+  "rewardsDescription": "Configure time-based rewards for user engagement.",
+  "@rewardsDescription": {
+    "description": "Description for the Rewards expansion tile"
+  },
+  "enableRewardsLabel": "Enable Rewards System",
+  "@enableRewardsLabel": {
+    "description": "Label for the master switch to enable the rewards system"
+  },
+  "enableRewardsDescription": "Allow users to earn rewards by watching ads.",
+  "@enableRewardsDescription": {
+    "description": "Description for the master switch to enable the rewards system"
+  },
+  "rewardTypeAdFree": "Ad-Free Experience",
+  "@rewardTypeAdFree": {
+    "description": "Label for the Ad-Free reward type"
+  },
+  "rewardTypeDailyDigest": "Daily Digest",
+  "@rewardTypeDailyDigest": {
+    "description": "Label for the Daily Digest reward type"
+  },
+  "rewardDurationDaysLabel": "Duration (Days)",
+  "@rewardDurationDaysLabel": {
+    "description": "Label for the reward duration input field"
+  },
+  "rewardEnabledLabel": "Enabled",
+  "@rewardEnabledLabel": {
+    "description": "Label for the reward enabled switch"
+  },
+  "chartRewardsAdsWatchedOverTime": "Ads Watched Trend",
+  "@chartRewardsAdsWatchedOverTime": {
+    "description": "Title for the Ads Watched Trend chart card"
+  },
+  "chartRewardsActiveByType": "Active Rewards by Type",
+  "@chartRewardsActiveByType": {
+    "description": "Title for the Active Rewards by Type chart card"
+  },
+  "feedDecoratorUnlockRewardsDescription": "Prompts users to watch an ad to unlock premium features temporarily.",
+  "@feedDecoratorUnlockRewardsDescription": {
+    "description": "Description for the 'Unlock Rewards' feed decorator."
+  },
+  "rewardDurationDaysDescription": "The number of days the reward remains active.",
+  "@rewardDurationDaysDescription": {
+    "description": "Description for the reward duration input field"
+  },
+  "rewardsManagement": "Rewards Management",
+  "@rewardsManagement": {
+    "description": "Label for the rewards management navigation item"
+  },
+  "rewardsManagementPageDescription": "Manage user rewards and entitlements.",
+  "@rewardsManagementPageDescription": {
+    "description": "Description for the Rewards Management page"
+  },
+  "loadingRewards": "Loading Rewards",
+  "@loadingRewards": {
+    "description": "Headline for loading state of rewards"
+  },
+  "noRewardsFound": "No rewards found.",
+  "@noRewardsFound": {
+    "description": "Message when no rewards are found"
+  },
+  "userId": "User ID",
+  "@userId": {
+    "description": "Column header for user ID"
+  },
+  "activeRewards": "Active Rewards",
+  "@activeRewards": {
+    "description": "Column header for active rewards"
+  },
+  "expiry": "Expiry",
+  "@expiry": {
+    "description": "Column header for expiry date"
+  },
+  "filterRewards": "Filter Rewards",
+  "@filterRewards": {
+    "description": "Title for the filter dialog when filtering rewards."
+  },
+  "rewardType": "Reward Type",
+  "@rewardType": {
+    "description": "Label for reward type filter."
+  },
+  "selectRewardTypes": "Select Reward Types",
+  "@selectRewardTypes": {
+    "description": "Hint text for selecting reward types in a filter dialog."
+  },
+  "loadingAnalytics": "Loading Analytics",
+  "@loadingAnalytics": {
+    "description": "Headline shown when the analytics dashboard is fetching data."
+  },
+  "noAnalyticsDataHeadline": "No Analytics Data",
+  "@noAnalyticsDataHeadline": {
+    "description": "Headline for the empty state when no analytics data is available."
+  },
+  "noAnalyticsDataSubheadline": "There is no data to display yet. Check back later.",
+  "@noAnalyticsDataSubheadline": {
+    "description": "Sub-headline for the empty state when no analytics data is available."
   }
 }

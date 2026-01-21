@@ -1,7 +1,7 @@
 /// Defines application-wide constants.
 abstract final class AppConstants {
   /// The maximum width the application should occupy on large screens.
-  static const double kMaxAppWidth = 1000;
+  static const double kMaxAppWidth = 1200;
 
   /// The breakpoint width to switch between mobile (column) and desktop (row) layouts.
   ///

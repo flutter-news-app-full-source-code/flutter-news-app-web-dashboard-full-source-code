@@ -18,10 +18,14 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_filter/rewards_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/shared.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/subscriptions/bloc/subscriptions_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +49,7 @@ class App extends StatelessWidget {
     required DataRepository<Engagement> engagementsRepository,
     required DataRepository<Report> reportsRepository,
     required DataRepository<AppReview> appReviewsRepository,
-    required DataRepository<UserSubscription> userSubscriptionsRepository,
+    required DataRepository<UserRewards> userRewardsRepository,
     required AnalyticsService analyticsService,
     required KVStorageService storageService,
     required AppEnvironment environment,
@@ -65,7 +69,7 @@ class App extends StatelessWidget {
        _engagementsRepository = engagementsRepository,
        _reportsRepository = reportsRepository,
        _appReviewsRepository = appReviewsRepository,
-       _userSubscriptionsRepository = userSubscriptionsRepository,
+       _userRewardsRepository = userRewardsRepository,
        _analyticsService = analyticsService,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
@@ -84,7 +88,7 @@ class App extends StatelessWidget {
   final DataRepository<Engagement> _engagementsRepository;
   final DataRepository<Report> _reportsRepository;
   final DataRepository<AppReview> _appReviewsRepository;
-  final DataRepository<UserSubscription> _userSubscriptionsRepository;
+  final DataRepository<UserRewards> _userRewardsRepository;
   final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -109,7 +113,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _engagementsRepository),
         RepositoryProvider.value(value: _reportsRepository),
         RepositoryProvider.value(value: _appReviewsRepository),
-        RepositoryProvider.value(value: _userSubscriptionsRepository),
+        RepositoryProvider.value(value: _userRewardsRepository),
         RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
@@ -188,13 +192,12 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => SubscriptionsFilterBloc(),
+            create: (context) => RewardsFilterBloc(),
           ),
           BlocProvider(
-            create: (context) => SubscriptionsBloc(
-              subscriptionsRepository: context
-                  .read<DataRepository<UserSubscription>>(),
-              subscriptionsFilterBloc: context.read<SubscriptionsFilterBloc>(),
+            create: (context) => RewardsManagementBloc(
+              rewardsRepository: context.read<DataRepository<UserRewards>>(),
+              rewardsFilterBloc: context.read<RewardsFilterBloc>(),
             ),
           ),
         ],

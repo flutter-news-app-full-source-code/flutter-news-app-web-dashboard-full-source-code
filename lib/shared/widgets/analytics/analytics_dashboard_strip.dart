@@ -1,6 +1,9 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/utils/future_utils.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -17,8 +20,12 @@ import 'package:ui_kit/ui_kit.dart';
 ///   The KPI slot has a fixed width ([AppConstants.kAnalyticsKpiSidebarWidth]),
 ///   and the Chart slot takes the remaining space.
 /// - On narrow screens, it displays as a Column, with both slots taking full width.
+///
+/// This widget fetches all required data upfront. It shows a loading indicator
+/// while fetching and hides itself entirely if the data fetch fails or if all
+/// cards report empty data.
 /// {@endtemplate}
-class AnalyticsDashboardStrip extends StatelessWidget {
+class AnalyticsDashboardStrip extends StatefulWidget {
   /// {@macro analytics_dashboard_strip}
   const AnalyticsDashboardStrip({
     required this.kpiCards,
@@ -33,6 +40,40 @@ class AnalyticsDashboardStrip extends StatelessWidget {
   final List<ChartCardId> chartCards;
 
   @override
+  State<AnalyticsDashboardStrip> createState() =>
+      _AnalyticsDashboardStripState();
+}
+
+class _AnalyticsDashboardStripState extends State<AnalyticsDashboardStrip> {
+  late final Future<List<dynamic>> _dataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  void _fetchData() {
+    final analyticsService = context.read<AnalyticsService>();
+    // Create a list of future providers to be executed in batches.
+    final futureProviders = <Future<dynamic> Function()>[
+      ...widget.kpiCards.map(
+        (id) =>
+            () => analyticsService.getKpi(id),
+      ),
+      ...widget.chartCards.map(
+        (id) =>
+            () => analyticsService.getChart(id),
+      ),
+    ];
+
+    // Use the utility to fetch data in controlled batches instead of all at once.
+    _dataFuture = FutureUtils.fetchInBatches(
+      futureProviders,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
@@ -40,44 +81,90 @@ class AnalyticsDashboardStrip extends StatelessWidget {
         right: AppSpacing.sm,
         bottom: AppSpacing.md,
       ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final isWide =
-              constraints.maxWidth >= AppConstants.kDesktopBreakpoint;
-
-          // Define the slots
-          final kpiSlot = AnalyticsCardSlot<KpiCardId>(
-            cardIds: kpiCards,
-          );
-
-          final chartSlot = AnalyticsCardSlot<ChartCardId>(
-            cardIds: chartCards,
-          );
-
-          if (isWide) {
-            // Desktop/Tablet: Row with fixed KPI width
-            return SizedBox(
+      child: FutureBuilder<List<dynamic>>(
+        future: _dataFuture,
+        builder: (context, snapshot) {
+          // While loading, show a placeholder with a fixed height to prevent
+          // layout shifts.
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SizedBox(
               height: 200,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: AppConstants.kAnalyticsKpiSidebarWidth,
-                    child: kpiSlot,
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: chartSlot,
-                  ),
-                ],
-              ),
-            );
-          } else {
-            // Mobile: Only show the chart slot to save vertical space for the table.
-            return SizedBox(
-              height: 150,
-              child: kpiSlot,
+              child: Center(child: CircularProgressIndicator()),
             );
           }
+
+          // On error, hide the widget entirely.
+          if (snapshot.hasError) {
+            return const SizedBox.shrink();
+          }
+
+          // On success, process the data.
+          if (snapshot.hasData) {
+            final allData = snapshot.data!;
+
+            // Check if all returned cards have empty data.
+            final isAllEmpty = allData.every((cardData) {
+              if (cardData is KpiCardData) return cardData.timeFrames.isEmpty;
+              if (cardData is ChartCardData) return cardData.timeFrames.isEmpty;
+              return true; // Default to empty for unknown types.
+            });
+
+            // If all cards are empty, hide the widget.
+            if (isAllEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            // Split the data back into KPI and Chart data lists.
+            final kpiData = allData
+                .sublist(0, widget.kpiCards.length)
+                .cast<KpiCardData>();
+            final chartData = allData
+                .sublist(widget.kpiCards.length)
+                .cast<ChartCardData>();
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final isWide =
+                    constraints.maxWidth >= AppConstants.kDesktopBreakpoint;
+
+                final kpiSlot = AnalyticsCardSlot<KpiCardId>(
+                  cardIds: widget.kpiCards,
+                  data: kpiData,
+                );
+
+                final chartSlot = AnalyticsCardSlot<ChartCardId>(
+                  cardIds: widget.chartCards,
+                  data: chartData,
+                );
+
+                if (isWide) {
+                  // Desktop/Tablet: Row with fixed KPI width
+                  return SizedBox(
+                    height: 200,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: AppConstants.kAnalyticsKpiSidebarWidth,
+                          child: kpiSlot,
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(child: chartSlot),
+                      ],
+                    ),
+                  );
+                } else {
+                  // Mobile: Show KPI slot.
+                  return SizedBox(
+                    height: 150,
+                    child: kpiSlot,
+                  );
+                }
+              },
+            );
+          }
+
+          // Fallback for any other state (e.g., none, done without data).
+          return const SizedBox.shrink();
         },
       ),
     );

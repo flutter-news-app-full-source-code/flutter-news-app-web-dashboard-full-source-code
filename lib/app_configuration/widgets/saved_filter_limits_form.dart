@@ -282,8 +282,6 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
         return l10n.notificationSubscriptionBreakingOnlyDescription;
       case PushNotificationSubscriptionDeliveryType.dailyDigest:
         return l10n.notificationSubscriptionDailyDigestDescription;
-      case PushNotificationSubscriptionDeliveryType.weeklyRoundup:
-        return l10n.notificationSubscriptionWeeklyRoundupDescription;
     }
   }
 

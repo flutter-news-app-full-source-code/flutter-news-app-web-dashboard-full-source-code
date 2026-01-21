@@ -29,20 +29,17 @@ final class UserFilterApplied extends UserFilterEvent {
   const UserFilterApplied({
     required this.searchQuery,
     required this.authenticationFilter,
-    required this.subscriptionFilter,
     this.userRole,
   });
 
   final String searchQuery;
   final AuthenticationFilter authenticationFilter;
-  final SubscriptionFilter subscriptionFilter;
   final UserRole? userRole;
 
   @override
   List<Object> get props => [
     searchQuery,
     authenticationFilter,
-    subscriptionFilter,
     userRole ?? '',
   ];
 }

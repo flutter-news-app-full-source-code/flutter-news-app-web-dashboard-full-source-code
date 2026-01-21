@@ -3006,11 +3006,89 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chartSubscriptionsByStoreProvider => 'Subscriptions by Store';
 
   @override
-  String get kpiSubscriptionsActiveCount => 'Active Subscriptions';
+  String get kpiRewardsAdsWatchedTotal => 'Total Ads Watched';
 
   @override
-  String get kpiSubscriptionsCanceledCount => 'Canceled Subscriptions';
+  String get kpiRewardsActiveUsersCount => 'Active Reward Users';
 
   @override
-  String get kpiSubscriptionsExpiredCount => 'Expired Subscriptions';
+  String get rewardsTab => 'Rewards';
+
+  @override
+  String get rewardsDescription =>
+      'Configure time-based rewards for user engagement.';
+
+  @override
+  String get enableRewardsLabel => 'Enable Rewards System';
+
+  @override
+  String get enableRewardsDescription =>
+      'Allow users to earn rewards by watching ads.';
+
+  @override
+  String get rewardTypeAdFree => 'Ad-Free Experience';
+
+  @override
+  String get rewardTypeDailyDigest => 'Daily Digest';
+
+  @override
+  String get rewardDurationDaysLabel => 'Duration (Days)';
+
+  @override
+  String get rewardEnabledLabel => 'Enabled';
+
+  @override
+  String get chartRewardsAdsWatchedOverTime => 'Ads Watched Trend';
+
+  @override
+  String get chartRewardsActiveByType => 'Active Rewards by Type';
+
+  @override
+  String get feedDecoratorUnlockRewardsDescription =>
+      'Prompts users to watch an ad to unlock premium features temporarily.';
+
+  @override
+  String get rewardDurationDaysDescription =>
+      'The number of days the reward remains active.';
+
+  @override
+  String get rewardsManagement => 'Rewards Management';
+
+  @override
+  String get rewardsManagementPageDescription =>
+      'Manage user rewards and entitlements.';
+
+  @override
+  String get loadingRewards => 'Loading Rewards';
+
+  @override
+  String get noRewardsFound => 'No rewards found.';
+
+  @override
+  String get userId => 'User ID';
+
+  @override
+  String get activeRewards => 'Active Rewards';
+
+  @override
+  String get expiry => 'Expiry';
+
+  @override
+  String get filterRewards => 'Filter Rewards';
+
+  @override
+  String get rewardType => 'Reward Type';
+
+  @override
+  String get selectRewardTypes => 'Select Reward Types';
+
+  @override
+  String get loadingAnalytics => 'Loading Analytics';
+
+  @override
+  String get noAnalyticsDataHeadline => 'No Analytics Data';
+
+  @override
+  String get noAnalyticsDataSubheadline =>
+      'There is no data to display yet. Check back later.';
 }

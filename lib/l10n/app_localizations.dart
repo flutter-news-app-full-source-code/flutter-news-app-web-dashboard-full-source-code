@@ -5462,23 +5462,167 @@ abstract class AppLocalizations {
   /// **'Subscriptions by Store'**
   String get chartSubscriptionsByStoreProvider;
 
-  /// Title for the Active Subscriptions KPI card
+  /// Title for the Total Ads Watched KPI card
   ///
   /// In en, this message translates to:
-  /// **'Active Subscriptions'**
-  String get kpiSubscriptionsActiveCount;
+  /// **'Total Ads Watched'**
+  String get kpiRewardsAdsWatchedTotal;
 
-  /// Title for the Canceled Subscriptions KPI card
+  /// Title for the Active Reward Users KPI card
   ///
   /// In en, this message translates to:
-  /// **'Canceled Subscriptions'**
-  String get kpiSubscriptionsCanceledCount;
+  /// **'Active Reward Users'**
+  String get kpiRewardsActiveUsersCount;
 
-  /// Title for the Expired Subscriptions KPI card
+  /// Tab title for Rewards settings
   ///
   /// In en, this message translates to:
-  /// **'Expired Subscriptions'**
-  String get kpiSubscriptionsExpiredCount;
+  /// **'Rewards'**
+  String get rewardsTab;
+
+  /// Description for the Rewards expansion tile
+  ///
+  /// In en, this message translates to:
+  /// **'Configure time-based rewards for user engagement.'**
+  String get rewardsDescription;
+
+  /// Label for the master switch to enable the rewards system
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Rewards System'**
+  String get enableRewardsLabel;
+
+  /// Description for the master switch to enable the rewards system
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to earn rewards by watching ads.'**
+  String get enableRewardsDescription;
+
+  /// Label for the Ad-Free reward type
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-Free Experience'**
+  String get rewardTypeAdFree;
+
+  /// Label for the Daily Digest reward type
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Digest'**
+  String get rewardTypeDailyDigest;
+
+  /// Label for the reward duration input field
+  ///
+  /// In en, this message translates to:
+  /// **'Duration (Days)'**
+  String get rewardDurationDaysLabel;
+
+  /// Label for the reward enabled switch
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get rewardEnabledLabel;
+
+  /// Title for the Ads Watched Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Ads Watched Trend'**
+  String get chartRewardsAdsWatchedOverTime;
+
+  /// Title for the Active Rewards by Type chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Active Rewards by Type'**
+  String get chartRewardsActiveByType;
+
+  /// Description for the 'Unlock Rewards' feed decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompts users to watch an ad to unlock premium features temporarily.'**
+  String get feedDecoratorUnlockRewardsDescription;
+
+  /// Description for the reward duration input field
+  ///
+  /// In en, this message translates to:
+  /// **'The number of days the reward remains active.'**
+  String get rewardDurationDaysDescription;
+
+  /// Label for the rewards management navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards Management'**
+  String get rewardsManagement;
+
+  /// Description for the Rewards Management page
+  ///
+  /// In en, this message translates to:
+  /// **'Manage user rewards and entitlements.'**
+  String get rewardsManagementPageDescription;
+
+  /// Headline for loading state of rewards
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Rewards'**
+  String get loadingRewards;
+
+  /// Message when no rewards are found
+  ///
+  /// In en, this message translates to:
+  /// **'No rewards found.'**
+  String get noRewardsFound;
+
+  /// Column header for user ID
+  ///
+  /// In en, this message translates to:
+  /// **'User ID'**
+  String get userId;
+
+  /// Column header for active rewards
+  ///
+  /// In en, this message translates to:
+  /// **'Active Rewards'**
+  String get activeRewards;
+
+  /// Column header for expiry date
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get expiry;
+
+  /// Title for the filter dialog when filtering rewards.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Rewards'**
+  String get filterRewards;
+
+  /// Label for reward type filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reward Type'**
+  String get rewardType;
+
+  /// Hint text for selecting reward types in a filter dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reward Types'**
+  String get selectRewardTypes;
+
+  /// Headline shown when the analytics dashboard is fetching data.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Analytics'**
+  String get loadingAnalytics;
+
+  /// Headline for the empty state when no analytics data is available.
+  ///
+  /// In en, this message translates to:
+  /// **'No Analytics Data'**
+  String get noAnalyticsDataHeadline;
+
+  /// Sub-headline for the empty state when no analytics data is available.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no data to display yet. Check back later.'**
+  String get noAnalyticsDataSubheadline;
 }
 
 class _AppLocalizationsDelegate

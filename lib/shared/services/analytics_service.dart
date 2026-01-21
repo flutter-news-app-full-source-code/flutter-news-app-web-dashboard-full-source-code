@@ -33,14 +33,14 @@ class AnalyticsService {
   final _rankedListCache = <RankedListCardId, RankedListCardData>{};
 
   // --- In-Flight Requests (Deduplication) ---
-  final _kpiInFlight = <KpiCardId, Future<KpiCardData>>{};
-  final _chartInFlight = <ChartCardId, Future<ChartCardData>>{};
-  final _rankedListInFlight = <RankedListCardId, Future<RankedListCardData>>{};
+  final _kpiInFlight = <KpiCardId, Future<KpiCardData?>>{};
+  final _chartInFlight = <ChartCardId, Future<ChartCardData?>>{};
+  final _rankedListInFlight = <RankedListCardId, Future<RankedListCardData?>>{};
 
   /// Fetches a KPI card by its [id].
   ///
   /// If [forceRefresh] is true, bypasses the cache.
-  Future<KpiCardData> getKpi(
+  Future<KpiCardData?> getKpi(
     KpiCardId id, {
     bool forceRefresh = false,
   }) async {
@@ -52,7 +52,13 @@ class AnalyticsService {
       return _kpiInFlight[id]!;
     }
 
-    final future = _kpiRepository.read(id: id.name).then((data) {
+    final future = _kpiRepository.readAll(filter: {'_id': id.name}).then((
+      response,
+    ) {
+      if (response.items.isEmpty) {
+        return null;
+      }
+      final data = response.items.first;
       _kpiCache[id] = data;
       return data;
     });
@@ -69,7 +75,7 @@ class AnalyticsService {
   /// Fetches a Chart card by its [id].
   ///
   /// If [forceRefresh] is true, bypasses the cache.
-  Future<ChartCardData> getChart(
+  Future<ChartCardData?> getChart(
     ChartCardId id, {
     bool forceRefresh = false,
   }) async {
@@ -81,7 +87,13 @@ class AnalyticsService {
       return _chartInFlight[id]!;
     }
 
-    final future = _chartRepository.read(id: id.name).then((data) {
+    final future = _chartRepository.readAll(filter: {'_id': id.name}).then((
+      response,
+    ) {
+      if (response.items.isEmpty) {
+        return null;
+      }
+      final data = response.items.first;
       _chartCache[id] = data;
       return data;
     });
@@ -98,7 +110,7 @@ class AnalyticsService {
   /// Fetches a Ranked List card by its [id].
   ///
   /// If [forceRefresh] is true, bypasses the cache.
-  Future<RankedListCardData> getRankedList(
+  Future<RankedListCardData?> getRankedList(
     RankedListCardId id, {
     bool forceRefresh = false,
   }) async {
@@ -110,10 +122,16 @@ class AnalyticsService {
       return _rankedListInFlight[id]!;
     }
 
-    final future = _rankedListRepository.read(id: id.name).then((data) {
-      _rankedListCache[id] = data;
-      return data;
-    });
+    final future = _rankedListRepository.readAll(filter: {'_id': id.name}).then(
+      (response) {
+        if (response.items.isEmpty) {
+          return null;
+        }
+        final data = response.items.first;
+        _rankedListCache[id] = data;
+        return data;
+      },
+    );
 
     _rankedListInFlight[id] = future;
 

@@ -31,12 +31,6 @@ class AppConfig {
     return AppConfig(environment: AppEnvironment.production, baseUrl: baseUrl);
   }
 
-  /// A factory constructor for the demo environment.
-  factory AppConfig.demo() => AppConfig(
-    environment: AppEnvironment.demo,
-    baseUrl: '',
-  );
-
   /// A factory constructor for the development environment.
   factory AppConfig.development() => AppConfig(
     environment: AppEnvironment.development,

@@ -6,13 +6,11 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/confi
 import 'package:flutter_news_app_web_dashboard_full_source_code/bootstrap.dart';
 
 // Determine the current application environment from compile-time variables.
-// Defaults to 'demo' if no environment is specified.
+// Defaults to 'development' if no environment is specified.
 const AppEnvironment appEnvironment =
     String.fromEnvironment('APP_ENVIRONMENT') == 'production'
     ? AppEnvironment.production
-    : (String.fromEnvironment('APP_ENVIRONMENT') == 'development'
-          ? AppEnvironment.development
-          : AppEnvironment.demo);
+    : AppEnvironment.development;
 
 @JS('removeSplashFromWeb')
 external void removeSplashFromWeb();
@@ -21,7 +19,6 @@ void main() async {
   final appConfig = switch (appEnvironment) {
     AppEnvironment.production => AppConfig.production(),
     AppEnvironment.development => AppConfig.development(),
-    AppEnvironment.demo => AppConfig.demo(),
   };
 
   final appWidget = await bootstrap(appConfig, appEnvironment);

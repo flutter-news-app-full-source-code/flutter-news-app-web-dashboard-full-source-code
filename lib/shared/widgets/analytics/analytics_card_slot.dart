@@ -16,11 +16,16 @@ class AnalyticsCardSlot<T extends Enum> extends StatefulWidget {
   /// {@macro analytics_card_slot}
   const AnalyticsCardSlot({
     required this.cardIds,
+    this.data,
     super.key,
   }) : assert(cardIds.length > 0, 'Must provide at least one card ID');
 
   /// The list of card IDs available in this slot.
   final List<T> cardIds;
+
+  /// An optional list of pre-fetched data objects. If provided, the widget
+  /// will not fetch data itself. The list must match the order of [cardIds].
+  final List<dynamic>? data;
 
   @override
   State<AnalyticsCardSlot<T>> createState() => _AnalyticsCardSlotState<T>();
@@ -39,56 +44,85 @@ class _AnalyticsCardSlotState<T extends Enum>
   @override
   Widget build(BuildContext context) {
     final currentId = widget.cardIds[_currentIndex];
-    return _buildCardContent(currentId);
+
+    // If data is pre-fetched, build the card directly.
+    if (widget.data != null) {
+      // Ensure the data list has an entry for the current index.
+      if (_currentIndex < widget.data!.length) {
+        final cardData = widget.data![_currentIndex];
+        return _buildCardFromData(cardData);
+      }
+      // If data is missing for the index, return an empty box.
+      return const SizedBox.shrink();
+    }
+
+    // Otherwise, fall back to fetching data with a FutureBuilder.
+    return _buildCardWithFuture(currentId);
   }
 
-  Widget _buildCardContent(T id) {
-    final analyticsService = context.read<AnalyticsService>();
+  /// Builds the appropriate card widget directly from a [data] object.
+  Widget _buildCardFromData(dynamic data) {
+    if (data == null) {
+      return const SizedBox.shrink();
+    }
+
     final totalSlots = widget.cardIds.length;
 
+    if (data is KpiCardData) {
+      return KpiCard(
+        data: data,
+        slotIndex: _currentIndex,
+        totalSlots: totalSlots,
+        onSlotChanged: _onSlotChanged,
+      );
+    } else if (data is ChartCardData) {
+      return ChartCard(
+        data: data,
+        slotIndex: _currentIndex,
+        totalSlots: totalSlots,
+        onSlotChanged: _onSlotChanged,
+      );
+    } else if (data is RankedListCardData) {
+      return RankedListCard(
+        data: data,
+        slotIndex: _currentIndex,
+        totalSlots: totalSlots,
+        onSlotChanged: _onSlotChanged,
+      );
+    }
+
+    return const Center(child: Text('Unsupported Card Type'));
+  }
+
+  /// Builds the card by fetching its data using a [FutureBuilder].
+  Widget _buildCardWithFuture(T id) {
+    final analyticsService = context.read<AnalyticsService>();
+
     if (id is KpiCardId) {
-      return FutureBuilder<KpiCardData>(
+      return FutureBuilder<KpiCardData?>(
         future: analyticsService.getKpi(id),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return KpiCard(
-              data: snapshot.data!,
-              slotIndex: _currentIndex,
-              totalSlots: totalSlots,
-              onSlotChanged: _onSlotChanged,
-            );
-          }
-          return const SizedBox.shrink();
+          return snapshot.hasData
+              ? _buildCardFromData(snapshot.data!)
+              : const SizedBox.shrink();
         },
       );
     } else if (id is ChartCardId) {
-      return FutureBuilder<ChartCardData>(
+      return FutureBuilder<ChartCardData?>(
         future: analyticsService.getChart(id),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ChartCard(
-              data: snapshot.data!,
-              slotIndex: _currentIndex,
-              totalSlots: totalSlots,
-              onSlotChanged: _onSlotChanged,
-            );
-          }
-          return const SizedBox.shrink();
+          return snapshot.hasData
+              ? _buildCardFromData(snapshot.data!)
+              : const SizedBox.shrink();
         },
       );
     } else if (id is RankedListCardId) {
-      return FutureBuilder<RankedListCardData>(
+      return FutureBuilder<RankedListCardData?>(
         future: analyticsService.getRankedList(id),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return RankedListCard(
-              data: snapshot.data!,
-              slotIndex: _currentIndex,
-              totalSlots: totalSlots,
-              onSlotChanged: _onSlotChanged,
-            );
-          }
-          return const SizedBox.shrink();
+          return snapshot.hasData
+              ? _buildCardFromData(snapshot.data!)
+              : const SizedBox.shrink();
         },
       );
     }

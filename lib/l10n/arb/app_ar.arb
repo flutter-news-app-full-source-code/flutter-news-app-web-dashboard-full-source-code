@@ -3757,16 +3757,112 @@
   "@chartSubscriptionsByStoreProvider": {
     "description": "Title for the Subscriptions by Store chart card"
   },
-  "kpiSubscriptionsActiveCount": "الاشتراكات النشطة",
-  "@kpiSubscriptionsActiveCount": {
-    "description": "Title for the Active Subscriptions KPI card"
+  "kpiRewardsAdsWatchedTotal": "إجمالي الإعلانات المشاهدة",
+  "@kpiRewardsAdsWatchedTotal": {
+    "description": "Title for the Total Ads Watched KPI card"
   },
-  "kpiSubscriptionsCanceledCount": "الاشتراكات الملغاة",
-  "@kpiSubscriptionsCanceledCount": {
-    "description": "Title for the Canceled Subscriptions KPI card"
+  "kpiRewardsActiveUsersCount": "مستخدمو المكافآت النشطون",
+  "@kpiRewardsActiveUsersCount": {
+    "description": "Title for the Active Reward Users KPI card"
   },
-  "kpiSubscriptionsExpiredCount": "الاشتراكات المنتهية",
-  "@kpiSubscriptionsExpiredCount": {
-    "description": "Title for the Expired Subscriptions KPI card"
+  "rewardsTab": "المكافآت",
+  "@rewardsTab": {
+    "description": "Tab title for Rewards settings"
+  },
+  "rewardsDescription": "تكوين المكافآت المستندة إلى الوقت لتفاعل المستخدم.",
+  "@rewardsDescription": {
+    "description": "Description for the Rewards expansion tile"
+  },
+  "enableRewardsLabel": "تفعيل نظام المكافآت",
+  "@enableRewardsLabel": {
+    "description": "Label for the master switch to enable the rewards system"
+  },
+  "enableRewardsDescription": "السماح للمستخدمين بكسب المكافآت من خلال مشاهدة الإعلانات.",
+  "@enableRewardsDescription": {
+    "description": "Description for the master switch to enable the rewards system"
+  },
+  "rewardTypeAdFree": "تجربة خالية من الإعلانات",
+  "@rewardTypeAdFree": {
+    "description": "Label for the Ad-Free reward type"
+  },
+  "rewardTypeDailyDigest": "الملخص اليومي",
+  "@rewardTypeDailyDigest": {
+    "description": "Label for the Daily Digest reward type"
+  },
+  "rewardDurationDaysLabel": "المدة (أيام)",
+  "@rewardDurationDaysLabel": {
+    "description": "Label for the reward duration input field"
+  },
+  "rewardEnabledLabel": "مفعل",
+  "@rewardEnabledLabel": {
+    "description": "Label for the reward enabled switch"
+  },
+  "chartRewardsAdsWatchedOverTime": "اتجاه مشاهدة الإعلانات",
+  "@chartRewardsAdsWatchedOverTime": {
+    "description": "Title for the Ads Watched Trend chart card"
+  },
+  "chartRewardsActiveByType": "المكافآت النشطة حسب النوع",
+  "@chartRewardsActiveByType": {
+    "description": "Title for the Active Rewards by Type chart card"
+  },
+  "feedDecoratorUnlockRewardsDescription": "يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.",
+  "@feedDecoratorUnlockRewardsDescription": {
+    "description": "Description for the 'Unlock Rewards' feed decorator."
+  },
+  "rewardDurationDaysDescription": "عدد الأيام التي تظل فيها المكافأة نشطة.",
+  "@rewardDurationDaysDescription": {
+    "description": "Description for the reward duration input field"
+  },
+  "rewardsManagement": "إدارة المكافآت",
+  "@rewardsManagement": {
+    "description": "Label for the rewards management navigation item"
+  },
+  "rewardsManagementPageDescription": "إدارة مكافآت واستحقاقات المستخدمين.",
+  "@rewardsManagementPageDescription": {
+    "description": "Description for the Rewards Management page"
+  },
+  "loadingRewards": "جاري تحميل المكافآت",
+  "@loadingRewards": {
+    "description": "Headline for loading state of rewards"
+  },
+  "noRewardsFound": "لم يتم العثور على مكافآت.",
+  "@noRewardsFound": {
+    "description": "Message when no rewards are found"
+  },
+  "userId": "معرف المستخدم",
+  "@userId": {
+    "description": "Column header for user ID"
+  },
+  "activeRewards": "المكافآت النشطة",
+  "@activeRewards": {
+    "description": "Column header for active rewards"
+  },
+  "expiry": "تاريخ الانتهاء",
+  "@expiry": {
+    "description": "Column header for expiry date"
+  },
+  "filterRewards": "تصفية المكافآت",
+  "@filterRewards": {
+    "description": "Title for the filter dialog when filtering rewards."
+  },
+  "rewardType": "نوع المكافأة",
+  "@rewardType": {
+    "description": "Label for reward type filter."
+  },
+  "selectRewardTypes": "اختر أنواع المكافآت",
+  "@selectRewardTypes": {
+    "description": "Hint text for selecting reward types in a filter dialog."
+  },
+  "loadingAnalytics": "جاري تحميل التحليلات",
+  "@loadingAnalytics": {
+    "description": "Headline shown when the analytics dashboard is fetching data."
+  },
+  "noAnalyticsDataHeadline": "لا توجد بيانات تحليلية",
+  "@noAnalyticsDataHeadline": {
+    "description": "Headline for the empty state when no analytics data is available."
+  },
+  "noAnalyticsDataSubheadline": "لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.",
+  "@noAnalyticsDataSubheadline": {
+    "description": "Sub-headline for the empty state when no analytics data is available."
   }
 }

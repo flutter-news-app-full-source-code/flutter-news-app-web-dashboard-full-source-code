@@ -2989,11 +2989,89 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chartSubscriptionsByStoreProvider => 'الاشتراكات حسب المتجر';
 
   @override
-  String get kpiSubscriptionsActiveCount => 'الاشتراكات النشطة';
+  String get kpiRewardsAdsWatchedTotal => 'إجمالي الإعلانات المشاهدة';
 
   @override
-  String get kpiSubscriptionsCanceledCount => 'الاشتراكات الملغاة';
+  String get kpiRewardsActiveUsersCount => 'مستخدمو المكافآت النشطون';
 
   @override
-  String get kpiSubscriptionsExpiredCount => 'الاشتراكات المنتهية';
+  String get rewardsTab => 'المكافآت';
+
+  @override
+  String get rewardsDescription =>
+      'تكوين المكافآت المستندة إلى الوقت لتفاعل المستخدم.';
+
+  @override
+  String get enableRewardsLabel => 'تفعيل نظام المكافآت';
+
+  @override
+  String get enableRewardsDescription =>
+      'السماح للمستخدمين بكسب المكافآت من خلال مشاهدة الإعلانات.';
+
+  @override
+  String get rewardTypeAdFree => 'تجربة خالية من الإعلانات';
+
+  @override
+  String get rewardTypeDailyDigest => 'الملخص اليومي';
+
+  @override
+  String get rewardDurationDaysLabel => 'المدة (أيام)';
+
+  @override
+  String get rewardEnabledLabel => 'مفعل';
+
+  @override
+  String get chartRewardsAdsWatchedOverTime => 'اتجاه مشاهدة الإعلانات';
+
+  @override
+  String get chartRewardsActiveByType => 'المكافآت النشطة حسب النوع';
+
+  @override
+  String get feedDecoratorUnlockRewardsDescription =>
+      'يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.';
+
+  @override
+  String get rewardDurationDaysDescription =>
+      'عدد الأيام التي تظل فيها المكافأة نشطة.';
+
+  @override
+  String get rewardsManagement => 'إدارة المكافآت';
+
+  @override
+  String get rewardsManagementPageDescription =>
+      'إدارة مكافآت واستحقاقات المستخدمين.';
+
+  @override
+  String get loadingRewards => 'جاري تحميل المكافآت';
+
+  @override
+  String get noRewardsFound => 'لم يتم العثور على مكافآت.';
+
+  @override
+  String get userId => 'معرف المستخدم';
+
+  @override
+  String get activeRewards => 'المكافآت النشطة';
+
+  @override
+  String get expiry => 'تاريخ الانتهاء';
+
+  @override
+  String get filterRewards => 'تصفية المكافآت';
+
+  @override
+  String get rewardType => 'نوع المكافأة';
+
+  @override
+  String get selectRewardTypes => 'اختر أنواع المكافآت';
+
+  @override
+  String get loadingAnalytics => 'جاري تحميل التحليلات';
+
+  @override
+  String get noAnalyticsDataHeadline => 'لا توجد بيانات تحليلية';
+
+  @override
+  String get noAnalyticsDataSubheadline =>
+      'لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.';
 }

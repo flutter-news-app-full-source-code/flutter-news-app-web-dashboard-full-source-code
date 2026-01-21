@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -96,16 +95,6 @@ class UserManagementBloc
     if (state.authenticationFilter != AuthenticationFilter.all) {
       filter['isAnonymous'] =
           state.authenticationFilter == AuthenticationFilter.anonymous;
-    }
-
-    if (state.subscriptionFilter != SubscriptionFilter.all) {
-      if (state.subscriptionFilter == SubscriptionFilter.premium) {
-        filter['tier'] = AccessTier.premium.name;
-      } else {
-        filter['tier'] = {
-          r'$in': [AccessTier.guest.name, AccessTier.standard.name],
-        };
-      }
     }
 
     if (state.userRole != null) {

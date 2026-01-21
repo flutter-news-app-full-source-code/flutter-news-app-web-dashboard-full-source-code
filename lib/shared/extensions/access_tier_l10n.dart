@@ -12,8 +12,6 @@ extension AccessTierL10n on AccessTier {
         return l10n.guestUserRole;
       case AccessTier.standard:
         return l10n.standardUserRole;
-      case AccessTier.premium:
-        return l10n.premiumUserRole;
     }
   }
 }

@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/subscription_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/user_filter_dialog.dart'
     show UserFilterDialog;
 
@@ -26,7 +25,6 @@ class UserFilterDialogBloc
     on<UserFilterDialogSearchQueryChanged>(_onSearchQueryChanged);
     on<UserFilterDialogReset>(_onFilterDialogReset);
     on<UserFilterDialogAuthenticationChanged>(_onAuthenticationChanged);
-    on<UserFilterDialogSubscriptionChanged>(_onSubscriptionChanged);
     on<UserFilterDialogUserRoleChanged>(_onUserRoleChanged);
   }
 
@@ -39,7 +37,6 @@ class UserFilterDialogBloc
       state.copyWith(
         searchQuery: event.userFilterState.searchQuery,
         authenticationFilter: event.userFilterState.authenticationFilter,
-        subscriptionFilter: event.userFilterState.subscriptionFilter,
         userRole: event.userFilterState.userRole,
       ),
     );
@@ -58,13 +55,6 @@ class UserFilterDialogBloc
     Emitter<UserFilterDialogState> emit,
   ) {
     emit(state.copyWith(authenticationFilter: event.authenticationFilter));
-  }
-
-  void _onSubscriptionChanged(
-    UserFilterDialogSubscriptionChanged event,
-    Emitter<UserFilterDialogState> emit,
-  ) {
-    emit(state.copyWith(subscriptionFilter: event.subscriptionFilter));
   }
 
   void _onUserRoleChanged(

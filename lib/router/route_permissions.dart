@@ -13,7 +13,7 @@ final Map<UserRole, Set<String>> routePermissions = {
     Routes.userManagementName,
     Routes.communityManagementName,
     Routes.appConfigurationName,
-    Routes.subscriptionsName,
+    Routes.rewardsManagementName,
   },
   // Publishers have a more restricted access, focused on content creation
   // and management.
