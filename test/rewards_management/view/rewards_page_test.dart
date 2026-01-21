@@ -165,6 +165,8 @@ void main() {
         ),
       );
       await tester.pumpWidget(buildSubject());
+      await tester
+          .pumpAndSettle(); // Ensure timers from fetchInBatches are cleared
       expect(find.byType(PaginatedDataTable2), findsOneWidget);
     });
   });
