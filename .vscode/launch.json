@@ -26,7 +26,7 @@
                 "--dart-define",
                 "APP_ENVIRONMENT=production",
                 "--dart-define",
-                "BASE_URL=https://your.api.com"
+                "BASE_URL=https://<YOUR_PRODUCTION_API_URL>"
             ]
         }
     ]
