@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/utils/future_utils.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -54,14 +55,22 @@ class _AnalyticsDashboardStripState extends State<AnalyticsDashboardStrip> {
 
   void _fetchData() {
     final analyticsService = context.read<AnalyticsService>();
-    final kpiFutures = widget.kpiCards.map(analyticsService.getKpi);
-    final chartFutures = widget.chartCards.map(
-      analyticsService.getChart,
-    );
+    // Create a list of future providers to be executed in batches.
+    final futureProviders = <Future<dynamic> Function()>[
+      ...widget.kpiCards.map(
+        (id) =>
+            () => analyticsService.getKpi(id),
+      ),
+      ...widget.chartCards.map(
+        (id) =>
+            () => analyticsService.getChart(id),
+      ),
+    ];
 
-    // Combine all futures into a single future that will complete when all
-    // individual futures complete.
-    _dataFuture = Future.wait([...kpiFutures, ...chartFutures]);
+    // Use the utility to fetch data in controlled batches instead of all at once.
+    _dataFuture = FutureUtils.fetchInBatches(
+      futureProviders,
+    );
   }
 
   @override
@@ -86,7 +95,6 @@ class _AnalyticsDashboardStripState extends State<AnalyticsDashboardStrip> {
 
           // On error, hide the widget entirely.
           if (snapshot.hasError) {
-            // TODO(papa): Log error to a monitoring service.
             return const SizedBox.shrink();
           }
 
