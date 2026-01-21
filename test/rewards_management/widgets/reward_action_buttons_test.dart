@@ -11,7 +11,11 @@ class MockAppLocalizations extends Mock implements AppLocalizations {}
 void main() {
   group('RewardActionButtons', () {
     late AppLocalizations l10n;
-    const reward = UserRewards(id: '1', userId: 'test-user-id', activeRewards: {});
+    const reward = UserRewards(
+      id: '1',
+      userId: 'test-user-id',
+      activeRewards: {},
+    );
 
     setUp(() {
       l10n = MockAppLocalizations();
@@ -24,15 +28,16 @@ void main() {
       const channel = MethodChannel('plugins.flutter.io/platform');
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(channel, (methodCall) async {
-        if (methodCall.method == 'Clipboard.setData') {
-          return;
-        }
-        return null;
-      });
+            if (methodCall.method == 'Clipboard.setData') {
+              return;
+            }
+            return null;
+          });
     }
 
-    testWidgets('renders correctly and handles copy action',
-        (WidgetTester tester) async {
+    testWidgets('renders correctly and handles copy action', (
+      WidgetTester tester,
+    ) async {
       setupClipboard();
 
       await tester.pumpWidget(

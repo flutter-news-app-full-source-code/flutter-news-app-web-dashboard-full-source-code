@@ -27,9 +27,15 @@ void main() {
       rewardsFilterBloc = MockRewardsFilterBloc();
       logger = MockLogger();
 
-      when(() => rewardsFilterBloc.stream).thenAnswer((_) => const Stream.empty());
-      when(() => rewardsFilterBloc.state).thenReturn(const RewardsFilterState());
-      when(() => rewardsRepository.entityUpdated).thenAnswer((_) => const Stream.empty());
+      when(
+        () => rewardsFilterBloc.stream,
+      ).thenAnswer((_) => const Stream.empty());
+      when(
+        () => rewardsFilterBloc.state,
+      ).thenReturn(const RewardsFilterState());
+      when(
+        () => rewardsRepository.entityUpdated,
+      ).thenAnswer((_) => const Stream.empty());
     });
 
     test('initial state is correct', () {
@@ -48,7 +54,11 @@ void main() {
         const UserRewards(id: '1', userId: '1', activeRewards: {}),
         const UserRewards(id: '2', userId: '2', activeRewards: {}),
       ];
-      final paginatedData = PaginatedResponse(items: userRewards, cursor: 'cursor', hasMore: true);
+      final paginatedData = PaginatedResponse(
+        items: userRewards,
+        cursor: 'cursor',
+        hasMore: true,
+      );
 
       blocTest<RewardsManagementBloc, RewardsManagementState>(
         'emits [loading, success] when rewards are fetched successfully',
@@ -138,22 +148,32 @@ void main() {
         ),
         seed: () => const RewardsManagementState(
           status: RewardsManagementStatus.success,
-          rewards: [UserRewards(id: 'initial', userId: 'initial', activeRewards: {})],
+          rewards: [
+            UserRewards(id: 'initial', userId: 'initial', activeRewards: {}),
+          ],
           cursor: 'initial_cursor',
           hasMore: true,
         ),
-        act: (bloc) => bloc.add(const LoadRewardsRequested(startAfterId: 'initial_cursor')),
+        act: (bloc) => bloc.add(
+          const LoadRewardsRequested(startAfterId: 'initial_cursor'),
+        ),
         expect: () => <RewardsManagementState>[
           const RewardsManagementState(
             status: RewardsManagementStatus.loading,
-            rewards: [UserRewards(id: 'initial', userId: 'initial', activeRewards: {})],
+            rewards: [
+              UserRewards(id: 'initial', userId: 'initial', activeRewards: {}),
+            ],
             cursor: 'initial_cursor',
             hasMore: true,
           ),
           RewardsManagementState(
             status: RewardsManagementStatus.success,
             rewards: [
-              const UserRewards(id: 'initial', userId: 'initial', activeRewards: {}),
+              const UserRewards(
+                id: 'initial',
+                userId: 'initial',
+                activeRewards: {},
+              ),
               ...userRewards,
             ],
             cursor: 'cursor',
@@ -192,11 +212,17 @@ void main() {
       final userRewards = [
         const UserRewards(id: '1', userId: '1', activeRewards: {}),
       ];
-      final paginatedData = PaginatedResponse(items: userRewards, cursor: 'cursor', hasMore: true);
+      final paginatedData = PaginatedResponse(
+        items: userRewards,
+        cursor: 'cursor',
+        hasMore: true,
+      );
 
       test('loads rewards when filter changes', () async {
         final filterController = StreamController<RewardsFilterState>();
-        when(() => rewardsFilterBloc.stream).thenAnswer((_) => filterController.stream);
+        when(
+          () => rewardsFilterBloc.stream,
+        ).thenAnswer((_) => filterController.stream);
         when(
           () => rewardsRepository.readAll(
             filter: any(named: 'filter'),
@@ -216,17 +242,24 @@ void main() {
         await expectLater(
           bloc.stream,
           emitsInOrder([
-            isA<RewardsManagementState>()
-                .having((s) => s.status, 'status', RewardsManagementStatus.loading),
-            isA<RewardsManagementState>()
-                .having((s) => s.status, 'status', RewardsManagementStatus.success),
+            isA<RewardsManagementState>().having(
+              (s) => s.status,
+              'status',
+              RewardsManagementStatus.loading,
+            ),
+            isA<RewardsManagementState>().having(
+              (s) => s.status,
+              'status',
+              RewardsManagementStatus.success,
+            ),
           ]),
         );
       });
       test('loads rewards when entity is updated', () async {
         final entityUpdatedController = StreamController<Type>();
-        when(() => rewardsRepository.entityUpdated)
-            .thenAnswer((_) => entityUpdatedController.stream);
+        when(
+          () => rewardsRepository.entityUpdated,
+        ).thenAnswer((_) => entityUpdatedController.stream);
         when(
           () => rewardsRepository.readAll(
             filter: any(named: 'filter'),
@@ -246,10 +279,16 @@ void main() {
         await expectLater(
           bloc.stream,
           emitsInOrder([
-            isA<RewardsManagementState>()
-                .having((s) => s.status, 'status', RewardsManagementStatus.loading),
-            isA<RewardsManagementState>()
-                .having((s) => s.status, 'status', RewardsManagementStatus.success),
+            isA<RewardsManagementState>().having(
+              (s) => s.status,
+              'status',
+              RewardsManagementStatus.loading,
+            ),
+            isA<RewardsManagementState>().having(
+              (s) => s.status,
+              'status',
+              RewardsManagementStatus.success,
+            ),
           ]),
         );
       });
@@ -264,7 +303,7 @@ void main() {
         const filterState = RewardsFilterState(searchQuery: 'test');
         final filterMap = bloc.buildRewardsFilterMap(filterState);
         expect(filterMap, {
-          'userId': {r'$regex': 'test', '': 'i'}
+          'userId': {r'$regex': 'test', '': 'i'},
         });
       });
 
@@ -273,10 +312,12 @@ void main() {
           rewardsRepository: rewardsRepository,
           rewardsFilterBloc: rewardsFilterBloc,
         );
-        const filterState = RewardsFilterState(rewardTypeFilter: RewardTypeFilter.adFree);
+        const filterState = RewardsFilterState(
+          rewardTypeFilter: RewardTypeFilter.adFree,
+        );
         final filterMap = bloc.buildRewardsFilterMap(filterState);
         expect(filterMap, {
-          'activeRewards.adFree': {'': true}
+          'activeRewards.adFree': {'': true},
         });
       });
 

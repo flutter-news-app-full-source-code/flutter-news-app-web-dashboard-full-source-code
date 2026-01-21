@@ -28,7 +28,9 @@ void main() {
       rewardsFilterDialogBloc = MockRewardsFilterDialogBloc();
       navigator = MockNavigator();
 
-      when(() => rewardsFilterBloc.state).thenReturn(const RewardsFilterState());
+      when(
+        () => rewardsFilterBloc.state,
+      ).thenReturn(const RewardsFilterState());
       when(() => rewardsFilterDialogBloc.state).thenReturn(
         const RewardsFilterDialogState(),
       );
@@ -59,8 +61,9 @@ void main() {
       expect(find.byType(RewardsFilterDialog), findsOneWidget);
     });
 
-    testWidgets('applies filters and pops when apply button is tapped',
-        (tester) async {
+    testWidgets('applies filters and pops when apply button is tapped', (
+      tester,
+    ) async {
       when(() => rewardsFilterDialogBloc.state).thenReturn(
         const RewardsFilterDialogState(
           searchQuery: 'test',
@@ -85,8 +88,9 @@ void main() {
       verify(() => navigator.pop()).called(1);
     });
 
-    testWidgets('resets filters and pops when reset button is tapped',
-        (tester) async {
+    testWidgets('resets filters and pops when reset button is tapped', (
+      tester,
+    ) async {
       when(() => navigator.pop()).thenAnswer((_) async {});
       await tester.pumpWidget(buildSubject());
 

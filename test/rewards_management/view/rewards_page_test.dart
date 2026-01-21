@@ -47,8 +47,9 @@ void main() {
       when(() => rewardsFilterBloc.state).thenReturn(
         const RewardsFilterState(),
       );
-      when(() => rewardsManagementBloc.buildRewardsFilterMap(any()))
-          .thenReturn({});
+      when(
+        () => rewardsManagementBloc.buildRewardsFilterMap(any()),
+      ).thenReturn({});
 
       when(() => analyticsService.getKpi(any())).thenAnswer(
         (_) async => const KpiCardData(
@@ -89,8 +90,9 @@ void main() {
       );
     }
 
-    testWidgets('shows loading indicator when loading for the first time',
-        (tester) async {
+    testWidgets('shows loading indicator when loading for the first time', (
+      tester,
+    ) async {
       when(() => rewardsManagementBloc.state).thenReturn(
         const RewardsManagementState(status: RewardsManagementStatus.loading),
       );
@@ -109,42 +111,45 @@ void main() {
       expect(find.byType(FailureStateWidget), findsOneWidget);
     });
 
-    testWidgets('shows empty message when there are no rewards and no filters',
-        (tester) async {
-      when(() => rewardsManagementBloc.state).thenReturn(
-        const RewardsManagementState(
-          status: RewardsManagementStatus.success,
-          rewards: [],
-        ),
-      );
-      await tester.pumpWidget(buildSubject());
-      final BuildContext context = tester.element(find.byType(Scaffold));
-      expect(
-        find.text(AppLocalizations.of(context).noRewardsFound),
-        findsOneWidget,
-      );
-    });
+    testWidgets(
+      'shows empty message when there are no rewards and no filters',
+      (tester) async {
+        when(() => rewardsManagementBloc.state).thenReturn(
+          const RewardsManagementState(
+            status: RewardsManagementStatus.success,
+            rewards: [],
+          ),
+        );
+        await tester.pumpWidget(buildSubject());
+        final BuildContext context = tester.element(find.byType(Scaffold));
+        expect(
+          find.text(AppLocalizations.of(context).noRewardsFound),
+          findsOneWidget,
+        );
+      },
+    );
 
     testWidgets(
-        'shows empty message with reset button when there are no rewards and filters are active',
-        (tester) async {
-      when(() => rewardsManagementBloc.state).thenReturn(
-        const RewardsManagementState(
-          status: RewardsManagementStatus.success,
-          rewards: [],
-        ),
-      );
-      when(() => rewardsFilterBloc.state).thenReturn(
-        const RewardsFilterState(searchQuery: 'test'),
-      );
-      await tester.pumpWidget(buildSubject());
-      final BuildContext context = tester.element(find.byType(Scaffold));
-      expect(
-        find.text(AppLocalizations.of(context).noResultsWithCurrentFilters),
-        findsOneWidget,
-      );
-      expect(find.byType(ElevatedButton), findsOneWidget);
-    });
+      'shows empty message with reset button when there are no rewards and filters are active',
+      (tester) async {
+        when(() => rewardsManagementBloc.state).thenReturn(
+          const RewardsManagementState(
+            status: RewardsManagementStatus.success,
+            rewards: [],
+          ),
+        );
+        when(() => rewardsFilterBloc.state).thenReturn(
+          const RewardsFilterState(searchQuery: 'test'),
+        );
+        await tester.pumpWidget(buildSubject());
+        final BuildContext context = tester.element(find.byType(Scaffold));
+        expect(
+          find.text(AppLocalizations.of(context).noResultsWithCurrentFilters),
+          findsOneWidget,
+        );
+        expect(find.byType(ElevatedButton), findsOneWidget);
+      },
+    );
 
     testWidgets('shows table when rewards are loaded', (tester) async {
       when(() => rewardsManagementBloc.state).thenReturn(
