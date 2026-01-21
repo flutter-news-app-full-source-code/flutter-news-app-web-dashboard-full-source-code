@@ -8,7 +8,7 @@
             "flutterMode": "debug",
             "args": [
                 "--web-port",
-                "8080",
+                "3000",
                 "--dart-define",
                 "APP_ENVIRONMENT=development",
                 "--dart-define",
@@ -22,7 +22,7 @@
             "flutterMode": "release",
             "args": [
                 "--web-port",
-                "8080",
+                "3000",
                 "--dart-define",
                 "APP_ENVIRONMENT=production",
                 "--dart-define",
