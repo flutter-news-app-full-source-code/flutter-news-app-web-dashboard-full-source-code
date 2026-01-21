@@ -3084,4 +3084,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadingAnalytics => 'Loading Analytics';
+
+  @override
+  String get noAnalyticsDataHeadline => 'No Analytics Data';
+
+  @override
+  String get noAnalyticsDataSubheadline =>
+      'There is no data to display yet. Check back later.';
 }

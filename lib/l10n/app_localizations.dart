@@ -5611,6 +5611,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading Analytics'**
   String get loadingAnalytics;
+
+  /// Headline for the empty state when no analytics data is available.
+  ///
+  /// In en, this message translates to:
+  /// **'No Analytics Data'**
+  String get noAnalyticsDataHeadline;
+
+  /// Sub-headline for the empty state when no analytics data is available.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no data to display yet. Check back later.'**
+  String get noAnalyticsDataSubheadline;
 }
 
 class _AppLocalizationsDelegate

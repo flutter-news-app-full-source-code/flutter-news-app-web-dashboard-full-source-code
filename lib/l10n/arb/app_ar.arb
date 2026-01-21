@@ -3856,5 +3856,13 @@
   "loadingAnalytics": "جاري تحميل التحليلات",
   "@loadingAnalytics": {
     "description": "Headline shown when the analytics dashboard is fetching data."
+  },
+  "noAnalyticsDataHeadline": "لا توجد بيانات تحليلية",
+  "@noAnalyticsDataHeadline": {
+    "description": "Headline for the empty state when no analytics data is available."
+  },
+  "noAnalyticsDataSubheadline": "لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.",
+  "@noAnalyticsDataSubheadline": {
+    "description": "Sub-headline for the empty state when no analytics data is available."
   }
 }

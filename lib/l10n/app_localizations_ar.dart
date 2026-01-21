@@ -3067,4 +3067,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loadingAnalytics => 'جاري تحميل التحليلات';
+
+  @override
+  String get noAnalyticsDataHeadline => 'لا توجد بيانات تحليلية';
+
+  @override
+  String get noAnalyticsDataSubheadline =>
+      'لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.';
 }

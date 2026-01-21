@@ -3848,5 +3848,13 @@
   "loadingAnalytics": "Loading Analytics",
   "@loadingAnalytics": {
     "description": "Headline shown when the analytics dashboard is fetching data."
+  },
+  "noAnalyticsDataHeadline": "No Analytics Data",
+  "@noAnalyticsDataHeadline": {
+    "description": "Headline for the empty state when no analytics data is available."
+  },
+  "noAnalyticsDataSubheadline": "There is no data to display yet. Check back later.",
+  "@noAnalyticsDataSubheadline": {
+    "description": "Sub-headline for the empty state when no analytics data is available."
   }
 }
