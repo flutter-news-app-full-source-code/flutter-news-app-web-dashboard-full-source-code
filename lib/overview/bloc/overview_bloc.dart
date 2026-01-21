@@ -6,15 +6,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/utils/future_utils.dart';
 
-part 'overview_page_event.dart';
-part 'overview_page_state.dart';
+part 'overview_event.dart';
+part 'overview_state.dart';
 
-class OverviewPageBloc extends Bloc<OverviewPageEvent, OverviewPageState> {
-  OverviewPageBloc({
+class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
+  OverviewBloc({
     required AnalyticsService analyticsService,
-  })  : _analyticsService = analyticsService,
-        super(const OverviewPageState()) {
-    on<OverviewPageSubscriptionRequested>(_onSubscriptionRequested);
+  }) : _analyticsService = analyticsService,
+       super(const OverviewState()) {
+    on<OverviewSubscriptionRequested>(_onSubscriptionRequested);
   }
 
   final AnalyticsService _analyticsService;
@@ -37,23 +37,26 @@ class OverviewPageBloc extends Bloc<OverviewPageEvent, OverviewPageState> {
   ];
 
   Future<void> _onSubscriptionRequested(
-    OverviewPageSubscriptionRequested event,
-    Emitter<OverviewPageState> emit,
+    OverviewSubscriptionRequested event,
+    Emitter<OverviewState> emit,
   ) async {
-    emit(state.copyWith(status: OverviewPageStatus.loading));
+    emit(state.copyWith(status: OverviewStatus.loading));
 
     try {
       // Create a list of future providers to be executed in batches.
       // The order here MUST match the order used when unpacking the data.
       final futureProviders = <Future<dynamic> Function()>[
         ...kpiCards.map(
-          (id) => () => _analyticsService.getKpi(id),
+          (id) =>
+              () => _analyticsService.getKpi(id),
         ),
         ...chartCards.map(
-          (id) => () => _analyticsService.getChart(id),
+          (id) =>
+              () => _analyticsService.getChart(id),
         ),
         ...rankedListCards.map(
-          (id) => () => _analyticsService.getRankedList(id),
+          (id) =>
+              () => _analyticsService.getRankedList(id),
         ),
       ];
 
@@ -79,7 +82,7 @@ class OverviewPageBloc extends Bloc<OverviewPageEvent, OverviewPageState> {
 
       emit(
         state.copyWith(
-          status: OverviewPageStatus.success,
+          status: OverviewStatus.success,
           kpiData: kpiData,
           chartData: chartData,
           rankedListData: rankedListData,
@@ -89,7 +92,7 @@ class OverviewPageBloc extends Bloc<OverviewPageEvent, OverviewPageState> {
       addError(error, stackTrace);
       emit(
         state.copyWith(
-          status: OverviewPageStatus.failure,
+          status: OverviewStatus.failure,
           error: error,
         ),
       );
