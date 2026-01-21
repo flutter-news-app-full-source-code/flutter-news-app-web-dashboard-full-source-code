@@ -21,7 +21,6 @@ void main() {
     late AnalyticsService analyticsService;
     late OverviewBloc overviewPageBloc;
 
-    // Corrected Data Instantiation based on provided definitions
     const kpiData = KpiCardData(
       id: KpiCardId.usersTotalRegistered,
       label: 'Test KPI',

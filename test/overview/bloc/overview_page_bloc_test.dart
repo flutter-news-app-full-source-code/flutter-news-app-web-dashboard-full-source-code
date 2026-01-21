@@ -11,7 +11,6 @@ void main() {
   group('OverviewPageBloc', () {
     late AnalyticsService analyticsService;
 
-    // Corrected Data Instantiation based on Error Logs
     const kpiData = KpiCardData(
       id: KpiCardId.usersTotalRegistered,
       label: 'Total Registered Users',
