@@ -52,7 +52,13 @@ class AnalyticsService {
       return _kpiInFlight[id]!;
     }
 
-    final future = _kpiRepository.read(id: id.name).then((data) {
+    final future = _kpiRepository.readAll(filter: {'_id': id.name}).then((
+      response,
+    ) {
+      if (response.items.isEmpty) {
+        throw const NotFoundException('KPI card not found');
+      }
+      final data = response.items.first;
       _kpiCache[id] = data;
       return data;
     });
@@ -81,7 +87,13 @@ class AnalyticsService {
       return _chartInFlight[id]!;
     }
 
-    final future = _chartRepository.read(id: id.name).then((data) {
+    final future = _chartRepository.readAll(filter: {'_id': id.name}).then((
+      response,
+    ) {
+      if (response.items.isEmpty) {
+        throw const NotFoundException('Chart card not found');
+      }
+      final data = response.items.first;
       _chartCache[id] = data;
       return data;
     });
@@ -110,10 +122,16 @@ class AnalyticsService {
       return _rankedListInFlight[id]!;
     }
 
-    final future = _rankedListRepository.read(id: id.name).then((data) {
-      _rankedListCache[id] = data;
-      return data;
-    });
+    final future = _rankedListRepository.readAll(filter: {'_id': id.name}).then(
+      (response) {
+        if (response.items.isEmpty) {
+          throw const NotFoundException('Ranked list card not found');
+        }
+        final data = response.items.first;
+        _rankedListCache[id] = data;
+        return data;
+      },
+    );
 
     _rankedListInFlight[id] = future;
 
