@@ -82,7 +82,7 @@ class RewardsManagementBloc
       final rewardType = state.rewardTypeFilter.toRewardType();
       if (rewardType != null) {
         // Filter for documents where the specific reward type exists in the map
-         filter['activeRewards.${rewardType.name}'] = {r'$exists': true};
+        filter['activeRewards.${rewardType.name}'] = {r'$exists': true};
       }
     }
 
