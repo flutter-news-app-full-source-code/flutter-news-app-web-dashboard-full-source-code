@@ -317,7 +317,7 @@ void main() {
         );
         final filterMap = bloc.buildRewardsFilterMap(filterState);
         expect(filterMap, {
-          'activeRewards.adFree': {'': true},
+          'activeRewards.adFree': {r'$exists': true},
         });
       });
 
