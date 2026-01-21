@@ -62,6 +62,10 @@ class _AnalyticsCardSlotState<T extends Enum>
 
   /// Builds the appropriate card widget directly from a [data] object.
   Widget _buildCardFromData(dynamic data) {
+    if (data == null) {
+      return const SizedBox.shrink();
+    }
+
     final totalSlots = widget.cardIds.length;
 
     if (data is KpiCardData) {
