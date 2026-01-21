@@ -54,9 +54,9 @@ class _AnalyticsDashboardStripState extends State<AnalyticsDashboardStrip> {
 
   void _fetchData() {
     final analyticsService = context.read<AnalyticsService>();
-    final kpiFutures = widget.kpiCards.map((id) => analyticsService.getKpi(id));
+    final kpiFutures = widget.kpiCards.map(analyticsService.getKpi);
     final chartFutures = widget.chartCards.map(
-      (id) => analyticsService.getChart(id),
+      analyticsService.getChart,
     );
 
     // Combine all futures into a single future that will complete when all
