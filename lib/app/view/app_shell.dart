@@ -59,7 +59,7 @@ class AppShell extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.card_giftcard_outlined),
             selectedIcon: const Icon(Icons.card_giftcard),
-            label: l10n.rewardsManagement,
+            label: l10n.rewardsTab,
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
