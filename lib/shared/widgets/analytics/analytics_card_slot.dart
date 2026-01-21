@@ -95,7 +95,7 @@ class _AnalyticsCardSlotState<T extends Enum>
     final analyticsService = context.read<AnalyticsService>();
 
     if (id is KpiCardId) {
-      return FutureBuilder<KpiCardData>(
+      return FutureBuilder<KpiCardData?>(
         future: analyticsService.getKpi(id),
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -104,7 +104,7 @@ class _AnalyticsCardSlotState<T extends Enum>
         },
       );
     } else if (id is ChartCardId) {
-      return FutureBuilder<ChartCardData>(
+      return FutureBuilder<ChartCardData?>(
         future: analyticsService.getChart(id),
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -113,7 +113,7 @@ class _AnalyticsCardSlotState<T extends Enum>
         },
       );
     } else if (id is RankedListCardId) {
-      return FutureBuilder<RankedListCardData>(
+      return FutureBuilder<RankedListCardData?>(
         future: analyticsService.getRankedList(id),
         builder: (context, snapshot) {
           return snapshot.hasData
