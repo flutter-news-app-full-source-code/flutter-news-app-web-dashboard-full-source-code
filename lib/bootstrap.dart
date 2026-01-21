@@ -151,21 +151,21 @@ Future<Widget> bootstrap(
   );
   kpiCardsClient = DataApi<KpiCardData>(
     httpClient: httpClient,
-    modelName: 'kpi_card',
+    modelName: 'kpi_card_data',
     fromJson: KpiCardData.fromJson,
     toJson: (item) => item.toJson(),
     logger: Logger('DataApi<KpiCardData>'),
   );
   chartCardsClient = DataApi<ChartCardData>(
     httpClient: httpClient,
-    modelName: 'chart_card',
+    modelName: 'chart_card_data',
     fromJson: ChartCardData.fromJson,
     toJson: (item) => item.toJson(),
     logger: Logger('DataApi<ChartCardData>'),
   );
   rankedListCardsClient = DataApi<RankedListCardData>(
     httpClient: httpClient,
-    modelName: 'ranked_list_card',
+    modelName: 'ranked_list_card_data',
     fromJson: RankedListCardData.fromJson,
     toJson: (item) => item.toJson(),
     logger: Logger('DataApi<RankedListCardData>'),
