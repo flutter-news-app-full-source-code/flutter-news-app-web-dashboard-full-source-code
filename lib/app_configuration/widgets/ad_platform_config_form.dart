@@ -403,8 +403,9 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
       } else {
         if (suffix == 'NativeAdId') return identifiers.iosNativeAdId;
         if (suffix == 'BannerAdId') return identifiers.iosBannerAdId;
-        if (suffix == 'InterstitialAdId')
+        if (suffix == 'InterstitialAdId') {
           return identifiers.iosInterstitialAdId;
+        }
         if (suffix == 'RewardedAdId') return identifiers.iosRewardedAdId;
       }
       return null;
