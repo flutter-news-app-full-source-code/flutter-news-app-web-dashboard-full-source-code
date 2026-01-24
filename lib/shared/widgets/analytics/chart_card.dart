@@ -114,6 +114,8 @@ class _ChartCardState extends State<ChartCard> {
         return l10n.chartEngagementsAppReviewsStoreRequestsOverTime;
       case ChartCardId.rewardsAdsWatchedOverTime:
         return l10n.chartRewardsAdsWatchedOverTime;
+      case ChartCardId.rewardsGrantedOverTime:
+        return l10n.chartRewardsGrantedOverTime;
       case ChartCardId.rewardsActiveByType:
         return l10n.chartRewardsActiveByType;
     }

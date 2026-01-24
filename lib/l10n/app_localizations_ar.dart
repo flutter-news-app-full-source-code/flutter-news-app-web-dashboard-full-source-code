@@ -3074,4 +3074,49 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noAnalyticsDataSubheadline =>
       'لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.';
+
+  @override
+  String get androidAdUnitsTitle => 'وحدات إعلانات Android';
+
+  @override
+  String get iosAdUnitsTitle => 'وحدات إعلانات iOS';
+
+  @override
+  String get rewardedAdIdLabel => 'معرف الإعلان بمكافأة';
+
+  @override
+  String get rewardedAdIdDescription => 'معرف الوحدة للإعلانات بمكافأة.';
+
+  @override
+  String get kpiRewardsGrantedTotal => 'إجمالي المكافآت الممنوحة';
+
+  @override
+  String get analyticsEventRewardsHubViewedLabel => 'مشاهدة مركز المكافآت';
+
+  @override
+  String get analyticsEventRewardsHubViewedDescription =>
+      'تتبع عندما يشاهد المستخدم مركز المكافآت.';
+
+  @override
+  String get analyticsEventRewardOfferClickedLabel => 'النقر على عرض المكافأة';
+
+  @override
+  String get analyticsEventRewardOfferClickedDescription =>
+      'تتبع عندما ينقر المستخدم على عرض مكافأة معين.';
+
+  @override
+  String get analyticsEventRewardGrantedLabel => 'تم منح المكافأة';
+
+  @override
+  String get analyticsEventRewardGrantedDescription =>
+      'تتبع عندما يتم إصدار مكافأة بنجاح للمستخدم.';
+
+  @override
+  String get chartRewardsGrantedOverTime => 'اتجاه المكافآت الممنوحة';
+
+  @override
+  String get android => 'أندرويد';
+
+  @override
+  String get ios => 'iOS';
 }

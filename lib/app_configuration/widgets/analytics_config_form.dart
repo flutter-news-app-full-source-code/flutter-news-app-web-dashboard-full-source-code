@@ -411,6 +411,21 @@ class AnalyticsConfigForm extends StatelessWidget {
           l10n.analyticsEventAdRewardEarnedLabel,
           l10n.analyticsEventAdRewardEarnedDescription,
         );
+      case AnalyticsEvent.rewardsHubViewed:
+        return (
+          l10n.analyticsEventRewardsHubViewedLabel,
+          l10n.analyticsEventRewardsHubViewedDescription,
+        );
+      case AnalyticsEvent.rewardOfferClicked:
+        return (
+          l10n.analyticsEventRewardOfferClickedLabel,
+          l10n.analyticsEventRewardOfferClickedDescription,
+        );
+      case AnalyticsEvent.rewardGranted:
+        return (
+          l10n.analyticsEventRewardGrantedLabel,
+          l10n.analyticsEventRewardGrantedDescription,
+        );
       case AnalyticsEvent.themeChanged:
         return (
           l10n.analyticsEventThemeChangedLabel,

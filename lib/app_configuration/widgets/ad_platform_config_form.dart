@@ -27,30 +27,15 @@ class AdPlatformConfigForm extends StatefulWidget {
   State<AdPlatformConfigForm> createState() => _AdPlatformConfigFormState();
 }
 
-class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
-    with SingleTickerProviderStateMixin {
+class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
   late AdPlatformType _selectedPlatform;
   late Map<AdPlatformType, Map<String, TextEditingController>>
   _platformAdIdentifierControllers;
-  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _selectedPlatform = widget.remoteConfig.features.ads.primaryAdPlatform;
-    _tabController = TabController(
-      length: AdPlatformType.values.length,
-      vsync: this,
-    );
-    _tabController.index = AdPlatformType.values.indexOf(_selectedPlatform);
-
-    _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
-        setState(
-          () => _selectedPlatform = AdPlatformType.values[_tabController.index],
-        );
-      }
-    });
     _initializeControllers();
   }
 
@@ -67,34 +52,84 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
     _platformAdIdentifierControllers = {
       for (final platform in AdPlatformType.values)
         platform: {
-          'nativeAdId': TextEditingController(
+          'androidNativeAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .features
                     .ads
                     .platformAdIdentifiers[platform]
-                    ?.nativeAdId ??
+                    ?.androidNativeAdId ??
                 '',
           ),
-          'bannerAdId': TextEditingController(
+          'androidBannerAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .features
                     .ads
                     .platformAdIdentifiers[platform]
-                    ?.bannerAdId ??
+                    ?.androidBannerAdId ??
                 '',
           ),
-          'interstitialAdId': TextEditingController(
+          'androidInterstitialAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .features
                     .ads
                     .platformAdIdentifiers[platform]
-                    ?.interstitialAdId ??
+                    ?.androidInterstitialAdId ??
+                '',
+          ),
+          'androidRewardedAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.androidRewardedAdId ??
+                '',
+          ),
+          'iosNativeAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosNativeAdId ??
+                '',
+          ),
+          'iosBannerAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosBannerAdId ??
+                '',
+          ),
+          'iosInterstitialAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosInterstitialAdId ??
+                '',
+          ),
+          'iosRewardedAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosRewardedAdId ??
                 '',
           ),
         },
@@ -106,33 +141,30 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
       final identifiers =
           widget.remoteConfig.features.ads.platformAdIdentifiers[platform];
 
-      final nativeAdId = identifiers?.nativeAdId ?? '';
-      if (_platformAdIdentifierControllers[platform]!['nativeAdId']?.text !=
-          nativeAdId) {
-        _platformAdIdentifierControllers[platform]!['nativeAdId']?.text =
-            nativeAdId;
-      }
+      final identifierGetters = <String, String?>{
+        'androidNativeAdId': identifiers?.androidNativeAdId,
+        'androidBannerAdId': identifiers?.androidBannerAdId,
+        'androidInterstitialAdId': identifiers?.androidInterstitialAdId,
+        'androidRewardedAdId': identifiers?.androidRewardedAdId,
+        'iosNativeAdId': identifiers?.iosNativeAdId,
+        'iosBannerAdId': identifiers?.iosBannerAdId,
+        'iosInterstitialAdId': identifiers?.iosInterstitialAdId,
+        'iosRewardedAdId': identifiers?.iosRewardedAdId,
+      };
 
-      final bannerAdId = identifiers?.bannerAdId ?? '';
-      if (_platformAdIdentifierControllers[platform]!['bannerAdId']?.text !=
-          bannerAdId) {
-        _platformAdIdentifierControllers[platform]!['bannerAdId']?.text =
-            bannerAdId;
-      }
-
-      final interstitialAdId = identifiers?.interstitialAdId ?? '';
-      if (_platformAdIdentifierControllers[platform]!['interstitialAdId']
-              ?.text !=
-          interstitialAdId) {
-        _platformAdIdentifierControllers[platform]!['interstitialAdId']?.text =
-            interstitialAdId;
+      for (final entry in identifierGetters.entries) {
+        final controller =
+            _platformAdIdentifierControllers[platform]![entry.key];
+        final newValue = entry.value ?? '';
+        if (controller != null && controller.text != newValue) {
+          controller.text = newValue;
+        }
       }
     }
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     for (final platformControllers in _platformAdIdentifierControllers.values) {
       for (final controller in platformControllers.values) {
         controller.dispose();
@@ -193,9 +225,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                     onSelectionChanged: (newSelection) {
                       setState(() {
                         _selectedPlatform = newSelection.first;
-                        _tabController.index = AdPlatformType.values.indexOf(
-                          _selectedPlatform,
-                        );
                       });
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
@@ -229,41 +258,14 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: SizedBox(
-                    height: kTextTabBarHeight,
-                    child: TabBar(
-                      controller: _tabController,
-                      tabAlignment: TabAlignment.start,
-                      isScrollable: true,
-                      tabs: AdPlatformType.values
-                          .map((platform) => Tab(text: platform.l10n(context)))
-                          .toList(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SizedBox(
-                  height: 300, // Adjust height as needed for the content
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: AdPlatformType.values
-                        .map(
-                          (platform) => _buildAdUnitIdentifierFields(
-                            context,
-                            l10n,
-                            platform,
-                            adConfig,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 600, // Height for the tabbed content
+              child: _buildAdUnitIdentifierFields(
+                context,
+                l10n,
+                _selectedPlatform,
+                adConfig,
+              ),
             ),
           ],
         ),
@@ -282,17 +284,37 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
     final controllers = _platformAdIdentifierControllers[platform]!;
 
     void updatePlatformIdentifiers(String key, String? value) {
-      final newIdentifiers = platformIdentifiers.copyWith(
-        nativeAdId: key == 'nativeAdId'
-            ? value
-            : platformIdentifiers.nativeAdId,
-        bannerAdId: key == 'bannerAdId'
-            ? value
-            : platformIdentifiers.bannerAdId,
-        interstitialAdId: key == 'interstitialAdId'
-            ? value
-            : platformIdentifiers.interstitialAdId,
-      );
+      AdPlatformIdentifiers newIdentifiers;
+      switch (key) {
+        case 'androidNativeAdId':
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidNativeAdId: value,
+          );
+        case 'androidBannerAdId':
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidBannerAdId: value,
+          );
+        case 'androidInterstitialAdId':
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidInterstitialAdId: value,
+          );
+        case 'androidRewardedAdId':
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidRewardedAdId: value,
+          );
+        case 'iosNativeAdId':
+          newIdentifiers = platformIdentifiers.copyWith(iosNativeAdId: value);
+        case 'iosBannerAdId':
+          newIdentifiers = platformIdentifiers.copyWith(iosBannerAdId: value);
+        case 'iosInterstitialAdId':
+          newIdentifiers = platformIdentifiers.copyWith(
+            iosInterstitialAdId: value,
+          );
+        case 'iosRewardedAdId':
+          newIdentifiers = platformIdentifiers.copyWith(iosRewardedAdId: value);
+        default:
+          newIdentifiers = platformIdentifiers;
+      }
 
       final newPlatformAdIdentifiers =
           Map<AdPlatformType, AdPlatformIdentifiers>.from(
@@ -314,35 +336,110 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
       );
     }
 
-    return SingleChildScrollView(
+    return DefaultTabController(
+      length: 2,
       child: Column(
         children: [
-          AppConfigTextField(
-            label: l10n.nativeAdIdLabel,
-            description: l10n.nativeAdIdDescription,
-            value: platformIdentifiers.nativeAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('nativeAdId', value),
-            controller: controllers['nativeAdId'],
+          TabBar(
+            labelColor: Theme.of(context).colorScheme.primary,
+            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: [
+              Tab(text: l10n.android, icon: const Icon(Icons.android)),
+              Tab(text: l10n.ios, icon: const Icon(Icons.apple)),
+            ],
           ),
-          AppConfigTextField(
-            label: l10n.bannerAdIdLabel,
-            description: l10n.bannerAdIdDescription,
-            value: platformIdentifiers.bannerAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('bannerAdId', value),
-            controller: controllers['bannerAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.interstitialAdIdLabel,
-            description: l10n.interstitialAdIdDescription,
-            value: platformIdentifiers.interstitialAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('interstitialAdId', value),
-            controller: controllers['interstitialAdId'],
+          const SizedBox(height: AppSpacing.md),
+          Expanded(
+            child: TabBarView(
+              children: [
+                // Android Fields
+                SingleChildScrollView(
+                  child: Column(
+                    children: _buildPlatformFields(
+                      l10n: l10n,
+                      platformPrefix: 'android',
+                      identifiers: platformIdentifiers,
+                      controllers: controllers,
+                      onChanged: updatePlatformIdentifiers,
+                    ),
+                  ),
+                ),
+                // iOS Fields
+                SingleChildScrollView(
+                  child: Column(
+                    children: _buildPlatformFields(
+                      l10n: l10n,
+                      platformPrefix: 'ios',
+                      identifiers: platformIdentifiers,
+                      controllers: controllers,
+                      onChanged: updatePlatformIdentifiers,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
+  }
+
+  List<Widget> _buildPlatformFields({
+    required AppLocalizations l10n,
+    required String platformPrefix,
+    required AdPlatformIdentifiers identifiers,
+    required Map<String, TextEditingController> controllers,
+    required void Function(String, String?) onChanged,
+  }) {
+    // Helper to get value dynamically based on prefix
+    String? getValue(String suffix) {
+      if (platformPrefix == 'android') {
+        if (suffix == 'NativeAdId') return identifiers.androidNativeAdId;
+        if (suffix == 'BannerAdId') return identifiers.androidBannerAdId;
+        if (suffix == 'InterstitialAdId') {
+          return identifiers.androidInterstitialAdId;
+        }
+        if (suffix == 'RewardedAdId') return identifiers.androidRewardedAdId;
+      } else {
+        if (suffix == 'NativeAdId') return identifiers.iosNativeAdId;
+        if (suffix == 'BannerAdId') return identifiers.iosBannerAdId;
+        if (suffix == 'InterstitialAdId')
+          return identifiers.iosInterstitialAdId;
+        if (suffix == 'RewardedAdId') return identifiers.iosRewardedAdId;
+      }
+      return null;
+    }
+
+    return [
+      AppConfigTextField(
+        label: l10n.nativeAdIdLabel,
+        description: l10n.nativeAdIdDescription,
+        value: getValue('NativeAdId'),
+        onChanged: (value) => onChanged('${platformPrefix}NativeAdId', value),
+        controller: controllers['${platformPrefix}NativeAdId'],
+      ),
+      AppConfigTextField(
+        label: l10n.bannerAdIdLabel,
+        description: l10n.bannerAdIdDescription,
+        value: getValue('BannerAdId'),
+        onChanged: (value) => onChanged('${platformPrefix}BannerAdId', value),
+        controller: controllers['${platformPrefix}BannerAdId'],
+      ),
+      AppConfigTextField(
+        label: l10n.interstitialAdIdLabel,
+        description: l10n.interstitialAdIdDescription,
+        value: getValue('InterstitialAdId'),
+        onChanged: (value) =>
+            onChanged('${platformPrefix}InterstitialAdId', value),
+        controller: controllers['${platformPrefix}InterstitialAdId'],
+      ),
+      AppConfigTextField(
+        label: l10n.rewardedAdIdLabel,
+        description: l10n.rewardedAdIdDescription,
+        value: getValue('RewardedAdId'),
+        onChanged: (value) => onChanged('${platformPrefix}RewardedAdId', value),
+        controller: controllers['${platformPrefix}RewardedAdId'],
+      ),
+    ];
   }
 }

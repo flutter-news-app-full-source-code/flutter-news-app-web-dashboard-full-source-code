@@ -3864,5 +3864,61 @@
   "noAnalyticsDataSubheadline": "لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.",
   "@noAnalyticsDataSubheadline": {
     "description": "Sub-headline for the empty state when no analytics data is available."
+  },
+  "androidAdUnitsTitle": "وحدات إعلانات Android",
+  "@androidAdUnitsTitle": {
+    "description": "Title for the Android Ad Units section"
+  },
+  "iosAdUnitsTitle": "وحدات إعلانات iOS",
+  "@iosAdUnitsTitle": {
+    "description": "Title for the iOS Ad Units section"
+  },
+  "rewardedAdIdLabel": "معرف الإعلان بمكافأة",
+  "@rewardedAdIdLabel": {
+    "description": "Label for the Rewarded Ad ID input field"
+  },
+  "rewardedAdIdDescription": "معرف الوحدة للإعلانات بمكافأة.",
+  "@rewardedAdIdDescription": {
+    "description": "Description for the Rewarded Ad ID input field"
+  },
+  "kpiRewardsGrantedTotal": "إجمالي المكافآت الممنوحة",
+  "@kpiRewardsGrantedTotal": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لإجمالي المكافآت الممنوحة"
+  },
+  "analyticsEventRewardsHubViewedLabel": "مشاهدة مركز المكافآت",
+  "@analyticsEventRewardsHubViewedLabel": {
+    "description": "تسمية لحدث تحليلات مشاهدة مركز المكافآت"
+  },
+  "analyticsEventRewardsHubViewedDescription": "تتبع عندما يشاهد المستخدم مركز المكافآت.",
+  "@analyticsEventRewardsHubViewedDescription": {
+    "description": "وصف لحدث تحليلات مشاهدة مركز المكافآت"
+  },
+  "analyticsEventRewardOfferClickedLabel": "النقر على عرض المكافأة",
+  "@analyticsEventRewardOfferClickedLabel": {
+    "description": "تسمية لحدث تحليلات النقر على عرض المكافأة"
+  },
+  "analyticsEventRewardOfferClickedDescription": "تتبع عندما ينقر المستخدم على عرض مكافأة معين.",
+  "@analyticsEventRewardOfferClickedDescription": {
+    "description": "وصف لحدث تحليلات النقر على عرض المكافأة"
+  },
+  "analyticsEventRewardGrantedLabel": "تم منح المكافأة",
+  "@analyticsEventRewardGrantedLabel": {
+    "description": "تسمية لحدث تحليلات منح المكافأة"
+  },
+  "analyticsEventRewardGrantedDescription": "تتبع عندما يتم إصدار مكافأة بنجاح للمستخدم.",
+  "@analyticsEventRewardGrantedDescription": {
+    "description": "وصف لحدث تحليلات منح المكافأة"
+  },
+  "chartRewardsGrantedOverTime": "اتجاه المكافآت الممنوحة",
+  "@chartRewardsGrantedOverTime": {
+    "description": "عنوان بطاقة مخطط اتجاه المكافآت الممنوحة"
+  },
+  "android": "أندرويد",
+  "@android": {
+    "description": "تسمية منصة أندرويد"
+  },
+  "ios": "iOS",
+  "@ios": {
+    "description": "تسمية منصة iOS"
   }
 }

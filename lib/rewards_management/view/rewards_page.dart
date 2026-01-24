@@ -124,10 +124,12 @@ class _RewardsPageState extends State<RewardsPage> {
               const AnalyticsDashboardStrip(
                 kpiCards: [
                   KpiCardId.rewardsAdsWatchedTotal,
+                  KpiCardId.rewardsGrantedTotal,
                   KpiCardId.rewardsActiveUsersCount,
                 ],
                 chartCards: [
                   ChartCardId.rewardsAdsWatchedOverTime,
+                  ChartCardId.rewardsGrantedOverTime,
                   ChartCardId.rewardsActiveByType,
                 ],
               ),
@@ -254,13 +256,13 @@ class _RewardsDataSource extends DataTableSource {
             spacing: AppSpacing.xs,
             runSpacing: AppSpacing.xs,
             children: activeRewardsList.map((entry) {
-              return Chip(
-                label: Text(
-                  _getRewardTypeLabel(entry.key, l10n),
-                  style: Theme.of(context).textTheme.labelSmall,
+              return Tooltip(
+                message: _getRewardTypeLabel(entry.key, l10n),
+                child: Icon(
+                  _getRewardTypeIcon(entry.key),
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 20,
                 ),
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
               );
             }).toList(),
           ),
@@ -289,6 +291,15 @@ class _RewardsDataSource extends DataTableSource {
         return l10n.rewardTypeAdFree;
       case RewardType.dailyDigest:
         return l10n.rewardTypeDailyDigest;
+    }
+  }
+
+  IconData _getRewardTypeIcon(RewardType type) {
+    switch (type) {
+      case RewardType.adFree:
+        return Icons.workspace_premium;
+      case RewardType.dailyDigest:
+        return Icons.notification_important;
     }
   }
 
