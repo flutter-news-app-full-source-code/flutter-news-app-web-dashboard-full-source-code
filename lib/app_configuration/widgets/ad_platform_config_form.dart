@@ -287,24 +287,29 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
       AdPlatformIdentifiers newIdentifiers;
       switch (key) {
         case 'androidNativeAdId':
-          newIdentifiers =
-              platformIdentifiers.copyWith(androidNativeAdId: value);
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidNativeAdId: value,
+          );
         case 'androidBannerAdId':
-          newIdentifiers =
-              platformIdentifiers.copyWith(androidBannerAdId: value);
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidBannerAdId: value,
+          );
         case 'androidInterstitialAdId':
-          newIdentifiers =
-              platformIdentifiers.copyWith(androidInterstitialAdId: value);
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidInterstitialAdId: value,
+          );
         case 'androidRewardedAdId':
-          newIdentifiers =
-              platformIdentifiers.copyWith(androidRewardedAdId: value);
+          newIdentifiers = platformIdentifiers.copyWith(
+            androidRewardedAdId: value,
+          );
         case 'iosNativeAdId':
           newIdentifiers = platformIdentifiers.copyWith(iosNativeAdId: value);
         case 'iosBannerAdId':
           newIdentifiers = platformIdentifiers.copyWith(iosBannerAdId: value);
         case 'iosInterstitialAdId':
-          newIdentifiers =
-              platformIdentifiers.copyWith(iosInterstitialAdId: value);
+          newIdentifiers = platformIdentifiers.copyWith(
+            iosInterstitialAdId: value,
+          );
         case 'iosRewardedAdId':
           newIdentifiers = platformIdentifiers.copyWith(iosRewardedAdId: value);
         default:
@@ -398,7 +403,8 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
       } else {
         if (suffix == 'NativeAdId') return identifiers.iosNativeAdId;
         if (suffix == 'BannerAdId') return identifiers.iosBannerAdId;
-        if (suffix == 'InterstitialAdId') return identifiers.iosInterstitialAdId;
+        if (suffix == 'InterstitialAdId')
+          return identifiers.iosInterstitialAdId;
         if (suffix == 'RewardedAdId') return identifiers.iosRewardedAdId;
       }
       return null;
