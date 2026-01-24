@@ -27,30 +27,15 @@ class AdPlatformConfigForm extends StatefulWidget {
   State<AdPlatformConfigForm> createState() => _AdPlatformConfigFormState();
 }
 
-class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
-    with SingleTickerProviderStateMixin {
+class _AdPlatformConfigFormState extends State<AdPlatformConfigForm> {
   late AdPlatformType _selectedPlatform;
   late Map<AdPlatformType, Map<String, TextEditingController>>
   _platformAdIdentifierControllers;
-  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _selectedPlatform = widget.remoteConfig.features.ads.primaryAdPlatform;
-    _tabController = TabController(
-      length: AdPlatformType.values.length,
-      vsync: this,
-    );
-    _tabController.index = AdPlatformType.values.indexOf(_selectedPlatform);
-
-    _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
-        setState(
-          () => _selectedPlatform = AdPlatformType.values[_tabController.index],
-        );
-      }
-    });
     _initializeControllers();
   }
 
@@ -226,7 +211,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
 
   @override
   void dispose() {
-    _tabController.dispose();
     for (final platformControllers in _platformAdIdentifierControllers.values) {
       for (final controller in platformControllers.values) {
         controller.dispose();
@@ -287,9 +271,6 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                     onSelectionChanged: (newSelection) {
                       setState(() {
                         _selectedPlatform = newSelection.first;
-                        _tabController.index = AdPlatformType.values.indexOf(
-                          _selectedPlatform,
-                        );
                       });
                       widget.onConfigChanged(
                         widget.remoteConfig.copyWith(
@@ -323,41 +304,14 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: SizedBox(
-                    height: kTextTabBarHeight,
-                    child: TabBar(
-                      controller: _tabController,
-                      tabAlignment: TabAlignment.start,
-                      isScrollable: true,
-                      tabs: AdPlatformType.values
-                          .map((platform) => Tab(text: platform.l10n(context)))
-                          .toList(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SizedBox(
-                  height: 600, // Increased height for more fields
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: AdPlatformType.values
-                        .map(
-                          (platform) => _buildAdUnitIdentifierFields(
-                            context,
-                            l10n,
-                            platform,
-                            adConfig,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 600, // Height for the tabbed content
+              child: _buildAdUnitIdentifierFields(
+                context,
+                l10n,
+                _selectedPlatform,
+                adConfig,
+              ),
             ),
           ],
         ),
@@ -423,91 +377,112 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
       );
     }
 
-    return SingleChildScrollView(
+    return DefaultTabController(
+      length: 2,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Android Section
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-            child: Text(
-              l10n.androidAdUnitsTitle,
-              style: Theme.of(context).textTheme.titleMedium,
+          TabBar(
+            labelColor: Theme.of(context).colorScheme.primary,
+            unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+            tabs: [
+              Tab(text: l10n.android, icon: const Icon(Icons.android)),
+              Tab(text: l10n.ios, icon: const Icon(Icons.apple)),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Expanded(
+            child: TabBarView(
+              children: [
+                // Android Fields
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AppConfigTextField(
+                        label: l10n.nativeAdIdLabel,
+                        description: l10n.nativeAdIdDescription,
+                        value: platformIdentifiers.androidNativeAdId,
+                        onChanged: (value) => updatePlatformIdentifiers(
+                          'androidNativeAdId',
+                          value,
+                        ),
+                        controller: controllers['androidNativeAdId'],
+                      ),
+                      AppConfigTextField(
+                        label: l10n.bannerAdIdLabel,
+                        description: l10n.bannerAdIdDescription,
+                        value: platformIdentifiers.androidBannerAdId,
+                        onChanged: (value) => updatePlatformIdentifiers(
+                          'androidBannerAdId',
+                          value,
+                        ),
+                        controller: controllers['androidBannerAdId'],
+                      ),
+                      AppConfigTextField(
+                        label: l10n.interstitialAdIdLabel,
+                        description: l10n.interstitialAdIdDescription,
+                        value: platformIdentifiers.androidInterstitialAdId,
+                        onChanged: (value) => updatePlatformIdentifiers(
+                          'androidInterstitialAdId',
+                          value,
+                        ),
+                        controller: controllers['androidInterstitialAdId'],
+                      ),
+                      AppConfigTextField(
+                        label: l10n.rewardedAdIdLabel,
+                        description: l10n.rewardedAdIdDescription,
+                        value: platformIdentifiers.androidRewardedAdId,
+                        onChanged: (value) => updatePlatformIdentifiers(
+                          'androidRewardedAdId',
+                          value,
+                        ),
+                        controller: controllers['androidRewardedAdId'],
+                      ),
+                    ],
+                  ),
+                ),
+                // iOS Fields
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AppConfigTextField(
+                        label: l10n.nativeAdIdLabel,
+                        description: l10n.nativeAdIdDescription,
+                        value: platformIdentifiers.iosNativeAdId,
+                        onChanged: (value) =>
+                            updatePlatformIdentifiers('iosNativeAdId', value),
+                        controller: controllers['iosNativeAdId'],
+                      ),
+                      AppConfigTextField(
+                        label: l10n.bannerAdIdLabel,
+                        description: l10n.bannerAdIdDescription,
+                        value: platformIdentifiers.iosBannerAdId,
+                        onChanged: (value) =>
+                            updatePlatformIdentifiers('iosBannerAdId', value),
+                        controller: controllers['iosBannerAdId'],
+                      ),
+                      AppConfigTextField(
+                        label: l10n.interstitialAdIdLabel,
+                        description: l10n.interstitialAdIdDescription,
+                        value: platformIdentifiers.iosInterstitialAdId,
+                        onChanged: (value) => updatePlatformIdentifiers(
+                          'iosInterstitialAdId',
+                          value,
+                        ),
+                        controller: controllers['iosInterstitialAdId'],
+                      ),
+                      AppConfigTextField(
+                        label: l10n.rewardedAdIdLabel,
+                        description: l10n.rewardedAdIdDescription,
+                        value: platformIdentifiers.iosRewardedAdId,
+                        onChanged: (value) =>
+                            updatePlatformIdentifiers('iosRewardedAdId', value),
+                        controller: controllers['iosRewardedAdId'],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          AppConfigTextField(
-            label: l10n.nativeAdIdLabel,
-            description: l10n.nativeAdIdDescription,
-            value: platformIdentifiers.androidNativeAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('androidNativeAdId', value),
-            controller: controllers['androidNativeAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.bannerAdIdLabel,
-            description: l10n.bannerAdIdDescription,
-            value: platformIdentifiers.androidBannerAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('androidBannerAdId', value),
-            controller: controllers['androidBannerAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.interstitialAdIdLabel,
-            description: l10n.interstitialAdIdDescription,
-            value: platformIdentifiers.androidInterstitialAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('androidInterstitialAdId', value),
-            controller: controllers['androidInterstitialAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.rewardedAdIdLabel,
-            description: l10n.rewardedAdIdDescription,
-            value: platformIdentifiers.androidRewardedAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('androidRewardedAdId', value),
-            controller: controllers['androidRewardedAdId'],
-          ),
-          const SizedBox(height: AppSpacing.lg),
-
-          // iOS Section
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-            child: Text(
-              l10n.iosAdUnitsTitle,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          AppConfigTextField(
-            label: l10n.nativeAdIdLabel,
-            description: l10n.nativeAdIdDescription,
-            value: platformIdentifiers.iosNativeAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('iosNativeAdId', value),
-            controller: controllers['iosNativeAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.bannerAdIdLabel,
-            description: l10n.bannerAdIdDescription,
-            value: platformIdentifiers.iosBannerAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('iosBannerAdId', value),
-            controller: controllers['iosBannerAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.interstitialAdIdLabel,
-            description: l10n.interstitialAdIdDescription,
-            value: platformIdentifiers.iosInterstitialAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('iosInterstitialAdId', value),
-            controller: controllers['iosInterstitialAdId'],
-          ),
-          AppConfigTextField(
-            label: l10n.rewardedAdIdLabel,
-            description: l10n.rewardedAdIdDescription,
-            value: platformIdentifiers.iosRewardedAdId,
-            onChanged: (value) =>
-                updatePlatformIdentifiers('iosRewardedAdId', value),
-            controller: controllers['iosRewardedAdId'],
           ),
         ],
       ),
