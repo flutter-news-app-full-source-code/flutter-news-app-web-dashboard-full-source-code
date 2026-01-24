@@ -124,10 +124,12 @@ class _RewardsPageState extends State<RewardsPage> {
               const AnalyticsDashboardStrip(
                 kpiCards: [
                   KpiCardId.rewardsAdsWatchedTotal,
+                  KpiCardId.rewardsGrantedTotal,
                   KpiCardId.rewardsActiveUsersCount,
                 ],
                 chartCards: [
                   ChartCardId.rewardsAdsWatchedOverTime,
+                  ChartCardId.rewardsGrantedOverTime,
                   ChartCardId.rewardsActiveByType,
                 ],
               ),
