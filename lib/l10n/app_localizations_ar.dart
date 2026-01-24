@@ -3113,4 +3113,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chartRewardsGrantedOverTime => 'اتجاه المكافآت الممنوحة';
+
+  @override
+  String get android => 'أندرويد';
+
+  @override
+  String get ios => 'iOS';
 }

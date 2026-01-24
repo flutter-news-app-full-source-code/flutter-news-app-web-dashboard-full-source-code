@@ -3904,5 +3904,13 @@
   "chartRewardsGrantedOverTime": "Rewards Granted Trend",
   "@chartRewardsGrantedOverTime": {
     "description": "Title for the Rewards Granted Trend chart card"
+  },
+  "android": "Android",
+  "@android": {
+    "description": "Label for Android platform"
+  },
+  "ios": "iOS",
+  "@ios": {
+    "description": "Label for iOS platform"
   }
 }

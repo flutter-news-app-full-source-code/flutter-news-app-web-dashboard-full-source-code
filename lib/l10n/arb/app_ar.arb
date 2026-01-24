@@ -3912,5 +3912,13 @@
   "chartRewardsGrantedOverTime": "اتجاه المكافآت الممنوحة",
   "@chartRewardsGrantedOverTime": {
     "description": "عنوان بطاقة مخطط اتجاه المكافآت الممنوحة"
+  },
+  "android": "أندرويد",
+  "@android": {
+    "description": "تسمية منصة أندرويد"
+  },
+  "ios": "iOS",
+  "@ios": {
+    "description": "تسمية منصة iOS"
   }
 }

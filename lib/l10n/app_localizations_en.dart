@@ -3130,4 +3130,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chartRewardsGrantedOverTime => 'Rewards Granted Trend';
+
+  @override
+  String get android => 'Android';
+
+  @override
+  String get ios => 'iOS';
 }

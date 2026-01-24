@@ -5695,6 +5695,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rewards Granted Trend'**
   String get chartRewardsGrantedOverTime;
+
+  /// Label for Android platform
+  ///
+  /// In en, this message translates to:
+  /// **'Android'**
+  String get android;
+
+  /// Label for iOS platform
+  ///
+  /// In en, this message translates to:
+  /// **'iOS'**
+  String get ios;
 }
 
 class _AppLocalizationsDelegate
