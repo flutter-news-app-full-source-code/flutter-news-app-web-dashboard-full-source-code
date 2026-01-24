@@ -67,34 +67,84 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
     _platformAdIdentifierControllers = {
       for (final platform in AdPlatformType.values)
         platform: {
-          'nativeAdId': TextEditingController(
+          'androidNativeAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .features
                     .ads
                     .platformAdIdentifiers[platform]
-                    ?.nativeAdId ??
+                    ?.androidNativeAdId ??
                 '',
           ),
-          'bannerAdId': TextEditingController(
+          'androidBannerAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .features
                     .ads
                     .platformAdIdentifiers[platform]
-                    ?.bannerAdId ??
+                    ?.androidBannerAdId ??
                 '',
           ),
-          'interstitialAdId': TextEditingController(
+          'androidInterstitialAdId': TextEditingController(
             text:
                 widget
                     .remoteConfig
                     .features
                     .ads
                     .platformAdIdentifiers[platform]
-                    ?.interstitialAdId ??
+                    ?.androidInterstitialAdId ??
+                '',
+          ),
+          'androidRewardedAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.androidRewardedAdId ??
+                '',
+          ),
+          'iosNativeAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosNativeAdId ??
+                '',
+          ),
+          'iosBannerAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosBannerAdId ??
+                '',
+          ),
+          'iosInterstitialAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosInterstitialAdId ??
+                '',
+          ),
+          'iosRewardedAdId': TextEditingController(
+            text:
+                widget
+                    .remoteConfig
+                    .features
+                    .ads
+                    .platformAdIdentifiers[platform]
+                    ?.iosRewardedAdId ??
                 '',
           ),
         },
@@ -106,26 +156,70 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
       final identifiers =
           widget.remoteConfig.features.ads.platformAdIdentifiers[platform];
 
-      final nativeAdId = identifiers?.nativeAdId ?? '';
-      if (_platformAdIdentifierControllers[platform]!['nativeAdId']?.text !=
-          nativeAdId) {
-        _platformAdIdentifierControllers[platform]!['nativeAdId']?.text =
-            nativeAdId;
-      }
-
-      final bannerAdId = identifiers?.bannerAdId ?? '';
-      if (_platformAdIdentifierControllers[platform]!['bannerAdId']?.text !=
-          bannerAdId) {
-        _platformAdIdentifierControllers[platform]!['bannerAdId']?.text =
-            bannerAdId;
-      }
-
-      final interstitialAdId = identifiers?.interstitialAdId ?? '';
-      if (_platformAdIdentifierControllers[platform]!['interstitialAdId']
+      final androidNativeAdId = identifiers?.androidNativeAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['androidNativeAdId']
               ?.text !=
-          interstitialAdId) {
-        _platformAdIdentifierControllers[platform]!['interstitialAdId']?.text =
-            interstitialAdId;
+          androidNativeAdId) {
+        _platformAdIdentifierControllers[platform]!['androidNativeAdId']?.text =
+            androidNativeAdId;
+      }
+
+      final androidBannerAdId = identifiers?.androidBannerAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['androidBannerAdId']
+              ?.text !=
+          androidBannerAdId) {
+        _platformAdIdentifierControllers[platform]!['androidBannerAdId']?.text =
+            androidBannerAdId;
+      }
+
+      final androidInterstitialAdId =
+          identifiers?.androidInterstitialAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['androidInterstitialAdId']
+              ?.text !=
+          androidInterstitialAdId) {
+        _platformAdIdentifierControllers[platform]!['androidInterstitialAdId']
+                ?.text =
+            androidInterstitialAdId;
+      }
+
+      final androidRewardedAdId = identifiers?.androidRewardedAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['androidRewardedAdId']
+              ?.text !=
+          androidRewardedAdId) {
+        _platformAdIdentifierControllers[platform]!['androidRewardedAdId']
+                ?.text =
+            androidRewardedAdId;
+      }
+
+      final iosNativeAdId = identifiers?.iosNativeAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['iosNativeAdId']?.text !=
+          iosNativeAdId) {
+        _platformAdIdentifierControllers[platform]!['iosNativeAdId']?.text =
+            iosNativeAdId;
+      }
+
+      final iosBannerAdId = identifiers?.iosBannerAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['iosBannerAdId']?.text !=
+          iosBannerAdId) {
+        _platformAdIdentifierControllers[platform]!['iosBannerAdId']?.text =
+            iosBannerAdId;
+      }
+
+      final iosInterstitialAdId = identifiers?.iosInterstitialAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['iosInterstitialAdId']
+              ?.text !=
+          iosInterstitialAdId) {
+        _platformAdIdentifierControllers[platform]!['iosInterstitialAdId']
+                ?.text =
+            iosInterstitialAdId;
+      }
+
+      final iosRewardedAdId = identifiers?.iosRewardedAdId ?? '';
+      if (_platformAdIdentifierControllers[platform]!['iosRewardedAdId']
+              ?.text !=
+          iosRewardedAdId) {
+        _platformAdIdentifierControllers[platform]!['iosRewardedAdId']?.text =
+            iosRewardedAdId;
       }
     }
   }
@@ -248,7 +342,7 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 SizedBox(
-                  height: 300, // Adjust height as needed for the content
+                  height: 600, // Increased height for more fields
                   child: TabBarView(
                     controller: _tabController,
                     children: AdPlatformType.values
@@ -283,15 +377,30 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
 
     void updatePlatformIdentifiers(String key, String? value) {
       final newIdentifiers = platformIdentifiers.copyWith(
-        nativeAdId: key == 'nativeAdId'
+        androidNativeAdId: key == 'androidNativeAdId'
             ? value
-            : platformIdentifiers.nativeAdId,
-        bannerAdId: key == 'bannerAdId'
+            : platformIdentifiers.androidNativeAdId,
+        androidBannerAdId: key == 'androidBannerAdId'
             ? value
-            : platformIdentifiers.bannerAdId,
-        interstitialAdId: key == 'interstitialAdId'
+            : platformIdentifiers.androidBannerAdId,
+        androidInterstitialAdId: key == 'androidInterstitialAdId'
             ? value
-            : platformIdentifiers.interstitialAdId,
+            : platformIdentifiers.androidInterstitialAdId,
+        androidRewardedAdId: key == 'androidRewardedAdId'
+            ? value
+            : platformIdentifiers.androidRewardedAdId,
+        iosNativeAdId: key == 'iosNativeAdId'
+            ? value
+            : platformIdentifiers.iosNativeAdId,
+        iosBannerAdId: key == 'iosBannerAdId'
+            ? value
+            : platformIdentifiers.iosBannerAdId,
+        iosInterstitialAdId: key == 'iosInterstitialAdId'
+            ? value
+            : platformIdentifiers.iosInterstitialAdId,
+        iosRewardedAdId: key == 'iosRewardedAdId'
+            ? value
+            : platformIdentifiers.iosRewardedAdId,
       );
 
       final newPlatformAdIdentifiers =
@@ -316,30 +425,89 @@ class _AdPlatformConfigFormState extends State<AdPlatformConfigForm>
 
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Android Section
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            child: Text(
+              l10n.androidAdUnitsTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
           AppConfigTextField(
             label: l10n.nativeAdIdLabel,
             description: l10n.nativeAdIdDescription,
-            value: platformIdentifiers.nativeAdId,
+            value: platformIdentifiers.androidNativeAdId,
             onChanged: (value) =>
-                updatePlatformIdentifiers('nativeAdId', value),
-            controller: controllers['nativeAdId'],
+                updatePlatformIdentifiers('androidNativeAdId', value),
+            controller: controllers['androidNativeAdId'],
           ),
           AppConfigTextField(
             label: l10n.bannerAdIdLabel,
             description: l10n.bannerAdIdDescription,
-            value: platformIdentifiers.bannerAdId,
+            value: platformIdentifiers.androidBannerAdId,
             onChanged: (value) =>
-                updatePlatformIdentifiers('bannerAdId', value),
-            controller: controllers['bannerAdId'],
+                updatePlatformIdentifiers('androidBannerAdId', value),
+            controller: controllers['androidBannerAdId'],
           ),
           AppConfigTextField(
             label: l10n.interstitialAdIdLabel,
             description: l10n.interstitialAdIdDescription,
-            value: platformIdentifiers.interstitialAdId,
+            value: platformIdentifiers.androidInterstitialAdId,
             onChanged: (value) =>
-                updatePlatformIdentifiers('interstitialAdId', value),
-            controller: controllers['interstitialAdId'],
+                updatePlatformIdentifiers('androidInterstitialAdId', value),
+            controller: controllers['androidInterstitialAdId'],
+          ),
+          AppConfigTextField(
+            label: l10n.rewardedAdIdLabel,
+            description: l10n.rewardedAdIdDescription,
+            value: platformIdentifiers.androidRewardedAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('androidRewardedAdId', value),
+            controller: controllers['androidRewardedAdId'],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+
+          // iOS Section
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            child: Text(
+              l10n.iosAdUnitsTitle,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          AppConfigTextField(
+            label: l10n.nativeAdIdLabel,
+            description: l10n.nativeAdIdDescription,
+            value: platformIdentifiers.iosNativeAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('iosNativeAdId', value),
+            controller: controllers['iosNativeAdId'],
+          ),
+          AppConfigTextField(
+            label: l10n.bannerAdIdLabel,
+            description: l10n.bannerAdIdDescription,
+            value: platformIdentifiers.iosBannerAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('iosBannerAdId', value),
+            controller: controllers['iosBannerAdId'],
+          ),
+          AppConfigTextField(
+            label: l10n.interstitialAdIdLabel,
+            description: l10n.interstitialAdIdDescription,
+            value: platformIdentifiers.iosInterstitialAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('iosInterstitialAdId', value),
+            controller: controllers['iosInterstitialAdId'],
+          ),
+          AppConfigTextField(
+            label: l10n.rewardedAdIdLabel,
+            description: l10n.rewardedAdIdDescription,
+            value: platformIdentifiers.iosRewardedAdId,
+            onChanged: (value) =>
+                updatePlatformIdentifiers('iosRewardedAdId', value),
+            controller: controllers['iosRewardedAdId'],
           ),
         ],
       ),
