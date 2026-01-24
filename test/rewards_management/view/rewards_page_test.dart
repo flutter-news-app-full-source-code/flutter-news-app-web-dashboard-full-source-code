@@ -33,7 +33,9 @@ void main() {
     setUpAll(() {
       registerFallbackValue(FakeRewardsFilterState());
       registerFallbackValue(KpiCardId.rewardsAdsWatchedTotal);
+      registerFallbackValue(KpiCardId.rewardsGrantedTotal);
       registerFallbackValue(ChartCardId.rewardsAdsWatchedOverTime);
+      registerFallbackValue(ChartCardId.rewardsGrantedOverTime);
     });
 
     setUp(() {
@@ -58,10 +60,29 @@ void main() {
           timeFrames: {},
         ),
       );
+      when(
+        () => analyticsService.getKpi(KpiCardId.rewardsGrantedTotal),
+      ).thenAnswer(
+        (_) async => const KpiCardData(
+          id: KpiCardId.rewardsGrantedTotal,
+          label: 'Total Rewards Granted',
+          timeFrames: {},
+        ),
+      );
       when(() => analyticsService.getChart(any())).thenAnswer(
         (_) async => const ChartCardData(
           id: ChartCardId.rewardsAdsWatchedOverTime,
           label: 'Ads Watched Over Time',
+          type: ChartType.line,
+          timeFrames: {},
+        ),
+      );
+      when(
+        () => analyticsService.getChart(ChartCardId.rewardsGrantedOverTime),
+      ).thenAnswer(
+        (_) async => const ChartCardData(
+          id: ChartCardId.rewardsGrantedOverTime,
+          label: 'Rewards Granted Over Time',
           type: ChartType.line,
           timeFrames: {},
         ),
