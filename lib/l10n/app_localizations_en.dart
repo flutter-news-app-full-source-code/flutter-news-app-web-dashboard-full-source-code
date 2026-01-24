@@ -3091,4 +3091,43 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noAnalyticsDataSubheadline =>
       'There is no data to display yet. Check back later.';
+
+  @override
+  String get androidAdUnitsTitle => 'Android Ad Units';
+
+  @override
+  String get iosAdUnitsTitle => 'iOS Ad Units';
+
+  @override
+  String get rewardedAdIdLabel => 'Rewarded Ad ID';
+
+  @override
+  String get rewardedAdIdDescription => 'The unit ID for rewarded ads.';
+
+  @override
+  String get kpiRewardsGrantedTotal => 'Total Rewards Granted';
+
+  @override
+  String get analyticsEventRewardsHubViewedLabel => 'Rewards Hub View';
+
+  @override
+  String get analyticsEventRewardsHubViewedDescription =>
+      'Track when the user views the Rewards Hub.';
+
+  @override
+  String get analyticsEventRewardOfferClickedLabel => 'Reward Offer Click';
+
+  @override
+  String get analyticsEventRewardOfferClickedDescription =>
+      'Track when a user clicks on a specific reward offer.';
+
+  @override
+  String get analyticsEventRewardGrantedLabel => 'Reward Granted';
+
+  @override
+  String get analyticsEventRewardGrantedDescription =>
+      'Track when a reward is successfully issued to the user.';
+
+  @override
+  String get chartRewardsGrantedOverTime => 'Rewards Granted Trend';
 }

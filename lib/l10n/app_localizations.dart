@@ -5623,6 +5623,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'There is no data to display yet. Check back later.'**
   String get noAnalyticsDataSubheadline;
+
+  /// Title for the Android Ad Units section
+  ///
+  /// In en, this message translates to:
+  /// **'Android Ad Units'**
+  String get androidAdUnitsTitle;
+
+  /// Title for the iOS Ad Units section
+  ///
+  /// In en, this message translates to:
+  /// **'iOS Ad Units'**
+  String get iosAdUnitsTitle;
+
+  /// Label for the Rewarded Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'Rewarded Ad ID'**
+  String get rewardedAdIdLabel;
+
+  /// Description for the Rewarded Ad ID input field
+  ///
+  /// In en, this message translates to:
+  /// **'The unit ID for rewarded ads.'**
+  String get rewardedAdIdDescription;
+
+  /// Title for the Total Rewards Granted KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Rewards Granted'**
+  String get kpiRewardsGrantedTotal;
+
+  /// Label for the Rewards Hub View analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards Hub View'**
+  String get analyticsEventRewardsHubViewedLabel;
+
+  /// Description for the Rewards Hub View analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when the user views the Rewards Hub.'**
+  String get analyticsEventRewardsHubViewedDescription;
+
+  /// Label for the Reward Offer Click analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Reward Offer Click'**
+  String get analyticsEventRewardOfferClickedLabel;
+
+  /// Description for the Reward Offer Click analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user clicks on a specific reward offer.'**
+  String get analyticsEventRewardOfferClickedDescription;
+
+  /// Label for the Reward Granted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Reward Granted'**
+  String get analyticsEventRewardGrantedLabel;
+
+  /// Description for the Reward Granted analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a reward is successfully issued to the user.'**
+  String get analyticsEventRewardGrantedDescription;
+
+  /// Title for the Rewards Granted Trend chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards Granted Trend'**
+  String get chartRewardsGrantedOverTime;
 }
 
 class _AppLocalizationsDelegate

@@ -3856,5 +3856,53 @@
   "noAnalyticsDataSubheadline": "There is no data to display yet. Check back later.",
   "@noAnalyticsDataSubheadline": {
     "description": "Sub-headline for the empty state when no analytics data is available."
+  },
+  "androidAdUnitsTitle": "Android Ad Units",
+  "@androidAdUnitsTitle": {
+    "description": "Title for the Android Ad Units section"
+  },
+  "iosAdUnitsTitle": "iOS Ad Units",
+  "@iosAdUnitsTitle": {
+    "description": "Title for the iOS Ad Units section"
+  },
+  "rewardedAdIdLabel": "Rewarded Ad ID",
+  "@rewardedAdIdLabel": {
+    "description": "Label for the Rewarded Ad ID input field"
+  },
+  "rewardedAdIdDescription": "The unit ID for rewarded ads.",
+  "@rewardedAdIdDescription": {
+    "description": "Description for the Rewarded Ad ID input field"
+  },
+  "kpiRewardsGrantedTotal": "Total Rewards Granted",
+  "@kpiRewardsGrantedTotal": {
+    "description": "Title for the Total Rewards Granted KPI card"
+  },
+  "analyticsEventRewardsHubViewedLabel": "Rewards Hub View",
+  "@analyticsEventRewardsHubViewedLabel": {
+    "description": "Label for the Rewards Hub View analytics event"
+  },
+  "analyticsEventRewardsHubViewedDescription": "Track when the user views the Rewards Hub.",
+  "@analyticsEventRewardsHubViewedDescription": {
+    "description": "Description for the Rewards Hub View analytics event"
+  },
+  "analyticsEventRewardOfferClickedLabel": "Reward Offer Click",
+  "@analyticsEventRewardOfferClickedLabel": {
+    "description": "Label for the Reward Offer Click analytics event"
+  },
+  "analyticsEventRewardOfferClickedDescription": "Track when a user clicks on a specific reward offer.",
+  "@analyticsEventRewardOfferClickedDescription": {
+    "description": "Description for the Reward Offer Click analytics event"
+  },
+  "analyticsEventRewardGrantedLabel": "Reward Granted",
+  "@analyticsEventRewardGrantedLabel": {
+    "description": "Label for the Reward Granted analytics event"
+  },
+  "analyticsEventRewardGrantedDescription": "Track when a reward is successfully issued to the user.",
+  "@analyticsEventRewardGrantedDescription": {
+    "description": "Description for the Reward Granted analytics event"
+  },
+  "chartRewardsGrantedOverTime": "Rewards Granted Trend",
+  "@chartRewardsGrantedOverTime": {
+    "description": "Title for the Rewards Granted Trend chart card"
   }
 }
