@@ -168,7 +168,7 @@ Arabic localizations out of the box.
 
 ## 🚀 Getting Started & Running Locally
 
-For a complete guide on setting up your local environment and running this project, please see the [Wiki](https://github.com/flutter-news-app-full-source-code/flutter-news-app-web-dashboard-full-source-code/e/wiki) tab in this repository.
+For a complete guide on setting up your local environment and running this project, please see the [Wiki](https://github.com/flutter-news-app-full-source-code/flutter-news-app-web-dashboard-full-source-code/wiki) tab in this repository.
 
 ## 🔑 Licensing
 
