@@ -16,6 +16,8 @@ extension AdTypeL10n on AdType {
         return l10n.interstitialAdType;
       case AdType.video:
         return l10n.videoAdType;
+      case AdType.rewarded:
+        return l10n.rewardedAdType;
     }
   }
 }

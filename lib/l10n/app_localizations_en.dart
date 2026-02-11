@@ -1196,6 +1196,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get videoAdType => 'Video';
 
   @override
+  String get rewardedAdType => 'Rewarded';
+
+  @override
   String get bannerAdShapeSelectionTitle => 'Banner Ad Shape';
 
   @override

@@ -2240,6 +2240,12 @@ abstract class AppLocalizations {
   /// **'Video'**
   String get videoAdType;
 
+  /// Label for Rewarded Ad Type.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewarded'**
+  String get rewardedAdType;
+
   /// Title for the Banner Ad Shape Selection section
   ///
   /// In en, this message translates to:

@@ -1492,6 +1492,10 @@
   "@videoAdType": {
     "description": "تسمية نوع إعلان الفيديو."
   },
+  "rewardedAdType": "إعلان بمكافأة",
+  "@rewardedAdType": {
+    "description": "تسمية نوع الإعلان بمكافأة."
+  },
   "bannerAdShapeSelectionTitle": "شكل إعلان البانر",
   "@bannerAdShapeSelectionTitle": {
     "description": "Title for the Banner Ad Shape Selection section"

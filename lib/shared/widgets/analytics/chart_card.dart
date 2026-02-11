@@ -38,7 +38,7 @@ class _ChartCardState extends State<ChartCard> {
     final currentPoints = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<ChartTimeFrame>(
-      title: _getLocalizedTitle(widget.data.id, l10n),
+      title: _getLocalizedTitle(widget.data.cardId, l10n),
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,

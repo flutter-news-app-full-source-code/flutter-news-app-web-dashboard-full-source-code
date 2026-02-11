@@ -12,20 +12,23 @@ void main() {
     late AnalyticsService analyticsService;
 
     const kpiData = KpiCardData(
-      id: KpiCardId.usersTotalRegistered,
+      id: 'test-id',
+      cardId: KpiCardId.usersTotalRegistered,
       label: 'Total Registered Users',
       timeFrames: {},
     );
 
     const chartData = ChartCardData(
-      id: ChartCardId.usersRegistrationsOverTime,
+      id: 'test-id',
+      cardId: ChartCardId.usersRegistrationsOverTime,
       label: 'Registrations Trend',
       type: ChartType.line,
       timeFrames: {},
     );
 
     const rankedListData = RankedListCardData(
-      id: RankedListCardId.overviewHeadlinesMostViewed,
+      id: 'test-id',
+      cardId: RankedListCardId.overviewHeadlinesMostViewed,
       label: 'Top Headlines',
       timeFrames: {},
     );

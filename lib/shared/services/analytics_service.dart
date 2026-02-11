@@ -52,7 +52,7 @@ class AnalyticsService {
       return _kpiInFlight[id]!;
     }
 
-    final future = _kpiRepository.readAll(filter: {'_id': id.name}).then((
+    final future = _kpiRepository.readAll(filter: {'cardId': id.name}).then((
       response,
     ) {
       if (response.items.isEmpty) {
@@ -87,7 +87,7 @@ class AnalyticsService {
       return _chartInFlight[id]!;
     }
 
-    final future = _chartRepository.readAll(filter: {'_id': id.name}).then((
+    final future = _chartRepository.readAll(filter: {'cardId': id.name}).then((
       response,
     ) {
       if (response.items.isEmpty) {
@@ -122,16 +122,18 @@ class AnalyticsService {
       return _rankedListInFlight[id]!;
     }
 
-    final future = _rankedListRepository.readAll(filter: {'_id': id.name}).then(
-      (response) {
-        if (response.items.isEmpty) {
-          return null;
-        }
-        final data = response.items.first;
-        _rankedListCache[id] = data;
-        return data;
-      },
-    );
+    final future = _rankedListRepository
+        .readAll(filter: {'cardId': id.name})
+        .then(
+          (response) {
+            if (response.items.isEmpty) {
+              return null;
+            }
+            final data = response.items.first;
+            _rankedListCache[id] = data;
+            return data;
+          },
+        );
 
     _rankedListInFlight[id] = future;
 
