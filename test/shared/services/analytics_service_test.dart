@@ -21,14 +21,16 @@ void main() {
 
     const kpiId = KpiCardId.usersTotalRegistered;
     const kpiData = KpiCardData(
-      id: kpiId,
+      id: 'test-id',
+      cardId: kpiId,
       label: 'Total Users',
       timeFrames: {},
     );
 
     const chartId = ChartCardId.usersRegistrationsOverTime;
     const chartData = ChartCardData(
-      id: chartId,
+      id: 'test-id',
+      cardId: chartId,
       label: 'Registrations',
       type: ChartType.line,
       timeFrames: {},
@@ -36,7 +38,8 @@ void main() {
 
     const rankedListId = RankedListCardId.overviewHeadlinesMostViewed;
     const rankedListData = RankedListCardData(
-      id: rankedListId,
+      id: 'test-id',
+      cardId: rankedListId,
       label: 'Top Headlines',
       timeFrames: {},
     );
@@ -88,7 +91,7 @@ void main() {
         final result = await analyticsService.getKpi(kpiId);
         expect(result, kpiData);
         verify(
-          () => kpiRepository.readAll(filter: {'_id': kpiId.name}),
+          () => kpiRepository.readAll(filter: {'cardId': kpiId.name}),
         ).called(1);
       });
 
@@ -97,7 +100,7 @@ void main() {
         final result = await analyticsService.getKpi(kpiId);
         expect(result, kpiData);
         verify(
-          () => kpiRepository.readAll(filter: {'_id': kpiId.name}),
+          () => kpiRepository.readAll(filter: {'cardId': kpiId.name}),
         ).called(1);
       });
 
@@ -117,7 +120,7 @@ void main() {
         await analyticsService.getKpi(kpiId);
         await analyticsService.getKpi(kpiId, forceRefresh: true);
         verify(
-          () => kpiRepository.readAll(filter: {'_id': kpiId.name}),
+          () => kpiRepository.readAll(filter: {'cardId': kpiId.name}),
         ).called(2);
       });
 
@@ -128,7 +131,7 @@ void main() {
         ];
         await Future.wait(futures);
         verify(
-          () => kpiRepository.readAll(filter: {'_id': kpiId.name}),
+          () => kpiRepository.readAll(filter: {'cardId': kpiId.name}),
         ).called(1);
       });
     });
@@ -138,7 +141,7 @@ void main() {
         final result = await analyticsService.getChart(chartId);
         expect(result, chartData);
         verify(
-          () => chartRepository.readAll(filter: {'_id': chartId.name}),
+          () => chartRepository.readAll(filter: {'cardId': chartId.name}),
         ).called(1);
       });
 
@@ -160,8 +163,9 @@ void main() {
         final result = await analyticsService.getRankedList(rankedListId);
         expect(result, rankedListData);
         verify(
-          () =>
-              rankedListRepository.readAll(filter: {'_id': rankedListId.name}),
+          () => rankedListRepository.readAll(
+            filter: {'cardId': rankedListId.name},
+          ),
         ).called(1);
       });
 
