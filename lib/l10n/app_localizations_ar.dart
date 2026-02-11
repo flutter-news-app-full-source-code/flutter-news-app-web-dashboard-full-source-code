@@ -1198,6 +1198,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get videoAdType => 'فيديو';
 
   @override
+  String get rewardedAdType => 'إعلان بمكافأة';
+
+  @override
   String get bannerAdShapeSelectionTitle => 'شكل إعلان البانر';
 
   @override

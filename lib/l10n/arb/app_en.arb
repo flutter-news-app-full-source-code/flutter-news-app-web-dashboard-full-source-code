@@ -1492,6 +1492,10 @@
   "@videoAdType": {
     "description": "Label for Video Ad Type."
   },
+  "rewardedAdType": "Rewarded",
+  "@rewardedAdType": {
+    "description": "Label for Rewarded Ad Type."
+  },
   "bannerAdShapeSelectionTitle": "Banner Ad Shape",
   "@bannerAdShapeSelectionTitle": {
     "description": "Title for the Banner Ad Shape Selection section"
