@@ -22,14 +22,16 @@ void main() {
     late OverviewBloc overviewPageBloc;
 
     const kpiData = KpiCardData(
-      id: KpiCardId.usersTotalRegistered,
+      id: 'test-id',
+      cardId: KpiCardId.usersTotalRegistered,
       label: 'Test KPI',
       timeFrames: {
         KpiTimeFrame.day: KpiTimeFrameData(value: 100, trend: '+10%'),
       },
     );
     const chartData = ChartCardData(
-      id: ChartCardId.usersRegistrationsOverTime,
+      id: 'test-id',
+      cardId: ChartCardId.usersRegistrationsOverTime,
       label: 'Test Chart',
       type: ChartType.line,
       timeFrames: {
@@ -39,7 +41,8 @@ void main() {
       },
     );
     const rankedListData = RankedListCardData(
-      id: RankedListCardId.overviewHeadlinesMostViewed,
+      id: 'test-id',
+      cardId: RankedListCardId.overviewHeadlinesMostViewed,
       label: 'Test List',
       timeFrames: {
         RankedListTimeFrame.week: [
