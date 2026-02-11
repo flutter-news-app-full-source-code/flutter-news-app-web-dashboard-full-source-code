@@ -39,7 +39,7 @@ class _RankedListCardState extends State<RankedListCard> {
     final currentList = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<RankedListTimeFrame>(
-      title: _getLocalizedTitle(widget.data.id, l10n),
+      title: _getLocalizedTitle(widget.data.cardId, l10n),
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,
@@ -57,7 +57,7 @@ class _RankedListCardState extends State<RankedListCard> {
               itemBuilder: (context, index) {
                 final item = currentList[index];
                 return ListTile(
-                  onTap: () => _onItemTapped(context, widget.data.id, item),
+                  onTap: () => _onItemTapped(context, widget.data.cardId, item),
                   contentPadding: EdgeInsets.zero,
                   dense: true,
                   leading: CircleAvatar(

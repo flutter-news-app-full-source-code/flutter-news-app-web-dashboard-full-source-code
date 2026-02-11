@@ -45,7 +45,7 @@ class _KpiCardState extends State<KpiCard> {
     final currentData = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<KpiTimeFrame>(
-      title: _getLocalizedTitle(widget.data.id, l10n),
+      title: _getLocalizedTitle(widget.data.cardId, l10n),
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,
