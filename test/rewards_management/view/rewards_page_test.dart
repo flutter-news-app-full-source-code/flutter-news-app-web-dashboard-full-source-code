@@ -55,7 +55,8 @@ void main() {
 
       when(() => analyticsService.getKpi(any())).thenAnswer(
         (_) async => const KpiCardData(
-          id: KpiCardId.rewardsAdsWatchedTotal,
+          id: 'test-id',
+          cardId: KpiCardId.rewardsAdsWatchedTotal,
           label: 'Total Ads Watched',
           timeFrames: {},
         ),
@@ -64,14 +65,16 @@ void main() {
         () => analyticsService.getKpi(KpiCardId.rewardsGrantedTotal),
       ).thenAnswer(
         (_) async => const KpiCardData(
-          id: KpiCardId.rewardsGrantedTotal,
+          id: 'test-id',
+          cardId: KpiCardId.rewardsGrantedTotal,
           label: 'Total Rewards Granted',
           timeFrames: {},
         ),
       );
       when(() => analyticsService.getChart(any())).thenAnswer(
         (_) async => const ChartCardData(
-          id: ChartCardId.rewardsAdsWatchedOverTime,
+          id: 'test-id',
+          cardId: ChartCardId.rewardsAdsWatchedOverTime,
           label: 'Ads Watched Over Time',
           type: ChartType.line,
           timeFrames: {},
@@ -81,7 +84,8 @@ void main() {
         () => analyticsService.getChart(ChartCardId.rewardsGrantedOverTime),
       ).thenAnswer(
         (_) async => const ChartCardData(
-          id: ChartCardId.rewardsGrantedOverTime,
+          id: 'test-id',
+          cardId: ChartCardId.rewardsGrantedOverTime,
           label: 'Rewards Granted Over Time',
           type: ChartType.line,
           timeFrames: {},
