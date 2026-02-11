@@ -11,23 +11,26 @@ void main() {
   group('OverviewPageBloc', () {
     late AnalyticsService analyticsService;
 
-    const kpiData = KpiCardData(
-      id: KpiCardId.usersTotalRegistered,
+    final kpiData = KpiCardData(
+      id: 'test-id',
+      cardId: KpiCardId.usersTotalRegistered,
       label: 'Total Registered Users',
-      timeFrames: {},
+      timeFrames: const {},
     );
 
-    const chartData = ChartCardData(
-      id: ChartCardId.usersRegistrationsOverTime,
+    final chartData = ChartCardData(
+      id: 'test-id',
+      cardId: ChartCardId.usersRegistrationsOverTime,
       label: 'Registrations Trend',
       type: ChartType.line,
-      timeFrames: {},
+      timeFrames: const {},
     );
 
-    const rankedListData = RankedListCardData(
-      id: RankedListCardId.overviewHeadlinesMostViewed,
+    final rankedListData = RankedListCardData(
+      id: 'test-id',
+      cardId: RankedListCardId.overviewHeadlinesMostViewed,
       label: 'Top Headlines',
-      timeFrames: {},
+      timeFrames: const {},
     );
 
     final testException = Exception('test-exception');
