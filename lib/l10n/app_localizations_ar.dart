@@ -2673,6 +2673,66 @@ class AppLocalizationsAr extends AppLocalizations {
       'تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.';
 
   @override
+  String get analyticsEventAppTourStartedLabel => 'بدء جولة التطبيق';
+
+  @override
+  String get analyticsEventAppTourStartedDescription =>
+      'تتبع عندما يتم عرض جولة التطبيق قبل المصادقة.';
+
+  @override
+  String get analyticsEventAppTourStepViewedLabel =>
+      'مشاهدة خطوة في جولة التطبيق';
+
+  @override
+  String get analyticsEventAppTourStepViewedDescription =>
+      'تتبع كل مشاهدة صفحة داخل جولة التطبيق.';
+
+  @override
+  String get analyticsEventAppTourCompletedLabel => 'إكمال جولة التطبيق';
+
+  @override
+  String get analyticsEventAppTourCompletedDescription =>
+      'تتبع عندما يكمل المستخدم جولة التطبيق.';
+
+  @override
+  String get analyticsEventAppTourSkippedLabel => 'تخطي جولة التطبيق';
+
+  @override
+  String get analyticsEventAppTourSkippedDescription =>
+      'تتبع إذا قام المستخدم بتخطي جولة التطبيق.';
+
+  @override
+  String get analyticsEventInitialPersonalizationStartedLabel =>
+      'بدء التخصيص الأولي';
+
+  @override
+  String get analyticsEventInitialPersonalizationStartedDescription =>
+      'تتبع عندما يبدأ تدفق التخصيص بعد المصادقة.';
+
+  @override
+  String get analyticsEventInitialPersonalizationStepViewedLabel =>
+      'مشاهدة خطوة التخصيص';
+
+  @override
+  String get analyticsEventInitialPersonalizationStepViewedDescription =>
+      'تتبع كل مشاهدة خطوة داخل تدفق التخصيص.';
+
+  @override
+  String get analyticsEventInitialPersonalizationCompletedLabel =>
+      'إكمال التخصيص';
+
+  @override
+  String get analyticsEventInitialPersonalizationCompletedDescription =>
+      'تتبع عندما يكمل المستخدم تدفق التخصيص.';
+
+  @override
+  String get analyticsEventInitialPersonalizationSkippedLabel => 'تخطي التخصيص';
+
+  @override
+  String get analyticsEventInitialPersonalizationSkippedDescription =>
+      'تتبع إذا قام المستخدم بتخطي تدفق التخصيص.';
+
+  @override
   String get timeFrameDay => '24س';
 
   @override
@@ -2835,6 +2895,12 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get chartContentHeadlinesBreakingNewsDistribution =>
       'توزيع الأخبار العاجلة';
+
+  @override
+  String get chartOverviewAppTourFunnel => 'قمع جولة التطبيق';
+
+  @override
+  String get chartOverviewInitialPersonalizationFunnel => 'قمع التخصيص الأولي';
 
   @override
   String get rankedListOverviewHeadlinesMostViewed => 'العناوين الأكثر مشاهدة';
@@ -3164,4 +3230,39 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get minSelectionsRequiredDescription =>
       'العدد الإجمالي للعناصر التي يجب على المستخدم تحديدها عبر جميع الفئات الممكنة للمتابعة.';
+
+  @override
+  String get onboardingTitle => 'الإعداد الأولي';
+
+  @override
+  String get onboardingDescription =>
+      'إدارة تجربة المستخدم لأول مرة، بما في ذلك جولة التطبيق والتخصيص الأولي.';
+
+  @override
+  String get appTourTitle => 'جولة التطبيق';
+
+  @override
+  String get appTourDescription =>
+      'تكوين الجولة التي تسبق المصادقة والتي تظهر للمستخدمين الجدد.';
+
+  @override
+  String get enableAppTourLabel => 'تفعيل جولة التطبيق';
+
+  @override
+  String get enableAppTourDescription =>
+      'إذا تم التمكين، سيتم عرض جولة موجزة لميزات التطبيق للمستخدمين قبل تسجيل الدخول.';
+
+  @override
+  String get skippableAppTourLabel => 'جولة تطبيق قابلة للتخطي';
+
+  @override
+  String get skippableAppTourDescription =>
+      'إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي جولة التطبيق.';
+
+  @override
+  String get skippableInitialPersonalizationLabel => 'تخصيص قابل للتخطي';
+
+  @override
+  String get skippableInitialPersonalizationDescription =>
+      'إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.';
 }
