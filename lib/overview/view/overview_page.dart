@@ -144,20 +144,52 @@ class OverviewView extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: AppSpacing.lg),
-                        SizedBox(
-                          height: chartHeight,
-                          child: AnalyticsCardSlot<ChartCardId>(
-                            cardIds: [chartCards[0]],
-                            data: [state.chartData[0]],
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: chartHeight,
+                                child: AnalyticsCardSlot<ChartCardId>(
+                                  cardIds: [chartCards[0]],
+                                  data: [state.chartData[0]],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Expanded(
+                              child: SizedBox(
+                                height: chartHeight,
+                                child: AnalyticsCardSlot<ChartCardId>(
+                                  cardIds: [chartCards[1]],
+                                  data: [state.chartData[1]],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: AppSpacing.md),
-                        SizedBox(
-                          height: chartHeight,
-                          child: AnalyticsCardSlot<ChartCardId>(
-                            cardIds: [chartCards[1]],
-                            data: [state.chartData[1]],
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: chartHeight,
+                                child: AnalyticsCardSlot<ChartCardId>(
+                                  cardIds: [chartCards[2]],
+                                  data: [state.chartData[2]],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Expanded(
+                              child: SizedBox(
+                                height: chartHeight,
+                                child: AnalyticsCardSlot<ChartCardId>(
+                                  cardIds: [chartCards[3]],
+                                  data: [state.chartData[3]],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: AppSpacing.lg),
                         SizedBox(
@@ -226,6 +258,22 @@ class OverviewView extends StatelessWidget {
                             data: [state.chartData[1]],
                           ),
                         ),
+                        const SizedBox(height: AppSpacing.md),
+                        SizedBox(
+                          height: chartHeight,
+                          child: AnalyticsCardSlot<ChartCardId>(
+                            cardIds: [chartCards[2]],
+                            data: [state.chartData[2]],
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                        SizedBox(
+                          height: chartHeight,
+                          child: AnalyticsCardSlot<ChartCardId>(
+                            cardIds: [chartCards[3]],
+                            data: [state.chartData[3]],
+                          ),
+                        ),
                         const SizedBox(height: AppSpacing.lg),
                         SizedBox(
                           height: chartHeight,
@@ -249,6 +297,8 @@ class OverviewView extends StatelessWidget {
               ),
             );
         }
+        // This should not be reached, but it satisfies the analyzer.
+        return const SizedBox.shrink();
       },
     );
   }
