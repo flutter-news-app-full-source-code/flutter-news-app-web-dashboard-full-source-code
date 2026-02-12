@@ -286,46 +286,6 @@ class AnalyticsConfigForm extends StatelessWidget {
           l10n.analyticsEventInitialPersonalizationSkippedLabel,
           l10n.analyticsEventInitialPersonalizationSkippedDescription,
         );
-      case AnalyticsEvent.appTourStarted:
-        return (
-          l10n.analyticsEventAppTourStartedLabel,
-          l10n.analyticsEventAppTourStartedDescription,
-        );
-      case AnalyticsEvent.appTourStepViewed:
-        return (
-          l10n.analyticsEventAppTourStepViewedLabel,
-          l10n.analyticsEventAppTourStepViewedDescription,
-        );
-      case AnalyticsEvent.appTourCompleted:
-        return (
-          l10n.analyticsEventAppTourCompletedLabel,
-          l10n.analyticsEventAppTourCompletedDescription,
-        );
-      case AnalyticsEvent.appTourSkipped:
-        return (
-          l10n.analyticsEventAppTourSkippedLabel,
-          l10n.analyticsEventAppTourSkippedDescription,
-        );
-      case AnalyticsEvent.initialPersonalizationStarted:
-        return (
-          l10n.analyticsEventInitialPersonalizationStartedLabel,
-          l10n.analyticsEventInitialPersonalizationStartedDescription,
-        );
-      case AnalyticsEvent.initialPersonalizationStepViewed:
-        return (
-          l10n.analyticsEventInitialPersonalizationStepViewedLabel,
-          l10n.analyticsEventInitialPersonalizationStepViewedDescription,
-        );
-      case AnalyticsEvent.initialPersonalizationCompleted:
-        return (
-          l10n.analyticsEventInitialPersonalizationCompletedLabel,
-          l10n.analyticsEventInitialPersonalizationCompletedDescription,
-        );
-      case AnalyticsEvent.initialPersonalizationSkipped:
-        return (
-          l10n.analyticsEventInitialPersonalizationSkippedLabel,
-          l10n.analyticsEventInitialPersonalizationSkippedDescription,
-        );
       case AnalyticsEvent.userRegistered:
         return (
           l10n.analyticsEventUserRegisteredLabel,
