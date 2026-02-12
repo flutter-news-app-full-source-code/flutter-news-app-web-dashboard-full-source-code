@@ -7,12 +7,14 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuratio
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/onboarding_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/rewards_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 enum _FeatureTile {
+  onboarding,
   advertisements,
   rewards,
   pushNotifications,
@@ -66,6 +68,48 @@ class _FeaturesConfigurationTabState extends State<FeaturesConfigurationTab> {
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
+        // Onboarding
+        ValueListenableBuilder<_FeatureTile?>(
+          valueListenable: _expandedTile,
+          builder: (context, expandedTile, child) {
+            const tile = _FeatureTile.onboarding;
+            return ExpansionTile(
+              leading: Icon(
+                Icons.explore_outlined,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                  0.7,
+                ),
+              ),
+              key: ValueKey('onboardingTile_$expandedTile'),
+              title: Text(l10n.onboardingTitle),
+              subtitle: Text(
+                l10n.onboardingDescription,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+              onExpansionChanged: (bool isExpanded) {
+                _expandedTile.value = isExpanded ? tile : null;
+              },
+              initiallyExpanded: expandedTile == tile,
+              childrenPadding: const EdgeInsetsDirectional.only(
+                start: AppSpacing.xxl,
+                top: AppSpacing.md,
+                bottom: AppSpacing.md,
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                OnboardingConfigForm(
+                  remoteConfig: widget.remoteConfig,
+                  onConfigChanged: widget.onConfigChanged,
+                ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.lg),
         // Advertisements
         ValueListenableBuilder<_FeatureTile?>(
           valueListenable: _expandedTile,
