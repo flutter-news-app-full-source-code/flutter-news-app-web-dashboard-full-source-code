@@ -9,6 +9,7 @@ export 'engagement_settings_form.dart';
 export 'feed_ad_settings_form.dart';
 export 'feed_config_form.dart';
 export 'feed_decorator_form.dart';
+export 'initial_personalization_form.dart.dart';
 export 'maintenance_config_form.dart';
 export 'navigation_ad_settings_form.dart';
 export 'push_notification_settings_form.dart';

@@ -15,11 +15,11 @@ void main() {
   group('AnalyticsCardSlot', () {
     late AnalyticsService analyticsService;
 
-    final kpiData = KpiCardData(
+    const kpiData = KpiCardData(
       id: 'test-id',
       cardId: KpiCardId.usersTotalRegistered,
       label: 'Test KPI',
-      timeFrames: const {},
+      timeFrames: {},
     );
 
     setUpAll(() {
