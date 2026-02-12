@@ -3924,5 +3924,53 @@
   "ios": "iOS",
   "@ios": {
     "description": "تسمية منصة iOS"
+  },
+  "initialPersonalizationTitle": "التخصيص الأولي",
+  "@initialPersonalizationTitle": {
+    "description": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر."
+  },
+  "initialPersonalizationDescription": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر.",
+  "@initialPersonalizationDescription": {
+    "description": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر."
+  },
+  "enableInitialPersonalizationLabel": "تفعيل التخصيص الأولي",
+  "@enableInitialPersonalizationLabel": {
+    "description": "تسمية مفتاح تفعيل تدفق التخصيص الأولي."
+  },
+  "enableInitialPersonalizationDescription": "إذا تم التمكين، سيتم توجيه المستخدمين الجدد خلال تدفق تخصيص بعد التسجيل.",
+  "@enableInitialPersonalizationDescription": {
+    "description": "وصف مفتاح تفعيل تدفق التخصيص الأولي."
+  },
+  "enableCountrySelectionLabel": "تفعيل اختيار البلد",
+  "@enableCountrySelectionLabel": {
+    "description": "تسمية مفتاح تفعيل اختيار البلد أثناء الإعداد."
+  },
+  "enableCountrySelectionDescription": "السماح للمستخدمين باختيار بلدهم أثناء الإعداد.",
+  "@enableCountrySelectionDescription": {
+    "description": "وصف مفتاح تفعيل اختيار البلد أثناء الإعداد."
+  },
+  "enableTopicSelectionLabel": "تفعيل اختيار الموضوع",
+  "@enableTopicSelectionLabel": {
+    "description": "تسمية مفتاح تفعيل اختيار الموضوع أثناء الإعداد."
+  },
+  "enableTopicSelectionDescription": "السماح للمستخدمين باختيار المواضيع التي تهمهم أثناء الإعداد.",
+  "@enableTopicSelectionDescription": {
+    "description": "وصف مفتاح تفعيل اختيار الموضوع أثناء الإعداد."
+  },
+  "enableSourceSelectionLabel": "تفعيل اختيار المصدر",
+  "@enableSourceSelectionLabel": {
+    "description": "تسمية مفتاح تفعيل اختيار المصدر أثناء الإعداد."
+  },
+  "enableSourceSelectionDescription": "السماح للمستخدمين باختيار مصادر الأخبار لمتابعتها أثناء الإعداد.",
+  "@enableSourceSelectionDescription": {
+    "description": "وصف مفتاح تفعيل اختيار المصدر أثناء الإعداد."
+  },
+  "minSelectionsRequiredLabel": "الحد الأدنى للاختيارات المطلوبة",
+  "@minSelectionsRequiredLabel": {
+    "description": "تسمية حقل إدخال الحد الأدنى للاختيارات المطلوبة."
+  },
+  "minSelectionsRequiredDescription": "العدد الإجمالي للعناصر التي يجب على المستخدم تحديدها عبر جميع الفئات الممكنة للمتابعة.",
+  "@minSelectionsRequiredDescription": {
+    "description": "وصف حقل إدخال الحد الأدنى للاختيارات المطلوبة."
   }
 }

@@ -3916,5 +3916,60 @@
   "ios": "iOS",
   "@ios": {
     "description": "Label for iOS platform"
+  },
+  "initialPersonalizationTitle": "Initial Personalization",
+  "@initialPersonalizationTitle": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "initialPersonalizationDescription": "Configure the onboarding flow for new users, including country, topic, and source selection.",
+  "@initialPersonalizationDescription": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "@initialPersonalizationTitle": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "initialPersonalizationDescription": "Configure the onboarding flow for new users, including country, topic, and source selection.",
+  "@initialPersonalizationDescription": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "enableInitialPersonalizationLabel": "Enable Initial Personalization",
+  "@enableInitialPersonalizationLabel": {
+    "description": "Label for the switch to enable the initial personalization flow."
+  },
+  "enableInitialPersonalizationDescription": "If enabled, new users will be guided through a personalization flow after registration.",
+  "@enableInitialPersonalizationDescription": {
+    "description": "Description for the switch to enable the initial personalization flow."
+  },
+  "enableCountrySelectionLabel": "Enable Country Selection",
+  "@enableCountrySelectionLabel": {
+    "description": "Label for the switch to enable country selection during onboarding."
+  },
+  "enableCountrySelectionDescription": "Allow users to select their country during onboarding.",
+  "@enableCountrySelectionDescription": {
+    "description": "Description for the switch to enable country selection during onboarding."
+  },
+  "enableTopicSelectionLabel": "Enable Topic Selection",
+  "@enableTopicSelectionLabel": {
+    "description": "Label for the switch to enable topic selection during onboarding."
+  },
+  "enableTopicSelectionDescription": "Allow users to select topics of interest during onboarding.",
+  "@enableTopicSelectionDescription": {
+    "description": "Description for the switch to enable topic selection during onboarding."
+  },
+  "enableSourceSelectionLabel": "Enable Source Selection",
+  "@enableSourceSelectionLabel": {
+    "description": "Label for the switch to enable source selection during onboarding."
+  },
+  "enableSourceSelectionDescription": "Allow users to select news sources to follow during onboarding.",
+  "@enableSourceSelectionDescription": {
+    "description": "Description for the switch to enable source selection during onboarding."
+  },
+  "minSelectionsRequiredLabel": "Minimum Selections Required",
+  "@minSelectionsRequiredLabel": {
+    "description": "Label for the input field for minimum selections required."
+  },
+  "minSelectionsRequiredDescription": "The total number of items a user must select across all enabled categories to proceed.",
+  "@minSelectionsRequiredDescription": {
+    "description": "Description for the input field for minimum selections required."
   }
 }
