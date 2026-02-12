@@ -3122,4 +3122,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ios => 'iOS';
+
+  @override
+  String get initialPersonalizationTitle => 'التخصيص الأولي';
+
+  @override
+  String get initialPersonalizationDescription =>
+      'تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر.';
+
+  @override
+  String get enableInitialPersonalizationLabel => 'تفعيل التخصيص الأولي';
+
+  @override
+  String get enableInitialPersonalizationDescription =>
+      'إذا تم التمكين، سيتم توجيه المستخدمين الجدد خلال تدفق تخصيص بعد التسجيل.';
+
+  @override
+  String get enableCountrySelectionLabel => 'تفعيل اختيار البلد';
+
+  @override
+  String get enableCountrySelectionDescription =>
+      'السماح للمستخدمين باختيار بلدهم أثناء الإعداد.';
+
+  @override
+  String get enableTopicSelectionLabel => 'تفعيل اختيار الموضوع';
+
+  @override
+  String get enableTopicSelectionDescription =>
+      'السماح للمستخدمين باختيار المواضيع التي تهمهم أثناء الإعداد.';
+
+  @override
+  String get enableSourceSelectionLabel => 'تفعيل اختيار المصدر';
+
+  @override
+  String get enableSourceSelectionDescription =>
+      'السماح للمستخدمين باختيار مصادر الأخبار لمتابعتها أثناء الإعداد.';
+
+  @override
+  String get minSelectionsRequiredLabel => 'الحد الأدنى للاختيارات المطلوبة';
+
+  @override
+  String get minSelectionsRequiredDescription =>
+      'العدد الإجمالي للعناصر التي يجب على المستخدم تحديدها عبر جميع الفئات الممكنة للمتابعة.';
 }

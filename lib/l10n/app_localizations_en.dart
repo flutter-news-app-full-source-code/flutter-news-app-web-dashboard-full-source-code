@@ -3139,4 +3139,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ios => 'iOS';
+
+  @override
+  String get initialPersonalizationTitle => 'Initial Personalization';
+
+  @override
+  String get initialPersonalizationDescription =>
+      'Configure the onboarding flow for new users, including country, topic, and source selection.';
+
+  @override
+  String get enableInitialPersonalizationLabel =>
+      'Enable Initial Personalization';
+
+  @override
+  String get enableInitialPersonalizationDescription =>
+      'If enabled, new users will be guided through a personalization flow after registration.';
+
+  @override
+  String get enableCountrySelectionLabel => 'Enable Country Selection';
+
+  @override
+  String get enableCountrySelectionDescription =>
+      'Allow users to select their country during onboarding.';
+
+  @override
+  String get enableTopicSelectionLabel => 'Enable Topic Selection';
+
+  @override
+  String get enableTopicSelectionDescription =>
+      'Allow users to select topics of interest during onboarding.';
+
+  @override
+  String get enableSourceSelectionLabel => 'Enable Source Selection';
+
+  @override
+  String get enableSourceSelectionDescription =>
+      'Allow users to select news sources to follow during onboarding.';
+
+  @override
+  String get minSelectionsRequiredLabel => 'Minimum Selections Required';
+
+  @override
+  String get minSelectionsRequiredDescription =>
+      'The total number of items a user must select across all enabled categories to proceed.';
 }

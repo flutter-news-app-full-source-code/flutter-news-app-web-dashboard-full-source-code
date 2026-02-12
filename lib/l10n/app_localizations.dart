@@ -5713,6 +5713,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'iOS'**
   String get ios;
+
+  /// Configure the onboarding flow for new users, including country, topic, and source selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Personalization'**
+  String get initialPersonalizationTitle;
+
+  /// Configure the onboarding flow for new users, including country, topic, and source selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the onboarding flow for new users, including country, topic, and source selection.'**
+  String get initialPersonalizationDescription;
+
+  /// Label for the switch to enable the initial personalization flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Initial Personalization'**
+  String get enableInitialPersonalizationLabel;
+
+  /// Description for the switch to enable the initial personalization flow.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, new users will be guided through a personalization flow after registration.'**
+  String get enableInitialPersonalizationDescription;
+
+  /// Label for the switch to enable country selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Country Selection'**
+  String get enableCountrySelectionLabel;
+
+  /// Description for the switch to enable country selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to select their country during onboarding.'**
+  String get enableCountrySelectionDescription;
+
+  /// Label for the switch to enable topic selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Topic Selection'**
+  String get enableTopicSelectionLabel;
+
+  /// Description for the switch to enable topic selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to select topics of interest during onboarding.'**
+  String get enableTopicSelectionDescription;
+
+  /// Label for the switch to enable source selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Source Selection'**
+  String get enableSourceSelectionLabel;
+
+  /// Description for the switch to enable source selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to select news sources to follow during onboarding.'**
+  String get enableSourceSelectionDescription;
+
+  /// Label for the input field for minimum selections required.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Selections Required'**
+  String get minSelectionsRequiredLabel;
+
+  /// Description for the input field for minimum selections required.
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of items a user must select across all enabled categories to proceed.'**
+  String get minSelectionsRequiredDescription;
 }
 
 class _AppLocalizationsDelegate
