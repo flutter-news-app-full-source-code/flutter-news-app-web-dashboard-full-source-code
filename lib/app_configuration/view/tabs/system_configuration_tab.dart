@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_urls_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/initial_personalization_form.dart.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/update_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -181,47 +180,6 @@ class _SystemConfigurationTabState extends State<SystemConfigurationTab> {
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppUrlsForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
-                ),
-              ],
-            );
-          },
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        ValueListenableBuilder<int?>(
-          valueListenable: _expandedTileIndex,
-          builder: (context, expandedIndex, child) {
-            const tileIndex = 2;
-            return ExpansionTile(
-              leading: Icon(
-                Icons.person_search_outlined,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(
-                  0.7,
-                ),
-              ),
-              key: ValueKey('initialPersonalizationTile_$expandedIndex'),
-              title: Text(l10n.initialPersonalizationTitle),
-              subtitle: Text(
-                l10n.initialPersonalizationDescription,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
-              ),
-              onExpansionChanged: (isExpanded) {
-                _expandedTileIndex.value = isExpanded ? tileIndex : null;
-              },
-              initiallyExpanded: expandedIndex == tileIndex,
-              childrenPadding: const EdgeInsetsDirectional.only(
-                start: AppSpacing.xxl,
-                top: AppSpacing.md,
-                bottom: AppSpacing.md,
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InitialPersonalizationForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
                 ),
