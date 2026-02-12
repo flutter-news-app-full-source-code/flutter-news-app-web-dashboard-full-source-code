@@ -111,7 +111,7 @@ void main() {
         OverviewState(
           status: OverviewStatus.success,
           kpiData: List.filled(3, kpiData),
-          chartData: List.filled(2, chartData),
+          chartData: List.filled(4, chartData),
           rankedListData: List.filled(2, rankedListData),
         ),
       );
@@ -124,7 +124,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(AnalyticsCardSlot<KpiCardId>), findsNWidgets(3));
-      expect(find.byType(AnalyticsCardSlot<ChartCardId>), findsNWidgets(2));
+      expect(find.byType(AnalyticsCardSlot<ChartCardId>), findsNWidgets(4));
       expect(
         find.byType(AnalyticsCardSlot<RankedListCardId>),
         findsNWidgets(2),
@@ -140,7 +140,7 @@ void main() {
         OverviewState(
           status: OverviewStatus.success,
           kpiData: List.filled(3, null),
-          chartData: List.filled(2, null),
+          chartData: List.filled(4, null),
           rankedListData: List.filled(2, null),
         ),
       );
