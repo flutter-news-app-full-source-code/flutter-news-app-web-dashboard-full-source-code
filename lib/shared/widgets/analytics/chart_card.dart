@@ -70,6 +70,10 @@ class _ChartCardState extends State<ChartCard> {
 
   String _getLocalizedTitle(ChartCardId id, AppLocalizations l10n) {
     switch (id) {
+      case ChartCardId.overviewAppTourFunnel:
+        return l10n.chartOverviewAppTourFunnel;
+      case ChartCardId.overviewInitialPersonalizationFunnel:
+        return l10n.chartOverviewInitialPersonalizationFunnel;
       case ChartCardId.usersRegistrationsOverTime:
         return l10n.chartUsersRegistrationsOverTime;
       case ChartCardId.usersActiveUsersOverTime:

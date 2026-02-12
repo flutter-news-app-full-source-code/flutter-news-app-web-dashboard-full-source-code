@@ -11,6 +11,7 @@ export 'feed_config_form.dart';
 export 'feed_decorator_form.dart';
 export 'maintenance_config_form.dart';
 export 'navigation_ad_settings_form.dart';
+export 'onboarding_config_form.dart';
 export 'push_notification_settings_form.dart';
 export 'reporting_settings_form.dart';
 export 'rewards_config_form.dart';

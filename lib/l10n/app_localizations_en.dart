@@ -2683,6 +2683,66 @@ class AppLocalizationsEn extends AppLocalizations {
       'Track when a user applies a saved source filter.';
 
   @override
+  String get analyticsEventAppTourStartedLabel => 'App Tour Started';
+
+  @override
+  String get analyticsEventAppTourStartedDescription =>
+      'Track when the pre-authentication app tour is shown.';
+
+  @override
+  String get analyticsEventAppTourStepViewedLabel => 'App Tour Step Viewed';
+
+  @override
+  String get analyticsEventAppTourStepViewedDescription =>
+      'Track each page view within the app tour.';
+
+  @override
+  String get analyticsEventAppTourCompletedLabel => 'App Tour Completed';
+
+  @override
+  String get analyticsEventAppTourCompletedDescription =>
+      'Track when a user completes the app tour.';
+
+  @override
+  String get analyticsEventAppTourSkippedLabel => 'App Tour Skipped';
+
+  @override
+  String get analyticsEventAppTourSkippedDescription =>
+      'Track if a user skips the app tour.';
+
+  @override
+  String get analyticsEventInitialPersonalizationStartedLabel =>
+      'Initial Personalization Started';
+
+  @override
+  String get analyticsEventInitialPersonalizationStartedDescription =>
+      'Track when the post-authentication personalization flow begins.';
+
+  @override
+  String get analyticsEventInitialPersonalizationStepViewedLabel =>
+      'Personalization Step Viewed';
+
+  @override
+  String get analyticsEventInitialPersonalizationStepViewedDescription =>
+      'Track each step view within the personalization flow.';
+
+  @override
+  String get analyticsEventInitialPersonalizationCompletedLabel =>
+      'Personalization Completed';
+
+  @override
+  String get analyticsEventInitialPersonalizationCompletedDescription =>
+      'Track when a user completes the personalization flow.';
+
+  @override
+  String get analyticsEventInitialPersonalizationSkippedLabel =>
+      'Personalization Skipped';
+
+  @override
+  String get analyticsEventInitialPersonalizationSkippedDescription =>
+      'Track if a user skips the personalization flow.';
+
+  @override
   String get timeFrameDay => '24H';
 
   @override
@@ -2849,6 +2909,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get chartContentHeadlinesBreakingNewsDistribution =>
       'Breaking News Distribution';
+
+  @override
+  String get chartOverviewAppTourFunnel => 'App Tour Funnel';
+
+  @override
+  String get chartOverviewInitialPersonalizationFunnel =>
+      'Initial Personalization Funnel';
 
   @override
   String get rankedListOverviewHeadlinesMostViewed => 'Top Viewed Headlines';
@@ -3139,4 +3206,83 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ios => 'iOS';
+
+  @override
+  String get initialPersonalizationTitle => 'Initial Personalization';
+
+  @override
+  String get initialPersonalizationDescription =>
+      'Configure the onboarding flow for new users, including country, topic, and source selection.';
+
+  @override
+  String get enableInitialPersonalizationLabel =>
+      'Enable Initial Personalization';
+
+  @override
+  String get enableInitialPersonalizationDescription =>
+      'If enabled, new users will be guided through a personalization flow after registration.';
+
+  @override
+  String get enableCountrySelectionLabel => 'Enable Country Selection';
+
+  @override
+  String get enableCountrySelectionDescription =>
+      'Allow users to select their country during onboarding.';
+
+  @override
+  String get enableTopicSelectionLabel => 'Enable Topic Selection';
+
+  @override
+  String get enableTopicSelectionDescription =>
+      'Allow users to select topics of interest during onboarding.';
+
+  @override
+  String get enableSourceSelectionLabel => 'Enable Source Selection';
+
+  @override
+  String get enableSourceSelectionDescription =>
+      'Allow users to select news sources to follow during onboarding.';
+
+  @override
+  String get minSelectionsRequiredLabel => 'Minimum Selections Required';
+
+  @override
+  String get minSelectionsRequiredDescription =>
+      'The total number of items a user must select across all enabled categories to proceed.';
+
+  @override
+  String get onboardingTitle => 'Onboarding';
+
+  @override
+  String get onboardingDescription =>
+      'Manage the first-time user experience, including the app tour and initial personalization.';
+
+  @override
+  String get appTourTitle => 'App Tour';
+
+  @override
+  String get appTourDescription =>
+      'Configure the pre-authentication tour shown to new users.';
+
+  @override
+  String get enableAppTourLabel => 'Enable App Tour';
+
+  @override
+  String get enableAppTourDescription =>
+      'If enabled, a brief tour of the app\'s features will be shown to users before they log in.';
+
+  @override
+  String get skippableAppTourLabel => 'Skippable App Tour';
+
+  @override
+  String get skippableAppTourDescription =>
+      'If enabled, users will have the option to skip the app tour.';
+
+  @override
+  String get skippableInitialPersonalizationLabel =>
+      'Skippable Personalization';
+
+  @override
+  String get skippableInitialPersonalizationDescription =>
+      'If enabled, users will have the option to skip the personalization flow.';
 }

@@ -3345,6 +3345,70 @@
   "@analyticsEventSourceFilterUsedDescription": {
     "description": "Description for the Source Filter Usage analytics event"
   },
+  "analyticsEventAppTourStartedLabel": "App Tour Started",
+  "@analyticsEventAppTourStartedLabel": {
+    "description": "Label for the App Tour Started analytics event"
+  },
+  "analyticsEventAppTourStartedDescription": "Track when the pre-authentication app tour is shown.",
+  "@analyticsEventAppTourStartedDescription": {
+    "description": "Description for the App Tour Started analytics event"
+  },
+  "analyticsEventAppTourStepViewedLabel": "App Tour Step Viewed",
+  "@analyticsEventAppTourStepViewedLabel": {
+    "description": "Label for the App Tour Step Viewed analytics event"
+  },
+  "analyticsEventAppTourStepViewedDescription": "Track each page view within the app tour.",
+  "@analyticsEventAppTourStepViewedDescription": {
+    "description": "Description for the App Tour Step Viewed analytics event"
+  },
+  "analyticsEventAppTourCompletedLabel": "App Tour Completed",
+  "@analyticsEventAppTourCompletedLabel": {
+    "description": "Label for the App Tour Completed analytics event"
+  },
+  "analyticsEventAppTourCompletedDescription": "Track when a user completes the app tour.",
+  "@analyticsEventAppTourCompletedDescription": {
+    "description": "Description for the App Tour Completed analytics event"
+  },
+  "analyticsEventAppTourSkippedLabel": "App Tour Skipped",
+  "@analyticsEventAppTourSkippedLabel": {
+    "description": "Label for the App Tour Skipped analytics event"
+  },
+  "analyticsEventAppTourSkippedDescription": "Track if a user skips the app tour.",
+  "@analyticsEventAppTourSkippedDescription": {
+    "description": "Description for the App Tour Skipped analytics event"
+  },
+  "analyticsEventInitialPersonalizationStartedLabel": "Initial Personalization Started",
+  "@analyticsEventInitialPersonalizationStartedLabel": {
+    "description": "Label for the Initial Personalization Started analytics event"
+  },
+  "analyticsEventInitialPersonalizationStartedDescription": "Track when the post-authentication personalization flow begins.",
+  "@analyticsEventInitialPersonalizationStartedDescription": {
+    "description": "Description for the Initial Personalization Started analytics event"
+  },
+  "analyticsEventInitialPersonalizationStepViewedLabel": "Personalization Step Viewed",
+  "@analyticsEventInitialPersonalizationStepViewedLabel": {
+    "description": "Label for the Personalization Step Viewed analytics event"
+  },
+  "analyticsEventInitialPersonalizationStepViewedDescription": "Track each step view within the personalization flow.",
+  "@analyticsEventInitialPersonalizationStepViewedDescription": {
+    "description": "Description for the Personalization Step Viewed analytics event"
+  },
+  "analyticsEventInitialPersonalizationCompletedLabel": "Personalization Completed",
+  "@analyticsEventInitialPersonalizationCompletedLabel": {
+    "description": "Label for the Personalization Completed analytics event"
+  },
+  "analyticsEventInitialPersonalizationCompletedDescription": "Track when a user completes the personalization flow.",
+  "@analyticsEventInitialPersonalizationCompletedDescription": {
+    "description": "Description for the Personalization Completed analytics event"
+  },
+  "analyticsEventInitialPersonalizationSkippedLabel": "Personalization Skipped",
+  "@analyticsEventInitialPersonalizationSkippedLabel": {
+    "description": "Label for the Personalization Skipped analytics event"
+  },
+  "analyticsEventInitialPersonalizationSkippedDescription": "Track if a user skips the personalization flow.",
+  "@analyticsEventInitialPersonalizationSkippedDescription": {
+    "description": "Description for the Personalization Skipped analytics event"
+  },
   "timeFrameDay": "24H",
   "@timeFrameDay": {
     "description": "Label for 24 hour time frame toggle"
@@ -3560,6 +3624,14 @@
   "chartContentHeadlinesBreakingNewsDistribution": "Breaking News Distribution",
   "@chartContentHeadlinesBreakingNewsDistribution": {
     "description": "Title for the Breaking News Distribution chart card"
+  },
+  "chartOverviewAppTourFunnel": "App Tour Funnel",
+  "@chartOverviewAppTourFunnel": {
+    "description": "Title for the App Tour Funnel chart card"
+  },
+  "chartOverviewInitialPersonalizationFunnel": "Initial Personalization Funnel",
+  "@chartOverviewInitialPersonalizationFunnel": {
+    "description": "Title for the Initial Personalization Funnel chart card"
   },
   "rankedListOverviewHeadlinesMostViewed": "Top Viewed Headlines",
   "@rankedListOverviewHeadlinesMostViewed": {
@@ -3916,5 +3988,100 @@
   "ios": "iOS",
   "@ios": {
     "description": "Label for iOS platform"
+  },
+  "initialPersonalizationTitle": "Initial Personalization",
+  "@initialPersonalizationTitle": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "initialPersonalizationDescription": "Configure the onboarding flow for new users, including country, topic, and source selection.",
+  "@initialPersonalizationDescription": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "@initialPersonalizationTitle": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "initialPersonalizationDescription": "Configure the onboarding flow for new users, including country, topic, and source selection.",
+  "@initialPersonalizationDescription": {
+    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
+  },
+  "enableInitialPersonalizationLabel": "Enable Initial Personalization",
+  "@enableInitialPersonalizationLabel": {
+    "description": "Label for the switch to enable the initial personalization flow."
+  },
+  "enableInitialPersonalizationDescription": "If enabled, new users will be guided through a personalization flow after registration.",
+  "@enableInitialPersonalizationDescription": {
+    "description": "Description for the switch to enable the initial personalization flow."
+  },
+  "enableCountrySelectionLabel": "Enable Country Selection",
+  "@enableCountrySelectionLabel": {
+    "description": "Label for the switch to enable country selection during onboarding."
+  },
+  "enableCountrySelectionDescription": "Allow users to select their country during onboarding.",
+  "@enableCountrySelectionDescription": {
+    "description": "Description for the switch to enable country selection during onboarding."
+  },
+  "enableTopicSelectionLabel": "Enable Topic Selection",
+  "@enableTopicSelectionLabel": {
+    "description": "Label for the switch to enable topic selection during onboarding."
+  },
+  "enableTopicSelectionDescription": "Allow users to select topics of interest during onboarding.",
+  "@enableTopicSelectionDescription": {
+    "description": "Description for the switch to enable topic selection during onboarding."
+  },
+  "enableSourceSelectionLabel": "Enable Source Selection",
+  "@enableSourceSelectionLabel": {
+    "description": "Label for the switch to enable source selection during onboarding."
+  },
+  "enableSourceSelectionDescription": "Allow users to select news sources to follow during onboarding.",
+  "@enableSourceSelectionDescription": {
+    "description": "Description for the switch to enable source selection during onboarding."
+  },
+  "minSelectionsRequiredLabel": "Minimum Selections Required",
+  "@minSelectionsRequiredLabel": {
+    "description": "Label for the input field for minimum selections required."
+  },
+  "minSelectionsRequiredDescription": "The total number of items a user must select across all enabled categories to proceed.",
+  "@minSelectionsRequiredDescription": {
+    "description": "Description for the input field for minimum selections required."
+  },
+  "onboardingTitle": "Onboarding",
+  "@onboardingTitle": {
+    "description": "Title for the Onboarding expansion tile."
+  },
+  "onboardingDescription": "Manage the first-time user experience, including the app tour and initial personalization.",
+  "@onboardingDescription": {
+    "description": "Description for the Onboarding expansion tile."
+  },
+  "appTourTitle": "App Tour",
+  "@appTourTitle": {
+    "description": "Title for the App Tour configuration section."
+  },
+  "appTourDescription": "Configure the pre-authentication tour shown to new users.",
+  "@appTourDescription": {
+    "description": "Description for the App Tour configuration section."
+  },
+  "enableAppTourLabel": "Enable App Tour",
+  "@enableAppTourLabel": {
+    "description": "Label for the switch to enable the app tour."
+  },
+  "enableAppTourDescription": "If enabled, a brief tour of the app's features will be shown to users before they log in.",
+  "@enableAppTourDescription": {
+    "description": "Description for the switch to enable the app tour."
+  },
+  "skippableAppTourLabel": "Skippable App Tour",
+  "@skippableAppTourLabel": {
+    "description": "Label for the switch to make the app tour skippable."
+  },
+  "skippableAppTourDescription": "If enabled, users will have the option to skip the app tour.",
+  "@skippableAppTourDescription": {
+    "description": "Description for the switch to make the app tour skippable."
+  },
+  "skippableInitialPersonalizationLabel": "Skippable Personalization",
+  "@skippableInitialPersonalizationLabel": {
+    "description": "Label for the switch to make the initial personalization skippable."
+  },
+  "skippableInitialPersonalizationDescription": "If enabled, users will have the option to skip the personalization flow.",
+  "@skippableInitialPersonalizationDescription": {
+    "description": "Description for the switch to make the initial personalization skippable."
   }
 }

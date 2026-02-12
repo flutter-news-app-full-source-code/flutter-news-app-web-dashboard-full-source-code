@@ -4856,6 +4856,102 @@ abstract class AppLocalizations {
   /// **'Track when a user applies a saved source filter.'**
   String get analyticsEventSourceFilterUsedDescription;
 
+  /// Label for the App Tour Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'App Tour Started'**
+  String get analyticsEventAppTourStartedLabel;
+
+  /// Description for the App Tour Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when the pre-authentication app tour is shown.'**
+  String get analyticsEventAppTourStartedDescription;
+
+  /// Label for the App Tour Step Viewed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'App Tour Step Viewed'**
+  String get analyticsEventAppTourStepViewedLabel;
+
+  /// Description for the App Tour Step Viewed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track each page view within the app tour.'**
+  String get analyticsEventAppTourStepViewedDescription;
+
+  /// Label for the App Tour Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'App Tour Completed'**
+  String get analyticsEventAppTourCompletedLabel;
+
+  /// Description for the App Tour Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user completes the app tour.'**
+  String get analyticsEventAppTourCompletedDescription;
+
+  /// Label for the App Tour Skipped analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'App Tour Skipped'**
+  String get analyticsEventAppTourSkippedLabel;
+
+  /// Description for the App Tour Skipped analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track if a user skips the app tour.'**
+  String get analyticsEventAppTourSkippedDescription;
+
+  /// Label for the Initial Personalization Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Personalization Started'**
+  String get analyticsEventInitialPersonalizationStartedLabel;
+
+  /// Description for the Initial Personalization Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when the post-authentication personalization flow begins.'**
+  String get analyticsEventInitialPersonalizationStartedDescription;
+
+  /// Label for the Personalization Step Viewed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Personalization Step Viewed'**
+  String get analyticsEventInitialPersonalizationStepViewedLabel;
+
+  /// Description for the Personalization Step Viewed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track each step view within the personalization flow.'**
+  String get analyticsEventInitialPersonalizationStepViewedDescription;
+
+  /// Label for the Personalization Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Personalization Completed'**
+  String get analyticsEventInitialPersonalizationCompletedLabel;
+
+  /// Description for the Personalization Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user completes the personalization flow.'**
+  String get analyticsEventInitialPersonalizationCompletedDescription;
+
+  /// Label for the Personalization Skipped analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Personalization Skipped'**
+  String get analyticsEventInitialPersonalizationSkippedLabel;
+
+  /// Description for the Personalization Skipped analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track if a user skips the personalization flow.'**
+  String get analyticsEventInitialPersonalizationSkippedDescription;
+
   /// Label for 24 hour time frame toggle
   ///
   /// In en, this message translates to:
@@ -5179,6 +5275,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Breaking News Distribution'**
   String get chartContentHeadlinesBreakingNewsDistribution;
+
+  /// Title for the App Tour Funnel chart card
+  ///
+  /// In en, this message translates to:
+  /// **'App Tour Funnel'**
+  String get chartOverviewAppTourFunnel;
+
+  /// Title for the Initial Personalization Funnel chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Personalization Funnel'**
+  String get chartOverviewInitialPersonalizationFunnel;
 
   /// Title for the Top Viewed Headlines ranked list card
   ///
@@ -5713,6 +5821,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'iOS'**
   String get ios;
+
+  /// Configure the onboarding flow for new users, including country, topic, and source selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Personalization'**
+  String get initialPersonalizationTitle;
+
+  /// Configure the onboarding flow for new users, including country, topic, and source selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the onboarding flow for new users, including country, topic, and source selection.'**
+  String get initialPersonalizationDescription;
+
+  /// Label for the switch to enable the initial personalization flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Initial Personalization'**
+  String get enableInitialPersonalizationLabel;
+
+  /// Description for the switch to enable the initial personalization flow.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, new users will be guided through a personalization flow after registration.'**
+  String get enableInitialPersonalizationDescription;
+
+  /// Label for the switch to enable country selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Country Selection'**
+  String get enableCountrySelectionLabel;
+
+  /// Description for the switch to enable country selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to select their country during onboarding.'**
+  String get enableCountrySelectionDescription;
+
+  /// Label for the switch to enable topic selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Topic Selection'**
+  String get enableTopicSelectionLabel;
+
+  /// Description for the switch to enable topic selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to select topics of interest during onboarding.'**
+  String get enableTopicSelectionDescription;
+
+  /// Label for the switch to enable source selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Source Selection'**
+  String get enableSourceSelectionLabel;
+
+  /// Description for the switch to enable source selection during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow users to select news sources to follow during onboarding.'**
+  String get enableSourceSelectionDescription;
+
+  /// Label for the input field for minimum selections required.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Selections Required'**
+  String get minSelectionsRequiredLabel;
+
+  /// Description for the input field for minimum selections required.
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of items a user must select across all enabled categories to proceed.'**
+  String get minSelectionsRequiredDescription;
+
+  /// Title for the Onboarding expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding'**
+  String get onboardingTitle;
+
+  /// Description for the Onboarding expansion tile.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage the first-time user experience, including the app tour and initial personalization.'**
+  String get onboardingDescription;
+
+  /// Title for the App Tour configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'App Tour'**
+  String get appTourTitle;
+
+  /// Description for the App Tour configuration section.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the pre-authentication tour shown to new users.'**
+  String get appTourDescription;
+
+  /// Label for the switch to enable the app tour.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable App Tour'**
+  String get enableAppTourLabel;
+
+  /// Description for the switch to enable the app tour.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, a brief tour of the app\'s features will be shown to users before they log in.'**
+  String get enableAppTourDescription;
+
+  /// Label for the switch to make the app tour skippable.
+  ///
+  /// In en, this message translates to:
+  /// **'Skippable App Tour'**
+  String get skippableAppTourLabel;
+
+  /// Description for the switch to make the app tour skippable.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, users will have the option to skip the app tour.'**
+  String get skippableAppTourDescription;
+
+  /// Label for the switch to make the initial personalization skippable.
+  ///
+  /// In en, this message translates to:
+  /// **'Skippable Personalization'**
+  String get skippableInitialPersonalizationLabel;
+
+  /// Description for the switch to make the initial personalization skippable.
+  ///
+  /// In en, this message translates to:
+  /// **'If enabled, users will have the option to skip the personalization flow.'**
+  String get skippableInitialPersonalizationDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -3349,6 +3349,70 @@
   "@analyticsEventSourceFilterUsedDescription": {
     "description": "وصف لحدث استخدام مرشح مصادر"
   },
+  "analyticsEventAppTourStartedLabel": "بدء جولة التطبيق",
+  "@analyticsEventAppTourStartedLabel": {
+    "description": "تسمية لحدث بدء جولة التطبيق"
+  },
+  "analyticsEventAppTourStartedDescription": "تتبع عندما يتم عرض جولة التطبيق قبل المصادقة.",
+  "@analyticsEventAppTourStartedDescription": {
+    "description": "وصف لحدث بدء جولة التطبيق"
+  },
+  "analyticsEventAppTourStepViewedLabel": "مشاهدة خطوة في جولة التطبيق",
+  "@analyticsEventAppTourStepViewedLabel": {
+    "description": "تسمية لحدث مشاهدة خطوة في جولة التطبيق"
+  },
+  "analyticsEventAppTourStepViewedDescription": "تتبع كل مشاهدة صفحة داخل جولة التطبيق.",
+  "@analyticsEventAppTourStepViewedDescription": {
+    "description": "وصف لحدث مشاهدة خطوة في جولة التطبيق"
+  },
+  "analyticsEventAppTourCompletedLabel": "إكمال جولة التطبيق",
+  "@analyticsEventAppTourCompletedLabel": {
+    "description": "تسمية لحدث إكمال جولة التطبيق"
+  },
+  "analyticsEventAppTourCompletedDescription": "تتبع عندما يكمل المستخدم جولة التطبيق.",
+  "@analyticsEventAppTourCompletedDescription": {
+    "description": "وصف لحدث إكمال جولة التطبيق"
+  },
+  "analyticsEventAppTourSkippedLabel": "تخطي جولة التطبيق",
+  "@analyticsEventAppTourSkippedLabel": {
+    "description": "تسمية لحدث تخطي جولة التطبيق"
+  },
+  "analyticsEventAppTourSkippedDescription": "تتبع إذا قام المستخدم بتخطي جولة التطبيق.",
+  "@analyticsEventAppTourSkippedDescription": {
+    "description": "وصف لحدث تخطي جولة التطبيق"
+  },
+  "analyticsEventInitialPersonalizationStartedLabel": "بدء التخصيص الأولي",
+  "@analyticsEventInitialPersonalizationStartedLabel": {
+    "description": "تسمية لحدث بدء التخصيص الأولي"
+  },
+  "analyticsEventInitialPersonalizationStartedDescription": "تتبع عندما يبدأ تدفق التخصيص بعد المصادقة.",
+  "@analyticsEventInitialPersonalizationStartedDescription": {
+    "description": "وصف لحدث بدء التخصيص الأولي"
+  },
+  "analyticsEventInitialPersonalizationStepViewedLabel": "مشاهدة خطوة التخصيص",
+  "@analyticsEventInitialPersonalizationStepViewedLabel": {
+    "description": "تسمية لحدث مشاهدة خطوة التخصيص"
+  },
+  "analyticsEventInitialPersonalizationStepViewedDescription": "تتبع كل مشاهدة خطوة داخل تدفق التخصيص.",
+  "@analyticsEventInitialPersonalizationStepViewedDescription": {
+    "description": "وصف لحدث مشاهدة خطوة التخصيص"
+  },
+  "analyticsEventInitialPersonalizationCompletedLabel": "إكمال التخصيص",
+  "@analyticsEventInitialPersonalizationCompletedLabel": {
+    "description": "تسمية لحدث إكمال التخصيص"
+  },
+  "analyticsEventInitialPersonalizationCompletedDescription": "تتبع عندما يكمل المستخدم تدفق التخصيص.",
+  "@analyticsEventInitialPersonalizationCompletedDescription": {
+    "description": "وصف لحدث إكمال التخصيص"
+  },
+  "analyticsEventInitialPersonalizationSkippedLabel": "تخطي التخصيص",
+  "@analyticsEventInitialPersonalizationSkippedLabel": {
+    "description": "تسمية لحدث تخطي التخصيص"
+  },
+  "analyticsEventInitialPersonalizationSkippedDescription": "تتبع إذا قام المستخدم بتخطي تدفق التخصيص.",
+  "@analyticsEventInitialPersonalizationSkippedDescription": {
+    "description": "وصف لحدث تخطي التخصيص"
+  },
   "timeFrameDay": "24س",
   "@timeFrameDay": {
     "description": "Label for 24 hour time frame toggle"
@@ -3564,6 +3628,14 @@
   "chartContentHeadlinesBreakingNewsDistribution": "توزيع الأخبار العاجلة",
   "@chartContentHeadlinesBreakingNewsDistribution": {
     "description": "Title for the Breaking News Distribution chart card"
+  },
+  "chartOverviewAppTourFunnel": "قمع جولة التطبيق",
+  "@chartOverviewAppTourFunnel": {
+    "description": "عنوان بطاقة مخطط قمع جولة التطبيق"
+  },
+  "chartOverviewInitialPersonalizationFunnel": "قمع التخصيص الأولي",
+  "@chartOverviewInitialPersonalizationFunnel": {
+    "description": "عنوان بطاقة مخطط قمع التخصيص الأولي"
   },
   "rankedListOverviewHeadlinesMostViewed": "العناوين الأكثر مشاهدة",
   "@rankedListOverviewHeadlinesMostViewed": {
@@ -3924,5 +3996,93 @@
   "ios": "iOS",
   "@ios": {
     "description": "تسمية منصة iOS"
+  },
+  "initialPersonalizationTitle": "التخصيص الأولي",
+  "@initialPersonalizationTitle": {
+    "description": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر."
+  },
+  "initialPersonalizationDescription": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر.",
+  "@initialPersonalizationDescription": {
+    "description": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر."
+  },
+  "enableInitialPersonalizationLabel": "تفعيل التخصيص الأولي",
+  "@enableInitialPersonalizationLabel": {
+    "description": "تسمية مفتاح تفعيل تدفق التخصيص الأولي."
+  },
+  "enableInitialPersonalizationDescription": "إذا تم التمكين، سيتم توجيه المستخدمين الجدد خلال تدفق تخصيص بعد التسجيل.",
+  "@enableInitialPersonalizationDescription": {
+    "description": "وصف مفتاح تفعيل تدفق التخصيص الأولي."
+  },
+  "enableCountrySelectionLabel": "تفعيل اختيار البلد",
+  "@enableCountrySelectionLabel": {
+    "description": "تسمية مفتاح تفعيل اختيار البلد أثناء الإعداد."
+  },
+  "enableCountrySelectionDescription": "السماح للمستخدمين باختيار بلدهم أثناء الإعداد.",
+  "@enableCountrySelectionDescription": {
+    "description": "وصف مفتاح تفعيل اختيار البلد أثناء الإعداد."
+  },
+  "enableTopicSelectionLabel": "تفعيل اختيار الموضوع",
+  "@enableTopicSelectionLabel": {
+    "description": "تسمية مفتاح تفعيل اختيار الموضوع أثناء الإعداد."
+  },
+  "enableTopicSelectionDescription": "السماح للمستخدمين باختيار المواضيع التي تهمهم أثناء الإعداد.",
+  "@enableTopicSelectionDescription": {
+    "description": "وصف مفتاح تفعيل اختيار الموضوع أثناء الإعداد."
+  },
+  "enableSourceSelectionLabel": "تفعيل اختيار المصدر",
+  "@enableSourceSelectionLabel": {
+    "description": "تسمية مفتاح تفعيل اختيار المصدر أثناء الإعداد."
+  },
+  "enableSourceSelectionDescription": "السماح للمستخدمين باختيار مصادر الأخبار لمتابعتها أثناء الإعداد.",
+  "@enableSourceSelectionDescription": {
+    "description": "وصف مفتاح تفعيل اختيار المصدر أثناء الإعداد."
+  },
+  "minSelectionsRequiredLabel": "الحد الأدنى للاختيارات المطلوبة",
+  "@minSelectionsRequiredLabel": {
+    "description": "تسمية حقل إدخال الحد الأدنى للاختيارات المطلوبة."
+  },
+  "minSelectionsRequiredDescription": "العدد الإجمالي للعناصر التي يجب على المستخدم تحديدها عبر جميع الفئات الممكنة للمتابعة.",
+  "@minSelectionsRequiredDescription": {
+    "description": "وصف حقل إدخال الحد الأدنى للاختيارات المطلوبة."
+  },
+  "onboardingTitle": "الإعداد الأولي",
+  "@onboardingTitle": {
+    "description": "عنوان قسم الإعداد الأولي القابل للتوسيع."
+  },
+  "onboardingDescription": "إدارة تجربة المستخدم لأول مرة، بما في ذلك جولة التطبيق والتخصيص الأولي.",
+  "@onboardingDescription": {
+    "description": "وصف قسم الإعداد الأولي القابل للتوسيع."
+  },
+  "appTourTitle": "جولة التطبيق",
+  "@appTourTitle": {
+    "description": "عنوان قسم إعدادات جولة التطبيق."
+  },
+  "appTourDescription": "تكوين الجولة التي تسبق المصادقة والتي تظهر للمستخدمين الجدد.",
+  "@appTourDescription": {
+    "description": "وصف قسم إعدادات جولة التطبيق."
+  },
+  "enableAppTourLabel": "تفعيل جولة التطبيق",
+  "@enableAppTourLabel": {
+    "description": "تسمية مفتاح تفعيل جولة التطبيق."
+  },
+  "enableAppTourDescription": "إذا تم التمكين، سيتم عرض جولة موجزة لميزات التطبيق للمستخدمين قبل تسجيل الدخول.",
+  "@enableAppTourDescription": {
+    "description": "وصف مفتاح تفعيل جولة التطبيق."
+  },
+  "skippableAppTourLabel": "جولة تطبيق قابلة للتخطي",
+  "@skippableAppTourLabel": {
+    "description": "تسمية مفتاح جعل جولة التطبيق قابلة للتخطي."
+  },
+  "skippableAppTourDescription": "إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي جولة التطبيق.",
+  "@skippableAppTourDescription": {
+    "description": "وصف مفتاح جعل جولة التطبيق قابلة للتخطي."
+  },
+  "skippableInitialPersonalizationLabel": "تخصيص قابل للتخطي",
+  "@skippableInitialPersonalizationLabel": {
+    "description": "تسمية مفتاح جعل التخصيص الأولي قابلاً للتخطي."
+  },
+  "skippableInitialPersonalizationDescription": "إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.",
+  "@skippableInitialPersonalizationDescription": {
+    "description": "وصف مفتاح جعل التخصيص الأولي قابلاً للتخطي."
   }
 }

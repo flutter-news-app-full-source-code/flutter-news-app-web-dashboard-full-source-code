@@ -29,6 +29,8 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
   static const List<ChartCardId> chartCards = [
     ChartCardId.usersRegistrationsOverTime,
     ChartCardId.contentHeadlinesViewsOverTime,
+    ChartCardId.overviewAppTourFunnel,
+    ChartCardId.overviewInitialPersonalizationFunnel,
   ];
 
   static const List<RankedListCardId> rankedListCards = [

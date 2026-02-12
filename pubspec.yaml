@@ -80,7 +80,7 @@ dev_dependencies:
   bloc_test: ^10.0.0
   flutter_test:
     sdk: flutter
-  mockingjay: ^2.0.0
+  mockingjay: ^2.1.0
   mocktail: ^1.0.4
   very_good_analysis: ^9.0.0
 
@@ -92,7 +92,7 @@ dependency_overrides:
   core:
     git:
       url: https://github.com/flutter-news-app-full-source-code/core.git
-      ref: a38f3bbcc2ace05c57fadb1a030ad2f9f3e4feff
+      ref: 4250798f353bafc3c3c3780ff89f913347c77bda
   http_client:
     git:
       url: https://github.com/flutter-news-app-full-source-code/http-client.git
