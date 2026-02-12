@@ -137,33 +137,109 @@ class OnboardingConfigForm extends StatelessWidget {
                 },
               ),
               const SizedBox(height: AppSpacing.md),
-              TextFormField(
-                initialValue: personalizationConfig.minSelectionsRequired
-                    .toString(),
-                decoration: InputDecoration(
-                  labelText: l10n.minSelectionsRequiredLabel,
-                  helperText: l10n.minSelectionsRequiredDescription,
-                  border: const OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              SwitchListTile(
+                title: Text(l10n.enableCountrySelectionLabel),
+                subtitle: Text(l10n.enableCountrySelectionDescription),
+                value: personalizationConfig.isCountrySelectionEnabled,
                 onChanged: (value) {
-                  final intValue = int.tryParse(value);
-                  if (intValue != null) {
-                    onConfigChanged(
-                      remoteConfig.copyWith(
-                        features: remoteConfig.features.copyWith(
-                          onboarding: onboardingConfig.copyWith(
-                            initialPersonalization: personalizationConfig
-                                .copyWith(
-                                  minSelectionsRequired: intValue,
-                                ),
-                          ),
+                  onConfigChanged(
+                    remoteConfig.copyWith(
+                      features: remoteConfig.features.copyWith(
+                        onboarding: onboardingConfig.copyWith(
+                          initialPersonalization: personalizationConfig
+                              .copyWith(
+                                isCountrySelectionEnabled: value,
+                              ),
                         ),
                       ),
-                    );
-                  }
+                    ),
+                  );
                 },
+              ),
+              SwitchListTile(
+                title: Text(l10n.enableTopicSelectionLabel),
+                subtitle: Text(l10n.enableTopicSelectionDescription),
+                value: personalizationConfig.isTopicSelectionEnabled,
+                onChanged: (value) {
+                  onConfigChanged(
+                    remoteConfig.copyWith(
+                      features: remoteConfig.features.copyWith(
+                        onboarding: onboardingConfig.copyWith(
+                          initialPersonalization: personalizationConfig
+                              .copyWith(
+                                isTopicSelectionEnabled: value,
+                              ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              SwitchListTile(
+                title: Text(l10n.enableSourceSelectionLabel),
+                subtitle: Text(l10n.enableSourceSelectionDescription),
+                value: personalizationConfig.isSourceSelectionEnabled,
+                onChanged: (value) {
+                  onConfigChanged(
+                    remoteConfig.copyWith(
+                      features: remoteConfig.features.copyWith(
+                        onboarding: onboardingConfig.copyWith(
+                          initialPersonalization: personalizationConfig
+                              .copyWith(
+                                isSourceSelectionEnabled: value,
+                              ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                    ),
+                    child: Text(
+                      l10n.minSelectionsRequiredLabel,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  Slider(
+                    value: personalizationConfig.minSelectionsRequired
+                        .toDouble(),
+                    min: 1,
+                    max: 4,
+                    divisions: 3,
+                    label: personalizationConfig.minSelectionsRequired
+                        .toString(),
+                    onChanged: (value) {
+                      onConfigChanged(
+                        remoteConfig.copyWith(
+                          features: remoteConfig.features.copyWith(
+                            onboarding: onboardingConfig.copyWith(
+                              initialPersonalization: personalizationConfig
+                                  .copyWith(
+                                    minSelectionsRequired: value.round(),
+                                  ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                    ),
+                    child: Text(
+                      l10n.minSelectionsRequiredDescription,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                ],
               ),
             ],
           ],
