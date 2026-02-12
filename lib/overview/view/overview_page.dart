@@ -297,8 +297,6 @@ class OverviewView extends StatelessWidget {
               ),
             );
         }
-        // This should not be reached, but it satisfies the analyzer.
-        return const SizedBox.shrink();
       },
     );
   }
