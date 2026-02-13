@@ -15,6 +15,9 @@ class AppConfigurationBloc
     on<AppConfigurationLoaded>(_onAppConfigurationLoaded);
     on<AppConfigurationUpdated>(_onAppConfigurationUpdated);
     on<AppConfigurationFieldChanged>(_onAppConfigurationFieldChanged);
+    on<AppConfigurationShowSaveSuccessCleared>(
+      _onAppConfigurationShowSaveSuccessCleared,
+    );
   }
 
   final DataRepository<RemoteConfig> _remoteConfigRepository;
@@ -113,6 +116,15 @@ class AppConfigurationBloc
         clearException: true,
         clearShowSaveSuccess: true,
       ),
+    );
+  }
+
+  void _onAppConfigurationShowSaveSuccessCleared(
+    AppConfigurationShowSaveSuccessCleared event,
+    Emitter<AppConfigurationState> emit,
+  ) {
+    emit(
+      state.copyWith(clearShowSaveSuccess: true),
     );
   }
 }

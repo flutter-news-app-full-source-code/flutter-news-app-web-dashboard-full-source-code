@@ -4052,6 +4052,14 @@
   "@onboardingDescription": {
     "description": "Description for the Onboarding expansion tile."
   },
+  "enableOnboardingLabel": "Enable Onboarding",
+  "@enableOnboardingLabel": {
+    "description": "Label for the master switch to enable the entire onboarding flow."
+  },
+  "enableOnboardingDescription": "A master switch to enable or disable the entire onboarding flow (App Tour and Initial Personalization).",
+  "@enableOnboardingDescription": {
+    "description": "Description for the master switch to enable the entire onboarding flow."
+  },
   "appTourTitle": "App Tour",
   "@appTourTitle": {
     "description": "Title for the App Tour configuration section."

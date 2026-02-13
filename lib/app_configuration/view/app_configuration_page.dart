@@ -90,7 +90,7 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
               );
             // Clear the showSaveSuccess flag after showing the snackbar
             context.read<AppConfigurationBloc>().add(
-              const AppConfigurationFieldChanged(),
+              const AppConfigurationShowSaveSuccessCleared(),
             );
           } else if (state.status == AppConfigurationStatus.failure &&
               state.exception != null) {
@@ -188,6 +188,15 @@ class _AppConfigurationPageState extends State<AppConfigurationPage>
                         }
                       }
                     : null,
+                backgroundColor: state.isDirty
+                    ? Theme.of(context).colorScheme.primary
+                    : null,
+                foregroundColor: state.isDirty
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : null,
+                elevation: state.isDirty ? 6 : 0,
+                highlightElevation: state.isDirty ? 12 : 0,
+                disabledElevation: 0,
                 child: const Icon(Icons.save),
               );
             },

@@ -3258,6 +3258,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Manage the first-time user experience, including the app tour and initial personalization.';
 
   @override
+  String get enableOnboardingLabel => 'Enable Onboarding';
+
+  @override
+  String get enableOnboardingDescription =>
+      'A master switch to enable or disable the entire onboarding flow (App Tour and Initial Personalization).';
+
+  @override
   String get appTourTitle => 'App Tour';
 
   @override
