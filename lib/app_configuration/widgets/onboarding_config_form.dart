@@ -28,6 +28,30 @@ class OnboardingConfigForm extends StatelessWidget {
     final appTourConfig = onboardingConfig.appTour;
     final personalizationConfig = onboardingConfig.initialPersonalization;
 
+    void updateAppTour(AppTourConfig newConfig) {
+      onConfigChanged(
+        remoteConfig.copyWith(
+          features: remoteConfig.features.copyWith(
+            onboarding: onboardingConfig.copyWith(
+              appTour: newConfig,
+            ),
+          ),
+        ),
+      );
+    }
+
+    void updatePersonalization(InitialPersonalizationConfig newConfig) {
+      onConfigChanged(
+        remoteConfig.copyWith(
+          features: remoteConfig.features.copyWith(
+            onboarding: onboardingConfig.copyWith(
+              initialPersonalization: newConfig,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,7 +70,7 @@ class OnboardingConfigForm extends StatelessWidget {
           },
         ),
         if (onboardingConfig.isEnabled) ...[
-          const Divider(height: AppSpacing.xxlg),
+          const Divider(height: AppSpacing.xxl),
           // App Tour Configuration
           ExpansionTile(
             title: Text(l10n.appTourTitle),
@@ -68,15 +92,7 @@ class OnboardingConfigForm extends StatelessWidget {
                 subtitle: Text(l10n.enableAppTourDescription),
                 value: appTourConfig.isEnabled,
                 onChanged: (value) {
-                  onConfigChanged(
-                    remoteConfig.copyWith(
-                      features: remoteConfig.features.copyWith(
-                        onboarding: onboardingConfig.copyWith(
-                          appTour: appTourConfig.copyWith(isEnabled: value),
-                        ),
-                      ),
-                    ),
-                  );
+                  updateAppTour(appTourConfig.copyWith(isEnabled: value));
                 },
               ),
               if (appTourConfig.isEnabled)
@@ -85,15 +101,7 @@ class OnboardingConfigForm extends StatelessWidget {
                   subtitle: Text(l10n.skippableAppTourDescription),
                   value: appTourConfig.isSkippable,
                   onChanged: (value) {
-                    onConfigChanged(
-                      remoteConfig.copyWith(
-                        features: remoteConfig.features.copyWith(
-                          onboarding: onboardingConfig.copyWith(
-                            appTour: appTourConfig.copyWith(isSkippable: value),
-                          ),
-                        ),
-                      ),
-                    );
+                    updateAppTour(appTourConfig.copyWith(isSkippable: value));
                   },
                 ),
             ],
@@ -120,17 +128,8 @@ class OnboardingConfigForm extends StatelessWidget {
                 subtitle: Text(l10n.enableInitialPersonalizationDescription),
                 value: personalizationConfig.isEnabled,
                 onChanged: (value) {
-                  onConfigChanged(
-                    remoteConfig.copyWith(
-                      features: remoteConfig.features.copyWith(
-                        onboarding: onboardingConfig.copyWith(
-                          initialPersonalization: personalizationConfig
-                              .copyWith(
-                                isEnabled: value,
-                              ),
-                        ),
-                      ),
-                    ),
+                  updatePersonalization(
+                    personalizationConfig.copyWith(isEnabled: value),
                   );
                 },
               ),
@@ -142,15 +141,8 @@ class OnboardingConfigForm extends StatelessWidget {
                   ),
                   value: personalizationConfig.isSkippable,
                   onChanged: (value) {
-                    onConfigChanged(
-                      remoteConfig.copyWith(
-                        features: remoteConfig.features.copyWith(
-                          onboarding: onboardingConfig.copyWith(
-                            initialPersonalization: personalizationConfig
-                                .copyWith(isSkippable: value),
-                          ),
-                        ),
-                      ),
+                    updatePersonalization(
+                      personalizationConfig.copyWith(isSkippable: value),
                     );
                   },
                 ),
@@ -160,16 +152,9 @@ class OnboardingConfigForm extends StatelessWidget {
                   subtitle: Text(l10n.enableCountrySelectionDescription),
                   value: personalizationConfig.isCountrySelectionEnabled,
                   onChanged: (value) {
-                    onConfigChanged(
-                      remoteConfig.copyWith(
-                        features: remoteConfig.features.copyWith(
-                          onboarding: onboardingConfig.copyWith(
-                            initialPersonalization: personalizationConfig
-                                .copyWith(
-                                  isCountrySelectionEnabled: value,
-                                ),
-                          ),
-                        ),
+                    updatePersonalization(
+                      personalizationConfig.copyWith(
+                        isCountrySelectionEnabled: value,
                       ),
                     );
                   },
@@ -179,16 +164,9 @@ class OnboardingConfigForm extends StatelessWidget {
                   subtitle: Text(l10n.enableTopicSelectionDescription),
                   value: personalizationConfig.isTopicSelectionEnabled,
                   onChanged: (value) {
-                    onConfigChanged(
-                      remoteConfig.copyWith(
-                        features: remoteConfig.features.copyWith(
-                          onboarding: onboardingConfig.copyWith(
-                            initialPersonalization: personalizationConfig
-                                .copyWith(
-                                  isTopicSelectionEnabled: value,
-                                ),
-                          ),
-                        ),
+                    updatePersonalization(
+                      personalizationConfig.copyWith(
+                        isTopicSelectionEnabled: value,
                       ),
                     );
                   },
@@ -198,16 +176,9 @@ class OnboardingConfigForm extends StatelessWidget {
                   subtitle: Text(l10n.enableSourceSelectionDescription),
                   value: personalizationConfig.isSourceSelectionEnabled,
                   onChanged: (value) {
-                    onConfigChanged(
-                      remoteConfig.copyWith(
-                        features: remoteConfig.features.copyWith(
-                          onboarding: onboardingConfig.copyWith(
-                            initialPersonalization: personalizationConfig
-                                .copyWith(
-                                  isSourceSelectionEnabled: value,
-                                ),
-                          ),
-                        ),
+                    updatePersonalization(
+                      personalizationConfig.copyWith(
+                        isSourceSelectionEnabled: value,
                       ),
                     );
                   },
@@ -234,16 +205,9 @@ class OnboardingConfigForm extends StatelessWidget {
                       label: personalizationConfig.minSelectionsRequired
                           .toString(),
                       onChanged: (value) {
-                        onConfigChanged(
-                          remoteConfig.copyWith(
-                            features: remoteConfig.features.copyWith(
-                              onboarding: onboardingConfig.copyWith(
-                                initialPersonalization: personalizationConfig
-                                    .copyWith(
-                                      minSelectionsRequired: value.round(),
-                                    ),
-                              ),
-                            ),
+                        updatePersonalization(
+                          personalizationConfig.copyWith(
+                            minSelectionsRequired: value.round(),
                           ),
                         );
                       },
