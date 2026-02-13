@@ -5906,6 +5906,18 @@ abstract class AppLocalizations {
   /// **'Manage the first-time user experience, including the app tour and initial personalization.'**
   String get onboardingDescription;
 
+  /// Label for the master switch to enable the entire onboarding flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Onboarding'**
+  String get enableOnboardingLabel;
+
+  /// Description for the master switch to enable the entire onboarding flow.
+  ///
+  /// In en, this message translates to:
+  /// **'A master switch to enable or disable the entire onboarding flow (App Tour and Initial Personalization).'**
+  String get enableOnboardingDescription;
+
   /// Title for the App Tour configuration section.
   ///
   /// In en, this message translates to:

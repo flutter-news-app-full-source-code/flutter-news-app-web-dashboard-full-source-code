@@ -3239,6 +3239,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'إدارة تجربة المستخدم لأول مرة، بما في ذلك جولة التطبيق والتخصيص الأولي.';
 
   @override
+  String get enableOnboardingLabel => 'تفعيل الإعداد الأولي';
+
+  @override
+  String get enableOnboardingDescription =>
+      'مفتاح رئيسي لتفعيل أو تعطيل تدفق الإعداد الأولي بالكامل (جولة التطبيق والتخصيص الأولي).';
+
+  @override
   String get appTourTitle => 'جولة التطبيق';
 
   @override
