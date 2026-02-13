@@ -4053,6 +4053,14 @@
   "@onboardingDescription": {
     "description": "وصف قسم الإعداد الأولي القابل للتوسيع."
   },
+  "enableOnboardingLabel": "تفعيل الإعداد الأولي",
+  "@enableOnboardingLabel": {
+    "description": "تسمية المفتاح الرئيسي لتفعيل تدفق الإعداد الأولي بالكامل."
+  },
+  "enableOnboardingDescription": "مفتاح رئيسي لتفعيل أو تعطيل تدفق الإعداد الأولي بالكامل (جولة التطبيق والتخصيص الأولي).",
+  "@enableOnboardingDescription": {
+    "description": "وصف المفتاح الرئيسي لتفعيل تدفق الإعداد الأولي بالكامل."
+  },
   "appTourTitle": "جولة التطبيق",
   "@appTourTitle": {
     "description": "عنوان قسم إعدادات جولة التطبيق."
