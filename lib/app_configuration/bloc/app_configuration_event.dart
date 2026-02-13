@@ -51,3 +51,12 @@ class AppConfigurationFieldChanged extends AppConfigurationEvent {
   @override
   List<Object?> get props => [remoteConfig];
 }
+
+/// {@template app_configuration_show_save_success_cleared}
+/// Event to notify that the save success message has been shown and the
+/// flag should be cleared.
+/// {@endtemplate}
+class AppConfigurationShowSaveSuccessCleared extends AppConfigurationEvent {
+  /// {@macro app_configuration_show_save_success_cleared}
+  const AppConfigurationShowSaveSuccessCleared();
+}
