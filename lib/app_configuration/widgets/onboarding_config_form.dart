@@ -183,46 +183,6 @@ class OnboardingConfigForm extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: AppSpacing.md),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.md,
-                      ),
-                      child: Text(
-                        l10n.minSelectionsRequiredLabel,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    Slider(
-                      value: personalizationConfig.minSelectionsRequired
-                          .toDouble(),
-                      min: 1,
-                      max: 4,
-                      divisions: 3,
-                      label: personalizationConfig.minSelectionsRequired
-                          .toString(),
-                      onChanged: (value) {
-                        updatePersonalization(
-                          personalizationConfig.copyWith(
-                            minSelectionsRequired: value.round(),
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.md,
-                      ),
-                      child: Text(
-                        l10n.minSelectionsRequiredDescription,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ],
           ),
