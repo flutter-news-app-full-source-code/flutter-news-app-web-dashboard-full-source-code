@@ -9,17 +9,22 @@ import 'package:ui_kit/ui_kit.dart';
 
 /// A widget for selecting and previewing an image for upload.
 class ImageUploadField extends StatefulWidget {
+  /// {@macro image_upload_field}
   const ImageUploadField({
     required this.onChanged,
-    this.initialImageBytes,
+    this.initialImageUrl,
+    this.optimisticImageBytes,
     super.key,
   });
 
   /// Callback function that is called when an image is selected or removed.
   final void Function(Uint8List? bytes, String? fileName) onChanged;
 
-  /// The initial image bytes to display, for edit forms.
-  final Uint8List? initialImageBytes;
+  /// The URL of an existing image to display initially.
+  final String? initialImageUrl;
+
+  /// Optimistically displayed image bytes, taking precedence over [initialImageUrl].
+  final Uint8List? optimisticImageBytes;
 
   @override
   State<ImageUploadField> createState() => _ImageUploadFieldState();
@@ -28,12 +33,6 @@ class ImageUploadField extends StatefulWidget {
 class _ImageUploadFieldState extends State<ImageUploadField> {
   Uint8List? _imageBytes;
   String? _fileName;
-
-  @override
-  void initState() {
-    super.initState();
-    _imageBytes = widget.initialImageBytes;
-  }
 
   Future<void> _pickImage() async {
     try {
@@ -54,7 +53,8 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.filePickingErrorMessage),
+            content:
+                Text(AppLocalizationsX(context).l10n.filePickingErrorMessage),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
@@ -75,9 +75,15 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
-    return _imageBytes == null
-        ? _buildImagePicker(l10n, theme)
-        : _buildImagePreview(theme);
+    // Determine which image to display. Priority is:
+    // 1. A newly picked image (_imageBytes).
+    // 2. An optimistically cached image (widget.optimisticImageBytes).
+    final displayBytes = _imageBytes ?? widget.optimisticImageBytes;
+    final hasImage = displayBytes != null || widget.initialImageUrl != null;
+
+    return hasImage
+        ? _buildImagePreview(context, theme, displayBytes)
+        : _buildImagePicker(l10n, theme);
   }
 
   Widget _buildImagePicker(AppLocalizations l10n, ThemeData theme) {
@@ -85,12 +91,13 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
       onTap: _pickImage,
       borderRadius: BorderRadius.circular(AppSpacing.md),
       child: DottedBorder(
-        options: RectDottedBorderOptions(
+        options: RoundedRectDottedBorderOptions(
+          radius: const Radius.circular(AppSpacing.md),
           color: theme.colorScheme.onSurface.withOpacity(0.5),
           strokeWidth: 1,
           dashPattern: const [6, 6],
         ),
-        child: const SizedBox(
+        child: SizedBox(
           height: 150,
           child: Center(
             child: Column(
@@ -99,9 +106,9 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
                 Icon(
                   Icons.cloud_upload_outlined,
                   size: 48,
-                  color: Colors.grey,
+                  color: theme.colorScheme.onSurface.withOpacity(0.5),
                 ),
-                SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.md),
                 Text(l10n.clickToUploadImage),
               ],
             ),
@@ -111,20 +118,35 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
     );
   }
 
-  Widget _buildImagePreview(ThemeData theme) {
+  Widget _buildImagePreview(
+    BuildContext context,
+    ThemeData theme,
+    Uint8List? displayBytes,
+  ) {
     return SizedBox(
       height: 150,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Image.memory(_imageBytes!, fit: BoxFit.contain),
+          if (displayBytes != null)
+            Image.memory(displayBytes, fit: BoxFit.contain)
+          else if (widget.initialImageUrl != null)
+            Image.network(
+              widget.initialImageUrl!,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 48,
+              ),
+            ),
           Positioned(
             top: AppSpacing.sm,
             right: AppSpacing.sm,
             child: IconButton.filled(
               onPressed: _removeImage,
               icon: const Icon(Icons.close),
-              tooltip: context.l10n.removeImage,
+              tooltip: AppLocalizationsX(context).l10n.removeImage,
             ),
           ),
         ],
