@@ -3997,13 +3997,6 @@
   "@initialPersonalizationDescription": {
     "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
   },
-  "@initialPersonalizationTitle": {
-    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
-  },
-  "initialPersonalizationDescription": "Configure the onboarding flow for new users, including country, topic, and source selection.",
-  "@initialPersonalizationDescription": {
-    "description": "Configure the onboarding flow for new users, including country, topic, and source selection."
-  },
   "enableInitialPersonalizationLabel": "Enable Initial Personalization",
   "@enableInitialPersonalizationLabel": {
     "description": "Label for the switch to enable the initial personalization flow."
@@ -4091,5 +4084,41 @@
   "skippableInitialPersonalizationDescription": "If enabled, users will have the option to skip the personalization flow.",
   "@skippableInitialPersonalizationDescription": {
     "description": "Description for the switch to make the initial personalization skippable."
+  },
+  "filePickingErrorMessage": "An error occurred while picking the file.",
+  "@filePickingErrorMessage": {
+    "description": "Error message shown when the file picker fails."
+  },
+  "removeImage": "Remove image",
+  "@removeImage": {
+    "description": "Tooltip for the button to remove a selected image."
+  },
+  "clickToUploadImage": "Click to upload an image",
+  "@clickToUploadImage": {
+    "description": "Text in the image upload field prompting user action."
+  },
+  "chartMediaUploadsOverTime": "Uploads Over Time",
+  "@chartMediaUploadsOverTime": {
+    "description": "Title for the Uploads Over Time chart card"
+  },
+  "chartMediaUploadsByPurpose": "Uploads by Purpose",
+  "@chartMediaUploadsByPurpose": {
+    "description": "Title for the Uploads by Purpose chart card"
+  },
+  "chartMediaUploadsSuccessVsFailure": "Upload Success vs. Failure",
+  "@chartMediaUploadsSuccessVsFailure": {
+    "description": "Title for the Upload Success vs. Failure chart card"
+  },
+  "kpiMediaTotalUploads": "Total Uploads",
+  "@kpiMediaTotalUploads": {
+    "description": "Title for the Total Uploads KPI card"
+  },
+  "kpiMediaFailedUploads": "Failed Uploads",
+  "@kpiMediaFailedUploads": {
+    "description": "Title for the Failed Uploads KPI card"
+  },
+  "kpiMediaAverageUploadTime": "Avg. Upload Time (s)",
+  "@kpiMediaAverageUploadTime": {
+    "description": "Title for the Average Upload Time KPI card"
   }
 }

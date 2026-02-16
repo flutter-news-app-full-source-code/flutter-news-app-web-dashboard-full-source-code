@@ -4092,5 +4092,41 @@
   "skippableInitialPersonalizationDescription": "إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.",
   "@skippableInitialPersonalizationDescription": {
     "description": "وصف مفتاح جعل التخصيص الأولي قابلاً للتخطي."
+  },
+  "filePickingErrorMessage": "حدث خطأ أثناء اختيار الملف.",
+  "@filePickingErrorMessage": {
+    "description": "رسالة خطأ تظهر عند فشل منتقي الملفات."
+  },
+  "removeImage": "إزالة الصورة",
+  "@removeImage": {
+    "description": "تلميح لزر إزالة الصورة المحددة."
+  },
+  "clickToUploadImage": "انقر لتحميل صورة",
+  "@clickToUploadImage": {
+    "description": "نص في حقل تحميل الصورة يحث المستخدم على اتخاذ إجراء."
+  },
+  "chartMediaUploadsOverTime": "التحميلات عبر الزمن",
+  "@chartMediaUploadsOverTime": {
+    "description": "عنوان بطاقة مخطط التحميلات عبر الزمن"
+  },
+  "chartMediaUploadsByPurpose": "التحميلات حسب الغرض",
+  "@chartMediaUploadsByPurpose": {
+    "description": "عنوان بطاقة مخطط التحميلات حسب الغرض"
+  },
+  "chartMediaUploadsSuccessVsFailure": "نجاح التحميل مقابل الفشل",
+  "@chartMediaUploadsSuccessVsFailure": {
+    "description": "عنوان بطاقة مخطط نجاح التحميل مقابل الفشل"
+  },
+  "kpiMediaTotalUploads": "إجمالي التحميلات",
+  "@kpiMediaTotalUploads": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لإجمالي التحميلات"
+  },
+  "kpiMediaFailedUploads": "التحميلات الفاشلة",
+  "@kpiMediaFailedUploads": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي للتحميلات الفاشلة"
+  },
+  "kpiMediaAverageUploadTime": "متوسط وقت التحميل (ث)",
+  "@kpiMediaAverageUploadTime": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لمتوسط وقت التحميل"
   }
 }
