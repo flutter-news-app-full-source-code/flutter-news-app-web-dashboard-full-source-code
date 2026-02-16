@@ -5965,6 +5965,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If enabled, users will have the option to skip the personalization flow.'**
   String get skippableInitialPersonalizationDescription;
+
+  /// Error message shown when the file picker fails.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while picking the file.'**
+  String get filePickingErrorMessage;
+
+  /// Tooltip for the button to remove a selected image.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove image'**
+  String get removeImage;
+
+  /// Text in the image upload field prompting user action.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to upload an image'**
+  String get clickToUploadImage;
+
+  /// Title for the Uploads Over Time chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Uploads Over Time'**
+  String get chartMediaUploadsOverTime;
+
+  /// Title for the Uploads by Purpose chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Uploads by Purpose'**
+  String get chartMediaUploadsByPurpose;
+
+  /// Title for the Upload Success vs. Failure chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Success vs. Failure'**
+  String get chartMediaUploadsSuccessVsFailure;
+
+  /// Title for the Total Uploads KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Uploads'**
+  String get kpiMediaTotalUploads;
+
+  /// Title for the Failed Uploads KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Failed Uploads'**
+  String get kpiMediaFailedUploads;
+
+  /// Title for the Average Upload Time KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. Upload Time (s)'**
+  String get kpiMediaAverageUploadTime;
 }
 
 class _AppLocalizationsDelegate

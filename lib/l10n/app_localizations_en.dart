@@ -3292,4 +3292,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get skippableInitialPersonalizationDescription =>
       'If enabled, users will have the option to skip the personalization flow.';
+
+  @override
+  String get filePickingErrorMessage =>
+      'An error occurred while picking the file.';
+
+  @override
+  String get removeImage => 'Remove image';
+
+  @override
+  String get clickToUploadImage => 'Click to upload an image';
+
+  @override
+  String get chartMediaUploadsOverTime => 'Uploads Over Time';
+
+  @override
+  String get chartMediaUploadsByPurpose => 'Uploads by Purpose';
+
+  @override
+  String get chartMediaUploadsSuccessVsFailure => 'Upload Success vs. Failure';
+
+  @override
+  String get kpiMediaTotalUploads => 'Total Uploads';
+
+  @override
+  String get kpiMediaFailedUploads => 'Failed Uploads';
+
+  @override
+  String get kpiMediaAverageUploadTime => 'Avg. Upload Time (s)';
 }

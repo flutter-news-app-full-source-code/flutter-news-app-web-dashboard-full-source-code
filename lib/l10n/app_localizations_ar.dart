@@ -3272,4 +3272,31 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get skippableInitialPersonalizationDescription =>
       'إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.';
+
+  @override
+  String get filePickingErrorMessage => 'حدث خطأ أثناء اختيار الملف.';
+
+  @override
+  String get removeImage => 'إزالة الصورة';
+
+  @override
+  String get clickToUploadImage => 'انقر لتحميل صورة';
+
+  @override
+  String get chartMediaUploadsOverTime => 'التحميلات عبر الزمن';
+
+  @override
+  String get chartMediaUploadsByPurpose => 'التحميلات حسب الغرض';
+
+  @override
+  String get chartMediaUploadsSuccessVsFailure => 'نجاح التحميل مقابل الفشل';
+
+  @override
+  String get kpiMediaTotalUploads => 'إجمالي التحميلات';
+
+  @override
+  String get kpiMediaFailedUploads => 'التحميلات الفاشلة';
+
+  @override
+  String get kpiMediaAverageUploadTime => 'متوسط وقت التحميل (ث)';
 }
