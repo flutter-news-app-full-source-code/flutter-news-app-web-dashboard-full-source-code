@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -36,12 +37,14 @@ class ContentManagementBloc
     required TopicsFilterBloc topicsFilterBloc,
     required SourcesFilterBloc sourcesFilterBloc,
     required PendingDeletionsService pendingDeletionsService,
+    required OptimisticImageCacheService optimisticImageCacheService,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
        _headlinesFilterBloc = headlinesFilterBloc,
        _topicsFilterBloc = topicsFilterBloc,
        _sourcesFilterBloc = sourcesFilterBloc,
+       _optimisticImageCacheService = optimisticImageCacheService,
        _pendingDeletionsService = pendingDeletionsService,
        super(const ContentManagementState()) {
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
@@ -117,6 +120,7 @@ class ContentManagementBloc
   final TopicsFilterBloc _topicsFilterBloc;
   final SourcesFilterBloc _sourcesFilterBloc;
   final PendingDeletionsService _pendingDeletionsService;
+  final OptimisticImageCacheService _optimisticImageCacheService;
 
   late final StreamSubscription<Type> _headlineUpdateSubscription;
   late final StreamSubscription<Type> _topicUpdateSubscription;
@@ -236,6 +240,14 @@ class ContentManagementBloc
           limit: event.limit,
         ),
       );
+
+      // Invalidate optimistic cache for headlines that now have a real URL
+      for (final headline in paginatedHeadlines.items) {
+        if (headline.imageUrl != null) {
+          _optimisticImageCacheService.removeImage(headline.id);
+        }
+      }
+
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.success,
