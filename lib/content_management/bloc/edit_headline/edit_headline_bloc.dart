@@ -155,7 +155,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
         url: state.url,
-        imageUrl: state.imageUrl,
+        imageUrl: ValueWrapper(state.imageUrl),
         source: state.source,
         topic: state.topic,
         eventCountry: state.eventCountry,
@@ -199,7 +199,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
         url: state.url,
-        imageUrl: state.imageUrl,
+        imageUrl: ValueWrapper(state.imageUrl),
         source: state.source,
         topic: state.topic,
         eventCountry: state.eventCountry,
