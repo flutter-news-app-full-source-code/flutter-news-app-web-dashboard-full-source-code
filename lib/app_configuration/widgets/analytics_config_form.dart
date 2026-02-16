@@ -486,6 +486,21 @@ class AnalyticsConfigForm extends StatelessWidget {
           l10n.analyticsEventBrowserChoiceChangedLabel,
           l10n.analyticsEventBrowserChoiceChangedDescription,
         );
+      case AnalyticsEvent.mediaUploadStarted:
+        return (
+          l10n.analyticsEventMediaUploadStartedLabel,
+          l10n.analyticsEventMediaUploadStartedDescription,
+        );
+      case AnalyticsEvent.mediaUploadCompleted:
+        return (
+          l10n.analyticsEventMediaUploadCompletedLabel,
+          l10n.analyticsEventMediaUploadCompletedDescription,
+        );
+      case AnalyticsEvent.mediaUploadFailed:
+        return (
+          l10n.analyticsEventMediaUploadFailedLabel,
+          l10n.analyticsEventMediaUploadFailedDescription,
+        );
       case AnalyticsEvent.sourceFilterUsed:
         return (
           l10n.analyticsEventSourceFilterUsedLabel,
