@@ -4128,5 +4128,37 @@
   "kpiMediaAverageUploadTime": "متوسط وقت التحميل (ث)",
   "@kpiMediaAverageUploadTime": {
     "description": "عنوان بطاقة مؤشر الأداء الرئيسي لمتوسط وقت التحميل"
+  },
+  "updateHeadlineTitle": "تحديث العنوان",
+  "@updateHeadlineTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث العنوان."
+  },
+  "updateHeadlineMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
+  "@updateHeadlineMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية تحديث العنوان."
+  },
+  "analyticsEventMediaUploadStartedLabel": "بدء تحميل الوسائط",
+  "@analyticsEventMediaUploadStartedLabel": {
+    "description": "تسمية لحدث بدء تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadStartedDescription": "تتبع عندما يبدأ المستخدم في تحميل ملف.",
+  "@analyticsEventMediaUploadStartedDescription": {
+    "description": "وصف لحدث بدء تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadCompletedLabel": "اكتمل تحميل الوسائط",
+  "@analyticsEventMediaUploadCompletedLabel": {
+    "description": "تسمية لحدث اكتمال تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadCompletedDescription": "تتبع عندما يكتمل تحميل ملف بنجاح.",
+  "@analyticsEventMediaUploadCompletedDescription": {
+    "description": "وصف لحدث اكتمال تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadFailedLabel": "فشل تحميل الوسائط",
+  "@analyticsEventMediaUploadFailedLabel": {
+    "description": "تسمية لحدث فشل تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadFailedDescription": "تتبع عندما يفشل تحميل ملف.",
+  "@analyticsEventMediaUploadFailedDescription": {
+    "description": "وصف لحدث فشل تحميل الوسائط"
   }
 }

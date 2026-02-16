@@ -4120,5 +4120,37 @@
   "kpiMediaAverageUploadTime": "Avg. Upload Time (s)",
   "@kpiMediaAverageUploadTime": {
     "description": "Title for the Average Upload Time KPI card"
+  },
+  "updateHeadlineTitle": "Update Headline",
+  "@updateHeadlineTitle": {
+    "description": "Title for the dialog asking how to update a headline."
+  },
+  "updateHeadlineMessage": "Do you want to publish these changes or save the update as a draft?",
+  "@updateHeadlineMessage": {
+    "description": "Message for the dialog asking how to update a headline."
+  },
+  "analyticsEventMediaUploadStartedLabel": "Media Upload Started",
+  "@analyticsEventMediaUploadStartedLabel": {
+    "description": "Label for the Media Upload Started analytics event"
+  },
+  "analyticsEventMediaUploadStartedDescription": "Track when a user initiates a file upload.",
+  "@analyticsEventMediaUploadStartedDescription": {
+    "description": "Description for the Media Upload Started analytics event"
+  },
+  "analyticsEventMediaUploadCompletedLabel": "Media Upload Completed",
+  "@analyticsEventMediaUploadCompletedLabel": {
+    "description": "Label for the Media Upload Completed analytics event"
+  },
+  "analyticsEventMediaUploadCompletedDescription": "Track when a file upload completes successfully.",
+  "@analyticsEventMediaUploadCompletedDescription": {
+    "description": "Description for the Media Upload Completed analytics event"
+  },
+  "analyticsEventMediaUploadFailedLabel": "Media Upload Failed",
+  "@analyticsEventMediaUploadFailedLabel": {
+    "description": "Label for the Media Upload Failed analytics event"
+  },
+  "analyticsEventMediaUploadFailedDescription": "Track when a file upload fails.",
+  "@analyticsEventMediaUploadFailedDescription": {
+    "description": "Description for the Media Upload Failed analytics event"
   }
 }
