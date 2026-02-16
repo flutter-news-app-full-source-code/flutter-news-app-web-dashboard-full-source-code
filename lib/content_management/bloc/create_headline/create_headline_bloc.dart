@@ -6,6 +6,7 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
@@ -18,8 +19,10 @@ class CreateHeadlineBloc
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
     required MediaRepository mediaRepository,
+    required OptimisticImageCacheService optimisticImageCacheService,
   }) : _headlinesRepository = headlinesRepository,
        _mediaRepository = mediaRepository,
+       _optimisticImageCacheService = optimisticImageCacheService,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
@@ -35,6 +38,7 @@ class CreateHeadlineBloc
 
   final DataRepository<Headline> _headlinesRepository;
   final MediaRepository _mediaRepository;
+  final OptimisticImageCacheService _optimisticImageCacheService;
 
   final _uuid = const Uuid();
 
@@ -135,6 +139,12 @@ class CreateHeadlineBloc
         isBreaking: state.isBreaking,
       );
 
+      // Cache the image optimistically
+      _optimisticImageCacheService.cacheImage(
+        newHeadline.id,
+        state.imageFileBytes!,
+      );
+
       await _headlinesRepository.create(item: newHeadline);
       emit(
         state.copyWith(
@@ -191,6 +201,12 @@ class CreateHeadlineBloc
         updatedAt: now,
         status: ContentStatus.active,
         isBreaking: state.isBreaking,
+      );
+
+      // Cache the image optimistically
+      _optimisticImageCacheService.cacheImage(
+        newHeadline.id,
+        state.imageFileBytes!,
       );
 
       await _headlinesRepository.create(item: newHeadline);
