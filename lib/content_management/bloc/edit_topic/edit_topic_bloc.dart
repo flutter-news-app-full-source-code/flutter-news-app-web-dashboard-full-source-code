@@ -95,7 +95,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       final updatedTopic = originalTopic.copyWith(
         name: state.name,
         description: state.description,
-        iconUrl: state.iconUrl,
+        iconUrl: ValueWrapper(state.iconUrl),
         status: ContentStatus.draft,
         updatedAt: DateTime.now(),
       );
@@ -130,7 +130,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       final updatedTopic = originalTopic.copyWith(
         name: state.name,
         description: state.description,
-        iconUrl: state.iconUrl,
+        iconUrl: ValueWrapper(state.iconUrl),
         status: ContentStatus.active,
         updatedAt: DateTime.now(),
       );

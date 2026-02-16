@@ -147,7 +147,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
       final updatedSource = originalSource.copyWith(
         name: state.name,
-        logoUrl: state.logoUrl,
+        logoUrl: ValueWrapper(state.logoUrl),
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
@@ -190,7 +190,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
       final updatedSource = originalSource.copyWith(
         name: state.name,
-        logoUrl: state.logoUrl,
+        logoUrl: ValueWrapper(state.logoUrl),
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
