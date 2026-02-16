@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
@@ -14,11 +17,14 @@ class CreateHeadlineBloc
   /// {@macro create_headline_bloc}
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
+    required MediaRepository mediaRepository,
   }) : _headlinesRepository = headlinesRepository,
+       _mediaRepository = mediaRepository,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
-    on<CreateHeadlineImageUrlChanged>(_onImageUrlChanged);
+    on<CreateHeadlineImageChanged>(_onImageChanged);
+    on<CreateHeadlineImageRemoved>(_onImageRemoved);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
@@ -28,6 +34,7 @@ class CreateHeadlineBloc
   }
 
   final DataRepository<Headline> _headlinesRepository;
+  final MediaRepository _mediaRepository;
 
   final _uuid = const Uuid();
 
@@ -45,11 +52,28 @@ class CreateHeadlineBloc
     emit(state.copyWith(url: event.url));
   }
 
-  void _onImageUrlChanged(
-    CreateHeadlineImageUrlChanged event,
+  void _onImageChanged(
+    CreateHeadlineImageChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    emit(state.copyWith(imageUrl: event.imageUrl));
+    emit(
+      state.copyWith(
+        imageFileBytes: ValueWrapper(event.imageFileBytes),
+        imageFileName: ValueWrapper(event.imageFileName),
+      ),
+    );
+  }
+
+  void _onImageRemoved(
+    CreateHeadlineImageRemoved event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: const ValueWrapper(null),
+        imageFileName: const ValueWrapper(null),
+      ),
+    );
   }
 
   void _onSourceChanged(
@@ -87,12 +111,21 @@ class CreateHeadlineBloc
   ) async {
     emit(state.copyWith(status: CreateHeadlineStatus.submitting));
     try {
+      final mediaAssetId = await _mediaRepository.uploadFile(
+        fileBytes: state.imageFileBytes!,
+        fileName: state.imageFileName!,
+        purpose: MediaAssetPurpose.headlineImage,
+      );
+
       final now = DateTime.now();
       final newHeadline = Headline(
         id: _uuid.v4(),
         title: state.title,
         url: state.url,
-        imageUrl: state.imageUrl,
+        // The imageUrl is intentionally null. The backend will populate it
+        // via a webhook after the media asset is processed.
+        imageUrl: null,
+        mediaAssetId: mediaAssetId,
         source: state.source!,
         eventCountry: state.eventCountry!,
         topic: state.topic!,
@@ -110,7 +143,15 @@ class CreateHeadlineBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+      final exception = e is BadRequestException
+          ? const BadRequestException('File is too large.')
+          : e;
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: exception,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -128,12 +169,21 @@ class CreateHeadlineBloc
   ) async {
     emit(state.copyWith(status: CreateHeadlineStatus.submitting));
     try {
+      final mediaAssetId = await _mediaRepository.uploadFile(
+        fileBytes: state.imageFileBytes!,
+        fileName: state.imageFileName!,
+        purpose: MediaAssetPurpose.headlineImage,
+      );
+
       final now = DateTime.now();
       final newHeadline = Headline(
         id: _uuid.v4(),
         title: state.title,
         url: state.url,
-        imageUrl: state.imageUrl,
+        // The imageUrl is intentionally null. The backend will populate it
+        // via a webhook after the media asset is processed.
+        imageUrl: null,
+        mediaAssetId: mediaAssetId,
         source: state.source!,
         eventCountry: state.eventCountry!,
         topic: state.topic!,
@@ -151,7 +201,15 @@ class CreateHeadlineBloc
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateHeadlineStatus.failure, exception: e));
+      final exception = e is BadRequestException
+          ? const BadRequestException('File is too large.')
+          : e;
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.failure,
+          exception: exception,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
