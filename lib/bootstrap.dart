@@ -11,6 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/confi
     as app_config;
 import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/data_client/media_api.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:http_client/http_client.dart';
@@ -58,6 +59,7 @@ Future<Widget> bootstrap(
   DataClient<User> usersClient;
   DataClient<Engagement> engagementsClient;
   DataClient<Report> reportsClient;
+  MediaClient mediaClient;
   DataClient<AppReview> appReviewsClient;
   DataClient<KpiCardData> kpiCardsClient;
   DataClient<ChartCardData> chartCardsClient;
@@ -177,6 +179,10 @@ Future<Widget> bootstrap(
     toJson: (item) => item.toJson(),
     logger: Logger('DataApi<UserRewards>'),
   );
+  mediaClient = MediaApi(
+    httpClient: httpClient,
+    logger: Logger('MediaApi'),
+  );
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
     logger: Logger('PendingDeletionsService'),
@@ -225,6 +231,7 @@ Future<Widget> bootstrap(
   final userRewardsRepository = DataRepository<UserRewards>(
     dataClient: userRewardsClient,
   );
+  final mediaRepository = MediaRepository(mediaClient: mediaClient);
 
   final analyticsService = AnalyticsService(
     kpiRepository: kpiCardsRepository,
@@ -247,6 +254,7 @@ Future<Widget> bootstrap(
     reportsRepository: reportsRepository,
     appReviewsRepository: appReviewsRepository,
     analyticsService: analyticsService,
+    mediaRepository: mediaRepository,
     userRewardsRepository: userRewardsRepository,
     storageService: kvStorage,
     environment: environment,
