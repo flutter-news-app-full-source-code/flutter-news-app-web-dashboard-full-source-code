@@ -25,7 +25,9 @@ final class EditHeadlineState extends Equatable {
     this.status = EditHeadlineStatus.initial,
     this.title = '',
     this.url = '',
-    this.imageUrl = '',
+    this.imageUrl,
+    this.imageFileBytes,
+    this.imageFileName,
     this.source,
     this.topic,
     this.eventCountry,
@@ -38,7 +40,9 @@ final class EditHeadlineState extends Equatable {
   final String headlineId;
   final String title;
   final String url;
-  final String imageUrl;
+  final String? imageUrl;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
   final Source? source;
   final Topic? topic;
   final Country? eventCountry;
@@ -50,8 +54,7 @@ final class EditHeadlineState extends Equatable {
   bool get isFormValid =>
       headlineId.isNotEmpty &&
       title.isNotEmpty &&
-      url.isNotEmpty &&
-      imageUrl.isNotEmpty &&
+      url.isNotEmpty && // imageUrl is now optional, imageFileBytes can be used
       source != null &&
       topic != null &&
       eventCountry != null;
@@ -64,7 +67,9 @@ final class EditHeadlineState extends Equatable {
     String? headlineId,
     String? title,
     String? url,
-    String? imageUrl,
+    ValueWrapper<String?>? imageUrl,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
@@ -77,7 +82,13 @@ final class EditHeadlineState extends Equatable {
       headlineId: headlineId ?? this.headlineId,
       title: title ?? this.title,
       url: url ?? this.url,
-      imageUrl: imageUrl ?? this.imageUrl,
+      imageUrl: imageUrl != null ? imageUrl.value : this.imageUrl,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
@@ -94,6 +105,8 @@ final class EditHeadlineState extends Equatable {
     title,
     url,
     imageUrl,
+    imageFileBytes,
+    imageFileName,
     source,
     topic,
     eventCountry,
