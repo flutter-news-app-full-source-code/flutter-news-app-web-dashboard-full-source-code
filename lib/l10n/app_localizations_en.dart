@@ -3320,4 +3320,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get kpiMediaAverageUploadTime => 'Avg. Upload Time (s)';
+
+  @override
+  String get updateHeadlineTitle => 'Update Headline';
+
+  @override
+  String get updateHeadlineMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
+
+  @override
+  String get analyticsEventMediaUploadStartedLabel => 'Media Upload Started';
+
+  @override
+  String get analyticsEventMediaUploadStartedDescription =>
+      'Track when a user initiates a file upload.';
+
+  @override
+  String get analyticsEventMediaUploadCompletedLabel =>
+      'Media Upload Completed';
+
+  @override
+  String get analyticsEventMediaUploadCompletedDescription =>
+      'Track when a file upload completes successfully.';
+
+  @override
+  String get analyticsEventMediaUploadFailedLabel => 'Media Upload Failed';
+
+  @override
+  String get analyticsEventMediaUploadFailedDescription =>
+      'Track when a file upload fails.';
 }

@@ -3299,4 +3299,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get kpiMediaAverageUploadTime => 'متوسط وقت التحميل (ث)';
+
+  @override
+  String get updateHeadlineTitle => 'تحديث العنوان';
+
+  @override
+  String get updateHeadlineMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
+
+  @override
+  String get analyticsEventMediaUploadStartedLabel => 'بدء تحميل الوسائط';
+
+  @override
+  String get analyticsEventMediaUploadStartedDescription =>
+      'تتبع عندما يبدأ المستخدم في تحميل ملف.';
+
+  @override
+  String get analyticsEventMediaUploadCompletedLabel => 'اكتمل تحميل الوسائط';
+
+  @override
+  String get analyticsEventMediaUploadCompletedDescription =>
+      'تتبع عندما يكتمل تحميل ملف بنجاح.';
+
+  @override
+  String get analyticsEventMediaUploadFailedLabel => 'فشل تحميل الوسائط';
+
+  @override
+  String get analyticsEventMediaUploadFailedDescription =>
+      'تتبع عندما يفشل تحميل ملف.';
 }

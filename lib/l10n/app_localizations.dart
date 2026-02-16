@@ -6019,6 +6019,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Avg. Upload Time (s)'**
   String get kpiMediaAverageUploadTime;
+
+  /// Title for the dialog asking how to update a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Headline'**
+  String get updateHeadlineTitle;
+
+  /// Message for the dialog asking how to update a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updateHeadlineMessage;
+
+  /// Label for the Media Upload Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Media Upload Started'**
+  String get analyticsEventMediaUploadStartedLabel;
+
+  /// Description for the Media Upload Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user initiates a file upload.'**
+  String get analyticsEventMediaUploadStartedDescription;
+
+  /// Label for the Media Upload Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Media Upload Completed'**
+  String get analyticsEventMediaUploadCompletedLabel;
+
+  /// Description for the Media Upload Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a file upload completes successfully.'**
+  String get analyticsEventMediaUploadCompletedDescription;
+
+  /// Label for the Media Upload Failed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Media Upload Failed'**
+  String get analyticsEventMediaUploadFailedLabel;
+
+  /// Description for the Media Upload Failed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a file upload fails.'**
+  String get analyticsEventMediaUploadFailedDescription;
 }
 
 class _AppLocalizationsDelegate
