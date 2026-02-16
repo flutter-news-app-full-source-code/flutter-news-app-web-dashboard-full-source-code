@@ -23,6 +23,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/throttled_fetching_service.dart';
@@ -54,6 +55,7 @@ class App extends StatelessWidget {
     required AnalyticsService analyticsService,
     required KVStorageService storageService,
     required AppEnvironment environment,
+    required OptimisticImageCacheService optimisticImageCacheService,
     required PendingDeletionsService pendingDeletionsService,
     super.key,
   }) : _authenticationRepository = authenticationRepository,
@@ -74,6 +76,7 @@ class App extends StatelessWidget {
        _mediaRepository = mediaRepository,
        _analyticsService = analyticsService,
        _environment = environment,
+       _optimisticImageCacheService = optimisticImageCacheService,
        _pendingDeletionsService = pendingDeletionsService;
 
   final AuthRepository _authenticationRepository;
@@ -95,6 +98,7 @@ class App extends StatelessWidget {
   final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
+  final OptimisticImageCacheService _optimisticImageCacheService;
 
   /// The service for managing pending deletions with an undo period.
   final PendingDeletionsService _pendingDeletionsService;
@@ -118,6 +122,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _appReviewsRepository),
         RepositoryProvider.value(value: _userRewardsRepository),
         RepositoryProvider.value(value: _mediaRepository),
+        RepositoryProvider.value(value: _optimisticImageCacheService),
         RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
@@ -171,6 +176,8 @@ class App extends StatelessWidget {
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
+              optimisticImageCacheService: context
+                  .read<OptimisticImageCacheService>(),
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
