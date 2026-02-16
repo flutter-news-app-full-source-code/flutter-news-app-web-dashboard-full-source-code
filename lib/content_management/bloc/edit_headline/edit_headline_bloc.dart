@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show ValueGetter;
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 
 part 'edit_headline_event.dart';
 part 'edit_headline_state.dart';
@@ -12,8 +15,12 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   /// {@macro edit_headline_bloc}
   EditHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
+    required MediaRepository mediaRepository,
+    required OptimisticImageCacheService optimisticImageCacheService,
     required String headlineId,
   }) : _headlinesRepository = headlinesRepository,
+       _mediaRepository = mediaRepository,
+       _optimisticImageCacheService = optimisticImageCacheService,
        super(
          EditHeadlineState(
            headlineId: headlineId,
@@ -23,7 +30,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineLoaded>(_onEditHeadlineLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
-    on<EditHeadlineImageUrlChanged>(_onImageUrlChanged);
+    on<EditHeadlineImageChanged>(_onImageChanged);
+    on<EditHeadlineImageRemoved>(_onImageRemoved);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
     on<EditHeadlineTopicChanged>(_onTopicChanged);
     on<EditHeadlineCountryChanged>(_onCountryChanged);
@@ -35,6 +43,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   }
 
   final DataRepository<Headline> _headlinesRepository;
+  final MediaRepository _mediaRepository;
+  final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditHeadlineLoaded(
     EditHeadlineLoaded event,
@@ -47,7 +57,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           status: EditHeadlineStatus.initial,
           title: headline.title,
           url: headline.url,
-          imageUrl: headline.imageUrl,
+          imageUrl: ValueWrapper(headline.imageUrl),
           source: () => headline.source,
           topic: () => headline.topic,
           eventCountry: () => headline.eventCountry,
@@ -82,13 +92,27 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     emit(state.copyWith(url: event.url, status: EditHeadlineStatus.initial));
   }
 
-  void _onImageUrlChanged(
-    EditHeadlineImageUrlChanged event,
+  void _onImageChanged(
+    EditHeadlineImageChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
     emit(
       state.copyWith(
-        imageUrl: event.imageUrl,
+        imageFileBytes: ValueWrapper(event.imageFileBytes),
+        imageFileName: ValueWrapper(event.imageFileName),
+        status: EditHeadlineStatus.initial,
+      ),
+    );
+  }
+
+  void _onImageRemoved(
+    EditHeadlineImageRemoved event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: const ValueWrapper(null),
+        imageFileName: const ValueWrapper(null),
         status: EditHeadlineStatus.initial,
       ),
     );
@@ -149,13 +173,33 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) async {
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
+      String? newMediaAssetId;
+      // If a new image file is present, upload it first.
+      if (state.imageFileBytes != null && state.imageFileName != null) {
+        newMediaAssetId = await _mediaRepository.uploadFile(
+          fileBytes: state.imageFileBytes!,
+          fileName: state.imageFileName!,
+          purpose: MediaAssetPurpose.headlineImage,
+        );
+        // Cache the new image optimistically.
+        _optimisticImageCacheService.cacheImage(
+          state.headlineId,
+          state.imageFileBytes!,
+        );
+      }
+
       final originalHeadline = await _headlinesRepository.read(
         id: state.headlineId,
       );
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
         url: state.url,
-        imageUrl: ValueWrapper(state.imageUrl),
+        imageUrl: newMediaAssetId != null
+            ? const ValueWrapper(null)
+            : ValueWrapper(state.imageUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : ValueWrapper(originalHeadline.mediaAssetId),
         source: state.source,
         topic: state.topic,
         eventCountry: state.eventCountry,
@@ -175,6 +219,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       );
     } on HttpException catch (e) {
+
       emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
     } catch (e) {
       emit(
@@ -193,13 +238,33 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   ) async {
     emit(state.copyWith(status: EditHeadlineStatus.submitting));
     try {
+      String? newMediaAssetId;
+      // If a new image file is present, upload it first.
+      if (state.imageFileBytes != null && state.imageFileName != null) {
+        newMediaAssetId = await _mediaRepository.uploadFile(
+          fileBytes: state.imageFileBytes!,
+          fileName: state.imageFileName!,
+          purpose: MediaAssetPurpose.headlineImage,
+        );
+        // Cache the new image optimistically.
+        _optimisticImageCacheService.cacheImage(
+          state.headlineId,
+          state.imageFileBytes!,
+        );
+      }
+
       final originalHeadline = await _headlinesRepository.read(
         id: state.headlineId,
       );
       final updatedHeadline = originalHeadline.copyWith(
         title: state.title,
         url: state.url,
-        imageUrl: ValueWrapper(state.imageUrl),
+        imageUrl: newMediaAssetId != null
+            ? const ValueWrapper(null)
+            : ValueWrapper(state.imageUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : ValueWrapper(originalHeadline.mediaAssetId),
         source: state.source,
         topic: state.topic,
         eventCountry: state.eventCountry,
@@ -219,6 +284,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       );
     } on HttpException catch (e) {
+
       emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
     } catch (e) {
       emit(
