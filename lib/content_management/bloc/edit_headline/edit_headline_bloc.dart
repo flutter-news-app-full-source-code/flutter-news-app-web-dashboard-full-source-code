@@ -219,8 +219,15 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       );
     } on HttpException catch (e) {
-
-      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+      final exception = e is BadRequestException
+          ? const BadRequestException('File is too large.')
+          : e;
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: exception,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -284,8 +291,15 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         ),
       );
     } on HttpException catch (e) {
-
-      emit(state.copyWith(status: EditHeadlineStatus.failure, exception: e));
+      final exception = e is BadRequestException
+          ? const BadRequestException('File is too large.')
+          : e;
+      emit(
+        state.copyWith(
+          status: EditHeadlineStatus.failure,
+          exception: exception,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
