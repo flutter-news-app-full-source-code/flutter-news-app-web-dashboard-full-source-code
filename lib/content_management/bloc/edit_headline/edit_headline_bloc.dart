@@ -21,12 +21,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   }) : _headlinesRepository = headlinesRepository,
        _mediaRepository = mediaRepository,
        _optimisticImageCacheService = optimisticImageCacheService,
-       super(
-         EditHeadlineState(
-           headlineId: headlineId,
-           status: EditHeadlineStatus.loading,
-         ),
-       ) {
+       super(EditHeadlineState(headlineId: headlineId)) {
     on<EditHeadlineLoaded>(_onEditHeadlineLoaded);
     on<EditHeadlineTitleChanged>(_onTitleChanged);
     on<EditHeadlineUrlChanged>(_onUrlChanged);
@@ -38,8 +33,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineIsBreakingChanged>(_onIsBreakingChanged);
     on<EditHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<EditHeadlinePublished>(_onPublished);
-
-    add(const EditHeadlineLoaded());
   }
 
   final DataRepository<Headline> _headlinesRepository;
@@ -50,6 +43,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineLoaded event,
     Emitter<EditHeadlineState> emit,
   ) async {
+    emit(state.copyWith(status: EditHeadlineStatus.loading));
     try {
       final headline = await _headlinesRepository.read(id: state.headlineId);
       emit(
