@@ -24,12 +24,23 @@ final class CreateTopicDescriptionChanged extends CreateTopicEvent {
   List<Object?> get props => [description];
 }
 
-/// Event for when the topic's icon URL is changed.
-final class CreateTopicIconUrlChanged extends CreateTopicEvent {
-  const CreateTopicIconUrlChanged(this.iconUrl);
-  final String iconUrl;
+/// Event for when the topic's icon image is changed.
+final class CreateTopicImageChanged extends CreateTopicEvent {
+  const CreateTopicImageChanged({
+    required this.imageFileBytes,
+    required this.imageFileName,
+  });
+
+  final Uint8List imageFileBytes;
+  final String imageFileName;
+
   @override
-  List<Object?> get props => [iconUrl];
+  List<Object?> get props => [imageFileBytes, imageFileName];
+}
+
+/// Event for when the topic's icon image is removed.
+final class CreateTopicImageRemoved extends CreateTopicEvent {
+  const CreateTopicImageRemoved();
 }
 
 /// Event to save the topic as a draft.
