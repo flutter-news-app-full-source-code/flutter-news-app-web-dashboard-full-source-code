@@ -54,8 +54,7 @@ final class CreateHeadlineState extends Equatable {
       imageFileName != null &&
       source != null &&
       topic != null &&
-      eventCountry != null &&
-      !isBreaking;
+      eventCountry != null;
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
