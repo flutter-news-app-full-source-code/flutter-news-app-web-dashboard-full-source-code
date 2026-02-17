@@ -8,6 +8,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extension
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_source_page}
@@ -25,6 +26,7 @@ class CreateSourcePage extends StatelessWidget {
         sourcesRepository: context.read<DataRepository<Source>>(),
         mediaRepository: context.read<MediaRepository>(),
         optimisticImageCacheService: context.read(),
+        logger: Logger('CreateSourceBloc'),
       ),
       child: const _CreateSourceView(),
     );
@@ -92,7 +94,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
         actions: [
           BlocBuilder<CreateSourceBloc, CreateSourceState>(
             builder: (context, state) {
-              if (state.status == CreateSourceStatus.submitting) {
+              if (state.status == CreateSourceStatus.imageUploading ||
+                  state.status == CreateSourceStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -142,7 +145,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               );
             context.pop();
           }
-          if (state.status == CreateSourceStatus.failure) {
+          if (state.status == CreateSourceStatus.imageUploadFailure ||
+              state.status == CreateSourceStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -216,7 +220,7 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     Text(
-                      l10n.logoUrl,
+                      l10n.logo, // Updated l10n key
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: AppSpacing.md),
