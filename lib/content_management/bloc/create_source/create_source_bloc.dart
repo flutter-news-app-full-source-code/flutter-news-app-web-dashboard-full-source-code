@@ -4,21 +4,30 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
+import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
 part 'create_source_state.dart';
 
+/// {@template create_source_bloc}
 /// A BLoC to manage the state of creating a new source.
+///
+/// This BLoC handles form input changes and orchestrates the two-stage
+/// submission process: first uploading the logo to media services, and then
+/// creating the source entity with the returned media asset ID.
+/// {@endtemplate}
 class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
     required OptimisticImageCacheService optimisticImageCacheService,
+    required Logger logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
        _optimisticImageCacheService = optimisticImageCacheService,
+       _logger = logger,
        super(const CreateSourceState()) {
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
@@ -34,6 +43,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
+  final Logger _logger;
   final OptimisticImageCacheService _optimisticImageCacheService;
   final _uuid = const Uuid();
 
@@ -41,6 +51,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceNameChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Name changed: ${event.name}');
     emit(state.copyWith(name: event.name));
   }
 
@@ -48,6 +59,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceDescriptionChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Description changed: ${event.description}');
     emit(state.copyWith(description: event.description));
   }
 
@@ -55,6 +67,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceUrlChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('URL changed: ${event.url}');
     emit(state.copyWith(url: event.url));
   }
 
@@ -62,6 +75,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceTypeChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Source type changed: ${event.sourceType?.name}');
     emit(state.copyWith(sourceType: () => event.sourceType));
   }
 
@@ -69,6 +83,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceLanguageChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Language changed: ${event.language?.name}');
     emit(state.copyWith(language: () => event.language));
   }
 
@@ -76,6 +91,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceHeadquartersChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Headquarters changed: ${event.headquarters?.name}');
     emit(state.copyWith(headquarters: () => event.headquarters));
   }
 
@@ -83,6 +99,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceImageChanged event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Image changed: ${event.imageFileName}');
     emit(
       state.copyWith(
         imageFileBytes: ValueWrapper(event.imageFileBytes),
@@ -95,6 +112,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceImageRemoved event,
     Emitter<CreateSourceState> emit,
   ) {
+    _logger.fine('Image removed.');
     emit(
       state.copyWith(
         imageFileBytes: const ValueWrapper(null),
@@ -108,45 +126,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceSavedAsDraft event,
     Emitter<CreateSourceState> emit,
   ) async {
-    emit(state.copyWith(status: CreateSourceStatus.submitting));
-
-    try {
-      final newSourceId = _uuid.v4();
-      final newMediaAssetId = await _uploadImage(newSourceId);
-
-      final now = DateTime.now();
-      final newSource = Source(
-        id: newSourceId,
-        name: state.name,
-        mediaAssetId: newMediaAssetId,
-        description: state.description,
-        url: state.url,
-        sourceType: state.sourceType!,
-        language: state.language!,
-        createdAt: now,
-        updatedAt: now,
-        headquarters: state.headquarters!,
-        status: ContentStatus.draft,
-      );
-
-      await _sourcesRepository.create(item: newSource);
-
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.success,
-          createdSource: newSource,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
+    _logger.info('Saving source as draft...');
+    await _submitSource(emit, status: ContentStatus.draft);
   }
 
   /// Handles publishing the source.
@@ -154,12 +135,59 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourcePublished event,
     Emitter<CreateSourceState> emit,
   ) async {
-    emit(state.copyWith(status: CreateSourceStatus.submitting));
+    _logger.info('Publishing source...');
+    await _submitSource(emit, status: ContentStatus.active);
+  }
 
+  /// Orchestrates the two-stage process of creating a source.
+  ///
+  /// First, it uploads the logo file if one is present. If the upload is
+  /// successful, it proceeds to create the source entity in the database.
+  Future<void> _submitSource(
+    Emitter<CreateSourceState> emit, {
+    required ContentStatus status,
+  }) async {
+    final newSourceId = _uuid.v4();
+    String? newMediaAssetId;
+
+    // --- Stage 1: Image Upload ---
+    if (state.imageFileBytes != null && state.imageFileName != null) {
+      emit(state.copyWith(status: CreateSourceStatus.imageUploading));
+      _logger.fine(
+        'Starting image upload for new source ID: $newSourceId...',
+      );
+      try {
+        newMediaAssetId = await _mediaRepository.uploadFile(
+          fileBytes: state.imageFileBytes!,
+          fileName: state.imageFileName!,
+          purpose: MediaAssetPurpose.sourceImage,
+        );
+        _optimisticImageCacheService.cacheImage(
+          newSourceId,
+          state.imageFileBytes!,
+        );
+        _logger.info(
+          'Image upload successful. MediaAssetId: $newMediaAssetId',
+        );
+      } on HttpException catch (e) {
+        _logger.severe('Image upload failed.', e);
+        final exception = e is BadRequestException
+            ? const BadRequestException('File is too large.')
+            : e;
+        emit(
+          state.copyWith(
+            status: CreateSourceStatus.imageUploadFailure,
+            exception: ValueWrapper(exception),
+          ),
+        );
+        return;
+      }
+    }
+
+    // --- Stage 2: Entity Submission ---
+    emit(state.copyWith(status: CreateSourceStatus.entitySubmitting));
+    _logger.fine('Starting entity submission for source ID: $newSourceId');
     try {
-      final newSourceId = _uuid.v4();
-      final newMediaAssetId = await _uploadImage(newSourceId);
-
       final now = DateTime.now();
       final newSource = Source(
         id: newSourceId,
@@ -172,10 +200,12 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         createdAt: now,
         updatedAt: now,
         headquarters: state.headquarters!,
-        status: ContentStatus.active,
+        status: status,
       );
 
+      _logger.finer('Submitting new source data: ${newSource.toJson()}');
       await _sourcesRepository.create(item: newSource);
+      _logger.info('Source entity created successfully.');
 
       emit(
         state.copyWith(
@@ -184,33 +214,26 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: CreateSourceStatus.failure, exception: e));
-    } catch (e) {
+      _logger.severe('Source entity submission failed.', e);
       emit(
         state.copyWith(
-          status: CreateSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
+          status: CreateSourceStatus.entitySubmitFailure,
+          exception: ValueWrapper(e),
+        ),
+      );
+    } catch (e) {
+      _logger.severe(
+        'An unexpected error occurred during entity submission.',
+        e,
+      );
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.entitySubmitFailure,
+          exception: ValueWrapper(
+            UnknownException('An unexpected error occurred: $e'),
+          ),
         ),
       );
     }
-  }
-
-  Future<String?> _uploadImage(String sourceId) async {
-    if (state.imageFileBytes != null && state.imageFileName != null) {
-      final mediaAssetId = await _mediaRepository.uploadFile(
-        fileBytes: state.imageFileBytes!,
-        fileName: state.imageFileName!,
-        purpose: MediaAssetPurpose.sourceImage,
-      );
-
-      // Cache the new image optimistically.
-      _optimisticImageCacheService.cacheImage(
-        sourceId,
-        state.imageFileBytes!,
-      );
-
-      return mediaAssetId;
-    }
-    return null;
   }
 }
