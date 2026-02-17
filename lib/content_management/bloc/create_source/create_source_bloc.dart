@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_source_event.dart';
@@ -13,20 +14,27 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   /// {@macro create_source_bloc}
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
+    required MediaRepository mediaRepository,
+    required OptimisticImageCacheService optimisticImageCacheService,
   }) : _sourcesRepository = sourcesRepository,
+       _mediaRepository = mediaRepository,
+       _optimisticImageCacheService = optimisticImageCacheService,
        super(const CreateSourceState()) {
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);
-    on<CreateSourceLogoUrlChanged>(_onLogoUrlChanged);
     on<CreateSourceTypeChanged>(_onSourceTypeChanged);
     on<CreateSourceLanguageChanged>(_onLanguageChanged);
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
+    on<CreateSourceImageChanged>(_onImageChanged);
+    on<CreateSourceImageRemoved>(_onImageRemoved);
     on<CreateSourceSavedAsDraft>(_onSavedAsDraft);
     on<CreateSourcePublished>(_onPublished);
   }
 
   final DataRepository<Source> _sourcesRepository;
+  final MediaRepository _mediaRepository;
+  final OptimisticImageCacheService _optimisticImageCacheService;
   final _uuid = const Uuid();
 
   void _onNameChanged(
@@ -50,14 +58,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(url: event.url));
   }
 
-  void _onLogoUrlChanged(
-    CreateSourceLogoUrlChanged event,
-    Emitter<CreateSourceState> emit,
-  ) {
-    // Update state when the logo URL input changes.
-    emit(state.copyWith(logoUrl: event.logoUrl));
-  }
-
   void _onSourceTypeChanged(
     CreateSourceTypeChanged event,
     Emitter<CreateSourceState> emit,
@@ -79,18 +79,46 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     emit(state.copyWith(headquarters: () => event.headquarters));
   }
 
+  void _onImageChanged(
+    CreateSourceImageChanged event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: ValueWrapper(event.imageFileBytes),
+        imageFileName: ValueWrapper(event.imageFileName),
+      ),
+    );
+  }
+
+  void _onImageRemoved(
+    CreateSourceImageRemoved event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: const ValueWrapper(null),
+        imageFileName: const ValueWrapper(null),
+      ),
+    );
+  }
+
   /// Handles saving the source as a draft.
   Future<void> _onSavedAsDraft(
     CreateSourceSavedAsDraft event,
     Emitter<CreateSourceState> emit,
   ) async {
     emit(state.copyWith(status: CreateSourceStatus.submitting));
+
     try {
+      final newSourceId = _uuid.v4();
+      final newMediaAssetId = await _uploadImage(newSourceId);
+
       final now = DateTime.now();
       final newSource = Source(
-        id: _uuid.v4(),
+        id: newSourceId,
         name: state.name,
-        logoUrl: state.logoUrl,
+        mediaAssetId: newMediaAssetId,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
@@ -127,12 +155,16 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) async {
     emit(state.copyWith(status: CreateSourceStatus.submitting));
+
     try {
+      final newSourceId = _uuid.v4();
+      final newMediaAssetId = await _uploadImage(newSourceId);
+
       final now = DateTime.now();
       final newSource = Source(
-        id: _uuid.v4(),
+        id: newSourceId,
         name: state.name,
-        logoUrl: state.logoUrl,
+        mediaAssetId: newMediaAssetId,
         description: state.description,
         url: state.url,
         sourceType: state.sourceType!,
@@ -161,5 +193,24 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         ),
       );
     }
+  }
+
+  Future<String?> _uploadImage(String sourceId) async {
+    if (state.imageFileBytes != null && state.imageFileName != null) {
+      final mediaAssetId = await _mediaRepository.uploadFile(
+        fileBytes: state.imageFileBytes!,
+        fileName: state.imageFileName!,
+        purpose: MediaAssetPurpose.sourceImage,
+      );
+
+      // Cache the new image optimistically.
+      _optimisticImageCacheService.cacheImage(
+        sourceId,
+        state.imageFileBytes!,
+      );
+
+      return mediaAssetId;
+    }
+    return null;
   }
 }
