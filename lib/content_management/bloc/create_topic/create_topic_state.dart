@@ -2,17 +2,14 @@ part of 'create_topic_bloc.dart';
 
 /// Represents the status of the create topic operation.
 enum CreateTopicStatus {
-  /// Initial state.
   initial,
-
-  /// The form is being submitted.
-  submitting,
-
-  /// The operation completed successfully.
+  loading,
   success,
-
-  /// An error occurred.
   failure,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [CreateTopicBloc].
@@ -24,8 +21,8 @@ final class CreateTopicState extends Equatable {
     this.description = '',
     this.imageFileBytes,
     this.imageFileName,
-    this.exception,
     this.createdTopic,
+    this.exception,
   });
 
   final CreateTopicStatus status;
@@ -33,7 +30,7 @@ final class CreateTopicState extends Equatable {
   final String description;
   final Uint8List? imageFileBytes;
   final String? imageFileName;
-  final HttpException? exception;
+  final HttpException? exception; // Used for both image and entity failures
   final Topic? createdTopic;
 
   /// Returns true if the form is valid and can be submitted.
@@ -50,7 +47,7 @@ final class CreateTopicState extends Equatable {
     String? description,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Topic? createdTopic,
   }) {
     return CreateTopicState(
@@ -63,7 +60,7 @@ final class CreateTopicState extends Equatable {
       imageFileName: imageFileName != null
           ? imageFileName.value
           : this.imageFileName,
-      exception: exception,
+      exception: exception != null ? exception.value : this.exception,
       createdTopic: createdTopic ?? this.createdTopic,
     );
   }
