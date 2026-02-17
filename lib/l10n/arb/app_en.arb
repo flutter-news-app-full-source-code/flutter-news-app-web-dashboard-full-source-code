@@ -758,9 +758,9 @@
   "@loadingTopic": {
     "description": "Message displayed while loading topic data"
   },
-  "iconUrl": "Icon URL",
-  "@iconUrl": {
-    "description": "Label for the icon URL input field"
+  "icon": "Icon",
+  "@icon": {
+    "description": "Label for an icon upload field"
   },
   "topicUpdatedSuccessfully": "Topic updated successfully.",
   "@topicUpdatedSuccessfully": {

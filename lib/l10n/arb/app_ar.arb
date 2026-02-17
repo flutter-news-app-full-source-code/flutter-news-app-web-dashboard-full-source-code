@@ -754,9 +754,9 @@
   "@loadingTopic": {
     "description": "رسالة تُعرض أثناء تحميل بيانات الموضوع"
   },
-  "iconUrl": "رابط الأيقونة",
-  "@iconUrl": {
-    "description": "تسمية حقل إدخال رابط الأيقونة"
+  "icon": "أيقونة",
+  "@icon": {
+    "description": "تسمية حقل تحميل الأيقونة"
   },
   "topicUpdatedSuccessfully": "تم تحديث الموضوع بنجاح.",
   "@topicUpdatedSuccessfully": {
