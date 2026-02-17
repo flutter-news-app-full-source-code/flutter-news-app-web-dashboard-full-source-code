@@ -9,6 +9,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_source_page}
@@ -31,6 +32,7 @@ class EditSourcePage extends StatelessWidget {
         optimisticImageCacheService: context
             .read<OptimisticImageCacheService>(),
         sourceId: sourceId,
+        logger: Logger('EditSourceBloc'),
       ),
       child: const _EditSourceView(),
     );
@@ -66,6 +68,28 @@ class _EditSourceViewState extends State<_EditSourceView> {
     super.dispose();
   }
 
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.updateSourceTitle),
+        content: Text(l10n.updateSourceMessage), // Corrected l10n key
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -75,7 +99,8 @@ class _EditSourceViewState extends State<_EditSourceView> {
         actions: [
           BlocBuilder<EditSourceBloc, EditSourceState>(
             builder: (context, state) {
-              if (state.status == EditSourceStatus.submitting) {
+              if (state.status == EditSourceStatus.imageUploading ||
+                  state.status == EditSourceStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -91,25 +116,19 @@ class _EditSourceViewState extends State<_EditSourceView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
                     ? () async {
-                        // On edit page, directly save without a prompt.
-                        // The status (draft/active) is determined by the original source
-                        // and is not changed by this save action unless a specific
-                        // "change status" UI element is introduced (out of scope).
-                        // For now, we assume the current status is maintained.
-                        final originalSource = await context
-                            .read<DataRepository<Source>>()
-                            .read(id: state.sourceId);
-
-                        if (context.mounted) {
-                          if (originalSource.status == ContentStatus.active) {
-                            context.read<EditSourceBloc>().add(
-                              const EditSourcePublished(),
-                            );
-                          } else {
-                            context.read<EditSourceBloc>().add(
-                              const EditSourceSavedAsDraft(),
-                            );
-                          }
+                        final selectedStatus = await _showSaveOptionsDialog(
+                          context,
+                        );
+                        if (selectedStatus == ContentStatus.active &&
+                            context.mounted) {
+                          context.read<EditSourceBloc>().add(
+                            const EditSourcePublished(),
+                          );
+                        } else if (selectedStatus == ContentStatus.draft &&
+                            context.mounted) {
+                          context.read<EditSourceBloc>().add(
+                            const EditSourceSavedAsDraft(),
+                          );
                         }
                       }
                     : null,
@@ -131,7 +150,8 @@ class _EditSourceViewState extends State<_EditSourceView> {
               );
             context.pop();
           }
-          if (state.status == EditSourceStatus.failure) {
+          if (state.status == EditSourceStatus.imageUploadFailure ||
+              state.status == EditSourceStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -152,7 +172,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
           if (state.status == EditSourceStatus.loading) {
             return LoadingStateWidget(
               icon: Icons.source,
-              headline: l10n.loadingSource,
+              headline: l10n.loadingSources,
               subheadline: l10n.pleaseWait,
             );
           }
@@ -208,7 +228,7 @@ class _EditSourceViewState extends State<_EditSourceView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     Text(
-                      l10n.logoUrl,
+                      l10n.logo, // Updated l10n key
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: AppSpacing.md),
