@@ -625,6 +625,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadingTopic => 'Loading Topic';
 
   @override
+  String get icon => 'Icon';
+
+  @override
   String get iconUrl => 'Icon URL';
 
   @override

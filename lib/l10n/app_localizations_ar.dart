@@ -627,6 +627,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingTopic => 'جاري تحميل الموضوع';
 
   @override
+  String get icon => 'أيقونة';
+
+  @override
   String get iconUrl => 'رابط الأيقونة';
 
   @override

@@ -1190,6 +1190,12 @@ abstract class AppLocalizations {
   /// **'Loading Topic'**
   String get loadingTopic;
 
+  /// Label for an icon upload field
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get icon;
+
   /// Label for the icon URL input field
   ///
   /// In en, this message translates to:
