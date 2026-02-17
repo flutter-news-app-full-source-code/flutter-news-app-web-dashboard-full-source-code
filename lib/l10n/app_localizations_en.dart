@@ -628,9 +628,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get icon => 'Icon';
 
   @override
-  String get iconUrl => 'Icon URL';
-
-  @override
   String get topicUpdatedSuccessfully => 'Topic updated successfully.';
 
   @override

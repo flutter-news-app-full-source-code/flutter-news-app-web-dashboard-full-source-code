@@ -1196,12 +1196,6 @@ abstract class AppLocalizations {
   /// **'Icon'**
   String get icon;
 
-  /// Label for the icon URL input field
-  ///
-  /// In en, this message translates to:
-  /// **'Icon URL'**
-  String get iconUrl;
-
   /// Message displayed when a topic is updated successfully
   ///
   /// In en, this message translates to:

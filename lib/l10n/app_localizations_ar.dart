@@ -630,9 +630,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get icon => 'أيقونة';
 
   @override
-  String get iconUrl => 'رابط الأيقونة';
-
-  @override
   String get topicUpdatedSuccessfully => 'تم تحديث الموضوع بنجاح.';
 
   @override
