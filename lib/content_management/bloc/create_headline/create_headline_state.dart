@@ -2,20 +2,13 @@ part of 'create_headline_bloc.dart';
 
 /// Represents the status of the create headline operation.
 enum CreateHeadlineStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
-  failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [CreateHeadlineBloc].
@@ -66,7 +59,7 @@ final class CreateHeadlineState extends Equatable {
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
     bool? isBreaking,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Headline? createdHeadline,
   }) {
     return CreateHeadlineState(
@@ -83,7 +76,7 @@ final class CreateHeadlineState extends Equatable {
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
       isBreaking: isBreaking ?? this.isBreaking,
-      exception: exception,
+      exception: exception != null ? exception.value : this.exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
     );
   }
