@@ -128,8 +128,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateHeadlineStatus.success &&
-              state.createdHeadline != null &&
-              ModalRoute.of(context)!.isCurrent) {
+              state.createdHeadline != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
