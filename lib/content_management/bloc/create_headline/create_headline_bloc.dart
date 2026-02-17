@@ -7,12 +7,19 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
+import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
 
+/// {@template create_headline_bloc}
 /// A BLoC to manage the state of creating a new headline.
+///
+/// This BLoC handles form input changes and orchestrates the two-stage
+/// submission process: first uploading the image to media services, and then
+/// creating the headline entity with the returned media asset ID.
+/// {@endtemplate}
 class CreateHeadlineBloc
     extends Bloc<CreateHeadlineEvent, CreateHeadlineState> {
   /// {@macro create_headline_bloc}
@@ -20,9 +27,11 @@ class CreateHeadlineBloc
     required DataRepository<Headline> headlinesRepository,
     required MediaRepository mediaRepository,
     required OptimisticImageCacheService optimisticImageCacheService,
+    required Logger logger,
   }) : _headlinesRepository = headlinesRepository,
        _mediaRepository = mediaRepository,
        _optimisticImageCacheService = optimisticImageCacheService,
+       _logger = logger,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
@@ -38,6 +47,7 @@ class CreateHeadlineBloc
 
   final DataRepository<Headline> _headlinesRepository;
   final MediaRepository _mediaRepository;
+  final Logger _logger;
   final OptimisticImageCacheService _optimisticImageCacheService;
 
   final _uuid = const Uuid();
@@ -46,6 +56,7 @@ class CreateHeadlineBloc
     CreateHeadlineTitleChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Title changed: ${event.title}');
     emit(state.copyWith(title: event.title));
   }
 
@@ -53,6 +64,7 @@ class CreateHeadlineBloc
     CreateHeadlineUrlChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('URL changed: ${event.url}');
     emit(state.copyWith(url: event.url));
   }
 
@@ -60,6 +72,7 @@ class CreateHeadlineBloc
     CreateHeadlineImageChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Image changed: ${event.imageFileName}');
     emit(
       state.copyWith(
         imageFileBytes: ValueWrapper(event.imageFileBytes),
@@ -72,6 +85,7 @@ class CreateHeadlineBloc
     CreateHeadlineImageRemoved event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Image removed.');
     emit(
       state.copyWith(
         imageFileBytes: const ValueWrapper(null),
@@ -84,6 +98,7 @@ class CreateHeadlineBloc
     CreateHeadlineSourceChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Source changed: ${event.source?.name}');
     emit(state.copyWith(source: () => event.source));
   }
 
@@ -91,6 +106,7 @@ class CreateHeadlineBloc
     CreateHeadlineTopicChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Topic changed: ${event.topic?.name}');
     emit(state.copyWith(topic: () => event.topic));
   }
 
@@ -98,6 +114,7 @@ class CreateHeadlineBloc
     CreateHeadlineCountryChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Country changed: ${event.country?.name}');
     emit(state.copyWith(eventCountry: () => event.country));
   }
 
@@ -105,6 +122,7 @@ class CreateHeadlineBloc
     CreateHeadlineIsBreakingChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
+    _logger.fine('Is Breaking changed: ${event.isBreaking}');
     emit(state.copyWith(isBreaking: event.isBreaking));
   }
 
@@ -113,63 +131,8 @@ class CreateHeadlineBloc
     CreateHeadlineSavedAsDraft event,
     Emitter<CreateHeadlineState> emit,
   ) async {
-    emit(state.copyWith(status: CreateHeadlineStatus.submitting));
-    try {
-      final mediaAssetId = await _mediaRepository.uploadFile(
-        fileBytes: state.imageFileBytes!,
-        fileName: state.imageFileName!,
-        purpose: MediaAssetPurpose.headlineImage,
-      );
-
-      final now = DateTime.now();
-      final newHeadline = Headline(
-        id: _uuid.v4(),
-        title: state.title,
-        url: state.url,
-        // The imageUrl is intentionally null. The backend will populate it
-        // via a webhook after the media asset is processed.
-        imageUrl: null,
-        mediaAssetId: mediaAssetId,
-        source: state.source!,
-        eventCountry: state.eventCountry!,
-        topic: state.topic!,
-        createdAt: now,
-        updatedAt: now,
-        status: ContentStatus.draft,
-        isBreaking: state.isBreaking,
-      );
-
-      // Cache the image optimistically
-      _optimisticImageCacheService.cacheImage(
-        newHeadline.id,
-        state.imageFileBytes!,
-      );
-
-      await _headlinesRepository.create(item: newHeadline);
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.success,
-          createdHeadline: newHeadline,
-        ),
-      );
-    } on HttpException catch (e) {
-      final exception = e is BadRequestException
-          ? const BadRequestException('File is too large.')
-          : e;
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: exception,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
+    _logger.info('Saving headline as draft...');
+    await _submitHeadline(emit, status: ContentStatus.draft);
   }
 
   /// Handles publishing the headline.
@@ -177,39 +140,80 @@ class CreateHeadlineBloc
     CreateHeadlinePublished event,
     Emitter<CreateHeadlineState> emit,
   ) async {
-    emit(state.copyWith(status: CreateHeadlineStatus.submitting));
-    try {
-      final mediaAssetId = await _mediaRepository.uploadFile(
-        fileBytes: state.imageFileBytes!,
-        fileName: state.imageFileName!,
-        purpose: MediaAssetPurpose.headlineImage,
-      );
+    _logger.info('Publishing headline...');
+    await _submitHeadline(emit, status: ContentStatus.active);
+  }
 
+  /// Orchestrates the two-stage process of creating a headline.
+  ///
+  /// First, it uploads the image file if one is present. If the upload is
+  /// successful, it proceeds to create the headline entity in the database.
+  Future<void> _submitHeadline(
+    Emitter<CreateHeadlineState> emit, {
+    required ContentStatus status,
+  }) async {
+    final newHeadlineId = _uuid.v4();
+    String? newMediaAssetId;
+
+    // --- Stage 1: Image Upload ---
+    if (state.imageFileBytes != null && state.imageFileName != null) {
+      emit(state.copyWith(status: CreateHeadlineStatus.imageUploading));
+      _logger.fine(
+        'Starting image upload for new headline ID: $newHeadlineId...',
+      );
+      try {
+        newMediaAssetId = await _mediaRepository.uploadFile(
+          fileBytes: state.imageFileBytes!,
+          fileName: state.imageFileName!,
+          purpose: MediaAssetPurpose.headlineImage,
+        );
+        _optimisticImageCacheService.cacheImage(
+          newHeadlineId,
+          state.imageFileBytes!,
+        );
+        _logger.info(
+          'Image upload successful. MediaAssetId: $newMediaAssetId',
+        );
+      } on HttpException catch (e) {
+        _logger.severe('Image upload failed.', e);
+        // Provide a more user-friendly message for bad requests, which are
+        // likely due to file size limits.
+        final exception = e is BadRequestException
+            ? const BadRequestException('File is too large.')
+            : e;
+        emit(
+          state.copyWith(
+            status: CreateHeadlineStatus.imageUploadFailure,
+            exception: ValueWrapper(exception),
+          ),
+        );
+        return;
+      }
+    }
+
+    // --- Stage 2: Entity Submission ---
+    emit(state.copyWith(status: CreateHeadlineStatus.entitySubmitting));
+    _logger.fine('Starting entity submission for headline ID: $newHeadlineId');
+    try {
       final now = DateTime.now();
       final newHeadline = Headline(
-        id: _uuid.v4(),
+        id: newHeadlineId,
         title: state.title,
         url: state.url,
-        // The imageUrl is intentionally null. The backend will populate it
-        // via a webhook after the media asset is processed.
         imageUrl: null,
-        mediaAssetId: mediaAssetId,
+        mediaAssetId: newMediaAssetId,
         source: state.source!,
         eventCountry: state.eventCountry!,
         topic: state.topic!,
         createdAt: now,
         updatedAt: now,
-        status: ContentStatus.active,
+        status: status,
         isBreaking: state.isBreaking,
       );
 
-      // Cache the image optimistically
-      _optimisticImageCacheService.cacheImage(
-        newHeadline.id,
-        state.imageFileBytes!,
-      );
-
+      _logger.finer('Submitting new headline data: ${newHeadline.toJson()}');
       await _headlinesRepository.create(item: newHeadline);
+      _logger.info('Headline entity created successfully.');
       emit(
         state.copyWith(
           status: CreateHeadlineStatus.success,
@@ -217,20 +221,24 @@ class CreateHeadlineBloc
         ),
       );
     } on HttpException catch (e) {
-      final exception = e is BadRequestException
-          ? const BadRequestException('File is too large.')
-          : e;
+      _logger.severe('Headline entity submission failed.', e);
       emit(
         state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: exception,
+          status: CreateHeadlineStatus.entitySubmitFailure,
+          exception: ValueWrapper(e),
         ),
       );
     } catch (e) {
+      _logger.severe(
+        'An unexpected error occurred during entity submission.',
+        e,
+      );
       emit(
         state.copyWith(
-          status: CreateHeadlineStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
+          status: CreateHeadlineStatus.entitySubmitFailure,
+          exception: ValueWrapper(
+            UnknownException('An unexpected error occurred: $e'),
+          ),
         ),
       );
     }
