@@ -227,11 +227,6 @@ class _EditSourceViewState extends State<_EditSourceView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      l10n.logo, // Updated l10n key
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: AppSpacing.md),
                     ImageUploadField(
                       optimisticImageBytes: context
                           .read<OptimisticImageCacheService>()

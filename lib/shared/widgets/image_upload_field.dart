@@ -53,8 +53,9 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content:
-                Text(AppLocalizationsX(context).l10n.filePickingErrorMessage),
+            content: Text(
+              AppLocalizationsX(context).l10n.filePickingErrorMessage,
+            ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

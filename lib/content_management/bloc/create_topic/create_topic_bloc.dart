@@ -31,6 +31,7 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
        super(const CreateTopicState()) {
     on<CreateTopicNameChanged>(_onNameChanged);
     on<CreateTopicDescriptionChanged>(_onDescriptionChanged);
+    on<CreateTopicImageChanged>(_onImageChanged);
     on<CreateTopicImageRemoved>(_onImageRemoved);
     on<CreateTopicSavedAsDraft>(_onSavedAsDraft);
     on<CreateTopicPublished>(_onPublished);

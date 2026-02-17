@@ -218,11 +218,6 @@ class _EditTopicViewState extends State<_EditTopicView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      l10n.icon, // Updated l10n key
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: AppSpacing.md),
                     ImageUploadField(
                       optimisticImageBytes: context
                           .read<OptimisticImageCacheService>()

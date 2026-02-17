@@ -191,11 +191,6 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      l10n.icon, // Updated l10n key
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: AppSpacing.md),
                     ImageUploadField(
                       optimisticImageBytes: state.imageFileBytes,
                       onChanged: (Uint8List? bytes, String? fileName) {

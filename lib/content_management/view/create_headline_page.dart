@@ -182,7 +182,6 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
                       onChanged: (Uint8List? bytes, String? fileName) {
-                        // Updated l10n key
                         final bloc = context.read<CreateHeadlineBloc>();
                         if (bytes == null || fileName == null) {
                           bloc.add(const CreateHeadlineImageRemoved());

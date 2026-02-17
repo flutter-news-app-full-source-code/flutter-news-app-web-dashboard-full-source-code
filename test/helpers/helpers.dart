@@ -28,7 +28,6 @@ class MockOptimisticImageCacheService extends Mock
     implements OptimisticImageCacheService {}
 
 class FakeHeadline extends Fake implements Headline {
-
   FakeHeadline({required this.id});
   @override
   final String id;

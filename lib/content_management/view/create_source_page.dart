@@ -218,11 +218,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .read<CreateSourceBloc>()
                           .add(CreateSourceUrlChanged(value)),
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      l10n.logo, // Updated l10n key
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
                     const SizedBox(height: AppSpacing.md),
                     ImageUploadField(
                       optimisticImageBytes: state.imageFileBytes,
