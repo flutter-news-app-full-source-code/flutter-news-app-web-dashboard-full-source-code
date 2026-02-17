@@ -11,6 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_headline_page}
@@ -29,6 +30,7 @@ class CreateHeadlinePage extends StatelessWidget {
         mediaRepository: context.read<MediaRepository>(),
         optimisticImageCacheService: context
             .read<OptimisticImageCacheService>(),
+        logger: Logger('CreateHeadlineBloc'),
       ),
       child: const _CreateHeadlineView(),
     );
@@ -99,7 +101,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         actions: [
           BlocBuilder<CreateHeadlineBloc, CreateHeadlineState>(
             builder: (context, state) {
-              if (state.status == CreateHeadlineStatus.submitting) {
+              if (state.status == CreateHeadlineStatus.imageUploading ||
+                  state.status == CreateHeadlineStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -134,7 +137,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               );
             context.pop();
           }
-          if (state.status == CreateHeadlineStatus.failure) {
+          if (state.status == CreateHeadlineStatus.imageUploadFailure ||
+              state.status == CreateHeadlineStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -178,6 +182,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
                       onChanged: (Uint8List? bytes, String? fileName) {
+                        // Updated l10n key
                         final bloc = context.read<CreateHeadlineBloc>();
                         if (bytes == null || fileName == null) {
                           bloc.add(const CreateHeadlineImageRemoved());
