@@ -43,14 +43,23 @@ final class EditSourceUrlChanged extends EditSourceEvent {
   List<Object?> get props => [url];
 }
 
-/// Event triggered when the source logo URL input changes.
-final class EditSourceLogoUrlChanged extends EditSourceEvent {
-  const EditSourceLogoUrlChanged(this.logoUrl);
+/// Event for when the source's logo image is changed.
+final class EditSourceImageChanged extends EditSourceEvent {
+  const EditSourceImageChanged({
+    required this.imageFileBytes,
+    required this.imageFileName,
+  });
 
-  final String logoUrl;
+  final Uint8List imageFileBytes;
+  final String imageFileName;
 
   @override
-  List<Object?> get props => [logoUrl];
+  List<Object?> get props => [imageFileBytes, imageFileName];
+}
+
+/// Event for when the source's logo image is removed.
+final class EditSourceImageRemoved extends EditSourceEvent {
+  const EditSourceImageRemoved();
 }
 
 /// Event triggered when the source type input changes.
