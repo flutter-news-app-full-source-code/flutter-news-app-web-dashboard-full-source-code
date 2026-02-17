@@ -2,20 +2,14 @@ part of 'edit_headline_bloc.dart';
 
 /// Represents the status of the edit headline operation.
 enum EditHeadlineStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
   failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [EditHeadlineBloc].
@@ -34,6 +28,8 @@ final class EditHeadlineState extends Equatable {
     this.exception,
     this.isBreaking = false,
     this.updatedHeadline,
+    this.imageRemoved = false,
+    this.initialHeadline,
   });
 
   final EditHeadlineStatus status;
@@ -49,6 +45,8 @@ final class EditHeadlineState extends Equatable {
   final HttpException? exception;
   final bool isBreaking;
   final Headline? updatedHeadline;
+  final bool imageRemoved;
+  final Headline? initialHeadline;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -74,15 +72,19 @@ final class EditHeadlineState extends Equatable {
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
     bool? isBreaking,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Headline? updatedHeadline,
+    bool? imageRemoved,
+    Headline? initialHeadline,
   }) {
     return EditHeadlineState(
       status: status ?? this.status,
       headlineId: headlineId ?? this.headlineId,
       title: title ?? this.title,
       url: url ?? this.url,
-      imageUrl: imageUrl != null ? imageUrl.value : this.imageUrl,
+      imageUrl: imageUrl != null
+          ? imageUrl.value
+          : this.imageUrl, // This is the actual image URL from the backend, not the upload field.
       imageFileBytes: imageFileBytes != null
           ? imageFileBytes.value
           : this.imageFileBytes,
@@ -93,8 +95,10 @@ final class EditHeadlineState extends Equatable {
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
       isBreaking: isBreaking ?? this.isBreaking,
-      exception: exception,
+      exception: exception != null ? exception.value : this.exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
+      imageRemoved: imageRemoved ?? this.imageRemoved,
+      initialHeadline: initialHeadline ?? this.initialHeadline,
     );
   }
 
@@ -113,5 +117,7 @@ final class EditHeadlineState extends Equatable {
     isBreaking,
     exception,
     updatedHeadline,
+    imageRemoved,
+    initialHeadline,
   ];
 }
