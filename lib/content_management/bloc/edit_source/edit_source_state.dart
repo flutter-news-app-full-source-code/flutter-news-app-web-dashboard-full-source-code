@@ -2,20 +2,14 @@ part of 'edit_source_bloc.dart';
 
 /// Represents the status of the edit source operation.
 enum EditSourceStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
   failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [EditSourceBloc].
@@ -32,8 +26,10 @@ final class EditSourceState extends Equatable {
     this.sourceType,
     this.language,
     this.headquarters,
-    this.exception,
     this.updatedSource,
+    this.exception,
+    this.imageRemoved = false,
+    this.initialSource,
   });
 
   final EditSourceStatus status;
@@ -47,8 +43,10 @@ final class EditSourceState extends Equatable {
   final SourceType? sourceType;
   final Language? language;
   final Country? headquarters;
-  final HttpException? exception;
+  final HttpException? exception; // Used for all failure types
   final Source? updatedSource;
+  final bool imageRemoved;
+  final Source? initialSource;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -72,8 +70,10 @@ final class EditSourceState extends Equatable {
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Source? updatedSource,
+    bool? imageRemoved,
+    Source? initialSource,
   }) {
     return EditSourceState(
       status: status ?? this.status,
@@ -91,8 +91,10 @@ final class EditSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
-      exception: exception,
+      exception: exception != null ? exception.value : this.exception,
       updatedSource: updatedSource ?? this.updatedSource,
+      imageRemoved: imageRemoved ?? this.imageRemoved,
+      initialSource: initialSource ?? this.initialSource,
     );
   }
 
@@ -111,5 +113,7 @@ final class EditSourceState extends Equatable {
     headquarters,
     exception,
     updatedSource,
+    imageRemoved,
+    initialSource,
   ];
 }
