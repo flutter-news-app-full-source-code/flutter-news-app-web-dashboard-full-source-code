@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -24,6 +28,9 @@ class EditTopicPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => EditTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
+        mediaRepository: context.read<MediaRepository>(),
+        optimisticImageCacheService: context
+            .read<OptimisticImageCacheService>(),
         topicId: topicId,
       ),
       child: const _EditTopicView(),
@@ -42,21 +49,18 @@ class _EditTopicViewState extends State<_EditTopicView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
-  late final TextEditingController _iconUrlController;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
     _descriptionController = TextEditingController();
-    _iconUrlController = TextEditingController();
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _descriptionController.dispose();
-    _iconUrlController.dispose();
     super.dispose();
   }
 
@@ -142,7 +146,6 @@ class _EditTopicViewState extends State<_EditTopicView> {
           if (state.status == EditTopicStatus.initial) {
             _nameController.text = state.name;
             _descriptionController.text = state.description;
-            _iconUrlController.text = state.iconUrl;
           }
         },
         builder: (context, state) {
@@ -193,15 +196,30 @@ class _EditTopicViewState extends State<_EditTopicView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _iconUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.iconUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<EditTopicBloc>().add(
-                        EditTopicIconUrlChanged(value),
-                      ),
+                    Text(
+                      l10n.iconUrl,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    ImageUploadField(
+                      optimisticImageBytes: context
+                          .read<OptimisticImageCacheService>()
+                          .getImage(state.topicId),
+                      initialImageUrl: state.iconUrl,
+                      onChanged: (Uint8List? bytes, String? fileName) {
+                        if (bytes != null && fileName != null) {
+                          context.read<EditTopicBloc>().add(
+                            EditTopicImageChanged(
+                              imageFileBytes: bytes,
+                              imageFileName: fileName,
+                            ),
+                          );
+                        } else {
+                          context.read<EditTopicBloc>().add(
+                            const EditTopicImageRemoved(),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
