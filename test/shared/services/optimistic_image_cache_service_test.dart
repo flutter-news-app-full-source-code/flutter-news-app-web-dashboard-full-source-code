@@ -25,8 +25,9 @@ void main() {
       const entityId = 'test-id';
       final imageBytes = Uint8List.fromList([1, 2, 3]);
 
-      service.cacheImage(entityId, imageBytes);
-      service.removeImage(entityId);
+      service
+        ..cacheImage(entityId, imageBytes)
+        ..removeImage(entityId);
       final cachedImage = service.getImage(entityId);
 
       expect(cachedImage, isNull);

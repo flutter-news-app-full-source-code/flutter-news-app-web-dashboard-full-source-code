@@ -6,9 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import '../../../helpers/helpers.dart';
 
 void main() {
-  setUpAll(() {
-    registerFallbackValues();
-  });
+  setUpAll(registerFallbackValues);
 
   group('EditHeadlineBloc', () {
     late MockDataRepository<Headline> headlinesRepository;
