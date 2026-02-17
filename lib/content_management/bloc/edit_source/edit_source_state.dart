@@ -26,7 +26,9 @@ final class EditSourceState extends Equatable {
     this.name = '',
     this.description = '',
     this.url = '',
-    this.logoUrl = '',
+    this.logoUrl,
+    this.imageFileBytes,
+    this.imageFileName,
     this.sourceType,
     this.language,
     this.headquarters,
@@ -39,7 +41,9 @@ final class EditSourceState extends Equatable {
   final String name;
   final String description;
   final String url;
-  final String logoUrl;
+  final String? logoUrl;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
   final SourceType? sourceType;
   final Language? language;
   final Country? headquarters;
@@ -52,7 +56,6 @@ final class EditSourceState extends Equatable {
       name.isNotEmpty &&
       description.isNotEmpty &&
       url.isNotEmpty &&
-      logoUrl.isNotEmpty &&
       sourceType != null &&
       language != null &&
       headquarters != null;
@@ -63,7 +66,9 @@ final class EditSourceState extends Equatable {
     String? name,
     String? description,
     String? url,
-    String? logoUrl,
+    ValueWrapper<String?>? logoUrl,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
@@ -76,7 +81,13 @@ final class EditSourceState extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       url: url ?? this.url,
-      logoUrl: logoUrl ?? this.logoUrl,
+      logoUrl: logoUrl != null ? logoUrl.value : this.logoUrl,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
@@ -93,6 +104,8 @@ final class EditSourceState extends Equatable {
     description,
     url,
     logoUrl,
+    imageFileBytes,
+    imageFileName,
     sourceType,
     language,
     headquarters,
