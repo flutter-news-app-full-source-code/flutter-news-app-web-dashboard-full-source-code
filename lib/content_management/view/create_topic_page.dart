@@ -9,6 +9,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_topic_page}
@@ -26,6 +27,7 @@ class CreateTopicPage extends StatelessWidget {
         topicsRepository: context.read<DataRepository<Topic>>(),
         mediaRepository: context.read<MediaRepository>(),
         optimisticImageCacheService: context.read(),
+        logger: Logger('CreateTopicBloc'),
       ),
       child: const _CreateTopicView(),
     );
@@ -90,7 +92,8 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
         actions: [
           BlocBuilder<CreateTopicBloc, CreateTopicState>(
             builder: (context, state) {
-              if (state.status == CreateTopicStatus.submitting) {
+              if (state.status == CreateTopicStatus.imageUploading ||
+                  state.status == CreateTopicStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -144,7 +147,8 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
             );
             context.pop();
           }
-          if (state.status == CreateTopicStatus.failure) {
+          if (state.status == CreateTopicStatus.imageUploadFailure ||
+              state.status == CreateTopicStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -188,7 +192,7 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     Text(
-                      l10n.iconUrl,
+                      l10n.icon, // Updated l10n key
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: AppSpacing.md),
