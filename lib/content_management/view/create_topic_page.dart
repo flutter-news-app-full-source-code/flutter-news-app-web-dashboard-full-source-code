@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -21,6 +24,8 @@ class CreateTopicPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => CreateTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
+        mediaRepository: context.read<MediaRepository>(),
+        optimisticImageCacheService: context.read(),
       ),
       child: const _CreateTopicView(),
     );
@@ -38,7 +43,6 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
-  late final TextEditingController _iconUrlController;
 
   @override
   void initState() {
@@ -46,14 +50,12 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
     final state = context.read<CreateTopicBloc>().state;
     _nameController = TextEditingController(text: state.name);
     _descriptionController = TextEditingController(text: state.description);
-    _iconUrlController = TextEditingController(text: state.iconUrl);
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _descriptionController.dispose();
-    _iconUrlController.dispose();
     super.dispose();
   }
 
@@ -185,15 +187,27 @@ class _CreateTopicViewState extends State<_CreateTopicView> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _iconUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.iconUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<CreateTopicBloc>().add(
-                        CreateTopicIconUrlChanged(value),
-                      ),
+                    Text(
+                      l10n.iconUrl,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    ImageUploadField(
+                      optimisticImageBytes: state.imageFileBytes,
+                      onChanged: (Uint8List? bytes, String? fileName) {
+                        if (bytes != null && fileName != null) {
+                          context.read<CreateTopicBloc>().add(
+                            CreateTopicImageChanged(
+                              imageFileBytes: bytes,
+                              imageFileName: fileName,
+                            ),
+                          );
+                        } else {
+                          context.read<CreateTopicBloc>().add(
+                            const CreateTopicImageRemoved(),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
