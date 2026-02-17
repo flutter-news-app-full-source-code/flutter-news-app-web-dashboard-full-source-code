@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 
 part 'edit_topic_event.dart';
 part 'edit_topic_state.dart';
@@ -11,15 +13,20 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   /// {@macro edit_topic_bloc}
   EditTopicBloc({
     required DataRepository<Topic> topicsRepository,
+    required MediaRepository mediaRepository,
+    required OptimisticImageCacheService optimisticImageCacheService,
     required String topicId,
   }) : _topicsRepository = topicsRepository,
+       _mediaRepository = mediaRepository,
+       _optimisticImageCacheService = optimisticImageCacheService,
        super(
          EditTopicState(topicId: topicId, status: EditTopicStatus.loading),
        ) {
     on<EditTopicLoaded>(_onEditTopicLoaded);
     on<EditTopicNameChanged>(_onNameChanged);
     on<EditTopicDescriptionChanged>(_onDescriptionChanged);
-    on<EditTopicIconUrlChanged>(_onIconUrlChanged);
+    on<EditTopicImageChanged>(_onImageChanged);
+    on<EditTopicImageRemoved>(_onImageRemoved);
     on<EditTopicSavedAsDraft>(_onSavedAsDraft);
     on<EditTopicPublished>(_onPublished);
 
@@ -27,11 +34,14 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   }
 
   final DataRepository<Topic> _topicsRepository;
+  final MediaRepository _mediaRepository;
+  final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditTopicLoaded(
     EditTopicLoaded event,
     Emitter<EditTopicState> emit,
   ) async {
+    emit(state.copyWith(status: EditTopicStatus.loading));
     try {
       final topic = await _topicsRepository.read(id: state.topicId);
       emit(
@@ -39,7 +49,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           status: EditTopicStatus.initial,
           name: topic.name,
           description: topic.description,
-          iconUrl: topic.iconUrl,
+          iconUrl: ValueWrapper(topic.iconUrl),
         ),
       );
     } on HttpException catch (e) {
@@ -75,12 +85,29 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     );
   }
 
-  void _onIconUrlChanged(
-    EditTopicIconUrlChanged event,
+  void _onImageChanged(
+    EditTopicImageChanged event,
     Emitter<EditTopicState> emit,
   ) {
     emit(
-      state.copyWith(iconUrl: event.iconUrl, status: EditTopicStatus.initial),
+      state.copyWith(
+        imageFileBytes: ValueWrapper(event.imageFileBytes),
+        imageFileName: ValueWrapper(event.imageFileName),
+        status: EditTopicStatus.initial,
+      ),
+    );
+  }
+
+  void _onImageRemoved(
+    EditTopicImageRemoved event,
+    Emitter<EditTopicState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: const ValueWrapper(null),
+        imageFileName: const ValueWrapper(null),
+        status: EditTopicStatus.initial,
+      ),
     );
   }
 
@@ -91,11 +118,18 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   ) async {
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
+      final newMediaAssetId = await _uploadImage();
+
       final originalTopic = await _topicsRepository.read(id: state.topicId);
       final updatedTopic = originalTopic.copyWith(
         name: state.name,
         description: state.description,
-        iconUrl: ValueWrapper(state.iconUrl),
+        iconUrl: newMediaAssetId != null
+            ? const ValueWrapper(null)
+            : ValueWrapper(originalTopic.iconUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : ValueWrapper(originalTopic.mediaAssetId),
         status: ContentStatus.draft,
         updatedAt: DateTime.now(),
       );
@@ -126,11 +160,18 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   ) async {
     emit(state.copyWith(status: EditTopicStatus.submitting));
     try {
+      final newMediaAssetId = await _uploadImage();
+
       final originalTopic = await _topicsRepository.read(id: state.topicId);
       final updatedTopic = originalTopic.copyWith(
         name: state.name,
         description: state.description,
-        iconUrl: ValueWrapper(state.iconUrl),
+        iconUrl: newMediaAssetId != null
+            ? const ValueWrapper(null)
+            : ValueWrapper(originalTopic.iconUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : ValueWrapper(originalTopic.mediaAssetId),
         status: ContentStatus.active,
         updatedAt: DateTime.now(),
       );
@@ -152,5 +193,24 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         ),
       );
     }
+  }
+
+  Future<String?> _uploadImage() async {
+    if (state.imageFileBytes != null && state.imageFileName != null) {
+      final mediaAssetId = await _mediaRepository.uploadFile(
+        fileBytes: state.imageFileBytes!,
+        fileName: state.imageFileName!,
+        purpose: MediaAssetPurpose.topicImage,
+      );
+
+      // Cache the new image optimistically.
+      _optimisticImageCacheService.cacheImage(
+        state.topicId,
+        state.imageFileBytes!,
+      );
+
+      return mediaAssetId;
+    }
+    return null;
   }
 }
