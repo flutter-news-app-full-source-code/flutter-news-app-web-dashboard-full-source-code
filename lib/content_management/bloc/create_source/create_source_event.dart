@@ -32,12 +32,23 @@ final class CreateSourceUrlChanged extends CreateSourceEvent {
   List<Object?> get props => [url];
 }
 
-/// Event for when the source's logo URL is changed.
-final class CreateSourceLogoUrlChanged extends CreateSourceEvent {
-  const CreateSourceLogoUrlChanged(this.logoUrl);
-  final String logoUrl;
+/// Event for when the source's logo image is changed.
+final class CreateSourceImageChanged extends CreateSourceEvent {
+  const CreateSourceImageChanged({
+    required this.imageFileBytes,
+    required this.imageFileName,
+  });
+
+  final Uint8List imageFileBytes;
+  final String imageFileName;
+
   @override
-  List<Object?> get props => [logoUrl];
+  List<Object?> get props => [imageFileBytes, imageFileName];
+}
+
+/// Event for when the source's logo image is removed.
+final class CreateSourceImageRemoved extends CreateSourceEvent {
+  const CreateSourceImageRemoved();
 }
 
 /// Event for when the source's type is changed.
