@@ -699,7 +699,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadingHeadline => 'Loading Headline...';
 
   @override
-  String get imageUrl => 'Image URL';
+  String get image => 'Image';
 
   @override
   String get cannotUpdateHeadlineError =>
@@ -721,10 +721,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createSource => 'Create Source';
 
   @override
+  String get updateSourceTitle => 'Update Source';
+
+  @override
+  String get updateSourceMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
+
+  @override
   String get sourceCreatedSuccessfully => 'Source created successfully.';
 
   @override
+  String get updateTopicTitle => 'Update Topic';
+
+  @override
   String get status => 'Status';
+
+  @override
+  String get updateTopicMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
 
   @override
   String get lastUpdated => 'Last Updated';
@@ -1367,7 +1381,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeButtonText => 'Close';
 
   @override
-  String get logoUrl => 'Logo URL';
+  String get logo => 'Logo';
 
   @override
   String get userManagement => 'User Management';

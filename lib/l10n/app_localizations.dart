@@ -1334,11 +1334,11 @@ abstract class AppLocalizations {
   /// **'Loading Headline...'**
   String get loadingHeadline;
 
-  /// Label for an image URL input field
+  /// Label for an image upload field
   ///
   /// In en, this message translates to:
-  /// **'Image URL'**
-  String get imageUrl;
+  /// **'Image'**
+  String get image;
 
   /// Error message when updating a headline fails because the original data wasn't loaded
   ///
@@ -1376,17 +1376,41 @@ abstract class AppLocalizations {
   /// **'Create Source'**
   String get createSource;
 
+  /// Title for the dialog asking how to update a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Source'**
+  String get updateSourceTitle;
+
+  /// Message for the dialog asking how to update a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updateSourceMessage;
+
   /// Message displayed when a source is created successfully
   ///
   /// In en, this message translates to:
   /// **'Source created successfully.'**
   String get sourceCreatedSuccessfully;
 
+  /// Title for the dialog asking how to update a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Topic'**
+  String get updateTopicTitle;
+
   /// Label for content status
   ///
   /// In en, this message translates to:
   /// **'Status'**
   String get status;
+
+  /// Message for the dialog asking how to update a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updateTopicMessage;
 
   /// Column header for last updated date
   ///
@@ -2558,11 +2582,11 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get closeButtonText;
 
-  /// Label for the source logo URL input field
+  /// Label for the source logo upload field
   ///
   /// In en, this message translates to:
-  /// **'Logo URL'**
-  String get logoUrl;
+  /// **'Logo'**
+  String get logo;
 
   /// Label for the user management navigation item
   ///

@@ -701,7 +701,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingHeadline => 'جاري تحميل العنوان...';
 
   @override
-  String get imageUrl => 'رابط الصورة';
+  String get image => 'صورة';
 
   @override
   String get cannotUpdateHeadlineError =>
@@ -723,10 +723,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createSource => 'إنشاء مصدر';
 
   @override
+  String get updateSourceTitle => 'تحديث المصدر';
+
+  @override
+  String get updateSourceMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
+
+  @override
   String get sourceCreatedSuccessfully => 'تم إنشاء المصدر بنجاح.';
 
   @override
+  String get updateTopicTitle => 'تحديث الموضوع';
+
+  @override
   String get status => 'الحالة';
+
+  @override
+  String get updateTopicMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
 
   @override
   String get lastUpdated => 'آخر تحديث';
@@ -1366,7 +1380,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get closeButtonText => 'إغلاق';
 
   @override
-  String get logoUrl => 'رابط الشعار';
+  String get logo => 'الشعار';
 
   @override
   String get userManagement => 'إدارة المستخدمين';
