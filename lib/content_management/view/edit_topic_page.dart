@@ -10,6 +10,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_topic_page}
@@ -32,6 +33,7 @@ class EditTopicPage extends StatelessWidget {
         optimisticImageCacheService: context
             .read<OptimisticImageCacheService>(),
         topicId: topicId,
+        logger: Logger('EditTopicBloc'),
       ),
       child: const _EditTopicView(),
     );
@@ -64,6 +66,28 @@ class _EditTopicViewState extends State<_EditTopicView> {
     super.dispose();
   }
 
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.updateTopicTitle),
+        content: Text(l10n.updateTopicMessage), // Corrected l10n key
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
@@ -73,7 +97,8 @@ class _EditTopicViewState extends State<_EditTopicView> {
         actions: [
           BlocBuilder<EditTopicBloc, EditTopicState>(
             builder: (context, state) {
-              if (state.status == EditTopicStatus.submitting) {
+              if (state.status == EditTopicStatus.imageUploading ||
+                  state.status == EditTopicStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -89,25 +114,19 @@ class _EditTopicViewState extends State<_EditTopicView> {
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
                     ? () async {
-                        // On edit page, directly save without a prompt.
-                        // The status (draft/active) is determined by the original topic
-                        // and is not changed by this save action unless a specific
-                        // "change status" UI element is introduced (out of scope).
-                        // For now, we assume the current status is maintained.
-                        final originalTopic = await context
-                            .read<DataRepository<Topic>>()
-                            .read(id: state.topicId);
-
-                        if (context.mounted) {
-                          if (originalTopic.status == ContentStatus.active) {
-                            context.read<EditTopicBloc>().add(
-                              const EditTopicPublished(),
-                            );
-                          } else {
-                            context.read<EditTopicBloc>().add(
-                              const EditTopicSavedAsDraft(),
-                            );
-                          }
+                        final selectedStatus = await _showSaveOptionsDialog(
+                          context,
+                        );
+                        if (selectedStatus == ContentStatus.active &&
+                            context.mounted) {
+                          context.read<EditTopicBloc>().add(
+                            const EditTopicPublished(),
+                          );
+                        } else if (selectedStatus == ContentStatus.draft &&
+                            context.mounted) {
+                          context.read<EditTopicBloc>().add(
+                            const EditTopicSavedAsDraft(),
+                          );
                         }
                       }
                     : null,
@@ -132,7 +151,8 @@ class _EditTopicViewState extends State<_EditTopicView> {
             );
             context.pop();
           }
-          if (state.status == EditTopicStatus.failure) {
+          if (state.status == EditTopicStatus.imageUploadFailure ||
+              state.status == EditTopicStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -157,7 +177,9 @@ class _EditTopicViewState extends State<_EditTopicView> {
             );
           }
 
-          if (state.status == EditTopicStatus.failure && state.name.isEmpty) {
+          if ((state.status == EditTopicStatus.entitySubmitFailure ||
+                  state.status == EditTopicStatus.failure) &&
+              state.name.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () =>
@@ -197,7 +219,7 @@ class _EditTopicViewState extends State<_EditTopicView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     Text(
-                      l10n.iconUrl,
+                      l10n.icon, // Updated l10n key
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: AppSpacing.md),
