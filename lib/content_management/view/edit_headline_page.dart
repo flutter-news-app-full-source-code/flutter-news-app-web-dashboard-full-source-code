@@ -11,6 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_headline_page}
@@ -36,6 +37,7 @@ class EditHeadlinePage extends StatelessWidget {
         optimisticImageCacheService: context
             .read<OptimisticImageCacheService>(),
         headlineId: headlineId,
+        logger: Logger('EditHeadlineBloc'),
       ),
       child: const _EditHeadlineView(),
     );
@@ -105,7 +107,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
         actions: [
           BlocBuilder<EditHeadlineBloc, EditHeadlineState>(
             builder: (context, state) {
-              if (state.status == EditHeadlineStatus.submitting) {
+              if (state.status == EditHeadlineStatus.imageUploading ||
+                  state.status == EditHeadlineStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -140,7 +143,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               );
             context.pop();
           }
-          if (state.status == EditHeadlineStatus.failure) {
+          if (state.status == EditHeadlineStatus.imageUploadFailure ||
+              state.status == EditHeadlineStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -166,7 +170,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             );
           }
 
-          if (state.status == EditHeadlineStatus.failure &&
+          if ((state.status == EditHeadlineStatus.entitySubmitFailure ||
+                  state.status == EditHeadlineStatus.failure) &&
               state.title.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
