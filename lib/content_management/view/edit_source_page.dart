@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,8 @@ class EditSourcePage extends StatelessWidget {
       create: (context) => EditSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
         mediaRepository: context.read<MediaRepository>(),
-        optimisticImageCacheService: context.read(),
+        optimisticImageCacheService: context
+            .read<OptimisticImageCacheService>(),
         sourceId: sourceId,
       ),
       child: const _EditSourceView(),
@@ -211,7 +213,9 @@ class _EditSourceViewState extends State<_EditSourceView> {
                     ),
                     const SizedBox(height: AppSpacing.md),
                     ImageUploadField(
-                      optimisticImageBytes: state.imageFileBytes,
+                      optimisticImageBytes: context
+                          .read<OptimisticImageCacheService>()
+                          .getImage(state.sourceId),
                       initialImageUrl: state.logoUrl,
                       onChanged: (bytes, fileName) {
                         if (bytes != null && fileName != null) {
