@@ -854,9 +854,9 @@
   "@loadingHeadline": {
     "description": "Message displayed while loading headline data"
   },
-  "imageUrl": "Image URL",
-  "@imageUrl": {
-    "description": "Label for an image URL input field"
+  "image": "Image",
+  "@image": {
+    "description": "Label for an image upload field"
   },
   "cannotUpdateHeadlineError": "Cannot update: Original headline data not loaded.",
   "@cannotUpdateHeadlineError": {
@@ -882,13 +882,29 @@
   "@createSource": {
     "description": "Title for the Create Source page"
   },
+  "updateSourceTitle": "Update Source",
+  "@updateSourceTitle": {
+    "description": "Title for the dialog asking how to update a source."
+  },
+  "updateSourceMessage": "Do you want to publish these changes or save the update as a draft?",
+  "@updateSourceMessage": {
+    "description": "Message for the dialog asking how to update a source."
+  },
   "sourceCreatedSuccessfully": "Source created successfully.",
   "@sourceCreatedSuccessfully": {
     "description": "Message displayed when a source is created successfully"
   },
+  "updateTopicTitle": "Update Topic",
+  "@updateTopicTitle": {
+    "description": "Title for the dialog asking how to update a topic."
+  },
   "status": "Status",
   "@status": {
     "description": "Label for content status"
+  },
+  "updateTopicMessage": "Do you want to publish these changes or save the update as a draft?",
+  "@updateTopicMessage": {
+    "description": "Message for the dialog asking how to update a topic."
   },
   "lastUpdated": "Last Updated",
   "@lastUpdated": {
@@ -1722,9 +1738,9 @@
   "@closeButtonText": {
     "description": "Text for the close button in a dialog."
   },
-  "logoUrl": "Logo URL",
-  "@logoUrl": {
-    "description": "Label for the source logo URL input field"
+  "logo": "Logo",
+  "@logo": {
+    "description": "Label for the source logo upload field"
   },
   "userManagement": "User Management",
   "@userManagement": {
