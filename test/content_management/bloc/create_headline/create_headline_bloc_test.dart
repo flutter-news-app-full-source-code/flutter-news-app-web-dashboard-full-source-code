@@ -2,6 +2,9 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:logging/logging.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -17,8 +20,8 @@ void main() {
     final topicFixture = getTopicsFixturesData().first;
     final countryFixture = countriesFixturesData.first;
     final headlineFixture = getHeadlinesFixturesData().first.copyWith(
-      status: ContentStatus.draft,
-    );
+          status: ContentStatus.draft,
+        );
     final imageBytes = Uint8List.fromList([1, 2, 3]);
     const imageFileName = 'test.jpg';
 
@@ -33,6 +36,7 @@ void main() {
         headlinesRepository: headlinesRepository,
         mediaRepository: mediaRepository,
         optimisticImageCacheService: optimisticImageCacheService,
+        logger: Logger('CreateHeadlineBloc'),
       );
     }
 
@@ -60,8 +64,9 @@ void main() {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
         'emits new state with updated url',
         build: buildBloc,
-        act: (bloc) => bloc.add(const CreateHeadlineUrlChanged('new.url')),
-        expect: () => [const CreateHeadlineState(url: 'new.url')],
+        act: (bloc) =>
+            bloc.add(const CreateHeadlineUrlChanged('http://new.url')),
+        expect: () => [const CreateHeadlineState(url: 'http://new.url')],
       );
     });
 
@@ -158,7 +163,7 @@ void main() {
         build: buildBloc,
         seed: () => CreateHeadlineState(
           title: 'New Headline',
-          url: 'http://new.url',
+          url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           source: sourceFixture,
@@ -166,11 +171,16 @@ void main() {
           eventCountry: countryFixture,
         ),
         act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
-        expect: () => [
+        expect: () => <dynamic>[
           isA<CreateHeadlineState>().having(
             (s) => s.status,
             'status',
-            CreateHeadlineStatus.submitting,
+            CreateHeadlineStatus.imageUploading,
+          ),
+          isA<CreateHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            CreateHeadlineStatus.entitySubmitting,
           ),
           isA<CreateHeadlineState>()
               .having((s) => s.status, 'status', CreateHeadlineStatus.success)
@@ -188,13 +198,24 @@ void main() {
             () => optimisticImageCacheService.cacheImage(any(), imageBytes),
           ).called(1);
           verify(
-            () => headlinesRepository.create(item: any(named: 'item')),
+            () => headlinesRepository.create(
+              item: any(
+                named: 'item',
+                that: isA<Headline>()
+                    .having((h) => h.status, 'status', ContentStatus.draft)
+                    .having(
+                      (h) => h.mediaAssetId,
+                      'mediaAssetId',
+                      mediaAssetId,
+                    ),
+              ),
+            ),
           ).called(1);
         },
       );
 
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
-        'emits [submitting, failure] on upload error',
+        'emits [imageUploading, imageUploadFailure] on mediaRepository error',
         build: buildBloc,
         setUp: () {
           when(
@@ -207,7 +228,7 @@ void main() {
         },
         seed: () => CreateHeadlineState(
           title: 'New Headline',
-          url: 'http://new.url',
+          url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           source: sourceFixture,
@@ -215,14 +236,18 @@ void main() {
           eventCountry: countryFixture,
         ),
         act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
-        expect: () => [
+        expect: () => <dynamic>[
           isA<CreateHeadlineState>().having(
             (s) => s.status,
             'status',
-            CreateHeadlineStatus.submitting,
+            CreateHeadlineStatus.imageUploading,
           ),
           isA<CreateHeadlineState>()
-              .having((s) => s.status, 'status', CreateHeadlineStatus.failure)
+              .having(
+                (s) => s.status,
+                'status',
+                CreateHeadlineStatus.imageUploadFailure,
+              )
               .having((s) => s.exception, 'exception', isA<NetworkException>()),
         ],
         verify: (_) {
@@ -231,16 +256,126 @@ void main() {
           );
         },
       );
+
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'emits [entitySubmitting, entitySubmitFailure] on headlinesRepository error',
+        build: buildBloc,
+        setUp: () {
+          when(
+            () => headlinesRepository.create(item: any(named: 'item')),
+          ).thenThrow(const NetworkException());
+        },
+        seed: () => CreateHeadlineState(
+          title: 'New Headline',
+          url: headlineFixture.url,
+          imageFileBytes: imageBytes,
+          imageFileName: imageFileName,
+          source: sourceFixture,
+          topic: topicFixture,
+          eventCountry: countryFixture,
+        ),
+        act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
+        expect: () => <dynamic>[
+          isA<CreateHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            CreateHeadlineStatus.imageUploading,
+          ),
+          isA<CreateHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            CreateHeadlineStatus.entitySubmitting,
+          ),
+          isA<CreateHeadlineState>()
+              .having(
+                (s) => s.status,
+                'status',
+                CreateHeadlineStatus.entitySubmitFailure,
+              )
+              .having((s) => s.exception, 'exception', isA<NetworkException>()),
+        ],
+      );
+
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'creates draft headline without an image',
+        build: buildBloc,
+        seed: () => CreateHeadlineState(
+          title: 'New Headline',
+          url: headlineFixture.url,
+          source: sourceFixture,
+          topic: topicFixture,
+          eventCountry: countryFixture,
+        ),
+        act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
+        expect: () => <dynamic>[
+          isA<CreateHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            CreateHeadlineStatus.entitySubmitting,
+          ),
+          isA<CreateHeadlineState>()
+              .having((s) => s.status, 'status', CreateHeadlineStatus.success)
+              .having((s) => s.createdHeadline, 'createdHeadline', isNotNull),
+        ],
+        verify: (bloc) {
+          verifyNever(
+            () => mediaRepository.uploadFile(
+              fileBytes: any(named: 'fileBytes'),
+              fileName: any(named: 'fileName'),
+              purpose: any(named: 'purpose'),
+            ),
+          );
+          verify(
+            () => headlinesRepository.create(
+              item: any(
+                named: 'item',
+                that: isA<Headline>()
+                    .having((h) => h.status, 'status', ContentStatus.draft)
+                    .having((h) => h.mediaAssetId, 'mediaAssetId', isNull),
+              ),
+            ),
+          ).called(1);
+        },
+      );
     });
 
     group('CreateHeadlinePublished', () {
-      // Similar tests as CreateHeadlineSavedAsDraft, but checking for
-      // ContentStatus.active in the created headline.
-      // This is omitted for brevity as the logic is identical.
-      test('creates headline with active status', () {
-        // This test would verify that the headline passed to
-        // headlinesRepository.create has status: ContentStatus.active
+      setUp(() {
+        when(
+          () => mediaRepository.uploadFile(
+            fileBytes: any(named: 'fileBytes'),
+            fileName: any(named: 'fileName'),
+            purpose: any(named: 'purpose'),
+          ),
+        ).thenAnswer((_) async => 'id');
+        when(
+          () => headlinesRepository.create(item: any(named: 'item')),
+        ).thenAnswer((_) async => headlineFixture);
+        when(
+          () => optimisticImageCacheService.cacheImage(any(), any()),
+        ).thenAnswer((_) {});
       });
+
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'creates headline with active status',
+        build: buildBloc,
+        seed: () => CreateHeadlineState(
+          title: 'New Headline',
+          url: headlineFixture.url,
+          imageFileBytes: imageBytes,
+          imageFileName: imageFileName,
+          source: sourceFixture,
+          topic: topicFixture,
+          eventCountry: countryFixture,
+        ),
+        act: (bloc) => bloc.add(const CreateHeadlinePublished()),
+        verify: (bloc) {
+          final headline = verify(
+            () => headlinesRepository.create(item: captureAny(named: 'item')),
+          ).captured.first as Headline;
+          expect(headline.status, ContentStatus.active);
+        },
+      );
     });
   });
 }
