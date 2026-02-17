@@ -2,20 +2,14 @@ part of 'edit_topic_bloc.dart';
 
 /// Represents the status of the edit topic operation.
 enum EditTopicStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
   failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [EditTopicBloc].
@@ -30,6 +24,8 @@ final class EditTopicState extends Equatable {
     this.imageFileName,
     this.exception,
     this.updatedTopic,
+    this.imageRemoved = false,
+    this.initialTopic,
   });
 
   final EditTopicStatus status;
@@ -41,6 +37,8 @@ final class EditTopicState extends Equatable {
   final String? imageFileName;
   final HttpException? exception;
   final Topic? updatedTopic;
+  final bool imageRemoved;
+  final Topic? initialTopic;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
@@ -54,8 +52,10 @@ final class EditTopicState extends Equatable {
     ValueWrapper<String?>? iconUrl,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Topic? updatedTopic,
+    bool? imageRemoved,
+    Topic? initialTopic,
   }) {
     return EditTopicState(
       status: status ?? this.status,
@@ -69,8 +69,10 @@ final class EditTopicState extends Equatable {
       imageFileName: imageFileName != null
           ? imageFileName.value
           : this.imageFileName,
-      exception: exception ?? this.exception,
+      exception: exception != null ? exception.value : this.exception,
       updatedTopic: updatedTopic ?? this.updatedTopic,
+      imageRemoved: imageRemoved ?? this.imageRemoved,
+      initialTopic: initialTopic ?? this.initialTopic,
     );
   }
 
@@ -85,5 +87,7 @@ final class EditTopicState extends Equatable {
     imageFileName,
     exception,
     updatedTopic,
+    imageRemoved,
+    initialTopic,
   ];
 }
