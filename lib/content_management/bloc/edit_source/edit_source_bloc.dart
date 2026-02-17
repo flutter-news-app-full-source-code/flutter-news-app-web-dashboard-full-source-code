@@ -4,11 +4,17 @@ import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
+import 'package:logging/logging.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
 
+/// {@template edit_source_bloc}
 /// A BLoC to manage the state of editing a single source.
+///
+/// This BLoC handles loading the existing source, managing form input
+/// changes, and orchestrating the two-stage update process.
+/// {@endtemplate}
 class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
   EditSourceBloc({
@@ -16,9 +22,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required MediaRepository mediaRepository,
     required OptimisticImageCacheService optimisticImageCacheService,
     required String sourceId,
+    Logger? logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
        _optimisticImageCacheService = optimisticImageCacheService,
+       _logger = logger ?? Logger('EditSourceBloc'),
        super(
          EditSourceState(sourceId: sourceId, status: EditSourceStatus.loading),
        ) {
@@ -39,12 +47,16 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
+  final Logger _logger;
   final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditSourceLoaded(
     EditSourceLoaded event,
     Emitter<EditSourceState> emit,
   ) async {
+    _logger.fine(
+      'Loading source for editing with ID: ${state.sourceId}...',
+    );
     try {
       final source = await _sourcesRepository.read(id: state.sourceId);
       emit(
@@ -57,15 +69,28 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           sourceType: () => source.sourceType,
           language: () => source.language,
           headquarters: () => source.headquarters,
+          initialSource: source,
         ),
       );
+      _logger.info('Successfully loaded source: ${source.id}');
     } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
-    } catch (e) {
+      _logger.severe('Failed to load source: ${state.sourceId}', e);
       emit(
         state.copyWith(
           status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
+          exception: ValueWrapper(e),
+        ),
+      );
+    } catch (e) {
+      _logger.severe(
+        'An unexpected error occurred while loading source: ${state.sourceId}',
+      );
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.failure,
+          exception: ValueWrapper(
+            UnknownException('An unexpected error occurred: $e'),
+          ),
         ),
       );
     }
@@ -75,6 +100,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceNameChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Name changed: ${event.name}');
     emit(
       state.copyWith(name: event.name, status: EditSourceStatus.initial),
     );
@@ -84,6 +110,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceDescriptionChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Description changed: ${event.description}');
     emit(
       state.copyWith(
         description: event.description,
@@ -96,6 +123,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceUrlChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('URL changed: ${event.url}');
     emit(state.copyWith(url: event.url, status: EditSourceStatus.initial));
   }
 
@@ -103,6 +131,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceTypeChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Source type changed: ${event.sourceType?.name}');
     emit(
       state.copyWith(
         sourceType: () => event.sourceType,
@@ -115,6 +144,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceLanguageChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Language changed: ${event.language?.name}');
     emit(
       state.copyWith(
         language: () => event.language,
@@ -127,6 +157,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceHeadquartersChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Headquarters changed: ${event.headquarters?.name}');
     emit(
       state.copyWith(
         headquarters: () => event.headquarters,
@@ -139,10 +170,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceImageChanged event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Image changed: ${event.imageFileName}');
     emit(
       state.copyWith(
         imageFileBytes: ValueWrapper(event.imageFileBytes),
         imageFileName: ValueWrapper(event.imageFileName),
+        imageRemoved: false,
         status: EditSourceStatus.initial,
       ),
     );
@@ -152,10 +185,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceImageRemoved event,
     Emitter<EditSourceState> emit,
   ) {
+    _logger.finer('Image removed.');
     emit(
       state.copyWith(
         imageFileBytes: const ValueWrapper(null),
         imageFileName: const ValueWrapper(null),
+        imageRemoved: true,
         status: EditSourceStatus.initial,
       ),
     );
@@ -166,49 +201,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceSavedAsDraft event,
     Emitter<EditSourceState> emit,
   ) async {
-    emit(state.copyWith(status: EditSourceStatus.submitting));
-    try {
-      final newMediaAssetId = await _uploadImage();
-
-      final originalSource = await _sourcesRepository.read(id: state.sourceId);
-      final updatedSource = originalSource.copyWith(
-        name: state.name,
-        logoUrl: newMediaAssetId != null
-            ? const ValueWrapper(null)
-            : ValueWrapper(originalSource.logoUrl),
-        mediaAssetId: newMediaAssetId != null
-            ? ValueWrapper(newMediaAssetId)
-            : ValueWrapper(originalSource.mediaAssetId),
-        description: state.description,
-        url: state.url,
-        sourceType: state.sourceType,
-        language: state.language,
-        headquarters: state.headquarters,
-        status: ContentStatus.draft,
-        updatedAt: DateTime.now(),
-      );
-
-      await _sourcesRepository.update(
-        id: state.sourceId,
-        item: updatedSource,
-      );
-
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.success,
-          updatedSource: updatedSource,
-        ),
-      );
-    } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
-        ),
-      );
-    }
+    _logger.info('Saving source as draft...');
+    await _submitSource(emit, status: ContentStatus.draft);
   }
 
   /// Handles publishing the source.
@@ -216,33 +210,92 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourcePublished event,
     Emitter<EditSourceState> emit,
   ) async {
-    emit(state.copyWith(status: EditSourceStatus.submitting));
-    try {
-      final newMediaAssetId = await _uploadImage();
+    _logger.info('Publishing source...');
+    await _submitSource(emit, status: ContentStatus.active);
+  }
 
-      final originalSource = await _sourcesRepository.read(id: state.sourceId);
-      final updatedSource = originalSource.copyWith(
+  /// Orchestrates the two-stage process of updating a source.
+  ///
+  /// First, it uploads a new logo file if one has been provided. If the
+  /// upload is successful (or if no new logo was provided), it proceeds to
+  /// update the source entity in the database.
+  ///
+  /// This method includes a critical fix to prevent a race condition by using
+  /// an `initialSource` from the state rather than re-fetching from the repository.
+  Future<void> _submitSource(
+    Emitter<EditSourceState> emit, {
+    required ContentStatus status,
+  }) async {
+    String? newMediaAssetId;
+
+    if (state.imageFileBytes != null && state.imageFileName != null) {
+      emit(state.copyWith(status: EditSourceStatus.imageUploading));
+      _logger.fine('Starting image upload for source: ${state.sourceId}');
+      try {
+        newMediaAssetId = await _mediaRepository.uploadFile(
+          fileBytes: state.imageFileBytes!,
+          fileName: state.imageFileName!,
+          purpose: MediaAssetPurpose.sourceImage,
+        );
+        _optimisticImageCacheService.cacheImage(
+          state.sourceId,
+          state.imageFileBytes!,
+        );
+        _logger.info(
+          'Image upload successful for source ${state.sourceId}. New MediaAssetId: $newMediaAssetId',
+        );
+      } on HttpException catch (e) {
+        _logger.severe('Image upload failed for source: ${state.sourceId}', e);
+        final exception = e is BadRequestException
+            ? const BadRequestException('File is too large.')
+            : e;
+        emit(
+          state.copyWith(
+            status: EditSourceStatus.imageUploadFailure,
+            exception: ValueWrapper(exception),
+          ),
+        );
+        return;
+      }
+    }
+
+    emit(state.copyWith(status: EditSourceStatus.entitySubmitting));
+    _logger.fine('Starting entity update for source: ${state.sourceId}');
+    try {
+      // CRITICAL: Use `state.initialSource` as the base for the update.
+      // This prevents a race condition where another user's edits could be
+      // overwritten. By using the source state as it was when the page
+      // was loaded, we ensure that we are only applying the changes made
+      // in *this* editing session.
+      if (state.initialSource == null) {
+        throw const OperationFailedException(
+          'Cannot update source: initial state is missing.',
+        );
+      }
+      final updatedSource = state.initialSource!.copyWith(
         name: state.name,
-        logoUrl: newMediaAssetId != null
-            ? const ValueWrapper(null)
-            : ValueWrapper(originalSource.logoUrl),
-        mediaAssetId: newMediaAssetId != null
-            ? ValueWrapper(newMediaAssetId)
-            : ValueWrapper(originalSource.mediaAssetId),
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
         language: state.language,
         headquarters: state.headquarters,
-        status: ContentStatus.active,
+        status: status,
         updatedAt: DateTime.now(),
+        logoUrl: (newMediaAssetId != null || state.imageRemoved)
+            ? const ValueWrapper(null)
+            : ValueWrapper(state.initialSource!.logoUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : state.imageRemoved
+            ? const ValueWrapper(null)
+            : ValueWrapper(state.initialSource!.mediaAssetId),
       );
 
-      await _sourcesRepository.update(
-        id: state.sourceId,
-        item: updatedSource,
+      _logger.finer(
+        'Submitting updated source data: ${updatedSource.toJson()}',
       );
-
+      await _sourcesRepository.update(id: state.sourceId, item: updatedSource);
+      _logger.info('Source entity updated successfully: ${state.sourceId}');
       emit(
         state.copyWith(
           status: EditSourceStatus.success,
@@ -250,33 +303,25 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         ),
       );
     } on HttpException catch (e) {
-      emit(state.copyWith(status: EditSourceStatus.failure, exception: e));
-    } catch (e) {
+      _logger.severe('Source entity update failed: ${state.sourceId}', e);
       emit(
         state.copyWith(
-          status: EditSourceStatus.failure,
-          exception: UnknownException('An unexpected error occurred: $e'),
+          status: EditSourceStatus.entitySubmitFailure,
+          exception: ValueWrapper(e),
+        ),
+      );
+    } catch (e) {
+      _logger.severe(
+        'An unexpected error occurred during entity update: ${state.sourceId}',
+      );
+      emit(
+        state.copyWith(
+          status: EditSourceStatus.entitySubmitFailure,
+          exception: ValueWrapper(
+            UnknownException('An unexpected error occurred: $e'),
+          ),
         ),
       );
     }
-  }
-
-  Future<String?> _uploadImage() async {
-    if (state.imageFileBytes != null && state.imageFileName != null) {
-      final mediaAssetId = await _mediaRepository.uploadFile(
-        fileBytes: state.imageFileBytes!,
-        fileName: state.imageFileName!,
-        purpose: MediaAssetPurpose.sourceImage,
-      );
-
-      // Cache the new image optimistically.
-      _optimisticImageCacheService.cacheImage(
-        state.sourceId,
-        state.imageFileBytes!,
-      );
-
-      return mediaAssetId;
-    }
-    return null;
   }
 }
