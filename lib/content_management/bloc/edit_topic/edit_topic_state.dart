@@ -25,7 +25,9 @@ final class EditTopicState extends Equatable {
     this.status = EditTopicStatus.initial,
     this.name = '',
     this.description = '',
-    this.iconUrl = '',
+    this.iconUrl,
+    this.imageFileBytes,
+    this.imageFileName,
     this.exception,
     this.updatedTopic,
   });
@@ -34,24 +36,24 @@ final class EditTopicState extends Equatable {
   final String topicId;
   final String name;
   final String description;
-  final String iconUrl;
+  final String? iconUrl;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
   final HttpException? exception;
   final Topic? updatedTopic;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
-  bool get isFormValid =>
-      topicId.isNotEmpty &&
-      name.isNotEmpty &&
-      description.isNotEmpty &&
-      iconUrl.isNotEmpty;
+  bool get isFormValid => topicId.isNotEmpty && name.isNotEmpty;
 
   EditTopicState copyWith({
     EditTopicStatus? status,
     String? topicId,
     String? name,
     String? description,
-    String? iconUrl,
+    ValueWrapper<String?>? iconUrl,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
     HttpException? exception,
     Topic? updatedTopic,
   }) {
@@ -60,7 +62,13 @@ final class EditTopicState extends Equatable {
       topicId: topicId ?? this.topicId,
       name: name ?? this.name,
       description: description ?? this.description,
-      iconUrl: iconUrl ?? this.iconUrl,
+      iconUrl: iconUrl != null ? iconUrl.value : this.iconUrl,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
       exception: exception ?? this.exception,
       updatedTopic: updatedTopic ?? this.updatedTopic,
     );
@@ -73,6 +81,8 @@ final class EditTopicState extends Equatable {
     name,
     description,
     iconUrl,
+    imageFileBytes,
+    imageFileName,
     exception,
     updatedTopic,
   ];
