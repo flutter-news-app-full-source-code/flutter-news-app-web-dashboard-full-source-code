@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -12,8 +13,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   /// {@macro edit_source_bloc}
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
+    required MediaRepository mediaRepository,
+    required OptimisticImageCacheService optimisticImageCacheService,
     required String sourceId,
   }) : _sourcesRepository = sourcesRepository,
+       _mediaRepository = mediaRepository,
+       _optimisticImageCacheService = optimisticImageCacheService,
        super(
          EditSourceState(sourceId: sourceId, status: EditSourceStatus.loading),
        ) {
@@ -21,10 +26,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
     on<EditSourceUrlChanged>(_onUrlChanged);
-    on<EditSourceLogoUrlChanged>(_onLogoUrlChanged);
     on<EditSourceTypeChanged>(_onSourceTypeChanged);
     on<EditSourceLanguageChanged>(_onLanguageChanged);
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
+    on<EditSourceImageChanged>(_onImageChanged);
+    on<EditSourceImageRemoved>(_onImageRemoved);
     on<EditSourceSavedAsDraft>(_onSavedAsDraft);
     on<EditSourcePublished>(_onPublished);
 
@@ -32,6 +38,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   }
 
   final DataRepository<Source> _sourcesRepository;
+  final MediaRepository _mediaRepository;
+  final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditSourceLoaded(
     EditSourceLoaded event,
@@ -45,7 +53,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           name: source.name,
           description: source.description,
           url: source.url,
-          logoUrl: source.logoUrl,
+          logoUrl: ValueWrapper(source.logoUrl),
           sourceType: () => source.sourceType,
           language: () => source.language,
           headquarters: () => source.headquarters,
@@ -91,16 +99,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(url: event.url, status: EditSourceStatus.initial));
   }
 
-  void _onLogoUrlChanged(
-    EditSourceLogoUrlChanged event,
-    Emitter<EditSourceState> emit,
-  ) {
-    // Update state when the logo URL input changes.
-    emit(
-      state.copyWith(logoUrl: event.logoUrl, status: EditSourceStatus.initial),
-    );
-  }
-
   void _onSourceTypeChanged(
     EditSourceTypeChanged event,
     Emitter<EditSourceState> emit,
@@ -137,6 +135,32 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     );
   }
 
+  void _onImageChanged(
+    EditSourceImageChanged event,
+    Emitter<EditSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: ValueWrapper(event.imageFileBytes),
+        imageFileName: ValueWrapper(event.imageFileName),
+        status: EditSourceStatus.initial,
+      ),
+    );
+  }
+
+  void _onImageRemoved(
+    EditSourceImageRemoved event,
+    Emitter<EditSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        imageFileBytes: const ValueWrapper(null),
+        imageFileName: const ValueWrapper(null),
+        status: EditSourceStatus.initial,
+      ),
+    );
+  }
+
   /// Handles saving the source as a draft.
   Future<void> _onSavedAsDraft(
     EditSourceSavedAsDraft event,
@@ -144,10 +168,17 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.submitting));
     try {
+      final newMediaAssetId = await _uploadImage();
+
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
       final updatedSource = originalSource.copyWith(
         name: state.name,
-        logoUrl: ValueWrapper(state.logoUrl),
+        logoUrl: newMediaAssetId != null
+            ? const ValueWrapper(null)
+            : ValueWrapper(originalSource.logoUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : ValueWrapper(originalSource.mediaAssetId),
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
@@ -187,10 +218,17 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   ) async {
     emit(state.copyWith(status: EditSourceStatus.submitting));
     try {
+      final newMediaAssetId = await _uploadImage();
+
       final originalSource = await _sourcesRepository.read(id: state.sourceId);
       final updatedSource = originalSource.copyWith(
         name: state.name,
-        logoUrl: ValueWrapper(state.logoUrl),
+        logoUrl: newMediaAssetId != null
+            ? const ValueWrapper(null)
+            : ValueWrapper(originalSource.logoUrl),
+        mediaAssetId: newMediaAssetId != null
+            ? ValueWrapper(newMediaAssetId)
+            : ValueWrapper(originalSource.mediaAssetId),
         description: state.description,
         url: state.url,
         sourceType: state.sourceType,
@@ -221,5 +259,24 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         ),
       );
     }
+  }
+
+  Future<String?> _uploadImage() async {
+    if (state.imageFileBytes != null && state.imageFileName != null) {
+      final mediaAssetId = await _mediaRepository.uploadFile(
+        fileBytes: state.imageFileBytes!,
+        fileName: state.imageFileName!,
+        purpose: MediaAssetPurpose.sourceImage,
+      );
+
+      // Cache the new image optimistically.
+      _optimisticImageCacheService.cacheImage(
+        state.sourceId,
+        state.imageFileBytes!,
+      );
+
+      return mediaAssetId;
+    }
+    return null;
   }
 }
