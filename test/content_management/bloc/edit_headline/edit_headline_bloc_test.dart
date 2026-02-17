@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:logging/logging.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -37,6 +38,7 @@ void main() {
         headlinesRepository: headlinesRepository,
         mediaRepository: mediaRepository,
         optimisticImageCacheService: optimisticImageCacheService,
+        logger: Logger('TestEditHeadlineBloc'),
         headlineId: headlineId,
       );
     }
@@ -61,6 +63,7 @@ void main() {
             topic: headlineFixture.topic,
             eventCountry: headlineFixture.eventCountry,
             isBreaking: headlineFixture.isBreaking,
+            initialHeadline: headlineFixture,
           ),
         ],
         verify: (_) {
@@ -108,6 +111,7 @@ void main() {
           topic: headlineFixture.topic,
           eventCountry: headlineFixture.eventCountry,
           isBreaking: headlineFixture.isBreaking,
+          initialHeadline: headlineFixture,
         ),
         act: (bloc) => bloc.add(const EditHeadlineTitleChanged('New Title')),
         expect: () => <EditHeadlineState>[
@@ -121,7 +125,28 @@ void main() {
             topic: headlineFixture.topic,
             eventCountry: headlineFixture.eventCountry,
             isBreaking: headlineFixture.isBreaking,
+            initialHeadline: headlineFixture,
           ),
+        ],
+      );
+    });
+
+    group('EditHeadlineUrlChanged', () {
+      blocTest<EditHeadlineBloc, EditHeadlineState>(
+        'emits new state with updated url',
+        build: buildBloc,
+        seed: () => EditHeadlineState(
+          headlineId: headlineId,
+          initialHeadline: headlineFixture,
+          status: EditHeadlineStatus.initial,
+          title: headlineFixture.title,
+          url: headlineFixture.url,
+        ),
+        act: (bloc) => bloc.add(const EditHeadlineUrlChanged('http://new.url')),
+        expect: () => <dynamic>[
+          isA<EditHeadlineState>()
+              .having((s) => s.url, 'url', 'http://new.url')
+              .having((s) => s.status, 'status', EditHeadlineStatus.initial),
         ],
       );
     });
@@ -140,6 +165,7 @@ void main() {
           topic: headlineFixture.topic,
           eventCountry: headlineFixture.eventCountry,
           isBreaking: headlineFixture.isBreaking,
+          initialHeadline: headlineFixture,
         ),
         act: (bloc) => bloc.add(
           EditHeadlineImageChanged(
@@ -160,7 +186,29 @@ void main() {
             topic: headlineFixture.topic,
             eventCountry: headlineFixture.eventCountry,
             isBreaking: headlineFixture.isBreaking,
+            initialHeadline: headlineFixture,
           ),
+        ],
+      );
+    });
+
+    group('EditHeadlineImageRemoved', () {
+      blocTest<EditHeadlineBloc, EditHeadlineState>(
+        'emits new state with imageRemoved set to true',
+        build: buildBloc,
+        seed: () => EditHeadlineState(
+          headlineId: headlineId,
+          initialHeadline: headlineFixture,
+          status: EditHeadlineStatus.initial,
+          imageUrl: headlineFixture.imageUrl,
+        ),
+        act: (bloc) => bloc.add(const EditHeadlineImageRemoved()),
+        expect: () => <dynamic>[
+          isA<EditHeadlineState>()
+              .having((s) => s.imageFileBytes, 'imageFileBytes', isNull)
+              .having((s) => s.imageFileName, 'imageFileName', isNull)
+              .having((s) => s.imageRemoved, 'imageRemoved', isTrue)
+              .having((s) => s.status, 'status', EditHeadlineStatus.initial),
         ],
       );
     });
@@ -197,29 +245,19 @@ void main() {
         build: buildBloc,
         seed: () => EditHeadlineState(
           headlineId: headlineId,
+          initialHeadline: headlineFixture,
           title: 'Updated Title',
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
           eventCountry: headlineFixture.eventCountry,
         ),
-        setUp: () {
-          when(
-            () => headlinesRepository.update(
-              id: headlineId,
-              item: any(named: 'item'),
-            ),
-          ).thenAnswer(
-            (_) async =>
-                updatedHeadlineFixture.copyWith(status: ContentStatus.draft),
-          );
-        },
         act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
           isA<EditHeadlineState>().having(
             (s) => s.status,
             'status',
-            EditHeadlineStatus.submitting,
+            EditHeadlineStatus.entitySubmitting,
           ),
           isA<EditHeadlineState>()
               .having((s) => s.status, 'status', EditHeadlineStatus.success)
@@ -236,7 +274,12 @@ void main() {
           verify(
             () => headlinesRepository.update(
               id: headlineId,
-              item: any(named: 'item'),
+              item: any(
+                named: 'item',
+                that: isA<Headline>()
+                    .having((h) => h.title, 'title', 'Updated Title')
+                    .having((h) => h.status, 'status', ContentStatus.draft),
+              ),
             ),
           ).called(1);
         },
@@ -247,6 +290,7 @@ void main() {
         build: buildBloc,
         seed: () => EditHeadlineState(
           headlineId: headlineId,
+          initialHeadline: headlineFixture,
           title: 'Updated Title',
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
@@ -260,7 +304,12 @@ void main() {
           isA<EditHeadlineState>().having(
             (s) => s.status,
             'status',
-            EditHeadlineStatus.submitting,
+            EditHeadlineStatus.imageUploading,
+          ),
+          isA<EditHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            EditHeadlineStatus.entitySubmitting,
           ),
           isA<EditHeadlineState>()
               .having((s) => s.status, 'status', EditHeadlineStatus.success)
@@ -286,7 +335,12 @@ void main() {
               item: any(
                 named: 'item',
                 that: isA<Headline>()
-                    .having((h) => h.mediaAssetId, 'mediaAssetId', mediaAssetId)
+                    .having(
+                      (h) => h.mediaAssetId,
+                      'mediaAssetId',
+                      mediaAssetId,
+                    ) // new image
+                    .having((h) => h.status, 'status', ContentStatus.draft)
                     .having((h) => h.imageUrl, 'imageUrl', isNull),
               ),
             ),
@@ -295,7 +349,7 @@ void main() {
       );
 
       blocTest<EditHeadlineBloc, EditHeadlineState>(
-        'emits failure on upload error',
+        'emits [imageUploading, imageUploadFailure] on upload error',
         build: buildBloc,
         setUp: () {
           when(
@@ -308,6 +362,7 @@ void main() {
         },
         seed: () => EditHeadlineState(
           headlineId: headlineId,
+          initialHeadline: headlineFixture,
           title: 'Updated Title',
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
@@ -321,10 +376,14 @@ void main() {
           isA<EditHeadlineState>().having(
             (s) => s.status,
             'status',
-            EditHeadlineStatus.submitting,
+            EditHeadlineStatus.imageUploading,
           ),
           isA<EditHeadlineState>()
-              .having((s) => s.status, 'status', EditHeadlineStatus.failure)
+              .having(
+                (s) => s.status,
+                'status',
+                EditHeadlineStatus.imageUploadFailure,
+              )
               .having(
                 (s) => s.exception,
                 'exception',
@@ -340,16 +399,114 @@ void main() {
           );
         },
       );
+
+      blocTest<EditHeadlineBloc, EditHeadlineState>(
+        'emits [entitySubmitting, entitySubmitFailure] on repository error',
+        build: buildBloc,
+        setUp: () {
+          when(
+            () => headlinesRepository.update(
+              id: any(named: 'id'),
+              item: any(named: 'item'),
+            ),
+          ).thenThrow(const NetworkException());
+        },
+        seed: () => EditHeadlineState(
+          headlineId: headlineId,
+          initialHeadline: headlineFixture,
+          title: 'Updated Title',
+          url: headlineFixture.url,
+          source: headlineFixture.source,
+          topic: headlineFixture.topic,
+          eventCountry: headlineFixture.eventCountry,
+        ),
+        act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
+        expect: () => <dynamic>[
+          isA<EditHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            EditHeadlineStatus.entitySubmitting,
+          ),
+          isA<EditHeadlineState>()
+              .having(
+                (s) => s.status,
+                'status',
+                EditHeadlineStatus.entitySubmitFailure,
+              )
+              .having(
+                (s) => s.exception,
+                'exception',
+                isA<NetworkException>(),
+              ),
+        ],
+      );
+
+      blocTest<EditHeadlineBloc, EditHeadlineState>(
+        'throws exception if initialHeadline is null on submit',
+        build: buildBloc,
+        seed: () => EditHeadlineState(
+          headlineId: headlineId,
+          initialHeadline: null, // This is the key part of the test
+          title: 'Updated Title',
+        ),
+        act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
+        expect: () => <dynamic>[
+          isA<EditHeadlineState>().having(
+            (s) => s.status,
+            'status',
+            EditHeadlineStatus.entitySubmitting,
+          ),
+          isA<EditHeadlineState>()
+              .having(
+                (s) => s.status,
+                'status',
+                EditHeadlineStatus.entitySubmitFailure,
+              )
+              .having(
+                (s) => s.exception,
+                'exception',
+                isA<OperationFailedException>(),
+              ),
+        ],
+      );
     });
 
     group('EditHeadlinePublished', () {
-      // Similar tests as EditHeadlineSavedAsDraft, but checking for
-      // ContentStatus.active in the updated headline.
-      // This is omitted for brevity as the logic is identical.
-      test('updates headline with active status', () {
-        // This test would verify that the headline passed to
-        // headlinesRepository.update has status: ContentStatus.active
+      setUp(() {
+        when(
+          () => headlinesRepository.update(
+            id: any(named: 'id'),
+            item: any(named: 'item'),
+          ),
+        ).thenAnswer((_) async => updatedHeadlineFixture);
       });
+
+      blocTest<EditHeadlineBloc, EditHeadlineState>(
+        'updates headline with active status',
+        build: buildBloc,
+        seed: () => EditHeadlineState(
+          headlineId: headlineId,
+          initialHeadline: headlineFixture,
+          title: 'Updated Title',
+          url: headlineFixture.url,
+          source: headlineFixture.source,
+          topic: headlineFixture.topic,
+          eventCountry: headlineFixture.eventCountry,
+        ),
+        act: (bloc) => bloc.add(const EditHeadlinePublished()),
+        verify: (_) {
+          final headline =
+              verify(
+                    () => headlinesRepository.update(
+                      id: headlineId,
+                      item: captureAny(named: 'item'),
+                    ),
+                  ).captured.first
+                  as Headline;
+          expect(headline.status, ContentStatus.active);
+          expect(headline.title, 'Updated Title');
+        },
+      );
     });
   });
 }
