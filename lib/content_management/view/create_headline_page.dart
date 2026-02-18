@@ -32,19 +32,21 @@ class CreateHeadlinePage extends StatelessWidget {
             .read<OptimisticImageCacheService>(),
         logger: Logger('CreateHeadlineBloc'),
       ),
-      child: const _CreateHeadlineView(),
+      child: const CreateHeadlineView(),
     );
   }
 }
 
-class _CreateHeadlineView extends StatefulWidget {
-  const _CreateHeadlineView();
+/// The view for creating a new headline, containing the form and logic.
+class CreateHeadlineView extends StatefulWidget {
+  /// Creates a [CreateHeadlineView].
+  const CreateHeadlineView({super.key});
 
   @override
-  State<_CreateHeadlineView> createState() => _CreateHeadlineViewState();
+  State<CreateHeadlineView> createState() => _CreateHeadlineViewState();
 }
 
-class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
+class _CreateHeadlineViewState extends State<CreateHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _urlController;
@@ -142,7 +144,11 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
+                  content: Builder(
+                    builder: (context) => Text(
+                      state.exception!.toFriendlyMessage(context),
+                    ),
+                  ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -180,6 +186,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
+                      optimisticImageBytes: state.imageFileBytes,
                       onChanged: (Uint8List? bytes, String? fileName) {
                         final bloc = context.read<CreateHeadlineBloc>();
                         if (bytes == null || fileName == null) {
