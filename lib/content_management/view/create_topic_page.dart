@@ -29,19 +29,19 @@ class CreateTopicPage extends StatelessWidget {
         optimisticImageCacheService: context.read(),
         logger: Logger('CreateTopicBloc'),
       ),
-      child: const _CreateTopicView(),
+      child: const CreateTopicView(),
     );
   }
 }
 
-class _CreateTopicView extends StatefulWidget {
-  const _CreateTopicView();
+class CreateTopicView extends StatefulWidget {
+  const CreateTopicView({super.key});
 
   @override
-  State<_CreateTopicView> createState() => _CreateTopicViewState();
+  State<CreateTopicView> createState() => _CreateTopicViewState();
 }
 
-class _CreateTopicViewState extends State<_CreateTopicView> {
+class _CreateTopicViewState extends State<CreateTopicView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
