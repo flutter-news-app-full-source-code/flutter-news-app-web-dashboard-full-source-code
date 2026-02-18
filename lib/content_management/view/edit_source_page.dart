@@ -33,20 +33,20 @@ class EditSourcePage extends StatelessWidget {
             .read<OptimisticImageCacheService>(),
         sourceId: sourceId,
         logger: Logger('EditSourceBloc'),
-      ),
-      child: const _EditSourceView(),
+      )..add(const EditSourceLoaded()),
+      child: const EditSourceView(),
     );
   }
 }
 
-class _EditSourceView extends StatefulWidget {
-  const _EditSourceView();
+class EditSourceView extends StatefulWidget {
+  const EditSourceView({super.key});
 
   @override
-  State<_EditSourceView> createState() => _EditSourceViewState();
+  State<EditSourceView> createState() => _EditSourceViewState();
 }
 
-class _EditSourceViewState extends State<_EditSourceView> {
+class _EditSourceViewState extends State<EditSourceView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
@@ -55,9 +55,10 @@ class _EditSourceViewState extends State<_EditSourceView> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
-    _descriptionController = TextEditingController();
-    _urlController = TextEditingController();
+    final state = context.read<EditSourceBloc>().state;
+    _nameController = TextEditingController(text: state.name);
+    _descriptionController = TextEditingController(text: state.description);
+    _urlController = TextEditingController(text: state.url);
   }
 
   @override
