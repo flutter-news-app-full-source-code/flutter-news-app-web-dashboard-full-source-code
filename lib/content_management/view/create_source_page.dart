@@ -28,19 +28,19 @@ class CreateSourcePage extends StatelessWidget {
         optimisticImageCacheService: context.read(),
         logger: Logger('CreateSourceBloc'),
       ),
-      child: const _CreateSourceView(),
+      child: const CreateSourceView(),
     );
   }
 }
 
-class _CreateSourceView extends StatefulWidget {
-  const _CreateSourceView();
+class CreateSourceView extends StatefulWidget {
+  const CreateSourceView({super.key});
 
   @override
-  State<_CreateSourceView> createState() => _CreateSourceViewState();
+  State<CreateSourceView> createState() => _CreateSourceViewState();
 }
 
-class _CreateSourceViewState extends State<_CreateSourceView> {
+class _CreateSourceViewState extends State<CreateSourceView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
