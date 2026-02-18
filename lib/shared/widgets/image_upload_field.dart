@@ -126,6 +126,7 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
   ) {
     return SizedBox(
       height: 150,
+      width: double.infinity,
       child: Stack(
         alignment: Alignment.center,
         children: [
