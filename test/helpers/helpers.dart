@@ -21,6 +21,9 @@ void registerFallbackValues() {
   registerFallbackValue(MediaAssetPurpose.headlineImage);
   registerFallbackValue(Uint8List(0));
   registerFallbackValue(<String, dynamic>{});
+  registerFallbackValue(MockDataRepository<Headline>());
+  registerFallbackValue(MockDataRepository<Topic>());
+  registerFallbackValue(MockDataRepository<Source>());
 }
 
 class MockDataRepository<T> extends Mock implements DataRepository<T> {}
