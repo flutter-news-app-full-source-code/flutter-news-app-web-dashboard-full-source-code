@@ -38,20 +38,20 @@ class EditHeadlinePage extends StatelessWidget {
             .read<OptimisticImageCacheService>(),
         headlineId: headlineId,
         logger: Logger('EditHeadlineBloc'),
-      ),
-      child: const _EditHeadlineView(),
+      )..add(const EditHeadlineLoaded()),
+      child: const EditHeadlineView(),
     );
   }
 }
 
-class _EditHeadlineView extends StatefulWidget {
-  const _EditHeadlineView();
+class EditHeadlineView extends StatefulWidget {
+  const EditHeadlineView({super.key});
 
   @override
-  State<_EditHeadlineView> createState() => _EditHeadlineViewState();
+  State<EditHeadlineView> createState() => _EditHeadlineViewState();
 }
 
-class _EditHeadlineViewState extends State<_EditHeadlineView> {
+class _EditHeadlineViewState extends State<EditHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _urlController;
@@ -59,8 +59,9 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController();
-    _urlController = TextEditingController();
+    final state = context.read<EditHeadlineBloc>().state;
+    _titleController = TextEditingController(text: state.title);
+    _urlController = TextEditingController(text: state.url);
   }
 
   @override
