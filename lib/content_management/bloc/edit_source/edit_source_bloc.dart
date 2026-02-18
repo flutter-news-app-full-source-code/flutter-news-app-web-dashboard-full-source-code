@@ -27,9 +27,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
        _mediaRepository = mediaRepository,
        _optimisticImageCacheService = optimisticImageCacheService,
        _logger = logger ?? Logger('EditSourceBloc'),
-       super(
-         EditSourceState(sourceId: sourceId, status: EditSourceStatus.loading),
-       ) {
+       super(EditSourceState(sourceId: sourceId)) {
     on<EditSourceLoaded>(_onEditSourceLoaded);
     on<EditSourceNameChanged>(_onNameChanged);
     on<EditSourceDescriptionChanged>(_onDescriptionChanged);
@@ -41,8 +39,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceImageRemoved>(_onImageRemoved);
     on<EditSourceSavedAsDraft>(_onSavedAsDraft);
     on<EditSourcePublished>(_onPublished);
-
-    add(const EditSourceLoaded());
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -57,6 +53,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     _logger.fine(
       'Loading source for editing with ID: ${state.sourceId}...',
     );
+    emit(state.copyWith(status: EditSourceStatus.loading));
     try {
       final source = await _sourcesRepository.read(id: state.sourceId);
       emit(
