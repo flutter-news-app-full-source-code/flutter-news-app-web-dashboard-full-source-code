@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_client/data_client.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:mocktail/mocktail.dart';

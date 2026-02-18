@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +9,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/content_management_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart' as go_router;
-import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
@@ -258,8 +255,7 @@ void main() {
 
         final verification = verify(
           () => contentManagementBloc.add(captureAny()),
-        );
-        verification.called(greaterThan(0));
+        )..called(greaterThan(0));
         expect(verification.captured.last, isA<LoadHeadlinesRequested>());
       });
 
@@ -276,8 +272,7 @@ void main() {
 
         final verification = verify(
           () => contentManagementBloc.add(captureAny()),
-        );
-        verification.called(greaterThan(0));
+        )..called(greaterThan(0));
         expect(verification.captured.last, isA<LoadTopicsRequested>());
       });
 
@@ -294,8 +289,7 @@ void main() {
 
         final verification = verify(
           () => contentManagementBloc.add(captureAny()),
-        );
-        verification.called(greaterThan(0));
+        )..called(greaterThan(0));
         expect(verification.captured.last, isA<LoadSourcesRequested>());
       });
     });

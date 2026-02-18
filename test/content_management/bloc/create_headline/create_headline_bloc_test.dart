@@ -18,8 +18,8 @@ void main() {
     final topicFixture = getTopicsFixturesData().first;
     final countryFixture = countriesFixturesData.first;
     final headlineFixture = getHeadlinesFixturesData().first.copyWith(
-          status: ContentStatus.draft,
-        );
+      status: ContentStatus.draft,
+    );
     final imageBytes = Uint8List.fromList([1, 2, 3]);
     const imageFileName = 'test.jpg';
 
@@ -368,9 +368,13 @@ void main() {
         ),
         act: (bloc) => bloc.add(const CreateHeadlinePublished()),
         verify: (bloc) {
-          final headline = verify(
-            () => headlinesRepository.create(item: captureAny(named: 'item')),
-          ).captured.first as Headline;
+          final headline =
+              verify(
+                    () => headlinesRepository.create(
+                      item: captureAny(named: 'item'),
+                    ),
+                  ).captured.first
+                  as Headline;
           expect(headline.status, ContentStatus.active);
         },
       );

@@ -19,7 +19,7 @@ extension PumpApp on WidgetTester {
         home: goRouter == null
             ? widget
             : go_router.InheritedGoRouter(
-                goRouter: goRouter!,
+                goRouter: goRouter,
                 child: widget,
               ),
       ),
