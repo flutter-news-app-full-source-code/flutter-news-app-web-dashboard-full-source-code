@@ -185,6 +185,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     _logger.finer('Image removed.');
     emit(
       state.copyWith(
+        logoUrl: const ValueWrapper(null),
         imageFileBytes: const ValueWrapper(null),
         imageFileName: const ValueWrapper(null),
         imageRemoved: true,

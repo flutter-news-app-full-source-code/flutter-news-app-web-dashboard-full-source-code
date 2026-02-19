@@ -49,14 +49,21 @@ final class EditSourceState extends Equatable {
   final Source? initialSource;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid =>
-      sourceId.isNotEmpty &&
-      name.isNotEmpty &&
-      description.isNotEmpty &&
-      url.isNotEmpty &&
-      sourceType != null &&
-      language != null &&
-      headquarters != null;
+  bool get isFormValid {
+    // An image is considered present if there's a new one selected,
+    // or if there was an initial one that hasn't been explicitly removed.
+    final hasImage =
+        imageFileBytes != null || (logoUrl != null && !imageRemoved);
+
+    return sourceId.isNotEmpty &&
+        name.isNotEmpty &&
+        description.isNotEmpty &&
+        url.isNotEmpty &&
+        hasImage &&
+        sourceType != null &&
+        language != null &&
+        headquarters != null;
+  }
 
   EditSourceState copyWith({
     EditSourceStatus? status,
