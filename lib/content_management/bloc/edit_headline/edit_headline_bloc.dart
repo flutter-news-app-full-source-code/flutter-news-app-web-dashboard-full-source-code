@@ -135,6 +135,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     _logger.finer('Image removed.');
     emit(
       state.copyWith(
+        imageUrl: const ValueWrapper(null),
         imageFileBytes: const ValueWrapper(null),
         imageFileName: const ValueWrapper(null),
         imageRemoved: true,

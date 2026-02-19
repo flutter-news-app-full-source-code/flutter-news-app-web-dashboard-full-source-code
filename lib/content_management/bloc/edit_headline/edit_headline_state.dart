@@ -49,13 +49,20 @@ final class EditHeadlineState extends Equatable {
   final Headline? initialHeadline;
 
   /// Returns true if the form is valid and can be submitted.
-  bool get isFormValid =>
-      headlineId.isNotEmpty &&
-      title.isNotEmpty &&
-      url.isNotEmpty && // imageUrl is now optional, imageFileBytes can be used
-      source != null &&
-      topic != null &&
-      eventCountry != null;
+  bool get isFormValid {
+    // An image is considered present if there's a new one selected,
+    // or if there was an initial one that hasn't been explicitly removed.
+    final hasImage =
+        imageFileBytes != null || (imageUrl != null && !imageRemoved);
+
+    return headlineId.isNotEmpty &&
+        title.isNotEmpty &&
+        url.isNotEmpty &&
+        hasImage &&
+        source != null &&
+        topic != null &&
+        eventCountry != null;
+  }
 
   // isBreaking is not part of form validity for editing, as it doesn't
   // trigger new notifications on update.
