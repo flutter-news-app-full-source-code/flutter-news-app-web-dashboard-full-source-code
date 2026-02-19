@@ -34,20 +34,20 @@ class EditTopicPage extends StatelessWidget {
             .read<OptimisticImageCacheService>(),
         topicId: topicId,
         logger: Logger('EditTopicBloc'),
-      ),
-      child: const _EditTopicView(),
+      )..add(const EditTopicLoaded()),
+      child: const EditTopicView(),
     );
   }
 }
 
-class _EditTopicView extends StatefulWidget {
-  const _EditTopicView();
+class EditTopicView extends StatefulWidget {
+  const EditTopicView({super.key});
 
   @override
-  State<_EditTopicView> createState() => _EditTopicViewState();
+  State<EditTopicView> createState() => _EditTopicViewState();
 }
 
-class _EditTopicViewState extends State<_EditTopicView> {
+class _EditTopicViewState extends State<EditTopicView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
