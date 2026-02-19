@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
@@ -37,8 +39,6 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     on<EditTopicImageRemoved>(_onImageRemoved);
     on<EditTopicSavedAsDraft>(_onSavedAsDraft);
     on<EditTopicPublished>(_onPublished);
-
-    add(const EditTopicLoaded());
   }
 
   final DataRepository<Topic> _topicsRepository;
@@ -77,12 +77,13 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     } catch (e) {
       _logger.severe(
         'An unexpected error occurred while loading topic: ${state.topicId}',
+        e,
       );
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
           exception: ValueWrapper(
-            UnknownException('An unexpected error occurred: $e'),
+            const UnknownException('An unexpected error occurred.'),
           ),
         ),
       );
@@ -249,15 +250,17 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           exception: ValueWrapper(e),
         ),
       );
-    } catch (e) {
+    } catch (e, s) {
       _logger.severe(
         'An unexpected error occurred during entity update: ${state.topicId}',
+        e,
+        s,
       );
       emit(
         state.copyWith(
           status: EditTopicStatus.entitySubmitFailure,
           exception: ValueWrapper(
-            UnknownException('An unexpected error occurred: $e'),
+            const UnknownException('An unexpected error occurred.'),
           ),
         ),
       );
