@@ -135,6 +135,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     _logger.finer('Image removed.');
     emit(
       state.copyWith(
+        iconUrl: const ValueWrapper(null),
         imageFileBytes: const ValueWrapper(null),
         imageFileName: const ValueWrapper(null),
         imageRemoved: true,

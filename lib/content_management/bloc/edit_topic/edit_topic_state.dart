@@ -42,7 +42,13 @@ final class EditTopicState extends Equatable {
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
-  bool get isFormValid => name.isNotEmpty && description.isNotEmpty;
+  bool get isFormValid {
+    // An image is considered present if there's a new one selected,
+    // or if there was an initial one that hasn't been explicitly removed.
+    final hasImage =
+        imageFileBytes != null || (iconUrl != null && !imageRemoved);
+    return name.isNotEmpty && description.isNotEmpty && hasImage;
+  }
 
   EditTopicState copyWith({
     EditTopicStatus? status,
