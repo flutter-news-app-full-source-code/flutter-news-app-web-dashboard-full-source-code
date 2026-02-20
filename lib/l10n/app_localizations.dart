@@ -6008,6 +6008,18 @@ abstract class AppLocalizations {
   /// **'Click to upload an image'**
   String get clickToUploadImage;
 
+  /// Text displayed when an image is being processed by the backend.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Image...'**
+  String get processingImage;
+
+  /// Description displayed when an image is being processed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your image is being optimized and will appear shortly.'**
+  String get processingImageDescription;
+
   /// Title for the Uploads Over Time chart card
   ///
   /// In en, this message translates to:

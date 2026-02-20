@@ -3297,6 +3297,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clickToUploadImage => 'انقر لتحميل صورة';
 
   @override
+  String get processingImage => 'جاري معالجة الصورة...';
+
+  @override
+  String get processingImageDescription => 'يتم تحسين صورتك وستظهر قريباً.';
+
+  @override
   String get chartMediaUploadsOverTime => 'التحميلات عبر الزمن';
 
   @override

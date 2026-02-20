@@ -3318,6 +3318,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clickToUploadImage => 'Click to upload an image';
 
   @override
+  String get processingImage => 'Processing Image...';
+
+  @override
+  String get processingImageDescription =>
+      'Your image is being optimized and will appear shortly.';
+
+  @override
   String get chartMediaUploadsOverTime => 'Uploads Over Time';
 
   @override
