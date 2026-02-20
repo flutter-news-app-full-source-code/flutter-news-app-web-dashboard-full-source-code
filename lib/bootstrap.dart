@@ -13,7 +13,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.da
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/data_client/media_api.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:http_client/http_client.dart';
 import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
@@ -38,7 +37,6 @@ Future<Widget> bootstrap(
 
   late final PendingDeletionsService pendingDeletionsService;
   late final AuthRepository authenticationRepository;
-  late final OptimisticImageCacheService optimisticImageCacheService;
 
   final httpClient = HttpClient(
     baseUrl: appConfig.baseUrl,
@@ -190,8 +188,6 @@ Future<Widget> bootstrap(
     logger: Logger('PendingDeletionsService'),
   );
 
-  optimisticImageCacheService = OptimisticImageCacheService();
-
   final headlinesRepository = DataRepository<Headline>(
     dataClient: headlinesClient,
   );
@@ -261,7 +257,6 @@ Future<Widget> bootstrap(
     mediaRepository: mediaRepository,
     userRewardsRepository: userRewardsRepository,
     storageService: kvStorage,
-    optimisticImageCacheService: optimisticImageCacheService,
     environment: environment,
     pendingDeletionsService: pendingDeletionsService,
   );
