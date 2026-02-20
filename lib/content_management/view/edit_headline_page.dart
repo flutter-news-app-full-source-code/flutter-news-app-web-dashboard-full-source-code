@@ -239,13 +239,21 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                         ),
                         Switch(
                           value: state.isBreaking,
-                          onChanged: (value) => context
-                              .read<EditHeadlineBloc>()
-                              .add(EditHeadlineIsBreakingChanged(value)),
+                          onChanged:
+                              state.initialHeadline?.status ==
+                                  ContentStatus.active
+                              ? null
+                              : (value) => context.read<EditHeadlineBloc>().add(
+                                  EditHeadlineIsBreakingChanged(value),
+                                ),
                         ),
                       ],
                     ),
-                    Text(l10n.isBreakingNewsDescriptionEdit),
+                    Text(
+                      state.initialHeadline?.status == ContentStatus.active
+                          ? l10n.isBreakingNewsDescriptionEdit
+                          : l10n.isBreakingNewsDescription,
+                    ),
                     const SizedBox(height: AppSpacing.lg),
                     // Existing SearchableSelectionInput widgets
                     SearchableSelectionInput<Source>(
@@ -383,7 +391,10 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
     }
 
     // If publishing as breaking news, show an extra confirmation.
-    if (selectedStatus == ContentStatus.active && state.isBreaking) {
+    // Only show if it wasn't already active (i.e. we are publishing a draft).
+    if (selectedStatus == ContentStatus.active &&
+        state.isBreaking &&
+        state.initialHeadline?.status != ContentStatus.active) {
       if (!context.mounted) return;
       final confirmBreaking = await _showBreakingNewsConfirmationDialog(
         context,
