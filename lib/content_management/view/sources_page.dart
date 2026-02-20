@@ -63,7 +63,7 @@ class _SourcesPageState extends State<SourcesPage> {
               state.sources.isEmpty) {
             return LoadingStateWidget(
               icon: Icons.rss_feed,
-              headline: l10n.loadingSources,
+              headline: l10n.loadingSource,
               subheadline: l10n.pleaseWait,
             );
           }

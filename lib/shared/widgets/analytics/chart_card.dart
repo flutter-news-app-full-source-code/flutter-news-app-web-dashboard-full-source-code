@@ -122,6 +122,12 @@ class _ChartCardState extends State<ChartCard> {
         return l10n.chartRewardsGrantedOverTime;
       case ChartCardId.rewardsActiveByType:
         return l10n.chartRewardsActiveByType;
+      case ChartCardId.mediaUploadsOverTime:
+        return l10n.chartMediaUploadsOverTime;
+      case ChartCardId.mediaUploadsByPurpose:
+        return l10n.chartMediaUploadsByPurpose;
+      case ChartCardId.mediaUploadsSuccessVsFailure:
+        return l10n.chartMediaUploadsSuccessVsFailure;
     }
   }
 

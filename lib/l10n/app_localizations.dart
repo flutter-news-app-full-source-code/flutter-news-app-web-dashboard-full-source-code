@@ -1190,11 +1190,11 @@ abstract class AppLocalizations {
   /// **'Loading Topic'**
   String get loadingTopic;
 
-  /// Label for the icon URL input field
+  /// Label for an icon upload field
   ///
   /// In en, this message translates to:
-  /// **'Icon URL'**
-  String get iconUrl;
+  /// **'Icon'**
+  String get icon;
 
   /// Message displayed when a topic is updated successfully
   ///
@@ -1334,11 +1334,11 @@ abstract class AppLocalizations {
   /// **'Loading Headline...'**
   String get loadingHeadline;
 
-  /// Label for an image URL input field
+  /// Label for an image upload field
   ///
   /// In en, this message translates to:
-  /// **'Image URL'**
-  String get imageUrl;
+  /// **'Image'**
+  String get image;
 
   /// Error message when updating a headline fails because the original data wasn't loaded
   ///
@@ -1376,17 +1376,41 @@ abstract class AppLocalizations {
   /// **'Create Source'**
   String get createSource;
 
+  /// Title for the dialog asking how to update a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Source'**
+  String get updateSourceTitle;
+
+  /// Message for the dialog asking how to update a source.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updateSourceMessage;
+
   /// Message displayed when a source is created successfully
   ///
   /// In en, this message translates to:
   /// **'Source created successfully.'**
   String get sourceCreatedSuccessfully;
 
+  /// Title for the dialog asking how to update a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Topic'**
+  String get updateTopicTitle;
+
   /// Label for content status
   ///
   /// In en, this message translates to:
   /// **'Status'**
   String get status;
+
+  /// Message for the dialog asking how to update a topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updateTopicMessage;
 
   /// Column header for last updated date
   ///
@@ -2558,11 +2582,11 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get closeButtonText;
 
-  /// Label for the source logo URL input field
+  /// Label for the source logo upload field
   ///
   /// In en, this message translates to:
-  /// **'Logo URL'**
-  String get logoUrl;
+  /// **'Logo'**
+  String get logo;
 
   /// Label for the user management navigation item
   ///
@@ -5965,6 +5989,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If enabled, users will have the option to skip the personalization flow.'**
   String get skippableInitialPersonalizationDescription;
+
+  /// Error message shown when the file picker fails.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while picking the file.'**
+  String get filePickingErrorMessage;
+
+  /// Tooltip for the button to remove a selected image.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove image'**
+  String get removeImage;
+
+  /// Text in the image upload field prompting user action.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to upload an image'**
+  String get clickToUploadImage;
+
+  /// Text displayed when an image is being processed by the backend.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Image...'**
+  String get processingImage;
+
+  /// Description displayed when an image is being processed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your image is being optimized and will appear shortly.'**
+  String get processingImageDescription;
+
+  /// Title for the Uploads Over Time chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Uploads Over Time'**
+  String get chartMediaUploadsOverTime;
+
+  /// Title for the Uploads by Purpose chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Uploads by Purpose'**
+  String get chartMediaUploadsByPurpose;
+
+  /// Title for the Upload Success vs. Failure chart card
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Success vs. Failure'**
+  String get chartMediaUploadsSuccessVsFailure;
+
+  /// Title for the Total Uploads KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Total Uploads'**
+  String get kpiMediaTotalUploads;
+
+  /// Title for the Failed Uploads KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Failed Uploads'**
+  String get kpiMediaFailedUploads;
+
+  /// Title for the Average Upload Time KPI card
+  ///
+  /// In en, this message translates to:
+  /// **'Avg. Upload Time (s)'**
+  String get kpiMediaAverageUploadTime;
+
+  /// Title for the dialog asking how to update a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Headline'**
+  String get updateHeadlineTitle;
+
+  /// Message for the dialog asking how to update a headline.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updateHeadlineMessage;
+
+  /// Label for the Media Upload Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Media Upload Started'**
+  String get analyticsEventMediaUploadStartedLabel;
+
+  /// Description for the Media Upload Started analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a user initiates a file upload.'**
+  String get analyticsEventMediaUploadStartedDescription;
+
+  /// Label for the Media Upload Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Media Upload Completed'**
+  String get analyticsEventMediaUploadCompletedLabel;
+
+  /// Description for the Media Upload Completed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a file upload completes successfully.'**
+  String get analyticsEventMediaUploadCompletedDescription;
+
+  /// Label for the Media Upload Failed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Media Upload Failed'**
+  String get analyticsEventMediaUploadFailedLabel;
+
+  /// Description for the Media Upload Failed analytics event
+  ///
+  /// In en, this message translates to:
+  /// **'Track when a file upload fails.'**
+  String get analyticsEventMediaUploadFailedDescription;
 }
 
 class _AppLocalizationsDelegate

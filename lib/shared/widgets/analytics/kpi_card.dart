@@ -129,6 +129,12 @@ class _KpiCardState extends State<KpiCard> {
         return l10n.kpiRewardsGrantedTotal;
       case KpiCardId.rewardsActiveUsersCount:
         return l10n.kpiRewardsActiveUsersCount;
+      case KpiCardId.mediaTotalUploads:
+        return l10n.kpiMediaTotalUploads;
+      case KpiCardId.mediaFailedUploads:
+        return l10n.kpiMediaFailedUploads;
+      case KpiCardId.mediaAverageUploadTime:
+        return l10n.kpiMediaAverageUploadTime;
     }
   }
 }

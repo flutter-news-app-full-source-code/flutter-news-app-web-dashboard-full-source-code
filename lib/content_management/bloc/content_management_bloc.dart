@@ -236,6 +236,7 @@ class ContentManagementBloc
           limit: event.limit,
         ),
       );
+
       emit(
         state.copyWith(
           headlinesStatus: ContentManagementStatus.success,

@@ -2,20 +2,14 @@ part of 'edit_topic_bloc.dart';
 
 /// Represents the status of the edit topic operation.
 enum EditTopicStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
   failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [EditTopicBloc].
@@ -25,44 +19,66 @@ final class EditTopicState extends Equatable {
     this.status = EditTopicStatus.initial,
     this.name = '',
     this.description = '',
-    this.iconUrl = '',
+    this.iconUrl,
+    this.imageFileBytes,
+    this.imageFileName,
     this.exception,
     this.updatedTopic,
+    this.imageRemoved = false,
+    this.initialTopic,
   });
 
   final EditTopicStatus status;
   final String topicId;
   final String name;
   final String description;
-  final String iconUrl;
+  final String? iconUrl;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
   final HttpException? exception;
   final Topic? updatedTopic;
+  final bool imageRemoved;
+  final Topic? initialTopic;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
-  bool get isFormValid =>
-      topicId.isNotEmpty &&
-      name.isNotEmpty &&
-      description.isNotEmpty &&
-      iconUrl.isNotEmpty;
+  bool get isFormValid {
+    // An image is considered present if there's a new one selected,
+    // or if there was an initial one that hasn't been explicitly removed.
+    final hasImage =
+        imageFileBytes != null || (iconUrl != null && !imageRemoved);
+    return name.isNotEmpty && description.isNotEmpty && hasImage;
+  }
 
   EditTopicState copyWith({
     EditTopicStatus? status,
     String? topicId,
     String? name,
     String? description,
-    String? iconUrl,
-    HttpException? exception,
+    ValueWrapper<String?>? iconUrl,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
+    ValueWrapper<HttpException?>? exception,
     Topic? updatedTopic,
+    bool? imageRemoved,
+    Topic? initialTopic,
   }) {
     return EditTopicState(
       status: status ?? this.status,
       topicId: topicId ?? this.topicId,
       name: name ?? this.name,
       description: description ?? this.description,
-      iconUrl: iconUrl ?? this.iconUrl,
-      exception: exception ?? this.exception,
+      iconUrl: iconUrl != null ? iconUrl.value : this.iconUrl,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
+      exception: exception != null ? exception.value : this.exception,
       updatedTopic: updatedTopic ?? this.updatedTopic,
+      imageRemoved: imageRemoved ?? this.imageRemoved,
+      initialTopic: initialTopic ?? this.initialTopic,
     );
   }
 
@@ -73,7 +89,11 @@ final class EditTopicState extends Equatable {
     name,
     description,
     iconUrl,
+    imageFileBytes,
+    imageFileName,
     exception,
     updatedTopic,
+    imageRemoved,
+    initialTopic,
   ];
 }

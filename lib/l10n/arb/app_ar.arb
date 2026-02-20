@@ -754,9 +754,9 @@
   "@loadingTopic": {
     "description": "رسالة تُعرض أثناء تحميل بيانات الموضوع"
   },
-  "iconUrl": "رابط الأيقونة",
-  "@iconUrl": {
-    "description": "تسمية حقل إدخال رابط الأيقونة"
+  "icon": "أيقونة",
+  "@icon": {
+    "description": "تسمية حقل تحميل الأيقونة"
   },
   "topicUpdatedSuccessfully": "تم تحديث الموضوع بنجاح.",
   "@topicUpdatedSuccessfully": {
@@ -850,9 +850,9 @@
   "@loadingHeadline": {
     "description": "رسالة تُعرض أثناء تحميل بيانات العنوان"
   },
-  "imageUrl": "رابط الصورة",
-  "@imageUrl": {
-    "description": "تسمية حقل إدخال رابط الصورة"
+  "image": "صورة",
+  "@image": {
+    "description": "تسمية حقل تحميل الصورة"
   },
   "cannotUpdateHeadlineError": "لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.",
   "@cannotUpdateHeadlineError": {
@@ -878,13 +878,29 @@
   "@createSource": {
     "description": "عنوان صفحة إنشاء مصدر"
   },
+  "updateSourceTitle": "تحديث المصدر",
+  "@updateSourceTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث المصدر."
+  },
+  "updateSourceMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
+  "@updateSourceMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية تحديث المصدر."
+  },
   "sourceCreatedSuccessfully": "تم إنشاء المصدر بنجاح.",
   "@sourceCreatedSuccessfully": {
     "description": "رسالة تُعرض عند إنشاء المصدر بنجاح"
   },
+  "updateTopicTitle": "تحديث الموضوع",
+  "@updateTopicTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث الموضوع."
+  },
   "status": "الحالة",
   "@status": {
     "description": "تسمية لحالة المحتوى"
+  },
+  "updateTopicMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
+  "@updateTopicMessage": {
+    "description": "Message for the dialog asking how to update a topic."
   },
   "lastUpdated": "آخر تحديث",
   "@lastUpdated": {
@@ -1726,9 +1742,9 @@
   "@closeButtonText": {
     "description": "Text for the close button in a dialog."
   },
-  "logoUrl": "رابط الشعار",
-  "@logoUrl": {
-    "description": "تسمية حقل إدخال رابط شعار المصدر"
+  "logo": "الشعار",
+  "@logo": {
+    "description": "تسمية حقل إدخال شعار المصدر"
   },
   "userManagement": "إدارة المستخدمين",
   "@userManagement": {
@@ -4092,5 +4108,81 @@
   "skippableInitialPersonalizationDescription": "إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.",
   "@skippableInitialPersonalizationDescription": {
     "description": "وصف مفتاح جعل التخصيص الأولي قابلاً للتخطي."
+  },
+  "filePickingErrorMessage": "حدث خطأ أثناء اختيار الملف.",
+  "@filePickingErrorMessage": {
+    "description": "رسالة خطأ تظهر عند فشل منتقي الملفات."
+  },
+  "removeImage": "إزالة الصورة",
+  "@removeImage": {
+    "description": "تلميح لزر إزالة الصورة المحددة."
+  },
+  "clickToUploadImage": "انقر لتحميل صورة",
+  "@clickToUploadImage": {
+    "description": "نص في حقل تحميل الصورة يحث المستخدم على اتخاذ إجراء."
+  },
+  "processingImage": "جاري معالجة الصورة...",
+  "@processingImage": {
+    "description": "النص المعروض عندما تتم معالجة الصورة بواسطة الواجهة الخلفية."
+  },
+  "processingImageDescription": "يتم تحسين صورتك وستظهر قريباً.",
+  "@processingImageDescription": {
+    "description": "الوصف المعروض عندما تتم معالجة الصورة."
+  },
+  "chartMediaUploadsOverTime": "التحميلات عبر الزمن",
+  "@chartMediaUploadsOverTime": {
+    "description": "عنوان بطاقة مخطط التحميلات عبر الزمن"
+  },
+  "chartMediaUploadsByPurpose": "التحميلات حسب الغرض",
+  "@chartMediaUploadsByPurpose": {
+    "description": "عنوان بطاقة مخطط التحميلات حسب الغرض"
+  },
+  "chartMediaUploadsSuccessVsFailure": "نجاح التحميل مقابل الفشل",
+  "@chartMediaUploadsSuccessVsFailure": {
+    "description": "عنوان بطاقة مخطط نجاح التحميل مقابل الفشل"
+  },
+  "kpiMediaTotalUploads": "إجمالي التحميلات",
+  "@kpiMediaTotalUploads": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لإجمالي التحميلات"
+  },
+  "kpiMediaFailedUploads": "التحميلات الفاشلة",
+  "@kpiMediaFailedUploads": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي للتحميلات الفاشلة"
+  },
+  "kpiMediaAverageUploadTime": "متوسط وقت التحميل (ث)",
+  "@kpiMediaAverageUploadTime": {
+    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لمتوسط وقت التحميل"
+  },
+  "updateHeadlineTitle": "تحديث العنوان",
+  "@updateHeadlineTitle": {
+    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث العنوان."
+  },
+  "updateHeadlineMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
+  "@updateHeadlineMessage": {
+    "description": "رسالة مربع الحوار الذي يسأل عن كيفية تحديث العنوان."
+  },
+  "analyticsEventMediaUploadStartedLabel": "بدء تحميل الوسائط",
+  "@analyticsEventMediaUploadStartedLabel": {
+    "description": "تسمية لحدث بدء تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadStartedDescription": "تتبع عندما يبدأ المستخدم في تحميل ملف.",
+  "@analyticsEventMediaUploadStartedDescription": {
+    "description": "وصف لحدث بدء تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadCompletedLabel": "اكتمل تحميل الوسائط",
+  "@analyticsEventMediaUploadCompletedLabel": {
+    "description": "تسمية لحدث اكتمال تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadCompletedDescription": "تتبع عندما يكتمل تحميل ملف بنجاح.",
+  "@analyticsEventMediaUploadCompletedDescription": {
+    "description": "وصف لحدث اكتمال تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadFailedLabel": "فشل تحميل الوسائط",
+  "@analyticsEventMediaUploadFailedLabel": {
+    "description": "تسمية لحدث فشل تحميل الوسائط"
+  },
+  "analyticsEventMediaUploadFailedDescription": "تتبع عندما يفشل تحميل ملف.",
+  "@analyticsEventMediaUploadFailedDescription": {
+    "description": "وصف لحدث فشل تحميل الوسائط"
   }
 }

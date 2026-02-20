@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_source/create_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_source_page}
@@ -22,25 +24,26 @@ class CreateSourcePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
+        mediaRepository: context.read<MediaRepository>(),
+        logger: Logger('CreateSourceBloc'),
       ),
-      child: const _CreateSourceView(),
+      child: const CreateSourceView(),
     );
   }
 }
 
-class _CreateSourceView extends StatefulWidget {
-  const _CreateSourceView();
+class CreateSourceView extends StatefulWidget {
+  const CreateSourceView({super.key});
 
   @override
-  State<_CreateSourceView> createState() => _CreateSourceViewState();
+  State<CreateSourceView> createState() => _CreateSourceViewState();
 }
 
-class _CreateSourceViewState extends State<_CreateSourceView> {
+class _CreateSourceViewState extends State<CreateSourceView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
-  late final TextEditingController _logoUrlController;
 
   @override
   void initState() {
@@ -49,7 +52,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
     _nameController = TextEditingController(text: state.name);
     _descriptionController = TextEditingController(text: state.description);
     _urlController = TextEditingController(text: state.url);
-    _logoUrlController = TextEditingController(text: state.logoUrl);
   }
 
   @override
@@ -57,7 +59,6 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
     _nameController.dispose();
     _descriptionController.dispose();
     _urlController.dispose();
-    _logoUrlController.dispose();
     super.dispose();
   }
 
@@ -92,7 +93,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
         actions: [
           BlocBuilder<CreateSourceBloc, CreateSourceState>(
             builder: (context, state) {
-              if (state.status == CreateSourceStatus.submitting) {
+              if (state.status == CreateSourceStatus.imageUploading ||
+                  state.status == CreateSourceStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -142,7 +144,8 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
               );
             context.pop();
           }
-          if (state.status == CreateSourceStatus.failure) {
+          if (state.status == CreateSourceStatus.imageUploadFailure ||
+              state.status == CreateSourceStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -214,16 +217,22 @@ class _CreateSourceViewState extends State<_CreateSourceView> {
                           .read<CreateSourceBloc>()
                           .add(CreateSourceUrlChanged(value)),
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _logoUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.logoUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceLogoUrlChanged(value)),
+                    const SizedBox(height: AppSpacing.md),
+                    ImageUploadField(
+                      onChanged: (bytes, fileName) {
+                        if (bytes != null && fileName != null) {
+                          context.read<CreateSourceBloc>().add(
+                            CreateSourceImageChanged(
+                              imageFileBytes: bytes,
+                              imageFileName: fileName,
+                            ),
+                          );
+                        } else {
+                          context.read<CreateSourceBloc>().add(
+                            const CreateSourceImageRemoved(),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Language>(

@@ -2,20 +2,13 @@ part of 'create_headline_bloc.dart';
 
 /// Represents the status of the create headline operation.
 enum CreateHeadlineStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
-  failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [CreateHeadlineBloc].
@@ -24,7 +17,8 @@ final class CreateHeadlineState extends Equatable {
     this.status = CreateHeadlineStatus.initial,
     this.title = '',
     this.url = '',
-    this.imageUrl = '',
+    this.imageFileBytes,
+    this.imageFileName,
     this.source,
     this.topic,
     this.eventCountry,
@@ -36,7 +30,8 @@ final class CreateHeadlineState extends Equatable {
   final CreateHeadlineStatus status;
   final String title;
   final String url;
-  final String imageUrl;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
   final Source? source;
   final Topic? topic;
   final Country? eventCountry;
@@ -48,34 +43,40 @@ final class CreateHeadlineState extends Equatable {
   bool get isFormValid =>
       title.isNotEmpty &&
       url.isNotEmpty &&
-      imageUrl.isNotEmpty &&
+      imageFileBytes != null &&
+      imageFileName != null &&
       source != null &&
       topic != null &&
-      eventCountry != null &&
-      !isBreaking;
+      eventCountry != null;
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
     String? title,
     String? url,
-    String? imageUrl,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
     ValueGetter<Country?>? eventCountry,
     bool? isBreaking,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Headline? createdHeadline,
   }) {
     return CreateHeadlineState(
       status: status ?? this.status,
       title: title ?? this.title,
       url: url ?? this.url,
-      imageUrl: imageUrl ?? this.imageUrl,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
       eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
       isBreaking: isBreaking ?? this.isBreaking,
-      exception: exception,
+      exception: exception != null ? exception.value : this.exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
     );
   }
@@ -85,7 +86,8 @@ final class CreateHeadlineState extends Equatable {
     status,
     title,
     url,
-    imageUrl,
+    imageFileBytes,
+    imageFileName,
     source,
     topic,
     eventCountry,

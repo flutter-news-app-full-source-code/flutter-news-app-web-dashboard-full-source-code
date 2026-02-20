@@ -1,11 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_headline_page}
@@ -27,40 +32,68 @@ class EditHeadlinePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
+        mediaRepository: context.read<MediaRepository>(),
         headlineId: headlineId,
-      ),
-      child: const _EditHeadlineView(),
+        logger: Logger('EditHeadlineBloc'),
+      )..add(const EditHeadlineLoaded()),
+      child: const EditHeadlineView(),
     );
   }
 }
 
-class _EditHeadlineView extends StatefulWidget {
-  const _EditHeadlineView();
+class EditHeadlineView extends StatefulWidget {
+  const EditHeadlineView({super.key});
 
   @override
-  State<_EditHeadlineView> createState() => _EditHeadlineViewState();
+  State<EditHeadlineView> createState() => _EditHeadlineViewState();
 }
 
-class _EditHeadlineViewState extends State<_EditHeadlineView> {
+class _EditHeadlineViewState extends State<EditHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _urlController;
-  late final TextEditingController _imageUrlController;
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController();
-    _urlController = TextEditingController();
-    _imageUrlController = TextEditingController();
+    final state = context.read<EditHeadlineBloc>().state;
+    _titleController = TextEditingController(text: state.title);
+    _urlController = TextEditingController(text: state.url);
   }
 
   @override
   void dispose() {
     _titleController.dispose();
     _urlController.dispose();
-    _imageUrlController.dispose();
     super.dispose();
+  }
+
+  /// Shows a dialog to the user to choose between publishing or saving as draft.
+  Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizationsX(context).l10n;
+    return showDialog<ContentStatus>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.updateHeadlineTitle),
+        content: Text(l10n.updateHeadlineMessage),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.draft);
+            },
+            child: Text(l10n.saveAsDraft),
+          ),
+          TextButton(
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.active);
+            },
+            child: Text(l10n.publish),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -72,7 +105,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
         actions: [
           BlocBuilder<EditHeadlineBloc, EditHeadlineState>(
             builder: (context, state) {
-              if (state.status == EditHeadlineStatus.submitting) {
+              if (state.status == EditHeadlineStatus.imageUploading ||
+                  state.status == EditHeadlineStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -87,28 +121,7 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        // On edit page, directly save without a prompt.
-                        // The status (draft/active) is determined by the original headline
-                        // and is not changed by this save action unless a specific
-                        // "change status" UI element is introduced (out of scope).
-                        // For now, we assume the current status is maintained.
-                        final originalHeadline = await context
-                            .read<DataRepository<Headline>>()
-                            .read(id: state.headlineId);
-
-                        if (context.mounted) {
-                          if (originalHeadline.status == ContentStatus.active) {
-                            context.read<EditHeadlineBloc>().add(
-                              const EditHeadlinePublished(),
-                            );
-                          } else {
-                            context.read<EditHeadlineBloc>().add(
-                              const EditHeadlineSavedAsDraft(),
-                            );
-                          }
-                        }
-                      }
+                    ? () => _handleSave(context, state, l10n)
                     : null,
               );
             },
@@ -128,7 +141,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
               );
             context.pop();
           }
-          if (state.status == EditHeadlineStatus.failure) {
+          if (state.status == EditHeadlineStatus.imageUploadFailure ||
+              state.status == EditHeadlineStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -142,7 +156,6 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
           if (state.status == EditHeadlineStatus.initial) {
             _titleController.text = state.title;
             _urlController.text = state.url;
-            _imageUrlController.text = state.imageUrl;
             // No need to update a controller for `isBreaking` as it's a Switch.
           }
         },
@@ -155,7 +168,8 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             );
           }
 
-          if (state.status == EditHeadlineStatus.failure &&
+          if ((state.status == EditHeadlineStatus.entitySubmitFailure ||
+                  state.status == EditHeadlineStatus.failure) &&
               state.title.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
@@ -195,15 +209,24 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                           .add(EditHeadlineUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _imageUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.imageUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineImageUrlChanged(value)),
+                    ImageUploadField(
+                      initialImageUrl: state.imageUrl,
+                      isProcessing:
+                          state.initialHeadline?.mediaAssetId != null &&
+                          state.imageUrl == null,
+                      onChanged: (Uint8List? bytes, String? fileName) {
+                        final bloc = context.read<EditHeadlineBloc>();
+                        if (bytes == null || fileName == null) {
+                          bloc.add(const EditHeadlineImageRemoved());
+                          return;
+                        }
+                        bloc.add(
+                          EditHeadlineImageChanged(
+                            imageFileBytes: bytes,
+                            imageFileName: fileName,
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     Row(
@@ -216,13 +239,21 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
                         ),
                         Switch(
                           value: state.isBreaking,
-                          onChanged: (value) => context
-                              .read<EditHeadlineBloc>()
-                              .add(EditHeadlineIsBreakingChanged(value)),
+                          onChanged:
+                              state.initialHeadline?.status ==
+                                  ContentStatus.active
+                              ? null
+                              : (value) => context.read<EditHeadlineBloc>().add(
+                                  EditHeadlineIsBreakingChanged(value),
+                                ),
                         ),
                       ],
                     ),
-                    Text(l10n.isBreakingNewsDescriptionEdit),
+                    Text(
+                      state.initialHeadline?.status == ContentStatus.active
+                          ? l10n.isBreakingNewsDescriptionEdit
+                          : l10n.isBreakingNewsDescription,
+                    ),
                     const SizedBox(height: AppSpacing.lg),
                     // Existing SearchableSelectionInput widgets
                     SearchableSelectionInput<Source>(
@@ -321,6 +352,87 @@ class _EditHeadlineViewState extends State<_EditHeadlineView> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  /// Handles the save logic, including showing save options and the
+  /// confirmation dialog for breaking news.
+  Future<void> _handleSave(
+    BuildContext context,
+    EditHeadlineState state,
+    AppLocalizations l10n,
+  ) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+
+    // If the user cancels the dialog, do nothing.
+    if (selectedStatus == null) return;
+
+    // If the user tries to save as draft but it's breaking news, show an error.
+    if (selectedStatus == ContentStatus.draft && state.isBreaking) {
+      if (!context.mounted) return;
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(l10n.invalidFormTitle),
+          content: Text(l10n.cannotDraftBreakingNews),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
+              },
+              child: Text(l10n.ok),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // If publishing as breaking news, show an extra confirmation.
+    // Only show if it wasn't already active (i.e. we are publishing a draft).
+    if (selectedStatus == ContentStatus.active &&
+        state.isBreaking &&
+        state.initialHeadline?.status != ContentStatus.active) {
+      if (!context.mounted) return;
+      final confirmBreaking = await _showBreakingNewsConfirmationDialog(
+        context,
+        l10n,
+      );
+      if (confirmBreaking != true) return;
+    }
+
+    // Dispatch the appropriate event based on user's choice.
+    if (selectedStatus == ContentStatus.active) {
+      if (!context.mounted) return;
+      context.read<EditHeadlineBloc>().add(const EditHeadlinePublished());
+    } else if (selectedStatus == ContentStatus.draft) {
+      if (!context.mounted) return;
+      context.read<EditHeadlineBloc>().add(const EditHeadlineSavedAsDraft());
+    }
+  }
+
+  /// Shows a confirmation dialog specifically for publishing breaking news.
+  Future<bool?> _showBreakingNewsConfirmationDialog(
+    BuildContext context,
+    AppLocalizations l10n,
+  ) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.confirmBreakingNewsTitle),
+        content: Text(l10n.confirmBreakingNewsMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancelButton),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.confirmPublishButton),
+          ),
+        ],
       ),
     );
   }

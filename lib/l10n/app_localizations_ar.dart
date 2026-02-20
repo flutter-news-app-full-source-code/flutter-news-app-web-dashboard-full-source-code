@@ -627,7 +627,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingTopic => 'جاري تحميل الموضوع';
 
   @override
-  String get iconUrl => 'رابط الأيقونة';
+  String get icon => 'أيقونة';
 
   @override
   String get topicUpdatedSuccessfully => 'تم تحديث الموضوع بنجاح.';
@@ -701,7 +701,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loadingHeadline => 'جاري تحميل العنوان...';
 
   @override
-  String get imageUrl => 'رابط الصورة';
+  String get image => 'صورة';
 
   @override
   String get cannotUpdateHeadlineError =>
@@ -723,10 +723,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createSource => 'إنشاء مصدر';
 
   @override
+  String get updateSourceTitle => 'تحديث المصدر';
+
+  @override
+  String get updateSourceMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
+
+  @override
   String get sourceCreatedSuccessfully => 'تم إنشاء المصدر بنجاح.';
 
   @override
+  String get updateTopicTitle => 'تحديث الموضوع';
+
+  @override
   String get status => 'الحالة';
+
+  @override
+  String get updateTopicMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
 
   @override
   String get lastUpdated => 'آخر تحديث';
@@ -1366,7 +1380,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get closeButtonText => 'إغلاق';
 
   @override
-  String get logoUrl => 'رابط الشعار';
+  String get logo => 'الشعار';
 
   @override
   String get userManagement => 'إدارة المستخدمين';
@@ -3272,4 +3286,65 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get skippableInitialPersonalizationDescription =>
       'إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.';
+
+  @override
+  String get filePickingErrorMessage => 'حدث خطأ أثناء اختيار الملف.';
+
+  @override
+  String get removeImage => 'إزالة الصورة';
+
+  @override
+  String get clickToUploadImage => 'انقر لتحميل صورة';
+
+  @override
+  String get processingImage => 'جاري معالجة الصورة...';
+
+  @override
+  String get processingImageDescription => 'يتم تحسين صورتك وستظهر قريباً.';
+
+  @override
+  String get chartMediaUploadsOverTime => 'التحميلات عبر الزمن';
+
+  @override
+  String get chartMediaUploadsByPurpose => 'التحميلات حسب الغرض';
+
+  @override
+  String get chartMediaUploadsSuccessVsFailure => 'نجاح التحميل مقابل الفشل';
+
+  @override
+  String get kpiMediaTotalUploads => 'إجمالي التحميلات';
+
+  @override
+  String get kpiMediaFailedUploads => 'التحميلات الفاشلة';
+
+  @override
+  String get kpiMediaAverageUploadTime => 'متوسط وقت التحميل (ث)';
+
+  @override
+  String get updateHeadlineTitle => 'تحديث العنوان';
+
+  @override
+  String get updateHeadlineMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
+
+  @override
+  String get analyticsEventMediaUploadStartedLabel => 'بدء تحميل الوسائط';
+
+  @override
+  String get analyticsEventMediaUploadStartedDescription =>
+      'تتبع عندما يبدأ المستخدم في تحميل ملف.';
+
+  @override
+  String get analyticsEventMediaUploadCompletedLabel => 'اكتمل تحميل الوسائط';
+
+  @override
+  String get analyticsEventMediaUploadCompletedDescription =>
+      'تتبع عندما يكتمل تحميل ملف بنجاح.';
+
+  @override
+  String get analyticsEventMediaUploadFailedLabel => 'فشل تحميل الوسائط';
+
+  @override
+  String get analyticsEventMediaUploadFailedDescription =>
+      'تتبع عندما يفشل تحميل ملف.';
 }

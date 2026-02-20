@@ -2,20 +2,14 @@ part of 'create_source_bloc.dart';
 
 /// Represents the status of the create source operation.
 enum CreateSourceStatus {
-  /// Initial state, before any data is loaded.
   initial,
-
-  /// Data is being loaded.
   loading,
-
-  /// An operation completed successfully.
   success,
-
-  /// An error occurred.
   failure,
-
-  /// The form is being submitted.
-  submitting,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [CreateSourceBloc].
@@ -26,23 +20,25 @@ final class CreateSourceState extends Equatable {
     this.name = '',
     this.description = '',
     this.url = '',
-    this.logoUrl = '',
+    this.imageFileBytes,
+    this.imageFileName,
     this.sourceType,
     this.language,
     this.headquarters,
-    this.exception,
     this.createdSource,
+    this.exception,
   });
 
   final CreateSourceStatus status;
   final String name;
   final String description;
   final String url;
-  final String logoUrl;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
   final SourceType? sourceType;
   final Language? language;
   final Country? headquarters;
-  final HttpException? exception;
+  final HttpException? exception; // Used for both image and entity failures
   final Source? createdSource;
 
   /// Returns true if the form is valid and can be submitted.
@@ -50,7 +46,8 @@ final class CreateSourceState extends Equatable {
       name.isNotEmpty &&
       description.isNotEmpty &&
       url.isNotEmpty &&
-      logoUrl.isNotEmpty &&
+      imageFileBytes != null &&
+      imageFileName != null &&
       sourceType != null &&
       language != null &&
       headquarters != null;
@@ -60,11 +57,12 @@ final class CreateSourceState extends Equatable {
     String? name,
     String? description,
     String? url,
-    String? logoUrl,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<Language?>? language,
     ValueGetter<Country?>? headquarters,
-    HttpException? exception,
+    ValueWrapper<HttpException?>? exception,
     Source? createdSource,
   }) {
     return CreateSourceState(
@@ -72,11 +70,16 @@ final class CreateSourceState extends Equatable {
       name: name ?? this.name,
       description: description ?? this.description,
       url: url ?? this.url,
-      logoUrl: logoUrl ?? this.logoUrl,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
-      exception: exception,
+      exception: exception != null ? exception.value : this.exception,
       createdSource: createdSource ?? this.createdSource,
     );
   }
@@ -87,7 +90,8 @@ final class CreateSourceState extends Equatable {
     name,
     description,
     url,
-    logoUrl,
+    imageFileBytes,
+    imageFileName,
     sourceType,
     language,
     headquarters,

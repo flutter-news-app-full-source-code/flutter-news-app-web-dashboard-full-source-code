@@ -2,17 +2,14 @@ part of 'create_topic_bloc.dart';
 
 /// Represents the status of the create topic operation.
 enum CreateTopicStatus {
-  /// Initial state.
   initial,
-
-  /// The form is being submitted.
-  submitting,
-
-  /// The operation completed successfully.
+  loading,
   success,
-
-  /// An error occurred.
   failure,
+  imageUploading,
+  imageUploadFailure,
+  entitySubmitting,
+  entitySubmitFailure,
 }
 
 /// The state for the [CreateTopicBloc].
@@ -22,37 +19,48 @@ final class CreateTopicState extends Equatable {
     this.status = CreateTopicStatus.initial,
     this.name = '',
     this.description = '',
-    this.iconUrl = '',
-    this.exception,
+    this.imageFileBytes,
+    this.imageFileName,
     this.createdTopic,
+    this.exception,
   });
 
   final CreateTopicStatus status;
   final String name;
   final String description;
-  final String iconUrl;
-  final HttpException? exception;
+  final Uint8List? imageFileBytes;
+  final String? imageFileName;
+  final HttpException? exception; // Used for both image and entity failures
   final Topic? createdTopic;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
   bool get isFormValid =>
-      name.isNotEmpty && description.isNotEmpty && iconUrl.isNotEmpty;
+      name.isNotEmpty &&
+      description.isNotEmpty &&
+      imageFileBytes != null &&
+      imageFileName != null;
 
   CreateTopicState copyWith({
     CreateTopicStatus? status,
     String? name,
     String? description,
-    String? iconUrl,
-    HttpException? exception,
+    ValueWrapper<Uint8List?>? imageFileBytes,
+    ValueWrapper<String?>? imageFileName,
+    ValueWrapper<HttpException?>? exception,
     Topic? createdTopic,
   }) {
     return CreateTopicState(
       status: status ?? this.status,
       name: name ?? this.name,
       description: description ?? this.description,
-      iconUrl: iconUrl ?? this.iconUrl,
-      exception: exception,
+      imageFileBytes: imageFileBytes != null
+          ? imageFileBytes.value
+          : this.imageFileBytes,
+      imageFileName: imageFileName != null
+          ? imageFileName.value
+          : this.imageFileName,
+      exception: exception != null ? exception.value : this.exception,
       createdTopic: createdTopic ?? this.createdTopic,
     );
   }
@@ -62,7 +70,8 @@ final class CreateTopicState extends Equatable {
     status,
     name,
     description,
-    iconUrl,
+    imageFileBytes,
+    imageFileName,
     exception,
     createdTopic,
   ];

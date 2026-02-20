@@ -33,14 +33,23 @@ final class EditTopicDescriptionChanged extends EditTopicEvent {
   List<Object?> get props => [description];
 }
 
-/// Event triggered when the topic icon URL input changes.
-final class EditTopicIconUrlChanged extends EditTopicEvent {
-  const EditTopicIconUrlChanged(this.iconUrl);
+/// Event for when the topic's icon image is changed.
+final class EditTopicImageChanged extends EditTopicEvent {
+  const EditTopicImageChanged({
+    required this.imageFileBytes,
+    required this.imageFileName,
+  });
 
-  final String iconUrl;
+  final Uint8List imageFileBytes;
+  final String imageFileName;
 
   @override
-  List<Object?> get props => [iconUrl];
+  List<Object?> get props => [imageFileBytes, imageFileName];
+}
+
+/// Event for when the topic's icon image is removed.
+final class EditTopicImageRemoved extends EditTopicEvent {
+  const EditTopicImageRemoved();
 }
 
 /// Event to save the topic as a draft.

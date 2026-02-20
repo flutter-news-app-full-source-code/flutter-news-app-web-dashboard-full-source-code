@@ -1,0 +1,46 @@
+import 'dart:typed_data';
+
+import 'package:core/core.dart';
+import 'package:data_repository/data_repository.dart';
+
+import 'package:mocktail/mocktail.dart';
+
+export 'package:bloc_test/bloc_test.dart';
+export 'package:flutter_test/flutter_test.dart';
+export 'package:mocktail/mocktail.dart';
+
+void registerFallbackValues() {
+  registerFallbackValue(Uri.parse('http://example.com'));
+  registerFallbackValue(const Duration(seconds: 1));
+  registerFallbackValue(FakeHeadline(id: 'fake-id'));
+  registerFallbackValue(FakeSource());
+  registerFallbackValue(FakeTopic());
+  registerFallbackValue(FakeCountry());
+  registerFallbackValue(FakeLanguage());
+  registerFallbackValue(const ValueWrapper<HttpException?>(null));
+  registerFallbackValue(MediaAssetPurpose.headlineImage);
+  registerFallbackValue(Uint8List(0));
+  registerFallbackValue(<String, dynamic>{});
+  registerFallbackValue(<String, String>{});
+  registerFallbackValue(MockDataRepository<Headline>());
+  registerFallbackValue(MockDataRepository<Topic>());
+  registerFallbackValue(MockDataRepository<Source>());
+}
+
+class MockDataRepository<T> extends Mock implements DataRepository<T> {}
+
+class MockMediaRepository extends Mock implements MediaRepository {}
+
+class FakeHeadline extends Fake implements Headline {
+  FakeHeadline({required this.id});
+  @override
+  final String id;
+}
+
+class FakeSource extends Fake implements Source {}
+
+class FakeTopic extends Fake implements Topic {}
+
+class FakeCountry extends Fake implements Country {}
+
+class FakeLanguage extends Fake implements Language {}

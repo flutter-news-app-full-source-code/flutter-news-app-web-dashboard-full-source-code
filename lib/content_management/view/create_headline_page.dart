@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_headline_page}
@@ -22,24 +26,27 @@ class CreateHeadlinePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => CreateHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
+        mediaRepository: context.read<MediaRepository>(),
+        logger: Logger('CreateHeadlineBloc'),
       ),
-      child: const _CreateHeadlineView(),
+      child: const CreateHeadlineView(),
     );
   }
 }
 
-class _CreateHeadlineView extends StatefulWidget {
-  const _CreateHeadlineView();
+/// The view for creating a new headline, containing the form and logic.
+class CreateHeadlineView extends StatefulWidget {
+  /// Creates a [CreateHeadlineView].
+  const CreateHeadlineView({super.key});
 
   @override
-  State<_CreateHeadlineView> createState() => _CreateHeadlineViewState();
+  State<CreateHeadlineView> createState() => _CreateHeadlineViewState();
 }
 
-class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
+class _CreateHeadlineViewState extends State<CreateHeadlineView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _urlController;
-  late final TextEditingController _imageUrlController;
 
   @override
   void initState() {
@@ -47,14 +54,12 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
     final state = context.read<CreateHeadlineBloc>().state;
     _titleController = TextEditingController(text: state.title);
     _urlController = TextEditingController(text: state.url);
-    _imageUrlController = TextEditingController(text: state.imageUrl);
   }
 
   @override
   void dispose() {
     _titleController.dispose();
     _urlController.dispose();
-    _imageUrlController.dispose();
     super.dispose();
   }
 
@@ -95,7 +100,8 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         actions: [
           BlocBuilder<CreateHeadlineBloc, CreateHeadlineState>(
             builder: (context, state) {
-              if (state.status == CreateHeadlineStatus.submitting) {
+              if (state.status == CreateHeadlineStatus.imageUploading ||
+                  state.status == CreateHeadlineStatus.entitySubmitting) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -121,8 +127,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateHeadlineStatus.success &&
-              state.createdHeadline != null &&
-              ModalRoute.of(context)!.isCurrent) {
+              state.createdHeadline != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -130,12 +135,17 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
               );
             context.pop();
           }
-          if (state.status == CreateHeadlineStatus.failure) {
+          if (state.status == CreateHeadlineStatus.imageUploadFailure ||
+              state.status == CreateHeadlineStatus.entitySubmitFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
+                  content: Builder(
+                    builder: (context) => Text(
+                      state.exception!.toFriendlyMessage(context),
+                    ),
+                  ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -172,15 +182,20 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
                           .add(CreateHeadlineUrlChanged(value)),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _imageUrlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.imageUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<CreateHeadlineBloc>()
-                          .add(CreateHeadlineImageUrlChanged(value)),
+                    ImageUploadField(
+                      onChanged: (Uint8List? bytes, String? fileName) {
+                        final bloc = context.read<CreateHeadlineBloc>();
+                        if (bytes == null || fileName == null) {
+                          bloc.add(const CreateHeadlineImageRemoved());
+                          return;
+                        }
+                        bloc.add(
+                          CreateHeadlineImageChanged(
+                            imageFileBytes: bytes,
+                            imageFileName: fileName,
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     Row(
@@ -310,7 +325,7 @@ class _CreateHeadlineViewState extends State<_CreateHeadlineView> {
     final allFieldsFilled =
         state.title.isNotEmpty &&
         state.url.isNotEmpty &&
-        state.imageUrl.isNotEmpty &&
+        state.imageFileBytes != null &&
         state.source != null &&
         state.topic != null &&
         state.eventCountry != null;

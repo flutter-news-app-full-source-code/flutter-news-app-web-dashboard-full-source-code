@@ -30,11 +30,20 @@ final class EditHeadlineUrlChanged extends EditHeadlineEvent {
 }
 
 /// Event for when the headline's image URL is changed.
-final class EditHeadlineImageUrlChanged extends EditHeadlineEvent {
-  const EditHeadlineImageUrlChanged(this.imageUrl);
-  final String imageUrl;
+final class EditHeadlineImageChanged extends EditHeadlineEvent {
+  const EditHeadlineImageChanged({
+    required this.imageFileBytes,
+    required this.imageFileName,
+  });
+  final Uint8List imageFileBytes;
+  final String imageFileName;
   @override
-  List<Object?> get props => [imageUrl];
+  List<Object?> get props => [imageFileBytes, imageFileName];
+}
+
+/// Event for when the headline's image is removed.
+final class EditHeadlineImageRemoved extends EditHeadlineEvent {
+  const EditHeadlineImageRemoved();
 }
 
 /// Event for when the headline's source is changed.

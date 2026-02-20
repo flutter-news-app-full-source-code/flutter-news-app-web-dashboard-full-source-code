@@ -625,7 +625,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadingTopic => 'Loading Topic';
 
   @override
-  String get iconUrl => 'Icon URL';
+  String get icon => 'Icon';
 
   @override
   String get topicUpdatedSuccessfully => 'Topic updated successfully.';
@@ -699,7 +699,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loadingHeadline => 'Loading Headline...';
 
   @override
-  String get imageUrl => 'Image URL';
+  String get image => 'Image';
 
   @override
   String get cannotUpdateHeadlineError =>
@@ -721,10 +721,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createSource => 'Create Source';
 
   @override
+  String get updateSourceTitle => 'Update Source';
+
+  @override
+  String get updateSourceMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
+
+  @override
   String get sourceCreatedSuccessfully => 'Source created successfully.';
 
   @override
+  String get updateTopicTitle => 'Update Topic';
+
+  @override
   String get status => 'Status';
+
+  @override
+  String get updateTopicMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
 
   @override
   String get lastUpdated => 'Last Updated';
@@ -1367,7 +1381,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeButtonText => 'Close';
 
   @override
-  String get logoUrl => 'Logo URL';
+  String get logo => 'Logo';
 
   @override
   String get userManagement => 'User Management';
@@ -3292,4 +3306,68 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get skippableInitialPersonalizationDescription =>
       'If enabled, users will have the option to skip the personalization flow.';
+
+  @override
+  String get filePickingErrorMessage =>
+      'An error occurred while picking the file.';
+
+  @override
+  String get removeImage => 'Remove image';
+
+  @override
+  String get clickToUploadImage => 'Click to upload an image';
+
+  @override
+  String get processingImage => 'Processing Image...';
+
+  @override
+  String get processingImageDescription =>
+      'Your image is being optimized and will appear shortly.';
+
+  @override
+  String get chartMediaUploadsOverTime => 'Uploads Over Time';
+
+  @override
+  String get chartMediaUploadsByPurpose => 'Uploads by Purpose';
+
+  @override
+  String get chartMediaUploadsSuccessVsFailure => 'Upload Success vs. Failure';
+
+  @override
+  String get kpiMediaTotalUploads => 'Total Uploads';
+
+  @override
+  String get kpiMediaFailedUploads => 'Failed Uploads';
+
+  @override
+  String get kpiMediaAverageUploadTime => 'Avg. Upload Time (s)';
+
+  @override
+  String get updateHeadlineTitle => 'Update Headline';
+
+  @override
+  String get updateHeadlineMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
+
+  @override
+  String get analyticsEventMediaUploadStartedLabel => 'Media Upload Started';
+
+  @override
+  String get analyticsEventMediaUploadStartedDescription =>
+      'Track when a user initiates a file upload.';
+
+  @override
+  String get analyticsEventMediaUploadCompletedLabel =>
+      'Media Upload Completed';
+
+  @override
+  String get analyticsEventMediaUploadCompletedDescription =>
+      'Track when a file upload completes successfully.';
+
+  @override
+  String get analyticsEventMediaUploadFailedLabel => 'Media Upload Failed';
+
+  @override
+  String get analyticsEventMediaUploadFailedDescription =>
+      'Track when a file upload fails.';
 }
