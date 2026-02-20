@@ -4113,6 +4113,14 @@
   "@clickToUploadImage": {
     "description": "Text in the image upload field prompting user action."
   },
+  "processingImage": "Processing Image...",
+  "@processingImage": {
+    "description": "Text displayed when an image is being processed by the backend."
+  },
+  "processingImageDescription": "Your image is being optimized and will appear shortly.",
+  "@processingImageDescription": {
+    "description": "Description displayed when an image is being processed."
+  },
   "chartMediaUploadsOverTime": "Uploads Over Time",
   "@chartMediaUploadsOverTime": {
     "description": "Title for the Uploads Over Time chart card"

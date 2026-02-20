@@ -4121,6 +4121,14 @@
   "@clickToUploadImage": {
     "description": "نص في حقل تحميل الصورة يحث المستخدم على اتخاذ إجراء."
   },
+  "processingImage": "جاري معالجة الصورة...",
+  "@processingImage": {
+    "description": "النص المعروض عندما تتم معالجة الصورة بواسطة الواجهة الخلفية."
+  },
+  "processingImageDescription": "يتم تحسين صورتك وستظهر قريباً.",
+  "@processingImageDescription": {
+    "description": "الوصف المعروض عندما تتم معالجة الصورة."
+  },
   "chartMediaUploadsOverTime": "التحميلات عبر الزمن",
   "@chartMediaUploadsOverTime": {
     "description": "عنوان بطاقة مخطط التحميلات عبر الزمن"
