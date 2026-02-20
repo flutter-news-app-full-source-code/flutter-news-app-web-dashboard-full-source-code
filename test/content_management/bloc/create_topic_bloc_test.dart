@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 
 import '../../helpers/helpers.dart';
@@ -14,7 +13,6 @@ void main() {
   group('CreateTopicBloc', () {
     late DataRepository<Topic> topicsRepository;
     late MediaRepository mediaRepository;
-    late OptimisticImageCacheService optimisticImageCacheService;
 
     final kTestImageBytes = Uint8List.fromList([1, 2, 3]);
     const kTestImageFileName = 'test.png';
@@ -23,7 +21,6 @@ void main() {
     setUp(() {
       topicsRepository = MockDataRepository<Topic>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
       Logger.root.level = Level.OFF;
 
       when(
@@ -39,17 +36,12 @@ void main() {
       ).thenAnswer(
         (invocation) async => invocation.namedArguments[#item] as Topic,
       );
-
-      when(
-        () => optimisticImageCacheService.cacheImage(any(), any()),
-      ).thenAnswer((_) async {});
     });
 
     CreateTopicBloc buildBloc() {
       return CreateTopicBloc(
         topicsRepository: topicsRepository,
         mediaRepository: mediaRepository,
-        optimisticImageCacheService: optimisticImageCacheService,
         logger: Logger('TestCreateTopicBloc'),
       );
     }
@@ -154,10 +146,6 @@ void main() {
           ).called(1);
           verify(
             () => topicsRepository.create(item: any(named: 'item')),
-          ).called(1);
-          verify(
-            () =>
-                optimisticImageCacheService.cacheImage(any(), kTestImageBytes),
           ).called(1);
         },
       );

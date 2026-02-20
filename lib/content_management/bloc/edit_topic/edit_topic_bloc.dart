@@ -5,7 +5,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 
 part 'edit_topic_event.dart';
@@ -22,12 +21,10 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   EditTopicBloc({
     required DataRepository<Topic> topicsRepository,
     required MediaRepository mediaRepository,
-    required OptimisticImageCacheService optimisticImageCacheService,
     required String topicId,
     Logger? logger,
   }) : _topicsRepository = topicsRepository,
        _mediaRepository = mediaRepository,
-       _optimisticImageCacheService = optimisticImageCacheService,
        _logger = logger ?? Logger('EditTopicBloc'),
        super(
          EditTopicState(topicId: topicId, status: EditTopicStatus.loading),
@@ -44,7 +41,6 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
   final DataRepository<Topic> _topicsRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
-  final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditTopicLoaded(
     EditTopicLoaded event,
@@ -82,8 +78,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       emit(
         state.copyWith(
           status: EditTopicStatus.failure,
-          exception: ValueWrapper(
-            const UnknownException('An unexpected error occurred.'),
+          exception: const ValueWrapper(
+            UnknownException('An unexpected error occurred.'),
           ),
         ),
       );
@@ -183,10 +179,6 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           fileName: state.imageFileName!,
           purpose: MediaAssetPurpose.topicImage,
         );
-        _optimisticImageCacheService.cacheImage(
-          state.topicId,
-          state.imageFileBytes!,
-        );
         _logger.info(
           'Image upload successful for topic ${state.topicId}. New MediaAssetId: $newMediaAssetId',
         );
@@ -260,8 +252,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
       emit(
         state.copyWith(
           status: EditTopicStatus.entitySubmitFailure,
-          exception: ValueWrapper(
-            const UnknownException('An unexpected error occurred.'),
+          exception: const ValueWrapper(
+            UnknownException('An unexpected error occurred.'),
           ),
         ),
       );

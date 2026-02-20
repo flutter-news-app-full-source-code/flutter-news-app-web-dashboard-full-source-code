@@ -12,7 +12,6 @@ void main() {
   group('EditSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
 
     final languageFixture = Language(
       id: 'lang-1',
@@ -54,14 +53,12 @@ void main() {
     setUp(() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
     });
 
     EditSourceBloc buildBloc() {
       return EditSourceBloc(
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
-        optimisticImageCacheService: optimisticImageCacheService,
         sourceId: sourceId,
         logger: Logger('EditSourceBloc'),
       );
@@ -185,10 +182,6 @@ void main() {
             item: any(named: 'item'),
           ),
         ).thenAnswer((_) async => sourceFixture);
-
-        when(
-          () => optimisticImageCacheService.cacheImage(any(), any()),
-        ).thenAnswer((_) {});
       });
 
       blocTest<EditSourceBloc, EditSourceState>(

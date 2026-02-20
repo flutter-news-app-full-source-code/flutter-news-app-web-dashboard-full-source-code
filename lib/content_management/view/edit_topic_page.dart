@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -30,8 +29,6 @@ class EditTopicPage extends StatelessWidget {
       create: (context) => EditTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
         mediaRepository: context.read<MediaRepository>(),
-        optimisticImageCacheService: context
-            .read<OptimisticImageCacheService>(),
         topicId: topicId,
         logger: Logger('EditTopicBloc'),
       )..add(const EditTopicLoaded()),
@@ -219,10 +216,10 @@ class _EditTopicViewState extends State<EditTopicView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
-                      optimisticImageBytes: context
-                          .read<OptimisticImageCacheService>()
-                          .getImage(state.topicId),
                       initialImageUrl: state.iconUrl,
+                      isProcessing:
+                          state.initialTopic?.mediaAssetId != null &&
+                          state.iconUrl == null,
                       onChanged: (Uint8List? bytes, String? fileName) {
                         if (bytes != null && fileName != null) {
                           context.read<EditTopicBloc>().add(

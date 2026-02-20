@@ -12,7 +12,6 @@ void main() {
   group('EditHeadlineBloc', () {
     late MockDataRepository<Headline> headlinesRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
 
     final headlineFixture = getHeadlinesFixturesData().first;
 
@@ -26,7 +25,6 @@ void main() {
     setUp(() {
       headlinesRepository = MockDataRepository<Headline>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
 
       when(
         () => headlinesRepository.read(id: headlineId),
@@ -37,7 +35,6 @@ void main() {
       return EditHeadlineBloc(
         headlinesRepository: headlinesRepository,
         mediaRepository: mediaRepository,
-        optimisticImageCacheService: optimisticImageCacheService,
         logger: Logger('TestEditHeadlineBloc'),
         headlineId: headlineId,
       );
@@ -234,10 +231,6 @@ void main() {
           (_) async =>
               updatedHeadlineFixture.copyWith(status: ContentStatus.draft),
         );
-
-        when(
-          () => optimisticImageCacheService.cacheImage(any(), any()),
-        ).thenAnswer((_) {});
       });
 
       blocTest<EditHeadlineBloc, EditHeadlineState>(
@@ -321,12 +314,6 @@ void main() {
               fileBytes: imageBytes,
               fileName: imageFileName,
               purpose: MediaAssetPurpose.headlineImage,
-            ),
-          ).called(1);
-          verify(
-            () => optimisticImageCacheService.cacheImage(
-              headlineId,
-              imageBytes,
             ),
           ).called(1);
           verify(

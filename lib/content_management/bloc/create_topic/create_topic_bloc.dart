@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,11 +21,9 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   CreateTopicBloc({
     required DataRepository<Topic> topicsRepository,
     required MediaRepository mediaRepository,
-    required OptimisticImageCacheService optimisticImageCacheService,
     required Logger logger,
   }) : _topicsRepository = topicsRepository,
        _mediaRepository = mediaRepository,
-       _optimisticImageCacheService = optimisticImageCacheService,
        _logger = logger,
        super(const CreateTopicState()) {
     on<CreateTopicNameChanged>(_onNameChanged);
@@ -40,7 +37,6 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   final DataRepository<Topic> _topicsRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
-  final OptimisticImageCacheService _optimisticImageCacheService;
   final _uuid = const Uuid();
 
   void _onNameChanged(
@@ -129,10 +125,6 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
           fileBytes: state.imageFileBytes!,
           fileName: state.imageFileName!,
           purpose: MediaAssetPurpose.topicImage,
-        );
-        _optimisticImageCacheService.cacheImage(
-          newTopicId,
-          state.imageFileBytes!,
         );
         _logger.info(
           'Image upload successful. MediaAssetId: $newMediaAssetId',

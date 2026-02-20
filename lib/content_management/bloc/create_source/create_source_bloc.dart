@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,11 +21,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
-    required OptimisticImageCacheService optimisticImageCacheService,
     required Logger logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
-       _optimisticImageCacheService = optimisticImageCacheService,
        _logger = logger,
        super(const CreateSourceState()) {
     on<CreateSourceNameChanged>(_onNameChanged);
@@ -44,7 +41,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
-  final OptimisticImageCacheService _optimisticImageCacheService;
   final _uuid = const Uuid();
 
   void _onNameChanged(
@@ -161,10 +157,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
           fileBytes: state.imageFileBytes!,
           fileName: state.imageFileName!,
           purpose: MediaAssetPurpose.sourceImage,
-        );
-        _optimisticImageCacheService.cacheImage(
-          newSourceId,
-          state.imageFileBytes!,
         );
         _logger.info(
           'Image upload successful. MediaAssetId: $newMediaAssetId',

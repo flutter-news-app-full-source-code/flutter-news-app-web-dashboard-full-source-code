@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 
 import '../../helpers/helpers.dart';
@@ -14,7 +13,6 @@ void main() {
   group('EditTopicBloc', () {
     late DataRepository<Topic> topicsRepository;
     late MediaRepository mediaRepository;
-    late OptimisticImageCacheService optimisticImageCacheService;
 
     const kTestTopicId = 'topic-id-123';
     final kTestImageBytes = Uint8List.fromList([1, 2, 3]);
@@ -35,7 +33,6 @@ void main() {
     setUp(() {
       topicsRepository = MockDataRepository<Topic>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
       Logger.root.level = Level.OFF;
 
       when(
@@ -58,17 +55,12 @@ void main() {
           purpose: any(named: 'purpose'),
         ),
       ).thenAnswer((_) async => kTestMediaAssetId);
-
-      when(
-        () => optimisticImageCacheService.cacheImage(any(), any()),
-      ).thenAnswer((_) async {});
     });
 
     EditTopicBloc buildBloc() {
       return EditTopicBloc(
         topicsRepository: topicsRepository,
         mediaRepository: mediaRepository,
-        optimisticImageCacheService: optimisticImageCacheService,
         topicId: kTestTopicId,
       );
     }
@@ -80,7 +72,6 @@ void main() {
         final bloc = EditTopicBloc(
           topicsRepository: topicsRepository,
           mediaRepository: mediaRepository,
-          optimisticImageCacheService: optimisticImageCacheService,
           topicId: kTestTopicId,
         );
         expect(
@@ -240,7 +231,7 @@ void main() {
             initialTopic: kInitialTopic,
             name: kInitialTopic.name,
             description: kInitialTopic.description,
-            iconUrl: kInitialTopic.iconUrl,
+            iconUrl: null,
             imageFileBytes: null,
             imageFileName: null,
             imageRemoved: true,
@@ -303,12 +294,6 @@ void main() {
             () => topicsRepository.update(
               id: kTestTopicId,
               item: any(named: 'item'),
-            ),
-          ).called(1);
-          verify(
-            () => optimisticImageCacheService.cacheImage(
-              kTestTopicId,
-              kTestImageBytes,
             ),
           ).called(1);
         },

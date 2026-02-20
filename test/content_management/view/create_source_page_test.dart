@@ -9,7 +9,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart' as go_router;
@@ -142,7 +141,6 @@ void main() {
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -152,7 +150,6 @@ void main() {
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -182,9 +179,6 @@ void main() {
           ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
-          ),
-          RepositoryProvider<OptimisticImageCacheService>.value(
-            value: optimisticImageCacheService,
           ),
         ],
         child: BlocProvider.value(
@@ -313,17 +307,23 @@ void main() {
       testWidgets('adds CreateSourceImageRemoved when image is removed', (
         tester,
       ) async {
-        when(() => createSourceBloc.state).thenReturn(
-          CreateSourceState(
-            imageFileBytes: kTestImageBytes,
-            imageFileName: 'test.jpg',
-          ),
+        // Simulate picking an image first to populate the widget's state
+        const fileName = 'test.png';
+        when(
+          () => filePicker.pickFiles(type: FileType.image, withData: true),
+        ).thenAnswer(
+          (_) async => FilePickerResult([
+            PlatformFile(name: fileName, size: 3, bytes: kTestImageBytes),
+          ]),
         );
 
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(
           tester.element(find.byType(Scaffold)),
         );
+        await tester.tap(find.byType(ImageUploadField));
+        await tester.pumpAndSettle();
+
         await tester.ensureVisible(find.byTooltip(l10n.removeImage));
         await tester.pumpAndSettle();
         await tester.tap(find.byTooltip(l10n.removeImage));

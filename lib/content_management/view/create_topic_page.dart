@@ -26,7 +26,6 @@ class CreateTopicPage extends StatelessWidget {
       create: (context) => CreateTopicBloc(
         topicsRepository: context.read<DataRepository<Topic>>(),
         mediaRepository: context.read<MediaRepository>(),
-        optimisticImageCacheService: context.read(),
         logger: Logger('CreateTopicBloc'),
       ),
       child: const CreateTopicView(),
@@ -192,7 +191,6 @@ class _CreateTopicViewState extends State<CreateTopicView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
-                      optimisticImageBytes: state.imageFileBytes,
                       onChanged: (Uint8List? bytes, String? fileName) {
                         if (bytes != null && fileName != null) {
                           context.read<CreateTopicBloc>().add(

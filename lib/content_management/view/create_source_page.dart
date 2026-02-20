@@ -25,7 +25,6 @@ class CreateSourcePage extends StatelessWidget {
       create: (context) => CreateSourceBloc(
         sourcesRepository: context.read<DataRepository<Source>>(),
         mediaRepository: context.read<MediaRepository>(),
-        optimisticImageCacheService: context.read(),
         logger: Logger('CreateSourceBloc'),
       ),
       child: const CreateSourceView(),
@@ -220,7 +219,6 @@ class _CreateSourceViewState extends State<CreateSourceView> {
                     ),
                     const SizedBox(height: AppSpacing.md),
                     ImageUploadField(
-                      optimisticImageBytes: state.imageFileBytes,
                       onChanged: (bytes, fileName) {
                         if (bytes != null && fileName != null) {
                           context.read<CreateSourceBloc>().add(

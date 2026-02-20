@@ -190,7 +190,7 @@ void main() {
 
         await tester.tap(find.byType(FloatingActionButton));
 
-        verify(() => goRouter.goNamed(Routes.createHeadlineName)).called(1);
+        verify(() => goRouter.pushNamed(Routes.createHeadlineName)).called(1);
       });
 
       testWidgets('navigates to create topic when topics tab is active', (
@@ -205,7 +205,7 @@ void main() {
 
         await tester.tap(find.byType(FloatingActionButton));
 
-        verify(() => goRouter.goNamed(Routes.createTopicName)).called(1);
+        verify(() => goRouter.pushNamed(Routes.createTopicName)).called(1);
       });
 
       testWidgets('navigates to create source when sources tab is active', (
@@ -220,7 +220,7 @@ void main() {
 
         await tester.tap(find.byType(FloatingActionButton));
 
-        verify(() => goRouter.goNamed(Routes.createSourceName)).called(1);
+        verify(() => goRouter.pushNamed(Routes.createSourceName)).called(1);
       });
     });
 

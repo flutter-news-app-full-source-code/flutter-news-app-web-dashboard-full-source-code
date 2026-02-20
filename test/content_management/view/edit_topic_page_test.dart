@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
+
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -25,7 +24,6 @@ void main() {
   group('EditTopicPage', () {
     late DataRepository<Topic> topicsRepository;
     late MediaRepository mediaRepository;
-    late OptimisticImageCacheService optimisticImageCacheService;
     late ContentManagementBloc contentManagementBloc;
     late GoRouter goRouter;
 
@@ -43,7 +41,6 @@ void main() {
     setUp(() {
       topicsRepository = MockDataRepository<Topic>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
       contentManagementBloc = MockContentManagementBloc();
       goRouter = MockGoRouter();
 
@@ -58,7 +55,6 @@ void main() {
       ).thenAnswer(
         (invocation) async => invocation.namedArguments[#item] as Topic,
       );
-      when(() => optimisticImageCacheService.getImage(any())).thenReturn(null);
       when(
         () => contentManagementBloc.state,
       ).thenReturn(const ContentManagementState());
@@ -70,7 +66,6 @@ void main() {
         providers: [
           RepositoryProvider.value(value: topicsRepository),
           RepositoryProvider.value(value: mediaRepository),
-          RepositoryProvider.value(value: optimisticImageCacheService),
         ],
         child: BlocProvider.value(
           value: contentManagementBloc,

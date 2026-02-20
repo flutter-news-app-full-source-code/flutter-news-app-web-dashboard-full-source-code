@@ -5,11 +5,10 @@ import 'package:data_repository/data_repository.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
@@ -120,7 +119,6 @@ void main() {
     late MockContentManagementBloc contentManagementBloc;
     late MockDataRepository<Topic> topicsRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -129,7 +127,6 @@ void main() {
       contentManagementBloc = MockContentManagementBloc();
       topicsRepository = MockDataRepository<Topic>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -150,9 +147,6 @@ void main() {
           ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
-          ),
-          RepositoryProvider<OptimisticImageCacheService>.value(
-            value: optimisticImageCacheService,
           ),
         ],
         child: BlocProvider<CreateTopicBloc>.value(
@@ -262,17 +256,23 @@ void main() {
       testWidgets('adds CreateTopicImageRemoved when image is removed', (
         tester,
       ) async {
-        when(() => createTopicBloc.state).thenReturn(
-          CreateTopicState(
-            imageFileBytes: kTestImageBytes,
-            imageFileName: 'test_topic.jpg',
-          ),
+        // Simulate picking an image first to populate the widget's state
+        const fileName = 'test.png';
+        when(
+          () => filePicker.pickFiles(type: FileType.image, withData: true),
+        ).thenAnswer(
+          (_) async => FilePickerResult([
+            PlatformFile(name: fileName, size: 3, bytes: kTestImageBytes),
+          ]),
         );
 
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(
           tester.element(find.byType(Scaffold)),
         );
+        await tester.tap(find.byType(ImageUploadField));
+        await tester.pumpAndSettle();
+
         await tester.ensureVisible(find.byTooltip(l10n.removeImage));
         await tester.pumpAndSettle();
         await tester.tap(find.byTooltip(l10n.removeImage));

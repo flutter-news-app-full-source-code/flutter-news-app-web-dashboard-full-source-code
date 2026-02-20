@@ -12,7 +12,6 @@ void main() {
   group('CreateSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
 
     final languageFixture = Language(
       id: 'lang-1',
@@ -39,14 +38,12 @@ void main() {
     setUp(() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
     });
 
     CreateSourceBloc buildBloc() {
       return CreateSourceBloc(
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
-        optimisticImageCacheService: optimisticImageCacheService,
         logger: Logger('CreateSourceBloc'),
       );
     }
@@ -167,10 +164,6 @@ void main() {
         when(
           () => sourcesRepository.create(item: any(named: 'item')),
         ).thenAnswer((_) async => sourceFixture);
-
-        when(
-          () => optimisticImageCacheService.cacheImage(any(), any()),
-        ).thenAnswer((_) {});
       });
 
       blocTest<CreateSourceBloc, CreateSourceState>(
@@ -209,9 +202,6 @@ void main() {
               fileName: imageFileName,
               purpose: MediaAssetPurpose.sourceImage,
             ),
-          ).called(1);
-          verify(
-            () => optimisticImageCacheService.cacheImage(any(), imageBytes),
           ).called(1);
           verify(
             () => sourcesRepository.create(
@@ -327,9 +317,6 @@ void main() {
         when(
           () => sourcesRepository.create(item: any(named: 'item')),
         ).thenAnswer((_) async => sourceFixture);
-        when(
-          () => optimisticImageCacheService.cacheImage(any(), any()),
-        ).thenAnswer((_) {});
       });
 
       blocTest<CreateSourceBloc, CreateSourceState>(

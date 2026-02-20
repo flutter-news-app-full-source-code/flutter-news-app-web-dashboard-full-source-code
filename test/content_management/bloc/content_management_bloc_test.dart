@@ -36,7 +36,6 @@ void main() {
     late MockTopicsFilterBloc topicsFilterBloc;
     late MockSourcesFilterBloc sourcesFilterBloc;
     late MockPendingDeletionsService pendingDeletionsService;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
 
     final headlineFixture = Headline(
       id: 'headline-1',
@@ -63,15 +62,11 @@ void main() {
       topicsFilterBloc = MockTopicsFilterBloc();
       sourcesFilterBloc = MockSourcesFilterBloc();
       pendingDeletionsService = MockPendingDeletionsService();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
 
       // Default stream stubs
       when(
         () => headlinesRepository.entityUpdated,
       ).thenAnswer((_) => const Stream.empty());
-      when(
-        () => optimisticImageCacheService.removeImage(any()),
-      ).thenAnswer((_) async {});
       when(
         () => topicsRepository.entityUpdated,
       ).thenAnswer((_) => const Stream.empty());
@@ -101,7 +96,6 @@ void main() {
         topicsFilterBloc: topicsFilterBloc,
         sourcesFilterBloc: sourcesFilterBloc,
         pendingDeletionsService: pendingDeletionsService,
-        optimisticImageCacheService: optimisticImageCacheService,
       );
     }
 

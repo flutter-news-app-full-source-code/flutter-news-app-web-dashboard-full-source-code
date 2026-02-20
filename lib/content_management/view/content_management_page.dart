@@ -258,11 +258,11 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                 .activeTab;
             switch (currentTab) {
               case ContentManagementTab.headlines:
-                context.goNamed(Routes.createHeadlineName);
+                context.pushNamed(Routes.createHeadlineName);
               case ContentManagementTab.topics:
-                context.goNamed(Routes.createTopicName);
+                context.pushNamed(Routes.createTopicName);
               case ContentManagementTab.sources:
-                context.goNamed(Routes.createSourceName);
+                context.pushNamed(Routes.createSourceName);
             }
           },
           child: const Icon(Icons.add),

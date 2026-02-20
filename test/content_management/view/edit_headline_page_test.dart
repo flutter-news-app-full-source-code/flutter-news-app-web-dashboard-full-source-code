@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:ui_kit/ui_kit.dart';
 
@@ -26,7 +25,6 @@ void main() {
     late MockDataRepository<Topic> topicsRepository;
     late MockDataRepository<Country> countriesRepository;
     late MockMediaRepository mediaRepository;
-    late OptimisticImageCacheService optimisticImageCacheService;
     late MockGoRouter goRouter;
 
     final headlineFixture = getHeadlinesFixturesData().first;
@@ -39,7 +37,6 @@ void main() {
       topicsRepository = MockDataRepository<Topic>();
       countriesRepository = MockDataRepository<Country>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = OptimisticImageCacheService();
       goRouter = MockGoRouter();
 
       when(
@@ -67,9 +64,6 @@ void main() {
           ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
-          ),
-          RepositoryProvider<OptimisticImageCacheService>.value(
-            value: optimisticImageCacheService,
           ),
         ],
         child: BlocProvider.value(

@@ -5,7 +5,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show ValueGetter;
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 
 part 'edit_headline_event.dart';
@@ -22,12 +21,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   EditHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
     required MediaRepository mediaRepository,
-    required OptimisticImageCacheService optimisticImageCacheService,
     required String headlineId,
     required Logger logger,
   }) : _headlinesRepository = headlinesRepository,
        _mediaRepository = mediaRepository,
-       _optimisticImageCacheService = optimisticImageCacheService,
        _logger = logger,
        super(EditHeadlineState(headlineId: headlineId)) {
     on<EditHeadlineLoaded>(_onEditHeadlineLoaded);
@@ -46,7 +43,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
   final DataRepository<Headline> _headlinesRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
-  final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditHeadlineLoaded(
     EditHeadlineLoaded event,
@@ -234,10 +230,6 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           fileBytes: state.imageFileBytes!,
           fileName: state.imageFileName!,
           purpose: MediaAssetPurpose.headlineImage,
-        );
-        _optimisticImageCacheService.cacheImage(
-          state.headlineId,
-          state.imageFileBytes!,
         );
         _logger.info(
           'Image upload successful for headline ${state.headlineId}. New MediaAssetId: $newMediaAssetId',

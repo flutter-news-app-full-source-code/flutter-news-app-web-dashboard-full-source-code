@@ -12,7 +12,6 @@ void main() {
   group('CreateHeadlineBloc', () {
     late MockDataRepository<Headline> headlinesRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
 
     final sourceFixture = getSourcesFixturesData().first;
     final topicFixture = getTopicsFixturesData().first;
@@ -26,14 +25,12 @@ void main() {
     setUp(() {
       headlinesRepository = MockDataRepository<Headline>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
     });
 
     CreateHeadlineBloc buildBloc() {
       return CreateHeadlineBloc(
         headlinesRepository: headlinesRepository,
         mediaRepository: mediaRepository,
-        optimisticImageCacheService: optimisticImageCacheService,
         logger: Logger('CreateHeadlineBloc'),
       );
     }
@@ -150,10 +147,6 @@ void main() {
         when(
           () => headlinesRepository.create(item: any(named: 'item')),
         ).thenAnswer((_) async => headlineFixture);
-
-        when(
-          () => optimisticImageCacheService.cacheImage(any(), any()),
-        ).thenAnswer((_) {});
       });
 
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
@@ -191,9 +184,6 @@ void main() {
               fileName: imageFileName,
               purpose: MediaAssetPurpose.headlineImage,
             ),
-          ).called(1);
-          verify(
-            () => optimisticImageCacheService.cacheImage(any(), imageBytes),
           ).called(1);
           verify(
             () => headlinesRepository.create(
@@ -349,9 +339,6 @@ void main() {
         when(
           () => headlinesRepository.create(item: any(named: 'item')),
         ).thenAnswer((_) async => headlineFixture);
-        when(
-          () => optimisticImageCacheService.cacheImage(any(), any()),
-        ).thenAnswer((_) {});
       });
 
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(

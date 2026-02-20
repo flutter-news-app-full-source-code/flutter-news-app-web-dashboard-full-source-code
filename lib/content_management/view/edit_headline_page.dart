@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
@@ -34,8 +33,6 @@ class EditHeadlinePage extends StatelessWidget {
       create: (context) => EditHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         mediaRepository: context.read<MediaRepository>(),
-        optimisticImageCacheService: context
-            .read<OptimisticImageCacheService>(),
         headlineId: headlineId,
         logger: Logger('EditHeadlineBloc'),
       )..add(const EditHeadlineLoaded()),
@@ -214,9 +211,9 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
                       initialImageUrl: state.imageUrl,
-                      optimisticImageBytes: context
-                          .read<OptimisticImageCacheService>()
-                          .getImage(state.headlineId),
+                      isProcessing:
+                          state.initialHeadline?.mediaAssetId != null &&
+                          state.imageUrl == null,
                       onChanged: (Uint8List? bytes, String? fileName) {
                         final bloc = context.read<EditHeadlineBloc>();
                         if (bytes == null || fileName == null) {

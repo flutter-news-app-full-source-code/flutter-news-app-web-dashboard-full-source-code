@@ -9,7 +9,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart' as go_router;
@@ -142,7 +141,6 @@ void main() {
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
     late MockMediaRepository mediaRepository;
-    late MockOptimisticImageCacheService optimisticImageCacheService;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -152,7 +150,6 @@ void main() {
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
       mediaRepository = MockMediaRepository();
-      optimisticImageCacheService = MockOptimisticImageCacheService();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -198,9 +195,6 @@ void main() {
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
           ),
-          RepositoryProvider<OptimisticImageCacheService>.value(
-            value: optimisticImageCacheService,
-          ),
         ],
         child: BlocProvider.value(
           value: editSourceBloc,
@@ -241,7 +235,6 @@ void main() {
       tester,
     ) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
-      final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
 
       expect(find.text(testSource.name), findsOneWidget);
       expect(find.text(testSource.description), findsOneWidget);

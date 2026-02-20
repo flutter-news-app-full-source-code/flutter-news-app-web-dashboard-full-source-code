@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:logging/logging.dart';
 
 part 'edit_source_event.dart';
@@ -20,12 +19,10 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
-    required OptimisticImageCacheService optimisticImageCacheService,
     required String sourceId,
     Logger? logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
-       _optimisticImageCacheService = optimisticImageCacheService,
        _logger = logger ?? Logger('EditSourceBloc'),
        super(EditSourceState(sourceId: sourceId)) {
     on<EditSourceLoaded>(_onEditSourceLoaded);
@@ -44,7 +41,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
-  final OptimisticImageCacheService _optimisticImageCacheService;
 
   Future<void> _onEditSourceLoaded(
     EditSourceLoaded event,
@@ -234,10 +230,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           fileBytes: state.imageFileBytes!,
           fileName: state.imageFileName!,
           purpose: MediaAssetPurpose.sourceImage,
-        );
-        _optimisticImageCacheService.cacheImage(
-          state.sourceId,
-          state.imageFileBytes!,
         );
         _logger.info(
           'Image upload successful for source ${state.sourceId}. New MediaAssetId: $newMediaAssetId',

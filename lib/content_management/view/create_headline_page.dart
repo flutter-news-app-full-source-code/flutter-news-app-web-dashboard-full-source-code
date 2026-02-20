@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/optimistic_image_cache_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
@@ -28,8 +27,6 @@ class CreateHeadlinePage extends StatelessWidget {
       create: (context) => CreateHeadlineBloc(
         headlinesRepository: context.read<DataRepository<Headline>>(),
         mediaRepository: context.read<MediaRepository>(),
-        optimisticImageCacheService: context
-            .read<OptimisticImageCacheService>(),
         logger: Logger('CreateHeadlineBloc'),
       ),
       child: const CreateHeadlineView(),
@@ -186,7 +183,6 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
-                      optimisticImageBytes: state.imageFileBytes,
                       onChanged: (Uint8List? bytes, String? fileName) {
                         final bloc = context.read<CreateHeadlineBloc>();
                         if (bytes == null || fileName == null) {

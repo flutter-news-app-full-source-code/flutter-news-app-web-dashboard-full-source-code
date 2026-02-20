@@ -13,7 +13,7 @@ class ImageUploadField extends StatefulWidget {
   const ImageUploadField({
     required this.onChanged,
     this.initialImageUrl,
-    this.optimisticImageBytes,
+    this.isProcessing = false,
     super.key,
   });
 
@@ -23,8 +23,8 @@ class ImageUploadField extends StatefulWidget {
   /// The URL of an existing image to display initially.
   final String? initialImageUrl;
 
-  /// Optimistically displayed image bytes, taking precedence over [initialImageUrl].
-  final Uint8List? optimisticImageBytes;
+  /// Whether the image is currently being processed by the backend.
+  final bool isProcessing;
 
   @override
   State<ImageUploadField> createState() => _ImageUploadFieldState();
@@ -76,15 +76,23 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
 
-    // Determine which image to display. Priority is:
-    // 1. A newly picked image (_imageBytes).
-    // 2. An optimistically cached image (widget.optimisticImageBytes).
-    final displayBytes = _imageBytes ?? widget.optimisticImageBytes;
-    final hasImage = displayBytes != null || widget.initialImageUrl != null;
+    // Priority 1: A new image just picked in this session.
+    if (_imageBytes != null) {
+      return _buildImagePreview(context, theme, _imageBytes);
+    }
 
-    return hasImage
-        ? _buildImagePreview(context, theme, displayBytes)
-        : _buildImagePicker(l10n, theme);
+    // Priority 2: Backend is processing the image.
+    if (widget.isProcessing) {
+      return _buildProcessingState(context, theme);
+    }
+
+    // Priority 3: An existing image URL from the database.
+    if (widget.initialImageUrl != null && widget.initialImageUrl!.isNotEmpty) {
+      return _buildUrlImagePreview(context, theme, widget.initialImageUrl!);
+    }
+
+    // Fallback: Show the picker.
+    return _buildImagePicker(l10n, theme);
   }
 
   Widget _buildImagePicker(AppLocalizations l10n, ThemeData theme) {
@@ -131,17 +139,7 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
         alignment: Alignment.center,
         children: [
           if (displayBytes != null)
-            Image.memory(displayBytes, fit: BoxFit.contain)
-          else if (widget.initialImageUrl != null)
-            Image.network(
-              widget.initialImageUrl!,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 48,
-              ),
-            ),
+            Image.memory(displayBytes, fit: BoxFit.contain),
           Positioned(
             top: AppSpacing.sm,
             right: AppSpacing.sm,
@@ -149,6 +147,74 @@ class _ImageUploadFieldState extends State<ImageUploadField> {
               onPressed: _removeImage,
               icon: const Icon(Icons.close),
               tooltip: AppLocalizationsX(context).l10n.removeImage,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUrlImagePreview(
+    BuildContext context,
+    ThemeData theme,
+    String imageUrl,
+  ) {
+    return SizedBox(
+      height: 150,
+      width: double.infinity,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.network(
+            imageUrl,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) => const Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 48,
+            ),
+          ),
+          Positioned(
+            top: AppSpacing.sm,
+            right: AppSpacing.sm,
+            child: IconButton.filled(
+              onPressed: _removeImage,
+              icon: const Icon(Icons.close),
+              tooltip: AppLocalizationsX(context).l10n.removeImage,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProcessingState(BuildContext context, ThemeData theme) {
+    return Container(
+      height: 150,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(AppSpacing.md),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(height: AppSpacing.md),
+          Text(
+            AppLocalizationsX(context).l10n.processingImage,
+            style: theme.textTheme.bodyMedium,
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            child: Text(
+              AppLocalizationsX(context).l10n.processingImageDescription,
+              style: theme.textTheme.bodySmall,
+              textAlign: TextAlign.center,
             ),
           ),
         ],
