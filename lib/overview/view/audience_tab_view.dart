@@ -1,0 +1,115 @@
+import 'package:core/core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/audience/audience_analytics_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
+import 'package:ui_kit/ui_kit.dart';
+
+class AudienceTabView extends StatefulWidget {
+  const AudienceTabView({super.key});
+
+  @override
+  State<AudienceTabView> createState() => _AudienceTabViewState();
+}
+
+class _AudienceTabViewState extends State<AudienceTabView>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AudienceAnalyticsBloc>().add(
+      const AudienceAnalyticsSubscriptionRequested(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    final l10n = AppLocalizationsX(context).l10n;
+
+    return BlocBuilder<AudienceAnalyticsBloc, AudienceAnalyticsState>(
+      builder: (context, state) {
+        switch (state.status) {
+          case AudienceAnalyticsStatus.initial:
+          case AudienceAnalyticsStatus.loading:
+            return LoadingStateWidget(
+              icon: Icons.analytics_outlined,
+              headline: l10n.loadingAnalytics,
+              subheadline: l10n.pleaseWait,
+            );
+
+          case AudienceAnalyticsStatus.failure:
+            return FailureStateWidget(
+              exception: UnknownException(state.error.toString()),
+              onRetry: () => context.read<AudienceAnalyticsBloc>().add(
+                const AudienceAnalyticsSubscriptionRequested(),
+              ),
+            );
+
+          case AudienceAnalyticsStatus.success:
+            final isAllEmpty = [
+              ...state.kpiData,
+              ...state.chartData,
+            ].every((d) => d == null);
+
+            if (isAllEmpty) {
+              return InitialStateWidget(
+                icon: Icons.analytics_outlined,
+                headline: l10n.noAnalyticsDataHeadline,
+                subheadline: l10n.noAnalyticsDataSubheadline,
+              );
+            }
+
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWide =
+                      constraints.maxWidth >= AppConstants.kDesktopBreakpoint;
+
+                  final kpiSlot = AnalyticsCardSlot<KpiCardId>(
+                    cardIds: AudienceAnalyticsBloc.kpiCards,
+                    data: state.kpiData,
+                  );
+
+                  final chartSlot = AnalyticsCardSlot<ChartCardId>(
+                    cardIds: AudienceAnalyticsBloc.chartCards,
+                    data: state.chartData,
+                  );
+
+                  if (isWide) {
+                    return SizedBox(
+                      height: 200,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: AppConstants.kAnalyticsKpiSidebarWidth,
+                            child: kpiSlot,
+                          ),
+                          const SizedBox(width: AppSpacing.md),
+                          Expanded(child: chartSlot),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        SizedBox(height: 150, child: kpiSlot),
+                        const SizedBox(height: AppSpacing.md),
+                        SizedBox(height: 350, child: chartSlot),
+                      ],
+                    );
+                  }
+                },
+              ),
+            );
+        }
+      },
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
