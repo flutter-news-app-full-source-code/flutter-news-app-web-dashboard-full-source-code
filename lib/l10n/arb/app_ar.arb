@@ -4184,5 +4184,53 @@
   "analyticsEventMediaUploadFailedDescription": "تتبع عندما يفشل تحميل ملف.",
   "@analyticsEventMediaUploadFailedDescription": {
     "description": "وصف لحدث فشل تحميل الوسائط"
+  },
+  "dashboard": "لوحة التحكم",
+  "@dashboard": {
+    "description": "تسمية لعلامة التبويب الرئيسية للوحة التحكم/النظرة العامة."
+  },
+  "audience": "الجمهور",
+  "@audience": {
+    "description": "تسمية لعلامة تبويب تحليلات الجمهور."
+  },
+  "content": "المحتوى",
+  "@content": {
+    "description": "تسمية لعلامة تبويب تحليلات المحتوى."
+  },
+  "community": "المجتمع",
+  "@community": {
+    "description": "تسمية لعلامة تبويب تحليلات المجتمع."
+  },
+  "monetization": "تحقيق الدخل",
+  "@monetization": {
+    "description": "تسمية لعلامة تبويب تحليلات تحقيق الدخل."
+  },
+  "configuration": "الإعدادات",
+  "@configuration": {
+    "description": "تسمية لعلامة تبويب حالة الإعدادات."
+  },
+  "loadingConfiguration": "جاري تحميل الإعدادات...",
+  "@loadingConfiguration": {
+    "description": "النص المعروض أثناء تحميل عرض الإعدادات للقراءة فقط."
+  },
+  "noConfigurationDataHeadline": "لا توجد بيانات إعدادات",
+  "@noConfigurationDataHeadline": {
+    "description": "عنوان للحالة الفارغة لعرض الإعدادات للقراءة فقط."
+  },
+  "noConfigurationDataSubheadline": "تعذر تحميل الإعدادات عن بعد للتطبيق.",
+  "@noConfigurationDataSubheadline": {
+    "description": "عنوان فرعي للحالة الفارغة لعرض الإعدادات للقراءة فقط."
+  },
+  "readOnlyConfigurationView": "عرض الإعدادات للقراءة فقط",
+  "@readOnlyConfigurationView": {
+    "description": "عنوان لعرض حالة الإعدادات للقراءة فقط."
+  },
+  "readOnlyConfigurationViewDescription": "هذه لقطة في الوقت الفعلي للقراءة فقط لإعدادات تشغيل التطبيق. لإجراء تغييرات، انتقل إلى صفحة 'التحكم المركزي' الرئيسية.",
+  "@readOnlyConfigurationViewDescription": {
+    "description": "وصف لعرض حالة الإعدادات للقراءة فقط."
+  },
+  "providers": "المزودون",
+  "@providers": {
+    "description": "عنوان قسم المزودين في عرض الإعدادات للقراءة فقط."
   }
 }
