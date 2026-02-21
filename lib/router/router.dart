@@ -406,40 +406,6 @@ GoRouter createRouter({
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.rewardsManagement,
-                name: Routes.rewardsManagementName,
-                builder: (context, state) => const RewardsManagementPage(),
-
-                routes: [
-                  GoRoute(
-                    path: Routes.rewardsFilterDialog,
-                    name: Routes.rewardsFilterDialogName,
-                    pageBuilder: (context, state) {
-                      final args = state.extra! as Map<String, dynamic>;
-                      final rewardsFilterState =
-                          args['rewardsFilterState'] as RewardsFilterState;
-
-                      return MaterialPage(
-                        fullscreenDialog: true,
-                        child: BlocProvider<RewardsFilterDialogBloc>(
-                          create: (providerContext) =>
-                              RewardsFilterDialogBloc()..add(
-                                RewardsFilterDialogInitialized(
-                                  rewardsFilterState: rewardsFilterState,
-                                ),
-                              ),
-                          child: const RewardsFilterDialog(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
                 path: Routes.appConfiguration,
                 name: Routes.appConfigurationName,
                 builder: (context, state) => const AppConfigurationPage(),
