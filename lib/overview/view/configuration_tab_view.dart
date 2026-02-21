@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/configuration/configuration_view_bloc.dart';
 import 'package:ui_kit/ui_kit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ConfigurationTabView extends StatefulWidget {
   const ConfigurationTabView({super.key});
@@ -184,35 +183,31 @@ class _SettingTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     Widget valueWidget;
+    final localValue = value;
 
-    if (value is bool) {
+    if (localValue is bool) {
       valueWidget = Chip(
-        label: Text(value == true ? 'Enabled' : 'Disabled'),
-        backgroundColor: value == true
+        label: Text(localValue ? 'Enabled' : 'Disabled'),
+        backgroundColor: localValue
             ? Colors.green.withOpacity(0.1)
             : Colors.red.withOpacity(0.1),
         labelStyle: TextStyle(
-          color: value == true ? Colors.green.shade800 : Colors.red.shade800,
+          color: localValue ? Colors.green.shade800 : Colors.red.shade800,
           fontWeight: FontWeight.bold,
         ),
         side: BorderSide.none,
       );
-    } else if (value is String &&
-        (value.startsWith('http') || value.startsWith('https'))) {
-      valueWidget = InkWell(
-        onTap: () => launchUrl(Uri.parse(value as String)),
-        child: Text(
-          value.toString(),
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.primary,
-            decoration: TextDecoration.underline,
-            decorationColor: theme.colorScheme.primary,
-          ),
+    } else if (localValue is String && localValue.startsWith('http')) {
+      valueWidget = Text(
+        // Render URLs as plain text per user request.
+        localValue,
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
         ),
       );
     } else {
       valueWidget = Text(
-        value.toString(),
+        localValue.toString(),
         style: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
