@@ -98,8 +98,8 @@ class _OverviewTabView extends StatelessWidget {
             return FailureStateWidget(
               exception: UnknownException(state.error.toString()),
               onRetry: () => context.read<OverviewBloc>().add(
-                    const OverviewSubscriptionRequested(),
-                  ),
+                const OverviewSubscriptionRequested(),
+              ),
             );
 
           case OverviewStatus.success:

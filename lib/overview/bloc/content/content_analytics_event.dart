@@ -11,4 +11,3 @@ final class ContentAnalyticsSubscriptionRequested
     extends ContentAnalyticsEvent {
   const ContentAnalyticsSubscriptionRequested();
 }
-

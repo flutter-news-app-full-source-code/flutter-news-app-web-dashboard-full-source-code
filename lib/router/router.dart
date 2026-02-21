@@ -28,10 +28,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_filter/rewards_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/view/rewards_management_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/widgets/rewards_filter_dialog/bloc/rewards_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/widgets/rewards_filter_dialog/rewards_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/route_permissions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';

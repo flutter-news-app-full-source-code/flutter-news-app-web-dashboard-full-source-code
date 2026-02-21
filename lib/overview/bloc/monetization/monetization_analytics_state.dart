@@ -1,5 +1,4 @@
 part of 'monetization_analytics_bloc.dart';
-import 'package:core/core.dart';
 
 enum MonetizationAnalyticsStatus { initial, loading, success, failure }
 
