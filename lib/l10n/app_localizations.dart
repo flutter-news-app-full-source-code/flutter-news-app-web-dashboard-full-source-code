@@ -6103,6 +6103,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track when a file upload fails.'**
   String get analyticsEventMediaUploadFailedDescription;
+
+  /// Label for the main dashboard/overview tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// Label for the Audience analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Audience'**
+  String get audience;
+
+  /// Label for the Content analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get content;
+
+  /// Label for the Community analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get community;
+
+  /// Label for the Monetization analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Monetization'**
+  String get monetization;
+
+  /// Label for the Configuration status tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration'**
+  String get configuration;
+
+  /// Text shown while loading the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Configuration...'**
+  String get loadingConfiguration;
+
+  /// Headline for the empty state of the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'No Configuration Data'**
+  String get noConfigurationDataHeadline;
+
+  /// Sub-headline for the empty state of the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the application\'s remote configuration.'**
+  String get noConfigurationDataSubheadline;
+
+  /// Title for the read-only configuration status view.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-Only Configuration View'**
+  String get readOnlyConfigurationView;
+
+  /// Description for the read-only configuration status view.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a real-time, read-only snapshot of the application\'s operational settings. To make changes, go to the main \'Remote Config\' page.'**
+  String get readOnlyConfigurationViewDescription;
+
+  /// Title for the Providers section in the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'Providers'**
+  String get providers;
 }
 
 class _AppLocalizationsDelegate

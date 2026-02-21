@@ -3347,4 +3347,42 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get analyticsEventMediaUploadFailedDescription =>
       'تتبع عندما يفشل تحميل ملف.';
+
+  @override
+  String get dashboard => 'لوحة التحكم';
+
+  @override
+  String get audience => 'الجمهور';
+
+  @override
+  String get content => 'المحتوى';
+
+  @override
+  String get community => 'المجتمع';
+
+  @override
+  String get monetization => 'تحقيق الدخل';
+
+  @override
+  String get configuration => 'الإعدادات';
+
+  @override
+  String get loadingConfiguration => 'جاري تحميل الإعدادات...';
+
+  @override
+  String get noConfigurationDataHeadline => 'لا توجد بيانات إعدادات';
+
+  @override
+  String get noConfigurationDataSubheadline =>
+      'تعذر تحميل الإعدادات عن بعد للتطبيق.';
+
+  @override
+  String get readOnlyConfigurationView => 'عرض الإعدادات للقراءة فقط';
+
+  @override
+  String get readOnlyConfigurationViewDescription =>
+      'هذه لقطة في الوقت الفعلي للقراءة فقط لإعدادات تشغيل التطبيق. لإجراء تغييرات، انتقل إلى صفحة \'التحكم المركزي\' الرئيسية.';
+
+  @override
+  String get providers => 'المزودون';
 }
