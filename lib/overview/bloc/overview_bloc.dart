@@ -19,20 +19,6 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
 
   final AnalyticsService _analyticsService;
 
-  // Define the cards used on this page to ensure consistent ordering.
-  static const List<KpiCardId> kpiCards = [
-    KpiCardId.usersTotalRegistered,
-    KpiCardId.contentHeadlinesTotalViews,
-    KpiCardId.rewardsActiveUsersCount,
-  ];
-
-  static const List<ChartCardId> chartCards = [
-    ChartCardId.usersRegistrationsOverTime,
-    ChartCardId.contentHeadlinesViewsOverTime,
-    ChartCardId.overviewAppTourFunnel,
-    ChartCardId.overviewInitialPersonalizationFunnel,
-  ];
-
   static const List<RankedListCardId> rankedListCards = [
     RankedListCardId.overviewHeadlinesMostViewed,
     RankedListCardId.overviewSourcesMostFollowed,
@@ -48,14 +34,6 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
       // Create a list of future providers to be executed in batches.
       // The order here MUST match the order used when unpacking the data.
       final futureProviders = <Future<dynamic> Function()>[
-        ...kpiCards.map(
-          (id) =>
-              () => _analyticsService.getKpi(id),
-        ),
-        ...chartCards.map(
-          (id) =>
-              () => _analyticsService.getChart(id),
-        ),
         ...rankedListCards.map(
           (id) =>
               () => _analyticsService.getRankedList(id),
@@ -65,28 +43,11 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
       // Use the utility to fetch data in controlled batches.
       final allData = await FutureUtils.fetchInBatches(futureProviders);
 
-      // Unpack the flat list back into specific data lists.
-      var currentIndex = 0;
-
-      final kpiData = allData
-          .sublist(currentIndex, currentIndex + kpiCards.length)
-          .cast<KpiCardData?>();
-      currentIndex += kpiCards.length;
-
-      final chartData = allData
-          .sublist(currentIndex, currentIndex + chartCards.length)
-          .cast<ChartCardData?>();
-      currentIndex += chartCards.length;
-
-      final rankedListData = allData
-          .sublist(currentIndex, currentIndex + rankedListCards.length)
-          .cast<RankedListCardData?>();
+      final rankedListData = allData.cast<RankedListCardData?>();
 
       emit(
         state.copyWith(
           status: OverviewStatus.success,
-          kpiData: kpiData,
-          chartData: chartData,
           rankedListData: rankedListData,
         ),
       );
