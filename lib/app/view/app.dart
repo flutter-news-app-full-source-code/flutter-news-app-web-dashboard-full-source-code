@@ -14,10 +14,15 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/audience/audience_analytics_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/community/community_analytics_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/configuration/configuration_view_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/content/content_analytics_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/monetization/monetization_analytics_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_filter/rewards_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
@@ -195,14 +200,36 @@ class App extends StatelessWidget {
               pendingUpdatesService: context.read<PendingUpdatesService>(),
             ),
           ),
+
           BlocProvider(
-            create: (context) => RewardsFilterBloc(),
+            create: (context) => AudienceAnalyticsBloc(
+              analyticsService: context.read<AnalyticsService>(),
+            ),
           ),
           BlocProvider(
-            create: (context) => RewardsManagementBloc(
-              rewardsRepository: context.read<DataRepository<UserRewards>>(),
-              rewardsFilterBloc: context.read<RewardsFilterBloc>(),
+            create: (context) => ContentAnalyticsBloc(
+              analyticsService: context.read<AnalyticsService>(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => CommunityAnalyticsBloc(
+              analyticsService: context.read<AnalyticsService>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => MonetizationAnalyticsBloc(
+              analyticsService: context.read<AnalyticsService>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) =>
+                ConfigurationViewBloc(
+                  appConfigurationBloc: context.read<AppConfigurationBloc>(),
+                )..add(
+                  ConfigurationViewSubscriptionRequested(
+                    context.read<AppConfigurationBloc>().state.remoteConfig,
+                  ),
+                ),
           ),
         ],
         child: _AppView(
