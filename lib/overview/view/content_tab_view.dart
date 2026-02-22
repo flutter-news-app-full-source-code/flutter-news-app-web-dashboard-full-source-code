@@ -2,9 +2,11 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/content/content_analytics_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/chart_card.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class ContentTabView extends StatefulWidget {
@@ -19,8 +21,8 @@ class _ContentTabViewState extends State<ContentTabView>
   @override
   void initState() {
     super.initState();
-    context.read<ContentAnalyticsBloc>().add(
-      const ContentAnalyticsSubscriptionRequested(),
+    context.read<OverviewBloc>().add(
+      const AnalyticsDataRequested(tab: OverviewTab.content),
     );
   }
 
@@ -29,83 +31,72 @@ class _ContentTabViewState extends State<ContentTabView>
     super.build(context);
     final l10n = AppLocalizationsX(context).l10n;
 
-    return BlocBuilder<ContentAnalyticsBloc, ContentAnalyticsState>(
-      builder: (context, state) {
-        switch (state.status) {
-          case ContentAnalyticsStatus.initial:
-          case ContentAnalyticsStatus.loading:
-            return LoadingStateWidget(
-              icon: Icons.analytics_outlined,
-              headline: l10n.loadingAnalytics,
-              subheadline: l10n.pleaseWait,
-            );
-
-          case ContentAnalyticsStatus.failure:
-            return FailureStateWidget(
-              exception: UnknownException(state.error.toString()),
-              onRetry: () => context.read<ContentAnalyticsBloc>().add(
-                const ContentAnalyticsSubscriptionRequested(),
-              ),
-            );
-
-          case ContentAnalyticsStatus.success:
-            final isAllEmpty = [
-              ...state.kpiData,
-              ...state.chartData,
-            ].every((d) => d == null);
-
-            if (isAllEmpty) {
-              return InitialStateWidget(
-                icon: Icons.analytics_outlined,
-                headline: l10n.noAnalyticsDataHeadline,
-                subheadline: l10n.noAnalyticsDataSubheadline,
-              );
-            }
-
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final isWide =
-                      constraints.maxWidth >= AppConstants.kDesktopBreakpoint;
-
-                  final kpiSlot = AnalyticsCardSlot<KpiCardId>(
-                    cardIds: ContentAnalyticsBloc.kpiCards,
-                    data: state.kpiData,
-                  );
-
-                  final chartSlot = AnalyticsCardSlot<ChartCardId>(
-                    cardIds: ContentAnalyticsBloc.chartCards,
-                    data: state.chartData,
-                  );
-
-                  if (isWide) {
-                    return SizedBox(
-                      height: 200,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: AppConstants.kAnalyticsKpiSidebarWidth,
-                            child: kpiSlot,
-                          ),
-                          const SizedBox(width: AppSpacing.md),
-                          Expanded(child: chartSlot),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        SizedBox(height: 150, child: kpiSlot),
-                        const SizedBox(height: AppSpacing.md),
-                        SizedBox(height: 350, child: chartSlot),
-                      ],
-                    );
-                  }
-                },
-              ),
-            );
+    return BlocSelector<OverviewBloc, OverviewState, TabAnalyticsState?>(
+      selector: (state) => state.tabStates[OverviewTab.content],
+      builder: (context, tabState) {
+        if (tabState == null || tabState.status == TabAnalyticsStatus.initial) {
+          return const SizedBox.shrink();
         }
+
+        if (tabState.status == TabAnalyticsStatus.loading) {
+          return LoadingStateWidget(
+            icon: Icons.analytics_outlined,
+            headline: l10n.loadingAnalytics,
+            subheadline: l10n.pleaseWait,
+          );
+        }
+
+        if (tabState.status == TabAnalyticsStatus.failure) {
+          return FailureStateWidget(
+            exception: UnknownException(tabState.error.toString()),
+            onRetry: () => context.read<OverviewBloc>().add(
+              const AnalyticsDataRequested(
+                tab: OverviewTab.content,
+                forceRefresh: true,
+              ),
+            ),
+          );
+        }
+
+        final kpis = tabState.kpiData;
+        final charts = tabState.chartData;
+
+        if (kpis.every((d) => d == null) && charts.every((d) => d == null)) {
+          return InitialStateWidget(
+            icon: Icons.analytics_outlined,
+            headline: l10n.noAnalyticsDataHeadline,
+            subheadline: l10n.noAnalyticsDataSubheadline,
+          );
+        }
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: StaggeredGrid.count(
+            crossAxisCount:
+                MediaQuery.of(context).size.width <
+                    AppConstants.kDesktopBreakpoint
+                ? 2
+                : 3,
+            mainAxisSpacing: AppSpacing.md,
+            crossAxisSpacing: AppSpacing.md,
+            children: [
+              ...kpis.whereType<KpiCardData>().map(
+                (d) => StaggeredGridTile.count(
+                  crossAxisCellCount: 1,
+                  mainAxisCellCount: 1,
+                  child: KpiCard(data: d),
+                ),
+              ),
+              ...charts.whereType<ChartCardData>().map(
+                (d) => StaggeredGridTile.count(
+                  crossAxisCellCount: 1,
+                  mainAxisCellCount: 1.2,
+                  child: ChartCard(data: d),
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
