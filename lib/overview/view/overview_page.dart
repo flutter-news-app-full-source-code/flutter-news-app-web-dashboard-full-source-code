@@ -11,6 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/co
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/monetization_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/ranked_list_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -46,12 +47,22 @@ class _OverviewPageState extends State<OverviewPage>
           OverviewBloc(analyticsService: context.read<AnalyticsService>()),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.dashboard),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.overview),
+              const SizedBox(width: AppSpacing.xs),
+              AboutIcon(
+                dialogTitle: l10n.aboutOverviewPageTitle,
+                dialogDescription: l10n.aboutOverviewPageDescription,
+              ),
+            ],
+          ),
           bottom: TabBar(
             controller: _tabController,
             isScrollable: true,
             tabs: [
-              Tab(text: l10n.overview),
+              Tab(text: l10n.summary),
               Tab(text: l10n.audience),
               Tab(text: l10n.content),
               Tab(text: l10n.community),
