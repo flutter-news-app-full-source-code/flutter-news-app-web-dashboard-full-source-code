@@ -1,16 +1,17 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/audience_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/community_tab_view.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/configuration_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/content_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/monetization_tab_view.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_slot.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/ranked_list_card.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class OverviewPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _OverviewPageState extends State<OverviewPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -39,11 +40,9 @@ class _OverviewPageState extends State<OverviewPage>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-
     return BlocProvider(
-      create: (context) => OverviewBloc(
-        analyticsService: context.read<AnalyticsService>(),
-      )..add(const OverviewSubscriptionRequested()),
+      create: (context) =>
+          OverviewBloc(analyticsService: context.read<AnalyticsService>()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.dashboard),
@@ -56,7 +55,6 @@ class _OverviewPageState extends State<OverviewPage>
               Tab(text: l10n.content),
               Tab(text: l10n.community),
               Tab(text: l10n.monetization),
-              Tab(text: l10n.configuration),
             ],
           ),
         ),
@@ -68,7 +66,6 @@ class _OverviewPageState extends State<OverviewPage>
             ContentTabView(),
             CommunityTabView(),
             MonetizationTabView(),
-            ConfigurationTabView(),
           ],
         ),
       ),
@@ -76,101 +73,214 @@ class _OverviewPageState extends State<OverviewPage>
   }
 }
 
-class _OverviewTabView extends StatelessWidget {
+class _OverviewTabView extends StatefulWidget {
   const _OverviewTabView();
+
+  @override
+  State<_OverviewTabView> createState() => _OverviewTabViewState();
+}
+
+class _OverviewTabViewState extends State<_OverviewTabView>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    super.initState();
+    context.read<OverviewBloc>().add(
+      const AnalyticsDataRequested(tab: OverviewTab.overview),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return const SingleChildScrollView(
+      padding: EdgeInsets.all(AppSpacing.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _AppStatusView(),
+          SizedBox(height: AppSpacing.lg),
+          _AnalyticsView(),
+        ],
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class _AppStatusView extends StatelessWidget {
+  const _AppStatusView();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
+
+    return BlocBuilder<AppConfigurationBloc, AppConfigurationState>(
+      builder: (context, appConfigState) {
+        final config = appConfigState.remoteConfig;
+        if (config == null) {
+          return const SizedBox.shrink();
+        }
+
+        final isMaintenance = config.app.maintenance.isUnderMaintenance;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(l10n.appStatusActive, style: theme.textTheme.titleMedium),
+                const SizedBox(width: AppSpacing.md),
+                _BlinkingDot(isLive: !isMaintenance),
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  isMaintenance
+                      ? l10n.appStatusMaintenance
+                      : l10n.appStatusActive,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: isMaintenance
+                        ? theme.colorScheme.error
+                        : Colors.green.shade600,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.md),
+            Wrap(
+              spacing: AppSpacing.md,
+              runSpacing: AppSpacing.sm,
+              children: [
+                Chip(
+                  label: Text(
+                    '${l10n.monetization}: ${config.features.ads.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.ads.primaryAdPlatform.name})',
+                  ),
+                ),
+                Chip(
+                  label: Text(
+                    '${l10n.notificationsTab}: ${config.features.pushNotifications.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.pushNotifications.primaryProvider.name})',
+                  ),
+                ),
+                Chip(
+                  label: Text(
+                    '${l10n.analyticsTab}: ${config.features.analytics.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.analytics.activeProvider.name})',
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _BlinkingDot extends StatefulWidget {
+  const _BlinkingDot({required this.isLive});
+  final bool isLive;
+
+  @override
+  State<_BlinkingDot> createState() => _BlinkingDotState();
+}
+
+class _BlinkingDotState extends State<_BlinkingDot>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = widget.isLive
+        ? Colors.green.shade600
+        : Theme.of(context).colorScheme.error;
+    return FadeTransition(
+      opacity: _controller,
+      child: Container(
+        width: 12,
+        height: 12,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.5),
+              blurRadius: 4,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AnalyticsView extends StatelessWidget {
+  const _AnalyticsView();
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
 
-    return BlocBuilder<OverviewBloc, OverviewState>(
-      builder: (context, state) {
-        switch (state.status) {
-          case OverviewStatus.initial:
-          case OverviewStatus.loading:
-            return LoadingStateWidget(
-              icon: Icons.analytics_outlined,
-              headline: l10n.loadingAnalytics,
-              subheadline: l10n.pleaseWait,
-            );
-
-          case OverviewStatus.failure:
-            return FailureStateWidget(
-              exception: UnknownException(state.error.toString()),
-              onRetry: () => context.read<OverviewBloc>().add(
-                const OverviewSubscriptionRequested(),
-              ),
-            );
-
-          case OverviewStatus.success:
-            final isAllEmpty = state.rankedListData.every((cardData) {
-              if (cardData == null) return true;
-              return cardData.timeFrames.isEmpty;
-            });
-
-            if (isAllEmpty) {
-              return InitialStateWidget(
-                icon: Icons.analytics_outlined,
-                headline: l10n.noAnalyticsDataHeadline,
-                subheadline: l10n.noAnalyticsDataSubheadline,
-              );
-            }
-
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final isWide =
-                      constraints.maxWidth >= AppConstants.kDesktopBreakpoint;
-                  const chartHeight = 350.0;
-                  const rankedListCards = OverviewBloc.rankedListCards;
-
-                  if (isWide) {
-                    return SizedBox(
-                      height: chartHeight,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: AnalyticsCardSlot<RankedListCardId>(
-                              cardIds: [rankedListCards[0]],
-                              data: [state.rankedListData[0]],
-                            ),
-                          ),
-                          const SizedBox(width: AppSpacing.md),
-                          Expanded(
-                            child: AnalyticsCardSlot<RankedListCardId>(
-                              cardIds: [rankedListCards[1]],
-                              data: [state.rankedListData[1]],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: chartHeight,
-                          child: AnalyticsCardSlot<RankedListCardId>(
-                            cardIds: [rankedListCards[0]],
-                            data: [state.rankedListData[0]],
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.md),
-                        SizedBox(
-                          height: chartHeight,
-                          child: AnalyticsCardSlot<RankedListCardId>(
-                            cardIds: [rankedListCards[1]],
-                            data: [state.rankedListData[1]],
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-            );
+    return BlocSelector<OverviewBloc, OverviewState, TabAnalyticsState?>(
+      selector: (state) => state.tabStates[OverviewTab.overview],
+      builder: (context, tabState) {
+        if (tabState == null || tabState.status == TabAnalyticsStatus.loading) {
+          return const Center(child: CircularProgressIndicator());
         }
+
+        if (tabState.status == TabAnalyticsStatus.failure) {
+          return Center(child: Text(l10n.overviewLoadFailure));
+        }
+
+        final kpis = tabState.kpiData;
+        final rankedLists = tabState.rankedListData;
+
+        if (kpis.every((d) => d == null) &&
+            rankedLists.every((d) => d == null)) {
+          return InitialStateWidget(
+            icon: Icons.analytics_outlined,
+            headline: l10n.noAnalyticsDataHeadline,
+            subheadline: l10n.noAnalyticsDataSubheadline,
+          );
+        }
+
+        return StaggeredGrid.count(
+          crossAxisCount: 4,
+          mainAxisSpacing: AppSpacing.md,
+          crossAxisSpacing: AppSpacing.md,
+          children: [
+            ...kpis.whereType<KpiCardData>().map(
+              (d) => StaggeredGridTile.count(
+                crossAxisCellCount: 1,
+                mainAxisCellCount: 1,
+                child: KpiCard(data: d),
+              ),
+            ),
+            ...rankedLists.whereType<RankedListCardData>().map(
+              (d) => StaggeredGridTile.count(
+                crossAxisCellCount: 2,
+                mainAxisCellCount: 2,
+                child: RankedListCard(data: d),
+              ),
+            ),
+          ],
+        );
       },
     );
   }
