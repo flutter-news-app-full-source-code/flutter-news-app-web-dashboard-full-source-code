@@ -115,24 +115,27 @@ class _KpiCardState extends State<KpiCard> {
       child: currentData == null
           ? Center(child: Text(l10n.noDataAvailable))
           : Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    currentData.value.toString(),
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      currentData.value.toString(),
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  _TrendIndicator(
-                    trend: currentData.trend,
-                    timeFrame: _selectedTimeFrame,
-                    l10n: l10n,
-                  ),
-                ],
+                    const SizedBox(width: AppSpacing.sm),
+                    _TrendIndicator(
+                      trend: currentData.trend,
+                      timeFrame: _selectedTimeFrame,
+                      l10n: l10n,
+                    ),
+                  ],
+                ),
               ),
             ),
     );
