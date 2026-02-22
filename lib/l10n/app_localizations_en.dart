@@ -3418,4 +3418,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get summary => 'Summary';
+
+  @override
+  String get about => 'About';
 }
