@@ -1,4 +1,3 @@
-//
 // ignore_for_file: deprecated_member_use
 
 import 'package:auth_repository/auth_repository.dart';
@@ -18,8 +17,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_filter/rewards_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
@@ -195,15 +192,6 @@ class App extends StatelessWidget {
               pendingUpdatesService: context.read<PendingUpdatesService>(),
             ),
           ),
-          BlocProvider(
-            create: (context) => RewardsFilterBloc(),
-          ),
-          BlocProvider(
-            create: (context) => RewardsManagementBloc(
-              rewardsRepository: context.read<DataRepository<UserRewards>>(),
-              rewardsFilterBloc: context.read<RewardsFilterBloc>(),
-            ),
-          ),
         ],
         child: _AppView(
           authenticationRepository: _authenticationRepository,
@@ -270,14 +258,18 @@ class _AppViewState extends State<_AppView> {
           final language = appSettings?.language;
 
           final lightThemeData = lightTheme(
-            scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,
+            scheme:
+                accentTheme?.toFlexScheme ??
+                AppAccentTheme.defaultBlue.toFlexScheme,
             appTextScaleFactor: textScaleFactor ?? AppTextScaleFactor.medium,
             appFontWeight: fontWeight ?? AppFontWeight.regular,
             fontFamily: fontFamily,
           );
 
           final darkThemeData = darkTheme(
-            scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,
+            scheme:
+                accentTheme?.toFlexScheme ??
+                AppAccentTheme.defaultBlue.toFlexScheme,
             appTextScaleFactor: textScaleFactor ?? AppTextScaleFactor.medium,
             appFontWeight: fontWeight ?? AppFontWeight.regular,
             fontFamily: fontFamily,
@@ -348,11 +340,11 @@ extension AppAccentThemeExtension on AppAccentTheme {
   FlexScheme get toFlexScheme {
     switch (this) {
       case AppAccentTheme.defaultBlue:
-        return FlexScheme.materialHc;
+        return FlexScheme.shadBlue;
       case AppAccentTheme.newsRed:
-        return FlexScheme.redWine;
+        return FlexScheme.shadRed;
       case AppAccentTheme.graphiteGray:
-        return FlexScheme.outerSpace;
+        return FlexScheme.shadGray;
     }
   }
 }

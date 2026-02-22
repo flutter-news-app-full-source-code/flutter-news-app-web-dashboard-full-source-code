@@ -14,90 +14,162 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
     required AnalyticsService analyticsService,
   }) : _analyticsService = analyticsService,
        super(const OverviewState()) {
-    on<OverviewSubscriptionRequested>(_onSubscriptionRequested);
+    on<AnalyticsDataRequested>(_onAnalyticsDataRequested);
   }
 
   final AnalyticsService _analyticsService;
 
-  // Define the cards used on this page to ensure consistent ordering.
-  static const List<KpiCardId> kpiCards = [
-    KpiCardId.usersTotalRegistered,
-    KpiCardId.contentHeadlinesTotalViews,
-    KpiCardId.rewardsActiveUsersCount,
-  ];
-
-  static const List<ChartCardId> chartCards = [
-    ChartCardId.usersRegistrationsOverTime,
-    ChartCardId.contentHeadlinesViewsOverTime,
-    ChartCardId.overviewAppTourFunnel,
-    ChartCardId.overviewInitialPersonalizationFunnel,
-  ];
-
-  static const List<RankedListCardId> rankedListCards = [
+  static const List<RankedListCardId> _overviewRankedListCards = [
     RankedListCardId.overviewHeadlinesMostViewed,
     RankedListCardId.overviewSourcesMostFollowed,
   ];
 
-  Future<void> _onSubscriptionRequested(
-    OverviewSubscriptionRequested event,
+  static const List<KpiCardId> _overviewKpiCards = [
+    KpiCardId.usersTotalRegistered,
+    KpiCardId.contentHeadlinesTotalViews,
+    KpiCardId.engagementsTotalReactions,
+    KpiCardId.rewardsGrantedTotal,
+  ];
+
+  static const List<KpiCardId> _audienceKpiCards = [
+    KpiCardId.usersTotalRegistered,
+    KpiCardId.usersNewRegistrations,
+    KpiCardId.usersActiveUsers,
+  ];
+
+  static const List<ChartCardId> _audienceChartCards = [
+    ChartCardId.usersRegistrationsOverTime,
+    ChartCardId.usersActiveUsersOverTime,
+    ChartCardId.usersTierDistribution,
+  ];
+
+  static const List<KpiCardId> _communityKpiCards = [
+    KpiCardId.engagementsTotalReactions,
+    KpiCardId.engagementsTotalComments,
+    KpiCardId.engagementsAverageEngagementRate,
+  ];
+
+  static const List<ChartCardId> _communityChartCards = [
+    ChartCardId.engagementsReactionsOverTime,
+    ChartCardId.engagementsCommentsOverTime,
+    ChartCardId.engagementsReactionsByType,
+  ];
+
+  static const List<KpiCardId> _contentKpiCards = [
+    KpiCardId.contentHeadlinesTotalPublished,
+    KpiCardId.contentSourcesTotalSources,
+    KpiCardId.contentTopicsTotalTopics,
+  ];
+  static const List<ChartCardId> _contentChartCards = [
+    ChartCardId.contentHeadlinesViewsOverTime,
+    ChartCardId.contentSourcesHeadlinesPublishedOverTime,
+    ChartCardId.contentTopicsHeadlinesPublishedOverTime,
+  ];
+
+  static const List<KpiCardId> _monetizationKpiCards = [
+    KpiCardId.rewardsAdsWatchedTotal,
+    KpiCardId.rewardsGrantedTotal,
+    KpiCardId.rewardsActiveUsersCount,
+  ];
+  static const List<ChartCardId> _monetizationChartCards = [
+    ChartCardId.rewardsAdsWatchedOverTime,
+    ChartCardId.rewardsGrantedOverTime,
+    ChartCardId.rewardsActiveByType,
+  ];
+
+  Future<void> _onAnalyticsDataRequested(
+    AnalyticsDataRequested event,
     Emitter<OverviewState> emit,
   ) async {
-    emit(state.copyWith(status: OverviewStatus.loading));
+    final currentTabState =
+        state.tabStates[event.tab] ?? const TabAnalyticsState();
+    if (currentTabState.status == TabAnalyticsStatus.success &&
+        !event.forceRefresh) {
+      return;
+    }
+
+    final newTabStates =
+        Map<OverviewTab, TabAnalyticsState>.from(state.tabStates)
+          ..[event.tab] = currentTabState.copyWith(
+            status: TabAnalyticsStatus.loading,
+          );
+    emit(state.copyWith(tabStates: newTabStates));
 
     try {
-      // Create a list of future providers to be executed in batches.
-      // The order here MUST match the order used when unpacking the data.
-      final futureProviders = <Future<dynamic> Function()>[
-        ...kpiCards.map(
-          (id) =>
-              () => _analyticsService.getKpi(id),
-        ),
-        ...chartCards.map(
-          (id) =>
-              () => _analyticsService.getChart(id),
-        ),
-        ...rankedListCards.map(
-          (id) =>
-              () => _analyticsService.getRankedList(id),
-        ),
-      ];
+      final futureProviders = <Future<dynamic> Function()>[];
+      var kpiIds = <KpiCardId>[];
+      var chartIds = <ChartCardId>[];
+      var rankedListIds = <RankedListCardId>[];
 
-      // Use the utility to fetch data in controlled batches.
+      switch (event.tab) {
+        case OverviewTab.overview:
+          kpiIds = _overviewKpiCards;
+          rankedListIds = _overviewRankedListCards;
+        case OverviewTab.audience:
+          kpiIds = _audienceKpiCards;
+          chartIds = _audienceChartCards;
+        case OverviewTab.community:
+          kpiIds = _communityKpiCards;
+          chartIds = _communityChartCards;
+        case OverviewTab.content:
+          kpiIds = _contentKpiCards;
+          chartIds = _contentChartCards;
+        case OverviewTab.monetization:
+          kpiIds = _monetizationKpiCards;
+          chartIds = _monetizationChartCards;
+      }
+
+      futureProviders
+        ..addAll(
+          kpiIds.map(
+            (id) =>
+                () => _analyticsService.getKpi(id),
+          ),
+        )
+        ..addAll(
+          chartIds.map(
+            (id) =>
+                () => _analyticsService.getChart(id),
+          ),
+        )
+        ..addAll(
+          rankedListIds.map(
+            (id) =>
+                () => _analyticsService.getRankedList(id),
+          ),
+        );
+
       final allData = await FutureUtils.fetchInBatches(futureProviders);
 
-      // Unpack the flat list back into specific data lists.
-      var currentIndex = 0;
-
-      final kpiData = allData
-          .sublist(currentIndex, currentIndex + kpiCards.length)
-          .cast<KpiCardData?>();
-      currentIndex += kpiCards.length;
-
+      final kpiData = allData.sublist(0, kpiIds.length).cast<KpiCardData?>();
       final chartData = allData
-          .sublist(currentIndex, currentIndex + chartCards.length)
+          .sublist(kpiIds.length, kpiIds.length + chartIds.length)
           .cast<ChartCardData?>();
-      currentIndex += chartCards.length;
-
       final rankedListData = allData
-          .sublist(currentIndex, currentIndex + rankedListCards.length)
+          .sublist(kpiIds.length + chartIds.length)
           .cast<RankedListCardData?>();
 
-      emit(
-        state.copyWith(
-          status: OverviewStatus.success,
-          kpiData: kpiData,
-          chartData: chartData,
-          rankedListData: rankedListData,
-        ),
+      final successTabState = TabAnalyticsState(
+        status: TabAnalyticsStatus.success,
+        kpiData: kpiData,
+        chartData: chartData,
+        rankedListData: rankedListData,
       );
+
+      final updatedTabStates = Map<OverviewTab, TabAnalyticsState>.from(
+        state.tabStates,
+      )..[event.tab] = successTabState;
+      emit(state.copyWith(tabStates: updatedTabStates));
     } catch (error, stackTrace) {
       addError(error, stackTrace);
-      emit(
-        state.copyWith(
-          status: OverviewStatus.failure,
-          error: error,
-        ),
+      final failureTabState = TabAnalyticsState(
+        status: TabAnalyticsStatus.failure,
+        error: error,
       );
+      final updatedTabStates = Map<OverviewTab, TabAnalyticsState>.from(
+        state.tabStates,
+      )..[event.tab] = failureTabState;
+      emit(state.copyWith(tabStates: updatedTabStates));
     }
   }
 }

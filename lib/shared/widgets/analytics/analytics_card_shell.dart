@@ -27,13 +27,13 @@ class AnalyticsCardShell<T> extends StatelessWidget {
   const AnalyticsCardShell({
     required this.title,
     required this.child,
-    required this.currentSlot,
-    required this.totalSlots,
-    required this.onSlotChanged,
     required this.timeFrames,
     required this.selectedTimeFrame,
     required this.onTimeFrameChanged,
     required this.timeFrameToString,
+    this.currentSlot,
+    this.totalSlots,
+    this.onSlotChanged,
     this.timeFramePosition = TimeFramePosition.right,
     super.key,
   });
@@ -45,13 +45,13 @@ class AnalyticsCardShell<T> extends StatelessWidget {
   final Widget child;
 
   /// The index of the currently active card in the slot.
-  final int currentSlot;
+  final int? currentSlot;
 
   /// The total number of cards in this slot.
-  final int totalSlots;
+  final int? totalSlots;
 
   /// Callback when a slot dot is clicked.
-  final ValueChanged<int> onSlotChanged;
+  final ValueChanged<int>? onSlotChanged;
 
   /// The list of available time frames (e.g., Day, Week, Month).
   final List<T> timeFrames;
@@ -91,13 +91,17 @@ class AnalyticsCardShell<T> extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // --- Left Edge: Slot Navigation ---
-                  if (totalSlots > 1)
+                  if (totalSlots != null &&
+                      totalSlots! > 1 &&
+                      currentSlot != null &&
+                      onSlotChanged != null)
                     _VerticalSlotIndicator(
-                      currentSlot: currentSlot,
-                      totalSlots: totalSlots,
-                      onSlotChanged: onSlotChanged,
+                      currentSlot: currentSlot!,
+                      totalSlots: totalSlots!,
+                      onSlotChanged: onSlotChanged!,
                     ),
-                  if (totalSlots > 1) const SizedBox(width: AppSpacing.sm),
+                  if (totalSlots != null && totalSlots! > 1)
+                    const SizedBox(width: AppSpacing.sm),
 
                   // --- Center: Content ---
                   Expanded(

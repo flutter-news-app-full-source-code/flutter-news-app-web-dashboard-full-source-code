@@ -26,6 +26,12 @@ class AppConfigurationBloc
     AppConfigurationLoaded event,
     Emitter<AppConfigurationState> emit,
   ) async {
+    // Prevent re-fetching if data is already loaded or being loaded.
+    if (state.status == AppConfigurationStatus.loading ||
+        state.status == AppConfigurationStatus.success) {
+      return;
+    }
+
     emit(state.copyWith(status: AppConfigurationStatus.loading));
     try {
       final remoteConfig = await _remoteConfigRepository.read(

@@ -3370,4 +3370,55 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get analyticsEventMediaUploadFailedDescription =>
       'Track when a file upload fails.';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get aboutOverviewPageTitle => 'About the Overview Page';
+
+  @override
+  String get aboutOverviewPageDescription =>
+      'This page provides a high-level overview of key application metrics. The displayed statistics are not live; they are updated periodically by the backend. The refresh interval is configured server-side.';
+
+  @override
+  String get audience => 'Audience';
+
+  @override
+  String get content => 'Content';
+
+  @override
+  String get community => 'Community';
+
+  @override
+  String get monetization => 'Monetization';
+
+  @override
+  String get configuration => 'Configuration';
+
+  @override
+  String get loadingConfiguration => 'Loading Configuration...';
+
+  @override
+  String get noConfigurationDataHeadline => 'No Configuration Data';
+
+  @override
+  String get noConfigurationDataSubheadline =>
+      'Could not load the application\'s remote configuration.';
+
+  @override
+  String get readOnlyConfigurationView => 'Read-Only Configuration View';
+
+  @override
+  String get readOnlyConfigurationViewDescription =>
+      'This is a real-time, read-only snapshot of the application\'s operational settings. To make changes, go to the main \'Remote Config\' page.';
+
+  @override
+  String get providers => 'Providers';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get about => 'About';
 }

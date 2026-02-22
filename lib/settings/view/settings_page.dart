@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
@@ -27,32 +28,8 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class _SettingsView extends StatefulWidget {
+class _SettingsView extends StatelessWidget {
   const _SettingsView();
-
-  @override
-  State<_SettingsView> createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends State<_SettingsView> {
-  late List<ExpansionTileController> _mainTileControllers;
-
-  @override
-  void initState() {
-    super.initState();
-    _mainTileControllers = List.generate(
-      2,
-      (index) => ExpansionTileController(),
-    );
-  }
-
-  @override
-  void dispose() {
-    for (final controller in _mainTileControllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,194 +107,130 @@ class _SettingsViewState extends State<_SettingsView> {
           } else if (state.appSettings != null) {
             final appSettings = state.appSettings!;
             return ListView(
-              padding: const EdgeInsets.all(AppSpacing.lg),
+              padding: const EdgeInsets.all(AppSpacing.md),
               children: [
-                ExpansionTile(
-                  controller: _mainTileControllers[0],
-                  title: Text(l10n.appearanceSettingsLabel),
-                  onExpansionChanged: (isExpanded) {
-                    if (isExpanded) {
-                      for (var i = 0; i < _mainTileControllers.length; i++) {
-                        if (i != 0) {
-                          _mainTileControllers[i].collapse();
-                        }
-                      }
-                    }
-                  },
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
+                _SettingsCard(
+                  title: l10n.appearanceSettingsLabel,
                   children: [
-                    ExpansionTile(
-                      title: Text(l10n.themeSettingsLabel),
-                      childrenPadding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.xxl,
+                    _buildSettingSection(
+                      context,
+                      title: l10n.baseThemeLabel,
+                      description: l10n.baseThemeDescription,
+                      child: SegmentedButton<AppBaseTheme>(
+                        segments: [
+                          ButtonSegment(
+                            value: AppBaseTheme.light,
+                            label: Text(l10n.lightTheme),
+                            icon: const Icon(Icons.light_mode_outlined),
+                          ),
+                          ButtonSegment(
+                            value: AppBaseTheme.dark,
+                            label: Text(l10n.darkTheme),
+                            icon: const Icon(Icons.dark_mode_outlined),
+                          ),
+                          ButtonSegment(
+                            value: AppBaseTheme.system,
+                            label: Text(l10n.systemTheme),
+                            icon: const Icon(Icons.brightness_auto_outlined),
+                          ),
+                        ],
+                        selected: {appSettings.displaySettings.baseTheme},
+                        onSelectionChanged: (selection) {
+                          context.read<SettingsBloc>().add(
+                            SettingsBaseThemeChanged(selection.first),
+                          );
+                        },
                       ),
-                      children: [
-                        _buildSettingSection(
-                          context,
-                          title: l10n.baseThemeLabel,
-                          description: l10n.baseThemeDescription,
-                          child: DropdownButton<AppBaseTheme>(
-                            value: appSettings.displaySettings.baseTheme,
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<SettingsBloc>().add(
-                                  SettingsBaseThemeChanged(value),
-                                );
-                              }
-                            },
-                            items: AppBaseTheme.values
-                                .map(
-                                  (theme) => DropdownMenuItem(
-                                    value: theme,
-                                    child: Text(
-                                      _getAppBaseThemeName(theme, l10n),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.lg),
-                        _buildSettingSection(
-                          context,
-                          title: l10n.accentThemeLabel,
-                          description: l10n.accentThemeDescription,
-                          child: DropdownButton<AppAccentTheme>(
-                            value: appSettings.displaySettings.accentTheme,
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<SettingsBloc>().add(
-                                  SettingsAccentThemeChanged(value),
-                                );
-                              }
-                            },
-                            items: AppAccentTheme.values
-                                .map(
-                                  (theme) => DropdownMenuItem(
-                                    value: theme,
-                                    child: Text(
-                                      _getAppAccentThemeName(theme, l10n),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ],
                     ),
-                    ExpansionTile(
-                      title: Text(l10n.fontSettingsLabel),
-                      childrenPadding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.xxl,
+                    const Divider(height: AppSpacing.lg),
+                    _buildSettingSection(
+                      context,
+                      title: l10n.accentThemeLabel,
+                      description: l10n.accentThemeDescription,
+                      child: Row(
+                        children: AppAccentTheme.values.map((accent) {
+                          return _AccentColorCircle(
+                            color: _getAppAccentThemeColor(accent, context),
+                            isSelected:
+                                appSettings.displaySettings.accentTheme ==
+                                accent,
+                            onTap: () => context.read<SettingsBloc>().add(
+                              SettingsAccentThemeChanged(accent),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      children: [
-                        _buildSettingSection(
-                          context,
-                          title: l10n.fontFamilyLabel,
-                          description: l10n.fontFamilyDescription,
-                          child: DropdownButton<String>(
-                            value: appSettings.displaySettings.fontFamily,
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<SettingsBloc>().add(
-                                  SettingsFontFamilyChanged(value),
-                                );
-                              }
-                            },
-                            items: _supportedFontFamilies
-                                .map(
-                                  (font) => DropdownMenuItem(
-                                    value: font,
-                                    child: Text(_getFontFamilyName(font, l10n)),
-                                  ),
-                                )
-                                .toList(),
+                    ),
+                    const Divider(height: AppSpacing.lg),
+                    _buildSettingSection(
+                      context,
+                      title: l10n.textScaleFactorLabel,
+                      description: l10n.textScaleFactorDescription,
+                      child: SizedBox(
+                        width: 250,
+                        child: Slider(
+                          value: AppTextScaleFactor.values
+                              .indexOf(
+                                appSettings.displaySettings.textScaleFactor,
+                              )
+                              .toDouble(),
+                          min: 0,
+                          max: (AppTextScaleFactor.values.length - 1)
+                              .toDouble(),
+                          divisions: AppTextScaleFactor.values.length - 1,
+                          label: _getAppTextScaleFactorName(
+                            appSettings.displaySettings.textScaleFactor,
+                            l10n,
                           ),
+                          onChanged: (value) {
+                            final newScale =
+                                AppTextScaleFactor.values[value.toInt()];
+                            context.read<SettingsBloc>().add(
+                              SettingsTextScaleFactorChanged(newScale),
+                            );
+                          },
                         ),
-                        const SizedBox(height: AppSpacing.lg),
-                        _buildSettingSection(
-                          context,
-                          title: l10n.textScaleFactorLabel,
-                          description: l10n.textScaleFactorDescription,
-                          child: DropdownButton<AppTextScaleFactor>(
-                            value: appSettings.displaySettings.textScaleFactor,
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<SettingsBloc>().add(
-                                  SettingsTextScaleFactorChanged(value),
-                                );
-                              }
-                            },
-                            items: AppTextScaleFactor.values
-                                .map(
-                                  (scale) => DropdownMenuItem(
-                                    value: scale,
-                                    child: Text(
-                                      _getAppTextScaleFactorName(scale, l10n),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                      ),
+                    ),
+                    const Divider(height: AppSpacing.lg),
+                    _buildSettingSection(
+                      context,
+                      title: l10n.fontWeightLabel,
+                      description: l10n.fontWeightDescription,
+                      child: SegmentedButton<AppFontWeight>(
+                        segments: [
+                          ButtonSegment(
+                            value: AppFontWeight.light,
+                            label: Text(l10n.lightFontWeight),
                           ),
-                        ),
-                        const SizedBox(height: AppSpacing.lg),
-                        _buildSettingSection(
-                          context,
-                          title: l10n.fontWeightLabel,
-                          description: l10n.fontWeightDescription,
-                          child: DropdownButton<AppFontWeight>(
-                            value: appSettings.displaySettings.fontWeight,
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<SettingsBloc>().add(
-                                  SettingsFontWeightChanged(value),
-                                );
-                              }
-                            },
-                            items: AppFontWeight.values
-                                .map(
-                                  (weight) => DropdownMenuItem(
-                                    value: weight,
-                                    child: Text(
-                                      _getAppFontWeightName(weight, l10n),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                          ButtonSegment(
+                            value: AppFontWeight.regular,
+                            label: Text(l10n.regularFontWeight),
                           ),
-                        ),
-                      ],
+                          ButtonSegment(
+                            value: AppFontWeight.bold,
+                            label: Text(l10n.boldFontWeight),
+                          ),
+                        ],
+                        selected: {appSettings.displaySettings.fontWeight},
+                        onSelectionChanged: (selection) {
+                          context.read<SettingsBloc>().add(
+                            SettingsFontWeightChanged(selection.first),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
-                ExpansionTile(
-                  controller: _mainTileControllers[1],
-                  title: Text(l10n.languageSettingsLabel),
-                  onExpansionChanged: (isExpanded) {
-                    if (isExpanded) {
-                      for (var i = 0; i < _mainTileControllers.length; i++) {
-                        if (i != 1) {
-                          _mainTileControllers[i].collapse();
-                        }
-                      }
-                    }
-                  },
-                  childrenPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
+                const SizedBox(height: AppSpacing.lg),
+                _SettingsCard(
+                  title: l10n.languageSettingsLabel,
                   children: [
                     SizedBox(
-                      height: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.xxl,
-                        ),
-                        child: _LanguageSelectionList(
-                          currentLanguage: appSettings.language,
-                          l10n: l10n,
-                        ),
+                      height: 120,
+                      child: _LanguageSelectionList(
+                        currentLanguage: appSettings.language,
+                        l10n: l10n,
                       ),
                     ),
                   ],
@@ -329,80 +242,6 @@ class _SettingsViewState extends State<_SettingsView> {
         },
       ),
     );
-  }
-
-  Widget _buildSettingSection(
-    BuildContext context, {
-    required String title,
-    required String description,
-    required Widget child,
-  }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                description,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          width: AppSpacing.lg,
-        ),
-        child,
-      ],
-    );
-  }
-
-  String _getAppBaseThemeName(AppBaseTheme theme, AppLocalizations l10n) {
-    switch (theme) {
-      case AppBaseTheme.light:
-        return l10n.lightTheme;
-      case AppBaseTheme.dark:
-        return l10n.darkTheme;
-      case AppBaseTheme.system:
-        return l10n.systemTheme;
-    }
-  }
-
-  String _getAppAccentThemeName(AppAccentTheme theme, AppLocalizations l10n) {
-    switch (theme) {
-      case AppAccentTheme.defaultBlue:
-        return l10n.defaultBlueTheme;
-      case AppAccentTheme.newsRed:
-        return l10n.newsRedTheme;
-      case AppAccentTheme.graphiteGray:
-        return l10n.graphiteGrayTheme;
-    }
-  }
-
-  String _getFontFamilyName(String fontFamily, AppLocalizations l10n) {
-    switch (fontFamily) {
-      case 'SystemDefault':
-        return l10n.systemDefaultFont;
-      case 'Roboto':
-        return 'Roboto';
-      case 'OpenSans':
-        return 'Open Sans';
-      case 'Lato':
-        return 'Lato';
-      case 'Montserrat':
-        return 'Montserrat';
-      case 'Merriweather':
-        return 'Merriweather';
-      default:
-        return fontFamily;
-    }
   }
 
   String _getAppTextScaleFactorName(
@@ -420,26 +259,104 @@ class _SettingsViewState extends State<_SettingsView> {
         return l10n.extraLargeText;
     }
   }
+}
 
-  String _getAppFontWeightName(AppFontWeight weight, AppLocalizations l10n) {
-    switch (weight) {
-      case AppFontWeight.light:
-        return l10n.lightFontWeight;
-      case AppFontWeight.regular:
-        return l10n.regularFontWeight;
-      case AppFontWeight.bold:
-        return l10n.boldFontWeight;
-    }
+class _SettingsCard extends StatelessWidget {
+  const _SettingsCard({required this.title, required this.children});
+
+  final String title;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: AppSpacing.lg),
+            ...children,
+          ],
+        ),
+      ),
+    );
   }
+}
 
-  static const List<String> _supportedFontFamilies = [
-    'SystemDefault',
-    'Roboto',
-    'OpenSans',
-    'Lato',
-    'Montserrat',
-    'Merriweather',
-  ];
+Widget _buildSettingSection(
+  BuildContext context, {
+  required String title,
+  required String description,
+  required Widget child,
+}) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              description,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(
+        width: AppSpacing.lg,
+      ),
+      child,
+    ],
+  );
+}
+
+class _AccentColorCircle extends StatelessWidget {
+  const _AccentColorCircle({
+    required this.color,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final Color color;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+        width: 32,
+        height: 32,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+          border: isSelected
+              ? Border.all(
+                  color: Theme.of(context).colorScheme.outline,
+                  width: 3,
+                )
+              : null,
+        ),
+        child: isSelected
+            ? Icon(
+                Icons.check,
+                color: Theme.of(context).colorScheme.onPrimary,
+                size: 18,
+              )
+            : null,
+      ),
+    );
+  }
 }
 
 /// {@template _language_selection_list}
@@ -469,7 +386,7 @@ class _LanguageSelectionList extends StatelessWidget {
       itemCount: _supportedLanguages.length,
       itemBuilder: (context, index) {
         final language = _supportedLanguages[index];
-        final isSelected = language == currentLanguage;
+        final isSelected = language.code == currentLanguage.code;
         return ListTile(
           title: Text(
             language.name,
@@ -488,5 +405,26 @@ class _LanguageSelectionList extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+Color _getAppAccentThemeColor(AppAccentTheme theme, BuildContext context) {
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  switch (theme) {
+    case AppAccentTheme.defaultBlue:
+      return (isDark ? FlexColorScheme.dark : FlexColorScheme.light)(
+        scheme: FlexScheme.shadBlue,
+        useMaterial3: true,
+      ).toScheme.primary;
+    case AppAccentTheme.newsRed:
+      return (isDark ? FlexColorScheme.dark : FlexColorScheme.light)(
+        scheme: FlexScheme.shadRed,
+        useMaterial3: true,
+      ).toScheme.primary;
+    case AppAccentTheme.graphiteGray:
+      return (isDark ? FlexColorScheme.dark : FlexColorScheme.light)(
+        scheme: FlexScheme.shadGray,
+        useMaterial3: true,
+      ).toScheme.primary;
   }
 }

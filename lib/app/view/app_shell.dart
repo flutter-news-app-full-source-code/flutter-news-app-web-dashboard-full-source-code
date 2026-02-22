@@ -57,11 +57,6 @@ class AppShell extends StatelessWidget {
             label: l10n.navCommunity,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.card_giftcard_outlined),
-            selectedIcon: const Icon(Icons.card_giftcard),
-            label: l10n.rewardsTab,
-          ),
-          NavigationDestination(
             icon: const Icon(Icons.settings_applications_outlined),
             selectedIcon: const Icon(Icons.settings_applications),
             label: l10n.appConfiguration,

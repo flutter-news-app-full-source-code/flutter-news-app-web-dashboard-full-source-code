@@ -28,10 +28,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/overview_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/bloc/rewards_filter/rewards_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/view/rewards_management_page.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/widgets/rewards_filter_dialog/bloc/rewards_filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/rewards_management/widgets/rewards_filter_dialog/rewards_filter_dialog.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/route_permissions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/view/settings_page.dart';
@@ -396,40 +392,6 @@ GoRouter createRouter({
                       return const MaterialPage(
                         fullscreenDialog: true,
                         child: CommunityFilterDialog(),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.rewardsManagement,
-                name: Routes.rewardsManagementName,
-                builder: (context, state) => const RewardsManagementPage(),
-
-                routes: [
-                  GoRoute(
-                    path: Routes.rewardsFilterDialog,
-                    name: Routes.rewardsFilterDialogName,
-                    pageBuilder: (context, state) {
-                      final args = state.extra! as Map<String, dynamic>;
-                      final rewardsFilterState =
-                          args['rewardsFilterState'] as RewardsFilterState;
-
-                      return MaterialPage(
-                        fullscreenDialog: true,
-                        child: BlocProvider<RewardsFilterDialogBloc>(
-                          create: (providerContext) =>
-                              RewardsFilterDialogBloc()..add(
-                                RewardsFilterDialogInitialized(
-                                  rewardsFilterState: rewardsFilterState,
-                                ),
-                              ),
-                          child: const RewardsFilterDialog(),
-                        ),
                       );
                     },
                   ),

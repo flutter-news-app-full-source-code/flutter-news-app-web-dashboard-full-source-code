@@ -6103,6 +6103,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track when a file upload fails.'**
   String get analyticsEventMediaUploadFailedDescription;
+
+  /// Label for the main dashboard/overview tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// Title for the 'About' dialog on the overview page.
+  ///
+  /// In en, this message translates to:
+  /// **'About the Overview Page'**
+  String get aboutOverviewPageTitle;
+
+  /// Description for the 'About' dialog on the overview page, explaining data is not real-time.
+  ///
+  /// In en, this message translates to:
+  /// **'This page provides a high-level overview of key application metrics. The displayed statistics are not live; they are updated periodically by the backend. The refresh interval is configured server-side.'**
+  String get aboutOverviewPageDescription;
+
+  /// Label for the Audience analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Audience'**
+  String get audience;
+
+  /// Label for the Content analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get content;
+
+  /// Label for the Community analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get community;
+
+  /// Label for the Monetization analytics tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Monetization'**
+  String get monetization;
+
+  /// Label for the Configuration status tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration'**
+  String get configuration;
+
+  /// Text shown while loading the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Configuration...'**
+  String get loadingConfiguration;
+
+  /// Headline for the empty state of the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'No Configuration Data'**
+  String get noConfigurationDataHeadline;
+
+  /// Sub-headline for the empty state of the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the application\'s remote configuration.'**
+  String get noConfigurationDataSubheadline;
+
+  /// Title for the read-only configuration status view.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-Only Configuration View'**
+  String get readOnlyConfigurationView;
+
+  /// Description for the read-only configuration status view.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a real-time, read-only snapshot of the application\'s operational settings. To make changes, go to the main \'Remote Config\' page.'**
+  String get readOnlyConfigurationViewDescription;
+
+  /// Title for the Providers section in the read-only configuration view.
+  ///
+  /// In en, this message translates to:
+  /// **'Providers'**
+  String get providers;
+
+  /// Label for the main summary tab on the overview page.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// Label for the about navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
 }
 
 class _AppLocalizationsDelegate

@@ -7,6 +7,12 @@ sealed class OverviewEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class OverviewSubscriptionRequested extends OverviewEvent {
-  const OverviewSubscriptionRequested();
+final class AnalyticsDataRequested extends OverviewEvent {
+  const AnalyticsDataRequested({required this.tab, this.forceRefresh = false});
+
+  final OverviewTab tab;
+  final bool forceRefresh;
+
+  @override
+  List<Object> get props => [tab, forceRefresh];
 }

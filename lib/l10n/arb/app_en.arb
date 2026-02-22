@@ -4176,5 +4176,69 @@
   "analyticsEventMediaUploadFailedDescription": "Track when a file upload fails.",
   "@analyticsEventMediaUploadFailedDescription": {
     "description": "Description for the Media Upload Failed analytics event"
+  },
+  "dashboard": "Dashboard",
+  "@dashboard": {
+    "description": "Label for the main dashboard/overview tab."
+  },
+  "aboutOverviewPageTitle": "About the Overview Page",
+  "@aboutOverviewPageTitle": {
+    "description": "Title for the 'About' dialog on the overview page."
+  },
+  "aboutOverviewPageDescription": "This page provides a high-level overview of key application metrics. The displayed statistics are not live; they are updated periodically by the backend. The refresh interval is configured server-side.",
+  "@aboutOverviewPageDescription": {
+    "description": "Description for the 'About' dialog on the overview page, explaining data is not real-time."
+  },
+  "audience": "Audience",
+  "@audience": {
+    "description": "Label for the Audience analytics tab."
+  },
+  "content": "Content",
+  "@content": {
+    "description": "Label for the Content analytics tab."
+  },
+  "community": "Community",
+  "@community": {
+    "description": "Label for the Community analytics tab."
+  },
+  "monetization": "Monetization",
+  "@monetization": {
+    "description": "Label for the Monetization analytics tab."
+  },
+  "configuration": "Configuration",
+  "@configuration": {
+    "description": "Label for the Configuration status tab."
+  },
+  "loadingConfiguration": "Loading Configuration...",
+  "@loadingConfiguration": {
+    "description": "Text shown while loading the read-only configuration view."
+  },
+  "noConfigurationDataHeadline": "No Configuration Data",
+  "@noConfigurationDataHeadline": {
+    "description": "Headline for the empty state of the read-only configuration view."
+  },
+  "noConfigurationDataSubheadline": "Could not load the application's remote configuration.",
+  "@noConfigurationDataSubheadline": {
+    "description": "Sub-headline for the empty state of the read-only configuration view."
+  },
+  "readOnlyConfigurationView": "Read-Only Configuration View",
+  "@readOnlyConfigurationView": {
+    "description": "Title for the read-only configuration status view."
+  },
+  "readOnlyConfigurationViewDescription": "This is a real-time, read-only snapshot of the application's operational settings. To make changes, go to the main 'Remote Config' page.",
+  "@readOnlyConfigurationViewDescription": {
+    "description": "Description for the read-only configuration status view."
+  },
+  "providers": "Providers",
+  "@providers": {
+    "description": "Title for the Providers section in the read-only configuration view."
+  },
+  "summary": "Summary",
+  "@summary": {
+    "description": "Label for the main summary tab on the overview page."
+  },
+  "about": "About",
+  "@about": {
+    "description": "Label for the about navigation item"
   }
 }

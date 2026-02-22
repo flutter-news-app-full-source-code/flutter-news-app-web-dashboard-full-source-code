@@ -817,7 +817,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appStatusMaintenance => 'صيانة';
 
   @override
-  String get appStatusOperational => 'يعاري';
+  String get appStatusOperational => 'يعمل';
 
   @override
   String get isUnderMaintenanceLabel => 'تحت الصيانة';
@@ -3347,4 +3347,55 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get analyticsEventMediaUploadFailedDescription =>
       'تتبع عندما يفشل تحميل ملف.';
+
+  @override
+  String get dashboard => 'لوحة التحكم';
+
+  @override
+  String get aboutOverviewPageTitle => 'حول صفحة النظرة العامة';
+
+  @override
+  String get aboutOverviewPageDescription =>
+      'توفر هذه الصفحة نظرة عامة عالية المستوى على مقاييس التطبيق الرئيسية. الإحصائيات المعروضة ليست مباشرة؛ يتم تحديثها بشكل دوري بواسطة الواجهة الخلفية. يتم تكوين الفاصل الزمني للتحديث من جانب الخادم.';
+
+  @override
+  String get audience => 'الجمهور';
+
+  @override
+  String get content => 'المحتوى';
+
+  @override
+  String get community => 'المجتمع';
+
+  @override
+  String get monetization => 'تحقيق الدخل';
+
+  @override
+  String get configuration => 'الإعدادات';
+
+  @override
+  String get loadingConfiguration => 'جاري تحميل الإعدادات...';
+
+  @override
+  String get noConfigurationDataHeadline => 'لا توجد بيانات إعدادات';
+
+  @override
+  String get noConfigurationDataSubheadline =>
+      'تعذر تحميل الإعدادات عن بعد للتطبيق.';
+
+  @override
+  String get readOnlyConfigurationView => 'عرض الإعدادات للقراءة فقط';
+
+  @override
+  String get readOnlyConfigurationViewDescription =>
+      'هذه لقطة في الوقت الفعلي للقراءة فقط لإعدادات تشغيل التطبيق. لإجراء تغييرات، انتقل إلى صفحة \'التحكم المركزي\' الرئيسية.';
+
+  @override
+  String get providers => 'المزودون';
+
+  @override
+  String get summary => 'ملخص';
+
+  @override
+  String get about => 'حول';
 }
