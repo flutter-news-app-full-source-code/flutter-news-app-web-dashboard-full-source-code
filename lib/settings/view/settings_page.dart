@@ -386,7 +386,7 @@ class _LanguageSelectionList extends StatelessWidget {
       itemCount: _supportedLanguages.length,
       itemBuilder: (context, index) {
         final language = _supportedLanguages[index];
-        final isSelected = language == currentLanguage;
+        final isSelected = language.code == currentLanguage.code;
         return ListTile(
           title: Text(
             language.name,
@@ -409,20 +409,21 @@ class _LanguageSelectionList extends StatelessWidget {
 }
 
 Color _getAppAccentThemeColor(AppAccentTheme theme, BuildContext context) {
+  final isDark = Theme.of(context).brightness == Brightness.dark;
   switch (theme) {
     case AppAccentTheme.defaultBlue:
-      return FlexColorScheme.light(
-        scheme: FlexScheme.blue,
+      return (isDark ? FlexColorScheme.dark : FlexColorScheme.light)(
+        scheme: FlexScheme.shadBlue,
         useMaterial3: true,
       ).toScheme.primary;
     case AppAccentTheme.newsRed:
-      return FlexColorScheme.light(
-        scheme: FlexScheme.red,
+      return (isDark ? FlexColorScheme.dark : FlexColorScheme.light)(
+        scheme: FlexScheme.shadRed,
         useMaterial3: true,
       ).toScheme.primary;
     case AppAccentTheme.graphiteGray:
-      return FlexColorScheme.light(
-        scheme: FlexScheme.greyLaw,
+      return (isDark ? FlexColorScheme.dark : FlexColorScheme.light)(
+        scheme: FlexScheme.shadGray,
         useMaterial3: true,
       ).toScheme.primary;
   }
