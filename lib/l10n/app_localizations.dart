@@ -6110,6 +6110,18 @@ abstract class AppLocalizations {
   /// **'Dashboard'**
   String get dashboard;
 
+  /// Title for the 'About' dialog on the overview page.
+  ///
+  /// In en, this message translates to:
+  /// **'About the Overview Page'**
+  String get aboutOverviewPageTitle;
+
+  /// Description for the 'About' dialog on the overview page, explaining data is not real-time.
+  ///
+  /// In en, this message translates to:
+  /// **'This page provides a high-level overview of key application metrics. The displayed statistics are not live; they are updated periodically by the backend. The refresh interval is configured server-side.'**
+  String get aboutOverviewPageDescription;
+
   /// Label for the Audience analytics tab.
   ///
   /// In en, this message translates to:
@@ -6175,6 +6187,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Providers'**
   String get providers;
+
+  /// Label for the main summary tab on the overview page.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
 }
 
 class _AppLocalizationsDelegate

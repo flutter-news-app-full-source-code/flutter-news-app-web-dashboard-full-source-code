@@ -817,7 +817,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appStatusMaintenance => 'صيانة';
 
   @override
-  String get appStatusOperational => 'يعاري';
+  String get appStatusOperational => 'يعمل';
 
   @override
   String get isUnderMaintenanceLabel => 'تحت الصيانة';
@@ -3352,6 +3352,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dashboard => 'لوحة التحكم';
 
   @override
+  String get aboutOverviewPageTitle => 'حول صفحة النظرة العامة';
+
+  @override
+  String get aboutOverviewPageDescription =>
+      'توفر هذه الصفحة نظرة عامة عالية المستوى على مقاييس التطبيق الرئيسية. الإحصائيات المعروضة ليست مباشرة؛ يتم تحديثها بشكل دوري بواسطة الواجهة الخلفية. يتم تكوين الفاصل الزمني للتحديث من جانب الخادم.';
+
+  @override
   String get audience => 'الجمهور';
 
   @override
@@ -3385,4 +3392,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get providers => 'المزودون';
+
+  @override
+  String get summary => 'ملخص';
 }

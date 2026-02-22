@@ -3375,6 +3375,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboard => 'Dashboard';
 
   @override
+  String get aboutOverviewPageTitle => 'About the Overview Page';
+
+  @override
+  String get aboutOverviewPageDescription =>
+      'This page provides a high-level overview of key application metrics. The displayed statistics are not live; they are updated periodically by the backend. The refresh interval is configured server-side.';
+
+  @override
   String get audience => 'Audience';
 
   @override
@@ -3408,4 +3415,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get providers => 'Providers';
+
+  @override
+  String get summary => 'Summary';
 }
