@@ -258,14 +258,18 @@ class _AppViewState extends State<_AppView> {
           final language = appSettings?.language;
 
           final lightThemeData = lightTheme(
-            scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,
+            scheme:
+                accentTheme?.toFlexScheme ??
+                AppAccentTheme.defaultBlue.toFlexScheme,
             appTextScaleFactor: textScaleFactor ?? AppTextScaleFactor.medium,
             appFontWeight: fontWeight ?? AppFontWeight.regular,
             fontFamily: fontFamily,
           );
 
           final darkThemeData = darkTheme(
-            scheme: accentTheme?.toFlexScheme ?? FlexScheme.materialHc,
+            scheme:
+                accentTheme?.toFlexScheme ??
+                AppAccentTheme.defaultBlue.toFlexScheme,
             appTextScaleFactor: textScaleFactor ?? AppTextScaleFactor.medium,
             appFontWeight: fontWeight ?? AppFontWeight.regular,
             fontFamily: fontFamily,
