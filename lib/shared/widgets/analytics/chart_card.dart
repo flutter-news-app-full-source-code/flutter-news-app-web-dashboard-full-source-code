@@ -14,59 +14,16 @@ class ChartCard extends StatefulWidget {
   /// {@macro chart_card}
   const ChartCard({
     required this.data,
-    required this.slotIndex,
-    required this.totalSlots,
-    required this.onSlotChanged,
+    this.slotIndex,
+    this.totalSlots,
+    this.onSlotChanged,
     super.key,
   });
 
   final ChartCardData data;
-  final int slotIndex;
-  final int totalSlots;
-  final ValueChanged<int> onSlotChanged;
-
-  @override
-  State<ChartCard> createState() => _ChartCardState();
-}
-
-class _ChartCardState extends State<ChartCard> {
-  ChartTimeFrame _selectedTimeFrame = ChartTimeFrame.week;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
-    final currentPoints = widget.data.timeFrames[_selectedTimeFrame];
-
-    return AnalyticsCardShell<ChartTimeFrame>(
-      title: _getLocalizedTitle(widget.data.cardId, l10n),
-      currentSlot: widget.slotIndex,
-      totalSlots: widget.totalSlots,
-      onSlotChanged: widget.onSlotChanged,
-      timeFrames: ChartTimeFrame.values,
-      selectedTimeFrame: _selectedTimeFrame,
-      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
-      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
-      child: (currentPoints == null || currentPoints.isEmpty)
-          ? Center(child: Text(l10n.noDataAvailable))
-          : Padding(
-              padding: const EdgeInsets.only(
-                top: AppSpacing.sm,
-                bottom: AppSpacing.xs,
-                left: AppSpacing.sm,
-                right: AppSpacing.sm,
-              ),
-              child: widget.data.type == ChartType.line
-                  ? _LineChart(
-                      points: currentPoints,
-                      timeFrame: _selectedTimeFrame,
-                    )
-                  : _BarChart(
-                      points: currentPoints,
-                      timeFrame: _selectedTimeFrame,
-                    ),
-            ),
-    );
-  }
+  final int? slotIndex;
+  final int? totalSlots;
+  final ValueChanged<int>? onSlotChanged;
 
   String _getLocalizedTitle(ChartCardId id, AppLocalizations l10n) {
     switch (id) {
@@ -129,6 +86,49 @@ class _ChartCardState extends State<ChartCard> {
       case ChartCardId.mediaUploadsSuccessVsFailure:
         return l10n.chartMediaUploadsSuccessVsFailure;
     }
+  }
+
+  @override
+  State<ChartCard> createState() => _ChartCardState();
+}
+
+class _ChartCardState extends State<ChartCard> {
+  ChartTimeFrame _selectedTimeFrame = ChartTimeFrame.week;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    final currentPoints = widget.data.timeFrames[_selectedTimeFrame];
+
+    return AnalyticsCardShell<ChartTimeFrame>(
+      title: widget._getLocalizedTitle(widget.data.cardId, l10n),
+      currentSlot: widget.slotIndex,
+      totalSlots: widget.totalSlots,
+      onSlotChanged: widget.onSlotChanged,
+      timeFrames: ChartTimeFrame.values,
+      selectedTimeFrame: _selectedTimeFrame,
+      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
+      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
+      child: (currentPoints == null || currentPoints.isEmpty)
+          ? Center(child: Text(l10n.noDataAvailable))
+          : Padding(
+              padding: const EdgeInsets.only(
+                top: AppSpacing.sm,
+                bottom: AppSpacing.xs,
+                left: AppSpacing.sm,
+                right: AppSpacing.sm,
+              ),
+              child: widget.data.type == ChartType.line
+                  ? _LineChart(
+                      points: currentPoints,
+                      timeFrame: _selectedTimeFrame,
+                    )
+                  : _BarChart(
+                      points: currentPoints,
+                      timeFrame: _selectedTimeFrame,
+                    ),
+            ),
+    );
   }
 
   String _timeFrameToLabel(ChartTimeFrame frame, AppLocalizations l10n) {
