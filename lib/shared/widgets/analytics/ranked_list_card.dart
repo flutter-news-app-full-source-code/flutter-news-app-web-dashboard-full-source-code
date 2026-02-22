@@ -14,82 +14,16 @@ class RankedListCard extends StatefulWidget {
   /// {@macro ranked_list_card}
   const RankedListCard({
     required this.data,
-    required this.slotIndex,
-    required this.totalSlots,
-    required this.onSlotChanged,
+    this.slotIndex,
+    this.totalSlots,
+    this.onSlotChanged,
     super.key,
   });
 
   final RankedListCardData data;
-  final int slotIndex;
-  final int totalSlots;
-  final ValueChanged<int> onSlotChanged;
-
-  @override
-  State<RankedListCard> createState() => _RankedListCardState();
-}
-
-class _RankedListCardState extends State<RankedListCard> {
-  RankedListTimeFrame _selectedTimeFrame = RankedListTimeFrame.week;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizationsX(context).l10n;
-    final theme = Theme.of(context);
-    final currentList = widget.data.timeFrames[_selectedTimeFrame];
-
-    return AnalyticsCardShell<RankedListTimeFrame>(
-      title: _getLocalizedTitle(widget.data.cardId, l10n),
-      currentSlot: widget.slotIndex,
-      totalSlots: widget.totalSlots,
-      onSlotChanged: widget.onSlotChanged,
-      timeFrames: RankedListTimeFrame.values,
-      selectedTimeFrame: _selectedTimeFrame,
-      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
-      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
-      timeFramePosition: TimeFramePosition.bottom,
-      child: (currentList == null || currentList.isEmpty)
-          ? Center(child: Text(l10n.noDataAvailable))
-          : ListView.separated(
-              padding: EdgeInsets.zero,
-              itemCount: currentList.length,
-              separatorBuilder: (context, index) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                final item = currentList[index];
-                return ListTile(
-                  onTap: () => _onItemTapped(context, widget.data.cardId, item),
-                  contentPadding: EdgeInsets.zero,
-                  dense: true,
-                  leading: CircleAvatar(
-                    backgroundColor: theme.colorScheme.primaryContainer,
-                    foregroundColor: theme.colorScheme.onPrimaryContainer,
-                    radius: 10,
-                    child: Text(
-                      '${index + 1}',
-                      style: theme.textTheme.labelSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    item.displayTitle,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  trailing: Text(
-                    item.metricValue.toString(),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
-                    ),
-                  ),
-                );
-              },
-            ),
-    );
-  }
+  final int? slotIndex;
+  final int? totalSlots;
+  final ValueChanged<int>? onSlotChanged;
 
   void _onItemTapped(
     BuildContext context,
@@ -125,6 +59,73 @@ class _RankedListCardState extends State<RankedListCard> {
       case RankedListCardId.overviewTopicsMostFollowed:
         return l10n.rankedListOverviewTopicsMostFollowed;
     }
+  }
+
+  @override
+  State<RankedListCard> createState() => _RankedListCardState();
+}
+
+class _RankedListCardState extends State<RankedListCard> {
+  RankedListTimeFrame _selectedTimeFrame = RankedListTimeFrame.week;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
+    final currentList = widget.data.timeFrames[_selectedTimeFrame];
+
+    return AnalyticsCardShell<RankedListTimeFrame>(
+      title: widget._getLocalizedTitle(widget.data.cardId, l10n),
+      currentSlot: widget.slotIndex,
+      totalSlots: widget.totalSlots,
+      onSlotChanged: widget.onSlotChanged,
+      timeFrames: RankedListTimeFrame.values,
+      selectedTimeFrame: _selectedTimeFrame,
+      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
+      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
+      timeFramePosition: TimeFramePosition.bottom,
+      child: (currentList == null || currentList.isEmpty)
+          ? Center(child: Text(l10n.noDataAvailable))
+          : ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: currentList.length,
+              separatorBuilder: (context, index) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final item = currentList[index];
+                return ListTile(
+                  onTap: () =>
+                      widget._onItemTapped(context, widget.data.cardId, item),
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                  leading: CircleAvatar(
+                    backgroundColor: theme.colorScheme.primaryContainer,
+                    foregroundColor: theme.colorScheme.onPrimaryContainer,
+                    radius: 10,
+                    child: Text(
+                      '${index + 1}',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    item.displayTitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  trailing: Text(
+                    item.metricValue.toString(),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                );
+              },
+            ),
+    );
   }
 
   String _timeFrameToLabel(RankedListTimeFrame frame, AppLocalizations l10n) {
