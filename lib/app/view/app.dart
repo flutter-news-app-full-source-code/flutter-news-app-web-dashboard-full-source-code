@@ -17,11 +17,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/audience/audience_analytics_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/community/community_analytics_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/configuration/configuration_view_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/content/content_analytics_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/monetization/monetization_analytics_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/router.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
@@ -196,37 +191,6 @@ class App extends StatelessWidget {
               communityFilterBloc: context.read<CommunityFilterBloc>(),
               pendingUpdatesService: context.read<PendingUpdatesService>(),
             ),
-          ),
-
-          BlocProvider(
-            create: (context) => AudienceAnalyticsBloc(
-              analyticsService: context.read<AnalyticsService>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => ContentAnalyticsBloc(
-              analyticsService: context.read<AnalyticsService>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => CommunityAnalyticsBloc(
-              analyticsService: context.read<AnalyticsService>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => MonetizationAnalyticsBloc(
-              analyticsService: context.read<AnalyticsService>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) =>
-                ConfigurationViewBloc(
-                  appConfigurationBloc: context.read<AppConfigurationBloc>(),
-                )..add(
-                  ConfigurationViewSubscriptionRequested(
-                    context.read<AppConfigurationBloc>().state.remoteConfig,
-                  ),
-                ),
           ),
         ],
         child: _AppView(
