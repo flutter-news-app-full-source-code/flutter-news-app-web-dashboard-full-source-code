@@ -336,11 +336,11 @@ extension AppAccentThemeExtension on AppAccentTheme {
   FlexScheme get toFlexScheme {
     switch (this) {
       case AppAccentTheme.defaultBlue:
-        return FlexScheme.materialHc;
+        return FlexScheme.shadBlue;
       case AppAccentTheme.newsRed:
-        return FlexScheme.redWine;
+        return FlexScheme.shadRed;
       case AppAccentTheme.graphiteGray:
-        return FlexScheme.outerSpace;
+        return FlexScheme.shadGray;
     }
   }
 }
