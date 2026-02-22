@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/audience_tab_view.dart';
@@ -88,6 +89,9 @@ class _OverviewTabViewState extends State<_OverviewTabView>
     context.read<OverviewBloc>().add(
       const AnalyticsDataRequested(tab: OverviewTab.overview),
     );
+    context.read<AppConfigurationBloc>().add(
+      const AppConfigurationLoaded(),
+    );
   }
 
   @override
@@ -131,44 +135,52 @@ class _AppStatusView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(l10n.appStatusActive, style: theme.textTheme.titleMedium),
+                Text(
+                  l10n.appOperationalStatusLabel,
+                  style: theme.textTheme.titleMedium,
+                ),
                 const SizedBox(width: AppSpacing.md),
                 _BlinkingDot(isLive: !isMaintenance),
                 const SizedBox(width: AppSpacing.sm),
                 Text(
                   isMaintenance
                       ? l10n.appStatusMaintenance
-                      : l10n.appStatusActive,
+                      : l10n.appStatusOperational,
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: isMaintenance
                         ? theme.colorScheme.error
                         : Colors.green.shade600,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.md),
-            Wrap(
-              spacing: AppSpacing.md,
-              runSpacing: AppSpacing.sm,
-              children: [
-                Chip(
-                  label: Text(
-                    '${l10n.monetization}: ${config.features.ads.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.ads.primaryAdPlatform.name})',
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Chip(
+                    label: Text(
+                      '${l10n.monetization}: ${config.features.ads.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.ads.primaryAdPlatform.name})',
+                    ),
                   ),
-                ),
-                Chip(
-                  label: Text(
-                    '${l10n.notificationsTab}: ${config.features.pushNotifications.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.pushNotifications.primaryProvider.name})',
+                  const SizedBox(width: AppSpacing.md),
+                  Chip(
+                    label: Text(
+                      '${l10n.notificationsTab}: ${config.features.pushNotifications.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.pushNotifications.primaryProvider.name})',
+                    ),
                   ),
-                ),
-                Chip(
-                  label: Text(
-                    '${l10n.analyticsTab}: ${config.features.analytics.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.analytics.activeProvider.name})',
+                  const SizedBox(width: AppSpacing.md),
+                  Chip(
+                    label: Text(
+                      '${l10n.analyticsTab}: ${config.features.analytics.enabled ? l10n.contentStatusActive : l10n.contentStatusDraft} (${config.features.analytics.activeProvider.name})',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         );
@@ -261,7 +273,11 @@ class _AnalyticsView extends StatelessWidget {
         }
 
         return StaggeredGrid.count(
-          crossAxisCount: 4,
+          crossAxisCount:
+              MediaQuery.of(context).size.width <
+                  AppConstants.kDesktopBreakpoint
+              ? 2
+              : 4,
           mainAxisSpacing: AppSpacing.md,
           crossAxisSpacing: AppSpacing.md,
           children: [
