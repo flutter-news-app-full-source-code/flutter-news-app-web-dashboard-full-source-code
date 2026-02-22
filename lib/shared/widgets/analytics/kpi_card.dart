@@ -13,9 +13,9 @@ class KpiCard extends StatefulWidget {
   /// {@macro kpi_card}
   const KpiCard({
     required this.data,
-    required this.slotIndex,
-    required this.totalSlots,
-    required this.onSlotChanged,
+    this.slotIndex,
+    this.totalSlots,
+    this.onSlotChanged,
     super.key,
   });
 
@@ -23,61 +23,13 @@ class KpiCard extends StatefulWidget {
   final KpiCardData data;
 
   /// The index of this card in the parent slot.
-  final int slotIndex;
+  final int? slotIndex;
 
   /// The total number of cards in the parent slot.
-  final int totalSlots;
+  final int? totalSlots;
 
   /// Callback to change the active card in the slot.
-  final ValueChanged<int> onSlotChanged;
-
-  @override
-  State<KpiCard> createState() => _KpiCardState();
-}
-
-class _KpiCardState extends State<KpiCard> {
-  KpiTimeFrame _selectedTimeFrame = KpiTimeFrame.week;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final l10n = AppLocalizationsX(context).l10n;
-    final currentData = widget.data.timeFrames[_selectedTimeFrame];
-
-    return AnalyticsCardShell<KpiTimeFrame>(
-      title: _getLocalizedTitle(widget.data.cardId, l10n),
-      currentSlot: widget.slotIndex,
-      totalSlots: widget.totalSlots,
-      onSlotChanged: widget.onSlotChanged,
-      timeFrames: KpiTimeFrame.values,
-      selectedTimeFrame: _selectedTimeFrame,
-      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
-      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
-      child: currentData == null
-          ? Center(child: Text(l10n.noDataAvailable))
-          : Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    currentData.value.toString(),
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.primary,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  _TrendIndicator(
-                    trend: currentData.trend,
-                    timeFrame: _selectedTimeFrame,
-                    l10n: l10n,
-                  ),
-                ],
-              ),
-            ),
-    );
-  }
+  final ValueChanged<int>? onSlotChanged;
 
   String _getLocalizedTitle(KpiCardId id, AppLocalizations l10n) {
     switch (id) {
@@ -136,6 +88,54 @@ class _KpiCardState extends State<KpiCard> {
       case KpiCardId.mediaAverageUploadTime:
         return l10n.kpiMediaAverageUploadTime;
     }
+  }
+
+  @override
+  State<KpiCard> createState() => _KpiCardState();
+}
+
+class _KpiCardState extends State<KpiCard> {
+  KpiTimeFrame _selectedTimeFrame = KpiTimeFrame.week;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizationsX(context).l10n;
+    final currentData = widget.data.timeFrames[_selectedTimeFrame];
+
+    return AnalyticsCardShell<KpiTimeFrame>(
+      title: widget._getLocalizedTitle(widget.data.cardId, l10n),
+      currentSlot: widget.slotIndex,
+      totalSlots: widget.totalSlots,
+      onSlotChanged: widget.onSlotChanged,
+      timeFrames: KpiTimeFrame.values,
+      selectedTimeFrame: _selectedTimeFrame,
+      onTimeFrameChanged: (value) => setState(() => _selectedTimeFrame = value),
+      timeFrameToString: (frame) => _timeFrameToLabel(frame, l10n),
+      child: currentData == null
+          ? Center(child: Text(l10n.noDataAvailable))
+          : Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    currentData.value.toString(),
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  _TrendIndicator(
+                    trend: currentData.trend,
+                    timeFrame: _selectedTimeFrame,
+                    l10n: l10n,
+                  ),
+                ],
+              ),
+            ),
+    );
   }
 }
 
