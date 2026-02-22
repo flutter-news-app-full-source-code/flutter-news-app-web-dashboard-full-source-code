@@ -4236,5 +4236,9 @@
   "summary": "Summary",
   "@summary": {
     "description": "Label for the main summary tab on the overview page."
+  },
+  "about": "About",
+  "@about": {
+    "description": "Label for the about navigation item"
   }
 }
