@@ -183,11 +183,13 @@ class _TrendIndicator extends StatelessWidget {
           children: [
             Icon(icon, size: 12, color: color),
             const SizedBox(width: 2),
-            Text(
-              trend,
-              style: theme.textTheme.labelSmall?.copyWith(
-                color: color,
-                fontWeight: FontWeight.bold,
+            Flexible(
+              child: Text(
+                trend,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
