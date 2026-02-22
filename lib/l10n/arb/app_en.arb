@@ -4181,6 +4181,14 @@
   "@dashboard": {
     "description": "Label for the main dashboard/overview tab."
   },
+  "aboutOverviewPageTitle": "About the Overview Page",
+  "@aboutOverviewPageTitle": {
+    "description": "Title for the 'About' dialog on the overview page."
+  },
+  "aboutOverviewPageDescription": "This page provides a high-level overview of key application metrics. The displayed statistics are not live; they are updated periodically by the backend. The refresh interval is configured server-side.",
+  "@aboutOverviewPageDescription": {
+    "description": "Description for the 'About' dialog on the overview page, explaining data is not real-time."
+  },
   "audience": "Audience",
   "@audience": {
     "description": "Label for the Audience analytics tab."
@@ -4224,5 +4232,9 @@
   "providers": "Providers",
   "@providers": {
     "description": "Title for the Providers section in the read-only configuration view."
+  },
+  "summary": "Summary",
+  "@summary": {
+    "description": "Label for the main summary tab on the overview page."
   }
 }
