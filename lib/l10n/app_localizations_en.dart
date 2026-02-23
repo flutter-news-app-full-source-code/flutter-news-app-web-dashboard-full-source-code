@@ -1458,13 +1458,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.';
 
   @override
-  String get savedSourceFilterLimitsTitle => 'Saved Source Filter Limits';
-
-  @override
-  String get savedSourceFilterLimitsDescription =>
-      'Set limits on the number of saved source filters for each user tier, including total and pinned.';
-
-  @override
   String get totalLimitLabel => 'Total Limit';
 
   @override
@@ -1489,10 +1482,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pushNotificationSubscriptionDeliveryTypeBreakingOnly =>
       'Breaking News';
-
-  @override
-  String get pushNotificationSubscriptionDeliveryTypeDailyDigest =>
-      'Daily Digest';
 
   @override
   String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
@@ -1715,10 +1704,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationSubscriptionBreakingOnlyDescription =>
       'Limit for subscriptions that send immediate alerts for matching headlines.';
-
-  @override
-  String get notificationSubscriptionDailyDigestDescription =>
-      'Limit for subscriptions that send a daily summary of matching headlines.';
 
   @override
   String get notificationSubscriptionWeeklyRoundupDescription =>
@@ -2546,20 +2531,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Track when a user applies a saved headline filter.';
 
   @override
-  String get analyticsEventSourceFilterCreatedLabel => 'Source Filter Creation';
-
-  @override
-  String get analyticsEventSourceFilterCreatedDescription =>
-      'Track when a user creates a new source filter.';
-
-  @override
-  String get analyticsEventSourceFilterUpdatedLabel => 'Source Filter Update';
-
-  @override
-  String get analyticsEventSourceFilterUpdatedDescription =>
-      'Track when a user modifies an existing source filter.';
-
-  @override
   String get analyticsEventSearchPerformedLabel => 'Search Performed';
 
   @override
@@ -2688,13 +2659,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get analyticsEventBrowserChoiceChangedDescription =>
       'Track when a user changes their preferred browser for opening links.';
-
-  @override
-  String get analyticsEventSourceFilterUsedLabel => 'Source Filter Usage';
-
-  @override
-  String get analyticsEventSourceFilterUsedDescription =>
-      'Track when a user applies a saved source filter.';
 
   @override
   String get analyticsEventAppTourStartedLabel => 'App Tour Started';
@@ -3111,9 +3075,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rewardTypeAdFree => 'Ad-Free Experience';
-
-  @override
-  String get rewardTypeDailyDigest => 'Daily Digest';
 
   @override
   String get rewardDurationDaysLabel => 'Duration (Days)';

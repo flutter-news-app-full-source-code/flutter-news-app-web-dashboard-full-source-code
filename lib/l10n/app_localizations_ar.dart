@@ -1457,13 +1457,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'تعيين حدود على عدد مرشحات العناوين المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة واشتراكات الإشعارات.';
 
   @override
-  String get savedSourceFilterLimitsTitle => 'حدود مرشحات المصادر المحفوظة';
-
-  @override
-  String get savedSourceFilterLimitsDescription =>
-      'تعيين حدود على عدد مرشحات المصادر المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة.';
-
-  @override
   String get totalLimitLabel => 'الحد الإجمالي';
 
   @override
@@ -1487,10 +1480,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get pushNotificationSubscriptionDeliveryTypeBreakingOnly =>
       'الأخبار العاجلة';
-
-  @override
-  String get pushNotificationSubscriptionDeliveryTypeDailyDigest =>
-      'الملخص اليومي';
 
   @override
   String get pushNotificationSubscriptionDeliveryTypeWeeklyRoundup =>
@@ -1712,10 +1701,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get notificationSubscriptionBreakingOnlyDescription =>
       'حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.';
-
-  @override
-  String get notificationSubscriptionDailyDigestDescription =>
-      'حد الاشتراكات التي ترسل ملخصًا يوميًا للعناوين المطابقة.';
 
   @override
   String get notificationSubscriptionWeeklyRoundupDescription =>
@@ -2538,20 +2523,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'تتبع عندما يطبق المستخدم مرشح عناوين محفوظ.';
 
   @override
-  String get analyticsEventSourceFilterCreatedLabel => 'إنشاء مرشح مصادر';
-
-  @override
-  String get analyticsEventSourceFilterCreatedDescription =>
-      'تتبع عندما ينشئ المستخدم مرشح مصادر جديد.';
-
-  @override
-  String get analyticsEventSourceFilterUpdatedLabel => 'تحديث مرشح مصادر';
-
-  @override
-  String get analyticsEventSourceFilterUpdatedDescription =>
-      'تتبع عندما يعدل المستخدم مرشح مصادر موجود.';
-
-  @override
   String get analyticsEventSearchPerformedLabel => 'إجراء بحث';
 
   @override
@@ -2678,13 +2649,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get analyticsEventBrowserChoiceChangedDescription =>
       'تتبع عندما يغير المستخدم متصفحه المفضل لفتح الروابط.';
-
-  @override
-  String get analyticsEventSourceFilterUsedLabel => 'استخدام مرشح مصادر';
-
-  @override
-  String get analyticsEventSourceFilterUsedDescription =>
-      'تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.';
 
   @override
   String get analyticsEventAppTourStartedLabel => 'بدء جولة التطبيق';
@@ -3093,9 +3057,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rewardTypeAdFree => 'تجربة خالية من الإعلانات';
-
-  @override
-  String get rewardTypeDailyDigest => 'الملخص اليومي';
 
   @override
   String get rewardDurationDaysLabel => 'المدة (أيام)';
