@@ -182,19 +182,11 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
 
-    return ExpansionTile(
-      title: Text(
-        l10n.savedHeadlineFilterLimitsTitle,
-      ),
-      subtitle: Text(
-        l10n.savedHeadlineFilterLimitsDescription,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-        ),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
           child: SizedBox(
             height: kTextTabBarHeight,
             child: TabBar(

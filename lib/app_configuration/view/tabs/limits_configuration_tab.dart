@@ -53,9 +53,26 @@ class LimitsConfigurationTab extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
-        SavedFilterLimitsForm(
-          remoteConfig: remoteConfig,
-          onConfigChanged: onConfigChanged,
+        ExpansionTile(
+          leading: const Icon(Icons.filter_alt_outlined),
+          title: Text(l10n.savedHeadlineFilterLimitsTitle),
+          subtitle: Text(
+            l10n.savedHeadlineFilterLimitsDescription,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
+          ),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            start: AppSpacing.lg,
+            top: AppSpacing.md,
+            bottom: AppSpacing.md,
+          ),
+          children: [
+            SavedFilterLimitsForm(
+              remoteConfig: remoteConfig,
+              onConfigChanged: onConfigChanged,
+            ),
+          ],
         ),
       ],
     );
