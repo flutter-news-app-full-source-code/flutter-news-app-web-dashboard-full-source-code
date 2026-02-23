@@ -371,16 +371,6 @@ class AnalyticsConfigForm extends StatelessWidget {
           l10n.analyticsEventHeadlineFilterUsedLabel,
           l10n.analyticsEventHeadlineFilterUsedDescription,
         );
-      case AnalyticsEvent.sourceFilterCreated:
-        return (
-          l10n.analyticsEventSourceFilterCreatedLabel,
-          l10n.analyticsEventSourceFilterCreatedDescription,
-        );
-      case AnalyticsEvent.sourceFilterUpdated:
-        return (
-          l10n.analyticsEventSourceFilterUpdatedLabel,
-          l10n.analyticsEventSourceFilterUpdatedDescription,
-        );
       case AnalyticsEvent.searchPerformed:
         return (
           l10n.analyticsEventSearchPerformedLabel,
@@ -500,11 +490,6 @@ class AnalyticsConfigForm extends StatelessWidget {
         return (
           l10n.analyticsEventMediaUploadFailedLabel,
           l10n.analyticsEventMediaUploadFailedDescription,
-        );
-      case AnalyticsEvent.sourceFilterUsed:
-        return (
-          l10n.analyticsEventSourceFilterUsedLabel,
-          l10n.analyticsEventSourceFilterUsedDescription,
         );
     }
   }
