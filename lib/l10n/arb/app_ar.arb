@@ -1842,14 +1842,6 @@
   "@savedHeadlineFilterLimitsDescription": {
     "description": "وصف قسم حدود مرشحات العناوين المحفوظة"
   },
-  "savedSourceFilterLimitsTitle": "حدود مرشحات المصادر المحفوظة",
-  "@savedSourceFilterLimitsTitle": {
-    "description": "عنوان قسم حدود مرشحات المصادر المحفوظة"
-  },
-  "savedSourceFilterLimitsDescription": "تعيين حدود على عدد مرشحات المصادر المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة.",
-  "@savedSourceFilterLimitsDescription": {
-    "description": "وصف قسم حدود مرشحات المصادر المحفوظة"
-  },
   "totalLimitLabel": "الحد الإجمالي",
   "@totalLimitLabel": {
     "description": "تسمية للحد الإجمالي لنوع مرشح"
@@ -1877,10 +1869,6 @@
   "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "الأخبار العاجلة",
   "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
     "description": "تسمية لنوع توصيل إشعارات 'الأخبار العاجلة فقط'"
-  },
-  "pushNotificationSubscriptionDeliveryTypeDailyDigest": "الملخص اليومي",
-  "@pushNotificationSubscriptionDeliveryTypeDailyDigest": {
-    "description": "تسمية لنوع توصيل إشعارات 'الملخص اليومي'"
   },
   "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "حصاد الأسبوع",
   "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
@@ -2141,10 +2129,6 @@
   "notificationSubscriptionBreakingOnlyDescription": "حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.",
   "@notificationSubscriptionBreakingOnlyDescription": {
     "description": "وصف لحد اشتراك إشعارات الأخبار العاجلة."
-  },
-  "notificationSubscriptionDailyDigestDescription": "حد الاشتراكات التي ترسل ملخصًا يوميًا للعناوين المطابقة.",
-  "@notificationSubscriptionDailyDigestDescription": {
-    "description": "وصف لحد اشتراك إشعارات الملخص اليومي."
   },
   "notificationSubscriptionWeeklyRoundupDescription": "حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.",
   "@notificationSubscriptionWeeklyRoundupDescription": {
@@ -3197,22 +3181,6 @@
   "@analyticsEventHeadlineFilterUsedDescription": {
     "description": "وصف لحدث استخدام مرشح عناوين"
   },
-  "analyticsEventSourceFilterCreatedLabel": "إنشاء مرشح مصادر",
-  "@analyticsEventSourceFilterCreatedLabel": {
-    "description": "تسمية لحدث إنشاء مرشح مصادر"
-  },
-  "analyticsEventSourceFilterCreatedDescription": "تتبع عندما ينشئ المستخدم مرشح مصادر جديد.",
-  "@analyticsEventSourceFilterCreatedDescription": {
-    "description": "وصف لحدث إنشاء مرشح مصادر"
-  },
-  "analyticsEventSourceFilterUpdatedLabel": "تحديث مرشح مصادر",
-  "@analyticsEventSourceFilterUpdatedLabel": {
-    "description": "تسمية لحدث تحديث مرشح مصادر"
-  },
-  "analyticsEventSourceFilterUpdatedDescription": "تتبع عندما يعدل المستخدم مرشح مصادر موجود.",
-  "@analyticsEventSourceFilterUpdatedDescription": {
-    "description": "وصف لحدث تحديث مرشح مصادر"
-  },
   "analyticsEventSearchPerformedLabel": "إجراء بحث",
   "@analyticsEventSearchPerformedLabel": {
     "description": "تسمية لحدث إجراء بحث"
@@ -3356,14 +3324,6 @@
   "analyticsEventBrowserChoiceChangedDescription": "تتبع عندما يغير المستخدم متصفحه المفضل لفتح الروابط.",
   "@analyticsEventBrowserChoiceChangedDescription": {
     "description": "وصف لحدث تغيير تفضيل المتصفح"
-  },
-  "analyticsEventSourceFilterUsedLabel": "استخدام مرشح مصادر",
-  "@analyticsEventSourceFilterUsedLabel": {
-    "description": "تسمية لحدث استخدام مرشح مصادر"
-  },
-  "analyticsEventSourceFilterUsedDescription": "تتبع عندما يطبق المستخدم مرشح مصادر محفوظ.",
-  "@analyticsEventSourceFilterUsedDescription": {
-    "description": "وصف لحدث استخدام مرشح مصادر"
   },
   "analyticsEventAppTourStartedLabel": "بدء جولة التطبيق",
   "@analyticsEventAppTourStartedLabel": {
@@ -3876,10 +3836,6 @@
   "rewardTypeAdFree": "تجربة خالية من الإعلانات",
   "@rewardTypeAdFree": {
     "description": "Label for the Ad-Free reward type"
-  },
-  "rewardTypeDailyDigest": "الملخص اليومي",
-  "@rewardTypeDailyDigest": {
-    "description": "Label for the Daily Digest reward type"
   },
   "rewardDurationDaysLabel": "المدة (أيام)",
   "@rewardDurationDaysLabel": {
