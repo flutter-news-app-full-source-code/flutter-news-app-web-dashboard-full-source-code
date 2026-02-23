@@ -2732,18 +2732,6 @@ abstract class AppLocalizations {
   /// **'Set limits on the number of saved headline filters for each user tier, including total, pinned, and notification subscriptions.'**
   String get savedHeadlineFilterLimitsDescription;
 
-  /// Title for the Saved Source Filter Limits section
-  ///
-  /// In en, this message translates to:
-  /// **'Saved Source Filter Limits'**
-  String get savedSourceFilterLimitsTitle;
-
-  /// Description for the Saved Source Filter Limits section
-  ///
-  /// In en, this message translates to:
-  /// **'Set limits on the number of saved source filters for each user tier, including total and pinned.'**
-  String get savedSourceFilterLimitsDescription;
-
   /// Label for the total limit of a filter type
   ///
   /// In en, this message translates to:
@@ -2785,12 +2773,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Breaking News'**
   String get pushNotificationSubscriptionDeliveryTypeBreakingOnly;
-
-  /// Label for the 'daily digest' push notification delivery type
-  ///
-  /// In en, this message translates to:
-  /// **'Daily Digest'**
-  String get pushNotificationSubscriptionDeliveryTypeDailyDigest;
 
   /// Label for the 'weekly roundup' push notification delivery type
   ///
@@ -2951,8 +2933,8 @@ abstract class AppLocalizations {
   /// Tab title for User-specific settings and limits.
   ///
   /// In en, this message translates to:
-  /// **'User'**
-  String get userTab;
+  /// **'Limits'**
+  String get limitsTab;
 
   /// Title for the Maintenance Mode configuration section.
   ///
@@ -3181,12 +3163,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Limit for subscriptions that send immediate alerts for matching headlines.'**
   String get notificationSubscriptionBreakingOnlyDescription;
-
-  /// Description for the daily digest notification subscription limit.
-  ///
-  /// In en, this message translates to:
-  /// **'Limit for subscriptions that send a daily summary of matching headlines.'**
-  String get notificationSubscriptionDailyDigestDescription;
 
   /// Description for the weekly roundup notification subscription limit.
   ///
@@ -4628,30 +4604,6 @@ abstract class AppLocalizations {
   /// **'Track when a user applies a saved headline filter.'**
   String get analyticsEventHeadlineFilterUsedDescription;
 
-  /// Label for the Source Filter Creation analytics event
-  ///
-  /// In en, this message translates to:
-  /// **'Source Filter Creation'**
-  String get analyticsEventSourceFilterCreatedLabel;
-
-  /// Description for the Source Filter Creation analytics event
-  ///
-  /// In en, this message translates to:
-  /// **'Track when a user creates a new source filter.'**
-  String get analyticsEventSourceFilterCreatedDescription;
-
-  /// Label for the Source Filter Update analytics event
-  ///
-  /// In en, this message translates to:
-  /// **'Source Filter Update'**
-  String get analyticsEventSourceFilterUpdatedLabel;
-
-  /// Description for the Source Filter Update analytics event
-  ///
-  /// In en, this message translates to:
-  /// **'Track when a user modifies an existing source filter.'**
-  String get analyticsEventSourceFilterUpdatedDescription;
-
   /// Label for the Search Performed analytics event
   ///
   /// In en, this message translates to:
@@ -4867,18 +4819,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track when a user changes their preferred browser for opening links.'**
   String get analyticsEventBrowserChoiceChangedDescription;
-
-  /// Label for the Source Filter Usage analytics event
-  ///
-  /// In en, this message translates to:
-  /// **'Source Filter Usage'**
-  String get analyticsEventSourceFilterUsedLabel;
-
-  /// Description for the Source Filter Usage analytics event
-  ///
-  /// In en, this message translates to:
-  /// **'Track when a user applies a saved source filter.'**
-  String get analyticsEventSourceFilterUsedDescription;
 
   /// Label for the App Tour Started analytics event
   ///
@@ -5641,12 +5581,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ad-Free Experience'**
   String get rewardTypeAdFree;
-
-  /// Label for the Daily Digest reward type
-  ///
-  /// In en, this message translates to:
-  /// **'Daily Digest'**
-  String get rewardTypeDailyDigest;
 
   /// Label for the reward duration input field
   ///

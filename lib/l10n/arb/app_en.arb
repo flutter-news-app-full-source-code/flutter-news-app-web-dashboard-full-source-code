@@ -1838,14 +1838,6 @@
   "@savedHeadlineFilterLimitsDescription": {
     "description": "Description for the Saved Headline Filter Limits section"
   },
-  "savedSourceFilterLimitsTitle": "Saved Source Filter Limits",
-  "@savedSourceFilterLimitsTitle": {
-    "description": "Title for the Saved Source Filter Limits section"
-  },
-  "savedSourceFilterLimitsDescription": "Set limits on the number of saved source filters for each user tier, including total and pinned.",
-  "@savedSourceFilterLimitsDescription": {
-    "description": "Description for the Saved Source Filter Limits section"
-  },
   "totalLimitLabel": "Total Limit",
   "@totalLimitLabel": {
     "description": "Label for the total limit of a filter type"
@@ -1873,10 +1865,6 @@
   "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "Breaking News",
   "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
     "description": "Label for the 'breaking only' push notification delivery type"
-  },
-  "pushNotificationSubscriptionDeliveryTypeDailyDigest": "Daily Digest",
-  "@pushNotificationSubscriptionDeliveryTypeDailyDigest": {
-    "description": "Label for the 'daily digest' push notification delivery type"
   },
   "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "Weekly Roundup",
   "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
@@ -1982,8 +1970,8 @@
   "@featuresTab": {
     "description": "Tab title for Features settings (Ads, Notifications, etc.)."
   },
-  "userTab": "User",
-  "@userTab": {
+  "limitsTab": "Limits",
+  "@limitsTab": {
     "description": "Tab title for User-specific settings and limits."
   },
   "maintenanceConfigTitle": "Maintenance Mode",
@@ -2137,10 +2125,6 @@
   "notificationSubscriptionBreakingOnlyDescription": "Limit for subscriptions that send immediate alerts for matching headlines.",
   "@notificationSubscriptionBreakingOnlyDescription": {
     "description": "Description for the breaking news notification subscription limit."
-  },
-  "notificationSubscriptionDailyDigestDescription": "Limit for subscriptions that send a daily summary of matching headlines.",
-  "@notificationSubscriptionDailyDigestDescription": {
-    "description": "Description for the daily digest notification subscription limit."
   },
   "notificationSubscriptionWeeklyRoundupDescription": "Limit for subscriptions that send a weekly summary of matching headlines.",
   "@notificationSubscriptionWeeklyRoundupDescription": {
@@ -3193,22 +3177,6 @@
   "@analyticsEventHeadlineFilterUsedDescription": {
     "description": "Description for the Headline Filter Usage analytics event"
   },
-  "analyticsEventSourceFilterCreatedLabel": "Source Filter Creation",
-  "@analyticsEventSourceFilterCreatedLabel": {
-    "description": "Label for the Source Filter Creation analytics event"
-  },
-  "analyticsEventSourceFilterCreatedDescription": "Track when a user creates a new source filter.",
-  "@analyticsEventSourceFilterCreatedDescription": {
-    "description": "Description for the Source Filter Creation analytics event"
-  },
-  "analyticsEventSourceFilterUpdatedLabel": "Source Filter Update",
-  "@analyticsEventSourceFilterUpdatedLabel": {
-    "description": "Label for the Source Filter Update analytics event"
-  },
-  "analyticsEventSourceFilterUpdatedDescription": "Track when a user modifies an existing source filter.",
-  "@analyticsEventSourceFilterUpdatedDescription": {
-    "description": "Description for the Source Filter Update analytics event"
-  },
   "analyticsEventSearchPerformedLabel": "Search Performed",
   "@analyticsEventSearchPerformedLabel": {
     "description": "Label for the Search Performed analytics event"
@@ -3352,14 +3320,6 @@
   "analyticsEventBrowserChoiceChangedDescription": "Track when a user changes their preferred browser for opening links.",
   "@analyticsEventBrowserChoiceChangedDescription": {
     "description": "Description for the Browser Preference Change analytics event"
-  },
-  "analyticsEventSourceFilterUsedLabel": "Source Filter Usage",
-  "@analyticsEventSourceFilterUsedLabel": {
-    "description": "Label for the Source Filter Usage analytics event"
-  },
-  "analyticsEventSourceFilterUsedDescription": "Track when a user applies a saved source filter.",
-  "@analyticsEventSourceFilterUsedDescription": {
-    "description": "Description for the Source Filter Usage analytics event"
   },
   "analyticsEventAppTourStartedLabel": "App Tour Started",
   "@analyticsEventAppTourStartedLabel": {
@@ -3868,10 +3828,6 @@
   "rewardTypeAdFree": "Ad-Free Experience",
   "@rewardTypeAdFree": {
     "description": "Label for the Ad-Free reward type"
-  },
-  "rewardTypeDailyDigest": "Daily Digest",
-  "@rewardTypeDailyDigest": {
-    "description": "Label for the Daily Digest reward type"
   },
   "rewardDurationDaysLabel": "Duration (Days)",
   "@rewardDurationDaysLabel": {

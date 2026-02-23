@@ -122,8 +122,6 @@ class PushNotificationSettingsForm extends StatelessWidget {
     switch (type) {
       case PushNotificationSubscriptionDeliveryType.breakingOnly:
         return l10n.pushNotificationDeliveryTypeBreakingOnlyDescription;
-      case PushNotificationSubscriptionDeliveryType.dailyDigest:
-        return l10n.pushNotificationDeliveryTypeDailyDigestDescription;
     }
   }
 

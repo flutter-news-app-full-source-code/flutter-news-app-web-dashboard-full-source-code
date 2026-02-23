@@ -7,23 +7,18 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extension
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/push_notification_subscription_delivery_type_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-/// Defines the type of filter being configured.
-enum SavedFilterType { headline, source }
-
 /// {@template saved_filter_limits_form}
 /// A reusable form widget for configuring limits for saved filters.
 ///
-/// This widget is designed to handle the configuration for both headline and
-/// source filters by using the [filterType] parameter. It displays a tabbed
-/// interface for different user roles and provides fields for setting total,
-/// pinned, and (if applicable) notification subscription limits.
+/// This widget displays a tabbed interface for different user roles and
+/// provides fields for setting total, pinned, and notification subscription
+/// limits for headline filters.
 /// {@endtemplate}
 class SavedFilterLimitsForm extends StatefulWidget {
   /// {@macro saved_filter_limits_form}
   const SavedFilterLimitsForm({
     required this.remoteConfig,
     required this.onConfigChanged,
-    required this.filterType,
     super.key,
   });
 
@@ -32,9 +27,6 @@ class SavedFilterLimitsForm extends StatefulWidget {
 
   /// Callback to notify parent of changes to the [RemoteConfig].
   final ValueChanged<RemoteConfig> onConfigChanged;
-
-  /// The type of filter to configure (headline or source).
-  final SavedFilterType filterType;
 
   @override
   State<SavedFilterLimitsForm> createState() => _SavedFilterLimitsFormState();
@@ -80,13 +72,11 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
         limits.pinned.toString(),
       );
 
-      if (widget.filterType == SavedFilterType.headline) {
-        for (final type in PushNotificationSubscriptionDeliveryType.values) {
-          final value = limits.notificationSubscriptions?[type] ?? 0;
-          _controllers[tier]!['notification_${type.name}'] = _createController(
-            value.toString(),
-          );
-        }
+      for (final type in PushNotificationSubscriptionDeliveryType.values) {
+        final value = limits.notificationSubscriptions?[type] ?? 0;
+        _controllers[tier]!['notification_${type.name}'] = _createController(
+          value.toString(),
+        );
       }
     }
   }
@@ -104,14 +94,12 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
       _updateControllerText(_controllers[tier]!['total']!, limits.total);
       _updateControllerText(_controllers[tier]!['pinned']!, limits.pinned);
 
-      if (widget.filterType == SavedFilterType.headline) {
-        for (final type in PushNotificationSubscriptionDeliveryType.values) {
-          final value = limits.notificationSubscriptions?[type] ?? 0;
-          _updateControllerText(
-            _controllers[tier]!['notification_${type.name}']!,
-            value,
-          );
-        }
+      for (final type in PushNotificationSubscriptionDeliveryType.values) {
+        final value = limits.notificationSubscriptions?[type] ?? 0;
+        _updateControllerText(
+          _controllers[tier]!['notification_${type.name}']!,
+          value,
+        );
       }
     }
   }
@@ -141,21 +129,15 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
   /// Retrieves the correct [SavedFilterLimits] for a given tier.
   SavedFilterLimits _getLimitsForTier(AccessTier tier) {
     final limitsConfig = widget.remoteConfig.user.limits;
-    final limitsMap = widget.filterType == SavedFilterType.headline
-        ? limitsConfig.savedHeadlineFilters
-        : limitsConfig.savedSourceFilters;
-    return limitsMap[tier]!;
+    return limitsConfig.savedHeadlineFilters[tier]!;
   }
 
   /// Updates the remote config when a value changes.
   void _onValueChanged(AccessTier tier, String field, int value) {
     final userConfig = widget.remoteConfig.user;
     final limitsConfig = userConfig.limits;
-    final isHeadline = widget.filterType == SavedFilterType.headline;
 
-    final currentLimitsMap = isHeadline
-        ? limitsConfig.savedHeadlineFilters
-        : limitsConfig.savedSourceFilters;
+    final currentLimitsMap = limitsConfig.savedHeadlineFilters;
 
     final newLimitsMap = Map<AccessTier, SavedFilterLimits>.from(
       currentLimitsMap,
@@ -183,9 +165,9 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
 
     newLimitsMap[tier] = newLimits;
 
-    final newUserLimitsConfig = isHeadline
-        ? limitsConfig.copyWith(savedHeadlineFilters: newLimitsMap)
-        : limitsConfig.copyWith(savedSourceFilters: newLimitsMap);
+    final newUserLimitsConfig = limitsConfig.copyWith(
+      savedHeadlineFilters: newLimitsMap,
+    );
 
     widget.onConfigChanged(
       widget.remoteConfig.copyWith(
@@ -199,18 +181,13 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    final isHeadlineFilter = widget.filterType == SavedFilterType.headline;
 
     return ExpansionTile(
       title: Text(
-        isHeadlineFilter
-            ? l10n.savedHeadlineFilterLimitsTitle
-            : l10n.savedSourceFilterLimitsTitle,
+        l10n.savedHeadlineFilterLimitsTitle,
       ),
       subtitle: Text(
-        isHeadlineFilter
-            ? l10n.savedHeadlineFilterLimitsDescription
-            : l10n.savedSourceFilterLimitsDescription,
+        l10n.savedHeadlineFilterLimitsDescription,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
           color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
         ),
@@ -232,7 +209,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
         ),
         const SizedBox(height: AppSpacing.md),
         SizedBox(
-          height: isHeadlineFilter ? 500 : 250,
+          height: 500,
           child: TabBarView(
             controller: _tabController,
             children: AccessTier.values.map((tier) {
@@ -260,8 +237,7 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
                           _onValueChanged(tier, 'pinned', value),
                       controller: _controllers[tier]!['pinned'],
                     ),
-                    if (isHeadlineFilter)
-                      _buildNotificationFields(l10n, tier, limits),
+                    _buildNotificationFields(l10n, tier, limits),
                   ],
                 ),
               );
@@ -280,8 +256,6 @@ class _SavedFilterLimitsFormState extends State<SavedFilterLimitsForm>
     switch (type) {
       case PushNotificationSubscriptionDeliveryType.breakingOnly:
         return l10n.notificationSubscriptionBreakingOnlyDescription;
-      case PushNotificationSubscriptionDeliveryType.dailyDigest:
-        return l10n.notificationSubscriptionDailyDigestDescription;
     }
   }
 
