@@ -1974,8 +1974,8 @@
   "@featuresTab": {
     "description": "عنوان تبويب إعدادات الميزات (الإعلانات، الإشعارات، إلخ)."
   },
-  "userTab": "المستخدم",
-  "@userTab": {
+  "limitsTab": "الحدود",
+  "@limitsTab": {
     "description": "عنوان تبويب الإعدادات والحدود الخاصة بالمستخدم."
   },
   "maintenanceConfigTitle": "وضع الصيانة",

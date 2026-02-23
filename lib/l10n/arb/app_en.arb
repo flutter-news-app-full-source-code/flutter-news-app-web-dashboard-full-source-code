@@ -1970,8 +1970,8 @@
   "@featuresTab": {
     "description": "Tab title for Features settings (Ads, Notifications, etc.)."
   },
-  "userTab": "User",
-  "@userTab": {
+  "limitsTab": "Limits",
+  "@limitsTab": {
     "description": "Tab title for User-specific settings and limits."
   },
   "maintenanceConfigTitle": "Maintenance Mode",
