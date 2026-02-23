@@ -106,13 +106,6 @@ class _UserConfigurationTabState extends State<UserConfigurationTab> {
                 SavedFilterLimitsForm(
                   remoteConfig: widget.remoteConfig,
                   onConfigChanged: widget.onConfigChanged,
-                  filterType: SavedFilterType.headline,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                SavedFilterLimitsForm(
-                  remoteConfig: widget.remoteConfig,
-                  onConfigChanged: widget.onConfigChanged,
-                  filterType: SavedFilterType.source,
                 ),
               ],
             );
