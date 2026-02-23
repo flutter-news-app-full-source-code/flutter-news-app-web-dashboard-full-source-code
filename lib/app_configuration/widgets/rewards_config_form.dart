@@ -79,8 +79,6 @@ class _RewardsConfigFormState extends State<RewardsConfigForm> {
     switch (type) {
       case RewardType.adFree:
         return l10n.rewardTypeAdFree;
-      case RewardType.dailyDigest:
-        return l10n.rewardTypeDailyDigest;
     }
   }
 
