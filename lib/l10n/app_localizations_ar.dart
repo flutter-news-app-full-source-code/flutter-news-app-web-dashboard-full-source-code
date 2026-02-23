@@ -1569,7 +1569,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get featuresTab => 'الميزات';
 
   @override
-  String get userTab => 'المستخدم';
+  String get limitsTab => 'الحدود';
 
   @override
   String get maintenanceConfigTitle => 'وضع الصيانة';

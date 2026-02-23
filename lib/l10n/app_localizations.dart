@@ -2933,8 +2933,8 @@ abstract class AppLocalizations {
   /// Tab title for User-specific settings and limits.
   ///
   /// In en, this message translates to:
-  /// **'User'**
-  String get userTab;
+  /// **'Limits'**
+  String get limitsTab;
 
   /// Title for the Maintenance Mode configuration section.
   ///

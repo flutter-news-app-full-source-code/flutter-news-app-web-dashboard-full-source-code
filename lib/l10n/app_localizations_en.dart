@@ -1571,7 +1571,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get featuresTab => 'Features';
 
   @override
-  String get userTab => 'User';
+  String get limitsTab => 'Limits';
 
   @override
   String get maintenanceConfigTitle => 'Maintenance Mode';
