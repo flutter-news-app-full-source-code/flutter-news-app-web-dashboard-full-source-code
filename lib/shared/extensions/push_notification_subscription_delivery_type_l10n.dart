@@ -12,8 +12,6 @@ extension PushNotificationSubscriptionDeliveryTypeL10n
     switch (this) {
       case PushNotificationSubscriptionDeliveryType.breakingOnly:
         return l10n.pushNotificationSubscriptionDeliveryTypeBreakingOnly;
-      case PushNotificationSubscriptionDeliveryType.dailyDigest:
-        return l10n.pushNotificationSubscriptionDeliveryTypeDailyDigest;
     }
   }
 }
