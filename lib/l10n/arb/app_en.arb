@@ -4196,5 +4196,37 @@
   "about": "About",
   "@about": {
     "description": "Label for the about navigation item"
+  },
+  "localizationConfigDescription": "Configure supported languages and the default fallback.",
+  "@localizationConfigDescription": {
+    "description": "Description for the localization configuration form"
+  },
+  "enabledLanguagesLabel": "Enabled Languages",
+  "@enabledLanguagesLabel": {
+    "description": "Label for the enabled languages selection"
+  },
+  "cannotDisableDefaultLanguage": "Cannot disable the default language.",
+  "@cannotDisableDefaultLanguage": {
+    "description": "Error message when trying to disable the default language"
+  },
+  "atLeastOneLanguageRequired": "At least one language must be enabled.",
+  "@atLeastOneLanguageRequired": {
+    "description": "Error message when trying to disable the last language"
+  },
+  "defaultLanguageLabel": "Default Language",
+  "@defaultLanguageLabel": {
+    "description": "Label for the default language dropdown"
+  },
+  "defaultLanguageDescription": "The fallback language if the user's preference is not supported.",
+  "@defaultLanguageDescription": {
+    "description": "Helper text for the default language dropdown"
+  },
+  "localizationTitle": "Localization",
+  "@localizationTitle": {
+    "description": "Title for the localization settings section"
+  },
+  "localizationDescription": "Manage language support.",
+  "@localizationDescription": {
+    "description": "Subtitle for the localization settings section"
   }
 }

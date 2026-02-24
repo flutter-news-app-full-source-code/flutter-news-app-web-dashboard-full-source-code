@@ -4204,5 +4204,37 @@
   "about": "حول",
   "@about": {
     "description": "تسمية عنصر التنقل 'حول'"
+  },
+  "localizationConfigDescription": "تكوين اللغات المدعومة واللغة الافتراضية.",
+  "@localizationConfigDescription": {
+    "description": "Description for the localization configuration form"
+  },
+  "enabledLanguagesLabel": "اللغات المفعلة",
+  "@enabledLanguagesLabel": {
+    "description": "Label for the enabled languages selection"
+  },
+  "cannotDisableDefaultLanguage": "لا يمكن تعطيل اللغة الافتراضية.",
+  "@cannotDisableDefaultLanguage": {
+    "description": "Error message when trying to disable the default language"
+  },
+  "atLeastOneLanguageRequired": "يجب تفعيل لغة واحدة على الأقل.",
+  "@atLeastOneLanguageRequired": {
+    "description": "Error message when trying to disable the last language"
+  },
+  "defaultLanguageLabel": "اللغة الافتراضية",
+  "@defaultLanguageLabel": {
+    "description": "Label for the default language dropdown"
+  },
+  "defaultLanguageDescription": "اللغة الاحتياطية إذا لم يكن تفضيل المستخدم مدعومًا.",
+  "@defaultLanguageDescription": {
+    "description": "Helper text for the default language dropdown"
+  },
+  "localizationTitle": "التعريب",
+  "@localizationTitle": {
+    "description": "Title for the localization settings section"
+  },
+  "localizationDescription": "إدارة دعم اللغة.",
+  "@localizationDescription": {
+    "description": "Subtitle for the localization settings section"
   }
 }
