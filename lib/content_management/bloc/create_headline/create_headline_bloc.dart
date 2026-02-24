@@ -30,6 +30,7 @@ class CreateHeadlineBloc
        _mediaRepository = mediaRepository,
        _logger = logger,
        super(const CreateHeadlineState()) {
+    on<CreateHeadlineInitialized>(_onInitialized);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
     on<CreateHeadlineImageChanged>(_onImageChanged);
@@ -48,12 +49,25 @@ class CreateHeadlineBloc
 
   final _uuid = const Uuid();
 
+  void _onInitialized(
+    CreateHeadlineInitialized event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(state.copyWith(enabledLanguages: event.enabledLanguages));
+  }
+
   void _onTitleChanged(
     CreateHeadlineTitleChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    _logger.fine('Title changed: ${event.title}');
-    emit(state.copyWith(title: event.title));
+    _logger.fine('Title changed for ${event.language}: ${event.title}');
+    final newTitles = Map<SupportedLanguage, String>.from(state.title);
+    if (event.title.isEmpty) {
+      newTitles.remove(event.language);
+    } else {
+      newTitles[event.language] = event.title;
+    }
+    emit(state.copyWith(title: newTitles));
   }
 
   void _onUrlChanged(

@@ -8,12 +8,21 @@ sealed class CreateHeadlineEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to initialize the BLoC, fetching necessary config.
+final class CreateHeadlineInitialized extends CreateHeadlineEvent {
+  const CreateHeadlineInitialized({required this.enabledLanguages});
+  final List<SupportedLanguage> enabledLanguages;
+  @override
+  List<Object?> get props => [enabledLanguages];
+}
+
 /// Event for when the headline's title is changed.
 final class CreateHeadlineTitleChanged extends CreateHeadlineEvent {
-  const CreateHeadlineTitleChanged(this.title);
+  const CreateHeadlineTitleChanged(this.title, this.language);
   final String title;
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [title];
+  List<Object?> get props => [title, language];
 }
 
 /// Event for when the headline's URL is changed.
