@@ -3382,4 +3382,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get about => 'About';
+
+  @override
+  String get localizationConfigDescription =>
+      'Configure supported languages and the default fallback.';
+
+  @override
+  String get enabledLanguagesLabel => 'Enabled Languages';
+
+  @override
+  String get cannotDisableDefaultLanguage =>
+      'Cannot disable the default language.';
+
+  @override
+  String get atLeastOneLanguageRequired =>
+      'At least one language must be enabled.';
+
+  @override
+  String get defaultLanguageLabel => 'Default Language';
+
+  @override
+  String get defaultLanguageDescription =>
+      'The fallback language if the user\'s preference is not supported.';
+
+  @override
+  String get localizationTitle => 'Localization';
+
+  @override
+  String get localizationDescription => 'Manage language support.';
 }

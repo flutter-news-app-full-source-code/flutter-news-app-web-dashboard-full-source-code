@@ -6133,6 +6133,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'About'**
   String get about;
+
+  /// Description for the localization configuration form
+  ///
+  /// In en, this message translates to:
+  /// **'Configure supported languages and the default fallback.'**
+  String get localizationConfigDescription;
+
+  /// Label for the enabled languages selection
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled Languages'**
+  String get enabledLanguagesLabel;
+
+  /// Error message when trying to disable the default language
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot disable the default language.'**
+  String get cannotDisableDefaultLanguage;
+
+  /// Error message when trying to disable the last language
+  ///
+  /// In en, this message translates to:
+  /// **'At least one language must be enabled.'**
+  String get atLeastOneLanguageRequired;
+
+  /// Label for the default language dropdown
+  ///
+  /// In en, this message translates to:
+  /// **'Default Language'**
+  String get defaultLanguageLabel;
+
+  /// Helper text for the default language dropdown
+  ///
+  /// In en, this message translates to:
+  /// **'The fallback language if the user\'s preference is not supported.'**
+  String get defaultLanguageDescription;
+
+  /// Title for the localization settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Localization'**
+  String get localizationTitle;
+
+  /// Subtitle for the localization settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Manage language support.'**
+  String get localizationDescription;
 }
 
 class _AppLocalizationsDelegate
