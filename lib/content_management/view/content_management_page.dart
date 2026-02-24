@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -81,11 +82,21 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               ) ||
               previous.isBreaking != current.isBreaking,
           listener: (context, state) {
+            final defaultLanguage =
+                context
+                    .read<AppBloc>()
+                    .state
+                    .remoteConfig
+                    ?.app
+                    .localization
+                    .defaultLanguage
+                    .name ??
+                'en';
             context.read<ContentManagementBloc>().add(
               LoadHeadlinesRequested(
-                filter: context
-                    .read<ContentManagementBloc>()
-                    .buildHeadlinesFilterMap(state),
+                filter: context.read<HeadlinesFilterBloc>().buildFilterMap(
+                  languageCode: defaultLanguage,
+                ),
                 forceRefresh: true,
               ),
             );
@@ -98,9 +109,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadTopicsRequested(
-                filter: context
-                    .read<ContentManagementBloc>()
-                    .buildTopicsFilterMap(state),
+                filter: context.read<TopicsFilterBloc>().buildFilterMap(),
                 forceRefresh: true,
               ),
             );
@@ -125,9 +134,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadSourcesRequested(
-                filter: context
-                    .read<ContentManagementBloc>()
-                    .buildSourcesFilterMap(state),
+                filter: context.read<SourcesFilterBloc>().buildFilterMap(),
                 forceRefresh: true,
               ),
             );
@@ -139,17 +146,39 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               current.itemPendingDeletion != null,
           listener: (context, state) {
             final item = state.itemPendingDeletion!;
+            final defaultLanguage =
+                context
+                    .read<AppBloc>()
+                    .state
+                    .remoteConfig
+                    ?.app
+                    .localization
+                    .defaultLanguage ??
+                SupportedLanguage.en;
             String itemType;
             String itemName;
             if (item is Headline) {
               itemType = l10n.headline;
-              itemName = item.title;
+              itemName =
+                  item.title[defaultLanguage] ??
+                  item.title[SupportedLanguage.en] ??
+                  '';
             } else if (item is Topic) {
               itemType = l10n.topic;
-              itemName = item.name;
-            } else {
+              itemName =
+                  item.name[defaultLanguage] ??
+                  item.name[SupportedLanguage.en] ??
+                  '';
+            } else if (item is Source) {
               itemType = l10n.source;
-              itemName = (item as Source).name;
+              itemName =
+                  item.name[defaultLanguage] ??
+                  item.name[SupportedLanguage.en] ??
+                  '';
+            } else {
+              // Fallback for unknown types
+              itemType = '';
+              itemName = '';
             }
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
