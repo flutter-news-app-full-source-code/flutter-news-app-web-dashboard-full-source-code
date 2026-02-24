@@ -17,7 +17,7 @@ final class EditHeadlineState extends Equatable {
   const EditHeadlineState({
     required this.headlineId,
     this.status = EditHeadlineStatus.initial,
-    this.title = '',
+    this.title = const {},
     this.url = '',
     this.imageUrl,
     this.imageFileBytes,
@@ -30,11 +30,12 @@ final class EditHeadlineState extends Equatable {
     this.updatedHeadline,
     this.imageRemoved = false,
     this.initialHeadline,
+    this.enabledLanguages = const [SupportedLanguage.en],
   });
 
   final EditHeadlineStatus status;
   final String headlineId;
-  final String title;
+  final Map<SupportedLanguage, String> title;
   final String url;
   final String? imageUrl;
   final Uint8List? imageFileBytes;
@@ -47,6 +48,7 @@ final class EditHeadlineState extends Equatable {
   final Headline? updatedHeadline;
   final bool imageRemoved;
   final Headline? initialHeadline;
+  final List<SupportedLanguage> enabledLanguages;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid {
@@ -70,7 +72,7 @@ final class EditHeadlineState extends Equatable {
   EditHeadlineState copyWith({
     EditHeadlineStatus? status,
     String? headlineId,
-    String? title,
+    Map<SupportedLanguage, String>? title,
     String? url,
     ValueWrapper<String?>? imageUrl,
     ValueWrapper<Uint8List?>? imageFileBytes,
@@ -83,6 +85,7 @@ final class EditHeadlineState extends Equatable {
     Headline? updatedHeadline,
     bool? imageRemoved,
     Headline? initialHeadline,
+    List<SupportedLanguage>? enabledLanguages,
   }) {
     return EditHeadlineState(
       status: status ?? this.status,
@@ -106,6 +109,7 @@ final class EditHeadlineState extends Equatable {
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
       imageRemoved: imageRemoved ?? this.imageRemoved,
       initialHeadline: initialHeadline ?? this.initialHeadline,
+      enabledLanguages: enabledLanguages ?? this.enabledLanguages,
     );
   }
 
@@ -126,5 +130,6 @@ final class EditHeadlineState extends Equatable {
     updatedHeadline,
     imageRemoved,
     initialHeadline,
+    enabledLanguages,
   ];
 }

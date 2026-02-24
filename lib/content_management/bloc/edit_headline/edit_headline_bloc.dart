@@ -65,6 +65,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           eventCountry: () => headline.eventCountry,
           isBreaking: headline.isBreaking,
           initialHeadline: headline,
+          enabledLanguages: event.enabledLanguages,
         ),
       );
       _logger.info('Successfully loaded headline: ${headline.id}');
@@ -95,9 +96,15 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineTitleChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
-    _logger.finer('Title changed: ${event.title}');
+    _logger.finer('Title changed for ${event.language}: ${event.title}');
+    final newTitles = Map<SupportedLanguage, String>.from(state.title);
+    if (event.title.isEmpty) {
+      newTitles.remove(event.language);
+    } else {
+      newTitles[event.language] = event.title;
+    }
     emit(
-      state.copyWith(title: event.title, status: EditHeadlineStatus.initial),
+      state.copyWith(title: newTitles, status: EditHeadlineStatus.initial),
     );
   }
 
