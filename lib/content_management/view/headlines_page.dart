@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
@@ -29,11 +30,21 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
   void initState() {
     super.initState();
     // Initial load of headlines, applying the default filter from HeadlinesFilterBloc
+    final defaultLanguage =
+        context
+            .read<AppBloc>()
+            .state
+            .remoteConfig
+            ?.app
+            .localization
+            .defaultLanguage
+            .name ??
+        'en';
     context.read<ContentManagementBloc>().add(
       LoadHeadlinesRequested(
         limit: kDefaultRowsPerPage,
-        filter: context.read<ContentManagementBloc>().buildHeadlinesFilterMap(
-          context.read<HeadlinesFilterBloc>().state,
+        filter: context.read<HeadlinesFilterBloc>().buildFilterMap(
+          languageCode: defaultLanguage,
         ),
       ),
     );
@@ -72,17 +83,27 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
           if (state.headlinesStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context.read<ContentManagementBloc>().add(
-                LoadHeadlinesRequested(
-                  limit: kDefaultRowsPerPage,
-                  forceRefresh: true,
-                  filter: context
-                      .read<ContentManagementBloc>()
-                      .buildHeadlinesFilterMap(
-                        context.read<HeadlinesFilterBloc>().state,
-                      ),
-                ),
-              ),
+              onRetry: () {
+                final defaultLanguage =
+                    context
+                        .read<AppBloc>()
+                        .state
+                        .remoteConfig
+                        ?.app
+                        .localization
+                        .defaultLanguage
+                        .name ??
+                    'en';
+                context.read<ContentManagementBloc>().add(
+                  LoadHeadlinesRequested(
+                    limit: kDefaultRowsPerPage,
+                    forceRefresh: true,
+                    filter: context.read<HeadlinesFilterBloc>().buildFilterMap(
+                      languageCode: defaultLanguage,
+                    ),
+                  ),
+                );
+              },
             );
           }
 
@@ -170,14 +191,24 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                             state.headlinesHasMore &&
                             state.headlinesStatus !=
                                 ContentManagementStatus.loading) {
+                          final defaultLanguage =
+                              context
+                                  .read<AppBloc>()
+                                  .state
+                                  .remoteConfig
+                                  ?.app
+                                  .localization
+                                  .defaultLanguage
+                                  .name ??
+                              'en';
                           context.read<ContentManagementBloc>().add(
                             LoadHeadlinesRequested(
                               startAfterId: state.headlinesCursor,
                               limit: kDefaultRowsPerPage,
                               filter: context
-                                  .read<ContentManagementBloc>()
-                                  .buildHeadlinesFilterMap(
-                                    context.read<HeadlinesFilterBloc>().state,
+                                  .read<HeadlinesFilterBloc>()
+                                  .buildFilterMap(
+                                    languageCode: defaultLanguage,
                                   ),
                             ),
                           );
@@ -241,7 +272,7 @@ class _HeadlinesDataSource extends DataTableSource {
             text: TextSpan(
               style: Theme.of(context).textTheme.bodyMedium,
               children: [
-                TextSpan(text: headline.title),
+                TextSpan(text: headline.title[SupportedLanguage.en] ?? ''),
                 if (headline.isBreaking)
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
@@ -262,7 +293,7 @@ class _HeadlinesDataSource extends DataTableSource {
           ),
         ),
         if (!isMobile) // Conditionally show Source Name
-          DataCell(Text(headline.source.name)),
+          DataCell(Text(headline.source.name[SupportedLanguage.en] ?? '')),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(headline.updatedAt.toLocal()),
