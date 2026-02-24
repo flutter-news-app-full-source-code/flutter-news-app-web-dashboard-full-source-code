@@ -292,7 +292,7 @@ class _AppViewState extends State<_AppView> {
               AppBaseTheme.dark => ThemeMode.dark,
               _ => ThemeMode.system,
             },
-            locale: language != null ? Locale(language.code) : null,
+            locale: language != null ? Locale(language.name) : null,
             // The builder is used to wrap the router's content with a Scaffold
             // that provides a distinct background color for the areas outside
             // the constrained app width. This ensures a consistent visual
