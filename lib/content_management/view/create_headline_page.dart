@@ -4,10 +4,12 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -24,11 +26,24 @@ class CreateHeadlinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CreateHeadlineBloc(
-        headlinesRepository: context.read<DataRepository<Headline>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        logger: Logger('CreateHeadlineBloc'),
-      ),
+      create: (context) =>
+          CreateHeadlineBloc(
+            headlinesRepository: context.read<DataRepository<Headline>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            logger: Logger('CreateHeadlineBloc'),
+          )..add(
+            CreateHeadlineInitialized(
+              enabledLanguages:
+                  context
+                      .read<AppBloc>()
+                      .state
+                      .remoteConfig
+                      ?.app
+                      .localization
+                      .enabledLanguages ??
+                  [SupportedLanguage.en],
+            ),
+          ),
       child: const CreateHeadlineView(),
     );
   }
@@ -45,20 +60,17 @@ class CreateHeadlineView extends StatefulWidget {
 
 class _CreateHeadlineViewState extends State<CreateHeadlineView> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _titleController;
   late final TextEditingController _urlController;
 
   @override
   void initState() {
     super.initState();
     final state = context.read<CreateHeadlineBloc>().state;
-    _titleController = TextEditingController(text: state.title);
     _urlController = TextEditingController(text: state.url);
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
     _urlController.dispose();
     super.dispose();
   }
@@ -160,15 +172,17 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        labelText: l10n.headlineTitle,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<CreateHeadlineBloc>()
-                          .add(CreateHeadlineTitleChanged(value)),
+                    LocalizedTextFormField(
+                      label: l10n.headlineTitle,
+                      values: state.title,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) =>
+                          context.read<CreateHeadlineBloc>().add(
+                            CreateHeadlineTitleChanged(
+                              values.values.first,
+                              values.keys.first,
+                            ),
+                          ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -222,8 +236,10 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       selectedItems: state.source != null
                           ? [state.source!]
                           : [],
-                      itemBuilder: (context, source) => Text(source.name),
-                      itemToString: (source) => source.name,
+                      itemBuilder: (context, source) =>
+                          Text(source.name[SupportedLanguage.en] ?? ''),
+                      itemToString: (source) =>
+                          source.name[SupportedLanguage.en] ?? '',
                       onChanged: (items) => context
                           .read<CreateHeadlineBloc>()
                           .add(CreateHeadlineSourceChanged(items?.first)),
@@ -231,7 +247,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
                           : {
-                              'name': {
+                              'name.en': {
                                 r'$regex': searchTerm,
                                 r'$options': 'i',
                               },
@@ -246,8 +262,10 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                     SearchableSelectionInput<Topic>(
                       label: l10n.topicName,
                       selectedItems: state.topic != null ? [state.topic!] : [],
-                      itemBuilder: (context, topic) => Text(topic.name),
-                      itemToString: (topic) => topic.name,
+                      itemBuilder: (context, topic) =>
+                          Text(topic.name[SupportedLanguage.en] ?? ''),
+                      itemToString: (topic) =>
+                          topic.name[SupportedLanguage.en] ?? '',
                       onChanged: (items) => context
                           .read<CreateHeadlineBloc>()
                           .add(CreateHeadlineTopicChanged(items?.first)),
@@ -255,7 +273,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
                           : {
-                              'name': {
+                              'name.en': {
                                 r'$regex': searchTerm,
                                 r'$options': 'i',
                               },
@@ -285,10 +303,11 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                             ),
                           ),
                           const SizedBox(width: AppSpacing.md),
-                          Text(country.name),
+                          Text(country.name[SupportedLanguage.en] ?? ''),
                         ],
                       ),
-                      itemToString: (country) => country.name,
+                      itemToString: (country) =>
+                          country.name[SupportedLanguage.en] ?? '',
                       onChanged: (items) => context
                           .read<CreateHeadlineBloc>()
                           .add(CreateHeadlineCountryChanged(items?.first)),
@@ -296,7 +315,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
                           : {
-                              'name': {
+                              'name.en': {
                                 r'$regex': searchTerm,
                                 r'$options': 'i',
                               },
