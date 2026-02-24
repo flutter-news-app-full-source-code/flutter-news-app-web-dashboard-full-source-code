@@ -31,10 +31,18 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppUserAppSettingsChanged>(
       _onAppUserAppSettingsChanged,
     );
+    on<AppRemoteConfigChanged>(_onRemoteConfigChanged);
 
     _userSubscription = _authenticationRepository.authStateChanges.listen(
       (User? user) => add(AppUserChanged(user)),
     );
+
+    _configSubscription = _appConfigRepository.entityUpdated
+        .where((type) => type == RemoteConfig)
+        .listen((_) => add(const AppRemoteConfigChanged()));
+
+    // Initial load of remote config
+    add(const AppRemoteConfigChanged());
   }
 
   final AuthRepository _authenticationRepository;
@@ -42,6 +50,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final DataRepository<RemoteConfig> _appConfigRepository;
   final Logger _logger;
   late final StreamSubscription<User?> _userSubscription;
+  late final StreamSubscription<Type> _configSubscription;
 
   /// Handles user changes and loads initial settings once user is available.
   Future<void> _onAppUserChanged(
@@ -85,12 +94,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             textScaleFactor: AppTextScaleFactor.medium,
             fontWeight: AppFontWeight.regular,
           ),
-          language: languagesFixturesData.firstWhere(
-            (l) => l.code == 'en',
-            orElse: () => throw StateError(
-              'Default language "en" not found in language fixtures.',
-            ),
-          ),
+          language: SupportedLanguage.en,
           feedSettings: const FeedSettings(
             feedItemDensity: FeedItemDensity.standard,
             feedItemImageStyle: FeedItemImageStyle.largeThumbnail,
@@ -129,6 +133,19 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emit(state.copyWith(appSettings: event.appSettings));
   }
 
+  Future<void> _onRemoteConfigChanged(
+    AppRemoteConfigChanged event,
+    Emitter<AppState> emit,
+  ) async {
+    try {
+      final config = await _appConfigRepository.read(id: kRemoteConfigId);
+      emit(state.copyWith(remoteConfig: config));
+    } catch (e, s) {
+      _logger.severe('Failed to load remote config', e, s);
+      // We might want to emit a failure state or keep the old config
+    }
+  }
+
   void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
     unawaited(_authenticationRepository.signOut());
     emit(
@@ -139,6 +156,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   @override
   Future<void> close() {
     _userSubscription.cancel();
+    _configSubscription.cancel();
     return super.close();
   }
 }
