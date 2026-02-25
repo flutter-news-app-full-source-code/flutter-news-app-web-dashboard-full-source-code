@@ -43,7 +43,12 @@ void main() {
         () => editHeadlineBloc.state,
       ).thenReturn(EditHeadlineState(headlineId: headlineId));
       when(
-        () => editHeadlineBloc.add(const EditHeadlineLoaded()),
+        () => editHeadlineBloc.add(
+          const EditHeadlineLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
       ).thenAnswer((_) async {});
     });
 
@@ -124,11 +129,23 @@ void main() {
       testWidgets('populates form fields with initial data', (tester) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
 
-        expect(find.text(headlineFixture.title), findsOneWidget);
+        expect(
+          find.text(headlineFixture.title[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
         expect(find.text(headlineFixture.url), findsOneWidget);
-        expect(find.text(headlineFixture.source.name), findsOneWidget);
-        expect(find.text(headlineFixture.topic.name), findsOneWidget);
-        expect(find.text(headlineFixture.eventCountry.name), findsOneWidget);
+        expect(
+          find.text(headlineFixture.source.name[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
+        expect(
+          find.text(headlineFixture.topic.name[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
+        expect(
+          find.text(headlineFixture.eventCountry.name[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
       });
 
       testWidgets('adds EditHeadlineTitleChanged when title is changed', (
@@ -137,10 +154,44 @@ void main() {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         await tester.enterText(find.byType(TextFormField).first, 'New Title');
         verify(
-          () =>
-              editHeadlineBloc.add(const EditHeadlineTitleChanged('New Title')),
+          () => editHeadlineBloc.add(
+            const EditHeadlineTitleChanged('New Title', SupportedLanguage.en),
+          ),
         ).called(1);
       });
+
+      testWidgets(
+        'adds EditHeadlineTitleChanged with correct language when secondary tab is selected',
+        (tester) async {
+          when(() => editHeadlineBloc.state).thenReturn(
+            EditHeadlineState(
+              headlineId: headlineId,
+              initialHeadline: headlineFixture,
+              enabledLanguages: const [
+                SupportedLanguage.en,
+                SupportedLanguage.es,
+              ],
+            ),
+          );
+
+          await tester.pumpApp(buildSubject(), goRouter: goRouter);
+          await tester.pumpAndSettle();
+
+          // Tap the Spanish tab
+          await tester.tap(find.text('ES'));
+          await tester.pumpAndSettle();
+
+          // Find the text field which should now be for Spanish
+          final titleFieldFinder = find.byType(TextFormField).first;
+          await tester.enterText(titleFieldFinder, 'Título');
+
+          verify(
+            () => editHeadlineBloc.add(
+              const EditHeadlineTitleChanged('Título', SupportedLanguage.es),
+            ),
+          ).called(1);
+        },
+      );
 
       testWidgets('shows progress indicator when state is submitting', (
         tester,
