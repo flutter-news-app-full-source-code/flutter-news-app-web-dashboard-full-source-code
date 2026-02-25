@@ -13,10 +13,10 @@ void main() {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
 
-    final countryFixture = Country(
+    const countryFixture = Country(
       id: 'country-1',
       isoCode: 'US',
-      name: const {SupportedLanguage.en: 'United States'},
+      name: {SupportedLanguage.en: 'United States'},
       flagUrl: 'url',
     );
     final sourceFixture = Source(
@@ -127,8 +127,8 @@ void main() {
         'emits new state with updated headquarters',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add(CreateSourceHeadquartersChanged(countryFixture)),
-        expect: () => [CreateSourceState(headquarters: countryFixture)],
+            bloc.add(const CreateSourceHeadquartersChanged(countryFixture)),
+        expect: () => [const CreateSourceState(headquarters: countryFixture)],
       );
     });
 

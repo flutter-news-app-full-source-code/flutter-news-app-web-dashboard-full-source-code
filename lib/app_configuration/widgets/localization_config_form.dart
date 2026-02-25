@@ -36,8 +36,8 @@ class LocalizationConfigForm extends StatelessWidget {
           Text(
             l10n.localizationConfigDescription,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
@@ -49,8 +49,9 @@ class LocalizationConfigForm extends StatelessWidget {
             spacing: AppSpacing.sm,
             runSpacing: AppSpacing.sm,
             children: supportedLanguages.map((language) {
-              final isSelected =
-                  localizationConfig.enabledLanguages.contains(language);
+              final isSelected = localizationConfig.enabledLanguages.contains(
+                language,
+              );
               return FilterChip(
                 label: Text(language.name.toUpperCase()),
                 selected: isSelected,
@@ -58,7 +59,7 @@ class LocalizationConfigForm extends StatelessWidget {
                   final currentList = List<SupportedLanguage>.from(
                     localizationConfig.enabledLanguages,
                   );
-                  
+
                   if (selected) {
                     currentList.add(language);
                   } else {

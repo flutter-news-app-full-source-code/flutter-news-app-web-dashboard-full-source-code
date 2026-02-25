@@ -66,8 +66,9 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
   void didUpdateWidget(covariant LocalizedTextFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.enabledLanguages != oldWidget.enabledLanguages) {
-      _tabController..removeListener(_handleTabSelection)
-      ..dispose();
+      _tabController
+        ..removeListener(_handleTabSelection)
+        ..dispose();
       _tabController = TabController(
         length: widget.enabledLanguages.length,
         vsync: this,
@@ -99,17 +100,19 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
         TextEditingController.new,
       );
       if (controller.text != text) {
-        controller..text = text
-        // Preserve cursor at end if possible, or reset if text changed drastically
-        ..selection = TextSelection.collapsed(offset: text.length);
+        controller
+          ..text = text
+          // Preserve cursor at end if possible, or reset if text changed drastically
+          ..selection = TextSelection.collapsed(offset: text.length);
       }
     }
   }
 
   @override
   void dispose() {
-    _tabController..removeListener(_handleTabSelection)
-    ..dispose();
+    _tabController
+      ..removeListener(_handleTabSelection)
+      ..dispose();
     for (final controller in _controllers.values) {
       controller.dispose();
     }
@@ -163,7 +166,8 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
               controller: controller,
               readOnly: widget.readOnly,
               decoration: InputDecoration(
-                labelText: '${widget.label} (${currentLang.name.toUpperCase()})',
+                labelText:
+                    '${widget.label} (${currentLang.name.toUpperCase()})',
                 border: const OutlineInputBorder(),
                 alignLabelWithHint: true,
               ),

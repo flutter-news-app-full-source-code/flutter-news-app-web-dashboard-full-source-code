@@ -44,7 +44,7 @@ final testLanguage = Language(
 const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: const {SupportedLanguage.en: 'United States'},
+  name: {SupportedLanguage.en: 'United States'},
   flagUrl: 'url',
 );
 
@@ -439,7 +439,7 @@ void main() {
 
           verify(
             () => createSourceBloc.add(
-              CreateSourceHeadquartersChanged(testCountry),
+              const CreateSourceHeadquartersChanged(testCountry),
             ),
           ).called(1);
         },
