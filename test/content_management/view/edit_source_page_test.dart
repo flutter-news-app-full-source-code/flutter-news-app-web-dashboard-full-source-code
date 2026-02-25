@@ -10,6 +10,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
@@ -40,23 +41,20 @@ final testLanguage = Language(
   status: ContentStatus.active,
 );
 
-final testCountry = Country(
+const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: 'United States',
+  name: {SupportedLanguage.en: ''},
   flagUrl: 'url',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 final testSource = Source(
   id: 'source-1',
-  name: 'Test Source',
-  description: 'desc',
+  name: const {SupportedLanguage.en: 'Test Source'},
+  description: const {SupportedLanguage.en: 'desc'},
   url: 'http://example.com',
   sourceType: SourceType.blog,
-  language: testLanguage,
+  language: SupportedLanguage.en,
   headquarters: testCountry,
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -168,6 +166,8 @@ void main() {
           language: testSource.language,
           headquarters: testSource.headquarters,
           initialSource: testSource,
+          enabledLanguages: const [SupportedLanguage.en],
+          defaultLanguage: SupportedLanguage.en,
         ),
       );
 
@@ -236,12 +236,17 @@ void main() {
     ) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
 
-      expect(find.text(testSource.name), findsOneWidget);
-      expect(find.text(testSource.description), findsOneWidget);
+      expect(find.text(testSource.name[SupportedLanguage.en]!), findsOneWidget);
+      expect(
+        find.text(testSource.description[SupportedLanguage.en]!),
+        findsOneWidget,
+      );
       expect(find.text(testSource.url), findsOneWidget);
       expect(find.byType(ImageUploadField), findsOneWidget);
-      expect(find.text(testSource.language.name), findsOneWidget);
-      expect(find.text(testSource.headquarters.name), findsOneWidget);
+      expect(
+        find.text(testSource.headquarters.name[SupportedLanguage.en]!),
+        findsOneWidget,
+      );
       // SourceType is localized, so we check if the widget exists
       expect(find.byType(SearchableSelectionInput<SourceType>), findsOneWidget);
     });
@@ -251,11 +256,20 @@ void main() {
         tester,
       ) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-        final nameField = find.widgetWithText(TextFormField, l10n.sourceName);
-        await tester.enterText(nameField, 'Updated Name');
+        await tester.enterText(
+          find.descendant(
+            of: find.byType(LocalizedTextFormField).first,
+            matching: find.byType(TextFormField),
+          ),
+          'Updated Name',
+        );
         verify(
-          () => editSourceBloc.add(const EditSourceNameChanged('Updated Name')),
+          () => editSourceBloc.add(
+            const EditSourceNameChanged(
+              'Updated Name',
+              SupportedLanguage.en,
+            ),
+          ),
         ).called(1);
       });
 
@@ -329,11 +343,11 @@ void main() {
           EditSourceState(
             sourceId: testSource.id,
             status: EditSourceStatus.entitySubmitting,
-            name: 'Name',
-            description: 'Desc',
+            name: const {SupportedLanguage.en: 'Name'},
+            description: const {SupportedLanguage.en: 'Desc'},
             url: 'Url',
             sourceType: SourceType.blog,
-            language: testLanguage,
+            language: SupportedLanguage.en,
             headquarters: testCountry,
           ),
         );
