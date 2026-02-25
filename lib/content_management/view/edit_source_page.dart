@@ -125,22 +125,7 @@ class _EditSourceViewState extends State<EditSourceView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<EditSourceBloc>().add(
-                            const EditSourcePublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<EditSourceBloc>().add(
-                            const EditSourceSavedAsDraft(),
-                          );
-                        }
-                      }
+                    ? () => _handleSave(context)
                     : null,
               );
             },
@@ -374,5 +359,21 @@ class _EditSourceViewState extends State<EditSourceView> {
         },
       ),
     );
+  }
+
+  Future<void> _handleSave(BuildContext context) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+
+    if (selectedStatus == null || !context.mounted) return;
+
+    if (selectedStatus == ContentStatus.active) {
+      context.read<EditSourceBloc>().add(
+        const EditSourcePublished(),
+      );
+    } else if (selectedStatus == ContentStatus.draft) {
+      context.read<EditSourceBloc>().add(
+        const EditSourceSavedAsDraft(),
+      );
+    }
   }
 }

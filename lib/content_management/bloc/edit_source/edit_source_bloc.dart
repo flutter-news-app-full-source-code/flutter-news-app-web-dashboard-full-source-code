@@ -96,7 +96,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     Emitter<EditSourceState> emit,
   ) {
     final newName = Map<SupportedLanguage, String>.from(state.name);
-    newName[event.language] = event.name;
+    if (event.name.isEmpty) {
+      newName.remove(event.language);
+    } else {
+      newName[event.language] = event.name;
+    }
     _logger.finer('Name changed for ${event.language}: ${event.name}');
     emit(
       state.copyWith(name: newName, status: EditSourceStatus.initial),
@@ -110,7 +114,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     final newDescription = Map<SupportedLanguage, String>.from(
       state.description,
     );
-    newDescription[event.language] = event.description;
+    if (event.description.isEmpty) {
+      newDescription.remove(event.language);
+    } else {
+      newDescription[event.language] = event.description;
+    }
     _logger.finer(
       'Description changed for ${event.language}: ${event.description}',
     );
