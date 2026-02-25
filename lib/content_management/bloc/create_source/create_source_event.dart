@@ -8,9 +8,9 @@ sealed class CreateSourceEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event when the page is loaded.
-final class CreateSourceLoaded extends CreateSourceEvent {
-  const CreateSourceLoaded({
+/// Event to initialize the BLoC with necessary configuration.
+final class CreateSourceInitialized extends CreateSourceEvent {
+  const CreateSourceInitialized({
     required this.enabledLanguages,
     required this.defaultLanguage,
   });

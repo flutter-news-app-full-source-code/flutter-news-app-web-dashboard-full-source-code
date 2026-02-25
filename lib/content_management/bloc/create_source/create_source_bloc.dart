@@ -26,7 +26,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
        _mediaRepository = mediaRepository,
        _logger = logger,
        super(const CreateSourceState()) {
-    on<CreateSourceLoaded>(_onLoaded);
+    on<CreateSourceInitialized>(_onInitialized);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);
@@ -44,8 +44,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   final Logger _logger;
   final _uuid = const Uuid();
 
-  void _onLoaded(
-    CreateSourceLoaded event,
+  void _onInitialized(
+    CreateSourceInitialized event,
     Emitter<CreateSourceState> emit,
   ) {
     emit(
@@ -61,7 +61,11 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     final newName = Map<SupportedLanguage, String>.from(state.name);
-    newName[event.language] = event.name;
+    if (event.name.isEmpty) {
+      newName.remove(event.language);
+    } else {
+      newName[event.language] = event.name;
+    }
     _logger.fine('Name changed for ${event.language}: ${event.name}');
     emit(state.copyWith(name: newName));
   }
@@ -73,7 +77,11 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     final newDescription = Map<SupportedLanguage, String>.from(
       state.description,
     );
-    newDescription[event.language] = event.description;
+    if (event.description.isEmpty) {
+      newDescription.remove(event.language);
+    } else {
+      newDescription[event.language] = event.description;
+    }
     _logger.fine(
       'Description changed for ${event.language}: ${event.description}',
     );

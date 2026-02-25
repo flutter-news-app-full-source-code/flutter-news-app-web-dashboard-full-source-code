@@ -37,7 +37,7 @@ class CreateSourcePage extends StatelessWidget {
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateSourceBloc'),
           )..add(
-            CreateSourceLoaded(
+            CreateSourceInitialized(
               enabledLanguages:
                   localizationConfig?.enabledLanguages ??
                   [SupportedLanguage.en],
