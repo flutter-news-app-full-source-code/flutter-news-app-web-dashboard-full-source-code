@@ -6187,6 +6187,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Default language ({language}) is required.'**
   String defaultLanguageRequired(String language);
+
+  /// Localized name for English language
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageNameEn;
+
+  /// Localized name for Spanish language
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get languageNameEs;
+
+  /// Localized name for French language
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get languageNameFr;
+
+  /// Localized name for Arabic language
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get languageNameAr;
+
+  /// Localized name for Portuguese language
+  ///
+  /// In en, this message translates to:
+  /// **'Portuguese'**
+  String get languageNamePt;
+
+  /// Localized name for German language
+  ///
+  /// In en, this message translates to:
+  /// **'German'**
+  String get languageNameDe;
+
+  /// Localized name for Italian language
+  ///
+  /// In en, this message translates to:
+  /// **'Italian'**
+  String get languageNameIt;
+
+  /// Localized name for Chinese language
+  ///
+  /// In en, this message translates to:
+  /// **'Chinese'**
+  String get languageNameZh;
+
+  /// Localized name for Hindi language
+  ///
+  /// In en, this message translates to:
+  /// **'Hindi'**
+  String get languageNameHi;
+
+  /// Localized name for Japanese language
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get languageNameJa;
 }
 
 class _AppLocalizationsDelegate

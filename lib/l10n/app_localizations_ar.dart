@@ -3390,4 +3390,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String defaultLanguageRequired(String language) {
     return 'اللغة الافتراضية ($language) مطلوبة.';
   }
+
+  @override
+  String get languageNameEn => 'الإنجليزية';
+
+  @override
+  String get languageNameEs => 'الإسبانية';
+
+  @override
+  String get languageNameFr => 'الفرنسية';
+
+  @override
+  String get languageNameAr => 'العربية';
+
+  @override
+  String get languageNamePt => 'البرتغالية';
+
+  @override
+  String get languageNameDe => 'الألمانية';
+
+  @override
+  String get languageNameIt => 'الإيطالية';
+
+  @override
+  String get languageNameZh => 'الصينية';
+
+  @override
+  String get languageNameHi => 'الهندية';
+
+  @override
+  String get languageNameJa => 'اليابانية';
 }

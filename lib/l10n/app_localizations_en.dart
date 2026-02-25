@@ -3415,4 +3415,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String defaultLanguageRequired(String language) {
     return 'Default language ($language) is required.';
   }
+
+  @override
+  String get languageNameEn => 'English';
+
+  @override
+  String get languageNameEs => 'Spanish';
+
+  @override
+  String get languageNameFr => 'French';
+
+  @override
+  String get languageNameAr => 'Arabic';
+
+  @override
+  String get languageNamePt => 'Portuguese';
+
+  @override
+  String get languageNameDe => 'German';
+
+  @override
+  String get languageNameIt => 'Italian';
+
+  @override
+  String get languageNameZh => 'Chinese';
+
+  @override
+  String get languageNameHi => 'Hindi';
+
+  @override
+  String get languageNameJa => 'Japanese';
 }
