@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
@@ -29,16 +28,6 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
-    final defaultLanguage =
-        context
-            .read<AppBloc>()
-            .state
-            .remoteConfig
-            ?.app
-            .localization
-            .defaultLanguage
-            .name ??
-        'en';
     // Initial load of topics, applying the default filter from TopicsFilterBloc
     context.read<ContentManagementBloc>().add(
       LoadTopicsRequested(
@@ -77,16 +66,6 @@ class _TopicPageState extends State<TopicPage> {
             return FailureStateWidget(
               exception: state.exception!,
               onRetry: () {
-                final defaultLanguage =
-                    context
-                        .read<AppBloc>()
-                        .state
-                        .remoteConfig
-                        ?.app
-                        .localization
-                        .defaultLanguage
-                        .name ??
-                    'en';
                 context.read<ContentManagementBloc>().add(
                   LoadTopicsRequested(
                     limit: kDefaultRowsPerPage,
@@ -177,16 +156,6 @@ class _TopicPageState extends State<TopicPage> {
                             state.topicsHasMore &&
                             state.topicsStatus !=
                                 ContentManagementStatus.loading) {
-                          final defaultLanguage =
-                              context
-                                  .read<AppBloc>()
-                                  .state
-                                  .remoteConfig
-                                  ?.app
-                                  .localization
-                                  .defaultLanguage
-                                  .name ??
-                              'en';
                           context.read<ContentManagementBloc>().add(
                             LoadTopicsRequested(
                               startAfterId: state.topicsCursor,

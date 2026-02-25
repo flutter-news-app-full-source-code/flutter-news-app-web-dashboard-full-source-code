@@ -169,8 +169,7 @@ void main() {
 
     testWidgets('renders form fields', (tester) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
-      final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-
+      
       expect(
         find.descendant(
           of: find.byType(LocalizedTextFormField).first,
