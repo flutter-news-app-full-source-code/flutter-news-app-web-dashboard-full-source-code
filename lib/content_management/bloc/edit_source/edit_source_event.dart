@@ -10,27 +10,34 @@ sealed class EditSourceEvent extends Equatable {
 
 /// Event to load the initial source data for editing.
 final class EditSourceLoaded extends EditSourceEvent {
-  const EditSourceLoaded();
+  const EditSourceLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
 }
 
 /// Event triggered when the source name input changes.
 final class EditSourceNameChanged extends EditSourceEvent {
-  const EditSourceNameChanged(this.name);
-
+  const EditSourceNameChanged(this.name, this.language);
   final String name;
-
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, language];
 }
 
 /// Event triggered when the source description input changes.
 final class EditSourceDescriptionChanged extends EditSourceEvent {
-  const EditSourceDescriptionChanged(this.description);
-
+  const EditSourceDescriptionChanged(this.description, this.language);
   final String description;
-
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [description];
+  List<Object?> get props => [description, language];
 }
 
 /// Event triggered when the source URL input changes.
@@ -75,7 +82,7 @@ final class EditSourceTypeChanged extends EditSourceEvent {
 /// Event triggered when the source language input changes.
 final class EditSourceLanguageChanged extends EditSourceEvent {
   const EditSourceLanguageChanged(this.language);
-  final Language? language;
+  final SupportedLanguage? language;
 
   @override
   List<Object?> get props => [language];

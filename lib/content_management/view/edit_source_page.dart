@@ -2,10 +2,12 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -24,13 +26,29 @@ class EditSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizationConfig = context
+        .read<AppBloc>()
+        .state
+        .remoteConfig
+        ?.app
+        .localization;
+
     return BlocProvider(
-      create: (context) => EditSourceBloc(
-        sourcesRepository: context.read<DataRepository<Source>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        sourceId: sourceId,
-        logger: Logger('EditSourceBloc'),
-      )..add(const EditSourceLoaded()),
+      create: (context) =>
+          EditSourceBloc(
+            sourcesRepository: context.read<DataRepository<Source>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            sourceId: sourceId,
+            logger: Logger('EditSourceBloc'),
+          )..add(
+            EditSourceLoaded(
+              enabledLanguages:
+                  localizationConfig?.enabledLanguages ??
+                  [SupportedLanguage.en],
+              defaultLanguage:
+                  localizationConfig?.defaultLanguage ?? SupportedLanguage.en,
+            ),
+          ),
       child: const EditSourceView(),
     );
   }
@@ -45,23 +63,17 @@ class EditSourceView extends StatefulWidget {
 
 class _EditSourceViewState extends State<EditSourceView> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
 
   @override
   void initState() {
     super.initState();
     final state = context.read<EditSourceBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
     _urlController = TextEditingController(text: state.url);
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
     _urlController.dispose();
     super.dispose();
   }
@@ -161,8 +173,6 @@ class _EditSourceViewState extends State<EditSourceView> {
           }
           // Update text controllers when data is loaded or changed
           if (state.status == EditSourceStatus.initial) {
-            _nameController.text = state.name;
-            _descriptionController.text = state.description;
             _urlController.text = state.url;
           }
         },
@@ -175,11 +185,16 @@ class _EditSourceViewState extends State<EditSourceView> {
             );
           }
 
-          if (state.status == EditSourceStatus.failure && state.name.isEmpty) {
+          if (state.status == EditSourceStatus.failure &&
+              (state.name[SupportedLanguage.en]?.isEmpty ?? true)) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () =>
-                  context.read<EditSourceBloc>().add(const EditSourceLoaded()),
+              onRetry: () => context.read<EditSourceBloc>().add(
+                EditSourceLoaded(
+                  enabledLanguages: state.enabledLanguages,
+                  defaultLanguage: state.defaultLanguage,
+                ),
+              ),
             );
           }
 
@@ -191,27 +206,44 @@ class _EditSourceViewState extends State<EditSourceView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceName,
-                        border: const OutlineInputBorder(),
+                    LocalizedTextFormField(
+                      label: l10n.sourceName,
+                      values: state.name,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) => context.read<EditSourceBloc>().add(
+                        EditSourceNameChanged(
+                          values.values.first,
+                          values.keys.first,
+                        ),
                       ),
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceNameChanged(value),
-                      ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: l10n.description,
-                        border: const OutlineInputBorder(),
+                    LocalizedTextFormField(
+                      label: l10n.description,
+                      values: state.description,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) => context.read<EditSourceBloc>().add(
+                        EditSourceDescriptionChanged(
+                          values.values.first,
+                          values.keys.first,
+                        ),
                       ),
-                      maxLines: 3,
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceDescriptionChanged(value),
-                      ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -248,14 +280,23 @@ class _EditSourceViewState extends State<EditSourceView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Language>(
                       label: l10n.language,
-                      selectedItems: state.language != null
-                          ? [state.language!]
-                          : [],
+                      selectedItems: const [],
                       itemBuilder: (context, language) => Text(language.name),
                       itemToString: (language) => language.name,
-                      onChanged: (items) => context.read<EditSourceBloc>().add(
-                        EditSourceLanguageChanged(items?.first),
-                      ),
+                      onChanged: (items) {
+                        if (items != null && items.isNotEmpty) {
+                          // Map Language entity code to SupportedLanguage enum
+                          try {
+                            final supportedLang = SupportedLanguage.values
+                                .byName(items.first.code);
+                            context.read<EditSourceBloc>().add(
+                              EditSourceLanguageChanged(supportedLang),
+                            );
+                          } catch (_) {
+                            // Handle case where DB language code doesn't match enum
+                          }
+                        }
+                      },
                       repository: context.read<DataRepository<Language>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
@@ -303,10 +344,11 @@ class _EditSourceViewState extends State<EditSourceView> {
                             ),
                           ),
                           const SizedBox(width: AppSpacing.md),
-                          Text(country.name),
+                          Text(country.name[SupportedLanguage.en] ?? ''),
                         ],
                       ),
-                      itemToString: (country) => country.name,
+                      itemToString: (country) =>
+                          country.name[SupportedLanguage.en] ?? '',
                       onChanged: (items) => context.read<EditSourceBloc>().add(
                         EditSourceHeadquartersChanged(items?.first),
                       ),
