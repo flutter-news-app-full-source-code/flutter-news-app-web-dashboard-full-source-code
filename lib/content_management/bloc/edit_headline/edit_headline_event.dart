@@ -10,10 +10,14 @@ sealed class EditHeadlineEvent extends Equatable {
 
 /// Event to load the initial headline data for editing.
 final class EditHeadlineLoaded extends EditHeadlineEvent {
-  const EditHeadlineLoaded({required this.enabledLanguages});
+  const EditHeadlineLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
   final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
   @override
-  List<Object?> get props => [enabledLanguages];
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
 }
 
 /// Event for when the headline's title is changed.

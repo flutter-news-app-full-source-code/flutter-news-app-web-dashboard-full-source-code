@@ -31,6 +31,7 @@ final class EditHeadlineState extends Equatable {
     this.imageRemoved = false,
     this.initialHeadline,
     this.enabledLanguages = const [SupportedLanguage.en],
+    this.defaultLanguage = SupportedLanguage.en,
   });
 
   final EditHeadlineStatus status;
@@ -49,6 +50,7 @@ final class EditHeadlineState extends Equatable {
   final bool imageRemoved;
   final Headline? initialHeadline;
   final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid {
@@ -58,7 +60,7 @@ final class EditHeadlineState extends Equatable {
         imageFileBytes != null || (imageUrl != null && !imageRemoved);
 
     return headlineId.isNotEmpty &&
-        title.isNotEmpty &&
+        (title[defaultLanguage]?.isNotEmpty ?? false) &&
         url.isNotEmpty &&
         hasImage &&
         source != null &&
@@ -86,6 +88,7 @@ final class EditHeadlineState extends Equatable {
     bool? imageRemoved,
     Headline? initialHeadline,
     List<SupportedLanguage>? enabledLanguages,
+    SupportedLanguage? defaultLanguage,
   }) {
     return EditHeadlineState(
       status: status ?? this.status,
@@ -110,6 +113,7 @@ final class EditHeadlineState extends Equatable {
       imageRemoved: imageRemoved ?? this.imageRemoved,
       initialHeadline: initialHeadline ?? this.initialHeadline,
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
     );
   }
 
@@ -131,5 +135,6 @@ final class EditHeadlineState extends Equatable {
     imageRemoved,
     initialHeadline,
     enabledLanguages,
+    defaultLanguage,
   ];
 }

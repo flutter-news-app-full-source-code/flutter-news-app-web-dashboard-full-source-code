@@ -31,6 +31,13 @@ class EditHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizationConfig = context
+        .read<AppBloc>()
+        .state
+        .remoteConfig
+        ?.app
+        .localization;
+
     return BlocProvider(
       create: (context) =>
           EditHeadlineBloc(
@@ -41,14 +48,10 @@ class EditHeadlinePage extends StatelessWidget {
           )..add(
             EditHeadlineLoaded(
               enabledLanguages:
-                  context
-                      .read<AppBloc>()
-                      .state
-                      .remoteConfig
-                      ?.app
-                      .localization
-                      .enabledLanguages ??
+                  localizationConfig?.enabledLanguages ??
                   [SupportedLanguage.en],
+              defaultLanguage:
+                  localizationConfig?.defaultLanguage ?? SupportedLanguage.en,
             ),
           ),
       child: const EditHeadlineView(),
@@ -186,15 +189,8 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
               exception: state.exception!,
               onRetry: () => context.read<EditHeadlineBloc>().add(
                 EditHeadlineLoaded(
-                  enabledLanguages:
-                      context
-                          .read<AppBloc>()
-                          .state
-                          .remoteConfig
-                          ?.app
-                          .localization
-                          .enabledLanguages ??
-                      [SupportedLanguage.en],
+                  enabledLanguages: state.enabledLanguages,
+                  defaultLanguage: state.defaultLanguage,
                 ),
               ),
             );
@@ -219,6 +215,14 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                               values.keys.first,
                             ),
                           ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(

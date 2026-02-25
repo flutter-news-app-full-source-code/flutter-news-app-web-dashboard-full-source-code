@@ -66,6 +66,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           isBreaking: headline.isBreaking,
           initialHeadline: headline,
           enabledLanguages: event.enabledLanguages,
+          defaultLanguage: event.defaultLanguage,
         ),
       );
       _logger.info('Successfully loaded headline: ${headline.id}');
