@@ -13,25 +13,26 @@ void main() {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
 
-    final languageFixture = Language(
-      id: 'lang-1',
-      code: 'en',
-      name: 'English',
-      nativeName: 'English',
-      createdAt: DateTime(2023),
-      updatedAt: DateTime(2023),
-      status: ContentStatus.active,
-    );
     final countryFixture = Country(
       id: 'country-1',
       isoCode: 'US',
-      name: 'United States',
+      name: const {SupportedLanguage.en: 'United States'},
       flagUrl: 'url',
+    );
+    final sourceFixture = Source(
+      id: 'source-1',
+      name: const {SupportedLanguage.en: 'New Source'},
+      description: const {SupportedLanguage.en: 'Description'},
+      url: 'http://new.url',
+      sourceType: SourceType.newsAgency,
+      language: SupportedLanguage.en,
+      headquarters: countryFixture,
       createdAt: DateTime(2023),
       updatedAt: DateTime(2023),
       status: ContentStatus.active,
+      mediaAssetId: 'asset-id',
     );
-    final sourceFixture = FakeSource();
+
     final imageBytes = Uint8List.fromList([1, 2, 3]);
     const imageFileName = 'logo.jpg';
 
@@ -63,8 +64,12 @@ void main() {
       blocTest<CreateSourceBloc, CreateSourceState>(
         'emits new state with updated name',
         build: buildBloc,
-        act: (bloc) => bloc.add(const CreateSourceNameChanged('New Source')),
-        expect: () => [const CreateSourceState(name: 'New Source')],
+        act: (bloc) => bloc.add(
+          const CreateSourceNameChanged('New Source', SupportedLanguage.en),
+        ),
+        expect: () => [
+          const CreateSourceState(name: {SupportedLanguage.en: 'New Source'}),
+        ],
       );
     });
 
@@ -72,9 +77,17 @@ void main() {
       blocTest<CreateSourceBloc, CreateSourceState>(
         'emits new state with updated description',
         build: buildBloc,
-        act: (bloc) =>
-            bloc.add(const CreateSourceDescriptionChanged('Description')),
-        expect: () => [const CreateSourceState(description: 'Description')],
+        act: (bloc) => bloc.add(
+          const CreateSourceDescriptionChanged(
+            'Description',
+            SupportedLanguage.en,
+          ),
+        ),
+        expect: () => [
+          const CreateSourceState(
+            description: {SupportedLanguage.en: 'Description'},
+          ),
+        ],
       );
     });
 
@@ -82,8 +95,8 @@ void main() {
       blocTest<CreateSourceBloc, CreateSourceState>(
         'emits new state with updated url',
         build: buildBloc,
-        act: (bloc) => bloc.add(const CreateSourceUrlChanged('http://new.url')),
-        expect: () => [const CreateSourceState(url: 'http://new.url')],
+        act: (bloc) => bloc.add(const CreateSourceUrlChanged('http://url.com')),
+        expect: () => [const CreateSourceState(url: 'http://url.com')],
       );
     });
 
@@ -103,8 +116,9 @@ void main() {
       blocTest<CreateSourceBloc, CreateSourceState>(
         'emits new state with updated language',
         build: buildBloc,
-        act: (bloc) => bloc.add(CreateSourceLanguageChanged(languageFixture)),
-        expect: () => [CreateSourceState(language: languageFixture)],
+        act: (bloc) =>
+            bloc.add(const CreateSourceLanguageChanged(SupportedLanguage.en)),
+        expect: () => [const CreateSourceState(language: SupportedLanguage.en)],
       );
     });
 
@@ -170,13 +184,13 @@ void main() {
         'emits [imageUploading, entitySubmitting, success] and creates draft source',
         build: buildBloc,
         seed: () => CreateSourceState(
-          name: 'New Source',
-          description: 'Desc',
+          name: const {SupportedLanguage.en: 'New Source'},
+          description: const {SupportedLanguage.en: 'Desc'},
           url: 'http://url.com',
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           sourceType: SourceType.blog,
-          language: languageFixture,
+          language: SupportedLanguage.en,
           headquarters: countryFixture,
         ),
         act: (bloc) => bloc.add(const CreateSourceSavedAsDraft()),
@@ -233,13 +247,13 @@ void main() {
           ).thenThrow(const NetworkException());
         },
         seed: () => CreateSourceState(
-          name: 'New Source',
-          description: 'Desc',
+          name: const {SupportedLanguage.en: 'New Source'},
+          description: const {SupportedLanguage.en: 'Desc'},
           url: 'http://url.com',
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           sourceType: SourceType.blog,
-          language: languageFixture,
+          language: SupportedLanguage.en,
           headquarters: countryFixture,
         ),
         act: (bloc) => bloc.add(const CreateSourceSavedAsDraft()),
@@ -273,13 +287,13 @@ void main() {
           ).thenThrow(const NetworkException());
         },
         seed: () => CreateSourceState(
-          name: 'New Source',
-          description: 'Desc',
+          name: const {SupportedLanguage.en: 'New Source'},
+          description: const {SupportedLanguage.en: 'Desc'},
           url: 'http://url.com',
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           sourceType: SourceType.blog,
-          language: languageFixture,
+          language: SupportedLanguage.en,
           headquarters: countryFixture,
         ),
         act: (bloc) => bloc.add(const CreateSourceSavedAsDraft()),
@@ -323,13 +337,13 @@ void main() {
         'creates source with active status',
         build: buildBloc,
         seed: () => CreateSourceState(
-          name: 'New Source',
-          description: 'Desc',
+          name: const {SupportedLanguage.en: 'New Source'},
+          description: const {SupportedLanguage.en: 'Desc'},
           url: 'http://url.com',
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           sourceType: SourceType.blog,
-          language: languageFixture,
+          language: SupportedLanguage.en,
           headquarters: countryFixture,
         ),
         act: (bloc) => bloc.add(const CreateSourcePublished()),
