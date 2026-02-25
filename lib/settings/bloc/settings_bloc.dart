@@ -46,12 +46,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           textScaleFactor: AppTextScaleFactor.medium,
           fontWeight: AppFontWeight.regular,
         ),
-        language: languagesFixturesData.firstWhere(
-          (l) => l.code == 'en',
-          orElse: () => throw StateError(
-            'Default language "en" not found in language fixtures.',
-          ),
-        ),
+        language: SupportedLanguage.en,
         feedSettings: const FeedSettings(
           feedItemDensity: FeedItemDensity.standard,
           feedItemImageStyle: FeedItemImageStyle.largeThumbnail,
@@ -177,7 +172,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final currentSettings = state.appSettings;
     if (currentSettings != null) {
       final updatedSettings = currentSettings.copyWith(
-        language: event.language,
+        language: SupportedLanguage.values.byName(event.language.code),
       );
       await _updateSettings(updatedSettings, emit);
     }

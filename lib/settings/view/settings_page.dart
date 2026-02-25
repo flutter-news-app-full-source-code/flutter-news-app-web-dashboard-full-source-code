@@ -370,7 +370,7 @@ class _LanguageSelectionList extends StatelessWidget {
   });
 
   /// The currently selected language.
-  final Language currentLanguage;
+  final SupportedLanguage currentLanguage;
 
   /// The localized strings for the application.
   final AppLocalizations l10n;
@@ -386,7 +386,7 @@ class _LanguageSelectionList extends StatelessWidget {
       itemCount: _supportedLanguages.length,
       itemBuilder: (context, index) {
         final language = _supportedLanguages[index];
-        final isSelected = language.code == currentLanguage.code;
+        final isSelected = language.code == currentLanguage.name;
         return ListTile(
           title: Text(
             language.name,
