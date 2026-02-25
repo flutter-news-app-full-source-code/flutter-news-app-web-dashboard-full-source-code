@@ -3385,4 +3385,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get localizationDescription => 'إدارة دعم اللغة.';
+
+  @override
+  String defaultLanguageRequired(String language) {
+    return 'اللغة الافتراضية ($language) مطلوبة.';
+  }
 }

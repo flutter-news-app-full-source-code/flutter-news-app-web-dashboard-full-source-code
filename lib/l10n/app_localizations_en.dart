@@ -3410,4 +3410,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get localizationDescription => 'Manage language support.';
+
+  @override
+  String defaultLanguageRequired(String language) {
+    return 'Default language ($language) is required.';
+  }
 }

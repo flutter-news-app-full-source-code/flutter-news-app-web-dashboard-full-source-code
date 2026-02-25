@@ -6181,6 +6181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage language support.'**
   String get localizationDescription;
+
+  /// Error message when the default language field is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Default language ({language}) is required.'**
+  String defaultLanguageRequired(String language);
 }
 
 class _AppLocalizationsDelegate
