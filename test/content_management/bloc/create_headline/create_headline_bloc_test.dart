@@ -50,10 +50,33 @@ void main() {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
         'emits new state with updated title',
         build: buildBloc,
-        act: (bloc) => bloc.add(const CreateHeadlineTitleChanged('New Title')),
-        expect: () => [const CreateHeadlineState(title: 'New Title')],
+        act: (bloc) => bloc.add(
+          const CreateHeadlineTitleChanged('New Title', SupportedLanguage.en),
+        ),
+        expect: () => [
+          const CreateHeadlineState(title: {SupportedLanguage.en: 'New Title'}),
+        ],
       );
     });
+
+    blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+      'emits new state with merged titles when adding a secondary language',
+      build: buildBloc,
+      seed: () => const CreateHeadlineState(
+        title: {SupportedLanguage.en: 'English Title'},
+      ),
+      act: (bloc) => bloc.add(
+        const CreateHeadlineTitleChanged('Título', SupportedLanguage.es),
+      ),
+      expect: () => [
+        const CreateHeadlineState(
+          title: {
+            SupportedLanguage.en: 'English Title',
+            SupportedLanguage.es: 'Título',
+          },
+        ),
+      ],
+    );
 
     group('CreateHeadlineUrlChanged', () {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
@@ -153,7 +176,7 @@ void main() {
         'emits [submitting, success] and creates draft headline',
         build: buildBloc,
         seed: () => CreateHeadlineState(
-          title: 'New Headline',
+          title: const {SupportedLanguage.en: 'New Headline'},
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
@@ -215,7 +238,7 @@ void main() {
           ).thenThrow(const NetworkException());
         },
         seed: () => CreateHeadlineState(
-          title: 'New Headline',
+          title: const {SupportedLanguage.en: 'New Headline'},
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
@@ -254,7 +277,7 @@ void main() {
           ).thenThrow(const NetworkException());
         },
         seed: () => CreateHeadlineState(
-          title: 'New Headline',
+          title: const {SupportedLanguage.en: 'New Headline'},
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
@@ -288,7 +311,7 @@ void main() {
         'creates draft headline without an image',
         build: buildBloc,
         seed: () => CreateHeadlineState(
-          title: 'New Headline',
+          title: const {SupportedLanguage.en: 'New Headline'},
           url: headlineFixture.url,
           source: sourceFixture,
           topic: topicFixture,
@@ -345,7 +368,7 @@ void main() {
         'creates headline with active status',
         build: buildBloc,
         seed: () => CreateHeadlineState(
-          title: 'New Headline',
+          title: const {SupportedLanguage.en: 'New Headline'},
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
