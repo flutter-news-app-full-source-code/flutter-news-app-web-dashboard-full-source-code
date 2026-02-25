@@ -5,7 +5,6 @@ import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
@@ -112,22 +111,7 @@ class _EditTopicViewState extends State<EditTopicView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<EditTopicBloc>().add(
-                            const EditTopicPublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<EditTopicBloc>().add(
-                            const EditTopicSavedAsDraft(),
-                          );
-                        }
-                      }
+                    ? () => _handleSave(context)
                     : null,
               );
             },
@@ -145,9 +129,6 @@ class _EditTopicViewState extends State<EditTopicView> {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.topicUpdatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-            );
             context.pop();
           }
           if (state.status == EditTopicStatus.imageUploadFailure ||
@@ -253,5 +234,21 @@ class _EditTopicViewState extends State<EditTopicView> {
         },
       ),
     );
+  }
+
+  Future<void> _handleSave(BuildContext context) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+
+    if (selectedStatus == null || !context.mounted) return;
+
+    if (selectedStatus == ContentStatus.active) {
+      context.read<EditTopicBloc>().add(
+        const EditTopicPublished(),
+      );
+    } else if (selectedStatus == ContentStatus.draft) {
+      context.read<EditTopicBloc>().add(
+        const EditTopicSavedAsDraft(),
+      );
+    }
   }
 }
