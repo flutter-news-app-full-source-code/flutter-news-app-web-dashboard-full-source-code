@@ -17,38 +17,44 @@ final class CreateTopicState extends Equatable {
   /// {@macro create_topic_state}
   const CreateTopicState({
     this.status = CreateTopicStatus.initial,
-    this.name = '',
-    this.description = '',
+    this.name = const {},
+    this.description = const {},
     this.imageFileBytes,
     this.imageFileName,
     this.createdTopic,
     this.exception,
+    this.enabledLanguages = const [SupportedLanguage.en],
+    this.defaultLanguage = SupportedLanguage.en,
   });
 
   final CreateTopicStatus status;
-  final String name;
-  final String description;
+  final Map<SupportedLanguage, String> name;
+  final Map<SupportedLanguage, String> description;
   final Uint8List? imageFileBytes;
   final String? imageFileName;
   final HttpException? exception; // Used for both image and entity failures
   final Topic? createdTopic;
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
   bool get isFormValid =>
-      name.isNotEmpty &&
-      description.isNotEmpty &&
+      (name[defaultLanguage]?.isNotEmpty ?? false) &&
+      (description[defaultLanguage]?.isNotEmpty ?? false) &&
       imageFileBytes != null &&
       imageFileName != null;
 
   CreateTopicState copyWith({
     CreateTopicStatus? status,
-    String? name,
-    String? description,
+    Map<SupportedLanguage, String>? name,
+    Map<SupportedLanguage, String>? description,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
     ValueWrapper<HttpException?>? exception,
     Topic? createdTopic,
+    List<SupportedLanguage>? enabledLanguages,
+    SupportedLanguage? defaultLanguage,
   }) {
     return CreateTopicState(
       status: status ?? this.status,
@@ -62,6 +68,8 @@ final class CreateTopicState extends Equatable {
           : this.imageFileName,
       exception: exception != null ? exception.value : this.exception,
       createdTopic: createdTopic ?? this.createdTopic,
+      enabledLanguages: enabledLanguages ?? this.enabledLanguages,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
     );
   }
 
@@ -74,5 +82,7 @@ final class CreateTopicState extends Equatable {
     imageFileName,
     exception,
     createdTopic,
+    enabledLanguages,
+    defaultLanguage,
   ];
 }

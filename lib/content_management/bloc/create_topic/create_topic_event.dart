@@ -8,20 +8,34 @@ sealed class CreateTopicEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to initialize the BLoC, fetching necessary config.
+final class CreateTopicInitialized extends CreateTopicEvent {
+  const CreateTopicInitialized({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
+}
+
 /// Event for when the topic's name is changed.
 final class CreateTopicNameChanged extends CreateTopicEvent {
-  const CreateTopicNameChanged(this.name);
+  const CreateTopicNameChanged(this.name, this.language);
   final String name;
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, language];
 }
 
 /// Event for when the topic's description is changed.
 final class CreateTopicDescriptionChanged extends CreateTopicEvent {
-  const CreateTopicDescriptionChanged(this.description);
+  const CreateTopicDescriptionChanged(this.description, this.language);
   final String description;
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [description];
+  List<Object?> get props => [description, language];
 }
 
 /// Event for when the topic's icon image is changed.

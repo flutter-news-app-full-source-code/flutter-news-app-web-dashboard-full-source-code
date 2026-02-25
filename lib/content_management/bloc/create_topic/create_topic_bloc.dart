@@ -26,6 +26,7 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
        _mediaRepository = mediaRepository,
        _logger = logger,
        super(const CreateTopicState()) {
+    on<CreateTopicInitialized>(_onInitialized);
     on<CreateTopicNameChanged>(_onNameChanged);
     on<CreateTopicDescriptionChanged>(_onDescriptionChanged);
     on<CreateTopicImageChanged>(_onImageChanged);
@@ -39,23 +40,41 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   final Logger _logger;
   final _uuid = const Uuid();
 
+  void _onInitialized(
+    CreateTopicInitialized event,
+    Emitter<CreateTopicState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        enabledLanguages: event.enabledLanguages,
+        defaultLanguage: event.defaultLanguage,
+      ),
+    );
+  }
+
   void _onNameChanged(
     CreateTopicNameChanged event,
     Emitter<CreateTopicState> emit,
   ) {
-    _logger.fine('Name changed: ${event.name}');
-    emit(state.copyWith(name: event.name));
+    final newName = Map<SupportedLanguage, String>.from(state.name);
+    newName[event.language] = event.name;
+    _logger.fine('Name changed for ${event.language}: ${event.name}');
+    emit(state.copyWith(name: newName));
   }
 
   void _onDescriptionChanged(
     CreateTopicDescriptionChanged event,
     Emitter<CreateTopicState> emit,
   ) {
-    _logger.fine('Description changed: ${event.description}');
+    final newDescription = Map<SupportedLanguage, String>.from(
+      state.description,
+    );
+    newDescription[event.language] = event.description;
+    _logger.fine(
+      'Description changed for ${event.language}: ${event.description}',
+    );
     emit(
-      state.copyWith(
-        description: event.description,
-      ),
+      state.copyWith(description: newDescription),
     );
   }
 
