@@ -63,6 +63,20 @@ void main() {
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
+        'removes language from map when name is empty',
+        build: buildBloc,
+        seed: () => const CreateTopicState(
+          name: {SupportedLanguage.en: 'Existing Name'},
+        ),
+        act: (bloc) => bloc.add(
+          const CreateTopicNameChanged('', SupportedLanguage.en),
+        ),
+        expect: () => [
+          const CreateTopicState(name: {}),
+        ],
+      );
+
+      blocTest<CreateTopicBloc, CreateTopicState>(
         'emits new state when CreateTopicDescriptionChanged is added',
         build: buildBloc,
         act: (bloc) => bloc.add(
@@ -75,6 +89,20 @@ void main() {
           const CreateTopicState(
             description: {SupportedLanguage.en: 'New Description'},
           ),
+        ],
+      );
+
+      blocTest<CreateTopicBloc, CreateTopicState>(
+        'removes language from map when description is empty',
+        build: buildBloc,
+        seed: () => const CreateTopicState(
+          description: {SupportedLanguage.en: 'Existing Description'},
+        ),
+        act: (bloc) => bloc.add(
+          const CreateTopicDescriptionChanged('', SupportedLanguage.en),
+        ),
+        expect: () => [
+          const CreateTopicState(description: {}),
         ],
       );
 
@@ -116,7 +144,7 @@ void main() {
       blocTest<CreateTopicBloc, CreateTopicState>(
         'handles successful publishing with image',
         build: buildBloc,
-        seed: () =>  CreateTopicState(
+        seed: () => CreateTopicState(
           name: const {SupportedLanguage.en: 'Test Topic'},
           description: const {SupportedLanguage.en: 'Test Description'},
           imageFileBytes: kTestImageBytes,
