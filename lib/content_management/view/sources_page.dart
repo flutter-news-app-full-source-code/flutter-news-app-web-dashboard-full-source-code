@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
@@ -33,9 +34,7 @@ class _SourcesPageState extends State<SourcesPage> {
     context.read<ContentManagementBloc>().add(
       LoadSourcesRequested(
         limit: kDefaultRowsPerPage,
-        filter: context.read<ContentManagementBloc>().buildSourcesFilterMap(
-          context.read<SourcesFilterBloc>().state,
-        ),
+        filter: context.read<SourcesFilterBloc>().buildFilterMap(),
       ),
     );
   }
@@ -75,11 +74,7 @@ class _SourcesPageState extends State<SourcesPage> {
                 LoadSourcesRequested(
                   limit: kDefaultRowsPerPage,
                   forceRefresh: true,
-                  filter: context
-                      .read<ContentManagementBloc>()
-                      .buildSourcesFilterMap(
-                        context.read<SourcesFilterBloc>().state,
-                      ),
+                  filter: context.read<SourcesFilterBloc>().buildFilterMap(),
                 ),
               ),
             );
@@ -174,10 +169,8 @@ class _SourcesPageState extends State<SourcesPage> {
                               startAfterId: state.sourcesCursor,
                               limit: kDefaultRowsPerPage,
                               filter: context
-                                  .read<ContentManagementBloc>()
-                                  .buildSourcesFilterMap(
-                                    context.read<SourcesFilterBloc>().state,
-                                  ),
+                                  .read<SourcesFilterBloc>()
+                                  .buildFilterMap(),
                             ),
                           );
                         }
@@ -223,6 +216,15 @@ class _SourcesDataSource extends DataTableSource {
       return null;
     }
     final source = sources[index];
+    final defaultLanguage =
+        context
+            .read<AppBloc>()
+            .state
+            .remoteConfig
+            ?.app
+            .localization
+            .defaultLanguage ??
+        SupportedLanguage.en;
     return DataRow2(
       onSelectChanged: (selected) {
         if (selected ?? false) {
@@ -235,7 +237,9 @@ class _SourcesDataSource extends DataTableSource {
       cells: [
         DataCell(
           Text(
-            source.name,
+            source.name[defaultLanguage] ??
+                source.name[SupportedLanguage.en] ??
+                '',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
