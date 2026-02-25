@@ -54,16 +54,28 @@ void main() {
       blocTest<CreateTopicBloc, CreateTopicState>(
         'emits new state when CreateTopicNameChanged is added',
         build: buildBloc,
-        act: (bloc) => bloc.add(const CreateTopicNameChanged('New Name')),
-        expect: () => [const CreateTopicState(name: 'New Name')],
+        act: (bloc) => bloc.add(
+          const CreateTopicNameChanged('New Name', SupportedLanguage.en),
+        ),
+        expect: () => [
+          const CreateTopicState(name: {SupportedLanguage.en: 'New Name'}),
+        ],
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
         'emits new state when CreateTopicDescriptionChanged is added',
         build: buildBloc,
-        act: (bloc) =>
-            bloc.add(const CreateTopicDescriptionChanged('New Description')),
-        expect: () => [const CreateTopicState(description: 'New Description')],
+        act: (bloc) => bloc.add(
+          const CreateTopicDescriptionChanged(
+            'New Description',
+            SupportedLanguage.en,
+          ),
+        ),
+        expect: () => [
+          const CreateTopicState(
+            description: {SupportedLanguage.en: 'New Description'},
+          ),
+        ],
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
@@ -104,9 +116,9 @@ void main() {
       blocTest<CreateTopicBloc, CreateTopicState>(
         'handles successful publishing with image',
         build: buildBloc,
-        seed: () => CreateTopicState(
-          name: 'Test Topic',
-          description: 'Test Description',
+        seed: () =>  CreateTopicState(
+          name: const {SupportedLanguage.en: 'Test Topic'},
+          description: const {SupportedLanguage.en: 'Test Description'},
           imageFileBytes: kTestImageBytes,
           imageFileName: kTestImageFileName,
         ),
@@ -154,8 +166,8 @@ void main() {
         'handles successful saving as draft without image',
         build: buildBloc,
         seed: () => const CreateTopicState(
-          name: 'Draft Topic',
-          description: 'Draft Description',
+          name: {SupportedLanguage.en: 'Draft Topic'},
+          description: {SupportedLanguage.en: 'Draft Description'},
         ),
         act: (bloc) => bloc.add(const CreateTopicSavedAsDraft()),
         expect: () => [
@@ -191,8 +203,8 @@ void main() {
         'handles image upload failure',
         build: buildBloc,
         seed: () => CreateTopicState(
-          name: 'Test Topic',
-          description: 'Test Description',
+          name: const {SupportedLanguage.en: 'Test Topic'},
+          description: const {SupportedLanguage.en: 'Test Description'},
           imageFileBytes: kTestImageBytes,
           imageFileName: kTestImageFileName,
         ),
@@ -229,8 +241,8 @@ void main() {
         'handles entity submission failure',
         build: buildBloc,
         seed: () => const CreateTopicState(
-          name: 'Test Topic',
-          description: 'Test Description',
+          name: {SupportedLanguage.en: 'Test Topic'},
+          description: {SupportedLanguage.en: 'Test Description'},
         ),
         setUp: () {
           when(
