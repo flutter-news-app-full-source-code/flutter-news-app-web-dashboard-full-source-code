@@ -26,6 +26,7 @@ final class CreateHeadlineState extends Equatable {
     this.isBreaking = false,
     this.createdHeadline,
     this.enabledLanguages = const [SupportedLanguage.en],
+    this.defaultLanguage = SupportedLanguage.en,
   });
 
   final CreateHeadlineStatus status;
@@ -40,10 +41,11 @@ final class CreateHeadlineState extends Equatable {
   final bool isBreaking;
   final Headline? createdHeadline;
   final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
-      title.isNotEmpty && // At least one title translation is required
+      (title[defaultLanguage]?.isNotEmpty ?? false) &&
       url.isNotEmpty &&
       imageFileBytes != null &&
       imageFileName != null &&
@@ -64,6 +66,7 @@ final class CreateHeadlineState extends Equatable {
     ValueWrapper<HttpException?>? exception,
     Headline? createdHeadline,
     List<SupportedLanguage>? enabledLanguages,
+    SupportedLanguage? defaultLanguage,
   }) {
     return CreateHeadlineState(
       status: status ?? this.status,
@@ -82,6 +85,7 @@ final class CreateHeadlineState extends Equatable {
       exception: exception != null ? exception.value : this.exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
     );
   }
 
@@ -99,5 +103,6 @@ final class CreateHeadlineState extends Equatable {
     exception,
     createdHeadline,
     enabledLanguages,
+    defaultLanguage,
   ];
 }

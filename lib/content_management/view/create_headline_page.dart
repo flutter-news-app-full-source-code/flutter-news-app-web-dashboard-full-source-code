@@ -25,6 +25,13 @@ class CreateHeadlinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizationConfig = context
+        .read<AppBloc>()
+        .state
+        .remoteConfig
+        ?.app
+        .localization;
+
     return BlocProvider(
       create: (context) =>
           CreateHeadlineBloc(
@@ -34,14 +41,10 @@ class CreateHeadlinePage extends StatelessWidget {
           )..add(
             CreateHeadlineInitialized(
               enabledLanguages:
-                  context
-                      .read<AppBloc>()
-                      .state
-                      .remoteConfig
-                      ?.app
-                      .localization
-                      .enabledLanguages ??
+                  localizationConfig?.enabledLanguages ??
                   [SupportedLanguage.en],
+              defaultLanguage:
+                  localizationConfig?.defaultLanguage ?? SupportedLanguage.en,
             ),
           ),
       child: const CreateHeadlineView(),
@@ -183,6 +186,14 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               values.keys.first,
                             ),
                           ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(

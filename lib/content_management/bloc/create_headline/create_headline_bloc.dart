@@ -53,7 +53,12 @@ class CreateHeadlineBloc
     CreateHeadlineInitialized event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    emit(state.copyWith(enabledLanguages: event.enabledLanguages));
+    emit(
+      state.copyWith(
+        enabledLanguages: event.enabledLanguages,
+        defaultLanguage: event.defaultLanguage,
+      ),
+    );
   }
 
   void _onTitleChanged(
