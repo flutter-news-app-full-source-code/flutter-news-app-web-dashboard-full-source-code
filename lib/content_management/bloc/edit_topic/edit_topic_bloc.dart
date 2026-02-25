@@ -59,6 +59,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           description: topic.description,
           iconUrl: ValueWrapper(topic.iconUrl),
           initialTopic: topic,
+          enabledLanguages: event.enabledLanguages,
+          defaultLanguage: event.defaultLanguage,
         ),
       );
       _logger.info('Successfully loaded topic: ${topic.id}');
@@ -90,9 +92,11 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     EditTopicNameChanged event,
     Emitter<EditTopicState> emit,
   ) {
-    _logger.finer('Name changed: ${event.name}');
+    final newName = Map<SupportedLanguage, String>.from(state.name);
+    newName[event.language] = event.name;
+    _logger.finer('Name changed for ${event.language}: ${event.name}');
     emit(
-      state.copyWith(name: event.name, status: EditTopicStatus.initial),
+      state.copyWith(name: newName, status: EditTopicStatus.initial),
     );
   }
 
@@ -100,10 +104,16 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     EditTopicDescriptionChanged event,
     Emitter<EditTopicState> emit,
   ) {
-    _logger.finer('Description changed: ${event.description}');
+    final newDescription = Map<SupportedLanguage, String>.from(
+      state.description,
+    );
+    newDescription[event.language] = event.description;
+    _logger.finer(
+      'Description changed for ${event.language}: ${event.description}',
+    );
     emit(
       state.copyWith(
-        description: event.description,
+        description: newDescription,
         status: EditTopicStatus.initial,
       ),
     );

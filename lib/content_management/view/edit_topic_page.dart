@@ -4,10 +4,12 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -25,13 +27,29 @@ class EditTopicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizationConfig = context
+        .read<AppBloc>()
+        .state
+        .remoteConfig
+        ?.app
+        .localization;
+
     return BlocProvider(
-      create: (context) => EditTopicBloc(
-        topicsRepository: context.read<DataRepository<Topic>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        topicId: topicId,
-        logger: Logger('EditTopicBloc'),
-      )..add(const EditTopicLoaded()),
+      create: (context) =>
+          EditTopicBloc(
+            topicsRepository: context.read<DataRepository<Topic>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            topicId: topicId,
+            logger: Logger('EditTopicBloc'),
+          )..add(
+            EditTopicLoaded(
+              enabledLanguages:
+                  localizationConfig?.enabledLanguages ??
+                  [SupportedLanguage.en],
+              defaultLanguage:
+                  localizationConfig?.defaultLanguage ?? SupportedLanguage.en,
+            ),
+          ),
       child: const EditTopicView(),
     );
   }
@@ -46,22 +64,6 @@ class EditTopicView extends StatefulWidget {
 
 class _EditTopicViewState extends State<EditTopicView> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-    _descriptionController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
 
   /// Shows a dialog to the user to choose between publishing or saving as draft.
   Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
@@ -159,11 +161,6 @@ class _EditTopicViewState extends State<EditTopicView> {
                 ),
               );
           }
-          // Update text controllers when data is loaded or changed
-          if (state.status == EditTopicStatus.initial) {
-            _nameController.text = state.name;
-            _descriptionController.text = state.description;
-          }
         },
         builder: (context, state) {
           if (state.status == EditTopicStatus.loading) {
@@ -179,8 +176,12 @@ class _EditTopicViewState extends State<EditTopicView> {
               state.name.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () =>
-                  context.read<EditTopicBloc>().add(const EditTopicLoaded()),
+              onRetry: () => context.read<EditTopicBloc>().add(
+                EditTopicLoaded(
+                  enabledLanguages: state.enabledLanguages,
+                  defaultLanguage: state.defaultLanguage,
+                ),
+              ),
             );
           }
 
@@ -192,26 +193,35 @@ class _EditTopicViewState extends State<EditTopicView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.topicName,
-                        border: const OutlineInputBorder(),
+                    LocalizedTextFormField(
+                      label: l10n.topicName,
+                      values: state.name,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) => context.read<EditTopicBloc>().add(
+                        EditTopicNameChanged(
+                          values.values.first,
+                          values.keys.first,
+                        ),
                       ),
-                      onChanged: (value) => context.read<EditTopicBloc>().add(
-                        EditTopicNameChanged(value),
-                      ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: l10n.description,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context.read<EditTopicBloc>().add(
-                        EditTopicDescriptionChanged(value),
+                    LocalizedTextFormField(
+                      label: l10n.description,
+                      values: state.description,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) => context.read<EditTopicBloc>().add(
+                        EditTopicDescriptionChanged(
+                          values.values.first,
+                          values.keys.first,
+                        ),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),

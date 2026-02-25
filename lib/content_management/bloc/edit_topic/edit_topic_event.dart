@@ -10,27 +10,36 @@ sealed class EditTopicEvent extends Equatable {
 
 /// Event to load the initial topic data for editing.
 final class EditTopicLoaded extends EditTopicEvent {
-  const EditTopicLoaded();
+  const EditTopicLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
 }
 
 /// Event triggered when the topic name input changes.
 final class EditTopicNameChanged extends EditTopicEvent {
-  const EditTopicNameChanged(this.name);
+  const EditTopicNameChanged(this.name, this.language);
 
   final String name;
+  final SupportedLanguage language;
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, language];
 }
 
 /// Event triggered when the topic description input changes.
 final class EditTopicDescriptionChanged extends EditTopicEvent {
-  const EditTopicDescriptionChanged(this.description);
+  const EditTopicDescriptionChanged(this.description, this.language);
 
   final String description;
+  final SupportedLanguage language;
 
   @override
-  List<Object?> get props => [description];
+  List<Object?> get props => [description, language];
 }
 
 /// Event for when the topic's icon image is changed.

@@ -17,8 +17,8 @@ final class EditTopicState extends Equatable {
   const EditTopicState({
     required this.topicId,
     this.status = EditTopicStatus.initial,
-    this.name = '',
-    this.description = '',
+    this.name = const {},
+    this.description = const {},
     this.iconUrl,
     this.imageFileBytes,
     this.imageFileName,
@@ -26,12 +26,14 @@ final class EditTopicState extends Equatable {
     this.updatedTopic,
     this.imageRemoved = false,
     this.initialTopic,
+    this.enabledLanguages = const [SupportedLanguage.en],
+    this.defaultLanguage = SupportedLanguage.en,
   });
 
   final EditTopicStatus status;
   final String topicId;
-  final String name;
-  final String description;
+  final Map<SupportedLanguage, String> name;
+  final Map<SupportedLanguage, String> description;
   final String? iconUrl;
   final Uint8List? imageFileBytes;
   final String? imageFileName;
@@ -39,6 +41,8 @@ final class EditTopicState extends Equatable {
   final Topic? updatedTopic;
   final bool imageRemoved;
   final Topic? initialTopic;
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
@@ -47,14 +51,16 @@ final class EditTopicState extends Equatable {
     // or if there was an initial one that hasn't been explicitly removed.
     final hasImage =
         imageFileBytes != null || (iconUrl != null && !imageRemoved);
-    return name.isNotEmpty && description.isNotEmpty && hasImage;
+    return (name[defaultLanguage]?.isNotEmpty ?? false) &&
+        (description[defaultLanguage]?.isNotEmpty ?? false) &&
+        hasImage;
   }
 
   EditTopicState copyWith({
     EditTopicStatus? status,
     String? topicId,
-    String? name,
-    String? description,
+    Map<SupportedLanguage, String>? name,
+    Map<SupportedLanguage, String>? description,
     ValueWrapper<String?>? iconUrl,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
@@ -62,6 +68,8 @@ final class EditTopicState extends Equatable {
     Topic? updatedTopic,
     bool? imageRemoved,
     Topic? initialTopic,
+    List<SupportedLanguage>? enabledLanguages,
+    SupportedLanguage? defaultLanguage,
   }) {
     return EditTopicState(
       status: status ?? this.status,
@@ -79,6 +87,8 @@ final class EditTopicState extends Equatable {
       updatedTopic: updatedTopic ?? this.updatedTopic,
       imageRemoved: imageRemoved ?? this.imageRemoved,
       initialTopic: initialTopic ?? this.initialTopic,
+      enabledLanguages: enabledLanguages ?? this.enabledLanguages,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
     );
   }
 
