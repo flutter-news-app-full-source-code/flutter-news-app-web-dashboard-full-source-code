@@ -4245,5 +4245,45 @@
         "type": "String"
       }
     }
+  },
+  "languageNameEn": "الإنجليزية",
+  "@languageNameEn": {
+    "description": "Localized name for English language"
+  },
+  "languageNameEs": "الإسبانية",
+  "@languageNameEs": {
+    "description": "Localized name for Spanish language"
+  },
+  "languageNameFr": "الفرنسية",
+  "@languageNameFr": {
+    "description": "Localized name for French language"
+  },
+  "languageNameAr": "العربية",
+  "@languageNameAr": {
+    "description": "Localized name for Arabic language"
+  },
+  "languageNamePt": "البرتغالية",
+  "@languageNamePt": {
+    "description": "Localized name for Portuguese language"
+  },
+  "languageNameDe": "الألمانية",
+  "@languageNameDe": {
+    "description": "Localized name for German language"
+  },
+  "languageNameIt": "الإيطالية",
+  "@languageNameIt": {
+    "description": "Localized name for Italian language"
+  },
+  "languageNameZh": "الصينية",
+  "@languageNameZh": {
+    "description": "Localized name for Chinese language"
+  },
+  "languageNameHi": "الهندية",
+  "@languageNameHi": {
+    "description": "Localized name for Hindi language"
+  },
+  "languageNameJa": "اليابانية",
+  "@languageNameJa": {
+    "description": "Localized name for Japanese language"
   }
 }

@@ -4237,5 +4237,45 @@
         "type": "String"
       }
     }
+  },
+  "languageNameEn": "English",
+  "@languageNameEn": {
+    "description": "Localized name for English language"
+  },
+  "languageNameEs": "Spanish",
+  "@languageNameEs": {
+    "description": "Localized name for Spanish language"
+  },
+  "languageNameFr": "French",
+  "@languageNameFr": {
+    "description": "Localized name for French language"
+  },
+  "languageNameAr": "Arabic",
+  "@languageNameAr": {
+    "description": "Localized name for Arabic language"
+  },
+  "languageNamePt": "Portuguese",
+  "@languageNamePt": {
+    "description": "Localized name for Portuguese language"
+  },
+  "languageNameDe": "German",
+  "@languageNameDe": {
+    "description": "Localized name for German language"
+  },
+  "languageNameIt": "Italian",
+  "@languageNameIt": {
+    "description": "Localized name for Italian language"
+  },
+  "languageNameZh": "Chinese",
+  "@languageNameZh": {
+    "description": "Localized name for Chinese language"
+  },
+  "languageNameHi": "Hindi",
+  "@languageNameHi": {
+    "description": "Localized name for Hindi language"
+  },
+  "languageNameJa": "Japanese",
+  "@languageNameJa": {
+    "description": "Localized name for Japanese language"
   }
 }
