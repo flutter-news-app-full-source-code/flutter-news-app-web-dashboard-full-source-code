@@ -57,7 +57,11 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     Emitter<CreateTopicState> emit,
   ) {
     final newName = Map<SupportedLanguage, String>.from(state.name);
-    newName[event.language] = event.name;
+    if (event.name.isEmpty) {
+      newName.remove(event.language);
+    } else {
+      newName[event.language] = event.name;
+    }
     _logger.fine('Name changed for ${event.language}: ${event.name}');
     emit(state.copyWith(name: newName));
   }
@@ -69,7 +73,11 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     final newDescription = Map<SupportedLanguage, String>.from(
       state.description,
     );
-    newDescription[event.language] = event.description;
+    if (event.description.isEmpty) {
+      newDescription.remove(event.language);
+    } else {
+      newDescription[event.language] = event.description;
+    }
     _logger.fine(
       'Description changed for ${event.language}: ${event.description}',
     );

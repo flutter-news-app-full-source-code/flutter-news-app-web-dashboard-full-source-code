@@ -5,7 +5,6 @@ import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
@@ -51,7 +50,9 @@ class CreateTopicPage extends StatelessWidget {
   }
 }
 
+/// The view for creating a new topic, containing the form and logic.
 class CreateTopicView extends StatefulWidget {
+  /// Creates a [CreateTopicView].
   const CreateTopicView({super.key});
 
   @override
@@ -61,26 +62,27 @@ class CreateTopicView extends StatefulWidget {
 class _CreateTopicViewState extends State<CreateTopicView> {
   final _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   /// Shows a dialog to the user to choose between publishing or saving as draft.
   Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
     final l10n = AppLocalizationsX(context).l10n;
     return showDialog<ContentStatus>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(l10n.saveTopicTitle),
-        content: Text(l10n.saveTopicMessage),
+        title: Text(l10n.saveChanges),
+        content: Text(l10n.saveHeadlineMessage), // Reusing generic save message
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.draft);
+            },
             child: Text(l10n.saveAsDraft),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.active);
+            },
             child: Text(l10n.publish),
           ),
         ],
@@ -108,27 +110,11 @@ class _CreateTopicViewState extends State<CreateTopicView> {
                   ),
                 );
               }
-              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<CreateTopicBloc>().add(
-                            const CreateTopicPublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<CreateTopicBloc>().add(
-                            const CreateTopicSavedAsDraft(),
-                          );
-                        }
-                      }
+                    ? () => _handleSave(context, state)
                     : null,
               );
             },
@@ -139,17 +125,12 @@ class _CreateTopicViewState extends State<CreateTopicView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateTopicStatus.success &&
-              state.createdTopic != null &&
-              ModalRoute.of(context)!.isCurrent) {
+              state.createdTopic != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(content: Text(l10n.topicCreatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              // Refresh the list to show the new topic
-              const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-            );
             context.pop();
           }
           if (state.status == CreateTopicStatus.imageUploadFailure ||
@@ -158,7 +139,11 @@ class _CreateTopicViewState extends State<CreateTopicView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
+                  content: Builder(
+                    builder: (context) => Text(
+                      state.exception!.toFriendlyMessage(context),
+                    ),
+                  ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -205,22 +190,29 @@ class _CreateTopicViewState extends State<CreateTopicView> {
                               values.keys.first,
                             ),
                           ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     ImageUploadField(
                       onChanged: (Uint8List? bytes, String? fileName) {
-                        if (bytes != null && fileName != null) {
-                          context.read<CreateTopicBloc>().add(
-                            CreateTopicImageChanged(
-                              imageFileBytes: bytes,
-                              imageFileName: fileName,
-                            ),
-                          );
-                        } else {
-                          context.read<CreateTopicBloc>().add(
-                            const CreateTopicImageRemoved(),
-                          );
+                        final bloc = context.read<CreateTopicBloc>();
+                        if (bytes == null || fileName == null) {
+                          bloc.add(const CreateTopicImageRemoved());
+                          return;
                         }
+                        bloc.add(
+                          CreateTopicImageChanged(
+                            imageFileBytes: bytes,
+                            imageFileName: fileName,
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -231,5 +223,21 @@ class _CreateTopicViewState extends State<CreateTopicView> {
         },
       ),
     );
+  }
+
+  Future<void> _handleSave(
+    BuildContext context,
+    CreateTopicState state,
+  ) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+    if (selectedStatus == null) return;
+
+    if (!context.mounted) return;
+
+    if (selectedStatus == ContentStatus.active) {
+      context.read<CreateTopicBloc>().add(const CreateTopicPublished());
+    } else {
+      context.read<CreateTopicBloc>().add(const CreateTopicSavedAsDraft());
+    }
   }
 }
