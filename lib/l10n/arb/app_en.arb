@@ -4228,5 +4228,14 @@
   "localizationDescription": "Manage language support.",
   "@localizationDescription": {
     "description": "Subtitle for the localization settings section"
+  },
+  "defaultLanguageRequired": "Default language ({language}) is required.",
+  "@defaultLanguageRequired": {
+    "description": "Error message when the default language field is empty.",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
   }
 }
