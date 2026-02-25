@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/content_action_buttons.dart';
@@ -28,13 +29,21 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
+    final defaultLanguage =
+        context
+            .read<AppBloc>()
+            .state
+            .remoteConfig
+            ?.app
+            .localization
+            .defaultLanguage
+            .name ??
+        'en';
     // Initial load of topics, applying the default filter from TopicsFilterBloc
     context.read<ContentManagementBloc>().add(
       LoadTopicsRequested(
         limit: kDefaultRowsPerPage,
-        filter: context.read<ContentManagementBloc>().buildTopicsFilterMap(
-          context.read<TopicsFilterBloc>().state,
-        ),
+        filter: context.read<TopicsFilterBloc>().buildFilterMap(),
       ),
     );
   }
@@ -67,17 +76,25 @@ class _TopicPageState extends State<TopicPage> {
           if (state.topicsStatus == ContentManagementStatus.failure) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () => context.read<ContentManagementBloc>().add(
-                LoadTopicsRequested(
-                  limit: kDefaultRowsPerPage,
-                  forceRefresh: true,
-                  filter: context
-                      .read<ContentManagementBloc>()
-                      .buildTopicsFilterMap(
-                        context.read<TopicsFilterBloc>().state,
-                      ),
-                ),
-              ),
+              onRetry: () {
+                final defaultLanguage =
+                    context
+                        .read<AppBloc>()
+                        .state
+                        .remoteConfig
+                        ?.app
+                        .localization
+                        .defaultLanguage
+                        .name ??
+                    'en';
+                context.read<ContentManagementBloc>().add(
+                  LoadTopicsRequested(
+                    limit: kDefaultRowsPerPage,
+                    forceRefresh: true,
+                    filter: context.read<TopicsFilterBloc>().buildFilterMap(),
+                  ),
+                );
+              },
             );
           }
 
@@ -160,15 +177,23 @@ class _TopicPageState extends State<TopicPage> {
                             state.topicsHasMore &&
                             state.topicsStatus !=
                                 ContentManagementStatus.loading) {
+                          final defaultLanguage =
+                              context
+                                  .read<AppBloc>()
+                                  .state
+                                  .remoteConfig
+                                  ?.app
+                                  .localization
+                                  .defaultLanguage
+                                  .name ??
+                              'en';
                           context.read<ContentManagementBloc>().add(
                             LoadTopicsRequested(
                               startAfterId: state.topicsCursor,
                               limit: kDefaultRowsPerPage,
                               filter: context
-                                  .read<ContentManagementBloc>()
-                                  .buildTopicsFilterMap(
-                                    context.read<TopicsFilterBloc>().state,
-                                  ),
+                                  .read<TopicsFilterBloc>()
+                                  .buildFilterMap(),
                             ),
                           );
                         }
@@ -226,7 +251,7 @@ class _TopicsDataSource extends DataTableSource {
       cells: [
         DataCell(
           Text(
-            topic.name,
+            topic.name[SupportedLanguage.en] ?? '',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
