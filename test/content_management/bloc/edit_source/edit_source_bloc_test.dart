@@ -16,7 +16,7 @@ void main() {
     const countryFixture = Country(
       id: 'country-1',
       isoCode: 'US',
-  name: {SupportedLanguage.en: ''},
+      name: {SupportedLanguage.en: ''},
       flagUrl: 'url',
     );
     final sourceFixture = Source(

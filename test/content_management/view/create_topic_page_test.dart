@@ -169,7 +169,7 @@ void main() {
 
     testWidgets('renders form fields', (tester) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
-      
+
       expect(
         find.descendant(
           of: find.byType(LocalizedTextFormField).first,

@@ -23,7 +23,7 @@ void main() {
     const kpiData = KpiCardData(
       id: 'test-id',
       cardId: kpiId,
-      label: 'Total Users',
+      label: {SupportedLanguage.en: 'Total Users'},
       timeFrames: {},
     );
 
@@ -31,7 +31,7 @@ void main() {
     const chartData = ChartCardData(
       id: 'test-id',
       cardId: chartId,
-      label: 'Registrations',
+      label: {SupportedLanguage.en: 'Registrations'},
       type: ChartType.line,
       timeFrames: {},
     );
@@ -40,7 +40,7 @@ void main() {
     const rankedListData = RankedListCardData(
       id: 'test-id',
       cardId: rankedListId,
-      label: 'Top Headlines',
+      label: {SupportedLanguage.en: 'Top Headlines'},
       timeFrames: {},
     );
 

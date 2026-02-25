@@ -25,69 +25,6 @@ class ChartCard extends StatefulWidget {
   final int? totalSlots;
   final ValueChanged<int>? onSlotChanged;
 
-  String _getLocalizedTitle(ChartCardId id, AppLocalizations l10n) {
-    switch (id) {
-      case ChartCardId.overviewAppTourFunnel:
-        return l10n.chartOverviewAppTourFunnel;
-      case ChartCardId.overviewInitialPersonalizationFunnel:
-        return l10n.chartOverviewInitialPersonalizationFunnel;
-      case ChartCardId.usersRegistrationsOverTime:
-        return l10n.chartUsersRegistrationsOverTime;
-      case ChartCardId.usersActiveUsersOverTime:
-        return l10n.chartUsersActiveUsersOverTime;
-      case ChartCardId.usersTierDistribution:
-        return l10n.chartUsersRoleDistribution;
-      case ChartCardId.contentHeadlinesViewsOverTime:
-        return l10n.chartContentHeadlinesViewsOverTime;
-      case ChartCardId.contentHeadlinesLikesOverTime:
-        return l10n.chartContentHeadlinesLikesOverTime;
-      case ChartCardId.contentHeadlinesViewsByTopic:
-        return l10n.chartContentHeadlinesViewsByTopic;
-      case ChartCardId.contentSourcesHeadlinesPublishedOverTime:
-        return l10n.chartContentSourcesHeadlinesPublishedOverTime;
-      case ChartCardId.contentSourcesStatusDistribution:
-        return l10n.chartContentSourcesStatusDistribution;
-      case ChartCardId.contentSourcesEngagementByType:
-        return l10n.chartContentSourcesEngagementByType;
-      case ChartCardId.contentHeadlinesBreakingNewsDistribution:
-        return l10n.chartContentHeadlinesBreakingNewsDistribution;
-      case ChartCardId.contentTopicsHeadlinesPublishedOverTime:
-        return l10n.chartContentTopicsHeadlinesPublishedOverTime;
-      case ChartCardId.contentTopicsEngagementByTopic:
-        return l10n.chartContentTopicsEngagementByTopic;
-      case ChartCardId.engagementsReactionsOverTime:
-        return l10n.chartEngagementsReactionsOverTime;
-      case ChartCardId.engagementsCommentsOverTime:
-        return l10n.chartEngagementsCommentsOverTime;
-      case ChartCardId.engagementsReactionsByType:
-        return l10n.chartEngagementsReactionsByType;
-      case ChartCardId.engagementsReportsSubmittedOverTime:
-        return l10n.chartEngagementsReportsSubmittedOverTime;
-      case ChartCardId.engagementsReportsResolutionTimeOverTime:
-        return l10n.chartEngagementsReportsResolutionTimeOverTime;
-      case ChartCardId.engagementsReportsByReason:
-        return l10n.chartEngagementsReportsByReason;
-      case ChartCardId.engagementsAppReviewsFeedbackOverTime:
-        return l10n.chartEngagementsAppReviewsFeedbackOverTime;
-      case ChartCardId.engagementsAppReviewsPositiveVsNegative:
-        return l10n.chartEngagementsAppReviewsPositiveVsNegative;
-      case ChartCardId.engagementsAppReviewsStoreRequestsOverTime:
-        return l10n.chartEngagementsAppReviewsStoreRequestsOverTime;
-      case ChartCardId.rewardsAdsWatchedOverTime:
-        return l10n.chartRewardsAdsWatchedOverTime;
-      case ChartCardId.rewardsGrantedOverTime:
-        return l10n.chartRewardsGrantedOverTime;
-      case ChartCardId.rewardsActiveByType:
-        return l10n.chartRewardsActiveByType;
-      case ChartCardId.mediaUploadsOverTime:
-        return l10n.chartMediaUploadsOverTime;
-      case ChartCardId.mediaUploadsByPurpose:
-        return l10n.chartMediaUploadsByPurpose;
-      case ChartCardId.mediaUploadsSuccessVsFailure:
-        return l10n.chartMediaUploadsSuccessVsFailure;
-    }
-  }
-
   @override
   State<ChartCard> createState() => _ChartCardState();
 }
@@ -101,7 +38,7 @@ class _ChartCardState extends State<ChartCard> {
     final currentPoints = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<ChartTimeFrame>(
-      title: widget._getLocalizedTitle(widget.data.cardId, l10n),
+      title: widget.data.label.values.firstOrNull ?? '',
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,
@@ -309,7 +246,7 @@ class _BottomTitle extends StatelessWidget {
     String text;
 
     if (point.label != null) {
-      text = point.label!;
+      text = point.label?.values.firstOrNull ?? '';
       // Truncate long labels
       if (text.length > 3) text = text.substring(0, 3);
     } else if (point.timestamp != null) {

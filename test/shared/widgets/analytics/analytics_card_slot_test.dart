@@ -18,7 +18,7 @@ void main() {
     const kpiData = KpiCardData(
       id: 'test-id',
       cardId: KpiCardId.usersTotalRegistered,
-      label: 'Test KPI',
+      label: {SupportedLanguage.en: 'Test KPI'},
       timeFrames: {},
     );
 
