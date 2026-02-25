@@ -2,6 +2,8 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -30,6 +32,8 @@ class MockSourcesFilterBloc
     extends MockBloc<SourcesFilterEvent, SourcesFilterState>
     implements SourcesFilterBloc {}
 
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
 void main() {
@@ -46,6 +50,7 @@ void main() {
     late MockHeadlinesFilterBloc headlinesFilterBloc;
     late MockTopicsFilterBloc topicsFilterBloc;
     late MockSourcesFilterBloc sourcesFilterBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Headline> headlinesRepository;
     late MockDataRepository<Topic> topicsRepository;
     late MockDataRepository<Source> sourcesRepository;
@@ -58,6 +63,7 @@ void main() {
       headlinesFilterBloc = MockHeadlinesFilterBloc();
       topicsFilterBloc = MockTopicsFilterBloc();
       sourcesFilterBloc = MockSourcesFilterBloc();
+      appBloc = MockAppBloc();
       headlinesRepository = MockDataRepository<Headline>();
       topicsRepository = MockDataRepository<Topic>();
       sourcesRepository = MockDataRepository<Source>();
@@ -69,19 +75,11 @@ void main() {
       reset(headlinesFilterBloc);
       reset(topicsFilterBloc);
       reset(sourcesFilterBloc);
+      reset(appBloc);
 
       when(() => contentManagementBloc.state).thenReturn(
         const ContentManagementState(),
       );
-      when(
-        () => contentManagementBloc.buildHeadlinesFilterMap(any()),
-      ).thenReturn({});
-      when(
-        () => contentManagementBloc.buildTopicsFilterMap(any()),
-      ).thenReturn({});
-      when(
-        () => contentManagementBloc.buildSourcesFilterMap(any()),
-      ).thenReturn({});
 
       when(
         () => headlinesFilterBloc.state,
@@ -90,6 +88,15 @@ void main() {
       when(
         () => sourcesFilterBloc.state,
       ).thenReturn(const SourcesFilterState());
+
+      // Stub buildFilterMap methods
+      when(
+        () => headlinesFilterBloc.buildFilterMap(
+          languageCode: any(named: 'languageCode'),
+        ),
+      ).thenReturn({});
+      when(() => topicsFilterBloc.buildFilterMap()).thenReturn({});
+      when(() => sourcesFilterBloc.buildFilterMap()).thenReturn({});
 
       // Stub streams to prevent null pointer errors in BlocListener
       when(
@@ -104,6 +111,11 @@ void main() {
       when(
         () => contentManagementBloc.stream,
       ).thenAnswer((_) => Stream.fromIterable([]));
+
+      // Stub AppBloc state
+      when(() => appBloc.state).thenReturn(
+        const AppState(environment: AppEnvironment.development),
+      );
 
       when(
         () => goRouter.pushNamed(
@@ -136,6 +148,7 @@ void main() {
         ],
         child: MultiBlocProvider(
           providers: [
+            BlocProvider<AppBloc>.value(value: appBloc),
             BlocProvider<ContentManagementBloc>.value(
               value: contentManagementBloc,
             ),
@@ -297,7 +310,7 @@ void main() {
     group('Deletion Snackbar', () {
       final headline = Headline(
         id: '1',
-        title: 'Test Headline',
+        title: const {SupportedLanguage.en: 'Test Headline'},
         source: FakeSource(),
         eventCountry: FakeCountry(),
         topic: FakeTopic(),
@@ -364,8 +377,8 @@ void main() {
       ) async {
         final topic = Topic(
           id: '2',
-          name: 'Test Topic',
-          description: 'Description',
+          name: const {SupportedLanguage.en: 'Test Topic'},
+          description: const {SupportedLanguage.en: 'Description'},
           createdAt: DateTime(2023),
           updatedAt: DateTime(2023),
           status: ContentStatus.active,
@@ -398,11 +411,11 @@ void main() {
       ) async {
         final source = Source(
           id: '3',
-          name: 'Test Source',
-          description: 'Description',
+          name: const {SupportedLanguage.en: 'Test Source'},
+          description: const {SupportedLanguage.en: 'Description'},
           url: 'http://example.com',
           sourceType: SourceType.blog,
-          language: FakeLanguage(),
+          language: SupportedLanguage.en,
           headquarters: FakeCountry(),
           createdAt: DateTime(2023),
           updatedAt: DateTime(2023),
