@@ -10,6 +10,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
@@ -40,23 +41,20 @@ final testLanguage = Language(
   status: ContentStatus.active,
 );
 
-final testCountry = Country(
+const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: 'United States',
+  name: const {SupportedLanguage.en: 'United States'},
   flagUrl: 'url',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 final testSource = Source(
   id: 'source-1',
-  name: 'Test Source',
-  description: 'desc',
+  name: const {SupportedLanguage.en: 'Test Source'},
+  description: const {SupportedLanguage.en: 'desc'},
   url: 'http://example.com',
   sourceType: SourceType.blog,
-  language: testLanguage,
+  language: SupportedLanguage.en,
   headquarters: testCountry,
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -234,30 +232,50 @@ void main() {
       testWidgets('adds CreateSourceNameChanged when name is changed', (
         tester,
       ) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.sourceName),
+          find.descendant(
+            of: find.byType(LocalizedTextFormField).first,
+            matching: find.byType(TextFormField),
+          ),
           'New Source',
         );
         verify(
-          () =>
-              createSourceBloc.add(const CreateSourceNameChanged('New Source')),
+          () => createSourceBloc.add(
+            const CreateSourceNameChanged('New Source', SupportedLanguage.en),
+          ),
         ).called(1);
       });
 
       testWidgets('adds CreateSourceDescriptionChanged when desc is changed', (
         tester,
       ) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.description),
+          find.descendant(
+            of: find.byType(LocalizedTextFormField).last,
+            matching: find.byType(TextFormField),
+          ),
           'New Desc',
         );
         verify(
           () => createSourceBloc.add(
-            const CreateSourceDescriptionChanged('New Desc'),
+            const CreateSourceDescriptionChanged(
+              'New Desc',
+              SupportedLanguage.en,
+            ),
           ),
         ).called(1);
       });
@@ -265,10 +283,12 @@ void main() {
       testWidgets('adds CreateSourceUrlChanged when url is changed', (
         tester,
       ) async {
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.sourceUrl),
+          find.byType(TextFormField).last,
           'http://url.com',
         );
         verify(
@@ -290,6 +310,9 @@ void main() {
           ]),
         );
 
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         await tester.tap(find.byType(ImageUploadField));
         await tester.pumpAndSettle();
@@ -317,6 +340,9 @@ void main() {
           ]),
         );
 
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(
           tester.element(find.byType(Scaffold)),
@@ -346,6 +372,9 @@ void main() {
             ),
           ).thenAnswer((_) async => [testLanguage]);
 
+          when(
+            () => createSourceBloc.state,
+          ).thenReturn(const CreateSourceState());
           await tester.pumpApp(buildSubject(), goRouter: goRouter);
           await tester.ensureVisible(
             find.byType(SearchableSelectionInput<Language>),
@@ -354,8 +383,9 @@ void main() {
           await tester.pumpAndSettle();
 
           verify(
-            () =>
-                createSourceBloc.add(CreateSourceLanguageChanged(testLanguage)),
+            () => createSourceBloc.add(
+              const CreateSourceLanguageChanged(SupportedLanguage.en),
+            ),
           ).called(1);
         },
       );
@@ -370,6 +400,9 @@ void main() {
           ),
         ).thenAnswer((_) async => [SourceType.blog]);
 
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         await tester.ensureVisible(
           find.byType(SearchableSelectionInput<SourceType>),
@@ -394,6 +427,9 @@ void main() {
             ),
           ).thenAnswer((_) async => [testCountry]);
 
+          when(
+            () => createSourceBloc.state,
+          ).thenReturn(const CreateSourceState());
           await tester.pumpApp(buildSubject(), goRouter: goRouter);
           await tester.ensureVisible(
             find.byType(SearchableSelectionInput<Country>),
@@ -502,13 +538,13 @@ void main() {
       testWidgets('is enabled when form is valid', (tester) async {
         when(() => createSourceBloc.state).thenReturn(
           CreateSourceState(
-            name: 'N',
-            description: 'D',
+            name: const {SupportedLanguage.en: 'N'},
+            description: const {SupportedLanguage.en: 'D'},
             url: 'U',
             imageFileBytes: kTestImageBytes,
             imageFileName: 'test.jpg',
             sourceType: SourceType.blog,
-            language: testLanguage,
+            language: SupportedLanguage.en,
             headquarters: testCountry,
           ),
         );
@@ -526,13 +562,13 @@ void main() {
         (tester) async {
           when(() => createSourceBloc.state).thenReturn(
             CreateSourceState(
-              name: 'N',
-              description: 'D',
+              name: const {SupportedLanguage.en: 'N'},
+              description: const {SupportedLanguage.en: 'D'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: testLanguage,
+              language: SupportedLanguage.en,
               headquarters: testCountry,
             ),
           );
@@ -560,13 +596,13 @@ void main() {
         (tester) async {
           when(() => createSourceBloc.state).thenReturn(
             CreateSourceState(
-              name: 'N',
-              description: 'D',
+              name: const {SupportedLanguage.en: 'N'},
+              description: const {SupportedLanguage.en: 'D'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: testLanguage,
+              language: SupportedLanguage.en,
               headquarters: testCountry,
             ),
           );
