@@ -110,7 +110,7 @@ class _RankedListCardState extends State<RankedListCard> {
                     ),
                   ),
                   title: Text(
-                    item.displayTitle,
+                    item.displayTitle[SupportedLanguage.en] ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.bodyMedium,

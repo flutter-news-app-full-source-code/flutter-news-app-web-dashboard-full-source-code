@@ -66,8 +66,8 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
   void didUpdateWidget(covariant LocalizedTextFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.enabledLanguages != oldWidget.enabledLanguages) {
-      _tabController.removeListener(_handleTabSelection);
-      _tabController.dispose();
+      _tabController..removeListener(_handleTabSelection)
+      ..dispose();
       _tabController = TabController(
         length: widget.enabledLanguages.length,
         vsync: this,
@@ -96,20 +96,20 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
       final text = widget.values[lang] ?? '';
       final controller = _controllers.putIfAbsent(
         lang,
-        () => TextEditingController(),
+        TextEditingController.new,
       );
       if (controller.text != text) {
-        controller.text = text;
+        controller..text = text
         // Preserve cursor at end if possible, or reset if text changed drastically
-        controller.selection = TextSelection.collapsed(offset: text.length);
+        ..selection = TextSelection.collapsed(offset: text.length);
       }
     }
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_handleTabSelection);
-    _tabController.dispose();
+    _tabController..removeListener(_handleTabSelection)
+    ..dispose();
     for (final controller in _controllers.values) {
       controller.dispose();
     }

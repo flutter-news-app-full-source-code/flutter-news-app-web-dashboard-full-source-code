@@ -26,7 +26,7 @@ class LocalizationConfigForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     final localizationConfig = remoteConfig.app.localization;
-    final supportedLanguages = SupportedLanguage.values;
+    const supportedLanguages = SupportedLanguage.values;
 
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.lg),
