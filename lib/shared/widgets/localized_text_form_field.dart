@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template localized_text_form_field}
@@ -149,7 +150,7 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
             indicatorSize: TabBarIndicatorSize.label,
             tabs: widget.enabledLanguages.map((lang) {
               return Tab(
-                text: lang.name.toUpperCase(),
+                text: lang.l10n(context),
               );
             }).toList(),
           ),
@@ -166,8 +167,7 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
               controller: controller,
               readOnly: widget.readOnly,
               decoration: InputDecoration(
-                labelText:
-                    '${widget.label} (${currentLang.name.toUpperCase()})',
+                labelText: '${widget.label} (${currentLang.l10n(context)})',
                 border: const OutlineInputBorder(),
                 alignLabelWithHint: true,
               ),
