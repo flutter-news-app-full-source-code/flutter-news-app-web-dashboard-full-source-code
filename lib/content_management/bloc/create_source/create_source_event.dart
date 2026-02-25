@@ -8,20 +8,36 @@ sealed class CreateSourceEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event when the page is loaded.
+final class CreateSourceLoaded extends CreateSourceEvent {
+  const CreateSourceLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
+}
+
 /// Event for when the source's name is changed.
 final class CreateSourceNameChanged extends CreateSourceEvent {
-  const CreateSourceNameChanged(this.name);
+  const CreateSourceNameChanged(this.name, this.language);
   final String name;
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, language];
 }
 
 /// Event for when the source's description is changed.
 final class CreateSourceDescriptionChanged extends CreateSourceEvent {
-  const CreateSourceDescriptionChanged(this.description);
+  const CreateSourceDescriptionChanged(this.description, this.language);
   final String description;
+  final SupportedLanguage language;
   @override
-  List<Object?> get props => [description];
+  List<Object?> get props => [description, language];
 }
 
 /// Event for when the source's URL is changed.
@@ -62,7 +78,7 @@ final class CreateSourceTypeChanged extends CreateSourceEvent {
 /// Event for when the source's language is changed.
 final class CreateSourceLanguageChanged extends CreateSourceEvent {
   const CreateSourceLanguageChanged(this.language);
-  final Language? language;
+  final SupportedLanguage? language;
   @override
   List<Object?> get props => [language];
 }

@@ -2,10 +2,12 @@ import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_source/create_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -21,12 +23,28 @@ class CreateSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizationConfig = context
+        .read<AppBloc>()
+        .state
+        .remoteConfig
+        ?.app
+        .localization;
+
     return BlocProvider(
-      create: (context) => CreateSourceBloc(
-        sourcesRepository: context.read<DataRepository<Source>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        logger: Logger('CreateSourceBloc'),
-      ),
+      create: (context) =>
+          CreateSourceBloc(
+            sourcesRepository: context.read<DataRepository<Source>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            logger: Logger('CreateSourceBloc'),
+          )..add(
+            CreateSourceLoaded(
+              enabledLanguages:
+                  localizationConfig?.enabledLanguages ??
+                  [SupportedLanguage.en],
+              defaultLanguage:
+                  localizationConfig?.defaultLanguage ?? SupportedLanguage.en,
+            ),
+          ),
       child: const CreateSourceView(),
     );
   }
@@ -39,25 +57,20 @@ class CreateSourceView extends StatefulWidget {
   State<CreateSourceView> createState() => _CreateSourceViewState();
 }
 
-class _CreateSourceViewState extends State<CreateSourceView> {
+class _CreateSourceViewState extends State<CreateSourceView>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
 
   @override
   void initState() {
     super.initState();
     final state = context.read<CreateSourceBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
     _urlController = TextEditingController(text: state.url);
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
     _urlController.dispose();
     super.dispose();
   }
@@ -184,27 +197,46 @@ class _CreateSourceViewState extends State<CreateSourceView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceNameChanged(value)),
+                    LocalizedTextFormField(
+                      label: l10n.sourceName,
+                      values: state.name,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) =>
+                          context.read<CreateSourceBloc>().add(
+                            CreateSourceNameChanged(
+                              values.values.first,
+                              values.keys.first,
+                            ),
+                          ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: l10n.description,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceDescriptionChanged(value)),
+                    LocalizedTextFormField(
+                      label: l10n.description,
+                      values: state.description,
+                      enabledLanguages: state.enabledLanguages,
+                      onChanged: (values) =>
+                          context.read<CreateSourceBloc>().add(
+                            CreateSourceDescriptionChanged(
+                              values.values.first,
+                              values.keys.first,
+                            ),
+                          ),
+                      validator: (values) {
+                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                          return l10n.defaultLanguageRequired(
+                            state.defaultLanguage.name.toUpperCase(),
+                          );
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     TextFormField(
@@ -237,14 +269,26 @@ class _CreateSourceViewState extends State<CreateSourceView> {
                     const SizedBox(height: AppSpacing.lg),
                     SearchableSelectionInput<Language>(
                       label: l10n.language,
-                      selectedItems: state.language != null
-                          ? [state.language!]
-                          : [],
+                      // We don't pre-select here because we need to map back from SupportedLanguage to Language entity,
+                      // which is hard without the full list.
+                      // For now, we rely on the user selecting it.
+                      // Ideally, we would fetch the Language entity matching state.language.
                       itemBuilder: (context, language) => Text(language.name),
                       itemToString: (language) => language.name,
-                      onChanged: (items) => context
-                          .read<CreateSourceBloc>()
-                          .add(CreateSourceLanguageChanged(items?.first)),
+                      onChanged: (items) {
+                        if (items != null && items.isNotEmpty) {
+                          // Map Language entity code to SupportedLanguage enum
+                          try {
+                            final supportedLang = SupportedLanguage.values
+                                .byName(items.first.code);
+                            context.read<CreateSourceBloc>().add(
+                              CreateSourceLanguageChanged(supportedLang),
+                            );
+                          } catch (_) {
+                            // Handle case where DB language code doesn't match enum
+                          }
+                        }
+                      },
                       repository: context.read<DataRepository<Language>>(),
                       filterBuilder: (searchTerm) => searchTerm == null
                           ? {}
@@ -292,10 +336,11 @@ class _CreateSourceViewState extends State<CreateSourceView> {
                             ),
                           ),
                           const SizedBox(width: AppSpacing.md),
-                          Text(country.name),
+                          Text(country.name[SupportedLanguage.en] ?? ''),
                         ],
                       ),
-                      itemToString: (country) => country.name,
+                      itemToString: (country) =>
+                          country.name[SupportedLanguage.en] ?? '',
                       onChanged: (items) => context
                           .read<CreateSourceBloc>()
                           .add(CreateSourceHeadquartersChanged(items?.first)),

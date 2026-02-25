@@ -17,8 +17,8 @@ final class CreateSourceState extends Equatable {
   /// {@macro create_source_state}
   const CreateSourceState({
     this.status = CreateSourceStatus.initial,
-    this.name = '',
-    this.description = '',
+    this.name = const {},
+    this.description = const {},
     this.url = '',
     this.imageFileBytes,
     this.imageFileName,
@@ -27,24 +27,28 @@ final class CreateSourceState extends Equatable {
     this.headquarters,
     this.createdSource,
     this.exception,
+    this.enabledLanguages = const [SupportedLanguage.en],
+    this.defaultLanguage = SupportedLanguage.en,
   });
 
   final CreateSourceStatus status;
-  final String name;
-  final String description;
+  final Map<SupportedLanguage, String> name;
+  final Map<SupportedLanguage, String> description;
   final String url;
   final Uint8List? imageFileBytes;
   final String? imageFileName;
   final SourceType? sourceType;
-  final Language? language;
+  final SupportedLanguage? language;
   final Country? headquarters;
   final HttpException? exception; // Used for both image and entity failures
   final Source? createdSource;
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
-      name.isNotEmpty &&
-      description.isNotEmpty &&
+      (name[defaultLanguage]?.isNotEmpty ?? false) &&
+      (description[defaultLanguage]?.isNotEmpty ?? false) &&
       url.isNotEmpty &&
       imageFileBytes != null &&
       imageFileName != null &&
@@ -54,16 +58,18 @@ final class CreateSourceState extends Equatable {
 
   CreateSourceState copyWith({
     CreateSourceStatus? status,
-    String? name,
-    String? description,
+    Map<SupportedLanguage, String>? name,
+    Map<SupportedLanguage, String>? description,
     String? url,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
     ValueGetter<SourceType?>? sourceType,
-    ValueGetter<Language?>? language,
+    ValueGetter<SupportedLanguage?>? language,
     ValueGetter<Country?>? headquarters,
     ValueWrapper<HttpException?>? exception,
     Source? createdSource,
+    List<SupportedLanguage>? enabledLanguages,
+    SupportedLanguage? defaultLanguage,
   }) {
     return CreateSourceState(
       status: status ?? this.status,
@@ -79,8 +85,10 @@ final class CreateSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
+      enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       exception: exception != null ? exception.value : this.exception,
       createdSource: createdSource ?? this.createdSource,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
     );
   }
 
@@ -95,7 +103,9 @@ final class CreateSourceState extends Equatable {
     sourceType,
     language,
     headquarters,
+    enabledLanguages,
     exception,
     createdSource,
+    defaultLanguage,
   ];
 }
