@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 /// {@template localization_config_form}
@@ -53,7 +55,19 @@ class LocalizationConfigForm extends StatelessWidget {
                 language,
               );
               return FilterChip(
-                label: Text(language.name.toUpperCase()),
+                label: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.network(
+                      language.flagUrl,
+                      width: 24,
+                      errorBuilder: (_, _, _) =>
+                          const Icon(Icons.flag, size: 16),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Text(language.l10n(context)),
+                  ],
+                ),
                 selected: isSelected,
                 onSelected: (selected) {
                   final currentList = List<SupportedLanguage>.from(
@@ -110,7 +124,18 @@ class LocalizationConfigForm extends StatelessWidget {
             items: localizationConfig.enabledLanguages.map((language) {
               return DropdownMenuItem(
                 value: language,
-                child: Text(language.name.toUpperCase()),
+                child: Row(
+                  children: [
+                    Image.network(
+                      language.flagUrl,
+                      width: 24,
+                      errorBuilder: (_, __, ___) =>
+                          const Icon(Icons.flag, size: 16),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    Text(language.l10n(context)),
+                  ],
+                ),
               );
             }).toList(),
             onChanged: (value) {
