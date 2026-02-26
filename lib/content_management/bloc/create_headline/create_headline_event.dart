@@ -22,11 +22,10 @@ final class CreateHeadlineInitialized extends CreateHeadlineEvent {
 
 /// Event for when the headline's title is changed.
 final class CreateHeadlineTitleChanged extends CreateHeadlineEvent {
-  const CreateHeadlineTitleChanged(this.title, this.language);
-  final String title;
-  final SupportedLanguage language;
+  const CreateHeadlineTitleChanged(this.title);
+  final Map<SupportedLanguage, String> title;
   @override
-  List<Object?> get props => [title, language];
+  List<Object?> get props => [title];
 }
 
 /// Event for when the headline's URL is changed.
@@ -95,4 +94,12 @@ final class CreateHeadlineIsBreakingChanged extends CreateHeadlineEvent {
   final bool isBreaking;
   @override
   List<Object?> get props => [isBreaking];
+}
+
+/// Event for when the language tab is changed.
+final class CreateHeadlineLanguageTabChanged extends CreateHeadlineEvent {
+  const CreateHeadlineLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

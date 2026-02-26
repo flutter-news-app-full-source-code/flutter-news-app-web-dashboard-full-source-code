@@ -39,6 +39,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineIsBreakingChanged>(_onIsBreakingChanged);
+    on<CreateHeadlineLanguageTabChanged>(_onLanguageTabChanged);
     on<CreateHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<CreateHeadlinePublished>(_onPublished);
   }
@@ -65,14 +66,8 @@ class CreateHeadlineBloc
     CreateHeadlineTitleChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    _logger.fine('Title changed for ${event.language}: ${event.title}');
-    final newTitles = Map<SupportedLanguage, String>.from(state.title);
-    if (event.title.isEmpty) {
-      newTitles.remove(event.language);
-    } else {
-      newTitles[event.language] = event.title;
-    }
-    emit(state.copyWith(title: newTitles));
+    _logger.fine('Title changed: ${event.title}');
+    emit(state.copyWith(title: event.title));
   }
 
   void _onUrlChanged(
@@ -139,6 +134,13 @@ class CreateHeadlineBloc
   ) {
     _logger.fine('Is Breaking changed: ${event.isBreaking}');
     emit(state.copyWith(isBreaking: event.isBreaking));
+  }
+
+  void _onLanguageTabChanged(
+    CreateHeadlineLanguageTabChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   /// Handles saving the headline as a draft.
