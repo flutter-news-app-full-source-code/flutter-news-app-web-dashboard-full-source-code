@@ -28,7 +28,8 @@ final class EditTopicState extends Equatable {
     this.initialTopic,
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
-  });
+    SupportedLanguage? selectedLanguage,
+  }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final EditTopicStatus status;
   final String topicId;
@@ -43,6 +44,7 @@ final class EditTopicState extends Equatable {
   final Topic? initialTopic;
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
+  final SupportedLanguage selectedLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
@@ -70,6 +72,7 @@ final class EditTopicState extends Equatable {
     Topic? initialTopic,
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
+    SupportedLanguage? selectedLanguage,
   }) {
     return EditTopicState(
       status: status ?? this.status,
@@ -89,6 +92,7 @@ final class EditTopicState extends Equatable {
       initialTopic: initialTopic ?? this.initialTopic,
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
+      selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
 

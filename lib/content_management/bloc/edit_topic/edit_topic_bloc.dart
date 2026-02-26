@@ -36,6 +36,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     on<EditTopicImageRemoved>(_onImageRemoved);
     on<EditTopicSavedAsDraft>(_onSavedAsDraft);
     on<EditTopicPublished>(_onPublished);
+    on<EditTopicLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Topic> _topicsRepository;
@@ -92,15 +93,9 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     EditTopicNameChanged event,
     Emitter<EditTopicState> emit,
   ) {
-    final newName = Map<SupportedLanguage, String>.from(state.name);
-    if (event.name.isEmpty) {
-      newName.remove(event.language);
-    } else {
-      newName[event.language] = event.name;
-    }
-    _logger.finer('Name changed for ${event.language}: ${event.name}');
+    _logger.finer('Name changed: ${event.name}');
     emit(
-      state.copyWith(name: newName, status: EditTopicStatus.initial),
+      state.copyWith(name: event.name, status: EditTopicStatus.initial),
     );
   }
 
@@ -108,22 +103,21 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     EditTopicDescriptionChanged event,
     Emitter<EditTopicState> emit,
   ) {
-    final newDescription = Map<SupportedLanguage, String>.from(
-      state.description,
-    );
-    if (event.description.isEmpty) {
-      newDescription.remove(event.language);
-    } else {
-      newDescription[event.language] = event.description;
-    }
-    _logger.finer(
-      'Description changed for ${event.language}: ${event.description}',
-    );
+    _logger.finer('Description changed: ${event.description}');
     emit(
       state.copyWith(
-        description: newDescription,
+        description: event.description,
         status: EditTopicStatus.initial,
       ),
+    );
+  }
+
+  void _onLanguageTabChanged(
+    EditTopicLanguageTabChanged event,
+    Emitter<EditTopicState> emit,
+  ) {
+    emit(
+      state.copyWith(selectedLanguage: event.language),
     );
   }
 

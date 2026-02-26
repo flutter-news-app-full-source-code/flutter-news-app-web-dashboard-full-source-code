@@ -22,24 +22,18 @@ final class EditTopicLoaded extends EditTopicEvent {
 
 /// Event triggered when the topic name input changes.
 final class EditTopicNameChanged extends EditTopicEvent {
-  const EditTopicNameChanged(this.name, this.language);
-
-  final String name;
-  final SupportedLanguage language;
-
+  const EditTopicNameChanged(this.name);
+  final Map<SupportedLanguage, String> name;
   @override
-  List<Object?> get props => [name, language];
+  List<Object?> get props => [name];
 }
 
 /// Event triggered when the topic description input changes.
 final class EditTopicDescriptionChanged extends EditTopicEvent {
-  const EditTopicDescriptionChanged(this.description, this.language);
-
-  final String description;
-  final SupportedLanguage language;
-
+  const EditTopicDescriptionChanged(this.description);
+  final Map<SupportedLanguage, String> description;
   @override
-  List<Object?> get props => [description, language];
+  List<Object?> get props => [description];
 }
 
 /// Event for when the topic's icon image is changed.
@@ -69,4 +63,12 @@ final class EditTopicSavedAsDraft extends EditTopicEvent {
 /// Event to publish the topic.
 final class EditTopicPublished extends EditTopicEvent {
   const EditTopicPublished();
+}
+
+/// Event for when the language tab is changed.
+final class EditTopicLanguageTabChanged extends EditTopicEvent {
+  const EditTopicLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }
