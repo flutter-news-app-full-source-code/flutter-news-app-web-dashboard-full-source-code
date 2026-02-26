@@ -36,6 +36,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineTopicChanged>(_onTopicChanged);
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineIsBreakingChanged>(_onIsBreakingChanged);
+    on<EditHeadlineLanguageTabChanged>(_onLanguageTabChanged);
     on<EditHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<EditHeadlinePublished>(_onPublished);
   }
@@ -97,15 +98,9 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     EditHeadlineTitleChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
-    _logger.finer('Title changed for ${event.language}: ${event.title}');
-    final newTitles = Map<SupportedLanguage, String>.from(state.title);
-    if (event.title.isEmpty) {
-      newTitles.remove(event.language);
-    } else {
-      newTitles[event.language] = event.title;
-    }
+    _logger.finer('Title changed: ${event.title}');
     emit(
-      state.copyWith(title: newTitles, status: EditHeadlineStatus.initial),
+      state.copyWith(title: event.title, status: EditHeadlineStatus.initial),
     );
   }
 
@@ -198,6 +193,13 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         status: EditHeadlineStatus.initial,
       ),
     );
+  }
+
+  void _onLanguageTabChanged(
+    EditHeadlineLanguageTabChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   /// Handles saving the headline as a draft.

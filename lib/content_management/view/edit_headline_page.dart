@@ -8,6 +8,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
@@ -196,189 +198,221 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
             );
           }
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LocalizedTextFormField(
-                      label: l10n.headlineTitle,
-                      values: state.title,
-                      enabledLanguages: state.enabledLanguages,
-                      onChanged: (values) =>
-                          context.read<EditHeadlineBloc>().add(
-                            EditHeadlineTitleChanged(
-                              values.values.first,
-                              values.keys.first,
-                            ),
-                          ),
-                      validator: (values) {
-                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                          return l10n.defaultLanguageRequired(
-                            state.defaultLanguage.name.toUpperCase(),
-                          );
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _urlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineUrlChanged(value)),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    ImageUploadField(
-                      initialImageUrl: state.imageUrl,
-                      isProcessing:
-                          state.initialHeadline?.mediaAssetId != null &&
-                          state.imageUrl == null,
-                      onChanged: (Uint8List? bytes, String? fileName) {
-                        final bloc = context.read<EditHeadlineBloc>();
-                        if (bytes == null || fileName == null) {
-                          bloc.add(const EditHeadlineImageRemoved());
-                          return;
-                        }
-                        bloc.add(
-                          EditHeadlineImageChanged(
-                            imageFileBytes: bytes,
-                            imageFileName: fileName,
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            l10n.isBreakingNewsLabel,
-                            style: Theme.of(context).textTheme.titleMedium,
+          return DefaultTabController(
+            length: state.enabledLanguages.length,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        onTap: (index) => context.read<EditHeadlineBloc>().add(
+                          EditHeadlineLanguageTabChanged(
+                            state.enabledLanguages[index],
                           ),
                         ),
-                        Switch(
-                          value: state.isBreaking,
-                          onChanged:
-                              state.initialHeadline?.status ==
-                                  ContentStatus.active
-                              ? null
-                              : (value) => context.read<EditHeadlineBloc>().add(
-                                  EditHeadlineIsBreakingChanged(value),
+                        tabs: state.enabledLanguages.map((lang) {
+                          return Tab(
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  lang.flagUrl,
+                                  width: 24,
+                                  errorBuilder: (_, __, ___) =>
+                                      const Icon(Icons.flag, size: 16),
                                 ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(lang.l10n(context)),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.headlineTitle,
+                        values: state.title,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditHeadlineBloc>().add(
+                              EditHeadlineTitleChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      TextFormField(
+                        controller: _urlController,
+                        decoration: InputDecoration(
+                          labelText: l10n.sourceUrl,
+                          border: const OutlineInputBorder(),
                         ),
-                      ],
-                    ),
-                    Text(
-                      state.initialHeadline?.status == ContentStatus.active
-                          ? l10n.isBreakingNewsDescriptionEdit
-                          : l10n.isBreakingNewsDescription,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Existing SearchableSelectionInput widgets
-                    SearchableSelectionInput<Source>(
-                      label: l10n.sourceName,
-                      selectedItems: state.source != null
-                          ? [state.source!]
-                          : [],
-                      itemBuilder: (context, source) =>
-                          Text(source.name[SupportedLanguage.en] ?? ''),
-                      itemToString: (source) =>
-                          source.name[SupportedLanguage.en] ?? '',
-                      onChanged: (items) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineSourceChanged(items?.first)),
-                      repository: context.read<DataRepository<Source>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name.en': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
-                              },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                      includeInactiveSelectedItem: true,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<Topic>(
-                      label: l10n.topicName,
-                      selectedItems: state.topic != null ? [state.topic!] : [],
-                      itemBuilder: (context, topic) =>
-                          Text(topic.name[SupportedLanguage.en] ?? ''),
-                      itemToString: (topic) =>
-                          topic.name[SupportedLanguage.en] ?? '',
-                      onChanged: (items) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineTopicChanged(items?.first)),
-                      repository: context.read<DataRepository<Topic>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name.en': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
-                              },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                      includeInactiveSelectedItem: true,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<Country>(
-                      label: l10n.countryName,
-                      selectedItems: state.eventCountry != null
-                          ? [state.eventCountry!]
-                          : [],
-                      itemBuilder: (context, country) => Row(
+                        onChanged: (value) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineUrlChanged(value)),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      ImageUploadField(
+                        initialImageUrl: state.imageUrl,
+                        isProcessing:
+                            state.initialHeadline?.mediaAssetId != null &&
+                            state.imageUrl == null,
+                        onChanged: (Uint8List? bytes, String? fileName) {
+                          final bloc = context.read<EditHeadlineBloc>();
+                          if (bytes == null || fileName == null) {
+                            bloc.add(const EditHeadlineImageRemoved());
+                            return;
+                          }
+                          bloc.add(
+                            EditHeadlineImageChanged(
+                              imageFileBytes: bytes,
+                              imageFileName: fileName,
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Row(
                         children: [
-                          SizedBox(
-                            width: 32,
-                            height: 20,
-                            child: Image.network(
-                              country.flagUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.flag),
+                          Expanded(
+                            child: Text(
+                              l10n.isBreakingNewsLabel,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
-                          const SizedBox(width: AppSpacing.md),
-                          Text(country.name[SupportedLanguage.en] ?? ''),
+                          Switch(
+                            value: state.isBreaking,
+                            onChanged:
+                                state.initialHeadline?.status ==
+                                    ContentStatus.active
+                                ? null
+                                : (value) =>
+                                      context.read<EditHeadlineBloc>().add(
+                                        EditHeadlineIsBreakingChanged(
+                                          value,
+                                        ),
+                                      ),
+                          ),
                         ],
                       ),
-                      itemToString: (country) =>
-                          country.name[SupportedLanguage.en] ?? '',
-                      onChanged: (items) => context
-                          .read<EditHeadlineBloc>()
-                          .add(EditHeadlineCountryChanged(items?.first)),
-                      repository: context.read<DataRepository<Country>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name.en': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
+                      Text(
+                        state.initialHeadline?.status == ContentStatus.active
+                            ? l10n.isBreakingNewsDescriptionEdit
+                            : l10n.isBreakingNewsDescription,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      // Existing SearchableSelectionInput widgets
+                      SearchableSelectionInput<Source>(
+                        label: l10n.sourceName,
+                        selectedItems: state.source != null
+                            ? [state.source!]
+                            : [],
+                        itemBuilder: (context, source) =>
+                            Text(source.name[SupportedLanguage.en] ?? ''),
+                        itemToString: (source) =>
+                            source.name[SupportedLanguage.en] ?? '',
+                        onChanged: (items) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineSourceChanged(items?.first)),
+                        repository: context.read<DataRepository<Source>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name.en': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
                               },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                      includeInactiveSelectedItem: true,
-                    ),
-                  ],
+                        sortOptions: const [
+                          SortOption('name', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                        includeInactiveSelectedItem: true,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Topic>(
+                        label: l10n.topicName,
+                        selectedItems: state.topic != null
+                            ? [state.topic!]
+                            : [],
+                        itemBuilder: (context, topic) =>
+                            Text(topic.name[SupportedLanguage.en] ?? ''),
+                        itemToString: (topic) =>
+                            topic.name[SupportedLanguage.en] ?? '',
+                        onChanged: (items) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineTopicChanged(items?.first)),
+                        repository: context.read<DataRepository<Topic>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name.en': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
+                              },
+                        sortOptions: const [
+                          SortOption('name', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                        includeInactiveSelectedItem: true,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Country>(
+                        label: l10n.countryName,
+                        selectedItems: state.eventCountry != null
+                            ? [state.eventCountry!]
+                            : [],
+                        itemBuilder: (context, country) => Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name[SupportedLanguage.en] ?? ''),
+                          ],
+                        ),
+                        itemToString: (country) =>
+                            country.name[SupportedLanguage.en] ?? '',
+                        onChanged: (items) => context
+                            .read<EditHeadlineBloc>()
+                            .add(EditHeadlineCountryChanged(items?.first)),
+                        repository: context.read<DataRepository<Country>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name.en': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
+                              },
+                        sortOptions: const [
+                          SortOption('name', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                        includeInactiveSelectedItem: true,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

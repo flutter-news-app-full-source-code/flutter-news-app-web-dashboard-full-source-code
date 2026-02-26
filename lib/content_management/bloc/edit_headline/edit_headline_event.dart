@@ -22,11 +22,10 @@ final class EditHeadlineLoaded extends EditHeadlineEvent {
 
 /// Event for when the headline's title is changed.
 final class EditHeadlineTitleChanged extends EditHeadlineEvent {
-  const EditHeadlineTitleChanged(this.title, this.language);
-  final String title;
-  final SupportedLanguage language;
+  const EditHeadlineTitleChanged(this.title);
+  final Map<SupportedLanguage, String> title;
   @override
-  List<Object?> get props => [title, language];
+  List<Object?> get props => [title];
 }
 
 /// Event for when the headline's URL is changed.
@@ -95,4 +94,12 @@ final class EditHeadlineIsBreakingChanged extends EditHeadlineEvent {
   final bool isBreaking;
   @override
   List<Object?> get props => [isBreaking];
+}
+
+/// Event for when the language tab is changed.
+final class EditHeadlineLanguageTabChanged extends EditHeadlineEvent {
+  const EditHeadlineLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }
