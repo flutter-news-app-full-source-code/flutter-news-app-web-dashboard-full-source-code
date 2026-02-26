@@ -203,17 +203,11 @@ class _EditSourceViewState extends State<EditSourceView> {
                         ),
                         tabs: state.enabledLanguages.map((lang) {
                           return Tab(
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  lang.flagUrl,
-                                  width: 24,
-                                  errorBuilder: (_, __, _) =>
-                                      const Icon(Icons.flag, size: 16),
-                                ),
-                                const SizedBox(width: AppSpacing.md),
-                                Text(lang.l10n(context)),
-                              ],
+                            icon: Image.network(
+                              lang.flagUrl,
+                              width: 24,
+                              errorBuilder: (_, _, _) =>
+                                  const Icon(Icons.flag, size: 16),
                             ),
                           );
                         }).toList(),
@@ -357,11 +351,11 @@ class _EditSourceViewState extends State<EditSourceView> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.md),
-                            Text(country.name[SupportedLanguage.en] ?? ''),
+                            Text(country.name[state.defaultLanguage] ?? ''),
                           ],
                         ),
                         itemToString: (country) =>
-                            country.name[SupportedLanguage.en] ?? '',
+                            country.name[state.defaultLanguage] ?? '',
                         onChanged: (items) =>
                             context.read<EditSourceBloc>().add(
                               EditSourceHeadquartersChanged(items?.first),
@@ -370,7 +364,7 @@ class _EditSourceViewState extends State<EditSourceView> {
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.en': {
+                                'name.${state.defaultLanguage.name}': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },

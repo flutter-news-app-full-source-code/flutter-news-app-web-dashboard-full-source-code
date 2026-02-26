@@ -202,25 +202,18 @@ class _CreateSourceViewState extends State<CreateSourceView>
                       TabBar(
                         isScrollable: true,
                         tabAlignment: TabAlignment.start,
-                        onTap: (index) =>
-                            context.read<CreateSourceBloc>().add(
-                                  CreateSourceLanguageTabChanged(
-                                    state.enabledLanguages[index],
-                                  ),
-                                ),
+                        onTap: (index) => context.read<CreateSourceBloc>().add(
+                          CreateSourceLanguageTabChanged(
+                            state.enabledLanguages[index],
+                          ),
+                        ),
                         tabs: state.enabledLanguages.map((lang) {
                           return Tab(
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  lang.flagUrl,
-                                  width: 24,
-                                  errorBuilder: (_, __, ___) =>
-                                      const Icon(Icons.flag, size: 16),
-                                ),
-                                const SizedBox(width: AppSpacing.md),
-                                Text(lang.l10n(context)),
-                              ],
+                            icon: Image.network(
+                              lang.flagUrl,
+                              width: 24,
+                              errorBuilder: (_, _, _) =>
+                                  const Icon(Icons.flag, size: 16),
                             ),
                           );
                         }).toList(),
@@ -233,11 +226,10 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         selectedLanguage: state.selectedLanguage,
                         onChanged: (values) =>
                             context.read<CreateSourceBloc>().add(
-                                  CreateSourceNameChanged(values),
-                                ),
+                              CreateSourceNameChanged(values),
+                            ),
                         validator: (values) {
-                          if (values?[state.defaultLanguage]?.isEmpty ??
-                              true) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
                             return l10n.defaultLanguageRequired(
                               state.defaultLanguage.name.toUpperCase(),
                             );
@@ -253,11 +245,10 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         selectedLanguage: state.selectedLanguage,
                         onChanged: (values) =>
                             context.read<CreateSourceBloc>().add(
-                                  CreateSourceDescriptionChanged(values),
-                                ),
+                              CreateSourceDescriptionChanged(values),
+                            ),
                         validator: (values) {
-                          if (values?[state.defaultLanguage]?.isEmpty ??
-                              true) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
                             return l10n.defaultLanguageRequired(
                               state.defaultLanguage.name.toUpperCase(),
                             );
@@ -281,15 +272,15 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         onChanged: (bytes, fileName) {
                           if (bytes != null && fileName != null) {
                             context.read<CreateSourceBloc>().add(
-                                  CreateSourceImageChanged(
-                                    imageFileBytes: bytes,
-                                    imageFileName: fileName,
-                                  ),
-                                );
+                              CreateSourceImageChanged(
+                                imageFileBytes: bytes,
+                                imageFileName: fileName,
+                              ),
+                            );
                           } else {
                             context.read<CreateSourceBloc>().add(
-                                  const CreateSourceImageRemoved(),
-                                );
+                              const CreateSourceImageRemoved(),
+                            );
                           }
                         },
                       ),
@@ -300,8 +291,7 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         // which is hard without the full list.
                         // For now, we rely on the user selecting it.
                         // Ideally, we would fetch the Language entity matching state.language.
-                        itemBuilder: (context, language) =>
-                            Text(language.name),
+                        itemBuilder: (context, language) => Text(language.name),
                         itemToString: (language) => language.name,
                         onChanged: (items) {
                           if (items != null && items.isNotEmpty) {
@@ -310,8 +300,8 @@ class _CreateSourceViewState extends State<CreateSourceView>
                               final supportedLang = SupportedLanguage.values
                                   .byName(items.first.code);
                               context.read<CreateSourceBloc>().add(
-                                    CreateSourceLanguageChanged(supportedLang),
-                                  );
+                                CreateSourceLanguageChanged(supportedLang),
+                              );
                             } catch (_) {
                               // Handle case where DB language code doesn't match enum
                             }
@@ -334,8 +324,9 @@ class _CreateSourceViewState extends State<CreateSourceView>
                       const SizedBox(height: AppSpacing.lg),
                       SearchableSelectionInput<SourceType>(
                         label: l10n.sourceType,
-                        selectedItems:
-                            state.sourceType != null ? [state.sourceType!] : [],
+                        selectedItems: state.sourceType != null
+                            ? [state.sourceType!]
+                            : [],
                         staticItems: SourceType.values.toList(),
                         itemBuilder: (context, type) =>
                             Text(type.localizedName(l10n)),
@@ -363,11 +354,11 @@ class _CreateSourceViewState extends State<CreateSourceView>
                               ),
                             ),
                             const SizedBox(width: AppSpacing.md),
-                            Text(country.name[SupportedLanguage.en] ?? ''),
+                            Text(country.name[state.defaultLanguage] ?? ''),
                           ],
                         ),
                         itemToString: (country) =>
-                            country.name[SupportedLanguage.en] ?? '',
+                            country.name[state.defaultLanguage] ?? '',
                         onChanged: (items) => context
                             .read<CreateSourceBloc>()
                             .add(CreateSourceHeadquartersChanged(items?.first)),
@@ -375,7 +366,7 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.en': {
+                                'name.${state.defaultLanguage.name}': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
@@ -396,4 +387,3 @@ class _CreateSourceViewState extends State<CreateSourceView>
     );
   }
 }
-                    
