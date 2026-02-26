@@ -51,7 +51,7 @@ void main() {
         'emits new state with updated title',
         build: buildBloc,
         act: (bloc) => bloc.add(
-          const CreateHeadlineTitleChanged('New Title', SupportedLanguage.en),
+          const CreateHeadlineTitleChanged({SupportedLanguage.en: 'New Title'}),
         ),
         expect: () => [
           const CreateHeadlineState(title: {SupportedLanguage.en: 'New Title'}),
@@ -66,7 +66,10 @@ void main() {
         title: {SupportedLanguage.en: 'English Title'},
       ),
       act: (bloc) => bloc.add(
-        const CreateHeadlineTitleChanged('Título', SupportedLanguage.es),
+        const CreateHeadlineTitleChanged({
+          SupportedLanguage.en: 'English Title',
+          SupportedLanguage.es: 'Título',
+        }),
       ),
       expect: () => [
         const CreateHeadlineState(
