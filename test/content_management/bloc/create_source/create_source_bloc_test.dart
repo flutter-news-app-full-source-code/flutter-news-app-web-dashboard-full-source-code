@@ -65,7 +65,7 @@ void main() {
         'emits new state with updated name',
         build: buildBloc,
         act: (bloc) => bloc.add(
-          const CreateSourceNameChanged('New Source', SupportedLanguage.en),
+          const CreateSourceNameChanged({SupportedLanguage.en: 'New Source'}),
         ),
         expect: () => [
           const CreateSourceState(name: {SupportedLanguage.en: 'New Source'}),
@@ -78,10 +78,9 @@ void main() {
         'emits new state with updated description',
         build: buildBloc,
         act: (bloc) => bloc.add(
-          const CreateSourceDescriptionChanged(
-            'Description',
-            SupportedLanguage.en,
-          ),
+          const CreateSourceDescriptionChanged({
+            SupportedLanguage.en: 'Description',
+          }),
         ),
         expect: () => [
           const CreateSourceState(
