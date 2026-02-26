@@ -109,5 +109,8 @@ final class EditTopicState extends Equatable {
     updatedTopic,
     imageRemoved,
     initialTopic,
+    enabledLanguages,
+    defaultLanguage,
+    selectedLanguage,
   ];
 }
