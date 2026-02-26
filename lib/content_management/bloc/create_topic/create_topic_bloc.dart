@@ -33,6 +33,7 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     on<CreateTopicImageRemoved>(_onImageRemoved);
     on<CreateTopicSavedAsDraft>(_onSavedAsDraft);
     on<CreateTopicPublished>(_onPublished);
+    on<CreateTopicLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Topic> _topicsRepository;
@@ -56,34 +57,23 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     CreateTopicNameChanged event,
     Emitter<CreateTopicState> emit,
   ) {
-    final newName = Map<SupportedLanguage, String>.from(state.name);
-    if (event.name.isEmpty) {
-      newName.remove(event.language);
-    } else {
-      newName[event.language] = event.name;
-    }
-    _logger.fine('Name changed for ${event.language}: ${event.name}');
-    emit(state.copyWith(name: newName));
+    _logger.fine('Name changed: ${event.name}');
+    emit(state.copyWith(name: event.name));
   }
 
   void _onDescriptionChanged(
     CreateTopicDescriptionChanged event,
     Emitter<CreateTopicState> emit,
   ) {
-    final newDescription = Map<SupportedLanguage, String>.from(
-      state.description,
-    );
-    if (event.description.isEmpty) {
-      newDescription.remove(event.language);
-    } else {
-      newDescription[event.language] = event.description;
-    }
-    _logger.fine(
-      'Description changed for ${event.language}: ${event.description}',
-    );
-    emit(
-      state.copyWith(description: newDescription),
-    );
+    _logger.fine('Description changed: ${event.description}');
+    emit(state.copyWith(description: event.description));
+  }
+
+  void _onLanguageTabChanged(
+    CreateTopicLanguageTabChanged event,
+    Emitter<CreateTopicState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   void _onImageChanged(

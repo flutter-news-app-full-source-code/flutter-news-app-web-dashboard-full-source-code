@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart';
@@ -150,72 +152,98 @@ class _CreateTopicViewState extends State<CreateTopicView> {
           }
         },
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LocalizedTextFormField(
-                      label: l10n.topicName,
-                      values: state.name,
-                      enabledLanguages: state.enabledLanguages,
-                      onChanged: (values) =>
-                          context.read<CreateTopicBloc>().add(
-                            CreateTopicNameChanged(
-                              values.values.first,
-                              values.keys.first,
+          return DefaultTabController(
+            length: state.enabledLanguages.length,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        onTap: (index) =>
+                            context.read<CreateTopicBloc>().add(
+                              CreateTopicLanguageTabChanged(
+                                state.enabledLanguages[index],
+                              ),
                             ),
-                          ),
-                      validator: (values) {
-                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                          return l10n.defaultLanguageRequired(
-                            state.defaultLanguage.name.toUpperCase(),
-                          );
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    LocalizedTextFormField(
-                      label: l10n.description,
-                      values: state.description,
-                      enabledLanguages: state.enabledLanguages,
-                      onChanged: (values) =>
-                          context.read<CreateTopicBloc>().add(
-                            CreateTopicDescriptionChanged(
-                              values.values.first,
-                              values.keys.first,
+                        tabs: state.enabledLanguages.map((lang) {
+                          return Tab(
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  lang.flagUrl,
+                                  width: 24,
+                                  errorBuilder: (_, __, ___) =>
+                                      const Icon(Icons.flag, size: 16),
+                                ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(lang.l10n(context)),
+                              ],
                             ),
-                          ),
-                      validator: (values) {
-                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                          return l10n.defaultLanguageRequired(
-                            state.defaultLanguage.name.toUpperCase(),
                           );
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    ImageUploadField(
-                      onChanged: (Uint8List? bytes, String? fileName) {
-                        final bloc = context.read<CreateTopicBloc>();
-                        if (bytes == null || fileName == null) {
-                          bloc.add(const CreateTopicImageRemoved());
-                          return;
-                        }
-                        bloc.add(
-                          CreateTopicImageChanged(
-                            imageFileBytes: bytes,
-                            imageFileName: fileName,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                        }).toList(),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.topicName,
+                        values: state.name,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<CreateTopicBloc>().add(
+                              CreateTopicNameChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.description,
+                        values: state.description,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<CreateTopicBloc>().add(
+                              CreateTopicDescriptionChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      ImageUploadField(
+                        onChanged: (Uint8List? bytes, String? fileName) {
+                          final bloc = context.read<CreateTopicBloc>();
+                          if (bytes == null || fileName == null) {
+                            bloc.add(const CreateTopicImageRemoved());
+                            return;
+                          }
+                          bloc.add(
+                            CreateTopicImageChanged(
+                              imageFileBytes: bytes,
+                              imageFileName: fileName,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -22,20 +22,18 @@ final class CreateTopicInitialized extends CreateTopicEvent {
 
 /// Event for when the topic's name is changed.
 final class CreateTopicNameChanged extends CreateTopicEvent {
-  const CreateTopicNameChanged(this.name, this.language);
-  final String name;
-  final SupportedLanguage language;
+  const CreateTopicNameChanged(this.name);
+  final Map<SupportedLanguage, String> name;
   @override
-  List<Object?> get props => [name, language];
+  List<Object?> get props => [name];
 }
 
 /// Event for when the topic's description is changed.
 final class CreateTopicDescriptionChanged extends CreateTopicEvent {
-  const CreateTopicDescriptionChanged(this.description, this.language);
-  final String description;
-  final SupportedLanguage language;
+  const CreateTopicDescriptionChanged(this.description);
+  final Map<SupportedLanguage, String> description;
   @override
-  List<Object?> get props => [description, language];
+  List<Object?> get props => [description];
 }
 
 /// Event for when the topic's icon image is changed.
@@ -65,4 +63,12 @@ final class CreateTopicSavedAsDraft extends CreateTopicEvent {
 /// Event to publish the topic.
 final class CreateTopicPublished extends CreateTopicEvent {
   const CreateTopicPublished();
+}
+
+/// Event for when the language tab is changed.
+final class CreateTopicLanguageTabChanged extends CreateTopicEvent {
+  const CreateTopicLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }
