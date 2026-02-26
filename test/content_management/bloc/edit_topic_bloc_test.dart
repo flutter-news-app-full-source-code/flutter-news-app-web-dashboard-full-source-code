@@ -154,7 +154,7 @@ void main() {
           status: EditTopicStatus.initial,
         ),
         act: (bloc) => bloc.add(
-          const EditTopicNameChanged('New Name', SupportedLanguage.en),
+          const EditTopicNameChanged({SupportedLanguage.en: 'New Name'}),
         ),
         expect: () => [
           EditTopicState(
@@ -183,8 +183,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(
           const EditTopicDescriptionChanged(
-            'New Description',
-            SupportedLanguage.en,
+            {SupportedLanguage.en: 'New Description'},
           ),
         ),
         expect: () => [
