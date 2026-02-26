@@ -208,8 +208,7 @@ void main() {
         verify(
           () => createTopicBloc.add(
             const CreateTopicNameChanged(
-              'New Topic Name',
-              SupportedLanguage.en,
+              {SupportedLanguage.en: 'New Topic Name'},
             ),
           ),
         ).called(1);
@@ -235,8 +234,7 @@ void main() {
         verify(
           () => createTopicBloc.add(
             const CreateTopicDescriptionChanged(
-              'New Topic Description',
-              SupportedLanguage.en,
+              {SupportedLanguage.en: 'New Topic Description'},
             ),
           ),
         ).called(1);
