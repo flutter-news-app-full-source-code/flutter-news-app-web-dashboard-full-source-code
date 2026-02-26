@@ -146,35 +146,17 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               current.itemPendingDeletion != null,
           listener: (context, state) {
             final item = state.itemPendingDeletion!;
-            final defaultLanguage =
-                context
-                    .read<AppBloc>()
-                    .state
-                    .remoteConfig
-                    ?.app
-                    .localization
-                    .defaultLanguage ??
-                SupportedLanguage.en;
             String itemType;
             String itemName;
             if (item is Headline) {
               itemType = l10n.headline;
-              itemName =
-                  item.title[defaultLanguage] ??
-                  item.title[SupportedLanguage.en] ??
-                  '';
+              itemName = item.title.values.firstOrNull ?? '';
             } else if (item is Topic) {
               itemType = l10n.topic;
-              itemName =
-                  item.name[defaultLanguage] ??
-                  item.name[SupportedLanguage.en] ??
-                  '';
+              itemName = item.name.values.firstOrNull ?? '';
             } else if (item is Source) {
               itemType = l10n.source;
-              itemName =
-                  item.name[defaultLanguage] ??
-                  item.name[SupportedLanguage.en] ??
-                  '';
+              itemName = item.name.values.firstOrNull ?? '';
             } else {
               // Fallback for unknown types
               itemType = '';
