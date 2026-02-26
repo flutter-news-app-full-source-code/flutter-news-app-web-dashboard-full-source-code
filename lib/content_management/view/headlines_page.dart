@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -272,7 +273,7 @@ class _HeadlinesDataSource extends DataTableSource {
             text: TextSpan(
               style: Theme.of(context).textTheme.bodyMedium,
               children: [
-                TextSpan(text: headline.title[SupportedLanguage.en] ?? ''),
+                TextSpan(text: headline.title.values.firstOrNull ?? ''),
                 if (headline.isBreaking)
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
@@ -293,7 +294,7 @@ class _HeadlinesDataSource extends DataTableSource {
           ),
         ),
         if (!isMobile) // Conditionally show Source Name
-          DataCell(Text(headline.source.name[SupportedLanguage.en] ?? '')),
+          DataCell(Text(headline.source.name.values.firstOrNull ?? '')),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(headline.updatedAt.toLocal()),
