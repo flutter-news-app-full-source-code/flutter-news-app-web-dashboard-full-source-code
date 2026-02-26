@@ -19,10 +19,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
+    required DataRepository<Language> languagesRepository,
     required String sourceId,
     Logger? logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
+       _languagesRepository = languagesRepository,
        _logger = logger ?? Logger('EditSourceBloc'),
        super(EditSourceState(sourceId: sourceId)) {
     on<EditSourceLoaded>(_onEditSourceLoaded);
@@ -41,6 +43,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
+  final DataRepository<Language> _languagesRepository;
   final Logger _logger;
 
   Future<void> _onEditSourceLoaded(
@@ -53,6 +56,13 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
       final source = await _sourcesRepository.read(id: state.sourceId);
+
+      // Fetch the corresponding Language entity for the initial language.
+      final languagesResponse = await _languagesRepository.readAll(
+        filter: {'code': source.language.name},
+        pagination: const PaginationOptions(limit: 1),
+      );
+      final languageEntity = languagesResponse.items.firstOrNull;
       emit(
         state.copyWith(
           status: EditSourceStatus.initial,
@@ -66,6 +76,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           sourceType: () => source.sourceType,
           language: () => source.language,
           headquarters: () => source.headquarters,
+          selectedLanguageEntity: () => languageEntity,
           initialSource: source,
         ),
       );
@@ -145,6 +156,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(
       state.copyWith(
         language: () => event.language,
+        selectedLanguageEntity: () => event.languageEntity,
         status: EditSourceStatus.initial,
       ),
     );

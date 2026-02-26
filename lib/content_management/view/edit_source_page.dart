@@ -37,6 +37,7 @@ class EditSourcePage extends StatelessWidget {
       create: (context) =>
           EditSourceBloc(
             sourcesRepository: context.read<DataRepository<Source>>(),
+            languagesRepository: context.read<DataRepository<Language>>(),
             mediaRepository: context.read<MediaRepository>(),
             sourceId: sourceId,
             logger: Logger('EditSourceBloc'),
@@ -293,23 +294,32 @@ class _EditSourceViewState extends State<EditSourceView> {
                       const SizedBox(height: AppSpacing.lg),
                       SearchableSelectionInput<Language>(
                         label: l10n.language,
-                        selectedItems: const [],
+                        selectedItems: state.selectedLanguageEntity != null
+                            ? [state.selectedLanguageEntity!]
+                            : [],
                         itemBuilder: (context, language) =>
                             Text(language.name.values.firstOrNull ?? ''),
                         itemToString: (language) =>
                             language.name.values.firstOrNull ?? '',
                         onChanged: (items) {
+                          final bloc = context.read<EditSourceBloc>();
                           if (items != null && items.isNotEmpty) {
                             // Map Language entity code to SupportedLanguage enum
+                            final languageEntity = items.first;
                             try {
                               final supportedLang = SupportedLanguage.values
-                                  .byName(items.first.code);
-                              context.read<EditSourceBloc>().add(
-                                EditSourceLanguageChanged(supportedLang),
+                                  .byName(languageEntity.code);
+                              bloc.add(
+                                EditSourceLanguageChanged(
+                                  supportedLang,
+                                  languageEntity: languageEntity,
+                                ),
                               );
                             } catch (_) {
                               // Handle case where DB language code doesn't match enum
                             }
+                          } else {
+                            bloc.add(const EditSourceLanguageChanged(null));
                           }
                         },
                         repository: context.read<DataRepository<Language>>(),

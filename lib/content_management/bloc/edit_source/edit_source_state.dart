@@ -26,6 +26,7 @@ final class EditSourceState extends Equatable {
     this.sourceType,
     this.language,
     this.headquarters,
+    this.selectedLanguageEntity,
     this.enabledLanguages = const [SupportedLanguage.en],
     this.updatedSource,
     this.exception,
@@ -46,6 +47,7 @@ final class EditSourceState extends Equatable {
   final SourceType? sourceType;
   final SupportedLanguage? language;
   final Country? headquarters;
+  final Language? selectedLanguageEntity;
   final List<SupportedLanguage> enabledLanguages;
   final HttpException? exception; // Used for all failure types
   final Source? updatedSource;
@@ -87,6 +89,7 @@ final class EditSourceState extends Equatable {
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<SupportedLanguage?>? language,
     ValueGetter<Country?>? headquarters,
+    ValueGetter<Language?>? selectedLanguageEntity,
     List<SupportedLanguage>? enabledLanguages,
     ValueWrapper<HttpException?>? exception,
     Source? updatedSource,
@@ -111,6 +114,9 @@ final class EditSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
+      selectedLanguageEntity: selectedLanguageEntity != null
+          ? selectedLanguageEntity()
+          : this.selectedLanguageEntity,
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       exception: exception != null ? exception.value : this.exception,
       updatedSource: updatedSource ?? this.updatedSource,
@@ -134,6 +140,7 @@ final class EditSourceState extends Equatable {
     sourceType,
     language,
     headquarters,
+    selectedLanguageEntity,
     enabledLanguages,
     exception,
     updatedSource,

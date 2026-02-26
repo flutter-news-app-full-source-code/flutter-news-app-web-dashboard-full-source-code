@@ -79,11 +79,14 @@ final class EditSourceTypeChanged extends EditSourceEvent {
 
 /// Event triggered when the source language input changes.
 final class EditSourceLanguageChanged extends EditSourceEvent {
-  const EditSourceLanguageChanged(this.language);
+  const EditSourceLanguageChanged(
+    this.language, {
+    this.languageEntity,
+  });
   final SupportedLanguage? language;
-
+  final Language? languageEntity;
   @override
-  List<Object?> get props => [language];
+  List<Object?> get props => [language, languageEntity];
 }
 
 /// Event triggered when the source headquarters input changes.
