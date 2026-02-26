@@ -165,25 +165,18 @@ class _CreateTopicViewState extends State<CreateTopicView> {
                       TabBar(
                         isScrollable: true,
                         tabAlignment: TabAlignment.start,
-                        onTap: (index) =>
-                            context.read<CreateTopicBloc>().add(
-                              CreateTopicLanguageTabChanged(
-                                state.enabledLanguages[index],
-                              ),
-                            ),
+                        onTap: (index) => context.read<CreateTopicBloc>().add(
+                          CreateTopicLanguageTabChanged(
+                            state.enabledLanguages[index],
+                          ),
+                        ),
                         tabs: state.enabledLanguages.map((lang) {
                           return Tab(
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  lang.flagUrl,
-                                  width: 24,
-                                  errorBuilder: (_, __, ___) =>
-                                      const Icon(Icons.flag, size: 16),
-                                ),
-                                const SizedBox(width: AppSpacing.md),
-                                Text(lang.l10n(context)),
-                              ],
+                            icon: Image.network(
+                              lang.flagUrl,
+                              width: 24,
+                              errorBuilder: (_, __, ___) =>
+                                  const Icon(Icons.flag, size: 16),
                             ),
                           );
                         }).toList(),
