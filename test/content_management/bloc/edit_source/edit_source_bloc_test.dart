@@ -16,7 +16,7 @@ void main() {
     const countryFixture = Country(
       id: 'country-1',
       isoCode: 'US',
-      name: {SupportedLanguage.en: ''},
+      name: {SupportedLanguage.en: 'United States'},
       flagUrl: 'url',
     );
     final sourceFixture = Source(
@@ -132,7 +132,7 @@ void main() {
         'emits new state with updated name',
         build: buildBloc,
         act: (bloc) => bloc.add(
-          const EditSourceNameChanged('New Name', SupportedLanguage.en),
+          const EditSourceNameChanged({SupportedLanguage.en: 'New Name'}),
         ),
         expect: () => [
           const EditSourceState(
@@ -151,7 +151,7 @@ void main() {
           name: {SupportedLanguage.en: 'Existing Name'},
         ),
         act: (bloc) => bloc.add(
-          const EditSourceNameChanged('', SupportedLanguage.en),
+          const EditSourceNameChanged({}),
         ),
         expect: () => [
           const EditSourceState(sourceId: sourceId, name: {}),
@@ -168,7 +168,7 @@ void main() {
           description: {SupportedLanguage.en: 'Existing Description'},
         ),
         act: (bloc) => bloc.add(
-          const EditSourceDescriptionChanged('', SupportedLanguage.en),
+          const EditSourceDescriptionChanged({}),
         ),
         expect: () => [
           const EditSourceState(
