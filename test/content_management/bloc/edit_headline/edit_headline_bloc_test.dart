@@ -123,13 +123,17 @@ void main() {
           initialHeadline: headlineFixture,
         ),
         act: (bloc) => bloc.add(
-          const EditHeadlineTitleChanged('New Title', SupportedLanguage.en),
+          EditHeadlineTitleChanged(
+            {...headlineFixture.title, SupportedLanguage.en: 'New Title'},
+          ),
         ),
         expect: () => <EditHeadlineState>[
           EditHeadlineState(
             headlineId: headlineId,
-            title: Map<SupportedLanguage, String>.from(headlineFixture.title)
-              ..[SupportedLanguage.en] = 'New Title',
+            title: {
+              ...headlineFixture.title,
+              SupportedLanguage.en: 'New Title',
+            },
             status: EditHeadlineStatus.initial,
             url: headlineFixture.url,
             imageUrl: headlineFixture.imageUrl,
@@ -152,7 +156,10 @@ void main() {
         status: EditHeadlineStatus.initial,
       ),
       act: (bloc) => bloc.add(
-        const EditHeadlineTitleChanged('Título', SupportedLanguage.es),
+        const EditHeadlineTitleChanged({
+          SupportedLanguage.en: 'English Title',
+          SupportedLanguage.es: 'Título',
+        }),
       ),
       expect: () => [
         EditHeadlineState(
