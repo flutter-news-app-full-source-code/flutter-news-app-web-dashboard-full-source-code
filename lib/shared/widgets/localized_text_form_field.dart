@@ -1,14 +1,13 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template localized_text_form_field}
-/// A form field that provides a tabbed interface for entering text in multiple
-/// languages.
+/// A form field for entering text in a specific language, designed to be used
+/// within a form that manages multiple languages via a shared `TabController`.
 ///
-/// It displays a [TabBar] with the [enabledLanguages] and a [TextFormField]
-/// for the currently selected language.
+/// This widget displays a single [TextFormField] for the [selectedLanguage]
+/// and calls back with the updated map of all language values.
 /// {@endtemplate}
 class LocalizedTextFormField extends StatefulWidget {
   /// {@macro localized_text_form_field}
@@ -17,6 +16,7 @@ class LocalizedTextFormField extends StatefulWidget {
     required this.values,
     required this.onChanged,
     required this.enabledLanguages,
+    required this.selectedLanguage,
     this.readOnly = false,
     this.validator,
     super.key,
@@ -34,6 +34,9 @@ class LocalizedTextFormField extends StatefulWidget {
   /// The list of languages to display tabs for.
   final List<SupportedLanguage> enabledLanguages;
 
+  /// The currently selected language to display the text field for.
+  final SupportedLanguage selectedLanguage;
+
   /// Whether the field is read-only.
   final bool readOnly;
 
@@ -46,155 +49,72 @@ class LocalizedTextFormField extends StatefulWidget {
   State<LocalizedTextFormField> createState() => _LocalizedTextFormFieldState();
 }
 
-class _LocalizedTextFormFieldState extends State<LocalizedTextFormField>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
-  // We keep a local map of controllers to preserve cursor position when switching tabs.
-  final Map<SupportedLanguage, TextEditingController> _controllers = {};
+class _LocalizedTextFormFieldState extends State<LocalizedTextFormField> {
+  // A single controller for the currently visible text field.
+  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-      length: widget.enabledLanguages.length,
-      vsync: this,
+    _controller = TextEditingController(
+      text: widget.values[widget.selectedLanguage] ?? '',
     );
-    _tabController.addListener(_handleTabSelection);
-    _initializeControllers();
   }
 
   @override
   void didUpdateWidget(covariant LocalizedTextFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.enabledLanguages != oldWidget.enabledLanguages) {
-      _tabController
-        ..removeListener(_handleTabSelection)
-        ..dispose();
-      _tabController = TabController(
-        length: widget.enabledLanguages.length,
-        vsync: this,
+    // If the selected language changes, or if the value for the current
+    // language is updated from an external source (like BLoC state change),
+    // update the controller's text.
+    if (widget.selectedLanguage != oldWidget.selectedLanguage ||
+        widget.values[widget.selectedLanguage] != _controller.text) {
+      final newText = widget.values[widget.selectedLanguage] ?? '';
+      _controller.text = newText;
+      // Move cursor to the end.
+      _controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: newText.length),
       );
-      _tabController.addListener(_handleTabSelection);
-    }
-    _updateControllers();
-  }
-
-  void _handleTabSelection() {
-    if (_tabController.indexIsChanging) {
-      setState(() {});
-    }
-  }
-
-  void _initializeControllers() {
-    for (final lang in widget.enabledLanguages) {
-      _controllers[lang] = TextEditingController(
-        text: widget.values[lang] ?? '',
-      );
-    }
-  }
-
-  void _updateControllers() {
-    for (final lang in widget.enabledLanguages) {
-      final text = widget.values[lang] ?? '';
-      final controller = _controllers.putIfAbsent(
-        lang,
-        TextEditingController.new,
-      );
-      if (controller.text != text) {
-        controller
-          ..text = text
-          // Preserve cursor at end if possible, or reset if text changed drastically
-          ..selection = TextSelection.collapsed(offset: text.length);
-      }
     }
   }
 
   @override
   void dispose() {
-    _tabController
-      ..removeListener(_handleTabSelection)
-      ..dispose();
-    for (final controller in _controllers.values) {
-      controller.dispose();
-    }
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    // Ensure we have at least one language to prevent errors
-    if (widget.enabledLanguages.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Custom TabBar looking like a segmented control or simple tabs
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: theme.colorScheme.outlineVariant,
-              ),
-            ),
-          ),
-          child: TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            tabAlignment: TabAlignment.start,
-            labelColor: theme.colorScheme.primary,
-            unselectedLabelColor: theme.colorScheme.onSurfaceVariant,
-            indicatorSize: TabBarIndicatorSize.label,
-            tabs: widget.enabledLanguages.map((lang) {
-              return Tab(
-                text: lang.l10n(context),
-              );
-            }).toList(),
-          ),
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        // We use an IndexedStack or just build the current field to maintain state
-        // But since we are syncing with parent state, building just the active one is fine.
-        Builder(
-          builder: (context) {
-            final currentLang = widget.enabledLanguages[_tabController.index];
-            final controller = _controllers[currentLang]!;
-
-            return TextFormField(
-              controller: controller,
-              readOnly: widget.readOnly,
-              decoration: InputDecoration(
-                labelText: '${widget.label} (${currentLang.l10n(context)})',
-                border: const OutlineInputBorder(),
-                alignLabelWithHint: true,
-              ),
-              maxLines: null, // Allow multiline for descriptions
-              onChanged: (value) {
-                final newValues = Map<SupportedLanguage, String>.from(
-                  widget.values,
-                );
-                if (value.isEmpty) {
-                  newValues.remove(currentLang);
-                } else {
-                  newValues[currentLang] = value;
-                }
-                widget.onChanged(newValues);
-              },
-              validator: (_) {
-                // We delegate validation to the parent widget's validator
-                // which checks the whole map.
-                if (widget.validator != null) {
-                  return widget.validator!(widget.values);
-                }
-                return null;
-              },
-            );
-          },
-        ),
-      ],
+    return TextFormField(
+      controller: _controller,
+      readOnly: widget.readOnly,
+      decoration: InputDecoration(
+        labelText: '${widget.label} (${widget.selectedLanguage.l10n(context)})',
+        border: const OutlineInputBorder(),
+        alignLabelWithHint: true,
+      ),
+      maxLines: null, // Allow multiline for descriptions
+      onChanged: (value) {
+        final newValues = Map<SupportedLanguage, String>.from(
+          widget.values,
+        );
+        if (value.isEmpty) {
+          newValues.remove(widget.selectedLanguage);
+        } else {
+          newValues[widget.selectedLanguage] = value;
+        }
+        widget.onChanged(newValues);
+      },
+      // The FormField's validator is called on the parent Form, so we can
+      // still validate the entire map of values even though we only see one
+      // field at a time.
+      validator: (_) {
+        if (widget.validator != null) {
+          return widget.validator!(widget.values);
+        }
+        return null;
+      },
     );
   }
 }
