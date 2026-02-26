@@ -132,7 +132,10 @@ void main() {
       testWidgets('entering text in name field updates bloc', (tester) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-        final nameField = find.widgetWithText(TextFormField, l10n.topicName);
+        final nameField = find.widgetWithText(
+          TextFormField,
+          '${l10n.topicName} (${l10n.languageNameEn})',
+        );
 
         await tester.enterText(nameField, 'New Name');
         verify(
