@@ -294,26 +294,32 @@ class _CreateSourceViewState extends State<CreateSourceView>
                       const SizedBox(height: AppSpacing.lg),
                       SearchableSelectionInput<Language>(
                         label: l10n.language,
-                        // We don't pre-select here because we need to map back from SupportedLanguage to Language entity,
-                        // which is hard without the full list.
-                        // For now, we rely on the user selecting it.
-                        // Ideally, we would fetch the Language entity matching state.language.
+                        selectedItems: state.selectedLanguageEntity != null
+                            ? [state.selectedLanguageEntity!]
+                            : [],
                         itemBuilder: (context, language) =>
                             Text(language.name.values.firstOrNull ?? ''),
                         itemToString: (language) =>
                             language.name.values.firstOrNull ?? '',
                         onChanged: (items) {
+                          final bloc = context.read<CreateSourceBloc>();
                           if (items != null && items.isNotEmpty) {
                             // Map Language entity code to SupportedLanguage enum
+                            final languageEntity = items.first;
                             try {
                               final supportedLang = SupportedLanguage.values
-                                  .byName(items.first.code);
-                              context.read<CreateSourceBloc>().add(
-                                CreateSourceLanguageChanged(supportedLang),
+                                  .byName(languageEntity.code);
+                              bloc.add(
+                                CreateSourceLanguageChanged(
+                                  supportedLang,
+                                  languageEntity: languageEntity,
+                                ),
                               );
                             } catch (_) {
                               // Handle case where DB language code doesn't match enum
                             }
+                          } else {
+                            bloc.add(const CreateSourceLanguageChanged(null));
                           }
                         },
                         repository: context.read<DataRepository<Language>>(),

@@ -25,6 +25,7 @@ final class CreateSourceState extends Equatable {
     this.sourceType,
     this.language,
     this.headquarters,
+    this.selectedLanguageEntity,
     this.createdSource,
     this.exception,
     this.enabledLanguages = const [SupportedLanguage.en],
@@ -41,6 +42,7 @@ final class CreateSourceState extends Equatable {
   final SourceType? sourceType;
   final SupportedLanguage? language;
   final Country? headquarters;
+  final Language? selectedLanguageEntity;
   final HttpException? exception; // Used for both image and entity failures
   final Source? createdSource;
   final List<SupportedLanguage> enabledLanguages;
@@ -68,6 +70,7 @@ final class CreateSourceState extends Equatable {
     ValueGetter<SourceType?>? sourceType,
     ValueGetter<SupportedLanguage?>? language,
     ValueGetter<Country?>? headquarters,
+    ValueGetter<Language?>? selectedLanguageEntity,
     ValueWrapper<HttpException?>? exception,
     Source? createdSource,
     List<SupportedLanguage>? enabledLanguages,
@@ -88,6 +91,9 @@ final class CreateSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
+      selectedLanguageEntity: selectedLanguageEntity != null
+          ? selectedLanguageEntity()
+          : this.selectedLanguageEntity,
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       exception: exception != null ? exception.value : this.exception,
       createdSource: createdSource ?? this.createdSource,
@@ -107,6 +113,7 @@ final class CreateSourceState extends Equatable {
     sourceType,
     language,
     headquarters,
+    selectedLanguageEntity,
     enabledLanguages,
     exception,
     createdSource,

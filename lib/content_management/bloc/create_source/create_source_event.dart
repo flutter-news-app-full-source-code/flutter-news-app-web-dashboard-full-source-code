@@ -75,10 +75,14 @@ final class CreateSourceTypeChanged extends CreateSourceEvent {
 
 /// Event for when the source's language is changed.
 final class CreateSourceLanguageChanged extends CreateSourceEvent {
-  const CreateSourceLanguageChanged(this.language);
+  const CreateSourceLanguageChanged(
+    this.language, {
+    this.languageEntity,
+  });
   final SupportedLanguage? language;
+  final Language? languageEntity;
   @override
-  List<Object?> get props => [language];
+  List<Object?> get props => [language, languageEntity];
 }
 
 /// Event for when the source's headquarters is changed.

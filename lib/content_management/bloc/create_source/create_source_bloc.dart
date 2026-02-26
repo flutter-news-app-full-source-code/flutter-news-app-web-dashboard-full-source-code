@@ -94,7 +94,12 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('Language changed: ${event.language?.name}');
-    emit(state.copyWith(language: () => event.language));
+    emit(
+      state.copyWith(
+        language: () => event.language,
+        selectedLanguageEntity: () => event.languageEntity,
+      ),
+    );
   }
 
   void _onHeadquartersChanged(
