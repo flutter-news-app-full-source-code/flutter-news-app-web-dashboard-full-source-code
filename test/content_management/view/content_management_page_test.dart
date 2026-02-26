@@ -111,6 +111,9 @@ void main() {
       when(
         () => contentManagementBloc.stream,
       ).thenAnswer((_) => Stream.fromIterable([]));
+      when(
+        () => appBloc.stream,
+      ).thenAnswer((_) => Stream.fromIterable([]));
 
       // Stub AppBloc state
       when(() => appBloc.state).thenReturn(
