@@ -69,11 +69,15 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField> {
     // update the controller's text.
     if (widget.selectedLanguage != oldWidget.selectedLanguage ||
         widget.values[widget.selectedLanguage] != _controller.text) {
-      final newText = widget.values[widget.selectedLanguage] ?? '';
-      _controller.text = newText;
-      // Move cursor to the end.
+      // We recreate the controller instead of setting .text to avoid triggering
+      // listeners (and thus Form validation) during the build phase.
+      _controller.dispose();
+      _controller = TextEditingController(
+        text: widget.values[widget.selectedLanguage] ?? '',
+      );
+      // Move cursor to the end to prevent it from jumping to start on external updates.
       _controller.selection = TextSelection.fromPosition(
-        TextPosition(offset: newText.length),
+        TextPosition(offset: _controller.text.length),
       );
     }
   }
@@ -87,6 +91,7 @@ class _LocalizedTextFormFieldState extends State<LocalizedTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: ValueKey(widget.selectedLanguage),
       controller: _controller,
       readOnly: widget.readOnly,
       decoration: InputDecoration(
