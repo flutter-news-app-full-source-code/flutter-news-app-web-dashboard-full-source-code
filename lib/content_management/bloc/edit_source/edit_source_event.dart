@@ -24,20 +24,18 @@ final class EditSourceLoaded extends EditSourceEvent {
 
 /// Event triggered when the source name input changes.
 final class EditSourceNameChanged extends EditSourceEvent {
-  const EditSourceNameChanged(this.name, this.language);
-  final String name;
-  final SupportedLanguage language;
+  const EditSourceNameChanged(this.name);
+  final Map<SupportedLanguage, String> name;
   @override
-  List<Object?> get props => [name, language];
+  List<Object?> get props => [name];
 }
 
 /// Event triggered when the source description input changes.
 final class EditSourceDescriptionChanged extends EditSourceEvent {
-  const EditSourceDescriptionChanged(this.description, this.language);
-  final String description;
-  final SupportedLanguage language;
+  const EditSourceDescriptionChanged(this.description);
+  final Map<SupportedLanguage, String> description;
   @override
-  List<Object?> get props => [description, language];
+  List<Object?> get props => [description];
 }
 
 /// Event triggered when the source URL input changes.
@@ -106,4 +104,12 @@ final class EditSourceSavedAsDraft extends EditSourceEvent {
 /// Event to publish the source.
 final class EditSourcePublished extends EditSourceEvent {
   const EditSourcePublished();
+}
+
+/// Event for when the language tab is changed.
+final class EditSourceLanguageTabChanged extends EditSourceEvent {
+  const EditSourceLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

@@ -36,6 +36,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceImageRemoved>(_onImageRemoved);
     on<EditSourceSavedAsDraft>(_onSavedAsDraft);
     on<EditSourcePublished>(_onPublished);
+    on<EditSourceLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -57,6 +58,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           status: EditSourceStatus.initial,
           enabledLanguages: event.enabledLanguages,
           defaultLanguage: event.defaultLanguage,
+          selectedLanguage: event.defaultLanguage,
           name: source.name,
           description: source.description,
           url: source.url,
@@ -95,15 +97,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceNameChanged event,
     Emitter<EditSourceState> emit,
   ) {
-    final newName = Map<SupportedLanguage, String>.from(state.name);
-    if (event.name.isEmpty) {
-      newName.remove(event.language);
-    } else {
-      newName[event.language] = event.name;
-    }
-    _logger.finer('Name changed for ${event.language}: ${event.name}');
+    _logger.finer('Name changed: ${event.name}');
     emit(
-      state.copyWith(name: newName, status: EditSourceStatus.initial),
+      state.copyWith(name: event.name, status: EditSourceStatus.initial),
     );
   }
 
@@ -111,20 +107,10 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     EditSourceDescriptionChanged event,
     Emitter<EditSourceState> emit,
   ) {
-    final newDescription = Map<SupportedLanguage, String>.from(
-      state.description,
-    );
-    if (event.description.isEmpty) {
-      newDescription.remove(event.language);
-    } else {
-      newDescription[event.language] = event.description;
-    }
-    _logger.finer(
-      'Description changed for ${event.language}: ${event.description}',
-    );
+    _logger.finer('Description changed: ${event.description}');
     emit(
       state.copyWith(
-        description: newDescription,
+        description: event.description,
         status: EditSourceStatus.initial,
       ),
     );
@@ -205,6 +191,15 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         imageRemoved: true,
         status: EditSourceStatus.initial,
       ),
+    );
+  }
+
+  void _onLanguageTabChanged(
+    EditSourceLanguageTabChanged event,
+    Emitter<EditSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(selectedLanguage: event.language),
     );
   }
 

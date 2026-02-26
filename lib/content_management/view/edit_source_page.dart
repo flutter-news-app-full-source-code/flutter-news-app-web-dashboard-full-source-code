@@ -6,6 +6,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
@@ -183,175 +184,205 @@ class _EditSourceViewState extends State<EditSourceView> {
             );
           }
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LocalizedTextFormField(
-                      label: l10n.sourceName,
-                      values: state.name,
-                      enabledLanguages: state.enabledLanguages,
-                      onChanged: (values) => context.read<EditSourceBloc>().add(
-                        EditSourceNameChanged(
-                          values.values.first,
-                          values.keys.first,
-                        ),
-                      ),
-                      validator: (values) {
-                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                          return l10n.defaultLanguageRequired(
-                            state.defaultLanguage.name.toUpperCase(),
-                          );
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    LocalizedTextFormField(
-                      label: l10n.description,
-                      values: state.description,
-                      enabledLanguages: state.enabledLanguages,
-                      onChanged: (values) => context.read<EditSourceBloc>().add(
-                        EditSourceDescriptionChanged(
-                          values.values.first,
-                          values.keys.first,
-                        ),
-                      ),
-                      validator: (values) {
-                        if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                          return l10n.defaultLanguageRequired(
-                            state.defaultLanguage.name.toUpperCase(),
-                          );
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _urlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceUrlChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    ImageUploadField(
-                      initialImageUrl: state.logoUrl,
-                      isProcessing:
-                          state.initialSource?.mediaAssetId != null &&
-                          state.logoUrl == null,
-                      onChanged: (bytes, fileName) {
-                        if (bytes != null && fileName != null) {
-                          context.read<EditSourceBloc>().add(
-                            EditSourceImageChanged(
-                              imageFileBytes: bytes,
-                              imageFileName: fileName,
-                            ),
-                          );
-                        } else {
-                          context.read<EditSourceBloc>().add(
-                            const EditSourceImageRemoved(),
-                          );
-                        }
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<Language>(
-                      label: l10n.language,
-                      selectedItems: const [],
-                      itemBuilder: (context, language) => Text(language.name),
-                      itemToString: (language) => language.name,
-                      onChanged: (items) {
-                        if (items != null && items.isNotEmpty) {
-                          // Map Language entity code to SupportedLanguage enum
-                          try {
-                            final supportedLang = SupportedLanguage.values
-                                .byName(items.first.code);
-                            context.read<EditSourceBloc>().add(
-                              EditSourceLanguageChanged(supportedLang),
-                            );
-                          } catch (_) {
-                            // Handle case where DB language code doesn't match enum
-                          }
-                        }
-                      },
-                      repository: context.read<DataRepository<Language>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
-                              },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<SourceType>(
-                      label: l10n.sourceType,
-                      selectedItems: state.sourceType != null
-                          ? [state.sourceType!]
-                          : [],
-                      staticItems: SourceType.values.toList(),
-                      itemBuilder: (context, type) =>
-                          Text(type.localizedName(l10n)),
-                      itemToString: (type) => type.localizedName(l10n),
-                      onChanged: (items) => context.read<EditSourceBloc>().add(
-                        EditSourceTypeChanged(items?.first),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<Country>(
-                      label: l10n.headquarters,
-                      selectedItems: state.headquarters != null
-                          ? [state.headquarters!]
-                          : [],
-                      itemBuilder: (context, country) => Row(
-                        children: [
-                          SizedBox(
-                            width: 32,
-                            height: 20,
-                            child: Image.network(
-                              country.flagUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.flag),
-                            ),
+          return DefaultTabController(
+            length: state.enabledLanguages.length,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        onTap: (index) => context.read<EditSourceBloc>().add(
+                          EditSourceLanguageTabChanged(
+                            state.enabledLanguages[index],
                           ),
-                          const SizedBox(width: AppSpacing.md),
-                          Text(country.name[SupportedLanguage.en] ?? ''),
-                        ],
+                        ),
+                        tabs: state.enabledLanguages.map((lang) {
+                          return Tab(
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  lang.flagUrl,
+                                  width: 24,
+                                  errorBuilder: (_, __, _) =>
+                                      const Icon(Icons.flag, size: 16),
+                                ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(lang.l10n(context)),
+                              ],
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      itemToString: (country) =>
-                          country.name[SupportedLanguage.en] ?? '',
-                      onChanged: (items) => context.read<EditSourceBloc>().add(
-                        EditSourceHeadquartersChanged(items?.first),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.sourceName,
+                        values: state.name,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceNameChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
                       ),
-                      repository: context.read<DataRepository<Country>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.description,
+                        values: state.description,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceDescriptionChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      TextFormField(
+                        controller: _urlController,
+                        decoration: InputDecoration(
+                          labelText: l10n.sourceUrl,
+                          border: const OutlineInputBorder(),
+                        ),
+                        onChanged: (value) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceUrlChanged(value),
+                            ),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      ImageUploadField(
+                        initialImageUrl: state.logoUrl,
+                        isProcessing:
+                            state.initialSource?.mediaAssetId != null &&
+                            state.logoUrl == null,
+                        onChanged: (bytes, fileName) {
+                          if (bytes != null && fileName != null) {
+                            context.read<EditSourceBloc>().add(
+                              EditSourceImageChanged(
+                                imageFileBytes: bytes,
+                                imageFileName: fileName,
+                              ),
+                            );
+                          } else {
+                            context.read<EditSourceBloc>().add(
+                              const EditSourceImageRemoved(),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Language>(
+                        label: l10n.language,
+                        selectedItems: const [],
+                        itemBuilder: (context, language) => Text(language.name),
+                        itemToString: (language) => language.name,
+                        onChanged: (items) {
+                          if (items != null && items.isNotEmpty) {
+                            // Map Language entity code to SupportedLanguage enum
+                            try {
+                              final supportedLang = SupportedLanguage.values
+                                  .byName(items.first.code);
+                              context.read<EditSourceBloc>().add(
+                                EditSourceLanguageChanged(supportedLang),
+                              );
+                            } catch (_) {
+                              // Handle case where DB language code doesn't match enum
+                            }
+                          }
+                        },
+                        repository: context.read<DataRepository<Language>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
                               },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                    ),
-                  ],
+                        sortOptions: const [
+                          SortOption('name', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<SourceType>(
+                        label: l10n.sourceType,
+                        selectedItems: state.sourceType != null
+                            ? [state.sourceType!]
+                            : [],
+                        staticItems: SourceType.values.toList(),
+                        itemBuilder: (context, type) =>
+                            Text(type.localizedName(l10n)),
+                        itemToString: (type) => type.localizedName(l10n),
+                        onChanged: (items) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceTypeChanged(items?.first),
+                            ),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Country>(
+                        label: l10n.headquarters,
+                        selectedItems: state.headquarters != null
+                            ? [state.headquarters!]
+                            : [],
+                        itemBuilder: (context, country) => Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name[SupportedLanguage.en] ?? ''),
+                          ],
+                        ),
+                        itemToString: (country) =>
+                            country.name[SupportedLanguage.en] ?? '',
+                        onChanged: (items) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceHeadquartersChanged(items?.first),
+                            ),
+                        repository: context.read<DataRepository<Country>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name.en': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
+                              },
+                        sortOptions: const [
+                          SortOption('name', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
