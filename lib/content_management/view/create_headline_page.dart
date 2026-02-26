@@ -9,7 +9,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/content_manageme
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
@@ -193,7 +192,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                             icon: Image.network(
                               lang.flagUrl,
                               width: 24,
-                              errorBuilder: (_, __, ___) =>
+                              errorBuilder: (_, _, _) =>
                                   const Icon(Icons.flag, size: 16),
                             ),
                           );
@@ -271,9 +270,9 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                             ? [state.source!]
                             : [],
                         itemBuilder: (context, source) =>
-                            Text(source.name[SupportedLanguage.en] ?? ''),
+                            Text(source.name[state.defaultLanguage] ?? ''),
                         itemToString: (source) =>
-                            source.name[SupportedLanguage.en] ?? '',
+                            source.name[state.defaultLanguage] ?? '',
                         onChanged: (items) => context
                             .read<CreateHeadlineBloc>()
                             .add(CreateHeadlineSourceChanged(items?.first)),
@@ -281,7 +280,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.en': {
+                                'name.${state.defaultLanguage.name}': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
@@ -299,9 +298,9 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                             ? [state.topic!]
                             : [],
                         itemBuilder: (context, topic) =>
-                            Text(topic.name[SupportedLanguage.en] ?? ''),
+                            Text(topic.name[state.defaultLanguage] ?? ''),
                         itemToString: (topic) =>
-                            topic.name[SupportedLanguage.en] ?? '',
+                            topic.name[state.defaultLanguage] ?? '',
                         onChanged: (items) => context
                             .read<CreateHeadlineBloc>()
                             .add(CreateHeadlineTopicChanged(items?.first)),
@@ -309,7 +308,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.en': {
+                                'name.${state.defaultLanguage.name}': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
@@ -339,11 +338,11 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.md),
-                            Text(country.name[SupportedLanguage.en] ?? ''),
+                            Text(country.name[state.defaultLanguage] ?? ''),
                           ],
                         ),
                         itemToString: (country) =>
-                            country.name[SupportedLanguage.en] ?? '',
+                            country.name[state.defaultLanguage] ?? '',
                         onChanged: (items) => context
                             .read<CreateHeadlineBloc>()
                             .add(CreateHeadlineCountryChanged(items?.first)),
@@ -351,7 +350,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.en': {
+                                'name.${state.defaultLanguage.name}': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
