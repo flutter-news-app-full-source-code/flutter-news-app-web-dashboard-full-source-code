@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
@@ -313,23 +314,17 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                             ? [state.source!]
                             : [],
                         itemBuilder: (context, source) =>
-                            Text(source.name[state.defaultLanguage] ?? ''),
+                            Text(source.name.values.firstOrNull ?? ''),
                         itemToString: (source) =>
-                            source.name[state.defaultLanguage] ?? '',
+                            source.name.values.firstOrNull ?? '',
                         onChanged: (items) => context
                             .read<EditHeadlineBloc>()
                             .add(EditHeadlineSourceChanged(items?.first)),
                         repository: context.read<DataRepository<Source>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name.${state.defaultLanguage.name}': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
+                        filterBuilder: (searchTerm) =>
+                            searchTerm == null ? {} : {'q': searchTerm},
                         sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                          SortOption('name.en', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: true,
@@ -341,23 +336,17 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                             ? [state.topic!]
                             : [],
                         itemBuilder: (context, topic) =>
-                            Text(topic.name[state.defaultLanguage] ?? ''),
+                            Text(topic.name.values.firstOrNull ?? ''),
                         itemToString: (topic) =>
-                            topic.name[state.defaultLanguage] ?? '',
+                            topic.name.values.firstOrNull ?? '',
                         onChanged: (items) => context
                             .read<EditHeadlineBloc>()
                             .add(EditHeadlineTopicChanged(items?.first)),
                         repository: context.read<DataRepository<Topic>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name.${state.defaultLanguage.name}': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
+                        filterBuilder: (searchTerm) =>
+                            searchTerm == null ? {} : {'q': searchTerm},
                         sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                          SortOption('name.en', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: true,
@@ -381,11 +370,11 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.md),
-                            Text(country.name[state.defaultLanguage] ?? ''),
+                            Text(country.name.values.firstOrNull ?? ''),
                           ],
                         ),
                         itemToString: (country) =>
-                            country.name[state.defaultLanguage] ?? '',
+                            country.name.values.firstOrNull ?? '',
                         onChanged: (items) => context
                             .read<EditHeadlineBloc>()
                             .add(EditHeadlineCountryChanged(items?.first)),
@@ -393,13 +382,13 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.${state.defaultLanguage.name}': {
+                                'name': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
                               },
                         sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                          SortOption('name.en', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: true,
