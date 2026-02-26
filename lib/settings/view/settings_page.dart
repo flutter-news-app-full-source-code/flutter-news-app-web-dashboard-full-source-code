@@ -401,8 +401,7 @@ class _LanguageSelectionList extends StatelessWidget {
                 Image.network(
                   supportedLanguage.flagUrl,
                   width: 24,
-                  errorBuilder: (_, _, _) =>
-                      const Icon(Icons.flag, size: 16),
+                  errorBuilder: (_, _, _) => const Icon(Icons.flag, size: 16),
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Text(supportedLanguage.l10n(context)),

@@ -129,7 +129,7 @@ class LocalizationConfigForm extends StatelessWidget {
                     Image.network(
                       language.flagUrl,
                       width: 24,
-                      errorBuilder: (_, __, ___) =>
+                      errorBuilder: (_, _, _) =>
                           const Icon(Icons.flag, size: 16),
                     ),
                     const SizedBox(width: AppSpacing.md),

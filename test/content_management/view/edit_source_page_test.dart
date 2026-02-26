@@ -44,7 +44,7 @@ final testLanguage = Language(
 const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: {SupportedLanguage.en: ''},
+  name: {SupportedLanguage.en: 'United States'},
   flagUrl: 'url',
 );
 
@@ -266,8 +266,7 @@ void main() {
         verify(
           () => editSourceBloc.add(
             const EditSourceNameChanged(
-              'Updated Name',
-              SupportedLanguage.en,
+              {SupportedLanguage.en: 'Updated Name'},
             ),
           ),
         ).called(1);
