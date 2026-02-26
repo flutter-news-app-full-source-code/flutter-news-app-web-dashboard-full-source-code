@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
@@ -11,7 +12,9 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
     required DataRepository<AppSettings> appSettingsRepository,
+    required AuthRepository authRepository,
   }) : _appSettingsRepository = appSettingsRepository,
+       _authRepository = authRepository,
        super(const SettingsInitial()) {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<SettingsBaseThemeChanged>(_onSettingsBaseThemeChanged);
@@ -23,6 +26,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   final DataRepository<AppSettings> _appSettingsRepository;
+  final AuthRepository _authRepository;
 
   Future<void> _onSettingsLoaded(
     SettingsLoaded event,
@@ -175,6 +179,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         language: SupportedLanguage.values.byName(event.language.code),
       );
       await _updateSettings(updatedSettings, emit);
+
+      // Trigger token refresh to update the 'lang' claim in the JWT.
+      // This ensures subsequent 'readAll' requests return the new language.
+      if (state is SettingsUpdateSuccess) {
+        try {
+          await _authRepository.refreshToken();
+        } catch (e) {
+          // Log failure but don't revert settings update.
+        }
+      }
     }
   }
 }

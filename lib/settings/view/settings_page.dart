@@ -1,3 +1,4 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -24,6 +25,7 @@ class SettingsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => SettingsBloc(
         appSettingsRepository: context.read<DataRepository<AppSettings>>(),
+        authRepository: context.read<AuthRepository>(),
       )..add(SettingsLoaded(userId: context.read<AppBloc>().state.user?.id)),
       child: const _SettingsView(),
     );
@@ -406,7 +408,7 @@ class _LanguageSelectionList extends StatelessWidget {
                 const SizedBox(width: AppSpacing.md),
                 Text(supportedLanguage.l10n(context)),
               ] else
-                Text(language.name),
+                Text(language.name.values.firstOrNull ?? ''),
             ],
           ),
           trailing: isSelected
