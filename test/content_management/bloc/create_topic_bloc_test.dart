@@ -55,7 +55,7 @@ void main() {
         'emits new state when CreateTopicNameChanged is added',
         build: buildBloc,
         act: (bloc) => bloc.add(
-          const CreateTopicNameChanged('New Name', SupportedLanguage.en),
+          const CreateTopicNameChanged({SupportedLanguage.en: 'New Name'}),
         ),
         expect: () => [
           const CreateTopicState(name: {SupportedLanguage.en: 'New Name'}),
@@ -63,13 +63,13 @@ void main() {
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
-        'removes language from map when name is empty',
+        'updates map when name for a language is cleared',
         build: buildBloc,
         seed: () => const CreateTopicState(
           name: {SupportedLanguage.en: 'Existing Name'},
         ),
         act: (bloc) => bloc.add(
-          const CreateTopicNameChanged('', SupportedLanguage.en),
+          const CreateTopicNameChanged({}),
         ),
         expect: () => [
           const CreateTopicState(name: {}),
@@ -81,8 +81,7 @@ void main() {
         build: buildBloc,
         act: (bloc) => bloc.add(
           const CreateTopicDescriptionChanged(
-            'New Description',
-            SupportedLanguage.en,
+            {SupportedLanguage.en: 'New Description'},
           ),
         ),
         expect: () => [
@@ -93,13 +92,13 @@ void main() {
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
-        'removes language from map when description is empty',
+        'updates map when description for a language is cleared',
         build: buildBloc,
         seed: () => const CreateTopicState(
           description: {SupportedLanguage.en: 'Existing Description'},
         ),
         act: (bloc) => bloc.add(
-          const CreateTopicDescriptionChanged('', SupportedLanguage.en),
+          const CreateTopicDescriptionChanged({}),
         ),
         expect: () => [
           const CreateTopicState(description: {}),
