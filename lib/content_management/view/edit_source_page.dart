@@ -103,6 +103,13 @@ class _EditSourceViewState extends State<EditSourceView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final appState = context.read<AppBloc>().state;
+    final userLanguage =
+        appState.appSettings?.language ??
+        appState.remoteConfig?.app.localization.defaultLanguage ??
+        SupportedLanguage.en;
+    final langCode = userLanguage.name;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.editSource),
@@ -287,8 +294,10 @@ class _EditSourceViewState extends State<EditSourceView> {
                       SearchableSelectionInput<Language>(
                         label: l10n.language,
                         selectedItems: const [],
-                        itemBuilder: (context, language) => Text(language.name),
-                        itemToString: (language) => language.name,
+                        itemBuilder: (context, language) =>
+                            Text(language.name.values.firstOrNull ?? ''),
+                        itemToString: (language) =>
+                            language.name.values.firstOrNull ?? '',
                         onChanged: (items) {
                           if (items != null && items.isNotEmpty) {
                             // Map Language entity code to SupportedLanguage enum
@@ -312,8 +321,8 @@ class _EditSourceViewState extends State<EditSourceView> {
                                   r'$options': 'i',
                                 },
                               },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                       ),
@@ -351,11 +360,11 @@ class _EditSourceViewState extends State<EditSourceView> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.md),
-                            Text(country.name[state.defaultLanguage] ?? ''),
+                            Text(country.name.values.firstOrNull ?? ''),
                           ],
                         ),
                         itemToString: (country) =>
-                            country.name[state.defaultLanguage] ?? '',
+                            country.name.values.firstOrNull ?? '',
                         onChanged: (items) =>
                             context.read<EditSourceBloc>().add(
                               EditSourceHeadquartersChanged(items?.first),
@@ -364,13 +373,16 @@ class _EditSourceViewState extends State<EditSourceView> {
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.${state.defaultLanguage.name}': {
+                                'name': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
                               },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                        sortOptions: [
+                          SortOption(
+                            'name.$langCode',
+                            SortOrder.asc,
+                          ),
                         ],
                         limit: kDefaultRowsPerPage,
                       ),
