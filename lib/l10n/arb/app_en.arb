@@ -4226,6 +4226,7 @@
     "description": "Title for the localization settings section"
   },
   "localizationDescription": "Manage language support.",
+  "localizationDescription": "Control active languages for the mobile app and dashboard. Enabling a language allows users to view translated content and adds corresponding input fields to dashboard forms. Content without translation falls back to the default language.",
   "@localizationDescription": {
     "description": "Subtitle for the localization settings section"
   },

@@ -4229,11 +4229,11 @@
   "@defaultLanguageDescription": {
     "description": "Helper text for the default language dropdown"
   },
-  "localizationTitle": "التعريب",
+  "localizationTitle": "إعدادات اللغة",
   "@localizationTitle": {
     "description": "Title for the localization settings section"
   },
-  "localizationDescription": "إدارة دعم اللغة.",
+  "localizationDescription": "التحكم في اللغات النشطة لتطبيق الهاتف ولوحة التحكم. يتيح تفعيل لغة للمستخدمين عرض المحتوى المترجم ويضيف حقول إدخال مقابلة لنماذج لوحة التحكم. يعود المحتوى غير المترجم إلى اللغة الافتراضية.",
   "@localizationDescription": {
     "description": "Subtitle for the localization settings section"
   },
