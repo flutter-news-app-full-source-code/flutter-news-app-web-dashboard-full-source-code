@@ -100,6 +100,13 @@ class _CreateSourceViewState extends State<CreateSourceView>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final appState = context.read<AppBloc>().state;
+    final userLanguage =
+        appState.appSettings?.language ??
+        appState.remoteConfig?.app.localization.defaultLanguage ??
+        SupportedLanguage.en;
+    final langCode = userLanguage.name;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.createSource),
@@ -291,8 +298,10 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         // which is hard without the full list.
                         // For now, we rely on the user selecting it.
                         // Ideally, we would fetch the Language entity matching state.language.
-                        itemBuilder: (context, language) => Text(language.name),
-                        itemToString: (language) => language.name,
+                        itemBuilder: (context, language) =>
+                            Text(language.name.values.firstOrNull ?? ''),
+                        itemToString: (language) =>
+                            language.name.values.firstOrNull ?? '',
                         onChanged: (items) {
                           if (items != null && items.isNotEmpty) {
                             // Map Language entity code to SupportedLanguage enum
@@ -316,8 +325,8 @@ class _CreateSourceViewState extends State<CreateSourceView>
                                   r'$options': 'i',
                                 },
                               },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                       ),
@@ -354,11 +363,11 @@ class _CreateSourceViewState extends State<CreateSourceView>
                               ),
                             ),
                             const SizedBox(width: AppSpacing.md),
-                            Text(country.name[state.defaultLanguage] ?? ''),
+                            Text(country.name.values.firstOrNull ?? ''),
                           ],
                         ),
                         itemToString: (country) =>
-                            country.name[state.defaultLanguage] ?? '',
+                            country.name.values.firstOrNull ?? '',
                         onChanged: (items) => context
                             .read<CreateSourceBloc>()
                             .add(CreateSourceHeadquartersChanged(items?.first)),
@@ -366,13 +375,16 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
                             : {
-                                'name.${state.defaultLanguage.name}': {
+                                'name': {
                                   r'$regex': searchTerm,
                                   r'$options': 'i',
                                 },
                               },
-                        sortOptions: const [
-                          SortOption('name', SortOrder.asc),
+                        sortOptions: [
+                          SortOption(
+                            'name.$langCode',
+                            SortOrder.asc,
+                          ),
                         ],
                         limit: kDefaultRowsPerPage,
                       ),
