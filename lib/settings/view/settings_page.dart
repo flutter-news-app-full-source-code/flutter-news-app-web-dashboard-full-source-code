@@ -7,6 +7,8 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/bloc/settings_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:ui_kit/ui_kit.dart';
 
@@ -386,11 +388,27 @@ class _LanguageSelectionList extends StatelessWidget {
       itemCount: _supportedLanguages.length,
       itemBuilder: (context, index) {
         final language = _supportedLanguages[index];
+        SupportedLanguage? supportedLanguage;
+        try {
+          supportedLanguage = SupportedLanguage.values.byName(language.code);
+        } catch (_) {}
+
         final isSelected = language.code == currentLanguage.name;
         return ListTile(
-          title: Text(
-            language.name,
-            style: Theme.of(context).textTheme.titleMedium,
+          title: Row(
+            children: [
+              if (supportedLanguage != null) ...[
+                Image.network(
+                  supportedLanguage.flagUrl,
+                  width: 24,
+                  errorBuilder: (_, _, _) =>
+                      const Icon(Icons.flag, size: 16),
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Text(supportedLanguage.l10n(context)),
+              ] else
+                Text(language.name),
+            ],
           ),
           trailing: isSelected
               ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
