@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
@@ -18,10 +17,6 @@ import '../../helpers/pump_app.dart';
 class MockEditTopicBloc extends MockBloc<EditTopicEvent, EditTopicState>
     implements EditTopicBloc {}
 
-class MockContentManagementBloc
-    extends MockBloc<ContentManagementEvent, ContentManagementState>
-    implements ContentManagementBloc {}
-
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
 class MockFilePicker extends Mock
@@ -33,7 +28,6 @@ void main() {
 
   group('EditTopicPage', () {
     late EditTopicBloc editTopicBloc;
-    late ContentManagementBloc contentManagementBloc;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -50,7 +44,6 @@ void main() {
 
     setUp(() {
       editTopicBloc = MockEditTopicBloc();
-      contentManagementBloc = MockContentManagementBloc();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -68,22 +61,13 @@ void main() {
           iconUrl: kInitialTopic.iconUrl,
         ),
       );
-      when(
-        () => contentManagementBloc.state,
-      ).thenReturn(const ContentManagementState());
       when(() => goRouter.pop()).thenAnswer((_) async {});
     });
 
     Widget buildSubject() {
-      return MultiRepositoryProvider(
-        providers: const [],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider.value(value: editTopicBloc),
-            BlocProvider.value(value: contentManagementBloc),
-          ],
-          child: const EditTopicView(),
-        ),
+      return BlocProvider.value(
+        value: editTopicBloc,
+        child: const EditTopicView(),
       );
     }
 
@@ -153,7 +137,7 @@ void main() {
         await tester.enterText(nameField, 'New Name');
         verify(
           () => editTopicBloc.add(
-            const EditTopicNameChanged('New Name', SupportedLanguage.en),
+            const EditTopicNameChanged({SupportedLanguage.en: 'New Name'}),
           ),
         ).called(1);
       });
@@ -179,11 +163,6 @@ void main() {
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         expect(find.byType(SnackBar), findsOneWidget);
         expect(find.text(l10n.topicUpdatedSuccessfully), findsOneWidget);
-        verify(
-          () => contentManagementBloc.add(
-            const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-          ),
-        ).called(1);
         verify(() => goRouter.pop()).called(1);
       });
     });
