@@ -3381,10 +3381,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'اللغة الاحتياطية إذا لم يكن تفضيل المستخدم مدعومًا.';
 
   @override
-  String get localizationTitle => 'التعريب';
+  String get localizationTitle => 'إعدادات اللغة';
 
   @override
-  String get localizationDescription => 'إدارة دعم اللغة.';
+  String get localizationDescription =>
+      'التحكم في اللغات النشطة لتطبيق الهاتف ولوحة التحكم. يتيح تفعيل لغة للمستخدمين عرض المحتوى المترجم ويضيف حقول إدخال مقابلة لنماذج لوحة التحكم. يعود المحتوى غير المترجم إلى اللغة الافتراضية.';
 
   @override
   String defaultLanguageRequired(String language) {

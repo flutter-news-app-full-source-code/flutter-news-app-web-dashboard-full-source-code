@@ -6179,7 +6179,7 @@ abstract class AppLocalizations {
   /// Subtitle for the localization settings section
   ///
   /// In en, this message translates to:
-  /// **'Manage language support.'**
+  /// **'Control active languages for the mobile app and dashboard. Enabling a language allows users to view translated content and adds corresponding input fields to dashboard forms. Content without translation falls back to the default language.'**
   String get localizationDescription;
 
   /// Error message when the default language field is empty.

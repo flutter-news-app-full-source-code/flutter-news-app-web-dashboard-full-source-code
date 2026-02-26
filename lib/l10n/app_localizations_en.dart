@@ -3409,7 +3409,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get localizationTitle => 'Localization';
 
   @override
-  String get localizationDescription => 'Manage language support.';
+  String get localizationDescription =>
+      'Control active languages for the mobile app and dashboard. Enabling a language allows users to view translated content and adds corresponding input fields to dashboard forms. Content without translation falls back to the default language.';
 
   @override
   String defaultLanguageRequired(String language) {
