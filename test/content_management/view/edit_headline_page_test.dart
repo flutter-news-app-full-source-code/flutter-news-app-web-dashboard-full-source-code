@@ -152,10 +152,17 @@ void main() {
         tester,
       ) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        await tester.enterText(find.byType(TextFormField).first, 'New Title');
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
+        final titleFieldFinder = find.widgetWithText(
+          TextFormField,
+          '${l10n.headlineTitle} (${l10n.languageNameEn})',
+        );
+        await tester.enterText(titleFieldFinder, 'New Title');
         verify(
           () => editHeadlineBloc.add(
-            const EditHeadlineTitleChanged('New Title', SupportedLanguage.en),
+            EditHeadlineTitleChanged(
+              {...headlineFixture.title, SupportedLanguage.en: 'New Title'},
+            ),
           ),
         ).called(1);
       });
@@ -163,31 +170,47 @@ void main() {
       testWidgets(
         'adds EditHeadlineTitleChanged with correct language when secondary tab is selected',
         (tester) async {
-          when(() => editHeadlineBloc.state).thenReturn(
-            EditHeadlineState(
-              headlineId: headlineId,
-              initialHeadline: headlineFixture,
-              enabledLanguages: const [
-                SupportedLanguage.en,
-                SupportedLanguage.es,
-              ],
-            ),
+          final initialState = EditHeadlineState(
+            headlineId: headlineId,
+            initialHeadline: headlineFixture,
+            title: headlineFixture.title,
+            enabledLanguages: const [
+              SupportedLanguage.en,
+              SupportedLanguage.es,
+            ],
+          );
+          final stateAfterTabChange = initialState.copyWith(
+            selectedLanguage: SupportedLanguage.es,
+          );
+          whenListen(
+            editHeadlineBloc,
+            Stream.fromIterable([stateAfterTabChange]),
+            initialState: initialState,
           );
 
           await tester.pumpApp(buildSubject(), goRouter: goRouter);
           await tester.pumpAndSettle();
 
           // Tap the Spanish tab
-          await tester.tap(find.text('ES'));
+          await tester.tap(find.byType(Tab).at(1));
           await tester.pumpAndSettle();
 
           // Find the text field which should now be for Spanish
-          final titleFieldFinder = find.byType(TextFormField).first;
+          final l10n = AppLocalizations.of(
+            tester.element(find.byType(Scaffold)),
+          );
+          final titleFieldFinder = find.widgetWithText(
+            TextFormField,
+            '${l10n.headlineTitle} (${l10n.languageNameEs})',
+          );
+          expect(titleFieldFinder, findsOneWidget);
           await tester.enterText(titleFieldFinder, 'Título');
 
           verify(
             () => editHeadlineBloc.add(
-              const EditHeadlineTitleChanged('Título', SupportedLanguage.es),
+              EditHeadlineTitleChanged(
+                {...headlineFixture.title, SupportedLanguage.es: 'Título'},
+              ),
             ),
           ).called(1);
         },
