@@ -8,7 +8,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart';
@@ -191,7 +190,7 @@ class _EditTopicViewState extends State<EditTopicView> {
                             icon: Image.network(
                               lang.flagUrl,
                               width: 24,
-                              errorBuilder: (_, __, ___) =>
+                              errorBuilder: (_, _, _) =>
                                   const Icon(Icons.flag, size: 16),
                             ),
                           );
