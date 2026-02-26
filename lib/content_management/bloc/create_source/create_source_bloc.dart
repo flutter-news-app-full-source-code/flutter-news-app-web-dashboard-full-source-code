@@ -37,6 +37,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceImageRemoved>(_onImageRemoved);
     on<CreateSourceSavedAsDraft>(_onSavedAsDraft);
     on<CreateSourcePublished>(_onPublished);
+    on<CreateSourceLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Source> _sourcesRepository;
@@ -60,32 +61,16 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceNameChanged event,
     Emitter<CreateSourceState> emit,
   ) {
-    final newName = Map<SupportedLanguage, String>.from(state.name);
-    if (event.name.isEmpty) {
-      newName.remove(event.language);
-    } else {
-      newName[event.language] = event.name;
-    }
-    _logger.fine('Name changed for ${event.language}: ${event.name}');
-    emit(state.copyWith(name: newName));
+    _logger.fine('Name changed: ${event.name}');
+    emit(state.copyWith(name: event.name));
   }
 
   void _onDescriptionChanged(
     CreateSourceDescriptionChanged event,
     Emitter<CreateSourceState> emit,
   ) {
-    final newDescription = Map<SupportedLanguage, String>.from(
-      state.description,
-    );
-    if (event.description.isEmpty) {
-      newDescription.remove(event.language);
-    } else {
-      newDescription[event.language] = event.description;
-    }
-    _logger.fine(
-      'Description changed for ${event.language}: ${event.description}',
-    );
-    emit(state.copyWith(description: newDescription));
+    _logger.fine('Description changed: ${event.description}');
+    emit(state.copyWith(description: event.description));
   }
 
   void _onUrlChanged(
@@ -144,6 +129,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         imageFileName: const ValueWrapper(null),
       ),
     );
+  }
+
+  void _onLanguageTabChanged(
+    CreateSourceLanguageTabChanged event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   /// Handles saving the source as a draft.

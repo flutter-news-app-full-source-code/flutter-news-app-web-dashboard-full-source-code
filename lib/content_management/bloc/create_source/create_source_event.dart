@@ -24,20 +24,18 @@ final class CreateSourceInitialized extends CreateSourceEvent {
 
 /// Event for when the source's name is changed.
 final class CreateSourceNameChanged extends CreateSourceEvent {
-  const CreateSourceNameChanged(this.name, this.language);
-  final String name;
-  final SupportedLanguage language;
+  const CreateSourceNameChanged(this.name);
+  final Map<SupportedLanguage, String> name;
   @override
-  List<Object?> get props => [name, language];
+  List<Object?> get props => [name];
 }
 
 /// Event for when the source's description is changed.
 final class CreateSourceDescriptionChanged extends CreateSourceEvent {
-  const CreateSourceDescriptionChanged(this.description, this.language);
-  final String description;
-  final SupportedLanguage language;
+  const CreateSourceDescriptionChanged(this.description);
+  final Map<SupportedLanguage, String> description;
   @override
-  List<Object?> get props => [description, language];
+  List<Object?> get props => [description];
 }
 
 /// Event for when the source's URL is changed.
@@ -99,4 +97,12 @@ final class CreateSourceSavedAsDraft extends CreateSourceEvent {
 /// Event to publish the source.
 final class CreateSourcePublished extends CreateSourceEvent {
   const CreateSourcePublished();
+}
+
+/// Event for when the language tab is changed.
+final class CreateSourceLanguageTabChanged extends CreateSourceEvent {
+  const CreateSourceLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

@@ -29,7 +29,8 @@ final class CreateSourceState extends Equatable {
     this.exception,
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
-  });
+    SupportedLanguage? selectedLanguage,
+  }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateSourceStatus status;
   final Map<SupportedLanguage, String> name;
@@ -44,6 +45,7 @@ final class CreateSourceState extends Equatable {
   final Source? createdSource;
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
+  final SupportedLanguage selectedLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -70,6 +72,7 @@ final class CreateSourceState extends Equatable {
     Source? createdSource,
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
+    SupportedLanguage? selectedLanguage,
   }) {
     return CreateSourceState(
       status: status ?? this.status,
@@ -89,6 +92,7 @@ final class CreateSourceState extends Equatable {
       exception: exception != null ? exception.value : this.exception,
       createdSource: createdSource ?? this.createdSource,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
+      selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
 
@@ -107,5 +111,6 @@ final class CreateSourceState extends Equatable {
     exception,
     createdSource,
     defaultLanguage,
+    selectedLanguage,
   ];
 }
