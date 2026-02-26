@@ -211,11 +211,17 @@ void main() {
       final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
 
       expect(
-        find.widgetWithText(TextFormField, l10n.sourceName),
+        find.widgetWithText(
+          TextFormField,
+          '${l10n.sourceName} (${l10n.languageNameEn})',
+        ),
         findsOneWidget,
       );
       expect(
-        find.widgetWithText(TextFormField, l10n.description),
+        find.widgetWithText(
+          TextFormField,
+          '${l10n.description} (${l10n.languageNameEn})',
+        ),
         findsOneWidget,
       );
       expect(
@@ -239,16 +245,17 @@ void main() {
           ),
         );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.descendant(
-            of: find.byType(LocalizedTextFormField).first,
-            matching: find.byType(TextFormField),
+          find.widgetWithText(
+            TextFormField,
+            '${l10n.sourceName} (${l10n.languageNameEn})',
           ),
           'New Source',
         );
         verify(
           () => createSourceBloc.add(
-            const CreateSourceNameChanged('New Source', SupportedLanguage.en),
+            const CreateSourceNameChanged({SupportedLanguage.en: 'New Source'}),
           ),
         ).called(1);
       });
@@ -263,19 +270,19 @@ void main() {
           ),
         );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.descendant(
-            of: find.byType(LocalizedTextFormField).last,
-            matching: find.byType(TextFormField),
+          find.widgetWithText(
+            TextFormField,
+            '${l10n.description} (${l10n.languageNameEn})',
           ),
           'New Desc',
         );
         verify(
           () => createSourceBloc.add(
-            const CreateSourceDescriptionChanged(
-              'New Desc',
-              SupportedLanguage.en,
-            ),
+            const CreateSourceDescriptionChanged({
+              SupportedLanguage.en: 'New Desc',
+            }),
           ),
         ).called(1);
       });
@@ -287,8 +294,9 @@ void main() {
           () => createSourceBloc.state,
         ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.byType(TextFormField).last,
+          find.widgetWithText(TextFormField, l10n.sourceUrl),
           'http://url.com',
         );
         verify(
