@@ -5,7 +5,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_shell.dart';
 import 'package:intl/intl.dart' hide TextDirection;
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 /// {@template chart_card}
 /// A widget that displays a chart (Bar or Line) with time frame toggles.

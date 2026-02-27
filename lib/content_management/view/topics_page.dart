@@ -11,7 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.da
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 /// {@template topics_page}
 /// A page for displaying and managing Topics in a tabular format.

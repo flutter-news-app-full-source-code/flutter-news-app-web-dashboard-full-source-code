@@ -1,9 +1,4 @@
-import 'package:auth_api/auth_api.dart';
-import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
-import 'package:data_api/data_api.dart';
-import 'package:data_client/data_client.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/app.dart';
@@ -11,14 +6,11 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/confi
     as app_config;
 import 'package:flutter_news_app_web_dashboard_full_source_code/bloc_observer.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/data_client/media_api.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
-import 'package:http_client/http_client.dart';
-import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
 import 'package:logging/logging.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 Future<Widget> bootstrap(
   app_config.AppConfig appConfig,

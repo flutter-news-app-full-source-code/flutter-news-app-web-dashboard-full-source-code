@@ -14,7 +14,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/a
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/ranked_list_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});

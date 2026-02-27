@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'settings_event.dart';

@@ -11,7 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/user_role_ui.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_action_buttons.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 /// {@template users_page}
 /// A page for displaying and managing Users in a tabular format.

@@ -7,7 +7,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/chart_card.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 class MonetizationTabView extends StatefulWidget {
   const MonetizationTabView({super.key});

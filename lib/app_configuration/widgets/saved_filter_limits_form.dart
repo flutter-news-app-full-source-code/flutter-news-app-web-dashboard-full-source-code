@@ -5,7 +5,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/access_tier_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/push_notification_subscription_delivery_type_l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 /// {@template saved_filter_limits_form}
 /// A reusable form widget for configuring limits for saved filters.

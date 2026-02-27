@@ -4,7 +4,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/b
 import 'package:flutter_news_app_web_dashboard_full_source_code/authentication/widgets/auth_layout.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:pinput/pinput.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:core_ui/core_ui.dart';
 
 /// {@template email_code_verification_page}
 /// Page where the user enters the 6-digit code sent to their email
