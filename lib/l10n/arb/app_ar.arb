@@ -802,6 +802,7 @@
   "withComment": "مع تعليق",
   "withoutComment": "بدون تعليق",
   "reportResolved": "تم حل البلاغ.",
+  "commentApproved": "تمت الموافقة على التعليق.",
   "commentRejected": "تم رفض التعليق.",
   "copyHeadlineId": "نسخ معرّف العنوان",
   "copyReportedItemId": "نسخ معرّف العنصر المُبلغ عنه",
