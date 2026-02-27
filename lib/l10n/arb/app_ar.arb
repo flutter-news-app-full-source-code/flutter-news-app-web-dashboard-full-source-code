@@ -1,45 +1,15 @@
 {
   "@@locale": "ar",
   "authenticationPageHeadline": "الوصول إلى لوحة التحكم",
-  "@authenticationPageHeadline": {
-    "description": "عنوان صفحة المصادقة الرئيسية"
-  },
   "authenticationPageSubheadline": "تسجيل دخول آمن للمسؤولين والناشرين.",
-  "@authenticationPageSubheadline": {
-    "description": "عنوان فرعي لصفحة المصادقة الرئيسية"
-  },
   "authenticationEmailSignInButton": "تسجيل الدخول بالبريد الإلكتروني",
-  "@authenticationEmailSignInButton": {
-    "description": "زر تسجيل الدخول بالبريد الإلكتروني"
-  },
   "emailSignInPageTitle": "تسجيل دخول آمن بالبريد الإلكتروني",
-  "@emailSignInPageTitle": {
-    "description": "عنوان صفحة تسجيل الدخول بالبريد الإلكتروني"
-  },
   "requestCodePageHeadline": "تسجيل دخول آمن بالبريد الإلكتروني",
-  "@requestCodePageHeadline": {
-    "description": "عنوان صفحة طلب الرمز"
-  },
   "requestCodePageSubheadline": "أدخل بريدك الإلكتروني المعتمد لتلقي رمز تسجيل دخول آمن.",
-  "@requestCodePageSubheadline": {
-    "description": "عنوان فرعي لصفحة طلب الرمز"
-  },
   "requestCodeEmailLabel": "البريد الإلكتروني",
-  "@requestCodeEmailLabel": {
-    "description": "تسمية حقل إدخال البريد الإلكتروني في صفحة طلب الرمز"
-  },
   "requestCodeEmailHint": "بريدك.الإلكتروني@مثال.كوم",
-  "@requestCodeEmailHint": {
-    "description": "نص تلميح لحقل إدخال البريد الإلكتروني في صفحة طلب الرمز"
-  },
   "accountLinkingEmailValidationError": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
-  "@accountLinkingEmailValidationError": {
-    "description": "رسالة خطأ التحقق لتنسيق البريد الإلكتروني غير الصالح"
-  },
   "requestCodeSendCodeButton": "إرسال الرمز",
-  "@requestCodeSendCodeButton": {
-    "description": "تسمية زر إرسال رمز التحقق"
-  },
   "requestCodeResendButtonCooldown": "إعادة الإرسال في {seconds} ثانية",
   "@requestCodeResendButtonCooldown": {
     "description": "تسمية زر إعادة إرسال رمز التحقق بعد فترة تهدئة",
@@ -50,9 +20,6 @@
     }
   },
   "emailCodeSentPageTitle": "التحقق من الرمز",
-  "@emailCodeSentPageTitle": {
-    "description": "عنوان صفحة التحقق من رمز البريد الإلكتروني"
-  },
   "emailCodeSentConfirmation": "لقد أرسلنا رمزًا مكونًا من 6 أرقام إلى {email}",
   "@emailCodeSentConfirmation": {
     "description": "رسالة تأكيد بإرسال الرمز إلى البريد الإلكتروني",
@@ -63,9 +30,6 @@
     }
   },
   "emailCodeSentInstructions": "الرجاء التحقق من بريدك الوارد وإدخال الرمز أدناه للمتابعة.",
-  "@emailCodeSentInstructions": {
-    "description": "تعليمات للمستخدم للتحقق من الرمز"
-  },
   "demoVerificationCodeMessage": "في الوضع التجريبي، استخدم الرمز: {code}",
   "@demoVerificationCodeMessage": {
     "description": "رسالة تعرض رمز التحقق التجريبي",
@@ -76,141 +40,39 @@
     }
   },
   "emailCodeVerificationHint": "رمز مكون من 6 أرقام",
-  "@emailCodeVerificationHint": {
-    "description": "نص تلميح لحقل إدخال الرمز في صفحة التحقق"
-  },
   "emailCodeValidationEmptyError": "لا يمكن أن يكون الرمز فارغًا.",
-  "@emailCodeValidationEmptyError": {
-    "description": "رسالة خطأ التحقق عندما يكون حقل الرمز فارغًا"
-  },
   "emailCodeValidationLengthError": "يجب أن يتكون الرمز من 6 أرقام.",
-  "@emailCodeValidationLengthError": {
-    "description": "رسالة خطأ التحقق عندما يكون طول الرمز غير صحيح"
-  },
   "emailCodeVerificationButtonLabel": "التحقق من الرمز",
-  "@emailCodeVerificationButtonLabel": {
-    "description": "تسمية زر التحقق من الرمز"
-  },
   "overview": "نظرة عامة",
-  "@overview": {
-    "description": "تسمية عنصر التنقل لنظرة عامة على لوحة القيادة"
-  },
   "contentManagement": "إدارة المحتوى",
-  "@contentManagement": {
-    "description": "تسمية عنصر التنقل لإدارة المحتوى"
-  },
   "contentManagementPageDescription": "إدارة العناوين الإخبارية والمواضيع والمصادر لتطبيق الهاتف",
-  "@contentManagementPageDescription": {
-    "description": "وصف صفحة إدارة المحتوى"
-  },
   "headlines": "العناوين الرئيسية",
-  "@headlines": {
-    "description": "تسمية الصفحة الفرعية للعناوين الرئيسية"
-  },
   "headline": "العنوان الرئيسي",
-  "@headline": {
-    "description": "تسمية العنوان الرئيسي"
-  },
   "topics": "المواضيع",
-  "@topics": {
-    "description": "تسمية الصفحة الفرعية للمواضيع"
-  },
   "topic": "الموضوع",
-  "@topic": {
-    "description": "تسمية الموضوع"
-  },
   "sources": "المصادر",
-  "@sources": {
-    "description": "تسمية الصفحة الفرعية للمصادر"
-  },
   "source": "المصدر",
-  "@source": {
-    "description": "تسمية المصدر"
-  },
   "appConfiguration": "التحكم المركزي",
-  "@appConfiguration": {
-    "description": "تسمية عنصر التنقل لإعدادات التطبيق"
-  },
   "appConfigurationPageDescription": "إدارة الإعدادات العامة لتطبيق الهاتف، من حدود المحتوى إلى الحالة التشغيلية.",
-  "@appConfigurationPageDescription": {
-    "description": "وصف صفحة إعدادات التطبيق"
-  },
   "settings": "الإعدادات",
-  "@settings": {
-    "description": "تسمية عنصر التنقل للإعدادات"
-  },
   "appConfigurationPageTitle": "التحكم المركزي عن بعد",
-  "@appConfigurationPageTitle": {
-    "description": "عنوان صفحة إعدادات التطبيق"
-  },
   "feedTab": "الموجز",
-  "@feedTab": {
-    "description": "عنوان تبويب إعدادات الموجز"
-  },
   "advertisementsTab": "الإعلانات",
-  "@advertisementsTab": {
-    "description": "عنوان تبويب إعدادات الإعلانات"
-  },
   "systemTab": "النظام",
-  "@systemTab": {
-    "description": "عنوان تبويب لإعدادات النظام"
-  },
   "userContentLimitsTitle": "حدود المحتوى",
-  "@userContentLimitsTitle": {
-    "description": "عنوان قسم حدود المحتوى للمستخدم"
-  },
   "userContentLimitsDescription": "تعيين حدود للعناصر المتابعة والعناوين المحفوظة لكل فئة من فئات المستخدمين.",
-  "@userContentLimitsDescription": {
-    "description": "وصف قسم حدود المحتوى للمستخدم"
-  },
   "feedActionsTitle": "إجراءات الموجز",
-  "@feedActionsTitle": {
-    "description": "عنوان قسم إجراءات الموجز"
-  },
   "feedActionsDescription": "تكوين عدد مرات إدراج ودجات الإجراءات (مثل 'تقييم التطبيق') في الموجز.",
-  "@feedActionsDescription": {
-    "description": "وصف قسم إجراءات الموجز"
-  },
   "feedDecoratorsTitle": "زينة الموجز",
-  "@feedDecoratorsTitle": {
-    "description": "عنوان قسم زينة الموجز"
-  },
   "feedDecoratorsDescription": "تكوين كيفية تزيين وعرض المحتوى في الموجز لأدوار المستخدمين المختلفة.",
-  "@feedDecoratorsDescription": {
-    "description": "وصف قسم زينة الموجز"
-  },
   "adSettingsTitle": "إعدادات الإعلانات",
-  "@adSettingsTitle": {
-    "description": "عنوان قسم إعدادات الإعلانات"
-  },
   "adSettingsDescription": "إدارة تكرار وموضع الإعلانات لأدوار المستخدمين المختلفة.",
-  "@adSettingsDescription": {
-    "description": "وصف قسم إعدادات الإعلانات"
-  },
   "maintenanceModeTitle": "وضع الصيانة",
-  "@maintenanceModeTitle": {
-    "description": "عنوان قسم وضع الصيانة"
-  },
   "maintenanceModeDescription": "تمكين لعرض شاشة صيانة لجميع المستخدمين.",
-  "@maintenanceModeDescription": {
-    "description": "وصف قسم وضع الصيانة"
-  },
   "forceUpdateTitle": "فرض تحديث التطبيق",
-  "@forceUpdateTitle": {
-    "description": "عنوان قسم فرض تحديث التطبيق"
-  },
   "forceUpdateDescription": "تكوين تحديثات التطبيق الإلزامية للمستخدمين.",
-  "@forceUpdateDescription": {
-    "description": "وصف قسم فرض تحديث التطبيق"
-  },
   "forceUpdateTab": "تحديث إجباري",
-  "@forceUpdateTab": {
-    "description": "عنوان تبويب تحديث إجباري"
-  },
   "appConfigSaveSuccessMessage": "تم حفظ الإعدادات عن بعد بنجاح. ستعكس تطبيقات الجوال هذه التغييرات عند تشغيلها التالي.",
-  "@appConfigSaveSuccessMessage": {
-    "description": "رسالة شريط التنبيه لحفظ إعدادات التطبيق بنجاح"
-  },
   "appConfigSaveErrorMessage": "خطأ: {errorMessage}",
   "@appConfigSaveErrorMessage": {
     "description": "رسالة شريط التنبيه لخطأ حفظ إعدادات التطبيق",
@@ -221,289 +83,76 @@
     }
   },
   "unknownError": "خطأ غير معروف",
-  "@unknownError": {
-    "description": "رسالة احتياطية للأخطاء غير المعروفة"
-  },
   "loadingConfigurationHeadline": "جاري تحميل الإعدادات",
-  "@loadingConfigurationHeadline": {
-    "description": "عنوان حالة تحميل إعدادات التطبيق"
-  },
   "loadingConfigurationSubheadline": "الرجاء الانتظار بينما يتم تحميل الإعدادات...",
-  "@loadingConfigurationSubheadline": {
-    "description": "عنوان فرعي لحالة تحميل إعدادات التطبيق"
-  },
   "failedToLoadConfigurationMessage": "فشل تحميل الإعدادات.",
-  "@failedToLoadConfigurationMessage": {
-    "description": "رسالة لحالة فشل تحميل إعدادات التطبيق"
-  },
   "loadAppSettingsSubheadline": "تحميل إعدادات التطبيق من الواجهة الخلفية.",
-  "@loadAppSettingsSubheadline": {
-    "description": "عنوان فرعي للحالة الأولية لإعدادات التطبيق"
-  },
   "discardChangesButton": "تجاهل التغييرات",
-  "@discardChangesButton": {
-    "description": "زر لتجاهل التغييرات في إعدادات التطبيق"
-  },
   "saveChangesButton": "حفظ التغييرات",
-  "@saveChangesButton": {
-    "description": "زر لحفظ التغييرات في إعدادات التطبيق"
-  },
   "confirmConfigUpdateDialogTitle": "تأكيد تحديث الإعدادات",
-  "@confirmConfigUpdateDialogTitle": {
-    "description": "عنوان مربع حوار التأكيد قبل حفظ إعدادات التطبيق"
-  },
   "confirmConfigUpdateDialogContent": "هل أنت متأكد أنك تريد تطبيق هذه التغييرات على إعدادات التطبيق المباشرة؟ هذه عملية حساسة.",
-  "@confirmConfigUpdateDialogContent": {
-    "description": "محتوى مربع حوار التأكيد قبل حفظ إعدادات التطبيق"
-  },
   "cancelButton": "إلغاء",
-  "@cancelButton": {
-    "description": "تسمية زر الإلغاء"
-  },
   "confirmSaveButton": "تأكيد الحفظ",
-  "@confirmSaveButton": {
-    "description": "تسمية زر تأكيد الحفظ في مربع الحوار"
-  },
   "guestUserTab": "ضيف",
-  "@guestUserTab": {
-    "description": "عنوان تبويب دور المستخدم الضيف"
-  },
   "authenticatedUserTab": "موثق",
-  "@authenticatedUserTab": {
-    "description": "عنوان تبويب دور المستخدم الموثق"
-  },
   "premiumUserTab": "مميز",
-  "@premiumUserTab": {
-    "description": "عنوان تبويب دور المستخدم المميز"
-  },
   "guestFollowedItemsLimitLabel": "حد العناصر المتابعة للضيف",
-  "@guestFollowedItemsLimitLabel": {
-    "description": "تسمية حد العناصر المتابعة للضيف"
-  },
   "guestFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم الضيف متابعتها (لكل نوع حد خاص به).",
-  "@guestFollowedItemsLimitDescription": {
-    "description": "وصف حد العناصر المتابعة للضيف"
-  },
   "guestSavedHeadlinesLimitLabel": "حد العناوين المحفوظة للضيف",
-  "@guestSavedHeadlinesLimitLabel": {
-    "description": "تسمية حد العناوين المحفوظة للضيف"
-  },
   "guestSavedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم الضيف حفظها.",
-  "@guestSavedHeadlinesLimitDescription": {
-    "description": "وصف حد العناوين المحفوظة للضيف"
-  },
   "standardUserFollowedItemsLimitLabel": "حد العناصر المتابعة للمستخدم العادي",
-  "@standardUserFollowedItemsLimitLabel": {
-    "description": "تسمية حد العناصر المتابعة للمستخدم العادي"
-  },
   "standardUserFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم العادي متابعتها (لكل نوع حد خاص به).",
-  "@standardUserFollowedItemsLimitDescription": {
-    "description": "وصف حد العناصر المتابعة للمستخدم العادي"
-  },
   "standardUserSavedHeadlinesLimitLabel": "حد العناوين المحفوظة للمستخدم العادي",
-  "@standardUserSavedHeadlinesLimitLabel": {
-    "description": "تسمية حد العناوين المحفوظة للمستخدم العادي"
-  },
   "standardUserSavedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم العادي حفظها.",
-  "@standardUserSavedHeadlinesLimitDescription": {
-    "description": "وصف حد العناوين المحفوظة للمستخدم العادي"
-  },
   "premiumFollowedItemsLimitLabel": "حد العناصر المتابعة للمستخدم المميز",
-  "@premiumFollowedItemsLimitLabel": {
-    "description": "تسمية حد العناصر المتابعة للمستخدم المميز"
-  },
   "premiumFollowedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن للمستخدم المميز متابعتها (لكل نوع حد خاص به).",
-  "@premiumFollowedItemsLimitDescription": {
-    "description": "وصف حد العناصر المتابعة للمستخدم المميز"
-  },
   "premiumSavedHeadlinesLimitLabel": "حد العناوين المحفوظة للمستخدم المميز",
-  "@premiumSavedHeadlinesLimitLabel": {
-    "description": "تسمية حد العناوين المحفوظة للمستخدم المميز"
-  },
   "premiumSavedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين الرئيسية التي يمكن للمستخدم المميز حفظها.",
-  "@premiumSavedHeadlinesLimitDescription": {
-    "description": "وصف حد العناوين المحفوظة للمستخدم المميز"
-  },
   "standardUserAdTab": "مستخدم عادي",
-  "@standardUserAdTab": {
-    "description": "عنوان تبويب المستخدم العادي في إعدادات الإعلانات"
-  },
   "guestAdFrequencyLabel": "تكرار الإعلان للضيف",
-  "@guestAdFrequencyLabel": {
-    "description": "تسمية تكرار الإعلان للضيف"
-  },
   "guestAdFrequencyDescription": "عدد مرات ظهور الإعلان للمستخدمين الضيوف (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).",
-  "@guestAdFrequencyDescription": {
-    "description": "وصف تكرار الإعلان للضيف"
-  },
   "guestAdPlacementIntervalLabel": "فترة وضع الإعلان للضيف",
-  "@guestAdPlacementIntervalLabel": {
-    "description": "تسمية فترة وضع الإعلان للضيف"
-  },
   "guestAdPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين الضيوف.",
-  "@guestAdPlacementIntervalDescription": {
-    "description": "وصف فترة وضع الإعلان للضيف"
-  },
   "guestArticlesBeforeInterstitialAdsLabel": "مقالات الضيف قبل الإعلانات البينية",
-  "@guestArticlesBeforeInterstitialAdsLabel": {
-    "description": "تسمية مقالات الضيف قبل الإعلانات البينية"
-  },
   "guestArticlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج المستخدم الضيف لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
-  "@guestArticlesBeforeInterstitialAdsDescription": {
-    "description": "وصف مقالات الضيف قبل الإعلانات البينية"
-  },
   "standardUserAdFrequencyLabel": "تكرار الإعلان للمستخدم العادي",
-  "@standardUserAdFrequencyLabel": {
-    "description": "تسمية تكرار الإعلان للمستخدم العادي"
-  },
   "standardUserAdFrequencyDescription": "عدد مرات ظهور الإعلان للمستخدمين العاديين (على سبيل المثال، قيمة 10 تعني أنه يمكن وضع إعلان بعد كل 10 عناصر إخبارية).",
-  "@standardUserAdFrequencyDescription": {
-    "description": "وصف تكرار الإعلان للمستخدم العادي"
-  },
   "standardUserAdPlacementIntervalLabel": "فترة وضع الإعلان للمستخدم العادي",
-  "@standardUserAdPlacementIntervalLabel": {
-    "description": "تسمية فترة وضع الإعلان للمستخدم العادي"
-  },
   "standardUserAdPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين العاديين.",
-  "@standardUserAdPlacementIntervalDescription": {
-    "description": "وصف فترة وضع الإعلان للمستخدم العادي"
-  },
   "standardUserArticlesBeforeInterstitialAdsLabel": "مقالات المستخدم العادي قبل الإعلانات البينية",
-  "@standardUserArticlesBeforeInterstitialAdsLabel": {
-    "description": "تسمية مقالات المستخدم العادي قبل الإعلانات البينية"
-  },
   "standardUserArticlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج المستخدم العادي لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
-  "@standardUserArticlesBeforeInterstitialAdsDescription": {
-    "description": "وصف مقالات المستخدم العادي قبل الإعلانات البينية"
-  },
   "premiumAdFrequencyLabel": "تكرار الإعلان للمستخدم المميز",
-  "@premiumAdFrequencyLabel": {
-    "description": "تسمية تكرار الإعلان للمستخدم المميز"
-  },
   "premiumAdFrequencyDescription": "عدد مرات ظهور الإعلان للمستخدمين المميزين (0 يعني عدم وجود إعلانات).",
-  "@premiumAdFrequencyDescription": {
-    "description": "وصف تكرار الإعلان للمستخدم المميز"
-  },
   "premiumAdPlacementIntervalLabel": "فترة وضع الإعلان للمستخدم المميز",
-  "@premiumAdPlacementIntervalLabel": {
-    "description": "تسمية فترة وضع الإعلان للمستخدم المميز"
-  },
   "premiumAdPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول للمستخدمين المميزين.",
-  "@premiumAdPlacementIntervalDescription": {
-    "description": "وصف فترة وضع الإعلان للمستخدم المميز"
-  },
   "premiumUserArticlesBeforeInterstitialAdsLabel": "مقالات المستخدم المميز قبل الإعلانات البينية",
-  "@premiumUserArticlesBeforeInterstitialAdsLabel": {
-    "description": "تسمية مقالات المستخدم المميز قبل الإعلانات البينية"
-  },
   "premiumUserArticlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج المستخدم المميز لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
-  "@premiumUserArticlesBeforeInterstitialAdsDescription": {
-    "description": "وصف مقالات المستخدم المميز قبل الإعلانات البينية"
-  },
   "appOperationalStatusWarning": "تحذير: قد يؤثر تغيير حالة تشغيل التطبيق على جميع المستخدمين. استخدم بحذر شديد.",
-  "@appOperationalStatusWarning": {
-    "description": "رسالة تحذير لتغيير حالة تشغيل التطبيق"
-  },
   "appOperationalStatusLabel": "حالة تشغيل التطبيق",
-  "@appOperationalStatusLabel": {
-    "description": "تسمية حالة تشغيل التطبيق"
-  },
   "appOperationalStatusDescription": "الحالة التشغيلية الحالية للتطبيق (على سبيل المثال، نشط، صيانة، معطل).",
-  "@appOperationalStatusDescription": {
-    "description": "وصف حالة تشغيل التطبيق"
-  },
   "maintenanceMessageLabel": "رسالة الصيانة",
-  "@maintenanceMessageLabel": {
-    "description": "تسمية رسالة الصيانة"
-  },
   "maintenanceMessageDescription": "الرسالة المعروضة عندما يكون التطبيق في وضع الصيانة.",
-  "@maintenanceMessageDescription": {
-    "description": "وصف رسالة الصيانة"
-  },
   "disabledMessageLabel": "رسالة التعطيل",
-  "@disabledMessageLabel": {
-    "description": "تسمية رسالة التعطيل"
-  },
   "disabledMessageDescription": "الرسالة المعروضة عندما يكون التطبيق معطلاً بشكل دائم.",
-  "@disabledMessageDescription": {
-    "description": "وصف رسالة التعطيل"
-  },
   "forceUpdateConfigurationTitle": "إعدادات التحديث الإجباري",
-  "@forceUpdateConfigurationTitle": {
-    "description": "عنوان قسم إعدادات التحديث الإجباري"
-  },
   "minAllowedAppVersionLabel": "الحد الأدنى المسموح به لإصدار التطبيق",
-  "@minAllowedAppVersionLabel": {
-    "description": "تسمية الحد الأدنى المسموح به لإصدار التطبيق"
-  },
   "minAllowedAppVersionDescription": "أدنى إصدار للتطبيق مسموح بتشغيله (على سبيل المثال، \"1.2.0\").",
-  "@minAllowedAppVersionDescription": {
-    "description": "وصف الحد الأدنى المسموح به لإصدار التطبيق"
-  },
   "latestAppVersionLabel": "أحدث إصدار للتطبيق",
-  "@latestAppVersionLabel": {
-    "description": "تسمية أحدث إصدار للتطبيق"
-  },
   "latestAppVersionDescription": "أحدث إصدار متاح للتطبيق (على سبيل المثال، \"1.5.0\").",
-  "@latestAppVersionDescription": {
-    "description": "وصف أحدث إصدار للتطبيق"
-  },
   "updateRequiredMessageLabel": "رسالة التحديث المطلوب",
-  "@updateRequiredMessageLabel": {
-    "description": "تسمية رسالة التحديث المطلوب"
-  },
   "updateRequiredMessageDescription": "الرسالة المعروضة عندما يكون التحديث إجباريًا.",
-  "@updateRequiredMessageDescription": {
-    "description": "وصف رسالة التحديث المطلوب"
-  },
   "updateOptionalMessageLabel": "رسالة التحديث الاختياري",
-  "@updateOptionalMessageLabel": {
-    "description": "تسمية رسالة التحديث الاختياري"
-  },
   "updateOptionalMessageDescription": "الرسالة المعروضة للتحديث الاختياري.",
-  "@updateOptionalMessageDescription": {
-    "description": "وصف رسالة التحديث الاختياري"
-  },
   "iosStoreUrlLabel": "رابط متجر iOS",
-  "@iosStoreUrlLabel": {
-    "description": "تسمية رابط متجر iOS"
-  },
   "iosStoreUrlDescription": "رابط التطبيق على متجر Apple App Store.",
-  "@iosStoreUrlDescription": {
-    "description": "وصف رابط متجر iOS"
-  },
   "androidStoreUrlLabel": "رابط متجر Android",
-  "@androidStoreUrlLabel": {
-    "description": "تسمية رابط متجر Android"
-  },
   "androidStoreUrlDescription": "رابط التطبيق على متجر Google Play Store.",
-  "@androidStoreUrlDescription": {
-    "description": "وصف رابط متجر Android"
-  },
   "guestDaysBetweenInAppPromptsLabel": "أيام الضيف بين التنبيهات داخل التطبيق",
-  "@guestDaysBetweenInAppPromptsLabel": {
-    "description": "تسمية أيام الضيف بين التنبيهات داخل التطبيق"
-  },
   "guestDaysBetweenInAppPromptsDescription": "الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم الضيف تنبيهًا آخر داخل التطبيق.",
-  "@guestDaysBetweenInAppPromptsDescription": {
-    "description": "وصف أيام الضيف بين التنبيهات داخل التطبيق"
-  },
   "standardUserDaysBetweenInAppPromptsLabel": "أيام المستخدم العادي بين التنبيهات داخل التطبيق",
-  "@standardUserDaysBetweenInAppPromptsLabel": {
-    "description": "تسمية أيام المستخدم العادي بين التنبيهات داخل التطبيق"
-  },
   "standardUserDaysBetweenInAppPromptsDescription": "الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يرى المستخدم العادي تنبيهًا آخر داخل التطبيق.",
-  "@standardUserDaysBetweenInAppPromptsDescription": {
-    "description": "وصف أيام المستخدم العادي بين التنبيهات داخل التطبيق"
-  },
   "signOut": "تسجيل الخروج",
-  "@signOut": {
-    "description": "نص عنصر قائمة تسجيل الخروج"
-  },
   "settingsSavedSuccessfully": "تم حفظ الإعدادات بنجاح!",
-  "@settingsSavedSuccessfully": {
-    "description": "رسالة شريط التنبيه لحفظ الإعدادات بنجاح"
-  },
   "settingsSaveErrorMessage": "خطأ في حفظ الإعدادات: {errorMessage}",
   "@settingsSaveErrorMessage": {
     "description": "رسالة شريط التنبيه لخطأ حفظ الإعدادات",
@@ -514,13 +163,7 @@
     }
   },
   "loadingSettingsHeadline": "جاري تحميل الإعدادات",
-  "@loadingSettingsHeadline": {
-    "description": "عنوان حالة تحميل الإعدادات"
-  },
   "loadingSettingsSubheadline": "الرجاء الانتظار بينما يتم تحميل إعداداتك...",
-  "@loadingSettingsSubheadline": {
-    "description": "عنوان فرعي لحالة تحميل الإعدادات"
-  },
   "failedToLoadSettingsMessage": "فشل تحميل الإعدادات: {errorMessage}",
   "@failedToLoadSettingsMessage": {
     "description": "رسالة لحالة فشل تحميل الإعدادات",
@@ -531,457 +174,118 @@
     }
   },
   "baseThemeLabel": "السمة الأساسية",
-  "@baseThemeLabel": {
-    "description": "تسمية إعداد السمة الأساسية"
-  },
   "baseThemeDescription": "اختر المظهر العام الفاتح أو الداكن للتطبيق.",
-  "@baseThemeDescription": {
-    "description": "وصف إعداد السمة الأساسية"
-  },
   "lightTheme": "فاتح",
-  "@lightTheme": {
-    "description": "خيار السمة الفاتحة"
-  },
   "darkTheme": "داكن",
-  "@darkTheme": {
-    "description": "خيار السمة الداكنة"
-  },
   "systemTheme": "افتراضي النظام",
-  "@systemTheme": {
-    "description": "خيار السمة الافتراضية للنظام"
-  },
   "accentThemeLabel": "سمة التمييز",
-  "@accentThemeLabel": {
-    "description": "تسمية إعداد سمة التمييز"
-  },
   "accentThemeDescription": "اختر لون تمييز أساسي للعناصر التفاعلية.",
-  "@accentThemeDescription": {
-    "description": "وصف إعداد سمة التمييز"
-  },
   "defaultBlueTheme": "أزرق افتراضي",
-  "@defaultBlueTheme": {
-    "description": "خيار سمة التمييز الزرقاء الافتراضية"
-  },
   "newsRedTheme": "أحمر الأخبار",
-  "@newsRedTheme": {
-    "description": "خيار سمة التمييز الحمراء للأخبار"
-  },
   "graphiteGrayTheme": "رمادي جرافيت",
-  "@graphiteGrayTheme": {
-    "description": "خيار سمة التمييز الرمادية الجرافيتية"
-  },
   "fontFamilyLabel": "عائلة الخط",
-  "@fontFamilyLabel": {
-    "description": "تسمية إعداد عائلة الخط"
-  },
   "fontFamilyDescription": "اختر الخط المستخدم في جميع أنحاء التطبيق.",
-  "@fontFamilyDescription": {
-    "description": "وصف إعداد عائلة الخط"
-  },
   "systemDefaultFont": "افتراضي النظام",
-  "@systemDefaultFont": {
-    "description": "خيار الخط الافتراضي للنظام"
-  },
   "textScaleFactorLabel": "حجم النص",
-  "@textScaleFactorLabel": {
-    "description": "تسمية إعداد حجم النص"
-  },
   "textScaleFactorDescription": "ضبط الحجم الكلي للنص في التطبيق.",
-  "@textScaleFactorDescription": {
-    "description": "وصف إعداد حجم النص"
-  },
   "smallText": "صغير",
-  "@smallText": {
-    "description": "خيار حجم النص الصغير"
-  },
   "mediumText": "متوسط",
-  "@mediumText": {
-    "description": "خيار حجم النص المتوسط"
-  },
   "largeText": "كبير",
-  "@largeText": {
-    "description": "خيار حجم النص الكبير"
-  },
   "extraLargeText": "كبير جداً",
-  "@extraLargeText": {
-    "description": "خيار حجم النص الكبير جداً"
-  },
   "fontWeightLabel": "وزن الخط",
-  "@fontWeightLabel": {
-    "description": "تسمية إعداد وزن الخط"
-  },
   "fontWeightDescription": "اختر سمك النص.",
-  "@fontWeightDescription": {
-    "description": "وصف إعداد وزن الخط"
-  },
   "lightFontWeight": "فاتح",
-  "@lightFontWeight": {
-    "description": "خيار وزن الخط الفاتح"
-  },
   "regularFontWeight": "عادي",
-  "@regularFontWeight": {
-    "description": "خيار وزن الخط العادي"
-  },
   "boldFontWeight": "عريض",
-  "@boldFontWeight": {
-    "description": "خيار وزن الخط العريض"
-  },
   "languageLabel": "اللغة",
-  "@languageLabel": {
-    "description": "تسمية إعداد اللغة"
-  },
   "languageDescription": "اختر لغة التطبيق.",
-  "@languageDescription": {
-    "description": "وصف إعداد اللغة"
-  },
   "englishLanguage": "الإنجليزية",
-  "@englishLanguage": {
-    "description": "خيار اللغة الإنجليزية"
-  },
   "arabicLanguage": "العربية",
-  "@arabicLanguage": {
-    "description": "خيار اللغة العربية"
-  },
   "appearanceSettingsLabel": "المظهر",
-  "@appearanceSettingsLabel": {
-    "description": "تسمية تبويب إعدادات المظهر"
-  },
   "languageSettingsLabel": "اللغة",
-  "@languageSettingsLabel": {
-    "description": "تسمية تبويب إعدادات اللغة"
-  },
   "themeSettingsLabel": "إعدادات السمة",
-  "@themeSettingsLabel": {
-    "description": "تسمية تبويب إعدادات السمة الفرعي"
-  },
   "fontSettingsLabel": "إعدادات الخط",
-  "@fontSettingsLabel": {
-    "description": "تسمية تبويب إعدادات الخط الفرعي"
-  },
   "settingsPageDescription": "قم بتكوين تفضيلاتك الشخصية لواجهة لوحة القيادة، بما في ذلك العرض المرئي واختيار اللغة.",
-  "@settingsPageDescription": {
-    "description": "وصف صفحة الإعدادات الرئيسية"
-  },
   "appearanceSettingsDescription": "اضبط الخصائص المرئية للوحة القيادة، بما في ذلك السمة وألوان التمييز والأنماط الطباعية.",
-  "@appearanceSettingsDescription": {
-    "description": "وصف تبويب إعدادات المظهر"
-  },
   "loadingHeadlines": "جاري تحميل العناوين الرئيسية",
-  "@loadingHeadlines": {
-    "description": "عنوان حالة تحميل العناوين الرئيسية"
-  },
   "pleaseWait": "الرجاء الانتظار...",
-  "@pleaseWait": {
-    "description": "عنوان فرعي لحالة التحميل"
-  },
   "noHeadlinesFound": "لم يتم العثور على عناوين رئيسية.",
-  "@noHeadlinesFound": {
-    "description": "رسالة عند عدم العثور على عناوين رئيسية"
-  },
   "headlineTitle": "العنوان",
-  "@headlineTitle": {
-    "description": "رأس العمود لعنوان الخبر"
-  },
   "excerpt": "المقتطف",
-  "@excerpt": {
-    "description": "تسمية حقل إدخال المقتطف"
-  },
   "countryName": "البلد",
-  "@countryName": {
-    "description": "تسمية حقل القائمة المنسدلة لاسم البلد"
-  },
   "publishedAt": "تاريخ النشر",
-  "@publishedAt": {
-    "description": "رأس العمود لتاريخ النشر"
-  },
   "actions": "الإجراءات",
-  "@actions": {
-    "description": "رأس العمود للإجراءات"
-  },
   "unknown": "غير معروف",
-  "@unknown": {
-    "description": "نص احتياطي للقيم غير المعروفة"
-  },
   "loadingTopics": "جاري تحميل المواضيع",
-  "@loadingTopics": {
-    "description": "عنوان حالة تحميل المواضيع"
-  },
   "noTopicsFound": "لم يتم العثور على مواضيع.",
-  "@noTopicsFound": {
-    "description": "رسالة عند عدم العثور على مواضيع"
-  },
   "topicName": "الموضوع",
-  "@topicName": {
-    "description": "تسمية حقل اسم الموضوع في النماذج والجداول."
-  },
   "description": "الوصف",
-  "@description": {
-    "description": "رأس العمود للوصف"
-  },
   "notAvailable": "غير متاح",
-  "@notAvailable": {
-    "description": "نص قصير لـ 'غير متاح'"
-  },
   "loadingSources": "جاري تحميل المصادر",
-  "@loadingSources": {
-    "description": "عنوان حالة تحميل المصادر"
-  },
   "noSourcesFound": "لم يتم العثور على مصادر.",
-  "@noSourcesFound": {
-    "description": "رسالة عند عدم العثور على مصادر"
-  },
   "sourceName": "المصدر",
-  "@sourceName": {
-    "description": "رأس العمود لاسم المصدر"
-  },
   "sourceType": "النوع",
-  "@sourceType": {
-    "description": "رأس العمود لنوع المصدر"
-  },
   "language": "اللغة",
-  "@language": {
-    "description": "رأس العمود للغة"
-  },
   "editTopic": "تعديل الموضوع",
-  "@editTopic": {
-    "description": "عنوان صفحة تعديل الموضوع"
-  },
   "saveChanges": "حفظ التغييرات",
-  "@saveChanges": {
-    "description": "تلميح لزر حفظ التغييرات"
-  },
   "loadingTopic": "جاري تحميل الموضوع",
-  "@loadingTopic": {
-    "description": "رسالة تُعرض أثناء تحميل بيانات الموضوع"
-  },
   "icon": "أيقونة",
-  "@icon": {
-    "description": "تسمية حقل تحميل الأيقونة"
-  },
   "topicUpdatedSuccessfully": "تم تحديث الموضوع بنجاح.",
-  "@topicUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث الموضوع بنجاح"
-  },
   "cannotUpdateTopicError": "لا يمكن التحديث: لم يتم تحميل بيانات الموضوع الأصلية.",
-  "@cannotUpdateTopicError": {
-    "description": "رسالة خطأ عند فشل تحديث الموضوع بسبب عدم تحميل البيانات الأصلية"
-  },
   "createTopic": "إنشاء موضوع",
-  "@createTopic": {
-    "description": "عنوان صفحة إنشاء موضوع"
-  },
   "topicCreatedSuccessfully": "تم إنشاء الموضوع بنجاح.",
-  "@topicCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء الموضوع بنجاح"
-  },
   "editSource": "تعديل المصدر",
-  "@editSource": {
-    "description": "عنوان صفحة تعديل المصدر"
-  },
   "sourceUpdatedSuccessfully": "تم تحديث المصدر بنجاح.",
-  "@sourceUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث المصدر بنجاح"
-  },
   "loadingSource": "جاري تحميل المصدر...",
-  "@loadingSource": {
-    "description": "رسالة تُعرض أثناء تحميل بيانات المصدر"
-  },
   "sourceUrl": "الرابط",
-  "@sourceUrl": {
-    "description": "تسمية حقل إدخال رابط المصدر"
-  },
   "headquarters": "المقر الرئيسي",
-  "@headquarters": {
-    "description": "تسمية حقل القائمة المنسدلة للمقر الرئيسي"
-  },
   "none": "لا شيء",
-  "@none": {
-    "description": "خيار افتراضي فارغ للقوائم المنسدلة"
-  },
   "cannotUpdateSourceError": "لا يمكن التحديث: لم يتم تحميل بيانات المصدر الأصلية.",
-  "@cannotUpdateSourceError": {
-    "description": "رسالة خطأ عند فشل تحديث المصدر بسبب عدم تحميل البيانات الأصلية"
-  },
   "sourceTypeNewsAgency": "وكالة أنباء",
-  "@sourceTypeNewsAgency": {
-    "description": "وكالة أنباء عالمية (مثل رويترز، أسوشيتد برس)."
-  },
   "sourceTypeLocalNewsOutlet": "منفذ إخباري محلي",
-  "@sourceTypeLocalNewsOutlet": {
-    "description": "منفذ إخباري يركز على منطقة محلية معينة."
-  },
   "sourceTypeNationalNewsOutlet": "منفذ إخباري وطني",
-  "@sourceTypeNationalNewsOutlet": {
-    "description": "منفذ إخباري يركز على بلد معين."
-  },
   "sourceTypeInternationalNewsOutlet": "منفذ إخباري دولي",
-  "@sourceTypeInternationalNewsOutlet": {
-    "description": "منفذ إخباري ذو تركيز دولي واسع."
-  },
   "sourceTypeSpecializedPublisher": "ناشر متخصص",
-  "@sourceTypeSpecializedPublisher": {
-    "description": "ناشر يركز على موضوع معين (مثل التكنولوجيا، الرياضة)."
-  },
   "sourceTypeBlog": "مدونة",
-  "@sourceTypeBlog": {
-    "description": "مدونة أو منشور شخصي."
-  },
   "sourceTypeGovernmentSource": "مصدر حكومي",
-  "@sourceTypeGovernmentSource": {
-    "description": "مصدر حكومي رسمي."
-  },
   "sourceTypeAggregator": "مجمع",
-  "@sourceTypeAggregator": {
-    "description": "خدمة تجمع الأخبار من مصادر أخرى."
-  },
   "sourceTypeOther": "أخرى",
-  "@sourceTypeOther": {
-    "description": "أي نوع آخر من المصادر غير المذكورة أعلاه."
-  },
   "editHeadline": "تعديل العنوان",
-  "@editHeadline": {
-    "description": "عنوان صفحة تعديل العنوان"
-  },
   "headlineUpdatedSuccessfully": "تم تحديث العنوان بنجاح.",
-  "@headlineUpdatedSuccessfully": {
-    "description": "رسالة تُعرض عند تحديث العنوان بنجاح"
-  },
   "loadingHeadline": "جاري تحميل العنوان...",
-  "@loadingHeadline": {
-    "description": "رسالة تُعرض أثناء تحميل بيانات العنوان"
-  },
   "image": "صورة",
-  "@image": {
-    "description": "تسمية حقل تحميل الصورة"
-  },
   "cannotUpdateHeadlineError": "لا يمكن التحديث: لم يتم تحميل بيانات العنوان الأصلية.",
-  "@cannotUpdateHeadlineError": {
-    "description": "رسالة خطأ عند فشل تحديث العنوان بسبب عدم تحميل البيانات الأصلية"
-  },
   "createHeadline": "إنشاء عنوان",
-  "@createHeadline": {
-    "description": "عنوان صفحة إنشاء عنوان"
-  },
   "headlineCreatedSuccessfully": "تم إنشاء العنوان بنجاح.",
-  "@headlineCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء العنوان بنجاح"
-  },
   "loadingData": "جاري تحميل البيانات...",
-  "@loadingData": {
-    "description": "رسالة عامة تُعرض أثناء تحميل البيانات لنموذج"
-  },
   "loadingFullList": "جاري تحميل القائمة الكاملة...",
-  "@loadingFullList": {
-    "description": "رسالة تُعرض في قائمة منسدلة عند تحميل قائمتها الكاملة من العناصر في الخلفية."
-  },
   "createSource": "إنشاء مصدر",
-  "@createSource": {
-    "description": "عنوان صفحة إنشاء مصدر"
-  },
   "updateSourceTitle": "تحديث المصدر",
-  "@updateSourceTitle": {
-    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث المصدر."
-  },
   "updateSourceMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
-  "@updateSourceMessage": {
-    "description": "رسالة مربع الحوار الذي يسأل عن كيفية تحديث المصدر."
-  },
   "sourceCreatedSuccessfully": "تم إنشاء المصدر بنجاح.",
-  "@sourceCreatedSuccessfully": {
-    "description": "رسالة تُعرض عند إنشاء المصدر بنجاح"
-  },
   "updateTopicTitle": "تحديث الموضوع",
-  "@updateTopicTitle": {
-    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث الموضوع."
-  },
   "status": "الحالة",
-  "@status": {
-    "description": "تسمية لحالة المحتوى"
-  },
   "updateTopicMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
-  "@updateTopicMessage": {
-    "description": "Message for the dialog asking how to update a topic."
-  },
   "lastUpdated": "آخر تحديث",
-  "@lastUpdated": {
-    "description": "رأس العمود لتاريخ آخر تحديث"
-  },
   "contentStatusActive": "نشط",
-  "@contentStatusActive": {
-    "description": "حالة المحتوى: نشط"
-  },
   "contentStatusArchived": "مؤرشف",
-  "@contentStatusArchived": {
-    "description": "حالة المحتوى: مؤرشف"
-  },
   "contentStatusDraft": "مسودة",
-  "@contentStatusDraft": {
-    "description": "حالة المحتوى: مسودة"
-  },
   "totalHeadlines": "إجمالي العناوين",
-  "@totalHeadlines": {
-    "description": "تسمية بطاقة ملخص إجمالي العناوين في نظرة عامة على لوحة القيادة"
-  },
   "totalTopics": "إجمالي المواضيع",
-  "@totalTopics": {
-    "description": "تسمية بطاقة ملخص إجمالي المواضيع في نظرة عامة على لوحة القيادة"
-  },
   "totalSources": "إجمالي المصادر",
-  "@totalSources": {
-    "description": "تسمية بطاقة ملخص إجمالي المصادر في نظرة عامة على لوحة القيادة"
-  },
   "loadingOverview": "جاري تحميل نظرة عامة على لوحة القيادة",
-  "@loadingOverview": {
-    "description": "عنوان حالة تحميل نظرة عامة على لوحة القيادة"
-  },
   "loadingOverviewSubheadline": "جاري جلب أحدث الإحصائيات...",
-  "@loadingOverviewSubheadline": {
-    "description": "عنوان فرعي لحالة تحميل نظرة عامة على لوحة القيادة"
-  },
   "overviewLoadFailure": "فشل تحميل بيانات نظرة عامة على لوحة القيادة.",
-  "@overviewLoadFailure": {
-    "description": "رسالة خطأ عند فشل تحميل بيانات نظرة عامة على لوحة القيادة"
-  },
   "recentHeadlines": "أحدث العناوين",
-  "@recentHeadlines": {
-    "description": "عنوان بطاقة أحدث العناوين في نظرة عامة على لوحة القيادة"
-  },
   "viewAll": "عرض الكل",
-  "@viewAll": {
-    "description": "نص زر عرض كل العناصر في قائمة"
-  },
   "noRecentHeadlines": "لا توجد عناوين حديثة لعرضها.",
-  "@noRecentHeadlines": {
-    "description": "رسالة تظهر عند عدم وجود عناوين حديثة"
-  },
   "systemStatus": "حالة النظام",
-  "@systemStatus": {
-    "description": "عنوان بطاقة حالة النظام في نظرة عامة على لوحة القيادة"
-  },
   "quickActions": "إجراءات سريعة",
-  "@quickActions": {
-    "description": "عنوان بطاقة الإجراءات السريعة في نظرة عامة على لوحة القيادة"
-  },
   "createHeadlineAction": "إنشاء عنوان",
-  "@createHeadlineAction": {
-    "description": "نص زر الإجراء السريع لإنشاء عنوان"
-  },
   "manageContentAction": "إدارة المحتوى",
-  "@manageContentAction": {
-    "description": "نص زر الإجراء السريع لإدارة المحتوى"
-  },
   "appConfigAction": "إعدادات التطبيق",
-  "@appConfigAction": {
-    "description": "نص زر الإجراء السريع لإعدادات التطبيق"
-  },
   "appStatusActive": "نشط",
-  "@appStatusActive": {
-    "description": "نص حالة التطبيق 'نشط'"
-  },
   "appStatusDisabled": "معطل",
-  "@appStatusDisabled": {
-    "description": "نص حالة التطبيق 'معطل'"
-  },
   "demoEmailHint": "للعرض التجريبي، استخدم البريد الإلكتروني: {email}",
   "@demoEmailHint": {
     "description": "Hint text shown in demo environment for the login email.",
@@ -1003,97 +307,28 @@
     }
   },
   "appStatusMaintenance": "صيانة",
-  "@appStatusMaintenance": {
-    "description": "نص حالة التطبيق 'صيانة'"
-  },
   "appStatusOperational": "يعمل",
-  "@appStatusOperational": {
-    "description": "نص حالة التطبيق 'يعمل'"
-  },
   "isUnderMaintenanceLabel": "تحت الصيانة",
-  "@isUnderMaintenanceLabel": {
-    "description": "تسمية مفتاح 'تحت الصيانة'"
-  },
   "isUnderMaintenanceDescription": "تبديل لوضع تطبيق الجوال في وضع الصيانة، مما يمنع وصول المستخدمين.",
-  "@isUnderMaintenanceDescription": {
-    "description": "وصف مفتاح 'تحت الصيانة'"
-  },
   "isLatestVersionOnlyLabel": "فرض أحدث إصدار فقط",
-  "@isLatestVersionOnlyLabel": {
-    "description": "تسمية مفتاح 'فرض أحدث إصدار فقط'"
-  },
   "isLatestVersionOnlyDescription": "إذا تم التمكين، يجب على المستخدمين التحديث إلى أحدث إصدار من التطبيق لمواصلة استخدامه.",
-  "@isLatestVersionOnlyDescription": {
-    "description": "وصف مفتاح 'فرض أحدث إصدار فقط'"
-  },
   "iosUpdateUrlLabel": "رابط تحديث iOS",
-  "@iosUpdateUrlLabel": {
-    "description": "تسمية رابط تحديث iOS"
-  },
   "iosUpdateUrlDescription": "رابط تحديثات تطبيق iOS.",
-  "@iosUpdateUrlDescription": {
-    "description": "وصف رابط تحديث iOS"
-  },
   "androidUpdateUrlLabel": "رابط تحديث Android",
-  "@androidUpdateUrlLabel": {
-    "description": "تسمية رابط تحديث Android"
-  },
   "androidUpdateUrlDescription": "رابط تحديثات تطبيق Android.",
-  "@androidUpdateUrlDescription": {
-    "description": "وصف رابط تحديث Android"
-  },
   "followedItemsLimitLabel": "حد العناصر المتابعة",
-  "@followedItemsLimitLabel": {
-    "description": "تسمية حد العناصر المتابعة"
-  },
   "followedItemsLimitDescription": "الحد الأقصى لعدد البلدان أو مصادر الأخبار أو المواضيع التي يمكن لهذا الدور المستخدم متابعتها (لكل نوع حد خاص به).",
-  "@followedItemsLimitDescription": {
-    "description": "وصف حد العناصر المتابعة"
-  },
   "savedFeedFiltersLimitLabel": "حدود المرشحات",
-  "@savedFeedFiltersLimitLabel": {
-    "description": "تسمية حد مرشحات موجز الأخبار المحفوظة"
-  },
   "savedFeedFiltersLimitDescription": "الحد الأقصى لعدد مرشحات موجز الأخبار التي يمكن لهذا الدور المستخدم حفظها.",
-  "@savedFeedFiltersLimitDescription": {
-    "description": "وصف حد العناوين المحفوظة"
-  },
   "adFrequencyLabel": "تكرار الإعلان",
-  "@adFrequencyLabel": {
-    "description": "تسمية تكرار الإعلان"
-  },
   "adFrequencyDescription": "عدد مرات ظهور الإعلان لهذا الدور المستخدم (على سبيل المثال، قيمة 5 تعني أنه يمكن وضع إعلان بعد كل 5 عناصر إخبارية).",
-  "@adFrequencyDescription": {
-    "description": "وصف تكرار الإعلان"
-  },
   "savedFeedFilterLimitsTitle": "حدود المرشحات المحفوظة",
-  "@savedFeedFilterLimitsTitle": {
-    "description": "وصف لحد مرشحات موجز الأخبار المحفوظة"
-  },
   "savedFeedFilterLimitsDescription": "الحد الأقصى لعدد  مرشحات موجز الأخبار المحفوظة التي يمكن لهذا الدور إنشاؤها.",
-  "@savedFeedFilterLimitsDescription": {
-    "description": "وصف لحد المرشحات المحفوظة"
-  },
   "adPlacementIntervalLabel": "فترة وضع الإعلان",
-  "@adPlacementIntervalLabel": {
-    "description": "تسمية فترة وضع الإعلان"
-  },
   "adPlacementIntervalDescription": "الحد الأدنى لعدد عناصر الأخبار التي يجب عرضها قبل ظهور الإعلان الأول لهذا الدور المستخدم.",
-  "@adPlacementIntervalDescription": {
-    "description": "وصف فترة وضع الإعلان"
-  },
   "articlesBeforeInterstitialAdsLabel": "مقالات قبل الإعلانات البينية",
-  "@articlesBeforeInterstitialAdsLabel": {
-    "description": "تسمية مقالات قبل الإعلانات البينية"
-  },
   "articlesBeforeInterstitialAdsDescription": "عدد المقالات التي يحتاج هذا الدور المستخدم لقراءتها قبل عرض إعلان بيني بملء الشاشة.",
-  "@articlesBeforeInterstitialAdsDescription": {
-    "description": "وصف مقالات قبل الإعلانات البينية"
-  },
   "daysSuffix": "أيام",
-  "@daysSuffix": {
-    "description": "لاحقة لعدد الأيام في أوصاف التنبيهات"
-  },
   "daysBetweenPromptDescription": "الحد الأدنى لعدد الأيام قبل عرض تنبيه {actionType}.",
   "@daysBetweenPromptDescription": {
     "description": "وصف الأيام بين التنبيهات داخل التطبيق",
@@ -1104,101 +339,29 @@
     }
   },
   "retryButtonText": "إعادة المحاولة",
-  "@retryButtonText": {
-    "description": "نص زر إعادة المحاولة"
-  },
   "feedActionTypeLinkAccount": "ربط الحساب",
-  "@feedActionTypeLinkAccount": {
-    "description": "نوع إجراء الموجز لربط حساب"
-  },
   "feedActionTypeRateApp": "تقييم التطبيق",
-  "@feedActionTypeRateApp": {
-    "description": "نوع إجراء الموجز لتقييم التطبيق"
-  },
   "feedActionTypeFollowTopics": "متابعة المواضيع",
-  "@feedActionTypeFollowTopics": {
-    "description": "نوع إجراء الموجز لمتابعة المواضيع"
-  },
   "feedActionTypeFollowSources": "متابعة المصادر",
-  "@feedActionTypeFollowSources": {
-    "description": "نوع إجراء الموجز لمتابعة المصادر"
-  },
   "feedActionTypeUpgrade": "ترقية",
-  "@feedActionTypeUpgrade": {
-    "description": "نوع إجراء الموجز للترقية"
-  },
   "feedActionTypeEnableNotifications": "تفعيل الإشعارات",
-  "@feedActionTypeEnableNotifications": {
-    "description": "نوع إجراء الموجز لتفعيل الإشعارات"
-  },
   "countryPickerSearchLabel": "بحث",
-  "@countryPickerSearchLabel": {
-    "description": "تسمية حقل البحث في منتقي البلد"
-  },
   "countryPickerSearchHint": "ابدأ الكتابة للبحث...",
-  "@countryPickerSearchHint": {
-    "description": "نص تلميح لحقل البحث في منتقي البلد"
-  },
   "countryPickerSelectCountryLabel": "اختر دولة",
-  "@countryPickerSelectCountryLabel": {
-    "description": "التسمية المعروضة عند عدم اختيار أي دولة في حقل نموذج منتقي البلد"
-  },
   "archivedHeadlines": "العناوين المؤرشفة",
-  "@archivedHeadlines": {
-    "description": "عنوان صفحة العناوين المؤرشفة"
-  },
   "loadingArchivedHeadlines": "جاري تحميل العناوين المؤرشفة",
-  "@loadingArchivedHeadlines": {
-    "description": "عنوان حالة تحميل العناوين المؤرشفة"
-  },
   "noArchivedHeadlinesFound": "لم يتم العثور على عناوين مؤرشفة.",
-  "@noArchivedHeadlinesFound": {
-    "description": "رسالة عند عدم العثور على عناوين مؤرشفة"
-  },
   "restore": "استعادة",
-  "@restore": {
-    "description": "تلميح لزر الاستعادة"
-  },
   "deleteForever": "حذف نهائي",
-  "@deleteForever": {
-    "description": "تلميح لزر الحذف النهائي"
-  },
   "archivedTopics": "المواضيع المؤرشفة",
-  "@archivedTopics": {
-    "description": "عنوان صفحة المواضيع المؤرشفة"
-  },
   "loadingArchivedTopics": "جاري تحميل المواضيع المؤرشفة",
-  "@loadingArchivedTopics": {
-    "description": "عنوان حالة تحميل المواضيع المؤرشفة"
-  },
   "noArchivedTopicsFound": "لم يتم العثور على مواضيع مؤرشفة.",
-  "@noArchivedTopicsFound": {
-    "description": "رسالة عند عدم العثور على مواضيع مؤرشفة"
-  },
   "archivedSources": "المصادر المؤرشفة",
-  "@archivedSources": {
-    "description": "عنوان صفحة المصادر المؤرشفة"
-  },
   "loadingArchivedSources": "جاري تحميل المصادر المؤرشفة",
-  "@loadingArchivedSources": {
-    "description": "عنوان حالة تحميل المصادر المؤرشفة"
-  },
   "noArchivedSourcesFound": "لم يتم العثور على مصادر مؤرشفة.",
-  "@noArchivedSourcesFound": {
-    "description": "رسالة عند عدم العثور على مصادر مؤرشفة"
-  },
   "archivedItems": "العناصر المؤرشفة",
-  "@archivedItems": {
-    "description": "تلميح لزر العناصر المؤرشفة"
-  },
   "addNewItem": "إضافة عنصر جديد",
-  "@addNewItem": {
-    "description": "تلميح لزر إضافة عنصر جديد"
-  },
   "archive": "أرشفة",
-  "@archive": {
-    "description": "تلميح لأرشفة زر"
-  },
   "headlineDeleted": "تم حذف ''{title}''.",
   "@headlineDeleted": {
     "description": "رسالة Snackbar عند حذف عنوان",
@@ -1210,93 +373,27 @@
     }
   },
   "undo": "تراجع",
-  "@undo": {
-    "description": "تلميح لزر التراجع"
-  },
   "enabledLabel": "مفعل",
-  "@enabledLabel": {
-    "description": "تسمية مفتاح التفعيل"
-  },
   "itemsToDisplayLabel": "العناصر المعروضة",
-  "@itemsToDisplayLabel": {
-    "description": "تسمية حقل العناصر المعروضة"
-  },
   "itemsToDisplayDescription": "عدد العناصر التي تظهر في هذه الزينة.",
-  "@itemsToDisplayDescription": {
-    "description": "وصف حقل العناصر المعروضة"
-  },
   "roleSpecificSettingsTitle": "إعدادات مخصصة للدور",
-  "@roleSpecificSettingsTitle": {
-    "description": "عنوان قسم الإعدادات المخصصة للدور"
-  },
   "daysBetweenViewsLabel": "الأيام بين المشاهدات",
-  "@daysBetweenViewsLabel": {
-    "description": "تسمية حقل الأيام بين المشاهدات"
-  },
   "daysBetweenViewsDescription": "يحدد هذا الإعداد الحد الأدنى لعدد الأيام التي يجب أن تمر قبل أن يمكن عرض هذه الزينة مرة أخرى للمستخدم، شريطة ألا يكون قد أكمل المهمة المرتبطة بها بعد.",
-  "@daysBetweenViewsDescription": {
-    "description": "وصف حقل الأيام بين المشاهدات لزينة الموجز"
-  },
   "feedDecoratorTypeLinkAccount": "ربط الحساب",
-  "@feedDecoratorTypeLinkAccount": {
-    "description": "الاسم المترجم لـ FeedDecoratorType.linkAccount"
-  },
   "feedDecoratorTypeUpgrade": "الترقية إلى مميز",
-  "@feedDecoratorTypeUpgrade": {
-    "description": "الاسم المترجم لـ FeedDecoratorType.upgrade"
-  },
   "feedDecoratorTypeRateApp": "تقييم التطبيق",
-  "@feedDecoratorTypeRateApp": {
-    "description": "الاسم المترجم لـ FeedDecoratorType.rateApp"
-  },
   "feedDecoratorTypeEnableNotifications": "تفعيل الإشعارات",
-  "@feedDecoratorTypeEnableNotifications": {
-    "description": "الاسم المترجم لـ FeedDecoratorType.enableNotifications"
-  },
   "feedDecoratorTypeSuggestedTopics": "مواضيع مقترحة",
-  "@feedDecoratorTypeSuggestedTopics": {
-    "description": "الاسم المترجم لـ FeedDecoratorType.suggestedTopics"
-  },
   "feedDecoratorTypeSuggestedSources": "مصادر مقترحة",
-  "@feedDecoratorTypeSuggestedSources": {
-    "description": "الاسم المترجم لـ FeedDecoratorType.suggestedSources"
-  },
   "guestUserRole": "مستخدم ضيف",
-  "@guestUserRole": {
-    "description": "الاسم المترجم لـ AppUserRole.guestUser"
-  },
   "standardUserRole": "مستخدم عادي",
-  "@standardUserRole": {
-    "description": "الاسم المترجم لـ AppUserRole.standardUser"
-  },
   "premiumUserRole": "مستخدم مميز",
-  "@premiumUserRole": {
-    "description": "الاسم المترجم لـ AppUserRole.premiumUser"
-  },
   "dashboardTitle": "لوحة القيادة",
-  "@dashboardTitle": {
-    "description": "عنوان شريط التطبيق الرئيسي للوحة القيادة"
-  },
   "clearSelection": "مسح التحديد",
-  "@clearSelection": {
-    "description": "تلميح لزر مسح التحديد في قائمة منسدلة"
-  },
   "search": "بحث",
-  "@search": {
-    "description": "تسمية حقل إدخال البحث"
-  },
   "noResultsFound": "لم يتم العثور على نتائج.",
-  "@noResultsFound": {
-    "description": "رسالة عند عدم العثور على نتائج بحث"
-  },
   "close": "إغلاق",
-  "@close": {
-    "description": "نص زر إغلاق نافذة منبثقة أو تراكب"
-  },
   "apply": "تطبيق",
-  "@apply": {
-    "description": "نص زر لتطبيق التغييرات أو التحديدات"
-  },
   "visibleToRoleLabel": "مرئي لـ {roleName}",
   "@visibleToRoleLabel": {
     "description": "تسمية مربع الاختيار للتحكم في رؤية الزينة لدور معين",
@@ -1307,121 +404,34 @@
     }
   },
   "adPlatformConfigurationTitle": "إعدادات منصة الإعلان",
-  "@adPlatformConfigurationTitle": {
-    "description": "عنوان قسم إعدادات منصة الإعلانات"
-  },
   "primaryAdPlatformTitle": "منصة الإعلانات الأساسية",
-  "@primaryAdPlatformTitle": {
-    "description": "عنوان قسم اختيار منصة الإعلانات الأساسية"
-  },
   "primaryAdPlatformDescription": "اختر منصة الإعلانات الأساسية التي ستُستخدم في جميع أنحاء التطبيق.",
-  "@primaryAdPlatformDescription": {
-    "description": "وصف قسم اختيار منصة الإعلانات الأساسية"
-  },
   "adUnitIdentifiersTitle": "معرفات الوحدات الإعلانية",
-  "@adUnitIdentifiersTitle": {
-    "description": "عنوان قسم معرفات الوحدات الإعلانية"
-  },
   "adUnitIdentifiersDescription": "تكوين معرفات الوحدات الإعلانية لمنصة الإعلانات المختارة.",
-  "@adUnitIdentifiersDescription": {
-    "description": "وصف قسم معرفات الوحدات الإعلانية"
-  },
   "feedAdSettingsTitle": "إعدادات إعلانات الموجز",
-  "@feedAdSettingsTitle": {
-    "description": "عنوان قسم إعدادات إعلانات الموجز"
-  },
   "enableFeedAdsLabel": "تفعيل إعلانات الموجز",
-  "@enableFeedAdsLabel": {
-    "description": "تسمية مفتاح تفعيل إعلانات الموجز"
-  },
   "feedAdTypeSelectionTitle": "اختيار نوع إعلان الموجز",
-  "@feedAdTypeSelectionTitle": {
-    "description": "عنوان قسم اختيار نوع إعلان الموجز"
-  },
   "feedAdTypeSelectionDescription": "اختر نوع الإعلانات التي ستُعرض في الموجز الرئيسي (أصلي أو بانر).",
-  "@feedAdTypeSelectionDescription": {
-    "description": "وصف قسم اختيار نوع إعلان الموجز"
-  },
   "userRoleFrequencySettingsTitle": "إعدادات تكرار دور المستخدم",
-  "@userRoleFrequencySettingsTitle": {
-    "description": "عنوان قسم إعدادات تكرار دور المستخدم"
-  },
   "userRoleFrequencySettingsDescription": "تكوين تكرار الإعلانات وفترات وضعها بناءً على أدوار المستخدمين.",
-  "@userRoleFrequencySettingsDescription": {
-    "description": "وصف قسم إعدادات تكرار دور المستخدم"
-  },
   "articleAdSettingsTitle": "إعدادات إعلانات المقالات",
-  "@articleAdSettingsTitle": {
-    "description": "عنوان قسم إعدادات إعلانات المقالات"
-  },
   "enableArticleAdsLabel": "تفعيل إعلانات المقالات",
-  "@enableArticleAdsLabel": {
-    "description": "تسمية مفتاح تفعيل إعلانات المقالات"
-  },
   "defaultInArticleAdTypeSelectionTitle": "اختيار نوع الإعلان الافتراضي داخل المقال",
-  "@defaultInArticleAdTypeSelectionTitle": {
-    "description": "عنوان قسم اختيار نوع الإعلان الافتراضي داخل المقال"
-  },
   "defaultInArticleAdTypeSelectionDescription": "اختر نوع الإعلانات الافتراضي الذي سيُعرض داخل المقالات (أصلي أو بانر).",
-  "@defaultInArticleAdTypeSelectionDescription": {
-    "description": "وصف قسم اختيار نوع الإعلان الافتراضي داخل المقال"
-  },
   "inArticleAdSlotPlacementsTitle": "مواضع الإعلانات داخل المقال",
-  "@inArticleAdSlotPlacementsTitle": {
-    "description": "عنوان قسم مواضع فتحات الإعلانات داخل المقال"
-  },
   "inArticleAdSlotPlacementsDescription": "تفعيل أو تعطيل فتحات إعلانية محددة داخل محتوى المقال.",
-  "@inArticleAdSlotPlacementsDescription": {
-    "description": "وصف قسم مواضع فتحات الإعلانات داخل المقال"
-  },
   "feedNativeAdIdLabel": "معرف الإعلان الأصلي للموجز",
-  "@feedNativeAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف الإعلان الأصلي للموجز"
-  },
   "feedNativeAdIdDescription": "معرف وحدة الإعلانات الأصلية في الموجز.",
-  "@feedNativeAdIdDescription": {
-    "description": "وصف حقل إدخال معرف الإعلان الأصلي للموجز"
-  },
   "feedBannerAdIdLabel": "معرف إعلان البانر للموجز",
-  "@feedBannerAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف إعلان البانر للموجز"
-  },
   "feedBannerAdIdDescription": "معرف وحدة إعلانات البانر في الموجز.",
-  "@feedBannerAdIdDescription": {
-    "description": "وصف حقل إدخال معرف إعلان البانر للموجز"
-  },
   "articleInterstitialAdIdLabel": "معرف الإعلان البيني للمقالات",
-  "@articleInterstitialAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف الإعلان البيني للمقالات"
-  },
   "articleInterstitialAdIdDescription": "معرف وحدة الإعلانات البينية في المقالات.",
-  "@articleInterstitialAdIdDescription": {
-    "description": "وصف حقل إدخال معرف الإعلان البيني للمقالات"
-  },
   "inArticleNativeAdIdLabel": "معرف الإعلان الأصلي داخل المقال",
-  "@inArticleNativeAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف الإعلان الأصلي داخل المقال"
-  },
   "inArticleNativeAdIdDescription": "معرف وحدة الإعلانات الأصلية داخل المقالات.",
-  "@inArticleNativeAdIdDescription": {
-    "description": "وصف حقل إدخال معرف الإعلان الأصلي داخل المقال"
-  },
   "inArticleBannerAdIdLabel": "معرف إعلان البانر داخل المقال",
-  "@inArticleBannerAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف إعلان البانر داخل المقال"
-  },
   "inArticleBannerAdIdDescription": "معرف وحدة إعلانات البانر داخل المقالات.",
-  "@inArticleBannerAdIdDescription": {
-    "description": "وصف حقل إدخال معرف إعلان البانر داخل المقال"
-  },
   "inArticleAdSlotTypeAboveArticleContinueReadingButton": "فوق زر 'متابعة القراءة'",
-  "@inArticleAdSlotTypeAboveArticleContinueReadingButton": {
-    "description": "الاسم المترجم لـ InArticleAdSlotType.aboveArticleContinueReadingButton"
-  },
   "inArticleAdSlotTypeBelowArticleContinueReadingButton": "أسفل زر 'متابعة القراءة'",
-  "@inArticleAdSlotTypeBelowArticleContinueReadingButton": {
-    "description": "الاسم المترجم لـ InArticleAdSlotType.belowArticleContinueReadingButton"
-  },
   "idCopiedToClipboard": "تم نسخ المعرف '{id}' إلى الحافظة.",
   "@idCopiedToClipboard": {
     "description": "رسالة Snackbar عند نسخ معرف إلى الحافظة",
@@ -1433,185 +443,50 @@
     }
   },
   "copyId": "نسخ المعرف",
-  "@copyId": {
-    "description": "Tooltip for the copy ID button."
-  },
   "enableGlobalAdsLabel": "تفعيل الإعلانات",
-  "@enableGlobalAdsLabel": {
-    "description": "Label for the switch to enable or disable all ads globally."
-  },
   "feedToArticleInterstitialAdIdLabel": "معرف الإعلان البيني للانتقال من الموجز إلى المقال",
-  "@feedToArticleInterstitialAdIdLabel": {
-    "description": "Label for the ad unit ID for interstitial ads shown when transitioning from feed to article."
-  },
   "feedToArticleInterstitialAdIdDescription": "معرف الوحدة الإعلانية للإعلانات البينية التي تظهر عندما ينتقل المستخدم من الموجز إلى المقال.",
-  "@feedToArticleInterstitialAdIdDescription": {
-    "description": "Description for the ad unit ID for interstitial ads shown when transitioning from feed to article."
-  },
   "interstitialAdSettingsTitle": "إعدادات الإعلانات البينية",
-  "@interstitialAdSettingsTitle": {
-    "description": "Title for the section configuring global interstitial ad settings."
-  },
   "enableInterstitialAdsLabel": "تفعيل الإعلانات البينية",
-  "@enableInterstitialAdsLabel": {
-    "description": "Label for the switch to enable or disable interstitial ads."
-  },
   "userRoleInterstitialFrequencyTitle": "تكرار الإعلانات البينية حسب دور المستخدم",
-  "@userRoleInterstitialFrequencyTitle": {
-    "description": "Title for the section configuring interstitial ad frequency based on user roles."
-  },
   "userRoleInterstitialFrequencyDescription": "تكوين عدد الانتقالات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني، بناءً على دوره.",
-  "@userRoleInterstitialFrequencyDescription": {
-    "description": "Description for the interstitial ad frequency settings by user role."
-  },
   "transitionsBeforeInterstitialAdsLabel": "الانتقالات قبل الإعلانات البينية",
-  "@transitionsBeforeInterstitialAdsLabel": {
-    "description": "Label for the number of transitions a user must make before an interstitial ad is shown."
-  },
   "transitionsBeforeInterstitialAdsDescription": "عدد الانتقالات (مثل فتح المقالات) التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
-  "@transitionsBeforeInterstitialAdsDescription": {
-    "description": "Description for the number of transitions a user must make before an interstitial ad is shown."
-  },
   "adPlatformTypeAdmob": "أدموب",
-  "@adPlatformTypeAdmob": {
-    "description": "اسم منصة إعلانات أدموب."
-  },
   "nativeAdsTab": "إعلانات أصلية",
-  "@nativeAdsTab": {
-    "description": "عنوان تبويب الإعلانات الأصلية في إدارة الإعلانات المحلية."
-  },
   "bannerAdsTab": "إعلانات بانر",
-  "@bannerAdsTab": {
-    "description": "عنوان تبويب إعلانات البانر في إدارة الإعلانات المحلية."
-  },
   "interstitialAdsTab": "إعلانات بينية",
-  "@interstitialAdsTab": {
-    "description": "عنوان تبويب الإعلانات البينية في إدارة الإعلانات المحلية."
-  },
   "videoAdsTab": "إعلانات فيديو",
-  "@videoAdsTab": {
-    "description": "عنوان تبويب إعلانات الفيديو في إدارة الإعلانات المحلية."
-  },
   "bannerAdType": "بانر",
-  "@bannerAdType": {
-    "description": "تسمية نوع إعلان البانر."
-  },
   "nativeAdType": "أصلي",
-  "@nativeAdType": {
-    "description": "تسمية نوع الإعلان الأصلي."
-  },
   "interstitialAdType": "بيني",
-  "@interstitialAdType": {
-    "description": "تسمية نوع الإعلان البيني."
-  },
   "videoAdType": "فيديو",
-  "@videoAdType": {
-    "description": "تسمية نوع إعلان الفيديو."
-  },
   "rewardedAdType": "إعلان بمكافأة",
-  "@rewardedAdType": {
-    "description": "تسمية نوع الإعلان بمكافأة."
-  },
   "bannerAdShapeSelectionTitle": "شكل إعلان البانر",
-  "@bannerAdShapeSelectionTitle": {
-    "description": "Title for the Banner Ad Shape Selection section"
-  },
   "bannerAdShapeSelectionDescription": "اختر الشكل المرئي المفضل لإعلانات البانر المعروضة في المقالات.",
-  "@bannerAdShapeSelectionDescription": {
-    "description": "Description for the Banner Ad Shape Selection section"
-  },
   "bannerAdShapeSquare": "مربع",
-  "@bannerAdShapeSquare": {
-    "description": "Label for the Square banner ad shape option"
-  },
   "bannerAdShapeRectangle": "مستطيل",
-  "@bannerAdShapeRectangle": {
-    "description": "Label for the Rectangle banner ad shape option"
-  },
   "loadingDraftHeadlines": "جاري تحميل العناوين المسودة",
-  "@loadingDraftHeadlines": {
-    "description": "النص الذي يظهر عند تحميل العناوين المسودة."
-  },
   "noDraftHeadlinesFound": "لا توجد عناوين مسودة",
-  "@noDraftHeadlinesFound": {
-    "description": "النص الذي يظهر عندما لا تتوفر عناوين مسودة."
-  },
   "publish": "نشر",
-  "@publish": {
-    "description": "نص الزر لنشر عنوان (جديد، معدّل، أو من المسودات)."
-  },
   "saveAsDraft": "حفظ كمسودة",
-  "@saveAsDraft": {
-    "description": "نص الزر لحفظ عنوان كمسودة."
-  },
   "invalidFormTitle": "نموذج غير صالح",
-  "@invalidFormTitle": {
-    "description": "عنوان مربع الحوار الذي يظهر عندما يكون النموذج غير صالح."
-  },
   "invalidFormMessage": "يرجى إكمال جميع الحقول المطلوبة قبل النشر. يمكنك الحفظ كمسودة أو تجاهل التغييرات.",
-  "@invalidFormMessage": {
-    "description": "رسالة مربع الحوار الذي يظهر عندما يكون النموذج غير صالح."
-  },
   "completeForm": "إكمال النموذج",
-  "@completeForm": {
-    "description": "نص الزر في مربع حوار النموذج غير الصالح للعودة إلى النموذج."
-  },
   "discard": "تجاهل",
-  "@discard": {
-    "description": "نص الزر في مربع حوار النموذج غير الصالح لتجاهل التغييرات."
-  },
   "drafts": "المسودات",
-  "@drafts": {
-    "description": "تسمية لعلامة التبويب 'المسودات' في إدارة المحتوى."
-  },
   "draftsIconTooltip": "المسودات",
-  "@draftsIconTooltip": {
-    "description": "Tooltip for the drafts icon button in the AppBar"
-  },
   "draftHeadlines": "مسودات العناوين",
-  "@draftHeadlines": {
-    "description": "Title for the Draft Headlines page"
-  },
   "draftTopics": "مسودات المواضيع",
-  "@draftTopics": {
-    "description": "Title for the Draft Topics page"
-  },
   "draftSources": "مسودات المصادر",
-  "@draftSources": {
-    "description": "Title for the Draft Sources page"
-  },
   "saveHeadlineTitle": "حفظ العنوان",
-  "@saveHeadlineTitle": {
-    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ العنوان."
-  },
   "saveHeadlineMessage": "هل تريد نشر هذا العنوان أم حفظه كمسودة؟",
-  "@saveHeadlineMessage": {
-    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ العنوان."
-  },
   "saveTopicTitle": "حفظ الموضوع",
-  "@saveTopicTitle": {
-    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ الموضوع."
-  },
   "saveTopicMessage": "هل تريد نشر هذا الموضوع أم حفظه كمسودة؟",
-  "@saveTopicMessage": {
-    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ الموضوع."
-  },
   "saveSourceTitle": "حفظ المصدر",
-  "@saveSourceTitle": {
-    "description": "عنوان مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
-  },
   "saveSourceMessage": "هل تريد نشر هذا المصدر أم حفظه كمسودة؟",
-  "@saveSourceMessage": {
-    "description": "رسالة مربع الحوار الذي يسأل عن كيفية حفظ المصدر."
-  },
   "loadingDraftTopics": "جاري تحميل مسودات المواضيع...",
-  "@loadingDraftTopics": {
-    "description": "رسالة تعرض عند تحميل مسودات المواضيع."
-  },
   "noDraftTopicsFound": "لم يتم العثور على مسودات مواضيع.",
-  "@noDraftTopicsFound": {
-    "description": "رسالة تعرض عندما لا تتوفر مسودات مواضيع."
-  },
   "topicDeleted": "تم حذف الموضوع \"{topicTitle}\".",
   "@topicDeleted": {
     "description": "رسالة شريط التنبيه عند حذف موضوع.",
@@ -1623,13 +498,7 @@
     }
   },
   "loadingDraftSources": "جاري تحميل مسودات المصادر...",
-  "@loadingDraftSources": {
-    "description": "رسالة تعرض عند تحميل مسودات المصادر."
-  },
   "noDraftSourcesFound": "لم يتم العثور على مسودات مصادر.",
-  "@noDraftSourcesFound": {
-    "description": "رسالة تعرض عندما لا تتوفر مسودات مصادر."
-  },
   "sourceDeleted": "تم حذف المصدر \"{sourceName}\".",
   "@sourceDeleted": {
     "description": "رسالة شريط التنبيه عند حذف مصدر.",
@@ -1641,13 +510,7 @@
     }
   },
   "publishTopic": "نشر الموضوع",
-  "@publishTopic": {
-    "description": "تلميح زر نشر الموضوع."
-  },
   "publishSource": "نشر المصدر",
-  "@publishSource": {
-    "description": "تلميح زر نشر المصدر."
-  },
   "enableInArticleAdsForRoleLabel": "تمكين الإعلانات داخل المقال لـ {role}",
   "@enableInArticleAdsForRoleLabel": {
     "description": "Label for a checkbox to enable/disable in-article ads for a specific user role.",
@@ -1659,873 +522,222 @@
     }
   },
   "moreActions": "المزيد من الإجراءات",
-  "@moreActions": {
-    "description": "تلميح الزر الذي يفتح قائمة تحتوي على المزيد من الإجراءات لصف في الجدول."
-  },
   "filter": "تصفية",
-  "@filter": {
-    "description": "تلميح زر أيقونة التصفية."
-  },
   "applyFilters": "تطبيق الفلاتر",
-  "@applyFilters": {
-    "description": "نص زر تطبيق الفلاتر."
-  },
   "filterHeadlines": "تصفية العناوين",
-  "@filterHeadlines": {
-    "description": "عنوان مربع حوار التصفية عند تصفية العناوين."
-  },
   "filterTopics": "تصفية المواضيع",
-  "@filterTopics": {
-    "description": "عنوان مربع حوار التصفية عند تصفية المواضيع."
-  },
   "filterSources": "تصفية المصادر",
-  "@filterSources": {
-    "description": "عنوان مربع حوار التصفية عند تصفية المصادر."
-  },
   "searchByHeadlineTitle": "البحث بعنوان الخبر...",
-  "@searchByHeadlineTitle": {
-    "description": "نص تلميح حقل البحث عن العناوين."
-  },
   "searchByTopicName": "البحث بالاسم أو المعرف...",
-  "@searchByTopicName": {
-    "description": "نص تلميح حقل البحث عن المواضيع."
-  },
   "searchBySourceName": "البحث بالاسم أو المعرف...",
-  "@searchBySourceName": {
-    "description": "نص تلميح حقل البحث عن المصادر."
-  },
   "selectSources": "اختر المصادر",
-  "@selectSources": {
-    "description": "نص تلميح لاختيار المصادر في مربع حوار التصفية."
-  },
   "selectTopics": "اختر المواضيع",
-  "@selectTopics": {
-    "description": "نص تلميح لاختيار المواضيع في مربع حوار التصفية."
-  },
   "countries": "البلدان",
-  "@countries": {
-    "description": "تسمية لفلتر البلدان."
-  },
   "selectCountries": "اختر البلدان",
-  "@selectCountries": {
-    "description": "نص تلميح لاختيار البلدان في مربع حوار التصفية."
-  },
   "selectSourceTypes": "اختر أنواع المصادر",
-  "@selectSourceTypes": {
-    "description": "نص تلميح لاختيار أنواع المصادر في مربع حوار التصفية."
-  },
   "selectLanguages": "اختر اللغات",
-  "@selectLanguages": {
-    "description": "نص تلميح لاختيار اللغات في مربع حوار التصفية."
-  },
   "selectHeadquarters": "اختر المقر الرئيسي",
-  "@selectHeadquarters": {
-    "description": "نص تلميح لاختيار المقر الرئيسي في مربع حوار التصفية."
-  },
   "edit": "تعديل",
-  "@edit": {
-    "description": "Tooltip for the edit button"
-  },
   "resetFiltersButtonText": "إعادة تعيين الفلاتر",
-  "@resetFiltersButtonText": {
-    "description": "Text for the button to reset filters to their default state."
-  },
   "noResultsWithCurrentFilters": "لم يتم العثور على نتائج باستخدام الفلاتر الحالية. حاول إعادة تعيينها.",
-  "@noResultsWithCurrentFilters": {
-    "description": "Message displayed when no results are found due to active filters, prompting the user to reset them."
-  },
   "aboutIconTooltip": "حول هذه الصفحة",
-  "@aboutIconTooltip": {
-    "description": "Tooltip for the information icon that shows page description."
-  },
   "closeButtonText": "إغلاق",
-  "@closeButtonText": {
-    "description": "Text for the close button in a dialog."
-  },
   "logo": "الشعار",
-  "@logo": {
-    "description": "تسمية حقل إدخال شعار المصدر"
-  },
   "userManagement": "إدارة المستخدمين",
-  "@userManagement": {
-    "description": "تسمية عنصر التنقل لإدارة المستخدمين"
-  },
   "userManagementPageDescription": "إدارة مستخدمي النظام، بما في ذلك أدوارهم وأذوناتهم.",
-  "@userManagementPageDescription": {
-    "description": "وصف صفحة إدارة المستخدمين"
-  },
   "loadingUsers": "جاري تحميل المستخدمين",
-  "@loadingUsers": {
-    "description": "عنوان حالة تحميل المستخدمين"
-  },
   "noUsersFound": "لم يتم العثور على مستخدمين.",
-  "@noUsersFound": {
-    "description": "رسالة عند عدم العثور على مستخدمين"
-  },
   "email": "البريد الإلكتروني",
-  "@email": {
-    "description": "رأس العمود لبريد المستخدم الإلكتروني"
-  },
   "appRole": "دور التطبيق",
-  "@appRole": {
-    "description": "رأس العمود لدور المستخدم في التطبيق"
-  },
   "dashboardRole": "دور لوحة التحكم",
-  "@dashboardRole": {
-    "description": "رأس العمود لدور المستخدم في لوحة التحكم"
-  },
   "createdAt": "تاريخ الإنشاء",
-  "@createdAt": {
-    "description": "رأس العمود لتاريخ الإنشاء"
-  },
   "promoteToPublisher": "ترقية إلى ناشر",
-  "@promoteToPublisher": {
-    "description": "إجراء لترقية مستخدم إلى دور ناشر."
-  },
   "demoteToUser": "تخفيض إلى مستخدم",
-  "@demoteToUser": {
-    "description": "إجراء لتخفيض ناشر إلى دور مستخدم عادي."
-  },
   "adminRole": "مسؤول",
-  "@adminRole": {
-    "description": "الاسم المترجم لـ DashboardUserRole.admin"
-  },
   "publisherRole": "ناشر",
-  "@publisherRole": {
-    "description": "الاسم المترجم لـ DashboardUserRole.publisher"
-  },
   "filterUsers": "تصفية المستخدمين",
-  "@filterUsers": {
-    "description": "عنوان مربع حوار التصفية عند تصفية المستخدمين."
-  },
   "searchByUserEmail": "البحث بالبريد الإلكتروني أو المعرف...",
-  "@searchByUserEmail": {
-    "description": "نص تلميح حقل البحث عن المستخدم."
-  },
   "selectAppRoles": "اختر أدوار التطبيق",
-  "@selectAppRoles": {
-    "description": "نص تلميح لاختيار أدوار التطبيق في مربع حوار التصفية."
-  },
   "selectDashboardRoles": "اختر أدوار لوحة التحكم",
-  "@selectDashboardRoles": {
-    "description": "نص تلميح لاختيار أدوار لوحة التحكم في مربع حوار التصفية."
-  },
   "authentication": "المصادقة",
-  "@authentication": {
-    "description": "رأس العمود لحالة المصادقة"
-  },
   "subscription": "الاشتراك",
-  "@subscription": {
-    "description": "رأس العمود لحالة الاشتراك"
-  },
   "authenticationAnonymous": "مجهول",
-  "@authenticationAnonymous": {
-    "description": "حالة المصادقة لمستخدم ضيف"
-  },
   "authenticationAuthenticated": "موثق",
-  "@authenticationAuthenticated": {
-    "description": "حالة المصادقة لمستخدم قام بتسجيل الدخول"
-  },
   "subscriptionFree": "مجاني",
-  "@subscriptionFree": {
-    "description": "حالة الاشتراك لمستخدم مجاني"
-  },
   "subscriptionPremium": "مميز",
-  "@subscriptionPremium": {
-    "description": "حالة الاشتراك لمستخدم مميز"
-  },
   "savedHeadlineFilterLimitsTitle": "حدود مرشحات العناوين المحفوظة",
-  "@savedHeadlineFilterLimitsTitle": {
-    "description": "عنوان قسم حدود مرشحات العناوين المحفوظة"
-  },
   "savedHeadlineFilterLimitsDescription": "تعيين حدود على عدد مرشحات العناوين المحفوظة لكل فئة من فئات المستخدمين، بما في ذلك الإجمالي والمثبتة واشتراكات الإشعارات.",
-  "@savedHeadlineFilterLimitsDescription": {
-    "description": "وصف قسم حدود مرشحات العناوين المحفوظة"
-  },
   "totalLimitLabel": "الحد الإجمالي",
-  "@totalLimitLabel": {
-    "description": "تسمية للحد الإجمالي لنوع مرشح"
-  },
   "totalLimitDescription": "العدد الإجمالي للمرشحات من هذا النوع التي يمكن للمستخدم إنشاؤها.",
-  "@totalLimitDescription": {
-    "description": "وصف للحد الإجمالي لنوع مرشح"
-  },
   "pinnedLimitLabel": "الحد المثبت",
-  "@pinnedLimitLabel": {
-    "description": "تسمية للحد المثبت لنوع مرشح"
-  },
   "pinnedLimitDescription": "الحد الأقصى لعدد المرشحات من هذا النوع التي يمكن تثبيتها.",
-  "@pinnedLimitDescription": {
-    "description": "وصف للحد المثبت لنوع مرشح"
-  },
   "notificationSubscriptionLimitLabel": "حد اشتراك الإشعارات",
-  "@notificationSubscriptionLimitLabel": {
-    "description": "تسمية لحد اشتراك الإشعارات لنوع مرشح"
-  },
   "notificationSubscriptionLimitDescription": "الحد الأقصى لعدد المرشحات التي يمكن للمستخدم الاشتراك فيها لهذا النوع من الإشعارات.",
-  "@notificationSubscriptionLimitDescription": {
-    "description": "وصف لحد اشتراك الإشعارات لنوع مرشح"
-  },
   "pushNotificationSubscriptionDeliveryTypeBreakingOnly": "الأخبار العاجلة",
-  "@pushNotificationSubscriptionDeliveryTypeBreakingOnly": {
-    "description": "تسمية لنوع توصيل إشعارات 'الأخبار العاجلة فقط'"
-  },
   "pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": "حصاد الأسبوع",
-  "@pushNotificationSubscriptionDeliveryTypeWeeklyRoundup": {
-    "description": "تسمية لنوع توصيل إشعارات 'حصاد الأسبوع'"
-  },
   "isBreakingNewsLabel": "وضع علامة 'خبر عاجل'",
-  "@isBreakingNewsLabel": {
-    "description": "تسمية مفتاح وضع علامة 'خبر عاجل' على العنوان"
-  },
   "isBreakingNewsDescription": "سيؤدي تمكين هذا إلى إرسال إشعار فوري لجميع المستخدمين المشتركين عند النشر.",
-  "@isBreakingNewsDescription": {
-    "description": "وصف مفتاح 'خبر عاجل' في صفحة الإنشاء"
-  },
   "isBreakingNewsDescriptionEdit": "تغيير هذه الحالة أثناء التعديل لن يؤدي إلى إرسال إشعار فوري جديد، حيث يتم إرسال الإشعارات فقط عند الإنشاء الأولي.",
-  "@isBreakingNewsDescriptionEdit": {
-    "description": "وصف مفتاح 'خبر عاجل' في صفحة التعديل"
-  },
   "confirmBreakingNewsTitle": "تأكيد نشر خبر عاجل",
-  "@confirmBreakingNewsTitle": {
-    "description": "عنوان مربع حوار التأكيد عند نشر خبر عاجل"
-  },
   "confirmBreakingNewsMessage": "هل أنت متأكد أنك تريد نشر هذا كخبر عاجل؟ سيؤدي هذا الإجراء إلى إرسال إشعار فوري لجميع المستخدمين المشتركين.",
-  "@confirmBreakingNewsMessage": {
-    "description": "رسالة مربع حوار التأكيد عند نشر خبر عاجل"
-  },
   "confirmPublishButton": "تأكيد ونشر",
-  "@confirmPublishButton": {
-    "description": "نص زر التأكيد والنشر لخبر عاجل"
-  },
   "cannotDraftBreakingNews": "لا يمكن حفظ الأخبار العاجلة كمسودة. يرجى نشرها أو تعطيل مفتاح 'خبر عاجل'.",
-  "@cannotDraftBreakingNews": {
-    "description": "رسالة خطأ تظهر عندما يحاول المستخدم حفظ مقال إخباري عاجل كمسودة."
-  },
   "ok": "موافق",
-  "@ok": {
-    "description": "نص زر 'موافق' الشائع."
-  },
   "breakingNewsFilterTitle": "تصفية الأخبار العاجلة",
-  "@breakingNewsFilterTitle": {
-    "description": "عنوان قسم تصفية الأخبار العاجلة في مربع حوار التصفية."
-  },
   "breakingNewsFilterAll": "الكل",
-  "@breakingNewsFilterAll": {
-    "description": "تسمية شريحة الاختيار 'الكل' في مرشح الأخبار العاجلة."
-  },
   "breakingNewsFilterBreakingOnly": "العاجلة فقط",
-  "@breakingNewsFilterBreakingOnly": {
-    "description": "تسمية شريحة الاختيار 'العاجلة فقط' في مرشح الأخبار العاجلة."
-  },
   "breakingNewsFilterNonBreakingOnly": "غير العاجلة فقط",
-  "@breakingNewsFilterNonBreakingOnly": {
-    "description": "تسمية شريحة الاختيار 'غير العاجلة فقط' في مرشح الأخبار العاجلة."
-  },
   "notificationsTab": "الإشعارات",
-  "@notificationsTab": {
-    "description": "عنوان تبويب إعدادات الإشعارات"
-  },
   "pushNotificationSettingsTitle": "إعدادات الإشعارات الفورية",
-  "@pushNotificationSettingsTitle": {
-    "description": "عنوان قسم إعدادات الإشعارات الفورية"
-  },
   "pushNotificationSettingsDescription": "إدارة الإعدادات العامة لنظام الإشعارات الفورية، بما في ذلك المزود الأساسي وأنواع الإشعارات النشطة.",
-  "@pushNotificationSettingsDescription": {
-    "description": "وصف قسم إعدادات الإشعارات الفورية"
-  },
   "pushNotificationSystemStatusTitle": "تفعيل الإشعارات",
-  "@pushNotificationSystemStatusTitle": {
-    "description": "عنوان قسم حالة نظام الإشعارات الفورية"
-  },
   "pushNotificationSystemStatusDescription": "مفتاح عام لتمكين أو تعطيل جميع الإشعارات الفورية.",
-  "@pushNotificationSystemStatusDescription": {
-    "description": "وصف قسم حالة نظام الإشعارات الفورية"
-  },
   "pushNotificationPrimaryProviderTitle": "المزود الأساسي",
-  "@pushNotificationPrimaryProviderTitle": {
-    "description": "عنوان قسم المزود الأساسي للإشعارات الفورية"
-  },
   "pushNotificationPrimaryProviderDescription": "اختر مزود الخدمة الأساسي. تأكد من أن المزود المختار قد تم إعداده بشكل صحيح في ملف .env الخاص بالواجهة الخلفية.",
-  "@pushNotificationPrimaryProviderDescription": {
-    "description": "وصف قسم المزود الأساسي للإشعارات الفورية"
-  },
   "pushNotificationDeliveryTypesTitle": "أنواع التسليم",
-  "@pushNotificationDeliveryTypesTitle": {
-    "description": "عنوان قسم أنواع تسليم الإشعارات الفورية"
-  },
   "pushNotificationDeliveryTypesDescription": "تمكين أو تعطيل أنواع معينة من الإشعارات الفورية.",
-  "@pushNotificationDeliveryTypesDescription": {
-    "description": "وصف قسم أنواع تسليم الإشعارات الفورية"
-  },
   "pushNotificationProviderFirebase": "Firebase",
-  "@pushNotificationProviderFirebase": {
-    "description": "تسمية مزود الإشعارات الفورية Firebase"
-  },
   "pushNotificationProviderOneSignal": "OneSignal",
-  "@pushNotificationProviderOneSignal": {
-    "description": "تسمية مزود الإشعارات الفورية OneSignal"
-  },
   "appTab": "الإعدادات العامة",
-  "@appTab": {
-    "description": "عنوان تبويب إعدادات التطبيق العامة."
-  },
   "featuresTab": "الميزات",
-  "@featuresTab": {
-    "description": "عنوان تبويب إعدادات الميزات (الإعلانات، الإشعارات، إلخ)."
-  },
   "limitsTab": "الحدود",
-  "@limitsTab": {
-    "description": "عنوان تبويب الإعدادات والحدود الخاصة بالمستخدم."
-  },
   "maintenanceConfigTitle": "وضع الصيانة",
-  "@maintenanceConfigTitle": {
-    "description": "عنوان قسم إعدادات وضع الصيانة."
-  },
   "maintenanceConfigDescription": "تفعيل لوضع التطبيق في وضع الصيانة، مما يمنع وصول المستخدمين.",
-  "@maintenanceConfigDescription": {
-    "description": "وصف قسم إعدادات وضع الصيانة."
-  },
   "updateConfigTitle": "إعدادات التحديث",
-  "@updateConfigTitle": {
-    "description": "عنوان قسم إعدادات تحديث التطبيق."
-  },
   "updateConfigDescription": "تكوين تحديثات التطبيق الإلزامية للمستخدمين.",
-  "@updateConfigDescription": {
-    "description": "وصف قسم إعدادات تحديث التطبيق."
-  },
   "generalAppConfigTitle": "إعدادات التطبيق العامة",
-  "@generalAppConfigTitle": {
-    "description": "عنوان قسم إعدادات التطبيق العامة."
-  },
   "generalAppConfigDescription": "إدارة الإعدادات العامة للتطبيق مثل روابط شروط الخدمة وسياسة الخصوصية.",
-  "@generalAppConfigDescription": {
-    "description": "وصف قسم إعدادات التطبيق العامة."
-  },
   "termsOfServiceUrlLabel": "رابط شروط الخدمة",
-  "@termsOfServiceUrlLabel": {
-    "description": "تسمية حقل إدخال رابط شروط الخدمة."
-  },
   "termsOfServiceUrlDescription": "الرابط لصفحة شروط الخدمة للتطبيق.",
-  "@termsOfServiceUrlDescription": {
-    "description": "وصف حقل إدخال رابط شروط الخدمة."
-  },
   "privacyPolicyUrlLabel": "رابط سياسة الخصوصية",
-  "@privacyPolicyUrlLabel": {
-    "description": "تسمية حقل إدخال رابط سياسة الخصوصية."
-  },
   "privacyPolicyUrlDescription": "الرابط لصفحة سياسة الخصوصية للتطبيق.",
-  "@privacyPolicyUrlDescription": {
-    "description": "وصف حقل إدخال رابط سياسة الخصوصية."
-  },
   "navigationAdConfigTitle": "إعدادات إعلانات التنقل",
-  "@navigationAdConfigTitle": {
-    "description": "عنوان قسم إعدادات إعلانات التنقل (البينية)."
-  },
   "enableNavigationAdsLabel": "تفعيل إعلانات التنقل",
-  "@enableNavigationAdsLabel": {
-    "description": "تسمية مفتاح تفعيل إعلانات التنقل."
-  },
   "navigationAdFrequencyTitle": "تكرار إعلانات التنقل",
-  "@navigationAdFrequencyTitle": {
-    "description": "عنوان قسم إعدادات تكرار إعلانات التنقل."
-  },
   "navigationAdFrequencyDescription": "تكوين عدد الانتقالات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني، بناءً على دوره.",
-  "@navigationAdFrequencyDescription": {
-    "description": "وصف قسم إعدادات تكرار إعلانات التنقل."
-  },
   "internalNavigationsBeforeAdLabel": "الانتقالات الداخلية قبل الإعلان",
-  "@internalNavigationsBeforeAdLabel": {
-    "description": "تسمية عدد الانتقالات الداخلية قبل عرض الإعلان."
-  },
   "internalNavigationsBeforeAdDescription": "عدد الانتقالات الداخلية بين الصفحات التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
-  "@internalNavigationsBeforeAdDescription": {
-    "description": "وصف إعداد الانتقالات الداخلية قبل الإعلان."
-  },
   "externalNavigationsBeforeAdLabel": "الانتقالات الخارجية قبل الإعلان",
-  "@externalNavigationsBeforeAdLabel": {
-    "description": "تسمية عدد الانتقالات الخارجية قبل عرض الإعلان."
-  },
   "externalNavigationsBeforeAdDescription": "عدد الانتقالات الخارجية التي يجب أن يقوم بها المستخدم قبل عرض إعلان بيني.",
-  "@externalNavigationsBeforeAdDescription": {
-    "description": "وصف إعداد الانتقالات الخارجية قبل الإعلان."
-  },
   "nativeAdIdLabel": "معرف الإعلان الأصلي",
-  "@nativeAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف الإعلان الأصلي."
-  },
   "nativeAdIdDescription": "معرف الوحدة للإعلانات الأصلية.",
-  "@nativeAdIdDescription": {
-    "description": "وصف حقل إدخال معرف الإعلان الأصلي."
-  },
   "bannerAdIdLabel": "معرف إعلان البانر",
-  "@bannerAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف إعلان البانر."
-  },
   "bannerAdIdDescription": "معرف الوحدة لإعلانات البانر.",
-  "@bannerAdIdDescription": {
-    "description": "وصف حقل إدخال معرف إعلان البانر."
-  },
   "interstitialAdIdLabel": "معرف الإعلان البيني",
-  "@interstitialAdIdLabel": {
-    "description": "تسمية حقل إدخال معرف الإعلان البيني."
-  },
   "interstitialAdIdDescription": "معرف الوحدة للإعلانات البينية.",
-  "@interstitialAdIdDescription": {
-    "description": "وصف حقل إدخال معرف الإعلان البيني."
-  },
   "savedHeadlinesLimitLabel": "حد العناوين المحفوظة",
-  "@savedHeadlinesLimitLabel": {
-    "description": "تسمية حد العناوين المحفوظة"
-  },
   "savedHeadlinesLimitDescription": "الحد الأقصى لعدد العناوين التي يمكن لهذا الدور المستخدم حفظها.",
-  "@savedHeadlinesLimitDescription": {
-    "description": "وصف حد العناوين المحفوظة"
-  },
   "appUpdateManagementTitle": "إدارة تحديثات التطبيق",
-  "@appUpdateManagementTitle": {
-    "description": "عنوان قسم إدارة تحديثات التطبيق القابل للتوسيع."
-  },
   "feedItemClickBehaviorTitle": "سلوك النقر على عنصر الموجز",
-  "@feedItemClickBehaviorTitle": {
-    "description": "عنوان إعداد سلوك النقر على عنصر الموجز."
-  },
   "feedItemClickBehaviorDescription": "قم بتعيين المتصفح الافتراضي لفتح العناوين. يمكن للمستخدمين تجاوز هذا الإعداد في إعدادات الموجز الخاصة بهم في التطبيق.",
-  "@feedItemClickBehaviorDescription": {
-    "description": "وصف إعداد سلوك النقر على عنصر الموجز."
-  },
   "feedItemClickBehaviorInternalNavigation": "متصفح داخل التطبيق",
-  "@feedItemClickBehaviorInternalNavigation": {
-    "description": "خيار لفتح الروابط في المتصفح الداخلي للتطبيق."
-  },
   "feedItemClickBehaviorExternalNavigation": "متصفح النظام",
-  "@feedItemClickBehaviorExternalNavigation": {
-    "description": "خيار لفتح الروابط في متصفح النظام الافتراضي للجهاز."
-  },
   "userLimitsTitle": "حدود المستخدم",
-  "@userLimitsTitle": {
-    "description": "عنوان قسم حدود المستخدم القابل للتوسيع."
-  },
   "userLimitsDescription": "تحديد حدود للميزات والمحتوى الخاص بالمستخدم.",
-  "@userLimitsDescription": {
-    "description": "وصف قسم حدود المستخدم القابل للتوسيع."
-  },
   "appStatusAndUpdatesDescription": "التحكم في الحالة التشغيلية للتطبيق وإدارة متطلبات التحديث.",
-  "@appStatusAndUpdatesDescription": {
-    "description": "وصف قسم حالة التطبيق والتحديثات القابل للتوسيع."
-  },
   "advertisementsDescription": "إدارة جميع إعدادات الإعلانات، بما في ذلك الضوابط العالمية والمنصات والمواضع.",
-  "@advertisementsDescription": {
-    "description": "وصف قسم الإعلانات القابل للتوسيع."
-  },
   "notificationsDescription": "تكوين نظام الإشعارات الفورية، بما في ذلك المزودين وأنواع التسليم.",
-  "@notificationsDescription": {
-    "description": "وصف قسم الإشعارات القابل للتوسيع."
-  },
   "feedDescription": "التحكم في سلوك ومظهر موجز محتوى المستخدم.",
-  "@feedDescription": {
-    "description": "وصف قسم الموجز القابل للتوسيع."
-  },
   "notificationSubscriptionBreakingOnlyDescription": "حد الاشتراكات التي ترسل تنبيهات فورية للأخبار العاجلة للعناوين المطابقة.",
-  "@notificationSubscriptionBreakingOnlyDescription": {
-    "description": "وصف لحد اشتراك إشعارات الأخبار العاجلة."
-  },
   "notificationSubscriptionWeeklyRoundupDescription": "حد الاشتراكات التي ترسل ملخصًا أسبوعيًا للعناوين المطابقة.",
-  "@notificationSubscriptionWeeklyRoundupDescription": {
-    "description": "وصف لحد اشتراك إشعارات الحصاد الأسبوعي."
-  },
   "appStatusAndUpdatesTitle": "حالة التطبيق والتحديثات",
-  "@appStatusAndUpdatesTitle": {
-    "description": "عنوان قسم حالة التطبيق والتحديثات القابل للتوسيع."
-  },
   "enableForcedUpdatesLabel": "تفعيل التحديثات الإجبارية",
-  "@enableForcedUpdatesLabel": {
-    "description": "تسمية مفتاح تفعيل التحديثات الإجبارية."
-  },
   "enableForcedUpdatesDescription": "عند التفعيل، يمكنك تحديد الحد الأدنى للإصدار المطلوب لتطبيق الجوال.",
-  "@enableForcedUpdatesDescription": {
-    "description": "وصف مفتاح تفعيل التحديثات الإجبارية."
-  },
   "appUrlsTitle": "روابط التطبيق",
-  "@appUrlsTitle": {
-    "description": "عنوان قسم روابط التطبيق القابل للتوسيع."
-  },
   "appUrlsDescription": "إدارة الروابط الخارجية والداخلية المستخدمة داخل التطبيق.",
-  "@appUrlsDescription": {
-    "description": "وصف قسم روابط التطبيق القابل للتوسيع."
-  },
   "communityAndEngagementTitle": "المجتمع والمشاركة",
-  "@communityAndEngagementTitle": {
-    "description": "عنوان قسم المجتمع والمشاركة القابل للتوسيع."
-  },
   "communityAndEngagementDescription": "تكوين أدوات تفاعل المستخدمين والإبلاغ. لضمان المساءلة، هذه الميزات غير متاحة للمستخدمين الضيوف داخل تطبيق الجوال، بغض النظر عن الإعدادات المكونة هنا.",
-  "@communityAndEngagementDescription": {
-    "description": "وصف قسم المجتمع والمشاركة القابل للتوسيع."
-  },
   "userEngagementTitle": "مشاركة المستخدم",
-  "@userEngagementTitle": {
-    "description": "عنوان قسم مشاركة المستخدم القابل للتوسيع."
-  },
   "userEngagementDescription": "تكوين التفاعلات والتعليقات.",
-  "@userEngagementDescription": {
-    "description": "وصف قسم مشاركة المستخدم القابل للتوسيع."
-  },
   "contentReportingTitle": "الإبلاغ عن المحتوى",
-  "@contentReportingTitle": {
-    "description": "عنوان قسم الإبلاغ عن المحتوى القابل للتوسيع."
-  },
   "contentReportingDescription": "ضع قواعد لما يمكن للمستخدمين الإبلاغ عنه.",
-  "@contentReportingDescription": {
-    "description": "وصف قسم الإبلاغ عن المحتوى القابل للتوسيع."
-  },
   "appReviewFunnelTitle": "مراجعات التطبيق",
-  "@appReviewFunnelTitle": {
-    "description": "عنوان قسم مراجعات التطبيق القابل للتوسيع."
-  },
   "appReviewFunnelDescription": "إدارة عملية جمع رضا المستخدم وطلب المراجعات اختياريًا.",
-  "@appReviewFunnelDescription": {
-    "description": "وصف قسممراجعات التطبيق القابل للتوسيع."
-  },
   "enableEngagementFeaturesLabel": "تفعيل ميزات المشاركة",
-  "@enableEngagementFeaturesLabel": {
-    "description": "تسمية المفتاح الرئيسي لتفعيل جميع ميزات المشاركة."
-  },
   "enableEngagementFeaturesDescription": "ينشط أو يعطل عالميًا جميع وظائف التفاعل والتعليق.",
-  "@enableEngagementFeaturesDescription": {
-    "description": "وصف المفتاح الرئيسي لتفعيل جميع ميزات المشاركة."
-  },
   "engagementModeLabel": "وضع المشاركة",
-  "@engagementModeLabel": {
-    "description": "تسمية زر وضع المشاركة المقسم."
-  },
   "engagementModeDescription": "يحدد ما إذا كان يمكن للمستخدمين التفاعل فقط أو إضافة تعليقات أيضًا على المحتوى.",
-  "@engagementModeDescription": {
-    "description": "وصف زر وضع المشاركة المقسم."
-  },
   "engagementModeReactionsOnly": "التفاعلات فقط",
-  "@engagementModeReactionsOnly": {
-    "description": "تسمية وضع المشاركة 'التفاعلات فقط'."
-  },
   "engagementModeReactionsAndComments": "التفاعلات والتعليقات",
-  "@engagementModeReactionsAndComments": {
-    "description": "تسمية وضع المشاركة 'التفاعلات والتعليقات'."
-  },
   "enableReportingSystemLabel": "تفعيل نظام الإبلاغ",
-  "@enableReportingSystemLabel": {
-    "description": "تسمية المفتاح الرئيسي لتفعيل نظام الإبلاغ."
-  },
   "enableReportingSystemDescription": "ينشط أو يعطل عالميًا جميع خيارات الإبلاغ الموجهة للمستخدم.",
-  "@enableReportingSystemDescription": {
-    "description": "وصف المفتاح الرئيسي لتفعيل نظام الإبلاغ."
-  },
   "enableHeadlineReportingLabel": "تفعيل الإبلاغ عن العناوين",
-  "@enableHeadlineReportingLabel": {
-    "description": "تسمية مفتاح تفعيل الإبلاغ عن العناوين."
-  },
   "enableSourceReportingLabel": "تفعيل الإبلاغ عن المصادر",
-  "@enableSourceReportingLabel": {
-    "description": "تسمية مفتاح تفعيل الإبلاغ عن المصادر."
-  },
   "enableCommentReportingLabel": "تفعيل الإبلاغ عن التعليقات",
-  "@enableCommentReportingLabel": {
-    "description": "تسمية مفتاح تفعيل الإبلاغ عن التعليقات."
-  },
   "enableAppFeedbackSystemLabel": "تفعيل نظام ملاحظات التطبيق",
-  "@enableAppFeedbackSystemLabel": {
-    "description": "تسمية المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
-  },
   "enableAppFeedbackSystemDescription": "ينشط النظام الداخلي الذي يسأل المستخدمين بشكل دوري عما إذا كانوا يستمتعون بالتطبيق.",
-  "@enableAppFeedbackSystemDescription": {
-    "description": "وصف المفتاح الرئيسي لتفعيل نظام ملاحظات التطبيق."
-  },
   "interactionCycleThresholdLabel": "عتبة دورة التفاعل",
-  "@interactionCycleThresholdLabel": {
-    "description": "تسمية حقل إدخال عتبة دورة التفاعل."
-  },
   "interactionCycleThresholdDescription": "يحدد عدد الإجراءات الإيجابية (مثل الحفظ، الإعجاب) المطلوبة لتشغيل موجه الاستمتاع. يظهر الموجه في كل مرة يكون فيها إجمالي الإجراءات الإيجابية للمستخدم من مضاعفات هذا الرقم.",
-  "@interactionCycleThresholdDescription": {
-    "description": "وصف حقل إدخال عتبة دورة التفاعل."
-  },
   "initialPromptCooldownLabel": "فترة تهدئة الموجه الأولي (أيام)",
-  "@initialPromptCooldownLabel": {
-    "description": "تسمية حقل إدخال فترة تهدئة الموجه الأولي."
-  },
   "initialPromptCooldownDescription": "عدد الأيام التي يجب الانتظار فيها قبل إظهار مطالبة الاستمتاع للمرة الأولى. تضمن فترة التهدئة هذه عدم سؤال المستخدمين حتى يستخدموا التطبيق بما فيه الكفاية.",
-  "@initialPromptCooldownDescription": {
-    "description": "وصف حقل إدخال فترة تهدئة الموجه الأولي."
-  },
   "requestStoreReviewLabel": "طلب مراجعة المتجر بعد 'نعم'",
-  "@requestStoreReviewLabel": {
-    "description": "تسمية مفتاح طلب مراجعة المتجر بعد رد إيجابي."
-  },
   "requestStoreReviewDescription": "إذا تم التمكين، سيُعرض للمستخدمين الذين يجيبون بـ 'نعم' على موجه الاستمتاع مربع حوار مراجعة متجر نظام التشغيل الرسمي.",
-  "@requestStoreReviewDescription": {
-    "description": "وصف مفتاح طلب مراجعة المتجر بعد رد إيجابي."
-  },
   "requestWrittenFeedbackLabel": "طلب ملاحظات مكتوبة بعد 'لا'",
-  "@requestWrittenFeedbackLabel": {
-    "description": "تسمية مفتاح طلب ملاحظات مكتوبة بعد رد سلبي."
-  },
   "requestWrittenFeedbackDescription": "إذا تم التمكين، سيُطلب من المستخدمين الذين يجيبون بـ 'لا' تقديم ملاحظات مكتوبة مباشرة إلى فريق التطوير.",
-  "@requestWrittenFeedbackDescription": {
-    "description": "وصف مفتاح طلب ملاحظات مكتوبة بعد رد سلبي."
-  },
   "internalPromptLogicTitle": "منطق الموجه الداخلي",
-  "@internalPromptLogicTitle": {
-    "description": "عنوان قسم منطق الموجه الداخلي لمراجعة التطبيق."
-  },
   "eligiblePositiveInteractionsTitle": "التفاعلات الإيجابية المؤهلة",
-  "@eligiblePositiveInteractionsTitle": {
-    "description": "عنوان قسم التفاعلات الإيجابية المؤهلة."
-  },
   "positiveInteractionTypeSaveItem": "حفظ عنصر محتوى",
-  "@positiveInteractionTypeSaveItem": {
-    "description": "تسمية نوع التفاعل الإيجابي 'حفظ عنصر'."
-  },
   "positiveInteractionTypeFollowItem": "متابعة كيان ",
-  "@positiveInteractionTypeFollowItem": {
-    "description": "تسمية نوع التفاعل الإيجابي 'متابعة عنصر'."
-  },
   "positiveInteractionTypeShareContent": "مشاركة عنصر محتوى",
-  "@positiveInteractionTypeShareContent": {
-    "description": "تسمية نوع التفاعل الإيجابي 'مشاركة محتوى'."
-  },
   "positiveInteractionTypeSaveFilter": "إنشاء مرشح محفوظ",
-  "@positiveInteractionTypeSaveFilter": {
-    "description": "تسمية نوع التفاعل الإيجابي 'حفظ مرشح'."
-  },
   "followUpActionsTitle": "إجراءات المتابعة",
-  "@followUpActionsTitle": {
-    "description": "عنوان قسم إجراءات المتابعة لمراجعة التطبيق."
-  },
   "enableCommunityFeaturesLabel": "تفعيل ميزات المجتمع",
-  "@enableCommunityFeaturesLabel": {
-    "description": "تسمية المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
-  },
   "enableCommunityFeaturesDescription": "ينشط أو يعطل عالميًا جميع الوظائف المتعلقة بالمجتمع، بما في ذلك المشاركة والإبلاغ.",
-  "@enableCommunityFeaturesDescription": {
-    "description": "وصف المفتاح الرئيسي لتفعيل جميع ميزات المجتمع."
-  },
   "communityManagementPageDescription": "إدارة المحتوى الذي ينشئه المستخدمون بما في ذلك التفاعلات (ردود الفعل والتعليقات) وتبليغات المحتوى ومراجعات التطبيق.",
-  "@communityManagementPageDescription": {
-    "description": "وصف صفحة إدارة المجتمع"
-  },
   "engagements": "التفاعلات",
-  "@engagements": {
-    "description": "تسمية الصفحة الفرعية للتفاعلات"
-  },
   "reports": "التبليغات",
-  "@reports": {
-    "description": "تسمية الصفحة الفرعية لالتبليغات"
-  },
   "appReviews": "مراجعات التطبيق",
-  "@appReviews": {
-    "description": "تسمية الصفحة الفرعية لمراجعات التطبيق"
-  },
   "user": "المستخدم",
-  "@user": {
-    "description": "رأس العمود للمستخدم"
-  },
   "engagedContent": "المحتوى المتفاعل معه",
-  "@engagedContent": {
-    "description": "رأس العمود للمحتوى المتفاعل معه"
-  },
   "reaction": "رد الفعل",
-  "@reaction": {
-    "description": "رأس العمود لرد الفعل"
-  },
   "comment": "التعليق",
-  "@comment": {
-    "description": "رأس العمود للتعليق"
-  },
   "commentStatus": "حالة التعليق",
-  "@commentStatus": {
-    "description": "تسمية لحالة الإشراف على تعليق ضمن تفاعل."
-  },
   "hasCommentFilterLabel": "تحتوي على تعليقات",
-  "@hasCommentFilterLabel": {
-    "description": "تسمية لمفتاح تصفية التفاعلات بناءً على وجود تعليق."
-  },
   "hasCommentFilterDescription": "إظهار التفاعلات التي تتضمن تعليقًا نصيًا فقط.",
-  "@hasCommentFilterDescription": {
-    "description": "وصف لمفتاح تصفية التفاعلات بناءً على وجود تعليق."
-  },
   "date": "التاريخ",
-  "@date": {
-    "description": "رأس العمود للتاريخ"
-  },
   "approveComment": "الموافقة على التعليق",
-  "@approveComment": {
-    "description": "إجراء للموافقة على تعليق"
-  },
   "rejectComment": "رفض التعليق",
-  "@rejectComment": {
-    "description": "إجراء لرفض تعليق"
-  },
   "viewEngagedContent": "عرض المحتوى",
-  "@viewEngagedContent": {
-    "description": "إجراء لعرض المحتوى المتفاعل معه"
-  },
   "copyUserId": "نسخ معرف المستخدم",
-  "@copyUserId": {
-    "description": "إجراء لنسخ معرف المستخدم"
-  },
   "reporter": "المبلغ",
-  "@reporter": {
-    "description": "رأس العمود للمبلغ"
-  },
   "reportedItem": "العنصر المبلغ عنه",
-  "@reportedItem": {
-    "description": "رأس العمود للعنصر المبلغ عنه"
-  },
   "reason": "السبب",
-  "@reason": {
-    "description": "رأس العمود للسبب"
-  },
   "reportStatus": "حالة البلاغ",
-  "@reportStatus": {
-    "description": "رأس العمود لحالة البلاغ"
-  },
   "viewReportedItem": "عرض العنصر",
-  "@viewReportedItem": {
-    "description": "إجراء لعرض العنصر المبلغ عنه"
-  },
   "markAsInReview": "وضع علامة 'قيد المراجعة'",
-  "@markAsInReview": {
-    "description": "إجراء لوضع علامة على بلاغ بأنه قيد المراجعة"
-  },
   "resolveReport": "حل البلاغ",
-  "@resolveReport": {
-    "description": "إجراء لحل بلاغ"
-  },
   "initialFeedback": "التقييم الأولي",
-  "@initialFeedback": {
-    "description": "رأس العمود للتقييم الأولي"
-  },
   "osPromptRequested": "طُلب تقييم النظام؟",
-  "@osPromptRequested": {
-    "description": "رأس العمود لطلب تقييم النظام"
-  },
   "feedbackHistory": "سجل التقييمات",
-  "@feedbackHistory": {
-    "description": "رأس العمود لسجل التقييمات"
-  },
   "lastInteraction": "آخر تفاعل",
-  "@lastInteraction": {
-    "description": "رأس العمود لآخر تفاعل"
-  },
   "viewFeedbackHistory": "عرض السجل",
-  "@viewFeedbackHistory": {
-    "description": "إجراء لعرض سجل التقييمات"
-  },
   "reactionTypeLike": "إعجاب",
-  "@reactionTypeLike": {
-    "description": "نوع رد الفعل: إعجاب"
-  },
   "reactionTypeInsightful": "ثاقب",
-  "@reactionTypeInsightful": {
-    "description": "نوع رد الفعل: ثاقب"
-  },
   "reactionTypeAmusing": "مسلي",
-  "@reactionTypeAmusing": {
-    "description": "نوع رد الفعل: مسلي"
-  },
   "reactionTypeSad": "حزين",
-  "@reactionTypeSad": {
-    "description": "نوع رد الفعل: حزين"
-  },
   "reactionTypeAngry": "غاضب",
-  "@reactionTypeAngry": {
-    "description": "نوع رد الفعل: غاضب"
-  },
   "reactionTypeSkeptical": "متشكك",
-  "@reactionTypeSkeptical": {
-    "description": "نوع رد الفعل: متشكك"
-  },
   "initialAppReviewFeedbackPositive": "إيجابي",
-  "@initialAppReviewFeedbackPositive": {
-    "description": "التقييم الأولي للتطبيق: إيجابي"
-  },
   "initialAppReviewFeedbackNegative": "سلبي",
-  "@initialAppReviewFeedbackNegative": {
-    "description": "التقييم الأولي للتطبيق: سلبي"
-  },
   "filterCommunity": "تصفية محتوى المجتمع",
-  "@filterCommunity": {
-    "description": "إجراء لتصفية محتوى المجتمع"
-  },
   "searchByEngagementUser": "البحث بالبريد الإلكتروني للمستخدم...",
-  "@searchByEngagementUser": {
-    "description": "تلميح للبحث عن طريق البريد الإلكتروني للمستخدم"
-  },
   "searchByReportReporter": "البحث بالبريد الإلكتروني للمبلغ...",
-  "@searchByReportReporter": {
-    "description": "تلميح للبحث عن طريق البريد الإلكتروني للمبلغ"
-  },
   "searchByAppReviewUser": "البحث بالبريد الإلكتروني للمستخدم...",
-  "@searchByAppReviewUser": {
-    "description": "تلميح للبحث عن طريق البريد الإلكتروني لمستخدم مراجعة التطبيق"
-  },
   "selectCommentStatus": "اختر حالة التعليق",
-  "@selectCommentStatus": {
-    "description": "إجراء لاختيار حالة التعليق"
-  },
   "selectReportStatus": "اختر حالة البلاغ",
-  "@selectReportStatus": {
-    "description": "إجراء لاختيار حالة البلاغ"
-  },
   "selectInitialFeedback": "اختر التقييم الأولي",
-  "@selectInitialFeedback": {
-    "description": "إجراء لاختيار التقييم الأولي"
-  },
   "selectReportableEntity": "اختر نوع العنصر المبلغ عنه",
-  "@selectReportableEntity": {
-    "description": "إجراء لاختيار نوع العنصر المبلغ عنه"
-  },
   "reportableEntityHeadline": "عنوان",
-  "@reportableEntityHeadline": {
-    "description": "العنصر القابل للإبلاغ عنه: عنوان"
-  },
   "reportableEntitySource": "مصدر",
-  "@reportableEntitySource": {
-    "description": "العنصر القابل للإبلاغ عنه: مصدر"
-  },
   "reportableEntityComment": "تعليق",
-  "@reportableEntityComment": {
-    "description": "العنصر القابل للإبلاغ عنه: تعليق"
-  },
   "noEngagementsFound": "لم يتم العثور على تفاعلات.",
-  "@noEngagementsFound": {
-    "description": "رسالة عند عدم العثور على تفاعلات"
-  },
   "noReportsFound": "لم يتم العثور على بلاغات.",
-  "@noReportsFound": {
-    "description": "رسالة عند عدم العثور على بلاغات"
-  },
   "noAppReviewsFound": "لم يتم العثور على مراجعات للتطبيق.",
-  "@noAppReviewsFound": {
-    "description": "رسالة عند عدم العثور على مراجعات للتطبيق"
-  },
   "loadingEngagements": "جاري تحميل التفاعلات",
-  "@loadingEngagements": {
-    "description": "رسالة عند تحميل التفاعلات"
-  },
   "loadingReports": "جاري تحميل البلاغات",
-  "@loadingReports": {
-    "description": "رسالة عند تحميل البلاغات"
-  },
   "loadingAppReviews": "جاري تحميل مراجعات التطبيق",
-  "@loadingAppReviews": {
-    "description": "رسالة عند تحميل مراجعات التطبيق"
-  },
   "userIdCopied": "تم نسخ معرف المستخدم إلى الحافظة.",
-  "@userIdCopied": {
-    "description": "رسالة عند نسخ معرف المستخدم"
-  },
   "reportStatusUpdated": "تم تحديث حالة البلاغ.",
-  "@reportStatusUpdated": {
-    "description": "رسالة عند تحديث حالة البلاغ"
-  },
   "feedbackHistoryForUser": "سجل التقييمات للمستخدم {email}",
   "@feedbackHistoryForUser": {
     "description": "رسالة تعرض سجل التقييمات لمستخدم",
@@ -2536,9 +748,6 @@
     }
   },
   "noFeedbackHistory": "لا يوجد سجل تقييمات متاح لهذا المستخدم.",
-  "@noFeedbackHistory": {
-    "description": "رسالة عند عدم توفر سجل تقييمات"
-  },
   "feedbackProvidedAt": "تم تقديم التقييم في: {date}",
   "@feedbackProvidedAt": {
     "description": "رسالة تعرض تاريخ تقديم التقييم",
@@ -2558,195 +767,52 @@
     }
   },
   "noReasonProvided": "لم يتم تقديم سبب.",
-  "@noReasonProvided": {
-    "description": "رسالة عند عدم تقديم سبب للتقييم"
-  },
   "yes": "نعم",
-  "@yes": {
-    "description": "رد 'نعم' عام."
-  },
   "no": "لا",
-  "@no": {
-    "description": "رد 'لا' عام."
-  },
   "reportReasonMisinformationOrFakeNews": "معلومات مضللة / أخبار كاذبة",
-  "@reportReasonMisinformationOrFakeNews": {
-    "description": "سبب البلاغ: المحتوى معلومات مضللة أو أخبار كاذبة."
-  },
   "reportReasonClickbaitTitle": "عنوان مضلل",
-  "@reportReasonClickbaitTitle": {
-    "description": "سبب البلاغ: العنوان الرئيسي مضلل."
-  },
   "reportReasonOffensiveOrHateSpeech": "محتوى مسيء / خطاب كراهية",
-  "@reportReasonOffensiveOrHateSpeech": {
-    "description": "سبب البلاغ: المحتوى مسيء أو يتضمن خطاب كراهية."
-  },
   "reportReasonSpamOrScam": "بريد مزعج / احتيال",
-  "@reportReasonSpamOrScam": {
-    "description": "سبب البلاغ: المحتوى بريد مزعج أو احتيال."
-  },
   "reportReasonBrokenLink": "رابط معطل",
-  "@reportReasonBrokenLink": {
-    "description": "سبب البلاغ: الرابط في المحتوى معطل."
-  },
   "reportReasonPaywalled": "يتطلب اشتراكًا مدفوعًا",
-  "@reportReasonPaywalled": {
-    "description": "سبب البلاغ: المحتوى يتطلب اشتراكًا مدفوعًا."
-  },
   "reportReasonLowQualityJournalism": "صحافة منخفضة الجودة",
-  "@reportReasonLowQualityJournalism": {
-    "description": "سبب البلاغ: المصدر يقدم صحافة منخفضة الجودة."
-  },
   "reportReasonHighAdDensity": "كثافة إعلانات عالية",
-  "@reportReasonHighAdDensity": {
-    "description": "سبب البلاغ: المصدر يحتوي على كثافة عالية من الإعلانات."
-  },
   "reportReasonBlog": "مدونة",
-  "@reportReasonBlog": {
-    "description": "سبب البلاغ: المصدر مدونة."
-  },
   "reportReasonGovernmentSource": "مصدر حكومي",
-  "@reportReasonGovernmentSource": {
-    "description": "سبب البلاغ: المصدر جهة حكومية."
-  },
   "reportReasonAggregator": "مجمع أخبار",
-  "@reportReasonAggregator": {
-    "description": "سبب البلاغ: المصدر مجمع أخبار."
-  },
   "reportReasonOther": "آخر",
-  "@reportReasonOther": {
-    "description": "سبب البلاغ: آخر، غير محدد."
-  },
   "reportReasonFrequentPaywalls": "اشتراكات مدفوعة متكررة",
-  "@reportReasonFrequentPaywalls": {
-    "description": "سبب البلاغ: المصدر يستخدم اشتراكات مدفوعة بشكل متكرر."
-  },
   "reportReasonImpersonation": "انتحال شخصية",
-  "@reportReasonImpersonation": {
-    "description": "سبب البلاغ: المصدر ينتحل شخصية جهة أخرى."
-  },
   "noNegativeFeedbackHistory": "لم يتم العثور على سجل تقييمات سلبية لهذا المستخدم.",
-  "@noNegativeFeedbackHistory": {
-    "description": "رسالة تظهر في مربع حوار سجل التقييمات عند عدم وجود سجل."
-  },
   "reject": "رفض",
-  "@reject": {
-    "description": "نص زر التأكيد لإجراء الرفض."
-  },
   "commentStatusFlaggedByAi": "تم الإبلاغ بواسطة الذكاء الاصطناعي",
-  "@commentStatusFlaggedByAi": {
-    "description": "حالة إدارية لتعليق تم الإبلاغ عنه تلقائيًا بواسطة الذكاء الاصطناعي."
-  },
   "cancel": "إلغاء",
-  "@cancel": {
-    "description": "A generic 'Cancel' button text."
-  },
   "rejectCommentConfirmation": "هل أنت متأكد أنك تريد رفض وحذف هذا التعليق نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
-  "@rejectCommentConfirmation": {
-    "description": "A simplified confirmation message shown to an admin before they reject and delete a user's comment."
-  },
   "searchByUserId": "ابحث باستخدام معرّف المستخدم...",
-  "@searchByUserId": {
-    "description": "Hint text for the search input field in filter dialogs, specifying to search by User ID."
-  },
   "viewReportedHeadline": "عرض العنوان",
-  "@viewReportedHeadline": {
-    "description": "Action to view the reported headline"
-  },
   "viewReportedSource": "عرض المصدر",
-  "@viewReportedSource": {
-    "description": "Action to view the reported source"
-  },
   "viewReportedComment": "عرض التعليق",
-  "@viewReportedComment": {
-    "description": "Action to view the reported comment"
-  },
   "entityType": "نوع الكيان",
-  "@entityType": {
-    "description": "Column header for the type of entity being reported"
-  },
   "feedback": "التقييم",
-  "@feedback": {
-    "description": "Column header for user feedback on app reviews."
-  },
   "feedbackDetails": "تفاصيل التقييم",
-  "@feedbackDetails": {
-    "description": "Title for the dialog showing detailed user feedback."
-  },
   "moderationStatusPendingReview": "قيد المراجعة",
-  "@moderationStatusPendingReview": {
-    "description": "Moderation status: The item is awaiting review."
-  },
   "moderationStatusResolved": "تم الحل",
-  "@moderationStatusResolved": {
-    "description": "Moderation status: A decision has been made on the item."
-  },
   "hasComment": "يحتوي على تعليق",
-  "@hasComment": {
-    "description": "تسمية لخيار تصفية لإظهار العناصر التي تحتوي على تعليق."
-  },
   "any": "الكل",
-  "@any": {
-    "description": "خيار تصفية لإظهار العناصر بغض النظر عن خاصية معينة (على سبيل المثال، إظهار العناصر مع أو بدون تعليقات)."
-  },
   "withComment": "مع تعليق",
-  "@withComment": {
-    "description": "خيار تصفية لإظهار العناصر التي تحتوي على تعليق فقط."
-  },
   "withoutComment": "بدون تعليق",
-  "@withoutComment": {
-    "description": "خيار تصفية لإظهار العناصر التي لا تحتوي على تعليق فقط."
-  },
   "reportResolved": "تم حل البلاغ.",
-  "@reportResolved": {},
-  "commentApproved": "تمت الموافقة على التعليق.",
-  "@commentApproved": {
-    "description": "رسالة عند الموافقة على تعليق"
-  },
   "commentRejected": "تم رفض التعليق.",
-  "@commentRejected": {
-    "description": "رسالة عند رفض تعليق"
-  },
   "copyHeadlineId": "نسخ معرّف العنوان",
-  "@copyHeadlineId": {
-    "description": "نص عنصر القائمة لنسخ معرّف العنوان الرئيسي."
-  },
   "copyReportedItemId": "نسخ معرّف العنصر المُبلغ عنه",
-  "@copyReportedItemId": {
-    "description": "نص عنصر القائمة لنسخ معرّف العنصر المُبلغ عنه."
-  },
   "viewFeedbackDetails": "عرض تفاصيل التقييم",
-  "@viewFeedbackDetails": {
-    "description": "Tooltip for the button to view feedback details."
-  },
   "reportDetails": "تفاصيل البلاغ",
-  "@reportDetails": {
-    "description": "عنوان مربع الحوار الذي يعرض تفاصيل بلاغ مقدم من المستخدم."
-  },
   "commentDetails": "تفاصيل التعليق",
-  "@commentDetails": {
-    "description": "عنوان مربع الحوار الذي يعرض تفاصيل تعليق مقدم من المستخدم."
-  },
   "communityManagement": "إدارة المجتمع",
-  "@communityManagement": {
-    "description": "تسمية لعنوان صفحة إدارة المجتمع والتنقل."
-  },
   "navContent": "المحتوى",
-  "@navContent": {
-    "description": "تسمية تنقل قصيرة لإدارة المحتوى."
-  },
   "navUsers": "المستخدمون",
-  "@navUsers": {
-    "description": "تسمية تنقل قصيرة لإدارة المستخدمين."
-  },
   "navCommunity": "المجتمع",
-  "@navCommunity": {
-    "description": "تسمية تنقل قصيرة لإدارة المجتمع."
-  },
   "confirmPromotionTitle": "تأكيد الترقية",
-  "@confirmPromotionTitle": {
-    "description": "عنوان مربع حوار تأكيد ترقية المستخدم."
-  },
   "confirmPromotionMessage": "هل أنت متأكد أنك تريد ترقية {email} إلى ناشر؟",
   "@confirmPromotionMessage": {
     "description": "رسالة مربع حوار تأكيد ترقية المستخدم.",
@@ -2757,9 +823,6 @@
     }
   },
   "confirmDemotionTitle": "تأكيد التخفيض",
-  "@confirmDemotionTitle": {
-    "description": "عنوان مربع حوار تأكيد تخفيض رتبة المستخدم."
-  },
   "confirmDemotionMessage": "هل أنت متأكد أنك تريد تخفيض رتبة {email} إلى مستخدم عادي؟",
   "@confirmDemotionMessage": {
     "description": "رسالة مربع حوار تأكيد تخفيض رتبة المستخدم.",
@@ -2770,25 +833,10 @@
     }
   },
   "premiumUserTooltip": "مستخدم مميز",
-  "@premiumUserTooltip": {
-    "description": "تلميح للأيقونة التي تشير إلى مستخدم مميز."
-  },
   "adminUserTooltip": "مسؤول",
-  "@adminUserTooltip": {
-    "description": "تلميح للأيقونة التي تشير إلى مستخدم مسؤول."
-  },
   "publisherUserTooltip": "ناشر",
-  "@publisherUserTooltip": {
-    "description": "تلميح للأيقونة التي تشير إلى مستخدم ناشر."
-  },
   "breakingNewsHint": "هذا عنوان خبر عاجل",
-  "@breakingNewsHint": {
-    "description": "Tooltip text for the breaking news icon on a headline"
-  },
   "breakingNewsFilterDescription": "إظهار عناوين الأخبار العاجلة فقط",
-  "@breakingNewsFilterDescription": {
-    "description": "Subtitle for the breaking news filter switch"
-  },
   "publishItemTitle": "نشر {itemType}؟",
   "@publishItemTitle": {
     "description": "Confirmation dialog title for publishing an item.",
@@ -2884,49 +932,16 @@
     }
   },
   "adPlatformConfigurationDescription": "اختر مزود الإعلانات الأساسي وقم بتكوين معرفات الوحدات الإعلانية الخاصة به.",
-  "@adPlatformConfigurationDescription": {
-    "description": "وصف قسم تكوين منصة الإعلانات القابل للتوسيع."
-  },
   "feedAdSettingsDescription": "تحكم في رؤية الإعلانات ونوعها وتكرارها داخل موجز محتوى المستخدم.",
-  "@feedAdSettingsDescription": {
-    "description": "وصف قسم إعدادات إعلانات الموجز القابل للتوسيع."
-  },
   "navigationAdConfigDescription": "تكوين الإعلانات البينية التي تظهر أثناء تنقل المستخدم.",
-  "@navigationAdConfigDescription": {
-    "description": "وصف قسم إعدادات إعلانات التنقل القابل للتوسيع."
-  },
   "feedDecoratorLinkAccountDescription": "يطالب المستخدمين الضيوف بإنشاء حساب كامل.",
-  "@feedDecoratorLinkAccountDescription": {
-    "description": "وصف لزينة 'ربط الحساب' في الموجز."
-  },
   "feedDecoratorUpgradeDescription": "يطالب المستخدمين العاديين بالترقية إلى اشتراك مميز.",
-  "@feedDecoratorUpgradeDescription": {
-    "description": "وصف لزينة 'الترقية' في الموجز."
-  },
   "feedDecoratorRateAppDescription": "يطالب المستخدمين بتقييم التطبيق في متجر التطبيقات.",
-  "@feedDecoratorRateAppDescription": {
-    "description": "وصف لزينة 'تقييم التطبيق' في الموجز."
-  },
   "feedDecoratorEnableNotificationsDescription": "يطالب المستخدمين بتمكين الإشعارات الفورية.",
-  "@feedDecoratorEnableNotificationsDescription": {
-    "description": "وصف لزينة 'تفعيل الإشعارات' في الموجز."
-  },
   "feedDecoratorSuggestedTopicsDescription": "يعرض مجموعة من المواضيع التي قد يهتم المستخدم بمتابعتها.",
-  "@feedDecoratorSuggestedTopicsDescription": {
-    "description": "وصف لزينة 'المواضيع المقترحة' في الموجز."
-  },
   "feedDecoratorSuggestedSourcesDescription": "يعرض مجموعة من المصادر التي قد يهتم المستخدم بمتابعتها.",
-  "@feedDecoratorSuggestedSourcesDescription": {
-    "description": "وصف لزينة 'المصادر المقترحة' في الموجز."
-  },
   "enableGlobalAdsDescription": "ينشط أو يعطل عالميًا جميع الإعلانات داخل التطبيق.",
-  "@enableGlobalAdsDescription": {
-    "description": "وصف لمفتاح تفعيل الإعلانات العالمي."
-  },
   "enableFeedAdsDescription": "يتحكم في رؤية جميع الإعلانات داخل موجزات المحتوى.",
-  "@enableFeedAdsDescription": {
-    "description": "وصف لمفتاح تفعيل إعلانات الموجز."
-  },
   "visibleToRoleDescription": "عند التمكين، ستكون هذه الميزة نشطة للمستخدمين الذين لديهم دور '{roleName}'.",
   "@visibleToRoleDescription": {
     "description": "وصف عام لمفتاح الرؤية الخاص بدور معين.",
@@ -2937,97 +952,28 @@
     }
   },
   "enableDecoratorDescription": "ينشط أو يعطل عالميًا هذه الزينة لجميع المستخدمين المؤهلين.",
-  "@enableDecoratorDescription": {
-    "description": "وصف لمفتاح تفعيل الزينة."
-  },
   "enableNavigationAdsDescription": "يتحكم في رؤية الإعلانات البينية التي تظهر أثناء تنقل المستخدم.",
-  "@enableNavigationAdsDescription": {
-    "description": "وصف لمفتاح تفعيل إعلانات التنقل."
-  },
   "enableHeadlineReportingDescription": "يسمح للمستخدمين بالإبلاغ عن العناوين الفردية لمشاكل مثل المعلومات المضللة أو العناوين المضللة.",
-  "@enableHeadlineReportingDescription": {
-    "description": "وصف لمفتاح الإبلاغ عن العناوين."
-  },
   "enableSourceReportingDescription": "يسمح للمستخدمين بالإبلاغ عن مصادر الأخبار بأكملها لمشاكل مثل الجودة المنخفضة أو التحيز.",
-  "@enableSourceReportingDescription": {
-    "description": "وصف لمفتاح الإبلاغ عن المصادر."
-  },
   "enableCommentReportingDescription": "يسمح للمستخدمين بالإبلاغ عن التعليقات الفردية للإشراف عليها.",
-  "@enableCommentReportingDescription": {
-    "description": "وصف لمفتاح الإبلاغ عن التعليقات."
-  },
   "pushNotificationDeliveryTypeBreakingOnlyDescription": "تفعيل للسماح للمستخدمين بالاشتراك في التنبيهات الفورية للأخبار العاجلة.",
-  "@pushNotificationDeliveryTypeBreakingOnlyDescription": {
-    "description": "وصف لمفتاح نوع التسليم 'الأخبار العاجلة'."
-  },
   "pushNotificationDeliveryTypeDailyDigestDescription": "تفعيل للسماح للمستخدمين بالاشتراك في ملخص يومي للأخبار ذات الصلة.",
-  "@pushNotificationDeliveryTypeDailyDigestDescription": {
-    "description": "وصف لمفتاح نوع التسليم 'الملخص اليومي'."
-  },
   "pushNotificationDeliveryTypeWeeklyRoundupDescription": "تفعيل للسماح للمستخدمين بالاشتراك في ملخص أسبوعي للأخبار ذات الصلة.",
-  "@pushNotificationDeliveryTypeWeeklyRoundupDescription": {
-    "description": "وصف لمفتاح نوع التسليم 'حصاد الأسبوع'."
-  },
   "positiveInteractionTypeSaveItemDescription": "يحتسب عندما يحفظ المستخدم عنوان رئيسي.",
-  "@positiveInteractionTypeSaveItemDescription": {
-    "description": "وصف لمفتاح نوع التفاعل الإيجابي 'حفظ عنصر'."
-  },
   "positiveInteractionTypeFollowItemDescription": "يحتسب عندما يتابع المستخدم موضوعًا أو مصدرًا أو بلدًا مثل لعنوان رئيسي.",
-  "@positiveInteractionTypeFollowItemDescription": {
-    "description": "وصف لمفتاح نوع التفاعل الإيجابي 'متابعة عنصر'."
-  },
   "positiveInteractionTypeShareContentDescription": "يحتسب عندما يشارك المستخدم عنوان رئيسي.",
-  "@positiveInteractionTypeShareContentDescription": {
-    "description": "وصف لمفتاح نوع التفاعل الإيجابي 'مشاركة محتوى'."
-  },
   "positiveInteractionTypeSaveFilterDescription": "يحتسب عندما ينشئ المستخدم مرشحًا محفوظًا.",
-  "@positiveInteractionTypeSaveFilterDescription": {
-    "description": "وصف لمفتاح نوع التفاعل الإيجابي 'حفظ مرشح'."
-  },
   "internalPromptLogicDescription": "تحديد الشروط التي تؤدي إلى ظهور موجه الاستمتاع، مثل عدد إجراءات المستخدم وفترات التهدئة.",
-  "@internalPromptLogicDescription": {
-    "description": "وصف لإعدادات منطق الموجه الداخلي."
-  },
   "eligiblePositiveInteractionsDescription": "اختر إجراءات المستخدم التي تُحتسب 'كتفاعلات إيجابية' لتشغيل موجه الاستمتاع.",
-  "@eligiblePositiveInteractionsDescription": {
-    "description": "وصف لإعدادات التفاعلات الإيجابية المؤهلة."
-  },
   "followUpActionsDescription": "تكوين ما يحدث بعد استجابة المستخدم لموجه الاستمتاع، مثل طلب مراجعة المتجر.",
-  "@followUpActionsDescription": {
-    "description": "وصف لإعدادات إجراءات المتابعة."
-  },
   "analyticsTab": "التحليلات",
-  "@analyticsTab": {
-    "description": "عنوان تبويب إعدادات التحليلات"
-  },
   "analyticsDescription": "تكوين مزود التحليلات، وتسجيل الأحداث، ومعدلات أخذ العينات.",
-  "@analyticsDescription": {
-    "description": "وصف لقسم التحليلات القابل للتوسيع"
-  },
   "analyticsSystemStatusTitle": "تفعيل نظام التحليلات",
-  "@analyticsSystemStatusTitle": {
-    "description": "عنوان قسم حالة نظام التحليلات"
-  },
   "analyticsSystemStatusDescription": "مفتاح رئيسي لتفعيل أو تعطيل جميع عمليات تتبع التحليلات.",
-  "@analyticsSystemStatusDescription": {
-    "description": "وصف قسم حالة نظام التحليلات"
-  },
   "analyticsProviderTitle": "المزود النشط",
-  "@analyticsProviderTitle": {
-    "description": "عنوان قسم مزود التحليلات"
-  },
   "analyticsProviderDescription": "اختر مزود خدمة التحليلات الأساسي.",
-  "@analyticsProviderDescription": {
-    "description": "وصف قسم مزود التحليلات"
-  },
   "analyticsEventsTitle": "تكوين الأحداث",
-  "@analyticsEventsTitle": {
-    "description": "عنوان قسم تكوين الأحداث"
-  },
   "analyticsEventsDescription": "ضبط دقيق لتسجيل أحداث محددة. قم بتعطيل الأحداث المزعجة أو تعديل معدلات أخذ العينات.",
-  "@analyticsEventsDescription": {
-    "description": "وصف قسم تكوين الأحداث"
-  },
   "samplingRateLabel": "معدل أخذ العينات: {rate}%",
   "@samplingRateLabel": {
     "description": "تسمية لشريط تمرير معدل أخذ العينات",
@@ -3038,1205 +984,305 @@
     }
   },
   "analyticsProviderFirebase": "Firebase",
-  "@analyticsProviderFirebase": {
-    "description": "تسمية مزود التحليلات Firebase"
-  },
   "analyticsProviderMixpanel": "Mixpanel",
-  "@analyticsProviderMixpanel": {
-    "description": "تسمية مزود التحليلات Mixpanel"
-  },
   "analyticsEventUserRegisteredLabel": "تسجيل مستخدم جديد",
-  "@analyticsEventUserRegisteredLabel": {
-    "description": "تسمية لحدث تسجيل مستخدم جديد"
-  },
   "analyticsEventUserRegisteredDescription": "تتبع عندما يقوم مستخدم جديد بإنشاء حساب بنجاح.",
-  "@analyticsEventUserRegisteredDescription": {
-    "description": "وصف لحدث تسجيل مستخدم جديد"
-  },
   "analyticsEventUserLoginLabel": "تسجيل دخول المستخدم",
-  "@analyticsEventUserLoginLabel": {
-    "description": "تسمية لحدث تسجيل دخول المستخدم"
-  },
   "analyticsEventUserLoginDescription": "تتبع عندما يقوم المستخدم بتسجيل الدخول إلى التطبيق.",
-  "@analyticsEventUserLoginDescription": {
-    "description": "وصف لحدث تسجيل دخول المستخدم"
-  },
   "analyticsEventAccountLinkedLabel": "ربط الحساب",
-  "@analyticsEventAccountLinkedLabel": {
-    "description": "تسمية لحدث ربط الحساب"
-  },
   "analyticsEventAccountLinkedDescription": "تتبع عندما يقوم مستخدم ضيف بربط حسابه ببيانات اعتماد دائمة.",
-  "@analyticsEventAccountLinkedDescription": {
-    "description": "وصف لحدث ربط الحساب"
-  },
   "analyticsEventUserRoleChangedLabel": "تغيير دور المستخدم",
-  "@analyticsEventUserRoleChangedLabel": {
-    "description": "تسمية لحدث تغيير دور المستخدم"
-  },
   "analyticsEventUserRoleChangedDescription": "تتبع عندما يتم تحديث دور المستخدم (مثل الترقية إلى مميز).",
-  "@analyticsEventUserRoleChangedDescription": {
-    "description": "وصف لحدث تغيير دور المستخدم"
-  },
   "analyticsEventContentViewedLabel": "مشاهدة المحتوى",
-  "@analyticsEventContentViewedLabel": {
-    "description": "تسمية لحدث مشاهدة المحتوى"
-  },
   "analyticsEventContentViewedDescription": "تتبع عندما يشاهد المستخدم عنوانًا أو مقالًا.",
-  "@analyticsEventContentViewedDescription": {
-    "description": "وصف لحدث مشاهدة المحتوى"
-  },
   "analyticsEventContentSharedLabel": "مشاركة المحتوى",
-  "@analyticsEventContentSharedLabel": {
-    "description": "تسمية لحدث مشاركة المحتوى"
-  },
   "analyticsEventContentSharedDescription": "تتبع عندما يشارك المستخدم المحتوى عبر منصات خارجية.",
-  "@analyticsEventContentSharedDescription": {
-    "description": "وصف لحدث مشاركة المحتوى"
-  },
   "analyticsEventContentSavedLabel": "حفظ المحتوى",
-  "@analyticsEventContentSavedLabel": {
-    "description": "تسمية لحدث حفظ المحتوى"
-  },
   "analyticsEventContentSavedDescription": "تتبع عندما يقوم المستخدم بحفظ عنوان في المفضلة.",
-  "@analyticsEventContentSavedDescription": {
-    "description": "وصف لحدث حفظ المحتوى"
-  },
   "analyticsEventContentUnsavedLabel": "إلغاء حفظ المحتوى",
-  "@analyticsEventContentUnsavedLabel": {
-    "description": "تسمية لحدث إلغاء حفظ المحتوى"
-  },
   "analyticsEventContentUnsavedDescription": "تتبع عندما يزيل المستخدم عنوانًا من المفضلة.",
-  "@analyticsEventContentUnsavedDescription": {
-    "description": "وصف لحدث إلغاء حفظ المحتوى"
-  },
   "analyticsEventContentReadingTimeLabel": "وقت قراءة المحتوى",
-  "@analyticsEventContentReadingTimeLabel": {
-    "description": "تسمية لحدث وقت قراءة المحتوى"
-  },
   "analyticsEventContentReadingTimeDescription": "تتبع المدة التي يقضيها المستخدم في قراءة مقال.",
-  "@analyticsEventContentReadingTimeDescription": {
-    "description": "وصف لحدث وقت قراءة المحتوى"
-  },
   "analyticsEventReactionCreatedLabel": "إضافة رد فعل",
-  "@analyticsEventReactionCreatedLabel": {
-    "description": "تسمية لحدث إضافة رد فعل"
-  },
   "analyticsEventReactionCreatedDescription": "تتبع عندما يتفاعل المستخدم مع المحتوى.",
-  "@analyticsEventReactionCreatedDescription": {
-    "description": "وصف لحدث إضافة رد فعل"
-  },
   "analyticsEventReactionDeletedLabel": "إزالة رد فعل",
-  "@analyticsEventReactionDeletedLabel": {
-    "description": "تسمية لحدث إزالة رد فعل"
-  },
   "analyticsEventReactionDeletedDescription": "تتبع عندما يزيل المستخدم رد فعله.",
-  "@analyticsEventReactionDeletedDescription": {
-    "description": "وصف لحدث إزالة رد فعل"
-  },
   "analyticsEventCommentCreatedLabel": "نشر تعليق",
-  "@analyticsEventCommentCreatedLabel": {
-    "description": "تسمية لحدث نشر تعليق"
-  },
   "analyticsEventCommentCreatedDescription": "تتبع عندما يرسل المستخدم تعليقًا جديدًا.",
-  "@analyticsEventCommentCreatedDescription": {
-    "description": "وصف لحدث نشر تعليق"
-  },
   "analyticsEventCommentDeletedLabel": "حذف تعليق",
-  "@analyticsEventCommentDeletedLabel": {
-    "description": "تسمية لحدث حذف تعليق"
-  },
   "analyticsEventCommentDeletedDescription": "تتبع عندما يحذف المستخدم تعليقه الخاص.",
-  "@analyticsEventCommentDeletedDescription": {
-    "description": "وصف لحدث حذف تعليق"
-  },
   "analyticsEventReportSubmittedLabel": "تقديم بلاغ",
-  "@analyticsEventReportSubmittedLabel": {
-    "description": "تسمية لحدث تقديم بلاغ"
-  },
   "analyticsEventReportSubmittedDescription": "تتبع عندما يبلغ المستخدم عن محتوى أو مستخدمين آخرين.",
-  "@analyticsEventReportSubmittedDescription": {
-    "description": "وصف لحدث تقديم بلاغ"
-  },
   "analyticsEventHeadlineFilterCreatedLabel": "إنشاء مرشح عناوين",
-  "@analyticsEventHeadlineFilterCreatedLabel": {
-    "description": "تسمية لحدث إنشاء مرشح عناوين"
-  },
   "analyticsEventHeadlineFilterCreatedDescription": "تتبع عندما ينشئ المستخدم مرشح عناوين مخصص جديد.",
-  "@analyticsEventHeadlineFilterCreatedDescription": {
-    "description": "وصف لحدث إنشاء مرشح عناوين"
-  },
   "analyticsEventHeadlineFilterUpdatedLabel": "تحديث مرشح عناوين",
-  "@analyticsEventHeadlineFilterUpdatedLabel": {
-    "description": "تسمية لحدث تحديث مرشح عناوين"
-  },
   "analyticsEventHeadlineFilterUpdatedDescription": "تتبع عندما يعدل المستخدم مرشح عناوين موجود.",
-  "@analyticsEventHeadlineFilterUpdatedDescription": {
-    "description": "وصف لحدث تحديث مرشح عناوين"
-  },
   "analyticsEventHeadlineFilterUsedLabel": "استخدام مرشح عناوين",
-  "@analyticsEventHeadlineFilterUsedLabel": {
-    "description": "تسمية لحدث استخدام مرشح عناوين"
-  },
   "analyticsEventHeadlineFilterUsedDescription": "تتبع عندما يطبق المستخدم مرشح عناوين محفوظ.",
-  "@analyticsEventHeadlineFilterUsedDescription": {
-    "description": "وصف لحدث استخدام مرشح عناوين"
-  },
   "analyticsEventSearchPerformedLabel": "إجراء بحث",
-  "@analyticsEventSearchPerformedLabel": {
-    "description": "تسمية لحدث إجراء بحث"
-  },
   "analyticsEventSearchPerformedDescription": "تتبع عندما يقوم المستخدم بإجراء استعلام بحث.",
-  "@analyticsEventSearchPerformedDescription": {
-    "description": "وصف لحدث إجراء بحث"
-  },
   "analyticsEventAppReviewPromptRespondedLabel": "استجابة لطلب التقييم",
-  "@analyticsEventAppReviewPromptRespondedLabel": {
-    "description": "تسمية لحدث استجابة لطلب التقييم"
-  },
   "analyticsEventAppReviewPromptRespondedDescription": "تتبع استجابات المستخدم للموجه الداخلي 'هل تستمتع بالتطبيق؟'.",
-  "@analyticsEventAppReviewPromptRespondedDescription": {
-    "description": "وصف لحدث استجابة لطلب التقييم"
-  },
   "analyticsEventAppReviewStoreRequestedLabel": "طلب تقييم المتجر",
-  "@analyticsEventAppReviewStoreRequestedLabel": {
-    "description": "تسمية لحدث طلب تقييم المتجر"
-  },
   "analyticsEventAppReviewStoreRequestedDescription": "تتبع عندما يتم طلب مربع حوار مراجعة المتجر الأصلي لنظام التشغيل.",
-  "@analyticsEventAppReviewStoreRequestedDescription": {
-    "description": "وصف لحدث طلب تقييم المتجر"
-  },
   "analyticsEventLimitExceededLabel": "تجاوز الحد",
-  "@analyticsEventLimitExceededLabel": {
-    "description": "تسمية لحدث تجاوز الحد"
-  },
   "analyticsEventLimitExceededDescription": "تتبع عندما يصل المستخدم إلى حد الاستخدام (مثل حد العناصر المحفوظة).",
-  "@analyticsEventLimitExceededDescription": {
-    "description": "وصف لحدث تجاوز الحد"
-  },
   "analyticsEventLimitExceededCtaClickedLabel": "النقر على إجراء الحد",
-  "@analyticsEventLimitExceededCtaClickedLabel": {
-    "description": "تسمية لحدث النقر على إجراء الحد"
-  },
   "analyticsEventLimitExceededCtaClickedDescription": "تتبع النقرات على أزرار 'ترقية' أو 'ربط الحساب' في مربعات حوار الحدود.",
-  "@analyticsEventLimitExceededCtaClickedDescription": {
-    "description": "وصف لحدث النقر على إجراء الحد"
-  },
   "analyticsEventPaywallPresentedLabel": "ظهور جدار الدفع",
-  "@analyticsEventPaywallPresentedLabel": {
-    "description": "تسمية لحدث ظهور جدار الدفع"
-  },
   "analyticsEventPaywallPresentedDescription": "تتبع عندما يتم عرض شاشة جدار الدفع للمستخدم.",
-  "@analyticsEventPaywallPresentedDescription": {
-    "description": "وصف لحدث ظهور جدار الدفع"
-  },
   "analyticsEventSubscriptionStartedLabel": "بدء الاشتراك",
-  "@analyticsEventSubscriptionStartedLabel": {
-    "description": "تسمية لحدث بدء الاشتراك"
-  },
   "analyticsEventSubscriptionStartedDescription": "تتبع عندما يبدأ المستخدم اشتراكًا جديدًا بنجاح.",
-  "@analyticsEventSubscriptionStartedDescription": {
-    "description": "وصف لحدث بدء الاشتراك"
-  },
   "analyticsEventSubscriptionRenewedLabel": "تجديد الاشتراك",
-  "@analyticsEventSubscriptionRenewedLabel": {
-    "description": "تسمية لحدث تجديد الاشتراك"
-  },
   "analyticsEventSubscriptionRenewedDescription": "تتبع عندما يتم تجديد الاشتراك تلقائيًا أو يدويًا.",
-  "@analyticsEventSubscriptionRenewedDescription": {
-    "description": "وصف لحدث تجديد الاشتراك"
-  },
   "analyticsEventSubscriptionCancelledLabel": "إلغاء الاشتراك",
-  "@analyticsEventSubscriptionCancelledLabel": {
-    "description": "تسمية لحدث إلغاء الاشتراك"
-  },
   "analyticsEventSubscriptionCancelledDescription": "تتبع عندما يقوم المستخدم بإلغاء اشتراكه.",
-  "@analyticsEventSubscriptionCancelledDescription": {
-    "description": "وصف لحدث إلغاء الاشتراك"
-  },
   "analyticsEventSubscriptionEndedLabel": "انتهاء الاشتراك",
-  "@analyticsEventSubscriptionEndedLabel": {
-    "description": "تسمية لحدث انتهاء الاشتراك"
-  },
   "analyticsEventSubscriptionEndedDescription": "تتبع عندما تنتهي صلاحية الاشتراك أو يتم إنهاؤه.",
-  "@analyticsEventSubscriptionEndedDescription": {
-    "description": "وصف لحدث انتهاء الاشتراك"
-  },
   "analyticsEventAdImpressionLabel": "ظهور إعلان",
-  "@analyticsEventAdImpressionLabel": {
-    "description": "تسمية لحدث ظهور إعلان"
-  },
   "analyticsEventAdImpressionDescription": "تتبع عندما يتم عرض إعلان للمستخدم.",
-  "@analyticsEventAdImpressionDescription": {
-    "description": "وصف لحدث ظهور إعلان"
-  },
   "analyticsEventAdClickedLabel": "النقر على إعلان",
-  "@analyticsEventAdClickedLabel": {
-    "description": "تسمية لحدث النقر على إعلان"
-  },
   "analyticsEventAdClickedDescription": "تتبع عندما ينقر المستخدم على إعلان.",
-  "@analyticsEventAdClickedDescription": {
-    "description": "وصف لحدث النقر على إعلان"
-  },
   "analyticsEventAdLoadFailedLabel": "فشل تحميل الإعلان",
-  "@analyticsEventAdLoadFailedLabel": {
-    "description": "تسمية لحدث فشل تحميل الإعلان"
-  },
   "analyticsEventAdLoadFailedDescription": "تتبع الأخطاء عند محاولة تحميل الإعلانات.",
-  "@analyticsEventAdLoadFailedDescription": {
-    "description": "وصف لحدث فشل تحميل الإعلان"
-  },
   "analyticsEventAdRewardEarnedLabel": "كسب مكافأة الإعلان",
-  "@analyticsEventAdRewardEarnedLabel": {
-    "description": "تسمية لحدث كسب مكافأة الإعلان"
-  },
   "analyticsEventAdRewardEarnedDescription": "تتبع عندما يكمل المستخدم إجراء إعلان بمكافأة.",
-  "@analyticsEventAdRewardEarnedDescription": {
-    "description": "وصف لحدث كسب مكافأة الإعلان"
-  },
   "analyticsEventThemeChangedLabel": "تغيير السمة",
-  "@analyticsEventThemeChangedLabel": {
-    "description": "تسمية لحدث تغيير السمة"
-  },
   "analyticsEventThemeChangedDescription": "تتبع عندما يغير المستخدم سمة التطبيق.",
-  "@analyticsEventThemeChangedDescription": {
-    "description": "وصف لحدث تغيير السمة"
-  },
   "analyticsEventLanguageChangedLabel": "تغيير اللغة",
-  "@analyticsEventLanguageChangedLabel": {
-    "description": "تسمية لحدث تغيير اللغة"
-  },
   "analyticsEventLanguageChangedDescription": "تتبع عندما يغير المستخدم لغة التطبيق.",
-  "@analyticsEventLanguageChangedDescription": {
-    "description": "وصف لحدث تغيير اللغة"
-  },
   "analyticsEventFeedDensityChangedLabel": "تغيير كثافة الموجز",
-  "@analyticsEventFeedDensityChangedLabel": {
-    "description": "تسمية لحدث تغيير كثافة الموجز"
-  },
   "analyticsEventFeedDensityChangedDescription": "تتبع عندما يعدل المستخدم كثافة المعلومات في الموجز.",
-  "@analyticsEventFeedDensityChangedDescription": {
-    "description": "وصف لحدث تغيير كثافة الموجز"
-  },
   "analyticsEventBrowserChoiceChangedLabel": "تغيير تفضيل المتصفح",
-  "@analyticsEventBrowserChoiceChangedLabel": {
-    "description": "تسمية لحدث تغيير تفضيل المتصفح"
-  },
   "analyticsEventBrowserChoiceChangedDescription": "تتبع عندما يغير المستخدم متصفحه المفضل لفتح الروابط.",
-  "@analyticsEventBrowserChoiceChangedDescription": {
-    "description": "وصف لحدث تغيير تفضيل المتصفح"
-  },
   "analyticsEventAppTourStartedLabel": "بدء جولة التطبيق",
-  "@analyticsEventAppTourStartedLabel": {
-    "description": "تسمية لحدث بدء جولة التطبيق"
-  },
   "analyticsEventAppTourStartedDescription": "تتبع عندما يتم عرض جولة التطبيق قبل المصادقة.",
-  "@analyticsEventAppTourStartedDescription": {
-    "description": "وصف لحدث بدء جولة التطبيق"
-  },
   "analyticsEventAppTourStepViewedLabel": "مشاهدة خطوة في جولة التطبيق",
-  "@analyticsEventAppTourStepViewedLabel": {
-    "description": "تسمية لحدث مشاهدة خطوة في جولة التطبيق"
-  },
   "analyticsEventAppTourStepViewedDescription": "تتبع كل مشاهدة صفحة داخل جولة التطبيق.",
-  "@analyticsEventAppTourStepViewedDescription": {
-    "description": "وصف لحدث مشاهدة خطوة في جولة التطبيق"
-  },
   "analyticsEventAppTourCompletedLabel": "إكمال جولة التطبيق",
-  "@analyticsEventAppTourCompletedLabel": {
-    "description": "تسمية لحدث إكمال جولة التطبيق"
-  },
   "analyticsEventAppTourCompletedDescription": "تتبع عندما يكمل المستخدم جولة التطبيق.",
-  "@analyticsEventAppTourCompletedDescription": {
-    "description": "وصف لحدث إكمال جولة التطبيق"
-  },
   "analyticsEventAppTourSkippedLabel": "تخطي جولة التطبيق",
-  "@analyticsEventAppTourSkippedLabel": {
-    "description": "تسمية لحدث تخطي جولة التطبيق"
-  },
   "analyticsEventAppTourSkippedDescription": "تتبع إذا قام المستخدم بتخطي جولة التطبيق.",
-  "@analyticsEventAppTourSkippedDescription": {
-    "description": "وصف لحدث تخطي جولة التطبيق"
-  },
   "analyticsEventInitialPersonalizationStartedLabel": "بدء التخصيص الأولي",
-  "@analyticsEventInitialPersonalizationStartedLabel": {
-    "description": "تسمية لحدث بدء التخصيص الأولي"
-  },
   "analyticsEventInitialPersonalizationStartedDescription": "تتبع عندما يبدأ تدفق التخصيص بعد المصادقة.",
-  "@analyticsEventInitialPersonalizationStartedDescription": {
-    "description": "وصف لحدث بدء التخصيص الأولي"
-  },
   "analyticsEventInitialPersonalizationStepViewedLabel": "مشاهدة خطوة التخصيص",
-  "@analyticsEventInitialPersonalizationStepViewedLabel": {
-    "description": "تسمية لحدث مشاهدة خطوة التخصيص"
-  },
   "analyticsEventInitialPersonalizationStepViewedDescription": "تتبع كل مشاهدة خطوة داخل تدفق التخصيص.",
-  "@analyticsEventInitialPersonalizationStepViewedDescription": {
-    "description": "وصف لحدث مشاهدة خطوة التخصيص"
-  },
   "analyticsEventInitialPersonalizationCompletedLabel": "إكمال التخصيص",
-  "@analyticsEventInitialPersonalizationCompletedLabel": {
-    "description": "تسمية لحدث إكمال التخصيص"
-  },
   "analyticsEventInitialPersonalizationCompletedDescription": "تتبع عندما يكمل المستخدم تدفق التخصيص.",
-  "@analyticsEventInitialPersonalizationCompletedDescription": {
-    "description": "وصف لحدث إكمال التخصيص"
-  },
   "analyticsEventInitialPersonalizationSkippedLabel": "تخطي التخصيص",
-  "@analyticsEventInitialPersonalizationSkippedLabel": {
-    "description": "تسمية لحدث تخطي التخصيص"
-  },
   "analyticsEventInitialPersonalizationSkippedDescription": "تتبع إذا قام المستخدم بتخطي تدفق التخصيص.",
-  "@analyticsEventInitialPersonalizationSkippedDescription": {
-    "description": "وصف لحدث تخطي التخصيص"
-  },
   "timeFrameDay": "24س",
-  "@timeFrameDay": {
-    "description": "Label for 24 hour time frame toggle"
-  },
   "timeFrameWeek": "7ي",
-  "@timeFrameWeek": {
-    "description": "Label for 7 day time frame toggle"
-  },
   "timeFrameMonth": "30ي",
-  "@timeFrameMonth": {
-    "description": "Label for 30 day time frame toggle"
-  },
   "timeFrameYear": "سنة",
-  "@timeFrameYear": {
-    "description": "Label for 1 year time frame toggle"
-  },
   "noDataAvailable": "لا توجد بيانات",
-  "@noDataAvailable": {
-    "description": "Message displayed when analytics data is missing"
-  },
   "vsPreviousPeriod": "مقارنة بالفترة السابقة",
-  "@vsPreviousPeriod": {
-    "description": "Label indicating the trend comparison context"
-  },
   "vsPreviousDay": "مقارنة بـ ٢٤ ساعة الماضية",
-  "@vsPreviousDay": {
-    "description": "Label indicating the trend comparison context for the last 24 hours"
-  },
   "vsPreviousWeek": "مقارنة بـ ٧ أيام الماضية",
-  "@vsPreviousWeek": {
-    "description": "Label indicating the trend comparison context for the last 7 days"
-  },
   "vsPreviousMonth": "مقارنة بـ ٣٠ يوم الماضية",
-  "@vsPreviousMonth": {
-    "description": "Label indicating the trend comparison context for the last 30 days"
-  },
   "vsPreviousYear": "مقارنة بالسنة الماضية",
-  "@vsPreviousYear": {
-    "description": "Label indicating the trend comparison context for the last year"
-  },
   "kpiUsersTotalRegistered": "إجمالي المستخدمين المسجلين",
-  "@kpiUsersTotalRegistered": {
-    "description": "Title for the Total Registered Users KPI card"
-  },
   "kpiUsersNewRegistrations": "تسجيلات جديدة",
-  "@kpiUsersNewRegistrations": {
-    "description": "Title for the New Registrations KPI card"
-  },
   "kpiUsersActiveUsers": "المستخدمون النشطون",
-  "@kpiUsersActiveUsers": {
-    "description": "Title for the Active Users KPI card"
-  },
   "kpiContentHeadlinesTotalPublished": "إجمالي العناوين المنشورة",
-  "@kpiContentHeadlinesTotalPublished": {
-    "description": "Title for the Total Headlines Published KPI card"
-  },
   "kpiContentHeadlinesTotalViews": "إجمالي مشاهدات العناوين",
-  "@kpiContentHeadlinesTotalViews": {
-    "description": "Title for the Total Headline Views KPI card"
-  },
   "kpiContentHeadlinesTotalLikes": "إجمالي الإعجابات",
-  "@kpiContentHeadlinesTotalLikes": {
-    "description": "Title for the Total Headline Likes KPI card"
-  },
   "kpiContentSourcesTotalSources": "إجمالي المصادر",
-  "@kpiContentSourcesTotalSources": {
-    "description": "Title for the Total Sources KPI card"
-  },
   "kpiContentSourcesNewSources": "مصادر جديدة",
-  "@kpiContentSourcesNewSources": {
-    "description": "Title for the New Sources KPI card"
-  },
   "kpiContentSourcesTotalFollowers": "إجمالي متابعي المصادر",
-  "@kpiContentSourcesTotalFollowers": {
-    "description": "Title for the Total Source Followers KPI card"
-  },
   "kpiContentTopicsTotalTopics": "إجمالي المواضيع",
-  "@kpiContentTopicsTotalTopics": {
-    "description": "Title for the Total Topics KPI card"
-  },
   "kpiContentTopicsNewTopics": "مواضيع جديدة",
-  "@kpiContentTopicsNewTopics": {
-    "description": "Title for the New Topics KPI card"
-  },
   "kpiContentTopicsTotalFollowers": "إجمالي متابعي المواضيع",
-  "@kpiContentTopicsTotalFollowers": {
-    "description": "Title for the Total Topic Followers KPI card"
-  },
   "kpiEngagementsTotalReactions": "إجمالي التفاعلات",
-  "@kpiEngagementsTotalReactions": {
-    "description": "Title for the Total Reactions KPI card"
-  },
   "kpiEngagementsTotalComments": "إجمالي التعليقات",
-  "@kpiEngagementsTotalComments": {
-    "description": "Title for the Total Comments KPI card"
-  },
   "kpiEngagementsAverageEngagementRate": "معدل التفاعل",
-  "@kpiEngagementsAverageEngagementRate": {
-    "description": "Title for the Average Engagement Rate KPI card"
-  },
   "kpiEngagementsReportsPending": "بلاغات قيد الانتظار",
-  "@kpiEngagementsReportsPending": {
-    "description": "Title for the Pending Reports KPI card"
-  },
   "kpiEngagementsReportsResolved": "بلاغات تم حلها",
-  "@kpiEngagementsReportsResolved": {
-    "description": "Title for the Resolved Reports KPI card"
-  },
   "kpiEngagementsReportsAverageResolutionTime": "متوسط وقت الحل",
-  "@kpiEngagementsReportsAverageResolutionTime": {
-    "description": "Title for the Average Resolution Time KPI card"
-  },
   "kpiEngagementsAppReviewsTotalFeedback": "إجمالي الملاحظات",
-  "@kpiEngagementsAppReviewsTotalFeedback": {
-    "description": "Title for the Total Feedback KPI card"
-  },
   "kpiEngagementsAppReviewsPositiveFeedback": "ملاحظات إيجابية",
-  "@kpiEngagementsAppReviewsPositiveFeedback": {
-    "description": "Title for the Positive Feedback KPI card"
-  },
   "kpiEngagementsAppReviewsStoreRequests": "طلبات تقييم المتجر",
-  "@kpiEngagementsAppReviewsStoreRequests": {
-    "description": "Title for the Store Review Requests KPI card"
-  },
   "chartUsersRegistrationsOverTime": "التسجيلات عبر الزمن",
-  "@chartUsersRegistrationsOverTime": {
-    "description": "Title for the Registrations Over Time chart card"
-  },
   "chartUsersActiveUsersOverTime": "اتجاه المستخدمين النشطين",
-  "@chartUsersActiveUsersOverTime": {
-    "description": "Title for the Active Users Trend chart card"
-  },
   "chartUsersRoleDistribution": "توزيع أدوار المستخدمين",
-  "@chartUsersRoleDistribution": {
-    "description": "Title for the User Role Distribution chart card"
-  },
   "chartContentHeadlinesViewsOverTime": "اتجاه المشاهدات",
-  "@chartContentHeadlinesViewsOverTime": {
-    "description": "Title for the Headline Views Trend chart card"
-  },
   "chartContentHeadlinesLikesOverTime": "اتجاه الإعجابات",
-  "@chartContentHeadlinesLikesOverTime": {
-    "description": "Title for the Headline Likes Trend chart card"
-  },
   "chartContentHeadlinesViewsByTopic": "المشاهدات حسب الموضوع",
-  "@chartContentHeadlinesViewsByTopic": {
-    "description": "Title for the Views by Topic chart card"
-  },
   "chartContentSourcesHeadlinesPublishedOverTime": "نشاط المصادر",
-  "@chartContentSourcesHeadlinesPublishedOverTime": {
-    "description": "Title for the Source Activity chart card"
-  },
   "chartContentSourcesFollowersOverTime": "نمو متابعي المصادر",
-  "@chartContentSourcesFollowersOverTime": {
-    "description": "Title for the Source Follower Growth chart card"
-  },
   "chartContentSourcesEngagementByType": "التفاعل حسب نوع المصدر",
-  "@chartContentSourcesEngagementByType": {
-    "description": "Title for the Engagement by Source Type chart card"
-  },
   "chartContentTopicsFollowersOverTime": "نمو متابعي المواضيع",
-  "@chartContentTopicsFollowersOverTime": {
-    "description": "Title for the Topic Follower Growth chart card"
-  },
   "chartContentTopicsHeadlinesPublishedOverTime": "نشاط المواضيع",
-  "@chartContentTopicsHeadlinesPublishedOverTime": {
-    "description": "Title for the Topic Activity chart card"
-  },
   "chartContentTopicsEngagementByTopic": "التفاعل حسب الموضوع",
-  "@chartContentTopicsEngagementByTopic": {
-    "description": "Title for the Engagement by Topic chart card"
-  },
   "chartEngagementsReactionsOverTime": "اتجاه التفاعلات",
-  "@chartEngagementsReactionsOverTime": {
-    "description": "Title for the Reactions Trend chart card"
-  },
   "chartEngagementsCommentsOverTime": "اتجاه التعليقات",
-  "@chartEngagementsCommentsOverTime": {
-    "description": "Title for the Comments Trend chart card"
-  },
   "chartEngagementsReactionsByType": "توزيع التفاعلات",
-  "@chartEngagementsReactionsByType": {
-    "description": "Title for the Reactions Distribution chart card"
-  },
   "chartEngagementsReportsSubmittedOverTime": "البلاغات المقدمة",
-  "@chartEngagementsReportsSubmittedOverTime": {
-    "description": "Title for the Reports Submitted chart card"
-  },
   "chartEngagementsReportsResolutionTimeOverTime": "اتجاه وقت الحل",
-  "@chartEngagementsReportsResolutionTimeOverTime": {
-    "description": "Title for the Resolution Time Trend chart card"
-  },
   "chartEngagementsReportsByReason": "البلاغات حسب السبب",
-  "@chartEngagementsReportsByReason": {
-    "description": "Title for the Reports by Reason chart card"
-  },
   "chartEngagementsAppReviewsFeedbackOverTime": "اتجاه الملاحظات",
-  "@chartEngagementsAppReviewsFeedbackOverTime": {
-    "description": "Title for the Feedback Trend chart card"
-  },
   "chartEngagementsAppReviewsPositiveVsNegative": "تحليل المشاعر",
-  "@chartEngagementsAppReviewsPositiveVsNegative": {
-    "description": "Title for the Sentiment Analysis chart card"
-  },
   "chartEngagementsAppReviewsStoreRequestsOverTime": "اتجاه طلبات المتجر",
-  "@chartEngagementsAppReviewsStoreRequestsOverTime": {
-    "description": "Title for the Store Requests Trend chart card"
-  },
   "chartContentSourcesStatusDistribution": "توزيع حالة المصادر",
-  "@chartContentSourcesStatusDistribution": {
-    "description": "Title for the Source Status Distribution chart card"
-  },
   "chartContentHeadlinesBreakingNewsDistribution": "توزيع الأخبار العاجلة",
-  "@chartContentHeadlinesBreakingNewsDistribution": {
-    "description": "Title for the Breaking News Distribution chart card"
-  },
   "chartOverviewAppTourFunnel": "قمع جولة التطبيق",
-  "@chartOverviewAppTourFunnel": {
-    "description": "عنوان بطاقة مخطط قمع جولة التطبيق"
-  },
   "chartOverviewInitialPersonalizationFunnel": "قمع التخصيص الأولي",
-  "@chartOverviewInitialPersonalizationFunnel": {
-    "description": "عنوان بطاقة مخطط قمع التخصيص الأولي"
-  },
   "rankedListOverviewHeadlinesMostViewed": "العناوين الأكثر مشاهدة",
-  "@rankedListOverviewHeadlinesMostViewed": {
-    "description": "Title for the Top Viewed Headlines ranked list card"
-  },
   "rankedListOverviewHeadlinesMostLiked": "العناوين الأكثر إعجاباً",
-  "@rankedListOverviewHeadlinesMostLiked": {
-    "description": "Title for the Top Liked Headlines ranked list card"
-  },
   "rankedListOverviewSourcesMostFollowed": "المصادر الأكثر متابعة",
-  "@rankedListOverviewSourcesMostFollowed": {
-    "description": "Title for the Top Followed Sources ranked list card"
-  },
   "rankedListOverviewTopicsMostFollowed": "المواضيع الأكثر متابعة",
-  "@rankedListOverviewTopicsMostFollowed": {
-    "description": "Title for the Top Followed Topics ranked list card"
-  },
   "subscriptionTab": "الاشتراكات",
-  "@subscriptionTab": {
-    "description": "عنوان تبويب إعدادات الاشتراكات"
-  },
   "subscriptionDescription": "تكوين خطط الاشتراك (مثل الشهرية والسنوية) المقدمة للمستخدمين. عند التمكين، سيتم مطالبة المستخدمين الذين يصلون إلى حدود استخدام الميزات بالترقية إلى فئة مميزة.",
-  "@subscriptionDescription": {
-    "description": "وصف قسم إعدادات الاشتراك"
-  },
   "enableSubscriptionLabel": "تفعيل ميزة الاشتراك",
-  "@enableSubscriptionLabel": {
-    "description": "تسمية مفتاح تفعيل الاشتراك"
-  },
   "enableSubscriptionDescription": "المفتاح الرئيسي لنظام الاشتراك. عند التمكين، يمكن للمستخدمين شراء خطط لترقية مستوى وصولهم (مثل من عادي إلى مميز).",
-  "@enableSubscriptionDescription": {
-    "description": "وصف مفتاح تفعيل الاشتراك"
-  },
   "monthlyPlanTitle": "الخطة الشهرية",
-  "@monthlyPlanTitle": {
-    "description": "عنوان قسم خطة الاشتراك الشهرية"
-  },
   "annualPlanTitle": "الخطة السنوية",
-  "@annualPlanTitle": {
-    "description": "عنوان قسم خطة الاشتراك السنوية"
-  },
   "planEnabledLabel": "تفعيل الخطة",
-  "@planEnabledLabel": {
-    "description": "تسمية لتفعيل خطة محددة"
-  },
   "planRecommendedLabel": "خطة موصى بها",
-  "@planRecommendedLabel": {
-    "description": "تسمية لتمييز الخطة كموصى بها"
-  },
   "planRecommendedDescription": "يبرز هذه الخطة كأفضل خيار للقيمة.",
-  "@planRecommendedDescription": {
-    "description": "وصف لمفتاح الخطة الموصى بها"
-  },
   "appleProductIdLabel": "معرف منتج متجر تطبيقات أبل",
-  "@appleProductIdLabel": {
-    "description": "تسمية معرف منتج متجر تطبيقات Apple"
-  },
   "googleProductIdLabel": "معرف منتج متجر جوجل بلاي",
-  "@googleProductIdLabel": {
-    "description": "تسمية معرف منتج متجر Google Play"
-  },
   "subscriptionPlanEnablementError": "الرجاء إدخال معرّف منتج واحد على الأقل لتفعيل هذه الخطة.",
-  "@subscriptionPlanEnablementError": {
-    "description": "Error message shown when trying to enable a subscription plan without any product IDs."
-  },
   "subscriptionPlanDisabledNotification": "تم تعطيل الخطة لعدم توفر معرّفات منتجات.",
-  "@subscriptionPlanDisabledNotification": {
-    "description": "Snackbar notification shown when a plan is automatically disabled because its product IDs were removed."
-  },
   "subscriptionFeatureDisabledNotification": "تم تعطيل ميزة الاشتراك لعدم وجود خطط نشطة.",
-  "@subscriptionFeatureDisabledNotification": {
-    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل ميزة الاشتراك تلقائيًا بسبب تعطيل جميع الخطط."
-  },
   "pushNotificationFeatureDisabledNotification": "تم تعطيل نظام الإشعارات لعدم وجود أنواع تسليم نشطة.",
-  "@pushNotificationFeatureDisabledNotification": {
-    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام الإشعارات تلقائيًا."
-  },
   "analyticsFeatureDisabledNotification": "تم تعطيل نظام التحليلات لأن جميع الأحداث معطلة.",
-  "@analyticsFeatureDisabledNotification": {
-    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام التحليلات تلقائيًا."
-  },
   "reportingFeatureDisabledNotification": "تم تعطيل نظام الإبلاغ لعدم وجود خيارات إبلاغ نشطة.",
-  "@reportingFeatureDisabledNotification": {
-    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام الإبلاغ تلقائيًا."
-  },
   "appReviewFeatureDisabledNotification": "تم تعطيل نظام مراجعة التطبيق لعدم تحديد أي تفاعلات إيجابية.",
-  "@appReviewFeatureDisabledNotification": {
-    "description": "إشعار شريط الوجبات الخفيفة يظهر عند تعطيل نظام مراجعة التطبيق تلقائيًا."
-  },
   "subscriptionsName": "الاشتراكات",
-  "@subscriptionsName": {
-    "description": "خيار القائمة للفواتير"
-  },
   "subscriptionProvider": "مزود المتجر",
-  "@subscriptionProvider": {
-    "description": "عمود الجدول لمزود المتجر"
-  },
   "userEmail": "بريد المستخدم",
-  "@userEmail": {
-    "description": "عمود الجدول لبريد المستخدم"
-  },
   "accessTier": "مستوى الوصول",
-  "@accessTier": {
-    "description": "عمود الجدول لمستوى الوصول"
-  },
   "expiryDate": "تاريخ الانتهاء",
-  "@expiryDate": {
-    "description": "عمود الجدول لتاريخ الانتهاء"
-  },
   "willAutoRenew": "تجديد تلقائي",
-  "@willAutoRenew": {
-    "description": "عمود الجدول لحالة التجديد التلقائي"
-  },
   "allAccessTiers": "جميع المستويات",
-  "@allAccessTiers": {
-    "description": "خيار تصفية لجميع مستويات الوصول"
-  },
   "subscriptionActionCopyUserId": "نسخ معرف المستخدم",
-  "@subscriptionActionCopyUserId": {
-    "description": "إجراء لنسخ معرف المستخدم من الاشتراك"
-  },
   "subscriptionActionCopySubscriptionId": "نسخ معرف الاشتراك",
-  "@subscriptionActionCopySubscriptionId": {
-    "description": "إجراء لنسخ معرف الاشتراك"
-  },
   "filterSubscriptions": "تصفية الاشتراكات",
-  "@filterSubscriptions": {
-    "description": "عنوان مربع حوار تصفية الفواتير"
-  },
   "selectStatus": "اختر الحالة",
-  "@selectStatus": {
-    "description": "تلميح لاختيار حالة الاشتراك"
-  },
   "selectProvider": "اختر المزود",
-  "@selectProvider": {
-    "description": "تلميح لاختيار مزود المتجر"
-  },
   "selectTier": "اختر المستوى",
-  "@selectTier": {
-    "description": "تلميح لاختيار مستوى الوصول"
-  },
   "noSubscriptionsFound": "لم يتم العثور على اشتراكات.",
-  "@noSubscriptionsFound": {
-    "description": "رسالة عند عدم العثور على اشتراكات"
-  },
   "loadingSubscriptions": "جاري تحميل الاشتراكات",
-  "@loadingSubscriptions": {
-    "description": "عنوان حالة تحميل الاشتراكات"
-  },
   "searchByUserIdOrSubscriptionId": "البحث بمعرف المستخدم أو معرف الاشتراك...",
-  "@searchByUserIdOrSubscriptionId": {
-    "description": "نص تلميح لحقل البحث في الفواتير"
-  },
   "subscriptionsPageDescription": "واجهة للقراءة فقط لمراقبة حالات اشتراك المستخدم. تتم معالجة جميع أحداث دورة حياة الاشتراك، مثل عمليات الشراء والتجديد والإلغاء، تلقائيًا بواسطة الواجهة الخلفية من خلال المزامنة عبر إشعارات الويب هوك مع متجر تطبيقات Apple و Google Play. لا تقوم لوحة التحكم هذه ببدء أو إدارة المعاملات المالية.",
-  "@subscriptionsPageDescription": {
-    "description": "وصف صفحة الفواتير"
-  },
   "subscriptionStatusActive": "نشط",
-  "@subscriptionStatusActive": {
-    "description": "حالة الاشتراك: نشط"
-  },
   "subscriptionStatusGracePeriod": "فترة سماح",
-  "@subscriptionStatusGracePeriod": {
-    "description": "حالة الاشتراك: فترة سماح"
-  },
   "subscriptionStatusBillingIssue": "مشكلة في الفوترة",
-  "@subscriptionStatusBillingIssue": {
-    "description": "حالة الاشتراك: مشكلة في الفوترة"
-  },
   "subscriptionStatusCanceled": "ملغى",
-  "@subscriptionStatusCanceled": {
-    "description": "حالة الاشتراك: ملغى"
-  },
   "subscriptionStatusExpired": "منتهي",
-  "@subscriptionStatusExpired": {
-    "description": "حالة الاشتراك: منتهي"
-  },
   "storeProviderApple": "أبل",
-  "@storeProviderApple": {
-    "description": "مزود المتجر: أبل"
-  },
   "storeProviderGoogle": "جوجل",
-  "@storeProviderGoogle": {
-    "description": "مزود المتجر: جوجل"
-  },
   "chartSubscriptionsActiveOverTime": "الاشتراكات النشطة عبر الزمن",
-  "@chartSubscriptionsActiveOverTime": {
-    "description": "Title for the Active Subscriptions Over Time chart card"
-  },
   "chartSubscriptionsStatusDistribution": "توزيع حالة الاشتراكات",
-  "@chartSubscriptionsStatusDistribution": {
-    "description": "Title for the Subscription Status Distribution chart card"
-  },
   "chartSubscriptionsByStoreProvider": "الاشتراكات حسب المتجر",
-  "@chartSubscriptionsByStoreProvider": {
-    "description": "Title for the Subscriptions by Store chart card"
-  },
   "kpiRewardsAdsWatchedTotal": "إجمالي الإعلانات المشاهدة",
-  "@kpiRewardsAdsWatchedTotal": {
-    "description": "Title for the Total Ads Watched KPI card"
-  },
   "kpiRewardsActiveUsersCount": "مستخدمو المكافآت النشطون",
-  "@kpiRewardsActiveUsersCount": {
-    "description": "Title for the Active Reward Users KPI card"
-  },
   "rewardsTab": "المكافآت",
-  "@rewardsTab": {
-    "description": "Tab title for Rewards settings"
-  },
   "rewardsDescription": "تكوين المكافآت المستندة إلى الوقت لتفاعل المستخدم.",
-  "@rewardsDescription": {
-    "description": "Description for the Rewards expansion tile"
-  },
   "enableRewardsLabel": "تفعيل نظام المكافآت",
-  "@enableRewardsLabel": {
-    "description": "Label for the master switch to enable the rewards system"
-  },
   "enableRewardsDescription": "السماح للمستخدمين بكسب المكافآت من خلال مشاهدة الإعلانات.",
-  "@enableRewardsDescription": {
-    "description": "Description for the master switch to enable the rewards system"
-  },
   "rewardTypeAdFree": "تجربة خالية من الإعلانات",
-  "@rewardTypeAdFree": {
-    "description": "Label for the Ad-Free reward type"
-  },
   "rewardDurationDaysLabel": "المدة (أيام)",
-  "@rewardDurationDaysLabel": {
-    "description": "Label for the reward duration input field"
-  },
   "rewardEnabledLabel": "مفعل",
-  "@rewardEnabledLabel": {
-    "description": "Label for the reward enabled switch"
-  },
   "chartRewardsAdsWatchedOverTime": "اتجاه مشاهدة الإعلانات",
-  "@chartRewardsAdsWatchedOverTime": {
-    "description": "Title for the Ads Watched Trend chart card"
-  },
   "chartRewardsActiveByType": "المكافآت النشطة حسب النوع",
-  "@chartRewardsActiveByType": {
-    "description": "Title for the Active Rewards by Type chart card"
-  },
   "feedDecoratorUnlockRewardsDescription": "يطالب المستخدمين بمشاهدة إعلان لفتح الميزات المميزة مؤقتًا.",
-  "@feedDecoratorUnlockRewardsDescription": {
-    "description": "Description for the 'Unlock Rewards' feed decorator."
-  },
   "rewardDurationDaysDescription": "عدد الأيام التي تظل فيها المكافأة نشطة.",
-  "@rewardDurationDaysDescription": {
-    "description": "Description for the reward duration input field"
-  },
   "rewardsManagement": "إدارة المكافآت",
-  "@rewardsManagement": {
-    "description": "Label for the rewards management navigation item"
-  },
   "rewardsManagementPageDescription": "إدارة مكافآت واستحقاقات المستخدمين.",
-  "@rewardsManagementPageDescription": {
-    "description": "Description for the Rewards Management page"
-  },
   "loadingRewards": "جاري تحميل المكافآت",
-  "@loadingRewards": {
-    "description": "Headline for loading state of rewards"
-  },
   "noRewardsFound": "لم يتم العثور على مكافآت.",
-  "@noRewardsFound": {
-    "description": "Message when no rewards are found"
-  },
   "userId": "معرف المستخدم",
-  "@userId": {
-    "description": "Column header for user ID"
-  },
   "activeRewards": "المكافآت النشطة",
-  "@activeRewards": {
-    "description": "Column header for active rewards"
-  },
   "expiry": "تاريخ الانتهاء",
-  "@expiry": {
-    "description": "Column header for expiry date"
-  },
   "filterRewards": "تصفية المكافآت",
-  "@filterRewards": {
-    "description": "Title for the filter dialog when filtering rewards."
-  },
   "rewardType": "نوع المكافأة",
-  "@rewardType": {
-    "description": "Label for reward type filter."
-  },
   "selectRewardTypes": "اختر أنواع المكافآت",
-  "@selectRewardTypes": {
-    "description": "Hint text for selecting reward types in a filter dialog."
-  },
   "loadingAnalytics": "جاري تحميل التحليلات",
-  "@loadingAnalytics": {
-    "description": "Headline shown when the analytics dashboard is fetching data."
-  },
   "noAnalyticsDataHeadline": "لا توجد بيانات تحليلية",
-  "@noAnalyticsDataHeadline": {
-    "description": "Headline for the empty state when no analytics data is available."
-  },
   "noAnalyticsDataSubheadline": "لا توجد بيانات لعرضها حتى الآن. تحقق مرة أخرى لاحقًا.",
-  "@noAnalyticsDataSubheadline": {
-    "description": "Sub-headline for the empty state when no analytics data is available."
-  },
   "androidAdUnitsTitle": "وحدات إعلانات Android",
-  "@androidAdUnitsTitle": {
-    "description": "Title for the Android Ad Units section"
-  },
   "iosAdUnitsTitle": "وحدات إعلانات iOS",
-  "@iosAdUnitsTitle": {
-    "description": "Title for the iOS Ad Units section"
-  },
   "rewardedAdIdLabel": "معرف الإعلان بمكافأة",
-  "@rewardedAdIdLabel": {
-    "description": "Label for the Rewarded Ad ID input field"
-  },
   "rewardedAdIdDescription": "معرف الوحدة للإعلانات بمكافأة.",
-  "@rewardedAdIdDescription": {
-    "description": "Description for the Rewarded Ad ID input field"
-  },
   "kpiRewardsGrantedTotal": "إجمالي المكافآت الممنوحة",
-  "@kpiRewardsGrantedTotal": {
-    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لإجمالي المكافآت الممنوحة"
-  },
   "analyticsEventRewardsHubViewedLabel": "مشاهدة مركز المكافآت",
-  "@analyticsEventRewardsHubViewedLabel": {
-    "description": "تسمية لحدث تحليلات مشاهدة مركز المكافآت"
-  },
   "analyticsEventRewardsHubViewedDescription": "تتبع عندما يشاهد المستخدم مركز المكافآت.",
-  "@analyticsEventRewardsHubViewedDescription": {
-    "description": "وصف لحدث تحليلات مشاهدة مركز المكافآت"
-  },
   "analyticsEventRewardOfferClickedLabel": "النقر على عرض المكافأة",
-  "@analyticsEventRewardOfferClickedLabel": {
-    "description": "تسمية لحدث تحليلات النقر على عرض المكافأة"
-  },
   "analyticsEventRewardOfferClickedDescription": "تتبع عندما ينقر المستخدم على عرض مكافأة معين.",
-  "@analyticsEventRewardOfferClickedDescription": {
-    "description": "وصف لحدث تحليلات النقر على عرض المكافأة"
-  },
   "analyticsEventRewardGrantedLabel": "تم منح المكافأة",
-  "@analyticsEventRewardGrantedLabel": {
-    "description": "تسمية لحدث تحليلات منح المكافأة"
-  },
   "analyticsEventRewardGrantedDescription": "تتبع عندما يتم إصدار مكافأة بنجاح للمستخدم.",
-  "@analyticsEventRewardGrantedDescription": {
-    "description": "وصف لحدث تحليلات منح المكافأة"
-  },
   "chartRewardsGrantedOverTime": "اتجاه المكافآت الممنوحة",
-  "@chartRewardsGrantedOverTime": {
-    "description": "عنوان بطاقة مخطط اتجاه المكافآت الممنوحة"
-  },
   "android": "أندرويد",
-  "@android": {
-    "description": "تسمية منصة أندرويد"
-  },
   "ios": "iOS",
-  "@ios": {
-    "description": "تسمية منصة iOS"
-  },
   "initialPersonalizationTitle": "التخصيص الأولي",
-  "@initialPersonalizationTitle": {
-    "description": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر."
-  },
   "initialPersonalizationDescription": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر.",
-  "@initialPersonalizationDescription": {
-    "description": "تكوين تدفق الإعداد للمستخدمين الجدد، بما في ذلك اختيار البلد والموضوع والمصدر."
-  },
   "enableInitialPersonalizationLabel": "تفعيل التخصيص الأولي",
-  "@enableInitialPersonalizationLabel": {
-    "description": "تسمية مفتاح تفعيل تدفق التخصيص الأولي."
-  },
   "enableInitialPersonalizationDescription": "إذا تم التمكين، سيتم توجيه المستخدمين الجدد خلال تدفق تخصيص بعد التسجيل.",
-  "@enableInitialPersonalizationDescription": {
-    "description": "وصف مفتاح تفعيل تدفق التخصيص الأولي."
-  },
   "enableCountrySelectionLabel": "تفعيل اختيار البلد",
-  "@enableCountrySelectionLabel": {
-    "description": "تسمية مفتاح تفعيل اختيار البلد أثناء الإعداد."
-  },
   "enableCountrySelectionDescription": "السماح للمستخدمين باختيار بلدهم أثناء الإعداد.",
-  "@enableCountrySelectionDescription": {
-    "description": "وصف مفتاح تفعيل اختيار البلد أثناء الإعداد."
-  },
   "enableTopicSelectionLabel": "تفعيل اختيار الموضوع",
-  "@enableTopicSelectionLabel": {
-    "description": "تسمية مفتاح تفعيل اختيار الموضوع أثناء الإعداد."
-  },
   "enableTopicSelectionDescription": "السماح للمستخدمين باختيار المواضيع التي تهمهم أثناء الإعداد.",
-  "@enableTopicSelectionDescription": {
-    "description": "وصف مفتاح تفعيل اختيار الموضوع أثناء الإعداد."
-  },
   "enableSourceSelectionLabel": "تفعيل اختيار المصدر",
-  "@enableSourceSelectionLabel": {
-    "description": "تسمية مفتاح تفعيل اختيار المصدر أثناء الإعداد."
-  },
   "enableSourceSelectionDescription": "السماح للمستخدمين باختيار مصادر الأخبار لمتابعتها أثناء الإعداد.",
-  "@enableSourceSelectionDescription": {
-    "description": "وصف مفتاح تفعيل اختيار المصدر أثناء الإعداد."
-  },
   "minSelectionsRequiredLabel": "الحد الأدنى للاختيارات المطلوبة",
-  "@minSelectionsRequiredLabel": {
-    "description": "تسمية حقل إدخال الحد الأدنى للاختيارات المطلوبة."
-  },
   "minSelectionsRequiredDescription": "العدد الإجمالي للعناصر التي يجب على المستخدم تحديدها عبر جميع الفئات الممكنة للمتابعة.",
-  "@minSelectionsRequiredDescription": {
-    "description": "وصف حقل إدخال الحد الأدنى للاختيارات المطلوبة."
-  },
   "onboardingTitle": "الإعداد الأولي",
-  "@onboardingTitle": {
-    "description": "عنوان قسم الإعداد الأولي القابل للتوسيع."
-  },
   "onboardingDescription": "إدارة تجربة المستخدم لأول مرة، بما في ذلك جولة التطبيق والتخصيص الأولي.",
-  "@onboardingDescription": {
-    "description": "وصف قسم الإعداد الأولي القابل للتوسيع."
-  },
   "enableOnboardingLabel": "تفعيل الإعداد الأولي",
-  "@enableOnboardingLabel": {
-    "description": "تسمية المفتاح الرئيسي لتفعيل تدفق الإعداد الأولي بالكامل."
-  },
   "enableOnboardingDescription": "مفتاح رئيسي لتفعيل أو تعطيل تدفق الإعداد الأولي بالكامل (جولة التطبيق والتخصيص الأولي).",
-  "@enableOnboardingDescription": {
-    "description": "وصف المفتاح الرئيسي لتفعيل تدفق الإعداد الأولي بالكامل."
-  },
   "appTourTitle": "جولة التطبيق",
-  "@appTourTitle": {
-    "description": "عنوان قسم إعدادات جولة التطبيق."
-  },
   "appTourDescription": "تكوين الجولة التي تسبق المصادقة والتي تظهر للمستخدمين الجدد.",
-  "@appTourDescription": {
-    "description": "وصف قسم إعدادات جولة التطبيق."
-  },
   "enableAppTourLabel": "تفعيل جولة التطبيق",
-  "@enableAppTourLabel": {
-    "description": "تسمية مفتاح تفعيل جولة التطبيق."
-  },
   "enableAppTourDescription": "إذا تم التمكين، سيتم عرض جولة موجزة لميزات التطبيق للمستخدمين قبل تسجيل الدخول.",
-  "@enableAppTourDescription": {
-    "description": "وصف مفتاح تفعيل جولة التطبيق."
-  },
   "skippableAppTourLabel": "جولة تطبيق قابلة للتخطي",
-  "@skippableAppTourLabel": {
-    "description": "تسمية مفتاح جعل جولة التطبيق قابلة للتخطي."
-  },
   "skippableAppTourDescription": "إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي جولة التطبيق.",
-  "@skippableAppTourDescription": {
-    "description": "وصف مفتاح جعل جولة التطبيق قابلة للتخطي."
-  },
   "skippableInitialPersonalizationLabel": "تخصيص قابل للتخطي",
-  "@skippableInitialPersonalizationLabel": {
-    "description": "تسمية مفتاح جعل التخصيص الأولي قابلاً للتخطي."
-  },
   "skippableInitialPersonalizationDescription": "إذا تم التمكين، سيكون لدى المستخدمين خيار تخطي تدفق التخصيص.",
-  "@skippableInitialPersonalizationDescription": {
-    "description": "وصف مفتاح جعل التخصيص الأولي قابلاً للتخطي."
-  },
   "filePickingErrorMessage": "حدث خطأ أثناء اختيار الملف.",
-  "@filePickingErrorMessage": {
-    "description": "رسالة خطأ تظهر عند فشل منتقي الملفات."
-  },
   "removeImage": "إزالة الصورة",
-  "@removeImage": {
-    "description": "تلميح لزر إزالة الصورة المحددة."
-  },
   "clickToUploadImage": "انقر لتحميل صورة",
-  "@clickToUploadImage": {
-    "description": "نص في حقل تحميل الصورة يحث المستخدم على اتخاذ إجراء."
-  },
   "processingImage": "جاري معالجة الصورة...",
-  "@processingImage": {
-    "description": "النص المعروض عندما تتم معالجة الصورة بواسطة الواجهة الخلفية."
-  },
   "processingImageDescription": "يتم تحسين صورتك وستظهر قريباً.",
-  "@processingImageDescription": {
-    "description": "الوصف المعروض عندما تتم معالجة الصورة."
-  },
   "chartMediaUploadsOverTime": "التحميلات عبر الزمن",
-  "@chartMediaUploadsOverTime": {
-    "description": "عنوان بطاقة مخطط التحميلات عبر الزمن"
-  },
   "chartMediaUploadsByPurpose": "التحميلات حسب الغرض",
-  "@chartMediaUploadsByPurpose": {
-    "description": "عنوان بطاقة مخطط التحميلات حسب الغرض"
-  },
   "chartMediaUploadsSuccessVsFailure": "نجاح التحميل مقابل الفشل",
-  "@chartMediaUploadsSuccessVsFailure": {
-    "description": "عنوان بطاقة مخطط نجاح التحميل مقابل الفشل"
-  },
   "kpiMediaTotalUploads": "إجمالي التحميلات",
-  "@kpiMediaTotalUploads": {
-    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لإجمالي التحميلات"
-  },
   "kpiMediaFailedUploads": "التحميلات الفاشلة",
-  "@kpiMediaFailedUploads": {
-    "description": "عنوان بطاقة مؤشر الأداء الرئيسي للتحميلات الفاشلة"
-  },
   "kpiMediaAverageUploadTime": "متوسط وقت التحميل (ث)",
-  "@kpiMediaAverageUploadTime": {
-    "description": "عنوان بطاقة مؤشر الأداء الرئيسي لمتوسط وقت التحميل"
-  },
   "updateHeadlineTitle": "تحديث العنوان",
-  "@updateHeadlineTitle": {
-    "description": "عنوان مربع الحوار الذي يسأل عن كيفية تحديث العنوان."
-  },
   "updateHeadlineMessage": "هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟",
-  "@updateHeadlineMessage": {
-    "description": "رسالة مربع الحوار الذي يسأل عن كيفية تحديث العنوان."
-  },
   "analyticsEventMediaUploadStartedLabel": "بدء تحميل الوسائط",
-  "@analyticsEventMediaUploadStartedLabel": {
-    "description": "تسمية لحدث بدء تحميل الوسائط"
-  },
   "analyticsEventMediaUploadStartedDescription": "تتبع عندما يبدأ المستخدم في تحميل ملف.",
-  "@analyticsEventMediaUploadStartedDescription": {
-    "description": "وصف لحدث بدء تحميل الوسائط"
-  },
   "analyticsEventMediaUploadCompletedLabel": "اكتمل تحميل الوسائط",
-  "@analyticsEventMediaUploadCompletedLabel": {
-    "description": "تسمية لحدث اكتمال تحميل الوسائط"
-  },
   "analyticsEventMediaUploadCompletedDescription": "تتبع عندما يكتمل تحميل ملف بنجاح.",
-  "@analyticsEventMediaUploadCompletedDescription": {
-    "description": "وصف لحدث اكتمال تحميل الوسائط"
-  },
   "analyticsEventMediaUploadFailedLabel": "فشل تحميل الوسائط",
-  "@analyticsEventMediaUploadFailedLabel": {
-    "description": "تسمية لحدث فشل تحميل الوسائط"
-  },
   "analyticsEventMediaUploadFailedDescription": "تتبع عندما يفشل تحميل ملف.",
-  "@analyticsEventMediaUploadFailedDescription": {
-    "description": "وصف لحدث فشل تحميل الوسائط"
-  },
   "dashboard": "لوحة التحكم",
-  "@dashboard": {
-    "description": "تسمية لعلامة التبويب الرئيسية للوحة التحكم/النظرة العامة."
-  },
   "aboutOverviewPageTitle": "حول صفحة النظرة العامة",
-  "@aboutOverviewPageTitle": {
-    "description": "عنوان مربع الحوار 'حول' في صفحة النظرة العامة."
-  },
   "aboutOverviewPageDescription": "توفر هذه الصفحة نظرة عامة عالية المستوى على مقاييس التطبيق الرئيسية. الإحصائيات المعروضة ليست مباشرة؛ يتم تحديثها بشكل دوري بواسطة الواجهة الخلفية. يتم تكوين الفاصل الزمني للتحديث من جانب الخادم.",
-  "@aboutOverviewPageDescription": {
-    "description": "وصف مربع الحوار 'حول' في صفحة النظرة العامة، موضحًا أن البيانات ليست في الوقت الفعلي."
-  },
   "audience": "الجمهور",
-  "@audience": {
-    "description": "تسمية لعلامة تبويب تحليلات الجمهور."
-  },
   "content": "المحتوى",
-  "@content": {
-    "description": "تسمية لعلامة تبويب تحليلات المحتوى."
-  },
   "community": "المجتمع",
-  "@community": {
-    "description": "تسمية لعلامة تبويب تحليلات المجتمع."
-  },
   "monetization": "تحقيق الدخل",
-  "@monetization": {
-    "description": "تسمية لعلامة تبويب تحليلات تحقيق الدخل."
-  },
   "configuration": "الإعدادات",
-  "@configuration": {
-    "description": "تسمية لعلامة تبويب حالة الإعدادات."
-  },
   "loadingConfiguration": "جاري تحميل الإعدادات...",
-  "@loadingConfiguration": {
-    "description": "النص المعروض أثناء تحميل عرض الإعدادات للقراءة فقط."
-  },
   "noConfigurationDataHeadline": "لا توجد بيانات إعدادات",
-  "@noConfigurationDataHeadline": {
-    "description": "عنوان للحالة الفارغة لعرض الإعدادات للقراءة فقط."
-  },
   "noConfigurationDataSubheadline": "تعذر تحميل الإعدادات عن بعد للتطبيق.",
-  "@noConfigurationDataSubheadline": {
-    "description": "عنوان فرعي للحالة الفارغة لعرض الإعدادات للقراءة فقط."
-  },
   "readOnlyConfigurationView": "عرض الإعدادات للقراءة فقط",
-  "@readOnlyConfigurationView": {
-    "description": "عنوان لعرض حالة الإعدادات للقراءة فقط."
-  },
   "readOnlyConfigurationViewDescription": "هذه لقطة في الوقت الفعلي للقراءة فقط لإعدادات تشغيل التطبيق. لإجراء تغييرات، انتقل إلى صفحة 'التحكم المركزي' الرئيسية.",
-  "@readOnlyConfigurationViewDescription": {
-    "description": "وصف لعرض حالة الإعدادات للقراءة فقط."
-  },
   "providers": "المزودون",
-  "@providers": {
-    "description": "عنوان قسم المزودين في عرض الإعدادات للقراءة فقط."
-  },
   "summary": "ملخص",
-  "@summary": {
-    "description": "تسمية لعلامة تبويب الملخص الرئيسية في صفحة النظرة العامة."
-  },
   "about": "حول",
-  "@about": {
-    "description": "تسمية عنصر التنقل 'حول'"
-  },
   "localizationConfigDescription": "تكوين اللغات المدعومة واللغة الافتراضية.",
-  "@localizationConfigDescription": {
-    "description": "Description for the localization configuration form"
-  },
   "enabledLanguagesLabel": "اللغات المفعلة",
-  "@enabledLanguagesLabel": {
-    "description": "Label for the enabled languages selection"
-  },
   "cannotDisableDefaultLanguage": "لا يمكن تعطيل اللغة الافتراضية.",
-  "@cannotDisableDefaultLanguage": {
-    "description": "Error message when trying to disable the default language"
-  },
   "atLeastOneLanguageRequired": "يجب تفعيل لغة واحدة على الأقل.",
-  "@atLeastOneLanguageRequired": {
-    "description": "Error message when trying to disable the last language"
-  },
   "defaultLanguageLabel": "اللغة الافتراضية",
-  "@defaultLanguageLabel": {
-    "description": "Label for the default language dropdown"
-  },
   "defaultLanguageDescription": "اللغة الاحتياطية إذا لم يكن تفضيل المستخدم مدعومًا.",
-  "@defaultLanguageDescription": {
-    "description": "Helper text for the default language dropdown"
-  },
   "localizationTitle": "إعدادات اللغة",
-  "@localizationTitle": {
-    "description": "Title for the localization settings section"
-  },
   "localizationDescription": "التحكم في اللغات النشطة لتطبيق الهاتف ولوحة التحكم. يتيح تفعيل لغة للمستخدمين عرض المحتوى المترجم ويضيف حقول إدخال مقابلة لنماذج لوحة التحكم. يعود المحتوى غير المترجم إلى اللغة الافتراضية.",
-  "@localizationDescription": {
-    "description": "Subtitle for the localization settings section"
-  },
   "defaultLanguageRequired": "اللغة الافتراضية ({language}) مطلوبة.",
   "@defaultLanguageRequired": {
     "description": "Error message when the default language field is empty.",
@@ -4247,43 +1293,13 @@
     }
   },
   "languageNameEn": "الإنجليزية",
-  "@languageNameEn": {
-    "description": "Localized name for English language"
-  },
   "languageNameEs": "الإسبانية",
-  "@languageNameEs": {
-    "description": "Localized name for Spanish language"
-  },
   "languageNameFr": "الفرنسية",
-  "@languageNameFr": {
-    "description": "Localized name for French language"
-  },
   "languageNameAr": "العربية",
-  "@languageNameAr": {
-    "description": "Localized name for Arabic language"
-  },
   "languageNamePt": "البرتغالية",
-  "@languageNamePt": {
-    "description": "Localized name for Portuguese language"
-  },
   "languageNameDe": "الألمانية",
-  "@languageNameDe": {
-    "description": "Localized name for German language"
-  },
   "languageNameIt": "الإيطالية",
-  "@languageNameIt": {
-    "description": "Localized name for Italian language"
-  },
   "languageNameZh": "الصينية",
-  "@languageNameZh": {
-    "description": "Localized name for Chinese language"
-  },
   "languageNameHi": "الهندية",
-  "@languageNameHi": {
-    "description": "Localized name for Hindi language"
-  },
-  "languageNameJa": "اليابانية",
-  "@languageNameJa": {
-    "description": "Localized name for Japanese language"
-  }
+  "languageNameJa": "اليابانية"
 }
