@@ -173,19 +173,31 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     final currentSettings = state.appSettings;
     if (currentSettings != null) {
-      final updatedSettings = currentSettings.copyWith(
-        language: SupportedLanguage.values.byName(event.language.code),
-      );
-      await _updateSettings(updatedSettings, emit);
+      final newLang = SupportedLanguage.values.byName(event.language.code);
+      final updatedSettings = currentSettings.copyWith(language: newLang);
 
-      // Trigger token refresh to update the 'lang' claim in the JWT.
-      // This ensures subsequent 'readAll' requests return the new language.
-      if (state is SettingsUpdateSuccess) {
-        try {
-          await _authRepository.refreshToken();
-        } catch (e) {
-          // Log failure but don't revert settings update.
-        }
+      emit(SettingsUpdateInProgress(appSettings: updatedSettings));
+      try {
+        // 1. Update the settings in the database.
+        final result = await _appSettingsRepository.update(
+          id: updatedSettings.id,
+          item: updatedSettings,
+        );
+
+        // 2. Refresh the JWT token. The backend will see the updated
+        // preference in the DB and issue a token with the new 'lang' claim.
+        await _authRepository.refreshToken();
+
+        emit(SettingsUpdateSuccess(appSettings: result));
+      } on HttpException catch (e) {
+        emit(SettingsUpdateFailure(e, appSettings: state.appSettings));
+      } catch (e) {
+        emit(
+          SettingsUpdateFailure(
+            UnknownException('An unexpected error occurred: $e'),
+            appSettings: state.appSettings,
+          ),
+        );
       }
     }
   }

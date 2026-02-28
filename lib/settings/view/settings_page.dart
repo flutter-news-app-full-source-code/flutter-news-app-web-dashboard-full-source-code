@@ -63,7 +63,7 @@ class _SettingsView extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.settingsSavedSuccessfully)),
               );
-            // Trigger AppBloc to reload settings for immediate UI update
+            // Trigger AppBloc to update global state for immediate UI update.
             if (state.appSettings != null) {
               context.read<AppBloc>().add(
                 AppUserAppSettingsChanged(
