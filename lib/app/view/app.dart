@@ -282,7 +282,7 @@ class _AppViewState extends State<_AppView> {
               UiKitLocalizations.delegate,
               ...AppLocalizations.localizationsDelegates,
             ],
-            supportedLocales: UiKitLocalizations.supportedLocales,
+            supportedLocales: AppLocalizations.supportedLocales,
             theme: baseTheme == AppBaseTheme.dark
                 ? darkThemeData
                 : lightThemeData,

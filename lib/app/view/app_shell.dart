@@ -131,9 +131,13 @@ class AppShell extends StatelessWidget {
                     color: theme.colorScheme.primary,
                   ),
                   const SizedBox(width: AppSpacing.md),
-                  Text(
-                    l10n.dashboardTitle,
-                    style: theme.textTheme.titleLarge,
+                  Expanded(
+                    child: Text(
+                      l10n.dashboardTitle,
+                      style: theme.textTheme.titleLarge,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
                 ],
               ),

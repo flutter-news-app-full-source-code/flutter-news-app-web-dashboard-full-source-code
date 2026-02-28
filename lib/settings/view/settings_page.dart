@@ -377,45 +377,43 @@ class _LanguageSelectionList extends StatelessWidget {
   /// The localized strings for the application.
   final AppLocalizations l10n;
 
-  /// The list of supported languages for the application.
-  static final List<Language> _supportedLanguages = languagesFixturesData
-      .where((lang) => lang.code == 'en' || lang.code == 'ar')
-      .toList();
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: _supportedLanguages.length,
+      itemCount: SupportedLanguage.values.length,
       itemBuilder: (context, index) {
-        final language = _supportedLanguages[index];
-        SupportedLanguage? supportedLanguage;
-        try {
-          supportedLanguage = SupportedLanguage.values.byName(language.code);
-        } catch (_) {}
+        final supportedLanguage = SupportedLanguage.values[index];
+        final isSelected = supportedLanguage == currentLanguage;
 
-        final isSelected = language.code == currentLanguage.name;
         return ListTile(
           title: Row(
             children: [
-              if (supportedLanguage != null) ...[
-                Image.network(
-                  supportedLanguage.flagUrl,
-                  width: 24,
-                  errorBuilder: (_, _, _) => const Icon(Icons.flag, size: 16),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Text(supportedLanguage.l10n(context)),
-              ] else
-                Text(language.name.values.firstOrNull ?? ''),
+              Image.network(
+                supportedLanguage.flagUrl,
+                width: 24,
+                errorBuilder: (_, _, _) => const Icon(Icons.flag, size: 16),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Text(supportedLanguage.l10n(context)),
             ],
           ),
           trailing: isSelected
-              ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
+              ? Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.primary,
+                )
               : null,
           onTap: () {
             if (!isSelected) {
               context.read<SettingsBloc>().add(
-                SettingsLanguageChanged(language),
+                SettingsLanguageChanged(
+                  Language(
+                    id: supportedLanguage.name,
+                    code: supportedLanguage.name,
+                    name: const {},
+                    nativeName: '',
+                  ),
+                ),
               );
             }
           },

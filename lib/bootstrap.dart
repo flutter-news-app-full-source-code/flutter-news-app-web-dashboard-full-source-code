@@ -24,6 +24,14 @@ Future<Widget> bootstrap(
 
   timeago.setLocaleMessages('en', EnTimeagoMessages());
   timeago.setLocaleMessages('ar', ArTimeagoMessages());
+  timeago.setLocaleMessages('es', timeago.EsMessages());
+  timeago.setLocaleMessages('fr', timeago.FrMessages());
+  timeago.setLocaleMessages('pt', timeago.PtBrMessages());
+  timeago.setLocaleMessages('de', timeago.DeMessages());
+  timeago.setLocaleMessages('it', timeago.ItMessages());
+  timeago.setLocaleMessages('zh', timeago.ZhMessages());
+  timeago.setLocaleMessages('hi', timeago.HiMessages());
+  timeago.setLocaleMessages('ja', timeago.JaMessages());
 
   final kvStorage = await KVStorageSharedPreferences.getInstance();
 
