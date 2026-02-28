@@ -12,6 +12,7 @@ void main() {
   group('EditSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
+    late MockDataRepository<Language> languagesRepository;
 
     const countryFixture = Country(
       id: 'country-1',
@@ -38,15 +39,24 @@ void main() {
     const imageFileName = 'new_logo.jpg';
     const sourceId = 'source-1';
 
+    const languageFixture = Language(
+      id: 'lang-1',
+      code: 'en',
+      name: {SupportedLanguage.en: 'English'},
+      nativeName: 'English',
+    );
+
     setUp(() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
+      languagesRepository = MockDataRepository<Language>();
     });
 
     EditSourceBloc buildBloc() {
       return EditSourceBloc(
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
+        languagesRepository: languagesRepository,
         sourceId: sourceId,
         logger: Logger('EditSourceBloc'),
       );
@@ -70,6 +80,18 @@ void main() {
           when(
             () => sourcesRepository.read(id: sourceId),
           ).thenAnswer((_) async => sourceFixture);
+          when(
+            () => languagesRepository.readAll(
+              filter: any(named: 'filter'),
+              pagination: any(named: 'pagination'),
+            ),
+          ).thenAnswer(
+            (_) async => const PaginatedResponse(
+              items: [languageFixture],
+              cursor: null,
+              hasMore: false,
+            ),
+          );
         },
         build: buildBloc,
         act: (bloc) => bloc.add(
@@ -96,6 +118,7 @@ void main() {
             language: sourceFixture.language,
             headquarters: sourceFixture.headquarters,
             initialSource: sourceFixture,
+            selectedLanguageEntity: languageFixture,
           ),
         ],
       );
