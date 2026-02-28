@@ -61,6 +61,8 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           initialTopic: topic,
           enabledLanguages: event.enabledLanguages,
           defaultLanguage: event.defaultLanguage,
+          selectedLanguage:
+              event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
         ),
       );
       _logger.info('Successfully loaded topic: ${topic.id}');
