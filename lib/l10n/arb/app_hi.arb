@@ -813,8 +813,8 @@
     "navUsers": "उपयोगकर्ता",
     "navCommunity": "समुदाय",
     "confirmPromotionTitle": "पदोन्नति की पुष्टि करें",
-    "confirmPromotionMessage": क्या आप वाकई {email
-    } को प्रकाशक के रूप में पदोन्नत करना चाहते हैं?","@confirmPromotionMessage": {
+    "confirmPromotionMessage": "क्या आप वाकई {email} को प्रकाशक के रूप में पदोन्नत करना चाहते हैं?",
+    "@confirmPromotionMessage": {
         "description": "Message for the dialog confirming user promotion.",
         "placeholders": {
             "email": {
