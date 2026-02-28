@@ -45,6 +45,7 @@ class ContentManagementBloc
        _remoteConfigRepository = remoteConfigRepository,
        _pendingDeletionsService = pendingDeletionsService,
        super(const ContentManagementState()) {
+    on<ContentManagementLanguageChanged>(_onLanguageChanged);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
 
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
@@ -135,14 +136,43 @@ class ContentManagementBloc
     return super.close();
   }
 
-  /// Helper to get the default language code for filter construction.
-  Future<String> _getDefaultLanguageCode() async {
-    try {
-      final config = await _remoteConfigRepository.read(id: kRemoteConfigId);
-      return config.app.localization.defaultLanguage.name;
-    } catch (_) {
-      return 'en';
-    }
+  /// Tracks the current language to ensure filters are built correctly.
+  String _currentLanguageCode = 'en';
+
+  Future<void> _onLanguageChanged(
+    ContentManagementLanguageChanged event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    _currentLanguageCode = event.language.name;
+
+    // Clear existing data to prevent showing stale localized strings.
+    emit(
+      state.copyWith(
+        headlines: [],
+        topics: [],
+        sources: [],
+        headlinesStatus: ContentManagementStatus.initial,
+        topicsStatus: ContentManagementStatus.initial,
+        sourcesStatus: ContentManagementStatus.initial,
+      ),
+    );
+
+    // Trigger re-fetch for all tabs.
+    add(
+      const LoadHeadlinesRequested(
+        limit: kDefaultRowsPerPage,
+        forceRefresh: true,
+      ),
+    );
+    add(
+      const LoadTopicsRequested(limit: kDefaultRowsPerPage, forceRefresh: true),
+    );
+    add(
+      const LoadSourcesRequested(
+        limit: kDefaultRowsPerPage,
+        forceRefresh: true,
+      ),
+    );
   }
 
   void _onContentManagementTabChanged(
@@ -174,7 +204,7 @@ class ContentManagementBloc
       final filter =
           event.filter ??
           _headlinesFilterBloc.buildFilterMap(
-            languageCode: await _getDefaultLanguageCode(),
+            languageCode: _currentLanguageCode,
           );
 
       final paginatedHeadlines = await _headlinesRepository.readAll(

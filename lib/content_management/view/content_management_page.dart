@@ -63,6 +63,17 @@ class _ContentManagementPageState extends State<ContentManagementPage>
     final l10n = AppLocalizationsX(context).l10n;
     return MultiBlocListener(
       listeners: [
+        BlocListener<AppBloc, AppState>(
+          listenWhen: (previous, current) =>
+              previous.appSettings?.language != current.appSettings?.language,
+          listener: (context, state) {
+            if (state.appSettings != null) {
+              context.read<ContentManagementBloc>().add(
+                ContentManagementLanguageChanged(state.appSettings!.language),
+              );
+            }
+          },
+        ),
         BlocListener<HeadlinesFilterBloc, HeadlinesFilterState>(
           listenWhen: (previous, current) =>
               previous.searchQuery != current.searchQuery ||
@@ -82,14 +93,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               previous.isBreaking != current.isBreaking,
           listener: (context, state) {
             final defaultLanguage =
-                context
-                    .read<AppBloc>()
-                    .state
-                    .remoteConfig
-                    ?.app
-                    .localization
-                    .defaultLanguage
-                    .name ??
+                context.read<AppBloc>().state.appSettings?.language.name ??
                 'en';
             context.read<ContentManagementBloc>().add(
               LoadHeadlinesRequested(
