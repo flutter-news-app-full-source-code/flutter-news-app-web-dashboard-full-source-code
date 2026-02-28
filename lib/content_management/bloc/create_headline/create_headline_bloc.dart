@@ -57,6 +57,8 @@ class CreateHeadlineBloc
       state.copyWith(
         enabledLanguages: event.enabledLanguages,
         defaultLanguage: event.defaultLanguage,
+        selectedLanguage:
+            event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
       ),
     );
   }
