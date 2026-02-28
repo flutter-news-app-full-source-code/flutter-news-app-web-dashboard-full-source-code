@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:logging/logging.dart';
 
@@ -21,8 +20,8 @@ void main() {
     final kNow = DateTime.now();
     final kInitialTopic = Topic(
       id: kTestTopicId,
-      name: 'Initial Name',
-      description: 'Initial Description',
+      name: const {SupportedLanguage.en: 'Initial Name'},
+      description: const {SupportedLanguage.en: 'Initial Description'},
       createdAt: kNow,
       updatedAt: kNow,
       status: ContentStatus.draft,
@@ -86,7 +85,12 @@ void main() {
       blocTest<EditTopicBloc, EditTopicState>(
         'emits [loading, initial] when EditTopicLoaded is successful',
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditTopicLoaded()),
+        act: (bloc) => bloc.add(
+          const EditTopicLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
         expect: () => [
           const EditTopicState(
             topicId: kTestTopicId,
@@ -94,6 +98,8 @@ void main() {
           ),
           EditTopicState(
             topicId: kTestTopicId,
+            enabledLanguages: const [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
             status: EditTopicStatus.initial,
             initialTopic: kInitialTopic,
             name: kInitialTopic.name,
@@ -114,7 +120,12 @@ void main() {
           ).thenThrow(const NetworkException());
         },
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditTopicLoaded()),
+        act: (bloc) => bloc.add(
+          const EditTopicLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
         expect: () => [
           const EditTopicState(
             topicId: kTestTopicId,
@@ -141,12 +152,16 @@ void main() {
           iconUrl: kInitialTopic.iconUrl,
           status: EditTopicStatus.initial,
         ),
-        act: (bloc) => bloc.add(const EditTopicNameChanged('New Name')),
+        act: (bloc) => bloc.add(
+          const EditTopicNameChanged({SupportedLanguage.en: 'New Name'}),
+        ),
         expect: () => [
           EditTopicState(
             topicId: kTestTopicId,
             initialTopic: kInitialTopic,
-            name: 'New Name',
+            name: const {
+              SupportedLanguage.en: 'New Name',
+            },
             description: kInitialTopic.description,
             iconUrl: kInitialTopic.iconUrl,
             status: EditTopicStatus.initial,
@@ -165,14 +180,17 @@ void main() {
           iconUrl: kInitialTopic.iconUrl,
           status: EditTopicStatus.initial,
         ),
-        act: (bloc) =>
-            bloc.add(const EditTopicDescriptionChanged('New Description')),
+        act: (bloc) => bloc.add(
+          const EditTopicDescriptionChanged(
+            {SupportedLanguage.en: 'New Description'},
+          ),
+        ),
         expect: () => [
           EditTopicState(
             topicId: kTestTopicId,
             initialTopic: kInitialTopic,
             name: kInitialTopic.name,
-            description: 'New Description',
+            description: const {SupportedLanguage.en: 'New Description'},
             iconUrl: kInitialTopic.iconUrl,
             status: EditTopicStatus.initial,
           ),
@@ -248,8 +266,8 @@ void main() {
         seed: () => EditTopicState(
           topicId: kTestTopicId,
           initialTopic: kInitialTopic,
-          name: 'Updated Name',
-          description: 'Updated Description',
+          name: const {SupportedLanguage.en: 'Updated Name'},
+          description: const {SupportedLanguage.en: 'Updated Description'},
           imageFileBytes: kTestImageBytes,
           imageFileName: kTestImageFileName,
           status: EditTopicStatus.initial,
@@ -269,7 +287,11 @@ void main() {
           isA<EditTopicState>()
               .having((s) => s.status, 'status', EditTopicStatus.success)
               .having((s) => s.updatedTopic, 'updatedTopic', isNotNull)
-              .having((s) => s.updatedTopic!.name, 'name', 'Updated Name')
+              .having(
+                (s) => s.updatedTopic!.name[SupportedLanguage.en],
+                'name',
+                'Updated Name',
+              )
               .having(
                 (s) => s.updatedTopic!.mediaAssetId,
                 'mediaAssetId',

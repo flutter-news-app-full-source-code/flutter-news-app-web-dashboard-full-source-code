@@ -18,27 +18,37 @@ final class AppState extends Equatable {
     this.status = AppStatus.initial,
     this.user,
     this.appSettings,
+    this.remoteConfig,
   });
 
   final AppStatus status;
   final User? user;
   final AppSettings? appSettings;
+  final RemoteConfig? remoteConfig;
   final local_config.AppEnvironment environment;
 
   AppState copyWith({
     AppStatus? status,
     User? user,
     AppSettings? appSettings,
+    RemoteConfig? remoteConfig,
     bool clearAppSettings = false,
   }) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,
       appSettings: clearAppSettings ? null : appSettings ?? this.appSettings,
+      remoteConfig: remoteConfig ?? this.remoteConfig,
       environment: environment,
     );
   }
 
   @override
-  List<Object?> get props => [status, user, appSettings, environment];
+  List<Object?> get props => [
+    status,
+    user,
+    appSettings,
+    remoteConfig,
+    environment,
+  ];
 }

@@ -48,19 +48,6 @@ class RankedListCard extends StatefulWidget {
     }
   }
 
-  String _getLocalizedTitle(RankedListCardId id, AppLocalizations l10n) {
-    switch (id) {
-      case RankedListCardId.overviewHeadlinesMostViewed:
-        return l10n.rankedListOverviewHeadlinesMostViewed;
-      case RankedListCardId.overviewHeadlinesMostLiked:
-        return l10n.rankedListOverviewHeadlinesMostLiked;
-      case RankedListCardId.overviewSourcesMostFollowed:
-        return l10n.rankedListOverviewSourcesMostFollowed;
-      case RankedListCardId.overviewTopicsMostFollowed:
-        return l10n.rankedListOverviewTopicsMostFollowed;
-    }
-  }
-
   @override
   State<RankedListCard> createState() => _RankedListCardState();
 }
@@ -75,7 +62,7 @@ class _RankedListCardState extends State<RankedListCard> {
     final currentList = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<RankedListTimeFrame>(
-      title: widget._getLocalizedTitle(widget.data.cardId, l10n),
+      title: widget.data.label.values.firstOrNull ?? '',
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,
@@ -110,7 +97,7 @@ class _RankedListCardState extends State<RankedListCard> {
                     ),
                   ),
                   title: Text(
-                    item.displayTitle,
+                    item.displayTitle.values.firstOrNull ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.bodyMedium,

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -36,10 +35,11 @@ void main() {
     late MockTopicsFilterBloc topicsFilterBloc;
     late MockSourcesFilterBloc sourcesFilterBloc;
     late MockPendingDeletionsService pendingDeletionsService;
+    late MockDataRepository<RemoteConfig> remoteConfigRepository;
 
     final headlineFixture = Headline(
       id: 'headline-1',
-      title: 'Test Headline',
+      title: const {SupportedLanguage.en: 'Test Headline'},
       source: FakeSource(),
       eventCountry: FakeCountry(),
       topic: FakeTopic(),
@@ -54,6 +54,103 @@ void main() {
     final topicFixture = FakeTopic();
     final sourceFixture = FakeSource();
 
+    final remoteConfigFixture = RemoteConfig(
+      id: 'config-1',
+      createdAt: DateTime(2023),
+      updatedAt: DateTime(2023),
+      app: const AppConfig(
+        maintenance: MaintenanceConfig(isUnderMaintenance: false),
+        update: UpdateConfig(
+          latestAppVersion: '1.0.0',
+          isLatestVersionOnly: false,
+          iosUpdateUrl: '',
+          androidUpdateUrl: '',
+        ),
+        general: GeneralAppConfig(
+          termsOfServiceUrl: '',
+          privacyPolicyUrl: '',
+        ),
+        localization: LocalizationConfig(
+          enabledLanguages: [SupportedLanguage.en],
+          defaultLanguage: SupportedLanguage.en,
+        ),
+      ),
+      features: const FeaturesConfig(
+        analytics: AnalyticsConfig(
+          enabled: true,
+          activeProvider: AnalyticsProviders.firebase,
+          disabledEvents: {},
+          eventSamplingRates: {},
+        ),
+        ads: AdConfig(
+          enabled: true,
+          primaryAdPlatform: AdPlatformType.admob,
+          platformAdIdentifiers: {},
+          feedAdConfiguration: FeedAdConfiguration(
+            enabled: true,
+            adType: AdType.native,
+            visibleTo: {},
+          ),
+          navigationAdConfiguration: NavigationAdConfiguration(
+            enabled: true,
+            visibleTo: {},
+          ),
+        ),
+        pushNotifications: PushNotificationConfig(
+          enabled: true,
+          primaryProvider: PushNotificationProviders.firebase,
+          deliveryConfigs: {},
+        ),
+        feed: FeedConfig(
+          itemClickBehavior: FeedItemClickBehavior.defaultBehavior,
+          decorators: {},
+        ),
+        community: CommunityConfig(
+          enabled: true,
+          engagement: EngagementConfig(
+            enabled: true,
+            engagementMode: EngagementMode.reactionsAndComments,
+          ),
+          reporting: ReportingConfig(
+            enabled: true,
+            headlineReportingEnabled: true,
+            sourceReportingEnabled: true,
+            commentReportingEnabled: true,
+          ),
+          appReview: AppReviewConfig(
+            enabled: true,
+            interactionCycleThreshold: 5,
+            initialPromptCooldownDays: 7,
+            eligiblePositiveInteractions: [],
+            isNegativeFeedbackFollowUpEnabled: true,
+            isPositiveFeedbackFollowUpEnabled: true,
+          ),
+        ),
+        rewards: RewardsConfig(enabled: true, rewards: {}),
+        onboarding: OnboardingConfig(
+          isEnabled: true,
+          appTour: AppTourConfig(isEnabled: true, isSkippable: true),
+          initialPersonalization: InitialPersonalizationConfig(
+            isEnabled: true,
+            isSkippable: true,
+            isCountrySelectionEnabled: true,
+            isTopicSelectionEnabled: true,
+            isSourceSelectionEnabled: true,
+          ),
+        ),
+      ),
+      user: const UserConfig(
+        limits: UserLimitsConfig(
+          followedItems: {},
+          savedHeadlines: {},
+          savedHeadlineFilters: {},
+          reactionsPerDay: {},
+          commentsPerDay: {},
+          reportsPerDay: {},
+        ),
+      ),
+    );
+
     setUp(() {
       headlinesRepository = MockDataRepository<Headline>();
       topicsRepository = MockDataRepository<Topic>();
@@ -62,6 +159,7 @@ void main() {
       topicsFilterBloc = MockTopicsFilterBloc();
       sourcesFilterBloc = MockSourcesFilterBloc();
       pendingDeletionsService = MockPendingDeletionsService();
+      remoteConfigRepository = MockDataRepository<RemoteConfig>();
 
       // Default stream stubs
       when(
@@ -85,6 +183,20 @@ void main() {
       when(
         () => sourcesFilterBloc.state,
       ).thenReturn(const SourcesFilterState());
+
+      // Default filter building stubs
+      when(
+        () => headlinesFilterBloc.buildFilterMap(
+          languageCode: any(named: 'languageCode'),
+        ),
+      ).thenReturn({});
+      when(() => topicsFilterBloc.buildFilterMap()).thenReturn({});
+      when(() => sourcesFilterBloc.buildFilterMap()).thenReturn({});
+
+      // Default remote config stub
+      when(
+        () => remoteConfigRepository.read(id: any(named: 'id')),
+      ).thenAnswer((_) async => remoteConfigFixture);
     });
 
     ContentManagementBloc buildBloc() {

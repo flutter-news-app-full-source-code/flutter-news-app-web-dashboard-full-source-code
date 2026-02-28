@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'app_configuration_event.dart';

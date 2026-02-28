@@ -1,26 +1,30 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
 
 class MockEditSourceBloc extends MockBloc<EditSourceEvent, EditSourceState>
     implements EditSourceBloc {}
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
@@ -30,33 +34,27 @@ class MockFilePicker extends Mock
 
 // --- Test Data ---
 
-final testLanguage = Language(
+const testLanguage = Language(
   id: 'lang-1',
   code: 'en',
-  name: 'English',
+  name: {SupportedLanguage.en: 'English'},
   nativeName: 'English',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
-final testCountry = Country(
+const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: 'United States',
+  name: {SupportedLanguage.en: 'United States'},
   flagUrl: 'url',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 final testSource = Source(
   id: 'source-1',
-  name: 'Test Source',
-  description: 'desc',
+  name: const {SupportedLanguage.en: 'Test Source'},
+  description: const {SupportedLanguage.en: 'desc'},
   url: 'http://example.com',
   sourceType: SourceType.blog,
-  language: testLanguage,
+  language: SupportedLanguage.en,
   headquarters: testCountry,
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -137,6 +135,7 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('EditSourcePage', () {
     late EditSourceBloc editSourceBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
@@ -146,6 +145,7 @@ void main() {
 
     setUp(() {
       editSourceBloc = MockEditSourceBloc();
+      appBloc = MockAppBloc();
       sourcesRepository = MockDataRepository<Source>();
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
@@ -168,7 +168,13 @@ void main() {
           language: testSource.language,
           headquarters: testSource.headquarters,
           initialSource: testSource,
+          enabledLanguages: const [SupportedLanguage.en],
+          defaultLanguage: SupportedLanguage.en,
         ),
+      );
+
+      when(() => appBloc.state).thenReturn(
+        AppState(environment: AppEnvironment.values.first),
       );
 
       when(() => goRouter.pop()).thenAnswer((_) async {});
@@ -196,8 +202,11 @@ void main() {
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: editSourceBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<EditSourceBloc>.value(value: editSourceBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const EditSourceView(),
         ),
       );
@@ -236,12 +245,17 @@ void main() {
     ) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
 
-      expect(find.text(testSource.name), findsOneWidget);
-      expect(find.text(testSource.description), findsOneWidget);
+      expect(find.text(testSource.name[SupportedLanguage.en]!), findsOneWidget);
+      expect(
+        find.text(testSource.description[SupportedLanguage.en]!),
+        findsOneWidget,
+      );
       expect(find.text(testSource.url), findsOneWidget);
       expect(find.byType(ImageUploadField), findsOneWidget);
-      expect(find.text(testSource.language.name), findsOneWidget);
-      expect(find.text(testSource.headquarters.name), findsOneWidget);
+      expect(
+        find.text(testSource.headquarters.name[SupportedLanguage.en]!),
+        findsOneWidget,
+      );
       // SourceType is localized, so we check if the widget exists
       expect(find.byType(SearchableSelectionInput<SourceType>), findsOneWidget);
     });
@@ -251,11 +265,19 @@ void main() {
         tester,
       ) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-        final nameField = find.widgetWithText(TextFormField, l10n.sourceName);
-        await tester.enterText(nameField, 'Updated Name');
+        await tester.enterText(
+          find.descendant(
+            of: find.byType(LocalizedTextFormField).first,
+            matching: find.byType(TextFormField),
+          ),
+          'Updated Name',
+        );
         verify(
-          () => editSourceBloc.add(const EditSourceNameChanged('Updated Name')),
+          () => editSourceBloc.add(
+            const EditSourceNameChanged(
+              {SupportedLanguage.en: 'Updated Name'},
+            ),
+          ),
         ).called(1);
       });
 
@@ -329,11 +351,11 @@ void main() {
           EditSourceState(
             sourceId: testSource.id,
             status: EditSourceStatus.entitySubmitting,
-            name: 'Name',
-            description: 'Desc',
+            name: const {SupportedLanguage.en: 'Name'},
+            description: const {SupportedLanguage.en: 'Desc'},
             url: 'Url',
             sourceType: SourceType.blog,
-            language: testLanguage,
+            language: SupportedLanguage.en,
             headquarters: testCountry,
           ),
         );

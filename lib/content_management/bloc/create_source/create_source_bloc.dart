@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
@@ -26,6 +25,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
        _mediaRepository = mediaRepository,
        _logger = logger,
        super(const CreateSourceState()) {
+    on<CreateSourceInitialized>(_onInitialized);
     on<CreateSourceNameChanged>(_onNameChanged);
     on<CreateSourceDescriptionChanged>(_onDescriptionChanged);
     on<CreateSourceUrlChanged>(_onUrlChanged);
@@ -36,12 +36,27 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceImageRemoved>(_onImageRemoved);
     on<CreateSourceSavedAsDraft>(_onSavedAsDraft);
     on<CreateSourcePublished>(_onPublished);
+    on<CreateSourceLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
   final _uuid = const Uuid();
+
+  void _onInitialized(
+    CreateSourceInitialized event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        enabledLanguages: event.enabledLanguages,
+        defaultLanguage: event.defaultLanguage,
+        selectedLanguage:
+            event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
+      ),
+    );
+  }
 
   void _onNameChanged(
     CreateSourceNameChanged event,
@@ -80,7 +95,12 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('Language changed: ${event.language?.name}');
-    emit(state.copyWith(language: () => event.language));
+    emit(
+      state.copyWith(
+        language: () => event.language,
+        selectedLanguageEntity: () => event.languageEntity,
+      ),
+    );
   }
 
   void _onHeadquartersChanged(
@@ -115,6 +135,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
         imageFileName: const ValueWrapper(null),
       ),
     );
+  }
+
+  void _onLanguageTabChanged(
+    CreateSourceLanguageTabChanged event,
+    Emitter<CreateSourceState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   /// Handles saving the source as a draft.

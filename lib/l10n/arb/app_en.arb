@@ -4196,5 +4196,86 @@
   "about": "About",
   "@about": {
     "description": "Label for the about navigation item"
+  },
+  "localizationConfigDescription": "Configure supported languages and the default fallback.",
+  "@localizationConfigDescription": {
+    "description": "Description for the localization configuration form"
+  },
+  "enabledLanguagesLabel": "Enabled Languages",
+  "@enabledLanguagesLabel": {
+    "description": "Label for the enabled languages selection"
+  },
+  "cannotDisableDefaultLanguage": "Cannot disable the default language.",
+  "@cannotDisableDefaultLanguage": {
+    "description": "Error message when trying to disable the default language"
+  },
+  "atLeastOneLanguageRequired": "At least one language must be enabled.",
+  "@atLeastOneLanguageRequired": {
+    "description": "Error message when trying to disable the last language"
+  },
+  "defaultLanguageLabel": "Default Language",
+  "@defaultLanguageLabel": {
+    "description": "Label for the default language dropdown"
+  },
+  "defaultLanguageDescription": "The fallback language if the user's preference is not supported.",
+  "@defaultLanguageDescription": {
+    "description": "Helper text for the default language dropdown"
+  },
+  "localizationTitle": "Localization",
+  "@localizationTitle": {
+    "description": "Title for the localization settings section"
+  },
+  "localizationDescription": "Control active languages for the mobile app and dashboard. Enabling a language allows users to view translated content and adds corresponding input fields to dashboard forms. Content without translation falls back to the default language.",
+  "@localizationDescription": {
+    "description": "Subtitle for the localization settings section"
+  },
+  "defaultLanguageRequired": "Default language ({language}) is required.",
+  "@defaultLanguageRequired": {
+    "description": "Error message when the default language field is empty.",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "languageNameEn": "English",
+  "@languageNameEn": {
+    "description": "Localized name for English language"
+  },
+  "languageNameEs": "Spanish",
+  "@languageNameEs": {
+    "description": "Localized name for Spanish language"
+  },
+  "languageNameFr": "French",
+  "@languageNameFr": {
+    "description": "Localized name for French language"
+  },
+  "languageNameAr": "Arabic",
+  "@languageNameAr": {
+    "description": "Localized name for Arabic language"
+  },
+  "languageNamePt": "Portuguese",
+  "@languageNamePt": {
+    "description": "Localized name for Portuguese language"
+  },
+  "languageNameDe": "German",
+  "@languageNameDe": {
+    "description": "Localized name for German language"
+  },
+  "languageNameIt": "Italian",
+  "@languageNameIt": {
+    "description": "Localized name for Italian language"
+  },
+  "languageNameZh": "Chinese",
+  "@languageNameZh": {
+    "description": "Localized name for Chinese language"
+  },
+  "languageNameHi": "Hindi",
+  "@languageNameHi": {
+    "description": "Localized name for Hindi language"
+  },
+  "languageNameJa": "Japanese",
+  "@languageNameJa": {
+    "description": "Localized name for Japanese language"
   }
 }

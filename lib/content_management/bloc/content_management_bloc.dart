@@ -2,14 +2,13 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';
@@ -44,6 +43,7 @@ class ContentManagementBloc
        _sourcesFilterBloc = sourcesFilterBloc,
        _pendingDeletionsService = pendingDeletionsService,
        super(const ContentManagementState()) {
+    on<ContentManagementLanguageChanged>(_onLanguageChanged);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
 
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
@@ -72,10 +72,10 @@ class ContentManagementBloc
         .where((type) => type == Headline)
         .listen((_) {
           add(
-            LoadHeadlinesRequested(
+            const LoadHeadlinesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+              // Filter will be rebuilt in the handler using the current state and config
             ),
           );
         });
@@ -84,10 +84,10 @@ class ContentManagementBloc
         .where((type) => type == Topic)
         .listen((_) {
           add(
-            LoadTopicsRequested(
+            const LoadTopicsRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: buildTopicsFilterMap(_topicsFilterBloc.state),
+              // Filter will be rebuilt in the handler
             ),
           );
         });
@@ -96,10 +96,10 @@ class ContentManagementBloc
         .where((type) => type == Source)
         .listen((_) {
           add(
-            LoadSourcesRequested(
+            const LoadSourcesRequested(
               limit: kDefaultRowsPerPage,
               forceRefresh: true,
-              filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
+              // Filter will be rebuilt in the handler
             ),
           );
         });
@@ -133,72 +133,43 @@ class ContentManagementBloc
     return super.close();
   }
 
-  /// Builds a filter map for headlines from the given filter state.
-  Map<String, dynamic> buildHeadlinesFilterMap(HeadlinesFilterState state) {
-    final filter = <String, dynamic>{};
+  /// Tracks the current language to ensure filters are built correctly.
+  String _currentLanguageCode = 'en';
 
-    if (state.searchQuery.isNotEmpty) {
-      filter['title'] = {r'$regex': state.searchQuery, r'$options': 'i'};
-    }
+  Future<void> _onLanguageChanged(
+    ContentManagementLanguageChanged event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    _currentLanguageCode = event.language.name;
 
-    filter['status'] = state.selectedStatus.name;
+    // Clear existing data to prevent showing stale localized strings.
+    emit(
+      state.copyWith(
+        headlines: [],
+        topics: [],
+        sources: [],
+        headlinesStatus: ContentManagementStatus.initial,
+        topicsStatus: ContentManagementStatus.initial,
+        sourcesStatus: ContentManagementStatus.initial,
+      ),
+    );
 
-    if (state.selectedSourceIds.isNotEmpty) {
-      filter['source.id'] = {r'$in': state.selectedSourceIds};
-    }
-    if (state.selectedTopicIds.isNotEmpty) {
-      filter['topic.id'] = {r'$in': state.selectedTopicIds};
-    }
-    if (state.selectedCountryIds.isNotEmpty) {
-      filter['eventCountry.id'] = {r'$in': state.selectedCountryIds};
-    }
-
-    // If the breaking news filter is active, add it to the query.
-    if (state.isBreaking) {
-      filter['isBreaking'] = true;
-    }
-
-    return filter;
-  }
-
-  /// Builds a filter map for topics from the given filter state.
-  Map<String, dynamic> buildTopicsFilterMap(TopicsFilterState state) {
-    final filter = <String, dynamic>{};
-
-    if (state.searchQuery.isNotEmpty) {
-      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
-    }
-
-    filter['status'] = state.selectedStatus.name;
-
-    return filter;
-  }
-
-  /// Builds a filter map for sources from the given filter state.
-  Map<String, dynamic> buildSourcesFilterMap(SourcesFilterState state) {
-    final filter = <String, dynamic>{};
-
-    if (state.searchQuery.isNotEmpty) {
-      filter['name'] = {r'$regex': state.searchQuery, r'$options': 'i'};
-    }
-
-    filter['status'] = state.selectedStatus.name;
-
-    if (state.selectedSourceTypes.isNotEmpty) {
-      filter['sourceType'] = {
-        r'$in': state.selectedSourceTypes.map((s) => s.name).toList(),
-      };
-    }
-    if (state.selectedLanguageCodes.isNotEmpty) {
-      filter['language.code'] = {r'$in': state.selectedLanguageCodes};
-    }
-    if (state.selectedHeadquartersCountryIds.isNotEmpty) {
-      filter['headquarters.id'] = {
-        r'$in': state.selectedHeadquartersCountryIds,
-      };
-    }
-
-    return filter;
+    // Trigger re-fetch for all tabs.
+    add(
+      const LoadHeadlinesRequested(
+        limit: kDefaultRowsPerPage,
+        forceRefresh: true,
+      ),
+    );
+    add(
+      const LoadTopicsRequested(limit: kDefaultRowsPerPage, forceRefresh: true),
+    );
+    add(
+      const LoadSourcesRequested(
+        limit: kDefaultRowsPerPage,
+        forceRefresh: true,
+      ),
+    );
   }
 
   void _onContentManagementTabChanged(
@@ -227,9 +198,14 @@ class ContentManagementBloc
       final isPaginating = event.startAfterId != null;
       final previousHeadlines = isPaginating ? state.headlines : <Headline>[];
 
+      final filter =
+          event.filter ??
+          _headlinesFilterBloc.buildFilterMap(
+            languageCode: _currentLanguageCode,
+          );
+
       final paginatedHeadlines = await _headlinesRepository.readAll(
-        filter:
-            event.filter ?? buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+        filter: filter,
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -275,10 +251,10 @@ class ContentManagementBloc
         item: headlineToUpdate.copyWith(status: ContentStatus.archived),
       );
       add(
-        LoadHeadlinesRequested(
+        const LoadHeadlinesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -312,10 +288,10 @@ class ContentManagementBloc
         item: headlineToUpdate.copyWith(status: ContentStatus.active),
       );
       add(
-        LoadHeadlinesRequested(
+        const LoadHeadlinesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -349,10 +325,10 @@ class ContentManagementBloc
         item: headlineToUpdate.copyWith(status: ContentStatus.active),
       );
       add(
-        LoadHeadlinesRequested(
+        const LoadHeadlinesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildHeadlinesFilterMap(_headlinesFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -427,8 +403,10 @@ class ContentManagementBloc
       final isPaginating = event.startAfterId != null;
       final previousTopics = isPaginating ? state.topics : <Topic>[];
 
+      final filter = event.filter ?? _topicsFilterBloc.buildFilterMap();
+
       final paginatedTopics = await _topicsRepository.readAll(
-        filter: event.filter ?? buildTopicsFilterMap(_topicsFilterBloc.state),
+        filter: filter,
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -471,10 +449,10 @@ class ContentManagementBloc
         item: topicToUpdate.copyWith(status: ContentStatus.archived),
       );
       add(
-        LoadTopicsRequested(
+        const LoadTopicsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildTopicsFilterMap(_topicsFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -506,10 +484,10 @@ class ContentManagementBloc
         item: topicToUpdate.copyWith(status: ContentStatus.active),
       );
       add(
-        LoadTopicsRequested(
+        const LoadTopicsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildTopicsFilterMap(_topicsFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -541,10 +519,10 @@ class ContentManagementBloc
         item: topicToUpdate.copyWith(status: ContentStatus.active),
       );
       add(
-        LoadTopicsRequested(
+        const LoadTopicsRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildTopicsFilterMap(_topicsFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -619,8 +597,10 @@ class ContentManagementBloc
       final isPaginating = event.startAfterId != null;
       final previousSources = isPaginating ? state.sources : <Source>[];
 
+      final filter = event.filter ?? _sourcesFilterBloc.buildFilterMap();
+
       final paginatedSources = await _sourcesRepository.readAll(
-        filter: event.filter ?? buildSourcesFilterMap(_sourcesFilterBloc.state),
+        filter: filter,
         sort: [const SortOption('updatedAt', SortOrder.desc)],
         pagination: PaginationOptions(
           cursor: event.startAfterId,
@@ -663,10 +643,10 @@ class ContentManagementBloc
         item: sourceToUpdate.copyWith(status: ContentStatus.archived),
       );
       add(
-        LoadSourcesRequested(
+        const LoadSourcesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -698,10 +678,10 @@ class ContentManagementBloc
         item: sourceToUpdate.copyWith(status: ContentStatus.active),
       );
       add(
-        LoadSourcesRequested(
+        const LoadSourcesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {
@@ -733,10 +713,10 @@ class ContentManagementBloc
         item: sourceToUpdate.copyWith(status: ContentStatus.active),
       );
       add(
-        LoadSourcesRequested(
+        const LoadSourcesRequested(
           limit: kDefaultRowsPerPage,
           forceRefresh: true,
-          filter: buildSourcesFilterMap(_sourcesFilterBloc.state),
+          // Filter will be rebuilt in the handler
         ),
       );
     } on HttpException catch (e) {

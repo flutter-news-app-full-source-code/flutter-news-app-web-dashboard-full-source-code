@@ -1,3 +1,4 @@
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/a
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/view/users_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template user_management_page}
 /// A page for User Management, providing a view of all system users.

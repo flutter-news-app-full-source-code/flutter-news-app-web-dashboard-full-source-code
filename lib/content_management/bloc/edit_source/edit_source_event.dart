@@ -10,15 +10,22 @@ sealed class EditSourceEvent extends Equatable {
 
 /// Event to load the initial source data for editing.
 final class EditSourceLoaded extends EditSourceEvent {
-  const EditSourceLoaded();
+  const EditSourceLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
 }
 
 /// Event triggered when the source name input changes.
 final class EditSourceNameChanged extends EditSourceEvent {
   const EditSourceNameChanged(this.name);
-
-  final String name;
-
+  final Map<SupportedLanguage, String> name;
   @override
   List<Object?> get props => [name];
 }
@@ -26,9 +33,7 @@ final class EditSourceNameChanged extends EditSourceEvent {
 /// Event triggered when the source description input changes.
 final class EditSourceDescriptionChanged extends EditSourceEvent {
   const EditSourceDescriptionChanged(this.description);
-
-  final String description;
-
+  final Map<SupportedLanguage, String> description;
   @override
   List<Object?> get props => [description];
 }
@@ -74,11 +79,14 @@ final class EditSourceTypeChanged extends EditSourceEvent {
 
 /// Event triggered when the source language input changes.
 final class EditSourceLanguageChanged extends EditSourceEvent {
-  const EditSourceLanguageChanged(this.language);
-  final Language? language;
-
+  const EditSourceLanguageChanged(
+    this.language, {
+    this.languageEntity,
+  });
+  final SupportedLanguage? language;
+  final Language? languageEntity;
   @override
-  List<Object?> get props => [language];
+  List<Object?> get props => [language, languageEntity];
 }
 
 /// Event triggered when the source headquarters input changes.
@@ -99,4 +107,12 @@ final class EditSourceSavedAsDraft extends EditSourceEvent {
 /// Event to publish the source.
 final class EditSourcePublished extends EditSourceEvent {
   const EditSourcePublished();
+}
+
+/// Event for when the language tab is changed.
+final class EditSourceLanguageTabChanged extends EditSourceEvent {
+  const EditSourceLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

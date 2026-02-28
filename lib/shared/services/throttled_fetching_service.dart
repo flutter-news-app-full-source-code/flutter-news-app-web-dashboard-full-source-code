@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 
 /// {@template throttled_fetching_service}
 /// A service that provides a robust and efficient mechanism for fetching all

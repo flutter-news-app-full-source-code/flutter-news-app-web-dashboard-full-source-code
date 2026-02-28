@@ -14,4 +14,6 @@ export 'report_reason_extension.dart';
 export 'reportable_entity_extension.dart';
 export 'source_type_l10n.dart';
 export 'string_truncate.dart';
+export 'supported_language_flag.dart';
+export 'supported_language_l10n.dart';
 export 'user_role_l10n.dart';

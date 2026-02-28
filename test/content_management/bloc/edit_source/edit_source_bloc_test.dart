@@ -12,32 +12,21 @@ void main() {
   group('EditSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
+    late MockDataRepository<Language> languagesRepository;
 
-    final languageFixture = Language(
-      id: 'lang-1',
-      code: 'en',
-      name: 'English',
-      nativeName: 'English',
-      createdAt: DateTime(2023),
-      updatedAt: DateTime(2023),
-      status: ContentStatus.active,
-    );
-    final countryFixture = Country(
+    const countryFixture = Country(
       id: 'country-1',
       isoCode: 'US',
-      name: 'United States',
+      name: {SupportedLanguage.en: 'United States'},
       flagUrl: 'url',
-      createdAt: DateTime(2023),
-      updatedAt: DateTime(2023),
-      status: ContentStatus.active,
     );
     final sourceFixture = Source(
       id: 'source-1',
-      name: 'Original Name',
-      description: 'Original Desc',
+      name: const {SupportedLanguage.en: 'Original Name'},
+      description: const {SupportedLanguage.en: 'Original Desc'},
       url: 'http://original.com',
       sourceType: SourceType.blog,
-      language: languageFixture,
+      language: SupportedLanguage.en,
       headquarters: countryFixture,
       createdAt: DateTime(2023),
       updatedAt: DateTime(2023),
@@ -50,15 +39,24 @@ void main() {
     const imageFileName = 'new_logo.jpg';
     const sourceId = 'source-1';
 
+    const languageFixture = Language(
+      id: 'lang-1',
+      code: 'en',
+      name: {SupportedLanguage.en: 'English'},
+      nativeName: 'English',
+    );
+
     setUp(() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
+      languagesRepository = MockDataRepository<Language>();
     });
 
     EditSourceBloc buildBloc() {
       return EditSourceBloc(
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
+        languagesRepository: languagesRepository,
         sourceId: sourceId,
         logger: Logger('EditSourceBloc'),
       );
@@ -82,9 +80,26 @@ void main() {
           when(
             () => sourcesRepository.read(id: sourceId),
           ).thenAnswer((_) async => sourceFixture);
+          when(
+            () => languagesRepository.readAll(
+              filter: any(named: 'filter'),
+              pagination: any(named: 'pagination'),
+            ),
+          ).thenAnswer(
+            (_) async => const PaginatedResponse(
+              items: [languageFixture],
+              cursor: null,
+              hasMore: false,
+            ),
+          );
         },
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditSourceLoaded()),
+        act: (bloc) => bloc.add(
+          const EditSourceLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
         expect: () => [
           const EditSourceState(
             sourceId: sourceId,
@@ -92,6 +107,8 @@ void main() {
           ),
           EditSourceState(
             sourceId: sourceId,
+            enabledLanguages: const [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
             status: EditSourceStatus.initial,
             name: sourceFixture.name,
             description: sourceFixture.description,
@@ -101,6 +118,7 @@ void main() {
             language: sourceFixture.language,
             headquarters: sourceFixture.headquarters,
             initialSource: sourceFixture,
+            selectedLanguageEntity: languageFixture,
           ),
         ],
       );
@@ -113,7 +131,12 @@ void main() {
           ).thenThrow(const NetworkException());
         },
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditSourceLoaded()),
+        act: (bloc) => bloc.add(
+          const EditSourceLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
         expect: () => [
           isA<EditSourceState>().having(
             (s) => s.status,
@@ -127,22 +150,59 @@ void main() {
       );
     });
 
-    group('Field Changes', () {
+    group('EditSourceNameChanged', () {
       blocTest<EditSourceBloc, EditSourceState>(
         'emits new state with updated name',
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditSourceNameChanged('New Name')),
+        act: (bloc) => bloc.add(
+          const EditSourceNameChanged({SupportedLanguage.en: 'New Name'}),
+        ),
         expect: () => [
           const EditSourceState(
             sourceId: sourceId,
             status: EditSourceStatus.initial, // Reset status
-            name: 'New Name',
+            name: {SupportedLanguage.en: 'New Name'},
           ),
         ],
       );
 
-      // ... other simple field tests omitted for brevity as they follow same pattern ...
+      blocTest<EditSourceBloc, EditSourceState>(
+        'removes language from map when name is empty',
+        build: buildBloc,
+        seed: () => const EditSourceState(
+          sourceId: sourceId,
+          name: {SupportedLanguage.en: 'Existing Name'},
+        ),
+        act: (bloc) => bloc.add(
+          const EditSourceNameChanged({}),
+        ),
+        expect: () => [
+          const EditSourceState(sourceId: sourceId, name: {}),
+        ],
+      );
+    });
 
+    group('EditSourceDescriptionChanged', () {
+      blocTest<EditSourceBloc, EditSourceState>(
+        'removes language from map when description is empty',
+        build: buildBloc,
+        seed: () => const EditSourceState(
+          sourceId: sourceId,
+          description: {SupportedLanguage.en: 'Existing Description'},
+        ),
+        act: (bloc) => bloc.add(
+          const EditSourceDescriptionChanged({}),
+        ),
+        expect: () => [
+          const EditSourceState(
+            sourceId: sourceId,
+            description: {},
+          ),
+        ],
+      );
+    });
+
+    group('EditSourceImageChanged', () {
       blocTest<EditSourceBloc, EditSourceState>(
         'emits new state with updated image data',
         build: buildBloc,
@@ -190,13 +250,13 @@ void main() {
         seed: () => EditSourceState(
           sourceId: sourceId,
           initialSource: sourceFixture,
-          name: 'Updated Name',
-          description: 'Updated Desc',
+          name: const {SupportedLanguage.en: 'Updated Name'},
+          description: const {SupportedLanguage.en: 'Updated Desc'},
           url: 'http://updated.com',
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
           sourceType: SourceType.newsAgency,
-          language: languageFixture,
+          language: SupportedLanguage.en,
           headquarters: countryFixture,
         ),
         act: (bloc) => bloc.add(const EditSourceSavedAsDraft()),
@@ -230,7 +290,11 @@ void main() {
               item: any(
                 named: 'item',
                 that: isA<Source>()
-                    .having((s) => s.name, 'name', 'Updated Name')
+                    .having(
+                      (s) => s.name[SupportedLanguage.en],
+                      'name',
+                      'Updated Name',
+                    )
                     .having((s) => s.status, 'status', ContentStatus.draft)
                     .having(
                       (s) => s.mediaAssetId,
@@ -260,12 +324,12 @@ void main() {
         seed: () => EditSourceState(
           sourceId: sourceId,
           initialSource: sourceFixture,
-          name: 'Updated Name',
-          description: 'Updated Desc',
+          name: const {SupportedLanguage.en: 'Updated Name'},
+          description: const {SupportedLanguage.en: 'Updated Desc'},
           url: 'http://updated.com',
           // No image bytes
           sourceType: SourceType.newsAgency,
-          language: languageFixture,
+          language: SupportedLanguage.en,
           headquarters: countryFixture,
         ),
         act: (bloc) => bloc.add(const EditSourcePublished()),

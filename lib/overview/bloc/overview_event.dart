@@ -16,3 +16,11 @@ final class AnalyticsDataRequested extends OverviewEvent {
   @override
   List<Object> get props => [tab, forceRefresh];
 }
+
+/// Event to notify the BLoC that the application language has changed.
+final class OverviewLanguageChanged extends OverviewEvent {
+  const OverviewLanguageChanged();
+
+  @override
+  List<Object> get props => [];
+}

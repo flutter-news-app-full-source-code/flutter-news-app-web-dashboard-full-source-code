@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template create_topic_page}
 /// A page for creating a new topic.
@@ -22,18 +23,44 @@ class CreateTopicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appState = context.read<AppBloc>().state;
+    final localizationConfig = appState.remoteConfig?.app.localization;
+
+    final defaultLanguage =
+        localizationConfig?.defaultLanguage ?? SupportedLanguage.en;
+    var enabledLanguages =
+        localizationConfig?.enabledLanguages ?? [SupportedLanguage.en];
+
+    // UX Improvement: Sort enabled languages so the user's current app language
+    // appears first in the tabs.
+    final userLanguage = appState.appSettings?.language ?? defaultLanguage;
+    if (enabledLanguages.contains(userLanguage)) {
+      enabledLanguages = [
+        userLanguage,
+        ...enabledLanguages.where((l) => l != userLanguage),
+      ];
+    }
+
     return BlocProvider(
-      create: (context) => CreateTopicBloc(
-        topicsRepository: context.read<DataRepository<Topic>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        logger: Logger('CreateTopicBloc'),
-      ),
+      create: (context) =>
+          CreateTopicBloc(
+            topicsRepository: context.read<DataRepository<Topic>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            logger: Logger('CreateTopicBloc'),
+          )..add(
+            CreateTopicInitialized(
+              enabledLanguages: enabledLanguages,
+              defaultLanguage: defaultLanguage,
+            ),
+          ),
       child: const CreateTopicView(),
     );
   }
 }
 
+/// The view for creating a new topic, containing the form and logic.
 class CreateTopicView extends StatefulWidget {
+  /// Creates a [CreateTopicView].
   const CreateTopicView({super.key});
 
   @override
@@ -42,23 +69,6 @@ class CreateTopicView extends StatefulWidget {
 
 class _CreateTopicViewState extends State<CreateTopicView> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    final state = context.read<CreateTopicBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
 
   /// Shows a dialog to the user to choose between publishing or saving as draft.
   Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
@@ -66,15 +76,21 @@ class _CreateTopicViewState extends State<CreateTopicView> {
     return showDialog<ContentStatus>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(l10n.saveTopicTitle),
-        content: Text(l10n.saveTopicMessage),
+        title: Text(l10n.saveChanges),
+        content: Text(l10n.saveHeadlineMessage), // Reusing generic save message
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(ContentStatus.draft),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.draft);
+            },
             child: Text(l10n.saveAsDraft),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(ContentStatus.active),
+            onPressed: () {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(ContentStatus.active);
+            },
             child: Text(l10n.publish),
           ),
         ],
@@ -102,27 +118,11 @@ class _CreateTopicViewState extends State<CreateTopicView> {
                   ),
                 );
               }
-              // The save button is enabled only if the form is valid.
               return IconButton(
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<CreateTopicBloc>().add(
-                            const CreateTopicPublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<CreateTopicBloc>().add(
-                            const CreateTopicSavedAsDraft(),
-                          );
-                        }
-                      }
+                    ? () => _handleSave(context, state)
                     : null,
               );
             },
@@ -133,17 +133,12 @@ class _CreateTopicViewState extends State<CreateTopicView> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CreateTopicStatus.success &&
-              state.createdTopic != null &&
-              ModalRoute.of(context)!.isCurrent) {
+              state.createdTopic != null) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(content: Text(l10n.topicCreatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              // Refresh the list to show the new topic
-              const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-            );
             context.pop();
           }
           if (state.status == CreateTopicStatus.imageUploadFailure ||
@@ -152,61 +147,102 @@ class _CreateTopicViewState extends State<CreateTopicView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(state.exception!.toFriendlyMessage(context)),
+                  content: Builder(
+                    builder: (context) => Text(
+                      state.exception!.toFriendlyMessage(context),
+                    ),
+                  ),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
           }
         },
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.topicName,
-                        border: const OutlineInputBorder(),
+          return DefaultTabController(
+            length: state.enabledLanguages.length,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        onTap: (index) => context.read<CreateTopicBloc>().add(
+                          CreateTopicLanguageTabChanged(
+                            state.enabledLanguages[index],
+                          ),
+                        ),
+                        tabs: state.enabledLanguages.map((lang) {
+                          return Tab(
+                            icon: Image.network(
+                              lang.flagUrl,
+                              width: 24,
+                              errorBuilder: (_, _, _) =>
+                                  const Icon(Icons.flag, size: 16),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      onChanged: (value) => context.read<CreateTopicBloc>().add(
-                        CreateTopicNameChanged(value),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.topicName,
+                        values: state.name,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<CreateTopicBloc>().add(
+                              CreateTopicNameChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: l10n.description,
-                        border: const OutlineInputBorder(),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.description,
+                        values: state.description,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<CreateTopicBloc>().add(
+                              CreateTopicDescriptionChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
                       ),
-                      maxLines: 3,
-                      onChanged: (value) => context.read<CreateTopicBloc>().add(
-                        CreateTopicDescriptionChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    ImageUploadField(
-                      onChanged: (Uint8List? bytes, String? fileName) {
-                        if (bytes != null && fileName != null) {
-                          context.read<CreateTopicBloc>().add(
+                      const SizedBox(height: AppSpacing.lg),
+                      ImageUploadField(
+                        onChanged: (Uint8List? bytes, String? fileName) {
+                          final bloc = context.read<CreateTopicBloc>();
+                          if (bytes == null || fileName == null) {
+                            bloc.add(const CreateTopicImageRemoved());
+                            return;
+                          }
+                          bloc.add(
                             CreateTopicImageChanged(
                               imageFileBytes: bytes,
                               imageFileName: fileName,
                             ),
                           );
-                        } else {
-                          context.read<CreateTopicBloc>().add(
-                            const CreateTopicImageRemoved(),
-                          );
-                        }
-                      },
-                    ),
-                  ],
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -214,5 +250,21 @@ class _CreateTopicViewState extends State<CreateTopicView> {
         },
       ),
     );
+  }
+
+  Future<void> _handleSave(
+    BuildContext context,
+    CreateTopicState state,
+  ) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+    if (selectedStatus == null) return;
+
+    if (!context.mounted) return;
+
+    if (selectedStatus == ContentStatus.active) {
+      context.read<CreateTopicBloc>().add(const CreateTopicPublished());
+    } else {
+      context.read<CreateTopicBloc>().add(const CreateTopicSavedAsDraft());
+    }
   }
 }

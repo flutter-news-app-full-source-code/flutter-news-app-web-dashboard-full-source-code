@@ -17,6 +17,16 @@ final class ContentManagementTabChanged extends ContentManagementEvent {
   List<Object?> get props => [tab];
 }
 
+/// Event to notify the BLoC that the application language has changed.
+final class ContentManagementLanguageChanged extends ContentManagementEvent {
+  const ContentManagementLanguageChanged(this.language);
+
+  final SupportedLanguage language;
+
+  @override
+  List<Object?> get props => [language];
+}
+
 /// Event to request loading of headlines.
 final class LoadHeadlinesRequested extends ContentManagementEvent {
   const LoadHeadlinesRequested({

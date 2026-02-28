@@ -8,10 +8,24 @@ sealed class CreateSourceEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to initialize the BLoC with necessary configuration.
+final class CreateSourceInitialized extends CreateSourceEvent {
+  const CreateSourceInitialized({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
+}
+
 /// Event for when the source's name is changed.
 final class CreateSourceNameChanged extends CreateSourceEvent {
   const CreateSourceNameChanged(this.name);
-  final String name;
+  final Map<SupportedLanguage, String> name;
   @override
   List<Object?> get props => [name];
 }
@@ -19,7 +33,7 @@ final class CreateSourceNameChanged extends CreateSourceEvent {
 /// Event for when the source's description is changed.
 final class CreateSourceDescriptionChanged extends CreateSourceEvent {
   const CreateSourceDescriptionChanged(this.description);
-  final String description;
+  final Map<SupportedLanguage, String> description;
   @override
   List<Object?> get props => [description];
 }
@@ -61,10 +75,14 @@ final class CreateSourceTypeChanged extends CreateSourceEvent {
 
 /// Event for when the source's language is changed.
 final class CreateSourceLanguageChanged extends CreateSourceEvent {
-  const CreateSourceLanguageChanged(this.language);
-  final Language? language;
+  const CreateSourceLanguageChanged(
+    this.language, {
+    this.languageEntity,
+  });
+  final SupportedLanguage? language;
+  final Language? languageEntity;
   @override
-  List<Object?> get props => [language];
+  List<Object?> get props => [language, languageEntity];
 }
 
 /// Event for when the source's headquarters is changed.
@@ -83,4 +101,12 @@ final class CreateSourceSavedAsDraft extends CreateSourceEvent {
 /// Event to publish the source.
 final class CreateSourcePublished extends CreateSourceEvent {
   const CreateSourcePublished();
+}
+
+/// Event for when the language tab is changed.
+final class CreateSourceLanguageTabChanged extends CreateSourceEvent {
+  const CreateSourceLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

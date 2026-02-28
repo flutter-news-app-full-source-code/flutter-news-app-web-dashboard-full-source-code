@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 class EngagementsPage extends StatefulWidget {
   const EngagementsPage({super.key});

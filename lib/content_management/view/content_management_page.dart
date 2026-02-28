@@ -1,8 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -14,7 +15,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template content_management_page}
 /// A page for Content Management with tabbed navigation for sub-sections.
@@ -63,6 +63,17 @@ class _ContentManagementPageState extends State<ContentManagementPage>
     final l10n = AppLocalizationsX(context).l10n;
     return MultiBlocListener(
       listeners: [
+        BlocListener<AppBloc, AppState>(
+          listenWhen: (previous, current) =>
+              previous.appSettings?.language != current.appSettings?.language,
+          listener: (context, state) {
+            if (state.appSettings != null) {
+              context.read<ContentManagementBloc>().add(
+                ContentManagementLanguageChanged(state.appSettings!.language),
+              );
+            }
+          },
+        ),
         BlocListener<HeadlinesFilterBloc, HeadlinesFilterState>(
           listenWhen: (previous, current) =>
               previous.searchQuery != current.searchQuery ||
@@ -81,11 +92,14 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               ) ||
               previous.isBreaking != current.isBreaking,
           listener: (context, state) {
+            final currentLanguageCode =
+                context.read<AppBloc>().state.appSettings?.language.name ??
+                'en';
             context.read<ContentManagementBloc>().add(
               LoadHeadlinesRequested(
-                filter: context
-                    .read<ContentManagementBloc>()
-                    .buildHeadlinesFilterMap(state),
+                filter: context.read<HeadlinesFilterBloc>().buildFilterMap(
+                  languageCode: currentLanguageCode,
+                ),
                 forceRefresh: true,
               ),
             );
@@ -98,9 +112,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadTopicsRequested(
-                filter: context
-                    .read<ContentManagementBloc>()
-                    .buildTopicsFilterMap(state),
+                filter: context.read<TopicsFilterBloc>().buildFilterMap(),
                 forceRefresh: true,
               ),
             );
@@ -125,9 +137,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           listener: (context, state) {
             context.read<ContentManagementBloc>().add(
               LoadSourcesRequested(
-                filter: context
-                    .read<ContentManagementBloc>()
-                    .buildSourcesFilterMap(state),
+                filter: context.read<SourcesFilterBloc>().buildFilterMap(),
                 forceRefresh: true,
               ),
             );
@@ -143,13 +153,17 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             String itemName;
             if (item is Headline) {
               itemType = l10n.headline;
-              itemName = item.title;
+              itemName = item.title.values.firstOrNull ?? '';
             } else if (item is Topic) {
               itemType = l10n.topic;
-              itemName = item.name;
-            } else {
+              itemName = item.name.values.firstOrNull ?? '';
+            } else if (item is Source) {
               itemType = l10n.source;
-              itemName = (item as Source).name;
+              itemName = item.name.values.firstOrNull ?? '';
+            } else {
+              // Fallback for unknown types
+              itemType = '';
+              itemName = '';
             }
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()

@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +7,9 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_blo
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/settings/bloc/settings_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/about_icon.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template settings_page}
 /// A page for user settings, allowing customization of theme and language.
@@ -22,6 +23,7 @@ class SettingsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => SettingsBloc(
         appSettingsRepository: context.read<DataRepository<AppSettings>>(),
+        authRepository: context.read<AuthRepository>(),
       )..add(SettingsLoaded(userId: context.read<AppBloc>().state.user?.id)),
       child: const _SettingsView(),
     );
@@ -61,7 +63,7 @@ class _SettingsView extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.settingsSavedSuccessfully)),
               );
-            // Trigger AppBloc to reload settings for immediate UI update
+            // Trigger AppBloc to update global state for immediate UI update.
             if (state.appSettings != null) {
               context.read<AppBloc>().add(
                 AppUserAppSettingsChanged(
@@ -370,35 +372,48 @@ class _LanguageSelectionList extends StatelessWidget {
   });
 
   /// The currently selected language.
-  final Language currentLanguage;
+  final SupportedLanguage currentLanguage;
 
   /// The localized strings for the application.
   final AppLocalizations l10n;
 
-  /// The list of supported languages for the application.
-  static final List<Language> _supportedLanguages = languagesFixturesData
-      .where((lang) => lang.code == 'en' || lang.code == 'ar')
-      .toList();
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: _supportedLanguages.length,
+      itemCount: SupportedLanguage.values.length,
       itemBuilder: (context, index) {
-        final language = _supportedLanguages[index];
-        final isSelected = language.code == currentLanguage.code;
+        final supportedLanguage = SupportedLanguage.values[index];
+        final isSelected = supportedLanguage == currentLanguage;
+
         return ListTile(
-          title: Text(
-            language.name,
-            style: Theme.of(context).textTheme.titleMedium,
+          title: Row(
+            children: [
+              Image.network(
+                supportedLanguage.flagUrl,
+                width: 24,
+                errorBuilder: (_, _, _) => const Icon(Icons.flag, size: 16),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Text(supportedLanguage.l10n(context)),
+            ],
           ),
           trailing: isSelected
-              ? Icon(Icons.check, color: Theme.of(context).colorScheme.primary)
+              ? Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.primary,
+                )
               : null,
           onTap: () {
             if (!isSelected) {
               context.read<SettingsBloc>().add(
-                SettingsLanguageChanged(language),
+                SettingsLanguageChanged(
+                  Language(
+                    id: supportedLanguage.name,
+                    code: supportedLanguage.name,
+                    name: const {},
+                    nativeName: '',
+                  ),
+                ),
               );
             }
           },

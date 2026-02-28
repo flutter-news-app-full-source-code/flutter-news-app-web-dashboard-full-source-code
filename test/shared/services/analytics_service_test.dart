@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/analytics_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -23,7 +22,7 @@ void main() {
     const kpiData = KpiCardData(
       id: 'test-id',
       cardId: kpiId,
-      label: 'Total Users',
+      label: {SupportedLanguage.en: 'Total Users'},
       timeFrames: {},
     );
 
@@ -31,7 +30,7 @@ void main() {
     const chartData = ChartCardData(
       id: 'test-id',
       cardId: chartId,
-      label: 'Registrations',
+      label: {SupportedLanguage.en: 'Registrations'},
       type: ChartType.line,
       timeFrames: {},
     );
@@ -40,7 +39,7 @@ void main() {
     const rankedListData = RankedListCardData(
       id: 'test-id',
       cardId: rankedListId,
-      label: 'Top Headlines',
+      label: {SupportedLanguage.en: 'Top Headlines'},
       timeFrames: {},
     );
 

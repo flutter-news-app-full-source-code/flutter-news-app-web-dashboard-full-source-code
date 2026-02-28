@@ -30,3 +30,8 @@ final class AppUserAppSettingsChanged extends AppEvent {
   @override
   List<Object?> get props => [appSettings];
 }
+
+/// Event for when the remote config is updated.
+final class AppRemoteConfigChanged extends AppEvent {
+  const AppRemoteConfigChanged();
+}

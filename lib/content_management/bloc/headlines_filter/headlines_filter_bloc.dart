@@ -116,13 +116,16 @@ class HeadlinesFilterBloc
   }
 
   /// Builds the filter map for the data repository query.
-  Map<String, dynamic> buildFilterMap() {
+  Map<String, dynamic> buildFilterMap({required String languageCode}) {
     final filter = <String, dynamic>{'status': state.selectedStatus.name};
 
     if (state.searchQuery.isNotEmpty) {
       filter[r'$or'] = [
         {
-          'title': {r'$regex': state.searchQuery, r'$options': 'i'},
+          'title.$languageCode': {
+            r'$regex': state.searchQuery,
+            r'$options': 'i',
+          },
         },
         {'_id': state.searchQuery},
       ];

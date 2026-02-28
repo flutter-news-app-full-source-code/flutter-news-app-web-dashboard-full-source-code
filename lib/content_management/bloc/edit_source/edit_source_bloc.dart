@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
@@ -19,10 +18,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   EditSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
+    required DataRepository<Language> languagesRepository,
     required String sourceId,
     Logger? logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
+       _languagesRepository = languagesRepository,
        _logger = logger ?? Logger('EditSourceBloc'),
        super(EditSourceState(sourceId: sourceId)) {
     on<EditSourceLoaded>(_onEditSourceLoaded);
@@ -36,10 +37,12 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceImageRemoved>(_onImageRemoved);
     on<EditSourceSavedAsDraft>(_onSavedAsDraft);
     on<EditSourcePublished>(_onPublished);
+    on<EditSourceLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
+  final DataRepository<Language> _languagesRepository;
   final Logger _logger;
 
   Future<void> _onEditSourceLoaded(
@@ -52,9 +55,20 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(state.copyWith(status: EditSourceStatus.loading));
     try {
       final source = await _sourcesRepository.read(id: state.sourceId);
+
+      // Fetch the corresponding Language entity for the initial language.
+      final languagesResponse = await _languagesRepository.readAll(
+        filter: {'code': source.language.name},
+        pagination: const PaginationOptions(limit: 1),
+      );
+      final languageEntity = languagesResponse.items.firstOrNull;
       emit(
         state.copyWith(
           status: EditSourceStatus.initial,
+          enabledLanguages: event.enabledLanguages,
+          defaultLanguage: event.defaultLanguage,
+          selectedLanguage:
+              event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
           name: source.name,
           description: source.description,
           url: source.url,
@@ -62,6 +76,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           sourceType: () => source.sourceType,
           language: () => source.language,
           headquarters: () => source.headquarters,
+          selectedLanguageEntity: () => languageEntity,
           initialSource: source,
         ),
       );
@@ -141,6 +156,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     emit(
       state.copyWith(
         language: () => event.language,
+        selectedLanguageEntity: () => event.languageEntity,
         status: EditSourceStatus.initial,
       ),
     );
@@ -187,6 +203,15 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         imageRemoved: true,
         status: EditSourceStatus.initial,
       ),
+    );
+  }
+
+  void _onLanguageTabChanged(
+    EditSourceLanguageTabChanged event,
+    Emitter<EditSourceState> emit,
+  ) {
+    emit(
+      state.copyWith(selectedLanguage: event.language),
     );
   }
 

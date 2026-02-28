@@ -1,29 +1,24 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_topic_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
 
 class MockCreateTopicBloc extends MockBloc<CreateTopicEvent, CreateTopicState>
     implements CreateTopicBloc {}
-
-class MockContentManagementBloc
-    extends MockBloc<ContentManagementEvent, ContentManagementState>
-    implements ContentManagementBloc {}
 
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
@@ -34,8 +29,8 @@ class MockFilePicker extends Mock
 // Mock data for tests
 final testTopic = Topic(
   id: 'topic-1',
-  name: 'Test Topic',
-  description: 'Test Description',
+  name: const {SupportedLanguage.en: 'Test Topic'},
+  description: const {SupportedLanguage.en: 'Test Description'},
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
   status: ContentStatus.active,
@@ -116,7 +111,6 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('CreateTopicPage', () {
     late MockCreateTopicBloc createTopicBloc;
-    late MockContentManagementBloc contentManagementBloc;
     late MockDataRepository<Topic> topicsRepository;
     late MockMediaRepository mediaRepository;
     late MockGoRouter goRouter;
@@ -124,7 +118,6 @@ void main() {
 
     setUp(() {
       createTopicBloc = MockCreateTopicBloc();
-      contentManagementBloc = MockContentManagementBloc();
       topicsRepository = MockDataRepository<Topic>();
       mediaRepository = MockMediaRepository();
       goRouter = MockGoRouter();
@@ -133,9 +126,6 @@ void main() {
       Logger.root.level = Level.OFF;
 
       when(() => createTopicBloc.state).thenReturn(const CreateTopicState());
-      when(
-        () => contentManagementBloc.state,
-      ).thenReturn(const ContentManagementState());
       when(() => goRouter.pop()).thenAnswer((_) async {});
     });
 
@@ -151,10 +141,7 @@ void main() {
         ],
         child: BlocProvider<CreateTopicBloc>.value(
           value: createTopicBloc,
-          child: BlocProvider<ContentManagementBloc>.value(
-            value: contentManagementBloc,
-            child: const CreateTopicView(),
-          ),
+          child: const CreateTopicView(),
         ),
       );
     }
@@ -181,14 +168,19 @@ void main() {
 
     testWidgets('renders form fields', (tester) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
-      final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
 
       expect(
-        find.widgetWithText(TextFormField, l10n.topicName),
+        find.descendant(
+          of: find.byType(LocalizedTextFormField).first,
+          matching: find.byType(TextFormField),
+        ),
         findsOneWidget,
       );
       expect(
-        find.widgetWithText(TextFormField, l10n.description),
+        find.descendant(
+          of: find.byType(LocalizedTextFormField).last,
+          matching: find.byType(TextFormField),
+        ),
         findsOneWidget,
       );
       expect(find.byType(ImageUploadField), findsOneWidget);
@@ -198,15 +190,25 @@ void main() {
       testWidgets('adds CreateTopicNameChanged when name is changed', (
         tester,
       ) async {
+        when(() => createTopicBloc.state).thenReturn(
+          const CreateTopicState(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.topicName),
+          find.descendant(
+            of: find.byType(LocalizedTextFormField).first,
+            matching: find.byType(TextFormField),
+          ),
           'New Topic Name',
         );
         verify(
           () => createTopicBloc.add(
-            const CreateTopicNameChanged('New Topic Name'),
+            const CreateTopicNameChanged(
+              {SupportedLanguage.en: 'New Topic Name'},
+            ),
           ),
         ).called(1);
       });
@@ -214,15 +216,25 @@ void main() {
       testWidgets('adds CreateTopicDescriptionChanged when desc is changed', (
         tester,
       ) async {
+        when(() => createTopicBloc.state).thenReturn(
+          const CreateTopicState(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.description),
+          find.descendant(
+            of: find.byType(LocalizedTextFormField).last,
+            matching: find.byType(TextFormField),
+          ),
           'New Topic Description',
         );
         verify(
           () => createTopicBloc.add(
-            const CreateTopicDescriptionChanged('New Topic Description'),
+            const CreateTopicDescriptionChanged(
+              {SupportedLanguage.en: 'New Topic Description'},
+            ),
           ),
         ).called(1);
       });
@@ -317,23 +329,12 @@ void main() {
           initialState: const CreateTopicState(),
         );
 
-        when(
-          () => contentManagementBloc.add(
-            const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-          ),
-        ).thenAnswer((_) async {});
-
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         await tester.pumpAndSettle();
 
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         expect(find.text(l10n.topicCreatedSuccessfully), findsOneWidget);
         verify(() => goRouter.pop()).called(1);
-        verify(
-          () => contentManagementBloc.add(
-            const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-          ),
-        ).called(1);
       });
 
       testWidgets('shows error snackbar on imageUploadFailure', (tester) async {
@@ -387,8 +388,8 @@ void main() {
       testWidgets('is enabled when form is valid', (tester) async {
         when(() => createTopicBloc.state).thenReturn(
           CreateTopicState(
-            name: 'Valid Name',
-            description: 'Valid Description',
+            name: const {SupportedLanguage.en: 'Valid Name'},
+            description: const {SupportedLanguage.en: 'Valid Description'},
             imageFileBytes: kTestImageBytes,
             imageFileName: 'test.jpg',
           ),
@@ -407,8 +408,8 @@ void main() {
         (tester) async {
           when(() => createTopicBloc.state).thenReturn(
             CreateTopicState(
-              name: 'Valid Name',
-              description: 'Valid Description',
+              name: const {SupportedLanguage.en: 'Valid Name'},
+              description: const {SupportedLanguage.en: 'Valid Description'},
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
             ),
@@ -422,7 +423,7 @@ void main() {
           await tester.tap(find.widgetWithIcon(IconButton, Icons.save));
           await tester.pumpAndSettle();
 
-          expect(find.text(l10n.saveTopicTitle), findsOneWidget);
+          expect(find.text(l10n.saveChanges), findsOneWidget);
           await tester.tap(find.text(l10n.saveAsDraft));
           await tester.pumpAndSettle();
 
@@ -437,8 +438,8 @@ void main() {
         (tester) async {
           when(() => createTopicBloc.state).thenReturn(
             CreateTopicState(
-              name: 'Valid Name',
-              description: 'Valid Description',
+              name: const {SupportedLanguage.en: 'Valid Name'},
+              description: const {SupportedLanguage.en: 'Valid Description'},
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
             ),
@@ -452,7 +453,7 @@ void main() {
           await tester.tap(find.widgetWithIcon(IconButton, Icons.save));
           await tester.pumpAndSettle();
 
-          expect(find.text(l10n.saveTopicTitle), findsOneWidget);
+          expect(find.text(l10n.saveChanges), findsOneWidget);
           await tester.tap(find.text(l10n.publish));
           await tester.pumpAndSettle();
 

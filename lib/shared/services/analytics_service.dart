@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 
 /// {@template analytics_service}
 /// A service responsible for fetching, caching, and managing analytics data.

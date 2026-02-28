@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
@@ -30,6 +29,7 @@ class CreateHeadlineBloc
        _mediaRepository = mediaRepository,
        _logger = logger,
        super(const CreateHeadlineState()) {
+    on<CreateHeadlineInitialized>(_onInitialized);
     on<CreateHeadlineTitleChanged>(_onTitleChanged);
     on<CreateHeadlineUrlChanged>(_onUrlChanged);
     on<CreateHeadlineImageChanged>(_onImageChanged);
@@ -38,6 +38,7 @@ class CreateHeadlineBloc
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
     on<CreateHeadlineCountryChanged>(_onCountryChanged);
     on<CreateHeadlineIsBreakingChanged>(_onIsBreakingChanged);
+    on<CreateHeadlineLanguageTabChanged>(_onLanguageTabChanged);
     on<CreateHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<CreateHeadlinePublished>(_onPublished);
   }
@@ -47,6 +48,20 @@ class CreateHeadlineBloc
   final Logger _logger;
 
   final _uuid = const Uuid();
+
+  void _onInitialized(
+    CreateHeadlineInitialized event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        enabledLanguages: event.enabledLanguages,
+        defaultLanguage: event.defaultLanguage,
+        selectedLanguage:
+            event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
+      ),
+    );
+  }
 
   void _onTitleChanged(
     CreateHeadlineTitleChanged event,
@@ -120,6 +135,13 @@ class CreateHeadlineBloc
   ) {
     _logger.fine('Is Breaking changed: ${event.isBreaking}');
     emit(state.copyWith(isBreaking: event.isBreaking));
+  }
+
+  void _onLanguageTabChanged(
+    CreateHeadlineLanguageTabChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   /// Handles saving the headline as a draft.

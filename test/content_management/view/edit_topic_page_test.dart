@@ -1,37 +1,41 @@
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_topic_page.dart';
-
+import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
+import 'package:go_router/go_router.dart' as go_router;
+import 'package:logging/logging.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
 
-class MockContentManagementBloc
-    extends MockBloc<ContentManagementEvent, ContentManagementState>
-    implements ContentManagementBloc {}
+class MockEditTopicBloc extends MockBloc<EditTopicEvent, EditTopicState>
+    implements EditTopicBloc {}
 
-class MockGoRouter extends Mock implements GoRouter {}
+class MockGoRouter extends Mock implements go_router.GoRouter {}
+
+class MockFilePicker extends Mock
+    with MockPlatformInterfaceMixin
+    implements FilePicker {}
 
 void main() {
   setUpAll(registerFallbackValues);
 
   group('EditTopicPage', () {
-    late DataRepository<Topic> topicsRepository;
-    late MediaRepository mediaRepository;
-    late ContentManagementBloc contentManagementBloc;
-    late GoRouter goRouter;
+    late EditTopicBloc editTopicBloc;
+    late MockGoRouter goRouter;
+    late FilePicker filePicker;
 
     const kTestTopicId = 'topic-id-123';
     final kInitialTopic = Topic(
       id: kTestTopicId,
-      name: 'Initial Name',
-      description: 'Initial Description',
+      name: const {SupportedLanguage.en: 'Initial Name'},
+      description: const {SupportedLanguage.en: 'Initial Description'},
       createdAt: DateTime(2023),
       updatedAt: DateTime(2023),
       status: ContentStatus.draft,
@@ -39,119 +43,129 @@ void main() {
     );
 
     setUp(() {
-      topicsRepository = MockDataRepository<Topic>();
-      mediaRepository = MockMediaRepository();
-      contentManagementBloc = MockContentManagementBloc();
+      editTopicBloc = MockEditTopicBloc();
       goRouter = MockGoRouter();
+      filePicker = MockFilePicker();
+      FilePicker.platform = filePicker;
+      Logger.root.level = Level.OFF;
 
       when(
-        () => topicsRepository.read(id: any(named: 'id')),
-      ).thenAnswer((_) async => kInitialTopic);
-      when(
-        () => topicsRepository.update(
-          id: any(named: 'id'),
-          item: any(named: 'item'),
+        () => editTopicBloc.state,
+      ).thenReturn(
+        EditTopicState(
+          topicId: kTestTopicId,
+          status: EditTopicStatus.initial,
+          initialTopic: kInitialTopic,
+          name: kInitialTopic.name,
+          description: kInitialTopic.description,
+          iconUrl: kInitialTopic.iconUrl,
         ),
-      ).thenAnswer(
-        (invocation) async => invocation.namedArguments[#item] as Topic,
       );
-      when(
-        () => contentManagementBloc.state,
-      ).thenReturn(const ContentManagementState());
       when(() => goRouter.pop()).thenAnswer((_) async {});
     });
 
     Widget buildSubject() {
-      return MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider.value(value: topicsRepository),
-          RepositoryProvider.value(value: mediaRepository),
-        ],
-        child: BlocProvider.value(
-          value: contentManagementBloc,
-          child: const EditTopicPage(topicId: kTestTopicId),
-        ),
+      return BlocProvider.value(
+        value: editTopicBloc,
+        child: const EditTopicView(),
       );
     }
 
     group('rendering', () {
-      testWidgets('renders loading state and then form fields', (tester) async {
-        await tester.pumpApp(buildSubject());
+      testWidgets('renders loading state', (tester) async {
+        when(() => editTopicBloc.state).thenReturn(
+          const EditTopicState(
+            topicId: kTestTopicId,
+            status: EditTopicStatus.loading,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
         expect(find.byType(LoadingStateWidget), findsOneWidget);
-
-        await tester.pumpAndSettle();
-        expect(find.text(kInitialTopic.name), findsOneWidget);
-        expect(find.text(kInitialTopic.description), findsOneWidget);
-        expect(find.byType(ImageUploadField), findsOneWidget);
       });
 
       testWidgets('renders failure state when loading fails', (tester) async {
-        when(
-          () => topicsRepository.read(id: any(named: 'id')),
-        ).thenThrow(const NetworkException());
-        await tester.pumpApp(buildSubject());
-        await tester.pumpAndSettle();
+        when(() => editTopicBloc.state).thenReturn(
+          const EditTopicState(
+            topicId: kTestTopicId,
+            status: EditTopicStatus.failure,
+            exception: NetworkException(),
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
         expect(find.byType(FailureStateWidget), findsOneWidget);
       });
 
-      testWidgets('save button is disabled when name is empty', (tester) async {
-        when(() => topicsRepository.read(id: any(named: 'id'))).thenAnswer(
-          (_) async => kInitialTopic.copyWith(name: ''),
+      testWidgets('renders form fields with initial data', (tester) async {
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        expect(
+          find.text(kInitialTopic.name[SupportedLanguage.en]!),
+          findsOneWidget,
         );
-        await tester.pumpApp(buildSubject());
-        await tester.pumpAndSettle();
+        expect(
+          find.text(kInitialTopic.description[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
+        expect(find.byType(ImageUploadField), findsOneWidget);
+      });
+
+      testWidgets('save button is disabled when name is empty', (tester) async {
+        when(() => editTopicBloc.state).thenReturn(
+          EditTopicState(
+            topicId: kTestTopicId,
+            initialTopic: kInitialTopic,
+            name: const {}, // Empty name map
+            description: kInitialTopic.description,
+            iconUrl: kInitialTopic.iconUrl,
+            status: EditTopicStatus.initial,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
 
         final saveButton = tester.widget<IconButton>(
           find.widgetWithIcon(IconButton, Icons.save),
         );
         expect(saveButton.onPressed, isNull);
       });
-
-      testWidgets('save button is enabled when form is valid', (tester) async {
-        await tester.pumpApp(buildSubject());
-        await tester.pumpAndSettle();
-
-        final saveButton = tester.widget<IconButton>(
-          find.widgetWithIcon(IconButton, Icons.save),
-        );
-        expect(saveButton.onPressed, isNotNull);
-      });
     });
 
     group('interactions', () {
       testWidgets('entering text in name field updates bloc', (tester) async {
-        await tester.pumpApp(buildSubject());
-        await tester.pumpAndSettle();
-
-        await tester.enterText(find.byType(TextFormField).first, 'New Name');
-        await tester.pump();
-
-        // The BLoC receives the event and the state's `isFormValid` remains true
-        final saveButton = tester.widget<IconButton>(
-          find.widgetWithIcon(IconButton, Icons.save),
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
+        final nameField = find.widgetWithText(
+          TextFormField,
+          '${l10n.topicName} (${l10n.languageNameEn})',
         );
-        expect(saveButton.onPressed, isNotNull);
+
+        await tester.enterText(nameField, 'New Name');
+        verify(
+          () => editTopicBloc.add(
+            const EditTopicNameChanged({SupportedLanguage.en: 'New Name'}),
+          ),
+        ).called(1);
       });
 
       testWidgets('shows success snackbar and pops on successful submission', (
         tester,
       ) async {
+        whenListen(
+          editTopicBloc,
+          Stream.fromIterable([
+            EditTopicState(
+              topicId: kTestTopicId,
+              status: EditTopicStatus.success,
+              updatedTopic: kInitialTopic,
+            ),
+          ]),
+          initialState: const EditTopicState(topicId: kTestTopicId),
+        );
+
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        await tester.pumpAndSettle();
+        await tester.pump(); // Let listener process the new state
 
-        await tester.tap(find.widgetWithIcon(IconButton, Icons.save));
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.text('Publish'));
-        await tester.pumpAndSettle();
-
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         expect(find.byType(SnackBar), findsOneWidget);
-        expect(find.text('Topic updated successfully.'), findsOneWidget);
-        verify(
-          () => contentManagementBloc.add(
-            const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-          ),
-        ).called(1);
+        expect(find.text(l10n.topicUpdatedSuccessfully), findsOneWidget);
         verify(() => goRouter.pop()).called(1);
       });
     });

@@ -16,7 +16,7 @@ void main() {
     final headlineFixture = getHeadlinesFixturesData().first;
 
     final updatedHeadlineFixture = headlineFixture.copyWith(
-      title: 'Updated Title',
+      title: {SupportedLanguage.en: 'Updated Title'},
     );
     final headlineId = headlineFixture.id;
     final imageBytes = Uint8List.fromList([1, 2, 3]);
@@ -43,7 +43,12 @@ void main() {
     group('constructor and EditHeadlineLoaded', () {
       blocTest<EditHeadlineBloc, EditHeadlineState>(
         'emits [loading, initial] with headline data on successful load',
-        act: (bloc) => bloc.add(const EditHeadlineLoaded()),
+        act: (bloc) => bloc.add(
+          const EditHeadlineLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
         build: buildBloc,
         expect: () => <EditHeadlineState>[
           EditHeadlineState(
@@ -51,6 +56,8 @@ void main() {
             status: EditHeadlineStatus.loading,
           ),
           EditHeadlineState(
+            enabledLanguages: const [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
             headlineId: headlineId,
             status: EditHeadlineStatus.initial,
             title: headlineFixture.title,
@@ -76,7 +83,12 @@ void main() {
           ).thenThrow(const NotFoundException('Not found'));
           return buildBloc();
         },
-        act: (bloc) => bloc.add(const EditHeadlineLoaded()),
+        act: (bloc) => bloc.add(
+          const EditHeadlineLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
         expect: () => <dynamic>[
           isA<EditHeadlineState>().having(
             (s) => s.status,
@@ -110,11 +122,18 @@ void main() {
           isBreaking: headlineFixture.isBreaking,
           initialHeadline: headlineFixture,
         ),
-        act: (bloc) => bloc.add(const EditHeadlineTitleChanged('New Title')),
+        act: (bloc) => bloc.add(
+          EditHeadlineTitleChanged(
+            {...headlineFixture.title, SupportedLanguage.en: 'New Title'},
+          ),
+        ),
         expect: () => <EditHeadlineState>[
           EditHeadlineState(
             headlineId: headlineId,
-            title: 'New Title',
+            title: {
+              ...headlineFixture.title,
+              SupportedLanguage.en: 'New Title',
+            },
             status: EditHeadlineStatus.initial,
             url: headlineFixture.url,
             imageUrl: headlineFixture.imageUrl,
@@ -127,6 +146,32 @@ void main() {
         ],
       );
     });
+
+    blocTest<EditHeadlineBloc, EditHeadlineState>(
+      'emits new state with merged titles when editing a secondary language',
+      build: buildBloc,
+      seed: () => EditHeadlineState(
+        headlineId: headlineId,
+        title: const {SupportedLanguage.en: 'English Title'},
+        status: EditHeadlineStatus.initial,
+      ),
+      act: (bloc) => bloc.add(
+        const EditHeadlineTitleChanged({
+          SupportedLanguage.en: 'English Title',
+          SupportedLanguage.es: 'Título',
+        }),
+      ),
+      expect: () => [
+        EditHeadlineState(
+          headlineId: headlineId,
+          title: const {
+            SupportedLanguage.en: 'English Title',
+            SupportedLanguage.es: 'Título',
+          },
+          status: EditHeadlineStatus.initial,
+        ),
+      ],
+    );
 
     group('EditHeadlineUrlChanged', () {
       blocTest<EditHeadlineBloc, EditHeadlineState>(
@@ -239,7 +284,7 @@ void main() {
         seed: () => EditHeadlineState(
           headlineId: headlineId,
           initialHeadline: headlineFixture,
-          title: 'Updated Title',
+          title: const {SupportedLanguage.en: 'Updated Title'},
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
@@ -270,7 +315,11 @@ void main() {
               item: any(
                 named: 'item',
                 that: isA<Headline>()
-                    .having((h) => h.title, 'title', 'Updated Title')
+                    .having(
+                      (h) => h.title,
+                      'title',
+                      const {SupportedLanguage.en: 'Updated Title'},
+                    )
                     .having((h) => h.status, 'status', ContentStatus.draft),
               ),
             ),
@@ -284,7 +333,7 @@ void main() {
         seed: () => EditHeadlineState(
           headlineId: headlineId,
           initialHeadline: headlineFixture,
-          title: 'Updated Title',
+          title: const {SupportedLanguage.en: 'Updated Title'},
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
@@ -350,7 +399,7 @@ void main() {
         seed: () => EditHeadlineState(
           headlineId: headlineId,
           initialHeadline: headlineFixture,
-          title: 'Updated Title',
+          title: const {SupportedLanguage.en: 'Updated Title'},
           url: headlineFixture.url,
           imageFileBytes: imageBytes,
           imageFileName: imageFileName,
@@ -401,7 +450,7 @@ void main() {
         seed: () => EditHeadlineState(
           headlineId: headlineId,
           initialHeadline: headlineFixture,
-          title: 'Updated Title',
+          title: const {SupportedLanguage.en: 'Updated Title'},
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
@@ -434,7 +483,7 @@ void main() {
         seed: () => EditHeadlineState(
           headlineId: headlineId,
           initialHeadline: null, // This is the key part of the test
-          title: 'Updated Title',
+          title: const {SupportedLanguage.en: 'Updated Title'},
         ),
         act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -474,7 +523,7 @@ void main() {
         seed: () => EditHeadlineState(
           headlineId: headlineId,
           initialHeadline: headlineFixture,
-          title: 'Updated Title',
+          title: const {SupportedLanguage.en: 'Updated Title'},
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
@@ -491,7 +540,10 @@ void main() {
                   ).captured.first
                   as Headline;
           expect(headline.status, ContentStatus.active);
-          expect(headline.title, 'Updated Title');
+          expect(
+            headline.title,
+            const {SupportedLanguage.en: 'Updated Title'},
+          );
         },
       );
     });

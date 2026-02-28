@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:logging/logging.dart';
 
@@ -54,16 +53,55 @@ void main() {
       blocTest<CreateTopicBloc, CreateTopicState>(
         'emits new state when CreateTopicNameChanged is added',
         build: buildBloc,
-        act: (bloc) => bloc.add(const CreateTopicNameChanged('New Name')),
-        expect: () => [const CreateTopicState(name: 'New Name')],
+        act: (bloc) => bloc.add(
+          const CreateTopicNameChanged({SupportedLanguage.en: 'New Name'}),
+        ),
+        expect: () => [
+          const CreateTopicState(name: {SupportedLanguage.en: 'New Name'}),
+        ],
+      );
+
+      blocTest<CreateTopicBloc, CreateTopicState>(
+        'updates map when name for a language is cleared',
+        build: buildBloc,
+        seed: () => const CreateTopicState(
+          name: {SupportedLanguage.en: 'Existing Name'},
+        ),
+        act: (bloc) => bloc.add(
+          const CreateTopicNameChanged({}),
+        ),
+        expect: () => [
+          const CreateTopicState(name: {}),
+        ],
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
         'emits new state when CreateTopicDescriptionChanged is added',
         build: buildBloc,
-        act: (bloc) =>
-            bloc.add(const CreateTopicDescriptionChanged('New Description')),
-        expect: () => [const CreateTopicState(description: 'New Description')],
+        act: (bloc) => bloc.add(
+          const CreateTopicDescriptionChanged(
+            {SupportedLanguage.en: 'New Description'},
+          ),
+        ),
+        expect: () => [
+          const CreateTopicState(
+            description: {SupportedLanguage.en: 'New Description'},
+          ),
+        ],
+      );
+
+      blocTest<CreateTopicBloc, CreateTopicState>(
+        'updates map when description for a language is cleared',
+        build: buildBloc,
+        seed: () => const CreateTopicState(
+          description: {SupportedLanguage.en: 'Existing Description'},
+        ),
+        act: (bloc) => bloc.add(
+          const CreateTopicDescriptionChanged({}),
+        ),
+        expect: () => [
+          const CreateTopicState(description: {}),
+        ],
       );
 
       blocTest<CreateTopicBloc, CreateTopicState>(
@@ -105,8 +143,8 @@ void main() {
         'handles successful publishing with image',
         build: buildBloc,
         seed: () => CreateTopicState(
-          name: 'Test Topic',
-          description: 'Test Description',
+          name: const {SupportedLanguage.en: 'Test Topic'},
+          description: const {SupportedLanguage.en: 'Test Description'},
           imageFileBytes: kTestImageBytes,
           imageFileName: kTestImageFileName,
         ),
@@ -154,8 +192,8 @@ void main() {
         'handles successful saving as draft without image',
         build: buildBloc,
         seed: () => const CreateTopicState(
-          name: 'Draft Topic',
-          description: 'Draft Description',
+          name: {SupportedLanguage.en: 'Draft Topic'},
+          description: {SupportedLanguage.en: 'Draft Description'},
         ),
         act: (bloc) => bloc.add(const CreateTopicSavedAsDraft()),
         expect: () => [
@@ -191,8 +229,8 @@ void main() {
         'handles image upload failure',
         build: buildBloc,
         seed: () => CreateTopicState(
-          name: 'Test Topic',
-          description: 'Test Description',
+          name: const {SupportedLanguage.en: 'Test Topic'},
+          description: const {SupportedLanguage.en: 'Test Description'},
           imageFileBytes: kTestImageBytes,
           imageFileName: kTestImageFileName,
         ),
@@ -229,8 +267,8 @@ void main() {
         'handles entity submission failure',
         build: buildBloc,
         seed: () => const CreateTopicState(
-          name: 'Test Topic',
-          description: 'Test Description',
+          name: {SupportedLanguage.en: 'Test Topic'},
+          description: {SupportedLanguage.en: 'Test Description'},
         ),
         setUp: () {
           when(

@@ -3359,4 +3359,66 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get about => 'حول';
+
+  @override
+  String get localizationConfigDescription =>
+      'تكوين اللغات المدعومة واللغة الافتراضية.';
+
+  @override
+  String get enabledLanguagesLabel => 'اللغات المفعلة';
+
+  @override
+  String get cannotDisableDefaultLanguage => 'لا يمكن تعطيل اللغة الافتراضية.';
+
+  @override
+  String get atLeastOneLanguageRequired => 'يجب تفعيل لغة واحدة على الأقل.';
+
+  @override
+  String get defaultLanguageLabel => 'اللغة الافتراضية';
+
+  @override
+  String get defaultLanguageDescription =>
+      'اللغة الاحتياطية إذا لم يكن تفضيل المستخدم مدعومًا.';
+
+  @override
+  String get localizationTitle => 'إعدادات اللغة';
+
+  @override
+  String get localizationDescription =>
+      'التحكم في اللغات النشطة لتطبيق الهاتف ولوحة التحكم. يتيح تفعيل لغة للمستخدمين عرض المحتوى المترجم ويضيف حقول إدخال مقابلة لنماذج لوحة التحكم. يعود المحتوى غير المترجم إلى اللغة الافتراضية.';
+
+  @override
+  String defaultLanguageRequired(String language) {
+    return 'اللغة الافتراضية ($language) مطلوبة.';
+  }
+
+  @override
+  String get languageNameEn => 'الإنجليزية';
+
+  @override
+  String get languageNameEs => 'الإسبانية';
+
+  @override
+  String get languageNameFr => 'الفرنسية';
+
+  @override
+  String get languageNameAr => 'العربية';
+
+  @override
+  String get languageNamePt => 'البرتغالية';
+
+  @override
+  String get languageNameDe => 'الألمانية';
+
+  @override
+  String get languageNameIt => 'الإيطالية';
+
+  @override
+  String get languageNameZh => 'الصينية';
+
+  @override
+  String get languageNameHi => 'الهندية';
+
+  @override
+  String get languageNameJa => 'اليابانية';
 }

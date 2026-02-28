@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_card_shell.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template kpi_card}
 /// A widget that displays a Key Performance Indicator (KPI) with a value,
@@ -31,65 +31,6 @@ class KpiCard extends StatefulWidget {
   /// Callback to change the active card in the slot.
   final ValueChanged<int>? onSlotChanged;
 
-  String _getLocalizedTitle(KpiCardId id, AppLocalizations l10n) {
-    switch (id) {
-      case KpiCardId.usersTotalRegistered:
-        return l10n.kpiUsersTotalRegistered;
-      case KpiCardId.usersNewRegistrations:
-        return l10n.kpiUsersNewRegistrations;
-      case KpiCardId.usersActiveUsers:
-        return l10n.kpiUsersActiveUsers;
-      case KpiCardId.contentHeadlinesTotalPublished:
-        return l10n.kpiContentHeadlinesTotalPublished;
-      case KpiCardId.contentHeadlinesTotalViews:
-        return l10n.kpiContentHeadlinesTotalViews;
-      case KpiCardId.contentHeadlinesTotalLikes:
-        return l10n.kpiContentHeadlinesTotalLikes;
-      case KpiCardId.contentSourcesTotalSources:
-        return l10n.kpiContentSourcesTotalSources;
-      case KpiCardId.contentSourcesNewSources:
-        return l10n.kpiContentSourcesNewSources;
-      case KpiCardId.contentSourcesTotalFollowers:
-        return l10n.kpiContentSourcesTotalFollowers;
-      case KpiCardId.contentTopicsTotalTopics:
-        return l10n.kpiContentTopicsTotalTopics;
-      case KpiCardId.contentTopicsNewTopics:
-        return l10n.kpiContentTopicsNewTopics;
-      case KpiCardId.contentTopicsTotalFollowers:
-        return l10n.kpiContentTopicsTotalFollowers;
-      case KpiCardId.engagementsTotalReactions:
-        return l10n.kpiEngagementsTotalReactions;
-      case KpiCardId.engagementsTotalComments:
-        return l10n.kpiEngagementsTotalComments;
-      case KpiCardId.engagementsAverageEngagementRate:
-        return l10n.kpiEngagementsAverageEngagementRate;
-      case KpiCardId.engagementsReportsPending:
-        return l10n.kpiEngagementsReportsPending;
-      case KpiCardId.engagementsReportsResolved:
-        return l10n.kpiEngagementsReportsResolved;
-      case KpiCardId.engagementsReportsAverageResolutionTime:
-        return l10n.kpiEngagementsReportsAverageResolutionTime;
-      case KpiCardId.engagementsAppReviewsTotalFeedback:
-        return l10n.kpiEngagementsAppReviewsTotalFeedback;
-      case KpiCardId.engagementsAppReviewsPositiveFeedback:
-        return l10n.kpiEngagementsAppReviewsPositiveFeedback;
-      case KpiCardId.engagementsAppReviewsStoreRequests:
-        return l10n.kpiEngagementsAppReviewsStoreRequests;
-      case KpiCardId.rewardsAdsWatchedTotal:
-        return l10n.kpiRewardsAdsWatchedTotal;
-      case KpiCardId.rewardsGrantedTotal:
-        return l10n.kpiRewardsGrantedTotal;
-      case KpiCardId.rewardsActiveUsersCount:
-        return l10n.kpiRewardsActiveUsersCount;
-      case KpiCardId.mediaTotalUploads:
-        return l10n.kpiMediaTotalUploads;
-      case KpiCardId.mediaFailedUploads:
-        return l10n.kpiMediaFailedUploads;
-      case KpiCardId.mediaAverageUploadTime:
-        return l10n.kpiMediaAverageUploadTime;
-    }
-  }
-
   @override
   State<KpiCard> createState() => _KpiCardState();
 }
@@ -104,7 +45,7 @@ class _KpiCardState extends State<KpiCard> {
     final currentData = widget.data.timeFrames[_selectedTimeFrame];
 
     return AnalyticsCardShell<KpiTimeFrame>(
-      title: widget._getLocalizedTitle(widget.data.cardId, l10n),
+      title: widget.data.label.values.firstOrNull ?? '',
       currentSlot: widget.slotIndex,
       totalSlots: widget.totalSlots,
       onSlotChanged: widget.onSlotChanged,

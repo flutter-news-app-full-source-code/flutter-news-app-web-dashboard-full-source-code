@@ -1,15 +1,16 @@
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_source_page}
 /// A page for editing an existing source.
@@ -24,13 +25,38 @@ class EditSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appState = context.read<AppBloc>().state;
+    final localizationConfig = appState.remoteConfig?.app.localization;
+
+    final defaultLanguage =
+        localizationConfig?.defaultLanguage ?? SupportedLanguage.en;
+    var enabledLanguages =
+        localizationConfig?.enabledLanguages ?? [SupportedLanguage.en];
+
+    // Sort enabled languages so the user's current app language
+    // appears first in the tabs.
+    final userLanguage = appState.appSettings?.language ?? defaultLanguage;
+    if (enabledLanguages.contains(userLanguage)) {
+      enabledLanguages = [
+        userLanguage,
+        ...enabledLanguages.where((l) => l != userLanguage),
+      ];
+    }
+
     return BlocProvider(
-      create: (context) => EditSourceBloc(
-        sourcesRepository: context.read<DataRepository<Source>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        sourceId: sourceId,
-        logger: Logger('EditSourceBloc'),
-      )..add(const EditSourceLoaded()),
+      create: (context) =>
+          EditSourceBloc(
+            sourcesRepository: context.read<DataRepository<Source>>(),
+            languagesRepository: context.read<DataRepository<Language>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            sourceId: sourceId,
+            logger: Logger('EditSourceBloc'),
+          )..add(
+            EditSourceLoaded(
+              enabledLanguages: enabledLanguages,
+              defaultLanguage: defaultLanguage,
+            ),
+          ),
       child: const EditSourceView(),
     );
   }
@@ -45,23 +71,17 @@ class EditSourceView extends StatefulWidget {
 
 class _EditSourceViewState extends State<EditSourceView> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
   late final TextEditingController _urlController;
 
   @override
   void initState() {
     super.initState();
     final state = context.read<EditSourceBloc>().state;
-    _nameController = TextEditingController(text: state.name);
-    _descriptionController = TextEditingController(text: state.description);
     _urlController = TextEditingController(text: state.url);
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
     _urlController.dispose();
     super.dispose();
   }
@@ -91,6 +111,13 @@ class _EditSourceViewState extends State<EditSourceView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final appState = context.read<AppBloc>().state;
+    final userLanguage =
+        appState.appSettings?.language ??
+        appState.remoteConfig?.app.localization.defaultLanguage ??
+        SupportedLanguage.en;
+    final langCode = userLanguage.name;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.editSource),
@@ -113,22 +140,7 @@ class _EditSourceViewState extends State<EditSourceView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<EditSourceBloc>().add(
-                            const EditSourcePublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<EditSourceBloc>().add(
-                            const EditSourceSavedAsDraft(),
-                          );
-                        }
-                      }
+                    ? () => _handleSave(context)
                     : null,
               );
             },
@@ -161,8 +173,6 @@ class _EditSourceViewState extends State<EditSourceView> {
           }
           // Update text controllers when data is loaded or changed
           if (state.status == EditSourceStatus.initial) {
-            _nameController.text = state.name;
-            _descriptionController.text = state.description;
             _urlController.text = state.url;
           }
         },
@@ -175,156 +185,226 @@ class _EditSourceViewState extends State<EditSourceView> {
             );
           }
 
-          if (state.status == EditSourceStatus.failure && state.name.isEmpty) {
+          if (state.status == EditSourceStatus.failure &&
+              (state.name[SupportedLanguage.en]?.isEmpty ?? true)) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () =>
-                  context.read<EditSourceBloc>().add(const EditSourceLoaded()),
+              onRetry: () => context.read<EditSourceBloc>().add(
+                EditSourceLoaded(
+                  enabledLanguages: state.enabledLanguages,
+                  defaultLanguage: state.defaultLanguage,
+                ),
+              ),
             );
           }
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceNameChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: l10n.description,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceDescriptionChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _urlController,
-                      decoration: InputDecoration(
-                        labelText: l10n.sourceUrl,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<EditSourceBloc>().add(
-                        EditSourceUrlChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    ImageUploadField(
-                      initialImageUrl: state.logoUrl,
-                      isProcessing:
-                          state.initialSource?.mediaAssetId != null &&
-                          state.logoUrl == null,
-                      onChanged: (bytes, fileName) {
-                        if (bytes != null && fileName != null) {
-                          context.read<EditSourceBloc>().add(
-                            EditSourceImageChanged(
-                              imageFileBytes: bytes,
-                              imageFileName: fileName,
-                            ),
-                          );
-                        } else {
-                          context.read<EditSourceBloc>().add(
-                            const EditSourceImageRemoved(),
-                          );
-                        }
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<Language>(
-                      label: l10n.language,
-                      selectedItems: state.language != null
-                          ? [state.language!]
-                          : [],
-                      itemBuilder: (context, language) => Text(language.name),
-                      itemToString: (language) => language.name,
-                      onChanged: (items) => context.read<EditSourceBloc>().add(
-                        EditSourceLanguageChanged(items?.first),
-                      ),
-                      repository: context.read<DataRepository<Language>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
-                              },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<SourceType>(
-                      label: l10n.sourceType,
-                      selectedItems: state.sourceType != null
-                          ? [state.sourceType!]
-                          : [],
-                      staticItems: SourceType.values.toList(),
-                      itemBuilder: (context, type) =>
-                          Text(type.localizedName(l10n)),
-                      itemToString: (type) => type.localizedName(l10n),
-                      onChanged: (items) => context.read<EditSourceBloc>().add(
-                        EditSourceTypeChanged(items?.first),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    SearchableSelectionInput<Country>(
-                      label: l10n.headquarters,
-                      selectedItems: state.headquarters != null
-                          ? [state.headquarters!]
-                          : [],
-                      itemBuilder: (context, country) => Row(
-                        children: [
-                          SizedBox(
-                            width: 32,
-                            height: 20,
-                            child: Image.network(
-                              country.flagUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.flag),
-                            ),
+          return DefaultTabController(
+            length: state.enabledLanguages.length,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        onTap: (index) => context.read<EditSourceBloc>().add(
+                          EditSourceLanguageTabChanged(
+                            state.enabledLanguages[index],
                           ),
-                          const SizedBox(width: AppSpacing.md),
-                          Text(country.name),
-                        ],
+                        ),
+                        tabs: state.enabledLanguages.map((lang) {
+                          return Tab(
+                            icon: Image.network(
+                              lang.flagUrl,
+                              width: 24,
+                              errorBuilder: (_, _, _) =>
+                                  const Icon(Icons.flag, size: 16),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      itemToString: (country) => country.name,
-                      onChanged: (items) => context.read<EditSourceBloc>().add(
-                        EditSourceHeadquartersChanged(items?.first),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.sourceName,
+                        values: state.name,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceNameChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
                       ),
-                      repository: context.read<DataRepository<Country>>(),
-                      filterBuilder: (searchTerm) => searchTerm == null
-                          ? {}
-                          : {
-                              'name': {
-                                r'$regex': searchTerm,
-                                r'$options': 'i',
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.description,
+                        values: state.description,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceDescriptionChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      TextFormField(
+                        controller: _urlController,
+                        decoration: InputDecoration(
+                          labelText: l10n.sourceUrl,
+                          border: const OutlineInputBorder(),
+                        ),
+                        onChanged: (value) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceUrlChanged(value),
+                            ),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      ImageUploadField(
+                        initialImageUrl: state.logoUrl,
+                        isProcessing:
+                            state.initialSource?.mediaAssetId != null &&
+                            state.logoUrl == null,
+                        onChanged: (bytes, fileName) {
+                          if (bytes != null && fileName != null) {
+                            context.read<EditSourceBloc>().add(
+                              EditSourceImageChanged(
+                                imageFileBytes: bytes,
+                                imageFileName: fileName,
+                              ),
+                            );
+                          } else {
+                            context.read<EditSourceBloc>().add(
+                              const EditSourceImageRemoved(),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Language>(
+                        label: l10n.language,
+                        selectedItems: state.selectedLanguageEntity != null
+                            ? [state.selectedLanguageEntity!]
+                            : [],
+                        itemBuilder: (context, language) =>
+                            Text(language.name.values.firstOrNull ?? ''),
+                        itemToString: (language) =>
+                            language.name.values.firstOrNull ?? '',
+                        onChanged: (items) {
+                          final bloc = context.read<EditSourceBloc>();
+                          if (items != null && items.isNotEmpty) {
+                            // Map Language entity code to SupportedLanguage enum
+                            final languageEntity = items.first;
+                            try {
+                              final supportedLang = SupportedLanguage.values
+                                  .byName(languageEntity.code);
+                              bloc.add(
+                                EditSourceLanguageChanged(
+                                  supportedLang,
+                                  languageEntity: languageEntity,
+                                ),
+                              );
+                            } catch (_) {
+                              // Handle case where DB language code doesn't match enum
+                            }
+                          } else {
+                            bloc.add(const EditSourceLanguageChanged(null));
+                          }
+                        },
+                        repository: context.read<DataRepository<Language>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
                               },
-                            },
-                      sortOptions: const [
-                        SortOption('name', SortOrder.asc),
-                      ],
-                      limit: kDefaultRowsPerPage,
-                    ),
-                  ],
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<SourceType>(
+                        label: l10n.sourceType,
+                        selectedItems: state.sourceType != null
+                            ? [state.sourceType!]
+                            : [],
+                        staticItems: SourceType.values.toList(),
+                        itemBuilder: (context, type) =>
+                            Text(type.localizedName(l10n)),
+                        itemToString: (type) => type.localizedName(l10n),
+                        onChanged: (items) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceTypeChanged(items?.first),
+                            ),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Country>(
+                        label: l10n.headquarters,
+                        selectedItems: state.headquarters != null
+                            ? [state.headquarters!]
+                            : [],
+                        itemBuilder: (context, country) => Row(
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 20,
+                              child: Image.network(
+                                country.flagUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.flag),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Text(country.name.values.firstOrNull ?? ''),
+                          ],
+                        ),
+                        itemToString: (country) =>
+                            country.name.values.firstOrNull ?? '',
+                        onChanged: (items) =>
+                            context.read<EditSourceBloc>().add(
+                              EditSourceHeadquartersChanged(items?.first),
+                            ),
+                        repository: context.read<DataRepository<Country>>(),
+                        filterBuilder: (searchTerm) => searchTerm == null
+                            ? {}
+                            : {
+                                'name': {
+                                  r'$regex': searchTerm,
+                                  r'$options': 'i',
+                                },
+                              },
+                        sortOptions: [
+                          SortOption(
+                            'name.$langCode',
+                            SortOrder.asc,
+                          ),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -332,5 +412,21 @@ class _EditSourceViewState extends State<EditSourceView> {
         },
       ),
     );
+  }
+
+  Future<void> _handleSave(BuildContext context) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+
+    if (selectedStatus == null || !context.mounted) return;
+
+    if (selectedStatus == ContentStatus.active) {
+      context.read<EditSourceBloc>().add(
+        const EditSourcePublished(),
+      );
+    } else if (selectedStatus == ContentStatus.draft) {
+      context.read<EditSourceBloc>().add(
+        const EditSourceSavedAsDraft(),
+      );
+    }
   }
 }

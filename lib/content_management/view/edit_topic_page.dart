@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_topic/edit_topic_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_flag.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template edit_topic_page}
 /// A page for editing an existing topic.
@@ -25,13 +26,37 @@ class EditTopicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appState = context.read<AppBloc>().state;
+    final localizationConfig = appState.remoteConfig?.app.localization;
+
+    final defaultLanguage =
+        localizationConfig?.defaultLanguage ?? SupportedLanguage.en;
+    var enabledLanguages =
+        localizationConfig?.enabledLanguages ?? [SupportedLanguage.en];
+
+    // Sort enabled languages so the user's current app language
+    // appears first in the tabs.
+    final userLanguage = appState.appSettings?.language ?? defaultLanguage;
+    if (enabledLanguages.contains(userLanguage)) {
+      enabledLanguages = [
+        userLanguage,
+        ...enabledLanguages.where((l) => l != userLanguage),
+      ];
+    }
+
     return BlocProvider(
-      create: (context) => EditTopicBloc(
-        topicsRepository: context.read<DataRepository<Topic>>(),
-        mediaRepository: context.read<MediaRepository>(),
-        topicId: topicId,
-        logger: Logger('EditTopicBloc'),
-      )..add(const EditTopicLoaded()),
+      create: (context) =>
+          EditTopicBloc(
+            topicsRepository: context.read<DataRepository<Topic>>(),
+            mediaRepository: context.read<MediaRepository>(),
+            topicId: topicId,
+            logger: Logger('EditTopicBloc'),
+          )..add(
+            EditTopicLoaded(
+              enabledLanguages: enabledLanguages,
+              defaultLanguage: defaultLanguage,
+            ),
+          ),
       child: const EditTopicView(),
     );
   }
@@ -46,22 +71,6 @@ class EditTopicView extends StatefulWidget {
 
 class _EditTopicViewState extends State<EditTopicView> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-    _descriptionController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
 
   /// Shows a dialog to the user to choose between publishing or saving as draft.
   Future<ContentStatus?> _showSaveOptionsDialog(BuildContext context) async {
@@ -110,22 +119,7 @@ class _EditTopicViewState extends State<EditTopicView> {
                 icon: const Icon(Icons.save),
                 tooltip: l10n.saveChanges,
                 onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<EditTopicBloc>().add(
-                            const EditTopicPublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<EditTopicBloc>().add(
-                            const EditTopicSavedAsDraft(),
-                          );
-                        }
-                      }
+                    ? () => _handleSave(context)
                     : null,
               );
             },
@@ -143,9 +137,6 @@ class _EditTopicViewState extends State<EditTopicView> {
               ..showSnackBar(
                 SnackBar(content: Text(l10n.topicUpdatedSuccessfully)),
               );
-            context.read<ContentManagementBloc>().add(
-              const LoadTopicsRequested(limit: kDefaultRowsPerPage),
-            );
             context.pop();
           }
           if (state.status == EditTopicStatus.imageUploadFailure ||
@@ -158,11 +149,6 @@ class _EditTopicViewState extends State<EditTopicView> {
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
-          }
-          // Update text controllers when data is loaded or changed
-          if (state.status == EditTopicStatus.initial) {
-            _nameController.text = state.name;
-            _descriptionController.text = state.description;
           }
         },
         builder: (context, state) {
@@ -179,63 +165,97 @@ class _EditTopicViewState extends State<EditTopicView> {
               state.name.isEmpty) {
             return FailureStateWidget(
               exception: state.exception!,
-              onRetry: () =>
-                  context.read<EditTopicBloc>().add(const EditTopicLoaded()),
+              onRetry: () => context.read<EditTopicBloc>().add(
+                EditTopicLoaded(
+                  enabledLanguages: state.enabledLanguages,
+                  defaultLanguage: state.defaultLanguage,
+                ),
+              ),
             );
           }
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: l10n.topicName,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => context.read<EditTopicBloc>().add(
-                        EditTopicNameChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    TextFormField(
-                      controller: _descriptionController,
-                      decoration: InputDecoration(
-                        labelText: l10n.description,
-                        border: const OutlineInputBorder(),
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => context.read<EditTopicBloc>().add(
-                        EditTopicDescriptionChanged(value),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    ImageUploadField(
-                      initialImageUrl: state.iconUrl,
-                      isProcessing:
-                          state.initialTopic?.mediaAssetId != null &&
-                          state.iconUrl == null,
-                      onChanged: (Uint8List? bytes, String? fileName) {
-                        if (bytes != null && fileName != null) {
-                          context.read<EditTopicBloc>().add(
-                            EditTopicImageChanged(
-                              imageFileBytes: bytes,
-                              imageFileName: fileName,
+          return DefaultTabController(
+            length: state.enabledLanguages.length,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        onTap: (index) => context.read<EditTopicBloc>().add(
+                          EditTopicLanguageTabChanged(
+                            state.enabledLanguages[index],
+                          ),
+                        ),
+                        tabs: state.enabledLanguages.map((lang) {
+                          return Tab(
+                            icon: Image.network(
+                              lang.flagUrl,
+                              width: 24,
+                              errorBuilder: (_, _, _) =>
+                                  const Icon(Icons.flag, size: 16),
                             ),
                           );
-                        } else {
-                          context.read<EditTopicBloc>().add(
-                            const EditTopicImageRemoved(),
-                          );
-                        }
-                      },
-                    ),
-                  ],
+                        }).toList(),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.topicName,
+                        values: state.name,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditTopicBloc>().add(
+                              EditTopicNameChanged(values),
+                            ),
+                        validator: (values) {
+                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
+                            return l10n.defaultLanguageRequired(
+                              state.defaultLanguage.name.toUpperCase(),
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      LocalizedTextFormField(
+                        label: l10n.description,
+                        values: state.description,
+                        enabledLanguages: state.enabledLanguages,
+                        selectedLanguage: state.selectedLanguage,
+                        onChanged: (values) =>
+                            context.read<EditTopicBloc>().add(
+                              EditTopicDescriptionChanged(values),
+                            ),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      ImageUploadField(
+                        initialImageUrl: state.iconUrl,
+                        isProcessing:
+                            state.initialTopic?.mediaAssetId != null &&
+                            state.iconUrl == null,
+                        onChanged: (Uint8List? bytes, String? fileName) {
+                          if (bytes != null && fileName != null) {
+                            context.read<EditTopicBloc>().add(
+                              EditTopicImageChanged(
+                                imageFileBytes: bytes,
+                                imageFileName: fileName,
+                              ),
+                            );
+                          } else {
+                            context.read<EditTopicBloc>().add(
+                              const EditTopicImageRemoved(),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -243,5 +263,21 @@ class _EditTopicViewState extends State<EditTopicView> {
         },
       ),
     );
+  }
+
+  Future<void> _handleSave(BuildContext context) async {
+    final selectedStatus = await _showSaveOptionsDialog(context);
+
+    if (selectedStatus == null || !context.mounted) return;
+
+    if (selectedStatus == ContentStatus.active) {
+      context.read<EditTopicBloc>().add(
+        const EditTopicPublished(),
+      );
+    } else if (selectedStatus == ContentStatus.draft) {
+      context.read<EditTopicBloc>().add(
+        const EditTopicSavedAsDraft(),
+      );
+    }
   }
 }

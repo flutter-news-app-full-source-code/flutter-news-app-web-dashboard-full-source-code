@@ -10,15 +10,20 @@ sealed class EditTopicEvent extends Equatable {
 
 /// Event to load the initial topic data for editing.
 final class EditTopicLoaded extends EditTopicEvent {
-  const EditTopicLoaded();
+  const EditTopicLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
 }
 
 /// Event triggered when the topic name input changes.
 final class EditTopicNameChanged extends EditTopicEvent {
   const EditTopicNameChanged(this.name);
-
-  final String name;
-
+  final Map<SupportedLanguage, String> name;
   @override
   List<Object?> get props => [name];
 }
@@ -26,9 +31,7 @@ final class EditTopicNameChanged extends EditTopicEvent {
 /// Event triggered when the topic description input changes.
 final class EditTopicDescriptionChanged extends EditTopicEvent {
   const EditTopicDescriptionChanged(this.description);
-
-  final String description;
-
+  final Map<SupportedLanguage, String> description;
   @override
   List<Object?> get props => [description];
 }
@@ -60,4 +63,12 @@ final class EditTopicSavedAsDraft extends EditTopicEvent {
 /// Event to publish the topic.
 final class EditTopicPublished extends EditTopicEvent {
   const EditTopicPublished();
+}
+
+/// Event for when the language tab is changed.
+final class EditTopicLanguageTabChanged extends EditTopicEvent {
+  const EditTopicLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

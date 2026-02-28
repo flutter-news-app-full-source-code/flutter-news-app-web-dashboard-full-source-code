@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_source/create_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
@@ -14,7 +16,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/s
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
@@ -23,6 +24,8 @@ class MockCreateSourceBloc
     extends MockBloc<CreateSourceEvent, CreateSourceState>
     implements CreateSourceBloc {}
 
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
 class MockFilePicker extends Mock
@@ -30,33 +33,27 @@ class MockFilePicker extends Mock
     implements FilePicker {}
 
 // Mock data for tests
-final testLanguage = Language(
+const testLanguage = Language(
   id: 'lang-1',
   code: 'en',
-  name: 'English',
+  name: {SupportedLanguage.en: 'English'},
   nativeName: 'English',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
-final testCountry = Country(
+const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: 'United States',
+  name: {SupportedLanguage.en: 'United States'},
   flagUrl: 'url',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 final testSource = Source(
   id: 'source-1',
-  name: 'Test Source',
-  description: 'desc',
+  name: const {SupportedLanguage.en: 'Test Source'},
+  description: const {SupportedLanguage.en: 'desc'},
   url: 'http://example.com',
   sourceType: SourceType.blog,
-  language: testLanguage,
+  language: SupportedLanguage.en,
   headquarters: testCountry,
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -137,6 +134,7 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('CreateSourcePage', () {
     late CreateSourceBloc createSourceBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
@@ -146,6 +144,7 @@ void main() {
 
     setUp(() {
       createSourceBloc = MockCreateSourceBloc();
+      appBloc = MockAppBloc();
       sourcesRepository = MockDataRepository<Source>();
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
@@ -156,6 +155,10 @@ void main() {
       Logger.root.level = Level.OFF;
 
       when(() => createSourceBloc.state).thenReturn(const CreateSourceState());
+      when(() => appBloc.state).thenReturn(
+        AppState(environment: AppEnvironment.values.first),
+      );
+
       when(() => goRouter.pop()).thenAnswer((_) async {});
       when(
         () => goRouter.pushNamed<List<Object>?>(
@@ -181,8 +184,11 @@ void main() {
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: createSourceBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<CreateSourceBloc>.value(value: createSourceBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const CreateSourceView(),
         ),
       );
@@ -213,11 +219,17 @@ void main() {
       final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
 
       expect(
-        find.widgetWithText(TextFormField, l10n.sourceName),
+        find.widgetWithText(
+          TextFormField,
+          '${l10n.sourceName} (${l10n.languageNameEn})',
+        ),
         findsOneWidget,
       );
       expect(
-        find.widgetWithText(TextFormField, l10n.description),
+        find.widgetWithText(
+          TextFormField,
+          '${l10n.description} (${l10n.languageNameEn})',
+        ),
         findsOneWidget,
       );
       expect(
@@ -234,30 +246,51 @@ void main() {
       testWidgets('adds CreateSourceNameChanged when name is changed', (
         tester,
       ) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.sourceName),
+          find.widgetWithText(
+            TextFormField,
+            '${l10n.sourceName} (${l10n.languageNameEn})',
+          ),
           'New Source',
         );
         verify(
-          () =>
-              createSourceBloc.add(const CreateSourceNameChanged('New Source')),
+          () => createSourceBloc.add(
+            const CreateSourceNameChanged({SupportedLanguage.en: 'New Source'}),
+          ),
         ).called(1);
       });
 
       testWidgets('adds CreateSourceDescriptionChanged when desc is changed', (
         tester,
       ) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
-          find.widgetWithText(TextFormField, l10n.description),
+          find.widgetWithText(
+            TextFormField,
+            '${l10n.description} (${l10n.languageNameEn})',
+          ),
           'New Desc',
         );
         verify(
           () => createSourceBloc.add(
-            const CreateSourceDescriptionChanged('New Desc'),
+            const CreateSourceDescriptionChanged({
+              SupportedLanguage.en: 'New Desc',
+            }),
           ),
         ).called(1);
       });
@@ -265,6 +298,9 @@ void main() {
       testWidgets('adds CreateSourceUrlChanged when url is changed', (
         tester,
       ) async {
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
         await tester.enterText(
@@ -290,6 +326,9 @@ void main() {
           ]),
         );
 
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         await tester.tap(find.byType(ImageUploadField));
         await tester.pumpAndSettle();
@@ -317,6 +356,9 @@ void main() {
           ]),
         );
 
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(
           tester.element(find.byType(Scaffold)),
@@ -346,6 +388,9 @@ void main() {
             ),
           ).thenAnswer((_) async => [testLanguage]);
 
+          when(
+            () => createSourceBloc.state,
+          ).thenReturn(const CreateSourceState());
           await tester.pumpApp(buildSubject(), goRouter: goRouter);
           await tester.ensureVisible(
             find.byType(SearchableSelectionInput<Language>),
@@ -354,8 +399,12 @@ void main() {
           await tester.pumpAndSettle();
 
           verify(
-            () =>
-                createSourceBloc.add(CreateSourceLanguageChanged(testLanguage)),
+            () => createSourceBloc.add(
+              const CreateSourceLanguageChanged(
+                SupportedLanguage.en,
+                languageEntity: testLanguage,
+              ),
+            ),
           ).called(1);
         },
       );
@@ -370,6 +419,9 @@ void main() {
           ),
         ).thenAnswer((_) async => [SourceType.blog]);
 
+        when(
+          () => createSourceBloc.state,
+        ).thenReturn(const CreateSourceState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         await tester.ensureVisible(
           find.byType(SearchableSelectionInput<SourceType>),
@@ -394,6 +446,9 @@ void main() {
             ),
           ).thenAnswer((_) async => [testCountry]);
 
+          when(
+            () => createSourceBloc.state,
+          ).thenReturn(const CreateSourceState());
           await tester.pumpApp(buildSubject(), goRouter: goRouter);
           await tester.ensureVisible(
             find.byType(SearchableSelectionInput<Country>),
@@ -403,7 +458,7 @@ void main() {
 
           verify(
             () => createSourceBloc.add(
-              CreateSourceHeadquartersChanged(testCountry),
+              const CreateSourceHeadquartersChanged(testCountry),
             ),
           ).called(1);
         },
@@ -502,13 +557,13 @@ void main() {
       testWidgets('is enabled when form is valid', (tester) async {
         when(() => createSourceBloc.state).thenReturn(
           CreateSourceState(
-            name: 'N',
-            description: 'D',
+            name: const {SupportedLanguage.en: 'N'},
+            description: const {SupportedLanguage.en: 'D'},
             url: 'U',
             imageFileBytes: kTestImageBytes,
             imageFileName: 'test.jpg',
             sourceType: SourceType.blog,
-            language: testLanguage,
+            language: SupportedLanguage.en,
             headquarters: testCountry,
           ),
         );
@@ -526,13 +581,13 @@ void main() {
         (tester) async {
           when(() => createSourceBloc.state).thenReturn(
             CreateSourceState(
-              name: 'N',
-              description: 'D',
+              name: const {SupportedLanguage.en: 'N'},
+              description: const {SupportedLanguage.en: 'D'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: testLanguage,
+              language: SupportedLanguage.en,
               headquarters: testCountry,
             ),
           );
@@ -560,13 +615,13 @@ void main() {
         (tester) async {
           when(() => createSourceBloc.state).thenReturn(
             CreateSourceState(
-              name: 'N',
-              description: 'D',
+              name: const {SupportedLanguage.en: 'N'},
+              description: const {SupportedLanguage.en: 'D'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: testLanguage,
+              language: SupportedLanguage.en,
               headquarters: testCountry,
             ),
           );

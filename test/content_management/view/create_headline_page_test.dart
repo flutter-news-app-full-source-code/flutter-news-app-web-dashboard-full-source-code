@@ -1,21 +1,21 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
-
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/image_upload_field.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
@@ -23,6 +23,8 @@ import '../../helpers/pump_app.dart';
 class MockCreateHeadlineBloc
     extends MockBloc<CreateHeadlineEvent, CreateHeadlineState>
     implements CreateHeadlineBloc {}
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
@@ -33,27 +35,16 @@ class MockFilePicker extends Mock
 // Mock data for tests
 final testSource = Source(
   id: 'source-1',
-  name: 'Test Source',
-  description: 'desc',
+  name: const {SupportedLanguage.en: 'Test Source'},
+  description: const {SupportedLanguage.en: 'desc'},
   url: 'http://example.com',
   sourceType: SourceType.blog,
-  language: Language(
-    id: 'lang-1',
-    code: 'en',
-    name: 'English',
-    nativeName: 'English',
-    createdAt: DateTime(2023),
-    updatedAt: DateTime(2023),
-    status: ContentStatus.active,
-  ),
-  headquarters: Country(
+  language: SupportedLanguage.en,
+  headquarters: const Country(
     isoCode: 'US',
-    name: 'USA',
+    name: {SupportedLanguage.en: 'USA'},
     flagUrl: '',
     id: 'country-1',
-    createdAt: DateTime(2023),
-    updatedAt: DateTime(2023),
-    status: ContentStatus.active,
   ),
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -62,26 +53,23 @@ final testSource = Source(
 
 final testTopic = Topic(
   id: 'topic-1',
-  name: 'Test Topic',
-  description: 'desc',
+  name: const {SupportedLanguage.en: 'Test Topic'},
+  description: const {SupportedLanguage.en: 'desc'},
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
   status: ContentStatus.active,
 );
 
-final testCountry = Country(
+const testCountry = Country(
   id: 'country-1',
   isoCode: 'US',
-  name: 'United States',
+  name: {SupportedLanguage.en: 'United States'},
   flagUrl: 'url',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 final testHeadline = Headline(
   id: 'headline-1',
-  title: 'Test Headline',
+  title: const {SupportedLanguage.en: 'Test Headline'},
   source: testSource,
   eventCountry: testCountry,
   topic: testTopic,
@@ -166,6 +154,7 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('CreateHeadlinePage', () {
     late CreateHeadlineBloc createHeadlineBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Headline> headlinesRepository;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Topic> topicsRepository;
@@ -176,6 +165,7 @@ void main() {
 
     setUp(() {
       createHeadlineBloc = MockCreateHeadlineBloc();
+      appBloc = MockAppBloc();
       headlinesRepository = MockDataRepository<Headline>();
       sourcesRepository = MockDataRepository<Source>();
       topicsRepository = MockDataRepository<Topic>();
@@ -189,6 +179,10 @@ void main() {
       when(
         () => createHeadlineBloc.state,
       ).thenReturn(const CreateHeadlineState());
+      when(() => appBloc.state).thenReturn(
+        AppState(environment: AppEnvironment.values.first),
+      );
+
       when(() => goRouter.pop()).thenAnswer((_) async {});
       when(
         () => goRouter.pushNamed<List<Object>?>(
@@ -229,8 +223,11 @@ void main() {
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: createHeadlineBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<CreateHeadlineBloc>.value(value: createHeadlineBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const CreateHeadlineView(),
         ),
       );
@@ -260,13 +257,13 @@ void main() {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
       final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
 
-      final titleFieldFinder = find.ancestor(
-        of: find.text(l10n.headlineTitle),
-        matching: find.byType(TextFormField),
+      final titleFieldFinder = find.widgetWithText(
+        TextFormField,
+        '${l10n.headlineTitle} (${l10n.languageNameEn})',
       );
-      final urlFieldFinder = find.ancestor(
-        of: find.text(l10n.sourceUrl),
-        matching: find.byType(TextFormField),
+      final urlFieldFinder = find.widgetWithText(
+        TextFormField,
+        l10n.sourceUrl,
       );
 
       expect(titleFieldFinder, findsOneWidget);
@@ -287,17 +284,62 @@ void main() {
         ).thenReturn(const CreateHeadlineState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-        final titleFieldFinder = find.ancestor(
-          of: find.text(l10n.headlineTitle),
-          matching: find.byType(TextFormField),
+        final titleFieldFinder = find.widgetWithText(
+          TextFormField,
+          '${l10n.headlineTitle} (${l10n.languageNameEn})',
         );
         await tester.enterText(titleFieldFinder, 'New Title');
         verify(
           () => createHeadlineBloc.add(
-            const CreateHeadlineTitleChanged('New Title'),
+            const CreateHeadlineTitleChanged({
+              SupportedLanguage.en: 'New Title',
+            }),
           ),
         ).called(1);
       });
+
+      testWidgets(
+        'adds CreateHeadlineTitleChanged with correct language when secondary tab is selected',
+        (tester) async {
+          const initialState = CreateHeadlineState(
+            enabledLanguages: [SupportedLanguage.en, SupportedLanguage.es],
+          );
+          const stateAfterTabChange = CreateHeadlineState(
+            enabledLanguages: [SupportedLanguage.en, SupportedLanguage.es],
+            selectedLanguage: SupportedLanguage.es,
+          );
+          whenListen(
+            createHeadlineBloc,
+            Stream.fromIterable([stateAfterTabChange]),
+            initialState: initialState,
+          );
+          await tester.pumpApp(buildSubject(), goRouter: goRouter);
+          await tester.pumpAndSettle();
+
+          // Tap the Spanish tab
+          await tester.tap(find.byType(Tab).at(1));
+          await tester.pumpAndSettle();
+
+          // Find the text field which should now be for Spanish
+          final l10n = AppLocalizations.of(
+            tester.element(find.byType(Scaffold)),
+          );
+          final titleFieldFinder = find.widgetWithText(
+            TextFormField,
+            '${l10n.headlineTitle} (${l10n.languageNameEs})',
+          );
+          expect(titleFieldFinder, findsOneWidget);
+          await tester.enterText(titleFieldFinder, 'Título');
+
+          verify(
+            () => createHeadlineBloc.add(
+              const CreateHeadlineTitleChanged({
+                SupportedLanguage.es: 'Título',
+              }),
+            ),
+          ).called(1);
+        },
+      );
 
       testWidgets('adds CreateHeadlineUrlChanged when url is changed', (
         tester,
@@ -307,9 +349,9 @@ void main() {
         ).thenReturn(const CreateHeadlineState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
         final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-        final urlFieldFinder = find.ancestor(
-          of: find.text(l10n.sourceUrl),
-          matching: find.byType(TextFormField),
+        final urlFieldFinder = find.widgetWithText(
+          TextFormField,
+          l10n.sourceUrl,
         );
         await tester.enterText(urlFieldFinder, 'http://new.url');
         verify(
@@ -402,7 +444,9 @@ void main() {
         ).thenAnswer((_) async => [testSource]);
 
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        await tester.tap(find.byType(SearchableSelectionInput<Source>));
+        final sourceInputFinder = find.byType(SearchableSelectionInput<Source>);
+        await tester.ensureVisible(sourceInputFinder);
+        await tester.tap(sourceInputFinder);
         await tester.pumpAndSettle();
 
         verify(
@@ -507,7 +551,7 @@ void main() {
       testWidgets('is enabled when form is valid', (tester) async {
         when(() => createHeadlineBloc.state).thenReturn(
           CreateHeadlineState(
-            title: 'T',
+            title: const {SupportedLanguage.en: 'T'},
             url: 'U',
             imageFileBytes: kTestImageBytes,
             imageFileName: 'test.jpg',
@@ -530,7 +574,7 @@ void main() {
         (tester) async {
           when(() => createHeadlineBloc.state).thenReturn(
             CreateHeadlineState(
-              title: 'T',
+              title: const {SupportedLanguage.en: 'T'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
@@ -563,7 +607,7 @@ void main() {
         (tester) async {
           when(() => createHeadlineBloc.state).thenReturn(
             CreateHeadlineState(
-              title: 'T',
+              title: const {SupportedLanguage.en: 'T'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
@@ -596,7 +640,7 @@ void main() {
         (tester) async {
           when(() => createHeadlineBloc.state).thenReturn(
             CreateHeadlineState(
-              title: 'T',
+              title: const {SupportedLanguage.en: 'T'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
@@ -632,7 +676,7 @@ void main() {
         (tester) async {
           when(() => createHeadlineBloc.state).thenReturn(
             CreateHeadlineState(
-              title: 'T',
+              title: const {SupportedLanguage.en: 'T'},
               url: 'U',
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',

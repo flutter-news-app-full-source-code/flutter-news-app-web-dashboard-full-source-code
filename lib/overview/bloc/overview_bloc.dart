@@ -15,6 +15,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
   }) : _analyticsService = analyticsService,
        super(const OverviewState()) {
     on<AnalyticsDataRequested>(_onAnalyticsDataRequested);
+    on<OverviewLanguageChanged>(_onLanguageChanged);
   }
 
   final AnalyticsService _analyticsService;
@@ -170,6 +171,24 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
         state.tabStates,
       )..[event.tab] = failureTabState;
       emit(state.copyWith(tabStates: updatedTabStates));
+    }
+  }
+
+  Future<void> _onLanguageChanged(
+    OverviewLanguageChanged event,
+    Emitter<OverviewState> emit,
+  ) async {
+    // 1. Clear the service cache so subsequent requests hit the API with the new token.
+    _analyticsService.clearCache();
+
+    // 2. Identify which tabs have already been loaded (or attempted).
+    // We only want to refresh tabs the user has actually visited/requested.
+    final tabsToRefresh = state.tabStates.keys.toList();
+
+    // 3. Trigger a forced refresh for each of these tabs.
+    // This will set their status to 'loading' and fetch fresh data.
+    for (final tab in tabsToRefresh) {
+      add(AnalyticsDataRequested(tab: tab, forceRefresh: true));
     }
   }
 }

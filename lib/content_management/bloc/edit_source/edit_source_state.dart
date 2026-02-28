@@ -17,8 +17,8 @@ final class EditSourceState extends Equatable {
   const EditSourceState({
     required this.sourceId,
     this.status = EditSourceStatus.initial,
-    this.name = '',
-    this.description = '',
+    this.name = const {},
+    this.description = const {},
     this.url = '',
     this.logoUrl,
     this.imageFileBytes,
@@ -26,27 +26,35 @@ final class EditSourceState extends Equatable {
     this.sourceType,
     this.language,
     this.headquarters,
+    this.selectedLanguageEntity,
+    this.enabledLanguages = const [SupportedLanguage.en],
     this.updatedSource,
     this.exception,
     this.imageRemoved = false,
     this.initialSource,
-  });
+    this.defaultLanguage = SupportedLanguage.en,
+    SupportedLanguage? selectedLanguage,
+  }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final EditSourceStatus status;
   final String sourceId;
-  final String name;
-  final String description;
+  final Map<SupportedLanguage, String> name;
+  final Map<SupportedLanguage, String> description;
   final String url;
   final String? logoUrl;
   final Uint8List? imageFileBytes;
   final String? imageFileName;
   final SourceType? sourceType;
-  final Language? language;
+  final SupportedLanguage? language;
   final Country? headquarters;
+  final Language? selectedLanguageEntity;
+  final List<SupportedLanguage> enabledLanguages;
   final HttpException? exception; // Used for all failure types
   final Source? updatedSource;
   final bool imageRemoved;
   final Source? initialSource;
+  final SupportedLanguage defaultLanguage;
+  final SupportedLanguage selectedLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid {
@@ -55,9 +63,13 @@ final class EditSourceState extends Equatable {
     final hasImage =
         imageFileBytes != null || (logoUrl != null && !imageRemoved);
 
+    final hasDefaultName = name[defaultLanguage]?.isNotEmpty ?? false;
+    final hasDefaultDescription =
+        description[defaultLanguage]?.isNotEmpty ?? false;
+
     return sourceId.isNotEmpty &&
-        name.isNotEmpty &&
-        description.isNotEmpty &&
+        hasDefaultName &&
+        hasDefaultDescription &&
         url.isNotEmpty &&
         hasImage &&
         sourceType != null &&
@@ -68,19 +80,23 @@ final class EditSourceState extends Equatable {
   EditSourceState copyWith({
     EditSourceStatus? status,
     String? sourceId,
-    String? name,
-    String? description,
+    Map<SupportedLanguage, String>? name,
+    Map<SupportedLanguage, String>? description,
     String? url,
     ValueWrapper<String?>? logoUrl,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
     ValueGetter<SourceType?>? sourceType,
-    ValueGetter<Language?>? language,
+    ValueGetter<SupportedLanguage?>? language,
     ValueGetter<Country?>? headquarters,
+    ValueGetter<Language?>? selectedLanguageEntity,
+    List<SupportedLanguage>? enabledLanguages,
     ValueWrapper<HttpException?>? exception,
     Source? updatedSource,
     bool? imageRemoved,
     Source? initialSource,
+    SupportedLanguage? defaultLanguage,
+    SupportedLanguage? selectedLanguage,
   }) {
     return EditSourceState(
       status: status ?? this.status,
@@ -98,10 +114,16 @@ final class EditSourceState extends Equatable {
       sourceType: sourceType != null ? sourceType() : this.sourceType,
       language: language != null ? language() : this.language,
       headquarters: headquarters != null ? headquarters() : this.headquarters,
+      selectedLanguageEntity: selectedLanguageEntity != null
+          ? selectedLanguageEntity()
+          : this.selectedLanguageEntity,
+      enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       exception: exception != null ? exception.value : this.exception,
       updatedSource: updatedSource ?? this.updatedSource,
       imageRemoved: imageRemoved ?? this.imageRemoved,
       initialSource: initialSource ?? this.initialSource,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
+      selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
 
@@ -118,9 +140,13 @@ final class EditSourceState extends Equatable {
     sourceType,
     language,
     headquarters,
+    selectedLanguageEntity,
+    enabledLanguages,
     exception,
     updatedSource,
     imageRemoved,
     initialSource,
+    defaultLanguage,
+    selectedLanguage,
   ];
 }

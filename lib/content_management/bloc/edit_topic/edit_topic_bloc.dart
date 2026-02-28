@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
@@ -36,6 +35,7 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
     on<EditTopicImageRemoved>(_onImageRemoved);
     on<EditTopicSavedAsDraft>(_onSavedAsDraft);
     on<EditTopicPublished>(_onPublished);
+    on<EditTopicLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Topic> _topicsRepository;
@@ -59,6 +59,10 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
           description: topic.description,
           iconUrl: ValueWrapper(topic.iconUrl),
           initialTopic: topic,
+          enabledLanguages: event.enabledLanguages,
+          defaultLanguage: event.defaultLanguage,
+          selectedLanguage:
+              event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
         ),
       );
       _logger.info('Successfully loaded topic: ${topic.id}');
@@ -106,6 +110,15 @@ class EditTopicBloc extends Bloc<EditTopicEvent, EditTopicState> {
         description: event.description,
         status: EditTopicStatus.initial,
       ),
+    );
+  }
+
+  void _onLanguageTabChanged(
+    EditTopicLanguageTabChanged event,
+    Emitter<EditTopicState> emit,
+  ) {
+    emit(
+      state.copyWith(selectedLanguage: event.language),
     );
   }
 

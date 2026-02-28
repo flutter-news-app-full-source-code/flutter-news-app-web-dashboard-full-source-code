@@ -8,10 +8,22 @@ sealed class CreateTopicEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Event to initialize the BLoC, fetching necessary config.
+final class CreateTopicInitialized extends CreateTopicEvent {
+  const CreateTopicInitialized({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
+}
+
 /// Event for when the topic's name is changed.
 final class CreateTopicNameChanged extends CreateTopicEvent {
   const CreateTopicNameChanged(this.name);
-  final String name;
+  final Map<SupportedLanguage, String> name;
   @override
   List<Object?> get props => [name];
 }
@@ -19,7 +31,7 @@ final class CreateTopicNameChanged extends CreateTopicEvent {
 /// Event for when the topic's description is changed.
 final class CreateTopicDescriptionChanged extends CreateTopicEvent {
   const CreateTopicDescriptionChanged(this.description);
-  final String description;
+  final Map<SupportedLanguage, String> description;
   @override
   List<Object?> get props => [description];
 }
@@ -51,4 +63,12 @@ final class CreateTopicSavedAsDraft extends CreateTopicEvent {
 /// Event to publish the topic.
 final class CreateTopicPublished extends CreateTopicEvent {
   const CreateTopicPublished();
+}
+
+/// Event for when the language tab is changed.
+final class CreateTopicLanguageTabChanged extends CreateTopicEvent {
+  const CreateTopicLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

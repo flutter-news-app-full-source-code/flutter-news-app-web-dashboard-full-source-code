@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
@@ -26,18 +25,34 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
        _mediaRepository = mediaRepository,
        _logger = logger,
        super(const CreateTopicState()) {
+    on<CreateTopicInitialized>(_onInitialized);
     on<CreateTopicNameChanged>(_onNameChanged);
     on<CreateTopicDescriptionChanged>(_onDescriptionChanged);
     on<CreateTopicImageChanged>(_onImageChanged);
     on<CreateTopicImageRemoved>(_onImageRemoved);
     on<CreateTopicSavedAsDraft>(_onSavedAsDraft);
     on<CreateTopicPublished>(_onPublished);
+    on<CreateTopicLanguageTabChanged>(_onLanguageTabChanged);
   }
 
   final DataRepository<Topic> _topicsRepository;
   final MediaRepository _mediaRepository;
   final Logger _logger;
   final _uuid = const Uuid();
+
+  void _onInitialized(
+    CreateTopicInitialized event,
+    Emitter<CreateTopicState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        enabledLanguages: event.enabledLanguages,
+        defaultLanguage: event.defaultLanguage,
+        selectedLanguage:
+            event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
+      ),
+    );
+  }
 
   void _onNameChanged(
     CreateTopicNameChanged event,
@@ -52,11 +67,14 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     Emitter<CreateTopicState> emit,
   ) {
     _logger.fine('Description changed: ${event.description}');
-    emit(
-      state.copyWith(
-        description: event.description,
-      ),
-    );
+    emit(state.copyWith(description: event.description));
+  }
+
+  void _onLanguageTabChanged(
+    CreateTopicLanguageTabChanged event,
+    Emitter<CreateTopicState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   void _onImageChanged(

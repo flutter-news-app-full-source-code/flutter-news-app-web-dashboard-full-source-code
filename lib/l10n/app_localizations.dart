@@ -6,7 +6,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_it.dart';
+import 'app_localizations_ja.dart';
+import 'app_localizations_pt.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -95,7 +103,15 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
+    Locale('de'),
     Locale('en'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('hi'),
+    Locale('it'),
+    Locale('ja'),
+    Locale('pt'),
+    Locale('zh'),
   ];
 
   /// Headline for the main authentication page
@@ -6133,6 +6149,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'About'**
   String get about;
+
+  /// Description for the localization configuration form
+  ///
+  /// In en, this message translates to:
+  /// **'Configure supported languages and the default fallback.'**
+  String get localizationConfigDescription;
+
+  /// Label for the enabled languages selection
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled Languages'**
+  String get enabledLanguagesLabel;
+
+  /// Error message when trying to disable the default language
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot disable the default language.'**
+  String get cannotDisableDefaultLanguage;
+
+  /// Error message when trying to disable the last language
+  ///
+  /// In en, this message translates to:
+  /// **'At least one language must be enabled.'**
+  String get atLeastOneLanguageRequired;
+
+  /// Label for the default language dropdown
+  ///
+  /// In en, this message translates to:
+  /// **'Default Language'**
+  String get defaultLanguageLabel;
+
+  /// Helper text for the default language dropdown
+  ///
+  /// In en, this message translates to:
+  /// **'The fallback language if the user\'s preference is not supported.'**
+  String get defaultLanguageDescription;
+
+  /// Title for the localization settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Localization'**
+  String get localizationTitle;
+
+  /// Subtitle for the localization settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Control active languages for the mobile app and dashboard. Enabling a language allows users to view translated content and adds corresponding input fields to dashboard forms. Content without translation falls back to the default language.'**
+  String get localizationDescription;
+
+  /// Error message when the default language field is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Default language ({language}) is required.'**
+  String defaultLanguageRequired(String language);
+
+  /// Localized name for English language
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageNameEn;
+
+  /// Localized name for Spanish language
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get languageNameEs;
+
+  /// Localized name for French language
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get languageNameFr;
+
+  /// Localized name for Arabic language
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get languageNameAr;
+
+  /// Localized name for Portuguese language
+  ///
+  /// In en, this message translates to:
+  /// **'Portuguese'**
+  String get languageNamePt;
+
+  /// Localized name for German language
+  ///
+  /// In en, this message translates to:
+  /// **'German'**
+  String get languageNameDe;
+
+  /// Localized name for Italian language
+  ///
+  /// In en, this message translates to:
+  /// **'Italian'**
+  String get languageNameIt;
+
+  /// Localized name for Chinese language
+  ///
+  /// In en, this message translates to:
+  /// **'Chinese'**
+  String get languageNameZh;
+
+  /// Localized name for Hindi language
+  ///
+  /// In en, this message translates to:
+  /// **'Hindi'**
+  String get languageNameHi;
+
+  /// Localized name for Japanese language
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get languageNameJa;
 }
 
 class _AppLocalizationsDelegate
@@ -6145,8 +6275,18 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'de',
+    'en',
+    'es',
+    'fr',
+    'hi',
+    'it',
+    'ja',
+    'pt',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -6157,8 +6297,24 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'ar':
       return AppLocalizationsAr();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'it':
+      return AppLocalizationsIt();
+    case 'ja':
+      return AppLocalizationsJa();
+    case 'pt':
+      return AppLocalizationsPt();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

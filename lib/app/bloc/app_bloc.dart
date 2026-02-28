@@ -2,10 +2,8 @@
 
 import 'dart:async';
 
-import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
     as local_config;
@@ -31,10 +29,18 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppUserAppSettingsChanged>(
       _onAppUserAppSettingsChanged,
     );
+    on<AppRemoteConfigChanged>(_onRemoteConfigChanged);
 
     _userSubscription = _authenticationRepository.authStateChanges.listen(
       (User? user) => add(AppUserChanged(user)),
     );
+
+    _configSubscription = _appConfigRepository.entityUpdated
+        .where((type) => type == RemoteConfig)
+        .listen((_) => add(const AppRemoteConfigChanged()));
+
+    // Initial load of remote config
+    add(const AppRemoteConfigChanged());
   }
 
   final AuthRepository _authenticationRepository;
@@ -42,6 +48,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final DataRepository<RemoteConfig> _appConfigRepository;
   final Logger _logger;
   late final StreamSubscription<User?> _userSubscription;
+  late final StreamSubscription<Type> _configSubscription;
 
   /// Handles user changes and loads initial settings once user is available.
   Future<void> _onAppUserChanged(
@@ -85,12 +92,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             textScaleFactor: AppTextScaleFactor.medium,
             fontWeight: AppFontWeight.regular,
           ),
-          language: languagesFixturesData.firstWhere(
-            (l) => l.code == 'en',
-            orElse: () => throw StateError(
-              'Default language "en" not found in language fixtures.',
-            ),
-          ),
+          language: SupportedLanguage.en,
           feedSettings: const FeedSettings(
             feedItemDensity: FeedItemDensity.standard,
             feedItemImageStyle: FeedItemImageStyle.largeThumbnail,
@@ -126,7 +128,25 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppUserAppSettingsChanged event,
     Emitter<AppState> emit,
   ) {
-    emit(state.copyWith(appSettings: event.appSettings));
+    // Emitting the new settings (including language) allows feature BLoCs
+    // listening to this stream to trigger re-fetches.
+    emit(
+      state.copyWith(
+        appSettings: event.appSettings,
+      ),
+    );
+  }
+
+  Future<void> _onRemoteConfigChanged(
+    AppRemoteConfigChanged event,
+    Emitter<AppState> emit,
+  ) async {
+    try {
+      final config = await _appConfigRepository.read(id: kRemoteConfigId);
+      emit(state.copyWith(remoteConfig: config));
+    } catch (e, s) {
+      _logger.severe('Failed to load remote config', e, s);
+    }
   }
 
   void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
@@ -139,6 +159,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   @override
   Future<void> close() {
     _userSubscription.cancel();
+    _configSubscription.cancel();
     return super.close();
   }
 }

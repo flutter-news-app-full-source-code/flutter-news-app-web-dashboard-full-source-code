@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
+import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +26,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:logging/logging.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -168,6 +166,7 @@ class App extends StatelessWidget {
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
+
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
@@ -282,7 +281,7 @@ class _AppViewState extends State<_AppView> {
               UiKitLocalizations.delegate,
               ...AppLocalizations.localizationsDelegates,
             ],
-            supportedLocales: UiKitLocalizations.supportedLocales,
+            supportedLocales: AppLocalizations.supportedLocales,
             theme: baseTheme == AppBaseTheme.dark
                 ? darkThemeData
                 : lightThemeData,
@@ -292,7 +291,7 @@ class _AppViewState extends State<_AppView> {
               AppBaseTheme.dark => ThemeMode.dark,
               _ => ThemeMode.system,
             },
-            locale: language != null ? Locale(language.code) : null,
+            locale: language != null ? Locale(language.name) : null,
             // The builder is used to wrap the router's content with a Scaffold
             // that provides a distinct background color for the areas outside
             // the constrained app width. This ensures a consistent visual

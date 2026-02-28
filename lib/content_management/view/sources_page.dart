@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,10 +10,10 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localiz
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/multilingual_map_extension.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template sources_page}
 /// A page for displaying and managing Sources in a tabular format.
@@ -33,9 +34,7 @@ class _SourcesPageState extends State<SourcesPage> {
     context.read<ContentManagementBloc>().add(
       LoadSourcesRequested(
         limit: kDefaultRowsPerPage,
-        filter: context.read<ContentManagementBloc>().buildSourcesFilterMap(
-          context.read<SourcesFilterBloc>().state,
-        ),
+        filter: context.read<SourcesFilterBloc>().buildFilterMap(),
       ),
     );
   }
@@ -75,11 +74,7 @@ class _SourcesPageState extends State<SourcesPage> {
                 LoadSourcesRequested(
                   limit: kDefaultRowsPerPage,
                   forceRefresh: true,
-                  filter: context
-                      .read<ContentManagementBloc>()
-                      .buildSourcesFilterMap(
-                        context.read<SourcesFilterBloc>().state,
-                      ),
+                  filter: context.read<SourcesFilterBloc>().buildFilterMap(),
                 ),
               ),
             );
@@ -174,10 +169,8 @@ class _SourcesPageState extends State<SourcesPage> {
                               startAfterId: state.sourcesCursor,
                               limit: kDefaultRowsPerPage,
                               filter: context
-                                  .read<ContentManagementBloc>()
-                                  .buildSourcesFilterMap(
-                                    context.read<SourcesFilterBloc>().state,
-                                  ),
+                                  .read<SourcesFilterBloc>()
+                                  .buildFilterMap(),
                             ),
                           );
                         }
@@ -235,7 +228,7 @@ class _SourcesDataSource extends DataTableSource {
       cells: [
         DataCell(
           Text(
-            source.name,
+            source.name.getValue(context),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

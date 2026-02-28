@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/saved_filter_limits_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/user_limits_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template limits_configuration_tab}
 /// A widget representing the "User" tab in the App Configuration page.

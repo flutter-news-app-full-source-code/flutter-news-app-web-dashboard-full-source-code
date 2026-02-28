@@ -1,12 +1,11 @@
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_headline/edit_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart' as go_router;
-import 'package:ui_kit/ui_kit.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
@@ -43,7 +42,12 @@ void main() {
         () => editHeadlineBloc.state,
       ).thenReturn(EditHeadlineState(headlineId: headlineId));
       when(
-        () => editHeadlineBloc.add(const EditHeadlineLoaded()),
+        () => editHeadlineBloc.add(
+          const EditHeadlineLoaded(
+            enabledLanguages: [SupportedLanguage.en],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
       ).thenAnswer((_) async {});
     });
 
@@ -124,23 +128,92 @@ void main() {
       testWidgets('populates form fields with initial data', (tester) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
 
-        expect(find.text(headlineFixture.title), findsOneWidget);
+        expect(
+          find.text(headlineFixture.title[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
         expect(find.text(headlineFixture.url), findsOneWidget);
-        expect(find.text(headlineFixture.source.name), findsOneWidget);
-        expect(find.text(headlineFixture.topic.name), findsOneWidget);
-        expect(find.text(headlineFixture.eventCountry.name), findsOneWidget);
+        expect(
+          find.text(headlineFixture.source.name[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
+        expect(
+          find.text(headlineFixture.topic.name[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
+        expect(
+          find.text(headlineFixture.eventCountry.name[SupportedLanguage.en]!),
+          findsOneWidget,
+        );
       });
 
       testWidgets('adds EditHeadlineTitleChanged when title is changed', (
         tester,
       ) async {
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        await tester.enterText(find.byType(TextFormField).first, 'New Title');
+        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
+        final titleFieldFinder = find.widgetWithText(
+          TextFormField,
+          '${l10n.headlineTitle} (${l10n.languageNameEn})',
+        );
+        await tester.enterText(titleFieldFinder, 'New Title');
         verify(
-          () =>
-              editHeadlineBloc.add(const EditHeadlineTitleChanged('New Title')),
+          () => editHeadlineBloc.add(
+            EditHeadlineTitleChanged(
+              {...headlineFixture.title, SupportedLanguage.en: 'New Title'},
+            ),
+          ),
         ).called(1);
       });
+
+      testWidgets(
+        'adds EditHeadlineTitleChanged with correct language when secondary tab is selected',
+        (tester) async {
+          final initialState = EditHeadlineState(
+            headlineId: headlineId,
+            initialHeadline: headlineFixture,
+            title: headlineFixture.title,
+            enabledLanguages: const [
+              SupportedLanguage.en,
+              SupportedLanguage.es,
+            ],
+          );
+          final stateAfterTabChange = initialState.copyWith(
+            selectedLanguage: SupportedLanguage.es,
+          );
+          whenListen(
+            editHeadlineBloc,
+            Stream.fromIterable([stateAfterTabChange]),
+            initialState: initialState,
+          );
+
+          await tester.pumpApp(buildSubject(), goRouter: goRouter);
+          await tester.pumpAndSettle();
+
+          // Tap the Spanish tab
+          await tester.tap(find.byType(Tab).at(1));
+          await tester.pumpAndSettle();
+
+          // Find the text field which should now be for Spanish
+          final l10n = AppLocalizations.of(
+            tester.element(find.byType(Scaffold)),
+          );
+          final titleFieldFinder = find.widgetWithText(
+            TextFormField,
+            '${l10n.headlineTitle} (${l10n.languageNameEs})',
+          );
+          expect(titleFieldFinder, findsOneWidget);
+          await tester.enterText(titleFieldFinder, 'Título');
+
+          verify(
+            () => editHeadlineBloc.add(
+              EditHeadlineTitleChanged(
+                {...headlineFixture.title, SupportedLanguage.es: 'Título'},
+              ),
+            ),
+          ).called(1);
+        },
+      );
 
       testWidgets('shows progress indicator when state is submitting', (
         tester,

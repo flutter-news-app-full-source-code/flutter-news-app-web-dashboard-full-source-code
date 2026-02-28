@@ -10,13 +10,20 @@ sealed class EditHeadlineEvent extends Equatable {
 
 /// Event to load the initial headline data for editing.
 final class EditHeadlineLoaded extends EditHeadlineEvent {
-  const EditHeadlineLoaded();
+  const EditHeadlineLoaded({
+    required this.enabledLanguages,
+    required this.defaultLanguage,
+  });
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+  @override
+  List<Object?> get props => [enabledLanguages, defaultLanguage];
 }
 
 /// Event for when the headline's title is changed.
 final class EditHeadlineTitleChanged extends EditHeadlineEvent {
   const EditHeadlineTitleChanged(this.title);
-  final String title;
+  final Map<SupportedLanguage, String> title;
   @override
   List<Object?> get props => [title];
 }
@@ -87,4 +94,12 @@ final class EditHeadlineIsBreakingChanged extends EditHeadlineEvent {
   final bool isBreaking;
   @override
   List<Object?> get props => [isBreaking];
+}
+
+/// Event for when the language tab is changed.
+final class EditHeadlineLanguageTabChanged extends EditHeadlineEvent {
+  const EditHeadlineLanguageTabChanged(this.language);
+  final SupportedLanguage language;
+  @override
+  List<Object?> get props => [language];
 }

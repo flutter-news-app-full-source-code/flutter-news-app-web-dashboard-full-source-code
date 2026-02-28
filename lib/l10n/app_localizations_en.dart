@@ -3382,4 +3382,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get about => 'About';
+
+  @override
+  String get localizationConfigDescription =>
+      'Configure supported languages and the default fallback.';
+
+  @override
+  String get enabledLanguagesLabel => 'Enabled Languages';
+
+  @override
+  String get cannotDisableDefaultLanguage =>
+      'Cannot disable the default language.';
+
+  @override
+  String get atLeastOneLanguageRequired =>
+      'At least one language must be enabled.';
+
+  @override
+  String get defaultLanguageLabel => 'Default Language';
+
+  @override
+  String get defaultLanguageDescription =>
+      'The fallback language if the user\'s preference is not supported.';
+
+  @override
+  String get localizationTitle => 'Localization';
+
+  @override
+  String get localizationDescription =>
+      'Control active languages for the mobile app and dashboard. Enabling a language allows users to view translated content and adds corresponding input fields to dashboard forms. Content without translation falls back to the default language.';
+
+  @override
+  String defaultLanguageRequired(String language) {
+    return 'Default language ($language) is required.';
+  }
+
+  @override
+  String get languageNameEn => 'English';
+
+  @override
+  String get languageNameEs => 'Spanish';
+
+  @override
+  String get languageNameFr => 'French';
+
+  @override
+  String get languageNameAr => 'Arabic';
+
+  @override
+  String get languageNamePt => 'Portuguese';
+
+  @override
+  String get languageNameDe => 'German';
+
+  @override
+  String get languageNameIt => 'Italian';
+
+  @override
+  String get languageNameZh => 'Chinese';
+
+  @override
+  String get languageNameHi => 'Hindi';
+
+  @override
+  String get languageNameJa => 'Japanese';
 }

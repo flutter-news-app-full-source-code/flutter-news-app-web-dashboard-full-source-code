@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_decorator_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_decorator_type_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/feed_item_click_behavior_l10n.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template feed_config_form}
 /// A form widget for configuring feed settings.

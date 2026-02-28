@@ -15,7 +15,7 @@ enum CreateHeadlineStatus {
 final class CreateHeadlineState extends Equatable {
   const CreateHeadlineState({
     this.status = CreateHeadlineStatus.initial,
-    this.title = '',
+    this.title = const {},
     this.url = '',
     this.imageFileBytes,
     this.imageFileName,
@@ -25,10 +25,13 @@ final class CreateHeadlineState extends Equatable {
     this.exception,
     this.isBreaking = false,
     this.createdHeadline,
-  });
+    this.enabledLanguages = const [SupportedLanguage.en],
+    this.defaultLanguage = SupportedLanguage.en,
+    SupportedLanguage? selectedLanguage,
+  }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateHeadlineStatus status;
-  final String title;
+  final Map<SupportedLanguage, String> title;
   final String url;
   final Uint8List? imageFileBytes;
   final String? imageFileName;
@@ -38,10 +41,13 @@ final class CreateHeadlineState extends Equatable {
   final HttpException? exception;
   final bool isBreaking;
   final Headline? createdHeadline;
+  final List<SupportedLanguage> enabledLanguages;
+  final SupportedLanguage defaultLanguage;
+  final SupportedLanguage selectedLanguage;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
-      title.isNotEmpty &&
+      (title[defaultLanguage]?.isNotEmpty ?? false) &&
       url.isNotEmpty &&
       imageFileBytes != null &&
       imageFileName != null &&
@@ -51,7 +57,7 @@ final class CreateHeadlineState extends Equatable {
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
-    String? title,
+    Map<SupportedLanguage, String>? title,
     String? url,
     ValueWrapper<Uint8List?>? imageFileBytes,
     ValueWrapper<String?>? imageFileName,
@@ -61,6 +67,9 @@ final class CreateHeadlineState extends Equatable {
     bool? isBreaking,
     ValueWrapper<HttpException?>? exception,
     Headline? createdHeadline,
+    List<SupportedLanguage>? enabledLanguages,
+    SupportedLanguage? defaultLanguage,
+    SupportedLanguage? selectedLanguage,
   }) {
     return CreateHeadlineState(
       status: status ?? this.status,
@@ -78,6 +87,9 @@ final class CreateHeadlineState extends Equatable {
       isBreaking: isBreaking ?? this.isBreaking,
       exception: exception != null ? exception.value : this.exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
+      enabledLanguages: enabledLanguages ?? this.enabledLanguages,
+      defaultLanguage: defaultLanguage ?? this.defaultLanguage,
+      selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
 
@@ -94,5 +106,8 @@ final class CreateHeadlineState extends Equatable {
     isBreaking,
     exception,
     createdHeadline,
+    enabledLanguages,
+    defaultLanguage,
+    selectedLanguage,
   ];
 }

@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show ValueGetter;
 import 'package:logging/logging.dart';
@@ -36,6 +35,7 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineTopicChanged>(_onTopicChanged);
     on<EditHeadlineCountryChanged>(_onCountryChanged);
     on<EditHeadlineIsBreakingChanged>(_onIsBreakingChanged);
+    on<EditHeadlineLanguageTabChanged>(_onLanguageTabChanged);
     on<EditHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<EditHeadlinePublished>(_onPublished);
   }
@@ -65,6 +65,10 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           eventCountry: () => headline.eventCountry,
           isBreaking: headline.isBreaking,
           initialHeadline: headline,
+          enabledLanguages: event.enabledLanguages,
+          defaultLanguage: event.defaultLanguage,
+          selectedLanguage:
+              event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
         ),
       );
       _logger.info('Successfully loaded headline: ${headline.id}');
@@ -190,6 +194,13 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         status: EditHeadlineStatus.initial,
       ),
     );
+  }
+
+  void _onLanguageTabChanged(
+    EditHeadlineLanguageTabChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    emit(state.copyWith(selectedLanguage: event.language));
   }
 
   /// Handles saving the headline as a draft.

@@ -1,7 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
-import 'package:data_repository/data_repository.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -13,7 +15,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/source_type_l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 /// {@template filter_dialog}
 /// A full-screen dialog for applying filters to content management lists.
@@ -98,6 +99,18 @@ class _FilterDialogState extends State<FilterDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
+    final defaultLanguage = context
+        .read<AppBloc>()
+        .state
+        .remoteConfig
+        ?.app
+        .localization
+        .defaultLanguage;
+    final userLanguage =
+        context.read<AppBloc>().state.appSettings?.language ??
+        defaultLanguage ??
+        SupportedLanguage.en;
+    final langCode = userLanguage.name;
 
     // The BlocProvider for FilterDialogBloc is now handled by the GoRouter route,
     // so we can directly use BlocBuilder here.
@@ -180,7 +193,11 @@ class _FilterDialogState extends State<FilterDialog> {
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   _buildStatusFilterChips(l10n, theme, filterDialogState),
-                  _buildAdditionalFilters(l10n, filterDialogState),
+                  _buildAdditionalFilters(
+                    l10n,
+                    filterDialogState,
+                    langCode,
+                  ),
                 ],
               ),
             ),
@@ -248,6 +265,7 @@ class _FilterDialogState extends State<FilterDialog> {
   Widget _buildAdditionalFilters(
     AppLocalizations l10n,
     FilterDialogState filterDialogState,
+    String langCode,
   ) {
     switch (widget.activeTab) {
       case ContentManagementTab.headlines:
@@ -281,28 +299,17 @@ class _FilterDialogState extends State<FilterDialog> {
                       (source) => source.id == id,
                       orElse: () => Source(
                         id: id,
-                        name: '',
-                        description: '',
+                        name: const {SupportedLanguage.en: ''},
+                        description: const {SupportedLanguage.en: ''},
                         url: '',
                         logoUrl: '',
                         sourceType: SourceType.other,
-                        language: Language(
-                          id: '',
-                          code: '',
-                          name: '',
-                          nativeName: '',
-                          createdAt: dummyDate,
-                          updatedAt: dummyDate,
-                          status: ContentStatus.active,
-                        ),
-                        headquarters: Country(
+                        language: SupportedLanguage.en,
+                        headquarters: const Country(
                           id: '',
                           isoCode: '',
-                          name: '',
+                          name: {SupportedLanguage.en: ''},
                           flagUrl: '',
-                          createdAt: dummyDate,
-                          updatedAt: dummyDate,
-                          status: ContentStatus.active,
                         ),
                         createdAt: dummyDate,
                         updatedAt: dummyDate,
@@ -311,8 +318,9 @@ class _FilterDialogState extends State<FilterDialog> {
                     ),
                   )
                   .toList(),
-              itemBuilder: (context, item) => Text(item.name),
-              itemToString: (item) => item.name,
+              itemBuilder: (context, item) =>
+                  Text(item.name.values.firstOrNull ?? ''),
+              itemToString: (item) => item.name.values.firstOrNull ?? '',
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
                   FilterDialogHeadlinesSourceIdsChanged(
@@ -321,11 +329,9 @@ class _FilterDialogState extends State<FilterDialog> {
                 );
               },
               repository: widget.sourcesRepository,
-              filterBuilder: (searchTerm) => {
-                if (searchTerm != null && searchTerm.isNotEmpty)
-                  'name': {r'$regex': searchTerm, r'$options': 'i'},
-              },
-              sortOptions: const [SortOption('name', SortOrder.asc)],
+              filterBuilder: (searchTerm) =>
+                  searchTerm == null ? {} : {'q': searchTerm},
+              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -340,8 +346,8 @@ class _FilterDialogState extends State<FilterDialog> {
                       (topic) => topic.id == id,
                       orElse: () => Topic(
                         id: id,
-                        name: '',
-                        description: '',
+                        name: const {SupportedLanguage.en: ''},
+                        description: const {SupportedLanguage.en: ''},
                         iconUrl: '',
                         createdAt: dummyDate,
                         updatedAt: dummyDate,
@@ -350,8 +356,9 @@ class _FilterDialogState extends State<FilterDialog> {
                     ),
                   )
                   .toList(),
-              itemBuilder: (context, item) => Text(item.name),
-              itemToString: (item) => item.name,
+              itemBuilder: (context, item) =>
+                  Text(item.name.values.firstOrNull ?? ''),
+              itemToString: (item) => item.name.values.firstOrNull ?? '',
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
                   FilterDialogHeadlinesTopicIdsChanged(
@@ -360,11 +367,9 @@ class _FilterDialogState extends State<FilterDialog> {
                 );
               },
               repository: widget.topicsRepository,
-              filterBuilder: (searchTerm) => {
-                if (searchTerm != null && searchTerm.isNotEmpty)
-                  'name': {r'$regex': searchTerm, r'$options': 'i'},
-              },
-              sortOptions: const [SortOption('name', SortOrder.asc)],
+              filterBuilder: (searchTerm) =>
+                  searchTerm == null ? {} : {'q': searchTerm},
+              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -377,20 +382,18 @@ class _FilterDialogState extends State<FilterDialog> {
                   .map(
                     (id) => filterDialogState.availableCountries.firstWhere(
                       (country) => country.id == id,
-                      orElse: () => Country(
+                      orElse: () => const Country(
                         id: '',
                         isoCode: '',
-                        name: '',
+                        name: {SupportedLanguage.en: ''},
                         flagUrl: '',
-                        createdAt: dummyDate,
-                        updatedAt: dummyDate,
-                        status: ContentStatus.active,
                       ),
                     ),
                   )
                   .toList(),
-              itemBuilder: (context, item) => Text(item.name),
-              itemToString: (item) => item.name,
+              itemBuilder: (context, item) =>
+                  Text(item.name.values.firstOrNull ?? ''),
+              itemToString: (item) => item.name.values.firstOrNull ?? '',
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
                   FilterDialogHeadlinesCountryIdsChanged(
@@ -399,11 +402,9 @@ class _FilterDialogState extends State<FilterDialog> {
                 );
               },
               repository: widget.countriesRepository,
-              filterBuilder: (searchTerm) => {
-                if (searchTerm != null && searchTerm.isNotEmpty)
-                  'name': {r'$regex': searchTerm, r'$options': 'i'},
-              },
-              sortOptions: const [SortOption('name', SortOrder.asc)],
+              filterBuilder: (searchTerm) =>
+                  searchTerm == null ? {} : {'q': searchTerm},
+              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -439,20 +440,18 @@ class _FilterDialogState extends State<FilterDialog> {
                   .map(
                     (code) => filterDialogState.availableLanguages.firstWhere(
                       (language) => language.code == code,
-                      orElse: () => Language(
+                      orElse: () => const Language(
                         id: '',
                         code: '',
-                        name: '',
+                        name: {},
                         nativeName: '',
-                        createdAt: dummyDate,
-                        updatedAt: dummyDate,
-                        status: ContentStatus.active,
                       ),
                     ),
                   )
                   .toList(),
-              itemBuilder: (context, item) => Text(item.name),
-              itemToString: (item) => item.name,
+              itemBuilder: (context, item) =>
+                  Text(item.name.values.firstOrNull ?? ''),
+              itemToString: (item) => item.name.values.firstOrNull ?? '',
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
                   FilterDialogLanguageCodesChanged(
@@ -461,11 +460,9 @@ class _FilterDialogState extends State<FilterDialog> {
                 );
               },
               repository: widget.languagesRepository,
-              filterBuilder: (searchTerm) => {
-                if (searchTerm != null && searchTerm.isNotEmpty)
-                  'name': {r'$regex': searchTerm, r'$options': 'i'},
-              },
-              sortOptions: const [SortOption('name', SortOrder.asc)],
+              filterBuilder: (searchTerm) =>
+                  searchTerm == null ? {} : {'q': searchTerm},
+              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -478,20 +475,18 @@ class _FilterDialogState extends State<FilterDialog> {
                   .map(
                     (id) => filterDialogState.availableCountries.firstWhere(
                       (country) => country.id == id,
-                      orElse: () => Country(
+                      orElse: () => const Country(
                         id: '',
                         isoCode: '',
-                        name: '',
+                        name: {SupportedLanguage.en: ''},
                         flagUrl: '',
-                        createdAt: dummyDate,
-                        updatedAt: dummyDate,
-                        status: ContentStatus.active,
                       ),
                     ),
                   )
                   .toList(),
-              itemBuilder: (context, item) => Text(item.name),
-              itemToString: (item) => item.name,
+              itemBuilder: (context, item) =>
+                  Text(item.name.values.firstOrNull ?? ''),
+              itemToString: (item) => item.name.values.firstOrNull ?? '',
               onChanged: (items) {
                 context.read<FilterDialogBloc>().add(
                   FilterDialogHeadquartersCountryIdsChanged(
@@ -500,11 +495,9 @@ class _FilterDialogState extends State<FilterDialog> {
                 );
               },
               repository: widget.countriesRepository,
-              filterBuilder: (searchTerm) => {
-                if (searchTerm != null && searchTerm.isNotEmpty)
-                  'name': {r'$regex': searchTerm, r'$options': 'i'},
-              },
-              sortOptions: const [SortOption('name', SortOrder.asc)],
+              filterBuilder: (searchTerm) =>
+                  searchTerm == null ? {} : {'q': searchTerm},
+              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
