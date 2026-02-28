@@ -52,6 +52,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       state.copyWith(
         enabledLanguages: event.enabledLanguages,
         defaultLanguage: event.defaultLanguage,
+        selectedLanguage:
+            event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
       ),
     );
   }
