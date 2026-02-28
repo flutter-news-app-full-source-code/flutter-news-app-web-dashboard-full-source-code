@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/audience_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/community_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/content_tab_view.dart';
@@ -45,40 +46,47 @@ class _OverviewPageState extends State<OverviewPage>
     return BlocProvider(
       create: (context) =>
           OverviewBloc(analyticsService: context.read<AnalyticsService>()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(l10n.overview),
-              const SizedBox(width: AppSpacing.xs),
-              AboutIcon(
-                dialogTitle: l10n.aboutOverviewPageTitle,
-                dialogDescription: l10n.aboutOverviewPageDescription,
-              ),
-            ],
+      child: BlocListener<AppBloc, AppState>(
+        listenWhen: (previous, current) =>
+            previous.appSettings?.language != current.appSettings?.language,
+        listener: (context, state) {
+          context.read<OverviewBloc>().add(const OverviewLanguageChanged());
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(l10n.overview),
+                const SizedBox(width: AppSpacing.xs),
+                AboutIcon(
+                  dialogTitle: l10n.aboutOverviewPageTitle,
+                  dialogDescription: l10n.aboutOverviewPageDescription,
+                ),
+              ],
+            ),
+            bottom: TabBar(
+              controller: _tabController,
+              isScrollable: true,
+              tabs: [
+                Tab(text: l10n.summary),
+                Tab(text: l10n.audience),
+                Tab(text: l10n.content),
+                Tab(text: l10n.community),
+                Tab(text: l10n.monetization),
+              ],
+            ),
           ),
-          bottom: TabBar(
+          body: TabBarView(
             controller: _tabController,
-            isScrollable: true,
-            tabs: [
-              Tab(text: l10n.summary),
-              Tab(text: l10n.audience),
-              Tab(text: l10n.content),
-              Tab(text: l10n.community),
-              Tab(text: l10n.monetization),
+            children: const [
+              _OverviewTabView(),
+              AudienceTabView(),
+              ContentTabView(),
+              CommunityTabView(),
+              MonetizationTabView(),
             ],
           ),
-        ),
-        body: TabBarView(
-          controller: _tabController,
-          children: const [
-            _OverviewTabView(),
-            AudienceTabView(),
-            ContentTabView(),
-            CommunityTabView(),
-            MonetizationTabView(),
-          ],
         ),
       ),
     );
