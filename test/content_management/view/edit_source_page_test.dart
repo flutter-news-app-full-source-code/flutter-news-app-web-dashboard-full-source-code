@@ -5,6 +5,8 @@ import 'package:core_ui/core_ui.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/edit_source/edit_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/edit_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
@@ -22,6 +24,8 @@ import '../../helpers/pump_app.dart';
 class MockEditSourceBloc extends MockBloc<EditSourceEvent, EditSourceState>
     implements EditSourceBloc {}
 
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
 class MockFilePicker extends Mock
@@ -30,14 +34,11 @@ class MockFilePicker extends Mock
 
 // --- Test Data ---
 
-final testLanguage = Language(
+const testLanguage = Language(
   id: 'lang-1',
   code: 'en',
-  name: 'English',
+  name: {SupportedLanguage.en: 'English'},
   nativeName: 'English',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 const testCountry = Country(
@@ -134,6 +135,7 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('EditSourcePage', () {
     late EditSourceBloc editSourceBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
@@ -143,6 +145,7 @@ void main() {
 
     setUp(() {
       editSourceBloc = MockEditSourceBloc();
+      appBloc = MockAppBloc();
       sourcesRepository = MockDataRepository<Source>();
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
@@ -170,6 +173,10 @@ void main() {
         ),
       );
 
+      when(() => appBloc.state).thenReturn(
+        AppState(environment: AppEnvironment.values.first),
+      );
+
       when(() => goRouter.pop()).thenAnswer((_) async {});
       when(
         () => goRouter.pushNamed<List<Object>?>(
@@ -195,8 +202,11 @@ void main() {
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: editSourceBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<EditSourceBloc>.value(value: editSourceBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const EditSourceView(),
         ),
       );
