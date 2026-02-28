@@ -172,9 +172,7 @@ For a complete guide on setting up your local environment and running this proje
 This source code is licensed for commercial use and is provided for local evaluation. A **Lifetime Commercial License** is required for any production or public-facing application.
 
 Please visit the main [Flutter News App Full Source Code Toolkit](https://github.com/flutter-news-app-full-source-code) organization page to review the full license terms and to purchase.
-Arabic localizations out of the box.
-- **Simple Extensibility:** The architecture is designed to make adding new languages a straightforward process.
-> **Your Advantage:** Easily adapt the dashboard for a diverse, global administrative team.
+
 
 </details>
 
