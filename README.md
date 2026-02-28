@@ -1,5 +1,16 @@
 <div align="center">
-  <img src="https://repository-images.githubusercontent.com/982329540/efac8fef-b417-42ce-ba41-9efdabec5eb3" alt="Flutter News App Toolkit Mockup" width="440">
+  <table>
+    <tr>
+      <td valign="top" width="50%">
+        <video src="https://github.com/user-attachments/assets/718bc5e1-f93a-466e-802f-8d66b7288fe1" controls="controls" width="100%">
+        </video>
+      </td>
+      <td valign="top" width="50%">
+        <img src="https://repository-images.githubusercontent.com/982329540/efac8fef-b417-42ce-ba41-9efdabec5eb3" alt="Flutter News App Toolkit Mockup" width="100%">
+      </td>
+    </tr>
+  </table>
+
   <h1>Flutter News App Web Dashboard</h1>
   <p><strong>Complete, production-ready source code for a comprehensive Flutter news app web dashboard.</strong></p>
 </div>
