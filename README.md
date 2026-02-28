@@ -6,7 +6,7 @@
         </video>
       </td>
       <td valign="top" width="50%">
-        <img src="https://github.com/user-attachments/assets/3f4e2bda-2447-4513-b7a9-56e0f8fcfc1e" alt="Flutter News App Toolkit Mockup" width="100%">
+        <img src="https://github.com/user-attachments/assets/3f4e2bda-2447-4513-b7a9-56e0f8fcfc1e" alt="flutter-news-app-web-dashboard-full-source-code" width="100%">
       </td>
     </tr>
   </table>
