@@ -92,13 +92,13 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               ) ||
               previous.isBreaking != current.isBreaking,
           listener: (context, state) {
-            final defaultLanguage =
+            final currentLanguageCode =
                 context.read<AppBloc>().state.appSettings?.language.name ??
                 'en';
             context.read<ContentManagementBloc>().add(
               LoadHeadlinesRequested(
                 filter: context.read<HeadlinesFilterBloc>().buildFilterMap(
-                  languageCode: defaultLanguage,
+                  languageCode: currentLanguageCode,
                 ),
                 forceRefresh: true,
               ),
