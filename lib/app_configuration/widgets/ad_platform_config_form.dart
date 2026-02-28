@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/ad_platform_type_l10n.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template ad_platform_config_form}
 /// A form widget for configuring the primary ad platform and ad unit identifiers.

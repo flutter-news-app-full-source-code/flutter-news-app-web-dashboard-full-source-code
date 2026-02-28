@@ -1,6 +1,6 @@
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template auth_layout}
 /// A responsive layout for authentication pages.

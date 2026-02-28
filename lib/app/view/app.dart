@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:core_ui/core_ui.dart';
 
 class App extends StatelessWidget {
   const App({

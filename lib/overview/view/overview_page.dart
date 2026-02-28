@@ -1,10 +1,11 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/bloc/overview_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/audience_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/community_tab_view.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/overview/view/content_tab_view.dart';
@@ -15,7 +16,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/a
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/kpi_card.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/ranked_list_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:core_ui/core_ui.dart';
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});

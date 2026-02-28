@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_config_form_fields.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template app_review_settings_form}
 /// A form widget for configuring app review funnel settings.

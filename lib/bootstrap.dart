@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/app.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
 import 'package:logging/logging.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:core_ui/core_ui.dart';
 
 Future<Widget> bootstrap(
   app_config.AppConfig appConfig,

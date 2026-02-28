@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/i
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/localized_text_form_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template create_topic_page}
 /// A page for creating a new topic.

@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extension
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template user_filter_dialog}
 /// A full-screen dialog for applying filters to the user management list.

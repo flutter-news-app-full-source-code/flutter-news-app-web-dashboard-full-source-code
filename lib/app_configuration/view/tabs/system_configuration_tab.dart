@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/app_urls_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/localization_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/update_config_form.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template system_configuration_tab}
 /// A widget representing the "System" tab in the App Configuration page.

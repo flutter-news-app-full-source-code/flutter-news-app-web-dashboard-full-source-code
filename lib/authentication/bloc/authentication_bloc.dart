@@ -2,7 +2,19 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart'
-    show AuthRepository, AuthenticationException, ForbiddenException, HttpException, InvalidInputException, NetworkException, NotFoundException, OperationFailedException, ServerException, UnauthorizedException, UnknownException, User;
+    show
+        AuthRepository,
+        AuthenticationException,
+        ForbiddenException,
+        HttpException,
+        InvalidInputException,
+        NetworkException,
+        NotFoundException,
+        OperationFailedException,
+        ServerException,
+        UnauthorizedException,
+        UnknownException,
+        User;
 import 'package:equatable/equatable.dart';
 
 part 'authentication_event.dart';

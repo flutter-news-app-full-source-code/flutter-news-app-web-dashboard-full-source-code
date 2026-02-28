@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/engagement_mode_l10n.dart';
-import 'package:core_ui/core_ui.dart';
 
 /// {@template engagement_settings_form}
 /// A form widget for configuring user engagement settings.
