@@ -5,6 +5,8 @@ import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_headline_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
@@ -21,6 +23,8 @@ import '../../helpers/pump_app.dart';
 class MockCreateHeadlineBloc
     extends MockBloc<CreateHeadlineEvent, CreateHeadlineState>
     implements CreateHeadlineBloc {}
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
@@ -150,6 +154,7 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('CreateHeadlinePage', () {
     late CreateHeadlineBloc createHeadlineBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Headline> headlinesRepository;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Topic> topicsRepository;
@@ -160,6 +165,7 @@ void main() {
 
     setUp(() {
       createHeadlineBloc = MockCreateHeadlineBloc();
+      appBloc = MockAppBloc();
       headlinesRepository = MockDataRepository<Headline>();
       sourcesRepository = MockDataRepository<Source>();
       topicsRepository = MockDataRepository<Topic>();
@@ -173,6 +179,10 @@ void main() {
       when(
         () => createHeadlineBloc.state,
       ).thenReturn(const CreateHeadlineState());
+      when(() => appBloc.state).thenReturn(
+        AppState(environment: AppEnvironment.values.first),
+      );
+
       when(() => goRouter.pop()).thenAnswer((_) async {});
       when(
         () => goRouter.pushNamed<List<Object>?>(
@@ -213,8 +223,11 @@ void main() {
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: createHeadlineBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<CreateHeadlineBloc>.value(value: createHeadlineBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const CreateHeadlineView(),
         ),
       );
