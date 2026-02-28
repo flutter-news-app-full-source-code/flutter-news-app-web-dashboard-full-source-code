@@ -95,12 +95,15 @@ class SearchableSelectionBloc
                 'status': ContentStatus.active.name,
               };
 
+        // Ensure the limit is at least 20 to fill the screen and enable scrolling,
+        // but respect larger limits if requested.
+        final requestedLimit = _arguments.limit ?? 20;
+        final effectiveLimit = requestedLimit < 20 ? 20 : requestedLimit;
+
         final response = await (_arguments.repository!).readAll(
           filter: finalFilter,
           sort: _arguments.sortOptions,
-          pagination: const PaginationOptions(
-            limit: 20,
-          ), // Do not lower it below 20 for the initial fetch, if the list items did not reach the bottom of the screen, the infinity scrolling will not function.
+          pagination: PaginationOptions(limit: effectiveLimit),
         );
 
         fetchedItems = response.items;

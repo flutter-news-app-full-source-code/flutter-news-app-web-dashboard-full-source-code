@@ -37,6 +37,7 @@ A centralized command center providing a real-time pulse on your entire news ope
 ### 📰 Complete Editorial Control
 Manage the entire lifecycle of your content from a single, intuitive interface. This is more than just a database editor; it's a complete content operations hub.
 - **Full Content Lifecycle:** Seamlessly draft, publish, edit, archive, and restore all content assets, including headlines, topics, and news sources.
+- **Multi-Language Content Support:** Create and manage content in multiple languages from a single, unified editor. The dashboard supports full localization for headlines, topics, and sources, ensuring a consistent experience for a global audience.
 - **Contextual Performance Metrics:** Make informed editorial decisions with real-time views, likes, and engagement data integrated directly into your content lists.
 > **Your Advantage:** Gain granular control over your entire content pipeline. This centralized system streamlines your editorial workflow, ensures content consistency, and simplifies asset management.
 
@@ -145,7 +146,7 @@ Utilizes compile-time variables to seamlessly switch between `production`, `deve
 ---
 
 ### 🌍 Built for a Global Team
-The application is fully internationalized and includes working English and 
+The application is fully internationalized with out-of-the-box support for over ten languages, including English, French, Spanish, Arabic (with RTL support), Chinese, and Japanese.
 - **Simple Extensibility:** The architecture is designed to make adding new languages a straightforward process.
 > **Your Advantage:** Easily adapt the dashboard for a diverse, global administrative team.
 

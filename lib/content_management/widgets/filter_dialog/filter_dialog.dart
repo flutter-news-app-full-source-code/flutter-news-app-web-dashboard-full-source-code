@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -99,18 +98,6 @@ class _FilterDialogState extends State<FilterDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     final theme = Theme.of(context);
-    final defaultLanguage = context
-        .read<AppBloc>()
-        .state
-        .remoteConfig
-        ?.app
-        .localization
-        .defaultLanguage;
-    final userLanguage =
-        context.read<AppBloc>().state.appSettings?.language ??
-        defaultLanguage ??
-        SupportedLanguage.en;
-    final langCode = userLanguage.name;
 
     // The BlocProvider for FilterDialogBloc is now handled by the GoRouter route,
     // so we can directly use BlocBuilder here.
@@ -196,7 +183,6 @@ class _FilterDialogState extends State<FilterDialog> {
                   _buildAdditionalFilters(
                     l10n,
                     filterDialogState,
-                    langCode,
                   ),
                 ],
               ),
@@ -265,7 +251,6 @@ class _FilterDialogState extends State<FilterDialog> {
   Widget _buildAdditionalFilters(
     AppLocalizations l10n,
     FilterDialogState filterDialogState,
-    String langCode,
   ) {
     switch (widget.activeTab) {
       case ContentManagementTab.headlines:
@@ -330,8 +315,8 @@ class _FilterDialogState extends State<FilterDialog> {
               },
               repository: widget.sourcesRepository,
               filterBuilder: (searchTerm) =>
-                  searchTerm == null ? {} : {'q': searchTerm},
-              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
+                  searchTerm == null ? {} : {'name': searchTerm},
+              sortOptions: const [SortOption('name', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -368,8 +353,8 @@ class _FilterDialogState extends State<FilterDialog> {
               },
               repository: widget.topicsRepository,
               filterBuilder: (searchTerm) =>
-                  searchTerm == null ? {} : {'q': searchTerm},
-              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
+                  searchTerm == null ? {} : {'name': searchTerm},
+              sortOptions: const [SortOption('name', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -403,8 +388,8 @@ class _FilterDialogState extends State<FilterDialog> {
               },
               repository: widget.countriesRepository,
               filterBuilder: (searchTerm) =>
-                  searchTerm == null ? {} : {'q': searchTerm},
-              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
+                  searchTerm == null ? {} : {'name': searchTerm},
+              sortOptions: const [SortOption('name', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -461,8 +446,8 @@ class _FilterDialogState extends State<FilterDialog> {
               },
               repository: widget.languagesRepository,
               filterBuilder: (searchTerm) =>
-                  searchTerm == null ? {} : {'q': searchTerm},
-              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
+                  searchTerm == null ? {} : {'name': searchTerm},
+              sortOptions: const [SortOption('name', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),
@@ -496,8 +481,8 @@ class _FilterDialogState extends State<FilterDialog> {
               },
               repository: widget.countriesRepository,
               filterBuilder: (searchTerm) =>
-                  searchTerm == null ? {} : {'q': searchTerm},
-              sortOptions: [SortOption('name.$langCode', SortOrder.asc)],
+                  searchTerm == null ? {} : {'name': searchTerm},
+              sortOptions: const [SortOption('name', SortOrder.asc)],
               limit: AppConstants.kDefaultRowsPerPage,
               includeInactiveSelectedItem: true,
             ),

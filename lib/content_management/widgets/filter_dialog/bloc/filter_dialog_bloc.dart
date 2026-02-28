@@ -139,21 +139,25 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
         pagination: const PaginationOptions(
           limit: AppConstants.kMaxItemsPerRequest,
         ),
+        sort: const [SortOption('name', SortOrder.asc)],
       );
       final topicsResponse = await _topicsRepository.readAll(
         pagination: const PaginationOptions(
           limit: AppConstants.kMaxItemsPerRequest,
         ),
+        sort: const [SortOption('name', SortOrder.asc)],
       );
       final countriesResponse = await _countriesRepository.readAll(
         pagination: const PaginationOptions(
           limit: AppConstants.kMaxItemsPerRequest,
         ),
+        sort: const [SortOption('name', SortOrder.asc)],
       );
       final languagesResponse = await _languagesRepository.readAll(
         pagination: const PaginationOptions(
           limit: AppConstants.kMaxItemsPerRequest,
         ),
+        sort: const [SortOption('name', SortOrder.asc)],
       );
 
       emit(
