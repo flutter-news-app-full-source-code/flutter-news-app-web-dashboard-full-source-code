@@ -5,6 +5,8 @@ import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/bloc/app_bloc.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_source/create_source_bloc.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/view/create_source_page.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
@@ -22,6 +24,8 @@ class MockCreateSourceBloc
     extends MockBloc<CreateSourceEvent, CreateSourceState>
     implements CreateSourceBloc {}
 
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
 class MockFilePicker extends Mock
@@ -29,14 +33,11 @@ class MockFilePicker extends Mock
     implements FilePicker {}
 
 // Mock data for tests
-final testLanguage = Language(
+const testLanguage = Language(
   id: 'lang-1',
   code: 'en',
-  name: 'English',
+  name: {SupportedLanguage.en: 'English'},
   nativeName: 'English',
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-  status: ContentStatus.active,
 );
 
 const testCountry = Country(
@@ -133,6 +134,7 @@ final kTestImageBytes = Uint8List.fromList([
 void main() {
   group('CreateSourcePage', () {
     late CreateSourceBloc createSourceBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
@@ -142,6 +144,7 @@ void main() {
 
     setUp(() {
       createSourceBloc = MockCreateSourceBloc();
+      appBloc = MockAppBloc();
       sourcesRepository = MockDataRepository<Source>();
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
@@ -152,6 +155,10 @@ void main() {
       Logger.root.level = Level.OFF;
 
       when(() => createSourceBloc.state).thenReturn(const CreateSourceState());
+      when(() => appBloc.state).thenReturn(
+        AppState(environment: AppEnvironment.values.first),
+      );
+
       when(() => goRouter.pop()).thenAnswer((_) async {});
       when(
         () => goRouter.pushNamed<List<Object>?>(
@@ -177,8 +184,11 @@ void main() {
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: createSourceBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<CreateSourceBloc>.value(value: createSourceBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const CreateSourceView(),
         ),
       );
@@ -390,7 +400,10 @@ void main() {
 
           verify(
             () => createSourceBloc.add(
-              const CreateSourceLanguageChanged(SupportedLanguage.en),
+              const CreateSourceLanguageChanged(
+                SupportedLanguage.en,
+                languageEntity: testLanguage,
+              ),
             ),
           ).called(1);
         },
