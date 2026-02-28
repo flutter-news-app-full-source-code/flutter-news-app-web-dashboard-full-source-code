@@ -128,7 +128,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppUserAppSettingsChanged event,
     Emitter<AppState> emit,
   ) {
-    emit(state.copyWith(appSettings: event.appSettings));
+    // Emitting the new settings (including language) allows feature BLoCs
+    // listening to this stream to trigger re-fetches.
+    emit(
+      state.copyWith(
+        appSettings: event.appSettings,
+      ),
+    );
   }
 
   Future<void> _onRemoteConfigChanged(
