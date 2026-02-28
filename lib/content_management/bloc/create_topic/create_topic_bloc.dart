@@ -48,6 +48,8 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
       state.copyWith(
         enabledLanguages: event.enabledLanguages,
         defaultLanguage: event.defaultLanguage,
+        selectedLanguage:
+            event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
       ),
     );
   }
