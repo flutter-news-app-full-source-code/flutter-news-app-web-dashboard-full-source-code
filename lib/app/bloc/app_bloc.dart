@@ -146,7 +146,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       emit(state.copyWith(remoteConfig: config));
     } catch (e, s) {
       _logger.severe('Failed to load remote config', e, s);
-      // We might want to emit a failure state or keep the old config
     }
   }
 
