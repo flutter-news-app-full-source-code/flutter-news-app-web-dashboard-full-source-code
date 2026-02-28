@@ -67,7 +67,8 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           status: EditSourceStatus.initial,
           enabledLanguages: event.enabledLanguages,
           defaultLanguage: event.defaultLanguage,
-          selectedLanguage: event.defaultLanguage,
+          selectedLanguage:
+              event.enabledLanguages.firstOrNull ?? event.defaultLanguage,
           name: source.name,
           description: source.description,
           url: source.url,

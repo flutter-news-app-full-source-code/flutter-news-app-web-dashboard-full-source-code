@@ -25,12 +25,23 @@ class EditSourcePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizationConfig = context
-        .read<AppBloc>()
-        .state
-        .remoteConfig
-        ?.app
-        .localization;
+    final appState = context.read<AppBloc>().state;
+    final localizationConfig = appState.remoteConfig?.app.localization;
+
+    final defaultLanguage =
+        localizationConfig?.defaultLanguage ?? SupportedLanguage.en;
+    var enabledLanguages =
+        localizationConfig?.enabledLanguages ?? [SupportedLanguage.en];
+
+    // Sort enabled languages so the user's current app language
+    // appears first in the tabs.
+    final userLanguage = appState.appSettings?.language ?? defaultLanguage;
+    if (enabledLanguages.contains(userLanguage)) {
+      enabledLanguages = [
+        userLanguage,
+        ...enabledLanguages.where((l) => l != userLanguage),
+      ];
+    }
 
     return BlocProvider(
       create: (context) =>
@@ -42,11 +53,8 @@ class EditSourcePage extends StatelessWidget {
             logger: Logger('EditSourceBloc'),
           )..add(
             EditSourceLoaded(
-              enabledLanguages:
-                  localizationConfig?.enabledLanguages ??
-                  [SupportedLanguage.en],
-              defaultLanguage:
-                  localizationConfig?.defaultLanguage ?? SupportedLanguage.en,
+              enabledLanguages: enabledLanguages,
+              defaultLanguage: defaultLanguage,
             ),
           ),
       child: const EditSourceView(),
