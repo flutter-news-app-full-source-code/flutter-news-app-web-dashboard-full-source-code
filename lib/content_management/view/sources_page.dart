@@ -11,6 +11,7 @@ import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/extensions.dart';
 import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/analytics/analytics_dashboard_strip.dart';
+import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/multilingual_map_extension.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:core_ui/core_ui.dart';
@@ -216,15 +217,6 @@ class _SourcesDataSource extends DataTableSource {
       return null;
     }
     final source = sources[index];
-    final defaultLanguage =
-        context
-            .read<AppBloc>()
-            .state
-            .remoteConfig
-            ?.app
-            .localization
-            .defaultLanguage ??
-        SupportedLanguage.en;
     return DataRow2(
       onSelectChanged: (selected) {
         if (selected ?? false) {
@@ -237,9 +229,7 @@ class _SourcesDataSource extends DataTableSource {
       cells: [
         DataCell(
           Text(
-            source.name[defaultLanguage] ??
-                source.name[SupportedLanguage.en] ??
-                '',
+            source.name.getValue(context),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
