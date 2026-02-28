@@ -208,7 +208,6 @@ void main() {
         topicsFilterBloc: topicsFilterBloc,
         sourcesFilterBloc: sourcesFilterBloc,
         pendingDeletionsService: pendingDeletionsService,
-        remoteConfigRepository: remoteConfigRepository,
       );
     }
 

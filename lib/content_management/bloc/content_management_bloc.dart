@@ -34,7 +34,6 @@ class ContentManagementBloc
     required HeadlinesFilterBloc headlinesFilterBloc,
     required TopicsFilterBloc topicsFilterBloc,
     required SourcesFilterBloc sourcesFilterBloc,
-    required DataRepository<RemoteConfig> remoteConfigRepository,
     required PendingDeletionsService pendingDeletionsService,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
@@ -42,7 +41,6 @@ class ContentManagementBloc
        _headlinesFilterBloc = headlinesFilterBloc,
        _topicsFilterBloc = topicsFilterBloc,
        _sourcesFilterBloc = sourcesFilterBloc,
-       _remoteConfigRepository = remoteConfigRepository,
        _pendingDeletionsService = pendingDeletionsService,
        super(const ContentManagementState()) {
     on<ContentManagementLanguageChanged>(_onLanguageChanged);
@@ -118,7 +116,6 @@ class ContentManagementBloc
   final HeadlinesFilterBloc _headlinesFilterBloc;
   final TopicsFilterBloc _topicsFilterBloc;
   final SourcesFilterBloc _sourcesFilterBloc;
-  final DataRepository<RemoteConfig> _remoteConfigRepository;
   final PendingDeletionsService _pendingDeletionsService;
 
   late final StreamSubscription<Type> _headlineUpdateSubscription;
