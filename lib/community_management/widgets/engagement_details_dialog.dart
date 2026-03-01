@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard/community_management/bloc/community_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
 
 class EngagementDetailsDialog extends StatelessWidget {
   const EngagementDetailsDialog({

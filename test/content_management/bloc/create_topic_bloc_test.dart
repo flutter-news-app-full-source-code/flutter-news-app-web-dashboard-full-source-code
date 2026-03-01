@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/create_topic/create_topic_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:logging/logging.dart';
 
 import '../../helpers/helpers.dart';

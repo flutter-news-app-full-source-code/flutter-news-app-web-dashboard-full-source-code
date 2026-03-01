@@ -3,17 +3,17 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/content_status_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/source_type_l10n.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/searchable_selection_input.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard/shared/extensions/content_status_l10n.dart';
+import 'package:flutter_news_app_web_dashboard/shared/extensions/source_type_l10n.dart';
+import 'package:flutter_news_app_web_dashboard/shared/widgets/searchable_selection_input.dart';
 
 /// {@template filter_dialog}
 /// A full-screen dialog for applying filters to content management lists.

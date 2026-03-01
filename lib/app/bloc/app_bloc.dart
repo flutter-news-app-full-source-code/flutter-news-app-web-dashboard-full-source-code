@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app/config/config.dart'
+import 'package:flutter_news_app_web_dashboard/app/config/config.dart'
     as local_config;
 import 'package:logging/logging.dart';
 

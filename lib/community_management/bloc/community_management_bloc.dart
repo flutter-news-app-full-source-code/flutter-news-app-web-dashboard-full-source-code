@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/community_management/bloc/community_filter/community_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_updates_service.dart';
+import 'package:flutter_news_app_web_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard/shared/services/pending_updates_service.dart';
 import 'package:logging/logging.dart';
 
 part 'community_management_event.dart';

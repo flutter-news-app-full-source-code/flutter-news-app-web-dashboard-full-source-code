@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/content_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/services/pending_deletions_service.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/shared/services/pending_deletions_service.dart';
 
 import '../../helpers/helpers.dart';
 

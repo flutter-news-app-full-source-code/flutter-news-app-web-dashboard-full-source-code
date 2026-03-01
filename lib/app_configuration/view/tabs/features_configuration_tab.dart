@@ -1,17 +1,17 @@
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/ad_platform_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/analytics_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/community_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_ad_settings_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/feed_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/navigation_ad_settings_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/onboarding_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/push_notification_settings_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/app_configuration/widgets/rewards_config_form.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/ad_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/ad_platform_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/analytics_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/community_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/feed_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/feed_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/navigation_ad_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/onboarding_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/push_notification_settings_form.dart';
+import 'package:flutter_news_app_web_dashboard/app_configuration/widgets/rewards_config_form.dart';
+import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
 
 enum _FeatureTile {
   onboarding,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/l10n.dart';
+import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
 
 /// {@template confirmation_dialog}
 /// A reusable dialog to confirm a user action.

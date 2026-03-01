@@ -2,9 +2,9 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
-import 'package:flutter_news_app_web_dashboard_full_source_code/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/widgets/confirmation_dialog.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_management_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/l10n/app_localizations.dart';
+import 'package:flutter_news_app_web_dashboard/shared/widgets/confirmation_dialog.dart';
+import 'package:flutter_news_app_web_dashboard/user_management/bloc/user_management_bloc.dart';
 
 /// {@template user_action_buttons}
 /// A widget that displays contextual action buttons for a user in the user

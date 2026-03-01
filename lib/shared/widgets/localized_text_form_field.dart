@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/extensions/supported_language_l10n.dart';
+import 'package:flutter_news_app_web_dashboard/shared/extensions/supported_language_l10n.dart';
 
 /// {@template localized_text_form_field}
 /// A form field for entering text in a specific language, designed to be used

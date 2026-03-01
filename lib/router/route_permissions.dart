@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/router/routes.dart';
+import 'package:flutter_news_app_web_dashboard/router/routes.dart';
 
 /// A centralized mapping of dashboard user roles to their permitted routes.
 ///

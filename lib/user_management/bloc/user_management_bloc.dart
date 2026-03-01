@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/bloc/user_filter/user_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard_full_source_code/user_management/enums/authentication_filter.dart';
+import 'package:flutter_news_app_web_dashboard/shared/constants/app_constants.dart';
+import 'package:flutter_news_app_web_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:flutter_news_app_web_dashboard/user_management/enums/authentication_filter.dart';
 import 'package:logging/logging.dart';
 
 part 'user_management_event.dart';
