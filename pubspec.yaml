@@ -2,7 +2,7 @@ name: flutter_news_app_web_dashboard_full_source_code
 description: "A Flutter web application for comprehensive content management and administration within the Flutter News App Full Source Code Toolkit."
 repository: https://github.com/flutter-news-app-full-source-code/flutter-news-app-web-dashboard-full-source-code
 publish_to: none
-version: 1.12.0
+version: 1.13.0
 
 environment:
   sdk: ^3.9.0
@@ -14,11 +14,11 @@ dependencies:
   core:
     git:
       url: https://github.com/flutter-news-app-full-source-code/core.git
-      ref: 28c7a57b5ce05e23ff70b953e067e3643368aea6
+      ref: v2.0.0
   core_ui:
     git:
       url: https://github.com/flutter-news-app-full-source-code/core-ui.git
-      ref: 6c36e18320e60ce202e64c564f3848da73cd2306
+      ref: v2.0.0
   data_table_2: ^2.6.0
   dotted_border: ^3.1.0
   equatable: ^2.0.7
