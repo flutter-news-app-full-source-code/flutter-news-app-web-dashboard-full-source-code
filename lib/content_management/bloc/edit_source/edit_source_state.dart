@@ -33,6 +33,7 @@ final class EditSourceState extends Equatable {
     this.imageRemoved = false,
     this.initialSource,
     this.defaultLanguage = SupportedLanguage.en,
+    this.automationTask,
     SupportedLanguage? selectedLanguage,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
@@ -55,6 +56,7 @@ final class EditSourceState extends Equatable {
   final Source? initialSource;
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
+  final NewsAutomationTask? automationTask;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid {
@@ -97,6 +99,7 @@ final class EditSourceState extends Equatable {
     Source? initialSource,
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
+    ValueWrapper<NewsAutomationTask?>? automationTask,
   }) {
     return EditSourceState(
       status: status ?? this.status,
@@ -123,6 +126,9 @@ final class EditSourceState extends Equatable {
       imageRemoved: imageRemoved ?? this.imageRemoved,
       initialSource: initialSource ?? this.initialSource,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
+      automationTask: automationTask != null
+          ? automationTask.value
+          : this.automationTask,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
     );
   }
@@ -148,5 +154,6 @@ final class EditSourceState extends Equatable {
     initialSource,
     defaultLanguage,
     selectedLanguage,
+    automationTask,
   ];
 }
