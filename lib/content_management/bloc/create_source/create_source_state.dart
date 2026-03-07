@@ -30,6 +30,8 @@ final class CreateSourceState extends Equatable {
     this.exception,
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
+    this.fetchInterval = FetchInterval.hourly,
+    this.isAutomationEnabled = true,
     SupportedLanguage? selectedLanguage,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
@@ -48,6 +50,8 @@ final class CreateSourceState extends Equatable {
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
+  final FetchInterval fetchInterval;
+  final bool isAutomationEnabled;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -76,6 +80,8 @@ final class CreateSourceState extends Equatable {
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
+    FetchInterval? fetchInterval,
+    bool? isAutomationEnabled,
   }) {
     return CreateSourceState(
       status: status ?? this.status,
@@ -99,6 +105,8 @@ final class CreateSourceState extends Equatable {
       createdSource: createdSource ?? this.createdSource,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      fetchInterval: fetchInterval ?? this.fetchInterval,
+      isAutomationEnabled: isAutomationEnabled ?? this.isAutomationEnabled,
     );
   }
 
@@ -119,5 +127,7 @@ final class CreateSourceState extends Equatable {
     createdSource,
     defaultLanguage,
     selectedLanguage,
+    fetchInterval,
+    isAutomationEnabled,
   ];
 }
