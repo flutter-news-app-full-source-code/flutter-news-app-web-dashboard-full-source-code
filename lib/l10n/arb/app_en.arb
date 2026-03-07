@@ -4277,5 +4277,61 @@
   "languageNameJa": "Japanese",
   "@languageNameJa": {
     "description": "Localized name for Japanese language"
+  },
+  "automation": "Automation",
+  "@automation": {
+    "description": "Label for the automation column or section"
+  },
+  "ingestAutomation": "Ingest Automation",
+  "@ingestAutomation": {
+    "description": "Title for the ingest automation configuration section"
+  },
+  "fetchInterval": "Fetch Interval",
+  "@fetchInterval": {
+    "description": "Label for the frequency of news fetching"
+  },
+  "lastRun": "Last Run",
+  "@lastRun": {
+    "description": "Label for the timestamp of the last automation run"
+  },
+  "nextRun": "Next Run",
+  "@nextRun": {
+    "description": "Label for the timestamp of the next scheduled automation run"
+  },
+  "operations": "Operations",
+  "@operations": {
+    "description": "Label for the operations monitoring tab"
+  },
+  "fetchIntervalEvery15Minutes": "Every 15 Minutes",
+  "@fetchIntervalEvery15Minutes": {
+    "description": "Fetch interval option: 15 minutes"
+  },
+  "fetchIntervalEvery30Minutes": "Every 30 Minutes",
+  "@fetchIntervalEvery30Minutes": {
+    "description": "Fetch interval option: 30 minutes"
+  },
+  "fetchIntervalHourly": "Hourly",
+  "@fetchIntervalHourly": {
+    "description": "Fetch interval option: Hourly"
+  },
+  "fetchIntervalEverySixHours": "Every 6 Hours",
+  "@fetchIntervalEverySixHours": {
+    "description": "Fetch interval option: 6 hours"
+  },
+  "fetchIntervalDaily": "Daily",
+  "@fetchIntervalDaily": {
+    "description": "Fetch interval option: Daily"
+  },
+  "ingestionStatusActive": "Active",
+  "@ingestionStatusActive": {
+    "description": "Ingestion status: Active"
+  },
+  "ingestionStatusPaused": "Paused",
+  "@ingestionStatusPaused": {
+    "description": "Ingestion status: Paused"
+  },
+  "ingestionStatusError": "Error",
+  "@ingestionStatusError": {
+    "description": "Ingestion status: Error"
   }
 }

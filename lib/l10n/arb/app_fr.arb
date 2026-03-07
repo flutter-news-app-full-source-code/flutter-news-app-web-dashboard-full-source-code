@@ -1300,5 +1300,19 @@
     "languageNameIt": "Italien",
     "languageNameZh": "Chinois",
     "languageNameHi": "Hindi",
-    "languageNameJa": "Japonais"
+    "languageNameJa": "Japonais",
+    "automation": "Automatisation",
+    "ingestAutomation": "Automatisation de l'Ingestion",
+    "fetchInterval": "Intervalle de Récupération",
+    "lastRun": "Dernière Exécution",
+    "nextRun": "Prochaine Exécution",
+    "operations": "Opérations",
+    "fetchIntervalEvery15Minutes": "Toutes les 15 minutes",
+    "fetchIntervalEvery30Minutes": "Toutes les 30 minutes",
+    "fetchIntervalHourly": "Toutes les heures",
+    "fetchIntervalEverySixHours": "Toutes les 6 heures",
+    "fetchIntervalDaily": "Quotidiennement",
+    "ingestionStatusActive": "Actif",
+    "ingestionStatusPaused": "En pause",
+    "ingestionStatusError": "Erreur"
 }

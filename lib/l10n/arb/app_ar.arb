@@ -1302,5 +1302,19 @@
   "languageNameIt": "الإيطالية",
   "languageNameZh": "الصينية",
   "languageNameHi": "الهندية",
-  "languageNameJa": "اليابانية"
+  "languageNameJa": "اليابانية",
+  "automation": "الأتمتة",
+  "ingestAutomation": "أتمتة الجلب",
+  "fetchInterval": "فاصل الجلب الزمني",
+  "lastRun": "آخر تشغيل",
+  "nextRun": "التشغيل القادم",
+  "operations": "العمليات",
+  "fetchIntervalEvery15Minutes": "كل 15 دقيقة",
+  "fetchIntervalEvery30Minutes": "كل 30 دقيقة",
+  "fetchIntervalHourly": "كل ساعة",
+  "fetchIntervalEverySixHours": "كل 6 ساعات",
+  "fetchIntervalDaily": "يومياً",
+  "ingestionStatusActive": "نشط",
+  "ingestionStatusPaused": "متوقف مؤقتاً",
+  "ingestionStatusError": "خطأ"
 }

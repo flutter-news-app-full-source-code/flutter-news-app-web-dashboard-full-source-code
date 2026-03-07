@@ -1300,5 +1300,19 @@
     "languageNameIt": "इतालवी",
     "languageNameZh": "चीनी",
     "languageNameHi": "हिंदी",
-    "languageNameJa": "जापानी"
+    "languageNameJa": "जापानी",
+    "automation": "स्वचालन",
+    "ingestAutomation": "इन्जेस्ट ऑटोमेशन",
+    "fetchInterval": "प्राप्ति अंतराल",
+    "lastRun": "पिछली बार चला",
+    "nextRun": "अगली बार चलेगा",
+    "operations": "संचालन",
+    "fetchIntervalEvery15Minutes": "हर 15 मिनट",
+    "fetchIntervalEvery30Minutes": "हर 30 मिनट",
+    "fetchIntervalHourly": "प्रति घंटा",
+    "fetchIntervalEverySixHours": "हर 6 घंटे",
+    "fetchIntervalDaily": "दैनिक",
+    "ingestionStatusActive": "सक्रिय",
+    "ingestionStatusPaused": "ठहरा हुआ",
+    "ingestionStatusError": "त्रुटि"
 }

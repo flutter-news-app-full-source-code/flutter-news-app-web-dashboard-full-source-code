@@ -1300,5 +1300,19 @@
     "languageNameIt": "意大利语",
     "languageNameZh": "中文",
     "languageNameHi": "印地语",
-    "languageNameJa": "日语"
+    "languageNameJa": "日语",
+    "automation": "自动化",
+    "ingestAutomation": "抓取自动化",
+    "fetchInterval": "抓取间隔",
+    "lastRun": "上次运行",
+    "nextRun": "下次运行",
+    "operations": "运维",
+    "fetchIntervalEvery15Minutes": "每15分钟",
+    "fetchIntervalEvery30Minutes": "每30分钟",
+    "fetchIntervalHourly": "每小时",
+    "fetchIntervalEverySixHours": "每6小时",
+    "fetchIntervalDaily": "每天",
+    "ingestionStatusActive": "激活",
+    "ingestionStatusPaused": "已暂停",
+    "ingestionStatusError": "错误"
 }
