@@ -78,6 +78,16 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
     ChartCardId.rewardsActiveByType,
   ];
 
+  static const List<KpiCardId> _operationsKpiCards = [
+    KpiCardId.ingestionActiveTasks,
+    KpiCardId.ingestionFailedTasks,
+    KpiCardId.ingestionHeadlinesFetched,
+  ];
+  static const List<ChartCardId> _operationsChartCards = [
+    ChartCardId.ingestionHeadlinesOverTime,
+    ChartCardId.ingestionTaskStatusDistribution,
+  ];
+
   Future<void> _onAnalyticsDataRequested(
     AnalyticsDataRequested event,
     Emitter<OverviewState> emit,
@@ -118,6 +128,9 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
         case OverviewTab.monetization:
           kpiIds = _monetizationKpiCards;
           chartIds = _monetizationChartCards;
+        case OverviewTab.operations:
+          kpiIds = _operationsKpiCards;
+          chartIds = _operationsChartCards;
       }
 
       futureProviders

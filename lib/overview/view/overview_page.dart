@@ -11,6 +11,7 @@ import 'package:verity_dashboard/overview/view/audience_tab_view.dart';
 import 'package:verity_dashboard/overview/view/community_tab_view.dart';
 import 'package:verity_dashboard/overview/view/content_tab_view.dart';
 import 'package:verity_dashboard/overview/view/monetization_tab_view.dart';
+import 'package:verity_dashboard/overview/view/operations_tab_view.dart';
 import 'package:verity_dashboard/shared/constants/app_constants.dart';
 import 'package:verity_dashboard/shared/services/analytics_service.dart';
 import 'package:verity_dashboard/shared/widgets/about_icon.dart';
@@ -31,7 +32,7 @@ class _OverviewPageState extends State<OverviewPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
   }
 
   @override
@@ -74,6 +75,7 @@ class _OverviewPageState extends State<OverviewPage>
                 Tab(text: l10n.content),
                 Tab(text: l10n.community),
                 Tab(text: l10n.monetization),
+                Tab(text: l10n.operations),
               ],
             ),
           ),
@@ -85,6 +87,7 @@ class _OverviewPageState extends State<OverviewPage>
               ContentTabView(),
               CommunityTabView(),
               MonetizationTabView(),
+              OperationsTabView(),
             ],
           ),
         ),

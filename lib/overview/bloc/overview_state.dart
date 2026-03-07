@@ -6,6 +6,7 @@ enum OverviewTab {
   content,
   community,
   monetization,
+  operations,
 }
 
 enum TabAnalyticsStatus { initial, loading, success, failure }
