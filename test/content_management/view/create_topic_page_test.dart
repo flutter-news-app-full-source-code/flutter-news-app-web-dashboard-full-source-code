@@ -5,14 +5,14 @@ import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart' as go_router;
+import 'package:logging/logging.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:verity_dashboard/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:verity_dashboard/content_management/view/create_topic_page.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
 import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
-import 'package:go_router/go_router.dart' as go_router;
-import 'package:logging/logging.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';

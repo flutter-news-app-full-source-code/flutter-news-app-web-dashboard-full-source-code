@@ -25,11 +25,11 @@ dependencies:
   core:
     git:
       url: https://github.com/verity-hq/core.git
-      ref: v2.0.0
+      ref: 01ddd253e94303d86d9fbcc977acb2019f239fb4
   core_ui:
     git:
       url: https://github.com/verity-hq/core-ui.git
-      ref: v2.0.0
+      ref: 051cdf79b85e3ffa124c90aa00cf873d722ae31c
   data_table_2: ^2.6.0
   dotted_border: ^3.1.0
   equatable: ^2.0.7

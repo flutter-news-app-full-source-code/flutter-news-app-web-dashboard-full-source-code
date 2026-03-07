@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_dashboard/app/config/config.dart' as local_config;
 import 'package:logging/logging.dart';
+import 'package:verity_dashboard/app/config/config.dart' as local_config;
 
 part 'app_event.dart';
 part 'app_state.dart';

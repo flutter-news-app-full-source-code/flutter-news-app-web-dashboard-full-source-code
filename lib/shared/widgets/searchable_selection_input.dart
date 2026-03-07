@@ -1,11 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/widgets/selection_page/searchable_selection_page.dart'
     show SearchableSelectionPage;
 import 'package:verity_dashboard/shared/widgets/selection_page/selection_page_arguments.dart';
-import 'package:go_router/go_router.dart';
 
 /// {@template searchable_selection_input}
 /// A custom input widget that, when tapped, navigates to a full-page

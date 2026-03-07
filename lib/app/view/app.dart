@@ -6,6 +6,8 @@ import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/app_environment.dart';
 import 'package:verity_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
@@ -25,8 +27,6 @@ import 'package:verity_dashboard/shared/services/pending_updates_service.dart';
 import 'package:verity_dashboard/shared/services/throttled_fetching_service.dart';
 import 'package:verity_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
 import 'package:verity_dashboard/user_management/bloc/user_management_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 
 class App extends StatelessWidget {
   const App({

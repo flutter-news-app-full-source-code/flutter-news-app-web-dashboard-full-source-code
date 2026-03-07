@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_fi
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/filter_dialog.dart'
     show FilterDialog;
 import 'package:verity_dashboard/shared/constants/constants.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'filter_dialog_event.dart';
 part 'filter_dialog_state.dart';

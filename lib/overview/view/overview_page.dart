@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
@@ -15,7 +16,6 @@ import 'package:verity_dashboard/shared/services/analytics_service.dart';
 import 'package:verity_dashboard/shared/widgets/about_icon.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/kpi_card.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/ranked_list_card.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});

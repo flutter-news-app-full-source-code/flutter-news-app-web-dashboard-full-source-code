@@ -3,6 +3,7 @@ import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
@@ -11,7 +12,6 @@ import 'package:verity_dashboard/user_management/bloc/user_management_bloc.dart'
 import 'package:verity_dashboard/user_management/enums/authentication_filter.dart';
 import 'package:verity_dashboard/user_management/view/user_role_ui.dart';
 import 'package:verity_dashboard/user_management/widgets/user_action_buttons.dart';
-import 'package:intl/intl.dart';
 
 /// {@template users_page}
 /// A page for displaying and managing Users in a tabular format.

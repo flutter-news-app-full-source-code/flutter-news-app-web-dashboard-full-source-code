@@ -5,6 +5,8 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
@@ -13,8 +15,6 @@ import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart'
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
 import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
 import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
-import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 
 /// {@template create_headline_page}
 /// A page for creating a new headline.

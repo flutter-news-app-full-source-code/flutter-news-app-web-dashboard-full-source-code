@@ -1,8 +1,8 @@
 import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart' as go_router;
+import 'package:verity_dashboard/l10n/app_localizations.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(

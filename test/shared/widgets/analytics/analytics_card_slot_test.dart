@@ -2,12 +2,12 @@ import 'package:core/core.dart';
 import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/shared/services/analytics_service.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_card_slot.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/kpi_card.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 class MockAnalyticsService extends Mock implements AnalyticsService {}
 

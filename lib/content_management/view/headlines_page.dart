@@ -3,6 +3,8 @@ import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
@@ -12,8 +14,6 @@ import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
-import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 /// {@template headlines_page}
 /// A page for displaying and managing Headlines in a tabular format.

@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:verity_dashboard/shared/services/analytics_service.dart';
 
 class MockKpiRepository extends Mock implements DataRepository<KpiCardData> {}
 

@@ -3,6 +3,7 @@ import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:verity_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
 import 'package:verity_dashboard/community_management/bloc/community_management_bloc.dart';
 import 'package:verity_dashboard/community_management/widgets/community_action_buttons.dart';
@@ -10,7 +11,6 @@ import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/extensions/extensions.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
-import 'package:intl/intl.dart';
 
 class ReportsPage extends StatefulWidget {
   const ReportsPage({super.key});

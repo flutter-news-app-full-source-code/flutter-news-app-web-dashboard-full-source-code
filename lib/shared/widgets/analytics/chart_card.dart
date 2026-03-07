@@ -2,10 +2,10 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_card_shell.dart';
-import 'package:intl/intl.dart' hide TextDirection;
 
 /// {@template chart_card}
 /// A widget that displays a chart (Bar or Line) with time frame toggles.

@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/config.dart' as local_config;
 import 'package:verity_dashboard/app/view/app_shell.dart';
@@ -34,7 +35,6 @@ import 'package:verity_dashboard/user_management/bloc/user_filter/user_filter_bl
 import 'package:verity_dashboard/user_management/view/user_management_page.dart';
 import 'package:verity_dashboard/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
 import 'package:verity_dashboard/user_management/widgets/user_filter_dialog/user_filter_dialog.dart';
-import 'package:go_router/go_router.dart';
 
 /// Creates and configures the GoRouter instance for the application.
 ///
