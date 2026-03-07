@@ -116,3 +116,19 @@ final class EditSourceLanguageTabChanged extends EditSourceEvent {
   @override
   List<Object?> get props => [language];
 }
+
+/// Event for when the automation fetch interval is changed.
+final class EditSourceAutomationIntervalChanged extends EditSourceEvent {
+  const EditSourceAutomationIntervalChanged(this.interval);
+  final FetchInterval interval;
+  @override
+  List<Object?> get props => [interval];
+}
+
+/// Event for when the automation status is toggled.
+final class EditSourceAutomationStatusChanged extends EditSourceEvent {
+  const EditSourceAutomationStatusChanged(this.status);
+  final IngestionStatus status;
+  @override
+  List<Object?> get props => [status];
+}
