@@ -1,3 +1,10 @@
+<p align="center">
+  <a href="https://github.com/verity-hq/verity-dashboard/wiki/Local-Setup"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
+  <img src="https://img.shields.io/badge/coverage-25%25-red?style=for-the-badge" alt="">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>
+  <a href="https://github.com/sponsors/verity-hq"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
+</p>
+
 <div align="center">
   <table>
     <tr>
@@ -11,13 +18,6 @@
     </tr>
   </table>
 </div>
-
-<p align="center">
-  <a href="https://github.com/verity-hq/verity-dashboard/wiki/Local-Setup"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
-  <img src="https://img.shields.io/badge/coverage-25%25-red?style=for-the-badge" alt="">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>
-  <a href="https://github.com/sponsors/verity-hq"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
-</p>
 
 ---
 
