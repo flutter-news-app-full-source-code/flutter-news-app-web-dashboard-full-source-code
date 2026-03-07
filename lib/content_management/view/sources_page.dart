@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -52,7 +54,7 @@ class _SourcesPageState extends State<SourcesPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
     return Padding(
-      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      padding: const EdgeInsetsDirectional.only(top: AppSpacing.sm),
       child: BlocBuilder<ContentManagementBloc, ContentManagementState>(
         builder: (context, state) {
           final sourcesFilterState = context.watch<SourcesFilterBloc>().state;
@@ -140,6 +142,10 @@ class _SourcesPageState extends State<SourcesPage> {
                             label: Text(l10n.sourceType),
                             size: ColumnSize.S,
                           ),
+                        DataColumn2(
+                          label: Text(l10n.automation),
+                          size: ColumnSize.S,
+                        ),
                         DataColumn2(
                           label: Text(l10n.lastUpdated),
                           size: ColumnSize.S,
@@ -242,6 +248,9 @@ class _SourcesDataSource extends DataTableSource {
             ),
           ),
         DataCell(
+          _AutomationStatusIndicator(sourceId: source.id),
+        ),
+        DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),
           ),
@@ -266,4 +275,86 @@ class _SourcesDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+}
+
+class _AutomationStatusIndicator extends StatefulWidget {
+  const _AutomationStatusIndicator({required this.sourceId});
+  final String sourceId;
+
+  @override
+  State<_AutomationStatusIndicator> createState() =>
+      _AutomationStatusIndicatorState();
+}
+
+class _AutomationStatusIndicatorState
+    extends State<_AutomationStatusIndicator> {
+  NewsAutomationTask? _task;
+  bool _isLoading = true;
+  StreamSubscription? _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchStatus();
+    _subscription = context
+        .read<DataRepository<NewsAutomationTask>>()
+        .entityUpdated
+        .listen((_) => _fetchStatus());
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _fetchStatus() async {
+    try {
+      final repo = context.read<DataRepository<NewsAutomationTask>>();
+      final response = await repo.readAll(
+        filter: {'sourceId': widget.sourceId},
+        pagination: const PaginationOptions(limit: 1),
+      );
+      if (mounted) {
+        setState(() {
+          _task = response.items.firstOrNull;
+          _isLoading = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isLoading) return const SizedBox.shrink();
+
+    final l10n = AppLocalizationsX(context).l10n;
+    final status = _task?.status ?? IngestionStatus.paused;
+
+    final theme = Theme.of(context);
+    final color = switch (status) {
+      IngestionStatus.active => Colors.green.shade600,
+      IngestionStatus.paused => theme.colorScheme.outline,
+      IngestionStatus.error => theme.colorScheme.error,
+    };
+
+    final statusLabel = switch (status) {
+      IngestionStatus.active => l10n.ingestionStatusActive,
+      IngestionStatus.paused => l10n.ingestionStatusPaused,
+      IngestionStatus.error => l10n.ingestionStatusError,
+    };
+
+    return Tooltip(
+      message: status == IngestionStatus.error
+          ? '${l10n.ingestionStatusError}: ${_task?.lastErrorMessage}'
+          : statusLabel,
+      child: Icon(
+        status == IngestionStatus.error ? Icons.error : Icons.circle,
+        size: 12,
+        color: color,
+      ),
+    );
+  }
 }
