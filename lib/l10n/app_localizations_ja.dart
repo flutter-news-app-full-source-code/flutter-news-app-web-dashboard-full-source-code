@@ -3332,4 +3332,46 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get languageNameJa => '日本語';
+
+  @override
+  String get automation => 'オートメーション';
+
+  @override
+  String get ingestAutomation => 'インジェスト・オートメーション';
+
+  @override
+  String get fetchInterval => '取得間隔';
+
+  @override
+  String get lastRun => '最終実行';
+
+  @override
+  String get nextRun => '次回実行';
+
+  @override
+  String get operations => '運用';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15分ごと';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30分ごと';
+
+  @override
+  String get fetchIntervalHourly => '1時間ごと';
+
+  @override
+  String get fetchIntervalEverySixHours => '6時間ごと';
+
+  @override
+  String get fetchIntervalDaily => '毎日';
+
+  @override
+  String get ingestionStatusActive => 'アクティブ';
+
+  @override
+  String get ingestionStatusPaused => '一時停止';
+
+  @override
+  String get ingestionStatusError => 'エラー';
 }

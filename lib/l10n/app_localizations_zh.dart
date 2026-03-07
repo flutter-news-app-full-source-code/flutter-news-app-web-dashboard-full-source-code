@@ -3214,4 +3214,46 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get languageNameJa => '日语';
+
+  @override
+  String get automation => '自动化';
+
+  @override
+  String get ingestAutomation => '抓取自动化';
+
+  @override
+  String get fetchInterval => '抓取间隔';
+
+  @override
+  String get lastRun => '上次运行';
+
+  @override
+  String get nextRun => '下次运行';
+
+  @override
+  String get operations => '运维';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '每15分钟';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '每30分钟';
+
+  @override
+  String get fetchIntervalHourly => '每小时';
+
+  @override
+  String get fetchIntervalEverySixHours => '每6小时';
+
+  @override
+  String get fetchIntervalDaily => '每天';
+
+  @override
+  String get ingestionStatusActive => '激活';
+
+  @override
+  String get ingestionStatusPaused => '已暂停';
+
+  @override
+  String get ingestionStatusError => '错误';
 }

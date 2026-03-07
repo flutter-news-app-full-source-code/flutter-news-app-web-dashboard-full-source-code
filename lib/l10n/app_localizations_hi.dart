@@ -3455,4 +3455,46 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get languageNameJa => 'जापानी';
+
+  @override
+  String get automation => 'स्वचालन';
+
+  @override
+  String get ingestAutomation => 'इन्जेस्ट ऑटोमेशन';
+
+  @override
+  String get fetchInterval => 'प्राप्ति अंतराल';
+
+  @override
+  String get lastRun => 'पिछली बार चला';
+
+  @override
+  String get nextRun => 'अगली बार चलेगा';
+
+  @override
+  String get operations => 'संचालन';
+
+  @override
+  String get fetchIntervalEvery15Minutes => 'हर 15 मिनट';
+
+  @override
+  String get fetchIntervalEvery30Minutes => 'हर 30 मिनट';
+
+  @override
+  String get fetchIntervalHourly => 'प्रति घंटा';
+
+  @override
+  String get fetchIntervalEverySixHours => 'हर 6 घंटे';
+
+  @override
+  String get fetchIntervalDaily => 'दैनिक';
+
+  @override
+  String get ingestionStatusActive => 'सक्रिय';
+
+  @override
+  String get ingestionStatusPaused => 'ठहरा हुआ';
+
+  @override
+  String get ingestionStatusError => 'त्रुटि';
 }

@@ -3421,4 +3421,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get languageNameJa => 'اليابانية';
+
+  @override
+  String get automation => 'الأتمتة';
+
+  @override
+  String get ingestAutomation => 'أتمتة الجلب';
+
+  @override
+  String get fetchInterval => 'فاصل الجلب الزمني';
+
+  @override
+  String get lastRun => 'آخر تشغيل';
+
+  @override
+  String get nextRun => 'التشغيل القادم';
+
+  @override
+  String get operations => 'العمليات';
+
+  @override
+  String get fetchIntervalEvery15Minutes => 'كل 15 دقيقة';
+
+  @override
+  String get fetchIntervalEvery30Minutes => 'كل 30 دقيقة';
+
+  @override
+  String get fetchIntervalHourly => 'كل ساعة';
+
+  @override
+  String get fetchIntervalEverySixHours => 'كل 6 ساعات';
+
+  @override
+  String get fetchIntervalDaily => 'يومياً';
+
+  @override
+  String get ingestionStatusActive => 'نشط';
+
+  @override
+  String get ingestionStatusPaused => 'متوقف مؤقتاً';
+
+  @override
+  String get ingestionStatusError => 'خطأ';
 }

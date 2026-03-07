@@ -6263,6 +6263,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Japanese'**
   String get languageNameJa;
+
+  /// Label for the automation column or section
+  ///
+  /// In en, this message translates to:
+  /// **'Automation'**
+  String get automation;
+
+  /// Title for the ingest automation configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Ingest Automation'**
+  String get ingestAutomation;
+
+  /// Label for the frequency of news fetching
+  ///
+  /// In en, this message translates to:
+  /// **'Fetch Interval'**
+  String get fetchInterval;
+
+  /// Label for the timestamp of the last automation run
+  ///
+  /// In en, this message translates to:
+  /// **'Last Run'**
+  String get lastRun;
+
+  /// Label for the timestamp of the next scheduled automation run
+  ///
+  /// In en, this message translates to:
+  /// **'Next Run'**
+  String get nextRun;
+
+  /// Label for the operations monitoring tab
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get operations;
+
+  /// Fetch interval option: 15 minutes
+  ///
+  /// In en, this message translates to:
+  /// **'Every 15 Minutes'**
+  String get fetchIntervalEvery15Minutes;
+
+  /// Fetch interval option: 30 minutes
+  ///
+  /// In en, this message translates to:
+  /// **'Every 30 Minutes'**
+  String get fetchIntervalEvery30Minutes;
+
+  /// Fetch interval option: Hourly
+  ///
+  /// In en, this message translates to:
+  /// **'Hourly'**
+  String get fetchIntervalHourly;
+
+  /// Fetch interval option: 6 hours
+  ///
+  /// In en, this message translates to:
+  /// **'Every 6 Hours'**
+  String get fetchIntervalEverySixHours;
+
+  /// Fetch interval option: Daily
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get fetchIntervalDaily;
+
+  /// Ingestion status: Active
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get ingestionStatusActive;
+
+  /// Ingestion status: Paused
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get ingestionStatusPaused;
+
+  /// Ingestion status: Error
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get ingestionStatusError;
 }
 
 class _AppLocalizationsDelegate
