@@ -44,6 +44,8 @@ class CreateSourcePage extends StatelessWidget {
       create: (context) =>
           CreateSourceBloc(
             sourcesRepository: context.read<DataRepository<Source>>(),
+            automationRepository: context
+                .read<DataRepository<NewsAutomationTask>>(),
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateSourceBloc'),
           )..add(
@@ -401,6 +403,10 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         ],
                         limit: kDefaultRowsPerPage,
                       ),
+                      const SizedBox(height: AppSpacing.lg),
+                      const Divider(),
+                      const SizedBox(height: AppSpacing.lg),
+                      _AutomationSection(l10n: l10n),
                     ],
                   ),
                 ),
