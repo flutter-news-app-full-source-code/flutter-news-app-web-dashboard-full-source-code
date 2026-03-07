@@ -1,14 +1,14 @@
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/community_management/bloc/community_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/community_management/view/app_reviews_page.dart';
-import 'package:flutter_news_app_web_dashboard/community_management/view/engagements_page.dart';
-import 'package:flutter_news_app_web_dashboard/community_management/view/reports_page.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard/shared/widgets/about_icon.dart';
+import 'package:verity_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
+import 'package:verity_dashboard/community_management/bloc/community_management_bloc.dart';
+import 'package:verity_dashboard/community_management/view/app_reviews_page.dart';
+import 'package:verity_dashboard/community_management/view/engagements_page.dart';
+import 'package:verity_dashboard/community_management/view/reports_page.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/router/routes.dart';
+import 'package:verity_dashboard/shared/widgets/about_icon.dart';
 import 'package:go_router/go_router.dart';
 
 class CommunityManagementPage extends StatefulWidget {

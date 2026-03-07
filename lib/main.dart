@@ -2,8 +2,8 @@ import 'dart:js_interop';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard/app/config/config.dart';
-import 'package:flutter_news_app_web_dashboard/bootstrap.dart';
+import 'package:verity_dashboard/app/config/config.dart';
+import 'package:verity_dashboard/bootstrap.dart';
 
 // Determine the current application environment from compile-time variables.
 // Defaults to 'development' if no environment is specified.

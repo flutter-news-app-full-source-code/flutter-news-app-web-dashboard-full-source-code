@@ -1,15 +1,15 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/app/bloc/app_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/app/config/config.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/view/content_management_page.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard/router/routes.dart';
+import 'package:verity_dashboard/app/bloc/app_bloc.dart';
+import 'package:verity_dashboard/app/config/config.dart';
+import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/view/content_management_page.dart';
+import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:verity_dashboard/router/routes.dart';
 import 'package:go_router/go_router.dart' as go_router;
 
 import '../../helpers/helpers.dart';

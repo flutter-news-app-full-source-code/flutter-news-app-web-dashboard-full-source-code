@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
 import 'package:logging/logging.dart';
 
 import '../../../helpers/helpers.dart';

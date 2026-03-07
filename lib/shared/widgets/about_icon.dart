@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
 
 /// {@template about_icon}
 /// A widget that displays an information icon which, when pressed, shows

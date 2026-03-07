@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard/shared/extensions/supported_language_flag.dart';
-import 'package:flutter_news_app_web_dashboard/shared/extensions/supported_language_l10n.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
+import 'package:verity_dashboard/shared/extensions/supported_language_l10n.dart';
 
 /// {@template localization_config_form}
 /// A form widget for configuring application localization settings.

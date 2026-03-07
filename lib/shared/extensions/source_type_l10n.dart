@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/app_localizations.dart';
+import 'package:verity_dashboard/l10n/app_localizations.dart';
 
 /// Adds localization support to the [SourceType] enum.
 extension SourceTypeL10n on SourceType {

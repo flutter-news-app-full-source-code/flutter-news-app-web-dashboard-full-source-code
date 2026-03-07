@@ -1,4 +1,4 @@
-import 'package:flutter_news_app_web_dashboard/app/config/app_environment.dart';
+import 'package:verity_dashboard/app/config/app_environment.dart';
 
 /// A class to hold all environment-specific configurations.
 ///

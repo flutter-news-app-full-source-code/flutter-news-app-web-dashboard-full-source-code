@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
 
 /// Extension to localize the [EngagementMode] enum.
 extension EngagementModeL10n on EngagementMode {

@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
 
 /// {@template feed_decorator_type_l10n}
 /// Extension on [FeedDecoratorType] to provide localized string representations.

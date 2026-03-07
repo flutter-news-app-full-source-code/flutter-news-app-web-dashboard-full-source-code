@@ -1,11 +1,11 @@
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard/router/routes.dart';
-import 'package:flutter_news_app_web_dashboard/shared/widgets/about_icon.dart';
-import 'package:flutter_news_app_web_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/user_management/view/users_page.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/router/routes.dart';
+import 'package:verity_dashboard/shared/widgets/about_icon.dart';
+import 'package:verity_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:verity_dashboard/user_management/view/users_page.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template user_management_page}

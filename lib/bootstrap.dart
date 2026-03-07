@@ -2,13 +2,12 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/app/app.dart';
-import 'package:flutter_news_app_web_dashboard/app/config/config.dart'
-    as app_config;
-import 'package:flutter_news_app_web_dashboard/bloc_observer.dart';
-import 'package:flutter_news_app_web_dashboard/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard/shared/services/analytics_service.dart';
-import 'package:flutter_news_app_web_dashboard/shared/services/pending_deletions_service.dart';
+import 'package:verity_dashboard/app/app.dart';
+import 'package:verity_dashboard/app/config/config.dart' as app_config;
+import 'package:verity_dashboard/bloc_observer.dart';
+import 'package:verity_dashboard/shared/constants/app_constants.dart';
+import 'package:verity_dashboard/shared/services/analytics_service.dart';
+import 'package:verity_dashboard/shared/services/pending_deletions_service.dart';
 import 'package:logging/logging.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

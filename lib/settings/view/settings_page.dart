@@ -3,13 +3,13 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/app/bloc/app_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/app_localizations.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard/settings/bloc/settings_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/shared/extensions/supported_language_flag.dart';
-import 'package:flutter_news_app_web_dashboard/shared/extensions/supported_language_l10n.dart';
-import 'package:flutter_news_app_web_dashboard/shared/widgets/about_icon.dart';
+import 'package:verity_dashboard/app/bloc/app_bloc.dart';
+import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/settings/bloc/settings_bloc.dart';
+import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
+import 'package:verity_dashboard/shared/extensions/supported_language_l10n.dart';
+import 'package:verity_dashboard/shared/widgets/about_icon.dart';
 
 /// {@template settings_page}
 /// A page for user settings, allowing customization of theme and language.

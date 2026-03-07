@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/app_localizations.dart';
+import 'package:verity_dashboard/l10n/app_localizations.dart';
 
 /// An extension on [UserRole] to provide UI-related helpers.
 extension UserRoleUI on UserRole {

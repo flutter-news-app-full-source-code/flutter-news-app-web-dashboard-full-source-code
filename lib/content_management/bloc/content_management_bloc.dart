@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/shared/constants/app_constants.dart';
-import 'package:flutter_news_app_web_dashboard/shared/services/pending_deletions_service.dart';
+import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:verity_dashboard/shared/constants/app_constants.dart';
+import 'package:verity_dashboard/shared/services/pending_deletions_service.dart';
 
 part 'content_management_event.dart';
 part 'content_management_state.dart';

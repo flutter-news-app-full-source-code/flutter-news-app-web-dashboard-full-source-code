@@ -2,9 +2,9 @@ import 'package:core/core.dart' show DataRepository;
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/l10n/l10n.dart';
-import 'package:flutter_news_app_web_dashboard/shared/widgets/selection_page/bloc/searchable_selection_bloc.dart';
-import 'package:flutter_news_app_web_dashboard/shared/widgets/selection_page/selection_page_arguments.dart';
+import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/shared/widgets/selection_page/bloc/searchable_selection_bloc.dart';
+import 'package:verity_dashboard/shared/widgets/selection_page/selection_page_arguments.dart';
 
 /// {@template searchable_selection_page}
 /// A generic full-page component for selecting an item from a searchable,
