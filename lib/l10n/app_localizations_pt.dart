@@ -3329,44 +3329,44 @@ class AppLocalizationsPt extends AppLocalizations {
   String get languageNameJa => 'Japonês';
 
   @override
-  String get automation => 'Automation';
+  String get automation => 'Automação';
 
   @override
-  String get ingestAutomation => 'Ingest Automation';
+  String get ingestAutomation => 'Automação de Ingestão';
 
   @override
-  String get fetchInterval => 'Fetch Interval';
+  String get fetchInterval => 'Intervalo de Busca';
 
   @override
-  String get lastRun => 'Last Run';
+  String get lastRun => 'Última Execução';
 
   @override
-  String get nextRun => 'Next Run';
+  String get nextRun => 'Próxima Execução';
 
   @override
-  String get operations => 'Operations';
+  String get operations => 'Operações';
 
   @override
-  String get fetchIntervalEvery15Minutes => 'Every 15 Minutes';
+  String get fetchIntervalEvery15Minutes => 'A cada 15 Minutos';
 
   @override
-  String get fetchIntervalEvery30Minutes => 'Every 30 Minutes';
+  String get fetchIntervalEvery30Minutes => 'A cada 30 Minutos';
 
   @override
-  String get fetchIntervalHourly => 'Hourly';
+  String get fetchIntervalHourly => 'De hora em hora';
 
   @override
-  String get fetchIntervalEverySixHours => 'Every 6 Hours';
+  String get fetchIntervalEverySixHours => 'A cada 6 Horas';
 
   @override
-  String get fetchIntervalDaily => 'Daily';
+  String get fetchIntervalDaily => 'Diariamente';
 
   @override
-  String get ingestionStatusActive => 'Active';
+  String get ingestionStatusActive => 'Ativo';
 
   @override
-  String get ingestionStatusPaused => 'Paused';
+  String get ingestionStatusPaused => 'Pausado';
 
   @override
-  String get ingestionStatusError => 'Error';
+  String get ingestionStatusError => 'Erro';
 }
