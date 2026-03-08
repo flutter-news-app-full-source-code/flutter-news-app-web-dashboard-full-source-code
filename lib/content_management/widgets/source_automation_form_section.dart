@@ -141,8 +141,9 @@ class SourceAutomationFormSection extends StatelessWidget {
           ),
 
           // Status Footer (Only if active/error or has history)
-          if (isEnabled &&
-              (lastRun != null || nextRun != null || errorMessage != null)) ...[
+          if (lastRun != null ||
+              nextRun != null ||
+              (status == IngestionStatus.error && errorMessage != null)) ...[
             const Divider(height: 1),
             _buildStatusFooter(context, l10n, colorScheme),
           ],
@@ -156,56 +157,60 @@ class SourceAutomationFormSection extends StatelessWidget {
     AppLocalizations l10n,
     ColorScheme colorScheme,
   ) {
-    if (status == IngestionStatus.error && errorMessage != null) {
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(AppSpacing.md),
-        color: colorScheme.errorContainer,
-        child: Row(
-          children: [
-            Icon(Icons.error_outline, color: colorScheme.onErrorContainer),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Text(
-                errorMessage!,
-                style: TextStyle(color: colorScheme.onErrorContainer),
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (status == IngestionStatus.error && errorMessage != null)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(AppSpacing.md),
+            color: colorScheme.errorContainer,
+            child: Row(
+              children: [
+                Icon(Icons.error_outline, color: colorScheme.onErrorContainer),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Text(
+                    errorMessage!,
+                    style: TextStyle(color: colorScheme.onErrorContainer),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.md,
-      ),
-      child: Row(
-        children: [
-          if (lastRun != null) ...[
-            Icon(
-              Icons.check_circle_outline,
-              size: 16,
-              color: colorScheme.primary,
+          ),
+        if (lastRun != null || nextRun != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.lg,
+              vertical: AppSpacing.md,
             ),
-            const SizedBox(width: 4),
-            Text(
-              '${l10n.lastSyncedLabel}: ${timeago.format(lastRun!)}',
-              style: Theme.of(context).textTheme.bodySmall,
+            child: Row(
+              children: [
+                if (lastRun != null) ...[
+                  Icon(
+                    Icons.check_circle_outline,
+                    size: 16,
+                    color: colorScheme.primary,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${l10n.lastSyncedLabel}: ${timeago.format(lastRun!)}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const SizedBox(width: AppSpacing.lg),
+                ],
+                if (nextRun != null && isEnabled) ...[
+                  Icon(Icons.schedule, size: 16, color: colorScheme.secondary),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${l10n.nextSyncLabel}: ${timeago.format(nextRun!, allowFromNow: true)}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ],
             ),
-            const SizedBox(width: AppSpacing.lg),
-          ],
-          if (nextRun != null) ...[
-            Icon(Icons.schedule, size: 16, color: colorScheme.secondary),
-            const SizedBox(width: 4),
-            Text(
-              '${l10n.nextSyncLabel}: ${timeago.format(nextRun!, allowFromNow: true)}',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

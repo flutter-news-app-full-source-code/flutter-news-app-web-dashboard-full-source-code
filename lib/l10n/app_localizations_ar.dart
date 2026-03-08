@@ -3465,18 +3465,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get ingestionStatusError => 'خطأ';
 
   @override
-  String get contentSyncScheduleTitle => 'Content Sync Schedule';
+  String get contentSyncScheduleTitle => 'جدول مزامنة المحتوى';
 
   @override
   String get contentSyncScheduleDescription =>
-      'Schedule automated ingestion. Backend setup required.';
+      'جدولة الجلب الآلي. يتطلب إعداد الواجهة الخلفية.';
 
   @override
-  String get syncFrequencyLabel => 'Sync Frequency';
+  String get syncFrequencyLabel => 'تكرار المزامنة';
 
   @override
-  String get lastSyncedLabel => 'Last synced';
+  String get lastSyncedLabel => 'آخر مزامنة';
 
   @override
-  String get nextSyncLabel => 'Next sync';
+  String get nextSyncLabel => 'المزامنة التالية';
 }
