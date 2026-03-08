@@ -34,16 +34,40 @@ class _OperationsTabViewState extends State<OperationsTabView>
     return BlocSelector<OverviewBloc, OverviewState, TabAnalyticsState?>(
       selector: (state) => state.tabStates[OverviewTab.operations],
       builder: (context, tabState) {
-        if (tabState == null || tabState.status == TabAnalyticsStatus.loading) {
-          return const Center(child: CircularProgressIndicator());
+        if (tabState == null || tabState.status == TabAnalyticsStatus.initial) {
+          return const SizedBox.shrink();
+        }
+
+        if (tabState.status == TabAnalyticsStatus.loading) {
+          return LoadingStateWidget(
+            icon: Icons.analytics_outlined,
+            headline: l10n.loadingAnalytics,
+            subheadline: l10n.pleaseWait,
+          );
         }
 
         if (tabState.status == TabAnalyticsStatus.failure) {
-          return Center(child: Text(l10n.overviewLoadFailure));
+          return FailureStateWidget(
+            exception: UnknownException(tabState.error.toString()),
+            onRetry: () => context.read<OverviewBloc>().add(
+              const AnalyticsDataRequested(
+                tab: OverviewTab.operations,
+                forceRefresh: true,
+              ),
+            ),
+          );
         }
 
         final kpis = tabState.kpiData;
         final charts = tabState.chartData;
+
+        if (kpis.every((d) => d == null) && charts.every((d) => d == null)) {
+          return InitialStateWidget(
+            icon: Icons.analytics_outlined,
+            headline: l10n.noAnalyticsDataHeadline,
+            subheadline: l10n.noAnalyticsDataSubheadline,
+          );
+        }
 
         return SingleChildScrollView(
           padding: const EdgeInsets.all(AppSpacing.lg),
