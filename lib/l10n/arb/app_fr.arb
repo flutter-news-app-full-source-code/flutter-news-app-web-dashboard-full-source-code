@@ -677,7 +677,7 @@
     "eligiblePositiveInteractionsTitle": "Interactions Positives",
     "positiveInteractionTypeSaveItem": "Enregistrer du contenu",
     "positiveInteractionTypeFollowItem": "Suivre une entité",
-    "positiveInteractionTypeSharedContent": "Partager du contenu",
+    "positiveInteractionTypeShareContent": "Partager du contenu",
     "positiveInteractionTypeSaveFilter": "Créer un filtre enregistré",
     "followUpActionsTitle": "Actions de Suivi",
     "enableCommunityFeaturesLabel": "Activer Fonctions Communauté",

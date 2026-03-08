@@ -1799,7 +1799,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get positiveInteractionTypeFollowItem => 'Suivre une entité';
 
   @override
-  String get positiveInteractionTypeShareContent => 'Share a content item';
+  String get positiveInteractionTypeShareContent => 'Partager du contenu';
 
   @override
   String get positiveInteractionTypeSaveFilter => 'Créer un filtre enregistré';
