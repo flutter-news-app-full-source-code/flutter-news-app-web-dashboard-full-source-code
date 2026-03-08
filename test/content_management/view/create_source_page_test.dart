@@ -139,6 +139,7 @@ void main() {
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
     late MockMediaRepository mediaRepository;
+    late MockDataRepository<NewsAutomationTask> automationRepository;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -149,6 +150,7 @@ void main() {
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
       mediaRepository = MockMediaRepository();
+      automationRepository = MockDataRepository<NewsAutomationTask>();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -182,6 +184,9 @@ void main() {
           ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
+          ),
+          RepositoryProvider<DataRepository<NewsAutomationTask>>.value(
+            value: automationRepository,
           ),
         ],
         child: MultiBlocProvider(

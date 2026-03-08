@@ -290,7 +290,7 @@ class _AutomationStatusIndicatorState
     extends State<_AutomationStatusIndicator> {
   NewsAutomationTask? _task;
   bool _isLoading = true;
-  StreamSubscription? _subscription;
+  StreamSubscription<Type>? _subscription;
 
   @override
   void initState() {
