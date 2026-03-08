@@ -64,6 +64,7 @@ Future<Widget> bootstrap(
   DataClient<ChartCardData> chartCardsClient;
   DataClient<RankedListCardData> rankedListCardsClient;
   DataClient<UserRewards> userRewardsClient;
+  DataClient<NewsAutomationTask> automationClient;
 
   headlinesClient = DataApi<Headline>(
     httpClient: httpClient,
@@ -178,6 +179,13 @@ Future<Widget> bootstrap(
     toJson: (item) => item.toJson(),
     logger: Logger('DataApi<UserRewards>'),
   );
+  automationClient = DataApi<NewsAutomationTask>(
+    httpClient: httpClient,
+    modelName: 'news_automation_task',
+    fromJson: NewsAutomationTask.fromJson,
+    toJson: (item) => item.toJson(),
+    logger: Logger('DataApi<NewsAutomationTask>'),
+  );
   mediaClient = MediaApi(
     httpClient: httpClient,
     logger: Logger('MediaApi'),
@@ -230,6 +238,9 @@ Future<Widget> bootstrap(
   final userRewardsRepository = DataRepository<UserRewards>(
     dataClient: userRewardsClient,
   );
+  final automationRepository = DataRepository<NewsAutomationTask>(
+    dataClient: automationClient,
+  );
   final mediaRepository = MediaRepository(mediaClient: mediaClient);
 
   final analyticsService = AnalyticsService(
@@ -254,6 +265,7 @@ Future<Widget> bootstrap(
     appReviewsRepository: appReviewsRepository,
     analyticsService: analyticsService,
     mediaRepository: mediaRepository,
+    automationRepository: automationRepository,
     userRewardsRepository: userRewardsRepository,
     storageService: kvStorage,
     environment: environment,

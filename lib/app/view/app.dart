@@ -45,6 +45,7 @@ class App extends StatelessWidget {
     required DataRepository<Report> reportsRepository,
     required DataRepository<AppReview> appReviewsRepository,
     required DataRepository<UserRewards> userRewardsRepository,
+    required DataRepository<NewsAutomationTask> automationRepository,
     required MediaRepository mediaRepository,
     required AnalyticsService analyticsService,
     required KVStorageService storageService,
@@ -66,6 +67,7 @@ class App extends StatelessWidget {
        _reportsRepository = reportsRepository,
        _appReviewsRepository = appReviewsRepository,
        _userRewardsRepository = userRewardsRepository,
+       _automationRepository = automationRepository,
        _mediaRepository = mediaRepository,
        _analyticsService = analyticsService,
        _environment = environment,
@@ -86,6 +88,7 @@ class App extends StatelessWidget {
   final DataRepository<Report> _reportsRepository;
   final DataRepository<AppReview> _appReviewsRepository;
   final DataRepository<UserRewards> _userRewardsRepository;
+  final DataRepository<NewsAutomationTask> _automationRepository;
   final MediaRepository _mediaRepository;
   final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
@@ -112,6 +115,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _reportsRepository),
         RepositoryProvider.value(value: _appReviewsRepository),
         RepositoryProvider.value(value: _userRewardsRepository),
+        RepositoryProvider.value(value: _automationRepository),
         RepositoryProvider.value(value: _mediaRepository),
         RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
