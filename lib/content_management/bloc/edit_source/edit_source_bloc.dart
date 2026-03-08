@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
+import 'package:uuid/uuid.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -44,6 +45,7 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceLanguageTabChanged>(_onLanguageTabChanged);
   }
 
+  final _uuid = const Uuid();
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
   final DataRepository<Language> _languagesRepository;
@@ -73,7 +75,19 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
         filter: {'sourceId': state.sourceId},
         pagination: const PaginationOptions(limit: 1),
       );
-      final automationTask = automationResponse.items.firstOrNull;
+
+      // If no task exists, create a default in-memory task (paused).
+      // This ensures the UI always has a task to work with.
+      final automationTask =
+          automationResponse.items.firstOrNull ??
+          NewsAutomationTask(
+            id: _uuid.v4(),
+            sourceId: state.sourceId,
+            fetchInterval: FetchInterval.hourly,
+            status: IngestionStatus.paused,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
 
       emit(
         state.copyWith(
@@ -354,10 +368,21 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
 
       // Update automation task if it exists and has changed
       if (state.automationTask != null) {
-        await _automationRepository.update(
-          id: state.automationTask!.id,
-          item: state.automationTask!,
-        );
+        try {
+          // Try to update existing task
+          await _automationRepository.update(
+            id: state.automationTask!.id,
+            item: state.automationTask!,
+          );
+        } on NotFoundException {
+          // If task doesn't exist (was created in-memory), create it now
+          await _automationRepository.create(
+            item: state.automationTask!,
+          );
+          _logger.info(
+            'Created new automation task for source ${state.sourceId}',
+          );
+        }
       }
 
       await _sourcesRepository.update(id: state.sourceId, item: updatedSource);

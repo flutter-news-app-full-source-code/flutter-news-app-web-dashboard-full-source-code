@@ -412,7 +412,13 @@ class _EditSourceViewState extends State<EditSourceView> {
                       BlocBuilder<EditSourceBloc, EditSourceState>(
                         builder: (context, state) {
                           final task = state.automationTask;
-                          if (task == null) return const SizedBox.shrink();
+                          // Even if task is null (which shouldn't happen due to BLoC logic),
+                          // we don't want to hide the form. The BLoC now guarantees a default
+                          // task is present in the state.
+                          if (task == null)
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
 
                           return SourceAutomationFormSection(
                             isEnabled: task.status != IngestionStatus.paused,
