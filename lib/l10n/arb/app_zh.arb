@@ -1314,5 +1314,10 @@
     "fetchIntervalDaily": "每天",
     "ingestionStatusActive": "激活",
     "ingestionStatusPaused": "已暂停",
-    "ingestionStatusError": "错误"
+    "ingestionStatusError": "错误",
+    "contentSyncScheduleTitle": "内容同步计划",
+    "contentSyncScheduleDescription": "安排自动摄取。需要后端配置。",
+    "syncFrequencyLabel": "同步频率",
+    "lastSyncedLabel": "上次同步",
+    "nextSyncLabel": "下次同步"
 }

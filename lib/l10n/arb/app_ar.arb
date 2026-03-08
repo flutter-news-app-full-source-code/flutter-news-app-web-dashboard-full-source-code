@@ -1316,5 +1316,10 @@
   "fetchIntervalDaily": "يومياً",
   "ingestionStatusActive": "نشط",
   "ingestionStatusPaused": "متوقف مؤقتاً",
-  "ingestionStatusError": "خطأ"
+  "ingestionStatusError": "خطأ",
+  "contentSyncScheduleTitle": "جدول مزامنة المحتوى",
+  "contentSyncScheduleDescription": "جدولة الجلب الآلي. يتطلب إعداد الواجهة الخلفية.",
+  "syncFrequencyLabel": "تكرار المزامنة",
+  "lastSyncedLabel": "آخر مزامنة",
+  "nextSyncLabel": "المزامنة التالية"
 }

@@ -1314,5 +1314,10 @@
     "fetchIntervalDaily": "दैनिक",
     "ingestionStatusActive": "सक्रिय",
     "ingestionStatusPaused": "ठहरा हुआ",
-    "ingestionStatusError": "त्रुटि"
+    "ingestionStatusError": "त्रुटि",
+    "contentSyncScheduleTitle": "सामग्री सिंक अनुसूची",
+    "contentSyncScheduleDescription": "स्वचालित अंतर्ग्रहण शेड्यूल करें। बैकएंड सेटअप आवश्यक है।",
+    "syncFrequencyLabel": "सिंक आवृत्ति",
+    "lastSyncedLabel": "अंतिम सिंक",
+    "nextSyncLabel": "अगला सिंक"
 }

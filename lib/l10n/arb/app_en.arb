@@ -4333,5 +4333,25 @@
   "ingestionStatusError": "Error",
   "@ingestionStatusError": {
     "description": "Ingestion status: Error"
+  },
+  "contentSyncScheduleTitle": "Content Sync Schedule",
+  "@contentSyncScheduleTitle": {
+    "description": "Title for the content sync schedule card"
+  },
+  "contentSyncScheduleDescription": "Schedule automated ingestion. Backend setup required.",
+  "@contentSyncScheduleDescription": {
+    "description": "Description for the content sync schedule card"
+  },
+  "syncFrequencyLabel": "Sync Frequency",
+  "@syncFrequencyLabel": {
+    "description": "Label for the sync frequency selection"
+  },
+  "lastSyncedLabel": "Last synced",
+  "@lastSyncedLabel": {
+    "description": "Label for last synced time"
+  },
+  "nextSyncLabel": "Next sync",
+  "@nextSyncLabel": {
+    "description": "Label for next sync time"
   }
 }

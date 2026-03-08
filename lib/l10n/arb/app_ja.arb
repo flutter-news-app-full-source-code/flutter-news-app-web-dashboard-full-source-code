@@ -1314,5 +1314,10 @@
     "fetchIntervalDaily": "毎日",
     "ingestionStatusActive": "アクティブ",
     "ingestionStatusPaused": "一時停止",
-    "ingestionStatusError": "エラー"
+    "ingestionStatusError": "エラー",
+    "contentSyncScheduleTitle": "コンテンツ同期スケジュール",
+    "contentSyncScheduleDescription": "自動取り込みをスケジュールします。バックエンド設定が必要です。",
+    "syncFrequencyLabel": "同期頻度",
+    "lastSyncedLabel": "最終同期",
+    "nextSyncLabel": "次回同期"
 }

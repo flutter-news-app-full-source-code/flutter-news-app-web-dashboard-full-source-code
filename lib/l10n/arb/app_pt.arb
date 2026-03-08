@@ -1314,5 +1314,10 @@
     "fetchIntervalDaily": "Diariamente",
     "ingestionStatusActive": "Ativo",
     "ingestionStatusPaused": "Pausado",
-    "ingestionStatusError": "Erro"
+    "ingestionStatusError": "Erro",
+    "contentSyncScheduleTitle": "Agendamento de Sincronização",
+    "contentSyncScheduleDescription": "Agende a ingestão automática. Configuração de backend necessária.",
+    "syncFrequencyLabel": "Frequência de Sincronização",
+    "lastSyncedLabel": "Última sincronização",
+    "nextSyncLabel": "Próxima sincronização"
 }
