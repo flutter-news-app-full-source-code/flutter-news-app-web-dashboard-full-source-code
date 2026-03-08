@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -158,6 +156,7 @@ class _SourcesPageState extends State<SourcesPage> {
                       source: _SourcesDataSource(
                         context: context,
                         sources: state.sources,
+                        automationTasks: state.sourceAutomationTasks,
                         hasMore: state.sourcesHasMore,
                         l10n: l10n,
                         isMobile: isMobile,
@@ -205,6 +204,7 @@ class _SourcesDataSource extends DataTableSource {
   _SourcesDataSource({
     required this.context,
     required this.sources,
+    required this.automationTasks,
     required this.hasMore,
     required this.l10n,
     required this.isMobile,
@@ -212,6 +212,7 @@ class _SourcesDataSource extends DataTableSource {
 
   final BuildContext context;
   final List<Source> sources;
+  final Map<String, NewsAutomationTask> automationTasks;
   final bool hasMore;
   final AppLocalizations l10n;
   final bool isMobile;
@@ -248,7 +249,10 @@ class _SourcesDataSource extends DataTableSource {
             ),
           ),
         DataCell(
-          _AutomationStatusIndicator(sourceId: source.id),
+          _AutomationStatusBadge(
+            task: automationTasks[source.id],
+            l10n: l10n,
+          ),
         ),
         DataCell(
           Text(
@@ -277,61 +281,26 @@ class _SourcesDataSource extends DataTableSource {
   int get selectedRowCount => 0;
 }
 
-class _AutomationStatusIndicator extends StatefulWidget {
-  const _AutomationStatusIndicator({required this.sourceId});
-  final String sourceId;
+class _AutomationStatusBadge extends StatelessWidget {
+  const _AutomationStatusBadge({
+    required this.task,
+    required this.l10n,
+  });
 
-  @override
-  State<_AutomationStatusIndicator> createState() =>
-      _AutomationStatusIndicatorState();
-}
-
-class _AutomationStatusIndicatorState
-    extends State<_AutomationStatusIndicator> {
-  NewsAutomationTask? _task;
-  bool _isLoading = true;
-  StreamSubscription<Type>? _subscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchStatus();
-    _subscription = context
-        .read<DataRepository<NewsAutomationTask>>()
-        .entityUpdated
-        .listen((_) => _fetchStatus());
-  }
-
-  @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
-  }
-
-  Future<void> _fetchStatus() async {
-    try {
-      final repo = context.read<DataRepository<NewsAutomationTask>>();
-      final response = await repo.readAll(
-        filter: {'sourceId': widget.sourceId},
-        pagination: const PaginationOptions(limit: 1),
-      );
-      if (mounted) {
-        setState(() {
-          _task = response.items.firstOrNull;
-          _isLoading = false;
-        });
-      }
-    } catch (_) {
-      if (mounted) setState(() => _isLoading = false);
-    }
-  }
+  final NewsAutomationTask? task;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) return const SizedBox.shrink();
+    // If no task is found, we assume it's not active or not configured.
+    if (task == null) {
+      return Tooltip(
+        message: l10n.ingestionStatusPaused,
+        child: Icon(Icons.circle, size: 12, color: Colors.grey.shade400),
+      );
+    }
 
-    final l10n = AppLocalizationsX(context).l10n;
-    final status = _task?.status ?? IngestionStatus.paused;
+    final status = task!.status;
 
     final theme = Theme.of(context);
     final color = switch (status) {
@@ -348,7 +317,7 @@ class _AutomationStatusIndicatorState
 
     return Tooltip(
       message: status == IngestionStatus.error
-          ? '${l10n.ingestionStatusError}: ${_task?.lastErrorMessage}'
+          ? '${l10n.ingestionStatusError}: ${task?.lastErrorMessage}'
           : statusLabel,
       child: Icon(
         status == IngestionStatus.error ? Icons.error : Icons.circle,
