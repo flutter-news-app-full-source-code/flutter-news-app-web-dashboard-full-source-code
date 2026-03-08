@@ -3,11 +3,10 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:verity_dashboard/content_management/widgets/source_automation_form_section.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/extensions/extensions.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
@@ -410,7 +409,33 @@ class _EditSourceViewState extends State<EditSourceView> {
                       const SizedBox(height: AppSpacing.lg),
                       const Divider(),
                       const SizedBox(height: AppSpacing.lg),
-                      _AutomationSection(l10n: l10n),
+                      BlocBuilder<EditSourceBloc, EditSourceState>(
+                        builder: (context, state) {
+                          final task = state.automationTask;
+                          if (task == null) return const SizedBox.shrink();
+
+                          return SourceAutomationFormSection(
+                            isEnabled: task.status != IngestionStatus.paused,
+                            fetchInterval: task.fetchInterval,
+                            status: task.status,
+                            lastRun: task.lastRunAt,
+                            nextRun: task.nextRunAt,
+                            errorMessage: task.lastErrorMessage,
+                            onEnabledChanged: (isEnabled) =>
+                                context.read<EditSourceBloc>().add(
+                                  EditSourceAutomationStatusChanged(
+                                    isEnabled
+                                        ? IngestionStatus.active
+                                        : IngestionStatus.paused,
+                                  ),
+                                ),
+                            onIntervalChanged: (interval) =>
+                                context.read<EditSourceBloc>().add(
+                                  EditSourceAutomationIntervalChanged(interval),
+                                ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -436,77 +461,5 @@ class _EditSourceViewState extends State<EditSourceView> {
         const EditSourceSavedAsDraft(),
       );
     }
-  }
-}
-
-class _AutomationSection extends StatelessWidget {
-  const _AutomationSection({required this.l10n});
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return BlocBuilder<EditSourceBloc, EditSourceState>(
-      builder: (context, state) {
-        final task = state.automationTask;
-        if (task == null) return const SizedBox.shrink();
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.ingestAutomation, style: theme.textTheme.titleMedium),
-            const SizedBox(height: AppSpacing.md),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(l10n.status),
-                      trailing: Text(
-                        task.status.name.toUpperCase(),
-                        style: TextStyle(
-                          color: task.status == IngestionStatus.error
-                              ? theme.colorScheme.error
-                              : theme.colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(l10n.fetchInterval),
-                      trailing: Text(task.fetchInterval.name),
-                    ),
-                    if (task.lastRunAt != null)
-                      ListTile(
-                        title: Text(l10n.lastRun),
-                        trailing: Text(
-                          DateFormat('MMM dd, HH:mm').format(task.lastRunAt!),
-                        ),
-                      ),
-                    if (task.nextRunAt != null)
-                      ListTile(
-                        title: Text(l10n.nextRun),
-                        trailing: Text(
-                          DateFormat('MMM dd, HH:mm').format(task.nextRunAt!),
-                        ),
-                      ),
-                    if (task.status == IngestionStatus.error &&
-                        task.lastErrorMessage != null)
-                      Padding(
-                        padding: const EdgeInsets.all(AppSpacing.sm),
-                        child: Text(
-                          task.lastErrorMessage!,
-                          style: TextStyle(color: theme.colorScheme.error),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 }
