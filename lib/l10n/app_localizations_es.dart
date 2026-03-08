@@ -3393,4 +3393,20 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ingestionStatusError => 'Error';
+
+  @override
+  String get contentSyncScheduleTitle => 'Programación de Sincronización';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'Programe la ingesta automática. Requiere configuración del backend.';
+
+  @override
+  String get syncFrequencyLabel => 'Frecuencia de Sincronización';
+
+  @override
+  String get lastSyncedLabel => 'Última sincronización';
+
+  @override
+  String get nextSyncLabel => 'Próxima sincronización';
 }

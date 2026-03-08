@@ -3256,4 +3256,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get ingestionStatusError => '错误';
+
+  @override
+  String get contentSyncScheduleTitle => '内容同步计划';
+
+  @override
+  String get contentSyncScheduleDescription => '安排自动摄取。需要后端配置。';
+
+  @override
+  String get syncFrequencyLabel => '同步频率';
+
+  @override
+  String get lastSyncedLabel => '上次同步';
+
+  @override
+  String get nextSyncLabel => '下次同步';
 }

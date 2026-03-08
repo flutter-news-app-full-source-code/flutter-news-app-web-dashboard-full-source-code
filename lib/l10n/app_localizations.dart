@@ -6347,6 +6347,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error'**
   String get ingestionStatusError;
+
+  /// Title for the content sync schedule card
+  ///
+  /// In en, this message translates to:
+  /// **'Content Sync Schedule'**
+  String get contentSyncScheduleTitle;
+
+  /// Description for the content sync schedule card
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule automated ingestion. Backend setup required.'**
+  String get contentSyncScheduleDescription;
+
+  /// Label for the sync frequency selection
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Frequency'**
+  String get syncFrequencyLabel;
+
+  /// Label for last synced time
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced'**
+  String get lastSyncedLabel;
+
+  /// Label for next sync time
+  ///
+  /// In en, this message translates to:
+  /// **'Next sync'**
+  String get nextSyncLabel;
 }
 
 class _AppLocalizationsDelegate

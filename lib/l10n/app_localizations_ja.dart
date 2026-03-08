@@ -3374,4 +3374,20 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get ingestionStatusError => 'エラー';
+
+  @override
+  String get contentSyncScheduleTitle => 'コンテンツ同期スケジュール';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      '自動取り込みをスケジュールします。バックエンド設定が必要です。';
+
+  @override
+  String get syncFrequencyLabel => '同期頻度';
+
+  @override
+  String get lastSyncedLabel => '最終同期';
+
+  @override
+  String get nextSyncLabel => '次回同期';
 }

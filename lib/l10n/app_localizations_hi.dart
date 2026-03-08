@@ -3497,4 +3497,20 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get ingestionStatusError => 'त्रुटि';
+
+  @override
+  String get contentSyncScheduleTitle => 'सामग्री सिंक अनुसूची';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'स्वचालित अंतर्ग्रहण शेड्यूल करें। बैकएंड सेटअप आवश्यक है।';
+
+  @override
+  String get syncFrequencyLabel => 'सिंक आवृत्ति';
+
+  @override
+  String get lastSyncedLabel => 'अंतिम सिंक';
+
+  @override
+  String get nextSyncLabel => 'अगला सिंक';
 }
