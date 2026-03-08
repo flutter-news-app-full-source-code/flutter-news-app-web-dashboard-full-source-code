@@ -244,19 +244,36 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       _logger.finer('Submitting new source data: ${newSource.toJson()}');
       await _sourcesRepository.create(item: newSource);
 
-      // Create linked automation task
-      final automationTask = NewsAutomationTask(
-        id: _uuid.v4(),
-        sourceId: newSourceId,
-        fetchInterval: state.fetchInterval,
-        status: state.isAutomationEnabled
-            ? IngestionStatus.active
-            : IngestionStatus.paused,
-        failureCount: 0,
-        createdAt: now,
-        updatedAt: now,
-      );
-      await _automationRepository.create(item: automationTask);
+      try {
+        // Create linked automation task
+        final automationTask = NewsAutomationTask(
+          id: _uuid.v4(),
+          sourceId: newSourceId,
+          fetchInterval: state.fetchInterval,
+          status: state.isAutomationEnabled
+              ? IngestionStatus.active
+              : IngestionStatus.paused,
+          failureCount: 0,
+          createdAt: now,
+          updatedAt: now,
+        );
+        await _automationRepository.create(item: automationTask);
+      } catch (e) {
+        _logger.severe(
+          'Failed to create automation task for source $newSourceId. Rolling back source creation.',
+          e,
+        );
+        // Rollback: Delete the just-created source to prevent orphans
+        try {
+          await _sourcesRepository.delete(id: newSourceId);
+        } catch (rollbackError) {
+          _logger.shout(
+            'CRITICAL: Failed to rollback source creation for $newSourceId. Data inconsistency may exist.',
+            rollbackError,
+          );
+        }
+        rethrow; // Propagate the original error to trigger the failure state
+      }
 
       _logger.info('Source entity created successfully.');
 
