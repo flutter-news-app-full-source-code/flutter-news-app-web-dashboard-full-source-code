@@ -1,10 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/widgets/confirmation_dialog.dart';
 
 class SyncActionButtons extends StatelessWidget {
@@ -19,25 +17,21 @@ class SyncActionButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          icon: const Icon(Icons.edit, size: 20),
-          tooltip: l10n.editSync,
-          onPressed: () => context.goNamed(
-            Routes.editSyncName,
-            pathParameters: {'id': task.id},
+          icon: Icon(
+            task.status == IngestionStatus.active
+                ? Icons.pause_circle_outline
+                : Icons.play_circle_outline,
+            size: 20,
           ),
+          tooltip: task.status == IngestionStatus.active
+              ? l10n.stopSync
+              : l10n.resumeSync,
+          onPressed: () => _handleAction(context, 'toggle'),
         ),
         PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert, size: 20),
           onSelected: (value) => _handleAction(context, value),
           itemBuilder: (context) => [
-            PopupMenuItem(
-              value: 'toggle',
-              child: Text(
-                task.status == IngestionStatus.active
-                    ? l10n.stopSync
-                    : l10n.resumeSync,
-              ),
-            ),
             PopupMenuItem(
               value: 'delete',
               child: Text(
