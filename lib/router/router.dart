@@ -29,7 +29,6 @@ import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
 import 'package:verity_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
 import 'package:verity_dashboard/content_sync/view/content_sync_page.dart';
 import 'package:verity_dashboard/content_sync/view/create_sync_page.dart';
-import 'package:verity_dashboard/content_sync/view/edit_sync_page.dart';
 import 'package:verity_dashboard/overview/view/overview_page.dart';
 import 'package:verity_dashboard/router/route_permissions.dart';
 import 'package:verity_dashboard/router/routes.dart';
@@ -367,14 +366,7 @@ GoRouter createRouter({
                           child: const CreateSyncPage(),
                         ),
                       ),
-                      GoRoute(
-                        path: Routes.editSync,
-                        name: Routes.editSyncName,
-                        builder: (context, state) {
-                          final id = state.pathParameters['id']!;
-                          return EditSyncPage(syncId: id);
-                        },
-                      ),
+                     
                     ],
                   ),
                 ],

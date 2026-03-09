@@ -56,12 +56,6 @@ abstract final class Routes {
   /// The name for the create sync schedule route.
   static const String createSyncName = 'createSync';
 
-  /// The path for editing a sync schedule.
-  static const String editSync = 'edit-sync/:id';
-
-  /// The name for the edit sync schedule route.
-  static const String editSyncName = 'editSync';
-
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
