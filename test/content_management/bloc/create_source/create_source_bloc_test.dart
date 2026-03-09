@@ -42,6 +42,13 @@ void main() {
     final imageBytes = Uint8List.fromList([1, 2, 3]);
     const imageFileName = 'logo.jpg';
 
+    const languageFixture = Language(
+      id: 'lang-1',
+      code: 'en',
+      name: {SupportedLanguage.en: 'English'},
+      nativeName: 'English',
+    );
+
     final automationTaskFixture = NewsAutomationTask(
       id: 'task-1',
       sourceId: 'source-1',
@@ -133,8 +140,13 @@ void main() {
         'emits new state with updated language',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add(const CreateSourceLanguageChanged(SupportedLanguage.en)),
-        expect: () => [const CreateSourceState(language: SupportedLanguage.en)],
+            bloc.add(const CreateSourceLanguageChanged(languageFixture)),
+        expect: () => [
+          const CreateSourceState(
+            language: SupportedLanguage.en,
+            selectedLanguageEntity: languageFixture,
+          ),
+        ],
       );
     });
 
