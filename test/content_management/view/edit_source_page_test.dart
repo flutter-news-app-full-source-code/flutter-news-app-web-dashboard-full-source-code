@@ -48,15 +48,6 @@ const testCountry = Country(
   flagUrl: 'url',
 );
 
-final testAutomationTask = NewsAutomationTask(
-  id: 'task-1',
-  sourceId: 'source-1',
-  fetchInterval: FetchInterval.hourly,
-  status: IngestionStatus.active,
-  createdAt: DateTime(2023),
-  updatedAt: DateTime(2023),
-);
-
 final testSource = Source(
   id: 'source-1',
   name: const {SupportedLanguage.en: 'Test Source'},
@@ -149,7 +140,6 @@ void main() {
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
     late MockMediaRepository mediaRepository;
-    late MockDataRepository<NewsAutomationTask> automationRepository;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -160,7 +150,6 @@ void main() {
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
       mediaRepository = MockMediaRepository();
-      automationRepository = MockDataRepository<NewsAutomationTask>();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -182,7 +171,6 @@ void main() {
           initialSource: testSource,
           enabledLanguages: const [SupportedLanguage.en],
           defaultLanguage: SupportedLanguage.en,
-          automationTask: testAutomationTask,
         ),
       );
 
@@ -213,9 +201,6 @@ void main() {
           ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
-          ),
-          RepositoryProvider<DataRepository<NewsAutomationTask>>.value(
-            value: automationRepository,
           ),
         ],
         child: MultiBlocProvider(
@@ -329,7 +314,6 @@ void main() {
             initialSource: testSource.copyWith(
               logoUrl: const ValueWrapper(null),
             ),
-            automationTask: testAutomationTask,
           ),
         );
 
@@ -399,7 +383,6 @@ void main() {
             sourceType: SourceType.blog,
             language: SupportedLanguage.en,
             headquarters: testCountry,
-            automationTask: testAutomationTask,
           ),
         );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
@@ -421,13 +404,11 @@ void main() {
               sourceId: testSource.id,
               status: EditSourceStatus.success,
               updatedSource: testSource,
-              automationTask: testAutomationTask,
             ),
           ]),
           initialState: EditSourceState(
             sourceId: testSource.id,
             status: EditSourceStatus.initial,
-            automationTask: testAutomationTask,
           ),
         );
 
