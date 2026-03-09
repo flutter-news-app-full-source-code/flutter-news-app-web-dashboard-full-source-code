@@ -1319,5 +1319,22 @@
     "contentSyncScheduleDescription": "Agende a ingestão automática. Configuração de backend necessária.",
     "syncFrequencyLabel": "Frequência de Sincronização",
     "lastSyncedLabel": "Última sincronização",
-    "nextSyncLabel": "Próxima sincronização"
+    "nextSyncLabel": "Próxima sincronização",
+    "contentSync": "Sincronização de Conteúdo",
+    "contentSyncDescription": "Gerencie a frequência com que as notícias são atualizadas para cada fonte.",
+    "syncFrequency": "Frequência de Atualização",
+    "syncStatus": "Status da Sincronização",
+    "lastSynced": "Última Atualização",
+    "nextSync": "Próxima Atualização",
+    "editSync": "Editar Agendamento de Sincronização",
+    "stopSync": "Parar Sincronização",
+    "resumeSync": "Retomar Sincronização",
+    "deleteSync": "Remover Agendamento de Sincronização",
+    "syncActive": "Em execução",
+    "syncPaused": "Parado",
+    "syncError": "Necessita de Atenção",
+    "createSync": "Adicionar Agendamento de Sincronização",
+    "syncCreatedSuccessfully": "Agendamento de sincronização criado com sucesso.",
+    "syncUpdatedSuccessfully": "Agendamento de sincronização atualizado com sucesso.",
+    "confirmStopSyncMessage": "Tem certeza de que deseja remover este agendamento de sincronização? Isso interromperá as atualizações automáticas para a fonte."
 }

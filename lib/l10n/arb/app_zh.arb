@@ -1319,5 +1319,22 @@
     "contentSyncScheduleDescription": "安排自动摄取。需要后端配置。",
     "syncFrequencyLabel": "同步频率",
     "lastSyncedLabel": "上次同步",
-    "nextSyncLabel": "下次同步"
+    "nextSyncLabel": "下次同步",
+    "contentSync": "内容同步",
+    "contentSyncDescription": "管理每个来源的新闻更新频率。",
+    "syncFrequency": "更新频率",
+    "syncStatus": "同步状态",
+    "lastSynced": "上次更新",
+    "nextSync": "下次更新",
+    "editSync": "编辑同步计划",
+    "stopSync": "停止同步",
+    "resumeSync": "恢复同步",
+    "deleteSync": "移除同步计划",
+    "syncActive": "运行中",
+    "syncPaused": "已停止",
+    "syncError": "需要注意",
+    "createSync": "添加同步计划",
+    "syncCreatedSuccessfully": "同步计划创建成功。",
+    "syncUpdatedSuccessfully": "同步计划更新成功。",
+    "confirmStopSyncMessage": "您确定要移除此同步计划吗？这将停止该来源的自动更新。"
 }

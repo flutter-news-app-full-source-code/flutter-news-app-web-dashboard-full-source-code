@@ -1321,5 +1321,22 @@
   "contentSyncScheduleDescription": "جدولة الجلب الآلي. يتطلب إعداد الواجهة الخلفية.",
   "syncFrequencyLabel": "تكرار المزامنة",
   "lastSyncedLabel": "آخر مزامنة",
-  "nextSyncLabel": "المزامنة التالية"
+  "nextSyncLabel": "المزامنة التالية",
+  "contentSync": "مزامنة المحتوى",
+  "contentSyncDescription": "إدارة عدد مرات تحديث الأخبار لكل مصدر.",
+  "syncFrequency": "تردد التحديث",
+  "syncStatus": "حالة المزامنة",
+  "lastSynced": "آخر تحديث",
+  "nextSync": "التحديث القادم",
+  "editSync": "تعديل جدول المزامنة",
+  "stopSync": "إيقاف المزامنة",
+  "resumeSync": "استئناف المزامنة",
+  "deleteSync": "إزالة جدول المزامنة",
+  "syncActive": "يعمل",
+  "syncPaused": "متوقف",
+  "syncError": "يحتاج إلى اهتمام",
+  "createSync": "إضافة جدول مزامنة",
+  "syncCreatedSuccessfully": "تم إنشاء جدول المزامنة بنجاح.",
+  "syncUpdatedSuccessfully": "تم تحديث جدول المزامنة بنجاح.",
+  "confirmStopSyncMessage": "هل أنت متأكد أنك تريد إزالة جدول المزامنة هذا؟ سيؤدي هذا إلى إيقاف التحديثات التلقائية للمصدر."
 }

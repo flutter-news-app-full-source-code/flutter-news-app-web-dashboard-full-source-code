@@ -1319,5 +1319,22 @@
     "contentSyncScheduleDescription": "Programe la ingesta automática. Requiere configuración del backend.",
     "syncFrequencyLabel": "Frecuencia de Sincronización",
     "lastSyncedLabel": "Última sincronización",
-    "nextSyncLabel": "Próxima sincronización"
+    "nextSyncLabel": "Próxima sincronización",
+    "contentSync": "Sincronización de Contenido",
+    "contentSyncDescription": "Gestiona la frecuencia con la que se actualizan las noticias para cada fuente.",
+    "syncFrequency": "Frecuencia de Actualización",
+    "syncStatus": "Estado de Sincronización",
+    "lastSynced": "Última Actualización",
+    "nextSync": "Próxima Actualización",
+    "editSync": "Editar Programación de Sincronización",
+    "stopSync": "Detener Sincronización",
+    "resumeSync": "Reanudar Sincronización",
+    "deleteSync": "Eliminar Programación de Sincronización",
+    "syncActive": "En ejecución",
+    "syncPaused": "Detenido",
+    "syncError": "Necesita Atención",
+    "createSync": "Añadir Programación de Sincronización",
+    "syncCreatedSuccessfully": "Programación de sincronización creada con éxito.",
+    "syncUpdatedSuccessfully": "Programación de sincronización actualizada con éxito.",
+    "confirmStopSyncMessage": "¿Estás seguro de que deseas eliminar esta programación de sincronización? Esto detendrá las actualizaciones automáticas para la fuente."
 }

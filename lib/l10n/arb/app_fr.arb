@@ -1319,5 +1319,22 @@
     "contentSyncScheduleDescription": "Planifiez l'ingestion automatique. Configuration backend requise.",
     "syncFrequencyLabel": "Fréquence de Sincronisation",
     "lastSyncedLabel": "Dernière synchro",
-    "nextSyncLabel": "Prochaine synchro"
+    "nextSyncLabel": "Prochaine synchro",
+    "contentSync": "Synchronisation du Contenu",
+    "contentSyncDescription": "Gérez la fréquence à laquelle les actualités sont mises à jour pour chaque source.",
+    "syncFrequency": "Fréquence de Mise à Jour",
+    "syncStatus": "Statut de Synchronisation",
+    "lastSynced": "Dernière Mise à Jour",
+    "nextSync": "Prochaine Mise à Jour",
+    "editSync": "Modifier le Calendrier de Synchronisation",
+    "stopSync": "Arrêter la Synchronisation",
+    "resumeSync": "Reprendre la Synchronisation",
+    "deleteSync": "Supprimer le Calendrier de Synchronisation",
+    "syncActive": "En cours",
+    "syncPaused": "Arrêté",
+    "syncError": "Nécessite une attention",
+    "createSync": "Ajouter un Calendrier de Synchronisation",
+    "syncCreatedSuccessfully": "Calendrier de synchronisation créé avec succès.",
+    "syncUpdatedSuccessfully": "Calendrier de synchronisation mis à jour avec succès.",
+    "confirmStopSyncMessage": "Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source."
 }

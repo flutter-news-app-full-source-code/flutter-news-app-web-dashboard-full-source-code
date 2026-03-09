@@ -1319,5 +1319,22 @@
     "contentSyncScheduleDescription": "Automatische Erfassung planen. Backend-Setup erforderlich.",
     "syncFrequencyLabel": "Synchronisierungsfrequenz",
     "lastSyncedLabel": "Letzte Synchro",
-    "nextSyncLabel": "Nächste Synchro"
+    "nextSyncLabel": "Nächste Synchro",
+    "contentSync": "Inhaltssynchronisierung",
+    "contentSyncDescription": "Verwalten Sie, wie oft Nachrichten für jede Quelle aktualisiert werden.",
+    "syncFrequency": "Aktualisierungshäufigkeit",
+    "syncStatus": "Synchronisierungsstatus",
+    "lastSynced": "Zuletzt aktualisiert",
+    "nextSync": "Nächste Aktualisierung",
+    "editSync": "Synchronisierungsplan bearbeiten",
+    "stopSync": "Synchronisierung stoppen",
+    "resumeSync": "Synchronisierung fortsetzen",
+    "deleteSync": "Synchronisierungsplan entfernen",
+    "syncActive": "Läuft",
+    "syncPaused": "Angehalten",
+    "syncError": "Aktion erforderlich",
+    "createSync": "Synchronisierungsplan hinzufügen",
+    "syncCreatedSuccessfully": "Synchronisierungsplan erfolgreich erstellt.",
+    "syncUpdatedSuccessfully": "Synchronisierungsplan erfolgreich aktualisiert.",
+    "confirmStopSyncMessage": "Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle."
 }
