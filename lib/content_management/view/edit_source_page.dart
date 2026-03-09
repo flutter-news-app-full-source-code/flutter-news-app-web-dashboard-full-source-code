@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
-import 'package:verity_dashboard/content_management/widgets/source_automation_form_section.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/extensions/extensions.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
@@ -49,8 +48,6 @@ class EditSourcePage extends StatelessWidget {
           EditSourceBloc(
             sourcesRepository: context.read<DataRepository<Source>>(),
             languagesRepository: context.read<DataRepository<Language>>(),
-            automationRepository: context
-                .read<DataRepository<NewsAutomationTask>>(),
             mediaRepository: context.read<MediaRepository>(),
             sourceId: sourceId,
             logger: Logger('EditSourceBloc'),
@@ -394,42 +391,6 @@ class _EditSourceViewState extends State<EditSourceView> {
                           ),
                         ],
                         limit: kDefaultRowsPerPage,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      const Divider(),
-                      const SizedBox(height: AppSpacing.lg),
-                      BlocBuilder<EditSourceBloc, EditSourceState>(
-                        builder: (context, state) {
-                          final task = state.automationTask;
-                          // Even if task is null (which shouldn't happen due to BLoC logic),
-                          // we don't want to hide the form. The BLoC now guarantees a default
-                          // task is present in the state.
-                          if (task == null)
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-
-                          return SourceAutomationFormSection(
-                            isEnabled: task.status != IngestionStatus.paused,
-                            fetchInterval: task.fetchInterval,
-                            status: task.status,
-                            lastRun: task.lastRunAt,
-                            nextRun: task.nextRunAt,
-                            errorMessage: task.lastErrorMessage,
-                            onEnabledChanged: (isEnabled) =>
-                                context.read<EditSourceBloc>().add(
-                                  EditSourceAutomationStatusChanged(
-                                    isEnabled
-                                        ? IngestionStatus.active
-                                        : IngestionStatus.paused,
-                                  ),
-                                ),
-                            onIntervalChanged: (interval) =>
-                                context.read<EditSourceBloc>().add(
-                                  EditSourceAutomationIntervalChanged(interval),
-                                ),
-                          );
-                        },
                       ),
                     ],
                   ),

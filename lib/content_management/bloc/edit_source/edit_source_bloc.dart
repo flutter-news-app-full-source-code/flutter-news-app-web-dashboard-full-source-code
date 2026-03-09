@@ -20,13 +20,11 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
     required DataRepository<Language> languagesRepository,
-    required DataRepository<NewsAutomationTask> automationRepository,
     required String sourceId,
     Logger? logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
        _languagesRepository = languagesRepository,
-       _automationRepository = automationRepository,
        _logger = logger ?? Logger('EditSourceBloc'),
        super(EditSourceState(sourceId: sourceId)) {
     on<EditSourceLoaded>(_onEditSourceLoaded);
@@ -38,8 +36,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<EditSourceImageChanged>(_onImageChanged);
     on<EditSourceImageRemoved>(_onImageRemoved);
-    on<EditSourceAutomationIntervalChanged>(_onAutomationIntervalChanged);
-    on<EditSourceAutomationStatusChanged>(_onAutomationStatusChanged);
     on<EditSourceSavedAsDraft>(_onSavedAsDraft);
     on<EditSourcePublished>(_onPublished);
     on<EditSourceLanguageTabChanged>(_onLanguageTabChanged);
@@ -49,7 +45,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
   final DataRepository<Language> _languagesRepository;
-  final DataRepository<NewsAutomationTask> _automationRepository;
   final Logger _logger;
 
   Future<void> _onEditSourceLoaded(
@@ -70,25 +65,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       );
       final languageEntity = languagesResponse.items.firstOrNull;
 
-      // Fetch linked automation task
-      final automationResponse = await _automationRepository.readAll(
-        filter: {'sourceId': state.sourceId},
-        pagination: const PaginationOptions(limit: 1),
-      );
-
-      // If no task exists, create a default in-memory task (paused).
-      // This ensures the UI always has a task to work with.
-      final automationTask =
-          automationResponse.items.firstOrNull ??
-          NewsAutomationTask(
-            id: _uuid.v4(),
-            sourceId: state.sourceId,
-            fetchInterval: FetchInterval.hourly,
-            status: IngestionStatus.paused,
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-          );
-
       emit(
         state.copyWith(
           status: EditSourceStatus.initial,
@@ -105,7 +81,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
           headquarters: () => source.headquarters,
           selectedLanguageEntity: () => languageEntity,
           initialSource: source,
-          automationTask: ValueWrapper(automationTask),
         ),
       );
       _logger.info('Successfully loaded source: ${source.id}');
@@ -248,34 +223,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     );
   }
 
-  void _onAutomationIntervalChanged(
-    EditSourceAutomationIntervalChanged event,
-    Emitter<EditSourceState> emit,
-  ) {
-    if (state.automationTask == null) return;
-    emit(
-      state.copyWith(
-        automationTask: ValueWrapper(
-          state.automationTask!.copyWith(fetchInterval: event.interval),
-        ),
-      ),
-    );
-  }
-
-  void _onAutomationStatusChanged(
-    EditSourceAutomationStatusChanged event,
-    Emitter<EditSourceState> emit,
-  ) {
-    if (state.automationTask == null) return;
-    emit(
-      state.copyWith(
-        automationTask: ValueWrapper(
-          state.automationTask!.copyWith(status: event.status),
-        ),
-      ),
-    );
-  }
-
   void _onLanguageTabChanged(
     EditSourceLanguageTabChanged event,
     Emitter<EditSourceState> emit,
@@ -379,25 +326,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
       _logger.finer(
         'Submitting updated source data: ${updatedSource.toJson()}',
       );
-
-      // Update automation task if it exists and has changed
-      if (state.automationTask != null) {
-        try {
-          // Try to update existing task
-          await _automationRepository.update(
-            id: state.automationTask!.id,
-            item: state.automationTask!,
-          );
-        } on NotFoundException {
-          // If task doesn't exist (was created in-memory), create it now
-          await _automationRepository.create(
-            item: state.automationTask!,
-          );
-          _logger.info(
-            'Created new automation task for source ${state.sourceId}',
-          );
-        }
-      }
 
       await _sourcesRepository.update(id: state.sourceId, item: updatedSource);
       _logger.info('Source entity updated successfully: ${state.sourceId}');
