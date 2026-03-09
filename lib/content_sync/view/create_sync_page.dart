@@ -15,6 +15,7 @@ class CreateSyncPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.createSync),
@@ -79,31 +80,34 @@ class CreateSyncPage extends StatelessWidget {
                         },
                   limit: kDefaultRowsPerPage,
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                DropdownButtonFormField<FetchInterval>(
-                  value: state.frequency,
-                  decoration: InputDecoration(
-                    labelText: l10n.syncFrequency,
-                    border: const OutlineInputBorder(),
-                  ),
-                  items: FetchInterval.values.map((interval) {
-                    return DropdownMenuItem(
-                      value: interval,
-                      child: Text(interval.localizedName(l10n)),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      context.read<CreateSyncBloc>().add(
-                        CreateSyncFrequencyChanged(value),
+                const SizedBox(height: AppSpacing.xl),
+                Text(l10n.syncFrequency, style: theme.textTheme.labelLarge),
+                const SizedBox(height: AppSpacing.sm),
+                SizedBox(
+                  width: double.infinity,
+                  child: SegmentedButton<FetchInterval>(
+                    segments: FetchInterval.values.map((interval) {
+                      return ButtonSegment<FetchInterval>(
+                        value: interval,
+                        label: Text(interval.localizedName(l10n)),
                       );
-                    }
-                  },
+                    }).toList(),
+                    selected: {state.frequency},
+                    onSelectionChanged: (newSelection) {
+                      context.read<CreateSyncBloc>().add(
+                        CreateSyncFrequencyChanged(newSelection.first),
+                      );
+                    },
+                  ),
                 ),
-                const SizedBox(height: AppSpacing.lg),
+                const SizedBox(height: AppSpacing.xxl),
+                const Divider(),
+                const SizedBox(height: AppSpacing.md),
                 Text(
-                  l10n.contentSyncDescription,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  l10n.contentSyncScheduleDescription,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
