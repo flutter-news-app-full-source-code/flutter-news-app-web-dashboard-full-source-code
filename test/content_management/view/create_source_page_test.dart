@@ -405,10 +405,7 @@ void main() {
 
           verify(
             () => createSourceBloc.add(
-              const CreateSourceLanguageChanged(
-                SupportedLanguage.en,
-                languageEntity: testLanguage,
-              ),
+              const CreateSourceLanguageChanged(testLanguage),
             ),
           ).called(1);
         },
