@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
 
 extension FetchIntervalX on FetchInterval {
   String localizedName(AppLocalizations l10n) {
