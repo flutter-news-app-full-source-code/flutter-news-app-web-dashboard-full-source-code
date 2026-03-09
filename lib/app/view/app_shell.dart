@@ -47,6 +47,11 @@ class AppShell extends StatelessWidget {
             label: l10n.navContent,
           ),
           NavigationDestination(
+            icon: const Icon(Icons.sync_outlined),
+            selectedIcon: const Icon(Icons.sync),
+            label: l10n.contentSync,
+          ),
+          NavigationDestination(
             icon: const Icon(Icons.people_outline),
             selectedIcon: const Icon(Icons.people),
             label: l10n.navUsers,
@@ -68,6 +73,7 @@ class AppShell extends StatelessWidget {
         const allRouteNames = [
           Routes.overviewName,
           Routes.contentManagementName,
+          Routes.contentSyncName,
           Routes.userManagementName,
           Routes.communityManagementName,
           Routes.rewardsManagementName,
