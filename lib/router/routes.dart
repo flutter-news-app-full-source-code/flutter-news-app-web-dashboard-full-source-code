@@ -145,16 +145,4 @@ abstract final class Routes {
 
   /// The name for the community filter dialog route.
   static const String communityFilterDialogName = 'communityFilterDialog';
-
-  /// The path for the rewards management section.
-  static const String rewardsManagement = '/rewards-management';
-
-  /// The name for the rewards management section route.
-  static const String rewardsManagementName = 'rewardsManagement';
-
-  /// The path for the rewards filter dialog.
-  static const String rewardsFilterDialog = 'rewards-filter-dialog';
-
-  /// The name for the rewards filter dialog route.
-  static const String rewardsFilterDialogName = 'rewardsFilterDialog';
 }

@@ -76,7 +76,6 @@ class AppShell extends StatelessWidget {
           Routes.contentSyncName,
           Routes.userManagementName,
           Routes.communityManagementName,
-          Routes.rewardsManagementName,
           Routes.appConfigurationName,
         ];
 

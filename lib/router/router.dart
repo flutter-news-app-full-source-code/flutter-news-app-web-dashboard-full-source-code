@@ -104,7 +104,6 @@ GoRouter createRouter({
           Routes.contentSyncName: Routes.contentSync,
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
-          Routes.rewardsManagementName: Routes.rewardsManagement,
           Routes.appConfigurationName: Routes.appConfiguration,
         };
 
