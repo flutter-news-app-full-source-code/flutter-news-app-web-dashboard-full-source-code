@@ -182,7 +182,13 @@ class _SyncDataSource extends DataTableSource {
           ),
         ),
         if (!isMobile) DataCell(Text(task.fetchInterval.localizedName(l10n))),
-        DataCell(_StatusBadge(status: task.status, l10n: l10n)),
+        DataCell(
+          _StatusBadge(
+            status: task.status,
+            l10n: l10n,
+            errorMessage: task.lastErrorMessage,
+          ),
+        ),
         DataCell(SyncActionButtons(task: task, l10n: l10n)),
       ],
     );
@@ -197,9 +203,14 @@ class _SyncDataSource extends DataTableSource {
 }
 
 class _StatusBadge extends StatelessWidget {
-  const _StatusBadge({required this.status, required this.l10n});
+  const _StatusBadge({
+    required this.status,
+    required this.l10n,
+    this.errorMessage,
+  });
   final IngestionStatus status;
   final AppLocalizations l10n;
+  final String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -208,10 +219,22 @@ class _StatusBadge extends StatelessWidget {
       IngestionStatus.paused => Colors.grey,
       IngestionStatus.error => Colors.orange,
     };
-    return Container(
-      width: 10,
-      height: 10,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+
+    final statusName = switch (status) {
+      IngestionStatus.active => l10n.ingestionStatusActive,
+      IngestionStatus.paused => l10n.ingestionStatusPaused,
+      IngestionStatus.error => l10n.ingestionStatusError,
+    };
+
+    return Tooltip(
+      message: (status == IngestionStatus.error && errorMessage != null)
+          ? errorMessage!
+          : statusName,
+      child: Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
     );
   }
 }
