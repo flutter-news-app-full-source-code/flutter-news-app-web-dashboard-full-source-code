@@ -45,7 +45,7 @@ abstract final class Routes {
   static const String contentManagementName = 'contentManagement';
 
   /// The path for the content sync section.
-  static const String contentSync = '/content-sync';
+  static const String contentSync = 'content-sync';
 
   /// The name for the content sync section route.
   static const String contentSyncName = 'contentSync';

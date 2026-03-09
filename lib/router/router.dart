@@ -101,7 +101,8 @@ GoRouter createRouter({
         const topLevelPaths = {
           Routes.overviewName: Routes.overview,
           Routes.contentManagementName: Routes.contentManagement,
-          Routes.contentSyncName: Routes.contentSync,
+          Routes.contentSyncName:
+              '${Routes.contentManagement}/${Routes.contentSync}',
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
           Routes.appConfigurationName: Routes.appConfiguration,
@@ -342,42 +343,39 @@ GoRouter createRouter({
                       );
                     },
                   ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.contentSync,
-                name: Routes.contentSyncName,
-                builder: (context, state) => BlocProvider(
-                  create: (context) => ContentSyncBloc(
-                    automationRepository: context
-                        .read<DataRepository<NewsAutomationTask>>(),
-                    sourcesRepository: context.read<DataRepository<Source>>(),
-                  )..add(const ContentSyncStarted()),
-                  child: const ContentSyncPage(),
-                ),
-                routes: [
                   GoRoute(
-                    path: Routes.createSync,
-                    name: Routes.createSyncName,
+                    path: Routes.contentSync,
+                    name: Routes.contentSyncName,
                     builder: (context, state) => BlocProvider(
-                      create: (context) => CreateSyncBloc(
+                      create: (context) => ContentSyncBloc(
                         automationRepository: context
                             .read<DataRepository<NewsAutomationTask>>(),
-                      )..add(const CreateSyncStarted()),
-                      child: const CreateSyncPage(),
+                        sourcesRepository: context
+                            .read<DataRepository<Source>>(),
+                      )..add(const ContentSyncStarted()),
+                      child: const ContentSyncPage(),
                     ),
-                  ),
-                  GoRoute(
-                    path: Routes.editSync,
-                    name: Routes.editSyncName,
-                    builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return EditSyncPage(syncId: id);
-                    },
+                    routes: [
+                      GoRoute(
+                        path: Routes.createSync,
+                        name: Routes.createSyncName,
+                        builder: (context, state) => BlocProvider(
+                          create: (context) => CreateSyncBloc(
+                            automationRepository: context
+                                .read<DataRepository<NewsAutomationTask>>(),
+                          )..add(const CreateSyncStarted()),
+                          child: const CreateSyncPage(),
+                        ),
+                      ),
+                      GoRoute(
+                        path: Routes.editSync,
+                        name: Routes.editSyncName,
+                        builder: (context, state) {
+                          final id = state.pathParameters['id']!;
+                          return EditSyncPage(syncId: id);
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
