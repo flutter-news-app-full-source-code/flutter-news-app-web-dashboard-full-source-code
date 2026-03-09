@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
 part 'create_sync_event.dart';
@@ -10,11 +9,7 @@ part 'create_sync_state.dart';
 class CreateSyncBloc extends Bloc<CreateSyncEvent, CreateSyncState> {
   CreateSyncBloc({
     required DataRepository<NewsAutomationTask> automationRepository,
-    required DataRepository<Source> sourcesRepository,
-    required Logger logger,
   }) : _automationRepository = automationRepository,
-       _sourcesRepository = sourcesRepository,
-       _logger = logger,
        super(const CreateSyncState()) {
     on<CreateSyncStarted>(_onStarted);
     on<CreateSyncSourceChanged>(_onSourceChanged);
@@ -23,8 +18,6 @@ class CreateSyncBloc extends Bloc<CreateSyncEvent, CreateSyncState> {
   }
 
   final DataRepository<NewsAutomationTask> _automationRepository;
-  final DataRepository<Source> _sourcesRepository;
-  final Logger _logger;
   final _uuid = const Uuid();
 
   void _onStarted(CreateSyncStarted event, Emitter<CreateSyncState> emit) {

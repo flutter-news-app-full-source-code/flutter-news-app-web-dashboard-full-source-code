@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/config.dart' as local_config;
 import 'package:verity_dashboard/app/view/app_shell.dart';
@@ -369,9 +368,6 @@ GoRouter createRouter({
                       create: (context) => CreateSyncBloc(
                         automationRepository: context
                             .read<DataRepository<NewsAutomationTask>>(),
-                        sourcesRepository: context
-                            .read<DataRepository<Source>>(),
-                        logger: Logger('CreateSyncBloc'),
                       )..add(const CreateSyncStarted()),
                       child: const CreateSyncPage(),
                     ),

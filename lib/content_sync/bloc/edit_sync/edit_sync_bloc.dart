@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:logging/logging.dart';
 
 part 'edit_sync_event.dart';
 part 'edit_sync_state.dart';
@@ -10,10 +9,8 @@ class EditSyncBloc extends Bloc<EditSyncEvent, EditSyncState> {
   EditSyncBloc({
     required DataRepository<NewsAutomationTask> automationRepository,
     required DataRepository<Source> sourcesRepository,
-    required Logger logger,
   }) : _automationRepository = automationRepository,
        _sourcesRepository = sourcesRepository,
-       _logger = logger,
        super(const EditSyncState()) {
     on<EditSyncStarted>(_onStarted);
     on<EditSyncFrequencyChanged>(_onFrequencyChanged);
@@ -23,7 +20,6 @@ class EditSyncBloc extends Bloc<EditSyncEvent, EditSyncState> {
 
   final DataRepository<NewsAutomationTask> _automationRepository;
   final DataRepository<Source> _sourcesRepository;
-  final Logger _logger;
 
   Future<void> _onStarted(
     EditSyncStarted event,
