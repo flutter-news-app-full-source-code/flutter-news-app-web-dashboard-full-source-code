@@ -3475,19 +3475,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get operations => 'संचालन';
 
   @override
-  String get fetchIntervalEvery15Minutes => 'हर 15 मिनट';
+  String get fetchIntervalEvery15Minutes => '15m';
 
   @override
-  String get fetchIntervalEvery30Minutes => 'हर 30 मिनट';
+  String get fetchIntervalEvery30Minutes => '30m';
 
   @override
-  String get fetchIntervalHourly => 'प्रति घंटा';
+  String get fetchIntervalHourly => '1h';
 
   @override
-  String get fetchIntervalEverySixHours => 'हर 6 घंटे';
+  String get fetchIntervalEverySixHours => '6h';
 
   @override
-  String get fetchIntervalDaily => 'दैनिक';
+  String get fetchIntervalDaily => '1d';
 
   @override
   String get ingestionStatusActive => 'सक्रिय';
@@ -3522,10 +3522,10 @@ class AppLocalizationsHi extends AppLocalizations {
       'प्रबंधित करें कि प्रत्येक स्रोत के लिए समाचार कितनी बार अपडेट किए जाते हैं।';
 
   @override
-  String get syncFrequency => 'अपडेट आवृत्ति';
+  String get syncFrequency => 'अंतराल';
 
   @override
-  String get syncStatus => 'सिंक स्थिति';
+  String get syncStatus => 'स्थिति';
 
   @override
   String get lastSynced => 'पिछला अपडेट';

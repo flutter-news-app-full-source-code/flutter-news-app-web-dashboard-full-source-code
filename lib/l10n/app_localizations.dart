@@ -243,7 +243,7 @@ abstract class AppLocalizations {
   /// Description for the Content Management page
   ///
   /// In en, this message translates to:
-  /// **'Manage news headlines, topics, and sources for the mobile application.'**
+  /// **'Manage news headlines, topics, sources, and automated ingestion schedules for the mobile application.'**
   String get contentManagementPageDescription;
 
   /// Label for the headlines subpage
@@ -6303,31 +6303,31 @@ abstract class AppLocalizations {
   /// Fetch interval option: 15 minutes
   ///
   /// In en, this message translates to:
-  /// **'Every 15 Minutes'**
+  /// **'15m'**
   String get fetchIntervalEvery15Minutes;
 
   /// Fetch interval option: 30 minutes
   ///
   /// In en, this message translates to:
-  /// **'Every 30 Minutes'**
+  /// **'30m'**
   String get fetchIntervalEvery30Minutes;
 
   /// Fetch interval option: Hourly
   ///
   /// In en, this message translates to:
-  /// **'Hourly'**
+  /// **'1h'**
   String get fetchIntervalHourly;
 
   /// Fetch interval option: 6 hours
   ///
   /// In en, this message translates to:
-  /// **'Every 6 Hours'**
+  /// **'6h'**
   String get fetchIntervalEverySixHours;
 
   /// Fetch interval option: Daily
   ///
   /// In en, this message translates to:
-  /// **'Daily'**
+  /// **'1d'**
   String get fetchIntervalDaily;
 
   /// Ingestion status: Active
@@ -6387,19 +6387,19 @@ abstract class AppLocalizations {
   /// Description for the Content Sync operations hub
   ///
   /// In en, this message translates to:
-  /// **'Manage how often news is updated for each source.'**
+  /// **'Configure and monitor the automated ingestion engine, managing how frequently content is synchronized from external sources.'**
   String get contentSyncDescription;
 
-  /// Label for the frequency of content updates
+  /// Short label for the frequency of content updates
   ///
   /// In en, this message translates to:
-  /// **'Update Frequency'**
+  /// **'Interval'**
   String get syncFrequency;
 
-  /// Label for the operational status of a sync task
+  /// Short label for the operational status of a sync task
   ///
   /// In en, this message translates to:
-  /// **'Sync Status'**
+  /// **'Status'**
   String get syncStatus;
 
   /// Label for the last successful sync time

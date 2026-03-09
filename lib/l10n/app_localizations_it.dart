@@ -84,7 +84,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Gestisci titoli, argomenti e fonti.';
+      'Gestisci titoli, argomenti, fonti e programmi di acquisizione automatizzata per l\'applicazione mobile.';
 
   @override
   String get headlines => 'Titoli';
@@ -3424,13 +3424,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get contentSyncDescription =>
-      'Gestisci la frequenza con cui le notizie vengono aggiornate per ogni fonte.';
+      'Configura e monitora il motore di acquisizione automatizzata, gestendo la frequenza con cui i contenuti vengono sincronizzati da fonti esterne.';
 
   @override
-  String get syncFrequency => 'Frequenza di Aggiornamento';
+  String get syncFrequency => 'Intervallo';
 
   @override
-  String get syncStatus => 'Stato Sincronizzazione';
+  String get syncStatus => 'Stato';
 
   @override
   String get lastSynced => 'Ultimo Aggiornamento';

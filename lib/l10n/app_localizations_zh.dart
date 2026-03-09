@@ -3234,19 +3234,19 @@ class AppLocalizationsZh extends AppLocalizations {
   String get operations => '运维';
 
   @override
-  String get fetchIntervalEvery15Minutes => '每15分钟';
+  String get fetchIntervalEvery15Minutes => '15m';
 
   @override
-  String get fetchIntervalEvery30Minutes => '每30分钟';
+  String get fetchIntervalEvery30Minutes => '30m';
 
   @override
-  String get fetchIntervalHourly => '每小时';
+  String get fetchIntervalHourly => '1h';
 
   @override
-  String get fetchIntervalEverySixHours => '每6小时';
+  String get fetchIntervalEverySixHours => '6h';
 
   @override
-  String get fetchIntervalDaily => '每天';
+  String get fetchIntervalDaily => '1d';
 
   @override
   String get ingestionStatusActive => '激活';
@@ -3279,10 +3279,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get contentSyncDescription => '管理每个来源的新闻更新频率。';
 
   @override
-  String get syncFrequency => '更新频率';
+  String get syncFrequency => '间隔';
 
   @override
-  String get syncStatus => '同步状态';
+  String get syncStatus => '状态';
 
   @override
   String get lastSynced => '上次更新';

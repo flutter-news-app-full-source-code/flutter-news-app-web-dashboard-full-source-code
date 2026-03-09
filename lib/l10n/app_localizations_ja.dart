@@ -3352,19 +3352,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String get operations => '運用';
 
   @override
-  String get fetchIntervalEvery15Minutes => '15分ごと';
+  String get fetchIntervalEvery15Minutes => '15m';
 
   @override
-  String get fetchIntervalEvery30Minutes => '30分ごと';
+  String get fetchIntervalEvery30Minutes => '30m';
 
   @override
-  String get fetchIntervalHourly => '1時間ごと';
+  String get fetchIntervalHourly => '1h';
 
   @override
-  String get fetchIntervalEverySixHours => '6時間ごと';
+  String get fetchIntervalEverySixHours => '6h';
 
   @override
-  String get fetchIntervalDaily => '毎日';
+  String get fetchIntervalDaily => '1d';
 
   @override
   String get ingestionStatusActive => 'アクティブ';
@@ -3398,10 +3398,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get contentSyncDescription => '各ソースのニュース更新頻度を管理します。';
 
   @override
-  String get syncFrequency => '更新頻度';
+  String get syncFrequency => '間隔';
 
   @override
-  String get syncStatus => '同期ステータス';
+  String get syncStatus => 'ステータス';
 
   @override
   String get lastSynced => '最終更新';

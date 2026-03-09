@@ -83,7 +83,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Gerencie manchetes, tópicos e fontes.';
+      'Gerencie manchetes, tópicos, fontes e cronogramas de ingestão automatizada para o aplicativo móvel.';
 
   @override
   String get headlines => 'Manchetes';
@@ -3347,19 +3347,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String get operations => 'Operações';
 
   @override
-  String get fetchIntervalEvery15Minutes => 'A cada 15 Minutos';
+  String get fetchIntervalEvery15Minutes => '15m';
 
   @override
-  String get fetchIntervalEvery30Minutes => 'A cada 30 Minutos';
+  String get fetchIntervalEvery30Minutes => '30m';
 
   @override
-  String get fetchIntervalHourly => 'De hora em hora';
+  String get fetchIntervalHourly => '1h';
 
   @override
-  String get fetchIntervalEverySixHours => 'A cada 6 Horas';
+  String get fetchIntervalEverySixHours => '6h';
 
   @override
-  String get fetchIntervalDaily => 'Diariamente';
+  String get fetchIntervalDaily => '1d';
 
   @override
   String get ingestionStatusActive => 'Ativo';
@@ -3391,13 +3391,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get contentSyncDescription =>
-      'Gerencie a frequência com que as notícias são atualizadas para cada fonte.';
+      'Configure e monitore o mecanismo de ingestão automatizada, gerenciando a frequência com que o conteúdo é sincronizado de fontes externas.';
 
   @override
-  String get syncFrequency => 'Frequência de Atualização';
+  String get syncFrequency => 'Intervalo';
 
   @override
-  String get syncStatus => 'Status da Sincronização';
+  String get syncStatus => 'Status';
 
   @override
   String get lastSynced => 'Última Atualização';

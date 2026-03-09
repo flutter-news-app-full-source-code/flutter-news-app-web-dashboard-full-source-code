@@ -83,7 +83,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Manage news headlines, topics, and sources for the mobile application.';
+      'Manage news headlines, topics, sources, and automated ingestion schedules for the mobile application.';
 
   @override
   String get headlines => 'Headlines';
@@ -3466,19 +3466,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get operations => 'Operations';
 
   @override
-  String get fetchIntervalEvery15Minutes => 'Every 15 Minutes';
+  String get fetchIntervalEvery15Minutes => '15m';
 
   @override
-  String get fetchIntervalEvery30Minutes => 'Every 30 Minutes';
+  String get fetchIntervalEvery30Minutes => '30m';
 
   @override
-  String get fetchIntervalHourly => 'Hourly';
+  String get fetchIntervalHourly => '1h';
 
   @override
-  String get fetchIntervalEverySixHours => 'Every 6 Hours';
+  String get fetchIntervalEverySixHours => '6h';
 
   @override
-  String get fetchIntervalDaily => 'Daily';
+  String get fetchIntervalDaily => '1d';
 
   @override
   String get ingestionStatusActive => 'Active';
@@ -3510,13 +3510,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentSyncDescription =>
-      'Manage how often news is updated for each source.';
+      'Configure and monitor the automated ingestion engine, managing how frequently content is synchronized from external sources.';
 
   @override
-  String get syncFrequency => 'Update Frequency';
+  String get syncFrequency => 'Interval';
 
   @override
-  String get syncStatus => 'Sync Status';
+  String get syncStatus => 'Status';
 
   @override
   String get lastSynced => 'Last Updated';

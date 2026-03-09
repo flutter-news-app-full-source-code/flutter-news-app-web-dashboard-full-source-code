@@ -84,7 +84,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'إدارة العناوين الإخبارية والمواضيع والمصادر لتطبيق الهاتف';
+      'إدارة العناوين الإخبارية والمواضيع والمصادر وجداول الجلب الآلي لتطبيق الهاتف.';
 
   @override
   String get headlines => 'العناوين الرئيسية';
@@ -2729,13 +2729,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get vsPreviousPeriod => 'مقارنة بالفترة السابقة';
 
   @override
-  String get vsPreviousDay => 'مقارنة بـ ٢٤ ساعة الماضية';
+  String get vsPreviousDay => 'مقارنة بـ 24 ساعة الماضية';
 
   @override
-  String get vsPreviousWeek => 'مقارنة بـ ٧ أيام الماضية';
+  String get vsPreviousWeek => 'مقارنة بـ 7 أيام الماضية';
 
   @override
-  String get vsPreviousMonth => 'مقارنة بـ ٣٠ يوم الماضية';
+  String get vsPreviousMonth => 'مقارنة بـ 30 يوم الماضية';
 
   @override
   String get vsPreviousYear => 'مقارنة بالسنة الماضية';
@@ -3441,19 +3441,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get operations => 'العمليات';
 
   @override
-  String get fetchIntervalEvery15Minutes => 'كل 15 دقيقة';
+  String get fetchIntervalEvery15Minutes => '15د';
 
   @override
-  String get fetchIntervalEvery30Minutes => 'كل 30 دقيقة';
+  String get fetchIntervalEvery30Minutes => '30د';
 
   @override
-  String get fetchIntervalHourly => 'كل ساعة';
+  String get fetchIntervalHourly => '1س';
 
   @override
-  String get fetchIntervalEverySixHours => 'كل 6 ساعات';
+  String get fetchIntervalEverySixHours => '6س';
 
   @override
-  String get fetchIntervalDaily => 'يومياً';
+  String get fetchIntervalDaily => '1ي';
 
   @override
   String get ingestionStatusActive => 'نشط';
@@ -3484,13 +3484,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get contentSync => 'مزامنة المحتوى';
 
   @override
-  String get contentSyncDescription => 'إدارة عدد مرات تحديث الأخبار لكل مصدر.';
+  String get contentSyncDescription =>
+      'تكوين ومراقبة محرك الجلب الآلي، وإدارة وتيرة مزامنة المحتوى من المصادر الخارجية.';
 
   @override
-  String get syncFrequency => 'تردد التحديث';
+  String get syncFrequency => 'الفترة';
 
   @override
-  String get syncStatus => 'حالة المزامنة';
+  String get syncStatus => 'الحالة';
 
   @override
   String get lastSynced => 'آخر تحديث';

@@ -81,7 +81,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Schlagzeilen, Themen und Quellen verwalten.';
+      'Verwalten Sie Schlagzeilen, Themen, Quellen und automatisierte Ingestionspläne für die mobile Anwendung.';
 
   @override
   String get headlines => 'Schlagzeilen';
@@ -3385,19 +3385,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get operations => 'Betrieb';
 
   @override
-  String get fetchIntervalEvery15Minutes => 'Alle 15 Minuten';
+  String get fetchIntervalEvery15Minutes => '15m';
 
   @override
-  String get fetchIntervalEvery30Minutes => 'Alle 30 Minuten';
+  String get fetchIntervalEvery30Minutes => '30m';
 
   @override
-  String get fetchIntervalHourly => 'Stündlich';
+  String get fetchIntervalHourly => '1h';
 
   @override
-  String get fetchIntervalEverySixHours => 'Alle 6 Stunden';
+  String get fetchIntervalEverySixHours => '6h';
 
   @override
-  String get fetchIntervalDaily => 'Täglich';
+  String get fetchIntervalDaily => '1d';
 
   @override
   String get ingestionStatusActive => 'Aktiv';
@@ -3429,13 +3429,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get contentSyncDescription =>
-      'Verwalten Sie, wie oft Nachrichten für jede Quelle aktualisiert werden.';
+      'Konfigurieren und überwachen Sie die automatisierte Ingestions-Engine und verwalten Sie, wie oft Inhalte von externen Quellen synchronisiert werden.';
 
   @override
-  String get syncFrequency => 'Aktualisierungshäufigkeit';
+  String get syncFrequency => 'Intervall';
 
   @override
-  String get syncStatus => 'Synchronisierungsstatus';
+  String get syncStatus => 'Status';
 
   @override
   String get lastSynced => 'Zuletzt aktualisiert';
