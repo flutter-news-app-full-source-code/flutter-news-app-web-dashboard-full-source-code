@@ -141,10 +141,6 @@ class _SourcesPageState extends State<SourcesPage> {
                             size: ColumnSize.S,
                           ),
                         DataColumn2(
-                          label: Text(l10n.automation),
-                          size: ColumnSize.S,
-                        ),
-                        DataColumn2(
                           label: Text(l10n.lastUpdated),
                           size: ColumnSize.S,
                         ),
@@ -156,7 +152,6 @@ class _SourcesPageState extends State<SourcesPage> {
                       source: _SourcesDataSource(
                         context: context,
                         sources: state.sources,
-                        automationTasks: state.sourceAutomationTasks,
                         hasMore: state.sourcesHasMore,
                         l10n: l10n,
                         isMobile: isMobile,
@@ -204,7 +199,6 @@ class _SourcesDataSource extends DataTableSource {
   _SourcesDataSource({
     required this.context,
     required this.sources,
-    required this.automationTasks,
     required this.hasMore,
     required this.l10n,
     required this.isMobile,
@@ -212,7 +206,6 @@ class _SourcesDataSource extends DataTableSource {
 
   final BuildContext context;
   final List<Source> sources;
-  final Map<String, NewsAutomationTask> automationTasks;
   final bool hasMore;
   final AppLocalizations l10n;
   final bool isMobile;
@@ -249,12 +242,6 @@ class _SourcesDataSource extends DataTableSource {
             ),
           ),
         DataCell(
-          _AutomationStatusBadge(
-            task: automationTasks[source.id],
-            l10n: l10n,
-          ),
-        ),
-        DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(source.updatedAt.toLocal()),
           ),
@@ -279,51 +266,4 @@ class _SourcesDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-}
-
-class _AutomationStatusBadge extends StatelessWidget {
-  const _AutomationStatusBadge({
-    required this.task,
-    required this.l10n,
-  });
-
-  final NewsAutomationTask? task;
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    // If no task is found, we assume it's not active or not configured.
-    if (task == null) {
-      return Tooltip(
-        message: l10n.ingestionStatusPaused,
-        child: Icon(Icons.circle, size: 12, color: Colors.grey.shade400),
-      );
-    }
-
-    final status = task!.status;
-
-    final theme = Theme.of(context);
-    final color = switch (status) {
-      IngestionStatus.active => Colors.green.shade600,
-      IngestionStatus.paused => theme.colorScheme.outline,
-      IngestionStatus.error => theme.colorScheme.error,
-    };
-
-    final statusLabel = switch (status) {
-      IngestionStatus.active => l10n.ingestionStatusActive,
-      IngestionStatus.paused => l10n.ingestionStatusPaused,
-      IngestionStatus.error => l10n.ingestionStatusError,
-    };
-
-    return Tooltip(
-      message: status == IngestionStatus.error
-          ? '${l10n.ingestionStatusError}: ${task?.lastErrorMessage}'
-          : statusLabel,
-      child: Icon(
-        status == IngestionStatus.error ? Icons.error : Icons.circle,
-        size: 12,
-        color: color,
-      ),
-    );
-  }
 }
