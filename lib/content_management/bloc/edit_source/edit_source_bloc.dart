@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
-import 'package:uuid/uuid.dart';
 
 part 'edit_source_event.dart';
 part 'edit_source_state.dart';
@@ -41,7 +40,6 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     on<EditSourceLanguageTabChanged>(_onLanguageTabChanged);
   }
 
-  final _uuid = const Uuid();
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
   final DataRepository<Language> _languagesRepository;
