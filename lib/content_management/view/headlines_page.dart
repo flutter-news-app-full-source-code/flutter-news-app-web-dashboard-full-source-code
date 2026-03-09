@@ -273,8 +273,28 @@ class _HeadlinesDataSource extends DataTableSource {
             ),
           ),
         ),
-        if (!isMobile) // Conditionally show Source Name
-          DataCell(Text(headline.source.name.getValue(context))),
+        if (!isMobile)
+          DataCell(
+            Tooltip(
+              message: headline.source.name.getValue(context),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppSpacing.xs),
+                child: headline.source.logoUrl != null
+                    ? Image.network(
+                        headline.source.logoUrl!,
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        width: 32,
+                        height: 32,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        child: const Icon(Icons.source, size: 16),
+                      ),
+              ),
+            ),
+          ),
         DataCell(
           Text(
             DateFormat('dd-MM-yyyy').format(headline.updatedAt.toLocal()),
