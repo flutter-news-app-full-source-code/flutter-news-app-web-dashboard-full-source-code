@@ -61,7 +61,7 @@ final class CreateSourceState extends Equatable {
       imageFileBytes != null &&
       imageFileName != null &&
       sourceType != null &&
-      language != null &&
+      selectedLanguageEntity != null &&
       headquarters != null;
 
   CreateSourceState copyWith({

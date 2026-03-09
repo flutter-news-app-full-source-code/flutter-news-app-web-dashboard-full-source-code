@@ -307,10 +307,13 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         selectedItems: state.selectedLanguageEntity != null
                             ? [state.selectedLanguageEntity!]
                             : [],
-                        itemBuilder: (context, language) =>
-                            Text(language.name.values.firstOrNull ?? ''),
+                        itemBuilder: (context, language) => Text(
+                          language.name.values.firstOrNull ??
+                              language.nativeName,
+                        ),
                         itemToString: (language) =>
-                            language.name.values.firstOrNull ?? '',
+                            language.name.values.firstOrNull ??
+                            language.nativeName,
                         onChanged: (items) {
                           context.read<CreateSourceBloc>().add(
                             CreateSourceLanguageChanged(
