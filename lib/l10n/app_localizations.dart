@@ -6377,6 +6377,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next sync'**
   String get nextSyncLabel;
+
+  /// Label for the standalone content sync management feature
+  ///
+  /// In en, this message translates to:
+  /// **'Content Sync'**
+  String get contentSync;
+
+  /// Description for the Content Sync operations hub
+  ///
+  /// In en, this message translates to:
+  /// **'Manage how often news is updated for each source.'**
+  String get contentSyncDescription;
+
+  /// Label for the frequency of content updates
+  ///
+  /// In en, this message translates to:
+  /// **'Update Frequency'**
+  String get syncFrequency;
+
+  /// Label for the operational status of a sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Status'**
+  String get syncStatus;
+
+  /// Label for the last successful sync time
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated'**
+  String get lastSynced;
+
+  /// Label for the next scheduled sync time
+  ///
+  /// In en, this message translates to:
+  /// **'Next Update'**
+  String get nextSync;
+
+  /// Title for the edit sync schedule page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Sync Schedule'**
+  String get editSync;
+
+  /// Action to pause a sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Syncing'**
+  String get stopSync;
+
+  /// Action to resume a paused sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Resume Syncing'**
+  String get resumeSync;
+
+  /// Action to delete a sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Sync Schedule'**
+  String get deleteSync;
+
+  /// Status badge text for an active sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get syncActive;
+
+  /// Status badge text for a paused sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get syncPaused;
+
+  /// Status badge text for a sync task in error state
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Attention'**
+  String get syncError;
+
+  /// Title for the create sync schedule page
+  ///
+  /// In en, this message translates to:
+  /// **'Add Sync Schedule'**
+  String get createSync;
+
+  /// Message displayed when a sync schedule is created
+  ///
+  /// In en, this message translates to:
+  /// **'Sync schedule created successfully.'**
+  String get syncCreatedSuccessfully;
+
+  /// Message displayed when a sync schedule is updated
+  ///
+  /// In en, this message translates to:
+  /// **'Sync schedule updated successfully.'**
+  String get syncUpdatedSuccessfully;
+
+  /// Confirmation message for removing a sync schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.'**
+  String get confirmStopSyncMessage;
 }
 
 class _AppLocalizationsDelegate
