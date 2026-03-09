@@ -228,7 +228,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
           actions: [
             if (canSync)
               IconButton(
-                icon: const Icon(Icons.sync),
+                icon: const Icon(Icons.smart_toy),
                 tooltip: l10n.contentSync,
                 onPressed: () => context.pushNamed(Routes.contentSyncName),
               ),
