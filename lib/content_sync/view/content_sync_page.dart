@@ -4,7 +4,6 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
 import 'package:verity_dashboard/content_sync/widgets/sync_action_buttons.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
@@ -12,6 +11,7 @@ import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/extensions/fetch_interval_extension.dart';
 import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
+import 'package:verity_dashboard/shared/widgets/about_icon.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
 
 class ContentSyncPage extends StatelessWidget {
@@ -22,12 +22,22 @@ class ContentSyncPage extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.contentSync),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(l10n.contentSync),
+            const SizedBox(width: AppSpacing.xs),
+            AboutIcon(
+              dialogTitle: l10n.contentSync,
+              dialogDescription: l10n.contentSyncDescription,
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => context.goNamed(Routes.createSyncName),
-        icon: const Icon(Icons.add),
-        label: Text(l10n.createSync),
+        tooltip: l10n.createSync,
+        child: const Icon(Icons.add),
       ),
       body: SafeArea(
         child: BlocBuilder<ContentSyncBloc, ContentSyncState>(
@@ -62,40 +72,46 @@ class ContentSyncPage extends StatelessWidget {
                 if (state.status == ContentSyncStatus.loading)
                   const LinearProgressIndicator(),
                 Expanded(
-                  child: PaginatedDataTable2(
-                    columns: [
-                      DataColumn2(label: Text(l10n.source), size: ColumnSize.L),
-                      DataColumn2(
-                        label: Text(l10n.syncFrequency),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.syncStatus),
-                        size: ColumnSize.S,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.lastSynced),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: Text(l10n.actions),
-                        size: ColumnSize.S,
-                      ),
-                    ],
-                    source: _SyncDataSource(
-                      context: context,
-                      tasks: state.tasks,
-                      sources: state.sources,
-                      l10n: l10n,
-                    ),
-                    rowsPerPage: kDefaultRowsPerPage,
-                    onPageChanged: (index) {
-                      if (state.hasMore &&
-                          state.status != ContentSyncStatus.loading) {
-                        context.read<ContentSyncBloc>().add(
-                          ContentSyncStarted(cursor: state.cursor),
-                        );
-                      }
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isMobile = constraints.maxWidth < 600;
+                      return PaginatedDataTable2(
+                        columns: [
+                          DataColumn2(
+                            label: Text(l10n.source),
+                            size: ColumnSize.L,
+                          ),
+                          if (!isMobile)
+                            DataColumn2(
+                              label: Text(l10n.syncFrequency),
+                              size: ColumnSize.M,
+                            ),
+                          DataColumn2(
+                            label: Text(l10n.syncStatus),
+                            size: ColumnSize.S,
+                          ),
+                          DataColumn2(
+                            label: Text(l10n.actions),
+                            size: ColumnSize.S,
+                          ),
+                        ],
+                        source: _SyncDataSource(
+                          context: context,
+                          tasks: state.tasks,
+                          sources: state.sources,
+                          l10n: l10n,
+                          isMobile: isMobile,
+                        ),
+                        rowsPerPage: kDefaultRowsPerPage,
+                        onPageChanged: (index) {
+                          if (state.hasMore &&
+                              state.status != ContentSyncStatus.loading) {
+                            context.read<ContentSyncBloc>().add(
+                              ContentSyncStarted(cursor: state.cursor),
+                            );
+                          }
+                        },
+                      );
                     },
                   ),
                 ),
@@ -114,12 +130,14 @@ class _SyncDataSource extends DataTableSource {
     required this.tasks,
     required this.sources,
     required this.l10n,
+    required this.isMobile,
   });
 
   final BuildContext context;
   final List<NewsAutomationTask> tasks;
   final Map<String, Source> sources;
   final AppLocalizations l10n;
+  final bool isMobile;
 
   @override
   DataRow? getRow(int index) {
@@ -128,22 +146,25 @@ class _SyncDataSource extends DataTableSource {
     final source = sources[task.sourceId];
 
     return DataRow2(
-      onSelectChanged: (_) => context.goNamed(
-        Routes.editSyncName,
-        pathParameters: {'id': task.id},
-      ),
       cells: [
         DataCell(
           Row(
             children: [
-              CircleAvatar(
-                radius: 16,
-                backgroundImage: source?.logoUrl != null
-                    ? NetworkImage(source!.logoUrl!)
-                    : null,
-                child: source?.logoUrl == null
-                    ? const Icon(Icons.source)
-                    : null,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(AppSpacing.xs),
+                child: source?.logoUrl != null
+                    ? Image.network(
+                        source!.logoUrl!,
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        width: 32,
+                        height: 32,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        child: const Icon(Icons.source, size: 16),
+                      ),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
@@ -155,15 +176,8 @@ class _SyncDataSource extends DataTableSource {
             ],
           ),
         ),
-        DataCell(Text(task.fetchInterval.localizedName(l10n))),
+        if (!isMobile) DataCell(Text(task.fetchInterval.localizedName(l10n))),
         DataCell(_StatusBadge(status: task.status, l10n: l10n)),
-        DataCell(
-          Text(
-            task.lastRunAt != null
-                ? DateFormat.yMMMd().add_Hm().format(task.lastRunAt!.toLocal())
-                : l10n.notAvailable,
-          ),
-        ),
         DataCell(SyncActionButtons(task: task, l10n: l10n)),
       ],
     );
@@ -189,9 +203,10 @@ class _StatusBadge extends StatelessWidget {
       IngestionStatus.paused => Colors.grey,
       IngestionStatus.error => Colors.orange,
     };
-    final label = status == IngestionStatus.active
-        ? l10n.syncActive
-        : l10n.syncPaused;
-    return Badge(label: Text(label), backgroundColor: color);
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    );
   }
 }
