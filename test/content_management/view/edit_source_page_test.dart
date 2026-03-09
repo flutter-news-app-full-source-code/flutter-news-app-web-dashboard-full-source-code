@@ -48,6 +48,15 @@ const testCountry = Country(
   flagUrl: 'url',
 );
 
+final testAutomationTask = NewsAutomationTask(
+  id: 'task-1',
+  sourceId: 'source-1',
+  fetchInterval: FetchInterval.hourly,
+  status: IngestionStatus.active,
+  createdAt: DateTime(2023),
+  updatedAt: DateTime(2023),
+);
+
 final testSource = Source(
   id: 'source-1',
   name: const {SupportedLanguage.en: 'Test Source'},
@@ -172,6 +181,7 @@ void main() {
           initialSource: testSource,
           enabledLanguages: const [SupportedLanguage.en],
           defaultLanguage: SupportedLanguage.en,
+          automationTask: testAutomationTask,
         ),
       );
 
@@ -318,6 +328,7 @@ void main() {
             initialSource: testSource.copyWith(
               logoUrl: const ValueWrapper(null),
             ),
+            automationTask: testAutomationTask,
           ),
         );
 
@@ -346,6 +357,31 @@ void main() {
           ),
         ).called(1);
       });
+
+      testWidgets(
+        'adds EditSourceLanguageChanged when language is selected',
+        (tester) async {
+          when(
+            () => goRouter.pushNamed<List<Object>?>(
+              Routes.searchableSelectionName,
+              extra: any(named: 'extra'),
+            ),
+          ).thenAnswer((_) async => [testLanguage]);
+
+          await tester.pumpApp(buildSubject(), goRouter: goRouter);
+          await tester.ensureVisible(
+            find.byType(SearchableSelectionInput<Language>),
+          );
+          await tester.tap(find.byType(SearchableSelectionInput<Language>));
+          await tester.pumpAndSettle();
+
+          verify(
+            () => editSourceBloc.add(
+              const EditSourceLanguageChanged(testLanguage),
+            ),
+          ).called(1);
+        },
+      );
     });
 
     group('submission status', () {
@@ -362,10 +398,18 @@ void main() {
             sourceType: SourceType.blog,
             language: SupportedLanguage.en,
             headquarters: testCountry,
+            automationTask: testAutomationTask,
           ),
         );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        // Expecting the indicator in the AppBar actions
+        expect(
+          find.descendant(
+            of: find.byType(AppBar),
+            matching: find.byType(CircularProgressIndicator),
+          ),
+          findsOneWidget,
+        );
       });
 
       testWidgets('shows snackbar and pops on success', (tester) async {
@@ -376,11 +420,13 @@ void main() {
               sourceId: testSource.id,
               status: EditSourceStatus.success,
               updatedSource: testSource,
+              automationTask: testAutomationTask,
             ),
           ]),
           initialState: EditSourceState(
             sourceId: testSource.id,
             status: EditSourceStatus.initial,
+            automationTask: testAutomationTask,
           ),
         );
 
