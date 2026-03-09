@@ -1504,7 +1504,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
 core
-flutter_news_app_web_dashboard_full_source_code
 
 Copyright (c) 2025 Fulleni
 
@@ -1514,7 +1513,7 @@ This source code is licensed under a commercial license. Without a valid, separa
 
 You may not use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, nor permit persons to whom the Software is furnished to do so, for any commercial purpose.
 
-To purchase a commercial license, please visit https://github.com/sponsors/flutter-news-app-full-source-code
+To purchase a commercial license, please visit https://github.com/sponsors/verity-hq
 
 --------------------------------------------------------------------------------
 core_ui
@@ -1527,7 +1526,7 @@ This source code is licensed under a commercial license. Without a valid, separa
 
 You may not use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, nor permit persons to whom the Software is furnished to do so, for any commercial purpose.
 
-To purchase a commercial license, please visit https://github.com/sponsors/flutter-news-app-full-source-code
+To purchase a commercial license, please visit https://github.com/sponsors/verity-hq
 
 --------------------------------------------------------------------------------
 coverage
@@ -29310,6 +29309,15 @@ freely, subject to the following restrictions:
 2. Altered source versions must be plainly marked as such, and must not be
    misrepresented as being the original software.
 3. This notice may not be removed or altered from any source distribution.
+
+--------------------------------------------------------------------------------
+verity_dashboard
+
+Copyright (c) 2025 Fulleni
+
+All Rights Reserved.
+
+This source code is licensed under a commercial license. Without a valid, separately purchased commercial license, this source code may only be used for local evaluation and testing purposes.
 
 --------------------------------------------------------------------------------
 very_good_analysis
