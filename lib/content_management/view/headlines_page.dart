@@ -249,48 +249,60 @@ class _HeadlinesDataSource extends DataTableSource {
         DataCell(
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AppSpacing.xs),
-                child: headline.imageUrl != null
-                    ? Image.network(
-                        headline.imageUrl!,
-                        width: 32,
-                        height: 32,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        width: 32,
-                        height: 32,
-                        color: Theme.of(context).colorScheme.surfaceVariant,
-                        child: const Icon(Icons.image, size: 16),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(AppSpacing.xs),
+                    child: headline.imageUrl != null
+                        ? Image.network(
+                            headline.imageUrl!,
+                            width: 32,
+                            height: 32,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            width: 32,
+                            height: 32,
+                            color: Theme.of(context).colorScheme.surfaceVariant,
+                            child: const Icon(Icons.image, size: 16),
+                          ),
+                  ),
+                  if (headline.isBreaking)
+                    Positioned(
+                      top: -4,
+                      right: -4,
+                      child: Tooltip(
+                        message: l10n.breakingNewsHint,
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: Icon(
+                            Icons.flash_on,
+                            size: 12,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                       ),
+                    ),
+                ],
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: RichText(
+                child: Text(
+                  headline.title.getValue(context),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  text: TextSpan(
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    children: [
-                      TextSpan(text: headline.title.getValue(context)),
-                      if (headline.isBreaking)
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: AppSpacing.xs),
-                            child: Tooltip(
-                              message: l10n.breakingNewsHint,
-                              child: Icon(
-                                Icons.flash_on,
-                                size: 14,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ],
