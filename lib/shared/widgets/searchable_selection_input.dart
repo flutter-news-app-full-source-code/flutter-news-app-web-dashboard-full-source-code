@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
@@ -36,11 +37,7 @@ class SearchableSelectionInput<T> extends StatefulWidget {
     this.hintText,
     super.key,
   }) : assert(
-         (repository != null &&
-                 filterBuilder != null &&
-                 sortOptions != null &&
-                 limit != null) ^
-             (staticItems != null),
+         (repository != null && filterBuilder != null) ^ (staticItems != null),
          'Either repository-related parameters or staticItems must be provided, but not both.',
        );
 
@@ -146,8 +143,8 @@ class _SearchableSelectionInputState<T>
         initialSelectedItems: widget.selectedItems?.cast<Object>(),
         repository: widget.repository! as DataRepository<Object>,
         filterBuilder: widget.filterBuilder,
-        sortOptions: widget.sortOptions,
-        limit: widget.limit,
+        sortOptions: widget.sortOptions ?? const [],
+        limit: widget.limit ?? kDefaultRowsPerPage,
         includeInactiveSelectedItem: widget.includeInactiveSelectedItem,
         isMultiSelect: widget.isMultiSelect,
       );
