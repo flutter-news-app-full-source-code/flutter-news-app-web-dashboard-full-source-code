@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:provider/provider.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/app_environment.dart';
 import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
@@ -53,24 +52,24 @@ void main() {
     });
 
     Widget buildSubject() {
-      return Provider<AnalyticsService>.value(
-        value: analyticsService,
-        child: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<DataRepository<KpiCardData>>.value(
-              value: kpiRepository,
-            ),
-            RepositoryProvider<DataRepository<ChartCardData>>.value(
-              value: chartRepository,
-            ),
-          ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: contentSyncBloc),
-              BlocProvider.value(value: appBloc),
-            ],
-            child: const ContentSyncPage(),
+      return MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<AnalyticsService>.value(
+            value: analyticsService,
           ),
+          RepositoryProvider<DataRepository<KpiCardData>>.value(
+            value: kpiRepository,
+          ),
+          RepositoryProvider<DataRepository<ChartCardData>>.value(
+            value: chartRepository,
+          ),
+        ],
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: contentSyncBloc),
+            BlocProvider.value(value: appBloc),
+          ],
+          child: const ContentSyncPage(),
         ),
       );
     }
