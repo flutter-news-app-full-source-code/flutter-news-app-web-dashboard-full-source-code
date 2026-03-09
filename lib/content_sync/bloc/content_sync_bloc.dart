@@ -54,12 +54,18 @@ class ContentSyncBloc extends Bloc<ContentSyncEvent, ContentSyncState> {
       final sourceIds = newTasks.map((t) => t.sourceId).toSet();
       final newSources = <String, Source>{};
 
-      for (final id in sourceIds) {
-        if (!previousSources.containsKey(id)) {
-          try {
-            final source = await _sourcesRepository.read(id: id);
-            newSources[id] = source;
-          } catch (_) {}
+      final missingIds = sourceIds
+          .where((id) => !previousSources.containsKey(id))
+          .toList();
+
+      if (missingIds.isNotEmpty) {
+        final sourcesResponse = await _sourcesRepository.readAll(
+          filter: {
+            '_id': {r'$in': missingIds},
+          },
+        );
+        for (final source in sourcesResponse.items) {
+          newSources[source.id] = source;
         }
       }
 
