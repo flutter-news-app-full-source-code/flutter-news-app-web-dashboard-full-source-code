@@ -13,7 +13,6 @@ void main() {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
     late MockDataRepository<Language> languagesRepository;
-    late MockDataRepository<NewsAutomationTask> automationRepository;
 
     const countryFixture = Country(
       id: 'country-1',
@@ -51,7 +50,6 @@ void main() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
       languagesRepository = MockDataRepository<Language>();
-      automationRepository = MockDataRepository<NewsAutomationTask>();
     });
 
     EditSourceBloc buildBloc() {
@@ -59,7 +57,6 @@ void main() {
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
         languagesRepository: languagesRepository,
-        automationRepository: automationRepository,
         sourceId: sourceId,
         logger: Logger('EditSourceBloc'),
       );
@@ -91,18 +88,6 @@ void main() {
           ).thenAnswer(
             (_) async => const PaginatedResponse(
               items: [languageFixture],
-              cursor: null,
-              hasMore: false,
-            ),
-          );
-          when(
-            () => automationRepository.readAll(
-              filter: any(named: 'filter'),
-              pagination: any(named: 'pagination'),
-            ),
-          ).thenAnswer(
-            (_) async => const PaginatedResponse(
-              items: [],
               cursor: null,
               hasMore: false,
             ),
@@ -141,8 +126,7 @@ void main() {
                 'headquarters',
                 sourceFixture.headquarters,
               )
-              .having((s) => s.initialSource, 'initialSource', sourceFixture)
-              .having((s) => s.automationTask, 'automationTask', isNotNull),
+              .having((s) => s.initialSource, 'initialSource', sourceFixture),
         ],
       );
 
@@ -152,18 +136,6 @@ void main() {
           when(
             () => sourcesRepository.read(id: sourceId),
           ).thenThrow(const NetworkException());
-          when(
-            () => automationRepository.readAll(
-              filter: any(named: 'filter'),
-              pagination: any(named: 'pagination'),
-            ),
-          ).thenAnswer(
-            (_) async => const PaginatedResponse(
-              items: [],
-              cursor: null,
-              hasMore: false,
-            ),
-          );
         },
         build: buildBloc,
         act: (bloc) => bloc.add(
