@@ -17,6 +17,8 @@ class SyncActionButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
           icon: Icon(
             task.status == IngestionStatus.active
                 ? Icons.pause_circle_outline
@@ -29,6 +31,8 @@ class SyncActionButtons extends StatelessWidget {
           onPressed: () => _handleAction(context, 'toggle'),
         ),
         PopupMenuButton<String>(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
           icon: const Icon(Icons.more_vert, size: 20),
           onSelected: (value) => _handleAction(context, value),
           itemBuilder: (context) => [

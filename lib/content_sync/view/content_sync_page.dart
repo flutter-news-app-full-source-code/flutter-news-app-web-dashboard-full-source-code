@@ -111,6 +111,11 @@ class ContentSyncPage extends StatelessWidget {
                             );
                           }
                         },
+                        columnSpacing: AppSpacing.sm,
+                        horizontalMargin: AppSpacing.sm,
+                        headingRowHeight: 56,
+                        dataRowHeight: 56,
+                        fit: FlexFit.tight,
                       );
                     },
                   ),
