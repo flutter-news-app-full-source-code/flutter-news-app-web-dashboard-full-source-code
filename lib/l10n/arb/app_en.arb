@@ -99,7 +99,7 @@
   "@contentManagement": {
     "description": "Label for the content management navigation item"
   },
-  "contentManagementPageDescription": "Manage news headlines, topics, and sources for the mobile application.",
+  "contentManagementPageDescription": "Manage news headlines, topics, sources, and automated ingestion schedules for the mobile application.",
   "@contentManagementPageDescription": {
     "description": "Description for the Content Management page"
   },
@@ -4302,23 +4302,23 @@
   "@operations": {
     "description": "Label for the operations monitoring tab"
   },
-  "fetchIntervalEvery15Minutes": "Every 15 Minutes",
+  "fetchIntervalEvery15Minutes": "15m",
   "@fetchIntervalEvery15Minutes": {
     "description": "Fetch interval option: 15 minutes"
   },
-  "fetchIntervalEvery30Minutes": "Every 30 Minutes",
+  "fetchIntervalEvery30Minutes": "30m",
   "@fetchIntervalEvery30Minutes": {
     "description": "Fetch interval option: 30 minutes"
   },
-  "fetchIntervalHourly": "Hourly",
+  "fetchIntervalHourly": "1h",
   "@fetchIntervalHourly": {
     "description": "Fetch interval option: Hourly"
   },
-  "fetchIntervalEverySixHours": "Every 6 Hours",
+  "fetchIntervalEverySixHours": "6h",
   "@fetchIntervalEverySixHours": {
     "description": "Fetch interval option: 6 hours"
   },
-  "fetchIntervalDaily": "Daily",
+  "fetchIntervalDaily": "1d",
   "@fetchIntervalDaily": {
     "description": "Fetch interval option: Daily"
   },
@@ -4358,17 +4358,17 @@
   "@contentSync": {
     "description": "Label for the standalone content sync management feature"
   },
-  "contentSyncDescription": "Manage how often news is updated for each source.",
+  "contentSyncDescription": "Configure and monitor the automated ingestion engine, managing how frequently content is synchronized from external sources.",
   "@contentSyncDescription": {
     "description": "Description for the Content Sync operations hub"
   },
-  "syncFrequency": "Update Frequency",
+  "syncFrequency": "Interval",
   "@syncFrequency": {
-    "description": "Label for the frequency of content updates"
+    "description": "Short label for the frequency of content updates"
   },
-  "syncStatus": "Sync Status",
+  "syncStatus": "Status",
   "@syncStatus": {
-    "description": "Label for the operational status of a sync task"
+    "description": "Short label for the operational status of a sync task"
   },
   "lastSynced": "Last Updated",
   "@lastSynced": {
