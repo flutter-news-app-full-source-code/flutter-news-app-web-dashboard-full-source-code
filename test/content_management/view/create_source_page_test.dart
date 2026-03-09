@@ -565,7 +565,7 @@ void main() {
             imageFileBytes: kTestImageBytes,
             imageFileName: 'test.jpg',
             sourceType: SourceType.blog,
-            language: SupportedLanguage.en,
+            selectedLanguageEntity: testLanguage,
             headquarters: testCountry,
           ),
         );
@@ -589,7 +589,7 @@ void main() {
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: SupportedLanguage.en,
+              selectedLanguageEntity: testLanguage,
               headquarters: testCountry,
             ),
           );
@@ -623,7 +623,7 @@ void main() {
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: SupportedLanguage.en,
+              selectedLanguageEntity: testLanguage,
               headquarters: testCountry,
             ),
           );
