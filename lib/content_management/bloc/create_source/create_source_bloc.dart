@@ -20,11 +20,9 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
-    required DataRepository<NewsAutomationTask> automationRepository,
     required Logger logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
-       _automationRepository = automationRepository,
        _logger = logger,
        super(const CreateSourceState()) {
     on<CreateSourceInitialized>(_onInitialized);
@@ -36,8 +34,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceHeadquartersChanged>(_onHeadquartersChanged);
     on<CreateSourceImageChanged>(_onImageChanged);
     on<CreateSourceImageRemoved>(_onImageRemoved);
-    on<CreateSourceAutomationIntervalChanged>(_onAutomationIntervalChanged);
-    on<CreateSourceAutomationStatusChanged>(_onAutomationStatusChanged);
     on<CreateSourceSavedAsDraft>(_onSavedAsDraft);
     on<CreateSourcePublished>(_onPublished);
     on<CreateSourceLanguageTabChanged>(_onLanguageTabChanged);
@@ -45,7 +41,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
-  final DataRepository<NewsAutomationTask> _automationRepository;
   final Logger _logger;
   final _uuid = const Uuid();
 
@@ -156,20 +151,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     );
   }
 
-  void _onAutomationIntervalChanged(
-    CreateSourceAutomationIntervalChanged event,
-    Emitter<CreateSourceState> emit,
-  ) {
-    emit(state.copyWith(fetchInterval: event.interval));
-  }
-
-  void _onAutomationStatusChanged(
-    CreateSourceAutomationStatusChanged event,
-    Emitter<CreateSourceState> emit,
-  ) {
-    emit(state.copyWith(isAutomationEnabled: event.isEnabled));
-  }
-
   void _onLanguageTabChanged(
     CreateSourceLanguageTabChanged event,
     Emitter<CreateSourceState> emit,
@@ -257,37 +238,6 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
       _logger.finer('Submitting new source data: ${newSource.toJson()}');
       await _sourcesRepository.create(item: newSource);
-
-      try {
-        // Create linked automation task
-        final automationTask = NewsAutomationTask(
-          id: _uuid.v4(),
-          sourceId: newSourceId,
-          fetchInterval: state.fetchInterval,
-          status: state.isAutomationEnabled
-              ? IngestionStatus.active
-              : IngestionStatus.paused,
-          failureCount: 0,
-          createdAt: now,
-          updatedAt: now,
-        );
-        await _automationRepository.create(item: automationTask);
-      } catch (e) {
-        _logger.severe(
-          'Failed to create automation task for source $newSourceId. Rolling back source creation.',
-          e,
-        );
-        // Rollback: Delete the just-created source to prevent orphans
-        try {
-          await _sourcesRepository.delete(id: newSourceId);
-        } catch (rollbackError) {
-          _logger.shout(
-            'CRITICAL: Failed to rollback source creation for $newSourceId. Data inconsistency may exist.',
-            rollbackError,
-          );
-        }
-        rethrow; // Propagate the original error to trigger the failure state
-      }
 
       _logger.info('Source entity created successfully.');
 

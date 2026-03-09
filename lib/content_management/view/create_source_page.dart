@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
-import 'package:verity_dashboard/content_management/widgets/source_automation_form_section.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/extensions/extensions.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
@@ -45,8 +44,6 @@ class CreateSourcePage extends StatelessWidget {
       create: (context) =>
           CreateSourceBloc(
             sourcesRepository: context.read<DataRepository<Source>>(),
-            automationRepository: context
-                .read<DataRepository<NewsAutomationTask>>(),
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateSourceBloc'),
           )..add(
@@ -392,25 +389,6 @@ class _CreateSourceViewState extends State<CreateSourceView>
                           ),
                         ],
                         limit: kDefaultRowsPerPage,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      const Divider(),
-                      const SizedBox(height: AppSpacing.lg),
-                      BlocBuilder<CreateSourceBloc, CreateSourceState>(
-                        builder: (context, state) {
-                          return SourceAutomationFormSection(
-                            isEnabled: state.isAutomationEnabled,
-                            fetchInterval: state.fetchInterval,
-                            onEnabledChanged: (value) =>
-                                context.read<CreateSourceBloc>().add(
-                                  CreateSourceAutomationStatusChanged(value),
-                                ),
-                            onIntervalChanged: (value) =>
-                                context.read<CreateSourceBloc>().add(
-                                  CreateSourceAutomationIntervalChanged(value),
-                                ),
-                          );
-                        },
                       ),
                     ],
                   ),

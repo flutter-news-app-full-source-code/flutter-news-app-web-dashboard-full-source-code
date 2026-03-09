@@ -106,19 +106,3 @@ final class CreateSourceLanguageTabChanged extends CreateSourceEvent {
   @override
   List<Object?> get props => [language];
 }
-
-/// Event for when the automation fetch interval is changed.
-final class CreateSourceAutomationIntervalChanged extends CreateSourceEvent {
-  const CreateSourceAutomationIntervalChanged(this.interval);
-  final FetchInterval interval;
-  @override
-  List<Object?> get props => [interval];
-}
-
-/// Event for when the automation status is toggled.
-final class CreateSourceAutomationStatusChanged extends CreateSourceEvent {
-  const CreateSourceAutomationStatusChanged(this.isEnabled);
-  final bool isEnabled;
-  @override
-  List<Object?> get props => [isEnabled];
-}
