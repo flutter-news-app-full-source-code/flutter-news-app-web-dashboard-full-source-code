@@ -3433,4 +3433,59 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get nextSyncLabel => 'Prochaine synchro';
+
+  @override
+  String get contentSync => 'Synchronisation du Contenu';
+
+  @override
+  String get contentSyncDescription =>
+      'Gérez la fréquence à laquelle les actualités sont mises à jour pour chaque source.';
+
+  @override
+  String get syncFrequency => 'Fréquence de Mise à Jour';
+
+  @override
+  String get syncStatus => 'Statut de Synchronisation';
+
+  @override
+  String get lastSynced => 'Dernière Mise à Jour';
+
+  @override
+  String get nextSync => 'Prochaine Mise à Jour';
+
+  @override
+  String get editSync => 'Modifier le Calendrier de Synchronisation';
+
+  @override
+  String get stopSync => 'Arrêter la Synchronisation';
+
+  @override
+  String get resumeSync => 'Reprendre la Synchronisation';
+
+  @override
+  String get deleteSync => 'Supprimer le Calendrier de Synchronisation';
+
+  @override
+  String get syncActive => 'En cours';
+
+  @override
+  String get syncPaused => 'Arrêté';
+
+  @override
+  String get syncError => 'Nécessite une attention';
+
+  @override
+  String get createSync => 'Ajouter un Calendrier de Synchronisation';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Calendrier de synchronisation créé avec succès.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Calendrier de synchronisation mis à jour avec succès.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source.';
 }

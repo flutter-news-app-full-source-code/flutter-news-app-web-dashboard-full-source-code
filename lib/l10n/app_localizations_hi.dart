@@ -3513,4 +3513,58 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get nextSyncLabel => 'अगला सिंक';
+
+  @override
+  String get contentSync => 'सामग्री सिंक';
+
+  @override
+  String get contentSyncDescription =>
+      'प्रबंधित करें कि प्रत्येक स्रोत के लिए समाचार कितनी बार अपडेट किए जाते हैं।';
+
+  @override
+  String get syncFrequency => 'अपडेट आवृत्ति';
+
+  @override
+  String get syncStatus => 'सिंक स्थिति';
+
+  @override
+  String get lastSynced => 'पिछला अपडेट';
+
+  @override
+  String get nextSync => 'अगला अपडेट';
+
+  @override
+  String get editSync => 'सिंक शेड्यूल संपादित करें';
+
+  @override
+  String get stopSync => 'सिंक करना बंद करें';
+
+  @override
+  String get resumeSync => 'सिंक करना फिर से शुरू करें';
+
+  @override
+  String get deleteSync => 'सिंक शेड्यूल हटाएं';
+
+  @override
+  String get syncActive => 'चल रहा है';
+
+  @override
+  String get syncPaused => 'रुका हुआ';
+
+  @override
+  String get syncError => 'ध्यान देने की आवश्यकता है';
+
+  @override
+  String get createSync => 'सिंक शेड्यूल जोड़ें';
+
+  @override
+  String get syncCreatedSuccessfully => 'सिंक शेड्यूल सफलतापूर्वक बनाया गया।';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'सिंक शेड्यूल सफलतापूर्वक अपडेट किया गया।';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'क्या आप वाकई इस सिंक शेड्यूल को हटाना चाहते हैं? इससे स्रोत के लिए स्वचालित अपडेट बंद हो जाएंगे।';
 }

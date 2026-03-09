@@ -3271,4 +3271,55 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get nextSyncLabel => '下次同步';
+
+  @override
+  String get contentSync => '内容同步';
+
+  @override
+  String get contentSyncDescription => '管理每个来源的新闻更新频率。';
+
+  @override
+  String get syncFrequency => '更新频率';
+
+  @override
+  String get syncStatus => '同步状态';
+
+  @override
+  String get lastSynced => '上次更新';
+
+  @override
+  String get nextSync => '下次更新';
+
+  @override
+  String get editSync => '编辑同步计划';
+
+  @override
+  String get stopSync => '停止同步';
+
+  @override
+  String get resumeSync => '恢复同步';
+
+  @override
+  String get deleteSync => '移除同步计划';
+
+  @override
+  String get syncActive => '运行中';
+
+  @override
+  String get syncPaused => '已停止';
+
+  @override
+  String get syncError => '需要注意';
+
+  @override
+  String get createSync => '添加同步计划';
+
+  @override
+  String get syncCreatedSuccessfully => '同步计划创建成功。';
+
+  @override
+  String get syncUpdatedSuccessfully => '同步计划更新成功。';
+
+  @override
+  String get confirmStopSyncMessage => '您确定要移除此同步计划吗？这将停止该来源的自动更新。';
 }

@@ -3418,4 +3418,59 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get nextSyncLabel => 'Prossima sincro';
+
+  @override
+  String get contentSync => 'Sincronizzazione Contenuti';
+
+  @override
+  String get contentSyncDescription =>
+      'Gestisci la frequenza con cui le notizie vengono aggiornate per ogni fonte.';
+
+  @override
+  String get syncFrequency => 'Frequenza di Aggiornamento';
+
+  @override
+  String get syncStatus => 'Stato Sincronizzazione';
+
+  @override
+  String get lastSynced => 'Ultimo Aggiornamento';
+
+  @override
+  String get nextSync => 'Prossimo Aggiornamento';
+
+  @override
+  String get editSync => 'Modifica Programma di Sincronizzazione';
+
+  @override
+  String get stopSync => 'Interrompi Sincronizzazione';
+
+  @override
+  String get resumeSync => 'Riprendi Sincronizzazione';
+
+  @override
+  String get deleteSync => 'Rimuovi Programma di Sincronizzazione';
+
+  @override
+  String get syncActive => 'In esecuzione';
+
+  @override
+  String get syncPaused => 'Interrotto';
+
+  @override
+  String get syncError => 'Richiede attenzione';
+
+  @override
+  String get createSync => 'Aggiungi Programma di Sincronizzazione';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Programma di sincronizzazione creato con successo.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Programma di sincronizzazione aggiornato con successo.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte.';
 }

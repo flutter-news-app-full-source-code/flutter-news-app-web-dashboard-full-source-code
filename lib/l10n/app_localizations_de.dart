@@ -3423,4 +3423,59 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get nextSyncLabel => 'Nächste Synchro';
+
+  @override
+  String get contentSync => 'Inhaltssynchronisierung';
+
+  @override
+  String get contentSyncDescription =>
+      'Verwalten Sie, wie oft Nachrichten für jede Quelle aktualisiert werden.';
+
+  @override
+  String get syncFrequency => 'Aktualisierungshäufigkeit';
+
+  @override
+  String get syncStatus => 'Synchronisierungsstatus';
+
+  @override
+  String get lastSynced => 'Zuletzt aktualisiert';
+
+  @override
+  String get nextSync => 'Nächste Aktualisierung';
+
+  @override
+  String get editSync => 'Synchronisierungsplan bearbeiten';
+
+  @override
+  String get stopSync => 'Synchronisierung stoppen';
+
+  @override
+  String get resumeSync => 'Synchronisierung fortsetzen';
+
+  @override
+  String get deleteSync => 'Synchronisierungsplan entfernen';
+
+  @override
+  String get syncActive => 'Läuft';
+
+  @override
+  String get syncPaused => 'Angehalten';
+
+  @override
+  String get syncError => 'Aktion erforderlich';
+
+  @override
+  String get createSync => 'Synchronisierungsplan hinzufügen';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Synchronisierungsplan erfolgreich erstellt.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Synchronisierungsplan erfolgreich aktualisiert.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle.';
 }

@@ -3479,4 +3479,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get nextSyncLabel => 'المزامنة التالية';
+
+  @override
+  String get contentSync => 'مزامنة المحتوى';
+
+  @override
+  String get contentSyncDescription => 'إدارة عدد مرات تحديث الأخبار لكل مصدر.';
+
+  @override
+  String get syncFrequency => 'تردد التحديث';
+
+  @override
+  String get syncStatus => 'حالة المزامنة';
+
+  @override
+  String get lastSynced => 'آخر تحديث';
+
+  @override
+  String get nextSync => 'التحديث القادم';
+
+  @override
+  String get editSync => 'تعديل جدول المزامنة';
+
+  @override
+  String get stopSync => 'إيقاف المزامنة';
+
+  @override
+  String get resumeSync => 'استئناف المزامنة';
+
+  @override
+  String get deleteSync => 'إزالة جدول المزامنة';
+
+  @override
+  String get syncActive => 'يعمل';
+
+  @override
+  String get syncPaused => 'متوقف';
+
+  @override
+  String get syncError => 'يحتاج إلى اهتمام';
+
+  @override
+  String get createSync => 'إضافة جدول مزامنة';
+
+  @override
+  String get syncCreatedSuccessfully => 'تم إنشاء جدول المزامنة بنجاح.';
+
+  @override
+  String get syncUpdatedSuccessfully => 'تم تحديث جدول المزامنة بنجاح.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'هل أنت متأكد أنك تريد إزالة جدول المزامنة هذا؟ سيؤدي هذا إلى إيقاف التحديثات التلقائية للمصدر.';
 }

@@ -3504,4 +3504,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nextSyncLabel => 'Next sync';
+
+  @override
+  String get contentSync => 'Content Sync';
+
+  @override
+  String get contentSyncDescription =>
+      'Manage how often news is updated for each source.';
+
+  @override
+  String get syncFrequency => 'Update Frequency';
+
+  @override
+  String get syncStatus => 'Sync Status';
+
+  @override
+  String get lastSynced => 'Last Updated';
+
+  @override
+  String get nextSync => 'Next Update';
+
+  @override
+  String get editSync => 'Edit Sync Schedule';
+
+  @override
+  String get stopSync => 'Stop Syncing';
+
+  @override
+  String get resumeSync => 'Resume Syncing';
+
+  @override
+  String get deleteSync => 'Remove Sync Schedule';
+
+  @override
+  String get syncActive => 'Running';
+
+  @override
+  String get syncPaused => 'Stopped';
+
+  @override
+  String get syncError => 'Needs Attention';
+
+  @override
+  String get createSync => 'Add Sync Schedule';
+
+  @override
+  String get syncCreatedSuccessfully => 'Sync schedule created successfully.';
+
+  @override
+  String get syncUpdatedSuccessfully => 'Sync schedule updated successfully.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.';
 }
