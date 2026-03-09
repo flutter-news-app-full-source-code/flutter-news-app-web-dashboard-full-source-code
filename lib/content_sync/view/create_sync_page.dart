@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:verity_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/shared/extensions/fetch_interval_extension.dart';
 import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
 import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
 
@@ -88,7 +89,7 @@ class CreateSyncPage extends StatelessWidget {
                   items: FetchInterval.values.map((interval) {
                     return DropdownMenuItem(
                       value: interval,
-                      child: Text(interval.name), // TODO: Localize
+                      child: Text(interval.localizedName(l10n)),
                     );
                   }).toList(),
                   onChanged: (value) {

@@ -10,6 +10,7 @@ import 'package:verity_dashboard/content_sync/widgets/sync_action_buttons.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/router/routes.dart';
+import 'package:verity_dashboard/shared/extensions/fetch_interval_extension.dart';
 import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
 
@@ -154,9 +155,7 @@ class _SyncDataSource extends DataTableSource {
             ],
           ),
         ),
-        DataCell(
-          Text(task.fetchInterval.name),
-        ), // TODO: Add localized name extension
+        DataCell(Text(task.fetchInterval.localizedName(l10n))),
         DataCell(_StatusBadge(status: task.status, l10n: l10n)),
         DataCell(
           Text(

@@ -3,9 +3,9 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 import 'package:verity_dashboard/content_sync/bloc/edit_sync/edit_sync_bloc.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/shared/extensions/fetch_interval_extension.dart';
 import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
 
 class EditSyncPage extends StatelessWidget {
@@ -19,7 +19,6 @@ class EditSyncPage extends StatelessWidget {
         automationRepository: context
             .read<DataRepository<NewsAutomationTask>>(),
         sourcesRepository: context.read<DataRepository<Source>>(),
-        logger: Logger('EditSyncBloc'),
       )..add(EditSyncStarted(syncId)),
       child: const EditSyncView(),
     );
@@ -103,7 +102,7 @@ class EditSyncView extends StatelessWidget {
                   items: FetchInterval.values.map((interval) {
                     return DropdownMenuItem(
                       value: interval,
-                      child: Text(interval.name), // TODO: Localize
+                      child: Text(interval.localizedName(l10n)),
                     );
                   }).toList(),
                   onChanged: (value) {
