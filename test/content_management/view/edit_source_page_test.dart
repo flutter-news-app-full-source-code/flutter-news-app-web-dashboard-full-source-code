@@ -166,6 +166,7 @@ void main() {
           logoUrl: testSource.logoUrl,
           sourceType: testSource.sourceType,
           language: testSource.language,
+          selectedLanguageEntity: testLanguage,
           headquarters: testSource.headquarters,
           initialSource: testSource,
           enabledLanguages: const [SupportedLanguage.en],
@@ -341,6 +342,31 @@ void main() {
           ),
         ).called(1);
       });
+
+      testWidgets(
+        'adds EditSourceLanguageChanged when language is selected',
+        (tester) async {
+          when(
+            () => goRouter.pushNamed<List<Object>?>(
+              Routes.searchableSelectionName,
+              extra: any(named: 'extra'),
+            ),
+          ).thenAnswer((_) async => [testLanguage]);
+
+          await tester.pumpApp(buildSubject(), goRouter: goRouter);
+          await tester.ensureVisible(
+            find.byType(SearchableSelectionInput<Language>),
+          );
+          await tester.tap(find.byType(SearchableSelectionInput<Language>));
+          await tester.pumpAndSettle();
+
+          verify(
+            () => editSourceBloc.add(
+              const EditSourceLanguageChanged(testLanguage),
+            ),
+          ).called(1);
+        },
+      );
     });
 
     group('submission status', () {
@@ -360,7 +386,14 @@ void main() {
           ),
         );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        // Expecting the indicator in the AppBar actions
+        expect(
+          find.descendant(
+            of: find.byType(AppBar),
+            matching: find.byType(CircularProgressIndicator),
+          ),
+          findsOneWidget,
+        );
       });
 
       testWidgets('shows snackbar and pops on success', (tester) async {

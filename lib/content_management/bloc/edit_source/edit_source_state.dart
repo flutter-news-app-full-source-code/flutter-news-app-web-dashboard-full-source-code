@@ -73,7 +73,7 @@ final class EditSourceState extends Equatable {
         url.isNotEmpty &&
         hasImage &&
         sourceType != null &&
-        language != null &&
+        selectedLanguageEntity != null &&
         headquarters != null;
   }
 

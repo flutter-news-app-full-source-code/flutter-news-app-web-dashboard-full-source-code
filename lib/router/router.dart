@@ -25,6 +25,10 @@ import 'package:verity_dashboard/content_management/view/edit_source_page.dart';
 import 'package:verity_dashboard/content_management/view/edit_topic_page.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/filter_dialog.dart';
+import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
+import 'package:verity_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
+import 'package:verity_dashboard/content_sync/view/content_sync_page.dart';
+import 'package:verity_dashboard/content_sync/view/create_sync_page.dart';
 import 'package:verity_dashboard/overview/view/overview_page.dart';
 import 'package:verity_dashboard/router/route_permissions.dart';
 import 'package:verity_dashboard/router/routes.dart';
@@ -96,9 +100,10 @@ GoRouter createRouter({
         const topLevelPaths = {
           Routes.overviewName: Routes.overview,
           Routes.contentManagementName: Routes.contentManagement,
+          Routes.contentSyncName:
+              '${Routes.contentManagement}/${Routes.contentSync}',
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
-          Routes.rewardsManagementName: Routes.rewardsManagement,
           Routes.appConfigurationName: Routes.appConfiguration,
         };
 
@@ -336,6 +341,32 @@ GoRouter createRouter({
                         ),
                       );
                     },
+                  ),
+                  GoRoute(
+                    path: Routes.contentSync,
+                    name: Routes.contentSyncName,
+                    builder: (context, state) => BlocProvider(
+                      create: (context) => ContentSyncBloc(
+                        automationRepository: context
+                            .read<DataRepository<NewsAutomationTask>>(),
+                        sourcesRepository: context
+                            .read<DataRepository<Source>>(),
+                      )..add(const ContentSyncStarted()),
+                      child: const ContentSyncPage(),
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: Routes.createSync,
+                        name: Routes.createSyncName,
+                        builder: (context, state) => BlocProvider(
+                          create: (context) => CreateSyncBloc(
+                            automationRepository: context
+                                .read<DataRepository<NewsAutomationTask>>(),
+                          )..add(const CreateSyncStarted()),
+                          child: const CreateSyncPage(),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

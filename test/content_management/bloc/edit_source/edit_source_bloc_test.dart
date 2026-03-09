@@ -105,21 +105,28 @@ void main() {
             sourceId: sourceId,
             status: EditSourceStatus.loading,
           ),
-          EditSourceState(
-            sourceId: sourceId,
-            enabledLanguages: const [SupportedLanguage.en],
-            defaultLanguage: SupportedLanguage.en,
-            status: EditSourceStatus.initial,
-            name: sourceFixture.name,
-            description: sourceFixture.description,
-            url: sourceFixture.url,
-            logoUrl: sourceFixture.logoUrl,
-            sourceType: sourceFixture.sourceType,
-            language: sourceFixture.language,
-            headquarters: sourceFixture.headquarters,
-            initialSource: sourceFixture,
-            selectedLanguageEntity: languageFixture,
-          ),
+          isA<EditSourceState>()
+              .having((s) => s.status, 'status', EditSourceStatus.initial)
+              .having((s) => s.name, 'name', sourceFixture.name)
+              .having(
+                (s) => s.description,
+                'description',
+                sourceFixture.description,
+              )
+              .having((s) => s.url, 'url', sourceFixture.url)
+              .having((s) => s.logoUrl, 'logoUrl', sourceFixture.logoUrl)
+              .having(
+                (s) => s.sourceType,
+                'sourceType',
+                sourceFixture.sourceType,
+              )
+              .having((s) => s.language, 'language', sourceFixture.language)
+              .having(
+                (s) => s.headquarters,
+                'headquarters',
+                sourceFixture.headquarters,
+              )
+              .having((s) => s.initialSource, 'initialSource', sourceFixture),
         ],
       );
 

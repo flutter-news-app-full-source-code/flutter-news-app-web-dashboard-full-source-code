@@ -36,6 +36,7 @@ void main() {
     late MockSourcesFilterBloc sourcesFilterBloc;
     late MockPendingDeletionsService pendingDeletionsService;
     late MockDataRepository<RemoteConfig> remoteConfigRepository;
+    late MockDataRepository<NewsAutomationTask> automationRepository;
 
     final headlineFixture = Headline(
       id: 'headline-1',
@@ -52,7 +53,23 @@ void main() {
     );
 
     final topicFixture = FakeTopic();
-    final sourceFixture = FakeSource();
+    final sourceFixture = Source(
+      id: 'source-1',
+      name: const {SupportedLanguage.en: 'Test Source'},
+      description: const {SupportedLanguage.en: 'Test Description'},
+      url: 'http://example.com',
+      sourceType: SourceType.newsAgency,
+      language: SupportedLanguage.en,
+      headquarters: const Country(
+        id: 'c1',
+        isoCode: 'US',
+        name: {},
+        flagUrl: '',
+      ),
+      createdAt: DateTime(2023),
+      updatedAt: DateTime(2023),
+      status: ContentStatus.active,
+    );
 
     final remoteConfigFixture = RemoteConfig(
       id: 'config-1',
@@ -160,6 +177,7 @@ void main() {
       sourcesFilterBloc = MockSourcesFilterBloc();
       pendingDeletionsService = MockPendingDeletionsService();
       remoteConfigRepository = MockDataRepository<RemoteConfig>();
+      automationRepository = MockDataRepository<NewsAutomationTask>();
 
       // Default stream stubs
       when(
@@ -522,6 +540,18 @@ void main() {
           ).thenAnswer(
             (_) async => PaginatedResponse(
               items: [sourceFixture],
+              cursor: null,
+              hasMore: false,
+            ),
+          );
+          when(
+            () => automationRepository.readAll(
+              filter: any(named: 'filter'),
+              pagination: any(named: 'pagination'),
+            ),
+          ).thenAnswer(
+            (_) async => const PaginatedResponse(
+              items: [],
               cursor: null,
               hasMore: false,
             ),

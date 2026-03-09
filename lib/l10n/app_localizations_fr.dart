@@ -84,7 +84,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Gérez les titres, les sujets et les sources.';
+      'Gérez les titres, les sujets, les sources et les calendriers d\'ingestion automatisés pour l\'application mobile.';
 
   @override
   String get headlines => 'Titres';
@@ -1799,7 +1799,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get positiveInteractionTypeFollowItem => 'Suivre une entité';
 
   @override
-  String get positiveInteractionTypeShareContent => 'Share a content item';
+  String get positiveInteractionTypeShareContent => 'Partager du contenu';
 
   @override
   String get positiveInteractionTypeSaveFilter => 'Créer un filtre enregistré';
@@ -3375,4 +3375,117 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get languageNameJa => 'Japonais';
+
+  @override
+  String get automation => 'Automatisation';
+
+  @override
+  String get ingestAutomation => 'Automatisation de l\'Ingestion';
+
+  @override
+  String get fetchInterval => 'Intervalle de Récupération';
+
+  @override
+  String get lastRun => 'Dernière Exécution';
+
+  @override
+  String get nextRun => 'Prochaine Exécution';
+
+  @override
+  String get operations => 'Opérations';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15m';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30m';
+
+  @override
+  String get fetchIntervalHourly => '1h';
+
+  @override
+  String get fetchIntervalEverySixHours => '6h';
+
+  @override
+  String get fetchIntervalDaily => '1d';
+
+  @override
+  String get ingestionStatusActive => 'Actif';
+
+  @override
+  String get ingestionStatusPaused => 'En pause';
+
+  @override
+  String get ingestionStatusError => 'Erreur';
+
+  @override
+  String get contentSyncScheduleTitle => 'Calendrier de Sincronisation';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'Planifiez l\'ingestion automatique. Configuration backend requise.';
+
+  @override
+  String get syncFrequencyLabel => 'Fréquence de Sincronisation';
+
+  @override
+  String get lastSyncedLabel => 'Dernière synchro';
+
+  @override
+  String get nextSyncLabel => 'Prochaine synchro';
+
+  @override
+  String get contentSync => 'Synchronisation du Contenu';
+
+  @override
+  String get contentSyncDescription =>
+      'Configurez et surveillez le moteur d\'ingestion automatisé, en gérant la fréquence à laquelle le contenu est synchronisé à partir de sources externes.';
+
+  @override
+  String get syncFrequency => 'Intervalle';
+
+  @override
+  String get syncStatus => 'Statut';
+
+  @override
+  String get lastSynced => 'Dernière Mise à Jour';
+
+  @override
+  String get nextSync => 'Prochaine Mise à Jour';
+
+  @override
+  String get editSync => 'Modifier le Calendrier de Synchronisation';
+
+  @override
+  String get stopSync => 'Arrêter la Synchronisation';
+
+  @override
+  String get resumeSync => 'Reprendre la Synchronisation';
+
+  @override
+  String get deleteSync => 'Supprimer le Calendrier de Synchronisation';
+
+  @override
+  String get syncActive => 'En cours';
+
+  @override
+  String get syncPaused => 'Arrêté';
+
+  @override
+  String get syncError => 'Nécessite une attention';
+
+  @override
+  String get createSync => 'Ajouter un Calendrier de Synchronisation';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Calendrier de synchronisation créé avec succès.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Calendrier de synchronisation mis à jour avec succès.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source.';
 }

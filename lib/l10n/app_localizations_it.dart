@@ -84,7 +84,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Gestisci titoli, argomenti e fonti.';
+      'Gestisci titoli, argomenti, fonti e programmi di acquisizione automatizzata per l\'applicazione mobile.';
 
   @override
   String get headlines => 'Titoli';
@@ -3360,4 +3360,117 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get languageNameJa => 'Giapponese';
+
+  @override
+  String get automation => 'Automazione';
+
+  @override
+  String get ingestAutomation => 'Automazione Ingestione';
+
+  @override
+  String get fetchInterval => 'Intervallo di Recupero';
+
+  @override
+  String get lastRun => 'Ultima Esecuzione';
+
+  @override
+  String get nextRun => 'Prossima Esecuzione';
+
+  @override
+  String get operations => 'Operazioni';
+
+  @override
+  String get fetchIntervalEvery15Minutes => 'Ogni 15 minuti';
+
+  @override
+  String get fetchIntervalEvery30Minutes => 'Ogni 30 minuti';
+
+  @override
+  String get fetchIntervalHourly => 'Ogni ora';
+
+  @override
+  String get fetchIntervalEverySixHours => 'Ogni 6 ore';
+
+  @override
+  String get fetchIntervalDaily => 'Giornalmente';
+
+  @override
+  String get ingestionStatusActive => 'Attivo';
+
+  @override
+  String get ingestionStatusPaused => 'In pausa';
+
+  @override
+  String get ingestionStatusError => 'Errore';
+
+  @override
+  String get contentSyncScheduleTitle => 'Programma Sincronizzazione';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'Pianifica l\'ingestione automatica. Configurazione backend richiesta.';
+
+  @override
+  String get syncFrequencyLabel => 'Frequenza Sincronizzazione';
+
+  @override
+  String get lastSyncedLabel => 'Ultima sincro';
+
+  @override
+  String get nextSyncLabel => 'Prossima sincro';
+
+  @override
+  String get contentSync => 'Sincronizzazione Contenuti';
+
+  @override
+  String get contentSyncDescription =>
+      'Configura e monitora il motore di acquisizione automatizzata, gestendo la frequenza con cui i contenuti vengono sincronizzati da fonti esterne.';
+
+  @override
+  String get syncFrequency => 'Intervallo';
+
+  @override
+  String get syncStatus => 'Stato';
+
+  @override
+  String get lastSynced => 'Ultimo Aggiornamento';
+
+  @override
+  String get nextSync => 'Prossimo Aggiornamento';
+
+  @override
+  String get editSync => 'Modifica Programma di Sincronizzazione';
+
+  @override
+  String get stopSync => 'Interrompi Sincronizzazione';
+
+  @override
+  String get resumeSync => 'Riprendi Sincronizzazione';
+
+  @override
+  String get deleteSync => 'Rimuovi Programma di Sincronizzazione';
+
+  @override
+  String get syncActive => 'In esecuzione';
+
+  @override
+  String get syncPaused => 'Interrotto';
+
+  @override
+  String get syncError => 'Richiede attenzione';
+
+  @override
+  String get createSync => 'Aggiungi Programma di Sincronizzazione';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Programma di sincronizzazione creato con successo.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Programma di sincronizzazione aggiornato con successo.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte.';
 }

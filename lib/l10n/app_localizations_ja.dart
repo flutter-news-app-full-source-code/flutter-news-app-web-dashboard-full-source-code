@@ -3332,4 +3332,114 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get languageNameJa => '日本語';
+
+  @override
+  String get automation => 'オートメーション';
+
+  @override
+  String get ingestAutomation => 'インジェスト・オートメーション';
+
+  @override
+  String get fetchInterval => '取得間隔';
+
+  @override
+  String get lastRun => '最終実行';
+
+  @override
+  String get nextRun => '次回実行';
+
+  @override
+  String get operations => '運用';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15m';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30m';
+
+  @override
+  String get fetchIntervalHourly => '1h';
+
+  @override
+  String get fetchIntervalEverySixHours => '6h';
+
+  @override
+  String get fetchIntervalDaily => '1d';
+
+  @override
+  String get ingestionStatusActive => 'アクティブ';
+
+  @override
+  String get ingestionStatusPaused => '一時停止';
+
+  @override
+  String get ingestionStatusError => 'エラー';
+
+  @override
+  String get contentSyncScheduleTitle => 'コンテンツ同期スケジュール';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      '自動取り込みをスケジュールします。バックエンド設定が必要です。';
+
+  @override
+  String get syncFrequencyLabel => '同期頻度';
+
+  @override
+  String get lastSyncedLabel => '最終同期';
+
+  @override
+  String get nextSyncLabel => '次回同期';
+
+  @override
+  String get contentSync => 'コンテンツ同期';
+
+  @override
+  String get contentSyncDescription => '各ソースのニュース更新頻度を管理します。';
+
+  @override
+  String get syncFrequency => '間隔';
+
+  @override
+  String get syncStatus => 'ステータス';
+
+  @override
+  String get lastSynced => '最終更新';
+
+  @override
+  String get nextSync => '次回更新';
+
+  @override
+  String get editSync => '同期スケジュールの編集';
+
+  @override
+  String get stopSync => '同期を停止';
+
+  @override
+  String get resumeSync => '同期を再開';
+
+  @override
+  String get deleteSync => '同期スケジュールを削除';
+
+  @override
+  String get syncActive => '実行中';
+
+  @override
+  String get syncPaused => '停止中';
+
+  @override
+  String get syncError => '要確認';
+
+  @override
+  String get createSync => '同期スケジュールを追加';
+
+  @override
+  String get syncCreatedSuccessfully => '同期スケジュールが正常に作成されました。';
+
+  @override
+  String get syncUpdatedSuccessfully => '同期スケジュールが正常に更新されました。';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'この同期スケジュールを削除してもよろしいですか？これにより、ソースの自動更新が停止します。';
 }

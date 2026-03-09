@@ -83,7 +83,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Gestiona titulares, temas y fuentes.';
+      'Gestiona titulares, temas, fuentes y cronogramas de ingesta automatizada para la aplicación móvil.';
 
   @override
   String get headlines => 'Titulares';
@@ -3351,4 +3351,117 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get languageNameJa => 'Japonés';
+
+  @override
+  String get automation => 'Automatización';
+
+  @override
+  String get ingestAutomation => 'Automatización de Ingesta';
+
+  @override
+  String get fetchInterval => 'Intervalo de Obtención';
+
+  @override
+  String get lastRun => 'Última Ejecución';
+
+  @override
+  String get nextRun => 'Próxima Ejecución';
+
+  @override
+  String get operations => 'Operaciones';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15m';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30m';
+
+  @override
+  String get fetchIntervalHourly => '1h';
+
+  @override
+  String get fetchIntervalEverySixHours => '6h';
+
+  @override
+  String get fetchIntervalDaily => '1d';
+
+  @override
+  String get ingestionStatusActive => 'Activo';
+
+  @override
+  String get ingestionStatusPaused => 'Pausado';
+
+  @override
+  String get ingestionStatusError => 'Error';
+
+  @override
+  String get contentSyncScheduleTitle => 'Programación de Sincronización';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'Programe la ingesta automática. Requiere configuración del backend.';
+
+  @override
+  String get syncFrequencyLabel => 'Frecuencia de Sincronización';
+
+  @override
+  String get lastSyncedLabel => 'Última sincronización';
+
+  @override
+  String get nextSyncLabel => 'Próxima sincronización';
+
+  @override
+  String get contentSync => 'Sincronización de Contenido';
+
+  @override
+  String get contentSyncDescription =>
+      'Configura y supervisa el motor de ingesta automatizada, gestionando la frecuencia con la que se sincroniza el contenido desde fuentes externas.';
+
+  @override
+  String get syncFrequency => 'Intervalo';
+
+  @override
+  String get syncStatus => 'Estado';
+
+  @override
+  String get lastSynced => 'Última Actualización';
+
+  @override
+  String get nextSync => 'Próxima Actualización';
+
+  @override
+  String get editSync => 'Editar Programación de Sincronización';
+
+  @override
+  String get stopSync => 'Detener Sincronización';
+
+  @override
+  String get resumeSync => 'Reanudar Sincronización';
+
+  @override
+  String get deleteSync => 'Eliminar Programación de Sincronización';
+
+  @override
+  String get syncActive => 'En ejecución';
+
+  @override
+  String get syncPaused => 'Detenido';
+
+  @override
+  String get syncError => 'Necesita Atención';
+
+  @override
+  String get createSync => 'Añadir Programación de Sincronización';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Programación de sincronización creada con éxito.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Programación de sincronización actualizada con éxito.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      '¿Estás seguro de que deseas eliminar esta programación de sincronización? Esto detendrá las actualizaciones automáticas para la fuente.';
 }

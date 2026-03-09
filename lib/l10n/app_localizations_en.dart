@@ -83,7 +83,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Manage news headlines, topics, and sources for the mobile application.';
+      'Manage news headlines, topics, sources, and automated ingestion schedules for the mobile application.';
 
   @override
   String get headlines => 'Headlines';
@@ -3446,4 +3446,115 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageNameJa => 'Japanese';
+
+  @override
+  String get automation => 'Automation';
+
+  @override
+  String get ingestAutomation => 'Ingest Automation';
+
+  @override
+  String get fetchInterval => 'Fetch Interval';
+
+  @override
+  String get lastRun => 'Last Run';
+
+  @override
+  String get nextRun => 'Next Run';
+
+  @override
+  String get operations => 'Operations';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15m';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30m';
+
+  @override
+  String get fetchIntervalHourly => '1h';
+
+  @override
+  String get fetchIntervalEverySixHours => '6h';
+
+  @override
+  String get fetchIntervalDaily => '1d';
+
+  @override
+  String get ingestionStatusActive => 'Active';
+
+  @override
+  String get ingestionStatusPaused => 'Paused';
+
+  @override
+  String get ingestionStatusError => 'Error';
+
+  @override
+  String get contentSyncScheduleTitle => 'Content Sync Schedule';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'Schedule automated ingestion. Backend setup required.';
+
+  @override
+  String get syncFrequencyLabel => 'Sync Frequency';
+
+  @override
+  String get lastSyncedLabel => 'Last synced';
+
+  @override
+  String get nextSyncLabel => 'Next sync';
+
+  @override
+  String get contentSync => 'Content Sync';
+
+  @override
+  String get contentSyncDescription =>
+      'Configure and monitor the automated ingestion engine, managing how frequently content is synchronized from external sources.';
+
+  @override
+  String get syncFrequency => 'Interval';
+
+  @override
+  String get syncStatus => 'Status';
+
+  @override
+  String get lastSynced => 'Last Updated';
+
+  @override
+  String get nextSync => 'Next Update';
+
+  @override
+  String get editSync => 'Edit Sync Schedule';
+
+  @override
+  String get stopSync => 'Stop Syncing';
+
+  @override
+  String get resumeSync => 'Resume Syncing';
+
+  @override
+  String get deleteSync => 'Remove Sync Schedule';
+
+  @override
+  String get syncActive => 'Running';
+
+  @override
+  String get syncPaused => 'Stopped';
+
+  @override
+  String get syncError => 'Needs Attention';
+
+  @override
+  String get createSync => 'Add Sync Schedule';
+
+  @override
+  String get syncCreatedSuccessfully => 'Sync schedule created successfully.';
+
+  @override
+  String get syncUpdatedSuccessfully => 'Sync schedule updated successfully.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.';
 }

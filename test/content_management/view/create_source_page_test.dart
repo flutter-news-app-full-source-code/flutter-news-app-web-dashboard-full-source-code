@@ -400,10 +400,7 @@ void main() {
 
           verify(
             () => createSourceBloc.add(
-              const CreateSourceLanguageChanged(
-                SupportedLanguage.en,
-                languageEntity: testLanguage,
-              ),
+              const CreateSourceLanguageChanged(testLanguage),
             ),
           ).called(1);
         },
@@ -563,7 +560,7 @@ void main() {
             imageFileBytes: kTestImageBytes,
             imageFileName: 'test.jpg',
             sourceType: SourceType.blog,
-            language: SupportedLanguage.en,
+            selectedLanguageEntity: testLanguage,
             headquarters: testCountry,
           ),
         );
@@ -587,7 +584,7 @@ void main() {
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: SupportedLanguage.en,
+              selectedLanguageEntity: testLanguage,
               headquarters: testCountry,
             ),
           );
@@ -621,7 +618,7 @@ void main() {
               imageFileBytes: kTestImageBytes,
               imageFileName: 'test.jpg',
               sourceType: SourceType.blog,
-              language: SupportedLanguage.en,
+              selectedLanguageEntity: testLanguage,
               headquarters: testCountry,
             ),
           );

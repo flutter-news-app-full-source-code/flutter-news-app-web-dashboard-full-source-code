@@ -81,7 +81,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'Schlagzeilen, Themen und Quellen verwalten.';
+      'Verwalten Sie Schlagzeilen, Themen, Quellen und automatisierte Ingestionspläne für die mobile Anwendung.';
 
   @override
   String get headlines => 'Schlagzeilen';
@@ -3365,4 +3365,117 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get languageNameJa => 'Japanisch';
+
+  @override
+  String get automation => 'Automatisierung';
+
+  @override
+  String get ingestAutomation => 'Ingest-Automatisierung';
+
+  @override
+  String get fetchInterval => 'Abrufintervall';
+
+  @override
+  String get lastRun => 'Letzter Durchlauf';
+
+  @override
+  String get nextRun => 'Nächster Durchlauf';
+
+  @override
+  String get operations => 'Betrieb';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15m';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30m';
+
+  @override
+  String get fetchIntervalHourly => '1h';
+
+  @override
+  String get fetchIntervalEverySixHours => '6h';
+
+  @override
+  String get fetchIntervalDaily => '1d';
+
+  @override
+  String get ingestionStatusActive => 'Aktiv';
+
+  @override
+  String get ingestionStatusPaused => 'Pausiert';
+
+  @override
+  String get ingestionStatusError => 'Fehler';
+
+  @override
+  String get contentSyncScheduleTitle => 'Synchronisierungsplan';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'Automatische Erfassung planen. Backend-Setup erforderlich.';
+
+  @override
+  String get syncFrequencyLabel => 'Synchronisierungsfrequenz';
+
+  @override
+  String get lastSyncedLabel => 'Letzte Synchro';
+
+  @override
+  String get nextSyncLabel => 'Nächste Synchro';
+
+  @override
+  String get contentSync => 'Inhaltssynchronisierung';
+
+  @override
+  String get contentSyncDescription =>
+      'Konfigurieren und überwachen Sie die automatisierte Ingestions-Engine und verwalten Sie, wie oft Inhalte von externen Quellen synchronisiert werden.';
+
+  @override
+  String get syncFrequency => 'Intervall';
+
+  @override
+  String get syncStatus => 'Status';
+
+  @override
+  String get lastSynced => 'Zuletzt aktualisiert';
+
+  @override
+  String get nextSync => 'Nächste Aktualisierung';
+
+  @override
+  String get editSync => 'Synchronisierungsplan bearbeiten';
+
+  @override
+  String get stopSync => 'Synchronisierung stoppen';
+
+  @override
+  String get resumeSync => 'Synchronisierung fortsetzen';
+
+  @override
+  String get deleteSync => 'Synchronisierungsplan entfernen';
+
+  @override
+  String get syncActive => 'Läuft';
+
+  @override
+  String get syncPaused => 'Angehalten';
+
+  @override
+  String get syncError => 'Aktion erforderlich';
+
+  @override
+  String get createSync => 'Synchronisierungsplan hinzufügen';
+
+  @override
+  String get syncCreatedSuccessfully =>
+      'Synchronisierungsplan erfolgreich erstellt.';
+
+  @override
+  String get syncUpdatedSuccessfully =>
+      'Synchronisierungsplan erfolgreich aktualisiert.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle.';
 }

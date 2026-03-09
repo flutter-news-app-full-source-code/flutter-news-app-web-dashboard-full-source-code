@@ -10,10 +10,10 @@ final Map<UserRole, Set<String>> routePermissions = {
   UserRole.admin: {
     Routes.overviewName,
     Routes.contentManagementName,
+    Routes.contentSyncName,
     Routes.userManagementName,
     Routes.communityManagementName,
     Routes.appConfigurationName,
-    Routes.rewardsManagementName,
   },
   // Publishers have a more restricted access, focused on content creation
   // and management.

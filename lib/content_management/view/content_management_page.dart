@@ -13,6 +13,7 @@ import 'package:verity_dashboard/content_management/view/headlines_page.dart';
 import 'package:verity_dashboard/content_management/view/sources_page.dart';
 import 'package:verity_dashboard/content_management/view/topics_page.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:verity_dashboard/router/route_permissions.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/widgets/about_icon.dart';
 
@@ -61,6 +62,11 @@ class _ContentManagementPageState extends State<ContentManagementPage>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final userRole = context.select((AppBloc bloc) => bloc.state.user?.role);
+    final canSync =
+        userRole != null &&
+        (routePermissions[userRole]?.contains(Routes.contentSyncName) ?? false);
+
     return MultiBlocListener(
       listeners: [
         BlocListener<AppBloc, AppState>(
@@ -220,6 +226,12 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             ],
           ),
           actions: [
+            if (canSync)
+              IconButton(
+                icon: const Icon(Icons.sync),
+                tooltip: l10n.contentSync,
+                onPressed: () => context.pushNamed(Routes.contentSyncName),
+              ),
             IconButton(
               icon: const Icon(Icons.filter_list),
               tooltip: l10n.filter,

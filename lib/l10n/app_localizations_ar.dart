@@ -84,7 +84,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentManagementPageDescription =>
-      'إدارة العناوين الإخبارية والمواضيع والمصادر لتطبيق الهاتف';
+      'إدارة العناوين الإخبارية والمواضيع والمصادر وجداول الجلب الآلي لتطبيق الهاتف.';
 
   @override
   String get headlines => 'العناوين الرئيسية';
@@ -2729,13 +2729,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get vsPreviousPeriod => 'مقارنة بالفترة السابقة';
 
   @override
-  String get vsPreviousDay => 'مقارنة بـ ٢٤ ساعة الماضية';
+  String get vsPreviousDay => 'مقارنة بـ 24 ساعة الماضية';
 
   @override
-  String get vsPreviousWeek => 'مقارنة بـ ٧ أيام الماضية';
+  String get vsPreviousWeek => 'مقارنة بـ 7 أيام الماضية';
 
   @override
-  String get vsPreviousMonth => 'مقارنة بـ ٣٠ يوم الماضية';
+  String get vsPreviousMonth => 'مقارنة بـ 30 يوم الماضية';
 
   @override
   String get vsPreviousYear => 'مقارنة بالسنة الماضية';
@@ -3421,4 +3421,115 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get languageNameJa => 'اليابانية';
+
+  @override
+  String get automation => 'الأتمتة';
+
+  @override
+  String get ingestAutomation => 'أتمتة الجلب';
+
+  @override
+  String get fetchInterval => 'فاصل الجلب الزمني';
+
+  @override
+  String get lastRun => 'آخر تشغيل';
+
+  @override
+  String get nextRun => 'التشغيل القادم';
+
+  @override
+  String get operations => 'العمليات';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15د';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30د';
+
+  @override
+  String get fetchIntervalHourly => '1س';
+
+  @override
+  String get fetchIntervalEverySixHours => '6س';
+
+  @override
+  String get fetchIntervalDaily => '1ي';
+
+  @override
+  String get ingestionStatusActive => 'نشط';
+
+  @override
+  String get ingestionStatusPaused => 'متوقف مؤقتاً';
+
+  @override
+  String get ingestionStatusError => 'خطأ';
+
+  @override
+  String get contentSyncScheduleTitle => 'جدول مزامنة المحتوى';
+
+  @override
+  String get contentSyncScheduleDescription =>
+      'جدولة الجلب الآلي. يتطلب إعداد الواجهة الخلفية.';
+
+  @override
+  String get syncFrequencyLabel => 'تكرار المزامنة';
+
+  @override
+  String get lastSyncedLabel => 'آخر مزامنة';
+
+  @override
+  String get nextSyncLabel => 'المزامنة التالية';
+
+  @override
+  String get contentSync => 'مزامنة المحتوى';
+
+  @override
+  String get contentSyncDescription =>
+      'تكوين ومراقبة محرك الجلب الآلي، وإدارة وتيرة مزامنة المحتوى من المصادر الخارجية.';
+
+  @override
+  String get syncFrequency => 'الفترة';
+
+  @override
+  String get syncStatus => 'الحالة';
+
+  @override
+  String get lastSynced => 'آخر تحديث';
+
+  @override
+  String get nextSync => 'التحديث القادم';
+
+  @override
+  String get editSync => 'تعديل جدول المزامنة';
+
+  @override
+  String get stopSync => 'إيقاف المزامنة';
+
+  @override
+  String get resumeSync => 'استئناف المزامنة';
+
+  @override
+  String get deleteSync => 'إزالة جدول المزامنة';
+
+  @override
+  String get syncActive => 'يعمل';
+
+  @override
+  String get syncPaused => 'متوقف';
+
+  @override
+  String get syncError => 'يحتاج إلى اهتمام';
+
+  @override
+  String get createSync => 'إضافة جدول مزامنة';
+
+  @override
+  String get syncCreatedSuccessfully => 'تم إنشاء جدول المزامنة بنجاح.';
+
+  @override
+  String get syncUpdatedSuccessfully => 'تم تحديث جدول المزامنة بنجاح.';
+
+  @override
+  String get confirmStopSyncMessage =>
+      'هل أنت متأكد أنك تريد إزالة جدول المزامنة هذا؟ سيؤدي هذا إلى إيقاف التحديثات التلقائية للمصدر.';
 }

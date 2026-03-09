@@ -94,11 +94,25 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     CreateSourceLanguageChanged event,
     Emitter<CreateSourceState> emit,
   ) {
-    _logger.fine('Language changed: ${event.language?.name}');
+    final entity = event.languageEntity;
+    SupportedLanguage? supportedLang;
+
+    if (entity != null) {
+      final code = entity.code.trim().toLowerCase();
+      for (final val in SupportedLanguage.values) {
+        if (val.name == code ||
+            code.startsWith('${val.name}-') ||
+            code.startsWith('${val.name}_')) {
+          supportedLang = val;
+          break;
+        }
+      }
+    }
+
     emit(
       state.copyWith(
-        language: () => event.language,
-        selectedLanguageEntity: () => event.languageEntity,
+        language: () => supportedLang,
+        selectedLanguageEntity: () => entity,
       ),
     );
   }
@@ -224,6 +238,7 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
 
       _logger.finer('Submitting new source data: ${newSource.toJson()}');
       await _sourcesRepository.create(item: newSource);
+
       _logger.info('Source entity created successfully.');
 
       emit(

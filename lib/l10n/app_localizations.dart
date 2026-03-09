@@ -243,7 +243,7 @@ abstract class AppLocalizations {
   /// Description for the Content Management page
   ///
   /// In en, this message translates to:
-  /// **'Manage news headlines, topics, and sources for the mobile application.'**
+  /// **'Manage news headlines, topics, sources, and automated ingestion schedules for the mobile application.'**
   String get contentManagementPageDescription;
 
   /// Label for the headlines subpage
@@ -6263,6 +6263,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Japanese'**
   String get languageNameJa;
+
+  /// Label for the automation column or section
+  ///
+  /// In en, this message translates to:
+  /// **'Automation'**
+  String get automation;
+
+  /// Title for the ingest automation configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'Ingest Automation'**
+  String get ingestAutomation;
+
+  /// Label for the frequency of news fetching
+  ///
+  /// In en, this message translates to:
+  /// **'Fetch Interval'**
+  String get fetchInterval;
+
+  /// Label for the timestamp of the last automation run
+  ///
+  /// In en, this message translates to:
+  /// **'Last Run'**
+  String get lastRun;
+
+  /// Label for the timestamp of the next scheduled automation run
+  ///
+  /// In en, this message translates to:
+  /// **'Next Run'**
+  String get nextRun;
+
+  /// Label for the operations monitoring tab
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get operations;
+
+  /// Fetch interval option: 15 minutes
+  ///
+  /// In en, this message translates to:
+  /// **'15m'**
+  String get fetchIntervalEvery15Minutes;
+
+  /// Fetch interval option: 30 minutes
+  ///
+  /// In en, this message translates to:
+  /// **'30m'**
+  String get fetchIntervalEvery30Minutes;
+
+  /// Fetch interval option: Hourly
+  ///
+  /// In en, this message translates to:
+  /// **'1h'**
+  String get fetchIntervalHourly;
+
+  /// Fetch interval option: 6 hours
+  ///
+  /// In en, this message translates to:
+  /// **'6h'**
+  String get fetchIntervalEverySixHours;
+
+  /// Fetch interval option: Daily
+  ///
+  /// In en, this message translates to:
+  /// **'1d'**
+  String get fetchIntervalDaily;
+
+  /// Ingestion status: Active
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get ingestionStatusActive;
+
+  /// Ingestion status: Paused
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get ingestionStatusPaused;
+
+  /// Ingestion status: Error
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get ingestionStatusError;
+
+  /// Title for the content sync schedule card
+  ///
+  /// In en, this message translates to:
+  /// **'Content Sync Schedule'**
+  String get contentSyncScheduleTitle;
+
+  /// Description for the content sync schedule card
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule automated ingestion. Backend setup required.'**
+  String get contentSyncScheduleDescription;
+
+  /// Label for the sync frequency selection
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Frequency'**
+  String get syncFrequencyLabel;
+
+  /// Label for last synced time
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced'**
+  String get lastSyncedLabel;
+
+  /// Label for next sync time
+  ///
+  /// In en, this message translates to:
+  /// **'Next sync'**
+  String get nextSyncLabel;
+
+  /// Label for the standalone content sync management feature
+  ///
+  /// In en, this message translates to:
+  /// **'Content Sync'**
+  String get contentSync;
+
+  /// Description for the Content Sync operations hub
+  ///
+  /// In en, this message translates to:
+  /// **'Configure and monitor the automated ingestion engine, managing how frequently content is synchronized from external sources.'**
+  String get contentSyncDescription;
+
+  /// Short label for the frequency of content updates
+  ///
+  /// In en, this message translates to:
+  /// **'Interval'**
+  String get syncFrequency;
+
+  /// Short label for the operational status of a sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get syncStatus;
+
+  /// Label for the last successful sync time
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated'**
+  String get lastSynced;
+
+  /// Label for the next scheduled sync time
+  ///
+  /// In en, this message translates to:
+  /// **'Next Update'**
+  String get nextSync;
+
+  /// Title for the edit sync schedule page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Sync Schedule'**
+  String get editSync;
+
+  /// Action to pause a sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Syncing'**
+  String get stopSync;
+
+  /// Action to resume a paused sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Resume Syncing'**
+  String get resumeSync;
+
+  /// Action to delete a sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Sync Schedule'**
+  String get deleteSync;
+
+  /// Status badge text for an active sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get syncActive;
+
+  /// Status badge text for a paused sync task
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get syncPaused;
+
+  /// Status badge text for a sync task in error state
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Attention'**
+  String get syncError;
+
+  /// Title for the create sync schedule page
+  ///
+  /// In en, this message translates to:
+  /// **'Add Sync Schedule'**
+  String get createSync;
+
+  /// Message displayed when a sync schedule is created
+  ///
+  /// In en, this message translates to:
+  /// **'Sync schedule created successfully.'**
+  String get syncCreatedSuccessfully;
+
+  /// Message displayed when a sync schedule is updated
+  ///
+  /// In en, this message translates to:
+  /// **'Sync schedule updated successfully.'**
+  String get syncUpdatedSuccessfully;
+
+  /// Confirmation message for removing a sync schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.'**
+  String get confirmStopSyncMessage;
 }
 
 class _AppLocalizationsDelegate

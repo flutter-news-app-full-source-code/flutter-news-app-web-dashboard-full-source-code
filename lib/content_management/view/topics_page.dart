@@ -220,10 +220,33 @@ class _TopicsDataSource extends DataTableSource {
       },
       cells: [
         DataCell(
-          Text(
-            topic.name.getValue(context),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(AppSpacing.xs),
+                child: topic.iconUrl != null
+                    ? Image.network(
+                        topic.iconUrl!,
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        width: 32,
+                        height: 32,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        child: const Icon(Icons.topic, size: 16),
+                      ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Text(
+                  topic.name.getValue(context),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ),
         DataCell(

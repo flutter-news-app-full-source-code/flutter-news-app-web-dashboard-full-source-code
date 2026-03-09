@@ -304,30 +304,19 @@ class _CreateSourceViewState extends State<CreateSourceView>
                         selectedItems: state.selectedLanguageEntity != null
                             ? [state.selectedLanguageEntity!]
                             : [],
-                        itemBuilder: (context, language) =>
-                            Text(language.name.values.firstOrNull ?? ''),
+                        itemBuilder: (context, language) => Text(
+                          language.name.values.firstOrNull ??
+                              language.nativeName,
+                        ),
                         itemToString: (language) =>
-                            language.name.values.firstOrNull ?? '',
+                            language.name.values.firstOrNull ??
+                            language.nativeName,
                         onChanged: (items) {
-                          final bloc = context.read<CreateSourceBloc>();
-                          if (items != null && items.isNotEmpty) {
-                            // Map Language entity code to SupportedLanguage enum
-                            final languageEntity = items.first;
-                            try {
-                              final supportedLang = SupportedLanguage.values
-                                  .byName(languageEntity.code);
-                              bloc.add(
-                                CreateSourceLanguageChanged(
-                                  supportedLang,
-                                  languageEntity: languageEntity,
-                                ),
-                              );
-                            } catch (_) {
-                              // Handle case where DB language code doesn't match enum
-                            }
-                          } else {
-                            bloc.add(const CreateSourceLanguageChanged(null));
-                          }
+                          context.read<CreateSourceBloc>().add(
+                            CreateSourceLanguageChanged(
+                              items?.firstOrNull,
+                            ),
+                          );
                         },
                         repository: context.read<DataRepository<Language>>(),
                         filterBuilder: (searchTerm) => searchTerm == null

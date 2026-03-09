@@ -99,7 +99,7 @@
   "@contentManagement": {
     "description": "Label for the content management navigation item"
   },
-  "contentManagementPageDescription": "Manage news headlines, topics, and sources for the mobile application.",
+  "contentManagementPageDescription": "Manage news headlines, topics, sources, and automated ingestion schedules for the mobile application.",
   "@contentManagementPageDescription": {
     "description": "Description for the Content Management page"
   },
@@ -4277,5 +4277,149 @@
   "languageNameJa": "Japanese",
   "@languageNameJa": {
     "description": "Localized name for Japanese language"
+  },
+  "automation": "Automation",
+  "@automation": {
+    "description": "Label for the automation column or section"
+  },
+  "ingestAutomation": "Ingest Automation",
+  "@ingestAutomation": {
+    "description": "Title for the ingest automation configuration section"
+  },
+  "fetchInterval": "Fetch Interval",
+  "@fetchInterval": {
+    "description": "Label for the frequency of news fetching"
+  },
+  "lastRun": "Last Run",
+  "@lastRun": {
+    "description": "Label for the timestamp of the last automation run"
+  },
+  "nextRun": "Next Run",
+  "@nextRun": {
+    "description": "Label for the timestamp of the next scheduled automation run"
+  },
+  "operations": "Operations",
+  "@operations": {
+    "description": "Label for the operations monitoring tab"
+  },
+  "fetchIntervalEvery15Minutes": "15m",
+  "@fetchIntervalEvery15Minutes": {
+    "description": "Fetch interval option: 15 minutes"
+  },
+  "fetchIntervalEvery30Minutes": "30m",
+  "@fetchIntervalEvery30Minutes": {
+    "description": "Fetch interval option: 30 minutes"
+  },
+  "fetchIntervalHourly": "1h",
+  "@fetchIntervalHourly": {
+    "description": "Fetch interval option: Hourly"
+  },
+  "fetchIntervalEverySixHours": "6h",
+  "@fetchIntervalEverySixHours": {
+    "description": "Fetch interval option: 6 hours"
+  },
+  "fetchIntervalDaily": "1d",
+  "@fetchIntervalDaily": {
+    "description": "Fetch interval option: Daily"
+  },
+  "ingestionStatusActive": "Active",
+  "@ingestionStatusActive": {
+    "description": "Ingestion status: Active"
+  },
+  "ingestionStatusPaused": "Paused",
+  "@ingestionStatusPaused": {
+    "description": "Ingestion status: Paused"
+  },
+  "ingestionStatusError": "Error",
+  "@ingestionStatusError": {
+    "description": "Ingestion status: Error"
+  },
+  "contentSyncScheduleTitle": "Content Sync Schedule",
+  "@contentSyncScheduleTitle": {
+    "description": "Title for the content sync schedule card"
+  },
+  "contentSyncScheduleDescription": "Schedule automated ingestion. Backend setup required.",
+  "@contentSyncScheduleDescription": {
+    "description": "Description for the content sync schedule card"
+  },
+  "syncFrequencyLabel": "Sync Frequency",
+  "@syncFrequencyLabel": {
+    "description": "Label for the sync frequency selection"
+  },
+  "lastSyncedLabel": "Last synced",
+  "@lastSyncedLabel": {
+    "description": "Label for last synced time"
+  },
+  "nextSyncLabel": "Next sync",
+  "@nextSyncLabel": {
+    "description": "Label for next sync time"
+  },
+  "contentSync": "Content Sync",
+  "@contentSync": {
+    "description": "Label for the standalone content sync management feature"
+  },
+  "contentSyncDescription": "Configure and monitor the automated ingestion engine, managing how frequently content is synchronized from external sources.",
+  "@contentSyncDescription": {
+    "description": "Description for the Content Sync operations hub"
+  },
+  "syncFrequency": "Interval",
+  "@syncFrequency": {
+    "description": "Short label for the frequency of content updates"
+  },
+  "syncStatus": "Status",
+  "@syncStatus": {
+    "description": "Short label for the operational status of a sync task"
+  },
+  "lastSynced": "Last Updated",
+  "@lastSynced": {
+    "description": "Label for the last successful sync time"
+  },
+  "nextSync": "Next Update",
+  "@nextSync": {
+    "description": "Label for the next scheduled sync time"
+  },
+  "editSync": "Edit Sync Schedule",
+  "@editSync": {
+    "description": "Title for the edit sync schedule page"
+  },
+  "stopSync": "Stop Syncing",
+  "@stopSync": {
+    "description": "Action to pause a sync task"
+  },
+  "resumeSync": "Resume Syncing",
+  "@resumeSync": {
+    "description": "Action to resume a paused sync task"
+  },
+  "deleteSync": "Remove Sync Schedule",
+  "@deleteSync": {
+    "description": "Action to delete a sync task"
+  },
+  "syncActive": "Running",
+  "@syncActive": {
+    "description": "Status badge text for an active sync task"
+  },
+  "syncPaused": "Stopped",
+  "@syncPaused": {
+    "description": "Status badge text for a paused sync task"
+  },
+  "syncError": "Needs Attention",
+  "@syncError": {
+    "description": "Status badge text for a sync task in error state"
+  },
+  "createSync": "Add Sync Schedule",
+  "@createSync": {
+    "description": "Title for the create sync schedule page"
+  },
+  "syncCreatedSuccessfully": "Sync schedule created successfully.",
+  "@syncCreatedSuccessfully": {
+    "description": "Message displayed when a sync schedule is created"
+  },
+  "syncUpdatedSuccessfully": "Sync schedule updated successfully.",
+  "@syncUpdatedSuccessfully": {
+    "description": "Message displayed when a sync schedule is updated"
+  },
+  "confirmStopSyncMessage": "Are you sure you want to remove this sync schedule? This will stop automated updates for the source.",
+  "@confirmStopSyncMessage": {
+    "description": "Confirmation message for removing a sync schedule"
   }
 }

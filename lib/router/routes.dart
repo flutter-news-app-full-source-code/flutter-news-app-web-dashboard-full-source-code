@@ -44,6 +44,18 @@ abstract final class Routes {
   /// The name for the content management section route.
   static const String contentManagementName = 'contentManagement';
 
+  /// The path for the content sync section.
+  static const String contentSync = 'content-sync';
+
+  /// The name for the content sync section route.
+  static const String contentSyncName = 'contentSync';
+
+  /// The path for creating a new sync schedule.
+  static const String createSync = 'create-sync';
+
+  /// The name for the create sync schedule route.
+  static const String createSyncName = 'createSync';
+
   /// The path for creating a new headline.
   static const String createHeadline = 'create-headline';
 
@@ -127,16 +139,4 @@ abstract final class Routes {
 
   /// The name for the community filter dialog route.
   static const String communityFilterDialogName = 'communityFilterDialog';
-
-  /// The path for the rewards management section.
-  static const String rewardsManagement = '/rewards-management';
-
-  /// The name for the rewards management section route.
-  static const String rewardsManagementName = 'rewardsManagement';
-
-  /// The path for the rewards filter dialog.
-  static const String rewardsFilterDialog = 'rewards-filter-dialog';
-
-  /// The name for the rewards filter dialog route.
-  static const String rewardsFilterDialogName = 'rewardsFilterDialog';
 }

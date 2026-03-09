@@ -3214,4 +3214,112 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get languageNameJa => '日语';
+
+  @override
+  String get automation => '自动化';
+
+  @override
+  String get ingestAutomation => '抓取自动化';
+
+  @override
+  String get fetchInterval => '抓取间隔';
+
+  @override
+  String get lastRun => '上次运行';
+
+  @override
+  String get nextRun => '下次运行';
+
+  @override
+  String get operations => '运维';
+
+  @override
+  String get fetchIntervalEvery15Minutes => '15m';
+
+  @override
+  String get fetchIntervalEvery30Minutes => '30m';
+
+  @override
+  String get fetchIntervalHourly => '1h';
+
+  @override
+  String get fetchIntervalEverySixHours => '6h';
+
+  @override
+  String get fetchIntervalDaily => '1d';
+
+  @override
+  String get ingestionStatusActive => '激活';
+
+  @override
+  String get ingestionStatusPaused => '已暂停';
+
+  @override
+  String get ingestionStatusError => '错误';
+
+  @override
+  String get contentSyncScheduleTitle => '内容同步计划';
+
+  @override
+  String get contentSyncScheduleDescription => '安排自动摄取。需要后端配置。';
+
+  @override
+  String get syncFrequencyLabel => '同步频率';
+
+  @override
+  String get lastSyncedLabel => '上次同步';
+
+  @override
+  String get nextSyncLabel => '下次同步';
+
+  @override
+  String get contentSync => '内容同步';
+
+  @override
+  String get contentSyncDescription => '管理每个来源的新闻更新频率。';
+
+  @override
+  String get syncFrequency => '间隔';
+
+  @override
+  String get syncStatus => '状态';
+
+  @override
+  String get lastSynced => '上次更新';
+
+  @override
+  String get nextSync => '下次更新';
+
+  @override
+  String get editSync => '编辑同步计划';
+
+  @override
+  String get stopSync => '停止同步';
+
+  @override
+  String get resumeSync => '恢复同步';
+
+  @override
+  String get deleteSync => '移除同步计划';
+
+  @override
+  String get syncActive => '运行中';
+
+  @override
+  String get syncPaused => '已停止';
+
+  @override
+  String get syncError => '需要注意';
+
+  @override
+  String get createSync => '添加同步计划';
+
+  @override
+  String get syncCreatedSuccessfully => '同步计划创建成功。';
+
+  @override
+  String get syncUpdatedSuccessfully => '同步计划更新成功。';
+
+  @override
+  String get confirmStopSyncMessage => '您确定要移除此同步计划吗？这将停止该来源的自动更新。';
 }
