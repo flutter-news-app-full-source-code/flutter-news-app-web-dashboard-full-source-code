@@ -4,6 +4,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
 import 'package:verity_dashboard/content_sync/widgets/sync_action_buttons.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
@@ -84,6 +86,11 @@ class ContentSyncPage extends StatelessWidget {
                           if (!isMobile)
                             DataColumn2(
                               label: Text(l10n.syncFrequency),
+                              size: ColumnSize.M,
+                            ),
+                          if (!isMobile)
+                            DataColumn2(
+                              label: Text(l10n.lastRun),
                               size: ColumnSize.M,
                             ),
                           DataColumn2(
@@ -182,6 +189,22 @@ class _SyncDataSource extends DataTableSource {
           ),
         ),
         if (!isMobile) DataCell(Text(task.fetchInterval.localizedName(l10n))),
+        if (!isMobile)
+          DataCell(
+            task.lastRunAt != null
+                ? Tooltip(
+                    message: DateFormat.yMMMd().add_Hm().format(
+                      task.lastRunAt!.toLocal(),
+                    ),
+                    child: Text(
+                      timeago.format(
+                        task.lastRunAt!.toLocal(),
+                        locale: Localizations.localeOf(context).languageCode,
+                      ),
+                    ),
+                  )
+                : Text(l10n.notAvailable),
+          ),
         DataCell(
           _StatusBadge(
             status: task.status,
