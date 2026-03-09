@@ -366,7 +366,6 @@ GoRouter createRouter({
                           child: const CreateSyncPage(),
                         ),
                       ),
-                     
                     ],
                   ),
                 ],
