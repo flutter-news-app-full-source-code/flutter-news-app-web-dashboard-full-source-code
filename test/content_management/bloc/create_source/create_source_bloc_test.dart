@@ -7,9 +7,7 @@ import 'package:verity_dashboard/content_management/bloc/create_source/create_so
 import '../../../helpers/helpers.dart';
 
 void main() {
-  setUpAll(() {
-    registerFallbackValues();
-  });
+  setUpAll(registerFallbackValues);
 
   group('CreateSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;

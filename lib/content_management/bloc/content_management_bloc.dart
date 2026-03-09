@@ -31,7 +31,6 @@ class ContentManagementBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
-    required DataRepository<NewsAutomationTask> automationRepository,
     required HeadlinesFilterBloc headlinesFilterBloc,
     required TopicsFilterBloc topicsFilterBloc,
     required SourcesFilterBloc sourcesFilterBloc,
@@ -39,7 +38,6 @@ class ContentManagementBloc
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
-       _automationRepository = automationRepository,
        _headlinesFilterBloc = headlinesFilterBloc,
        _topicsFilterBloc = topicsFilterBloc,
        _sourcesFilterBloc = sourcesFilterBloc,
@@ -115,7 +113,6 @@ class ContentManagementBloc
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
-  final DataRepository<NewsAutomationTask> _automationRepository;
   final HeadlinesFilterBloc _headlinesFilterBloc;
   final TopicsFilterBloc _topicsFilterBloc;
   final SourcesFilterBloc _sourcesFilterBloc;
@@ -599,9 +596,6 @@ class ContentManagementBloc
     try {
       final isPaginating = event.startAfterId != null;
       final previousSources = isPaginating ? state.sources : <Source>[];
-      final previousTasks = isPaginating
-          ? state.sourceAutomationTasks
-          : <String, NewsAutomationTask>{};
 
       final filter = event.filter ?? _sourcesFilterBloc.buildFilterMap();
 
@@ -614,32 +608,10 @@ class ContentManagementBloc
         ),
       );
 
-      // Bulk fetch automation tasks for the loaded sources
-      final sourceIds = paginatedSources.items.map((s) => s.id).toList();
-      final newTasks = <String, NewsAutomationTask>{};
-
-      if (sourceIds.isNotEmpty) {
-        try {
-          final tasksResponse = await _automationRepository.readAll(
-            filter: {
-              'sourceId': {r'$in': sourceIds},
-            },
-            // Ensure we fetch enough to cover the sources we just got
-            pagination: PaginationOptions(limit: sourceIds.length),
-          );
-          for (final task in tasksResponse.items) {
-            newTasks[task.sourceId] = task;
-          }
-        } catch (_) {
-          // Fail silently on automation fetch to not block source listing
-        }
-      }
-
       emit(
         state.copyWith(
           sourcesStatus: ContentManagementStatus.success,
           sources: [...previousSources, ...paginatedSources.items],
-          sourceAutomationTasks: {...previousTasks, ...newTasks},
           sourcesCursor: paginatedSources.cursor,
           sourcesHasMore: paginatedSources.hasMore,
         ),

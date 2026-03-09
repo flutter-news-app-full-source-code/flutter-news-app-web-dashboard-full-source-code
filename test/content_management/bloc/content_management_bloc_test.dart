@@ -222,7 +222,6 @@ void main() {
         headlinesRepository: headlinesRepository,
         topicsRepository: topicsRepository,
         sourcesRepository: sourcesRepository,
-        automationRepository: automationRepository,
         headlinesFilterBloc: headlinesFilterBloc,
         topicsFilterBloc: topicsFilterBloc,
         sourcesFilterBloc: sourcesFilterBloc,

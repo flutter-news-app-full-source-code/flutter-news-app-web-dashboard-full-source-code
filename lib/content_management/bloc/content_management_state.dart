@@ -35,7 +35,6 @@ class ContentManagementState extends Equatable {
     this.sourcesCursor,
     this.sourcesHasMore = false,
     this.exception,
-    this.sourceAutomationTasks = const {},
     this.lastPendingDeletionId,
     this.itemPendingDeletion,
   });
@@ -82,10 +81,6 @@ class ContentManagementState extends Equatable {
   /// The exception encountered during a failed operation, if any.
   final HttpException? exception;
 
-  /// A map of source IDs to their corresponding automation tasks.
-  /// Used to display automation status in the sources list without N+1 queries.
-  final Map<String, NewsAutomationTask> sourceAutomationTasks;
-
   /// The ID of the item that was most recently added to pending deletions.
   /// Used to trigger the snackbar display.
   final String? lastPendingDeletionId;
@@ -110,7 +105,6 @@ class ContentManagementState extends Equatable {
     String? sourcesCursor,
     bool? sourcesHasMore,
     HttpException? exception,
-    Map<String, NewsAutomationTask>? sourceAutomationTasks,
     String? lastPendingDeletionId,
     FeedItem? itemPendingDeletion,
   }) {
@@ -129,8 +123,6 @@ class ContentManagementState extends Equatable {
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
       exception: exception,
-      sourceAutomationTasks:
-          sourceAutomationTasks ?? this.sourceAutomationTasks,
       lastPendingDeletionId: lastPendingDeletionId,
       itemPendingDeletion: itemPendingDeletion,
     );
@@ -152,7 +144,6 @@ class ContentManagementState extends Equatable {
     sourcesCursor,
     sourcesHasMore,
     exception,
-    sourceAutomationTasks,
     lastPendingDeletionId,
     itemPendingDeletion,
   ];
