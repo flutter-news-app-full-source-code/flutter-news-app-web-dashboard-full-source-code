@@ -6,18 +6,14 @@ import 'package:verity_dashboard/content_management/bloc/create_source/create_so
 
 import '../../../helpers/helpers.dart';
 
-class FakeNewsAutomationTask extends Fake implements NewsAutomationTask {}
-
 void main() {
   setUpAll(() {
     registerFallbackValues();
-    registerFallbackValue(FakeNewsAutomationTask());
   });
 
   group('CreateSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
-    late MockDataRepository<NewsAutomationTask> automationRepository;
 
     const countryFixture = Country(
       id: 'country-1',
@@ -49,26 +45,15 @@ void main() {
       nativeName: 'English',
     );
 
-    final automationTaskFixture = NewsAutomationTask(
-      id: 'task-1',
-      sourceId: 'source-1',
-      fetchInterval: FetchInterval.hourly,
-      status: IngestionStatus.active,
-      createdAt: DateTime(2023),
-      updatedAt: DateTime(2023),
-    );
-
     setUp(() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
-      automationRepository = MockDataRepository<NewsAutomationTask>();
     });
 
     CreateSourceBloc buildBloc() {
       return CreateSourceBloc(
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
-        automationRepository: automationRepository,
         logger: Logger('CreateSourceBloc'),
       );
     }
@@ -206,10 +191,6 @@ void main() {
         when(
           () => sourcesRepository.create(item: any(named: 'item')),
         ).thenAnswer((_) async => sourceFixture);
-
-        when(
-          () => automationRepository.create(item: any(named: 'item')),
-        ).thenAnswer((_) async => automationTaskFixture);
       });
 
       blocTest<CreateSourceBloc, CreateSourceState>(
@@ -277,9 +258,6 @@ void main() {
               purpose: any(named: 'purpose'),
             ),
           ).thenThrow(const NetworkException());
-          when(
-            () => automationRepository.create(item: any(named: 'item')),
-          ).thenAnswer((_) async => automationTaskFixture);
         },
         seed: () => CreateSourceState(
           name: const {SupportedLanguage.en: 'New Source'},
@@ -320,9 +298,6 @@ void main() {
           when(
             () => sourcesRepository.create(item: any(named: 'item')),
           ).thenThrow(const NetworkException());
-          when(
-            () => automationRepository.create(item: any(named: 'item')),
-          ).thenAnswer((_) async => automationTaskFixture);
         },
         seed: () => CreateSourceState(
           name: const {SupportedLanguage.en: 'New Source'},
@@ -369,9 +344,6 @@ void main() {
         when(
           () => sourcesRepository.create(item: any(named: 'item')),
         ).thenAnswer((_) async => sourceFixture);
-        when(
-          () => automationRepository.create(item: any(named: 'item')),
-        ).thenAnswer((_) async => automationTaskFixture);
       });
 
       blocTest<CreateSourceBloc, CreateSourceState>(
