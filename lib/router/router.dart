@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/config.dart' as local_config;
 import 'package:verity_dashboard/app/view/app_shell.dart';
@@ -25,6 +26,11 @@ import 'package:verity_dashboard/content_management/view/edit_source_page.dart';
 import 'package:verity_dashboard/content_management/view/edit_topic_page.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/filter_dialog.dart';
+import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
+import 'package:verity_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
+import 'package:verity_dashboard/content_sync/view/content_sync_page.dart';
+import 'package:verity_dashboard/content_sync/view/create_sync_page.dart';
+import 'package:verity_dashboard/content_sync/view/edit_sync_page.dart';
 import 'package:verity_dashboard/overview/view/overview_page.dart';
 import 'package:verity_dashboard/router/route_permissions.dart';
 import 'package:verity_dashboard/router/routes.dart';
@@ -96,6 +102,7 @@ GoRouter createRouter({
         const topLevelPaths = {
           Routes.overviewName: Routes.overview,
           Routes.contentManagementName: Routes.contentManagement,
+          Routes.contentSyncName: Routes.contentSync,
           Routes.userManagementName: Routes.userManagement,
           Routes.communityManagementName: Routes.communityManagement,
           Routes.rewardsManagementName: Routes.rewardsManagement,
@@ -335,6 +342,46 @@ GoRouter createRouter({
                           ),
                         ),
                       );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.contentSync,
+                name: Routes.contentSyncName,
+                builder: (context, state) => BlocProvider(
+                  create: (context) => ContentSyncBloc(
+                    automationRepository: context
+                        .read<DataRepository<NewsAutomationTask>>(),
+                    sourcesRepository: context.read<DataRepository<Source>>(),
+                  )..add(const ContentSyncStarted()),
+                  child: const ContentSyncPage(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: Routes.createSync,
+                    name: Routes.createSyncName,
+                    builder: (context, state) => BlocProvider(
+                      create: (context) => CreateSyncBloc(
+                        automationRepository: context
+                            .read<DataRepository<NewsAutomationTask>>(),
+                        sourcesRepository: context
+                            .read<DataRepository<Source>>(),
+                        logger: Logger('CreateSyncBloc'),
+                      )..add(const CreateSyncStarted()),
+                      child: const CreateSyncPage(),
+                    ),
+                  ),
+                  GoRoute(
+                    path: Routes.editSync,
+                    name: Routes.editSyncName,
+                    builder: (context, state) {
+                      final id = state.pathParameters['id']!;
+                      return EditSyncPage(syncId: id);
                     },
                   ),
                 ],
