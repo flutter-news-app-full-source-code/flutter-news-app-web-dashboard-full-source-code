@@ -247,30 +247,53 @@ class _HeadlinesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(
-          RichText(
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            text: TextSpan(
-              style: Theme.of(context).textTheme.bodyMedium,
-              children: [
-                TextSpan(text: headline.title.getValue(context)),
-                if (headline.isBreaking)
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: AppSpacing.xs),
-                      child: Tooltip(
-                        message: l10n.breakingNewsHint,
-                        child: Icon(
-                          Icons.flash_on,
-                          size: 14,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(AppSpacing.xs),
+                child: headline.imageUrl != null
+                    ? Image.network(
+                        headline.imageUrl!,
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        width: 32,
+                        height: 32,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        child: const Icon(Icons.image, size: 16),
                       ),
-                    ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: RichText(
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  text: TextSpan(
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    children: [
+                      TextSpan(text: headline.title.getValue(context)),
+                      if (headline.isBreaking)
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: AppSpacing.xs),
+                            child: Tooltip(
+                              message: l10n.breakingNewsHint,
+                              child: Icon(
+                                Icons.flash_on,
+                                size: 14,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ),
         if (!isMobile)
