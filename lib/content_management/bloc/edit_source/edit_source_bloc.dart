@@ -186,7 +186,9 @@ class EditSourceBloc extends Bloc<EditSourceEvent, EditSourceState> {
     if (entity != null) {
       final code = entity.code.trim().toLowerCase();
       for (final val in SupportedLanguage.values) {
-        if (val.name == code || code.startsWith('${val.name}-')) {
+        if (val.name == code ||
+            code.startsWith('${val.name}-') ||
+            code.startsWith('${val.name}_')) {
           supportedLang = val;
           break;
         }
