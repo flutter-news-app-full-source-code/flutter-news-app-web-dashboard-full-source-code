@@ -227,10 +227,32 @@ class _SourcesDataSource extends DataTableSource {
       },
       cells: [
         DataCell(
-          Text(
-            source.name.getValue(context),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(AppSpacing.xs),
+                child: source.logoUrl != null
+                    ? Image.network(
+                        source.logoUrl!,
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        width: 32,
+                        height: 32,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        child: const Icon(Icons.source, size: 16),
+                      ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Text(
+                  source.name.getValue(context),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ),
         if (!isMobile)
