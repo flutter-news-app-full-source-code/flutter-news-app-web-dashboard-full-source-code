@@ -58,6 +58,18 @@ Manage the entire lifecycle of your content from a single, intuitive interface. 
 </details>
 
 <details>
+<summary><strong>🤖 Automated Ingestion & Pipeline Control</strong></summary>
+
+### 🔄 Intelligent Content Sync
+Eliminate manual overhead with a high-performance automation engine that keeps your news feed fresh around the clock.
+- **Precision Scheduling:** Define custom fetch intervals for every news source, from real-time updates, ensuring your app is never stale.
+- **Operational Visibility:** Track the health of your ingestion pipeline with specialized analytics showing task status distribution and headline volume trends.
+- **Dynamic Task Management:** Instantly toggle, pause, or reconfigure sync tasks to adapt to changing source availability or editorial priorities.
+> **Your Advantage:** Scale your content volume without increasing operational costs. The sync engine ensures your platform remains the primary destination for breaking news through reliable, hands-off automation.
+
+</details>
+
+<details>
 <summary><strong>👥 User & Role Management</strong></summary>
 
 ### 👥 Granular User & Role Management
@@ -75,7 +87,7 @@ Effortlessly manage your entire user base with a dedicated user management syste
 
 ### 🎁 Engagement-Based Rewards Oversight
 Gain a clear, real-time view of your ad-based reward system health from a dedicated management hub.
-- **Active Rewards Tracking:** Monitor user engagement with rewarded ads, tracking active entitlements like "Ad-Free" or "Daily Digest" access.
+- **Active Rewards Tracking:** Monitor user engagement with rewarded ads, tracking active entitlements like "Ad-Free" access.
 - **Engagement Analytics:** Instantly track key metrics with integrated KPIs for total ads watched and active reward users, alongside charts visualizing engagement trends over time.
 - **Configuration Control:** Dynamically adjust reward durations and availability directly from the dashboard to optimize user engagement and ad revenue.
 > **Your Advantage:** Effortlessly track user engagement with rewarded ads, understand reward popularity, and monitor the overall health of your time-based monetization strategy.
