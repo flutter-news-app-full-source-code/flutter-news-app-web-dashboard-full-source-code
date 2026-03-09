@@ -177,6 +177,7 @@ void main() {
           logoUrl: testSource.logoUrl,
           sourceType: testSource.sourceType,
           language: testSource.language,
+          selectedLanguageEntity: testLanguage,
           headquarters: testSource.headquarters,
           initialSource: testSource,
           enabledLanguages: const [SupportedLanguage.en],
