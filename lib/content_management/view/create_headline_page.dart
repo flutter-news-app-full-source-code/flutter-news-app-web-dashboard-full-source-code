@@ -11,10 +11,7 @@ import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
-import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
-import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
+import 'package:verity_dashboard/shared/shared.dart';
 
 /// {@template create_headline_page}
 /// A page for creating a new headline.
@@ -47,6 +44,7 @@ class CreateHeadlinePage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           CreateHeadlineBloc(
+            enrichmentRepository: context.read<EnrichmentRepository>(),
             headlinesRepository: context.read<DataRepository<Headline>>(),
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateHeadlineBloc'),
@@ -132,7 +130,8 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
           BlocBuilder<CreateHeadlineBloc, CreateHeadlineState>(
             builder: (context, state) {
               if (state.status == CreateHeadlineStatus.imageUploading ||
-                  state.status == CreateHeadlineStatus.entitySubmitting) {
+                  state.status == CreateHeadlineStatus.entitySubmitting ||
+                  state.status == CreateHeadlineStatus.enriching) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -142,13 +141,27 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                   ),
                 );
               }
-              // The save button is enabled only if the form is valid.
-              return IconButton(
-                icon: const Icon(Icons.save),
-                tooltip: l10n.saveChanges,
-                onPressed: _isSaveButtonEnabled(state)
-                    ? () => _handleSave(context, state, l10n)
-                    : null,
+              return Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.auto_fix_high),
+                    tooltip: l10n.aiEnrichment,
+                    onPressed:
+                        (state.title[state.defaultLanguage]?.isNotEmpty ??
+                            false)
+                        ? () => context.read<CreateHeadlineBloc>().add(
+                            const CreateHeadlineEnrichmentRequested(),
+                          )
+                        : null,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.save),
+                    tooltip: l10n.saveChanges,
+                    onPressed: _isSaveButtonEnabled(state)
+                        ? () => _handleSave(context, state, l10n)
+                        : null,
+                  ),
+                ],
               );
             },
           ),
@@ -167,7 +180,8 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
             context.pop();
           }
           if (state.status == CreateHeadlineStatus.imageUploadFailure ||
-              state.status == CreateHeadlineStatus.entitySubmitFailure) {
+              state.status == CreateHeadlineStatus.entitySubmitFailure ||
+              state.status == CreateHeadlineStatus.enrichmentFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -203,12 +217,29 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               ),
                             ),
                         tabs: state.enabledLanguages.map((lang) {
+                          final hasContent =
+                              state.title[lang]?.isNotEmpty ?? false;
                           return Tab(
-                            icon: Image.network(
-                              lang.flagUrl,
-                              width: 24,
-                              errorBuilder: (_, _, _) =>
-                                  const Icon(Icons.flag, size: 16),
+                            icon: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Image.network(
+                                  lang.flagUrl,
+                                  width: 24,
+                                  errorBuilder: (_, _, _) =>
+                                      const Icon(Icons.flag, size: 16),
+                                ),
+                                if (hasContent && lang != state.defaultLanguage)
+                                  Positioned(
+                                    top: -4,
+                                    right: -4,
+                                    child: Icon(
+                                      Icons.auto_awesome,
+                                      size: 12,
+                                      color: Theme.of(context).colorScheme.secondary,
+                                    ),
+                                  ),
+                              ],
                             ),
                           );
                         }).toList(),
@@ -325,9 +356,8 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       const SizedBox(height: AppSpacing.lg),
                       SearchableSelectionInput<Country>(
                         label: l10n.countryName,
-                        selectedItems: state.eventCountry != null
-                            ? [state.eventCountry!]
-                            : [],
+                        isMultiSelect: true,
+                        selectedItems: state.mentionedCountries,
                         itemBuilder: (context, country) => Row(
                           children: [
                             SizedBox(
@@ -346,9 +376,10 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         ),
                         itemToString: (country) =>
                             country.name.values.firstOrNull ?? '',
-                        onChanged: (items) => context
-                            .read<CreateHeadlineBloc>()
-                            .add(CreateHeadlineCountryChanged(items?.first)),
+                        onChanged: (items) =>
+                            context.read<CreateHeadlineBloc>().add(
+                              CreateHeadlineCountriesChanged(items ?? []),
+                            ),
                         repository: context.read<DataRepository<Country>>(),
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
@@ -363,6 +394,28 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: false,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Person>(
+                        label: l10n.persons,
+                        isMultiSelect: true,
+                        selectedItems: state.mentionedPersons,
+                        itemBuilder: (context, person) =>
+                            Text(person.name.values.firstOrNull ?? ''),
+                        itemToString: (person) =>
+                            person.name.values.firstOrNull ?? '',
+                        onChanged: (items) =>
+                            context.read<CreateHeadlineBloc>().add(
+                              CreateHeadlinePersonsChanged(items ?? []),
+                            ),
+                        repository: context.read<DataRepository<Person>>(),
+                        filterBuilder: (searchTerm) =>
+                            searchTerm == null ? {} : {'q': searchTerm},
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                        includeInactiveSelectedItem: true,
                       ),
                     ],
                   ),
@@ -381,12 +434,12 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
   /// fields are filled for publishing (regardless of breaking news status).
   bool _isSaveButtonEnabled(CreateHeadlineState state) {
     final allFieldsFilled =
-        state.title.isNotEmpty &&
+        (state.title[state.defaultLanguage]?.isNotEmpty ?? false) &&
         state.url.isNotEmpty &&
         state.imageFileBytes != null &&
         state.source != null &&
         state.topic != null &&
-        state.eventCountry != null;
+        state.mentionedCountries.isNotEmpty;
 
     return allFieldsFilled;
   }
