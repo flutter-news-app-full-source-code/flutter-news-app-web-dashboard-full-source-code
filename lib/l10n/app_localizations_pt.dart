@@ -3440,4 +3440,13 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Tem certeza de que deseja remover este agendamento de sincronização? Isso interromperá as atualizações automáticas para a fonte.';
+
+  @override
+  String get persons => 'Pessoas';
+
+  @override
+  String get mentions => 'Menções';
+
+  @override
+  String get aiEnrichment => 'Enriquecimento por IA';
 }

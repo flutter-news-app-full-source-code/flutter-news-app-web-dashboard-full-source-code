@@ -12,7 +12,6 @@ import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/extensions/extensions.dart';
-import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
 
 /// {@template sources_page}

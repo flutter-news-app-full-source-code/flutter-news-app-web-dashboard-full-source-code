@@ -1336,5 +1336,8 @@
     "createSync": "Aggiungi Programma di Sincronizzazione",
     "syncCreatedSuccessfully": "Programma di sincronizzazione creato con successo.",
     "syncUpdatedSuccessfully": "Programma di sincronizzazione aggiornato con successo.",
-    "confirmStopSyncMessage": "Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte."
+    "confirmStopSyncMessage": "Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte.",
+    "persons": "Persone",
+    "mentions": "Menzioni",
+    "aiEnrichment": "Arricchimento AI"
 }

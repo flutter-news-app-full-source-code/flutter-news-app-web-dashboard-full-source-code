@@ -3478,4 +3478,13 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle.';
+
+  @override
+  String get persons => 'Personen';
+
+  @override
+  String get mentions => 'Erwähnungen';
+
+  @override
+  String get aiEnrichment => 'KI-Anreicherung';
 }

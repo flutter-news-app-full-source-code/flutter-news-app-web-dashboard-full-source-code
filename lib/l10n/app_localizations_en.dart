@@ -3557,4 +3557,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.';
+
+  @override
+  String get persons => 'Persons';
+
+  @override
+  String get mentions => 'Mentions';
+
+  @override
+  String get aiEnrichment => 'AI Enrichment';
 }

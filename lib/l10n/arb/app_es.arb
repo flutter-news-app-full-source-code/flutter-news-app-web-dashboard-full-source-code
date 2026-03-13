@@ -1336,5 +1336,8 @@
     "createSync": "Añadir Programación de Sincronización",
     "syncCreatedSuccessfully": "Programación de sincronización creada con éxito.",
     "syncUpdatedSuccessfully": "Programación de sincronización actualizada con éxito.",
-    "confirmStopSyncMessage": "¿Estás seguro de que deseas eliminar esta programación de sincronización? Esto detendrá las actualizaciones automáticas para la fuente."
+    "confirmStopSyncMessage": "¿Estás seguro de que deseas eliminar esta programación de sincronización? Esto detendrá las actualizaciones automáticas para la fuente.",
+    "persons": "Personas",
+    "mentions": "Menciones",
+    "aiEnrichment": "Enriquecimiento con IA"
 }

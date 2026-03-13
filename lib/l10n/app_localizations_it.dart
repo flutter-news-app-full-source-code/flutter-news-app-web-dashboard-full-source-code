@@ -3473,4 +3473,13 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte.';
+
+  @override
+  String get persons => 'Persone';
+
+  @override
+  String get mentions => 'Menzioni';
+
+  @override
+  String get aiEnrichment => 'Arricchimento AI';
 }

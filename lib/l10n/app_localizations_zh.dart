@@ -3322,4 +3322,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get confirmStopSyncMessage => '您确定要移除此同步计划吗？这将停止该来源的自动更新。';
+
+  @override
+  String get persons => '人物';
+
+  @override
+  String get mentions => '提及';
+
+  @override
+  String get aiEnrichment => 'AI 丰富';
 }

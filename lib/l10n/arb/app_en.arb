@@ -4421,5 +4421,17 @@
   "confirmStopSyncMessage": "Are you sure you want to remove this sync schedule? This will stop automated updates for the source.",
   "@confirmStopSyncMessage": {
     "description": "Confirmation message for removing a sync schedule"
+  },
+  "persons": "Persons",
+  "@persons": {
+    "description": "Label for the persons field in forms and tables."
+  },
+  "mentions": "Mentions",
+  "@mentions": {
+    "description": "Column header for mentioned entities like countries and persons."
+  },
+  "aiEnrichment": "AI Enrichment",
+  "@aiEnrichment": {
+    "description": "Tooltip for the AI enrichment button."
   }
 }

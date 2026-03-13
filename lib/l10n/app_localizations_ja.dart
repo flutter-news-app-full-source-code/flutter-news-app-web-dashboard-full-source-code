@@ -3442,4 +3442,13 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'この同期スケジュールを削除してもよろしいですか？これにより、ソースの自動更新が停止します。';
+
+  @override
+  String get persons => '人物';
+
+  @override
+  String get mentions => '言及';
+
+  @override
+  String get aiEnrichment => 'AIエンリッチメント';
 }

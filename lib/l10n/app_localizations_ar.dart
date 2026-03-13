@@ -3532,4 +3532,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'هل أنت متأكد أنك تريد إزالة جدول المزامنة هذا؟ سيؤدي هذا إلى إيقاف التحديثات التلقائية للمصدر.';
+
+  @override
+  String get persons => 'الأشخاص';
+
+  @override
+  String get mentions => 'الإشارات';
+
+  @override
+  String get aiEnrichment => 'إثراء بالذكاء الاصطناعي';
 }

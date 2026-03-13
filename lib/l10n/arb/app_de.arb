@@ -1336,5 +1336,8 @@
     "createSync": "Synchronisierungsplan hinzufügen",
     "syncCreatedSuccessfully": "Synchronisierungsplan erfolgreich erstellt.",
     "syncUpdatedSuccessfully": "Synchronisierungsplan erfolgreich aktualisiert.",
-    "confirmStopSyncMessage": "Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle."
+    "confirmStopSyncMessage": "Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle.",
+    "persons": "Personen",
+    "mentions": "Erwähnungen",
+    "aiEnrichment": "KI-Anreicherung"
 }

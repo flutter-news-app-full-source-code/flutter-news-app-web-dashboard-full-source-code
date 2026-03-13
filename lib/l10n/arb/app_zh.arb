@@ -1336,5 +1336,8 @@
     "createSync": "添加同步计划",
     "syncCreatedSuccessfully": "同步计划创建成功。",
     "syncUpdatedSuccessfully": "同步计划更新成功。",
-    "confirmStopSyncMessage": "您确定要移除此同步计划吗？这将停止该来源的自动更新。"
+    "confirmStopSyncMessage": "您确定要移除此同步计划吗？这将停止该来源的自动更新。",
+    "persons": "人物",
+    "mentions": "提及",
+    "aiEnrichment": "AI 丰富"
 }

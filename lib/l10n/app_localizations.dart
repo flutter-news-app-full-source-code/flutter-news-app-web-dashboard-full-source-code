@@ -6479,6 +6479,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.'**
   String get confirmStopSyncMessage;
+
+  /// Label for the persons field in forms and tables.
+  ///
+  /// In en, this message translates to:
+  /// **'Persons'**
+  String get persons;
+
+  /// Column header for mentioned entities like countries and persons.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get mentions;
+
+  /// Tooltip for the AI enrichment button.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Enrichment'**
+  String get aiEnrichment;
 }
 
 class _AppLocalizationsDelegate

@@ -1336,5 +1336,8 @@
     "createSync": "同期スケジュールを追加",
     "syncCreatedSuccessfully": "同期スケジュールが正常に作成されました。",
     "syncUpdatedSuccessfully": "同期スケジュールが正常に更新されました。",
-    "confirmStopSyncMessage": "この同期スケジュールを削除してもよろしいですか？これにより、ソースの自動更新が停止します。"
+    "confirmStopSyncMessage": "この同期スケジュールを削除してもよろしいですか？これにより、ソースの自動更新が停止します。",
+    "persons": "人物",
+    "mentions": "言及",
+    "aiEnrichment": "AIエンリッチメント"
 }

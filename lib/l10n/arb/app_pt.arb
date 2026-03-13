@@ -1336,5 +1336,8 @@
     "createSync": "Adicionar Agendamento de Sincronização",
     "syncCreatedSuccessfully": "Agendamento de sincronização criado com sucesso.",
     "syncUpdatedSuccessfully": "Agendamento de sincronização atualizado com sucesso.",
-    "confirmStopSyncMessage": "Tem certeza de que deseja remover este agendamento de sincronização? Isso interromperá as atualizações automáticas para a fonte."
+    "confirmStopSyncMessage": "Tem certeza de que deseja remover este agendamento de sincronização? Isso interromperá as atualizações automáticas para a fonte.",
+    "persons": "Pessoas",
+    "mentions": "Menções",
+    "aiEnrichment": "Enriquecimento por IA"
 }

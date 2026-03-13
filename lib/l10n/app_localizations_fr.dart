@@ -3488,4 +3488,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source.';
+
+  @override
+  String get persons => 'Personnes';
+
+  @override
+  String get mentions => 'Mentions';
+
+  @override
+  String get aiEnrichment => 'Enrichissement par IA';
 }

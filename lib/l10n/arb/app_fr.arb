@@ -1336,5 +1336,8 @@
     "createSync": "Ajouter un Calendrier de Synchronisation",
     "syncCreatedSuccessfully": "Calendrier de synchronisation créé avec succès.",
     "syncUpdatedSuccessfully": "Calendrier de synchronisation mis à jour avec succès.",
-    "confirmStopSyncMessage": "Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source."
+    "confirmStopSyncMessage": "Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source.",
+    "persons": "Personnes",
+    "mentions": "Mentions",
+    "aiEnrichment": "Enrichissement par IA"
 }

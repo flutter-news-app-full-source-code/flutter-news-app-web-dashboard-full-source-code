@@ -3567,4 +3567,13 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'क्या आप वाकई इस सिंक शेड्यूल को हटाना चाहते हैं? इससे स्रोत के लिए स्वचालित अपडेट बंद हो जाएंगे।';
+
+  @override
+  String get persons => 'व्यक्ति';
+
+  @override
+  String get mentions => 'उल्लेख';
+
+  @override
+  String get aiEnrichment => 'एआई संवर्धन';
 }
