@@ -541,7 +541,7 @@ void main() {
             title: {SupportedLanguage.en: 'Original Title'},
             url: 'http://example.com',
           ),
-          CreateHeadlineState(
+          const CreateHeadlineState(
             status: CreateHeadlineStatus.enrichmentFailure,
             title: {SupportedLanguage.en: 'Original Title'},
             url: 'http://example.com',

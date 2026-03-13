@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
@@ -16,7 +15,6 @@ import 'package:verity_dashboard/content_management/view/create_headline_page.da
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/shared.dart';
-import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
