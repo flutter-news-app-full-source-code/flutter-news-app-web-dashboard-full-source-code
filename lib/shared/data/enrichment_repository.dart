@@ -23,7 +23,7 @@ class EnrichmentApi implements EnrichmentClient {
     _logger.info('Requesting enrichment for headline: ${headline.title}');
     try {
       final responseData = await _httpClient.post<Map<String, dynamic>>(
-        '/api/v1/enrich_headline',
+        '/api/v1/intelligence/enrich_headline',
         data: headline.toJson(),
       );
 
