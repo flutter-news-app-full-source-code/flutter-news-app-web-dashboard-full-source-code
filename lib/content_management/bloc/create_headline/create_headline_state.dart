@@ -32,6 +32,10 @@ final class CreateHeadlineState extends Equatable {
     this.defaultLanguage = SupportedLanguage.en,
     SupportedLanguage? selectedLanguage,
     this.isEnrichmentSuccessful = false,
+    this.wasTitleEnriched = false,
+    this.wasTopicEnriched = false,
+    this.wereCountriesEnriched = false,
+    this.werePersonsEnriched = false,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateHeadlineStatus status;
@@ -50,6 +54,10 @@ final class CreateHeadlineState extends Equatable {
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
   final bool isEnrichmentSuccessful;
+  final bool wasTitleEnriched;
+  final bool wasTopicEnriched;
+  final bool wereCountriesEnriched;
+  final bool werePersonsEnriched;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -78,6 +86,10 @@ final class CreateHeadlineState extends Equatable {
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
     bool? isEnrichmentSuccessful,
+    bool? wasTitleEnriched,
+    bool? wasTopicEnriched,
+    bool? wereCountriesEnriched,
+    bool? werePersonsEnriched,
   }) {
     return CreateHeadlineState(
       status: status ?? this.status,
@@ -101,6 +113,11 @@ final class CreateHeadlineState extends Equatable {
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
       isEnrichmentSuccessful:
           isEnrichmentSuccessful ?? this.isEnrichmentSuccessful,
+      wasTitleEnriched: wasTitleEnriched ?? this.wasTitleEnriched,
+      wasTopicEnriched: wasTopicEnriched ?? this.wasTopicEnriched,
+      wereCountriesEnriched:
+          wereCountriesEnriched ?? this.wereCountriesEnriched,
+      werePersonsEnriched: werePersonsEnriched ?? this.werePersonsEnriched,
     );
   }
 
@@ -122,5 +139,9 @@ final class CreateHeadlineState extends Equatable {
     defaultLanguage,
     selectedLanguage,
     isEnrichmentSuccessful,
+    wasTitleEnriched,
+    wasTopicEnriched,
+    wereCountriesEnriched,
+    werePersonsEnriched,
   ];
 }

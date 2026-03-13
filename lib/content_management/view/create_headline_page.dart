@@ -230,7 +230,9 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                                   errorBuilder: (_, _, _) =>
                                       const Icon(Icons.flag, size: 16),
                                 ),
-                                if (hasContent && lang != state.defaultLanguage)
+                                if (hasContent &&
+                                    state.wasTitleEnriched &&
+                                    lang != state.defaultLanguage)
                                   Positioned(
                                     top: -4,
                                     right: -4,
@@ -312,16 +314,14 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       ),
                       Text(l10n.isBreakingNewsDescription),
                       const SizedBox(height: AppSpacing.lg),
-                      // Existing SearchableSelectionInput widgets
                       SearchableSelectionInput<Source>(
                         label: l10n.sourceName,
                         selectedItems: state.source != null
                             ? [state.source!]
                             : [],
                         itemBuilder: (context, source) =>
-                            Text(source.name.values.firstOrNull ?? ''),
-                        itemToString: (source) =>
-                            source.name.values.firstOrNull ?? '',
+                            Text(source.name.getValue(context)),
+                        itemToString: (source) => source.name.getValue(context),
                         onChanged: (items) => context
                             .read<CreateHeadlineBloc>()
                             .add(CreateHeadlineSourceChanged(items?.first)),
@@ -335,90 +335,138 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         includeInactiveSelectedItem: false,
                       ),
                       const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Topic>(
-                        label: l10n.topicName,
-                        selectedItems: state.topic != null
-                            ? [state.topic!]
-                            : [],
-                        itemBuilder: (context, topic) =>
-                            Text(topic.name.values.firstOrNull ?? ''),
-                        itemToString: (topic) =>
-                            topic.name.values.firstOrNull ?? '',
-                        onChanged: (items) => context
-                            .read<CreateHeadlineBloc>()
-                            .add(CreateHeadlineTopicChanged(items?.first)),
-                        repository: context.read<DataRepository<Topic>>(),
-                        filterBuilder: (searchTerm) =>
-                            searchTerm == null ? {} : {'q': searchTerm},
-                        sortOptions: [
-                          SortOption('name.$langCode', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        includeInactiveSelectedItem: false,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Country>(
-                        label: l10n.countryName,
-                        isMultiSelect: true,
-                        selectedItems: state.mentionedCountries,
-                        itemBuilder: (context, country) => Row(
-                          children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          SearchableSelectionInput<Topic>(
+                            label: l10n.topicName,
+                            selectedItems: state.topic != null
+                                ? [state.topic!]
+                                : [],
+                            itemBuilder: (context, topic) =>
+                                Text(topic.name.getValue(context)),
+                            itemToString: (topic) =>
+                                topic.name.getValue(context),
+                            onChanged: (items) => context
+                                .read<CreateHeadlineBloc>()
+                                .add(CreateHeadlineTopicChanged(items?.first)),
+                            repository: context.read<DataRepository<Topic>>(),
+                            filterBuilder: (searchTerm) =>
+                                searchTerm == null ? {} : {'q': searchTerm},
+                            sortOptions: [
+                              SortOption('name.$langCode', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            includeInactiveSelectedItem: false,
+                          ),
+                          if (state.topic != null && state.wasTopicEnriched)
+                            Positioned(
+                              top: 6,
+                              right: 40,
+                              child: Icon(
+                                Icons.auto_awesome,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name.values.firstOrNull ?? ''),
-                          ],
-                        ),
-                        itemToString: (country) =>
-                            country.name.values.firstOrNull ?? '',
-                        onChanged: (items) =>
-                            context.read<CreateHeadlineBloc>().add(
-                              CreateHeadlineCountriesChanged(items ?? []),
-                            ),
-                        repository: context.read<DataRepository<Country>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: [
-                          SortOption('name.$langCode', SortOrder.asc),
                         ],
-                        limit: kDefaultRowsPerPage,
-                        includeInactiveSelectedItem: false,
                       ),
                       const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Person>(
-                        label: l10n.persons,
-                        isMultiSelect: true,
-                        selectedItems: state.mentionedPersons,
-                        itemBuilder: (context, person) =>
-                            Text(person.name.values.firstOrNull ?? ''),
-                        itemToString: (person) =>
-                            person.name.values.firstOrNull ?? '',
-                        onChanged: (items) =>
-                            context.read<CreateHeadlineBloc>().add(
-                              CreateHeadlinePersonsChanged(items ?? []),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          SearchableSelectionInput<Country>(
+                            label: l10n.countryName,
+                            isMultiSelect: true,
+                            selectedItems: state.mentionedCountries,
+                            itemBuilder: (context, country) => Row(
+                              children: [
+                                SizedBox(
+                                  width: 32,
+                                  height: 20,
+                                  child: Image.network(
+                                    country.flagUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.flag),
+                                  ),
+                                ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(country.name.getValue(context)),
+                              ],
                             ),
-                        repository: context.read<DataRepository<Person>>(),
-                        filterBuilder: (searchTerm) =>
-                            searchTerm == null ? {} : {'q': searchTerm},
-                        sortOptions: [
-                          SortOption('name.$langCode', SortOrder.asc),
+                            itemToString: (country) =>
+                                country.name.getValue(context),
+                            onChanged: (items) =>
+                                context.read<CreateHeadlineBloc>().add(
+                                  CreateHeadlineCountriesChanged(items ?? []),
+                                ),
+                            repository: context.read<DataRepository<Country>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: [
+                              SortOption('name.$langCode', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            includeInactiveSelectedItem: false,
+                          ),
+                          if (state.mentionedCountries.isNotEmpty &&
+                              state.wereCountriesEnriched)
+                            Positioned(
+                              top: 6,
+                              right: 40,
+                              child: Icon(
+                                Icons.auto_awesome,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
                         ],
-                        limit: kDefaultRowsPerPage,
-                        includeInactiveSelectedItem: true,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          SearchableSelectionInput<Person>(
+                            label: l10n.persons,
+                            isMultiSelect: true,
+                            selectedItems: state.mentionedPersons,
+                            itemBuilder: (context, person) =>
+                                Text(person.name.getValue(context)),
+                            itemToString: (person) =>
+                                person.name.getValue(context),
+                            onChanged: (items) =>
+                                context.read<CreateHeadlineBloc>().add(
+                                  CreateHeadlinePersonsChanged(items ?? []),
+                                ),
+                            repository: context.read<DataRepository<Person>>(),
+                            filterBuilder: (searchTerm) =>
+                                searchTerm == null ? {} : {'q': searchTerm},
+                            sortOptions: [
+                              SortOption('name.$langCode', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            includeInactiveSelectedItem: true,
+                          ),
+                          if (state.mentionedPersons.isNotEmpty &&
+                              state.werePersonsEnriched)
+                            Positioned(
+                              top: 6,
+                              right: 40,
+                              child: Icon(
+                                Icons.auto_awesome,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),

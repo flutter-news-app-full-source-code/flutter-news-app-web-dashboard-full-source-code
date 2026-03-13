@@ -108,7 +108,14 @@ class CreateHeadlineBloc
     Emitter<CreateHeadlineState> emit,
   ) {
     _logger.fine('Title changed: ${event.title}');
-    emit(state.copyWith(title: event.title));
+    // When the user manually changes the title, the enrichment status for it
+    // is invalidated.
+    emit(
+      state.copyWith(
+        title: event.title,
+        wasTitleEnriched: false,
+      ),
+    );
   }
 
   void _onUrlChanged(
@@ -158,7 +165,14 @@ class CreateHeadlineBloc
     Emitter<CreateHeadlineState> emit,
   ) {
     _logger.fine('Topic changed: ${event.topic?.name}');
-    emit(state.copyWith(topic: () => event.topic));
+    // When the user manually changes the topic, the enrichment status for it
+    // is invalidated.
+    emit(
+      state.copyWith(
+        topic: () => event.topic,
+        wasTopicEnriched: false,
+      ),
+    );
   }
 
   void _onCountriesChanged(
@@ -166,7 +180,14 @@ class CreateHeadlineBloc
     Emitter<CreateHeadlineState> emit,
   ) {
     _logger.fine('Countries changed: ${event.countries.length}');
-    emit(state.copyWith(mentionedCountries: event.countries));
+    // When the user manually changes the countries, the enrichment status for
+    // them is invalidated.
+    emit(
+      state.copyWith(
+        mentionedCountries: event.countries,
+        wereCountriesEnriched: false,
+      ),
+    );
   }
 
   void _onPersonsChanged(
@@ -174,7 +195,14 @@ class CreateHeadlineBloc
     Emitter<CreateHeadlineState> emit,
   ) {
     _logger.fine('Persons changed: ${event.persons.length}');
-    emit(state.copyWith(mentionedPersons: event.persons));
+    // When the user manually changes the persons, the enrichment status for
+    // them is invalidated.
+    emit(
+      state.copyWith(
+        mentionedPersons: event.persons,
+        werePersonsEnriched: false,
+      ),
+    );
   }
 
   void _onIsBreakingChanged(
@@ -243,6 +271,10 @@ class CreateHeadlineBloc
           mentionedCountries: enriched.mentionedCountries,
           mentionedPersons: enriched.mentionedPersons,
           isEnrichmentSuccessful: true,
+          wasTitleEnriched: true,
+          wasTopicEnriched: true,
+          wereCountriesEnriched: true,
+          werePersonsEnriched: true,
         ),
       );
       _logger.info('Enrichment successful.');
