@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
+import 'package:dio/dio.dart';
 
 /// Abstract interface for enrichment operations.
 abstract class EnrichmentClient {
@@ -25,6 +26,10 @@ class EnrichmentApi implements EnrichmentClient {
       final responseData = await _httpClient.post<Map<String, dynamic>>(
         '/api/v1/intelligence/enrich_headline',
         data: headline.toJson(),
+        options: Options(
+          // Extend timeout for potentially long-running AI operations.
+          receiveTimeout: const Duration(seconds: 60),
+        ),
       );
 
       final apiResponse = SuccessApiResponse<Headline>.fromJson(
