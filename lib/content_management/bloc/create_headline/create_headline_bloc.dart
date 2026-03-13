@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
@@ -24,9 +25,11 @@ class CreateHeadlineBloc
   CreateHeadlineBloc({
     required DataRepository<Headline> headlinesRepository,
     required MediaRepository mediaRepository,
+    required EnrichmentRepository enrichmentRepository,
     required Logger logger,
   }) : _headlinesRepository = headlinesRepository,
        _mediaRepository = mediaRepository,
+       _enrichmentRepository = enrichmentRepository,
        _logger = logger,
        super(const CreateHeadlineState()) {
     on<CreateHeadlineInitialized>(_onInitialized);
@@ -36,15 +39,18 @@ class CreateHeadlineBloc
     on<CreateHeadlineImageRemoved>(_onImageRemoved);
     on<CreateHeadlineSourceChanged>(_onSourceChanged);
     on<CreateHeadlineTopicChanged>(_onTopicChanged);
-    on<CreateHeadlineCountryChanged>(_onCountryChanged);
+    on<CreateHeadlineCountriesChanged>(_onCountriesChanged);
+    on<CreateHeadlinePersonsChanged>(_onPersonsChanged);
     on<CreateHeadlineIsBreakingChanged>(_onIsBreakingChanged);
     on<CreateHeadlineLanguageTabChanged>(_onLanguageTabChanged);
     on<CreateHeadlineSavedAsDraft>(_onSavedAsDraft);
     on<CreateHeadlinePublished>(_onPublished);
+    on<CreateHeadlineEnrichmentRequested>(_onEnrichmentRequested);
   }
 
   final DataRepository<Headline> _headlinesRepository;
   final MediaRepository _mediaRepository;
+  final EnrichmentRepository _enrichmentRepository;
   final Logger _logger;
 
   final _uuid = const Uuid();
@@ -121,12 +127,20 @@ class CreateHeadlineBloc
     emit(state.copyWith(topic: () => event.topic));
   }
 
-  void _onCountryChanged(
-    CreateHeadlineCountryChanged event,
+  void _onCountriesChanged(
+    CreateHeadlineCountriesChanged event,
     Emitter<CreateHeadlineState> emit,
   ) {
-    _logger.fine('Country changed: ${event.country?.name}');
-    emit(state.copyWith(eventCountry: () => event.country));
+    _logger.fine('Countries changed: ${event.countries.length}');
+    emit(state.copyWith(mentionedCountries: event.countries));
+  }
+
+  void _onPersonsChanged(
+    CreateHeadlinePersonsChanged event,
+    Emitter<CreateHeadlineState> emit,
+  ) {
+    _logger.fine('Persons changed: ${event.persons.length}');
+    emit(state.copyWith(mentionedPersons: event.persons));
   }
 
   void _onIsBreakingChanged(
@@ -160,6 +174,52 @@ class CreateHeadlineBloc
   ) async {
     _logger.info('Publishing headline...');
     await _submitHeadline(emit, status: ContentStatus.active);
+  }
+
+  Future<void> _onEnrichmentRequested(
+    CreateHeadlineEnrichmentRequested event,
+    Emitter<CreateHeadlineState> emit,
+  ) async {
+    _logger.info('AI Enrichment requested...');
+    emit(state.copyWith(status: CreateHeadlineStatus.enriching));
+
+    try {
+      // Construct a partial headline for enrichment.
+      final partial = Headline(
+        id: _uuid.v4(),
+        title: state.title,
+        url: state.url,
+        source: state.source ?? Source.fromJson(const {}), // Dummy if missing
+        topic: state.topic ?? Topic.fromJson(const {}), // Dummy if missing
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        status: ContentStatus.draft,
+        isBreaking: state.isBreaking,
+        mentionedCountries: state.mentionedCountries,
+        mentionedPersons: state.mentionedPersons,
+      );
+
+      final enriched = await _enrichmentRepository.enrichHeadline(partial);
+
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.initial,
+          title: enriched.title,
+          topic: () => enriched.topic,
+          mentionedCountries: enriched.mentionedCountries,
+          mentionedPersons: enriched.mentionedPersons,
+        ),
+      );
+      _logger.info('Enrichment successful.');
+    } on HttpException catch (e) {
+      _logger.severe('Enrichment failed.', e);
+      emit(
+        state.copyWith(
+          status: CreateHeadlineStatus.enrichmentFailure,
+          exception: ValueWrapper(e),
+        ),
+      );
+    }
   }
 
   /// Orchestrates the two-stage process of creating a headline.
@@ -217,7 +277,8 @@ class CreateHeadlineBloc
         imageUrl: null,
         mediaAssetId: newMediaAssetId,
         source: state.source!,
-        eventCountry: state.eventCountry!,
+        mentionedCountries: state.mentionedCountries,
+        mentionedPersons: state.mentionedPersons,
         topic: state.topic!,
         createdAt: now,
         updatedAt: now,
