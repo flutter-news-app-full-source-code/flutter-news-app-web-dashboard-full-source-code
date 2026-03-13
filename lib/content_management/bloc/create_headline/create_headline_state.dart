@@ -9,6 +9,8 @@ enum CreateHeadlineStatus {
   imageUploadFailure,
   entitySubmitting,
   entitySubmitFailure,
+  enriching,
+  enrichmentFailure,
 }
 
 /// The state for the [CreateHeadlineBloc].
@@ -21,7 +23,8 @@ final class CreateHeadlineState extends Equatable {
     this.imageFileName,
     this.source,
     this.topic,
-    this.eventCountry,
+    this.mentionedCountries = const [],
+    this.mentionedPersons = const [],
     this.exception,
     this.isBreaking = false,
     this.createdHeadline,
@@ -37,7 +40,8 @@ final class CreateHeadlineState extends Equatable {
   final String? imageFileName;
   final Source? source;
   final Topic? topic;
-  final Country? eventCountry;
+  final List<Country> mentionedCountries;
+  final List<Person> mentionedPersons;
   final HttpException? exception;
   final bool isBreaking;
   final Headline? createdHeadline;
@@ -53,7 +57,7 @@ final class CreateHeadlineState extends Equatable {
       imageFileName != null &&
       source != null &&
       topic != null &&
-      eventCountry != null;
+      mentionedCountries.isNotEmpty;
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
@@ -63,7 +67,8 @@ final class CreateHeadlineState extends Equatable {
     ValueWrapper<String?>? imageFileName,
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
-    ValueGetter<Country?>? eventCountry,
+    List<Country>? mentionedCountries,
+    List<Person>? mentionedPersons,
     bool? isBreaking,
     ValueWrapper<HttpException?>? exception,
     Headline? createdHeadline,
@@ -83,7 +88,8 @@ final class CreateHeadlineState extends Equatable {
           : this.imageFileName,
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
-      eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
+      mentionedCountries: mentionedCountries ?? this.mentionedCountries,
+      mentionedPersons: mentionedPersons ?? this.mentionedPersons,
       isBreaking: isBreaking ?? this.isBreaking,
       exception: exception != null ? exception.value : this.exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
@@ -102,7 +108,8 @@ final class CreateHeadlineState extends Equatable {
     imageFileName,
     source,
     topic,
-    eventCountry,
+    mentionedCountries,
+    mentionedPersons,
     isBreaking,
     exception,
     createdHeadline,
