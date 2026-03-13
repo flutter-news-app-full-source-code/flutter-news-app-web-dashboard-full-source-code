@@ -240,7 +240,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                                       size: 12,
                                       color: Theme.of(
                                         context,
-                                      ).colorScheme.secondary,
+                                      ).colorScheme.primary,
                                     ),
                                   ),
                               ],
@@ -365,7 +365,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               child: Icon(
                                 Icons.auto_awesome,
                                 size: 12,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                         ],
@@ -424,7 +424,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               child: Icon(
                                 Icons.auto_awesome,
                                 size: 12,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                         ],
@@ -462,7 +462,7 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               child: Icon(
                                 Icons.auto_awesome,
                                 size: 12,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                         ],
