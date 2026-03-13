@@ -25,8 +25,8 @@ const _dummyCountry = Country(
 /// A dummy [Source] to use for enrichment when a source is not yet selected.
 final _dummySource = Source(
   id: 'dummy',
-  name: {},
-  description: {},
+  name: const {},
+  description: const {},
   url: '',
   sourceType: SourceType.other,
   language: SupportedLanguage.en,
@@ -39,8 +39,8 @@ final _dummySource = Source(
 /// A dummy [Topic] to use for enrichment when a topic is not yet selected.
 final _dummyTopic = Topic(
   id: 'dummy',
-  name: {},
-  description: {},
+  name: const {},
+  description: const {},
   createdAt: dummyDate,
   updatedAt: dummyDate,
   status: ContentStatus.draft,

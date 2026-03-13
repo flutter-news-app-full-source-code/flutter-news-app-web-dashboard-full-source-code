@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:dio/dio.dart';
 
 /// Abstract interface for enrichment operations.
+// ignore: one_member_abstracts
 abstract class EnrichmentClient {
   /// Sends a (potentially partial) [Headline] to the AI enrichment endpoint.
   Future<Headline> enrichHeadline(Headline headline);
