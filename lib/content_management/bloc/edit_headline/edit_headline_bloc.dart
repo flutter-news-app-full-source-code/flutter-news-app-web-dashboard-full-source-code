@@ -33,7 +33,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     on<EditHeadlineImageRemoved>(_onImageRemoved);
     on<EditHeadlineSourceChanged>(_onSourceChanged);
     on<EditHeadlineTopicChanged>(_onTopicChanged);
-    on<EditHeadlineCountryChanged>(_onCountryChanged);
+    on<EditHeadlineCountriesChanged>(_onCountriesChanged);
+    on<EditHeadlinePersonsChanged>(_onPersonsChanged);
     on<EditHeadlineIsBreakingChanged>(_onIsBreakingChanged);
     on<EditHeadlineLanguageTabChanged>(_onLanguageTabChanged);
     on<EditHeadlineSavedAsDraft>(_onSavedAsDraft);
@@ -62,7 +63,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
           imageUrl: ValueWrapper(headline.imageUrl),
           source: () => headline.source,
           topic: () => headline.topic,
-          eventCountry: () => headline.eventCountry,
+          mentionedCountries: headline.mentionedCountries,
+          mentionedPersons: headline.mentionedPersons,
           isBreaking: headline.isBreaking,
           initialHeadline: headline,
           enabledLanguages: event.enabledLanguages,
@@ -170,14 +172,27 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
     );
   }
 
-  void _onCountryChanged(
-    EditHeadlineCountryChanged event,
+  void _onCountriesChanged(
+    EditHeadlineCountriesChanged event,
     Emitter<EditHeadlineState> emit,
   ) {
-    _logger.finer('Country changed: ${event.country?.name}');
+    _logger.finer('Countries changed: ${event.countries.length}');
     emit(
       state.copyWith(
-        eventCountry: () => event.country,
+        mentionedCountries: event.countries,
+        status: EditHeadlineStatus.initial,
+      ),
+    );
+  }
+
+  void _onPersonsChanged(
+    EditHeadlinePersonsChanged event,
+    Emitter<EditHeadlineState> emit,
+  ) {
+    _logger.finer('Persons changed: ${event.persons.length}');
+    emit(
+      state.copyWith(
+        mentionedPersons: event.persons,
         status: EditHeadlineStatus.initial,
       ),
     );
@@ -284,7 +299,8 @@ class EditHeadlineBloc extends Bloc<EditHeadlineEvent, EditHeadlineState> {
         url: state.url,
         source: state.source,
         topic: state.topic,
-        eventCountry: state.eventCountry,
+        mentionedCountries: state.mentionedCountries,
+        mentionedPersons: state.mentionedPersons,
         isBreaking: state.isBreaking,
         status: status,
         updatedAt: DateTime.now(),
