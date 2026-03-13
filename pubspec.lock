@@ -109,8 +109,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "01ddd253e94303d86d9fbcc977acb2019f239fb4"
-      resolved-ref: "01ddd253e94303d86d9fbcc977acb2019f239fb4"
+      ref: be0a79ae71d8a03026a1e7ba157a69c84ae93012
+      resolved-ref: be0a79ae71d8a03026a1e7ba157a69c84ae93012
       url: "https://github.com/verity-hq/core.git"
     source: git
     version: "2.1.0"
@@ -118,8 +118,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "051cdf79b85e3ffa124c90aa00cf873d722ae31c"
-      resolved-ref: "051cdf79b85e3ffa124c90aa00cf873d722ae31c"
+      ref: "6d10d5209c97c001f1a9a7260688da643a5ac092"
+      resolved-ref: "6d10d5209c97c001f1a9a7260688da643a5ac092"
       url: "https://github.com/verity-hq/core-ui.git"
     source: git
     version: "2.0.0"
