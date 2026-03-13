@@ -148,7 +148,8 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                     tooltip: l10n.aiEnrichment,
                     onPressed:
                         (state.title[state.defaultLanguage]?.isNotEmpty ??
-                            false)
+                                false) &&
+                            !state.isEnrichmentSuccessful
                         ? () => context.read<CreateHeadlineBloc>().add(
                             const CreateHeadlineEnrichmentRequested(),
                           )
@@ -236,7 +237,9 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                                     child: Icon(
                                       Icons.auto_awesome,
                                       size: 12,
-                                      color: Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.secondary,
                                     ),
                                   ),
                               ],

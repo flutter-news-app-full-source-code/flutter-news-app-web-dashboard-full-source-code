@@ -7,10 +7,44 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
+import 'package:verity_dashboard/shared/constants/app_constants.dart';
 import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';
+
+/// A dummy [Country] to satisfy required fields in other models during
+/// enrichment when no country is selected.
+const _dummyCountry = Country(
+  id: 'dummy',
+  isoCode: 'XX',
+  name: {},
+  flagUrl: '',
+);
+
+/// A dummy [Source] to use for enrichment when a source is not yet selected.
+final _dummySource = Source(
+  id: 'dummy',
+  name: {},
+  description: {},
+  url: '',
+  sourceType: SourceType.other,
+  language: SupportedLanguage.en,
+  headquarters: _dummyCountry,
+  createdAt: dummyDate,
+  updatedAt: dummyDate,
+  status: ContentStatus.draft,
+);
+
+/// A dummy [Topic] to use for enrichment when a topic is not yet selected.
+final _dummyTopic = Topic(
+  id: 'dummy',
+  name: {},
+  description: {},
+  createdAt: dummyDate,
+  updatedAt: dummyDate,
+  status: ContentStatus.draft,
+);
 
 /// {@template create_headline_bloc}
 /// A BLoC to manage the state of creating a new headline.
@@ -189,8 +223,8 @@ class CreateHeadlineBloc
         id: _uuid.v4(),
         title: state.title,
         url: state.url,
-        source: state.source ?? Source.fromJson(const {}), // Dummy if missing
-        topic: state.topic ?? Topic.fromJson(const {}), // Dummy if missing
+        source: state.source ?? _dummySource,
+        topic: state.topic ?? _dummyTopic,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         status: ContentStatus.draft,
@@ -208,6 +242,7 @@ class CreateHeadlineBloc
           topic: () => enriched.topic,
           mentionedCountries: enriched.mentionedCountries,
           mentionedPersons: enriched.mentionedPersons,
+          isEnrichmentSuccessful: true,
         ),
       );
       _logger.info('Enrichment successful.');

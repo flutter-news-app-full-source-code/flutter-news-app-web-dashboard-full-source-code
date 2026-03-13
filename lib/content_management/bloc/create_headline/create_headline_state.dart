@@ -31,6 +31,7 @@ final class CreateHeadlineState extends Equatable {
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
     SupportedLanguage? selectedLanguage,
+    this.isEnrichmentSuccessful = false,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateHeadlineStatus status;
@@ -48,6 +49,7 @@ final class CreateHeadlineState extends Equatable {
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
+  final bool isEnrichmentSuccessful;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -75,6 +77,7 @@ final class CreateHeadlineState extends Equatable {
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
+    bool? isEnrichmentSuccessful,
   }) {
     return CreateHeadlineState(
       status: status ?? this.status,
@@ -96,6 +99,8 @@ final class CreateHeadlineState extends Equatable {
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      isEnrichmentSuccessful:
+          isEnrichmentSuccessful ?? this.isEnrichmentSuccessful,
     );
   }
 
@@ -116,5 +121,6 @@ final class CreateHeadlineState extends Equatable {
     enabledLanguages,
     defaultLanguage,
     selectedLanguage,
+    isEnrichmentSuccessful,
   ];
 }
