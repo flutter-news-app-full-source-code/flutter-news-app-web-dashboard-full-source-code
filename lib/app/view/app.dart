@@ -21,6 +21,7 @@ import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_fi
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/router/router.dart';
 import 'package:verity_dashboard/shared/constants/constants.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 import 'package:verity_dashboard/shared/services/analytics_service.dart';
 import 'package:verity_dashboard/shared/services/pending_deletions_service.dart';
 import 'package:verity_dashboard/shared/services/pending_updates_service.dart';
@@ -39,6 +40,7 @@ class App extends StatelessWidget {
     userContentPreferencesRepository,
     required DataRepository<RemoteConfig> remoteConfigRepository,
     required DataRepository<Country> countriesRepository,
+    required DataRepository<Person> personsRepository,
     required DataRepository<Language> languagesRepository,
     required DataRepository<User> usersRepository,
     required DataRepository<Engagement> engagementsRepository,
@@ -47,6 +49,7 @@ class App extends StatelessWidget {
     required DataRepository<UserRewards> userRewardsRepository,
     required DataRepository<NewsAutomationTask> automationRepository,
     required MediaRepository mediaRepository,
+    required EnrichmentRepository enrichmentRepository,
     required AnalyticsService analyticsService,
     required KVStorageService storageService,
     required AppEnvironment environment,
@@ -60,6 +63,7 @@ class App extends StatelessWidget {
        _userContentPreferencesRepository = userContentPreferencesRepository,
        _remoteConfigRepository = remoteConfigRepository,
        _kvStorageService = storageService,
+       _personsRepository = personsRepository,
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
        _usersRepository = usersRepository,
@@ -69,6 +73,7 @@ class App extends StatelessWidget {
        _userRewardsRepository = userRewardsRepository,
        _automationRepository = automationRepository,
        _mediaRepository = mediaRepository,
+       _enrichmentRepository = enrichmentRepository,
        _analyticsService = analyticsService,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
@@ -81,6 +86,7 @@ class App extends StatelessWidget {
   final DataRepository<UserContentPreferences>
   _userContentPreferencesRepository;
   final DataRepository<RemoteConfig> _remoteConfigRepository;
+  final DataRepository<Person> _personsRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
   final DataRepository<User> _usersRepository;
@@ -90,6 +96,7 @@ class App extends StatelessWidget {
   final DataRepository<UserRewards> _userRewardsRepository;
   final DataRepository<NewsAutomationTask> _automationRepository;
   final MediaRepository _mediaRepository;
+  final EnrichmentRepository _enrichmentRepository;
   final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -108,6 +115,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _appSettingsRepository),
         RepositoryProvider.value(value: _userContentPreferencesRepository),
         RepositoryProvider.value(value: _remoteConfigRepository),
+        RepositoryProvider.value(value: _personsRepository),
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _usersRepository),
@@ -117,6 +125,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _userRewardsRepository),
         RepositoryProvider.value(value: _automationRepository),
         RepositoryProvider.value(value: _mediaRepository),
+        RepositoryProvider.value(value: _enrichmentRepository),
         RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(

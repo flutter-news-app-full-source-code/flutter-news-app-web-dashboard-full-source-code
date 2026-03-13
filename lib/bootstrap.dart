@@ -8,6 +8,7 @@ import 'package:verity_dashboard/app/app.dart';
 import 'package:verity_dashboard/app/config/config.dart' as app_config;
 import 'package:verity_dashboard/bloc_observer.dart';
 import 'package:verity_dashboard/shared/constants/app_constants.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 import 'package:verity_dashboard/shared/services/analytics_service.dart';
 import 'package:verity_dashboard/shared/services/pending_deletions_service.dart';
 
@@ -55,6 +56,7 @@ Future<Widget> bootstrap(
   DataClient<RemoteConfig> remoteConfigClient;
   DataClient<Country> countriesClient;
   DataClient<Language> languagesClient;
+  DataClient<Person> personsClient;
   DataClient<User> usersClient;
   DataClient<Engagement> engagementsClient;
   DataClient<Report> reportsClient;
@@ -65,6 +67,7 @@ Future<Widget> bootstrap(
   DataClient<RankedListCardData> rankedListCardsClient;
   DataClient<UserRewards> userRewardsClient;
   DataClient<NewsAutomationTask> automationClient;
+  EnrichmentClient enrichmentClient;
 
   headlinesClient = DataApi<Headline>(
     httpClient: httpClient,
@@ -121,6 +124,13 @@ Future<Widget> bootstrap(
     fromJson: Language.fromJson,
     toJson: (language) => language.toJson(),
     logger: Logger('DataApi<Language>'),
+  );
+  personsClient = DataApi<Person>(
+    httpClient: httpClient,
+    modelName: 'person',
+    fromJson: Person.fromJson,
+    toJson: (person) => person.toJson(),
+    logger: Logger('DataApi<Person>'),
   );
 
   usersClient = DataApi<User>(
@@ -190,6 +200,10 @@ Future<Widget> bootstrap(
     httpClient: httpClient,
     logger: Logger('MediaApi'),
   );
+  enrichmentClient = EnrichmentApi(
+    httpClient: httpClient,
+    logger: Logger('EnrichmentApi'),
+  );
 
   pendingDeletionsService = PendingDeletionsServiceImpl(
     logger: Logger('PendingDeletionsService'),
@@ -215,6 +229,9 @@ Future<Widget> bootstrap(
   );
   final languagesRepository = DataRepository<Language>(
     dataClient: languagesClient,
+  );
+  final personsRepository = DataRepository<Person>(
+    dataClient: personsClient,
   );
   final usersRepository = DataRepository<User>(dataClient: usersClient);
   final engagementsRepository = DataRepository<Engagement>(
@@ -242,6 +259,9 @@ Future<Widget> bootstrap(
     dataClient: automationClient,
   );
   final mediaRepository = MediaRepository(mediaClient: mediaClient);
+  final enrichmentRepository = EnrichmentRepository(
+    enrichmentClient: enrichmentClient,
+  );
 
   final analyticsService = AnalyticsService(
     kpiRepository: kpiCardsRepository,
@@ -259,12 +279,14 @@ Future<Widget> bootstrap(
     remoteConfigRepository: remoteConfigRepository,
     countriesRepository: countriesRepository,
     languagesRepository: languagesRepository,
+    personsRepository: personsRepository,
     usersRepository: usersRepository,
     engagementsRepository: engagementsRepository,
     reportsRepository: reportsRepository,
     appReviewsRepository: appReviewsRepository,
     analyticsService: analyticsService,
     mediaRepository: mediaRepository,
+    enrichmentRepository: enrichmentRepository,
     automationRepository: automationRepository,
     userRewardsRepository: userRewardsRepository,
     storageService: kvStorage,
