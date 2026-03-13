@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/l10n/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
@@ -14,7 +15,7 @@ import 'package:verity_dashboard/content_management/bloc/create_headline/create_
 import 'package:verity_dashboard/content_management/view/create_headline_page.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
 import 'package:verity_dashboard/router/routes.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
+import 'package:verity_dashboard/shared/shared.dart';
 import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
 
 import '../../helpers/helpers.dart';
@@ -67,11 +68,18 @@ const testCountry = Country(
   flagUrl: 'url',
 );
 
+const testPerson = Person(
+  id: 'person-1',
+  name: {SupportedLanguage.en: 'Test Person'},
+  description: {SupportedLanguage.en: 'desc'},
+);
+
 final testHeadline = Headline(
   id: 'headline-1',
   title: const {SupportedLanguage.en: 'Test Headline'},
   source: testSource,
-  eventCountry: testCountry,
+  mentionedCountries: const [testCountry],
+  mentionedPersons: const [testPerson],
   topic: testTopic,
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -159,6 +167,7 @@ void main() {
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Topic> topicsRepository;
     late MockDataRepository<Country> countriesRepository;
+    late MockDataRepository<Person> personsRepository;
     late MockMediaRepository mediaRepository;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
@@ -170,6 +179,7 @@ void main() {
       sourcesRepository = MockDataRepository<Source>();
       topicsRepository = MockDataRepository<Topic>();
       countriesRepository = MockDataRepository<Country>();
+      personsRepository = MockDataRepository<Person>();
       mediaRepository = MockMediaRepository();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
@@ -219,6 +229,9 @@ void main() {
           RepositoryProvider<DataRepository<Country>>.value(
             value: countriesRepository,
           ),
+          RepositoryProvider<DataRepository<Person>>.value(
+            value: personsRepository,
+          ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
           ),
@@ -257,10 +270,7 @@ void main() {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
       final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
 
-      final titleFieldFinder = find.widgetWithText(
-        TextFormField,
-        '${l10n.headlineTitle} (${l10n.languageNameEn})',
-      );
+      final titleFieldFinder = find.byType(LocalizedTextFormField);
       final urlFieldFinder = find.widgetWithText(
         TextFormField,
         l10n.sourceUrl,
@@ -273,6 +283,7 @@ void main() {
       expect(find.byType(SearchableSelectionInput<Source>), findsOneWidget);
       expect(find.byType(SearchableSelectionInput<Topic>), findsOneWidget);
       expect(find.byType(SearchableSelectionInput<Country>), findsOneWidget);
+      expect(find.byType(SearchableSelectionInput<Person>), findsOneWidget);
     });
 
     group('form interactions', () {
@@ -283,11 +294,7 @@ void main() {
           () => createHeadlineBloc.state,
         ).thenReturn(const CreateHeadlineState());
         await tester.pumpApp(buildSubject(), goRouter: goRouter);
-        final l10n = AppLocalizations.of(tester.element(find.byType(Scaffold)));
-        final titleFieldFinder = find.widgetWithText(
-          TextFormField,
-          '${l10n.headlineTitle} (${l10n.languageNameEn})',
-        );
+        final titleFieldFinder = find.byType(LocalizedTextFormField);
         await tester.enterText(titleFieldFinder, 'New Title');
         verify(
           () => createHeadlineBloc.add(
@@ -321,13 +328,7 @@ void main() {
           await tester.pumpAndSettle();
 
           // Find the text field which should now be for Spanish
-          final l10n = AppLocalizations.of(
-            tester.element(find.byType(Scaffold)),
-          );
-          final titleFieldFinder = find.widgetWithText(
-            TextFormField,
-            '${l10n.headlineTitle} (${l10n.languageNameEs})',
-          );
+          final titleFieldFinder = find.byType(LocalizedTextFormField);
           expect(titleFieldFinder, findsOneWidget);
           await tester.enterText(titleFieldFinder, 'Título');
 
@@ -455,6 +456,86 @@ void main() {
       });
     });
 
+    group('AI Enrichment Indicators', () {
+      testWidgets('shows indicator for enriched topic', (tester) async {
+        when(() => createHeadlineBloc.state).thenReturn(
+          CreateHeadlineState(topic: testTopic, wasTopicEnriched: true),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        expect(find.byIcon(Icons.auto_awesome), findsOneWidget);
+      });
+
+      testWidgets('does not show indicator for manually selected topic', (
+        tester,
+      ) async {
+        when(() => createHeadlineBloc.state).thenReturn(
+          CreateHeadlineState(topic: testTopic, wasTopicEnriched: false),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        expect(find.byIcon(Icons.auto_awesome), findsNothing);
+      });
+
+      testWidgets('shows indicator for enriched countries', (tester) async {
+        when(() => createHeadlineBloc.state).thenReturn(
+          const CreateHeadlineState(
+            mentionedCountries: [testCountry],
+            wereCountriesEnriched: true,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        expect(find.byIcon(Icons.auto_awesome), findsOneWidget);
+      });
+
+      testWidgets('shows indicator for enriched persons', (tester) async {
+        when(() => createHeadlineBloc.state).thenReturn(
+          const CreateHeadlineState(
+            mentionedPersons: [testPerson],
+            werePersonsEnriched: true,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        expect(find.byIcon(Icons.auto_awesome), findsOneWidget);
+      });
+
+      testWidgets('AI enrichment button is disabled when successful', (
+        tester,
+      ) async {
+        when(() => createHeadlineBloc.state).thenReturn(
+          const CreateHeadlineState(
+            title: {SupportedLanguage.en: 'A title'},
+            isEnrichmentSuccessful: true,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        final enrichmentButton = tester.widget<IconButton>(
+          find.widgetWithIcon(IconButton, Icons.auto_fix_high),
+        );
+        expect(enrichmentButton.onPressed, isNull);
+      });
+
+      testWidgets('AI enrichment button is enabled when not yet successful', (
+        tester,
+      ) async {
+        when(() => createHeadlineBloc.state).thenReturn(
+          const CreateHeadlineState(
+            title: {SupportedLanguage.en: 'A title'},
+            isEnrichmentSuccessful: false,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        final enrichmentButton = tester.widget<IconButton>(
+          find.widgetWithIcon(IconButton, Icons.auto_fix_high),
+        );
+        expect(enrichmentButton.onPressed, isNotNull);
+      });
+    });
+
     group('submission status', () {
       testWidgets('shows progress indicator when state is imageUploading', (
         tester,
@@ -557,7 +638,7 @@ void main() {
             imageFileName: 'test.jpg',
             source: testSource,
             topic: testTopic,
-            eventCountry: testCountry,
+            mentionedCountries: const [testCountry],
           ),
         );
 
@@ -580,7 +661,7 @@ void main() {
               imageFileName: 'test.jpg',
               source: testSource,
               topic: testTopic,
-              eventCountry: testCountry,
+              mentionedCountries: const [testCountry],
             ),
           );
 
@@ -613,7 +694,7 @@ void main() {
               imageFileName: 'test.jpg',
               source: testSource,
               topic: testTopic,
-              eventCountry: testCountry,
+              mentionedCountries: const [testCountry],
             ),
           );
 
@@ -646,7 +727,7 @@ void main() {
               imageFileName: 'test.jpg',
               source: testSource,
               topic: testTopic,
-              eventCountry: testCountry,
+              mentionedCountries: const [testCountry],
               isBreaking: true,
             ),
           );
@@ -682,7 +763,7 @@ void main() {
               imageFileName: 'test.jpg',
               source: testSource,
               topic: testTopic,
-              eventCountry: testCountry,
+              mentionedCountries: const [testCountry],
               isBreaking: true,
             ),
           );
