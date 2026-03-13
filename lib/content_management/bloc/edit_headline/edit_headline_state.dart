@@ -24,7 +24,8 @@ final class EditHeadlineState extends Equatable {
     this.imageFileName,
     this.source,
     this.topic,
-    this.eventCountry,
+    this.mentionedCountries = const [],
+    this.mentionedPersons = const [],
     this.exception,
     this.isBreaking = false,
     this.updatedHeadline,
@@ -44,7 +45,8 @@ final class EditHeadlineState extends Equatable {
   final String? imageFileName;
   final Source? source;
   final Topic? topic;
-  final Country? eventCountry;
+  final List<Country> mentionedCountries;
+  final List<Person> mentionedPersons;
   final HttpException? exception;
   final bool isBreaking;
   final Headline? updatedHeadline;
@@ -67,7 +69,7 @@ final class EditHeadlineState extends Equatable {
         hasImage &&
         source != null &&
         topic != null &&
-        eventCountry != null;
+        mentionedCountries.isNotEmpty;
   }
 
   // isBreaking is not part of form validity for editing, as it doesn't
@@ -83,7 +85,8 @@ final class EditHeadlineState extends Equatable {
     ValueWrapper<String?>? imageFileName,
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
-    ValueGetter<Country?>? eventCountry,
+    List<Country>? mentionedCountries,
+    List<Person>? mentionedPersons,
     bool? isBreaking,
     ValueWrapper<HttpException?>? exception,
     Headline? updatedHeadline,
@@ -109,7 +112,8 @@ final class EditHeadlineState extends Equatable {
           : this.imageFileName,
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
-      eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
+      mentionedCountries: mentionedCountries ?? this.mentionedCountries,
+      mentionedPersons: mentionedPersons ?? this.mentionedPersons,
       isBreaking: isBreaking ?? this.isBreaking,
       exception: exception != null ? exception.value : this.exception,
       updatedHeadline: updatedHeadline ?? this.updatedHeadline,
@@ -132,7 +136,8 @@ final class EditHeadlineState extends Equatable {
     imageFileName,
     source,
     topic,
-    eventCountry,
+    mentionedCountries,
+    mentionedPersons,
     isBreaking,
     exception,
     updatedHeadline,
