@@ -314,7 +314,7 @@ void main() {
         id: '1',
         title: const {SupportedLanguage.en: 'Test Headline'},
         source: FakeSource(),
-        eventCountry: FakeCountry(),
+        mentionedCountries: [FakeCountry()],
         topic: FakeTopic(),
         createdAt: DateTime(2023),
         updatedAt: DateTime(2023),
