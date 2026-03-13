@@ -37,6 +37,9 @@ abstract final class AppConstants {
   /// also used as the undo duration for pending deletions.
   static const Duration kSnackbarDuration = Duration(seconds: 5);
 
+  /// The size (width and height) for images displayed in table rows.
+  static const double kTableRowImageSize = 32;
+
   /// Validates the configuration constants to ensure UI consistency.
   ///
   /// Throws an [AssertionError] if the configuration is invalid.
