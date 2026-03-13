@@ -69,12 +69,20 @@ final class EditHeadlineTopicChanged extends EditHeadlineEvent {
   List<Object?> get props => [topic];
 }
 
-/// Event for when the headline's country is changed.
-final class EditHeadlineCountryChanged extends EditHeadlineEvent {
-  const EditHeadlineCountryChanged(this.country);
-  final Country? country;
+/// Event for when the headline's mentioned countries are changed.
+final class EditHeadlineCountriesChanged extends EditHeadlineEvent {
+  const EditHeadlineCountriesChanged(this.countries);
+  final List<Country> countries;
   @override
-  List<Object?> get props => [country];
+  List<Object?> get props => [countries];
+}
+
+/// Event for when the headline's mentioned persons are changed.
+final class EditHeadlinePersonsChanged extends EditHeadlineEvent {
+  const EditHeadlinePersonsChanged(this.persons);
+  final List<Person> persons;
+  @override
+  List<Object?> get props => [persons];
 }
 
 /// Event to save the headline as a draft.
