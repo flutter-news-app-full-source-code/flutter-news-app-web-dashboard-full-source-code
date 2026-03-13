@@ -152,10 +152,6 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                             label: Text(l10n.sourceName),
                             size: ColumnSize.S,
                           ),
-                        if (!isMobile)
-                          DataColumn2(
-                            label: Text(l10n.mentions),
-                          ),
                         DataColumn2(
                           label: Text(l10n.lastUpdated),
                           size: ColumnSize.S,
@@ -332,52 +328,6 @@ class _HeadlinesDataSource extends DataTableSource {
                         child: const Icon(Icons.source, size: 16),
                       ),
               ),
-            ),
-          ),
-        if (!isMobile)
-          DataCell(
-            Row(
-              children: [
-                ...headline.mentionedCountries.map(
-                  (country) => Padding(
-                    padding: const EdgeInsets.only(right: AppSpacing.xs),
-                    child: Tooltip(
-                      message: country.name.getValue(context),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(AppSpacing.xs),
-                        child: Image.network(
-                          country.flagUrl,
-                          width: 24,
-                          height: 16,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.flag, size: 16),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                ...headline.mentionedPersons.map(
-                  (person) => Padding(
-                    padding: const EdgeInsets.only(right: AppSpacing.xs),
-                    child: Tooltip(
-                      message: person.name.getValue(context),
-                      child: CircleAvatar(
-                        radius: 12,
-                        backgroundImage: person.imageUrl != null
-                            ? NetworkImage(person.imageUrl!)
-                            : null,
-                        child: person.imageUrl == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 12,
-                              )
-                            : null,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         DataCell(
