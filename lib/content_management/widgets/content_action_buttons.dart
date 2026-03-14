@@ -213,8 +213,7 @@ class ContentActionButtons extends StatelessWidget {
     } else if (item is Topic) {
       itemType = l10n.topic.toLowerCase();
     } else if (item is Person) {
-      itemType = l10n.persons
-          .toLowerCase();
+      itemType = l10n.persons.toLowerCase();
     } else {
       itemType = l10n.source.toLowerCase();
     }

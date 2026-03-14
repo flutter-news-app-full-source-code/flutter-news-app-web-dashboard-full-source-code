@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart' show PersonsFilterBloc;
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart'
+    show PersonsFilterBloc;
 
 /// Base class for all events related to the [PersonsFilterBloc].
 sealed class PersonsFilterEvent extends Equatable {

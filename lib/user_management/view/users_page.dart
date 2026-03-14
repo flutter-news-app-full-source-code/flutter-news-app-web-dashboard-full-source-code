@@ -122,9 +122,9 @@ class _UsersPageState extends State<UsersPage> {
               // Analytics Dashboard Strip
               const AnalyticsDashboardStrip(
                 kpiCards: [
-                  KpiCardId.usersTotalRegistered,
                   KpiCardId.usersNewRegistrations,
                   KpiCardId.usersActiveUsers,
+                  KpiCardId.usersTotalRegistered,
                 ],
                 chartCards: [
                   ChartCardId.usersRegistrationsOverTime,
