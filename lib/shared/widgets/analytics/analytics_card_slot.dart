@@ -6,7 +6,6 @@ import 'package:verity_dashboard/shared/widgets/analytics/analytics_card_shell.d
 import 'package:verity_dashboard/shared/widgets/analytics/chart_card.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/kpi_card.dart';
 import 'package:verity_dashboard/shared/widgets/analytics/ranked_list_card.dart';
-// TODO(you): The hardcoded "No data available" string should be replaced with a key from your AppLocalizations, e.g., `context.l10n.noDataAvailable`.
 
 /// {@template analytics_card_slot}
 /// A widget that manages a slot containing multiple analytics cards.
@@ -172,7 +171,7 @@ String _getTitleForCardId(Enum id) {
   }
 
   // Split the enum name by capital letters to separate words.
-  final parts = enumName.split(RegExp(r'(?=[A-Z])'));
+  final parts = enumName.split(RegExp('(?=[A-Z])'));
 
   if (parts.isEmpty) {
     return '';
