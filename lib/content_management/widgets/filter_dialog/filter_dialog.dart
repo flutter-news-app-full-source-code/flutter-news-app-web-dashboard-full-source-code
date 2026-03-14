@@ -231,9 +231,16 @@ class _FilterDialogState extends State<FilterDialog> {
     ThemeData theme,
     FilterDialogState filterDialogState,
   ) {
+    final statuses = ContentStatus.values.where((status) {
+      if (status == ContentStatus.ingested) {
+        return widget.activeTab == ContentManagementTab.headlines;
+      }
+      return true;
+    }).toList();
+
     return Wrap(
       spacing: AppSpacing.sm,
-      children: ContentStatus.values.map((status) {
+      children: statuses.map((status) {
         return ChoiceChip(
           label: Text(status.l10n(context)),
           selected: filterDialogState.selectedStatus == status,
