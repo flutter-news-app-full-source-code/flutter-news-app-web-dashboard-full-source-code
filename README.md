@@ -44,7 +44,7 @@ A centralized command center providing a real-time pulse on your entire news ope
 
 </details>
 
- <details open>
+ <details>
  <summary><strong>🧠 AI-Powered Content & Editorial Operations</strong></summary>
 
  ### 🧠 AI-First Editorial Intelligence
