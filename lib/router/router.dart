@@ -14,13 +14,16 @@ import 'package:verity_dashboard/community_management/view/community_management_
 import 'package:verity_dashboard/community_management/widgets/community_filter_dialog/community_filter_dialog.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/view/content_management_page.dart';
 import 'package:verity_dashboard/content_management/view/create_headline_page.dart';
+import 'package:verity_dashboard/content_management/view/create_person_page.dart';
 import 'package:verity_dashboard/content_management/view/create_source_page.dart';
 import 'package:verity_dashboard/content_management/view/create_topic_page.dart';
 import 'package:verity_dashboard/content_management/view/edit_headline_page.dart';
+import 'package:verity_dashboard/content_management/view/edit_person_page.dart';
 import 'package:verity_dashboard/content_management/view/edit_source_page.dart';
 import 'package:verity_dashboard/content_management/view/edit_topic_page.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
@@ -271,6 +274,19 @@ GoRouter createRouter({
                       return EditSourcePage(sourceId: sourceId);
                     },
                   ),
+                  GoRoute(
+                    path: Routes.createPerson,
+                    name: Routes.createPersonName,
+                    builder: (context, state) => const CreatePersonPage(),
+                  ),
+                  GoRoute(
+                    path: Routes.editPerson,
+                    name: Routes.editPersonName,
+                    builder: (context, state) {
+                      final personId = state.pathParameters['id']!;
+                      return EditPersonPage(personId: personId);
+                    },
+                  ),
                   // Moved searchableSelection as a sub-route of content-management
                   GoRoute(
                     path: Routes.searchableSelection,
@@ -326,6 +342,9 @@ GoRouter createRouter({
                                           .state,
                                       sourcesFilterState: providerContext
                                           .read<SourcesFilterBloc>()
+                                          .state,
+                                      personsFilterState: providerContext
+                                          .read<PersonsFilterBloc>()
                                           .state,
                                     ),
                                   );

@@ -92,6 +92,18 @@ abstract final class Routes {
   /// The name for the edit source page route.
   static const String editSourceName = 'editSource';
 
+  /// The path for creating a new person.
+  static const String createPerson = 'create-person';
+
+  /// The name for the create person page route.
+  static const String createPersonName = 'createPerson';
+
+  /// The path for editing an existing person.
+  static const String editPerson = 'edit-person/:id';
+
+  /// The name for the edit person page route.
+  static const String editPersonName = 'editPerson';
+
   /// The path for the app configuration page.
   static const String appConfiguration = '/app-configuration';
 
