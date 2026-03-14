@@ -10,6 +10,8 @@ enum CreateTopicStatus {
   imageUploadFailure,
   entitySubmitting,
   entitySubmitFailure,
+  enriching,
+  enrichmentFailure,
 }
 
 /// The state for the [CreateTopicBloc].
@@ -26,6 +28,9 @@ final class CreateTopicState extends Equatable {
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
     SupportedLanguage? selectedLanguage,
+    this.isEnrichmentSuccessful = false,
+    this.wasNameEnriched = false,
+    this.wasDescriptionEnriched = false,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateTopicStatus status;
@@ -38,6 +43,9 @@ final class CreateTopicState extends Equatable {
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
+  final bool isEnrichmentSuccessful;
+  final bool wasNameEnriched;
+  final bool wasDescriptionEnriched;
 
   /// Returns true if the form is valid and can be submitted.
   /// Based on the Topic model, name, description, and iconUrl are required.
@@ -58,6 +66,9 @@ final class CreateTopicState extends Equatable {
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
+    bool? isEnrichmentSuccessful,
+    bool? wasNameEnriched,
+    bool? wasDescriptionEnriched,
   }) {
     return CreateTopicState(
       status: status ?? this.status,
@@ -74,6 +85,11 @@ final class CreateTopicState extends Equatable {
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      isEnrichmentSuccessful:
+          isEnrichmentSuccessful ?? this.isEnrichmentSuccessful,
+      wasNameEnriched: wasNameEnriched ?? this.wasNameEnriched,
+      wasDescriptionEnriched:
+          wasDescriptionEnriched ?? this.wasDescriptionEnriched,
     );
   }
 
@@ -89,5 +105,8 @@ final class CreateTopicState extends Equatable {
     enabledLanguages,
     defaultLanguage,
     selectedLanguage,
+    isEnrichmentSuccessful,
+    wasNameEnriched,
+    wasDescriptionEnriched,
   ];
 }

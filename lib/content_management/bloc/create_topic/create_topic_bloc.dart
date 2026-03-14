@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 
 part 'create_topic_event.dart';
 part 'create_topic_state.dart';
@@ -20,9 +21,11 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   CreateTopicBloc({
     required DataRepository<Topic> topicsRepository,
     required MediaRepository mediaRepository,
+    required EnrichmentRepository enrichmentRepository,
     required Logger logger,
   }) : _topicsRepository = topicsRepository,
        _mediaRepository = mediaRepository,
+       _enrichmentRepository = enrichmentRepository,
        _logger = logger,
        super(const CreateTopicState()) {
     on<CreateTopicInitialized>(_onInitialized);
@@ -33,10 +36,12 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     on<CreateTopicSavedAsDraft>(_onSavedAsDraft);
     on<CreateTopicPublished>(_onPublished);
     on<CreateTopicLanguageTabChanged>(_onLanguageTabChanged);
+    on<CreateTopicEnrichmentRequested>(_onEnrichmentRequested);
   }
 
   final DataRepository<Topic> _topicsRepository;
   final MediaRepository _mediaRepository;
+  final EnrichmentRepository _enrichmentRepository;
   final Logger _logger;
   final _uuid = const Uuid();
 
@@ -59,7 +64,13 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     Emitter<CreateTopicState> emit,
   ) {
     _logger.fine('Name changed: ${event.name}');
-    emit(state.copyWith(name: event.name));
+    emit(
+      state.copyWith(
+        name: event.name,
+        wasNameEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onDescriptionChanged(
@@ -67,7 +78,13 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
     Emitter<CreateTopicState> emit,
   ) {
     _logger.fine('Description changed: ${event.description}');
-    emit(state.copyWith(description: event.description));
+    emit(
+      state.copyWith(
+        description: event.description,
+        wasDescriptionEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onLanguageTabChanged(
@@ -119,6 +136,47 @@ class CreateTopicBloc extends Bloc<CreateTopicEvent, CreateTopicState> {
   ) async {
     _logger.info('Publishing topic...');
     await _submitTopic(emit, status: ContentStatus.active);
+  }
+
+  Future<void> _onEnrichmentRequested(
+    CreateTopicEnrichmentRequested event,
+    Emitter<CreateTopicState> emit,
+  ) async {
+    _logger.info('AI Enrichment requested for topic...');
+    emit(state.copyWith(status: CreateTopicStatus.enriching));
+
+    try {
+      final now = DateTime.now();
+      final partial = Topic(
+        id: _uuid.v4(),
+        name: state.name,
+        description: state.description,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      final enriched = await _enrichmentRepository.enrichTopic(partial);
+
+      emit(
+        state.copyWith(
+          status: CreateTopicStatus.initial,
+          name: enriched.name,
+          description: enriched.description,
+          isEnrichmentSuccessful: true,
+          wasNameEnriched: true,
+          wasDescriptionEnriched: true,
+        ),
+      );
+    } on HttpException catch (e) {
+      _logger.severe('Topic enrichment failed.', e);
+      emit(
+        state.copyWith(
+          status: CreateTopicStatus.enrichmentFailure,
+          exception: ValueWrapper(e),
+        ),
+      );
+    }
   }
 
   /// Orchestrates the two-stage process of creating a topic.

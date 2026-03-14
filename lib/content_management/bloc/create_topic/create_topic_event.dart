@@ -72,3 +72,8 @@ final class CreateTopicLanguageTabChanged extends CreateTopicEvent {
   @override
   List<Object?> get props => [language];
 }
+
+/// Event to request AI enrichment for the current topic data.
+final class CreateTopicEnrichmentRequested extends CreateTopicEvent {
+  const CreateTopicEnrichmentRequested();
+}
