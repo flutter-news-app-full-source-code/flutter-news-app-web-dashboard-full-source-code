@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:equatable/equatable.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/shared/constants/app_constants.dart';
@@ -23,6 +24,9 @@ enum ContentManagementTab {
 
   /// Represents the Sources tab.
   sources,
+
+  /// Represents the Persons tab.
+  persons,
 }
 
 class ContentManagementBloc
@@ -31,16 +35,20 @@ class ContentManagementBloc
     required DataRepository<Headline> headlinesRepository,
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
+    required DataRepository<Person> personsRepository,
     required HeadlinesFilterBloc headlinesFilterBloc,
     required TopicsFilterBloc topicsFilterBloc,
     required SourcesFilterBloc sourcesFilterBloc,
+    required PersonsFilterBloc personsFilterBloc,
     required PendingDeletionsService pendingDeletionsService,
   }) : _headlinesRepository = headlinesRepository,
        _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
+       _personsRepository = personsRepository,
        _headlinesFilterBloc = headlinesFilterBloc,
        _topicsFilterBloc = topicsFilterBloc,
        _sourcesFilterBloc = sourcesFilterBloc,
+       _personsFilterBloc = personsFilterBloc,
        _pendingDeletionsService = pendingDeletionsService,
        super(const ContentManagementState()) {
     on<ContentManagementLanguageChanged>(_onLanguageChanged);
@@ -67,6 +75,13 @@ class ContentManagementBloc
     on<RestoreSourceRequested>(_onRestoreSourceRequested);
     on<DeleteSourceForeverRequested>(_onDeleteSourceForeverRequested);
     on<UndoDeleteSourceRequested>(_onUndoDeleteSourceRequested);
+
+    on<LoadPersonsRequested>(_onLoadPersonsRequested);
+    on<ArchivePersonRequested>(_onArchivePersonRequested);
+    on<PublishPersonRequested>(_onPublishPersonRequested);
+    on<RestorePersonRequested>(_onRestorePersonRequested);
+    on<DeletePersonForeverRequested>(_onDeletePersonForeverRequested);
+    on<UndoDeletePersonRequested>(_onUndoDeletePersonRequested);
 
     _headlineUpdateSubscription = _headlinesRepository.entityUpdated
         .where((type) => type == Headline)
@@ -104,6 +119,17 @@ class ContentManagementBloc
           );
         });
 
+    _personUpdateSubscription = _personsRepository.entityUpdated
+        .where((type) => type == Person)
+        .listen((_) {
+          add(
+            const LoadPersonsRequested(
+              limit: kDefaultRowsPerPage,
+              forceRefresh: true,
+            ),
+          );
+        });
+
     _deletionEventsSubscription = _pendingDeletionsService.deletionEvents
         .listen(
           (event) => add(DeletionEventReceived(event)),
@@ -113,14 +139,17 @@ class ContentManagementBloc
   final DataRepository<Headline> _headlinesRepository;
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
+  final DataRepository<Person> _personsRepository;
   final HeadlinesFilterBloc _headlinesFilterBloc;
   final TopicsFilterBloc _topicsFilterBloc;
   final SourcesFilterBloc _sourcesFilterBloc;
+  final PersonsFilterBloc _personsFilterBloc;
   final PendingDeletionsService _pendingDeletionsService;
 
   late final StreamSubscription<Type> _headlineUpdateSubscription;
   late final StreamSubscription<Type> _topicUpdateSubscription;
   late final StreamSubscription<Type> _sourceUpdateSubscription;
+  late final StreamSubscription<Type> _personUpdateSubscription;
   late final StreamSubscription<DeletionEvent<dynamic>>
   _deletionEventsSubscription;
 
@@ -129,6 +158,7 @@ class ContentManagementBloc
     _headlineUpdateSubscription.cancel();
     _topicUpdateSubscription.cancel();
     _sourceUpdateSubscription.cancel();
+    _personUpdateSubscription.cancel();
     _deletionEventsSubscription.cancel();
     return super.close();
   }
@@ -148,9 +178,11 @@ class ContentManagementBloc
         headlines: [],
         topics: [],
         sources: [],
+        persons: [],
         headlinesStatus: ContentManagementStatus.initial,
         topicsStatus: ContentManagementStatus.initial,
         sourcesStatus: ContentManagementStatus.initial,
+        personsStatus: ContentManagementStatus.initial,
       ),
     );
 
@@ -166,6 +198,12 @@ class ContentManagementBloc
     );
     add(
       const LoadSourcesRequested(
+        limit: kDefaultRowsPerPage,
+        forceRefresh: true,
+      ),
+    );
+    add(
+      const LoadPersonsRequested(
         limit: kDefaultRowsPerPage,
         forceRefresh: true,
       ),
@@ -773,6 +811,186 @@ class ContentManagementBloc
     _pendingDeletionsService.undoDeletion(event.id);
   }
 
+  Future<void> _onLoadPersonsRequested(
+    LoadPersonsRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    if (state.personsStatus == ContentManagementStatus.success &&
+        state.persons.isNotEmpty &&
+        event.startAfterId == null &&
+        !event.forceRefresh &&
+        event.filter == null) {
+      return;
+    }
+
+    emit(state.copyWith(personsStatus: ContentManagementStatus.loading));
+    try {
+      final isPaginating = event.startAfterId != null;
+      final previousPersons = isPaginating ? state.persons : <Person>[];
+
+      final filter = event.filter ?? _personsFilterBloc.buildFilterMap();
+
+      final paginatedPersons = await _personsRepository.readAll(
+        filter: filter,
+        sort: [const SortOption('updatedAt', SortOrder.desc)],
+        pagination: PaginationOptions(
+          cursor: event.startAfterId,
+          limit: event.limit,
+        ),
+      );
+
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.success,
+          persons: [...previousPersons, ...paginatedPersons.items],
+          personsCursor: paginatedPersons.cursor,
+          personsHasMore: paginatedPersons.hasMore,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onArchivePersonRequested(
+    ArchivePersonRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    try {
+      final personToUpdate = state.persons.firstWhere((p) => p.id == event.id);
+      await _personsRepository.update(
+        id: event.id,
+        item: personToUpdate.copyWith(status: ContentStatus.archived),
+      );
+      add(
+        const LoadPersonsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onPublishPersonRequested(
+    PublishPersonRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    try {
+      final personToUpdate = state.persons.firstWhere((p) => p.id == event.id);
+      await _personsRepository.update(
+        id: event.id,
+        item: personToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        const LoadPersonsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onRestorePersonRequested(
+    RestorePersonRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    try {
+      final personToUpdate = state.persons.firstWhere((p) => p.id == event.id);
+      await _personsRepository.update(
+        id: event.id,
+        item: personToUpdate.copyWith(status: ContentStatus.active),
+      );
+      add(
+        const LoadPersonsRequested(
+          limit: kDefaultRowsPerPage,
+          forceRefresh: true,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: e,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          personsStatus: ContentManagementStatus.failure,
+          exception: UnknownException('An unexpected error occurred: $e'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onDeletePersonForeverRequested(
+    DeletePersonForeverRequested event,
+    Emitter<ContentManagementState> emit,
+  ) async {
+    final personToDelete = state.persons.firstWhere((p) => p.id == event.id);
+    final updatedPersons = List<Person>.from(state.persons)
+      ..removeWhere((p) => p.id == event.id);
+    emit(
+      state.copyWith(
+        persons: updatedPersons,
+        lastPendingDeletionId: event.id,
+        itemPendingDeletion: personToDelete,
+      ),
+    );
+    _pendingDeletionsService.requestDeletion(
+      item: personToDelete,
+      repository: _personsRepository,
+      undoDuration: AppConstants.kSnackbarDuration,
+    );
+  }
+
+  void _onUndoDeletePersonRequested(
+    UndoDeletePersonRequested event,
+    Emitter<ContentManagementState> emit,
+  ) {
+    _pendingDeletionsService.undoDeletion(event.id);
+  }
+
   /// Handles deletion events from the [PendingDeletionsService].
   ///
   /// This method is responsible for updating the BLoC state based on whether
@@ -831,6 +1049,17 @@ class ContentManagementBloc
             state.copyWith(
               sources: updatedSources,
               lastPendingDeletionId: null, // Clear the pending ID
+              itemPendingDeletion: null,
+            ),
+          );
+        } else if (item is Person) {
+          final updatedPersons = List<Person>.from(state.persons)
+            ..add(item)
+            ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+          emit(
+            state.copyWith(
+              persons: updatedPersons,
+              lastPendingDeletionId: null,
               itemPendingDeletion: null,
             ),
           );

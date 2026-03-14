@@ -34,6 +34,10 @@ class ContentManagementState extends Equatable {
     this.sources = const [],
     this.sourcesCursor,
     this.sourcesHasMore = false,
+    this.personsStatus = ContentManagementStatus.initial,
+    this.persons = const [],
+    this.personsCursor,
+    this.personsHasMore = false,
     this.exception,
     this.lastPendingDeletionId,
     this.itemPendingDeletion,
@@ -78,6 +82,18 @@ class ContentManagementState extends Equatable {
   /// Indicates if there are more sources available to load.
   final bool sourcesHasMore;
 
+  /// The status of the persons loading operation.
+  final ContentManagementStatus personsStatus;
+
+  /// The list of persons currently displayed.
+  final List<Person> persons;
+
+  /// The cursor for fetching the next page of persons.
+  final String? personsCursor;
+
+  /// Indicates if there are more persons available to load.
+  final bool personsHasMore;
+
   /// The exception encountered during a failed operation, if any.
   final HttpException? exception;
 
@@ -104,6 +120,10 @@ class ContentManagementState extends Equatable {
     List<Source>? sources,
     String? sourcesCursor,
     bool? sourcesHasMore,
+    ContentManagementStatus? personsStatus,
+    List<Person>? persons,
+    String? personsCursor,
+    bool? personsHasMore,
     HttpException? exception,
     String? lastPendingDeletionId,
     FeedItem? itemPendingDeletion,
@@ -122,6 +142,10 @@ class ContentManagementState extends Equatable {
       sources: sources ?? this.sources,
       sourcesCursor: sourcesCursor ?? this.sourcesCursor,
       sourcesHasMore: sourcesHasMore ?? this.sourcesHasMore,
+      personsStatus: personsStatus ?? this.personsStatus,
+      persons: persons ?? this.persons,
+      personsCursor: personsCursor ?? this.personsCursor,
+      personsHasMore: personsHasMore ?? this.personsHasMore,
       exception: exception,
       lastPendingDeletionId: lastPendingDeletionId,
       itemPendingDeletion: itemPendingDeletion,
@@ -143,6 +167,10 @@ class ContentManagementState extends Equatable {
     sources,
     sourcesCursor,
     sourcesHasMore,
+    personsStatus,
+    persons,
+    personsCursor,
+    personsHasMore,
     exception,
     lastPendingDeletionId,
     itemPendingDeletion,
