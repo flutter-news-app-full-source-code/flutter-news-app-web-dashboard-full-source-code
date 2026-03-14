@@ -27,6 +27,11 @@ final class ContentManagementLanguageChanged extends ContentManagementEvent {
   List<Object?> get props => [language];
 }
 
+/// Event to request a manual refresh of the currently active tab.
+final class ContentManagementRefreshRequested extends ContentManagementEvent {
+  const ContentManagementRefreshRequested();
+}
+
 /// Event to request loading of headlines.
 final class LoadHeadlinesRequested extends ContentManagementEvent {
   const LoadHeadlinesRequested({

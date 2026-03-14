@@ -53,6 +53,7 @@ class ContentManagementBloc
        super(const ContentManagementState()) {
     on<ContentManagementLanguageChanged>(_onLanguageChanged);
     on<ContentManagementTabChanged>(_onContentManagementTabChanged);
+    on<ContentManagementRefreshRequested>(_onRefreshRequested);
 
     on<LoadHeadlinesRequested>(_onLoadHeadlinesRequested);
     on<ArchiveHeadlineRequested>(_onArchiveHeadlineRequested);
@@ -215,6 +216,42 @@ class ContentManagementBloc
     Emitter<ContentManagementState> emit,
   ) {
     emit(state.copyWith(activeTab: event.tab));
+  }
+
+  void _onRefreshRequested(
+    ContentManagementRefreshRequested event,
+    Emitter<ContentManagementState> emit,
+  ) {
+    switch (state.activeTab) {
+      case ContentManagementTab.headlines:
+        add(
+          const LoadHeadlinesRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ),
+        );
+      case ContentManagementTab.topics:
+        add(
+          const LoadTopicsRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ),
+        );
+      case ContentManagementTab.sources:
+        add(
+          const LoadSourcesRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ),
+        );
+      case ContentManagementTab.persons:
+        add(
+          const LoadPersonsRequested(
+            limit: kDefaultRowsPerPage,
+            forceRefresh: true,
+          ),
+        );
+    }
   }
 
   Future<void> _onLoadHeadlinesRequested(
