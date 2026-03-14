@@ -258,6 +258,13 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                 onPressed: () => context.pushNamed(Routes.contentSyncName),
               ),
             IconButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: l10n.refresh,
+              onPressed: () => context.read<ContentManagementBloc>().add(
+                const ContentManagementRefreshRequested(),
+              ),
+            ),
+            IconButton(
               icon: const Icon(Icons.filter_list),
               tooltip: l10n.filter,
               onPressed: () {
