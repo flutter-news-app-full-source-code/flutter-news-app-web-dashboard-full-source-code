@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
@@ -55,7 +53,6 @@ void main() {
     late MockPersonsFilterBloc personsFilterBloc;
     late MockPendingDeletionsService pendingDeletionsService;
     late MockDataRepository<RemoteConfig> remoteConfigRepository;
-    late MockDataRepository<NewsAutomationTask> automationRepository;
 
     final headlineFixture = Headline(
       id: 'headline-1',
@@ -198,7 +195,6 @@ void main() {
       personsFilterBloc = MockPersonsFilterBloc();
       pendingDeletionsService = MockPendingDeletionsService();
       remoteConfigRepository = MockDataRepository<RemoteConfig>();
-      automationRepository = MockDataRepository<NewsAutomationTask>();
 
       // Default stream stubs
       when(

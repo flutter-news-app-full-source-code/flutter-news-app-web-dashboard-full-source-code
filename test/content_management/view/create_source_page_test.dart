@@ -13,8 +13,8 @@ import 'package:verity_dashboard/app/config/config.dart';
 import 'package:verity_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
 import 'package:verity_dashboard/content_management/view/create_source_page.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 import 'package:verity_dashboard/router/routes.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
 import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
 

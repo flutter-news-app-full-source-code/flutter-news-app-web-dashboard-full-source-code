@@ -3,8 +3,11 @@ import 'dart:typed_data';
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
 import 'package:verity_dashboard/content_management/bloc/create_topic/create_topic_bloc.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 
 import '../../helpers/helpers.dart';
+
+class MockEnrichmentRepository extends Mock implements EnrichmentRepository {}
 
 void main() {
   setUpAll(registerFallbackValues);
@@ -12,6 +15,7 @@ void main() {
   group('CreateTopicBloc', () {
     late DataRepository<Topic> topicsRepository;
     late MediaRepository mediaRepository;
+    late MockEnrichmentRepository enrichmentRepository;
 
     final kTestImageBytes = Uint8List.fromList([1, 2, 3]);
     const kTestImageFileName = 'test.png';
@@ -20,6 +24,7 @@ void main() {
     setUp(() {
       topicsRepository = MockDataRepository<Topic>();
       mediaRepository = MockMediaRepository();
+      enrichmentRepository = MockEnrichmentRepository();
       Logger.root.level = Level.OFF;
 
       when(
@@ -41,6 +46,7 @@ void main() {
       return CreateTopicBloc(
         topicsRepository: topicsRepository,
         mediaRepository: mediaRepository,
+        enrichmentRepository: enrichmentRepository,
         logger: Logger('TestCreateTopicBloc'),
       );
     }

@@ -66,10 +66,13 @@ const testCountry = Country(
   flagUrl: 'url',
 );
 
-const testPerson = Person(
+final testPerson = Person(
   id: 'person-1',
   name: {SupportedLanguage.en: 'Test Person'},
   description: {SupportedLanguage.en: 'desc'},
+  createdAt: DateTime(2023),
+  updatedAt: DateTime(2023),
+  status: ContentStatus.active,
 );
 
 final testHeadline = Headline(
@@ -77,7 +80,7 @@ final testHeadline = Headline(
   title: const {SupportedLanguage.en: 'Test Headline'},
   source: testSource,
   mentionedCountries: const [testCountry],
-  mentionedPersons: const [testPerson],
+  mentionedPersons: [testPerson],
   topic: testTopic,
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
@@ -489,7 +492,7 @@ void main() {
 
       testWidgets('shows indicator for enriched persons', (tester) async {
         when(() => createHeadlineBloc.state).thenReturn(
-          const CreateHeadlineState(
+          CreateHeadlineState(
             mentionedPersons: [testPerson],
             werePersonsEnriched: true,
           ),

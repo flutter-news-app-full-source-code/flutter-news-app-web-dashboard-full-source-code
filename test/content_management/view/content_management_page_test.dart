@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' as go_router;
-import 'package:mocktail/mocktail.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/config.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';

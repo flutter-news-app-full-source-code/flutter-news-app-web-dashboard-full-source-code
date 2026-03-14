@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:verity_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
 import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 
