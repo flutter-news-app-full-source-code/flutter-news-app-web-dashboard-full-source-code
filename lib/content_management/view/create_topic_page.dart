@@ -10,6 +10,7 @@ import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/create_topic/create_topic_bloc.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
 import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
 import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
 
@@ -45,6 +46,7 @@ class CreateTopicPage extends StatelessWidget {
       create: (context) =>
           CreateTopicBloc(
             topicsRepository: context.read<DataRepository<Topic>>(),
+            enrichmentRepository: context.read<EnrichmentRepository>(),
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateTopicBloc'),
           )..add(
@@ -108,7 +110,8 @@ class _CreateTopicViewState extends State<CreateTopicView> {
           BlocBuilder<CreateTopicBloc, CreateTopicState>(
             builder: (context, state) {
               if (state.status == CreateTopicStatus.imageUploading ||
-                  state.status == CreateTopicStatus.entitySubmitting) {
+                  state.status == CreateTopicStatus.entitySubmitting ||
+                  state.status == CreateTopicStatus.enriching) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -118,12 +121,27 @@ class _CreateTopicViewState extends State<CreateTopicView> {
                   ),
                 );
               }
-              return IconButton(
-                icon: const Icon(Icons.save),
-                tooltip: l10n.saveChanges,
-                onPressed: state.isFormValid
-                    ? () => _handleSave(context, state)
-                    : null,
+              return Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.auto_fix_high),
+                    tooltip: l10n.aiEnrichment,
+                    onPressed:
+                        state.name.values.any((v) => v.isNotEmpty) &&
+                            !state.isEnrichmentSuccessful
+                        ? () => context.read<CreateTopicBloc>().add(
+                            const CreateTopicEnrichmentRequested(),
+                          )
+                        : null,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.save),
+                    tooltip: l10n.saveChanges,
+                    onPressed: state.isFormValid
+                        ? () => _handleSave(context, state)
+                        : null,
+                  ),
+                ],
               );
             },
           ),
@@ -142,7 +160,8 @@ class _CreateTopicViewState extends State<CreateTopicView> {
             context.pop();
           }
           if (state.status == CreateTopicStatus.imageUploadFailure ||
-              state.status == CreateTopicStatus.entitySubmitFailure) {
+              state.status == CreateTopicStatus.entitySubmitFailure ||
+              state.status == CreateTopicStatus.enrichmentFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -160,88 +179,145 @@ class _CreateTopicViewState extends State<CreateTopicView> {
         builder: (context, state) {
           return DefaultTabController(
             length: state.enabledLanguages.length,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TabBar(
-                        isScrollable: true,
-                        tabAlignment: TabAlignment.start,
-                        onTap: (index) => context.read<CreateTopicBloc>().add(
-                          CreateTopicLanguageTabChanged(
-                            state.enabledLanguages[index],
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TabBar(
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          onTap: (index) => context.read<CreateTopicBloc>().add(
+                            CreateTopicLanguageTabChanged(
+                              state.enabledLanguages[index],
+                            ),
                           ),
+                          tabs: state.enabledLanguages.map((lang) {
+                            final hasContent =
+                                state.name[lang]?.isNotEmpty ??
+                                state.description[lang]?.isNotEmpty ??
+                                false;
+                            return Tab(
+                              icon: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Image.network(
+                                    lang.flagUrl,
+                                    width: 24,
+                                    errorBuilder: (_, _, _) =>
+                                        const Icon(Icons.flag, size: 16),
+                                  ),
+                                  if (hasContent &&
+                                      state.isEnrichmentSuccessful &&
+                                      lang != state.defaultLanguage)
+                                    Positioned(
+                                      top: -4,
+                                      right: -4,
+                                      child: Icon(
+                                        Icons.auto_awesome,
+                                        size: 12,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
                         ),
-                        tabs: state.enabledLanguages.map((lang) {
-                          return Tab(
-                            icon: Image.network(
-                              lang.flagUrl,
-                              width: 24,
-                              errorBuilder: (_, _, _) =>
-                                  const Icon(Icons.flag, size: 16),
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            LocalizedTextFormField(
+                              label: l10n.topicName,
+                              values: state.name,
+                              enabledLanguages: state.enabledLanguages,
+                              selectedLanguage: state.selectedLanguage,
+                              onChanged: (values) =>
+                                  context.read<CreateTopicBloc>().add(
+                                    CreateTopicNameChanged(values),
+                                  ),
+                              validator: (values) {
+                                if (values?[state.defaultLanguage]?.isEmpty ??
+                                    true) {
+                                  return l10n.defaultLanguageRequired(
+                                    state.defaultLanguage.name.toUpperCase(),
+                                  );
+                                }
+                                return null;
+                              },
                             ),
-                          );
-                        }).toList(),
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      LocalizedTextFormField(
-                        label: l10n.topicName,
-                        values: state.name,
-                        enabledLanguages: state.enabledLanguages,
-                        selectedLanguage: state.selectedLanguage,
-                        onChanged: (values) =>
-                            context.read<CreateTopicBloc>().add(
-                              CreateTopicNameChanged(values),
+                            if (state.wasNameEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            LocalizedTextFormField(
+                              label: l10n.description,
+                              values: state.description,
+                              enabledLanguages: state.enabledLanguages,
+                              selectedLanguage: state.selectedLanguage,
+                              onChanged: (values) =>
+                                  context.read<CreateTopicBloc>().add(
+                                    CreateTopicDescriptionChanged(values),
+                                  ),
+                              validator: (values) {
+                                if (values?[state.defaultLanguage]?.isEmpty ??
+                                    true) {
+                                  return l10n.defaultLanguageRequired(
+                                    state.defaultLanguage.name.toUpperCase(),
+                                  );
+                                }
+                                return null;
+                              },
                             ),
-                        validator: (values) {
-                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                            return l10n.defaultLanguageRequired(
-                              state.defaultLanguage.name.toUpperCase(),
+                            if (state.wasDescriptionEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        ImageUploadField(
+                          onChanged: (Uint8List? bytes, String? fileName) {
+                            final bloc = context.read<CreateTopicBloc>();
+                            if (bytes == null || fileName == null) {
+                              bloc.add(const CreateTopicImageRemoved());
+                              return;
+                            }
+                            bloc.add(
+                              CreateTopicImageChanged(
+                                imageFileBytes: bytes,
+                                imageFileName: fileName,
+                              ),
                             );
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      LocalizedTextFormField(
-                        label: l10n.description,
-                        values: state.description,
-                        enabledLanguages: state.enabledLanguages,
-                        selectedLanguage: state.selectedLanguage,
-                        onChanged: (values) =>
-                            context.read<CreateTopicBloc>().add(
-                              CreateTopicDescriptionChanged(values),
-                            ),
-                        validator: (values) {
-                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                            return l10n.defaultLanguageRequired(
-                              state.defaultLanguage.name.toUpperCase(),
-                            );
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      ImageUploadField(
-                        onChanged: (Uint8List? bytes, String? fileName) {
-                          final bloc = context.read<CreateTopicBloc>();
-                          if (bytes == null || fileName == null) {
-                            bloc.add(const CreateTopicImageRemoved());
-                            return;
-                          }
-                          bloc.add(
-                            CreateTopicImageChanged(
-                              imageFileBytes: bytes,
-                              imageFileName: fileName,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
