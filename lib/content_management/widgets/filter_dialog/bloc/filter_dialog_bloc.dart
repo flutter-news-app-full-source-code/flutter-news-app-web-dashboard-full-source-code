@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_state.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/filter_dialog.dart'
@@ -121,6 +122,16 @@ class FilterDialogBloc extends Bloc<FilterDialogEvent, FilterDialogState> {
               selectedLanguageCodes: sourcesState.selectedLanguageCodes,
               selectedHeadquartersCountryIds:
                   sourcesState.selectedHeadquartersCountryIds,
+            ),
+          );
+        }
+      case ContentManagementTab.persons:
+        final personsState = event.personsFilterState;
+        if (personsState != null) {
+          emit(
+            state.copyWith(
+              searchQuery: personsState.searchQuery,
+              selectedStatus: personsState.selectedStatus,
             ),
           );
         }

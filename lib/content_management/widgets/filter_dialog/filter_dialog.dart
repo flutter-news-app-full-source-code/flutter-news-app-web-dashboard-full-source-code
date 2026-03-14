@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_event.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/widgets/filter_dialog/bloc/filter_dialog_bloc.dart';
@@ -77,6 +79,7 @@ class _FilterDialogState extends State<FilterDialog> {
     final headlinesState = context.read<HeadlinesFilterBloc>().state;
     final topicsState = context.read<TopicsFilterBloc>().state;
     final sourcesState = context.read<SourcesFilterBloc>().state;
+    final personsState = context.read<PersonsFilterBloc>().state;
 
     filterDialogBloc.add(
       FilterDialogInitialized(
@@ -84,6 +87,7 @@ class _FilterDialogState extends State<FilterDialog> {
         headlinesFilterState: headlinesState,
         topicsFilterState: topicsState,
         sourcesFilterState: sourcesState,
+        personsFilterState: personsState,
       ),
     );
   }
@@ -202,6 +206,8 @@ class _FilterDialogState extends State<FilterDialog> {
         return l10n.filterTopics;
       case ContentManagementTab.sources:
         return l10n.filterSources;
+      case ContentManagementTab.persons:
+        return l10n.filterPersons;
     }
   }
 
@@ -214,6 +220,8 @@ class _FilterDialogState extends State<FilterDialog> {
         return l10n.searchByTopicName;
       case ContentManagementTab.sources:
         return l10n.searchBySourceName;
+      case ContentManagementTab.persons:
+        return l10n.searchByPersonName;
     }
   }
 
@@ -397,6 +405,8 @@ class _FilterDialogState extends State<FilterDialog> {
         );
       case ContentManagementTab.topics:
         return const SizedBox.shrink();
+      case ContentManagementTab.persons:
+        return const SizedBox.shrink();
       case ContentManagementTab.sources:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,6 +531,13 @@ class _FilterDialogState extends State<FilterDialog> {
             selectedLanguageCodes: filterDialogState.selectedLanguageCodes,
             selectedHeadquartersCountryIds:
                 filterDialogState.selectedHeadquartersCountryIds,
+          ),
+        );
+      case ContentManagementTab.persons:
+        context.read<PersonsFilterBloc>().add(
+          PersonsFilterApplied(
+            searchQuery: filterDialogState.searchQuery,
+            selectedStatus: filterDialogState.selectedStatus,
           ),
         );
     }
