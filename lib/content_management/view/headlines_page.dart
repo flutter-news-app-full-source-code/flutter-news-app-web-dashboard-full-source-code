@@ -130,9 +130,9 @@ class _HeadlinesPageState extends State<HeadlinesPage> {
                   KpiCardId.contentHeadlinesTotalLikes,
                 ],
                 chartCards: [
+                  ChartCardId.contentHeadlinesViewsByTopic,
                   ChartCardId.contentHeadlinesViewsOverTime,
                   ChartCardId.contentHeadlinesLikesOverTime,
-                  ChartCardId.contentHeadlinesViewsByTopic,
                 ],
               ),
               if (state.headlinesStatus == ContentManagementStatus.loading &&
