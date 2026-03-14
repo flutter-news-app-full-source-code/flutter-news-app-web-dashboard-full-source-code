@@ -29,7 +29,7 @@ dependencies:
   core_ui:
     git:
       url: https://github.com/veritai-news/core-ui.git
-      ref: 10e864e60f035cc2c15198b283ca36dc45e8df3d
+      ref: cf364e1677d9ab8991ff319003675c571818d859
   data_table_2: ^2.6.0
   dotted_border: ^3.1.0
   equatable: ^2.0.7

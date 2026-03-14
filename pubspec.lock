@@ -118,8 +118,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "10e864e60f035cc2c15198b283ca36dc45e8df3d"
-      resolved-ref: "10e864e60f035cc2c15198b283ca36dc45e8df3d"
+      ref: cf364e1677d9ab8991ff319003675c571818d859
+      resolved-ref: cf364e1677d9ab8991ff319003675c571818d859
       url: "https://github.com/veritai-news/core-ui.git"
     source: git
     version: "2.0.0"
