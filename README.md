@@ -44,15 +44,25 @@ A centralized command center providing a real-time pulse on your entire news ope
 
 </details>
 
-<details>
-<summary><strong>✍️ Content & Editorial Management</strong></summary>
+ <details open>
+ <summary><strong>🧠 AI-Powered Content & Editorial Operations</strong></summary>
 
-### 📰 Complete Editorial Control
-Manage the entire lifecycle of your content from a single, intuitive interface. This is more than just a database editor; it's a complete content operations hub.
-- **Full Content Lifecycle:** Seamlessly draft, publish, edit, archive, and restore all content assets, including headlines, topics, and news sources.
-- **Multi-Language Content Support:** Create and manage content in multiple languages from a single, unified editor. The dashboard supports full localization for headlines, topics, and sources, ensuring a consistent experience for a global audience.
+ ### 🧠 AI-First Editorial Intelligence
+ Manage the entire lifecycle of your content via an intelligent command 
+ center. This is a high-performance hub supercharged by AI.
+- **One-Click AI Enrichment:** Eliminate manual overhead. Our **AI engine** 
+  instantly extracts metadata from raw inputs—generating localized titles, 
+  assigning topics, and auto-tagging **Persons** and Countries.
+- **Full Asset Lifecycle:** Seamlessly manage Headlines, Topics, Sources, 
+  and key personalities (**Persons**) through a unified, state-aware interface.
+- **Multi-Language AI Support:** The dashboard leverages AI to assist in 
+  creating and managing content across all supported languages, ensuring 
+  consistent global localization with minimal manual effort.
 - **Contextual Performance Metrics:** Make informed editorial decisions with real-time views, likes, and engagement data integrated directly into your content lists.
-> **Your Advantage:** Gain granular control over your entire content pipeline. This centralized system streamlines your editorial workflow, ensures content consistency, and simplifies asset management.
+> **Your Advantage:** The **AI Enrichment** layer transforms the editorial 
+> desk into an orchestration center. By automating metadata extraction and 
+> localization, you reduce time-to-publish while ensuring absolute 
+> precision in your content graph.
 
 </details>
 
