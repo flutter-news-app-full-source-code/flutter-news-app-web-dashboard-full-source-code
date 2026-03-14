@@ -115,12 +115,8 @@ class _AnalyticsDashboardStripState extends State<AnalyticsDashboardStrip> {
             }
 
             // Split the data back into KPI and Chart data lists.
-            final kpiData = allData
-                .sublist(0, widget.kpiCards.length)
-                .cast<KpiCardData>();
-            final chartData = allData
-                .sublist(widget.kpiCards.length)
-                .cast<ChartCardData>();
+            final kpiData = allData.sublist(0, widget.kpiCards.length);
+            final chartData = allData.sublist(widget.kpiCards.length);
 
             return LayoutBuilder(
               builder: (context, constraints) {

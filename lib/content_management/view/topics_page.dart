@@ -116,8 +116,8 @@ class _TopicPageState extends State<TopicPage> {
                   KpiCardId.contentTopicsTotalFollowers,
                 ],
                 chartCards: [
-                  ChartCardId.contentHeadlinesBreakingNewsDistribution,
                   ChartCardId.contentTopicsHeadlinesPublishedOverTime,
+                  ChartCardId.contentHeadlinesBreakingNewsDistribution,
                   ChartCardId.contentTopicsEngagementByTopic,
                 ],
               ),

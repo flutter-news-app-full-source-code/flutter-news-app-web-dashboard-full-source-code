@@ -24,19 +24,27 @@ enum TimeFramePosition {
 /// {@endtemplate}
 class AnalyticsCardShell<T> extends StatelessWidget {
   /// {@macro analytics_card_shell}
-  const AnalyticsCardShell({
+  AnalyticsCardShell({
     required this.title,
     required this.child,
     required this.timeFrames,
-    required this.selectedTimeFrame,
-    required this.onTimeFrameChanged,
-    required this.timeFrameToString,
+    this.selectedTimeFrame,
+    this.onTimeFrameChanged,
+    this.timeFrameToString,
     this.currentSlot,
     this.totalSlots,
     this.onSlotChanged,
     this.timeFramePosition = TimeFramePosition.right,
     super.key,
-  });
+  }) : assert(
+         (timeFrames.isNotEmpty &&
+                 selectedTimeFrame != null &&
+                 onTimeFrameChanged != null &&
+                 timeFrameToString != null) ||
+             timeFrames.isEmpty,
+         'selectedTimeFrame, onTimeFrameChanged, and timeFrameToString '
+         'are required when timeFrames is not empty.',
+       );
 
   /// The title of the card.
   final String title;
@@ -57,13 +65,13 @@ class AnalyticsCardShell<T> extends StatelessWidget {
   final List<T> timeFrames;
 
   /// The currently selected time frame.
-  final T selectedTimeFrame;
+  final T? selectedTimeFrame;
 
   /// Callback when a time frame is selected.
-  final ValueChanged<T> onTimeFrameChanged;
+  final ValueChanged<T>? onTimeFrameChanged;
 
   /// Function to convert the time frame enum to a display string (e.g., "7D").
-  final String Function(T) timeFrameToString;
+  final String Function(T)? timeFrameToString;
 
   /// Determines where the time frame selector is placed.
   final TimeFramePosition timeFramePosition;
@@ -126,31 +134,61 @@ class AnalyticsCardShell<T> extends StatelessWidget {
                   ),
 
                   // --- Right Edge: Time Frame Selector (Conditional) ---
-                  if (timeFramePosition == TimeFramePosition.right) ...[
-                    const SizedBox(width: AppSpacing.sm),
-                    Center(
-                      child: _VerticalTimeFrameSelector<T>(
-                        timeFrames: timeFrames,
-                        selectedTimeFrame: selectedTimeFrame,
-                        onChanged: onTimeFrameChanged,
-                        labelBuilder: timeFrameToString,
-                      ),
+                  if (timeFramePosition == TimeFramePosition.right &&
+                      timeFrames.isNotEmpty)
+                    Builder(
+                      builder: (context) {
+                        final selected = selectedTimeFrame;
+                        final onChanged = onTimeFrameChanged;
+                        final stringify = timeFrameToString;
+                        if (selected != null &&
+                            onChanged != null &&
+                            stringify != null) {
+                          return Row(
+                            children: [
+                              const SizedBox(width: AppSpacing.sm),
+                              Center(
+                                child: _VerticalTimeFrameSelector<T>(
+                                  timeFrames: timeFrames,
+                                  selectedTimeFrame: selected,
+                                  onChanged: onChanged,
+                                  labelBuilder: stringify,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
                     ),
-                  ],
                 ],
               ),
             ),
 
             // --- Bottom Edge: Time Frame Selector (Conditional) ---
-            if (timeFramePosition == TimeFramePosition.bottom) ...[
-              const SizedBox(height: AppSpacing.sm),
-              _HorizontalTimeFrameSelector<T>(
-                timeFrames: timeFrames,
-                selectedTimeFrame: selectedTimeFrame,
-                onChanged: onTimeFrameChanged,
-                labelBuilder: timeFrameToString,
+            if (timeFramePosition == TimeFramePosition.bottom &&
+                timeFrames.isNotEmpty)
+              Builder(
+                builder: (context) {
+                  final selected = selectedTimeFrame;
+                  final onChanged = onTimeFrameChanged;
+                  final stringify = timeFrameToString;
+                  if (selected != null &&
+                      onChanged != null &&
+                      stringify != null) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: AppSpacing.sm),
+                      child: _HorizontalTimeFrameSelector<T>(
+                        timeFrames: timeFrames,
+                        selectedTimeFrame: selected,
+                        onChanged: onChanged,
+                        labelBuilder: stringify,
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
-            ],
           ],
         ),
       ),
