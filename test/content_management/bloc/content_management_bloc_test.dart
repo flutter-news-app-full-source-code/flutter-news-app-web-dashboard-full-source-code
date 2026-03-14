@@ -1,8 +1,13 @@
 import 'dart:async';
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_event.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_state.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/shared/services/pending_deletions_service.dart';
@@ -21,6 +26,10 @@ class MockSourcesFilterBloc
     extends MockBloc<SourcesFilterEvent, SourcesFilterState>
     implements SourcesFilterBloc {}
 
+class MockPersonsFilterBloc
+    extends MockBloc<PersonsFilterEvent, PersonsFilterState>
+    implements PersonsFilterBloc {}
+
 class MockPendingDeletionsService extends Mock
     implements PendingDeletionsService {}
 
@@ -28,12 +37,22 @@ void main() {
   setUpAll(registerFallbackValues);
 
   group('ContentManagementBloc', () {
+    final personFixture = Person(
+      id: 'p1',
+      name: const {SupportedLanguage.en: 'Person 1'},
+      description: const {SupportedLanguage.en: 'Desc'},
+      createdAt: DateTime(2023),
+      updatedAt: DateTime(2023),
+      status: ContentStatus.active,
+    );
     late MockDataRepository<Headline> headlinesRepository;
     late MockDataRepository<Topic> topicsRepository;
     late MockDataRepository<Source> sourcesRepository;
+    late MockDataRepository<Person> personsRepository;
     late MockHeadlinesFilterBloc headlinesFilterBloc;
     late MockTopicsFilterBloc topicsFilterBloc;
     late MockSourcesFilterBloc sourcesFilterBloc;
+    late MockPersonsFilterBloc personsFilterBloc;
     late MockPendingDeletionsService pendingDeletionsService;
     late MockDataRepository<RemoteConfig> remoteConfigRepository;
     late MockDataRepository<NewsAutomationTask> automationRepository;
@@ -172,9 +191,11 @@ void main() {
       headlinesRepository = MockDataRepository<Headline>();
       topicsRepository = MockDataRepository<Topic>();
       sourcesRepository = MockDataRepository<Source>();
+      personsRepository = MockDataRepository<Person>();
       headlinesFilterBloc = MockHeadlinesFilterBloc();
       topicsFilterBloc = MockTopicsFilterBloc();
       sourcesFilterBloc = MockSourcesFilterBloc();
+      personsFilterBloc = MockPersonsFilterBloc();
       pendingDeletionsService = MockPendingDeletionsService();
       remoteConfigRepository = MockDataRepository<RemoteConfig>();
       automationRepository = MockDataRepository<NewsAutomationTask>();
@@ -190,6 +211,9 @@ void main() {
         () => sourcesRepository.entityUpdated,
       ).thenAnswer((_) => const Stream.empty());
       when(
+        () => personsRepository.entityUpdated,
+      ).thenAnswer((_) => const Stream.empty());
+      when(
         () => pendingDeletionsService.deletionEvents,
       ).thenAnswer((_) => const Stream.empty());
 
@@ -201,6 +225,9 @@ void main() {
       when(
         () => sourcesFilterBloc.state,
       ).thenReturn(const SourcesFilterState());
+      when(
+        () => personsFilterBloc.state,
+      ).thenReturn(const PersonsFilterState());
 
       // Default filter building stubs
       when(
@@ -210,6 +237,7 @@ void main() {
       ).thenReturn({});
       when(() => topicsFilterBloc.buildFilterMap()).thenReturn({});
       when(() => sourcesFilterBloc.buildFilterMap()).thenReturn({});
+      when(() => personsFilterBloc.buildFilterMap()).thenReturn({});
 
       // Default remote config stub
       when(
@@ -222,9 +250,11 @@ void main() {
         headlinesRepository: headlinesRepository,
         topicsRepository: topicsRepository,
         sourcesRepository: sourcesRepository,
+        personsRepository: personsRepository,
         headlinesFilterBloc: headlinesFilterBloc,
         topicsFilterBloc: topicsFilterBloc,
         sourcesFilterBloc: sourcesFilterBloc,
+        personsFilterBloc: personsFilterBloc,
         pendingDeletionsService: pendingDeletionsService,
       );
     }
@@ -544,18 +574,6 @@ void main() {
               hasMore: false,
             ),
           );
-          when(
-            () => automationRepository.readAll(
-              filter: any(named: 'filter'),
-              pagination: any(named: 'pagination'),
-            ),
-          ).thenAnswer(
-            (_) async => const PaginatedResponse(
-              items: [],
-              cursor: null,
-              hasMore: false,
-            ),
-          );
           return buildBloc();
         },
         act: (bloc) => bloc.add(const LoadSourcesRequested()),
@@ -688,5 +706,155 @@ void main() {
         },
       );
     });
+
+    group('LoadPersonsRequested', () {
+      blocTest<ContentManagementBloc, ContentManagementState>(
+        'emits loading and success when readAll succeeds',
+        build: () {
+          when(
+            () => personsRepository.readAll(
+              filter: any(named: 'filter'),
+              sort: any(named: 'sort'),
+              pagination: any(named: 'pagination'),
+            ),
+          ).thenAnswer(
+            (_) async => PaginatedResponse(
+              items: [personFixture],
+              cursor: null,
+              hasMore: false,
+            ),
+          );
+          return buildBloc();
+        },
+        act: (bloc) => bloc.add(const LoadPersonsRequested()),
+        expect: () => [
+          const ContentManagementState(
+            personsStatus: ContentManagementStatus.loading,
+          ),
+          ContentManagementState(
+            personsStatus: ContentManagementStatus.success,
+            persons: [personFixture],
+          ),
+        ],
+      );
+    });
+
+    group('ArchivePersonRequested', () {
+      setUp(() {
+        when(
+          () => personsRepository.readAll(
+            filter: any(named: 'filter'),
+            sort: any(named: 'sort'),
+            pagination: any(named: 'pagination'),
+          ),
+        ).thenAnswer(
+          (_) async => PaginatedResponse(
+            items: [personFixture],
+            cursor: null,
+            hasMore: false,
+          ),
+        );
+      });
+
+      blocTest<ContentManagementBloc, ContentManagementState>(
+        'calls update with archived status and reloads',
+        build: () {
+          when(
+            () => personsRepository.update(
+              id: any<String>(named: 'id'),
+              item: any(named: 'item'),
+            ),
+          ).thenAnswer((_) async => personFixture);
+          return buildBloc();
+        },
+        seed: () => ContentManagementState(
+          personsStatus: ContentManagementStatus.success,
+          persons: [personFixture],
+        ),
+        act: (bloc) => bloc.add(ArchivePersonRequested(personFixture.id)),
+        verify: (_) {
+          verify(
+            () => personsRepository.update(
+              id: personFixture.id,
+              item: any(
+                named: 'item',
+                that: isA<Person>().having(
+                  (p) => p.status,
+                  'status',
+                  ContentStatus.archived,
+                ),
+              ),
+            ),
+          ).called(1);
+          verify(
+            () => personsRepository.readAll(
+              filter: any(named: 'filter'),
+              sort: any(named: 'sort'),
+              pagination: any(named: 'pagination'),
+            ),
+          ).called(1);
+        },
+      );
+    });
+
+    group('DeletePersonForeverRequested', () {
+      blocTest<ContentManagementBloc, ContentManagementState>(
+        'optimistically removes item and requests deletion service',
+        build: () {
+          when(
+            () => pendingDeletionsService.requestDeletion(
+              item: any<Person>(named: 'item'),
+              repository: any<DataRepository<Person>>(named: 'repository'),
+              undoDuration: any<Duration>(named: 'undoDuration'),
+            ),
+          ).thenAnswer((_) async {});
+          return buildBloc();
+        },
+        seed: () => ContentManagementState(
+          personsStatus: ContentManagementStatus.success,
+          persons: [personFixture],
+        ),
+        act: (bloc) => bloc.add(DeletePersonForeverRequested(personFixture.id)),
+        expect: () => [
+          ContentManagementState(
+            personsStatus: ContentManagementStatus.success,
+            persons: const [],
+            lastPendingDeletionId: personFixture.id,
+            itemPendingDeletion: personFixture,
+          ),
+        ],
+        verify: (_) {
+          verify(
+            () => pendingDeletionsService.requestDeletion(
+              item: personFixture,
+              repository: any<DataRepository<Person>>(named: 'repository'),
+              undoDuration: any<Duration>(named: 'undoDuration'),
+            ),
+          ).called(1);
+        },
+      );
+    });
+
+    blocTest<ContentManagementBloc, ContentManagementState>(
+      'handles undone deletion for person',
+      build: buildBloc,
+      seed: () => ContentManagementState(
+        persons: const [],
+        lastPendingDeletionId: 'p1',
+        itemPendingDeletion: personFixture,
+      ),
+      act: (bloc) => bloc.add(
+        DeletionEventReceived(
+          DeletionEvent('p1', DeletionStatus.undone, item: personFixture),
+        ),
+      ),
+      expect: () => [
+        ContentManagementState(
+          persons: [personFixture],
+          lastPendingDeletionId: null,
+          itemPendingDeletion: null,
+        ),
+      ],
+    );
   });
 }
