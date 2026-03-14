@@ -4,9 +4,18 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 
 part 'create_source_event.dart';
 part 'create_source_state.dart';
+
+/// A dummy [Country] to satisfy required fields during enrichment.
+const _dummyCountry = Country(
+  id: '507f1f77bcf86cd799439011', // Valid MongoDB ObjectId format
+  isoCode: 'XX',
+  name: {},
+  flagUrl: '',
+);
 
 /// {@template create_source_bloc}
 /// A BLoC to manage the state of creating a new source.
@@ -20,9 +29,11 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
   CreateSourceBloc({
     required DataRepository<Source> sourcesRepository,
     required MediaRepository mediaRepository,
+    required EnrichmentRepository enrichmentRepository,
     required Logger logger,
   }) : _sourcesRepository = sourcesRepository,
        _mediaRepository = mediaRepository,
+       _enrichmentRepository = enrichmentRepository,
        _logger = logger,
        super(const CreateSourceState()) {
     on<CreateSourceInitialized>(_onInitialized);
@@ -37,10 +48,12 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     on<CreateSourceSavedAsDraft>(_onSavedAsDraft);
     on<CreateSourcePublished>(_onPublished);
     on<CreateSourceLanguageTabChanged>(_onLanguageTabChanged);
+    on<CreateSourceEnrichmentRequested>(_onEnrichmentRequested);
   }
 
   final DataRepository<Source> _sourcesRepository;
   final MediaRepository _mediaRepository;
+  final EnrichmentRepository _enrichmentRepository;
   final Logger _logger;
   final _uuid = const Uuid();
 
@@ -63,7 +76,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('Name changed: ${event.name}');
-    emit(state.copyWith(name: event.name));
+    emit(
+      state.copyWith(
+        name: event.name,
+        wasNameEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onDescriptionChanged(
@@ -71,7 +90,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('Description changed: ${event.description}');
-    emit(state.copyWith(description: event.description));
+    emit(
+      state.copyWith(
+        description: event.description,
+        wasDescriptionEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onUrlChanged(
@@ -79,7 +104,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('URL changed: ${event.url}');
-    emit(state.copyWith(url: event.url));
+    emit(
+      state.copyWith(
+        url: event.url,
+        wasUrlEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onSourceTypeChanged(
@@ -87,7 +118,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('Source type changed: ${event.sourceType?.name}');
-    emit(state.copyWith(sourceType: () => event.sourceType));
+    emit(
+      state.copyWith(
+        sourceType: () => event.sourceType,
+        wasSourceTypeEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onLanguageChanged(
@@ -113,6 +150,8 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
       state.copyWith(
         language: () => supportedLang,
         selectedLanguageEntity: () => entity,
+        wasLanguageEnriched: false,
+        isEnrichmentSuccessful: false,
       ),
     );
   }
@@ -122,7 +161,13 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     _logger.fine('Headquarters changed: ${event.headquarters?.name}');
-    emit(state.copyWith(headquarters: () => event.headquarters));
+    emit(
+      state.copyWith(
+        headquarters: () => event.headquarters,
+        wasHeadquartersEnriched: false,
+        isEnrichmentSuccessful: false,
+      ),
+    );
   }
 
   void _onImageChanged(
@@ -156,6 +201,70 @@ class CreateSourceBloc extends Bloc<CreateSourceEvent, CreateSourceState> {
     Emitter<CreateSourceState> emit,
   ) {
     emit(state.copyWith(selectedLanguage: event.language));
+  }
+
+  Future<void> _onEnrichmentRequested(
+    CreateSourceEnrichmentRequested event,
+    Emitter<CreateSourceState> emit,
+  ) async {
+    _logger.info('AI Enrichment requested for source...');
+    emit(state.copyWith(status: CreateSourceStatus.enriching));
+
+    try {
+      final now = DateTime.now();
+      final partial = Source(
+        id: _uuid.v4(),
+        name: state.name,
+        description: state.description,
+        url: state.url,
+        sourceType: state.sourceType ?? SourceType.other,
+        language: state.language ?? SupportedLanguage.en,
+        headquarters: state.headquarters ?? _dummyCountry,
+        createdAt: now,
+        updatedAt: now,
+        status: ContentStatus.draft,
+      );
+
+      final enriched = await _enrichmentRepository.enrichSource(partial);
+
+      // The UI uses a full Language entity for selection, but the model
+      // natively resolves to the SupportedLanguage enum.
+      // We construct a localized dummy entity here so the selection box updates.
+      final enrichedLanguageEntity = Language(
+        id: 'ai_enriched_lang',
+        code: enriched.language.name,
+        name: {SupportedLanguage.en: enriched.language.name.toUpperCase()},
+        nativeName: enriched.language.name.toUpperCase(),
+      );
+
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.initial,
+          name: enriched.name,
+          description: enriched.description,
+          url: enriched.url,
+          sourceType: () => enriched.sourceType,
+          language: () => enriched.language,
+          headquarters: () => enriched.headquarters,
+          selectedLanguageEntity: () => enrichedLanguageEntity,
+          isEnrichmentSuccessful: true,
+          wasNameEnriched: true,
+          wasDescriptionEnriched: true,
+          wasUrlEnriched: true,
+          wasSourceTypeEnriched: true,
+          wasLanguageEnriched: true,
+          wasHeadquartersEnriched: true,
+        ),
+      );
+    } on HttpException catch (e) {
+      _logger.severe('Source enrichment failed.', e);
+      emit(
+        state.copyWith(
+          status: CreateSourceStatus.enrichmentFailure,
+          exception: ValueWrapper(e),
+        ),
+      );
+    }
   }
 
   /// Handles saving the source as a draft.

@@ -10,6 +10,8 @@ enum CreateSourceStatus {
   imageUploadFailure,
   entitySubmitting,
   entitySubmitFailure,
+  enriching,
+  enrichmentFailure,
 }
 
 /// The state for the [CreateSourceBloc].
@@ -31,6 +33,13 @@ final class CreateSourceState extends Equatable {
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
     SupportedLanguage? selectedLanguage,
+    this.isEnrichmentSuccessful = false,
+    this.wasNameEnriched = false,
+    this.wasDescriptionEnriched = false,
+    this.wasUrlEnriched = false,
+    this.wasSourceTypeEnriched = false,
+    this.wasLanguageEnriched = false,
+    this.wasHeadquartersEnriched = false,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateSourceStatus status;
@@ -48,6 +57,13 @@ final class CreateSourceState extends Equatable {
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
+  final bool isEnrichmentSuccessful;
+  final bool wasNameEnriched;
+  final bool wasDescriptionEnriched;
+  final bool wasUrlEnriched;
+  final bool wasSourceTypeEnriched;
+  final bool wasLanguageEnriched;
+  final bool wasHeadquartersEnriched;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -76,6 +92,13 @@ final class CreateSourceState extends Equatable {
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
+    bool? isEnrichmentSuccessful,
+    bool? wasNameEnriched,
+    bool? wasDescriptionEnriched,
+    bool? wasUrlEnriched,
+    bool? wasSourceTypeEnriched,
+    bool? wasLanguageEnriched,
+    bool? wasHeadquartersEnriched,
   }) {
     return CreateSourceState(
       status: status ?? this.status,
@@ -99,6 +122,17 @@ final class CreateSourceState extends Equatable {
       createdSource: createdSource ?? this.createdSource,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      isEnrichmentSuccessful:
+          isEnrichmentSuccessful ?? this.isEnrichmentSuccessful,
+      wasNameEnriched: wasNameEnriched ?? this.wasNameEnriched,
+      wasDescriptionEnriched:
+          wasDescriptionEnriched ?? this.wasDescriptionEnriched,
+      wasUrlEnriched: wasUrlEnriched ?? this.wasUrlEnriched,
+      wasSourceTypeEnriched:
+          wasSourceTypeEnriched ?? this.wasSourceTypeEnriched,
+      wasLanguageEnriched: wasLanguageEnriched ?? this.wasLanguageEnriched,
+      wasHeadquartersEnriched:
+          wasHeadquartersEnriched ?? this.wasHeadquartersEnriched,
     );
   }
 
@@ -119,5 +153,12 @@ final class CreateSourceState extends Equatable {
     createdSource,
     defaultLanguage,
     selectedLanguage,
+    isEnrichmentSuccessful,
+    wasNameEnriched,
+    wasDescriptionEnriched,
+    wasUrlEnriched,
+    wasSourceTypeEnriched,
+    wasLanguageEnriched,
+    wasHeadquartersEnriched,
   ];
 }
