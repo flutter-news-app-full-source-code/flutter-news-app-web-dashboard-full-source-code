@@ -753,6 +753,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contentStatusDraft => 'Draft';
 
   @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get contentStatusIngested => 'Needs Review';
+
+  @override
   String get totalHeadlines => 'Total Headlines';
 
   @override
@@ -3566,4 +3572,63 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiEnrichment => 'AI Enrichment';
+
+  @override
+  String get createPerson => 'Create Person';
+
+  @override
+  String get editPerson => 'Edit Person';
+
+  @override
+  String get personName => 'Name';
+
+  @override
+  String get personDescription => 'Description';
+
+  @override
+  String get loadingPersons => 'Loading Persons';
+
+  @override
+  String get noPersonsFound => 'No persons found.';
+
+  @override
+  String get filterPersons => 'Filter Persons';
+
+  @override
+  String get searchByPersonName => 'Search by Name or ID...';
+
+  @override
+  String get updatePersonTitle => 'Update Person';
+
+  @override
+  String get updatePersonMessage =>
+      'Do you want to publish these changes or save the update as a draft?';
+
+  @override
+  String get savePersonTitle => 'Save Person';
+
+  @override
+  String get savePersonMessage =>
+      'Do you want to publish this person or save it as a draft?';
+
+  @override
+  String get personCreatedSuccessfully => 'Person created successfully.';
+
+  @override
+  String get personUpdatedSuccessfully => 'Person updated successfully.';
+
+  @override
+  String get cannotUpdatePersonError =>
+      'Cannot update: Original person data not loaded.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'Person \"$personName\" deleted.';
+  }
+
+  @override
+  String get publishPerson => 'Publish Person';
+
+  @override
+  String get loadingPerson => 'Loading Person...';
 }

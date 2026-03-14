@@ -737,6 +737,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get contentStatusDraft => 'Bozza';
 
   @override
+  String get refresh => 'Aggiorna';
+
+  @override
+  String get contentStatusIngested => 'Da revisionare';
+
+  @override
   String get totalHeadlines => 'Totale Titoli';
 
   @override
@@ -3482,4 +3488,60 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aiEnrichment => 'Arricchimento AI';
+
+  @override
+  String get createPerson => 'Crea Persona';
+
+  @override
+  String get editPerson => 'Modifica Persona';
+
+  @override
+  String get personName => 'Nome';
+
+  @override
+  String get personDescription => 'Descrizione';
+
+  @override
+  String get loadingPersons => 'Caricamento Persone';
+
+  @override
+  String get noPersonsFound => 'Nessuna persona trovata.';
+
+  @override
+  String get filterPersons => 'Filtra Persone';
+
+  @override
+  String get searchByPersonName => 'Cerca per nome o ID...';
+
+  @override
+  String get updatePersonTitle => 'Aggiorna Persona';
+
+  @override
+  String get updatePersonMessage => 'Vuoi pubblicare o salvare come bozza?';
+
+  @override
+  String get savePersonTitle => 'Salva Persona';
+
+  @override
+  String get savePersonMessage => 'Vuoi pubblicare o salvare come bozza?';
+
+  @override
+  String get personCreatedSuccessfully => 'Persona creata con successo.';
+
+  @override
+  String get personUpdatedSuccessfully => 'Persona aggiornata con successo.';
+
+  @override
+  String get cannotUpdatePersonError => 'Errore: Dati originali non caricati.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'Persona \"$personName\" eliminata.';
+  }
+
+  @override
+  String get publishPerson => 'Pubblica Persona';
+
+  @override
+  String get loadingPerson => 'Caricamento Persona...';
 }

@@ -271,6 +271,8 @@
     "contentStatusActive": "सक्रिय",
     "contentStatusArchived": "संग्रहीत",
     "contentStatusDraft": "ड्राफ्ट",
+    "refresh": "रिफ्रेश",
+    "contentStatusIngested": "समीक्षा की आवश्यकता है",
     "totalHeadlines": "कुल सुर्खियां",
     "totalTopics": "कुल विषय",
     "totalSources": "कुल स्रोत",
@@ -1339,5 +1341,30 @@
     "confirmStopSyncMessage": "क्या आप वाकई इस सिंक शेड्यूल को हटाना चाहते हैं? इससे स्रोत के लिए स्वचालित अपडेट बंद हो जाएंगे।",
     "persons": "व्यक्ति",
     "mentions": "उल्लेख",
-    "aiEnrichment": "एआई संवर्धन"
+    "aiEnrichment": "एआई संवर्धन",
+    "createPerson": "व्यक्ति बनाएं",
+    "editPerson": "व्यक्ति संपादित करें",
+    "personName": "नाम",
+    "personDescription": "विवरण",
+    "loadingPersons": "व्यक्ति लोड हो रहे हैं",
+    "noPersonsFound": "कोई व्यक्ति नहीं मिला।",
+    "filterPersons": "व्यक्ति फ़िल्टर करें",
+    "searchByPersonName": "नाम या आईडी से खोजें...",
+    "updatePersonTitle": "व्यक्ति अपडेट करें",
+    "updatePersonMessage": "क्या आप इन परिवर्तनों को प्रकाशित करना चाहते हैं या अपडेट को ड्राफ्ट के रूप में सहेजना चाहते हैं?",
+    "savePersonTitle": "व्यक्ति सहेजें",
+    "savePersonMessage": "क्या आप इस व्यक्ति को प्रकाशित करना चाहते हैं या इसे ड्राफ्ट के रूप में सहेजना चाहते हैं?",
+    "personCreatedSuccessfully": "व्यक्ति सफलतापूर्वक बनाया गया।",
+    "personUpdatedSuccessfully": "व्यक्ति सफलतापूर्वक अपडेट किया गया।",
+    "cannotUpdatePersonError": "अपडेट नहीं किया जा सकता: मूल व्यक्ति डेटा लोड नहीं हुआ।",
+    "personDeleted": "व्यक्ति \"{personName}\" हटा दिया गया।",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "व्यक्ति प्रकाशित करें",
+    "loadingPerson": "व्यक्ति लोड हो रहा है..."
 }

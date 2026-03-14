@@ -271,6 +271,8 @@
     "contentStatusActive": "Activo",
     "contentStatusArchived": "Archivado",
     "contentStatusDraft": "Borrador",
+    "refresh": "Actualizar",
+    "contentStatusIngested": "Necesita Revisión",
     "totalHeadlines": "Total Titulares",
     "totalTopics": "Total Temas",
     "totalSources": "Total Fuentes",
@@ -1339,5 +1341,30 @@
     "confirmStopSyncMessage": "¿Estás seguro de que deseas eliminar esta programación de sincronización? Esto detendrá las actualizaciones automáticas para la fuente.",
     "persons": "Personas",
     "mentions": "Menciones",
-    "aiEnrichment": "Enriquecimiento con IA"
+    "aiEnrichment": "Enriquecimiento con IA",
+    "createPerson": "Crear Persona",
+    "editPerson": "Editar Persona",
+    "personName": "Nombre",
+    "personDescription": "Descripción",
+    "loadingPersons": "Cargando Personas",
+    "noPersonsFound": "No se encontraron personas.",
+    "filterPersons": "Filtrar Personas",
+    "searchByPersonName": "Buscar por nombre o ID...",
+    "updatePersonTitle": "Actualizar Persona",
+    "updatePersonMessage": "¿Publicar cambios o guardar como borrador?",
+    "savePersonTitle": "Guardar Persona",
+    "savePersonMessage": "¿Publicar o guardar como borrador?",
+    "personCreatedSuccessfully": "Persona creada con éxito.",
+    "personUpdatedSuccessfully": "Persona actualizada con éxito.",
+    "cannotUpdatePersonError": "Error: Datos originales no cargados.",
+    "personDeleted": "Persona \"{personName}\" eliminada.",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "Publicar Persona",
+    "loadingPerson": "Cargando Persona..."
 }

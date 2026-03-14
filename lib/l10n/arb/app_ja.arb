@@ -271,6 +271,8 @@
     "contentStatusActive": "アクティブ",
     "contentStatusArchived": "アーカイブ済み",
     "contentStatusDraft": "下書き",
+    "refresh": "更新",
+    "contentStatusIngested": "要確認",
     "totalHeadlines": "見出し総数",
     "totalTopics": "トピック総数",
     "totalSources": "ソース総数",
@@ -1339,5 +1341,30 @@
     "confirmStopSyncMessage": "この同期スケジュールを削除してもよろしいですか？これにより、ソースの自動更新が停止します。",
     "persons": "人物",
     "mentions": "言及",
-    "aiEnrichment": "AIエンリッチメント"
+    "aiEnrichment": "AIエンリッチメント",
+    "createPerson": "人物を作成",
+    "editPerson": "人物を編集",
+    "personName": "名前",
+    "personDescription": "説明",
+    "loadingPersons": "人物を読み込み中",
+    "noPersonsFound": "人物が見つかりませんでした。",
+    "filterPersons": "人物をフィルター",
+    "searchByPersonName": "名前またはIDで検索...",
+    "updatePersonTitle": "人物を更新",
+    "updatePersonMessage": "これらの変更を公開しますか、それとも下書きとして保存しますか？",
+    "savePersonTitle": "人物を保存",
+    "savePersonMessage": "この人物を公開しますか、それとも下書きとして保存しますか？",
+    "personCreatedSuccessfully": "人物が正常に作成されました。",
+    "personUpdatedSuccessfully": "人物が正常に更新されました。",
+    "cannotUpdatePersonError": "更新できません：元の人物データが読み込まれていません。",
+    "personDeleted": "人物「{personName}」を削除しました。",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "人物を公開",
+    "loadingPerson": "人物を読み込み中..."
 }

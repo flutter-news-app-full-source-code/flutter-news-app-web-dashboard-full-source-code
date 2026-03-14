@@ -271,6 +271,8 @@
     "contentStatusActive": "Aktiv",
     "contentStatusArchived": "Archiviert",
     "contentStatusDraft": "Entwurf",
+    "refresh": "Aktualisieren",
+    "contentStatusIngested": "Muss überprüft werden",
     "totalHeadlines": "Gesamt Schlagzeilen",
     "totalTopics": "Gesamt Themen",
     "totalSources": "Gesamt Quellen",
@@ -1339,5 +1341,30 @@
     "confirmStopSyncMessage": "Sind Sie sicher, dass Sie diesen Synchronisierungsplan entfernen möchten? Dies stoppt die automatischen Aktualisierungen für die Quelle.",
     "persons": "Personen",
     "mentions": "Erwähnungen",
-    "aiEnrichment": "KI-Anreicherung"
+    "aiEnrichment": "KI-Anreicherung",
+    "createPerson": "Person erstellen",
+    "editPerson": "Person bearbeiten",
+    "personName": "Name",
+    "personDescription": "Beschreibung",
+    "loadingPersons": "Personen werden geladen",
+    "noPersonsFound": "Keine Personen gefunden.",
+    "filterPersons": "Personen filtern",
+    "searchByPersonName": "Nach Name oder ID suchen...",
+    "updatePersonTitle": "Person aktualisieren",
+    "updatePersonMessage": "Veröffentlichen oder als Entwurf speichern?",
+    "savePersonTitle": "Person speichern",
+    "savePersonMessage": "Person veröffentlichen oder als Entwurf speichern?",
+    "personCreatedSuccessfully": "Person erfolgreich erstellt.",
+    "personUpdatedSuccessfully": "Person erfolgreich aktualisiert.",
+    "cannotUpdatePersonError": "Fehler: Originaldaten nicht geladen.",
+    "personDeleted": "Person \"{personName}\" gelöscht.",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "Person veröffentlichen",
+    "loadingPerson": "Person wird geladen..."
 }

@@ -705,6 +705,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get contentStatusDraft => '草稿';
 
   @override
+  String get refresh => '刷新';
+
+  @override
+  String get contentStatusIngested => '待审核';
+
+  @override
   String get totalHeadlines => '头条总数';
 
   @override
@@ -3331,4 +3337,60 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiEnrichment => 'AI 丰富';
+
+  @override
+  String get createPerson => '创建人物';
+
+  @override
+  String get editPerson => '编辑人物';
+
+  @override
+  String get personName => '姓名';
+
+  @override
+  String get personDescription => '描述';
+
+  @override
+  String get loadingPersons => '正在加载人物';
+
+  @override
+  String get noPersonsFound => '未找到人物。';
+
+  @override
+  String get filterPersons => '筛选人物';
+
+  @override
+  String get searchByPersonName => '按姓名或 ID 搜索...';
+
+  @override
+  String get updatePersonTitle => '更新人物';
+
+  @override
+  String get updatePersonMessage => '您想发布这些更改还是将更新保存为草稿？';
+
+  @override
+  String get savePersonTitle => '保存人物';
+
+  @override
+  String get savePersonMessage => '您想发布此人物还是将其保存为草稿？';
+
+  @override
+  String get personCreatedSuccessfully => '人物创建成功。';
+
+  @override
+  String get personUpdatedSuccessfully => '人物更新成功。';
+
+  @override
+  String get cannotUpdatePersonError => '无法更新：原始人物数据未加载。';
+
+  @override
+  String personDeleted(String personName) {
+    return '人物 “$personName” 已删除。';
+  }
+
+  @override
+  String get publishPerson => '发布人物';
+
+  @override
+  String get loadingPerson => '正在加载人物...';
 }

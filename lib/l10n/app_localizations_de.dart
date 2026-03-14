@@ -732,6 +732,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get contentStatusDraft => 'Entwurf';
 
   @override
+  String get refresh => 'Aktualisieren';
+
+  @override
+  String get contentStatusIngested => 'Muss überprüft werden';
+
+  @override
   String get totalHeadlines => 'Gesamt Schlagzeilen';
 
   @override
@@ -3487,4 +3493,62 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aiEnrichment => 'KI-Anreicherung';
+
+  @override
+  String get createPerson => 'Person erstellen';
+
+  @override
+  String get editPerson => 'Person bearbeiten';
+
+  @override
+  String get personName => 'Name';
+
+  @override
+  String get personDescription => 'Beschreibung';
+
+  @override
+  String get loadingPersons => 'Personen werden geladen';
+
+  @override
+  String get noPersonsFound => 'Keine Personen gefunden.';
+
+  @override
+  String get filterPersons => 'Personen filtern';
+
+  @override
+  String get searchByPersonName => 'Nach Name oder ID suchen...';
+
+  @override
+  String get updatePersonTitle => 'Person aktualisieren';
+
+  @override
+  String get updatePersonMessage =>
+      'Veröffentlichen oder als Entwurf speichern?';
+
+  @override
+  String get savePersonTitle => 'Person speichern';
+
+  @override
+  String get savePersonMessage =>
+      'Person veröffentlichen oder als Entwurf speichern?';
+
+  @override
+  String get personCreatedSuccessfully => 'Person erfolgreich erstellt.';
+
+  @override
+  String get personUpdatedSuccessfully => 'Person erfolgreich aktualisiert.';
+
+  @override
+  String get cannotUpdatePersonError => 'Fehler: Originaldaten nicht geladen.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'Person \"$personName\" gelöscht.';
+  }
+
+  @override
+  String get publishPerson => 'Person veröffentlichen';
+
+  @override
+  String get loadingPerson => 'Person wird geladen...';
 }
