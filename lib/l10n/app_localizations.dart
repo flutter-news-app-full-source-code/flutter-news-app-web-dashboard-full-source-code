@@ -1452,6 +1452,18 @@ abstract class AppLocalizations {
   /// **'Draft'**
   String get contentStatusDraft;
 
+  /// Tooltip for the manual refresh button
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// Content status: Ingested (Awaiting human review)
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Review'**
+  String get contentStatusIngested;
+
   /// Label for the total headlines summary card on the dashboard overview
   ///
   /// In en, this message translates to:
@@ -6479,6 +6491,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to remove this sync schedule? This will stop automated updates for the source.'**
   String get confirmStopSyncMessage;
+
+  /// Label for the persons field in forms and tables.
+  ///
+  /// In en, this message translates to:
+  /// **'Persons'**
+  String get persons;
+
+  /// Column header for mentioned entities like countries and persons.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get mentions;
+
+  /// Tooltip for the AI enrichment button.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Enrichment'**
+  String get aiEnrichment;
+
+  /// Title for the Create Person page
+  ///
+  /// In en, this message translates to:
+  /// **'Create Person'**
+  String get createPerson;
+
+  /// Title for the Edit Person page
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Person'**
+  String get editPerson;
+
+  /// Label for the person name field
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get personName;
+
+  /// Label for the person description field
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get personDescription;
+
+  /// Headline for loading state of persons
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Persons'**
+  String get loadingPersons;
+
+  /// Message when no persons are found
+  ///
+  /// In en, this message translates to:
+  /// **'No persons found.'**
+  String get noPersonsFound;
+
+  /// Title for the filter dialog when filtering persons.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Persons'**
+  String get filterPersons;
+
+  /// Hint text for the person search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by Name or ID...'**
+  String get searchByPersonName;
+
+  /// Title for the dialog asking how to update a person.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Person'**
+  String get updatePersonTitle;
+
+  /// Message for the dialog asking how to update a person.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish these changes or save the update as a draft?'**
+  String get updatePersonMessage;
+
+  /// Title for the dialog asking how to save a person.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Person'**
+  String get savePersonTitle;
+
+  /// Message for the dialog asking how to save a person.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to publish this person or save it as a draft?'**
+  String get savePersonMessage;
+
+  /// Message displayed when a person is created successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Person created successfully.'**
+  String get personCreatedSuccessfully;
+
+  /// Message displayed when a person is updated successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Person updated successfully.'**
+  String get personUpdatedSuccessfully;
+
+  /// Error message when updating a person fails because the original data wasn't loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot update: Original person data not loaded.'**
+  String get cannotUpdatePersonError;
+
+  /// Snackbar message when a person is deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Person \"{personName}\" deleted.'**
+  String personDeleted(String personName);
+
+  /// Tooltip for the publish person button.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Person'**
+  String get publishPerson;
+
+  /// Message displayed while loading person data
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Person...'**
+  String get loadingPerson;
 }
 
 class _AppLocalizationsDelegate

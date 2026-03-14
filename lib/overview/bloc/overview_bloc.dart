@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
-import 'package:verity_dashboard/shared/utils/future_utils.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/shared/utils/future_utils.dart';
 
 part 'overview_event.dart';
 part 'overview_state.dart';

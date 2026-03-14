@@ -15,12 +15,14 @@ final class FilterDialogInitialized extends FilterDialogEvent {
     this.headlinesFilterState,
     this.topicsFilterState,
     this.sourcesFilterState,
+    this.personsFilterState,
   });
 
   final ContentManagementTab activeTab;
   final HeadlinesFilterState? headlinesFilterState;
   final TopicsFilterState? topicsFilterState;
   final SourcesFilterState? sourcesFilterState;
+  final PersonsFilterState? personsFilterState;
 
   @override
   List<Object?> get props => [
@@ -28,6 +30,7 @@ final class FilterDialogInitialized extends FilterDialogEvent {
     headlinesFilterState,
     topicsFilterState,
     sourcesFilterState,
+    personsFilterState,
   ];
 }
 

@@ -757,6 +757,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get contentStatusDraft => 'ड्राफ्ट';
 
   @override
+  String get refresh => 'रिफ्रेश';
+
+  @override
+  String get contentStatusIngested => 'समीक्षा की आवश्यकता है';
+
+  @override
   String get totalHeadlines => 'कुल सुर्खियां';
 
   @override
@@ -3567,4 +3573,72 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'क्या आप वाकई इस सिंक शेड्यूल को हटाना चाहते हैं? इससे स्रोत के लिए स्वचालित अपडेट बंद हो जाएंगे।';
+
+  @override
+  String get persons => 'व्यक्ति';
+
+  @override
+  String get mentions => 'उल्लेख';
+
+  @override
+  String get aiEnrichment => 'एआई संवर्धन';
+
+  @override
+  String get createPerson => 'व्यक्ति बनाएं';
+
+  @override
+  String get editPerson => 'व्यक्ति संपादित करें';
+
+  @override
+  String get personName => 'नाम';
+
+  @override
+  String get personDescription => 'विवरण';
+
+  @override
+  String get loadingPersons => 'व्यक्ति लोड हो रहे हैं';
+
+  @override
+  String get noPersonsFound => 'कोई व्यक्ति नहीं मिला।';
+
+  @override
+  String get filterPersons => 'व्यक्ति फ़िल्टर करें';
+
+  @override
+  String get searchByPersonName => 'नाम या आईडी से खोजें...';
+
+  @override
+  String get updatePersonTitle => 'व्यक्ति अपडेट करें';
+
+  @override
+  String get updatePersonMessage =>
+      'क्या आप इन परिवर्तनों को प्रकाशित करना चाहते हैं या अपडेट को ड्राफ्ट के रूप में सहेजना चाहते हैं?';
+
+  @override
+  String get savePersonTitle => 'व्यक्ति सहेजें';
+
+  @override
+  String get savePersonMessage =>
+      'क्या आप इस व्यक्ति को प्रकाशित करना चाहते हैं या इसे ड्राफ्ट के रूप में सहेजना चाहते हैं?';
+
+  @override
+  String get personCreatedSuccessfully => 'व्यक्ति सफलतापूर्वक बनाया गया।';
+
+  @override
+  String get personUpdatedSuccessfully => 'व्यक्ति सफलतापूर्वक अपडेट किया गया।';
+
+  @override
+  String get cannotUpdatePersonError =>
+      'अपडेट नहीं किया जा सकता: मूल व्यक्ति डेटा लोड नहीं हुआ।';
+
+  @override
+  String personDeleted(String personName) {
+    return 'व्यक्ति \"$personName\" हटा दिया गया।';
+  }
+
+  @override
+  String get publishPerson => 'व्यक्ति प्रकाशित करें';
+
+  @override
+  String get loadingPerson => 'व्यक्ति लोड हो रहा है...';
 }

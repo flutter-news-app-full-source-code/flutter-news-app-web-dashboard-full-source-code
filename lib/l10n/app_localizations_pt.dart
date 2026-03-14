@@ -735,6 +735,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get contentStatusDraft => 'Rascunho';
 
   @override
+  String get refresh => 'Atualizar';
+
+  @override
+  String get contentStatusIngested => 'Necessita de Revisão';
+
+  @override
   String get totalHeadlines => 'Total Manchetes';
 
   @override
@@ -3440,4 +3446,70 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Tem certeza de que deseja remover este agendamento de sincronização? Isso interromperá as atualizações automáticas para a fonte.';
+
+  @override
+  String get persons => 'Pessoas';
+
+  @override
+  String get mentions => 'Menções';
+
+  @override
+  String get aiEnrichment => 'Enriquecimento por IA';
+
+  @override
+  String get createPerson => 'Criar Pessoa';
+
+  @override
+  String get editPerson => 'Editar Pessoa';
+
+  @override
+  String get personName => 'Nome';
+
+  @override
+  String get personDescription => 'Descrição';
+
+  @override
+  String get loadingPersons => 'Carregando Pessoas';
+
+  @override
+  String get noPersonsFound => 'Nenhuma pessoa encontrada.';
+
+  @override
+  String get filterPersons => 'Filtrar Pessoas';
+
+  @override
+  String get searchByPersonName => 'Buscar por nome ou ID...';
+
+  @override
+  String get updatePersonTitle => 'Atualizar Pessoa';
+
+  @override
+  String get updatePersonMessage =>
+      'Publicar alterações ou salvar como rascunho?';
+
+  @override
+  String get savePersonTitle => 'Salvar Pessoa';
+
+  @override
+  String get savePersonMessage => 'Publicar ou salvar como rascunho?';
+
+  @override
+  String get personCreatedSuccessfully => 'Pessoa criada com sucesso.';
+
+  @override
+  String get personUpdatedSuccessfully => 'Pessoa atualizada com sucesso.';
+
+  @override
+  String get cannotUpdatePersonError => 'Erro: Dados originais não carregados.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'Pessoa \"$personName\" excluída.';
+  }
+
+  @override
+  String get publishPerson => 'Publicar Pessoa';
+
+  @override
+  String get loadingPerson => 'Carregando Pessoa...';
 }

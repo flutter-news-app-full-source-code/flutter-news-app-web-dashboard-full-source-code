@@ -6,15 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
-import 'package:verity_dashboard/content_sync/widgets/sync_action_buttons.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/router/routes.dart';
-import 'package:verity_dashboard/shared/extensions/fetch_interval_extension.dart';
-import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
-import 'package:verity_dashboard/shared/widgets/about_icon.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
+import 'package:veritai_dashboard/content_sync/bloc/content_sync_bloc.dart';
+import 'package:veritai_dashboard/content_sync/widgets/sync_action_buttons.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/router/routes.dart';
+import 'package:veritai_dashboard/shared/extensions/fetch_interval_extension.dart';
+import 'package:veritai_dashboard/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_dashboard/shared/widgets/about_icon.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
 
 class ContentSyncPage extends StatelessWidget {
   const ContentSyncPage({super.key});

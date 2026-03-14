@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/analytics_card_slot.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/kpi_card.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_card_shell.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_card_slot.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/kpi_card.dart';
 
 class MockAnalyticsService extends Mock implements AnalyticsService {}
 
@@ -53,7 +54,7 @@ void main() {
     }
 
     testWidgets(
-      'renders SizedBox.shrink when data is null (FutureBuilder loading/empty)',
+      'renders empty card shell when data is null (FutureBuilder)',
       (tester) async {
         when(
           () => analyticsService.getKpi(any()),
@@ -62,9 +63,9 @@ void main() {
         await tester.pumpWidget(
           buildSubject(cardIds: [KpiCardId.usersTotalRegistered]),
         );
-        await tester.pumpAndSettle(); // Resolve Future
+        await tester.pumpAndSettle();
 
-        expect(find.byType(SizedBox), findsOneWidget);
+        expect(find.byType(AnalyticsCardShell), findsOneWidget);
         expect(find.byType(KpiCard), findsNothing);
       },
     );
@@ -100,7 +101,7 @@ void main() {
       },
     );
 
-    testWidgets('renders SizedBox.shrink when provided data is null', (
+    testWidgets('renders empty card shell when provided data is null', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -109,9 +110,8 @@ void main() {
           data: [null],
         ),
       );
-      await tester.pump();
 
-      expect(find.byType(SizedBox), findsOneWidget);
+      expect(find.byType(AnalyticsCardShell), findsOneWidget);
       expect(find.byType(KpiCard), findsNothing);
     });
   });

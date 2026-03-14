@@ -922,6 +922,14 @@
   "@contentStatusDraft": {
     "description": "Content status: Draft"
   },
+  "refresh": "Refresh",
+  "@refresh": {
+    "description": "Tooltip for the manual refresh button"
+  },
+  "contentStatusIngested": "Needs Review",
+  "@contentStatusIngested": {
+    "description": "Content status: Ingested (Awaiting human review)"
+  },
   "totalHeadlines": "Total Headlines",
   "@totalHeadlines": {
     "description": "Label for the total headlines summary card on the dashboard overview"
@@ -4421,5 +4429,95 @@
   "confirmStopSyncMessage": "Are you sure you want to remove this sync schedule? This will stop automated updates for the source.",
   "@confirmStopSyncMessage": {
     "description": "Confirmation message for removing a sync schedule"
+  },
+  "persons": "Persons",
+  "@persons": {
+    "description": "Label for the persons field in forms and tables."
+  },
+  "mentions": "Mentions",
+  "@mentions": {
+    "description": "Column header for mentioned entities like countries and persons."
+  },
+  "aiEnrichment": "AI Enrichment",
+  "@aiEnrichment": {
+    "description": "Tooltip for the AI enrichment button."
+  },
+  "createPerson": "Create Person",
+  "@createPerson": {
+    "description": "Title for the Create Person page"
+  },
+  "editPerson": "Edit Person",
+  "@editPerson": {
+    "description": "Title for the Edit Person page"
+  },
+  "personName": "Name",
+  "@personName": {
+    "description": "Label for the person name field"
+  },
+  "personDescription": "Description",
+  "@personDescription": {
+    "description": "Label for the person description field"
+  },
+  "loadingPersons": "Loading Persons",
+  "@loadingPersons": {
+    "description": "Headline for loading state of persons"
+  },
+  "noPersonsFound": "No persons found.",
+  "@noPersonsFound": {
+    "description": "Message when no persons are found"
+  },
+  "filterPersons": "Filter Persons",
+  "@filterPersons": {
+    "description": "Title for the filter dialog when filtering persons."
+  },
+  "searchByPersonName": "Search by Name or ID...",
+  "@searchByPersonName": {
+    "description": "Hint text for the person search field."
+  },
+  "updatePersonTitle": "Update Person",
+  "@updatePersonTitle": {
+    "description": "Title for the dialog asking how to update a person."
+  },
+  "updatePersonMessage": "Do you want to publish these changes or save the update as a draft?",
+  "@updatePersonMessage": {
+    "description": "Message for the dialog asking how to update a person."
+  },
+  "savePersonTitle": "Save Person",
+  "@savePersonTitle": {
+    "description": "Title for the dialog asking how to save a person."
+  },
+  "savePersonMessage": "Do you want to publish this person or save it as a draft?",
+  "@savePersonMessage": {
+    "description": "Message for the dialog asking how to save a person."
+  },
+  "personCreatedSuccessfully": "Person created successfully.",
+  "@personCreatedSuccessfully": {
+    "description": "Message displayed when a person is created successfully"
+  },
+  "personUpdatedSuccessfully": "Person updated successfully.",
+  "@personUpdatedSuccessfully": {
+    "description": "Message displayed when a person is updated successfully"
+  },
+  "cannotUpdatePersonError": "Cannot update: Original person data not loaded.",
+  "@cannotUpdatePersonError": {
+    "description": "Error message when updating a person fails because the original data wasn't loaded"
+  },
+  "personDeleted": "Person \"{personName}\" deleted.",
+  "@personDeleted": {
+    "description": "Snackbar message when a person is deleted.",
+    "placeholders": {
+      "personName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "publishPerson": "Publish Person",
+  "@publishPerson": {
+    "description": "Tooltip for the publish person button."
+  },
+  "loadingPerson": "Loading Person...",
+  "@loadingPerson": {
+    "description": "Message displayed while loading person data"
   }
 }

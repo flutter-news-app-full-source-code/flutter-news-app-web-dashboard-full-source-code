@@ -1,20 +1,16 @@
 import 'dart:typed_data';
 
-import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
-import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
-import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/shared.dart';
 
 /// {@template create_headline_page}
 /// A page for creating a new headline.
@@ -47,6 +43,7 @@ class CreateHeadlinePage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           CreateHeadlineBloc(
+            enrichmentRepository: context.read<EnrichmentRepository>(),
             headlinesRepository: context.read<DataRepository<Headline>>(),
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateHeadlineBloc'),
@@ -132,7 +129,8 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
           BlocBuilder<CreateHeadlineBloc, CreateHeadlineState>(
             builder: (context, state) {
               if (state.status == CreateHeadlineStatus.imageUploading ||
-                  state.status == CreateHeadlineStatus.entitySubmitting) {
+                  state.status == CreateHeadlineStatus.entitySubmitting ||
+                  state.status == CreateHeadlineStatus.enriching) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -142,13 +140,28 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                   ),
                 );
               }
-              // The save button is enabled only if the form is valid.
-              return IconButton(
-                icon: const Icon(Icons.save),
-                tooltip: l10n.saveChanges,
-                onPressed: _isSaveButtonEnabled(state)
-                    ? () => _handleSave(context, state, l10n)
-                    : null,
+              return Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.auto_fix_high),
+                    tooltip: l10n.aiEnrichment,
+                    onPressed:
+                        (state.title[state.defaultLanguage]?.isNotEmpty ??
+                                false) &&
+                            !state.isEnrichmentSuccessful
+                        ? () => context.read<CreateHeadlineBloc>().add(
+                            const CreateHeadlineEnrichmentRequested(),
+                          )
+                        : null,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.save),
+                    tooltip: l10n.saveChanges,
+                    onPressed: _isSaveButtonEnabled(state)
+                        ? () => _handleSave(context, state, l10n)
+                        : null,
+                  ),
+                ],
               );
             },
           ),
@@ -167,7 +180,8 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
             context.pop();
           }
           if (state.status == CreateHeadlineStatus.imageUploadFailure ||
-              state.status == CreateHeadlineStatus.entitySubmitFailure) {
+              state.status == CreateHeadlineStatus.entitySubmitFailure ||
+              state.status == CreateHeadlineStatus.enrichmentFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -203,12 +217,33 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                               ),
                             ),
                         tabs: state.enabledLanguages.map((lang) {
+                          final hasContent =
+                              state.title[lang]?.isNotEmpty ?? false;
                           return Tab(
-                            icon: Image.network(
-                              lang.flagUrl,
-                              width: 24,
-                              errorBuilder: (_, _, _) =>
-                                  const Icon(Icons.flag, size: 16),
+                            icon: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Image.network(
+                                  lang.flagUrl,
+                                  width: 24,
+                                  errorBuilder: (_, _, _) =>
+                                      const Icon(Icons.flag, size: 16),
+                                ),
+                                if (hasContent &&
+                                    state.wasTitleEnriched &&
+                                    lang != state.defaultLanguage)
+                                  Positioned(
+                                    top: -4,
+                                    right: -4,
+                                    child: Icon(
+                                      Icons.auto_awesome,
+                                      size: 12,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                                  ),
+                              ],
                             ),
                           );
                         }).toList(),
@@ -278,16 +313,14 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                       ),
                       Text(l10n.isBreakingNewsDescription),
                       const SizedBox(height: AppSpacing.lg),
-                      // Existing SearchableSelectionInput widgets
                       SearchableSelectionInput<Source>(
                         label: l10n.sourceName,
                         selectedItems: state.source != null
                             ? [state.source!]
                             : [],
                         itemBuilder: (context, source) =>
-                            Text(source.name.values.firstOrNull ?? ''),
-                        itemToString: (source) =>
-                            source.name.values.firstOrNull ?? '',
+                            Text(source.name.getValue(context)),
+                        itemToString: (source) => source.name.getValue(context),
                         onChanged: (items) => context
                             .read<CreateHeadlineBloc>()
                             .add(CreateHeadlineSourceChanged(items?.first)),
@@ -301,68 +334,138 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
                         includeInactiveSelectedItem: false,
                       ),
                       const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Topic>(
-                        label: l10n.topicName,
-                        selectedItems: state.topic != null
-                            ? [state.topic!]
-                            : [],
-                        itemBuilder: (context, topic) =>
-                            Text(topic.name.values.firstOrNull ?? ''),
-                        itemToString: (topic) =>
-                            topic.name.values.firstOrNull ?? '',
-                        onChanged: (items) => context
-                            .read<CreateHeadlineBloc>()
-                            .add(CreateHeadlineTopicChanged(items?.first)),
-                        repository: context.read<DataRepository<Topic>>(),
-                        filterBuilder: (searchTerm) =>
-                            searchTerm == null ? {} : {'q': searchTerm},
-                        sortOptions: [
-                          SortOption('name.$langCode', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                        includeInactiveSelectedItem: false,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Country>(
-                        label: l10n.countryName,
-                        selectedItems: state.eventCountry != null
-                            ? [state.eventCountry!]
-                            : [],
-                        itemBuilder: (context, country) => Row(
-                          children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          SearchableSelectionInput<Topic>(
+                            label: l10n.topicName,
+                            selectedItems: state.topic != null
+                                ? [state.topic!]
+                                : [],
+                            itemBuilder: (context, topic) =>
+                                Text(topic.name.getValue(context)),
+                            itemToString: (topic) =>
+                                topic.name.getValue(context),
+                            onChanged: (items) => context
+                                .read<CreateHeadlineBloc>()
+                                .add(CreateHeadlineTopicChanged(items?.first)),
+                            repository: context.read<DataRepository<Topic>>(),
+                            filterBuilder: (searchTerm) =>
+                                searchTerm == null ? {} : {'q': searchTerm},
+                            sortOptions: [
+                              SortOption('name.$langCode', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            includeInactiveSelectedItem: false,
+                          ),
+                          if (state.topic != null && state.wasTopicEnriched)
+                            Positioned(
+                              top: 6,
+                              right: 40,
+                              child: Icon(
+                                Icons.auto_awesome,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name.values.firstOrNull ?? ''),
-                          ],
-                        ),
-                        itemToString: (country) =>
-                            country.name.values.firstOrNull ?? '',
-                        onChanged: (items) => context
-                            .read<CreateHeadlineBloc>()
-                            .add(CreateHeadlineCountryChanged(items?.first)),
-                        repository: context.read<DataRepository<Country>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: [
-                          SortOption('name.$langCode', SortOrder.asc),
                         ],
-                        limit: kDefaultRowsPerPage,
-                        includeInactiveSelectedItem: false,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          SearchableSelectionInput<Country>(
+                            label: l10n.countryName,
+                            isMultiSelect: true,
+                            selectedItems: state.mentionedCountries,
+                            itemBuilder: (context, country) => Row(
+                              children: [
+                                SizedBox(
+                                  width: 32,
+                                  height: 20,
+                                  child: Image.network(
+                                    country.flagUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.flag),
+                                  ),
+                                ),
+                                const SizedBox(width: AppSpacing.md),
+                                Text(country.name.getValue(context)),
+                              ],
+                            ),
+                            itemToString: (country) =>
+                                country.name.getValue(context),
+                            onChanged: (items) =>
+                                context.read<CreateHeadlineBloc>().add(
+                                  CreateHeadlineCountriesChanged(items ?? []),
+                                ),
+                            repository: context.read<DataRepository<Country>>(),
+                            filterBuilder: (searchTerm) => searchTerm == null
+                                ? {}
+                                : {
+                                    'name': {
+                                      r'$regex': searchTerm,
+                                      r'$options': 'i',
+                                    },
+                                  },
+                            sortOptions: [
+                              SortOption('name.$langCode', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            includeInactiveSelectedItem: false,
+                          ),
+                          if (state.mentionedCountries.isNotEmpty &&
+                              state.wereCountriesEnriched)
+                            Positioned(
+                              top: 6,
+                              right: 40,
+                              child: Icon(
+                                Icons.auto_awesome,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          SearchableSelectionInput<Person>(
+                            label: l10n.persons,
+                            isMultiSelect: true,
+                            selectedItems: state.mentionedPersons,
+                            itemBuilder: (context, person) =>
+                                Text(person.name.getValue(context)),
+                            itemToString: (person) =>
+                                person.name.getValue(context),
+                            onChanged: (items) =>
+                                context.read<CreateHeadlineBloc>().add(
+                                  CreateHeadlinePersonsChanged(items ?? []),
+                                ),
+                            repository: context.read<DataRepository<Person>>(),
+                            filterBuilder: (searchTerm) =>
+                                searchTerm == null ? {} : {'q': searchTerm},
+                            sortOptions: [
+                              SortOption('name.$langCode', SortOrder.asc),
+                            ],
+                            limit: kDefaultRowsPerPage,
+                            includeInactiveSelectedItem: true,
+                          ),
+                          if (state.mentionedPersons.isNotEmpty &&
+                              state.werePersonsEnriched)
+                            Positioned(
+                              top: 6,
+                              right: 40,
+                              child: Icon(
+                                Icons.auto_awesome,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
@@ -381,12 +484,12 @@ class _CreateHeadlineViewState extends State<CreateHeadlineView> {
   /// fields are filled for publishing (regardless of breaking news status).
   bool _isSaveButtonEnabled(CreateHeadlineState state) {
     final allFieldsFilled =
-        state.title.isNotEmpty &&
+        (state.title[state.defaultLanguage]?.isNotEmpty ?? false) &&
         state.url.isNotEmpty &&
         state.imageFileBytes != null &&
         state.source != null &&
         state.topic != null &&
-        state.eventCountry != null;
+        state.mentionedCountries.isNotEmpty;
 
     return allFieldsFilled;
   }

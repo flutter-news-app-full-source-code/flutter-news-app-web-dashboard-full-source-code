@@ -2,20 +2,27 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/create_headline/create_headline_bloc.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
 
 import '../../../helpers/helpers.dart';
 
+class MockEnrichmentRepository extends Mock implements EnrichmentRepository {}
+
 void main() {
+  const testException = UnknownException('Something went wrong');
+
   setUpAll(registerFallbackValues);
 
   group('CreateHeadlineBloc', () {
     late MockDataRepository<Headline> headlinesRepository;
     late MockMediaRepository mediaRepository;
+    late MockEnrichmentRepository enrichmentRepository;
 
     final sourceFixture = getSourcesFixturesData().first;
     final topicFixture = getTopicsFixturesData().first;
     final countryFixture = countriesFixturesData.first;
+    final personFixture = getPersonsFixturesData().first;
     final headlineFixture = getHeadlinesFixturesData().first.copyWith(
       status: ContentStatus.draft,
     );
@@ -25,12 +32,14 @@ void main() {
     setUp(() {
       headlinesRepository = MockDataRepository<Headline>();
       mediaRepository = MockMediaRepository();
+      enrichmentRepository = MockEnrichmentRepository();
     });
 
     CreateHeadlineBloc buildBloc() {
       return CreateHeadlineBloc(
         headlinesRepository: headlinesRepository,
         mediaRepository: mediaRepository,
+        enrichmentRepository: enrichmentRepository,
         logger: Logger('CreateHeadlineBloc'),
       );
     }
@@ -46,15 +55,39 @@ void main() {
       });
     });
 
+    group('CreateHeadlineInitialized', () {
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'emits new state with updated languages',
+        build: buildBloc,
+        act: (bloc) => bloc.add(
+          const CreateHeadlineInitialized(
+            enabledLanguages: [SupportedLanguage.en, SupportedLanguage.es],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
+        expect: () => [
+          const CreateHeadlineState(
+            enabledLanguages: [SupportedLanguage.en, SupportedLanguage.es],
+            defaultLanguage: SupportedLanguage.en,
+            selectedLanguage: SupportedLanguage.en,
+          ),
+        ],
+      );
+    });
+
     group('CreateHeadlineTitleChanged', () {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
-        'emits new state with updated title',
+        'emits new state with updated title and resets enrichment flag',
         build: buildBloc,
+        seed: () => const CreateHeadlineState(wasTitleEnriched: true),
         act: (bloc) => bloc.add(
           const CreateHeadlineTitleChanged({SupportedLanguage.en: 'New Title'}),
         ),
         expect: () => [
-          const CreateHeadlineState(title: {SupportedLanguage.en: 'New Title'}),
+          const CreateHeadlineState(
+            title: {SupportedLanguage.en: 'New Title'},
+            wasTitleEnriched: false,
+          ),
         ],
       );
     });
@@ -77,6 +110,7 @@ void main() {
             SupportedLanguage.en: 'English Title',
             SupportedLanguage.es: 'Título',
           },
+          wasTitleEnriched: false,
         ),
       ],
     );
@@ -134,22 +168,65 @@ void main() {
 
     group('CreateHeadlineTopicChanged', () {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
-        'emits new state with updated topic',
+        'emits new state with updated topic and resets enrichment flag',
         build: buildBloc,
+        seed: () => const CreateHeadlineState(wasTopicEnriched: true),
         act: (bloc) => bloc.add(CreateHeadlineTopicChanged(topicFixture)),
-        expect: () => [CreateHeadlineState(topic: topicFixture)],
+        expect: () => [
+          CreateHeadlineState(
+            topic: topicFixture,
+            wasTopicEnriched: false,
+          ),
+        ],
       );
     });
 
-    group('CreateHeadlineCountryChanged', () {
+    group('CreateHeadlineCountriesChanged', () {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
-        'emits new state with updated country',
+        'emits new state with updated countries and resets enrichment flag',
         build: buildBloc,
-        act: (bloc) => bloc.add(CreateHeadlineCountryChanged(countryFixture)),
-        expect: () => [CreateHeadlineState(eventCountry: countryFixture)],
+        seed: () => const CreateHeadlineState(wereCountriesEnriched: true),
+        act: (bloc) => bloc.add(
+          CreateHeadlineCountriesChanged([countryFixture]),
+        ),
+        expect: () => [
+          CreateHeadlineState(
+            mentionedCountries: [countryFixture],
+            wereCountriesEnriched: false,
+          ),
+        ],
       );
     });
 
+    group('CreateHeadlinePersonsChanged', () {
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'emits new state with updated persons and resets enrichment flag',
+        build: buildBloc,
+        seed: () => const CreateHeadlineState(werePersonsEnriched: true),
+        act: (bloc) => bloc.add(
+          CreateHeadlinePersonsChanged([personFixture]),
+        ),
+        expect: () => [
+          CreateHeadlineState(
+            mentionedPersons: [personFixture],
+            werePersonsEnriched: false,
+          ),
+        ],
+      );
+    });
+
+    group('CreateHeadlineLanguageTabChanged', () {
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'emits new state with updated selected language',
+        build: buildBloc,
+        act: (bloc) => bloc.add(
+          const CreateHeadlineLanguageTabChanged(SupportedLanguage.es),
+        ),
+        expect: () => [
+          const CreateHeadlineState(selectedLanguage: SupportedLanguage.es),
+        ],
+      );
+    });
     group('CreateHeadlineIsBreakingChanged', () {
       blocTest<CreateHeadlineBloc, CreateHeadlineState>(
         'emits new state with updated isBreaking status',
@@ -185,7 +262,7 @@ void main() {
           imageFileName: imageFileName,
           source: sourceFixture,
           topic: topicFixture,
-          eventCountry: countryFixture,
+          mentionedCountries: [countryFixture],
         ),
         act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -247,7 +324,7 @@ void main() {
           imageFileName: imageFileName,
           source: sourceFixture,
           topic: topicFixture,
-          eventCountry: countryFixture,
+          mentionedCountries: [countryFixture],
         ),
         act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -266,7 +343,8 @@ void main() {
         ],
         verify: (_) {
           verifyNever(
-            () => headlinesRepository.create(item: any(named: 'item')),
+            () =>
+                headlinesRepository.create(item: any<Headline>(named: 'item')),
           );
         },
       );
@@ -286,7 +364,7 @@ void main() {
           imageFileName: imageFileName,
           source: sourceFixture,
           topic: topicFixture,
-          eventCountry: countryFixture,
+          mentionedCountries: [countryFixture],
         ),
         act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -318,7 +396,7 @@ void main() {
           url: headlineFixture.url,
           source: sourceFixture,
           topic: topicFixture,
-          eventCountry: countryFixture,
+          mentionedCountries: [countryFixture],
         ),
         act: (bloc) => bloc.add(const CreateHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -377,7 +455,7 @@ void main() {
           imageFileName: imageFileName,
           source: sourceFixture,
           topic: topicFixture,
-          eventCountry: countryFixture,
+          mentionedCountries: [countryFixture],
         ),
         act: (bloc) => bloc.add(const CreateHeadlinePublished()),
         verify: (bloc) {
@@ -390,6 +468,84 @@ void main() {
                   as Headline;
           expect(headline.status, ContentStatus.active);
         },
+      );
+    });
+
+    group('CreateHeadlineEnrichmentRequested', () {
+      final enrichedHeadline = headlineFixture.copyWith(
+        title: const {SupportedLanguage.en: 'Enriched Title'},
+        topic: topicFixture,
+        mentionedCountries: [countryFixture],
+        mentionedPersons: [personFixture],
+      );
+
+      setUp(() {
+        when(
+          () => enrichmentRepository.enrichHeadline(any<Headline>()),
+        ).thenAnswer((_) async => enrichedHeadline);
+      });
+
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'emits [enriching, initial] on success and updates state',
+        build: buildBloc,
+        seed: () => const CreateHeadlineState(
+          title: {SupportedLanguage.en: 'Original Title'},
+          url: 'http://example.com',
+        ),
+        act: (bloc) => bloc.add(const CreateHeadlineEnrichmentRequested()),
+        expect: () => [
+          const CreateHeadlineState(
+            status: CreateHeadlineStatus.enriching,
+            title: {SupportedLanguage.en: 'Original Title'},
+            url: 'http://example.com',
+          ),
+          CreateHeadlineState(
+            status: CreateHeadlineStatus.initial,
+            title: enrichedHeadline.title,
+            url: 'http://example.com',
+            topic: topicFixture,
+            mentionedCountries: enrichedHeadline.mentionedCountries,
+            mentionedPersons: enrichedHeadline.mentionedPersons,
+            isEnrichmentSuccessful: true,
+            wasTitleEnriched: true,
+            wasTopicEnriched: true,
+            wereCountriesEnriched: true,
+            werePersonsEnriched: true,
+          ),
+        ],
+        verify: (_) {
+          verify(
+            () => enrichmentRepository.enrichHeadline(any<Headline>()),
+          ).called(1);
+        },
+      );
+
+      blocTest<CreateHeadlineBloc, CreateHeadlineState>(
+        'emits [enriching, enrichmentFailure] on failure',
+        build: buildBloc,
+        setUp: () {
+          when(
+            () => enrichmentRepository.enrichHeadline(any<Headline>()),
+          ).thenThrow(testException);
+        },
+        seed: () => const CreateHeadlineState(
+          title: {SupportedLanguage.en: 'Original Title'},
+          url: 'http://example.com',
+        ),
+        act: (bloc) => bloc.add(const CreateHeadlineEnrichmentRequested()),
+        expect: () => [
+          const CreateHeadlineState(
+            status: CreateHeadlineStatus.enriching,
+            title: {SupportedLanguage.en: 'Original Title'},
+            url: 'http://example.com',
+          ),
+          const CreateHeadlineState(
+            status: CreateHeadlineStatus.enrichmentFailure,
+            title: {SupportedLanguage.en: 'Original Title'},
+            url: 'http://example.com',
+            exception: testException,
+          ),
+        ],
       );
     });
   });

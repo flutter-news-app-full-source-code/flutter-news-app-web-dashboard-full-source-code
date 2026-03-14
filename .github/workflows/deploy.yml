@@ -26,7 +26,7 @@ jobs:
 
       # 4. Build the Flutter web app
       - name: Build Web App
-        run: flutter build web --release --base-href /verity-dashboard/
+        run: flutter build web --release --base-href /veritai-dashboard/
 
       # 5. Deploy the built app to GitHub Pages
       - name: Deploy

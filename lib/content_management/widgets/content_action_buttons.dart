@@ -3,10 +3,10 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/router/routes.dart';
-import 'package:verity_dashboard/shared/widgets/confirmation_dialog.dart';
+import 'package:veritai_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/router/routes.dart';
+import 'package:veritai_dashboard/shared/widgets/confirmation_dialog.dart';
 
 /// {@template content_action_buttons}
 /// A widget that displays action buttons for content management items
@@ -47,6 +47,9 @@ class ContentActionButtons extends StatelessWidget {
     } else if (item is Source) {
       itemId = (item as Source).id;
       status = (item as Source).status;
+    } else if (item is Person) {
+      itemId = (item as Person).id;
+      status = (item as Person).status;
     } else {
       return const SizedBox.shrink();
     }
@@ -67,6 +70,8 @@ class ContentActionButtons extends StatelessWidget {
               routeName = Routes.editTopicName;
             case 'source':
               routeName = Routes.editSourceName;
+            case 'person':
+              routeName = Routes.editPersonName;
             default:
               return;
           }
@@ -80,6 +85,7 @@ class ContentActionButtons extends StatelessWidget {
 
     // Determine contextual action and add to overflow
     switch (status) {
+      case ContentStatus.ingested:
       case ContentStatus.draft:
         overflowMenuItems.add(
           PopupMenuItem<String>(
@@ -206,6 +212,8 @@ class ContentActionButtons extends StatelessWidget {
       itemType = l10n.headline.toLowerCase();
     } else if (item is Topic) {
       itemType = l10n.topic.toLowerCase();
+    } else if (item is Person) {
+      itemType = l10n.persons.toLowerCase();
     } else {
       itemType = l10n.source.toLowerCase();
     }
@@ -230,6 +238,10 @@ class ContentActionButtons extends StatelessWidget {
               context.read<ContentManagementBloc>().add(
                 PublishSourceRequested(itemId),
               );
+            } else if (item is Person) {
+              context.read<ContentManagementBloc>().add(
+                PublishPersonRequested(itemId),
+              );
             }
           },
         );
@@ -251,6 +263,10 @@ class ContentActionButtons extends StatelessWidget {
             } else if (item is Source) {
               context.read<ContentManagementBloc>().add(
                 ArchiveSourceRequested(itemId),
+              );
+            } else if (item is Person) {
+              context.read<ContentManagementBloc>().add(
+                ArchivePersonRequested(itemId),
               );
             }
           },
@@ -274,6 +290,10 @@ class ContentActionButtons extends StatelessWidget {
               context.read<ContentManagementBloc>().add(
                 RestoreSourceRequested(itemId),
               );
+            } else if (item is Person) {
+              context.read<ContentManagementBloc>().add(
+                RestorePersonRequested(itemId),
+              );
             }
           },
         );
@@ -287,6 +307,10 @@ class ContentActionButtons extends StatelessWidget {
             if (item is Headline) {
               context.read<ContentManagementBloc>().add(
                 DeleteHeadlineForeverRequested(itemId),
+              );
+            } else if (item is Person) {
+              context.read<ContentManagementBloc>().add(
+                DeletePersonForeverRequested(itemId),
               );
             }
           },

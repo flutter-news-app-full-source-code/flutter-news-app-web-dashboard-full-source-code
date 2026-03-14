@@ -2,10 +2,10 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_dashboard/shared/constants/app_constants.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
-import 'package:verity_dashboard/shared/utils/future_utils.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/analytics_card_slot.dart';
+import 'package:veritai_dashboard/shared/constants/app_constants.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/shared/utils/future_utils.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_card_slot.dart';
 
 /// {@template analytics_dashboard_strip}
 /// A reusable widget that displays the standard "Dashboard Strip" configuration
@@ -115,12 +115,8 @@ class _AnalyticsDashboardStripState extends State<AnalyticsDashboardStrip> {
             }
 
             // Split the data back into KPI and Chart data lists.
-            final kpiData = allData
-                .sublist(0, widget.kpiCards.length)
-                .cast<KpiCardData>();
-            final chartData = allData
-                .sublist(widget.kpiCards.length)
-                .cast<ChartCardData>();
+            final kpiData = allData.sublist(0, widget.kpiCards.length);
+            final chartData = allData.sublist(widget.kpiCards.length);
 
             return LayoutBuilder(
               builder: (context, constraints) {

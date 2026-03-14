@@ -27,6 +27,11 @@ final class ContentManagementLanguageChanged extends ContentManagementEvent {
   List<Object?> get props => [language];
 }
 
+/// Event to request a manual refresh of the currently active tab.
+final class ContentManagementRefreshRequested extends ContentManagementEvent {
+  const ContentManagementRefreshRequested();
+}
+
 /// Event to request loading of headlines.
 final class LoadHeadlinesRequested extends ContentManagementEvent {
   const LoadHeadlinesRequested({
@@ -243,6 +248,59 @@ final class UndoDeleteSourceRequested extends ContentManagementEvent {
 
   final String id;
 
+  @override
+  List<Object?> get props => [id];
+}
+
+/// Event to request loading of persons.
+final class LoadPersonsRequested extends ContentManagementEvent {
+  const LoadPersonsRequested({
+    this.startAfterId,
+    this.limit,
+    this.forceRefresh = false,
+    this.filter,
+  });
+
+  final String? startAfterId;
+  final int? limit;
+  final bool forceRefresh;
+  final Map<String, dynamic>? filter;
+
+  @override
+  List<Object?> get props => [startAfterId, limit, forceRefresh, filter];
+}
+
+final class ArchivePersonRequested extends ContentManagementEvent {
+  const ArchivePersonRequested(this.id);
+  final String id;
+  @override
+  List<Object?> get props => [id];
+}
+
+final class PublishPersonRequested extends ContentManagementEvent {
+  const PublishPersonRequested(this.id);
+  final String id;
+  @override
+  List<Object?> get props => [id];
+}
+
+final class RestorePersonRequested extends ContentManagementEvent {
+  const RestorePersonRequested(this.id);
+  final String id;
+  @override
+  List<Object?> get props => [id];
+}
+
+final class DeletePersonForeverRequested extends ContentManagementEvent {
+  const DeletePersonForeverRequested(this.id);
+  final String id;
+  @override
+  List<Object?> get props => [id];
+}
+
+final class UndoDeletePersonRequested extends ContentManagementEvent {
+  const UndoDeletePersonRequested(this.id);
+  final String id;
   @override
   List<Object?> get props => [id];
 }

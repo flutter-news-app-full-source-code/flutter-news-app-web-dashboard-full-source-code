@@ -1,10 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/chart_card.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/kpi_card.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/ranked_list_card.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_card_shell.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/chart_card.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/kpi_card.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/ranked_list_card.dart';
 
 /// {@template analytics_card_slot}
 /// A widget that manages a slot containing multiple analytics cards.
@@ -50,20 +51,19 @@ class _AnalyticsCardSlotState<T extends Enum>
       // Ensure the data list has an entry for the current index.
       if (_currentIndex < widget.data!.length) {
         final cardData = widget.data![_currentIndex];
-        return _buildCardFromData(cardData);
+        return _buildCardFromData(currentId, cardData);
       }
       // If data is missing for the index, return an empty box.
-      return const SizedBox.shrink();
+      return _buildEmptyCard(currentId);
     }
 
     // Otherwise, fall back to fetching data with a FutureBuilder.
     return _buildCardWithFuture(currentId);
   }
 
-  /// Builds the appropriate card widget directly from a [data] object.
-  Widget _buildCardFromData(dynamic data) {
+  Widget _buildCardFromData(T id, dynamic data) {
     if (data == null) {
-      return const SizedBox.shrink();
+      return _buildEmptyCard(id);
     }
 
     final totalSlots = widget.cardIds.length;
@@ -94,6 +94,19 @@ class _AnalyticsCardSlotState<T extends Enum>
     return const Center(child: Text('Unsupported Card Type'));
   }
 
+  Widget _buildEmptyCard(T id) {
+    return AnalyticsCardShell<dynamic>(
+      title: _getTitleForCardId(id),
+      timeFrames: const [],
+      totalSlots: widget.cardIds.length,
+      currentSlot: _currentIndex,
+      onSlotChanged: _onSlotChanged,
+      child: const Center(
+        child: Text('No data available'),
+      ),
+    );
+  }
+
   /// Builds the card by fetching its data using a [FutureBuilder].
   Widget _buildCardWithFuture(T id) {
     final analyticsService = context.read<AnalyticsService>();
@@ -102,31 +115,71 @@ class _AnalyticsCardSlotState<T extends Enum>
       return FutureBuilder<KpiCardData?>(
         future: analyticsService.getKpi(id),
         builder: (context, snapshot) {
-          return snapshot.hasData
-              ? _buildCardFromData(snapshot.data!)
-              : const SizedBox.shrink();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return _buildEmptyCard(id);
+          }
+          return _buildCardFromData(id, snapshot.data);
         },
       );
     } else if (id is ChartCardId) {
       return FutureBuilder<ChartCardData?>(
         future: analyticsService.getChart(id),
         builder: (context, snapshot) {
-          return snapshot.hasData
-              ? _buildCardFromData(snapshot.data!)
-              : const SizedBox.shrink();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return _buildEmptyCard(id);
+          }
+          return _buildCardFromData(id, snapshot.data);
         },
       );
     } else if (id is RankedListCardId) {
       return FutureBuilder<RankedListCardData?>(
         future: analyticsService.getRankedList(id),
         builder: (context, snapshot) {
-          return snapshot.hasData
-              ? _buildCardFromData(snapshot.data!)
-              : const SizedBox.shrink();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return _buildEmptyCard(id);
+          }
+          return _buildCardFromData(id, snapshot.data);
         },
       );
     }
 
     return const Center(child: Text('Unsupported Card Type'));
   }
+}
+
+/// Generates a human-readable title from an analytics card enum ID.
+///
+/// This provides a fallback title when the analytics data (which includes the
+/// backend-provided title) cannot be fetched. It works by converting camelCase
+/// enum names into Title Case strings.
+///
+/// Example: `KpiCardId.usersTotalRegistered` -> `"Users Total Registered"`
+String _getTitleForCardId(Enum id) {
+  final enumName = id.name;
+
+  if (enumName.isEmpty) {
+    return '';
+  }
+
+  // Split the enum name by capital letters to separate words.
+  final parts = enumName.split(RegExp('(?=[A-Z])'));
+
+  if (parts.isEmpty) {
+    return '';
+  }
+
+  // Capitalize the first letter of the first word.
+  final firstWord = parts[0];
+  parts[0] = '${firstWord[0].toUpperCase()}${firstWord.substring(1)}';
+
+  return parts.join(' ');
 }

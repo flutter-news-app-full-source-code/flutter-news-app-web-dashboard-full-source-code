@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -65,7 +65,8 @@ void main() {
             imageUrl: headlineFixture.imageUrl,
             source: headlineFixture.source,
             topic: headlineFixture.topic,
-            eventCountry: headlineFixture.eventCountry,
+            mentionedCountries: headlineFixture.mentionedCountries,
+            mentionedPersons: headlineFixture.mentionedPersons,
             isBreaking: headlineFixture.isBreaking,
             initialHeadline: headlineFixture,
           ),
@@ -118,7 +119,8 @@ void main() {
           imageUrl: headlineFixture.imageUrl,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
           isBreaking: headlineFixture.isBreaking,
           initialHeadline: headlineFixture,
         ),
@@ -139,7 +141,8 @@ void main() {
             imageUrl: headlineFixture.imageUrl,
             source: headlineFixture.source,
             topic: headlineFixture.topic,
-            eventCountry: headlineFixture.eventCountry,
+            mentionedCountries: headlineFixture.mentionedCountries,
+            mentionedPersons: headlineFixture.mentionedPersons,
             isBreaking: headlineFixture.isBreaking,
             initialHeadline: headlineFixture,
           ),
@@ -205,7 +208,8 @@ void main() {
           imageUrl: headlineFixture.imageUrl,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
           isBreaking: headlineFixture.isBreaking,
           initialHeadline: headlineFixture,
         ),
@@ -226,7 +230,8 @@ void main() {
             imageUrl: headlineFixture.imageUrl,
             source: headlineFixture.source,
             topic: headlineFixture.topic,
-            eventCountry: headlineFixture.eventCountry,
+            mentionedCountries: headlineFixture.mentionedCountries,
+            mentionedPersons: headlineFixture.mentionedPersons,
             isBreaking: headlineFixture.isBreaking,
             initialHeadline: headlineFixture,
           ),
@@ -288,7 +293,8 @@ void main() {
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
         ),
         act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -339,7 +345,8 @@ void main() {
           imageFileName: imageFileName,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
         ),
         act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -405,7 +412,8 @@ void main() {
           imageFileName: imageFileName,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
         ),
         act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -454,7 +462,8 @@ void main() {
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
         ),
         act: (bloc) => bloc.add(const EditHeadlineSavedAsDraft()),
         expect: () => <dynamic>[
@@ -527,7 +536,8 @@ void main() {
           url: headlineFixture.url,
           source: headlineFixture.source,
           topic: headlineFixture.topic,
-          eventCountry: headlineFixture.eventCountry,
+          mentionedCountries: headlineFixture.mentionedCountries,
+          mentionedPersons: headlineFixture.mentionedPersons,
         ),
         act: (bloc) => bloc.add(const EditHeadlinePublished()),
         verify: (_) {

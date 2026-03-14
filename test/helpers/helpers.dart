@@ -15,15 +15,19 @@ void registerFallbackValues() {
   registerFallbackValue(FakeSource());
   registerFallbackValue(FakeTopic());
   registerFallbackValue(FakeCountry());
+  registerFallbackValue(FakePerson());
   registerFallbackValue(FakeLanguage());
   registerFallbackValue(const ValueWrapper<HttpException?>(null));
   registerFallbackValue(MediaAssetPurpose.headlineImage);
+  registerFallbackValue(const PaginationOptions());
   registerFallbackValue(Uint8List(0));
   registerFallbackValue(<String, dynamic>{});
   registerFallbackValue(<String, String>{});
   registerFallbackValue(MockDataRepository<Headline>());
   registerFallbackValue(MockDataRepository<Topic>());
   registerFallbackValue(MockDataRepository<Source>());
+  registerFallbackValue(MockDataRepository<Person>());
+  registerFallbackValue(MockDataRepository<RemoteConfig>());
 }
 
 class MockDataRepository<T> extends Mock implements DataRepository<T> {}
@@ -43,3 +47,5 @@ class FakeTopic extends Fake implements Topic {}
 class FakeCountry extends Fake implements Country {}
 
 class FakeLanguage extends Fake implements Language {}
+
+class FakePerson extends Fake implements Person {}

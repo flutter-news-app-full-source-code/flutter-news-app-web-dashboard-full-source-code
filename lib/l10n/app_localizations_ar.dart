@@ -755,6 +755,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get contentStatusDraft => 'مسودة';
 
   @override
+  String get refresh => 'تحديث';
+
+  @override
+  String get contentStatusIngested => 'بحاجة للمراجعة';
+
+  @override
   String get totalHeadlines => 'إجمالي العناوين';
 
   @override
@@ -3532,4 +3538,71 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'هل أنت متأكد أنك تريد إزالة جدول المزامنة هذا؟ سيؤدي هذا إلى إيقاف التحديثات التلقائية للمصدر.';
+
+  @override
+  String get persons => 'الأشخاص';
+
+  @override
+  String get mentions => 'الإشارات';
+
+  @override
+  String get aiEnrichment => 'إثراء بالذكاء الاصطناعي';
+
+  @override
+  String get createPerson => 'إنشاء شخص';
+
+  @override
+  String get editPerson => 'تعديل بيانات الشخص';
+
+  @override
+  String get personName => 'الاسم';
+
+  @override
+  String get personDescription => 'الوصف';
+
+  @override
+  String get loadingPersons => 'جاري تحميل الأشخاص';
+
+  @override
+  String get noPersonsFound => 'لم يتم العثور على أشخاص.';
+
+  @override
+  String get filterPersons => 'تصفية الأشخاص';
+
+  @override
+  String get searchByPersonName => 'البحث بالاسم أو المعرف...';
+
+  @override
+  String get updatePersonTitle => 'تحديث بيانات الشخص';
+
+  @override
+  String get updatePersonMessage =>
+      'هل تريد نشر هذه التغييرات أم حفظ التحديث كمسودة؟';
+
+  @override
+  String get savePersonTitle => 'حفظ بيانات الشخص';
+
+  @override
+  String get savePersonMessage => 'هل تريد نشر هذا الشخص أم حفظه كمسودة؟';
+
+  @override
+  String get personCreatedSuccessfully => 'تم إنشاء الشخص بنجاح.';
+
+  @override
+  String get personUpdatedSuccessfully => 'تم تحديث بيانات الشخص بنجاح.';
+
+  @override
+  String get cannotUpdatePersonError =>
+      'لا يمكن التحديث: لم يتم تحميل بيانات الشخص الأصلية.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'تم حذف الشخص \"$personName\".';
+  }
+
+  @override
+  String get publishPerson => 'نشر الشخص';
+
+  @override
+  String get loadingPerson => 'جاري تحميل بيانات الشخص...';
 }

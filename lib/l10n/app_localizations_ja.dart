@@ -722,6 +722,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get contentStatusDraft => '下書き';
 
   @override
+  String get refresh => '更新';
+
+  @override
+  String get contentStatusIngested => '要確認';
+
+  @override
   String get totalHeadlines => '見出し総数';
 
   @override
@@ -3442,4 +3448,69 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'この同期スケジュールを削除してもよろしいですか？これにより、ソースの自動更新が停止します。';
+
+  @override
+  String get persons => '人物';
+
+  @override
+  String get mentions => '言及';
+
+  @override
+  String get aiEnrichment => 'AIエンリッチメント';
+
+  @override
+  String get createPerson => '人物を作成';
+
+  @override
+  String get editPerson => '人物を編集';
+
+  @override
+  String get personName => '名前';
+
+  @override
+  String get personDescription => '説明';
+
+  @override
+  String get loadingPersons => '人物を読み込み中';
+
+  @override
+  String get noPersonsFound => '人物が見つかりませんでした。';
+
+  @override
+  String get filterPersons => '人物をフィルター';
+
+  @override
+  String get searchByPersonName => '名前またはIDで検索...';
+
+  @override
+  String get updatePersonTitle => '人物を更新';
+
+  @override
+  String get updatePersonMessage => 'これらの変更を公開しますか、それとも下書きとして保存しますか？';
+
+  @override
+  String get savePersonTitle => '人物を保存';
+
+  @override
+  String get savePersonMessage => 'この人物を公開しますか、それとも下書きとして保存しますか？';
+
+  @override
+  String get personCreatedSuccessfully => '人物が正常に作成されました。';
+
+  @override
+  String get personUpdatedSuccessfully => '人物が正常に更新されました。';
+
+  @override
+  String get cannotUpdatePersonError => '更新できません：元の人物データが読み込まれていません。';
+
+  @override
+  String personDeleted(String personName) {
+    return '人物「$personName」を削除しました。';
+  }
+
+  @override
+  String get publishPerson => '人物を公開';
+
+  @override
+  String get loadingPerson => '人物を読み込み中...';
 }

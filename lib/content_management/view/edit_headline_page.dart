@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
-import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
-import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/extensions/supported_language_flag.dart';
+import 'package:veritai_dashboard/shared/widgets/image_upload_field.dart';
+import 'package:veritai_dashboard/shared/widgets/localized_text_form_field.dart';
+import 'package:veritai_dashboard/shared/widgets/searchable_selection_input.dart';
 
 /// {@template edit_headline_page}
 /// A page for editing an existing headline.
@@ -123,6 +123,13 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+    final appState = context.read<AppBloc>().state;
+    final userLanguage =
+        appState.appSettings?.language ??
+        appState.remoteConfig?.app.localization.defaultLanguage ??
+        SupportedLanguage.en;
+    final langCode = userLanguage.name;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.editHeadline),
@@ -330,8 +337,8 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                         repository: context.read<DataRepository<Source>>(),
                         filterBuilder: (searchTerm) =>
                             searchTerm == null ? {} : {'q': searchTerm},
-                        sortOptions: const [
-                          SortOption('name.en', SortOrder.asc),
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: true,
@@ -352,8 +359,8 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                         repository: context.read<DataRepository<Topic>>(),
                         filterBuilder: (searchTerm) =>
                             searchTerm == null ? {} : {'q': searchTerm},
-                        sortOptions: const [
-                          SortOption('name.en', SortOrder.asc),
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: true,
@@ -361,9 +368,8 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                       const SizedBox(height: AppSpacing.lg),
                       SearchableSelectionInput<Country>(
                         label: l10n.countryName,
-                        selectedItems: state.eventCountry != null
-                            ? [state.eventCountry!]
-                            : [],
+                        isMultiSelect: true,
+                        selectedItems: state.mentionedCountries,
                         itemBuilder: (context, country) => Row(
                           children: [
                             SizedBox(
@@ -382,9 +388,10 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                         ),
                         itemToString: (country) =>
                             country.name.values.firstOrNull ?? '',
-                        onChanged: (items) => context
-                            .read<EditHeadlineBloc>()
-                            .add(EditHeadlineCountryChanged(items?.first)),
+                        onChanged: (items) =>
+                            context.read<EditHeadlineBloc>().add(
+                              EditHeadlineCountriesChanged(items ?? []),
+                            ),
                         repository: context.read<DataRepository<Country>>(),
                         filterBuilder: (searchTerm) => searchTerm == null
                             ? {}
@@ -394,8 +401,30 @@ class _EditHeadlineViewState extends State<EditHeadlineView> {
                                   r'$options': 'i',
                                 },
                               },
-                        sortOptions: const [
-                          SortOption('name.en', SortOrder.asc),
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
+                        ],
+                        limit: kDefaultRowsPerPage,
+                        includeInactiveSelectedItem: true,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      SearchableSelectionInput<Person>(
+                        label: l10n.persons,
+                        isMultiSelect: true,
+                        selectedItems: state.mentionedPersons,
+                        itemBuilder: (context, person) =>
+                            Text(person.name.values.firstOrNull ?? ''),
+                        itemToString: (person) =>
+                            person.name.values.firstOrNull ?? '',
+                        onChanged: (items) =>
+                            context.read<EditHeadlineBloc>().add(
+                              EditHeadlinePersonsChanged(items ?? []),
+                            ),
+                        repository: context.read<DataRepository<Person>>(),
+                        filterBuilder: (searchTerm) =>
+                            searchTerm == null ? {} : {'q': searchTerm},
+                        sortOptions: [
+                          SortOption('name.$langCode', SortOrder.asc),
                         ],
                         limit: kDefaultRowsPerPage,
                         includeInactiveSelectedItem: true,

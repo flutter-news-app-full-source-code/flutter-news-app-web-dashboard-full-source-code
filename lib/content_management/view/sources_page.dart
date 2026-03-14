@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:verity_dashboard/content_management/widgets/content_action_buttons.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/router/routes.dart';
-import 'package:verity_dashboard/shared/extensions/extensions.dart';
-import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
+import 'package:veritai_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:veritai_dashboard/content_management/widgets/content_action_buttons.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/router/routes.dart';
+import 'package:veritai_dashboard/shared/extensions/extensions.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
+import 'package:veritai_dashboard/shared/widgets/entity_image.dart';
 
 /// {@template sources_page}
 /// A page for displaying and managing Sources in a tabular format.
@@ -229,21 +229,9 @@ class _SourcesDataSource extends DataTableSource {
         DataCell(
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AppSpacing.xs),
-                child: source.logoUrl != null
-                    ? Image.network(
-                        source.logoUrl!,
-                        width: 32,
-                        height: 32,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        width: 32,
-                        height: 32,
-                        color: Theme.of(context).colorScheme.surfaceVariant,
-                        child: const Icon(Icons.source, size: 16),
-                      ),
+              EntityImage(
+                imageUrl: source.logoUrl,
+                placeholderIcon: Icons.source,
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(

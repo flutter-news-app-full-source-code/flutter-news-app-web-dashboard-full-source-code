@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
 
 /// {@template user_role_l10n}
 /// Extension on [UserRole] to provide localized string representations.

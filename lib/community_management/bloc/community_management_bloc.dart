@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
-import 'package:verity_dashboard/shared/constants/app_constants.dart';
-import 'package:verity_dashboard/shared/services/pending_updates_service.dart';
+import 'package:veritai_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
+import 'package:veritai_dashboard/shared/constants/app_constants.dart';
+import 'package:veritai_dashboard/shared/services/pending_updates_service.dart';
 
 part 'community_management_event.dart';
 part 'community_management_state.dart';

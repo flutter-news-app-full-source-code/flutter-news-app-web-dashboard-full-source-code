@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_dashboard/user_management/bloc/user_management_bloc.dart'
+import 'package:veritai_dashboard/user_management/bloc/user_management_bloc.dart'
     show UserManagementBloc;
-import 'package:verity_dashboard/user_management/enums/authentication_filter.dart';
+import 'package:veritai_dashboard/user_management/enums/authentication_filter.dart';
 
 part 'user_filter_event.dart';
 part 'user_filter_state.dart';

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
-import 'package:verity_dashboard/content_sync/view/create_sync_page.dart';
-import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
+import 'package:veritai_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
+import 'package:veritai_dashboard/content_sync/view/create_sync_page.dart';
+import 'package:veritai_dashboard/shared/widgets/searchable_selection_input.dart';
 import '../../helpers/pump_app.dart';
 
 class MockCreateSyncBloc extends MockBloc<CreateSyncEvent, CreateSyncState>

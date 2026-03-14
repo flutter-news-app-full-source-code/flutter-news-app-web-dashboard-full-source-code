@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/extensions.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
-import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
-import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
+import 'package:veritai_dashboard/shared/extensions/extensions.dart';
+import 'package:veritai_dashboard/shared/widgets/image_upload_field.dart';
+import 'package:veritai_dashboard/shared/widgets/localized_text_form_field.dart';
+import 'package:veritai_dashboard/shared/widgets/searchable_selection_input.dart';
 
 /// {@template create_source_page}
 /// A page for creating a new source.
@@ -44,6 +45,7 @@ class CreateSourcePage extends StatelessWidget {
       create: (context) =>
           CreateSourceBloc(
             sourcesRepository: context.read<DataRepository<Source>>(),
+            enrichmentRepository: context.read<EnrichmentRepository>(),
             mediaRepository: context.read<MediaRepository>(),
             logger: Logger('CreateSourceBloc'),
           )..add(
@@ -121,7 +123,8 @@ class _CreateSourceViewState extends State<CreateSourceView>
           BlocBuilder<CreateSourceBloc, CreateSourceState>(
             builder: (context, state) {
               if (state.status == CreateSourceStatus.imageUploading ||
-                  state.status == CreateSourceStatus.entitySubmitting) {
+                  state.status == CreateSourceStatus.entitySubmitting ||
+                  state.status == CreateSourceStatus.enriching) {
                 return const Padding(
                   padding: EdgeInsets.only(right: AppSpacing.lg),
                   child: SizedBox(
@@ -131,28 +134,42 @@ class _CreateSourceViewState extends State<CreateSourceView>
                   ),
                 );
               }
-              // The save button is enabled only if the form is valid.
-              return IconButton(
-                icon: const Icon(Icons.save),
-                tooltip: l10n.saveChanges,
-                onPressed: state.isFormValid
-                    ? () async {
-                        final selectedStatus = await _showSaveOptionsDialog(
-                          context,
-                        );
-                        if (selectedStatus == ContentStatus.active &&
-                            context.mounted) {
-                          context.read<CreateSourceBloc>().add(
-                            const CreateSourcePublished(),
-                          );
-                        } else if (selectedStatus == ContentStatus.draft &&
-                            context.mounted) {
-                          context.read<CreateSourceBloc>().add(
-                            const CreateSourceSavedAsDraft(),
-                          );
-                        }
-                      }
-                    : null,
+              return Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.auto_fix_high),
+                    tooltip: l10n.aiEnrichment,
+                    onPressed:
+                        state.name.values.any((v) => v.isNotEmpty) &&
+                            !state.isEnrichmentSuccessful
+                        ? () => context.read<CreateSourceBloc>().add(
+                            const CreateSourceEnrichmentRequested(),
+                          )
+                        : null,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.save),
+                    tooltip: l10n.saveChanges,
+                    onPressed: state.isFormValid
+                        ? () async {
+                            final selectedStatus = await _showSaveOptionsDialog(
+                              context,
+                            );
+                            if (selectedStatus == ContentStatus.active &&
+                                context.mounted) {
+                              context.read<CreateSourceBloc>().add(
+                                const CreateSourcePublished(),
+                              );
+                            } else if (selectedStatus == ContentStatus.draft &&
+                                context.mounted) {
+                              context.read<CreateSourceBloc>().add(
+                                const CreateSourceSavedAsDraft(),
+                              );
+                            }
+                          }
+                        : null,
+                  ),
+                ],
               );
             },
           ),
@@ -172,7 +189,8 @@ class _CreateSourceViewState extends State<CreateSourceView>
             context.pop();
           }
           if (state.status == CreateSourceStatus.imageUploadFailure ||
-              state.status == CreateSourceStatus.entitySubmitFailure) {
+              state.status == CreateSourceStatus.entitySubmitFailure ||
+              state.status == CreateSourceStatus.enrichmentFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -184,6 +202,9 @@ class _CreateSourceViewState extends State<CreateSourceView>
           }
         },
         builder: (context, state) {
+          if (_urlController.text != state.url) {
+            _urlController.text = state.url;
+          }
           if (state.status == CreateSourceStatus.loading) {
             return LoadingStateWidget(
               icon: Icons.source,
@@ -205,192 +226,317 @@ class _CreateSourceViewState extends State<CreateSourceView>
 
           return DefaultTabController(
             length: state.enabledLanguages.length,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TabBar(
-                        isScrollable: true,
-                        tabAlignment: TabAlignment.start,
-                        onTap: (index) => context.read<CreateSourceBloc>().add(
-                          CreateSourceLanguageTabChanged(
-                            state.enabledLanguages[index],
-                          ),
-                        ),
-                        tabs: state.enabledLanguages.map((lang) {
-                          return Tab(
-                            icon: Image.network(
-                              lang.flagUrl,
-                              width: 24,
-                              errorBuilder: (_, _, _) =>
-                                  const Icon(Icons.flag, size: 16),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      LocalizedTextFormField(
-                        label: l10n.sourceName,
-                        values: state.name,
-                        enabledLanguages: state.enabledLanguages,
-                        selectedLanguage: state.selectedLanguage,
-                        onChanged: (values) =>
-                            context.read<CreateSourceBloc>().add(
-                              CreateSourceNameChanged(values),
-                            ),
-                        validator: (values) {
-                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                            return l10n.defaultLanguageRequired(
-                              state.defaultLanguage.name.toUpperCase(),
-                            );
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      LocalizedTextFormField(
-                        label: l10n.description,
-                        values: state.description,
-                        enabledLanguages: state.enabledLanguages,
-                        selectedLanguage: state.selectedLanguage,
-                        onChanged: (values) =>
-                            context.read<CreateSourceBloc>().add(
-                              CreateSourceDescriptionChanged(values),
-                            ),
-                        validator: (values) {
-                          if (values?[state.defaultLanguage]?.isEmpty ?? true) {
-                            return l10n.defaultLanguageRequired(
-                              state.defaultLanguage.name.toUpperCase(),
-                            );
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      TextFormField(
-                        controller: _urlController,
-                        decoration: InputDecoration(
-                          labelText: l10n.sourceUrl,
-                          border: const OutlineInputBorder(),
-                        ),
-                        onChanged: (value) => context
-                            .read<CreateSourceBloc>()
-                            .add(CreateSourceUrlChanged(value)),
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      ImageUploadField(
-                        onChanged: (bytes, fileName) {
-                          if (bytes != null && fileName != null) {
-                            context.read<CreateSourceBloc>().add(
-                              CreateSourceImageChanged(
-                                imageFileBytes: bytes,
-                                imageFileName: fileName,
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TabBar(
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          onTap: (index) =>
+                              context.read<CreateSourceBloc>().add(
+                                CreateSourceLanguageTabChanged(
+                                  state.enabledLanguages[index],
+                                ),
+                              ),
+                          tabs: state.enabledLanguages.map((lang) {
+                            final hasContent =
+                                state.name[lang]?.isNotEmpty ??
+                                state.description[lang]?.isNotEmpty ??
+                                false;
+                            return Tab(
+                              icon: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Image.network(
+                                    lang.flagUrl,
+                                    width: 24,
+                                    errorBuilder: (_, _, _) =>
+                                        const Icon(Icons.flag, size: 16),
+                                  ),
+                                  if (hasContent &&
+                                      state.isEnrichmentSuccessful &&
+                                      lang != state.defaultLanguage)
+                                    Positioned(
+                                      top: -4,
+                                      right: -4,
+                                      child: Icon(
+                                        Icons.auto_awesome,
+                                        size: 12,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
+                                    ),
+                                ],
                               ),
                             );
-                          } else {
-                            context.read<CreateSourceBloc>().add(
-                              const CreateSourceImageRemoved(),
-                            );
-                          }
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Language>(
-                        label: l10n.language,
-                        selectedItems: state.selectedLanguageEntity != null
-                            ? [state.selectedLanguageEntity!]
-                            : [],
-                        itemBuilder: (context, language) => Text(
-                          language.name.values.firstOrNull ??
-                              language.nativeName,
+                          }).toList(),
                         ),
-                        itemToString: (language) =>
-                            language.name.values.firstOrNull ??
-                            language.nativeName,
-                        onChanged: (items) {
-                          context.read<CreateSourceBloc>().add(
-                            CreateSourceLanguageChanged(
-                              items?.firstOrNull,
-                            ),
-                          );
-                        },
-                        repository: context.read<DataRepository<Language>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
-                              },
-                        sortOptions: [
-                          SortOption('name.$langCode', SortOrder.asc),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<SourceType>(
-                        label: l10n.sourceType,
-                        selectedItems: state.sourceType != null
-                            ? [state.sourceType!]
-                            : [],
-                        staticItems: SourceType.values.toList(),
-                        itemBuilder: (context, type) =>
-                            Text(type.localizedName(l10n)),
-                        itemToString: (type) => type.localizedName(l10n),
-                        onChanged: (items) => context
-                            .read<CreateSourceBloc>()
-                            .add(CreateSourceTypeChanged(items?.first)),
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      SearchableSelectionInput<Country>(
-                        label: l10n.headquarters,
-                        selectedItems: state.headquarters != null
-                            ? [state.headquarters!]
-                            : [],
-                        itemBuilder: (context, country) => Row(
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
                           children: [
-                            SizedBox(
-                              width: 32,
-                              height: 20,
-                              child: Image.network(
-                                country.flagUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.flag),
-                              ),
+                            LocalizedTextFormField(
+                              label: l10n.sourceName,
+                              values: state.name,
+                              enabledLanguages: state.enabledLanguages,
+                              selectedLanguage: state.selectedLanguage,
+                              onChanged: (values) =>
+                                  context.read<CreateSourceBloc>().add(
+                                    CreateSourceNameChanged(values),
+                                  ),
+                              validator: (values) {
+                                if (values?[state.defaultLanguage]?.isEmpty ??
+                                    true) {
+                                  return l10n.defaultLanguageRequired(
+                                    state.defaultLanguage.name.toUpperCase(),
+                                  );
+                                }
+                                return null;
+                              },
                             ),
-                            const SizedBox(width: AppSpacing.md),
-                            Text(country.name.values.firstOrNull ?? ''),
+                            if (state.wasNameEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
                           ],
                         ),
-                        itemToString: (country) =>
-                            country.name.values.firstOrNull ?? '',
-                        onChanged: (items) => context
-                            .read<CreateSourceBloc>()
-                            .add(CreateSourceHeadquartersChanged(items?.first)),
-                        repository: context.read<DataRepository<Country>>(),
-                        filterBuilder: (searchTerm) => searchTerm == null
-                            ? {}
-                            : {
-                                'name': {
-                                  r'$regex': searchTerm,
-                                  r'$options': 'i',
-                                },
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            LocalizedTextFormField(
+                              label: l10n.description,
+                              values: state.description,
+                              enabledLanguages: state.enabledLanguages,
+                              selectedLanguage: state.selectedLanguage,
+                              onChanged: (values) =>
+                                  context.read<CreateSourceBloc>().add(
+                                    CreateSourceDescriptionChanged(values),
+                                  ),
+                              validator: (values) {
+                                if (values?[state.defaultLanguage]?.isEmpty ??
+                                    true) {
+                                  return l10n.defaultLanguageRequired(
+                                    state.defaultLanguage.name.toUpperCase(),
+                                  );
+                                }
+                                return null;
                               },
-                        sortOptions: [
-                          SortOption(
-                            'name.$langCode',
-                            SortOrder.asc,
-                          ),
-                        ],
-                        limit: kDefaultRowsPerPage,
-                      ),
-                    ],
+                            ),
+                            if (state.wasDescriptionEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            TextFormField(
+                              controller: _urlController,
+                              decoration: InputDecoration(
+                                labelText: l10n.sourceUrl,
+                                border: const OutlineInputBorder(),
+                              ),
+                              onChanged: (value) => context
+                                  .read<CreateSourceBloc>()
+                                  .add(CreateSourceUrlChanged(value)),
+                            ),
+                            if (state.wasUrlEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                        ImageUploadField(
+                          onChanged: (bytes, fileName) {
+                            if (bytes != null && fileName != null) {
+                              context.read<CreateSourceBloc>().add(
+                                CreateSourceImageChanged(
+                                  imageFileBytes: bytes,
+                                  imageFileName: fileName,
+                                ),
+                              );
+                            } else {
+                              context.read<CreateSourceBloc>().add(
+                                const CreateSourceImageRemoved(),
+                              );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            SearchableSelectionInput<Language>(
+                              label: l10n.language,
+                              selectedItems:
+                                  state.selectedLanguageEntity != null
+                                  ? [state.selectedLanguageEntity!]
+                                  : [],
+                              itemBuilder: (context, language) => Text(
+                                language.name.values.firstOrNull ??
+                                    language.nativeName,
+                              ),
+                              itemToString: (language) =>
+                                  language.name.values.firstOrNull ??
+                                  language.nativeName,
+                              onChanged: (items) {
+                                context.read<CreateSourceBloc>().add(
+                                  CreateSourceLanguageChanged(
+                                    items?.firstOrNull,
+                                  ),
+                                );
+                              },
+                              repository: context
+                                  .read<DataRepository<Language>>(),
+                              filterBuilder: (searchTerm) => searchTerm == null
+                                  ? {}
+                                  : {
+                                      'name': {
+                                        r'$regex': searchTerm,
+                                        r'$options': 'i',
+                                      },
+                                    },
+                              sortOptions: [
+                                SortOption('name.$langCode', SortOrder.asc),
+                              ],
+                              limit: kDefaultRowsPerPage,
+                            ),
+                            if (state.wasLanguageEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            SearchableSelectionInput<SourceType>(
+                              label: l10n.sourceType,
+                              selectedItems: state.sourceType != null
+                                  ? [state.sourceType!]
+                                  : [],
+                              staticItems: SourceType.values.toList(),
+                              itemBuilder: (context, type) =>
+                                  Text(type.localizedName(l10n)),
+                              itemToString: (type) => type.localizedName(l10n),
+                              onChanged: (items) => context
+                                  .read<CreateSourceBloc>()
+                                  .add(CreateSourceTypeChanged(items?.first)),
+                            ),
+                            if (state.wasSourceTypeEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            SearchableSelectionInput<Country>(
+                              label: l10n.headquarters,
+                              selectedItems: state.headquarters != null
+                                  ? [state.headquarters!]
+                                  : [],
+                              itemBuilder: (context, country) => Row(
+                                children: [
+                                  SizedBox(
+                                    width: 32,
+                                    height: 20,
+                                    child: Image.network(
+                                      country.flagUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              const Icon(Icons.flag),
+                                    ),
+                                  ),
+                                  const SizedBox(width: AppSpacing.md),
+                                  Text(country.name.values.firstOrNull ?? ''),
+                                ],
+                              ),
+                              itemToString: (country) =>
+                                  country.name.values.firstOrNull ?? '',
+                              onChanged: (items) =>
+                                  context.read<CreateSourceBloc>().add(
+                                    CreateSourceHeadquartersChanged(
+                                      items?.first,
+                                    ),
+                                  ),
+                              repository: context
+                                  .read<DataRepository<Country>>(),
+                              filterBuilder: (searchTerm) => searchTerm == null
+                                  ? {}
+                                  : {
+                                      'name': {
+                                        r'$regex': searchTerm,
+                                        r'$options': 'i',
+                                      },
+                                    },
+                              sortOptions: [
+                                SortOption(
+                                  'name.$langCode',
+                                  SortOrder.asc,
+                                ),
+                              ],
+                              limit: kDefaultRowsPerPage,
+                            ),
+                            if (state.wasHeadquartersEnriched)
+                              Positioned(
+                                top: 6,
+                                right: 8,
+                                child: Icon(
+                                  Icons.auto_awesome,
+                                  size: 12,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

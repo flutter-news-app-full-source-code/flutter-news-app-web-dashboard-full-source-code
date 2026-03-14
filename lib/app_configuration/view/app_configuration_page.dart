@@ -1,12 +1,12 @@
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:verity_dashboard/app_configuration/view/tabs/features_configuration_tab.dart';
-import 'package:verity_dashboard/app_configuration/view/tabs/limits_configuration_tab.dart';
-import 'package:verity_dashboard/app_configuration/view/tabs/system_configuration_tab.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/widgets/about_icon.dart';
+import 'package:veritai_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:veritai_dashboard/app_configuration/view/tabs/features_configuration_tab.dart';
+import 'package:veritai_dashboard/app_configuration/view/tabs/limits_configuration_tab.dart';
+import 'package:veritai_dashboard/app_configuration/view/tabs/system_configuration_tab.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/widgets/about_icon.dart';
 
 /// {@template app_configuration_page}
 /// A page for managing the application's remote configuration.

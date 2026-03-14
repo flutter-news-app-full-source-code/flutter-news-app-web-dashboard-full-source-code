@@ -9,6 +9,8 @@ enum CreateHeadlineStatus {
   imageUploadFailure,
   entitySubmitting,
   entitySubmitFailure,
+  enriching,
+  enrichmentFailure,
 }
 
 /// The state for the [CreateHeadlineBloc].
@@ -21,13 +23,19 @@ final class CreateHeadlineState extends Equatable {
     this.imageFileName,
     this.source,
     this.topic,
-    this.eventCountry,
+    this.mentionedCountries = const [],
+    this.mentionedPersons = const [],
     this.exception,
     this.isBreaking = false,
     this.createdHeadline,
     this.enabledLanguages = const [SupportedLanguage.en],
     this.defaultLanguage = SupportedLanguage.en,
     SupportedLanguage? selectedLanguage,
+    this.isEnrichmentSuccessful = false,
+    this.wasTitleEnriched = false,
+    this.wasTopicEnriched = false,
+    this.wereCountriesEnriched = false,
+    this.werePersonsEnriched = false,
   }) : selectedLanguage = selectedLanguage ?? defaultLanguage;
 
   final CreateHeadlineStatus status;
@@ -37,13 +45,19 @@ final class CreateHeadlineState extends Equatable {
   final String? imageFileName;
   final Source? source;
   final Topic? topic;
-  final Country? eventCountry;
+  final List<Country> mentionedCountries;
+  final List<Person> mentionedPersons;
   final HttpException? exception;
   final bool isBreaking;
   final Headline? createdHeadline;
   final List<SupportedLanguage> enabledLanguages;
   final SupportedLanguage defaultLanguage;
   final SupportedLanguage selectedLanguage;
+  final bool isEnrichmentSuccessful;
+  final bool wasTitleEnriched;
+  final bool wasTopicEnriched;
+  final bool wereCountriesEnriched;
+  final bool werePersonsEnriched;
 
   /// Returns true if the form is valid and can be submitted.
   bool get isFormValid =>
@@ -53,7 +67,7 @@ final class CreateHeadlineState extends Equatable {
       imageFileName != null &&
       source != null &&
       topic != null &&
-      eventCountry != null;
+      mentionedCountries.isNotEmpty;
 
   CreateHeadlineState copyWith({
     CreateHeadlineStatus? status,
@@ -63,13 +77,19 @@ final class CreateHeadlineState extends Equatable {
     ValueWrapper<String?>? imageFileName,
     ValueGetter<Source?>? source,
     ValueGetter<Topic?>? topic,
-    ValueGetter<Country?>? eventCountry,
+    List<Country>? mentionedCountries,
+    List<Person>? mentionedPersons,
     bool? isBreaking,
     ValueWrapper<HttpException?>? exception,
     Headline? createdHeadline,
     List<SupportedLanguage>? enabledLanguages,
     SupportedLanguage? defaultLanguage,
     SupportedLanguage? selectedLanguage,
+    bool? isEnrichmentSuccessful,
+    bool? wasTitleEnriched,
+    bool? wasTopicEnriched,
+    bool? wereCountriesEnriched,
+    bool? werePersonsEnriched,
   }) {
     return CreateHeadlineState(
       status: status ?? this.status,
@@ -83,13 +103,21 @@ final class CreateHeadlineState extends Equatable {
           : this.imageFileName,
       source: source != null ? source() : this.source,
       topic: topic != null ? topic() : this.topic,
-      eventCountry: eventCountry != null ? eventCountry() : this.eventCountry,
+      mentionedCountries: mentionedCountries ?? this.mentionedCountries,
+      mentionedPersons: mentionedPersons ?? this.mentionedPersons,
       isBreaking: isBreaking ?? this.isBreaking,
       exception: exception != null ? exception.value : this.exception,
       createdHeadline: createdHeadline ?? this.createdHeadline,
       enabledLanguages: enabledLanguages ?? this.enabledLanguages,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      isEnrichmentSuccessful:
+          isEnrichmentSuccessful ?? this.isEnrichmentSuccessful,
+      wasTitleEnriched: wasTitleEnriched ?? this.wasTitleEnriched,
+      wasTopicEnriched: wasTopicEnriched ?? this.wasTopicEnriched,
+      wereCountriesEnriched:
+          wereCountriesEnriched ?? this.wereCountriesEnriched,
+      werePersonsEnriched: werePersonsEnriched ?? this.werePersonsEnriched,
     );
   }
 
@@ -102,12 +130,18 @@ final class CreateHeadlineState extends Equatable {
     imageFileName,
     source,
     topic,
-    eventCountry,
+    mentionedCountries,
+    mentionedPersons,
     isBreaking,
     exception,
     createdHeadline,
     enabledLanguages,
     defaultLanguage,
     selectedLanguage,
+    isEnrichmentSuccessful,
+    wasTitleEnriched,
+    wasTopicEnriched,
+    wereCountriesEnriched,
+    werePersonsEnriched,
   ];
 }

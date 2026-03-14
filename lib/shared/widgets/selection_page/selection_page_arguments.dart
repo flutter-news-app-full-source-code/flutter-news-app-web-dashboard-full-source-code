@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_dashboard/shared/widgets/selection_page/searchable_selection_page.dart'
+import 'package:veritai_dashboard/shared/widgets/selection_page/searchable_selection_page.dart'
     show SearchableSelectionPage;
 
 /// {@template selection_page_arguments}

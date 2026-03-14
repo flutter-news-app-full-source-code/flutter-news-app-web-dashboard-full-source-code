@@ -106,3 +106,8 @@ final class CreateSourceLanguageTabChanged extends CreateSourceEvent {
   @override
   List<Object?> get props => [language];
 }
+
+/// Event to request AI enrichment for the current source data.
+final class CreateSourceEnrichmentRequested extends CreateSourceEvent {
+  const CreateSourceEnrichmentRequested();
+}

@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
+import 'package:veritai_dashboard/content_sync/bloc/create_sync/create_sync_bloc.dart';
 
 class MockAutomationRepository extends Mock
     implements DataRepository<NewsAutomationTask> {}

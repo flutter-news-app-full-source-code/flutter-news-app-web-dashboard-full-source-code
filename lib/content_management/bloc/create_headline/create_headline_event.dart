@@ -69,12 +69,20 @@ final class CreateHeadlineTopicChanged extends CreateHeadlineEvent {
   List<Object?> get props => [topic];
 }
 
-/// Event for when the headline's country is changed.
-final class CreateHeadlineCountryChanged extends CreateHeadlineEvent {
-  const CreateHeadlineCountryChanged(this.country);
-  final Country? country;
+/// Event for when the headline's mentioned countries are changed.
+final class CreateHeadlineCountriesChanged extends CreateHeadlineEvent {
+  const CreateHeadlineCountriesChanged(this.countries);
+  final List<Country> countries;
   @override
-  List<Object?> get props => [country];
+  List<Object?> get props => [countries];
+}
+
+/// Event for when the headline's mentioned persons are changed.
+final class CreateHeadlinePersonsChanged extends CreateHeadlineEvent {
+  const CreateHeadlinePersonsChanged(this.persons);
+  final List<Person> persons;
+  @override
+  List<Object?> get props => [persons];
 }
 
 /// Event to save the headline as a draft.
@@ -102,4 +110,9 @@ final class CreateHeadlineLanguageTabChanged extends CreateHeadlineEvent {
   final SupportedLanguage language;
   @override
   List<Object?> get props => [language];
+}
+
+/// Event to request AI enrichment for the current form data.
+final class CreateHeadlineEnrichmentRequested extends CreateHeadlineEvent {
+  const CreateHeadlineEnrichmentRequested();
 }

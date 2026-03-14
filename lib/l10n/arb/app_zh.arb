@@ -271,6 +271,8 @@
     "contentStatusActive": "激活",
     "contentStatusArchived": "已归档",
     "contentStatusDraft": "草稿",
+    "refresh": "刷新",
+    "contentStatusIngested": "待审核",
     "totalHeadlines": "头条总数",
     "totalTopics": "话题总数",
     "totalSources": "来源总数",
@@ -1336,5 +1338,33 @@
     "createSync": "添加同步计划",
     "syncCreatedSuccessfully": "同步计划创建成功。",
     "syncUpdatedSuccessfully": "同步计划更新成功。",
-    "confirmStopSyncMessage": "您确定要移除此同步计划吗？这将停止该来源的自动更新。"
+    "confirmStopSyncMessage": "您确定要移除此同步计划吗？这将停止该来源的自动更新。",
+    "persons": "人物",
+    "mentions": "提及",
+    "aiEnrichment": "AI 丰富",
+    "createPerson": "创建人物",
+    "editPerson": "编辑人物",
+    "personName": "姓名",
+    "personDescription": "描述",
+    "loadingPersons": "正在加载人物",
+    "noPersonsFound": "未找到人物。",
+    "filterPersons": "筛选人物",
+    "searchByPersonName": "按姓名或 ID 搜索...",
+    "updatePersonTitle": "更新人物",
+    "updatePersonMessage": "您想发布这些更改还是将更新保存为草稿？",
+    "savePersonTitle": "保存人物",
+    "savePersonMessage": "您想发布此人物还是将其保存为草稿？",
+    "personCreatedSuccessfully": "人物创建成功。",
+    "personUpdatedSuccessfully": "人物更新成功。",
+    "cannotUpdatePersonError": "无法更新：原始人物数据未加载。",
+    "personDeleted": "人物 “{personName}” 已删除。",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "发布人物",
+    "loadingPerson": "正在加载人物..."
 }

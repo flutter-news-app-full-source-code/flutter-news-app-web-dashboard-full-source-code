@@ -271,6 +271,8 @@
     "contentStatusActive": "Attivo",
     "contentStatusArchived": "Archiviato",
     "contentStatusDraft": "Bozza",
+    "refresh": "Aggiorna",
+    "contentStatusIngested": "Da revisionare",
     "totalHeadlines": "Totale Titoli",
     "totalTopics": "Totale Argomenti",
     "totalSources": "Totale Fonti",
@@ -1336,5 +1338,33 @@
     "createSync": "Aggiungi Programma di Sincronizzazione",
     "syncCreatedSuccessfully": "Programma di sincronizzazione creato con successo.",
     "syncUpdatedSuccessfully": "Programma di sincronizzazione aggiornato con successo.",
-    "confirmStopSyncMessage": "Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte."
+    "confirmStopSyncMessage": "Sei sicuro di voler rimuovere questo programma di sincronizzazione? Questo interromperà gli aggiornamenti automatici per la fonte.",
+    "persons": "Persone",
+    "mentions": "Menzioni",
+    "aiEnrichment": "Arricchimento AI",
+    "createPerson": "Crea Persona",
+    "editPerson": "Modifica Persona",
+    "personName": "Nome",
+    "personDescription": "Descrizione",
+    "loadingPersons": "Caricamento Persone",
+    "noPersonsFound": "Nessuna persona trovata.",
+    "filterPersons": "Filtra Persone",
+    "searchByPersonName": "Cerca per nome o ID...",
+    "updatePersonTitle": "Aggiorna Persona",
+    "updatePersonMessage": "Vuoi pubblicare o salvare come bozza?",
+    "savePersonTitle": "Salva Persona",
+    "savePersonMessage": "Vuoi pubblicare o salvare come bozza?",
+    "personCreatedSuccessfully": "Persona creata con successo.",
+    "personUpdatedSuccessfully": "Persona aggiornata con successo.",
+    "cannotUpdatePersonError": "Errore: Dati originali non caricati.",
+    "personDeleted": "Persona \"{personName}\" eliminata.",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "Pubblica Persona",
+    "loadingPerson": "Caricamento Persona..."
 }

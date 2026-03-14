@@ -3,9 +3,11 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' as go_router;
-import 'package:verity_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
-import 'package:verity_dashboard/content_management/view/edit_headline_page.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/app/config/config.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:veritai_dashboard/content_management/view/edit_headline_page.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';
@@ -16,13 +18,17 @@ class MockEditHeadlineBloc
 
 class MockGoRouter extends Mock implements go_router.GoRouter {}
 
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
 void main() {
   group('EditHeadlinePage', () {
     late EditHeadlineBloc editHeadlineBloc;
+    late MockAppBloc appBloc;
     late MockDataRepository<Headline> headlinesRepository;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Topic> topicsRepository;
     late MockDataRepository<Country> countriesRepository;
+    late MockDataRepository<Person> personsRepository;
     late MockMediaRepository mediaRepository;
     late MockGoRouter goRouter;
 
@@ -31,10 +37,12 @@ void main() {
 
     setUp(() {
       editHeadlineBloc = MockEditHeadlineBloc();
+      appBloc = MockAppBloc();
       headlinesRepository = MockDataRepository<Headline>();
       sourcesRepository = MockDataRepository<Source>();
       topicsRepository = MockDataRepository<Topic>();
       countriesRepository = MockDataRepository<Country>();
+      personsRepository = MockDataRepository<Person>();
       mediaRepository = MockMediaRepository();
       goRouter = MockGoRouter();
 
@@ -49,6 +57,9 @@ void main() {
           ),
         ),
       ).thenAnswer((_) async {});
+      when(() => appBloc.state).thenReturn(
+        const AppState(environment: AppEnvironment.development),
+      );
     });
 
     Widget buildSubject() {
@@ -66,12 +77,18 @@ void main() {
           RepositoryProvider<DataRepository<Country>>.value(
             value: countriesRepository,
           ),
+          RepositoryProvider<DataRepository<Person>>.value(
+            value: personsRepository,
+          ),
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
           ),
         ],
-        child: BlocProvider.value(
-          value: editHeadlineBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<EditHeadlineBloc>.value(value: editHeadlineBloc),
+            BlocProvider<AppBloc>.value(value: appBloc),
+          ],
           child: const EditHeadlineView(),
         ),
       );
@@ -120,7 +137,8 @@ void main() {
             url: headlineFixture.url,
             source: headlineFixture.source,
             topic: headlineFixture.topic,
-            eventCountry: headlineFixture.eventCountry,
+            mentionedCountries: headlineFixture.mentionedCountries,
+            mentionedPersons: headlineFixture.mentionedPersons,
           ),
         );
       });
@@ -141,10 +159,24 @@ void main() {
           find.text(headlineFixture.topic.name[SupportedLanguage.en]!),
           findsOneWidget,
         );
-        expect(
-          find.text(headlineFixture.eventCountry.name[SupportedLanguage.en]!),
-          findsOneWidget,
-        );
+        if (headlineFixture.mentionedCountries.isNotEmpty) {
+          expect(
+            find.text(
+              headlineFixture.mentionedCountries.first.name[SupportedLanguage
+                  .en]!,
+            ),
+            findsOneWidget,
+          );
+        }
+        if (headlineFixture.mentionedPersons.isNotEmpty) {
+          expect(
+            find.text(
+              headlineFixture.mentionedPersons.first.name[SupportedLanguage
+                  .en]!,
+            ),
+            findsOneWidget,
+          );
+        }
       });
 
       testWidgets('adds EditHeadlineTitleChanged when title is changed', (
@@ -227,7 +259,8 @@ void main() {
             url: headlineFixture.url,
             source: headlineFixture.source,
             topic: headlineFixture.topic,
-            eventCountry: headlineFixture.eventCountry,
+            mentionedCountries: headlineFixture.mentionedCountries,
+            mentionedPersons: headlineFixture.mentionedPersons,
           ),
         );
         await tester.pumpApp(buildSubject(), goRouter: goRouter);

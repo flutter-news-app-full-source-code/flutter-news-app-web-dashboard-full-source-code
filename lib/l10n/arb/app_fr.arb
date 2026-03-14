@@ -271,6 +271,8 @@
     "contentStatusActive": "Actif",
     "contentStatusArchived": "Archivé",
     "contentStatusDraft": "Brouillon",
+    "refresh": "Actualiser",
+    "contentStatusIngested": "À réviser",
     "totalHeadlines": "Total Titres",
     "totalTopics": "Total Sujets",
     "totalSources": "Total Sources",
@@ -1336,5 +1338,33 @@
     "createSync": "Ajouter un Calendrier de Synchronisation",
     "syncCreatedSuccessfully": "Calendrier de synchronisation créé avec succès.",
     "syncUpdatedSuccessfully": "Calendrier de synchronisation mis à jour avec succès.",
-    "confirmStopSyncMessage": "Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source."
+    "confirmStopSyncMessage": "Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source.",
+    "persons": "Personnes",
+    "mentions": "Mentions",
+    "aiEnrichment": "Enrichissement par IA",
+    "createPerson": "Créer une Personne",
+    "editPerson": "Modifier la Personne",
+    "personName": "Nom",
+    "personDescription": "Description",
+    "loadingPersons": "Chargement des Personnes",
+    "noPersonsFound": "Aucune personne trouvée.",
+    "filterPersons": "Filtrer les Personnes",
+    "searchByPersonName": "Rechercher par nom ou ID...",
+    "updatePersonTitle": "Mettre à jour la Personne",
+    "updatePersonMessage": "Publier les changements ou enregistrer en brouillon ?",
+    "savePersonTitle": "Enregistrer la Personne",
+    "savePersonMessage": "Publier ou enregistrer en brouillon ?",
+    "personCreatedSuccessfully": "Personne créée avec succès.",
+    "personUpdatedSuccessfully": "Personne mise à jour avec succès.",
+    "cannotUpdatePersonError": "Erreur : Données originales non chargées.",
+    "personDeleted": "Personne \"{personName}\" supprimée.",
+    "@personDeleted": {
+        "placeholders": {
+            "personName": {
+                "type": "String"
+            }
+        }
+    },
+    "publishPerson": "Publier la Personne",
+    "loadingPerson": "Chargement de la Personne..."
 }

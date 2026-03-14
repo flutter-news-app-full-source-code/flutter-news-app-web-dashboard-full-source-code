@@ -2,9 +2,12 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
 
 import '../../../helpers/helpers.dart';
+
+class MockEnrichmentRepository extends Mock implements EnrichmentRepository {}
 
 void main() {
   setUpAll(registerFallbackValues);
@@ -12,6 +15,7 @@ void main() {
   group('CreateSourceBloc', () {
     late MockDataRepository<Source> sourcesRepository;
     late MockMediaRepository mediaRepository;
+    late MockEnrichmentRepository enrichmentRepository;
 
     const countryFixture = Country(
       id: 'country-1',
@@ -46,12 +50,14 @@ void main() {
     setUp(() {
       sourcesRepository = MockDataRepository<Source>();
       mediaRepository = MockMediaRepository();
+      enrichmentRepository = MockEnrichmentRepository();
     });
 
     CreateSourceBloc buildBloc() {
       return CreateSourceBloc(
         sourcesRepository: sourcesRepository,
         mediaRepository: mediaRepository,
+        enrichmentRepository: enrichmentRepository,
         logger: Logger('CreateSourceBloc'),
       );
     }
@@ -65,6 +71,26 @@ void main() {
           equals(const CreateSourceState()),
         );
       });
+    });
+
+    group('CreateSourceInitialized', () {
+      blocTest<CreateSourceBloc, CreateSourceState>(
+        'emits new state with updated languages',
+        build: buildBloc,
+        act: (bloc) => bloc.add(
+          const CreateSourceInitialized(
+            enabledLanguages: [SupportedLanguage.en, SupportedLanguage.es],
+            defaultLanguage: SupportedLanguage.en,
+          ),
+        ),
+        expect: () => [
+          const CreateSourceState(
+            enabledLanguages: [SupportedLanguage.en, SupportedLanguage.es],
+            defaultLanguage: SupportedLanguage.en,
+            selectedLanguage: SupportedLanguage.en,
+          ),
+        ],
+      );
     });
 
     group('CreateSourceNameChanged', () {
@@ -140,6 +166,134 @@ void main() {
         act: (bloc) =>
             bloc.add(const CreateSourceHeadquartersChanged(countryFixture)),
         expect: () => [const CreateSourceState(headquarters: countryFixture)],
+      );
+    });
+
+    group('CreateSourceLanguageTabChanged', () {
+      blocTest<CreateSourceBloc, CreateSourceState>(
+        'emits new state with updated selected language',
+        build: buildBloc,
+        act: (bloc) => bloc.add(
+          const CreateSourceLanguageTabChanged(SupportedLanguage.es),
+        ),
+        expect: () => [
+          const CreateSourceState(selectedLanguage: SupportedLanguage.es),
+        ],
+      );
+    });
+
+    group('CreateSourceEnrichmentRequested', () {
+      final enrichedSource = sourceFixture.copyWith(
+        name: {SupportedLanguage.en: 'Enriched Name'},
+        description: {SupportedLanguage.en: 'Enriched Description'},
+      );
+
+      setUp(() {
+        registerFallbackValue(sourceFixture);
+        when(
+          () => enrichmentRepository.enrichSource(any<Source>()),
+        ).thenAnswer((_) async => enrichedSource);
+      });
+
+      blocTest<CreateSourceBloc, CreateSourceState>(
+        'emits [enriching, initial] on success and updates state',
+        build: buildBloc,
+        seed: () => const CreateSourceState(
+          name: {SupportedLanguage.en: 'Original Name'},
+          url: 'http://example.com',
+        ),
+        act: (bloc) => bloc.add(const CreateSourceEnrichmentRequested()),
+        expect: () => [
+          const CreateSourceState(
+            status: CreateSourceStatus.enriching,
+            name: {SupportedLanguage.en: 'Original Name'},
+            url: 'http://example.com',
+          ),
+          isA<CreateSourceState>()
+              .having((s) => s.status, 'status', CreateSourceStatus.initial)
+              .having((s) => s.name, 'name', enrichedSource.name)
+              .having(
+                (s) => s.description,
+                'description',
+                enrichedSource.description,
+              )
+              .having((s) => s.url, 'url', enrichedSource.url)
+              .having(
+                (s) => s.sourceType,
+                'sourceType',
+                enrichedSource.sourceType,
+              )
+              .having((s) => s.language, 'language', enrichedSource.language)
+              .having(
+                (s) => s.headquarters,
+                'headquarters',
+                enrichedSource.headquarters,
+              )
+              .having(
+                (s) => s.isEnrichmentSuccessful,
+                'isEnrichmentSuccessful',
+                true,
+              )
+              .having((s) => s.wasNameEnriched, 'wasNameEnriched', true)
+              .having(
+                (s) => s.wasDescriptionEnriched,
+                'wasDescriptionEnriched',
+                true,
+              )
+              .having((s) => s.wasUrlEnriched, 'wasUrlEnriched', true)
+              .having(
+                (s) => s.wasSourceTypeEnriched,
+                'wasSourceTypeEnriched',
+                true,
+              )
+              .having((s) => s.wasLanguageEnriched, 'wasLanguageEnriched', true)
+              .having(
+                (s) => s.wasHeadquartersEnriched,
+                'wasHeadquartersEnriched',
+                true,
+              )
+              .having(
+                (s) => s.selectedLanguageEntity,
+                'selectedLanguageEntity',
+                isA<Language>(),
+              ),
+        ],
+        verify: (_) {
+          verify(() => enrichmentRepository.enrichSource(any())).called(1);
+        },
+      );
+
+      blocTest<CreateSourceBloc, CreateSourceState>(
+        'emits [enriching, enrichmentFailure] on failure',
+        build: buildBloc,
+        setUp: () {
+          when(
+            () => enrichmentRepository.enrichSource(any()),
+          ).thenThrow(const NetworkException());
+        },
+        seed: () => const CreateSourceState(
+          name: {SupportedLanguage.en: 'Original Name'},
+          url: 'http://example.com',
+        ),
+        act: (bloc) => bloc.add(const CreateSourceEnrichmentRequested()),
+        expect: () => [
+          const CreateSourceState(
+            status: CreateSourceStatus.enriching,
+            name: {SupportedLanguage.en: 'Original Name'},
+            url: 'http://example.com',
+          ),
+          isA<CreateSourceState>()
+              .having(
+                (s) => s.status,
+                'status',
+                CreateSourceStatus.enrichmentFailure,
+              )
+              .having(
+                (s) => s.exception,
+                'exception',
+                isA<NetworkException>(),
+              ),
+        ],
       );
     });
 

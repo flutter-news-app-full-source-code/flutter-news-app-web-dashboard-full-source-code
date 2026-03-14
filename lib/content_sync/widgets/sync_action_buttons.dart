@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/shared/widgets/confirmation_dialog.dart';
+import 'package:veritai_dashboard/content_sync/bloc/content_sync_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/shared/widgets/confirmation_dialog.dart';
 
 class SyncActionButtons extends StatelessWidget {
   const SyncActionButtons({required this.task, required this.l10n, super.key});

@@ -8,25 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/app/config/app_environment.dart';
-import 'package:verity_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
-import 'package:verity_dashboard/authentication/bloc/authentication_bloc.dart';
-import 'package:verity_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
-import 'package:verity_dashboard/community_management/bloc/community_management_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/router/router.dart';
-import 'package:verity_dashboard/shared/constants/constants.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
-import 'package:verity_dashboard/shared/services/pending_deletions_service.dart';
-import 'package:verity_dashboard/shared/services/pending_updates_service.dart';
-import 'package:verity_dashboard/shared/services/throttled_fetching_service.dart';
-import 'package:verity_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
-import 'package:verity_dashboard/user_management/bloc/user_management_bloc.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/app/config/app_environment.dart';
+import 'package:veritai_dashboard/app_configuration/bloc/app_configuration_bloc.dart';
+import 'package:veritai_dashboard/authentication/bloc/authentication_bloc.dart';
+import 'package:veritai_dashboard/community_management/bloc/community_filter/community_filter_bloc.dart';
+import 'package:veritai_dashboard/community_management/bloc/community_management_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/router/router.dart';
+import 'package:veritai_dashboard/shared/constants/constants.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/shared/services/pending_deletions_service.dart';
+import 'package:veritai_dashboard/shared/services/pending_updates_service.dart';
+import 'package:veritai_dashboard/shared/services/throttled_fetching_service.dart';
+import 'package:veritai_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:veritai_dashboard/user_management/bloc/user_management_bloc.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -39,6 +41,7 @@ class App extends StatelessWidget {
     userContentPreferencesRepository,
     required DataRepository<RemoteConfig> remoteConfigRepository,
     required DataRepository<Country> countriesRepository,
+    required DataRepository<Person> personsRepository,
     required DataRepository<Language> languagesRepository,
     required DataRepository<User> usersRepository,
     required DataRepository<Engagement> engagementsRepository,
@@ -47,6 +50,7 @@ class App extends StatelessWidget {
     required DataRepository<UserRewards> userRewardsRepository,
     required DataRepository<NewsAutomationTask> automationRepository,
     required MediaRepository mediaRepository,
+    required EnrichmentRepository enrichmentRepository,
     required AnalyticsService analyticsService,
     required KVStorageService storageService,
     required AppEnvironment environment,
@@ -60,6 +64,7 @@ class App extends StatelessWidget {
        _userContentPreferencesRepository = userContentPreferencesRepository,
        _remoteConfigRepository = remoteConfigRepository,
        _kvStorageService = storageService,
+       _personsRepository = personsRepository,
        _countriesRepository = countriesRepository,
        _languagesRepository = languagesRepository,
        _usersRepository = usersRepository,
@@ -69,6 +74,7 @@ class App extends StatelessWidget {
        _userRewardsRepository = userRewardsRepository,
        _automationRepository = automationRepository,
        _mediaRepository = mediaRepository,
+       _enrichmentRepository = enrichmentRepository,
        _analyticsService = analyticsService,
        _environment = environment,
        _pendingDeletionsService = pendingDeletionsService;
@@ -81,6 +87,7 @@ class App extends StatelessWidget {
   final DataRepository<UserContentPreferences>
   _userContentPreferencesRepository;
   final DataRepository<RemoteConfig> _remoteConfigRepository;
+  final DataRepository<Person> _personsRepository;
   final DataRepository<Country> _countriesRepository;
   final DataRepository<Language> _languagesRepository;
   final DataRepository<User> _usersRepository;
@@ -90,6 +97,7 @@ class App extends StatelessWidget {
   final DataRepository<UserRewards> _userRewardsRepository;
   final DataRepository<NewsAutomationTask> _automationRepository;
   final MediaRepository _mediaRepository;
+  final EnrichmentRepository _enrichmentRepository;
   final AnalyticsService _analyticsService;
   final KVStorageService _kvStorageService;
   final AppEnvironment _environment;
@@ -108,6 +116,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _appSettingsRepository),
         RepositoryProvider.value(value: _userContentPreferencesRepository),
         RepositoryProvider.value(value: _remoteConfigRepository),
+        RepositoryProvider.value(value: _personsRepository),
         RepositoryProvider.value(value: _countriesRepository),
         RepositoryProvider.value(value: _languagesRepository),
         RepositoryProvider.value(value: _usersRepository),
@@ -117,6 +126,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _userRewardsRepository),
         RepositoryProvider.value(value: _automationRepository),
         RepositoryProvider.value(value: _mediaRepository),
+        RepositoryProvider.value(value: _enrichmentRepository),
         RepositoryProvider.value(value: _analyticsService),
         RepositoryProvider.value(value: _kvStorageService),
         RepositoryProvider(
@@ -163,14 +173,18 @@ class App extends StatelessWidget {
           ),
 
           BlocProvider(
+            create: (context) => PersonsFilterBloc(),
+          ),
+          BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
+              personsRepository: context.read<DataRepository<Person>>(),
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
-
+              personsFilterBloc: context.read<PersonsFilterBloc>(),
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),

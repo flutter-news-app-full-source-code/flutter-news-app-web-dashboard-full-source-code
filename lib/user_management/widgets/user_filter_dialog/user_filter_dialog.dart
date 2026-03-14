@@ -2,11 +2,11 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/extensions.dart';
-import 'package:verity_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
-import 'package:verity_dashboard/user_management/enums/authentication_filter.dart';
-import 'package:verity_dashboard/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/extensions/extensions.dart';
+import 'package:veritai_dashboard/user_management/bloc/user_filter/user_filter_bloc.dart';
+import 'package:veritai_dashboard/user_management/enums/authentication_filter.dart';
+import 'package:veritai_dashboard/user_management/widgets/user_filter_dialog/bloc/user_filter_dialog_bloc.dart';
 
 /// {@template user_filter_dialog}
 /// A full-screen dialog for applying filters to the user management list.

@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
 
 /// Extension to localize the [PushNotificationProviders] enum.
 extension PushNotificationProviderL10n on PushNotificationProviders {

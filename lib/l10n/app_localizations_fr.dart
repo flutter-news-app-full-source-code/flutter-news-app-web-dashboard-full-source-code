@@ -747,6 +747,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get contentStatusDraft => 'Brouillon';
 
   @override
+  String get refresh => 'Actualiser';
+
+  @override
+  String get contentStatusIngested => 'À réviser';
+
+  @override
   String get totalHeadlines => 'Total Titres';
 
   @override
@@ -3488,4 +3494,71 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       'Êtes-vous sûr de vouloir supprimer ce calendrier de synchronisation ? Cela arrêtera les mises à jour automatiques pour la source.';
+
+  @override
+  String get persons => 'Personnes';
+
+  @override
+  String get mentions => 'Mentions';
+
+  @override
+  String get aiEnrichment => 'Enrichissement par IA';
+
+  @override
+  String get createPerson => 'Créer une Personne';
+
+  @override
+  String get editPerson => 'Modifier la Personne';
+
+  @override
+  String get personName => 'Nom';
+
+  @override
+  String get personDescription => 'Description';
+
+  @override
+  String get loadingPersons => 'Chargement des Personnes';
+
+  @override
+  String get noPersonsFound => 'Aucune personne trouvée.';
+
+  @override
+  String get filterPersons => 'Filtrer les Personnes';
+
+  @override
+  String get searchByPersonName => 'Rechercher par nom ou ID...';
+
+  @override
+  String get updatePersonTitle => 'Mettre à jour la Personne';
+
+  @override
+  String get updatePersonMessage =>
+      'Publier les changements ou enregistrer en brouillon ?';
+
+  @override
+  String get savePersonTitle => 'Enregistrer la Personne';
+
+  @override
+  String get savePersonMessage => 'Publier ou enregistrer en brouillon ?';
+
+  @override
+  String get personCreatedSuccessfully => 'Personne créée avec succès.';
+
+  @override
+  String get personUpdatedSuccessfully => 'Personne mise à jour avec succès.';
+
+  @override
+  String get cannotUpdatePersonError =>
+      'Erreur : Données originales non chargées.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'Personne \"$personName\" supprimée.';
+  }
+
+  @override
+  String get publishPerson => 'Publier la Personne';
+
+  @override
+  String get loadingPerson => 'Chargement de la Personne...';
 }

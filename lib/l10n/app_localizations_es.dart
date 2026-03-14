@@ -741,6 +741,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get contentStatusDraft => 'Borrador';
 
   @override
+  String get refresh => 'Actualizar';
+
+  @override
+  String get contentStatusIngested => 'Necesita Revisión';
+
+  @override
   String get totalHeadlines => 'Total Titulares';
 
   @override
@@ -3464,4 +3470,70 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get confirmStopSyncMessage =>
       '¿Estás seguro de que deseas eliminar esta programación de sincronización? Esto detendrá las actualizaciones automáticas para la fuente.';
+
+  @override
+  String get persons => 'Personas';
+
+  @override
+  String get mentions => 'Menciones';
+
+  @override
+  String get aiEnrichment => 'Enriquecimiento con IA';
+
+  @override
+  String get createPerson => 'Crear Persona';
+
+  @override
+  String get editPerson => 'Editar Persona';
+
+  @override
+  String get personName => 'Nombre';
+
+  @override
+  String get personDescription => 'Descripción';
+
+  @override
+  String get loadingPersons => 'Cargando Personas';
+
+  @override
+  String get noPersonsFound => 'No se encontraron personas.';
+
+  @override
+  String get filterPersons => 'Filtrar Personas';
+
+  @override
+  String get searchByPersonName => 'Buscar por nombre o ID...';
+
+  @override
+  String get updatePersonTitle => 'Actualizar Persona';
+
+  @override
+  String get updatePersonMessage =>
+      '¿Publicar cambios o guardar como borrador?';
+
+  @override
+  String get savePersonTitle => 'Guardar Persona';
+
+  @override
+  String get savePersonMessage => '¿Publicar o guardar como borrador?';
+
+  @override
+  String get personCreatedSuccessfully => 'Persona creada con éxito.';
+
+  @override
+  String get personUpdatedSuccessfully => 'Persona actualizada con éxito.';
+
+  @override
+  String get cannotUpdatePersonError => 'Error: Datos originales no cargados.';
+
+  @override
+  String personDeleted(String personName) {
+    return 'Persona \"$personName\" eliminada.';
+  }
+
+  @override
+  String get publishPerson => 'Publicar Persona';
+
+  @override
+  String get loadingPerson => 'Cargando Persona...';
 }
