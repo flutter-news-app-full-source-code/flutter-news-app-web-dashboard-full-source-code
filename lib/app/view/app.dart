@@ -16,6 +16,7 @@ import 'package:verity_dashboard/community_management/bloc/community_filter/comm
 import 'package:verity_dashboard/community_management/bloc/community_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
@@ -172,14 +173,18 @@ class App extends StatelessWidget {
           ),
 
           BlocProvider(
+            create: (context) => PersonsFilterBloc(),
+          ),
+          BlocProvider(
             create: (context) => ContentManagementBloc(
               headlinesRepository: context.read<DataRepository<Headline>>(),
               topicsRepository: context.read<DataRepository<Topic>>(),
               sourcesRepository: context.read<DataRepository<Source>>(),
+              personsRepository: context.read<DataRepository<Person>>(),
               headlinesFilterBloc: context.read<HeadlinesFilterBloc>(),
               topicsFilterBloc: context.read<TopicsFilterBloc>(),
               sourcesFilterBloc: context.read<SourcesFilterBloc>(),
-
+              personsFilterBloc: context.read<PersonsFilterBloc>(),
               pendingDeletionsService: context.read<PendingDeletionsService>(),
             ),
           ),
