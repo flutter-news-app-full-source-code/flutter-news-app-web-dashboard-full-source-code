@@ -14,6 +14,8 @@ extension ContentStatusL10n on ContentStatus {
         return l10n.contentStatusArchived;
       case ContentStatus.draft:
         return l10n.contentStatusDraft;
+      case ContentStatus.ingested:
+        return l10n.contentStatusIngested;
     }
   }
 }
