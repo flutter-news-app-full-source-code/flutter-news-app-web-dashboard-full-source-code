@@ -2,10 +2,14 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' as go_router;
+import 'package:mocktail/mocktail.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/app/config/config.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_event.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_state.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/view/content_management_page.dart';
@@ -31,6 +35,10 @@ class MockSourcesFilterBloc
     extends MockBloc<SourcesFilterEvent, SourcesFilterState>
     implements SourcesFilterBloc {}
 
+class MockPersonsFilterBloc
+    extends MockBloc<PersonsFilterEvent, PersonsFilterState>
+    implements PersonsFilterBloc {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockGoRouter extends Mock implements go_router.GoRouter {}
@@ -41,6 +49,7 @@ void main() {
     registerFallbackValue(const HeadlinesFilterState());
     registerFallbackValue(const TopicsFilterState());
     registerFallbackValue(const SourcesFilterState());
+    registerFallbackValue(const PersonsFilterState());
     registerFallbackValue(const LoadHeadlinesRequested());
   });
 
@@ -49,11 +58,13 @@ void main() {
     late MockHeadlinesFilterBloc headlinesFilterBloc;
     late MockTopicsFilterBloc topicsFilterBloc;
     late MockSourcesFilterBloc sourcesFilterBloc;
+    late MockPersonsFilterBloc personsFilterBloc;
     late MockAppBloc appBloc;
     late MockDataRepository<Headline> headlinesRepository;
     late MockDataRepository<Topic> topicsRepository;
     late MockDataRepository<Source> sourcesRepository;
     late MockDataRepository<Country> countriesRepository;
+    late MockDataRepository<Person> personsRepository;
     late MockDataRepository<Language> languagesRepository;
     late MockGoRouter goRouter;
 
@@ -62,12 +73,14 @@ void main() {
       headlinesFilterBloc = MockHeadlinesFilterBloc();
       topicsFilterBloc = MockTopicsFilterBloc();
       sourcesFilterBloc = MockSourcesFilterBloc();
+      personsFilterBloc = MockPersonsFilterBloc();
       appBloc = MockAppBloc();
       headlinesRepository = MockDataRepository<Headline>();
       topicsRepository = MockDataRepository<Topic>();
       sourcesRepository = MockDataRepository<Source>();
       countriesRepository = MockDataRepository<Country>();
       languagesRepository = MockDataRepository<Language>();
+      personsRepository = MockDataRepository<Person>();
       goRouter = MockGoRouter();
 
       reset(contentManagementBloc);
@@ -87,6 +100,9 @@ void main() {
       when(
         () => sourcesFilterBloc.state,
       ).thenReturn(const SourcesFilterState());
+      when(
+        () => personsFilterBloc.state,
+      ).thenReturn(const PersonsFilterState());
 
       // Stub buildFilterMap methods
       when(
@@ -96,6 +112,7 @@ void main() {
       ).thenReturn({});
       when(() => topicsFilterBloc.buildFilterMap()).thenReturn({});
       when(() => sourcesFilterBloc.buildFilterMap()).thenReturn({});
+      when(() => personsFilterBloc.buildFilterMap()).thenReturn({});
 
       // Stub streams to prevent null pointer errors in BlocListener
       when(
@@ -106,6 +123,9 @@ void main() {
       ).thenAnswer((_) => Stream.fromIterable([]));
       when(
         () => sourcesFilterBloc.stream,
+      ).thenAnswer((_) => Stream.fromIterable([]));
+      when(
+        () => personsFilterBloc.stream,
       ).thenAnswer((_) => Stream.fromIterable([]));
       when(
         () => contentManagementBloc.stream,
@@ -144,6 +164,9 @@ void main() {
           RepositoryProvider<DataRepository<Country>>.value(
             value: countriesRepository,
           ),
+          RepositoryProvider<DataRepository<Person>>.value(
+            value: personsRepository,
+          ),
           RepositoryProvider<DataRepository<Language>>.value(
             value: languagesRepository,
           ),
@@ -163,6 +186,9 @@ void main() {
             BlocProvider<SourcesFilterBloc>.value(
               value: sourcesFilterBloc,
             ),
+            BlocProvider<PersonsFilterBloc>.value(
+              value: personsFilterBloc,
+            ),
           ],
           child: const ContentManagementPage(),
         ),
@@ -176,6 +202,7 @@ void main() {
       expect(find.text(l10n.headlines), findsOneWidget);
       expect(find.text(l10n.topics), findsOneWidget);
       expect(find.text(l10n.sources), findsOneWidget);
+      expect(find.text(l10n.persons), findsOneWidget);
     });
 
     testWidgets('updates active tab on tap', (tester) async {
@@ -236,6 +263,19 @@ void main() {
         await tester.tap(find.byType(FloatingActionButton));
 
         verify(() => goRouter.pushNamed(Routes.createSourceName)).called(1);
+      });
+
+      testWidgets('navigates to create person when persons tab is active', (
+        tester,
+      ) async {
+        when(() => contentManagementBloc.state).thenReturn(
+          const ContentManagementState(
+            activeTab: ContentManagementTab.persons,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        await tester.tap(find.byType(FloatingActionButton));
+        verify(() => goRouter.pushNamed(Routes.createPersonName)).called(1);
       });
     });
 
@@ -306,6 +346,23 @@ void main() {
           () => contentManagementBloc.add(captureAny()),
         )..called(greaterThan(0));
         expect(verification.captured.last, isA<LoadSourcesRequested>());
+      });
+
+      testWidgets('loads persons when persons filter changes', (tester) async {
+        whenListen(
+          personsFilterBloc,
+          Stream.fromIterable([
+            const PersonsFilterState(searchQuery: 'test'),
+          ]),
+        );
+
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        await tester.pump();
+
+        final verification = verify(
+          () => contentManagementBloc.add(captureAny()),
+        )..called(greaterThan(0));
+        expect(verification.captured.last, isA<LoadPersonsRequested>());
       });
     });
 
@@ -444,6 +501,39 @@ void main() {
 
         verify(
           () => contentManagementBloc.add(const UndoDeleteSourceRequested('3')),
+        ).called(1);
+      });
+
+      testWidgets('undo action triggers UndoDeletePersonRequested', (
+        tester,
+      ) async {
+        final person = Person(
+          id: '4',
+          name: const {SupportedLanguage.en: 'Test Person'},
+          description: const {SupportedLanguage.en: 'Description'},
+          createdAt: DateTime(2023),
+          updatedAt: DateTime(2023),
+          status: ContentStatus.active,
+        );
+
+        whenListen(
+          contentManagementBloc,
+          Stream.fromIterable([
+            ContentManagementState(
+              activeTab: ContentManagementTab.persons,
+              itemPendingDeletion: person,
+              lastPendingDeletionId: '4',
+            ),
+          ]),
+          initialState: const ContentManagementState(),
+        );
+
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Undo'));
+
+        verify(
+          () => contentManagementBloc.add(const UndoDeletePersonRequested('4')),
         ).called(1);
       });
     });
