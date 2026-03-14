@@ -13,6 +13,7 @@ import 'package:verity_dashboard/app/config/config.dart';
 import 'package:verity_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
 import 'package:verity_dashboard/content_management/view/create_source_page.dart';
 import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
 import 'package:verity_dashboard/router/routes.dart';
 import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
 import 'package:verity_dashboard/shared/widgets/searchable_selection_input.dart';
@@ -23,6 +24,8 @@ import '../../helpers/pump_app.dart';
 class MockCreateSourceBloc
     extends MockBloc<CreateSourceEvent, CreateSourceState>
     implements CreateSourceBloc {}
+
+class MockEnrichmentRepository extends Mock implements EnrichmentRepository {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -139,6 +142,7 @@ void main() {
     late MockDataRepository<Language> languagesRepository;
     late MockDataRepository<Country> countriesRepository;
     late MockMediaRepository mediaRepository;
+    late MockEnrichmentRepository enrichmentRepository;
     late MockGoRouter goRouter;
     late FilePicker filePicker;
 
@@ -149,6 +153,7 @@ void main() {
       languagesRepository = MockDataRepository<Language>();
       countriesRepository = MockDataRepository<Country>();
       mediaRepository = MockMediaRepository();
+      enrichmentRepository = MockEnrichmentRepository();
       goRouter = MockGoRouter();
       filePicker = MockFilePicker();
       FilePicker.platform = filePicker;
@@ -183,6 +188,9 @@ void main() {
           RepositoryProvider<MediaRepository>.value(
             value: mediaRepository,
           ),
+          RepositoryProvider<EnrichmentRepository>.value(
+            value: enrichmentRepository,
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -199,7 +207,7 @@ void main() {
       expect(find.byType(CreateSourceView), findsOneWidget);
     });
 
-    testWidgets('renders AppBar with title and disabled save button', (
+    testWidgets('renders AppBar with title and actions', (
       tester,
     ) async {
       await tester.pumpApp(buildSubject(), goRouter: goRouter);
@@ -208,10 +216,17 @@ void main() {
       expect(find.byType(AppBar), findsOneWidget);
       expect(find.text(l10n.createSource), findsOneWidget);
 
+      // Save button should be disabled initially
       final saveButton = tester.widget<IconButton>(
         find.widgetWithIcon(IconButton, Icons.save),
       );
       expect(saveButton.onPressed, isNull);
+
+      // Enrichment button should be disabled initially
+      final enrichmentButton = tester.widget<IconButton>(
+        find.widgetWithIcon(IconButton, Icons.auto_fix_high),
+      );
+      expect(enrichmentButton.onPressed, isNull);
     });
 
     testWidgets('renders form fields', (tester) async {
@@ -547,6 +562,63 @@ void main() {
 
         expect(find.byType(SnackBar), findsOneWidget);
         expect(find.text(uiKitL10n.networkError), findsOneWidget);
+      });
+    });
+
+    group('AI Enrichment', () {
+      testWidgets('adds CreateSourceEnrichmentRequested when button tapped', (
+        tester,
+      ) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(
+            name: {SupportedLanguage.en: 'Test Source'},
+            isEnrichmentSuccessful: false,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+
+        await tester.tap(find.byIcon(Icons.auto_fix_high));
+        verify(
+          () => createSourceBloc.add(const CreateSourceEnrichmentRequested()),
+        ).called(1);
+      });
+
+      testWidgets('shows loading indicator during enrichment', (tester) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(status: CreateSourceStatus.enriching),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      });
+
+      testWidgets('shows enriched fields with auto_awesome icon', (
+        tester,
+      ) async {
+        when(() => createSourceBloc.state).thenReturn(
+          const CreateSourceState(
+            name: {SupportedLanguage.en: 'Enriched'},
+            wasNameEnriched: true,
+          ),
+        );
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        expect(find.byIcon(Icons.auto_awesome), findsOneWidget);
+      });
+
+      testWidgets('shows error snackbar on enrichmentFailure', (tester) async {
+        whenListen(
+          createSourceBloc,
+          Stream.fromIterable([
+            const CreateSourceState(
+              status: CreateSourceStatus.enrichmentFailure,
+              exception: NetworkException(),
+            ),
+          ]),
+          initialState: const CreateSourceState(),
+        );
+
+        await tester.pumpApp(buildSubject(), goRouter: goRouter);
+        await tester.pumpAndSettle();
+        expect(find.byType(SnackBar), findsOneWidget);
       });
     });
 
