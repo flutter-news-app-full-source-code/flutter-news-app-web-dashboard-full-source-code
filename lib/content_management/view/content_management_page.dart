@@ -7,9 +7,12 @@ import 'package:go_router/go_router.dart';
 import 'package:verity_dashboard/app/bloc/app_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_bloc.dart';
+import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_state.dart';
 import 'package:verity_dashboard/content_management/bloc/sources_filter/sources_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/bloc/topics_filter/topics_filter_bloc.dart';
 import 'package:verity_dashboard/content_management/view/headlines_page.dart';
+import 'package:verity_dashboard/content_management/view/persons_page.dart';
 import 'package:verity_dashboard/content_management/view/sources_page.dart';
 import 'package:verity_dashboard/content_management/view/topics_page.dart';
 import 'package:verity_dashboard/l10n/l10n.dart';
@@ -36,7 +39,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: 3,
+      length: 4,
       vsync: this,
     );
     _tabController.addListener(_onTabChanged);
@@ -149,6 +152,19 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             );
           },
         ),
+        BlocListener<PersonsFilterBloc, PersonsFilterState>(
+          listenWhen: (previous, current) =>
+              previous.searchQuery != current.searchQuery ||
+              previous.selectedStatus != current.selectedStatus,
+          listener: (context, state) {
+            context.read<ContentManagementBloc>().add(
+              LoadPersonsRequested(
+                filter: context.read<PersonsFilterBloc>().buildFilterMap(),
+                forceRefresh: true,
+              ),
+            );
+          },
+        ),
         BlocListener<ContentManagementBloc, ContentManagementState>(
           listenWhen: (previous, current) =>
               previous.itemPendingDeletion != current.itemPendingDeletion &&
@@ -165,6 +181,9 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               itemName = item.name.values.firstOrNull ?? '';
             } else if (item is Source) {
               itemType = l10n.source;
+              itemName = item.name.values.firstOrNull ?? '';
+            } else if (item is Person) {
+              itemType = l10n.persons;
               itemName = item.name.values.firstOrNull ?? '';
             } else {
               // Fallback for unknown types
@@ -198,6 +217,12 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                           case ContentManagementTab.sources:
                             context.read<ContentManagementBloc>().add(
                               UndoDeleteSourceRequested(
+                                lastPendingDeletionId,
+                              ),
+                            );
+                          case ContentManagementTab.persons:
+                            context.read<ContentManagementBloc>().add(
+                              UndoDeletePersonRequested(
                                 lastPendingDeletionId,
                               ),
                             );
@@ -258,6 +283,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                       .state,
                   'topicsFilterState': context.read<TopicsFilterBloc>().state,
                   'sourcesFilterState': context.read<SourcesFilterBloc>().state,
+                  'personsFilterState': context.read<PersonsFilterBloc>().state,
                 };
 
                 // Push the filter dialog as a new route
@@ -273,6 +299,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
               Tab(text: l10n.headlines),
               Tab(text: l10n.topics),
               Tab(text: l10n.sources),
+              Tab(text: l10n.persons),
             ],
           ),
         ),
@@ -289,6 +316,8 @@ class _ContentManagementPageState extends State<ContentManagementPage>
                 context.pushNamed(Routes.createTopicName);
               case ContentManagementTab.sources:
                 context.pushNamed(Routes.createSourceName);
+              case ContentManagementTab.persons:
+                context.pushNamed(Routes.createPersonName);
             }
           },
           child: const Icon(Icons.add),
@@ -299,6 +328,7 @@ class _ContentManagementPageState extends State<ContentManagementPage>
             HeadlinesPage(),
             TopicPage(),
             SourcesPage(),
+            PersonsPage(),
           ],
         ),
       ),
