@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:verity_dashboard/community_management/widgets/app_review_details_dialog.dart';
-import 'package:verity_dashboard/community_management/widgets/engagement_details_dialog.dart';
-import 'package:verity_dashboard/community_management/widgets/report_details_dialog.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/community_management/widgets/app_review_details_dialog.dart';
+import 'package:veritai_dashboard/community_management/widgets/engagement_details_dialog.dart';
+import 'package:veritai_dashboard/community_management/widgets/report_details_dialog.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
 
 class CommunityActionButtons<T> extends StatelessWidget {
   const CommunityActionButtons({

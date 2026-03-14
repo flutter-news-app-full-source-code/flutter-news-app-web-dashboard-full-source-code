@@ -7,8 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_dashboard/shared/constants/app_constants.dart';
-import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
+import 'package:veritai_dashboard/shared/constants/app_constants.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
 
 part 'create_headline_event.dart';
 part 'create_headline_state.dart';

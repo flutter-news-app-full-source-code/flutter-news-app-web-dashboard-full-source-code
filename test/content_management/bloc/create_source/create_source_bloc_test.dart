@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
-import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
+import 'package:veritai_dashboard/content_management/bloc/create_source/create_source_bloc.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
 
 import '../../../helpers/helpers.dart';
 

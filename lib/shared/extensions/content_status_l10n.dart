@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
 
 /// Provides a localized string representation for [ContentStatus].
 extension ContentStatusL10n on ContentStatus {

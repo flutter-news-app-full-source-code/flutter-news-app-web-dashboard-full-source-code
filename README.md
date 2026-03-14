@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://github.com/verity-hq/verity-dashboard/wiki/Local-Setup"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
+  <a href="https://github.com/veritai-news/veritai-dashboard/wiki/Local-Setup"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
   <img src="https://img.shields.io/badge/coverage-17%25-red?style=for-the-badge" alt="">
   <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>
-  <a href="https://github.com/sponsors/verity-hq"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
+  <a href="https://github.com/sponsors/veritai-news"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
 </p>
 
 <div align="center">
@@ -13,7 +13,7 @@
         </video>
       </td>
       <td valign="top" width="50%">
-        <img src="https://github.com/user-attachments/assets/3f4e2bda-2447-4513-b7a9-56e0f8fcfc1e" alt="verity-hq-web-dashboard" width="100%">
+        <img src="https://github.com/user-attachments/assets/3f4e2bda-2447-4513-b7a9-56e0f8fcfc1e" alt="veritai-news-web-dashboard" width="100%">
       </td>
     </tr>
   </table>
@@ -21,9 +21,9 @@
 
 ---
 
-Part of the **[Verity News Stack](https://github.com/verity-hq)**.
+Part of the **[veritai News Stack](https://github.com/veritai-news)**.
 
-The Verity Dashboard is a centralized Flutter Web command center for managing your entire news operation. 
+The veritai Dashboard is a centralized Flutter Web command center for managing your entire news operation. 
 
 ---
 
@@ -180,10 +180,10 @@ The application is fully internationalized with out-of-the-box support for over 
 
 ## 🚀 Getting Started & Running Locally
 
-For a complete guide on setting up your local environment and running this project, please see the [Wiki](https://github.com/verity-hq/verity-dashboard/wiki) tab in this repository.
+For a complete guide on setting up your local environment and running this project, please see the [Wiki](https://github.com/veritai-news/veritai-dashboard/wiki) tab in this repository.
 
 ## 🔑 Licensing
 
 This source code is licensed for commercial use and is provided for local evaluation. A **Lifetime Commercial License** is required for any production or public-facing application.
 
-Please visit the main [Verity News Stack](https://github.com/verity-hq) organization page to review the full license terms and to purchase.
+Please visit the main [veritai News Stack](https://github.com/veritai-news) organization page to review the full license terms and to purchase.

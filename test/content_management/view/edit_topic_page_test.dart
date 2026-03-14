@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' as go_router;
 import 'package:logging/logging.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:verity_dashboard/content_management/bloc/edit_topic/edit_topic_bloc.dart';
-import 'package:verity_dashboard/content_management/view/edit_topic_page.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_topic/edit_topic_bloc.dart';
+import 'package:veritai_dashboard/content_management/view/edit_topic_page.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/shared/widgets/image_upload_field.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';

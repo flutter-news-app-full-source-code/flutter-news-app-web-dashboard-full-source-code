@@ -111,7 +111,7 @@ packages:
       path: "."
       ref: "302aec5e1b87bcfe0762ad557741c6038831d4dc"
       resolved-ref: "302aec5e1b87bcfe0762ad557741c6038831d4dc"
-      url: "https://github.com/verity-hq/core.git"
+      url: "https://github.com/veritai-news/core.git"
     source: git
     version: "2.1.0"
   core_ui:
@@ -120,7 +120,7 @@ packages:
       path: "."
       ref: "10e864e60f035cc2c15198b283ca36dc45e8df3d"
       resolved-ref: "10e864e60f035cc2c15198b283ca36dc45e8df3d"
-      url: "https://github.com/verity-hq/core-ui.git"
+      url: "https://github.com/veritai-news/core-ui.git"
     source: git
     version: "2.0.0"
   coverage:

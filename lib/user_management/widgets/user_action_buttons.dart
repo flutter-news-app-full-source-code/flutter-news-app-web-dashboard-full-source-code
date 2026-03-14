@@ -2,9 +2,9 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/shared/widgets/confirmation_dialog.dart';
-import 'package:verity_dashboard/user_management/bloc/user_management_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/shared/widgets/confirmation_dialog.dart';
+import 'package:veritai_dashboard/user_management/bloc/user_management_bloc.dart';
 
 /// {@template user_action_buttons}
 /// A widget that displays contextual action buttons for a user in the user

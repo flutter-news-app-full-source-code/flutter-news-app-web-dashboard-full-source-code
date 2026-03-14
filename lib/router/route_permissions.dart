@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:verity_dashboard/router/routes.dart';
+import 'package:veritai_dashboard/router/routes.dart';
 
 /// A centralized mapping of dashboard user roles to their permitted routes.
 ///

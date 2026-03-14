@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
-import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_event.dart';
-import 'package:verity_dashboard/content_management/bloc/persons_filter/persons_filter_state.dart';
+import 'package:veritai_dashboard/content_management/bloc/persons_filter/persons_filter_event.dart';
+import 'package:veritai_dashboard/content_management/bloc/persons_filter/persons_filter_state.dart';
 
 /// {@template persons_filter_bloc}
 /// A BLoC that manages the state of the persons filter UI.

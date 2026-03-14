@@ -3,11 +3,11 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' as go_router;
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/app/config/config.dart';
-import 'package:verity_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
-import 'package:verity_dashboard/content_management/view/edit_headline_page.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/app/config/config.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_headline/edit_headline_bloc.dart';
+import 'package:veritai_dashboard/content_management/view/edit_headline_page.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
 
 import '../../helpers/helpers.dart';
 import '../../helpers/pump_app.dart';

@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
-import 'package:verity_dashboard/content_management/widgets/content_action_buttons.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/router/routes.dart';
-import 'package:verity_dashboard/shared/extensions/multilingual_map_extension.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
-import 'package:verity_dashboard/shared/widgets/entity_image.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/headlines_filter/headlines_filter_bloc.dart';
+import 'package:veritai_dashboard/content_management/widgets/content_action_buttons.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/router/routes.dart';
+import 'package:veritai_dashboard/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_dashboard_strip.dart';
+import 'package:veritai_dashboard/shared/widgets/entity_image.dart';
 
 /// {@template headlines_page}
 /// A page for displaying and managing Headlines in a tabular format.

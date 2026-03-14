@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_dashboard/app_configuration/widgets/app_config_form_fields.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/access_tier_l10n.dart';
+import 'package:veritai_dashboard/app_configuration/widgets/app_config_form_fields.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/extensions/access_tier_l10n.dart';
 
 /// {@template user_preference_limits_form}
 /// A form widget for configuring user content preference limits based on role.

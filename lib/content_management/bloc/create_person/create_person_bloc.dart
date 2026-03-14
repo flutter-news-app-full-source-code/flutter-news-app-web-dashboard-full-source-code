@@ -6,7 +6,7 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_dashboard/shared/data/enrichment_repository.dart';
+import 'package:veritai_dashboard/shared/data/enrichment_repository.dart';
 
 part 'create_person_event.dart';
 part 'create_person_state.dart';

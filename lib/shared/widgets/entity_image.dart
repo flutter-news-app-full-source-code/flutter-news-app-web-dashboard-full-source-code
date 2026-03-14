@@ -1,6 +1,6 @@
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_dashboard/shared/constants/app_constants.dart';
+import 'package:veritai_dashboard/shared/constants/app_constants.dart';
 
 /// {@template entity_image}
 /// A reusable widget for displaying entity images (e.g., headline thumbnails,

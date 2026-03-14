@@ -3,10 +3,10 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_dashboard/content_management/bloc/content_management_bloc.dart';
-import 'package:verity_dashboard/l10n/app_localizations.dart';
-import 'package:verity_dashboard/router/routes.dart';
-import 'package:verity_dashboard/shared/widgets/confirmation_dialog.dart';
+import 'package:veritai_dashboard/content_management/bloc/content_management_bloc.dart';
+import 'package:veritai_dashboard/l10n/app_localizations.dart';
+import 'package:veritai_dashboard/router/routes.dart';
+import 'package:veritai_dashboard/shared/widgets/confirmation_dialog.dart';
 
 /// {@template content_action_buttons}
 /// A widget that displays action buttons for content management items

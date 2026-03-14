@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_dashboard/shared/constants/app_constants.dart';
+import 'package:veritai_dashboard/shared/constants/app_constants.dart';
 
 part 'content_sync_event.dart';
 part 'content_sync_state.dart';

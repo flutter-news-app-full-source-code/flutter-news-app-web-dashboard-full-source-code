@@ -1,11 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/analytics_card_shell.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/chart_card.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/kpi_card.dart';
-import 'package:verity_dashboard/shared/widgets/analytics/ranked_list_card.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/analytics_card_shell.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/chart_card.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/kpi_card.dart';
+import 'package:veritai_dashboard/shared/widgets/analytics/ranked_list_card.dart';
 
 /// {@template analytics_card_slot}
 /// A widget that manages a slot containing multiple analytics cards.

@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_source/edit_source_bloc.dart';
 
 import '../../../helpers/helpers.dart';
 

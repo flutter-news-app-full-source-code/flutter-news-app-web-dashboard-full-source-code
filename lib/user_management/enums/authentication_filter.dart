@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
 
 /// Defines the filter options for a user's authentication status.
 enum AuthenticationFilter {

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/content_management/bloc/edit_person/edit_person_bloc.dart';
-import 'package:verity_dashboard/l10n/l10n.dart';
-import 'package:verity_dashboard/shared/extensions/supported_language_flag.dart';
-import 'package:verity_dashboard/shared/widgets/image_upload_field.dart';
-import 'package:verity_dashboard/shared/widgets/localized_text_form_field.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/content_management/bloc/edit_person/edit_person_bloc.dart';
+import 'package:veritai_dashboard/l10n/l10n.dart';
+import 'package:veritai_dashboard/shared/extensions/supported_language_flag.dart';
+import 'package:veritai_dashboard/shared/widgets/image_upload_field.dart';
+import 'package:veritai_dashboard/shared/widgets/localized_text_form_field.dart';
 
 class EditPersonPage extends StatelessWidget {
   const EditPersonPage({required this.personId, super.key});

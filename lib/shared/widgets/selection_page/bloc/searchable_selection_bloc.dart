@@ -5,7 +5,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:verity_dashboard/shared/widgets/selection_page/selection_page_arguments.dart';
+import 'package:veritai_dashboard/shared/widgets/selection_page/selection_page_arguments.dart';
 
 part 'searchable_selection_event.dart';
 part 'searchable_selection_state.dart';

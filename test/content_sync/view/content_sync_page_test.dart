@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_dashboard/app/bloc/app_bloc.dart';
-import 'package:verity_dashboard/app/config/app_environment.dart';
-import 'package:verity_dashboard/content_sync/bloc/content_sync_bloc.dart';
-import 'package:verity_dashboard/content_sync/view/content_sync_page.dart';
-import 'package:verity_dashboard/shared/services/analytics_service.dart';
+import 'package:veritai_dashboard/app/bloc/app_bloc.dart';
+import 'package:veritai_dashboard/app/config/app_environment.dart';
+import 'package:veritai_dashboard/content_sync/bloc/content_sync_bloc.dart';
+import 'package:veritai_dashboard/content_sync/view/content_sync_page.dart';
+import 'package:veritai_dashboard/shared/services/analytics_service.dart';
 import '../../helpers/pump_app.dart';
 
 class MockContentSyncBloc extends MockBloc<ContentSyncEvent, ContentSyncState>
