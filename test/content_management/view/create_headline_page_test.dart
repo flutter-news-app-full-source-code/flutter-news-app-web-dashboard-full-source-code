@@ -68,8 +68,8 @@ const testCountry = Country(
 
 final testPerson = Person(
   id: 'person-1',
-  name: {SupportedLanguage.en: 'Test Person'},
-  description: {SupportedLanguage.en: 'desc'},
+  name: const {SupportedLanguage.en: 'Test Person'},
+  description: const {SupportedLanguage.en: 'desc'},
   createdAt: DateTime(2023),
   updatedAt: DateTime(2023),
   status: ContentStatus.active,
